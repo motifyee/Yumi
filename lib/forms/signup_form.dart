@@ -13,7 +13,7 @@ class SignUpForm extends StatelessWidget {
 
   final GlobalKey<FormState> signUpFormKey;
 
-  SignUpModel signupForm = SignUpModel(
+  final SignUpModel signupForm = SignUpModel(
     code: '',
     fullName: '',
     userName: '',

@@ -91,11 +91,12 @@ class SignUp extends StatelessWidget {
                               TextSpan(text: S.of(context).alreadyHaveAccount),
                               WidgetSpan(
                                   child: SizedBox(
-                                width: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.fontSize ??
-                                    12 / 2,
+                                width: (Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.fontSize ??
+                                        12) /
+                                    2,
                               )),
                               TextSpan(
                                   text: S.of(context).login,
@@ -105,7 +106,13 @@ class SignUp extends StatelessWidget {
                                       fontWeight: Theme.of(context)
                                           .textTheme
                                           .titleLarge
-                                          ?.fontWeight)),
+                                          ?.fontWeight,
+                                      fontSize: (Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium
+                                                  ?.fontSize ??
+                                              12) *
+                                          1.3)),
                             ],
                           ),
                         ),
