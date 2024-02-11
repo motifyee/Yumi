@@ -1,0 +1,21 @@
+{
+  "welcomeBack": "Welcome Back",
+  "signToContinue": "Sign to continue",
+  "name": "Name",
+  "email": "Email",
+  "password": "Password",
+  "forgetPassword": "Forget password",
+  "login": "Login",
+  "orSignUpWith": "or sign up with",
+  "required": "Required",
+  "invalidEmail": "Invalid email",
+  "passwordMustBe": "Password must be:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # $ & * ~ ).",
+  "upperCase": "1 upper case",
+  "lowerCase": "1 lower case",
+  "numNumber": "1 number",
+  "specialCharacter": "1 special character ( ! @ # $ & * ~ )",
+  "createNewAccount": "Create New Account",
+  "createAccount": "Create Account",
+  "confirmPassword": "Confirm Password",
+  "alreadyHaveAccount": "Already have an account?"
+}
