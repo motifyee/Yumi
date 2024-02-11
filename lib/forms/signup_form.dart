@@ -74,7 +74,12 @@ class SignUpForm extends StatelessWidget {
             SizedBox(height: ThemeStatics.defaultGap),
             ConfirmButton(
               label: S.of(context).createAccount,
-              onPressed: () {},
+              onPressed: () {
+                if (signUpFormKey.currentState!.validate()) {
+                  signUpFormKey.currentState!.save();
+                  print(signupForm.toJson());
+                }
+              },
             ),
           ],
         ),
