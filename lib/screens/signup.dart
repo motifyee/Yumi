@@ -11,6 +11,7 @@ class SignUp extends StatelessWidget {
   SignUp({super.key});
 
   final signUpFormKey = GlobalKey<FormState>();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +68,7 @@ class SignUp extends StatelessWidget {
                       SignUpForm(
                         key: key,
                         signUpFormKey: signUpFormKey,
+                        passwordController: passwordController,
                       ),
                       SizedBox(
                         height: ThemeStatics.defaultBlockGap,

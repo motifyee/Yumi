@@ -7,12 +7,14 @@ class TextFormFieldTemplate extends StatefulWidget {
       this.onTap,
       this.onSave,
       this.validators,
+      this.controller,
       this.isPassword = false});
 
   final String? label;
   final Function()? onTap;
   final void Function(String?)? onSave;
   final String? Function(String?)? validators;
+  final TextEditingController? controller;
   final bool isPassword;
 
   @override
@@ -27,6 +29,7 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
     return TextFormField(
       onTap: widget.onTap,
       onSaved: widget.onSave,
+      controller: widget.controller,
       style: TextStyle(color: Theme.of(context).colorScheme.secondary),
       decoration: InputDecoration(
           label: Padding(

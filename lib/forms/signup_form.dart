@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/signup_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/confim_button.dart';
+import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/validators/confirm_password_validator.dart';
 import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/password_validator.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 class SignUpForm extends StatelessWidget {
-  SignUpForm({super.key, required this.signUpFormKey});
+  SignUpForm({super.key, required this.signUpFormKey, this.passwordController});
 
   final GlobalKey<FormState> signUpFormKey;
+  final TextEditingController? passwordController;
 
   final SignUpModel signupForm = SignUpModel(
     code: '',
@@ -60,6 +62,7 @@ class SignUpForm extends StatelessWidget {
               },
               validators: passwordValidator,
               isPassword: true,
+              controller: passwordController,
             ),
             SizedBox(height: ThemeStatics.formFieldGap),
             TextFormFieldTemplate(
@@ -68,7 +71,8 @@ class SignUpForm extends StatelessWidget {
               onSave: (value) {
                 signupForm.password = value ?? '';
               },
-              validators: passwordValidator,
+              validators: confirmPasswordValidator(
+                  comparedValue: passwordController?.text),
               isPassword: true,
             ),
             SizedBox(height: ThemeStatics.defaultGap),

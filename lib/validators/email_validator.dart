@@ -1,7 +1,7 @@
 import 'package:yumi/generated/l10n.dart';
 
 String? emailValidator(String? value) {
-  if (value == '') return S.current.required;
+  if (value == null || value.isEmpty) return S.current.required;
   if (!emailStructure(value)) return S.current.invalidEmail;
   return null;
 }

@@ -150,10 +150,10 @@ class S {
     );
   }
 
-  /// `Password must be:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # $ & * ~ ).`
+  /// `Password must be 8 characters contains:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # $ & * ~ ).`
   String get passwordMustBe {
     return Intl.message(
-      'Password must be:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # \$ & * ~ ).',
+      'Password must be 8 characters contains:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # \$ & * ~ ).',
       name: 'passwordMustBe',
       desc: '',
       args: [],
@@ -235,6 +235,16 @@ class S {
     return Intl.message(
       'Already have an account?',
       name: 'alreadyHaveAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password does not match!`
+  String get passwordDoesNotMatch {
+    return Intl.message(
+      'Password does not match!',
+      name: 'passwordDoesNotMatch',
       desc: '',
       args: [],
     );

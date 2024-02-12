@@ -39,8 +39,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "numNumber": MessageLookupByLibrary.simpleMessage("1 number"),
         "orSignUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "passwordDoesNotMatch":
+            MessageLookupByLibrary.simpleMessage("Password does not match!"),
         "passwordMustBe": MessageLookupByLibrary.simpleMessage(
-            "Password must be:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # \$ & * ~ )."),
+            "Password must be 8 characters contains:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # \$ & * ~ )."),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
         "signToContinue":
             MessageLookupByLibrary.simpleMessage("Sign to continue"),

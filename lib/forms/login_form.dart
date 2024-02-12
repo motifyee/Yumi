@@ -5,7 +5,7 @@ import 'package:yumi/model/login_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/login_service.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/confim_button.dart';
+import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/password_validator.dart';
