@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/signup_model.dart';
+import 'package:yumi/service/signup_service.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -20,7 +21,7 @@ class SignUpForm extends StatelessWidget {
     fullName: '',
     userName: '',
     mobile: '',
-    signupType: '',
+    signupType: '1',
     countryID: '',
     email: '',
     password: '',
@@ -81,7 +82,11 @@ class SignUpForm extends StatelessWidget {
               onPressed: () {
                 if (signUpFormKey.currentState!.validate()) {
                   signUpFormKey.currentState!.save();
-                  print(signupForm.toJson());
+                  final res = signUpServeice(signup: signupForm);
+
+                  ///TODO:
+                  /// fix signup request and continue flow
+                  print(res);
                 }
               },
             ),

@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
+        "busy": MessageLookupByLibrary.simpleMessage("Busy"),
+        "closed": MessageLookupByLibrary.simpleMessage("Closed"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
@@ -37,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "lowerCase": MessageLookupByLibrary.simpleMessage("1 lower case"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "numNumber": MessageLookupByLibrary.simpleMessage("1 number"),
+        "opened": MessageLookupByLibrary.simpleMessage("Opened"),
         "orSignUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordDoesNotMatch":
@@ -49,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "specialCharacter": MessageLookupByLibrary.simpleMessage(
             "1 special character ( ! @ # \$ & * ~ )"),
         "upperCase": MessageLookupByLibrary.simpleMessage("1 upper case"),
-        "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back")
+        "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
+        "yumi": MessageLookupByLibrary.simpleMessage("YUMI")
       };
 }

@@ -9,4 +9,8 @@ class ThemeStatics {
   static double buttonWidth = 280;
   static double buttonPaddingV = 10;
   static double buttonBorderRadius = 50;
+
+  static double iconSizeSmall = 25;
+  static double iconSizeMedium = 25;
+  static double iconSizeLarge = 25;
 }

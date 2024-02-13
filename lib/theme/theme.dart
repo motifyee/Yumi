@@ -24,5 +24,7 @@ ThemeData defaultTheme = ThemeData(
     onSurface: Color.fromRGBO(255, 255, 255, 1),
     primaryContainer: Color.fromRGBO(245, 193, 185, 1),
     secondaryContainer: Color.fromRGBO(139, 151, 167, 1),
+    onSecondaryContainer: Color.fromRGBO(217, 217, 217, 1),
+    onPrimaryContainer: Color.fromRGBO(39, 170, 75, 1),
   ),
 );

@@ -69,12 +69,16 @@ class LoginForm extends StatelessWidget {
             ),
             ConfirmButton(
               label: S.of(context).login,
-              onPressed: () async {
+              onPressed: () {
                 if (loginFormKey.currentState!.validate()) {
                   loginFormKey.currentState!.save();
-                  final res = await loginService(login: loginForm);
+                  final res = loginService(login: loginForm);
+
+                  ///TODO:
+                  /// continue flow after logged in
                   print(res);
                 }
+                context.router.replaceAll([const Home()]);
               },
             ),
           ],

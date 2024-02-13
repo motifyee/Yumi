@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `YUMI`
+  String get yumi {
+    return Intl.message(
+      'YUMI',
+      name: 'yumi',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Welcome Back`
   String get welcomeBack {
     return Intl.message(
@@ -245,6 +255,36 @@ class S {
     return Intl.message(
       'Password does not match!',
       name: 'passwordDoesNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Opened`
+  String get opened {
+    return Intl.message(
+      'Opened',
+      name: 'opened',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Closed`
+  String get closed {
+    return Intl.message(
+      'Closed',
+      name: 'closed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Busy`
+  String get busy {
+    return Intl.message(
+      'Busy',
+      name: 'busy',
       desc: '',
       args: [],
     );

@@ -1,4 +1,5 @@
 {
+  "yumi": "YUMI",
   "welcomeBack": "Welcome Back",
   "signToContinue": "Sign to continue",
   "name": "Name",
@@ -18,5 +19,8 @@
   "createAccount": "Create Account",
   "confirmPassword": "Confirm Password",
   "alreadyHaveAccount": "Already have an account?",
-  "passwordDoesNotMatch": "Password does not match!"
+  "passwordDoesNotMatch": "Password does not match!",
+  "opened": "Opened",
+  "closed": "Closed",
+  "busy": "Busy"
 }
