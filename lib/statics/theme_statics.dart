@@ -6,6 +6,8 @@ class ThemeStatics {
   static double defaultBlockGap = 25;
   static double defaultTitleGap = 40;
 
+  static double defaultBorderRadius = 16;
+
   static double buttonWidth = 280;
   static double buttonPaddingV = 10;
   static double buttonBorderRadius = 50;
@@ -13,4 +15,6 @@ class ThemeStatics {
   static double iconSizeSmall = 25;
   static double iconSizeMedium = 25;
   static double iconSizeLarge = 25;
+
+  static Duration animationDuration = Duration(milliseconds: 650);
 }

@@ -18,7 +18,7 @@ ThemeData defaultTheme = ThemeData(
     onSecondary: Color.fromRGBO(255, 255, 255, 1),
     error: Color.fromRGBO(234, 91, 68, 1),
     onError: Color.fromRGBO(255, 255, 255, 1),
-    background: Color.fromRGBO(250, 250, 250, 1),
+    background: Color.fromRGBO(238, 240, 242, 1),
     onBackground: Color.fromRGBO(72, 91, 120, 1),
     surface: Color.fromRGBO(238, 125, 107, 1),
     onSurface: Color.fromRGBO(255, 255, 255, 1),

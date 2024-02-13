@@ -9,7 +9,9 @@ import 'package:yumi/statics/theme_statics.dart';
 
 @RoutePage()
 class Home extends StatelessWidget {
-  const Home({super.key});
+  Home({super.key});
+
+  PageController navPageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,8 @@ class Home extends StatelessWidget {
       child: BlocBuilder<NavigatorBloc, NavigatesState>(
         builder: (context, state) {
           return Scaffold(
+            backgroundColor: Colors.transparent,
+            extendBody: true,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               leading: TextButton(
@@ -78,16 +82,46 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            bottomNavigationBar: NavigationBar(
-              destinations: NavigateOptions.navigationDestination(),
-              selectedIndex: state.selectedIndex,
-              onDestinationSelected: (index) {
+            bottomNavigationBar: Container(
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(
+                  horizontal: ThemeStatics.defaultGap, vertical: 0),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.background,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(ThemeStatics.defaultBorderRadius),
+                    topLeft: Radius.circular(ThemeStatics.defaultBorderRadius),
+                  )),
+              child: NavigationBar(
+                labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+                backgroundColor: Colors.transparent,
+                surfaceTintColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+                indicatorColor: Colors.transparent,
+                overlayColor: MaterialStateProperty.resolveWith(
+                    (states) => Colors.transparent),
+                animationDuration: ThemeStatics.animationDuration,
+                destinations: NavigateOptions.navigationDestination(context),
+                selectedIndex: state.selectedIndex,
+                onDestinationSelected: (index) {
+                  context
+                      .read<NavigatorBloc>()
+                      .add(NavigatorEvent(selectedIndex: index));
+                  navPageController.animateToPage(index,
+                      duration: ThemeStatics.animationDuration,
+                      curve: Curves.easeOut);
+                },
+              ),
+            ),
+            body: PageView(
+              controller: navPageController,
+              children: NavigateOptions.navigationPages(),
+              onPageChanged: (page) {
                 context
                     .read<NavigatorBloc>()
-                    .add(NavigatorEvent(selectedIndex: index));
+                    .add(NavigatorEvent(selectedIndex: page));
               },
             ),
-            body: NavigateOptions.navigateList[state.selectedIndex].page,
           );
         },
       ),
