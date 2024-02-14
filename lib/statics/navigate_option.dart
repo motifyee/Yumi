@@ -12,55 +12,48 @@ class NavigateOptions {
   static List<NavigateListItem> navigateList = [
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/home.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/home_white.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/home1.svg'),
         title: S.current.yumi,
-        page: const News()),
+        page: News()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/profile.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/profile_white.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/profile1.svg'),
         title: S.current.yumi,
         page: const Profile()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/menu.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/menu.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/menu1.svg'),
         title: S.current.yumi,
         page: const Menu()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/pre_order.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/pre_order.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg'),
         title: S.current.yumi,
         page: const PreOrder()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/setting.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/setting.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/setting1.svg'),
         title: S.current.yumi,
         page: const Setting()),
   ];
 
-  static List<Widget> navigationDestination(BuildContext context) {
+  static List<Widget> navigationDestination(BuildContext context, int index) {
     return navigateList
-        .map((e) => NavigationDestination(
-            icon: e.icon,
-            label: '',
-            selectedIcon: AnimatedPositioned(
-              duration: ThemeStatics.animationDuration,
-              child: Container(
-                padding: EdgeInsets.only(bottom: 15),
-                child: Container(
-                  width: 50,
-                  height: 50,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                    borderRadius:
-                        BorderRadius.circular(ThemeStatics.buttonBorderRadius),
-                  ),
-                  child: Center(
-                    child: e.selectedIcon,
-                  ),
+        .asMap()
+        .map((i, e) => MapEntry(
+              i,
+              NavigationDestination(
+                icon: AnimatedContainer(
+                  duration: ThemeSelector.statics.animationDuration,
+                  padding: index == i
+                      ? EdgeInsets.only(bottom: 55)
+                      : EdgeInsets.zero,
+                  child: index == i ? e.selectedIcon : e.icon,
                 ),
+                label: '',
               ),
-            )))
+            ))
+        .values
         .toList();
   }
 

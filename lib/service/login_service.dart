@@ -7,7 +7,7 @@ Future<dynamic> loginService({required LoginModel login}) async {
   try {
     final res = await DioClient.simpleDio()
         .post(ApiKeys.login, data: jsonEncode(login.toJson()));
-    return res;
+    return res.data;
   } catch (err) {
     print(err);
   }

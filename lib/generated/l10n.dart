@@ -289,6 +289,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Order received`
+  String get orderReceived {
+    return Intl.message(
+      'Order received',
+      name: 'orderReceived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preparing`
+  String get preparing {
+    return Intl.message(
+      'Preparing',
+      name: 'preparing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ready`
+  String get ready {
+    return Intl.message(
+      'Ready',
+      name: 'ready',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

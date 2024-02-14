@@ -21,8 +21,8 @@ class LoginForm extends StatelessWidget {
     return Form(
       key: loginFormKey,
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: ThemeStatics.formFieldInlineGap),
+        padding: EdgeInsets.symmetric(
+            horizontal: ThemeSelector.statics.formFieldInlineGap),
         child: Column(
           children: [
             Column(
@@ -33,7 +33,7 @@ class LoginForm extends StatelessWidget {
                   onSave: (value) => {loginForm.email = value ?? ''},
                 ),
                 SizedBox(
-                  height: ThemeStatics.formFieldGap,
+                  height: ThemeSelector.statics.formFieldGap,
                 ),
                 TextFormFieldTemplate(
                   label: S.of(context).password,
@@ -58,25 +58,27 @@ class LoginForm extends StatelessWidget {
                   child: Text(
                     "${S.of(context).forgetPassword}?",
                     style: TextStyle(
-                        fontSize:
-                            Theme.of(context).textTheme.bodySmall?.fontSize),
+                        fontSize: ThemeSelector.fonts.font_9,
+                        color: ThemeSelector.colors.primary),
                   ),
                 )
               ],
             ),
             SizedBox(
-              height: ThemeStatics.defaultGap,
+              height: ThemeSelector.statics.defaultGap,
             ),
             ConfirmButton(
               label: S.of(context).login,
               onPressed: () {
                 if (loginFormKey.currentState!.validate()) {
                   loginFormKey.currentState!.save();
-                  final res = loginService(login: loginForm);
 
                   ///TODO:
                   /// continue flow after logged in
-                  print(res);
+                  loginService(login: loginForm)
+                      .then((value) => print(value))
+                      .catchError(
+                          (onError) => print('error' + onError.toString()));
                 }
                 context.router.replaceAll([const Home()]);
               },

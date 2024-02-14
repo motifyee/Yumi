@@ -12,19 +12,21 @@ class ConfirmButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: ThemeStatics.buttonPaddingV),
-        width: ThemeStatics.buttonWidth,
+        padding: EdgeInsets.symmetric(
+            vertical: ThemeSelector.statics.buttonPaddingV),
+        width: ThemeSelector.statics.buttonWidth,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
-          borderRadius: BorderRadius.circular(ThemeStatics.buttonBorderRadius),
+          color: ThemeSelector.colors.primary,
+          borderRadius:
+              BorderRadius.circular(ThemeSelector.statics.buttonBorderRadius),
         ),
         child: Center(
           child: Text(
             label,
             style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
-                fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
-                fontWeight: Theme.of(context).textTheme.titleLarge?.fontWeight),
+                color: ThemeSelector.colors.onPrimary,
+                fontSize: ThemeSelector.fonts.font_14,
+                fontWeight: FontWeight.w700),
           ),
         ),
       ),

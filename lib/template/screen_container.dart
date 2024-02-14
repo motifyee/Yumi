@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yumi/statics/theme_statics.dart';
 
 class ScreenContainer extends StatelessWidget {
   const ScreenContainer({super.key, required this.child});
@@ -11,8 +12,8 @@ class ScreenContainer extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Theme.of(context).colorScheme.primaryContainer,
-            Theme.of(context).colorScheme.onPrimary,
+            ThemeSelector.colors.primaryTant,
+            ThemeSelector.colors.onPrimary,
           ],
           begin: const FractionalOffset(0.0, 0.0),
           end: const FractionalOffset(0.0, 1.0),

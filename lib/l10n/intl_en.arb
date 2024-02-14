@@ -22,5 +22,8 @@
   "passwordDoesNotMatch": "Password does not match!",
   "opened": "Opened",
   "closed": "Closed",
-  "busy": "Busy"
+  "busy": "Busy",
+  "orderReceived": "Order received",
+  "preparing": "Preparing",
+  "ready": "Ready"
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yumi/statics/theme_statics.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -9,8 +10,8 @@ class Menu extends StatelessWidget {
         child: Text(
       'menu',
       style: TextStyle(
-        color: Theme.of(context).colorScheme.primary,
-        fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
+        color: ThemeSelector.colors.primary,
+        fontSize: ThemeSelector.fonts.font_14,
       ),
     ));
   }

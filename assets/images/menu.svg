@@ -1,18 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Generator: Adobe Illustrator 24.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 21 22.4" enable-background="new 0 0 21 22.4"
-    xml:space="preserve">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 21 23.4" enable-background="new 0 0 21 23.4" xml:space="preserve">
+<path fill="none" stroke="#FFFFFF" stroke-miterlimit="10" d="M-43.9-21.2c0,1.3-1.1,2.4-2.4,2.4c-1.3,0-2.4-1.1-2.4-2.4
+	c0-1.3,1.1-2.7,2.4-2.7C-45-23.8-43.9-22.5-43.9-21.2z"/>
+<path fill="#FFFFFF" d="M-56.3-21.6v20.7h21v-20.7H-56.3z M-43.6-6.2h-8.2v-1.9h8.2V-6.2z M-38.6-10.8h-13.2v-1.9h13.2V-10.8z
+	 M-38.6-15.3h-13.2v-1.9h13.2V-15.3z"/>
+<path fill="#FFFFFF" d="M-23.8-0.9l-1.3-3.1c-0.3-0.1-0.5-0.2-0.7-0.3l-3.1,1.3L-30.8-5l1.3-3.1c-0.1-0.3-0.2-0.5-0.3-0.7l-3.1-1.3
+	v-2.6l3.1-1.3c0.1-0.3,0.2-0.5,0.3-0.7l-1.3-3.1l1.9-1.9l3.1,1.3c0.2-0.1,0.5-0.2,0.7-0.3l1.3-3.1h2.6l1.3,3.1
+	c0.2,0.1,0.5,0.2,0.7,0.3l3.1-1.3l1.9,1.9l-1.3,3.1c0.1,0.2,0.2,0.5,0.3,0.7l3.1,1.3v2.6l-3.1,1.3c-0.1,0.2-0.2,0.5-0.3,0.7l1.3,3.1
+	L-16-3.1l-3.1-1.3c-0.2,0.1-0.5,0.2-0.7,0.3l-1.3,3.1H-23.8z M-22.5-7.5c2.2,0,3.9-1.8,3.9-3.9c0-2.2-1.8-3.9-3.9-3.9
+	c-2.2,0-3.9,1.8-3.9,3.9C-26.4-9.2-24.6-7.5-22.5-7.5z"/>
 <g>
 	<g>
 		<defs>
-			<rect id="SVGID_1_" y="0" width="21" height="22.4" />
+			<rect id="SVGID_1_" y="1" width="21" height="22.4"/>
 		</defs>
-        <clipPath id="SVGID_2_">
-			<use xlink:href="#SVGID_1_" overflow="visible" />
+		<clipPath id="SVGID_2_">
+			<use xlink:href="#SVGID_1_"  overflow="visible"/>
 		</clipPath>
-        <g clip-path="url(#SVGID_2_)">
-			<path fill="#8C98A8" d="M0,8.2L10.5,0L21,8.2v14.2H0V8.2z" />
-            <path fill="#FFFFFF" d="M11.9,11.3v2.7H13v6.5h1.5v-6.5V7.4C14.5,7.4,11.9,7.4,11.9,11.3z" />
-            <path fill="#FFFFFF" d="M5.5,7.4V13h1.4v7.5h1.7V13H10c0-2.2,0-2.2,0-5.6H9.1v3.8H8.3V7.4H7.2v3.8H6.5V7.4H5.5z" />
+		<g clip-path="url(#SVGID_2_)">
+			<path fill="#8C98A8" d="M0,9.3L10.5,1L21,9.3v14.2H0V9.3z"/>
+			<path fill="#FFFFFF" d="M11.9,12.3v2.7H13v6.5h1.5v-6.5V8.5C14.5,8.5,11.9,8.4,11.9,12.3z"/>
+			<path fill="#FFFFFF" d="M5.5,8.5v5.6h1.4v7.5h1.7v-7.5H10c0-2.2,0-2.2,0-5.6H9.1v3.8H8.3V8.5H7.2v3.8H6.5V8.5H5.5z"/>
 		</g>
 	</g>
 </g>

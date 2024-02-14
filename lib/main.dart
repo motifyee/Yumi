@@ -20,16 +20,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        routerConfig: _appRouter.config(),
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        title: 'YUMI',
-        theme: defaultTheme);
+      debugShowCheckedModeBanner: false,
+      routerConfig: _appRouter.config(),
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      title: 'YUMI',
+      theme: defaultTheme,
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/statics/theme_statics.dart';
 
 class LoginThirdPart extends StatelessWidget {
   const LoginThirdPart({super.key});
@@ -17,20 +18,18 @@ class LoginThirdPart extends StatelessWidget {
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Divider(
-                    color: Theme.of(context).colorScheme.secondaryContainer),
+                child: Divider(color: ThemeSelector.colors.secondaryTant),
               )),
               Text(
                 S.of(context).orSignUpWith,
                 style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondaryContainer,
-                    fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize),
+                    color: ThemeSelector.colors.secondaryTant,
+                    fontSize: ThemeSelector.fonts.font_12),
               ),
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Divider(
-                    color: Theme.of(context).colorScheme.secondaryContainer),
+                child: Divider(color: ThemeSelector.colors.secondaryTant),
               )),
             ],
           ),

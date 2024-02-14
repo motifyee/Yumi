@@ -28,7 +28,7 @@ class Login extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   SizedBox(
-                    height: ThemeStatics.defaultBlockGap,
+                    height: ThemeSelector.statics.defaultBlockGap,
                   ),
                   Expanded(
                     child: Center(
@@ -39,35 +39,24 @@ class Login extends StatelessWidget {
                           Text(
                             S.of(context).welcomeBack,
                             style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontSize: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge
-                                    ?.fontSize,
-                                fontWeight: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge
-                                    ?.fontWeight),
+                                color: ThemeSelector.colors.primary,
+                                fontSize: ThemeSelector.fonts.font_24,
+                                fontWeight: FontWeight.w700),
                           ),
                           Text(
                             S.of(context).signToContinue,
                             style: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                fontSize: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.fontSize),
+                                color: ThemeSelector.colors.secondaryTant,
+                                fontSize: ThemeSelector.fonts.font_9),
                           ),
                           SizedBox(
-                            height: ThemeStatics.defaultTitleGap,
+                            height: ThemeSelector.statics.defaultTitleGap,
                           ),
                           LoginForm(
                             loginFormKey: loginFormKey,
                           ),
                           SizedBox(
-                            height: ThemeStatics.defaultBlockGap,
+                            height: ThemeSelector.statics.defaultBlockGap,
                           ),
                           const LoginThirdPart(),
                         ],
@@ -99,16 +88,9 @@ class Login extends StatelessWidget {
                             child: Text(
                               S.of(context).createNewAccount,
                               style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  fontSize: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.fontSize,
-                                  fontWeight: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.fontWeight),
+                                  color: ThemeSelector.colors.onPrimary,
+                                  fontSize: ThemeSelector.fonts.font_14,
+                                  fontWeight: FontWeight.w700),
                             ),
                           ),
                         ),

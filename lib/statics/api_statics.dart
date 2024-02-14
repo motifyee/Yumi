@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 
-const originApi = 'https://10.99.77.247:5012';
+const originApi = 'https://10.99.77.247:5001';
 
 class DioClient {
   Dio _dio = Dio();

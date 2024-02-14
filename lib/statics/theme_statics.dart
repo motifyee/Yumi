@@ -1,20 +1,106 @@
-class ThemeStatics {
-  static double formFieldGap = 12.0;
-  static double formFieldInlineGap = 40.0;
+import 'package:flutter/material.dart';
 
-  static double defaultGap = 8.0;
-  static double defaultBlockGap = 25;
-  static double defaultTitleGap = 40;
+class ThemeSelector {
+  static const value = true;
 
-  static double defaultBorderRadius = 16;
+  static final statics = _ThemeStatics();
 
-  static double buttonWidth = 280;
-  static double buttonPaddingV = 10;
-  static double buttonBorderRadius = 50;
+  static final colors = value ? _ThemeColorsLight() : _ThemeColorsDark();
 
-  static double iconSizeSmall = 25;
-  static double iconSizeMedium = 25;
-  static double iconSizeLarge = 25;
+  static final fonts = _ThemeFontSize();
+}
 
-  static Duration animationDuration = Duration(milliseconds: 650);
+class _ThemeStatics {
+  double formFieldGap = 12.0;
+  double formFieldInlineGap = 40.0;
+
+  double defaultGap = 8.0;
+  double defaultBlockGap = 25;
+  double defaultTitleGap = 40;
+
+  double defaultBorderRadius = 16;
+
+  double buttonWidth = 280;
+  double buttonPaddingV = 10;
+  double buttonBorderRadius = 50;
+
+  double iconSizeSmall = 25;
+  double iconSizeMedium = 25;
+  double iconSizeLarge = 25;
+
+  Duration animationDuration = const Duration(milliseconds: 250);
+}
+
+class _ThemeFontSize {
+  double font_9 = 9;
+  double font_10 = 10;
+  double font_12 = 12;
+  double font_14 = 14;
+  double font_16 = 16;
+  double font_18 = 18;
+  double font_24 = 24;
+}
+
+abstract class _ThemeColors {
+  late Color primary;
+  late Color onPrimary;
+  late Color primaryTant;
+  late Color secondary;
+  late Color onSecondary;
+  late Color secondaryTant;
+  late Color secondaryFaint;
+  late Color success;
+  late Color onSuccess;
+  late Color background;
+  late Color backgroundTant;
+}
+
+class _ThemeColorsLight implements _ThemeColors {
+  @override
+  Color primary = const Color.fromRGBO(234, 91, 68, 1);
+  @override
+  Color onPrimary = const Color.fromRGBO(255, 255, 255, 1);
+  @override
+  Color primaryTant = const Color.fromRGBO(245, 193, 185, 1);
+  @override
+  Color secondary = const Color.fromRGBO(72, 91, 120, 1);
+  @override
+  Color onSecondary = const Color.fromRGBO(255, 255, 255, 1);
+  @override
+  Color secondaryTant = const Color.fromRGBO(139, 151, 167, 1);
+  @override
+  Color secondaryFaint = const Color.fromRGBO(217, 217, 217, 1);
+  @override
+  Color success = const Color.fromRGBO(39, 170, 75, 1);
+  @override
+  Color onSuccess = const Color.fromRGBO(255, 255, 255, 1);
+  @override
+  Color background = const Color.fromRGBO(255, 255, 255, 1);
+  @override
+  Color backgroundTant = const Color.fromRGBO(238, 240, 242, 1);
+}
+
+class _ThemeColorsDark implements _ThemeColors {
+  @override
+  Color primary = const Color.fromRGBO(234, 91, 68, 1);
+  @override
+  Color onPrimary = const Color.fromRGBO(255, 255, 255, 1);
+  @override
+  Color primaryTant = const Color.fromRGBO(245, 193, 185, 1);
+  @override
+  Color secondary = const Color.fromRGBO(72, 91, 120, 1);
+  @override
+  Color onSecondary = const Color.fromRGBO(255, 255, 255, 1);
+  @override
+  Color secondaryTant = const Color.fromRGBO(139, 151, 167, 1);
+  @override
+  Color secondaryFaint = const Color.fromRGBO(217, 217, 217, 1);
+  @override
+  Color success = const Color.fromRGBO(39, 170, 75, 1);
+  @override
+  Color onSuccess = const Color.fromRGBO(255, 255, 255, 1);
+  @override
+  Color background = const Color.fromRGBO(255, 255, 255, 1);
+  @override
+  Color backgroundTant = const Color.fromRGBO(238, 240, 242, 1);
 }

@@ -20,7 +20,6 @@ class Home extends StatelessWidget {
       child: BlocBuilder<NavigatorBloc, NavigatesState>(
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: Colors.transparent,
             extendBody: true,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
@@ -28,8 +27,8 @@ class Home extends StatelessWidget {
                 onPressed: () {},
                 child: SvgPicture.asset(
                   'assets/images/side_bar.svg',
-                  width: ThemeStatics.iconSizeSmall,
-                  height: ThemeStatics.iconSizeSmall,
+                  width: ThemeSelector.statics.iconSizeSmall,
+                  height: ThemeSelector.statics.iconSizeSmall,
                 ),
               ),
               actions: [
@@ -40,8 +39,8 @@ class Home extends StatelessWidget {
                     children: [
                       SvgPicture.asset(
                         'assets/images/notification.svg',
-                        height: ThemeStatics.iconSizeSmall,
-                        width: ThemeStatics.iconSizeSmall,
+                        height: ThemeSelector.statics.iconSizeSmall,
+                        width: ThemeSelector.statics.iconSizeSmall,
                       ),
                       Positioned(
                         bottom: 0,
@@ -51,19 +50,15 @@ class Home extends StatelessWidget {
                           height: 15,
                           padding: const EdgeInsets.all(0),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: ThemeSelector.colors.primary,
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Center(
                             child: Text(
                               '3',
                               style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  fontSize: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.fontSize),
+                                  color: ThemeSelector.colors.onPrimary,
+                                  fontSize: ThemeSelector.fonts.font_9),
                             ),
                           ),
                         ),
@@ -76,8 +71,8 @@ class Home extends StatelessWidget {
                 child: Text(
                   S.of(context).yumi,
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
+                    color: ThemeSelector.colors.primary,
+                    fontSize: ThemeSelector.fonts.font_14,
                   ),
                 ),
               ),
@@ -85,32 +80,70 @@ class Home extends StatelessWidget {
             bottomNavigationBar: Container(
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.symmetric(
-                  horizontal: ThemeStatics.defaultGap, vertical: 0),
+                  horizontal: ThemeSelector.statics.defaultBorderRadius,
+                  vertical: 0),
               decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
+                  color: ThemeSelector.colors.backgroundTant,
                   borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(ThemeStatics.defaultBorderRadius),
-                    topLeft: Radius.circular(ThemeStatics.defaultBorderRadius),
+                    topRight: Radius.circular(
+                        ThemeSelector.statics.defaultBorderRadius),
+                    topLeft: Radius.circular(
+                        ThemeSelector.statics.defaultBorderRadius),
                   )),
-              child: NavigationBar(
-                labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-                backgroundColor: Colors.transparent,
-                surfaceTintColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                indicatorColor: Colors.transparent,
-                overlayColor: MaterialStateProperty.resolveWith(
-                    (states) => Colors.transparent),
-                animationDuration: ThemeStatics.animationDuration,
-                destinations: NavigateOptions.navigationDestination(context),
-                selectedIndex: state.selectedIndex,
-                onDestinationSelected: (index) {
-                  context
-                      .read<NavigatorBloc>()
-                      .add(NavigatorEvent(selectedIndex: index));
-                  navPageController.animateToPage(index,
-                      duration: ThemeStatics.animationDuration,
-                      curve: Curves.easeOut);
-                },
+              child: Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.center,
+                children: [
+                  AnimatedPositioned(
+                    duration: ThemeSelector.statics.animationDuration,
+                    top: 0,
+                    left: (((MediaQuery.of(context).size.width -
+                                    (ThemeSelector.statics.defaultBorderRadius *
+                                        2)) /
+                                5) *
+                            state.selectedIndex) -
+                        10,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.center,
+                      children: [
+                        SvgPicture.asset('assets/images/menu_back_icon.svg'),
+                        Positioned(
+                          top: -8,
+                          child: Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                              color: ThemeSelector.colors.primary,
+                              borderRadius: BorderRadius.circular(
+                                  ThemeSelector.statics.buttonBorderRadius),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  NavigationBar(
+                    labelBehavior:
+                        NavigationDestinationLabelBehavior.alwaysHide,
+                    backgroundColor: Colors.transparent,
+                    surfaceTintColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    indicatorColor: Colors.transparent,
+                    overlayColor: MaterialStateProperty.resolveWith(
+                        (states) => Colors.transparent),
+                    animationDuration: ThemeSelector.statics.animationDuration,
+                    destinations: NavigateOptions.navigationDestination(
+                        context, state.selectedIndex),
+                    selectedIndex: state.selectedIndex,
+                    onDestinationSelected: (index) {
+                      context
+                          .read<NavigatorBloc>()
+                          .add(NavigatorEvent(selectedIndex: index));
+                      navPageController.jumpToPage(index);
+                    },
+                  )
+                ],
               ),
             ),
             body: PageView(

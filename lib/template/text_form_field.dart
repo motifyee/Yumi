@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yumi/statics/theme_statics.dart';
 
 class TextFormFieldTemplate extends StatefulWidget {
   const TextFormFieldTemplate(
@@ -30,21 +31,39 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
       onTap: widget.onTap,
       onSaved: widget.onSave,
       controller: widget.controller,
-      style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+      style: TextStyle(color: ThemeSelector.colors.secondary),
       decoration: InputDecoration(
           label: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: Text(
               widget.label ?? '',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.secondary,
-              ),
             ),
           ),
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 30.0),
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(150)),
+          contentPadding: EdgeInsets.symmetric(
+              horizontal: ThemeSelector.statics.defaultBlockGap),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(ThemeSelector.statics.buttonBorderRadius),
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(ThemeSelector.statics.buttonBorderRadius),
+            ),
+            borderSide: BorderSide(color: ThemeSelector.colors.secondary),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(ThemeSelector.statics.buttonBorderRadius),
+            ),
+            borderSide: BorderSide(color: ThemeSelector.colors.primary),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(ThemeSelector.statics.buttonBorderRadius),
+            ),
+            borderSide: BorderSide(color: ThemeSelector.colors.primary),
           ),
           suffixIcon: widget.isPassword
               ? IconButton(
@@ -57,8 +76,7 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
                     isHide
                         ? Icons.remove_red_eye_outlined
                         : Icons.visibility_off_outlined,
-                    color:
-                        Theme.of(context).colorScheme.secondary.withOpacity(.6),
+                    color: ThemeSelector.colors.secondary.withOpacity(.6),
                   ),
                 )
               : null),

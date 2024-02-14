@@ -22,8 +22,7 @@ class SignUp extends StatelessWidget {
           backgroundColor: Colors.transparent,
           bottomOpacity: 0,
           scrolledUnderElevation: 0,
-          iconTheme:
-              IconThemeData(color: Theme.of(context).colorScheme.primary),
+          iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
         ),
         body: LayoutBuilder(builder: (context, constraint) {
           return SingleChildScrollView(
@@ -36,34 +35,23 @@ class SignUp extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: ThemeStatics.defaultBlockGap,
+                        height: ThemeSelector.statics.defaultBlockGap,
                       ),
                       Text(
                         S.of(context).createAccount,
                         style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.fontSize,
-                            fontWeight: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.fontWeight),
+                            color: ThemeSelector.colors.primary,
+                            fontSize: ThemeSelector.fonts.font_24,
+                            fontWeight: FontWeight.w700),
                       ),
                       Text(
                         S.of(context).createNewAccount,
                         style: TextStyle(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondaryContainer,
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.fontSize),
+                            color: ThemeSelector.colors.secondaryTant,
+                            fontSize: ThemeSelector.fonts.font_9),
                       ),
                       SizedBox(
-                        height: ThemeStatics.defaultTitleGap,
+                        height: ThemeSelector.statics.defaultTitleGap,
                       ),
                       SignUpForm(
                         key: key,
@@ -71,11 +59,11 @@ class SignUp extends StatelessWidget {
                         passwordController: passwordController,
                       ),
                       SizedBox(
-                        height: ThemeStatics.defaultBlockGap,
+                        height: ThemeSelector.statics.defaultBlockGap,
                       ),
                       const LoginThirdPart(),
                       SizedBox(
-                        height: ThemeStatics.defaultBlockGap,
+                        height: ThemeSelector.statics.defaultBlockGap,
                       ),
                       TextButton(
                         onPressed: () {
@@ -84,37 +72,21 @@ class SignUp extends StatelessWidget {
                         child: RichText(
                           text: TextSpan(
                             style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontSize: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.fontSize),
+                                color: ThemeSelector.colors.secondary,
+                                fontSize: ThemeSelector.fonts.font_12),
                             children: [
                               TextSpan(text: S.of(context).alreadyHaveAccount),
                               WidgetSpan(
                                   child: SizedBox(
-                                width: (Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.fontSize ??
-                                        12) /
-                                    2,
+                                width: ThemeSelector.fonts.font_12 / 2,
                               )),
                               TextSpan(
                                   text: S.of(context).login,
                                   style: TextStyle(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      fontWeight: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge
-                                          ?.fontWeight,
-                                      fontSize: (Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium
-                                                  ?.fontSize ??
-                                              12) *
-                                          1.3)),
+                                      color: ThemeSelector.colors.primary,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize:
+                                          ThemeSelector.fonts.font_12 * 1.3)),
                             ],
                           ),
                         ),

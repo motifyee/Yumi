@@ -32,8 +32,8 @@ class SignUpForm extends StatelessWidget {
     return Form(
       key: signUpFormKey,
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: ThemeStatics.formFieldInlineGap),
+        padding: EdgeInsets.symmetric(
+            horizontal: ThemeSelector.statics.formFieldInlineGap),
         child: Column(
           children: [
             TextFormFieldTemplate(
@@ -45,7 +45,7 @@ class SignUpForm extends StatelessWidget {
               },
               validators: requiredValidator,
             ),
-            SizedBox(height: ThemeStatics.formFieldGap),
+            SizedBox(height: ThemeSelector.statics.formFieldGap),
             TextFormFieldTemplate(
               key: key,
               label: S.of(context).email,
@@ -54,7 +54,7 @@ class SignUpForm extends StatelessWidget {
               },
               validators: emailValidator,
             ),
-            SizedBox(height: ThemeStatics.formFieldGap),
+            SizedBox(height: ThemeSelector.statics.formFieldGap),
             TextFormFieldTemplate(
               key: key,
               label: S.of(context).password,
@@ -65,7 +65,7 @@ class SignUpForm extends StatelessWidget {
               isPassword: true,
               controller: passwordController,
             ),
-            SizedBox(height: ThemeStatics.formFieldGap),
+            SizedBox(height: ThemeSelector.statics.formFieldGap),
             TextFormFieldTemplate(
               key: key,
               label: S.of(context).confirmPassword,
@@ -76,7 +76,7 @@ class SignUpForm extends StatelessWidget {
                   comparedValue: passwordController?.text),
               isPassword: true,
             ),
-            SizedBox(height: ThemeStatics.defaultGap),
+            SizedBox(height: ThemeSelector.statics.defaultGap),
             ConfirmButton(
               label: S.of(context).createAccount,
               onPressed: () {

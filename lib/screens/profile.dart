@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yumi/statics/theme_statics.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -9,8 +10,8 @@ class Profile extends StatelessWidget {
         child: Text(
       'profile',
       style: TextStyle(
-        color: Theme.of(context).colorScheme.primary,
-        fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
+        color: ThemeSelector.colors.primary,
+        fontSize: ThemeSelector.fonts.font_14,
       ),
     ));
   }
