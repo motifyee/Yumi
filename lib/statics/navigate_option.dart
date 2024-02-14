@@ -46,7 +46,7 @@ class NavigateOptions {
                 icon: AnimatedContainer(
                   duration: ThemeSelector.statics.animationDuration,
                   padding: index == i
-                      ? EdgeInsets.only(bottom: 55)
+                      ? const EdgeInsets.only(bottom: 53)
                       : EdgeInsets.zero,
                   child: index == i ? e.selectedIcon : e.icon,
                 ),

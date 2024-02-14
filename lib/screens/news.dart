@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/screens/news_orders.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/action_button.dart';
-import 'package:yumi/template/order_card.dart';
 
 class News extends StatelessWidget {
   News({super.key});
@@ -118,9 +118,9 @@ class News extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               controller: _controller,
               children: [
-                OrderCard(data: '0'),
-                OrderCard(data: '1'),
-                OrderCard(data: '2'),
+                NewsOrders(data: [0, 1, 2, 3, 4, 5]),
+                NewsOrders(data: [0]),
+                NewsOrders(data: [0, 1, 2]),
               ],
             ),
           ),

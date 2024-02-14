@@ -19,14 +19,17 @@ class _ThemeStatics {
   double defaultTitleGap = 40;
 
   double defaultBorderRadius = 16;
+  double defaultBorderRadiusSmall = 4;
+  double defaultBorderRadiusMedium = 12;
+  double defaultBorderRadiusLarge = 25;
 
   double buttonWidth = 280;
   double buttonPaddingV = 10;
   double buttonBorderRadius = 50;
 
   double iconSizeSmall = 25;
-  double iconSizeMedium = 25;
-  double iconSizeLarge = 25;
+  double iconSizeMedium = 35;
+  double iconSizeLarge = 50;
 
   Duration animationDuration = const Duration(milliseconds: 250);
 }
@@ -75,7 +78,7 @@ class _ThemeColorsLight implements _ThemeColors {
   @override
   Color onSuccess = const Color.fromRGBO(255, 255, 255, 1);
   @override
-  Color background = const Color.fromRGBO(255, 255, 255, 1);
+  Color background = const Color.fromRGBO(250, 250, 250, 1);
   @override
   Color backgroundTant = const Color.fromRGBO(238, 240, 242, 1);
 }
