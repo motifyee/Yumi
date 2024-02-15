@@ -20,7 +20,6 @@ class Home extends StatelessWidget {
       child: BlocBuilder<NavigatorBloc, NavigatesState>(
         builder: (context, state) {
           return Scaffold(
-            extendBody: true,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               leading: TextButton(

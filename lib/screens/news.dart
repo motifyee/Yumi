@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/screens/news_orders.dart';
+import 'package:yumi/statics/local_storage.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/action_button.dart';
+import 'package:yumi/template/location.dart';
+import 'package:yumi/template/news_guide.dart';
+import 'package:yumi/template/status_button.dart';
 
 class News extends StatelessWidget {
   News({super.key});
@@ -14,58 +18,28 @@ class News extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LocalStorage.sharedRef.getValue('news_guide', 'bool').then((res) => {
+          if (res != true)
+            {
+              SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                showModalBottomSheet(
+                    context: context,
+                    backgroundColor: Colors.transparent,
+                    isScrollControlled: true,
+                    builder: (BuildContext context) {
+                      return NewsGuide();
+                    });
+              })
+            }
+        });
+
     return BlocProvider(
       create: (context) => NewsBloc(),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                'assets/images/location.svg',
-                width: ThemeSelector.statics.iconSizeSmall,
-                height: ThemeSelector.statics.iconSizeSmall,
-              ),
-              SizedBox(width: ThemeSelector.statics.defaultGap),
-              Column(
-                children: [
-                  Text(
-                    '356-565 main St.',
-                    style: TextStyle(
-                      fontSize: ThemeSelector.fonts.font_12,
-                      color: ThemeSelector.colors.secondaryFaint,
-                    ),
-                  ),
-                  Text(
-                    'New York NY 23212',
-                    style: TextStyle(
-                      fontSize: ThemeSelector.fonts.font_12,
-                      color: ThemeSelector.colors.secondaryFaint,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+          Location(),
           SizedBox(height: ThemeSelector.statics.defaultGap),
-          TextButton(
-            onPressed: () {},
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.resolveWith(
-                  (states) => ThemeSelector.colors.success),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SvgPicture.asset('assets/images/opened.svg'),
-                SizedBox(width: ThemeSelector.statics.defaultGap),
-                Text(
-                  S.of(context).opened,
-                  style: TextStyle(color: ThemeSelector.colors.onSuccess),
-                )
-              ],
-            ),
-          ),
+          StatusButton(status: StatusEnum.opened),
           SizedBox(
             height: ThemeSelector.statics.defaultTitleGap,
           ),

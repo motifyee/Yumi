@@ -31,5 +31,11 @@
   "deliveryFee": "Delivery Fee",
   "theTotalPriceIncludesTax": "The total price includes tax",
   "total": "Total",
-  "view": "View"
+  "view": "View",
+  "hi": "Hi",
+  "thisSectionYourSavedAddress": "This section your saved address",
+  "thisButtonMeansThatTheChefIsCurrentlyClosed": "This button means that the chef is currently closed",
+  "thisButtonMeansThatTheChefIsCurrentlyAvailable": "This button means that the chef is currently available",
+  "thisButtonMeansThatTheChefIsCurrentlyNotAvailable": "This button means that the chef is currently not available",
+  "skip": "Skip"
 }

@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Forget password"),
+        "hi": MessageLookupByLibrary.simpleMessage("Hi"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "lowerCase": MessageLookupByLibrary.simpleMessage("1 lower case"),
@@ -56,10 +57,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "required": MessageLookupByLibrary.simpleMessage("Required"),
         "signToContinue":
             MessageLookupByLibrary.simpleMessage("Sign to continue"),
+        "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "specialCharacter": MessageLookupByLibrary.simpleMessage(
             "1 special character ( ! @ # \$ & * ~ )"),
         "theTotalPriceIncludesTax": MessageLookupByLibrary.simpleMessage(
             "The total price includes tax"),
+        "thisButtonMeansThatTheChefIsCurrentlyAvailable":
+            MessageLookupByLibrary.simpleMessage(
+                "This button means that the chef is currently available"),
+        "thisButtonMeansThatTheChefIsCurrentlyClosed":
+            MessageLookupByLibrary.simpleMessage(
+                "This button means that the chef is currently closed"),
+        "thisButtonMeansThatTheChefIsCurrentlyNotAvailable":
+            MessageLookupByLibrary.simpleMessage(
+                "This button means that the chef is currently not available"),
+        "thisSectionYourSavedAddress": MessageLookupByLibrary.simpleMessage(
+            "This section your saved address"),
         "total": MessageLookupByLibrary.simpleMessage("Total"),
         "upperCase": MessageLookupByLibrary.simpleMessage("1 upper case"),
         "view": MessageLookupByLibrary.simpleMessage("View"),

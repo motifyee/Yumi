@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorage {
-  static const sharedRef = _SharedRef;
+  static _SharedRef sharedRef = _SharedRef();
 }
 
 class _SharedRef {
@@ -20,13 +20,12 @@ class _SharedRef {
 
   getValue(String key, dynamic value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    if (value == 'int') return await prefs.getInt(key);
-    if (value == 'double') return await prefs.getDouble(key);
-    if (value == 'String') return await prefs.getString(key);
-    if (value == 'bool') return await prefs.getBool(key);
-    if (value == 'List<String>') return await prefs.getStringList(key);
-
-    throw Exception(['type not supported']);
+    var res;
+    if (value == 'int') res = await prefs.getInt(key);
+    if (value == 'double') res = await prefs.getDouble(key);
+    if (value == 'String') res = await prefs.getString(key);
+    if (value == 'bool') res = await prefs.getBool(key);
+    if (value == 'List<String>') res = await prefs.getStringList(key);
+    return res;
   }
 }

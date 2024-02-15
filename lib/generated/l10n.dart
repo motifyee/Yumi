@@ -379,6 +379,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Hi`
+  String get hi {
+    return Intl.message(
+      'Hi',
+      name: 'hi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This section your saved address`
+  String get thisSectionYourSavedAddress {
+    return Intl.message(
+      'This section your saved address',
+      name: 'thisSectionYourSavedAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This button means that the chef is currently closed`
+  String get thisButtonMeansThatTheChefIsCurrentlyClosed {
+    return Intl.message(
+      'This button means that the chef is currently closed',
+      name: 'thisButtonMeansThatTheChefIsCurrentlyClosed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This button means that the chef is currently available`
+  String get thisButtonMeansThatTheChefIsCurrentlyAvailable {
+    return Intl.message(
+      'This button means that the chef is currently available',
+      name: 'thisButtonMeansThatTheChefIsCurrentlyAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This button means that the chef is currently not available`
+  String get thisButtonMeansThatTheChefIsCurrentlyNotAvailable {
+    return Intl.message(
+      'This button means that the chef is currently not available',
+      name: 'thisButtonMeansThatTheChefIsCurrentlyNotAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get skip {
+    return Intl.message(
+      'Skip',
+      name: 'skip',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

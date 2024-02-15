@@ -16,12 +16,13 @@ class _ThemeStatics {
 
   double defaultGap = 8.0;
   double defaultBlockGap = 25;
-  double defaultTitleGap = 40;
+  double defaultTitleGap = 35;
 
   double defaultBorderRadius = 16;
   double defaultBorderRadiusSmall = 4;
   double defaultBorderRadiusMedium = 8;
   double defaultBorderRadiusLarge = 25;
+  double defaultBorderRadiusExtreme = 100;
 
   double buttonWidth = 280;
   double buttonPaddingV = 10;
@@ -46,6 +47,7 @@ class _ThemeFontSize {
 
 abstract class _ThemeColors {
   late Color primary;
+  late Color primaryDisabled;
   late Color onPrimary;
   late Color primaryTant;
   late Color secondary;
@@ -61,6 +63,8 @@ abstract class _ThemeColors {
 class _ThemeColorsLight implements _ThemeColors {
   @override
   Color primary = const Color.fromRGBO(234, 91, 68, 1);
+  @override
+  Color primaryDisabled = const Color.fromRGBO(238, 125, 107, 1.0);
   @override
   Color onPrimary = const Color.fromRGBO(255, 255, 255, 1);
   @override
@@ -86,6 +90,8 @@ class _ThemeColorsLight implements _ThemeColors {
 class _ThemeColorsDark implements _ThemeColors {
   @override
   Color primary = const Color.fromRGBO(234, 91, 68, 1);
+  @override
+  Color primaryDisabled = const Color.fromRGBO(238, 125, 107, 1.0);
   @override
   Color onPrimary = const Color.fromRGBO(255, 255, 255, 1);
   @override
