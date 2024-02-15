@@ -319,6 +319,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Order Id`
+  String get orderId {
+    return Intl.message(
+      'Order Id',
+      name: 'orderId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Click the icon to view customer notes`
+  String get clickTheIconToViewCustomerNotes {
+    return Intl.message(
+      'Click the icon to view customer notes',
+      name: 'clickTheIconToViewCustomerNotes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delivery Fee`
+  String get deliveryFee {
+    return Intl.message(
+      'Delivery Fee',
+      name: 'deliveryFee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The total price includes tax`
+  String get theTotalPriceIncludesTax {
+    return Intl.message(
+      'The total price includes tax',
+      name: 'theTotalPriceIncludesTax',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total`
+  String get total {
+    return Intl.message(
+      'Total',
+      name: 'total',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View`
+  String get view {
+    return Intl.message(
+      'View',
+      name: 'view',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

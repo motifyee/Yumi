@@ -25,12 +25,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "busy": MessageLookupByLibrary.simpleMessage("Busy"),
+        "clickTheIconToViewCustomerNotes": MessageLookupByLibrary.simpleMessage(
+            "Click the icon to view customer notes"),
         "closed": MessageLookupByLibrary.simpleMessage("Closed"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
         "createNewAccount":
             MessageLookupByLibrary.simpleMessage("Create New Account"),
+        "deliveryFee": MessageLookupByLibrary.simpleMessage("Delivery Fee"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Forget password"),
@@ -41,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "numNumber": MessageLookupByLibrary.simpleMessage("1 number"),
         "opened": MessageLookupByLibrary.simpleMessage("Opened"),
         "orSignUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
+        "orderId": MessageLookupByLibrary.simpleMessage("Order Id"),
         "orderReceived": MessageLookupByLibrary.simpleMessage("Order received"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordDoesNotMatch":
@@ -54,7 +58,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sign to continue"),
         "specialCharacter": MessageLookupByLibrary.simpleMessage(
             "1 special character ( ! @ # \$ & * ~ )"),
+        "theTotalPriceIncludesTax": MessageLookupByLibrary.simpleMessage(
+            "The total price includes tax"),
+        "total": MessageLookupByLibrary.simpleMessage("Total"),
         "upperCase": MessageLookupByLibrary.simpleMessage("1 upper case"),
+        "view": MessageLookupByLibrary.simpleMessage("View"),
         "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
         "yumi": MessageLookupByLibrary.simpleMessage("YUMI")
       };

@@ -20,7 +20,7 @@ class _ThemeStatics {
 
   double defaultBorderRadius = 16;
   double defaultBorderRadiusSmall = 4;
-  double defaultBorderRadiusMedium = 12;
+  double defaultBorderRadiusMedium = 8;
   double defaultBorderRadiusLarge = 25;
 
   double buttonWidth = 280;

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/product_in_card.dart';
 import 'package:yumi/template/text_currency.dart';
 
 class OrderCard extends StatefulWidget {
-  const OrderCard({super.key, required this.data});
+  OrderCard({super.key, required this.data});
 
   final data;
+  bool isView = false;
 
   @override
   State<OrderCard> createState() => _OrderCardState();
@@ -23,7 +26,8 @@ class _OrderCardState extends State<OrderCard> {
             horizontal: ThemeSelector.statics.defaultBlockGap,
             vertical: ThemeSelector.statics.defaultTitleGap,
           ),
-          margin: const EdgeInsets.symmetric(vertical: 40),
+          margin: EdgeInsets.symmetric(
+              vertical: ThemeSelector.statics.defaultTitleGap),
           decoration: BoxDecoration(
             color: ThemeSelector.colors.onPrimary,
             boxShadow: [
@@ -43,7 +47,7 @@ class _OrderCardState extends State<OrderCard> {
                   Column(
                     children: [
                       Text(
-                        'Order Id: #1302',
+                        '${S.of(context).orderId}: #1302',
                         style: TextStyle(
                           color: ThemeSelector.colors.primary,
                           fontSize: ThemeSelector.fonts.font_12,
@@ -70,7 +74,7 @@ class _OrderCardState extends State<OrderCard> {
                     width: ThemeSelector.statics.defaultGap,
                   ),
                   Text(
-                    'Click the icon to view customer notes',
+                    S.of(context).clickTheIconToViewCustomerNotes,
                     style: TextStyle(
                         color: ThemeSelector.colors.secondary,
                         fontSize: ThemeSelector.fonts.font_10),
@@ -78,31 +82,93 @@ class _OrderCardState extends State<OrderCard> {
                 ],
               ),
               SizedBox(height: ThemeSelector.statics.defaultGap),
+              for (var _ in widget.isView ? [0, 1, 2] : [0])
+                const ProductInCard(),
               Row(
                 children: [
                   Expanded(
-                    child: Row(
-                      children: [
-                        Container(
-                          clipBehavior: Clip.hardEdge,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                                ThemeSelector.statics.defaultBorderRadiusSmall),
-                          ),
-                          child: Image.asset(
-                            'assets/images/354.jpeg',
-                            width: ThemeSelector.statics.iconSizeLarge,
-                            height: ThemeSelector.statics.iconSizeLarge,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      S.of(context).deliveryFee,
+                      style: TextStyle(
+                          color: ThemeSelector.colors.secondary,
+                          fontSize: ThemeSelector.fonts.font_12),
                     ),
                   ),
-                  TextCurrency(value: 5.00),
+                  TextCurrency(
+                    value: 5.00,
+                    fontSize: ThemeSelector.fonts.font_14,
+                  ),
                 ],
-              )
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    S.of(context).theTotalPriceIncludesTax,
+                    style: TextStyle(
+                        color: ThemeSelector.colors.primary,
+                        fontSize: ThemeSelector.fonts.font_10,
+                        fontWeight: FontWeight.w300),
+                  ),
+                ],
+              ),
+              SizedBox(height: ThemeSelector.statics.defaultGap),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      S.of(context).total,
+                      style: TextStyle(
+                        color: ThemeSelector.colors.secondary,
+                        fontSize: ThemeSelector.fonts.font_16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  TextCurrency(value: 10.00),
+                ],
+              ),
             ],
+          ),
+        ),
+        Positioned(
+          top: ThemeSelector.statics.defaultTitleGap / 2,
+          left: ThemeSelector.statics.defaultGap,
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              vertical: ThemeSelector.statics.defaultGap,
+              horizontal: ThemeSelector.statics.defaultBlockGap,
+            ),
+            decoration: BoxDecoration(
+              color: ThemeSelector.colors.primary,
+              borderRadius: BorderRadius.circular(
+                  ThemeSelector.statics.defaultBorderRadiusMedium),
+            ),
+            child: Text(
+              S.of(context).orderReceived,
+              style: TextStyle(
+                color: ThemeSelector.colors.onPrimary,
+                fontSize: ThemeSelector.fonts.font_12,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          right: ThemeSelector.statics.defaultGap,
+          bottom: 0,
+          child: TextButton(
+            onPressed: () {
+              setState(() {
+                widget.isView = !widget.isView;
+              });
+            },
+            child: Text(
+              S.of(context).view,
+              style: TextStyle(
+                color: ThemeSelector.colors.secondary,
+                fontSize: ThemeSelector.fonts.font_12,
+              ),
+            ),
           ),
         ),
       ],

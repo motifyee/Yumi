@@ -25,5 +25,11 @@
   "busy": "Busy",
   "orderReceived": "Order received",
   "preparing": "Preparing",
-  "ready": "Ready"
+  "ready": "Ready",
+  "orderId": "Order Id",
+  "clickTheIconToViewCustomerNotes": "Click the icon to view customer notes",
+  "deliveryFee": "Delivery Fee",
+  "theTotalPriceIncludesTax": "The total price includes tax",
+  "total": "Total",
+  "view": "View"
 }
