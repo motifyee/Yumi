@@ -5,8 +5,9 @@ import 'package:yumi/statics/api_statics.dart';
 
 Future<dynamic> loginService({required LoginModel login}) async {
   try {
-    final res = await DioClient.simpleDio()
-        .post(ApiKeys.login, data: jsonEncode(login.toJson()));
+    final res = await DioClient.simpleDio().post(
+        ApiKeys.getApiKeyString(apiKey: ApiKeys.login),
+        data: jsonEncode(login.toJson()));
     return res.data;
   } catch (err) {
     print(err);

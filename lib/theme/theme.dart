@@ -15,7 +15,8 @@ ThemeData defaultTheme = ThemeData(
     onError: ThemeSelector.colors.onPrimary,
     background: ThemeSelector.colors.background,
     onBackground: ThemeSelector.colors.primary,
-    surface: ThemeSelector.colors.secondary,
+    surface: ThemeSelector.colors.onPrimary,
     onSurface: ThemeSelector.colors.secondary,
+    inverseSurface: ThemeSelector.colors.primary,
   ),
 );

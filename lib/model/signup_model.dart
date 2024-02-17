@@ -7,6 +7,7 @@ class SignUpModel {
   String countryID;
   String email;
   String password;
+  String branchId;
 
   SignUpModel(
       {required this.code,
@@ -16,7 +17,8 @@ class SignUpModel {
       required this.signupType,
       required this.countryID,
       required this.email,
-      required this.password});
+      required this.password,
+      required this.branchId});
 
   Map<String, String> toJson() {
     return {
@@ -28,6 +30,7 @@ class SignUpModel {
       'countryID': countryID,
       'email': email,
       'password': password,
+      'branchId': branchId
     };
   }
 }
