@@ -89,7 +89,7 @@ class SignUpForm extends StatelessWidget {
               onPressed: () async {
                 if (signUpFormKey.currentState!.validate()) {
                   signUpFormKey.currentState!.save();
-                  print(signupForm.toJson());
+
                   signUpServeice(signup: signupForm).then((value) {
                     value = jsonDecode(value.toString());
 
@@ -103,9 +103,7 @@ class SignUpForm extends StatelessWidget {
                         ),
                       ),
                     );
-                  }).catchError((err) {
-                    print(err);
-                  });
+                  }).catchError((err) {});
                 }
               },
             ),

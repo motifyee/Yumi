@@ -7,7 +7,7 @@ import 'package:yumi/statics/app_target.dart';
 const originApi = 'https://10.99.77.247:5012';
 
 class DioClient {
-  Dio _dio = Dio();
+  final Dio _dio = Dio();
 
   static Dio simpleDio() {
     Dio dio = Dio(
