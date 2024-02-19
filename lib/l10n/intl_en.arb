@@ -37,5 +37,18 @@
   "thisButtonMeansThatTheChefIsCurrentlyClosed": "This button means that the chef is currently closed",
   "thisButtonMeansThatTheChefIsCurrentlyAvailable": "This button means that the chef is currently available",
   "thisButtonMeansThatTheChefIsCurrentlyNotAvailable": "This button means that the chef is currently not available",
-  "skip": "Skip"
+  "skip": "Skip",
+  "notification": "Notification",
+  "mySchedule": "My schedule",
+  "menus": "Menus",
+  "caloriesReference": "Calories reference",
+  "documentation": "Documentation",
+  "performanceAnalysis": "Performance analysis",
+  "financialView": "Financial view",
+  "getHelp": "Get help",
+  "transactions": "Transactions",
+  "setting": "Setting",
+  "logOut": "Log Out",
+  "menuOrders": "Menu (orders)",
+  "menuPreOrders": "Menu (pre-orders)"
 }

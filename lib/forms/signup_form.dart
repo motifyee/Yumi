@@ -90,7 +90,8 @@ class SignUpForm extends StatelessWidget {
                 if (signUpFormKey.currentState!.validate()) {
                   signUpFormKey.currentState!.save();
 
-                  signUpServeice(signup: signupForm).then((value) {
+                  signUpServeice(signup: signupForm, context: context)
+                      .then((value) {
                     value = jsonDecode(value.toString());
 
                     if (value["message"].contains('Created')) {

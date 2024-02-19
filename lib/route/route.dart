@@ -4,17 +4,28 @@ import 'package:yumi/route/route.gr.dart';
 /// every change must:
 /// add @RoutePage() to screen widget
 /// then run:
-/// flutter packages pub run build_runner build
-///  flutter packages pub run build_runner watch
+/// dart run build_runner build
+/// dart run build_runner watch
 
 @AutoRouterConfig()
 class AppRouter extends $AppRouter {
+  AppRouter();
+
   @override
   List<AutoRoute> get routes => [
         /// routes go here
-        AutoRoute(page: Login.page, initial: true),
-        AutoRoute(page: SignUp.page, keepHistory: false),
-        AutoRoute(page: ForgetPassword.page, keepHistory: false),
-        AutoRoute(page: Home.page)
+        AutoRoute(page: LoginRoute.page, initial: true),
+        AutoRoute(page: SignUpRoute.page, keepHistory: false),
+        AutoRoute(page: ForgetPasswordRoute.page, keepHistory: false),
+        AutoRoute(page: HomeRoute.page),
+        AutoRoute(page: MenuPreOrderRoute.page),
+        AutoRoute(page: NotificationRoute.page),
+        AutoRoute(page: MyScheduleRoute.page),
+        AutoRoute(page: CaloriesReferenceRoute.page),
+        AutoRoute(page: DocumentationRoute.page),
+        AutoRoute(page: PerformanceAnalysisRoute.page),
+        AutoRoute(page: FinancialViewRoute.page),
+        AutoRoute(page: ChatRoute.page),
+        AutoRoute(page: TransactionsRoute.page),
       ];
 }

@@ -43,6 +43,7 @@ class _ThemeFontSize {
   double font_16 = 16;
   double font_18 = 18;
   double font_24 = 24;
+  double font_38 = 38;
 }
 
 abstract class _ThemeColors {

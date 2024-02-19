@@ -7,8 +7,8 @@ import 'package:yumi/template/login_thrid_part.dart';
 import 'package:yumi/template/screen_container.dart';
 
 @RoutePage()
-class SignUp extends StatelessWidget {
-  SignUp({super.key});
+class SignUpScreen extends StatelessWidget {
+  SignUpScreen({super.key});
 
   final signUpFormKey = GlobalKey<FormState>();
   final passwordController = TextEditingController();

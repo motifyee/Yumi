@@ -439,6 +439,136 @@ class S {
       args: [],
     );
   }
+
+  /// `Notification`
+  String get notification {
+    return Intl.message(
+      'Notification',
+      name: 'notification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My schedule`
+  String get mySchedule {
+    return Intl.message(
+      'My schedule',
+      name: 'mySchedule',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Menus`
+  String get menus {
+    return Intl.message(
+      'Menus',
+      name: 'menus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calories reference`
+  String get caloriesReference {
+    return Intl.message(
+      'Calories reference',
+      name: 'caloriesReference',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Documentation`
+  String get documentation {
+    return Intl.message(
+      'Documentation',
+      name: 'documentation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Performance analysis`
+  String get performanceAnalysis {
+    return Intl.message(
+      'Performance analysis',
+      name: 'performanceAnalysis',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Financial view`
+  String get financialView {
+    return Intl.message(
+      'Financial view',
+      name: 'financialView',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get help`
+  String get getHelp {
+    return Intl.message(
+      'Get help',
+      name: 'getHelp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transactions`
+  String get transactions {
+    return Intl.message(
+      'Transactions',
+      name: 'transactions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Setting`
+  String get setting {
+    return Intl.message(
+      'Setting',
+      name: 'setting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log Out`
+  String get logOut {
+    return Intl.message(
+      'Log Out',
+      name: 'logOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Menu (orders)`
+  String get menuOrders {
+    return Intl.message(
+      'Menu (orders)',
+      name: 'menuOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Menu (pre-orders)`
+  String get menuPreOrders {
+    return Intl.message(
+      'Menu (pre-orders)',
+      name: 'menuPreOrders',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

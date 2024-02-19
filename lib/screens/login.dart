@@ -9,8 +9,8 @@ import 'package:yumi/template/login_thrid_part.dart';
 import 'package:yumi/template/screen_container.dart';
 
 @RoutePage()
-class Login extends StatelessWidget {
-  Login({super.key});
+class LoginScreen extends StatelessWidget {
+  LoginScreen({super.key});
 
   final loginFormKey = GlobalKey<FormState>();
 
@@ -65,7 +65,7 @@ class Login extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      context.router.push(SignUp());
+                      context.router.push(SignUpRoute());
                     },
                     style: ButtonStyle(
                         backgroundColor:

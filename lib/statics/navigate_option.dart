@@ -14,27 +14,27 @@ class NavigateOptions {
         icon: SvgPicture.asset('assets/images/home.svg'),
         selectedIcon: SvgPicture.asset('assets/images/home1.svg'),
         title: S.current.yumi,
-        page: News()),
+        page: NewsScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/profile.svg'),
         selectedIcon: SvgPicture.asset('assets/images/profile1.svg'),
         title: S.current.yumi,
-        page: const Profile()),
+        page: const ProfileScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/menu.svg'),
         selectedIcon: SvgPicture.asset('assets/images/menu1.svg'),
         title: S.current.yumi,
-        page: const Menu()),
+        page: const MenuScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/pre_order.svg'),
         selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg'),
         title: S.current.yumi,
-        page: const PreOrder()),
+        page: const PreOrderScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/setting.svg'),
         selectedIcon: SvgPicture.asset('assets/images/setting1.svg'),
         title: S.current.yumi,
-        page: const Setting()),
+        page: const SettingScreen()),
   ];
 
   static List<Widget> navigationDestination(BuildContext context, int index) {

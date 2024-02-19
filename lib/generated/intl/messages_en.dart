@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "busy": MessageLookupByLibrary.simpleMessage("Busy"),
+        "caloriesReference":
+            MessageLookupByLibrary.simpleMessage("Calories reference"),
         "clickTheIconToViewCustomerNotes": MessageLookupByLibrary.simpleMessage(
             "Click the icon to view customer notes"),
         "closed": MessageLookupByLibrary.simpleMessage("Closed"),
@@ -34,14 +36,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "createNewAccount":
             MessageLookupByLibrary.simpleMessage("Create New Account"),
         "deliveryFee": MessageLookupByLibrary.simpleMessage("Delivery Fee"),
+        "documentation": MessageLookupByLibrary.simpleMessage("Documentation"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "financialView": MessageLookupByLibrary.simpleMessage("Financial view"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Forget password"),
+        "getHelp": MessageLookupByLibrary.simpleMessage("Get help"),
         "hi": MessageLookupByLibrary.simpleMessage("Hi"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
+        "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "lowerCase": MessageLookupByLibrary.simpleMessage("1 lower case"),
+        "menuOrders": MessageLookupByLibrary.simpleMessage("Menu (orders)"),
+        "menuPreOrders":
+            MessageLookupByLibrary.simpleMessage("Menu (pre-orders)"),
+        "menus": MessageLookupByLibrary.simpleMessage("Menus"),
+        "mySchedule": MessageLookupByLibrary.simpleMessage("My schedule"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "numNumber": MessageLookupByLibrary.simpleMessage("1 number"),
         "opened": MessageLookupByLibrary.simpleMessage("Opened"),
         "orSignUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
@@ -52,9 +64,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password does not match!"),
         "passwordMustBe": MessageLookupByLibrary.simpleMessage(
             "Password must be 8 characters contains:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # \$ & * ~ )."),
+        "performanceAnalysis":
+            MessageLookupByLibrary.simpleMessage("Performance analysis"),
         "preparing": MessageLookupByLibrary.simpleMessage("Preparing"),
         "ready": MessageLookupByLibrary.simpleMessage("Ready"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
+        "setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "signToContinue":
             MessageLookupByLibrary.simpleMessage("Sign to continue"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
@@ -74,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thisSectionYourSavedAddress": MessageLookupByLibrary.simpleMessage(
             "This section your saved address"),
         "total": MessageLookupByLibrary.simpleMessage("Total"),
+        "transactions": MessageLookupByLibrary.simpleMessage("Transactions"),
         "upperCase": MessageLookupByLibrary.simpleMessage("1 upper case"),
         "view": MessageLookupByLibrary.simpleMessage("View"),
         "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),

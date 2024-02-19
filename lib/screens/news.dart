@@ -3,16 +3,16 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/screens/news_orders.dart';
 import 'package:yumi/statics/local_storage.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/action_button.dart';
 import 'package:yumi/template/location.dart';
 import 'package:yumi/template/news_guide.dart';
+import 'package:yumi/template/news_orders.dart';
 import 'package:yumi/template/status_button.dart';
 
-class News extends StatelessWidget {
-  News({super.key});
+class NewsScreen extends StatelessWidget {
+  NewsScreen({super.key});
 
   PageController _controller = PageController();
 

@@ -1,11 +1,11 @@
 part of 'navigator_bloc.dart';
 
 class NavigatesState extends Equatable {
-  int selectedIndex = 0;
+  final int selectedIndex;
 
   NavigatesState({required this.selectedIndex});
 
-  NavigatesState copyWith(int index) {
+  NavigatesState copyWith({required int index}) {
     return NavigatesState(selectedIndex: index);
   }
 

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:yumi/bloc/navigator/navigator_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/route/route.dart';
+import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/theme/theme.dart';
 
 import 'generated/l10n.dart';
@@ -19,18 +23,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routerConfig: _appRouter.config(),
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => UserBloc()),
+        BlocProvider(create: (context) => NavigatorBloc()),
       ],
-      supportedLocales: S.delegate.supportedLocales,
-      title: 'YUMI',
-      theme: defaultTheme,
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routerConfig: _appRouter.config(),
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        title: 'YUMI',
+        theme: defaultTheme,
+        builder: (context, child) {
+          return Container(
+              decoration: BoxDecoration(color: ThemeSelector.colors.background),
+              child: SafeArea(child: child ?? Text('')));
+        },
+      ),
     );
   }
 }

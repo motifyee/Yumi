@@ -9,6 +9,7 @@ class TextFormFieldTemplate extends StatefulWidget {
       this.onSave,
       this.validators,
       this.controller,
+      this.autoHint,
       this.isPassword = false});
 
   final String? label;
@@ -16,6 +17,7 @@ class TextFormFieldTemplate extends StatefulWidget {
   final void Function(String?)? onSave;
   final String? Function(String?)? validators;
   final TextEditingController? controller;
+  final List<String>? autoHint;
   final bool isPassword;
 
   @override
@@ -31,6 +33,7 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
       onTap: widget.onTap,
       onSaved: widget.onSave,
       controller: widget.controller,
+      autofillHints: widget.autoHint,
       style: TextStyle(color: ThemeSelector.colors.secondary),
       decoration: InputDecoration(
           label: Padding(
