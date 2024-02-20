@@ -19,6 +19,7 @@ class _ThemeStatics {
   double defaultBlockGap = 25.0;
   double defaultTitleGap = 35.0;
   double defaultGapExtreme = 65.0;
+  double defaultGapExtraExtreme = 85.0;
 
   double defaultBorderRadius = 16;
   double defaultBorderRadiusSmall = 4;
