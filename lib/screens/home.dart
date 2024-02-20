@@ -12,7 +12,7 @@ import 'package:yumi/template/side_bar.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  PageController navPageController = PageController(initialPage: 0);
+  final PageController navPageController = PageController(initialPage: 0);
   final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
   @override

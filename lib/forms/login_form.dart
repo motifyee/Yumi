@@ -94,8 +94,9 @@ class LoginForm extends StatelessWidget {
                         ),
                       );
                     }
-                  }).catchError(
-                          (onError) => print('error' + onError.toString()));
+                  }).catchError((onError) {
+                    print('error$onError');
+                  });
                 }
               },
             ),
