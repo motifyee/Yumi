@@ -569,6 +569,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Profile`
+  String get profile {
+    return Intl.message(
+      'Profile',
+      name: 'profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pre Orders`
+  String get preOrder {
+    return Intl.message(
+      'Pre Orders',
+      name: 'preOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hygiene`
+  String get hygiene {
+    return Intl.message(
+      'Hygiene',
+      name: 'hygiene',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bio`
+  String get bio {
+    return Intl.message(
+      'Bio',
+      name: 'bio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Events Photo`
+  String get eventsPhoto {
+    return Intl.message(
+      'Events Photo',
+      name: 'eventsPhoto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write a Bio`
+  String get writeABio {
+    return Intl.message(
+      'Write a Bio',
+      name: 'writeABio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload`
+  String get upload {
+    return Intl.message(
+      'Upload',
+      name: 'upload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My reviews`
+  String get myReviews {
+    return Intl.message(
+      'My reviews',
+      name: 'myReviews',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

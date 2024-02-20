@@ -15,14 +15,16 @@ class _ThemeStatics {
   double formFieldInlineGap = 40.0;
 
   double defaultGap = 8.0;
-  double defaultBlockGap = 25;
-  double defaultTitleGap = 35;
+  double defaultLineGap = 16.0;
+  double defaultBlockGap = 25.0;
+  double defaultTitleGap = 35.0;
+  double defaultGapExtreme = 65.0;
 
   double defaultBorderRadius = 16;
   double defaultBorderRadiusSmall = 4;
   double defaultBorderRadiusMedium = 8;
   double defaultBorderRadiusLarge = 25;
-  double defaultBorderRadiusExtreme = 100;
+  double defaultBorderRadiusExtreme = 120;
 
   double buttonWidth = 280;
   double buttonPaddingV = 10;
@@ -31,6 +33,7 @@ class _ThemeStatics {
   double iconSizeSmall = 25;
   double iconSizeMedium = 35;
   double iconSizeLarge = 50;
+  double iconSizeExtreme = 65;
 
   Duration animationDuration = const Duration(milliseconds: 250);
 }

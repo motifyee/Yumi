@@ -18,22 +18,22 @@ class NavigateOptions {
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/profile.svg'),
         selectedIcon: SvgPicture.asset('assets/images/profile1.svg'),
-        title: S.current.yumi,
+        title: S.current.profile,
         page: const ProfileScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/menu.svg'),
         selectedIcon: SvgPicture.asset('assets/images/menu1.svg'),
-        title: S.current.yumi,
+        title: S.current.menus,
         page: const MenuScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/pre_order.svg'),
         selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg'),
-        title: S.current.yumi,
+        title: S.current.preOrder,
         page: const PreOrderScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/setting.svg'),
         selectedIcon: SvgPicture.asset('assets/images/setting1.svg'),
-        title: S.current.yumi,
+        title: S.current.setting,
         page: const SettingScreen()),
   ];
 

@@ -50,5 +50,13 @@
   "setting": "Setting",
   "logOut": "Log Out",
   "menuOrders": "Menu (orders)",
-  "menuPreOrders": "Menu (pre-orders)"
+  "menuPreOrders": "Menu (pre-orders)",
+  "profile": "Profile",
+  "preOrder": "Pre Orders",
+  "hygiene": "Hygiene",
+  "bio": "Bio",
+  "eventsPhoto": "Events Photo",
+  "writeABio": "Write a Bio",
+  "upload": "Upload",
+  "myReviews": "My reviews"
 }

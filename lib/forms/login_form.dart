@@ -78,7 +78,7 @@ class LoginForm extends StatelessWidget {
                 if (loginFormKey.currentState!.validate()) {
                   loginFormKey.currentState!.save();
 
-                  loginService(login: loginForm, context: context)
+                  LoginServices.login(login: loginForm, context: context)
                       .then((value) {
                     if (value['access_Token'] != null) {
                       context

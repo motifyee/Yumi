@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
+        "bio": MessageLookupByLibrary.simpleMessage("Bio"),
         "busy": MessageLookupByLibrary.simpleMessage("Busy"),
         "caloriesReference":
             MessageLookupByLibrary.simpleMessage("Calories reference"),
@@ -38,11 +39,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "deliveryFee": MessageLookupByLibrary.simpleMessage("Delivery Fee"),
         "documentation": MessageLookupByLibrary.simpleMessage("Documentation"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "eventsPhoto": MessageLookupByLibrary.simpleMessage("Events Photo"),
         "financialView": MessageLookupByLibrary.simpleMessage("Financial view"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Forget password"),
         "getHelp": MessageLookupByLibrary.simpleMessage("Get help"),
         "hi": MessageLookupByLibrary.simpleMessage("Hi"),
+        "hygiene": MessageLookupByLibrary.simpleMessage("Hygiene"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
@@ -51,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "menuPreOrders":
             MessageLookupByLibrary.simpleMessage("Menu (pre-orders)"),
         "menus": MessageLookupByLibrary.simpleMessage("Menus"),
+        "myReviews": MessageLookupByLibrary.simpleMessage("My reviews"),
         "mySchedule": MessageLookupByLibrary.simpleMessage("My schedule"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
@@ -66,7 +70,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Password must be 8 characters contains:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # \$ & * ~ )."),
         "performanceAnalysis":
             MessageLookupByLibrary.simpleMessage("Performance analysis"),
+        "preOrder": MessageLookupByLibrary.simpleMessage("Pre Orders"),
         "preparing": MessageLookupByLibrary.simpleMessage("Preparing"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "ready": MessageLookupByLibrary.simpleMessage("Ready"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
@@ -90,9 +96,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "This section your saved address"),
         "total": MessageLookupByLibrary.simpleMessage("Total"),
         "transactions": MessageLookupByLibrary.simpleMessage("Transactions"),
+        "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "upperCase": MessageLookupByLibrary.simpleMessage("1 upper case"),
         "view": MessageLookupByLibrary.simpleMessage("View"),
         "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
+        "writeABio": MessageLookupByLibrary.simpleMessage("Write a Bio"),
         "yumi": MessageLookupByLibrary.simpleMessage("YUMI")
       };
 }

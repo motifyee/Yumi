@@ -8,7 +8,6 @@ part 'news_state.dart';
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
   NewsBloc() : super(NewsState(selectedList: 0)) {
     on<NewsEvent>((event, emit) {
-      // TODO: implement event handler
       emit(state.copyWith(selectedList: event.selectedList));
     });
   }
