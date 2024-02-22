@@ -14,10 +14,13 @@ class _ThemeStatics {
   double formFieldGap = 12.0;
   double formFieldInlineGap = 40.0;
 
+  double defaultElevation = 2.0;
+
   double defaultGap = 8.0;
   double defaultLineGap = 16.0;
   double defaultBlockGap = 25.0;
   double defaultTitleGap = 35.0;
+  double defaultTitleGapLarge = 45.0;
   double defaultGapExtreme = 65.0;
   double defaultGapExtraExtreme = 85.0;
 
@@ -58,6 +61,7 @@ abstract class _ThemeColors {
   late Color secondary;
   late Color onSecondary;
   late Color secondaryTant;
+  late Color secondaryTantLighter;
   late Color secondaryFaint;
   late Color success;
   late Color onSuccess;
@@ -80,6 +84,8 @@ class _ThemeColorsLight implements _ThemeColors {
   Color onSecondary = const Color.fromRGBO(255, 255, 255, 1);
   @override
   Color secondaryTant = const Color.fromRGBO(139, 151, 167, 1);
+  @override
+  Color secondaryTantLighter = const Color.fromRGBO(187, 187, 187, 1);
   @override
   Color secondaryFaint = const Color.fromRGBO(217, 217, 217, 1);
   @override
@@ -107,6 +113,8 @@ class _ThemeColorsDark implements _ThemeColors {
   Color onSecondary = const Color.fromRGBO(255, 255, 255, 1);
   @override
   Color secondaryTant = const Color.fromRGBO(139, 151, 167, 1);
+  @override
+  Color secondaryTantLighter = const Color.fromRGBO(187, 187, 187, 1);
   @override
   Color secondaryFaint = const Color.fromRGBO(217, 217, 217, 1);
   @override

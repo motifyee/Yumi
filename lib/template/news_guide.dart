@@ -86,7 +86,7 @@ class NewsGuide extends StatelessWidget {
                   fontSize: ThemeSelector.fonts.font_16,
                 ),
               ),
-              SizedBox(height: ThemeSelector.statics.defaultTitleGap),
+              SizedBox(height: ThemeSelector.statics.defaultGap),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

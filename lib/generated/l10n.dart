@@ -649,6 +649,256 @@ class S {
       args: [],
     );
   }
+
+  /// `Profile Setting`
+  String get profileSetting {
+    return Intl.message(
+      'Profile Setting',
+      name: 'profileSetting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full name`
+  String get fullName {
+    return Intl.message(
+      'Full name',
+      name: 'fullName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address`
+  String get address {
+    return Intl.message(
+      'Address',
+      name: 'address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone`
+  String get phone {
+    return Intl.message(
+      'Phone',
+      name: 'phone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User name`
+  String get userName {
+    return Intl.message(
+      'User name',
+      name: 'userName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pickup`
+  String get pickup {
+    return Intl.message(
+      'Pickup',
+      name: 'pickup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About`
+  String get about {
+    return Intl.message(
+      'About',
+      name: 'about',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bank Account`
+  String get bankAccount {
+    return Intl.message(
+      'Bank Account',
+      name: 'bankAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Holder name`
+  String get holderName {
+    return Intl.message(
+      'Holder name',
+      name: 'holderName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name on card`
+  String get nameOnCard {
+    return Intl.message(
+      'Name on card',
+      name: 'nameOnCard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sort code`
+  String get sortCode {
+    return Intl.message(
+      'Sort code',
+      name: 'sortCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account Number`
+  String get accountNumber {
+    return Intl.message(
+      'Account Number',
+      name: 'accountNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Account`
+  String get deleteAccount {
+    return Intl.message(
+      'Delete Account',
+      name: 'deleteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Empty`
+  String get empty {
+    return Intl.message(
+      'Empty',
+      name: 'empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Meal name`
+  String get mealName {
+    return Intl.message(
+      'Meal name',
+      name: 'mealName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ingredients`
+  String get ingredients {
+    return Intl.message(
+      'Ingredients',
+      name: 'ingredients',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calories`
+  String get calories {
+    return Intl.message(
+      'Calories',
+      name: 'calories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message(
+      'Description',
+      name: 'description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preparation time`
+  String get preparationTime {
+    return Intl.message(
+      'Preparation time',
+      name: 'preparationTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price`
+  String get price {
+    return Intl.message(
+      'Price',
+      name: 'price',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `(Min)`
+  String get min {
+    return Intl.message(
+      '(Min)',
+      name: 'min',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `($)`
+  String get currency {
+    return Intl.message(
+      '(\$)',
+      name: 'currency',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

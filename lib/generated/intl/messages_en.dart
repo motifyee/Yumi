@@ -22,12 +22,18 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "about": MessageLookupByLibrary.simpleMessage("About"),
+        "accountNumber": MessageLookupByLibrary.simpleMessage("Account Number"),
+        "address": MessageLookupByLibrary.simpleMessage("Address"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
+        "bankAccount": MessageLookupByLibrary.simpleMessage("Bank Account"),
         "bio": MessageLookupByLibrary.simpleMessage("Bio"),
         "busy": MessageLookupByLibrary.simpleMessage("Busy"),
+        "calories": MessageLookupByLibrary.simpleMessage("Calories"),
         "caloriesReference":
             MessageLookupByLibrary.simpleMessage("Calories reference"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "clickTheIconToViewCustomerNotes": MessageLookupByLibrary.simpleMessage(
             "Click the icon to view customer notes"),
         "closed": MessageLookupByLibrary.simpleMessage("Closed"),
@@ -36,27 +42,38 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
         "createNewAccount":
             MessageLookupByLibrary.simpleMessage("Create New Account"),
+        "currency": MessageLookupByLibrary.simpleMessage("(\$)"),
+        "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
         "deliveryFee": MessageLookupByLibrary.simpleMessage("Delivery Fee"),
+        "description": MessageLookupByLibrary.simpleMessage("Description"),
         "documentation": MessageLookupByLibrary.simpleMessage("Documentation"),
+        "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "empty": MessageLookupByLibrary.simpleMessage("Empty"),
         "eventsPhoto": MessageLookupByLibrary.simpleMessage("Events Photo"),
         "financialView": MessageLookupByLibrary.simpleMessage("Financial view"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Forget password"),
+        "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "getHelp": MessageLookupByLibrary.simpleMessage("Get help"),
         "hi": MessageLookupByLibrary.simpleMessage("Hi"),
+        "holderName": MessageLookupByLibrary.simpleMessage("Holder name"),
         "hygiene": MessageLookupByLibrary.simpleMessage("Hygiene"),
+        "ingredients": MessageLookupByLibrary.simpleMessage("Ingredients"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "lowerCase": MessageLookupByLibrary.simpleMessage("1 lower case"),
+        "mealName": MessageLookupByLibrary.simpleMessage("Meal name"),
         "menuOrders": MessageLookupByLibrary.simpleMessage("Menu (orders)"),
         "menuPreOrders":
             MessageLookupByLibrary.simpleMessage("Menu (pre-orders)"),
         "menus": MessageLookupByLibrary.simpleMessage("Menus"),
+        "min": MessageLookupByLibrary.simpleMessage("(Min)"),
         "myReviews": MessageLookupByLibrary.simpleMessage("My reviews"),
         "mySchedule": MessageLookupByLibrary.simpleMessage("My schedule"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "nameOnCard": MessageLookupByLibrary.simpleMessage("Name on card"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "numNumber": MessageLookupByLibrary.simpleMessage("1 number"),
         "opened": MessageLookupByLibrary.simpleMessage("Opened"),
@@ -70,15 +87,24 @@ class MessageLookup extends MessageLookupByLibrary {
             "Password must be 8 characters contains:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # \$ & * ~ )."),
         "performanceAnalysis":
             MessageLookupByLibrary.simpleMessage("Performance analysis"),
+        "phone": MessageLookupByLibrary.simpleMessage("Phone"),
+        "pickup": MessageLookupByLibrary.simpleMessage("Pickup"),
         "preOrder": MessageLookupByLibrary.simpleMessage("Pre Orders"),
+        "preparationTime":
+            MessageLookupByLibrary.simpleMessage("Preparation time"),
         "preparing": MessageLookupByLibrary.simpleMessage("Preparing"),
+        "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "profileSetting":
+            MessageLookupByLibrary.simpleMessage("Profile Setting"),
         "ready": MessageLookupByLibrary.simpleMessage("Ready"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "signToContinue":
             MessageLookupByLibrary.simpleMessage("Sign to continue"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "sortCode": MessageLookupByLibrary.simpleMessage("Sort code"),
         "specialCharacter": MessageLookupByLibrary.simpleMessage(
             "1 special character ( ! @ # \$ & * ~ )"),
         "theTotalPriceIncludesTax": MessageLookupByLibrary.simpleMessage(
@@ -98,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "transactions": MessageLookupByLibrary.simpleMessage("Transactions"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "upperCase": MessageLookupByLibrary.simpleMessage("1 upper case"),
+        "userName": MessageLookupByLibrary.simpleMessage("User name"),
         "view": MessageLookupByLibrary.simpleMessage("View"),
         "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
         "writeABio": MessageLookupByLibrary.simpleMessage("Write a Bio"),

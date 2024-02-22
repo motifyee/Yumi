@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/model/profile_model.dart';
-import 'package:yumi/service/profile.dart';
+import 'package:yumi/service/profile_service.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';
@@ -15,12 +15,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           context: event.context,
           id: event.context.read<UserBloc>().state.user.chefId);
 
-      emit(state.copyWith(
-          profile: event.context
-              .read<ProfileBloc>()
-              .state
-              .profile
-              .fromJson(value: res)));
+      emit(state.copyWith(profile: state.profile.fromJson(value: res)));
     });
   }
 }

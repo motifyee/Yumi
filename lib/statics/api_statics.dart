@@ -44,4 +44,5 @@ class ApiKeys {
   static String login = '/accounts/_/login';
   static String signup = '/accounts/_/register';
   static String profile = '/accounts/_';
+  static String categories = '/products/setting/categories';
 }

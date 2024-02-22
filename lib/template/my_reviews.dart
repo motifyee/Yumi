@@ -10,7 +10,7 @@ class MyReviews extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: ThemeSelector.statics.defaultBlockGap),
+          horizontal: ThemeSelector.statics.defaultTitleGap),
       child: Column(
         children: [
           Row(
