@@ -7,7 +7,8 @@ part 'meal_form_event.dart';
 part 'meal_form_state.dart';
 
 class MealFormBloc extends Bloc<MealFormEvent, MealFormState> {
-  MealFormBloc() : super(MealFormState(mealModel: MealModel())) {
+  MealFormBloc()
+      : super(MealFormState(mealModel: MealModel(categoriesids: []))) {
     on<MealFormUpdateEvent>((event, emit) {
       emit(MealFormState.copyWith(mealModel: event.mealModel));
     });

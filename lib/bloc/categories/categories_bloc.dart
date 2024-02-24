@@ -8,7 +8,7 @@ part 'categories_event.dart';
 part 'categories_state.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
-  CategoriesBloc() : super(CategoriesState(categoriesModelList: const [])) {
+  CategoriesBloc() : super(CategoriesState(categoriesModelList: [])) {
     on<GetCategoriesEvent>((event, emit) async {
       final res = await CategoriesService.getCategories(context: event.context);
 

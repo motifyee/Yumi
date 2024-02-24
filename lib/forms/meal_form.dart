@@ -7,6 +7,7 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/code_generator.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/loading.dart';
 import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/template/upload_photo_button.dart';
 
@@ -119,56 +120,66 @@ class MealForm extends StatelessWidget {
                         BlocConsumer<CategoriesBloc, CategoriesState>(
                           listener: (context, state) {},
                           builder: (context, state) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                for (var category
-                                    in state.categoriesModelList ?? [])
-                                  BlocConsumer<MealFormBloc, MealFormState>(
-                                    listener: (context, state) {},
-                                    builder: (context, state) {
-                                      return Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: ThemeSelector
-                                                .statics.defaultGap),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Checkbox(
-                                              value: state
-                                                  .mealModel.categoriesids
-                                                  ?.contains(category.id),
-                                              onChanged: (bool? value) {
-                                                var listCat = state.mealModel
-                                                        .categoriesids ??
-                                                    [];
+                            print(state.categoriesModelList!.length);
 
-                                                if (value == true) {
-                                                  listCat.add(category.id);
-                                                } else {
-                                                  listCat.removeWhere(
-                                                      (element) =>
-                                                          element ==
-                                                          category.id);
-                                                }
-                                                context
-                                                    .read<MealFormBloc>()
-                                                    .add(MealFormUpdateEvent(
-                                                        mealModel: state
-                                                            .mealModel
-                                                            .copyWith(
-                                                                categoriesids:
-                                                                    listCat)));
-                                              },
-                                            ),
-                                            Text(category.name),
-                                          ],
+                            return state.categoriesModelList!.isEmpty
+                                ? const Loading()
+                                : Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      for (var category
+                                          in state.categoriesModelList ?? [])
+                                        BlocConsumer<MealFormBloc,
+                                            MealFormState>(
+                                          listener: (context, state) {},
+                                          builder: (context, state) {
+                                            print(
+                                                state.mealModel.categoriesids);
+                                            return Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: ThemeSelector
+                                                      .statics.defaultGap),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Checkbox(
+                                                    value: state
+                                                        .mealModel.categoriesids
+                                                        ?.contains(category.id),
+                                                    onChanged: (bool? value) {
+                                                      var listCat = state
+                                                              .mealModel
+                                                              .categoriesids ??
+                                                          [];
+
+                                                      if (value == true) {
+                                                        listCat
+                                                            .add(category.id);
+                                                      } else {
+                                                        listCat.removeWhere(
+                                                            (element) =>
+                                                                element ==
+                                                                category.id);
+                                                      }
+                                                      context
+                                                          .read<MealFormBloc>()
+                                                          .add(MealFormUpdateEvent(
+                                                              mealModel: state
+                                                                  .mealModel
+                                                                  .copyWith(
+                                                                      categoriesids:
+                                                                          listCat)));
+                                                    },
+                                                  ),
+                                                  Text(category.name),
+                                                ],
+                                              ),
+                                            );
+                                          },
                                         ),
-                                      );
-                                    },
-                                  ),
-                              ],
-                            );
+                                    ],
+                                  );
                           },
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
