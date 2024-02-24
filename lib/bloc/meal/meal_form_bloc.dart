@@ -10,7 +10,7 @@ class MealFormBloc extends Bloc<MealFormEvent, MealFormState> {
   MealFormBloc()
       : super(MealFormState(mealModel: MealModel(categoriesids: []))) {
     on<MealFormUpdateEvent>((event, emit) {
-      emit(MealFormState.copyWith(mealModel: event.mealModel));
+      emit(state.copyWith(mealModel: event.mealModel));
     });
   }
 }

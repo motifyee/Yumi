@@ -30,18 +30,23 @@ class MenuScreen extends StatelessWidget {
                     builder: (context, state) {
                       var mealListBlocState =
                           context.read<MealListBloc>().state;
-                      return SingleChildScrollView(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
+                      return Container(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
                                 onTap: () {
                                   context.read<MealListBloc>().add(
                                       MealListUpdateCategoryEvent(
                                           selectedCategory: 0));
                                 },
                                 child: Container(
+                                  width: ((MediaQuery.of(context).size.width -
+                                          (ThemeSelector.statics.defaultGap *
+                                              2)) /
+                                      5),
                                   decoration: BoxDecoration(
                                       color:
                                           mealListBlocState.selectedCategory ==
@@ -65,17 +70,26 @@ class MenuScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            ),
-                            for (var category
-                                in state.categoriesModelList ?? [])
-                              Expanded(
-                                child: GestureDetector(
+                              for (var category
+                                  in state.categoriesModelList ?? [])
+                                GestureDetector(
                                   onTap: () {
                                     context.read<MealListBloc>().add(
                                         MealListUpdateCategoryEvent(
                                             selectedCategory: category.id));
                                   },
                                   child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            ThemeSelector.statics.defaultGap),
+                                    constraints: BoxConstraints(
+                                      minWidth:
+                                          ((MediaQuery.of(context).size.width -
+                                                  (ThemeSelector
+                                                          .statics.defaultGap *
+                                                      2)) /
+                                              5),
+                                    ),
                                     decoration: BoxDecoration(
                                         color: mealListBlocState
                                                     .selectedCategory ==
@@ -99,8 +113,8 @@ class MenuScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                              ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },

@@ -39,6 +39,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "closed": MessageLookupByLibrary.simpleMessage("Closed"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "connectionError":
+            MessageLookupByLibrary.simpleMessage("Connection Error!"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
         "createNewAccount":
             MessageLookupByLibrary.simpleMessage("Create New Account"),
@@ -52,6 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "empty": MessageLookupByLibrary.simpleMessage("Empty"),
         "eventsPhoto": MessageLookupByLibrary.simpleMessage("Events Photo"),
         "financialView": MessageLookupByLibrary.simpleMessage("Financial view"),
+        "forHowManyPerson":
+            MessageLookupByLibrary.simpleMessage("(For how many person)"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Forget password"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
@@ -64,6 +68,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "lowerCase": MessageLookupByLibrary.simpleMessage("1 lower case"),
+        "maximum25Minutes":
+            MessageLookupByLibrary.simpleMessage("Maximum 25 minutes"),
         "mealName": MessageLookupByLibrary.simpleMessage("Meal name"),
         "menuOrders": MessageLookupByLibrary.simpleMessage("Menu (orders)"),
         "menuPreOrders":
@@ -89,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Performance analysis"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "pickup": MessageLookupByLibrary.simpleMessage("Pickup"),
+        "portion": MessageLookupByLibrary.simpleMessage("Portion"),
         "preOrder": MessageLookupByLibrary.simpleMessage("Pre Orders"),
         "preparationTime":
             MessageLookupByLibrary.simpleMessage("Preparation time"),

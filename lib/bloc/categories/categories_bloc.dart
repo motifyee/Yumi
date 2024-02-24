@@ -17,7 +17,8 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       data = res['data'].map<CategoriesModel>((value) {
         return CategoriesModel.fromJson(value);
       }).toList();
-      emit(CategoriesState.copyWith(categoriesModelListed: data));
+      emit(CategoriesState.copyWith(
+          categoriesModelListed: [...data, ...data, ...data]));
     });
   }
 }

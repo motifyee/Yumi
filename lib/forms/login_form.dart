@@ -75,6 +75,7 @@ class LoginForm extends StatelessWidget {
             ConfirmButton(
               label: S.of(context).login,
               onPressed: () {
+                context.router.replaceAll([HomeRoute()]);
                 if (loginFormKey.currentState!.validate()) {
                   loginFormKey.currentState!.save();
 
@@ -95,7 +96,13 @@ class LoginForm extends StatelessWidget {
                       );
                     }
                   }).catchError((onError) {
-                    print('error$onError');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: SnackBarMassage(
+                          massage: S.of(context).connectionError,
+                        ),
+                      ),
+                    );
                   });
                 }
               },

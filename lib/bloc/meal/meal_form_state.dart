@@ -6,7 +6,7 @@ class MealFormState extends Equatable {
 
   MealFormState({required this.mealModel});
 
-  static MealFormState copyWith({required MealModel mealModel}) {
+  MealFormState copyWith({required MealModel mealModel}) {
     return MealFormState(mealModel: mealModel);
   }
 

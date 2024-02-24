@@ -899,6 +899,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Portion`
+  String get portion {
+    return Intl.message(
+      'Portion',
+      name: 'portion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `(For how many person)`
+  String get forHowManyPerson {
+    return Intl.message(
+      '(For how many person)',
+      name: 'forHowManyPerson',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maximum 25 minutes`
+  String get maximum25Minutes {
+    return Intl.message(
+      'Maximum 25 minutes',
+      name: 'maximum25Minutes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connection Error!`
+  String get connectionError {
+    return Intl.message(
+      'Connection Error!',
+      name: 'connectionError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
