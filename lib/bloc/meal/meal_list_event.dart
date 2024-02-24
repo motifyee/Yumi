@@ -6,7 +6,7 @@ abstract class MealListEvent {}
 class MealListUpdateEvent implements MealListEvent {}
 
 class MealListUpdateCategoryEvent implements MealListEvent {
-  int selectedCategory;
+  final int selectedCategory;
 
   MealListUpdateCategoryEvent({required this.selectedCategory});
 }
