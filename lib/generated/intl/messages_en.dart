@@ -71,6 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "maximum25Minutes":
             MessageLookupByLibrary.simpleMessage("Maximum 25 minutes"),
         "mealName": MessageLookupByLibrary.simpleMessage("Meal name"),
+        "measurement": MessageLookupByLibrary.simpleMessage("gm"),
         "menuOrders": MessageLookupByLibrary.simpleMessage("Menu (orders)"),
         "menuPreOrders":
             MessageLookupByLibrary.simpleMessage("Menu (pre-orders)"),

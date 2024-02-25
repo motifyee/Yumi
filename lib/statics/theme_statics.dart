@@ -32,6 +32,7 @@ class _ThemeStatics {
 
   double buttonWidth = 280;
   double buttonPaddingV = 10;
+  double buttonBorderRadiusRounded = 8;
   double buttonBorderRadius = 50;
 
   double iconSizeSmall = 25;

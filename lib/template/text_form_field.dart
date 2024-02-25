@@ -13,13 +13,19 @@ class TextFormFieldTemplate extends StatefulWidget {
     this.onSave,
     this.onChange,
     this.validators,
+    this.objectValidators,
     this.autoHint,
     this.borderStyle,
     this.initialValue,
     this.controller,
+    this.dropdownSelectionValue,
+    this.dropdownSelectionTargetLabel,
+    this.dropdownSelectionList,
     this.textInputType = TextInputType.text,
     this.isPassword = false,
     this.enabled = true,
+    this.readOnly = false,
+    this.dropdownSelection = false,
   }) {
     borderStyle ??= TextFormFieldBorderStyle.borderedCircle;
   }
@@ -32,12 +38,18 @@ class TextFormFieldTemplate extends StatefulWidget {
   void Function(dynamic)? onSave;
   void Function(dynamic)? onChange;
   String? Function(String?)? validators;
+  String? Function(dynamic)? objectValidators;
   TextEditingController? controller;
   List<String>? autoHint;
   TextFormFieldBorderStyleType? borderStyle;
   TextInputType textInputType;
   bool isPassword;
   bool enabled;
+  bool readOnly;
+  bool dropdownSelection;
+  String? dropdownSelectionTargetLabel;
+  dynamic dropdownSelectionValue;
+  List<dynamic>? dropdownSelectionList;
   dynamic initialValue;
 
   calcBorderStyle({bool isFocused = false}) {
@@ -73,7 +85,7 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
 
   @override
   void dispose() {
-    widget.controller?.dispose();
+    if (widget.controller != null) widget.controller!.dispose();
     super.dispose();
   }
 
@@ -161,26 +173,53 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
               )
             : null);
 
-    return TextFormField(
-      onTap: widget.onTap,
-      onSaved: widget.onSave,
-      onChanged: widget.onChange,
-      controller: widget.controller,
-      autofillHints: widget.autoHint,
-      keyboardType: widget.textInputType,
-      style: TextStyle(color: ThemeSelector.colors.secondary),
-      decoration: inputDecoration,
-      validator: widget.validators,
-      obscureText: widget.isPassword && isHide,
-      enabled: widget.enabled,
-    );
+    return widget.dropdownSelection
+        ? DropdownButtonFormField(
+            isExpanded: true,
+            validator: widget.objectValidators,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            value: widget.initialValue,
+            items: widget.dropdownSelectionList
+                    ?.map(
+                      (e) => DropdownMenuItem(
+                        value: e,
+                        child: Container(
+                          child: Text(
+                            e
+                                .toJson()[widget.dropdownSelectionTargetLabel]
+                                .toString(),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList() ??
+                [],
+            onChanged: widget.onChange,
+            decoration: inputDecoration,
+          )
+        : TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            onTap: widget.onTap,
+            onSaved: widget.onSave,
+            onChanged: widget.onChange,
+            controller: widget.controller,
+            autofillHints: widget.autoHint,
+            keyboardType: widget.textInputType,
+            style: TextStyle(color: ThemeSelector.colors.secondary),
+            decoration: inputDecoration,
+            validator: widget.validators,
+            obscureText: widget.isPassword && isHide,
+            enabled: widget.enabled,
+            readOnly: widget.readOnly,
+          );
   }
 }
 
 class TextFormFieldBorderStyle {
   static TextFormFieldBorderStyleType borderedRound =
       TextFormFieldBorderStyleType(
-    borderRadius: ThemeSelector.statics.buttonBorderRadius,
+    borderRadius: ThemeSelector.statics.buttonBorderRadiusRounded,
     color: ThemeSelector.colors.secondary,
     focusColor: ThemeSelector.colors.primary,
     inputIndent: ThemeSelector.statics.defaultBlockGap,

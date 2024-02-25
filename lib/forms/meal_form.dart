@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_form_bloc.dart';
+import 'package:yumi/forms/Ingredients_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -23,9 +24,10 @@ class MealForm extends StatelessWidget {
           MealFormUpdateEvent(
             mealModel: MealModel(
               categoriesids: [],
+              ingredients: [],
               isPreOrder: false,
               isOrder: true,
-              portionPersons: 25,
+              preparationTime: 25,
             ),
           ),
         );
@@ -64,7 +66,6 @@ class MealForm extends StatelessWidget {
                           labelIcon: 'assets/images/meal_name.svg',
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           initialValue: state.mealModel.name,
-                          onTap: () {},
                           onChange: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
@@ -77,6 +78,14 @@ class MealForm extends StatelessWidget {
                           label: S.of(context).ingredients,
                           labelIcon: 'assets/images/ingredient.svg',
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
+                          initialValue: state.mealModel.ingredients?.length,
+                          readOnly: true,
+                          onTap: () {
+                            showModalBottomSheet(
+                                backgroundColor: Colors.transparent,
+                                context: context,
+                                builder: (context) => IngredientsForm());
+                          },
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
                         TextFormFieldTemplate(
@@ -100,7 +109,14 @@ class MealForm extends StatelessWidget {
                           subLabel: S.of(context).maximum25Minutes,
                           enabled: false,
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
+                          onChange: (value) {
+                            context.read<MealFormBloc>().add(
+                                MealFormUpdateEvent(
+                                    mealModel: state.mealModel.copyWith(
+                                        preparationTime: int.tryParse(value))));
+                          },
                           textInputType: TextInputType.number,
+                          initialValue: state.mealModel.preparationTime,
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
                         TextFormFieldTemplate(
@@ -160,9 +176,11 @@ class MealForm extends StatelessWidget {
                                                   children: [
                                                     Checkbox(
                                                       value: state.mealModel
-                                                          .categoriesids
-                                                          ?.contains(
-                                                              category.id),
+                                                              .categoriesids
+                                                              ?.contains(
+                                                                  category
+                                                                      .id) ??
+                                                          false,
                                                       onChanged: (bool? value) {
                                                         var listCat = state
                                                                 .mealModel

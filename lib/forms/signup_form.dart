@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:yumi/app_target.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/signup_model.dart';
 import 'package:yumi/service/signup_service.dart';
-import 'package:yumi/statics/app_target.dart';
 import 'package:yumi/statics/code_generator.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/confirm_button.dart';

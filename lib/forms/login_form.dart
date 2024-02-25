@@ -75,7 +75,6 @@ class LoginForm extends StatelessWidget {
             ConfirmButton(
               label: S.of(context).login,
               onPressed: () {
-                context.router.replaceAll([HomeRoute()]);
                 if (loginFormKey.currentState!.validate()) {
                   loginFormKey.currentState!.save();
 

@@ -939,6 +939,16 @@ class S {
       args: [],
     );
   }
+
+  /// `gm`
+  String get measurement {
+    return Intl.message(
+      'gm',
+      name: 'measurement',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

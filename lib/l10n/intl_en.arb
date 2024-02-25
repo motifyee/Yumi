@@ -87,5 +87,6 @@
   "portion": "Portion",
   "forHowManyPerson": "(For how many person)",
   "maximum25Minutes": "Maximum 25 minutes",
-  "connectionError": "Connection Error!"
+  "connectionError": "Connection Error!",
+  "measurement": "gm"
 }

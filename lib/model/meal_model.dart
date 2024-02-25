@@ -4,6 +4,7 @@ class MealModel {
   String? photo;
   int? price1;
   int? caloriesValue;
+  int? preparationTime;
   bool? isOrder;
   bool? isPreOrder;
   int? portionPersons;
@@ -16,6 +17,7 @@ class MealModel {
       this.photo,
       this.price1,
       this.caloriesValue,
+      this.preparationTime,
       this.isOrder,
       this.isPreOrder,
       this.portionPersons,
@@ -28,6 +30,7 @@ class MealModel {
     photo = json['Photo'];
     price1 = json['Price1'];
     caloriesValue = json['calories_value'];
+    preparationTime = json['preparation_time'];
     isOrder = json['Is_order'];
     isPreOrder = json['Is_Pre_order'];
     portionPersons = json['Portion Persons'];
@@ -46,6 +49,7 @@ class MealModel {
     String? photo,
     int? price1,
     int? caloriesValue,
+    int? preparationTime,
     bool? isOrder,
     bool? isPreOrder,
     int? portionPersons,
@@ -58,6 +62,7 @@ class MealModel {
       photo: photo ?? this.photo,
       price1: price1 ?? this.price1,
       caloriesValue: caloriesValue ?? this.caloriesValue,
+      preparationTime: preparationTime ?? this.preparationTime,
       isOrder: isOrder ?? this.isOrder,
       isPreOrder: isPreOrder ?? this.isPreOrder,
       portionPersons: portionPersons ?? this.portionPersons,
@@ -73,6 +78,7 @@ class MealModel {
     data['Photo'] = this.photo;
     data['Price1'] = this.price1;
     data['calories_value'] = this.caloriesValue;
+    data['preparation_time'] = this.preparationTime;
     data['Is_order'] = this.isOrder;
     data['Is_Pre_order'] = this.isPreOrder;
     data['Portion Persons'] = this.portionPersons;
@@ -86,19 +92,30 @@ class MealModel {
 
 class IngredientsModel {
   String? iD;
+  String? name;
   int? portionGrams;
 
-  IngredientsModel({this.iD, this.portionGrams});
+  IngredientsModel({this.iD, this.portionGrams, this.name});
 
   IngredientsModel.fromJson(Map<String, dynamic> json) {
     iD = json['ID'];
+    name = json['name'];
     portionGrams = json['Portion_grams'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['ID'] = this.iD;
+    data['name'] = this.name;
     data['Portion_grams'] = this.portionGrams;
     return data;
+  }
+
+  IngredientsModel copyWith({String? iD, String? name, int? portionGrams}) {
+    return IngredientsModel(
+      iD: iD ?? this.iD,
+      name: name ?? this.name,
+      portionGrams: portionGrams ?? this.portionGrams,
+    );
   }
 }

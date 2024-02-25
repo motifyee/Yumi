@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
+import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/meal/meal_form_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => CategoriesBloc()),
         BlocProvider(create: (context) => MealListBloc()),
         BlocProvider(create: (context) => MealFormBloc()),
+        BlocProvider(create: (context) => IngredientListBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
