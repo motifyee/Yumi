@@ -9,7 +9,18 @@ part 'ingredient_form_state.dart';
 class IngredientFormBloc
     extends Bloc<IngredientFormEvent, IngredientFormState> {
   IngredientFormBloc()
-      : super(IngredientFormState(ingredientsModel: IngredientsModel())) {
+      : super(IngredientFormState(
+            ingredientsModelList: [], ingredientsModelLength: 0)) {
+    on<IngredientFormAddEvent>((event, emit) {
+      List<IngredientsModel> data = state.ingredientsModelList;
+      data.add(event.ingredientsModel.copyWith());
+      emit(state.copyWith(ingredientsModel: data));
+    });
+    on<IngredientFormRemoveEvent>((event, emit) {
+      List<IngredientsModel> data = state.ingredientsModelList;
+      data.removeWhere((e) => e.id == event.ingredientsModel.id);
+      emit(state.copyWith(ingredientsModel: data));
+    });
     on<IngredientFormUpdateEvent>((event, emit) {
       emit(state.copyWith(ingredientsModel: event.ingredientsModel));
     });

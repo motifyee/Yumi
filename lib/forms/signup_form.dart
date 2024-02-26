@@ -22,7 +22,7 @@ class SignUpForm extends StatelessWidget {
   final TextEditingController? passwordController;
 
   final SignUpModel signupForm = SignUpModel(
-      code: CodeGenerator.getRandomCode(15),
+      code: CodeGenerator.getRandomCode(),
       fullName: '',
       userName: '',
       mobile: '',

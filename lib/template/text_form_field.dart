@@ -13,11 +13,11 @@ class TextFormFieldTemplate extends StatefulWidget {
     this.onSave,
     this.onChange,
     this.validators,
-    this.objectValidators,
     this.autoHint,
     this.borderStyle,
     this.initialValue,
     this.controller,
+    this.objectValidators,
     this.dropdownSelectionValue,
     this.dropdownSelectionTargetLabel,
     this.dropdownSelectionList,
@@ -150,11 +150,17 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
               )
             : null,
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        contentPadding: EdgeInsets.symmetric(
-            horizontal: widget.borderStyle?.inputIndent ??
-                ThemeSelector.statics.defaultGap),
+        contentPadding: widget.dropdownSelection
+            ? EdgeInsets.symmetric(
+                horizontal: widget.borderStyle!.inputIndent,
+                vertical: ThemeSelector.statics.defaultInputGap,
+              )
+            : EdgeInsets.symmetric(
+                horizontal: widget.borderStyle!.inputIndent,
+              ),
         border: widget.calcBorderStyle(),
         enabledBorder: widget.calcBorderStyle(),
+        isDense: widget.dropdownSelection ? true : false,
         focusedBorder: widget.calcBorderStyle(isFocused: true),
         errorBorder: widget.calcBorderStyle(isFocused: true),
         suffixIcon: widget.isPassword
@@ -179,6 +185,11 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
             validator: widget.objectValidators,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             value: widget.initialValue,
+            icon: Icon(
+              Icons.arrow_drop_up,
+              color: ThemeSelector.colors.secondaryFaint,
+            ),
+            // iconSize: ThemeSelector.fonts.font_38,
             items: widget.dropdownSelectionList
                     ?.map(
                       (e) => DropdownMenuItem(
@@ -196,6 +207,7 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
                     .toList() ??
                 [],
             onChanged: widget.onChange,
+            onSaved: widget.onSave,
             decoration: inputDecoration,
           )
         : TextFormField(
@@ -220,9 +232,9 @@ class TextFormFieldBorderStyle {
   static TextFormFieldBorderStyleType borderedRound =
       TextFormFieldBorderStyleType(
     borderRadius: ThemeSelector.statics.buttonBorderRadiusRounded,
-    color: ThemeSelector.colors.secondary,
+    color: ThemeSelector.colors.secondaryFaint,
     focusColor: ThemeSelector.colors.primary,
-    inputIndent: ThemeSelector.statics.defaultBlockGap,
+    inputIndent: ThemeSelector.statics.defaultGap,
   );
 
   static TextFormFieldBorderStyleType borderedCircle =

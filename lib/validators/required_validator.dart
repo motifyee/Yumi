@@ -6,6 +6,6 @@ String? requiredValidator(String? value) {
 }
 
 String? requiredObjectValidator(dynamic value) {
-  if (value == null || value.isEmpty) return S.current.required;
+  if (value == null) return S.current.required;
   return null;
 }

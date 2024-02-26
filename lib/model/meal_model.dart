@@ -91,29 +91,34 @@ class MealModel {
 }
 
 class IngredientsModel {
-  String? iD;
+  String? id;
+  String? code;
   String? name;
   int? portionGrams;
 
-  IngredientsModel({this.iD, this.portionGrams, this.name});
+  IngredientsModel({this.id, this.code, this.portionGrams, this.name});
 
   IngredientsModel.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'];
+    id = json['id'];
+    code = json['code'];
     name = json['name'];
     portionGrams = json['Portion_grams'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ID'] = this.iD;
+    data['id'] = this.id;
+    data['code'] = this.code;
     data['name'] = this.name;
     data['Portion_grams'] = this.portionGrams;
     return data;
   }
 
-  IngredientsModel copyWith({String? iD, String? name, int? portionGrams}) {
+  IngredientsModel copyWith(
+      {String? id, String? code, String? name, int? portionGrams}) {
     return IngredientsModel(
-      iD: iD ?? this.iD,
+      id: id ?? this.id,
+      code: code ?? this.code,
       name: name ?? this.name,
       portionGrams: portionGrams ?? this.portionGrams,
     );

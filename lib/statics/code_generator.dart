@@ -1,7 +1,7 @@
 import 'dart:math';
 
 class CodeGenerator {
-  static String getRandomCode(int codeLength) {
+  static String getRandomCode({int codeLength = 15}) {
     final Random random = Random();
     const String characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST'
         'UVWXYZ0123456789';

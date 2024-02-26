@@ -10,9 +10,10 @@ class AppTarget {
   static String branch = AppTargetBranches.yumi;
 }
 
-/// AppTargetUser.chefs - YUMI Chef - com.yumi.chefs
-/// AppTargetUser.customers - YUMI - com.yumi.customers
-/// AppTargetUser.drivers - YUMI Driver - com.yumi.drivers
+/// enum                    - appName     -  appId
+/// AppTargetUser.chefs     - YUMI Chef   - com.yumi.chefs
+/// AppTargetUser.customers - YUMI        - com.yumi.customers
+/// AppTargetUser.drivers   - YUMI Driver - com.yumi.drivers
 enum AppTargetUser { customers, chefs, drivers }
 
 class AppTargetBranches {

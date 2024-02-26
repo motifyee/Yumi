@@ -2,19 +2,25 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
+import 'package:yumi/bloc/meal/ingredient_form_bloc.dart';
 import 'package:yumi/bloc/meal/meal_form_bloc.dart';
 import 'package:yumi/forms/Ingredients_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/service/meal_service.dart';
+import 'package:yumi/statics/code_generator.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/loading.dart';
+import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/template/upload_photo_button.dart';
+import 'package:yumi/validators/required_validator.dart';
 
 class MealForm extends StatelessWidget {
   MealForm({super.key});
 
   final GlobalKey<FormState> mealForm = GlobalKey<FormState>();
+  final GlobalKey<FormState> ingredientForm = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +29,7 @@ class MealForm extends StatelessWidget {
     context.read<MealFormBloc>().add(
           MealFormUpdateEvent(
             mealModel: MealModel(
+              code: CodeGenerator.getRandomCode(),
               categoriesids: [],
               ingredients: [],
               isPreOrder: false,
@@ -54,18 +61,26 @@ class MealForm extends StatelessWidget {
                         UploadPhotoButton(
                           defaultImage: state.mealModel.photo,
                           onPressed: (image) {
-                            context.read<MealFormBloc>().add(
-                                MealFormUpdateEvent(
-                                    mealModel: state.mealModel
-                                        .copyWith(photo: image.toString())));
+                            if (image != null) {
+                              context.read<MealFormBloc>().add(
+                                  MealFormUpdateEvent(
+                                      mealModel: state.mealModel
+                                          .copyWith(photo: image.toString())));
+                            }
                           },
                         ),
+                        if (state.mealModel.photo == null)
+                          Text(S.of(context).required,
+                              style: TextStyle(
+                                color: ThemeSelector.colors.primary,
+                              )),
                         SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                         TextFormFieldTemplate(
                           label: S.of(context).mealName,
                           labelIcon: 'assets/images/meal_name.svg',
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           initialValue: state.mealModel.name,
+                          validators: requiredValidator,
                           onChange: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
@@ -78,13 +93,23 @@ class MealForm extends StatelessWidget {
                           label: S.of(context).ingredients,
                           labelIcon: 'assets/images/ingredient.svg',
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
-                          initialValue: state.mealModel.ingredients?.length,
+                          initialValue: state.mealModel.ingredients
+                              ?.map((e) => '${e.portionGrams} ${e.name}')
+                              .join(', '),
+                          validators: requiredValidator,
                           readOnly: true,
                           onTap: () {
+                            context.read<IngredientFormBloc>().add(
+                                IngredientFormUpdateEvent(
+                                    ingredientsModel:
+                                        state.mealModel.ingredients ?? []));
                             showModalBottomSheet(
+                                isScrollControlled: true,
                                 backgroundColor: Colors.transparent,
                                 context: context,
-                                builder: (context) => IngredientsForm());
+                                builder: (context) => IngredientsForm(
+                                      ingredientFormKey: ingredientForm,
+                                    ));
                           },
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
@@ -94,6 +119,7 @@ class MealForm extends StatelessWidget {
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           textInputType: TextInputType.number,
                           initialValue: state.mealModel.caloriesValue,
+                          validators: requiredValidator,
                           onChange: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
@@ -109,6 +135,7 @@ class MealForm extends StatelessWidget {
                           subLabel: S.of(context).maximum25Minutes,
                           enabled: false,
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
+                          validators: requiredValidator,
                           onChange: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
@@ -125,6 +152,7 @@ class MealForm extends StatelessWidget {
                           labelIcon: 'assets/images/price.svg',
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           initialValue: state.mealModel.price1,
+                          validators: requiredValidator,
                           onChange: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
@@ -141,6 +169,7 @@ class MealForm extends StatelessWidget {
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           initialValue: state.mealModel.portionPersons,
                           textInputType: TextInputType.number,
+                          validators: requiredValidator,
                           onChange: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
@@ -156,68 +185,84 @@ class MealForm extends StatelessWidget {
                                 ? const Loading()
                                 : SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                    child: Column(
                                       children: [
-                                        for (var category
-                                            in state.categoriesModelList ?? [])
-                                          BlocConsumer<MealFormBloc,
-                                              MealFormState>(
-                                            listener: (context, state) {},
-                                            builder: (context, state) {
-                                              return Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: ThemeSelector
-                                                        .statics.defaultGap),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Checkbox(
-                                                      value: state.mealModel
-                                                              .categoriesids
-                                                              ?.contains(
-                                                                  category
-                                                                      .id) ??
-                                                          false,
-                                                      onChanged: (bool? value) {
-                                                        var listCat = state
-                                                                .mealModel
-                                                                .categoriesids ??
-                                                            [];
-
-                                                        if (value == true) {
-                                                          listCat
-                                                              .add(category.id);
-                                                        } else {
-                                                          listCat.removeWhere(
-                                                              (element) =>
-                                                                  element ==
-                                                                  category.id);
-                                                        }
-                                                        context
-                                                            .read<
-                                                                MealFormBloc>()
-                                                            .add(MealFormUpdateEvent(
-                                                                mealModel: state
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            for (var category
+                                                in state.categoriesModelList ??
+                                                    [])
+                                              BlocConsumer<MealFormBloc,
+                                                  MealFormState>(
+                                                listener: (context, state) {},
+                                                builder: (context, state) {
+                                                  return Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal:
+                                                                ThemeSelector
+                                                                    .statics
+                                                                    .defaultGap),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        Checkbox(
+                                                          value: state.mealModel
+                                                                  .categoriesids
+                                                                  ?.contains(
+                                                                      category
+                                                                          .id) ??
+                                                              false,
+                                                          onChanged:
+                                                              (bool? value) {
+                                                            var listCat = state
                                                                     .mealModel
-                                                                    .copyWith(
-                                                                        categoriesids:
-                                                                            listCat)));
-                                                      },
+                                                                    .categoriesids ??
+                                                                [];
+
+                                                            if (value == true) {
+                                                              listCat.add(
+                                                                  category.id);
+                                                            } else {
+                                                              listCat.removeWhere(
+                                                                  (element) =>
+                                                                      element ==
+                                                                      category
+                                                                          .id);
+                                                            }
+                                                            context
+                                                                .read<
+                                                                    MealFormBloc>()
+                                                                .add(MealFormUpdateEvent(
+                                                                    mealModel: state
+                                                                        .mealModel
+                                                                        .copyWith(
+                                                                            categoriesids:
+                                                                                listCat)));
+                                                          },
+                                                        ),
+                                                        Text(category.name),
+                                                      ],
                                                     ),
-                                                    Text(category.name),
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          ),
+                                                  );
+                                                },
+                                              ),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   );
                           },
                         ),
+                        if (state.mealModel.categoriesids?.length == 0)
+                          Text(
+                            S.of(context).required,
+                            style:
+                                TextStyle(color: ThemeSelector.colors.primary),
+                          ),
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -233,9 +278,24 @@ class MealForm extends StatelessWidget {
                               ),
                             ),
                             TextButton(
-                              onPressed: () {
-                                if (mealForm.currentState!.validate()) {
+                              onPressed: () async {
+                                if (mealForm.currentState!.validate() &&
+                                    state.mealModel.categoriesids!.isNotEmpty &&
+                                    state.mealModel.photo != null) {
+                                  mealForm.currentState!.save();
                                   print(state.mealModel.toJson());
+
+                                  final res = await MealService.createMeal(
+                                      context: context,
+                                      mealModel: state.mealModel);
+                                  Navigator.of(context).pop();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: SnackBarMassage(
+                                        massage: res.toString(),
+                                      ),
+                                    ),
+                                  );
                                 }
                               },
                               child: Text(
