@@ -81,7 +81,7 @@ class MealForm extends StatelessWidget {
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           initialValue: state.mealModel.name,
                           validators: requiredValidator,
-                          onChange: (value) {
+                          onSave: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
                                     mealModel:
@@ -120,7 +120,7 @@ class MealForm extends StatelessWidget {
                           textInputType: TextInputType.number,
                           initialValue: state.mealModel.caloriesValue,
                           validators: requiredValidator,
-                          onChange: (value) {
+                          onSave: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
                                     mealModel: state.mealModel.copyWith(
@@ -136,7 +136,7 @@ class MealForm extends StatelessWidget {
                           enabled: false,
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           validators: requiredValidator,
-                          onChange: (value) {
+                          onSave: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
                                     mealModel: state.mealModel.copyWith(
@@ -153,7 +153,7 @@ class MealForm extends StatelessWidget {
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           initialValue: state.mealModel.price1,
                           validators: requiredValidator,
-                          onChange: (value) {
+                          onSave: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
                                     mealModel: state.mealModel.copyWith(
@@ -170,7 +170,7 @@ class MealForm extends StatelessWidget {
                           initialValue: state.mealModel.portionPersons,
                           textInputType: TextInputType.number,
                           validators: requiredValidator,
-                          onChange: (value) {
+                          onSave: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
                                     mealModel: state.mealModel.copyWith(
