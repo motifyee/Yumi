@@ -20,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return state.profile.id == 0
-            ? const Loading()
+            ? Loading()
             : Column(
                 children: [
                   TextButton(

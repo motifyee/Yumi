@@ -7,14 +7,14 @@ import 'package:yumi/forms/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
+import 'package:yumi/template/loading.dart';
+import 'package:yumi/template/pagination_template.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    context.read<CategoriesBloc>().add(GetCategoriesEvent(context: context));
-
     return Stack(
       children: [
         BlocConsumer<MealListBloc, MealListState>(
@@ -31,8 +31,11 @@ class MenuScreen extends StatelessWidget {
                       var mealListBlocState =
                           context.read<MealListBloc>().state;
                       return Container(
-                        child: SingleChildScrollView(
+                        child: PaginationTemplate(
                           scrollDirection: Axis.horizontal,
+                          loadDate: () => context
+                              .read<CategoriesBloc>()
+                              .add(GetCategoriesEvent(context: context)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -112,6 +115,10 @@ class MenuScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                ),
+                              if (state.isLoading)
+                                Loading(
+                                  size: ThemeSelector.statics.defaultBlockGap,
                                 ),
                             ],
                           ),

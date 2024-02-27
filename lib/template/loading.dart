@@ -3,14 +3,20 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class Loading extends StatelessWidget {
-  const Loading({super.key});
+  Loading({super.key, this.size});
+  final dataKey = GlobalKey();
+
+  double? size;
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration(milliseconds: 100),
+        () => Scrollable.ensureVisible(context, curve: Curves.easeOut));
     return Center(
       child: SizedBox(
-        width: ThemeSelector.statics.defaultGapExtraExtreme,
-        height: ThemeSelector.statics.defaultGapExtraExtreme,
+        key: dataKey,
+        width: size ?? ThemeSelector.statics.defaultGapExtraExtreme,
+        height: size ?? ThemeSelector.statics.defaultGapExtraExtreme,
         child: const LoadingIndicator(
           indicatorType: Indicator.pacman,
         ),

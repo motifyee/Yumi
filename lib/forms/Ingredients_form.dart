@@ -173,16 +173,17 @@ class IngredientsForm extends StatelessWidget {
                                                         ingredient));
                                           },
                                           child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: ThemeSelector
-                                                      .statics.defaultLineGap,
-                                                  vertical: ThemeSelector
-                                                      .statics.defaultGap),
-                                              child: Icon(
-                                                Icons.close,
-                                                color: ThemeSelector
-                                                    .colors.primary,
-                                              )),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: ThemeSelector
+                                                    .statics.defaultLineGap,
+                                                vertical: ThemeSelector
+                                                    .statics.defaultGap),
+                                            child: Icon(
+                                              Icons.close,
+                                              color:
+                                                  ThemeSelector.colors.primary,
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     ),

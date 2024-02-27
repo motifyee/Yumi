@@ -37,6 +37,8 @@ class ApiKeys {
     return apiKey.replaceAll("_", AppTarget.user.name);
   }
 
+  static int pageSize = 20;
+
   /// user ( _ ) where
   /// chefs || customers || drivers
   /// at in api end point
