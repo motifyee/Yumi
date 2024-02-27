@@ -8,6 +8,7 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
 import 'package:yumi/template/loading.dart';
+import 'package:yumi/template/meal_card.dart';
 import 'package:yumi/template/pagination_template.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -20,18 +21,19 @@ class MenuScreen extends StatelessWidget {
         BlocConsumer<MealListBloc, MealListState>(
           listener: (context, state) {},
           builder: (context, state) {
-            return Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultGap),
-                  child: BlocConsumer<CategoriesBloc, CategoriesState>(
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      var mealListBlocState =
-                          context.read<MealListBloc>().state;
-                      return Container(
-                        child: PaginationTemplate(
+            return SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ThemeSelector.statics.defaultGap),
+                    child: BlocConsumer<CategoriesBloc, CategoriesState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        var mealListBlocState =
+                            context.read<MealListBloc>().state;
+                        return PaginationTemplate(
                           scrollDirection: Axis.horizontal,
                           loadDate: () => context
                               .read<CategoriesBloc>()
@@ -122,26 +124,38 @@ class MenuScreen extends StatelessWidget {
                                 ),
                             ],
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
-                ),
-                state.meals.isEmpty
-                    ? Expanded(
-                        child: Center(
-                          child: Text(
-                            S.of(context).empty,
-                            style: TextStyle(
-                              color: ThemeSelector.colors.secondaryFaint,
-                              fontSize: ThemeSelector.fonts.font_38,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      )
-                    : Text('daaaaa'),
-              ],
+                  Expanded(
+                    child: PaginationTemplate(
+                        scrollDirection: Axis.vertical,
+                        child: state.meals.isEmpty
+                            ? Expanded(
+                                child: Center(
+                                  child: Text(
+                                    S.of(context).empty,
+                                    style: TextStyle(
+                                      color:
+                                          ThemeSelector.colors.secondaryFaint,
+                                      fontSize: ThemeSelector.fonts.font_38,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Column(
+                                children: [
+                                  for (var meal in state.meals) MealCard()
+                                ],
+                              ),
+                        loadDate: () => context
+                            .read<MealListBloc>()
+                            .add(MealListUpdateEvent(context: context))),
+                  ),
+                ],
+              ),
             );
           },
         ),

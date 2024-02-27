@@ -29,6 +29,7 @@ class _ThemeStatics {
   double defaultBorderRadiusSmall = 4;
   double defaultBorderRadiusMedium = 8;
   double defaultBorderRadiusLarge = 25;
+  double defaultBorderRadiusExtraLarge = 55;
   double defaultBorderRadiusExtreme = 120;
 
   double buttonWidth = 280;
@@ -69,6 +70,7 @@ abstract class _ThemeColors {
   late Color onSuccess;
   late Color background;
   late Color backgroundTant;
+  late Color shadow;
 }
 
 class _ThemeColorsLight implements _ThemeColors {
@@ -98,6 +100,8 @@ class _ThemeColorsLight implements _ThemeColors {
   Color background = const Color.fromRGBO(250, 250, 250, 1);
   @override
   Color backgroundTant = const Color.fromRGBO(238, 240, 242, 1);
+  @override
+  Color shadow = const Color.fromRGBO(0, 0, 0, .15);
 }
 
 class _ThemeColorsDark implements _ThemeColors {
@@ -127,4 +131,6 @@ class _ThemeColorsDark implements _ThemeColors {
   Color background = const Color.fromRGBO(255, 255, 255, 1);
   @override
   Color backgroundTant = const Color.fromRGBO(238, 240, 242, 1);
+  @override
+  Color shadow = const Color.fromRGBO(0, 0, 0, .15);
 }
