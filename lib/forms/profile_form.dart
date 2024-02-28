@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/profile/form/profile_form_bloc.dart';
@@ -34,7 +35,11 @@ class FormSubmitButtons extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Expanded(child: Container()),
             TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: ThemeSelector.colors.secondary,
+              ),
               onPressed: () {
                 context.router.pop();
                 context
@@ -43,7 +48,11 @@ class FormSubmitButtons extends StatelessWidget {
               },
               child: Text(S.of(context).cancel),
             ),
+            SizedBox(
+              width: ThemeSelector.statics.defaultLineGap * 2,
+            ),
             TextButton(
+              child: Text(S.of(context).save),
               // style: TextButton.styleFrom(
               //   foregroundColor: profileForm.currentState!.validate()
               //       ? ThemeSelector.colors.secondary
@@ -98,7 +107,6 @@ class FormSubmitButtons extends StatelessWidget {
                   }
                 }
               },
-              child: Text(S.of(context).save),
             ),
           ],
         );
@@ -118,7 +126,6 @@ class ProfilFormData extends StatelessWidget {
               children: [
                 TextFormFieldTemplate(
                   label: S.of(context).fullName,
-                  labelIcon: 'assets/images/meal_name.svg',
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
                   initialValue: state.profileModel.fullName,
                   validators: requiredValidator,
@@ -131,7 +138,6 @@ class ProfilFormData extends StatelessWidget {
                 SizedBox(height: ThemeSelector.statics.defaultLineGap),
                 TextFormFieldTemplate(
                   label: S.of(context).userName,
-                  labelIcon: 'assets/images/meal_name.svg',
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
                   initialValue: state.profileModel.userName,
                   validators: requiredValidator,
@@ -144,7 +150,6 @@ class ProfilFormData extends StatelessWidget {
                 SizedBox(height: ThemeSelector.statics.defaultLineGap),
                 TextFormFieldTemplate(
                   label: S.of(context).email,
-                  labelIcon: 'assets/images/meal_name.svg',
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
                   initialValue: state.profileModel.email,
                   validators: emailValidator,
@@ -157,7 +162,6 @@ class ProfilFormData extends StatelessWidget {
                 SizedBox(height: ThemeSelector.statics.defaultLineGap),
                 TextFormFieldTemplate(
                   label: S.of(context).mobile,
-                  labelIcon: 'assets/images/meal_name.svg',
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
                   initialValue: state.profileModel.mobile,
                   onChange: (value) {
@@ -169,7 +173,6 @@ class ProfilFormData extends StatelessWidget {
                 SizedBox(height: ThemeSelector.statics.defaultLineGap),
                 TextFormFieldTemplate(
                   label: S.of(context).address,
-                  labelIcon: 'assets/images/meal_name.svg',
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
                   initialValue: state.profileModel.address,
                   validators: requiredValidator,
@@ -182,7 +185,6 @@ class ProfilFormData extends StatelessWidget {
                 SizedBox(height: ThemeSelector.statics.defaultLineGap),
                 TextFormFieldTemplate(
                   label: S.of(context).about,
-                  labelIcon: 'assets/images/meal_name.svg',
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
                   initialValue: state.profileModel.about,
                   onChange: (value) {
@@ -256,6 +258,7 @@ class ProfileForm extends StatelessWidget {
                       children: [
                         SizedBox(height: 5),
                         ProfilFormData(),
+                        SizedBox(height: 5),
                         FormSubmitButtons()
                       ],
                     ),
