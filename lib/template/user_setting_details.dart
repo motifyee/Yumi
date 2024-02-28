@@ -54,7 +54,7 @@ class UserSettingDetails extends StatelessWidget {
                           showDialog(
                               context: context,
                               builder: (context) => DialogContainer(
-                                    child: ProfileForm(),
+                                    child: const ProfileForm(),
                                   ));
                         },
                         child: Text(
@@ -73,7 +73,7 @@ class UserSettingDetails extends StatelessWidget {
                     ),
                     const Expanded(child: Text('')),
                     Text(
-                      state.profile.firstName,
+                      state.profile.fullName,
                       style:
                           TextStyle(color: ThemeSelector.colors.secondaryTant),
                     ),
@@ -88,7 +88,7 @@ class UserSettingDetails extends StatelessWidget {
                     ),
                     const Expanded(child: Text('')),
                     Text(
-                      state.profile.firstName,
+                      state.profile.userName,
                       style:
                           TextStyle(color: ThemeSelector.colors.secondaryTant),
                     ),
@@ -133,7 +133,7 @@ class UserSettingDetails extends StatelessWidget {
                     ),
                     const Expanded(child: Text('')),
                     Text(
-                      'Allowed',
+                      state.profile.pickup ? 'Allowed' : 'Not Allowed',
                       style:
                           TextStyle(color: ThemeSelector.colors.secondaryTant),
                     ),
@@ -148,7 +148,7 @@ class UserSettingDetails extends StatelessWidget {
                     ),
                     const Expanded(child: Text('')),
                     Text(
-                      '',
+                      state.profile.about,
                       style:
                           TextStyle(color: ThemeSelector.colors.secondaryTant),
                     ),

@@ -35,42 +35,70 @@ class FormSubmitButtons extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton(
-              onPressed: () => context.router.pop(),
+              onPressed: () {
+                context.router.pop();
+                context
+                    .read<ProfileFormBloc>()
+                    .add(ProfileFormUpdateEvent(profileModel: ProfileModel()));
+              },
               child: Text(S.of(context).cancel),
             ),
             TextButton(
-              child: Text(S.of(context).save),
+              // style: TextButton.styleFrom(
+              //   foregroundColor: profileForm.currentState!.validate()
+              //       ? ThemeSelector.colors.secondary
+              //       : ThemeSelector.colors.primary,
+              // ),
               onPressed: () async {
-                if (profileForm.currentState != null &&
-                    profileForm.currentState!.validate()) {
-                  // context.read<ProfileFormBloc>()add(ProfileFormSubmitEvent());
-                  profileForm.currentState!.save();
+                if (profileForm.currentState == null ||
+                    !profileForm.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content:
+                        SnackBarMassage(massage: S.of(context).invalidInput),
+                  ));
+                  return;
+                }
 
-                  final res = await ProfileService.updateProfile(
-                      context: context, data: state.profileModel.toJson());
+                // context.read<ProfileFormBloc>()add(ProfileFormSubmitEvent());
+                profileForm.currentState!.save();
 
-                  if (res) {
-                    // final profile = ProfileModel.fromJson(res.data as Map);
-                    if (context.mounted) {
-                      context
-                          .read<ProfileBloc>()
-                          .add(ProfileEvent(context: context));
-                    }
-                  } else {
-                    if (context.mounted) {
-                      context.read<ProfileFormBloc>().add(
-                          ProfileFormUpdateEvent(profileModel: ProfileModel()));
+                final res = await ProfileService.updateProfile(
+                    context: context, data: state.profileModel.toJson());
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: SnackBarMassage(
-                              massage: S.of(context).connectionError),
+                if (res != null && res != false) {
+                  // final profile = ProfileModel.fromJson(res.data as Map);
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+
+                    context
+                        .read<ProfileBloc>()
+                        .add(ProfileEvent(context: context));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: SnackBarMassage(
+                          massage: res.toString(),
                         ),
-                      );
-                    }
+                      ),
+                    );
+
+                    context.read<ProfileFormBloc>().add(
+                        ProfileFormUpdateEvent(profileModel: ProfileModel()));
+                  }
+                } else {
+                  if (context.mounted) {
+                    // context.read<ProfileFormBloc>().add(
+                    //     ProfileFormUpdateEvent(profileModel: ProfileModel()));
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: SnackBarMassage(
+                            massage: S.of(context).connectionError),
+                      ),
+                    );
                   }
                 }
               },
+              child: Text(S.of(context).save),
             ),
           ],
         );
@@ -89,27 +117,15 @@ class ProfilFormData extends StatelessWidget {
         builder: (context, state) => Column(
               children: [
                 TextFormFieldTemplate(
-                  label: S.of(context).firstName,
+                  label: S.of(context).fullName,
                   labelIcon: 'assets/images/meal_name.svg',
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
-                  initialValue: state.profileModel.firstName,
+                  initialValue: state.profileModel.fullName,
                   validators: requiredValidator,
-                  onSave: (value) {
+                  onChange: (value) {
                     context.read<ProfileFormBloc>().add(ProfileFormUpdateEvent(
                         profileModel:
-                            state.profileModel.copyWith(firstName: value)));
-                  },
-                ),
-                SizedBox(height: ThemeSelector.statics.defaultLineGap),
-                TextFormFieldTemplate(
-                  label: S.of(context).lastName,
-                  labelIcon: 'assets/images/meal_name.svg',
-                  borderStyle: TextFormFieldBorderStyle.borderBottom,
-                  initialValue: state.profileModel.lastName,
-                  onSave: (value) {
-                    context.read<ProfileFormBloc>().add(ProfileFormUpdateEvent(
-                        profileModel:
-                            state.profileModel.copyWith(lastName: value)));
+                            state.profileModel.copyWith(fullName: value)));
                   },
                 ),
                 SizedBox(height: ThemeSelector.statics.defaultLineGap),
@@ -119,7 +135,7 @@ class ProfilFormData extends StatelessWidget {
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
                   initialValue: state.profileModel.userName,
                   validators: requiredValidator,
-                  onSave: (value) {
+                  onChange: (value) {
                     context.read<ProfileFormBloc>().add(ProfileFormUpdateEvent(
                         profileModel:
                             state.profileModel.copyWith(userName: value)));
@@ -132,7 +148,7 @@ class ProfilFormData extends StatelessWidget {
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
                   initialValue: state.profileModel.email,
                   validators: emailValidator,
-                  onSave: (value) {
+                  onChange: (value) {
                     context.read<ProfileFormBloc>().add(ProfileFormUpdateEvent(
                         profileModel:
                             state.profileModel.copyWith(email: value)));
@@ -144,7 +160,7 @@ class ProfilFormData extends StatelessWidget {
                   labelIcon: 'assets/images/meal_name.svg',
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
                   initialValue: state.profileModel.mobile,
-                  onSave: (value) {
+                  onChange: (value) {
                     context.read<ProfileFormBloc>().add(ProfileFormUpdateEvent(
                         profileModel:
                             state.profileModel.copyWith(mobile: value)));
@@ -157,7 +173,7 @@ class ProfilFormData extends StatelessWidget {
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
                   initialValue: state.profileModel.address,
                   validators: requiredValidator,
-                  onSave: (value) {
+                  onChange: (value) {
                     context.read<ProfileFormBloc>().add(ProfileFormUpdateEvent(
                         profileModel:
                             state.profileModel.copyWith(address: value)));
@@ -169,7 +185,7 @@ class ProfilFormData extends StatelessWidget {
                   labelIcon: 'assets/images/meal_name.svg',
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
                   initialValue: state.profileModel.about,
-                  onSave: (value) {
+                  onChange: (value) {
                     context.read<ProfileFormBloc>().add(ProfileFormUpdateEvent(
                         profileModel:
                             state.profileModel.copyWith(about: value)));
@@ -191,11 +207,10 @@ class ProfilFormData extends StatelessWidget {
                 CheckboxListTile(
                   value: state.profileModel.pickupOnly,
                   onChanged: (bool? value) {
-                    state.profileModel =
-                        state.profileModel.copyWith(pickupOnly: value);
-                    // context.read<ProfileFormBloc>().add(ProfileFormUpdateEvent(
-                    //     profileModel:
-                    //         state.profileModel.copyWith(pickupOnly: value)));
+                    // state.profileModel = state.profileModel.copyWith(pickupOnly: value);
+                    context.read<ProfileFormBloc>().add(ProfileFormUpdateEvent(
+                        profileModel:
+                            state.profileModel.copyWith(pickupOnly: value)));
                   },
                   title: const Text('Pickup Only'),
                 ),
@@ -216,8 +231,7 @@ class ProfileForm extends StatelessWidget {
         ProfileFormUpdateEvent(
           profileModel: context.read<ProfileBloc>().state.profile.copyWith(
               // updatedBy: context.read<UserBloc>().state.user.chefId,
-              // updatedBy: '366'
-              ),
+              updatedBy: '366'),
         ),
       );
     }

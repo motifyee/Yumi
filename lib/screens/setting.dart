@@ -30,7 +30,7 @@ class SettingScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    state.profile.firstName + state.profile.lastName,
+                    state.profile.fullName,
                     style: TextStyle(
                       color: ThemeSelector.colors.secondary,
                       fontSize: ThemeSelector.fonts.font_18,
@@ -48,7 +48,8 @@ class SettingScreen extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        state.profile.firstName[0],
+                        // state.profile.firstName,
+                        'X',
                         style: TextStyle(
                           color: ThemeSelector.colors.onPrimary,
                           fontSize: ThemeSelector.fonts.font_18,

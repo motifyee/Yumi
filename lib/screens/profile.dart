@@ -41,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    state.profile.firstName,
+                    state.profile.fullName,
                     style: TextStyle(
                         color: ThemeSelector.colors.primary,
                         fontSize: ThemeSelector.fonts.font_24),

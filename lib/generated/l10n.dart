@@ -970,6 +970,16 @@ class S {
     );
   }
 
+  /// `Invalid Input!`
+  String get invalidInput {
+    return Intl.message(
+      'Invalid Input!',
+      name: 'invalidInput',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `gm`
   String get measurement {
     return Intl.message(

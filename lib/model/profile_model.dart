@@ -1,8 +1,7 @@
 class ProfileModel {
   final String guid;
   final int id;
-  final String firstName;
-  final String lastName;
+  final String fullName;
   final String userName;
   //
   final String mobile;
@@ -21,8 +20,7 @@ class ProfileModel {
   ProfileModel({
     this.guid = '',
     this.id = 0,
-    this.firstName = '',
-    this.lastName = '',
+    this.fullName = '',
     this.userName = '',
     this.mobile = '',
     this.email = '',
@@ -34,14 +32,13 @@ class ProfileModel {
     this.registerDate = '',
     this.status = true,
     this.country = const Country(),
-    this.updatedBy = '',
+    this.updatedBy = '366',
   });
 
   ProfileModel copyWith({
     String? guid,
     int? id,
-    String? firstName,
-    String? lastName,
+    String? fullName,
     String? userName,
     String? mobile,
     String? email,
@@ -58,8 +55,7 @@ class ProfileModel {
     return ProfileModel(
       guid: guid ?? this.guid,
       id: id ?? this.id,
-      firstName: firstName ?? this.firstName,
-      lastName: lastName ?? this.lastName,
+      fullName: fullName ?? this.fullName,
       userName: userName ?? this.userName,
       mobile: mobile ?? this.mobile,
       email: email ?? this.email,
@@ -79,8 +75,7 @@ class ProfileModel {
     return {
       'guid': guid,
       'id': id,
-      'firstName': firstName,
-      'lastName': lastName,
+      'fullName': fullName,
       'userName': userName,
       'mobile': mobile,
       'email': email,
@@ -100,8 +95,7 @@ class ProfileModel {
     return ProfileModel(
       guid: value['guid'] ?? '',
       id: value['id'] ?? 0,
-      firstName: value['firstName'] ?? '',
-      lastName: value['lastName'] ?? '',
+      fullName: value['fullName'] ?? '',
       userName: value['userName'] ?? '',
       mobile: value['mobile'] ?? '',
       email: value['email'] ?? '',
