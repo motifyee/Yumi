@@ -9,6 +9,7 @@ import 'package:yumi/bloc/meal/ingredient_form_bloc.dart';
 import 'package:yumi/bloc/meal/meal_form_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
+import 'package:yumi/bloc/profile/form/profile_form_bloc.dart';
 import 'package:yumi/bloc/profile/profile_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/route/route.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => UserBloc()),
         BlocProvider(create: (context) => NavigatorBloc()),
         BlocProvider(create: (context) => ProfileBloc()),
+        BlocProvider(create: (context) => ProfileFormBloc()),
         BlocProvider(create: (context) => CategoriesBloc()),
         BlocProvider(create: (context) => MealListBloc()),
         BlocProvider(create: (context) => MealFormBloc()),
@@ -57,11 +59,11 @@ class MyApp extends StatelessWidget {
         theme: defaultTheme,
         builder: (context, child) {
           return Container(
-              decoration: BoxDecoration(color: Colors.transparent),
+              decoration: const BoxDecoration(color: Colors.transparent),
               child: SafeArea(
                   child: Container(
                 color: ThemeSelector.colors.background,
-                child: child ?? Text(''),
+                child: child ?? const Text(''),
               )));
         },
       ),

@@ -661,9 +661,29 @@ class S {
   }
 
   /// `Full name`
+  String get firstName {
+    return Intl.message(
+      'First Name',
+      name: 'firstName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full name`
+  String get lastName {
+    return Intl.message(
+      'Last Name',
+      name: 'lastName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full name`
   String get fullName {
     return Intl.message(
-      'Full name',
+      'Full Name',
       name: 'fullName',
       desc: '',
       args: [],
@@ -695,6 +715,16 @@ class S {
     return Intl.message(
       'User name',
       name: 'userName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `mobile`
+  String get mobile {
+    return Intl.message(
+      'Mobile',
+      name: 'mobile',
       desc: '',
       args: [],
     );
