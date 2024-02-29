@@ -12,9 +12,11 @@ part 'meal_list_state.dart';
 class MealListBloc extends Bloc<MealListEvent, MealListState> {
   MealListBloc()
       : super(MealListState(
-            meals: const [],
-            selectedCategory: 0,
-            paginationHelper: PaginationHelper())) {
+          meals: const [],
+          selectedCategory: 0,
+          paginationHelper: PaginationHelper(),
+          menuTarget: MenuTarget.order,
+        )) {
     on<MealListUpdateEvent>((event, emit) async {
       if (state.paginationHelper.pageNumber < state.paginationHelper.lastPage &&
           !state.paginationHelper.isLoading) {
@@ -26,17 +28,33 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         List<MealModel> data = [];
 
         if (state.selectedCategory == 0) {
-          res = await MealService.getMeals(
-              context: event.context,
-              queryParameters: {...state.paginationHelper.toJson()});
+          if (state.menuTarget == MenuTarget.order) {
+            res = await MealService.getMeals(
+                context: event.context,
+                queryParameters: {...state.paginationHelper.toJson()});
+          }
+          if (state.menuTarget == MenuTarget.preOrder) {
+            res = await MealService.getMealsPre(
+                context: event.context,
+                queryParameters: {...state.paginationHelper.toJson()});
+          }
           data = res['data'].map<MealModel>((value) {
             return MealModel.fromJson(value);
           }).toList();
         } else {
-          res = await MealService.getMealsByCategory(
-              context: event.context,
-              id: state.selectedCategory,
-              queryParameters: {...state.paginationHelper.toJson()});
+          if (state.menuTarget == MenuTarget.order) {
+            res = await MealService.getMealsByCategory(
+                context: event.context,
+                id: state.selectedCategory,
+                queryParameters: {...state.paginationHelper.toJson()});
+          }
+          if (state.menuTarget == MenuTarget.preOrder) {
+            res = await MealService.getMealsPreByCategory(
+                context: event.context,
+                id: state.selectedCategory,
+                queryParameters: {...state.paginationHelper.toJson()});
+          }
+
           data = res['data'].map<MealModel>((value) {
             return MealModel.fromJson(value['product']);
           }).toList();
@@ -65,9 +83,11 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
 
     on<MealListResetEvent>((event, emit) {
       emit(MealListState(
-          meals: const [],
-          selectedCategory: 0,
-          paginationHelper: PaginationHelper()));
+        meals: const [],
+        selectedCategory: 0,
+        paginationHelper: PaginationHelper(),
+        menuTarget: event.menuTarget ?? state.menuTarget,
+      ));
     });
   }
 }

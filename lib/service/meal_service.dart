@@ -50,4 +50,25 @@ class MealService {
 
     return jsonDecode(res.toString());
   }
+
+  static Future<dynamic> getMealsPre(
+      {required BuildContext context,
+      required Map<String, dynamic>? queryParameters}) async {
+    final res = await DioClient.simpleDio(context).get(
+        ApiKeys.getApiKeyString(apiKey: ApiKeys.mealPreOrder),
+        queryParameters: queryParameters);
+
+    return jsonDecode(res.toString());
+  }
+
+  static Future<dynamic> getMealsPreByCategory(
+      {required BuildContext context,
+      required int id,
+      required Map<String, dynamic>? queryParameters}) async {
+    final res = await DioClient.simpleDio(context).get(
+        '${ApiKeys.getApiKeyString(apiKey: ApiKeys.mealPreOrderByCategory)}/$id',
+        queryParameters: queryParameters);
+
+    return jsonDecode(res.toString());
+  }
 }

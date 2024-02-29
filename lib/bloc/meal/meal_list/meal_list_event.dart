@@ -3,7 +3,10 @@ part of 'meal_list_bloc.dart';
 @immutable
 abstract class MealListEvent {}
 
-class MealListResetEvent implements MealListEvent {}
+class MealListResetEvent implements MealListEvent {
+  MenuTarget? menuTarget;
+  MealListResetEvent({this.menuTarget});
+}
 
 class MealListUpdateEvent implements MealListEvent {
   BuildContext context;

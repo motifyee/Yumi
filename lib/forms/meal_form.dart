@@ -19,11 +19,12 @@ import 'package:yumi/template/upload_photo_button.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 class MealForm extends StatelessWidget {
-  MealForm({super.key, this.meal});
+  MealForm({super.key, this.meal, this.menuTarget});
 
   final GlobalKey<FormState> mealForm = GlobalKey<FormState>();
   final GlobalKey<FormState> ingredientForm = GlobalKey<FormState>();
 
+  final MenuTarget? menuTarget;
   final MealModel? meal;
 
   @override
@@ -39,8 +40,8 @@ class MealForm extends StatelessWidget {
                   code: CodeGenerator.getRandomCode(),
                   categoriesids: [],
                   ingredients: [],
-                  isPreOrder: false,
-                  isOrder: true,
+                  isOrder: menuTarget == MenuTarget.order,
+                  isPreOrder: menuTarget == MenuTarget.preOrder,
                   preparationTime: '25',
                 ),
           ),

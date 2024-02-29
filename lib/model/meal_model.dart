@@ -76,9 +76,11 @@ class MealModel {
     }
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson({bool? showID}) {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
+    if (showID == true) {
+      data['id'] = this.id;
+    }
     data['code'] = this.code;
     data['name'] = this.name;
     data['photo'] = this.photo;
@@ -130,3 +132,5 @@ class IngredientsModel {
     );
   }
 }
+
+enum MenuTarget { order, preOrder }
