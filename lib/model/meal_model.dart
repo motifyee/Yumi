@@ -1,4 +1,5 @@
 class MealModel {
+  int? id;
   String? code;
   String? name;
   String? photo;
@@ -12,7 +13,8 @@ class MealModel {
   List<IngredientsModel>? ingredients;
 
   MealModel(
-      {this.code,
+      {this.id,
+      this.code,
       this.name,
       this.photo,
       this.price1,
@@ -24,26 +26,8 @@ class MealModel {
       this.categoriesids,
       this.ingredients});
 
-  MealModel.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    name = json['name'];
-    photo = json['photo'];
-    price1 = json['price1']?.toString();
-    caloriesValue = json['calories_value'];
-    preparationTime = json['preparation_time'];
-    isOrder = json['is_order'];
-    isPreOrder = json['is_Pre_Order'];
-    portionPersons = json['portion_Persons']?.toString();
-    categoriesids = json['categoriesIds']?.cast<int>();
-    if (json['ingredients'] != null) {
-      ingredients = <IngredientsModel>[];
-      json['ingredients'].forEach((v) {
-        ingredients!.add(IngredientsModel.fromJson(v));
-      });
-    }
-  }
-
   MealModel copyWith({
+    int? id,
     String? code,
     String? name,
     String? photo,
@@ -57,6 +41,7 @@ class MealModel {
     List<IngredientsModel>? ingredients,
   }) {
     return MealModel(
+      id: id ?? this.id,
       code: code ?? this.code,
       name: name ?? this.name,
       photo: photo ?? this.photo,
@@ -71,8 +56,29 @@ class MealModel {
     );
   }
 
+  MealModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    code = json['code'];
+    name = json['name'];
+    photo = json['photo'];
+    price1 = json['price1']?.toString();
+    caloriesValue = json['calories_Value']?.toString();
+    preparationTime = json['preparation_time']?.toString();
+    isOrder = json['is_Order'];
+    isPreOrder = json['is_Pre_Order'];
+    portionPersons = json['portion_Persons']?.toString();
+    categoriesids = json['categoriesIds']?.cast<int>();
+    if (json['ingredients'] != null) {
+      ingredients = <IngredientsModel>[];
+      json['ingredients'].forEach((v) {
+        ingredients!.add(IngredientsModel.fromJson(v));
+      });
+    }
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['code'] = this.code;
     data['name'] = this.name;
     data['photo'] = this.photo;

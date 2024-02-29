@@ -48,5 +48,5 @@ class ApiKeys {
   static String ingredient = '/Product/Ingredients';
   static String meal = '/Product/_/meal';
   static String mealOrder = '/Product/_/order';
-  static String mealOrderByCategory = '/Product/_/order/categories/';
+  static String mealOrderByCategory = '/Product/_/order/categories';
 }

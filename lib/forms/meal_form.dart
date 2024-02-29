@@ -19,10 +19,12 @@ import 'package:yumi/template/upload_photo_button.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 class MealForm extends StatelessWidget {
-  MealForm({super.key});
+  MealForm({super.key, this.meal});
 
   final GlobalKey<FormState> mealForm = GlobalKey<FormState>();
   final GlobalKey<FormState> ingredientForm = GlobalKey<FormState>();
+
+  final MealModel? meal;
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +32,17 @@ class MealForm extends StatelessWidget {
 
     context.read<MealFormBloc>().add(
           MealFormUpdateEvent(
-            mealModel: MealModel(
-              code: CodeGenerator.getRandomCode(),
-              categoriesids: [],
-              ingredients: [],
-              isPreOrder: false,
-              isOrder: true,
-              preparationTime: '25',
-            ),
+            mealModel: meal?.copyWith(
+                  preparationTime: '25',
+                ) ??
+                MealModel(
+                  code: CodeGenerator.getRandomCode(),
+                  categoriesids: [],
+                  ingredients: [],
+                  isPreOrder: false,
+                  isOrder: true,
+                  preparationTime: '25',
+                ),
           ),
         );
 
@@ -277,6 +282,9 @@ class MealForm extends StatelessWidget {
                             TextButton(
                               onPressed: () {
                                 context.router.pop();
+                                context.read<MealListBloc>().add(
+                                    MealListUpdateCategoryEvent(
+                                        selectedCategory: 0, context: context));
                               },
                               child: Text(
                                 S.of(context).cancel,
@@ -290,10 +298,17 @@ class MealForm extends StatelessWidget {
                                     state.mealModel.categoriesids!.isNotEmpty &&
                                     state.mealModel.photo != null) {
                                   mealForm.currentState!.save();
+                                  late dynamic res;
+                                  if (meal != null) {
+                                    res = await MealService.updateMeal(
+                                        context: context,
+                                        mealModel: state.mealModel);
+                                  } else {
+                                    res = await MealService.createMeal(
+                                        context: context,
+                                        mealModel: state.mealModel);
+                                  }
 
-                                  final res = await MealService.createMeal(
-                                      context: context,
-                                      mealModel: state.mealModel);
                                   context.read<MealListBloc>().add(
                                       MealListUpdateCategoryEvent(
                                           selectedCategory: 0,

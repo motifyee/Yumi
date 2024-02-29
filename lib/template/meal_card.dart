@@ -1,12 +1,18 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/forms/meal_form.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/service/meal_service.dart';
 import 'package:yumi/statics/capitalize_string.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/delete_dialog.dart';
 import 'package:yumi/template/dialog.dart';
+import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_currency.dart';
 
 class MealCard extends StatelessWidget {
@@ -63,7 +69,7 @@ class MealCard extends StatelessWidget {
                 SizedBox(height: ThemeSelector.statics.defaultGap),
                 Text(
                   meal.ingredients
-                          ?.map((e) => '${e.portionGrams} ${e.id}')
+                          ?.map((e) => '${e.portionGrams} ${e.name}')
                           .join(', ') ??
                       '',
                   overflow: TextOverflow.ellipsis,
@@ -93,7 +99,9 @@ class MealCard extends StatelessWidget {
                     showDialog(
                         context: context,
                         builder: (context) => DialogContainer(
-                              child: MealForm(),
+                              child: MealForm(
+                                meal: meal,
+                              ),
                             ));
                   },
                   child: Row(
@@ -115,7 +123,29 @@ class MealCard extends StatelessWidget {
                     ],
                   )),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => DeleteDialogTemplate(
+                              actions: () async {
+                                final res = await MealService.deleteMeal(
+                                    context: context, mealModel: meal);
+                                context.read<MealListBloc>().add(
+                                    MealListUpdateCategoryEvent(
+                                        selectedCategory: 0, context: context));
+                                Navigator.of(context).pop();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: res.toString(),
+                                    ),
+                                  ),
+                                );
+                              },
+                              title: S.of(context).deleteMeal,
+                              content: S.of(context).areYouSureToDeleteAMeal,
+                            ));
+                  },
                   child: Row(
                     children: [
                       SvgPicture.asset(

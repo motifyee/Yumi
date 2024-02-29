@@ -14,6 +14,22 @@ class MealService {
     return res.data;
   }
 
+  static Future<dynamic> updateMeal(
+      {required BuildContext context, required MealModel mealModel}) async {
+    final res = await DioClient.simpleDio(context).put(
+        '${ApiKeys.getApiKeyString(apiKey: ApiKeys.meal)}/${mealModel.id}',
+        data: jsonEncode(mealModel.toJson()));
+    return res.data;
+  }
+
+  static Future<dynamic> deleteMeal(
+      {required BuildContext context, required MealModel mealModel}) async {
+    final res = await DioClient.simpleDio(context).put(
+        '${ApiKeys.getApiKeyString(apiKey: ApiKeys.meal)}/${mealModel.id}/delete',
+        data: {"is_Deleted": true});
+    return res.data;
+  }
+
   static Future<dynamic> getMeals(
       {required BuildContext context,
       required Map<String, dynamic>? queryParameters}) async {
@@ -29,7 +45,7 @@ class MealService {
       required int id,
       required Map<String, dynamic>? queryParameters}) async {
     final res = await DioClient.simpleDio(context).get(
-        '${ApiKeys.getApiKeyString(apiKey: ApiKeys.mealOrderByCategory)}$id',
+        '${ApiKeys.getApiKeyString(apiKey: ApiKeys.mealOrderByCategory)}/$id',
         queryParameters: queryParameters);
 
     return jsonDecode(res.toString());

@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
+        "areYouSureToDeleteAMeal": MessageLookupByLibrary.simpleMessage(
+            "Are you sure to delete a meal?"),
         "bankAccount": MessageLookupByLibrary.simpleMessage("Bank Account"),
         "bio": MessageLookupByLibrary.simpleMessage("Bio"),
         "busy": MessageLookupByLibrary.simpleMessage("Busy"),
@@ -45,7 +47,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "createNewAccount":
             MessageLookupByLibrary.simpleMessage("Create New Account"),
         "currency": MessageLookupByLibrary.simpleMessage("(\$)"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
+        "deleteMeal": MessageLookupByLibrary.simpleMessage("Delete meal"),
         "deliveryFee": MessageLookupByLibrary.simpleMessage("Delivery Fee"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "documentation": MessageLookupByLibrary.simpleMessage("Documentation"),

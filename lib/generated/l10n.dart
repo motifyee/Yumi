@@ -949,6 +949,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete meal`
+  String get deleteMeal {
+    return Intl.message(
+      'Delete meal',
+      name: 'deleteMeal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure to delete a meal?`
+  String get areYouSureToDeleteAMeal {
+    return Intl.message(
+      'Are you sure to delete a meal?',
+      name: 'areYouSureToDeleteAMeal',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
