@@ -51,11 +51,36 @@ class UserSettingDetails extends StatelessWidget {
                     const Expanded(child: Text('')),
                     TextButton(
                         onPressed: () {
-                          showDialog(
+                          showAlertDialog(
                               context: context,
-                              builder: (context) => DialogContainer(
-                                    child: const ProfileForm(),
-                                  ));
+                              title: Container(),
+                              content: const ProfileForm(),
+                              // actions: {'Ok': null}
+                              actionWidgets: [const FormSubmitButtons()]
+                              // actionWidgets: [
+                              //   // Expanded(child: Container()),
+                              //   TextButton(
+                              //     style: TextButton.styleFrom(
+                              //       textStyle:
+                              //           Theme.of(context).textTheme.labelLarge,
+                              //     ),
+                              //     child: const Text('Cancel'),
+                              //     onPressed: () {
+                              //       Navigator.of(context).pop();
+                              //     },
+                              //   ),
+                              //   TextButton(
+                              //     style: TextButton.styleFrom(
+                              //       textStyle:
+                              //           Theme.of(context).textTheme.labelLarge,
+                              //     ),
+                              //     child: const Text('Save'),
+                              //     onPressed: () {
+                              //       Navigator.of(context).pop();
+                              //     },
+                              //   ),
+                              // ],
+                              );
                         },
                         child: Text(
                           S.of(context).edit,

@@ -761,6 +761,16 @@ class S {
   }
 
   /// `Bank Account`
+  String get addBankAccount {
+    return Intl.message(
+      'Add Bank Account',
+      name: 'addbankAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bank Account`
   String get bankAccount {
     return Intl.message(
       'Bank Account',
@@ -770,31 +780,51 @@ class S {
     );
   }
 
-  /// `Holder name`
-  String get holderName {
+  /// `bank name`
+  String get bankName {
     return Intl.message(
-      'Holder name',
-      name: 'holderName',
+      'Bank Name',
+      name: 'bankName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Name on card`
-  String get nameOnCard {
+  /// `account name`
+  String get accountName {
     return Intl.message(
-      'Name on card',
-      name: 'nameOnCard',
+      'Account Name',
+      name: 'accountName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sort code`
-  String get sortCode {
+  /// `iban`
+  String get iban {
     return Intl.message(
-      'Sort code',
-      name: 'sortCode',
+      'IBAN',
+      name: 'iban',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `swiftCode`
+  String get swiftCode {
+    return Intl.message(
+      'Swift Code',
+      name: 'swiftCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `branchAddress`
+  String get branchAddress {
+    return Intl.message(
+      'Branch Address',
+      name: 'branchAddress',
       desc: '',
       args: [],
     );
@@ -925,6 +955,16 @@ class S {
     return Intl.message(
       '(\$)',
       name: 'currency',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// bankCurrency
+  String get bankCurrency {
+    return Intl.message(
+      'Bank Currency',
+      name: 'bankCurrency',
       desc: '',
       args: [],
     );

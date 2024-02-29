@@ -4,7 +4,7 @@ part of 'profile_bloc.dart';
 class ProfileState extends Equatable {
   final ProfileModel profile;
 
-  ProfileState({required this.profile});
+  const ProfileState({required this.profile});
 
   ProfileState copyWith({required ProfileModel profile}) {
     return ProfileState(profile: profile);

@@ -68,6 +68,10 @@ abstract class _ThemeColors {
   late Color secondaryFaint;
   late Color success;
   late Color onSuccess;
+  late Color error;
+  late Color onError;
+  late Color warning;
+  late Color onWarning;
   late Color background;
   late Color backgroundTant;
   late Color shadow;
@@ -102,6 +106,18 @@ class _ThemeColorsLight implements _ThemeColors {
   Color backgroundTant = const Color.fromRGBO(238, 240, 242, 1);
   @override
   Color shadow = const Color.fromRGBO(0, 0, 0, .15);
+
+  @override
+  Color error = const Color.fromARGB(255, 252, 60, 70);
+
+  @override
+  Color onError = const Color.fromRGBO(255, 255, 255, 1);
+
+  @override
+  Color onWarning = const Color.fromRGBO(255, 255, 255, 1);
+
+  @override
+  Color warning = const Color.fromRGBO(234, 91, 68, 1);
 }
 
 class _ThemeColorsDark implements _ThemeColors {
@@ -133,4 +149,16 @@ class _ThemeColorsDark implements _ThemeColors {
   Color backgroundTant = const Color.fromRGBO(238, 240, 242, 1);
   @override
   Color shadow = const Color.fromRGBO(0, 0, 0, .15);
+
+  @override
+  Color error = const Color.fromRGBO(234, 91, 68, 1);
+
+  @override
+  Color onError = const Color.fromRGBO(255, 255, 255, 1);
+
+  @override
+  Color onWarning = const Color.fromRGBO(0, 0, 0, 0);
+
+  @override
+  Color warning = const Color.fromRGBO(9, 9, 9, 1);
 }

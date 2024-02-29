@@ -135,7 +135,7 @@ class ProfilFormData extends StatelessWidget {
                             state.profileModel.copyWith(fullName: value)));
                   },
                 ),
-                SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
                 TextFormFieldTemplate(
                   label: S.of(context).userName,
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
@@ -147,19 +147,20 @@ class ProfilFormData extends StatelessWidget {
                             state.profileModel.copyWith(userName: value)));
                   },
                 ),
-                SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
                 TextFormFieldTemplate(
                   label: S.of(context).email,
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
                   initialValue: state.profileModel.email,
                   validators: emailValidator,
+                  enabled: false,
                   onChange: (value) {
                     context.read<ProfileFormBloc>().add(ProfileFormUpdateEvent(
                         profileModel:
                             state.profileModel.copyWith(email: value)));
                   },
                 ),
-                SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
                 TextFormFieldTemplate(
                   label: S.of(context).mobile,
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
@@ -170,7 +171,7 @@ class ProfilFormData extends StatelessWidget {
                             state.profileModel.copyWith(mobile: value)));
                   },
                 ),
-                SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
                 TextFormFieldTemplate(
                   label: S.of(context).address,
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
@@ -182,7 +183,7 @@ class ProfilFormData extends StatelessWidget {
                             state.profileModel.copyWith(address: value)));
                   },
                 ),
-                SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
                 TextFormFieldTemplate(
                   label: S.of(context).about,
                   borderStyle: TextFormFieldBorderStyle.borderBottom,
@@ -193,7 +194,7 @@ class ProfilFormData extends StatelessWidget {
                             state.profileModel.copyWith(about: value)));
                   },
                 ),
-                SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
                 // const Divider(height: 0),
                 CheckboxListTile(
                   value: state.profileModel.pickup,
@@ -232,8 +233,10 @@ class ProfileForm extends StatelessWidget {
       profileFormBloc.add(
         ProfileFormUpdateEvent(
           profileModel: context.read<ProfileBloc>().state.profile.copyWith(
-              // updatedBy: context.read<UserBloc>().state.user.chefId,
-              updatedBy: '366'),
+                // updatedBy: context.read<UserBloc>().state.user.chefId,
+                updatedBy: '366',
+                email: context.read<UserBloc>().state.user.email,
+              ),
         ),
       );
     }
@@ -259,7 +262,7 @@ class ProfileForm extends StatelessWidget {
                         SizedBox(height: 5),
                         ProfilFormData(),
                         SizedBox(height: 5),
-                        FormSubmitButtons()
+                        // FormSubmitButtons()
                       ],
                     ),
                   ),

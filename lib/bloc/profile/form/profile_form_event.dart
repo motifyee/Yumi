@@ -4,13 +4,13 @@ part of 'profile_form_bloc.dart';
 abstract class ProfileFormEvent {}
 
 class ProfileFormUpdateEvent implements ProfileFormEvent {
-  ProfileModel profileModel;
+  final ProfileModel profileModel;
 
-  ProfileFormUpdateEvent({required this.profileModel});
+  const ProfileFormUpdateEvent({required this.profileModel});
 }
 
 class ProfileFormResetEvent implements ProfileFormEvent {
-  ProfileModel profileModel;
+  final ProfileModel profileModel;
 
-  ProfileFormResetEvent({required this.profileModel});
+  const ProfileFormResetEvent({required this.profileModel});
 }

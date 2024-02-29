@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class TextFormFieldTemplate extends StatefulWidget {
-  TextFormFieldTemplate({
-    super.key,
-    this.label,
-    this.labelIcon,
-    this.labelHint,
-    this.subLabel,
-    this.onTap,
-    this.onSave,
-    this.onChange,
-    this.onEditingComplete,
-    this.validators,
-    this.autoHint,
-    this.borderStyle,
-    this.initialValue,
-    this.controller,
-    this.objectValidators,
-    this.dropdownSelectionValue,
-    this.dropdownSelectionTargetLabel,
-    this.dropdownSelectionList,
-    this.textInputType = TextInputType.text,
-    this.isPassword = false,
-    this.enabled = true,
-    this.readOnly = false,
-    this.dropdownSelection = false,
-  }) {
+  TextFormFieldTemplate(
+      {super.key,
+      this.label,
+      this.labelIcon,
+      this.labelHint,
+      this.subLabel,
+      this.onTap,
+      this.onSave,
+      this.onChange,
+      this.validators,
+      this.autoHint,
+      this.borderStyle,
+      this.initialValue,
+      this.controller,
+      this.objectValidators,
+      this.dropdownSelectionValue,
+      this.dropdownSelectionTargetLabel,
+      this.dropdownSelectionList,
+      this.textInputType = TextInputType.text,
+      this.isPassword = false,
+      this.enabled = true,
+      this.readOnly = false,
+      this.dropdownSelection = false,
+      this.inputFormatters = const []}) {
     borderStyle ??= TextFormFieldBorderStyle.borderedCircle;
   }
 
@@ -53,6 +53,7 @@ class TextFormFieldTemplate extends StatefulWidget {
   dynamic dropdownSelectionValue;
   List<dynamic>? dropdownSelectionList;
   dynamic initialValue;
+  List<TextInputFormatter> inputFormatters;
 
   calcBorderStyle({bool isFocused = false}) {
     return borderStyle == TextFormFieldBorderStyle.borderBottom
@@ -227,6 +228,7 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
             obscureText: widget.isPassword && isHide,
             enabled: widget.enabled,
             readOnly: widget.readOnly,
+            inputFormatters: widget.inputFormatters,
           );
   }
 }

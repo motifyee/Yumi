@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:yumi/bloc/bank-account/bankinfo_bloc.dart';
+import 'package:yumi/bloc/bank-account/form/bankinfo_form_bloc.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
@@ -39,6 +41,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => NavigatorBloc()),
         BlocProvider(create: (context) => ProfileBloc()),
         BlocProvider(create: (context) => ProfileFormBloc()),
+        BlocProvider(create: (context) => BankInfoBloc()),
+        BlocProvider(create: (context) => BankInfoFormBloc()),
         BlocProvider(create: (context) => CategoriesBloc()),
         BlocProvider(create: (context) => MealListBloc()),
         BlocProvider(create: (context) => MealFormBloc()),
