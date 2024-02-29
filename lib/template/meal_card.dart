@@ -1,126 +1,173 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/forms/meal_form.dart';
+import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/service/meal_service.dart';
+import 'package:yumi/statics/capitalize_string.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/delete_dialog.dart';
+import 'package:yumi/template/dialog.dart';
+import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_currency.dart';
 
 class MealCard extends StatelessWidget {
-  const MealCard({super.key});
+  MealCard({super.key, required this.meal});
+
+  MealModel meal;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width / 2,
-          padding: EdgeInsets.symmetric(
-            horizontal: ThemeSelector.statics.defaultLineGap,
-            vertical: ThemeSelector.statics.defaultGap,
+    return Container(
+      width: MediaQuery.of(context).size.width / 2,
+      padding: EdgeInsets.symmetric(
+        horizontal: ThemeSelector.statics.defaultInputGap,
+        vertical: ThemeSelector.statics.defaultGap,
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: ThemeSelector.statics.defaultLineGap,
+              vertical: ThemeSelector.statics.defaultGap,
+            ),
+            decoration: BoxDecoration(
+                color: ThemeSelector.colors.backgroundTant,
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(
+                        ThemeSelector.statics.defaultBorderRadiusExtraLarge),
+                    bottomLeft: Radius.circular(
+                        ThemeSelector.statics.defaultBorderRadiusExtraLarge)),
+                boxShadow: [
+                  BoxShadow(color: ThemeSelector.colors.shadow, blurRadius: 3)
+                ]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                Container(
+                    width: ThemeSelector.statics.iconSizeLarge,
+                    height: ThemeSelector.statics.iconSizeLarge,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                            ThemeSelector.statics.defaultBorderRadiusSmall)),
+                    child: Image.memory(
+                      base64Decode(meal.photo ?? ''),
+                    )),
+                SizedBox(height: ThemeSelector.statics.defaultGap),
+                Text(
+                  meal.name?.capitalize() ?? '',
+                  style: TextStyle(
+                      color: ThemeSelector.colors.secondary,
+                      fontSize: ThemeSelector.fonts.font_14),
+                ),
+                SizedBox(height: ThemeSelector.statics.defaultGap),
+                Text(
+                  meal.ingredients
+                          ?.map((e) => '${e.portionGrams} ${e.name}')
+                          .join(', ') ??
+                      '',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      color: ThemeSelector.colors.secondary,
+                      fontSize: ThemeSelector.fonts.font_9,
+                      fontWeight: FontWeight.w300),
+                ),
+                SizedBox(height: ThemeSelector.statics.defaultGap),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextCurrency(
+                      value: double.tryParse(meal.price1 ?? '0') ?? 0.0,
+                      fontSize: ThemeSelector.fonts.font_18,
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
-          decoration: BoxDecoration(
-              color: ThemeSelector.colors.backgroundTant,
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(
-                      ThemeSelector.statics.defaultBorderRadiusExtraLarge),
-                  bottomLeft: Radius.circular(
-                      ThemeSelector.statics.defaultBorderRadiusExtraLarge)),
-              boxShadow: [
-                BoxShadow(color: ThemeSelector.colors.shadow, blurRadius: 3)
-              ]),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: ThemeSelector.statics.defaultLineGap),
-              Container(
-                  width: ThemeSelector.statics.iconSizeLarge,
-                  height: ThemeSelector.statics.iconSizeLarge,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.defaultBorderRadiusSmall)),
-                  child: Image.asset(
-                    'assets/images/354.jpeg',
+              TextButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => DialogContainer(
+                              child: MealForm(
+                                meal: meal,
+                              ),
+                            ));
+                  },
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/images/pin.svg',
+                        width: ThemeSelector.fonts.font_10,
+                        height: ThemeSelector.fonts.font_10,
+                      ),
+                      const Text(' '),
+                      Text(
+                        'Edit',
+                        style: TextStyle(
+                          color: ThemeSelector.colors.success,
+                          fontSize: ThemeSelector.fonts.font_10,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      )
+                    ],
                   )),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
-              Text(
-                'New York',
-                style: TextStyle(
-                    color: ThemeSelector.colors.secondary,
-                    fontSize: ThemeSelector.fonts.font_14),
-              ),
-              Text(
-                'salad',
-                style: TextStyle(
-                    color: ThemeSelector.colors.secondary,
-                    fontSize: ThemeSelector.fonts.font_12),
-              ),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
-              Text(
-                '541 kcal, carbs 47g, protein 38g, fats 28g',
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    color: ThemeSelector.colors.secondary,
-                    fontSize: ThemeSelector.fonts.font_9,
-                    fontWeight: FontWeight.w300),
-              ),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextCurrency(
-                    value: 0.42,
-                    fontSize: ThemeSelector.fonts.font_18,
-                  ),
-                ],
-              )
+              TextButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => DeleteDialogTemplate(
+                              actions: () async {
+                                final res = await MealService.deleteMeal(
+                                    context: context, mealModel: meal);
+                                context.read<MealListBloc>().add(
+                                    MealListUpdateCategoryEvent(
+                                        selectedCategory: 0, context: context));
+                                Navigator.of(context).pop();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: res.toString(),
+                                    ),
+                                  ),
+                                );
+                              },
+                              title: S.of(context).deleteMeal,
+                              content: S.of(context).areYouSureToDeleteAMeal,
+                            ));
+                  },
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/images/trash.svg',
+                        width: ThemeSelector.fonts.font_10,
+                        height: ThemeSelector.fonts.font_10,
+                      ),
+                      const Text(' '),
+                      Text(
+                        'Remove',
+                        style: TextStyle(
+                          color: ThemeSelector.colors.primary,
+                          fontSize: ThemeSelector.fonts.font_10,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      )
+                    ],
+                  )),
             ],
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-                onPressed: () {},
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      'assets/images/pin.svg',
-                      width: ThemeSelector.fonts.font_10,
-                      height: ThemeSelector.fonts.font_10,
-                    ),
-                    const Text(' '),
-                    Text(
-                      'Edit',
-                      style: TextStyle(
-                        color: ThemeSelector.colors.success,
-                        fontSize: ThemeSelector.fonts.font_10,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    )
-                  ],
-                )),
-            TextButton(
-                onPressed: () {},
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      'assets/images/trash.svg',
-                      width: ThemeSelector.fonts.font_10,
-                      height: ThemeSelector.fonts.font_10,
-                    ),
-                    const Text(' '),
-                    Text(
-                      'Remove',
-                      style: TextStyle(
-                        color: ThemeSelector.colors.primary,
-                        fontSize: ThemeSelector.fonts.font_10,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    )
-                  ],
-                )),
-          ],
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

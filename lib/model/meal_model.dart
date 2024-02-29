@@ -1,18 +1,20 @@
 class MealModel {
+  int? id;
   String? code;
   String? name;
   String? photo;
-  int? price1;
-  int? caloriesValue;
-  int? preparationTime;
+  String? price1;
+  String? caloriesValue;
+  String? preparationTime;
   bool? isOrder;
   bool? isPreOrder;
-  int? portionPersons;
+  String? portionPersons;
   List<int>? categoriesids;
   List<IngredientsModel>? ingredients;
 
   MealModel(
-      {this.code,
+      {this.id,
+      this.code,
       this.name,
       this.photo,
       this.price1,
@@ -24,39 +26,22 @@ class MealModel {
       this.categoriesids,
       this.ingredients});
 
-  MealModel.fromJson(Map<String, dynamic> json) {
-    code = json['Code'];
-    name = json['Name'];
-    photo = json['Photo'];
-    price1 = json['Price1'];
-    caloriesValue = json['calories_value'];
-    preparationTime = json['preparation_time'];
-    isOrder = json['Is_order'];
-    isPreOrder = json['Is_Pre_order'];
-    portionPersons = json['Portion Persons'];
-    categoriesids = json['Categoriesids'].cast<int>();
-    if (json['Ingredients'] != null) {
-      ingredients = <IngredientsModel>[];
-      json['Ingredients'].forEach((v) {
-        ingredients!.add(new IngredientsModel.fromJson(v));
-      });
-    }
-  }
-
   MealModel copyWith({
+    int? id,
     String? code,
     String? name,
     String? photo,
-    int? price1,
-    int? caloriesValue,
-    int? preparationTime,
+    String? price1,
+    String? caloriesValue,
+    String? preparationTime,
     bool? isOrder,
     bool? isPreOrder,
-    int? portionPersons,
+    String? portionPersons,
     List<int>? categoriesids,
     List<IngredientsModel>? ingredients,
   }) {
     return MealModel(
+      id: id ?? this.id,
       code: code ?? this.code,
       name: name ?? this.name,
       photo: photo ?? this.photo,
@@ -71,20 +56,43 @@ class MealModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  MealModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    code = json['code'];
+    name = json['name'];
+    photo = json['photo'];
+    price1 = json['price1']?.toString();
+    caloriesValue = json['calories_Value']?.toString();
+    preparationTime = json['preparation_time']?.toString();
+    isOrder = json['is_Order'];
+    isPreOrder = json['is_Pre_Order'];
+    portionPersons = json['portion_Persons']?.toString();
+    categoriesids = json['categoriesIds']?.cast<int>();
+    if (json['ingredients'] != null) {
+      ingredients = <IngredientsModel>[];
+      json['ingredients'].forEach((v) {
+        ingredients!.add(IngredientsModel.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson({bool? showID}) {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Code'] = this.code;
-    data['Name'] = this.name;
-    data['Photo'] = this.photo;
-    data['Price1'] = this.price1;
-    data['calories_value'] = this.caloriesValue;
-    data['preparation_time'] = this.preparationTime;
-    data['Is_order'] = this.isOrder;
-    data['Is_Pre_order'] = this.isPreOrder;
-    data['Portion Persons'] = this.portionPersons;
-    data['Categoriesids'] = this.categoriesids;
+    if (showID == true) {
+      data['id'] = this.id;
+    }
+    data['code'] = this.code;
+    data['name'] = this.name;
+    data['photo'] = this.photo;
+    data['price1'] = this.price1;
+    data['calories_Value'] = this.caloriesValue;
+    data['preparation_Time'] = this.preparationTime;
+    data['is_Order'] = this.isOrder;
+    data['is_Pre_Order'] = this.isPreOrder;
+    data['portion_Persons'] = this.portionPersons;
+    data['categoriesIds'] = this.categoriesids;
     if (this.ingredients != null) {
-      data['Ingredients'] = this.ingredients!.map((v) => v.toJson()).toList();
+      data['ingredients'] = this.ingredients!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -94,7 +102,7 @@ class IngredientsModel {
   String? id;
   String? code;
   String? name;
-  int? portionGrams;
+  double? portionGrams;
 
   IngredientsModel({this.id, this.code, this.portionGrams, this.name});
 
@@ -102,7 +110,7 @@ class IngredientsModel {
     id = json['id'];
     code = json['code'];
     name = json['name'];
-    portionGrams = json['Portion_grams'];
+    portionGrams = json['portion_Grams'];
   }
 
   Map<String, dynamic> toJson() {
@@ -110,12 +118,12 @@ class IngredientsModel {
     data['id'] = this.id;
     data['code'] = this.code;
     data['name'] = this.name;
-    data['Portion_grams'] = this.portionGrams;
+    data['portion_Grams'] = this.portionGrams;
     return data;
   }
 
   IngredientsModel copyWith(
-      {String? id, String? code, String? name, int? portionGrams}) {
+      {String? id, String? code, String? name, double? portionGrams}) {
     return IngredientsModel(
       id: id ?? this.id,
       code: code ?? this.code,
@@ -124,3 +132,5 @@ class IngredientsModel {
     );
   }
 }
+
+enum MenuTarget { order, preOrder }
