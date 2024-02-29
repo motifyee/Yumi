@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
-import 'package:yumi/bloc/meal/meal_list_bloc.dart';
+import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/forms/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -16,6 +16,9 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<CategoriesBloc>().add(ResetCategoryEvent());
+    context.read<MealListBloc>().add(MealListResetEvent());
+
     return Stack(
       children: [
         BlocConsumer<MealListBloc, MealListState>(
@@ -27,7 +30,8 @@ class MenuScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultGap),
+                        horizontal: ThemeSelector.statics.defaultGap,
+                        vertical: ThemeSelector.statics.defaultGap),
                     child: BlocConsumer<CategoriesBloc, CategoriesState>(
                       listener: (context, state) {},
                       builder: (context, state) {
@@ -45,6 +49,7 @@ class MenuScreen extends StatelessWidget {
                                 onTap: () {
                                   context.read<MealListBloc>().add(
                                       MealListUpdateCategoryEvent(
+                                          context: context,
                                           selectedCategory: 0));
                                 },
                                 child: Container(
@@ -81,6 +86,7 @@ class MenuScreen extends StatelessWidget {
                                   onTap: () {
                                     context.read<MealListBloc>().add(
                                         MealListUpdateCategoryEvent(
+                                            context: context,
                                             selectedCategory: category.id));
                                   },
                                   child: Container(
@@ -118,10 +124,15 @@ class MenuScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                              if (state.isLoading)
-                                Loading(
-                                  size: ThemeSelector.statics.defaultBlockGap,
-                                ),
+                              SizedBox(
+                                width: ThemeSelector.statics.defaultBlockGap,
+                                child: state.paginationHelper.isLoading
+                                    ? Loading(
+                                        size: ThemeSelector
+                                            .statics.defaultBlockGap,
+                                      )
+                                    : const Text(''),
+                              ),
                             ],
                           ),
                         );
@@ -130,30 +141,57 @@ class MenuScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: PaginationTemplate(
-                        scrollDirection: Axis.vertical,
-                        child: state.meals.isEmpty
-                            ? Expanded(
-                                child: Center(
-                                  child: Text(
-                                    S.of(context).empty,
-                                    style: TextStyle(
-                                      color:
-                                          ThemeSelector.colors.secondaryFaint,
-                                      fontSize: ThemeSelector.fonts.font_38,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            : Column(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
                                 children: [
-                                  for (var meal in state.meals) MealCard()
+                                  for (var mealIndex = 0;
+                                      mealIndex < state.meals.length;
+                                      mealIndex++)
+                                    if (mealIndex % 2 == 0)
+                                      MealCard(meal: state.meals[mealIndex])
                                 ],
                               ),
-                        loadDate: () => context
-                            .read<MealListBloc>()
-                            .add(MealListUpdateEvent(context: context))),
+                              Column(
+                                children: [
+                                  SizedBox(
+                                      height: ThemeSelector
+                                          .statics.defaultTitleGapLarge),
+                                  for (var mealIndex = 0;
+                                      mealIndex < state.meals.length;
+                                      mealIndex++)
+                                    if (mealIndex % 2 != 0)
+                                      MealCard(meal: state.meals[mealIndex])
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height:
+                                ThemeSelector.statics.defaultGapExtraExtreme,
+                          )
+                        ],
+                      ),
+                      loadDate: () => context
+                          .read<MealListBloc>()
+                          .add(MealListUpdateEvent(context: context)),
+                    ),
                   ),
+                  if (state.meals.isEmpty)
+                    Expanded(
+                      child: Text(
+                        S.of(context).empty,
+                        style: TextStyle(
+                          color: ThemeSelector.colors.secondaryFaint,
+                          fontSize: ThemeSelector.fonts.font_38,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
                 ],
               ),
             );

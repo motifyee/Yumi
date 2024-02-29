@@ -3,6 +3,8 @@ part of 'meal_list_bloc.dart';
 @immutable
 abstract class MealListEvent {}
 
+class MealListResetEvent implements MealListEvent {}
+
 class MealListUpdateEvent implements MealListEvent {
   BuildContext context;
 
@@ -10,7 +12,9 @@ class MealListUpdateEvent implements MealListEvent {
 }
 
 class MealListUpdateCategoryEvent implements MealListEvent {
-  final int selectedCategory;
+  int selectedCategory;
+  BuildContext context;
 
-  MealListUpdateCategoryEvent({required this.selectedCategory});
+  MealListUpdateCategoryEvent(
+      {required this.selectedCategory, required this.context});
 }

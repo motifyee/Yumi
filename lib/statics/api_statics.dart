@@ -37,8 +37,6 @@ class ApiKeys {
     return apiKey.replaceAll("_", AppTarget.user.name);
   }
 
-  static int pageSize = 20;
-
   /// user ( _ ) where
   /// chefs || customers || drivers
   /// at in api end point
@@ -48,5 +46,7 @@ class ApiKeys {
   static String profile = '/accounts/_';
   static String categories = '/products/setting/categories';
   static String ingredient = '/Product/Ingredients';
-  static String meal = '/Product/chef/meal';
+  static String meal = '/Product/_/meal';
+  static String mealOrder = '/Product/_/order';
+  static String mealOrderByCategory = '/Product/_/order/categories/';
 }
