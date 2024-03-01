@@ -2,8 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
-import 'package:yumi/bloc/meal/ingredient_form_bloc.dart';
-import 'package:yumi/bloc/meal/meal_form_bloc.dart';
+import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
+import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
+import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/forms/Ingredients_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -18,10 +19,13 @@ import 'package:yumi/template/upload_photo_button.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 class MealForm extends StatelessWidget {
-  MealForm({super.key});
+  MealForm({super.key, this.meal, this.menuTarget});
 
   final GlobalKey<FormState> mealForm = GlobalKey<FormState>();
   final GlobalKey<FormState> ingredientForm = GlobalKey<FormState>();
+
+  final MenuTarget? menuTarget;
+  final MealModel? meal;
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +33,17 @@ class MealForm extends StatelessWidget {
 
     context.read<MealFormBloc>().add(
           MealFormUpdateEvent(
-            mealModel: MealModel(
-              code: CodeGenerator.getRandomCode(),
-              categoriesids: [],
-              ingredients: [],
-              isPreOrder: false,
-              isOrder: true,
-              preparationTime: 25,
-            ),
+            mealModel: meal?.copyWith(
+                  preparationTime: '25',
+                ) ??
+                MealModel(
+                  code: CodeGenerator.getRandomCode(),
+                  categoriesids: [],
+                  ingredients: [],
+                  isOrder: menuTarget == MenuTarget.order,
+                  isPreOrder: menuTarget == MenuTarget.preOrder,
+                  preparationTime: '25',
+                ),
           ),
         );
 
@@ -82,11 +89,11 @@ class MealForm extends StatelessWidget {
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           initialValue: state.mealModel.name,
                           validators: requiredValidator,
-                          onSave: (value) {
+                          onChange: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
-                                    mealModel:
-                                        state.mealModel.copyWith(name: value)));
+                                    mealModel: state.mealModel
+                                        .copyWith(name: value ?? '')));
                           },
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
@@ -121,11 +128,11 @@ class MealForm extends StatelessWidget {
                           textInputType: TextInputType.number,
                           initialValue: state.mealModel.caloriesValue,
                           validators: requiredValidator,
-                          onSave: (value) {
+                          onChange: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
-                                    mealModel: state.mealModel.copyWith(
-                                        caloriesValue: int.tryParse(value))));
+                                    mealModel: state.mealModel
+                                        .copyWith(caloriesValue: value)));
                           },
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
@@ -137,11 +144,11 @@ class MealForm extends StatelessWidget {
                           enabled: false,
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           validators: requiredValidator,
-                          onSave: (value) {
+                          onChange: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
-                                    mealModel: state.mealModel.copyWith(
-                                        preparationTime: int.tryParse(value))));
+                                    mealModel: state.mealModel
+                                        .copyWith(preparationTime: value)));
                           },
                           textInputType: TextInputType.number,
                           initialValue: state.mealModel.preparationTime,
@@ -154,11 +161,11 @@ class MealForm extends StatelessWidget {
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           initialValue: state.mealModel.price1,
                           validators: requiredValidator,
-                          onSave: (value) {
+                          onChange: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
-                                    mealModel: state.mealModel.copyWith(
-                                        price1: int.tryParse(value))));
+                                    mealModel: state.mealModel
+                                        .copyWith(price1: value)));
                           },
                           textInputType: TextInputType.number,
                         ),
@@ -171,11 +178,11 @@ class MealForm extends StatelessWidget {
                           initialValue: state.mealModel.portionPersons,
                           textInputType: TextInputType.number,
                           validators: requiredValidator,
-                          onSave: (value) {
+                          onChange: (value) {
                             context.read<MealFormBloc>().add(
                                 MealFormUpdateEvent(
-                                    mealModel: state.mealModel.copyWith(
-                                        portionPersons: int.tryParse(value))));
+                                    mealModel: state.mealModel
+                                        .copyWith(portionPersons: value)));
                           },
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
@@ -247,10 +254,17 @@ class MealForm extends StatelessWidget {
                                               );
                                             },
                                           ),
-                                        if (state.isLoading)
-                                          Loading(
-                                              size: ThemeSelector
-                                                  .statics.defaultTitleGap),
+                                        SizedBox(
+                                          width: ThemeSelector
+                                              .statics.defaultTitleGap,
+                                          child:
+                                              state.paginationHelper.isLoading
+                                                  ? Loading(
+                                                      size: ThemeSelector
+                                                          .statics
+                                                          .defaultTitleGap)
+                                                  : const Text(''),
+                                        ),
                                       ],
                                     ),
                                   );
@@ -269,6 +283,9 @@ class MealForm extends StatelessWidget {
                             TextButton(
                               onPressed: () {
                                 context.router.pop();
+                                context.read<MealListBloc>().add(
+                                    MealListUpdateCategoryEvent(
+                                        selectedCategory: 0, context: context));
                               },
                               child: Text(
                                 S.of(context).cancel,
@@ -282,11 +299,21 @@ class MealForm extends StatelessWidget {
                                     state.mealModel.categoriesids!.isNotEmpty &&
                                     state.mealModel.photo != null) {
                                   mealForm.currentState!.save();
-                                  print(state.mealModel.toJson());
+                                  late dynamic res;
+                                  if (meal != null) {
+                                    res = await MealService.updateMeal(
+                                        context: context,
+                                        mealModel: state.mealModel);
+                                  } else {
+                                    res = await MealService.createMeal(
+                                        context: context,
+                                        mealModel: state.mealModel);
+                                  }
 
-                                  final res = await MealService.createMeal(
-                                      context: context,
-                                      mealModel: state.mealModel);
+                                  context.read<MealListBloc>().add(
+                                      MealListUpdateCategoryEvent(
+                                          selectedCategory: 0,
+                                          context: context));
                                   Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(

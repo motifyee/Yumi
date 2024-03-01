@@ -12,6 +12,7 @@ class TextFormFieldTemplate extends StatefulWidget {
     this.onTap,
     this.onSave,
     this.onChange,
+    this.onEditingComplete,
     this.validators,
     this.autoHint,
     this.borderStyle,
@@ -37,6 +38,7 @@ class TextFormFieldTemplate extends StatefulWidget {
   Function()? onTap;
   void Function(dynamic)? onSave;
   void Function(dynamic)? onChange;
+  void Function()? onEditingComplete;
   String? Function(String?)? validators;
   String? Function(dynamic)? objectValidators;
   TextEditingController? controller;
@@ -215,6 +217,7 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
             onTap: widget.onTap,
             onSaved: widget.onSave,
             onChanged: widget.onChange,
+            onEditingComplete: widget.onEditingComplete,
             controller: widget.controller,
             autofillHints: widget.autoHint,
             keyboardType: widget.textInputType,

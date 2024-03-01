@@ -88,5 +88,8 @@
   "forHowManyPerson": "(For how many person)",
   "maximum25Minutes": "Maximum 25 minutes",
   "connectionError": "Connection Error!",
-  "measurement": "gm"
+  "measurement": "gm",
+  "delete" : "Delete",
+  "deleteMeal": "Delete meal",
+  "areYouSureToDeleteAMeal": "Are you sure to delete a meal?"
 }

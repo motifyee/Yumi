@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
-import 'package:yumi/bloc/meal/ingredient_form_bloc.dart';
-import 'package:yumi/bloc/meal/meal_form_bloc.dart';
+import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
+import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -246,7 +246,8 @@ class IngredientsForm extends StatelessWidget {
                           validators: requiredValidator,
                           initialValue: ingredientsModel.portionGrams,
                           onSave: (value) {
-                            ingredientsModel.portionGrams = int.tryParse(value);
+                            ingredientsModel.portionGrams =
+                                double.tryParse(value);
                           },
                         ),
                       ),

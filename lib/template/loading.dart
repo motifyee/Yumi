@@ -10,8 +10,6 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(milliseconds: 100),
-        () => Scrollable.ensureVisible(context, curve: Curves.easeOut));
     return Center(
       child: SizedBox(
         key: dataKey,
