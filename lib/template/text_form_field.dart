@@ -30,7 +30,6 @@ class TextFormFieldTemplate extends StatefulWidget {
     this.readOnly = false,
     this.dropdownSelection = false,
     this.inputFormatters = const [],
-    this.hintText = '',
     this.maxLines = 1,
     this.minLines = 1,
     this.textAlign = TextAlign.start,
@@ -65,7 +64,6 @@ class TextFormFieldTemplate extends StatefulWidget {
   dynamic initialValue;
   Widget? prefixIcon;
   List<TextInputFormatter> inputFormatters;
-  String hintText = '';
   int maxLines = 1;
   int minLines = 1;
   TextAlign textAlign = TextAlign.start;
