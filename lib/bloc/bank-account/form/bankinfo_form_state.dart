@@ -7,9 +7,9 @@ class BankInfoFormState extends Equatable {
 
   const BankInfoFormState({required this.bankInfo, this.loading = false});
 
-  BankInfoFormState copyWith({required BankInfo bankInfo, bool? loading}) {
+  BankInfoFormState copyWith({BankInfo? bankInfo, bool? loading}) {
     return BankInfoFormState(
-        bankInfo: bankInfo, loading: loading ?? this.loading);
+        bankInfo: bankInfo ?? this.bankInfo, loading: loading ?? this.loading);
   }
 
   @override

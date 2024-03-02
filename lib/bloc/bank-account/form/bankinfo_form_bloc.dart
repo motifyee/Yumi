@@ -11,7 +11,8 @@ part 'bankinfo_form_state.dart';
 class BankInfoFormBloc extends Bloc<BankInfoFormEvent, BankInfoFormState> {
   BankInfoFormBloc() : super(BankInfoFormState(bankInfo: BankInfo())) {
     on<BankInfoFormUpdateEvent>((event, emit) {
-      emit(state.copyWith(bankInfo: event.bankInfo));
+      print('${event.loading}-${DateTime.now().millisecondsSinceEpoch / 1000}');
+      emit(state.copyWith(bankInfo: event.bankInfo, loading: event.loading));
     });
   }
 }

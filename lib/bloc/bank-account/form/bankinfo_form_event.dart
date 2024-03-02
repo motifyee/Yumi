@@ -1,16 +1,19 @@
 part of 'bankinfo_form_bloc.dart';
 
 @immutable
-abstract class BankInfoFormEvent {}
-
-class BankInfoFormUpdateEvent implements BankInfoFormEvent {
-  final BankInfo bankInfo;
-
-  const BankInfoFormUpdateEvent({required this.bankInfo});
+abstract class BankInfoFormEvent extends Equatable {
+  const BankInfoFormEvent([List props = const []]) : super();
 }
 
-class ProfileFormResetEvent implements BankInfoFormEvent {
-  final BankInfo bankInfo;
+class BankInfoFormUpdateEvent implements BankInfoFormEvent {
+  final BankInfo? bankInfo;
+  final bool? loading;
 
-  const ProfileFormResetEvent({required this.bankInfo});
+  const BankInfoFormUpdateEvent({this.bankInfo, this.loading});
+
+  @override
+  List<Object> get props => [bankInfo!, loading!];
+
+  @override
+  bool? get stringify => true; //'${bankInfo?.id ?? ''}-${loading ?? false}';
 }
