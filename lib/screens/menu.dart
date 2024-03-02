@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/template/menu.dart';
 
@@ -7,8 +9,11 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MenuTemplate(
-      menuTarget: MenuTarget.order,
+    return BlocProvider(
+      create: (context) => MealListBloc(),
+      child: MenuTemplate(
+        menuTarget: MenuTarget.order,
+      ),
     );
   }
 }

@@ -14,6 +14,18 @@ class CaloriesReferenceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => MealListBloc(),
+      child: CaloriesReferenceTemplate(),
+    );
+  }
+}
+
+class CaloriesReferenceTemplate extends StatelessWidget {
+  const CaloriesReferenceTemplate({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     context.read<MealListBloc>().add(MealListResetEvent());
 
     return Scaffold(

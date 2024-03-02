@@ -9,7 +9,6 @@ import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
 import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
-import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/bloc/profile/form/profile_form_bloc.dart';
 import 'package:yumi/bloc/profile/profile_bloc.dart';
@@ -44,7 +43,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => BankInfoBloc()),
         BlocProvider(create: (context) => BankInfoFormBloc()),
         BlocProvider(create: (context) => CategoriesBloc()),
-        BlocProvider(create: (context) => MealListBloc()),
         BlocProvider(create: (context) => MealFormBloc()),
         BlocProvider(create: (context) => IngredientListBloc()),
         BlocProvider(create: (context) => IngredientFormBloc()),

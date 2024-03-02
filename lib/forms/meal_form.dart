@@ -310,10 +310,6 @@ class MealForm extends StatelessWidget {
                                         mealModel: state.mealModel);
                                   }
 
-                                  context.read<MealListBloc>().add(
-                                      MealListUpdateCategoryEvent(
-                                          selectedCategory: 0,
-                                          context: context));
                                   Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
