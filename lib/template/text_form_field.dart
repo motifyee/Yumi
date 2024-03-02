@@ -4,30 +4,37 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class TextFormFieldTemplate extends StatefulWidget {
-  TextFormFieldTemplate(
-      {super.key,
-      this.label,
-      this.labelIcon,
-      this.labelHint,
-      this.subLabel,
-      this.onTap,
-      this.onSave,
-      this.onChange,
-      this.validators,
-      this.autoHint,
-      this.borderStyle,
-      this.initialValue,
-      this.controller,
-      this.objectValidators,
-      this.dropdownSelectionValue,
-      this.dropdownSelectionTargetLabel,
-      this.dropdownSelectionList,
-      this.textInputType = TextInputType.text,
-      this.isPassword = false,
-      this.enabled = true,
-      this.readOnly = false,
-      this.dropdownSelection = false,
-      this.inputFormatters = const []}) {
+  TextFormFieldTemplate({
+    super.key,
+    this.label,
+    this.labelIcon,
+    this.labelHint,
+    this.subLabel,
+    this.onTap,
+    this.onSave,
+    this.onChange,
+    this.validators,
+    this.autoHint,
+    this.borderStyle,
+    this.initialValue,
+    this.controller,
+    this.objectValidators,
+    this.dropdownSelectionValue,
+    this.dropdownSelectionTargetLabel,
+    this.dropdownSelectionList,
+    this.textInputType = TextInputType.text,
+    this.isPassword = false,
+    this.enabled = true,
+    this.readOnly = false,
+    this.dropdownSelection = false,
+    this.inputFormatters = const [],
+    this.hintText = '',
+    this.maxLines = 1,
+    this.minLines = 1,
+    this.textAlign = TextAlign.start,
+    this.textAlignVertical = TextAlignVertical.center,
+    this.textCapitalization = TextCapitalization.none,
+  }) {
     borderStyle ??= TextFormFieldBorderStyle.borderedCircle;
   }
 
@@ -54,6 +61,12 @@ class TextFormFieldTemplate extends StatefulWidget {
   List<dynamic>? dropdownSelectionList;
   dynamic initialValue;
   List<TextInputFormatter> inputFormatters;
+  String hintText = '';
+  int maxLines = 1;
+  int minLines = 1;
+  TextAlign textAlign = TextAlign.start;
+  TextAlignVertical textAlignVertical = TextAlignVertical.center;
+  TextCapitalization textCapitalization = TextCapitalization.none;
 
   calcBorderStyle({bool isFocused = false}) {
     return borderStyle == TextFormFieldBorderStyle.borderBottom
@@ -166,6 +179,7 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
         isDense: widget.dropdownSelection ? true : false,
         focusedBorder: widget.calcBorderStyle(isFocused: true),
         errorBorder: widget.calcBorderStyle(isFocused: true),
+        hintText: widget.hintText,
         suffixIcon: widget.isPassword
             ? IconButton(
                 onPressed: () {
@@ -229,6 +243,11 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
             enabled: widget.enabled,
             readOnly: widget.readOnly,
             inputFormatters: widget.inputFormatters,
+            maxLines: widget.maxLines,
+            minLines: widget.minLines,
+            textAlign: widget.textAlign,
+            textAlignVertical: widget.textAlignVertical,
+            textCapitalization: widget.textCapitalization,
           );
   }
 }

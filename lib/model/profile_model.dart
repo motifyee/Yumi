@@ -3,6 +3,7 @@ class ProfileModel {
   final int id;
   final String fullName;
   final String userName;
+  final String bio;
   //
   final String mobile;
   final String email;
@@ -22,6 +23,7 @@ class ProfileModel {
     this.id = 0,
     this.fullName = '',
     this.userName = '',
+    this.bio = '',
     this.mobile = '',
     this.email = '',
     this.address = '',
@@ -40,6 +42,7 @@ class ProfileModel {
     int? id,
     String? fullName,
     String? userName,
+    String? bio,
     String? mobile,
     String? email,
     String? address,
@@ -57,6 +60,7 @@ class ProfileModel {
       id: id ?? this.id,
       fullName: fullName ?? this.fullName,
       userName: userName ?? this.userName,
+      bio: bio ?? this.bio,
       mobile: mobile ?? this.mobile,
       email: email ?? this.email,
       address: address ?? this.address,
@@ -77,6 +81,7 @@ class ProfileModel {
       'id': id,
       'fullName': fullName,
       'userName': userName,
+      'bio': bio,
       'mobile': mobile,
       'email': email,
       'address': address,
@@ -97,6 +102,7 @@ class ProfileModel {
       id: value['id'] ?? 0,
       fullName: value['fullName'] ?? '',
       userName: value['userName'] ?? '',
+      bio: value['bio'] ?? '',
       mobile: value['mobile'] ?? '',
       email: value['email'] ?? '',
       address: value['address'] ?? '',

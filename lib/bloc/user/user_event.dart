@@ -1,10 +1,23 @@
 part of 'user_bloc.dart';
 
 @immutable
-abstract class UserEvent {}
+abstract class UserEvent extends Equatable {}
+
+class UserUpdateEvent extends UserEvent {
+  final UserModel? user;
+  final bool? loading;
+  UserUpdateEvent({this.user, this.loading});
+
+  @override
+  List<Object?> get props => [user, loading];
+}
 
 class UserFromJsonEvent extends UserEvent {
   final dynamic user;
+  final bool? loading;
 
-  UserFromJsonEvent({required this.user});
+  UserFromJsonEvent({this.user, this.loading});
+
+  @override
+  List<Object?> get props => [user, loading];
 }

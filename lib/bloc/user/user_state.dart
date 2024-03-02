@@ -3,14 +3,14 @@ part of 'user_bloc.dart';
 @immutable
 class UserState extends Equatable {
   final UserModel user;
+  final bool loading;
 
-  UserState({required this.user});
+  const UserState({required this.user, this.loading = false});
 
-  UserState copyWith({required UserModel user}) {
-    return UserState(user: user);
+  UserState copyWith({UserModel? user, bool? loading}) {
+    return UserState(user: user ?? this.user, loading: loading ?? this.loading);
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [user];
 }

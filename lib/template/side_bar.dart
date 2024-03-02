@@ -111,7 +111,7 @@ class SideBar extends StatelessWidget {
                           context: context,
                           title: Container(),
                           content: const ProfileForm(),
-                          actionWidgets: [const FormSubmitButtons()]);
+                          actionWidgets: [const ProfileFormSubmitButton()]);
                     },
                     child: Center(
                         child: SvgPicture.asset('assets/images/edit.svg')),

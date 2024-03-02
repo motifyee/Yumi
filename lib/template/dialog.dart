@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yumi/statics/theme_statics.dart';
 
 class DialogContainer extends StatelessWidget {
   const DialogContainer({super.key, required this.child});
@@ -21,24 +22,28 @@ Future<void> showAlertDialog(
     Widget title = const SizedBox(),
     Widget content = const SizedBox(),
     List<Widget> actionWidgets = const [],
-    Map<String, Function(BuildContext context)?> actions = const {
-      'OK': null
-    }}) {
-  var actions0 = [...actionWidgets];
+    Map<String, Function(BuildContext context)?> actions = const {}}) {
+  if (actions.isEmpty && actionWidgets.isEmpty) actions['OK'] = null;
 
-  if (actionWidgets.isEmpty) {
-    actions.forEach((key, value) {
-      if (value == null) {
-        actions[key] = (context) => Navigator.pop(context);
-      }
-      actions0.add(
-        TextButton(
-          onPressed: () => actions[key]!(context),
-          child: Text(key),
+  var actions0 = {...actions};
+  var res = <Widget>[];
+
+  dynamic popFn = ((context) => Navigator.pop(context));
+  actions0.forEach((key, value) {
+    res.add(
+      TextButton(
+        onPressed: () => (value ?? popFn)!(context),
+        style: TextButton.styleFrom(
+          foregroundColor: key == 'Cancel'
+              ? ThemeSelector.colors.secondary
+              : ThemeSelector.colors.primary,
         ),
-      );
-    });
-  }
+        child: Text(key),
+      ),
+    );
+  });
+
+  res = [...res, ...actionWidgets];
 
   return showGeneralDialog<void>(
     context: context,
@@ -59,12 +64,12 @@ Future<void> showAlertDialog(
           // padding: const EdgeInsets.all(8.0),
           child: AlertDialog(
             title: title,
-            content: Container(
-              color: const Color.fromARGB(255, 63, 23, 224),
+            content: SizedBox(
+              // color: const Color.fromARGB(255, 63, 23, 224),
               width: MediaQuery.of(context).size.width,
               child: content,
             ),
-            actions: actions0,
+            actions: res,
             alignment: Alignment.center,
             contentPadding: const EdgeInsets.all(0),
             insetPadding: const EdgeInsets.all(20),

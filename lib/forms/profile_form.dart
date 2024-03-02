@@ -21,8 +21,8 @@ import 'package:yumi/validators/required_validator.dart';
 
 final GlobalKey<FormState> profileForm = GlobalKey<FormState>();
 
-class FormSubmitButtons extends StatelessWidget {
-  const FormSubmitButtons({
+class ProfileFormSubmitButton extends StatelessWidget {
+  const ProfileFormSubmitButton({
     super.key,
   });
 
@@ -32,84 +32,82 @@ class FormSubmitButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileFormBloc, ProfileFormState>(
       builder: (context, state) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(child: Container()),
-            TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: ThemeSelector.colors.secondary,
-              ),
-              onPressed: () {
-                context.router.pop();
+        // return Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     Expanded(child: Container()),
+        //     TextButton(
+        //       style: TextButton.styleFrom(
+        //         foregroundColor: ThemeSelector.colors.secondary,
+        //       ),
+        //       onPressed: () {
+        //         context.router.pop();
+        //         context
+        //             .read<ProfileFormBloc>()
+        //             .add(ProfileFormUpdateEvent(profileModel: ProfileModel()));
+        //       },
+        //       child: Text(S.of(context).cancel),
+        //     ),
+        //     SizedBox(
+        //       width: ThemeSelector.statics.defaultLineGap * 2,
+        //     ),
+
+        return TextButton(
+          child: Text(S.of(context).save),
+          // style: TextButton.styleFrom(
+          //   foregroundColor: profileForm.currentState!.validate()
+          //       ? ThemeSelector.colors.secondary
+          //       : ThemeSelector.colors.primary,
+          // ),
+          onPressed: () async {
+            if (!profileForm.currentState!.validate()) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: SnackBarMassage(massage: S.of(context).invalidInput),
+              ));
+              return;
+            }
+
+            // context.read<ProfileFormBloc>()add(ProfileFormSubmitEvent());
+            profileForm.currentState!.save();
+
+            final res = await ProfileService.updateProfile(
+                context: context, data: state.profileModel.toJson());
+
+            if (res != null && res != false) {
+              // final profile = ProfileModel.fromJson(res.data as Map);
+              if (context.mounted) {
+                Navigator.of(context).pop();
+
+                context.read<ProfileBloc>().add(ProfileEvent(context: context));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: SnackBarMassage(
+                      massage: res.toString(),
+                    ),
+                  ),
+                );
+
                 context
                     .read<ProfileFormBloc>()
                     .add(ProfileFormUpdateEvent(profileModel: ProfileModel()));
-              },
-              child: Text(S.of(context).cancel),
-            ),
-            SizedBox(
-              width: ThemeSelector.statics.defaultLineGap * 2,
-            ),
-            TextButton(
-              child: Text(S.of(context).save),
-              // style: TextButton.styleFrom(
-              //   foregroundColor: profileForm.currentState!.validate()
-              //       ? ThemeSelector.colors.secondary
-              //       : ThemeSelector.colors.primary,
-              // ),
-              onPressed: () async {
-                if (profileForm.currentState == null ||
-                    !profileForm.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              }
+            } else {
+              if (context.mounted) {
+                // context.read<ProfileFormBloc>().add(
+                //     ProfileFormUpdateEvent(profileModel: ProfileModel()));
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
                     content:
-                        SnackBarMassage(massage: S.of(context).invalidInput),
-                  ));
-                  return;
-                }
-
-                // context.read<ProfileFormBloc>()add(ProfileFormSubmitEvent());
-                profileForm.currentState!.save();
-
-                final res = await ProfileService.updateProfile(
-                    context: context, data: state.profileModel.toJson());
-
-                if (res != null && res != false) {
-                  // final profile = ProfileModel.fromJson(res.data as Map);
-                  if (context.mounted) {
-                    Navigator.of(context).pop();
-
-                    context
-                        .read<ProfileBloc>()
-                        .add(ProfileEvent(context: context));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: SnackBarMassage(
-                          massage: res.toString(),
-                        ),
-                      ),
-                    );
-
-                    context.read<ProfileFormBloc>().add(
-                        ProfileFormUpdateEvent(profileModel: ProfileModel()));
-                  }
-                } else {
-                  if (context.mounted) {
-                    // context.read<ProfileFormBloc>().add(
-                    //     ProfileFormUpdateEvent(profileModel: ProfileModel()));
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: SnackBarMassage(
-                            massage: S.of(context).connectionError),
-                      ),
-                    );
-                  }
-                }
-              },
-            ),
-          ],
+                        SnackBarMassage(massage: S.of(context).connectionError),
+                  ),
+                );
+              }
+            }
+          },
         );
+        //   ],
+        // );
       },
     );
   }

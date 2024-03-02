@@ -55,32 +55,8 @@ class UserSettingDetails extends StatelessWidget {
                               context: context,
                               title: Container(),
                               content: const ProfileForm(),
-                              // actions: {'Ok': null}
-                              actionWidgets: [const FormSubmitButtons()]
-                              // actionWidgets: [
-                              //   // Expanded(child: Container()),
-                              //   TextButton(
-                              //     style: TextButton.styleFrom(
-                              //       textStyle:
-                              //           Theme.of(context).textTheme.labelLarge,
-                              //     ),
-                              //     child: const Text('Cancel'),
-                              //     onPressed: () {
-                              //       Navigator.of(context).pop();
-                              //     },
-                              //   ),
-                              //   TextButton(
-                              //     style: TextButton.styleFrom(
-                              //       textStyle:
-                              //           Theme.of(context).textTheme.labelLarge,
-                              //     ),
-                              //     child: const Text('Save'),
-                              //     onPressed: () {
-                              //       Navigator.of(context).pop();
-                              //     },
-                              //   ),
-                              // ],
-                              );
+                              actions: {'Cancel': null},
+                              actionWidgets: [const ProfileFormSubmitButton()]);
                         },
                         child: Text(
                           S.of(context).edit,
