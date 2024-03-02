@@ -16,7 +16,7 @@ class AppMenuList {
         label: S.of(context).notification,
         onPressed: () {
           Navigator.of(context, rootNavigator: true).pop();
-          context.router.push(NotificationRoute());
+          context.router.push(const NotificationRoute());
         },
       ),
       AppMenuItem(
@@ -24,7 +24,7 @@ class AppMenuList {
         label: S.of(context).mySchedule,
         onPressed: () {
           Navigator.of(context, rootNavigator: true).pop();
-          context.router.push(MyScheduleRoute());
+          context.router.push(const MyScheduleRoute());
         },
       ),
       AppMenuItem(
@@ -36,9 +36,7 @@ class AppMenuList {
             builder: (context) => Center(
               child: DialogContainer(
                 child: BlocConsumer<NavigatorBloc, NavigatesState>(
-                  listener: (context, state) {
-                    // TODO: implement listener
-                  },
+                  listener: (context, state) {},
                   builder: (context, state) {
                     return FractionallySizedBox(
                       widthFactor: .85,
@@ -71,7 +69,8 @@ class AppMenuList {
                                           .pop();
                                       Navigator.of(context, rootNavigator: true)
                                           .pop();
-                                      context.router.push(MenuPreOrderRoute());
+                                      context.router
+                                          .push(const MenuPreOrderRoute());
                                     })),
                           ],
                         ),
@@ -91,7 +90,7 @@ class AppMenuList {
         label: S.of(context).caloriesReference,
         onPressed: () {
           Navigator.of(context, rootNavigator: true).pop();
-          context.router.push(CaloriesReferenceRoute());
+          context.router.push(const CaloriesReferenceRoute());
         },
       ),
       AppMenuItem(
@@ -99,7 +98,7 @@ class AppMenuList {
         label: S.of(context).documentation,
         onPressed: () {
           Navigator.of(context, rootNavigator: true).pop();
-          context.router.push(DocumentationRoute());
+          context.router.push(const DocumentationRoute());
         },
       ),
       AppMenuItem(
@@ -107,7 +106,7 @@ class AppMenuList {
         label: S.of(context).performanceAnalysis,
         onPressed: () {
           Navigator.of(context, rootNavigator: true).pop();
-          context.router.push(PerformanceAnalysisRoute());
+          context.router.push(const PerformanceAnalysisRoute());
         },
       ),
       AppMenuItem(
@@ -115,7 +114,7 @@ class AppMenuList {
         label: S.of(context).financialView,
         onPressed: () {
           Navigator.of(context, rootNavigator: true).pop();
-          context.router.push(FinancialViewRoute());
+          context.router.push(const FinancialViewRoute());
         },
       ),
       AppMenuItem(
@@ -123,7 +122,7 @@ class AppMenuList {
         label: S.of(context).getHelp,
         onPressed: () {
           Navigator.of(context, rootNavigator: true).pop();
-          context.router.push(ChatRoute());
+          context.router.push(const ChatRoute());
         },
       ),
       AppMenuItem(
@@ -131,7 +130,7 @@ class AppMenuList {
         label: S.of(context).transactions,
         onPressed: () {
           Navigator.of(context, rootNavigator: true).pop();
-          context.router.push(TransactionsRoute());
+          context.router.push(const TransactionsRoute());
         },
       ),
       AppMenuItem(
