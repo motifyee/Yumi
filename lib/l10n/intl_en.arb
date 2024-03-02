@@ -92,5 +92,9 @@
   "delete" : "Delete",
   "deleteMeal": "Delete meal",
   "areYouSureToDeleteAMeal": "Are you sure to delete a meal?",
-  "search": "Search"
+  "search": "Search",
+  "ordersHistory": "Orders History",
+  "firstName":"First name",
+  "lastName":"Last name",
+  "mobile": "Mobile"
 }
