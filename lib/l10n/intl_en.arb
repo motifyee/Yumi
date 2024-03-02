@@ -91,5 +91,6 @@
   "measurement": "gm",
   "delete" : "Delete",
   "deleteMeal": "Delete meal",
-  "areYouSureToDeleteAMeal": "Are you sure to delete a meal?"
+  "areYouSureToDeleteAMeal": "Are you sure to delete a meal?",
+  "search": "Search"
 }

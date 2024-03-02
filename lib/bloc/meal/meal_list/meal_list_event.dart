@@ -21,3 +21,11 @@ class MealListUpdateCategoryEvent implements MealListEvent {
   MealListUpdateCategoryEvent(
       {required this.selectedCategory, required this.context});
 }
+
+class MealListUpdateCaloriesEvent implements MealListEvent {
+  String? searchText;
+  BuildContext context;
+
+  MealListUpdateCaloriesEvent(
+      {required this.searchText, required this.context});
+}

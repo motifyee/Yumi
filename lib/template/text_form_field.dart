@@ -9,6 +9,7 @@ class TextFormFieldTemplate extends StatefulWidget {
     this.labelIcon,
     this.labelHint,
     this.subLabel,
+    this.hintText,
     this.onTap,
     this.onSave,
     this.onChange,
@@ -22,6 +23,7 @@ class TextFormFieldTemplate extends StatefulWidget {
     this.dropdownSelectionValue,
     this.dropdownSelectionTargetLabel,
     this.dropdownSelectionList,
+    this.prefixIcon,
     this.textInputType = TextInputType.text,
     this.isPassword = false,
     this.enabled = true,
@@ -35,6 +37,7 @@ class TextFormFieldTemplate extends StatefulWidget {
   String? labelIcon;
   String? labelHint;
   String? subLabel;
+  String? hintText;
   Function()? onTap;
   void Function(dynamic)? onSave;
   void Function(dynamic)? onChange;
@@ -53,6 +56,7 @@ class TextFormFieldTemplate extends StatefulWidget {
   dynamic dropdownSelectionValue;
   List<dynamic>? dropdownSelectionList;
   dynamic initialValue;
+  Widget? prefixIcon;
 
   calcBorderStyle({bool isFocused = false}) {
     return borderStyle == TextFormFieldBorderStyle.borderBottom
@@ -165,6 +169,11 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
         isDense: widget.dropdownSelection ? true : false,
         focusedBorder: widget.calcBorderStyle(isFocused: true),
         errorBorder: widget.calcBorderStyle(isFocused: true),
+        prefixIcon: widget.prefixIcon,
+        hintText: widget.hintText,
+        hintStyle: TextStyle(
+          color: ThemeSelector.colors.secondaryTant,
+        ),
         suffixIcon: widget.isPassword
             ? IconButton(
                 onPressed: () {
