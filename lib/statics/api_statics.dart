@@ -55,5 +55,6 @@ class ApiKeys {
   static String mealOrder = '/Product/_/order';
   static String mealOrderByCategory = '/Product/_/order/categories';
   static String mealPreOrder = '/Product/_/preorder';
-  static String mealPreOrderByCategory = '/Product/chefs/preorder/categories';
+  static String mealPreOrderByCategory = '/Product/_/preorder/categories';
+  static String mealCalories = '/Product/_/calories';
 }

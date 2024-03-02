@@ -16,6 +16,7 @@ class _ThemeStatics {
 
   double defaultElevation = 2.0;
 
+  double defaultMicroGap = 4.0;
   double defaultGap = 8.0;
   double defaultInputGap = 12.0;
   double defaultLineGap = 16.0;

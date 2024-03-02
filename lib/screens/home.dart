@@ -168,6 +168,7 @@ class HomeScreen extends StatelessWidget {
             ),
             drawer: Drawer(
               backgroundColor: ThemeSelector.colors.background,
+              surfaceTintColor: Colors.transparent,
               child: SideBar(),
             ),
           ),
