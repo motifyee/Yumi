@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/profile/profile_bloc.dart';
+import 'package:yumi/forms/profile_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/dialog.dart';
 
 class UserSettingDetails extends StatelessWidget {
   const UserSettingDetails({super.key});
@@ -46,9 +48,15 @@ class UserSettingDetails extends StatelessWidget {
                     ),
                     SizedBox(width: ThemeSelector.statics.defaultGap),
                     Text(S.of(context).profileSetting),
-                    Expanded(child: Text('')),
+                    const Expanded(child: Text('')),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => DialogContainer(
+                                    child: ProfileForm(),
+                                  ));
+                        },
                         child: Text(
                           S.of(context).edit,
                           style:
@@ -63,7 +71,7 @@ class UserSettingDetails extends StatelessWidget {
                       S.of(context).fullName,
                       style: TextStyle(color: ThemeSelector.colors.secondary),
                     ),
-                    Expanded(child: Text('')),
+                    const Expanded(child: Text('')),
                     Text(
                       state.profile.firstName,
                       style:
@@ -78,7 +86,7 @@ class UserSettingDetails extends StatelessWidget {
                       S.of(context).userName,
                       style: TextStyle(color: ThemeSelector.colors.secondary),
                     ),
-                    Expanded(child: Text('')),
+                    const Expanded(child: Text('')),
                     Text(
                       state.profile.firstName,
                       style:
@@ -93,7 +101,7 @@ class UserSettingDetails extends StatelessWidget {
                       S.of(context).phone,
                       style: TextStyle(color: ThemeSelector.colors.secondary),
                     ),
-                    Expanded(child: Text('')),
+                    const Expanded(child: Text('')),
                     Text(
                       state.profile.mobile,
                       style:
@@ -108,7 +116,7 @@ class UserSettingDetails extends StatelessWidget {
                       S.of(context).address,
                       style: TextStyle(color: ThemeSelector.colors.secondary),
                     ),
-                    Expanded(child: Text('')),
+                    const Expanded(child: Text('')),
                     Text(
                       state.profile.country.name,
                       style:
@@ -123,7 +131,7 @@ class UserSettingDetails extends StatelessWidget {
                       S.of(context).pickup,
                       style: TextStyle(color: ThemeSelector.colors.secondary),
                     ),
-                    Expanded(child: Text('')),
+                    const Expanded(child: Text('')),
                     Text(
                       'Allowed',
                       style:
@@ -138,7 +146,7 @@ class UserSettingDetails extends StatelessWidget {
                       S.of(context).about,
                       style: TextStyle(color: ThemeSelector.colors.secondary),
                     ),
-                    Expanded(child: Text('')),
+                    const Expanded(child: Text('')),
                     Text(
                       '',
                       style:

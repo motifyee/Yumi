@@ -11,7 +11,10 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProfileBloc>().add(ProfileEvent(context: context));
+    var profileBloc = context.read<ProfileBloc>();
+    // if (profileBloc.state.profile.guid.isEmpty) {
+    profileBloc.add(ProfileEvent(context: context));
+    // }
 
     return BlocConsumer<ProfileBloc, ProfileState>(
       listener: (context, state) {},
@@ -34,7 +37,7 @@ class SettingScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  Expanded(child: Text('')),
+                  const Expanded(child: Text('')),
                   Container(
                     width: ThemeSelector.statics.defaultTitleGap,
                     height: ThemeSelector.statics.defaultTitleGap,
@@ -45,9 +48,7 @@ class SettingScreen extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        state.profile.firstName.isNotEmpty
-                            ? state.profile.firstName[0].toUpperCase()
-                            : '',
+                        state.profile.firstName[0],
                         style: TextStyle(
                           color: ThemeSelector.colors.onPrimary,
                           fontSize: ThemeSelector.fonts.font_18,
@@ -63,8 +64,8 @@ class SettingScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    UserSettingDetails(),
-                    BankSettingCard(),
+                    const UserSettingDetails(),
+                    const BankSettingCard(),
                     Padding(
                       padding:
                           EdgeInsets.all(ThemeSelector.statics.defaultTitleGap),
