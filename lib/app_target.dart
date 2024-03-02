@@ -6,7 +6,7 @@ class AppTarget {
   /// ios:
   /// ios/Runner/Info.plist <== CFBundleName: $appName
 
-  static AppTargetUser user = AppTargetUser.drivers;
+  static AppTargetUser user = AppTargetUser.chefs;
   static String branch = AppTargetBranches.yumi;
 }
 
