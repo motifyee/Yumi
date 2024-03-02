@@ -1,14 +1,16 @@
+import 'dart:html';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 
 // const originApi = 'https://10.99.77.247:5012';
-const originApi = 'https://693d-81-10-105-81.ngrok-free.app';
+const originApi = 'https://b1bc-81-10-105-81.ngrok-free.app';
 
 class DioClient {
   static Dio simpleDio(BuildContext context) {
@@ -19,6 +21,8 @@ class DioClient {
             'Bearer ${context.read<UserBloc>().state.user.accessToken}',
       }),
     );
+
+    if (kIsWeb) return dio;
 
     /// this is for local network ssl. problem
     /// must be commented in publish
