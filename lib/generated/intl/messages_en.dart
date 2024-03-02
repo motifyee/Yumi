@@ -58,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "empty": MessageLookupByLibrary.simpleMessage("Empty"),
         "eventsPhoto": MessageLookupByLibrary.simpleMessage("Events Photo"),
         "financialView": MessageLookupByLibrary.simpleMessage("Financial view"),
+        "firstName": MessageLookupByLibrary.simpleMessage("First name"),
         "forHowManyPerson":
             MessageLookupByLibrary.simpleMessage("(For how many person)"),
         "forgetPassword":
@@ -69,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hygiene": MessageLookupByLibrary.simpleMessage("Hygiene"),
         "ingredients": MessageLookupByLibrary.simpleMessage("Ingredients"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
+        "lastName": MessageLookupByLibrary.simpleMessage("Last name"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "lowerCase": MessageLookupByLibrary.simpleMessage("1 lower case"),
@@ -81,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Menu (pre-orders)"),
         "menus": MessageLookupByLibrary.simpleMessage("Menus"),
         "min": MessageLookupByLibrary.simpleMessage("(Min)"),
+        "mobile": MessageLookupByLibrary.simpleMessage("Mobile"),
         "myReviews": MessageLookupByLibrary.simpleMessage("My reviews"),
         "mySchedule": MessageLookupByLibrary.simpleMessage("My schedule"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
@@ -91,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "orSignUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
         "orderId": MessageLookupByLibrary.simpleMessage("Order Id"),
         "orderReceived": MessageLookupByLibrary.simpleMessage("Order received"),
+        "ordersHistory": MessageLookupByLibrary.simpleMessage("Orders History"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordDoesNotMatch":
             MessageLookupByLibrary.simpleMessage("Password does not match!"),

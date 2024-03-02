@@ -661,29 +661,9 @@ class S {
   }
 
   /// `Full name`
-  String get firstName {
-    return Intl.message(
-      'First Name',
-      name: 'firstName',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Full name`
-  String get lastName {
-    return Intl.message(
-      'Last Name',
-      name: 'lastName',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Full name`
   String get fullName {
     return Intl.message(
-      'Full Name',
+      'Full name',
       name: 'fullName',
       desc: '',
       args: [],
@@ -715,16 +695,6 @@ class S {
     return Intl.message(
       'User name',
       name: 'userName',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `mobile`
-  String get mobile {
-    return Intl.message(
-      'Mobile',
-      name: 'mobile',
       desc: '',
       args: [],
     );
@@ -1015,6 +985,46 @@ class S {
     return Intl.message(
       'Search',
       name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Orders History`
+  String get ordersHistory {
+    return Intl.message(
+      'Orders History',
+      name: 'ordersHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `First name`
+  String get firstName {
+    return Intl.message(
+      'First name',
+      name: 'firstName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last name`
+  String get lastName {
+    return Intl.message(
+      'Last name',
+      name: 'lastName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mobile`
+  String get mobile {
+    return Intl.message(
+      'Mobile',
+      name: 'mobile',
       desc: '',
       args: [],
     );
