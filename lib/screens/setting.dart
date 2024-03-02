@@ -48,7 +48,9 @@ class SettingScreen extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        state.profile.firstName[0],
+                        state.profile.firstName.isNotEmpty
+                            ? state.profile.firstName[0].toUpperCase()
+                            : '',
                         style: TextStyle(
                           color: ThemeSelector.colors.onPrimary,
                           fontSize: ThemeSelector.fonts.font_18,
