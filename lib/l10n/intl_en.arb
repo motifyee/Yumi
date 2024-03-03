@@ -107,5 +107,12 @@
   "bankCurrency": "Bank currency",
   "iban": "IBan",
   "swiftCode": "Swift code",
-  "branchAddress": "Branch address"
+  "branchAddress": "Branch address",
+  "open": "Open",
+  "orderAgain": "Order Again",
+  "chefEvents": "Chef events",
+  "cuisine": "Cuisine",
+  "addPreOrder": "Add Pre-order",
+  "happyCustomer": "Happy Customer",
+  "createYourReviewNow": "Create your review now"
 }

@@ -16,6 +16,8 @@ class _ThemeStatics {
 
   double defaultElevation = 2.0;
 
+  double defaultImageHeight = 160.0;
+
   double defaultMicroGap = 4.0;
   double defaultGap = 8.0;
   double defaultInputGap = 12.0;
@@ -23,8 +25,10 @@ class _ThemeStatics {
   double defaultBlockGap = 25.0;
   double defaultTitleGap = 35.0;
   double defaultTitleGapLarge = 45.0;
+  double defaultMediumGap = 60.0;
   double defaultGapExtreme = 65.0;
   double defaultGapExtraExtreme = 85.0;
+  double defaultGapXXL = 95.0;
 
   double defaultBorderRadius = 16;
   double defaultBorderRadiusSmall = 4;
@@ -118,7 +122,7 @@ class _ThemeColorsLight implements _ThemeColors {
   Color onWarning = const Color.fromRGBO(255, 255, 255, 1);
 
   @override
-  Color warning = const Color.fromRGBO(234, 91, 68, 1);
+  Color warning = const Color.fromRGBO(234, 179, 8, 1);
 }
 
 class _ThemeColorsDark implements _ThemeColors {
@@ -158,8 +162,8 @@ class _ThemeColorsDark implements _ThemeColors {
   Color onError = const Color.fromRGBO(255, 255, 255, 1);
 
   @override
-  Color onWarning = const Color.fromRGBO(0, 0, 0, 0);
+  Color onWarning = const Color.fromRGBO(255, 255, 255, 0);
 
   @override
-  Color warning = const Color.fromRGBO(9, 9, 9, 1);
+  Color warning = const Color.fromRGBO(234, 179, 8, 1);
 }

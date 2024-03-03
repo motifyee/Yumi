@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "accountNumber": MessageLookupByLibrary.simpleMessage("Account Number"),
         "addBankAccount":
             MessageLookupByLibrary.simpleMessage("Add bank account"),
+        "addPreOrder": MessageLookupByLibrary.simpleMessage("Add Pre-order"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
@@ -42,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "caloriesReference":
             MessageLookupByLibrary.simpleMessage("Calories reference"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "chefEvents": MessageLookupByLibrary.simpleMessage("Chef events"),
         "clickTheIconToViewCustomerNotes": MessageLookupByLibrary.simpleMessage(
             "Click the icon to view customer notes"),
         "closed": MessageLookupByLibrary.simpleMessage("Closed"),
@@ -52,6 +54,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
         "createNewAccount":
             MessageLookupByLibrary.simpleMessage("Create New Account"),
+        "createYourReviewNow":
+            MessageLookupByLibrary.simpleMessage("Create your review now"),
+        "cuisine": MessageLookupByLibrary.simpleMessage("Cuisine"),
         "currency": MessageLookupByLibrary.simpleMessage("(\$)"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
@@ -73,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forget password"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "getHelp": MessageLookupByLibrary.simpleMessage("Get help"),
+        "happyCustomer": MessageLookupByLibrary.simpleMessage("Happy Customer"),
         "hi": MessageLookupByLibrary.simpleMessage("Hi"),
         "holderName": MessageLookupByLibrary.simpleMessage("Holder name"),
         "hygiene": MessageLookupByLibrary.simpleMessage("Hygiene"),
@@ -101,8 +107,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "nameOnCard": MessageLookupByLibrary.simpleMessage("Name on card"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "numNumber": MessageLookupByLibrary.simpleMessage("1 number"),
+        "open": MessageLookupByLibrary.simpleMessage("Open"),
         "opened": MessageLookupByLibrary.simpleMessage("Opened"),
         "orSignUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
+        "orderAgain": MessageLookupByLibrary.simpleMessage("Order Again"),
         "orderId": MessageLookupByLibrary.simpleMessage("Order Id"),
         "orderReceived": MessageLookupByLibrary.simpleMessage("Order received"),
         "ordersHistory": MessageLookupByLibrary.simpleMessage("Orders History"),

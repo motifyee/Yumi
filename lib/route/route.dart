@@ -27,5 +27,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: FinancialViewRoute.page),
         AutoRoute(page: ChatRoute.page),
         AutoRoute(page: TransactionsRoute.page),
+        AutoRoute(page: ChefProfile.page),
       ];
 }
