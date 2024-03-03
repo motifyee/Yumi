@@ -23,14 +23,20 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("About"),
+        "accountName": MessageLookupByLibrary.simpleMessage("Account name"),
         "accountNumber": MessageLookupByLibrary.simpleMessage("Account Number"),
+        "addBankAccount":
+            MessageLookupByLibrary.simpleMessage("Add bank account"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "areYouSureToDeleteAMeal": MessageLookupByLibrary.simpleMessage(
             "Are you sure to delete a meal?"),
         "bankAccount": MessageLookupByLibrary.simpleMessage("Bank Account"),
+        "bankCurrency": MessageLookupByLibrary.simpleMessage("Bank currency"),
+        "bankName": MessageLookupByLibrary.simpleMessage("Bank name"),
         "bio": MessageLookupByLibrary.simpleMessage("Bio"),
+        "branchAddress": MessageLookupByLibrary.simpleMessage("Branch address"),
         "busy": MessageLookupByLibrary.simpleMessage("Busy"),
         "calories": MessageLookupByLibrary.simpleMessage("Calories"),
         "caloriesReference":
@@ -57,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "empty": MessageLookupByLibrary.simpleMessage("Empty"),
         "eventsPhoto": MessageLookupByLibrary.simpleMessage("Events Photo"),
+        "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
+        "featuredChefs": MessageLookupByLibrary.simpleMessage("Featured Chefs"),
         "financialView": MessageLookupByLibrary.simpleMessage("Financial view"),
         "firstName": MessageLookupByLibrary.simpleMessage("First name"),
         "forHowManyPerson":
@@ -68,8 +76,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "hi": MessageLookupByLibrary.simpleMessage("Hi"),
         "holderName": MessageLookupByLibrary.simpleMessage("Holder name"),
         "hygiene": MessageLookupByLibrary.simpleMessage("Hygiene"),
+        "iban": MessageLookupByLibrary.simpleMessage("IBan"),
         "ingredients": MessageLookupByLibrary.simpleMessage("Ingredients"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
+        "invalidInput": MessageLookupByLibrary.simpleMessage("Invalid input"),
         "lastName": MessageLookupByLibrary.simpleMessage("Last name"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
@@ -84,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "menus": MessageLookupByLibrary.simpleMessage("Menus"),
         "min": MessageLookupByLibrary.simpleMessage("(Min)"),
         "mobile": MessageLookupByLibrary.simpleMessage("Mobile"),
+        "myOrders": MessageLookupByLibrary.simpleMessage("My Orders"),
         "myReviews": MessageLookupByLibrary.simpleMessage("My reviews"),
         "mySchedule": MessageLookupByLibrary.simpleMessage("My schedule"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
@@ -124,6 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sortCode": MessageLookupByLibrary.simpleMessage("Sort code"),
         "specialCharacter": MessageLookupByLibrary.simpleMessage(
             "1 special character ( ! @ # \$ & * ~ )"),
+        "swiftCode": MessageLookupByLibrary.simpleMessage("Swift code"),
         "theTotalPriceIncludesTax": MessageLookupByLibrary.simpleMessage(
             "The total price includes tax"),
         "thisButtonMeansThatTheChefIsCurrentlyAvailable":

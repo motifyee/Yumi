@@ -26,7 +26,9 @@ class HomeScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return ScreenContainer(
-          isColored: state.selectedIndex == 1,
+          isColored: NavigateOptions
+                  .navigateList[state.selectedIndex].isBackGroundGradient ??
+              false,
           child: Scaffold(
             backgroundColor: Colors.transparent,
             key: _scaffoldState,

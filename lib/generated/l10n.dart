@@ -731,16 +731,6 @@ class S {
   }
 
   /// `Bank Account`
-  String get addBankAccount {
-    return Intl.message(
-      'Add Bank Account',
-      name: 'addbankAccount',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Bank Account`
   String get bankAccount {
     return Intl.message(
       'Bank Account',
@@ -750,51 +740,31 @@ class S {
     );
   }
 
-  /// `bank name`
-  String get bankName {
+  /// `Holder name`
+  String get holderName {
     return Intl.message(
-      'Bank Name',
-      name: 'bankName',
+      'Holder name',
+      name: 'holderName',
       desc: '',
       args: [],
     );
   }
 
-  /// `account name`
-  String get accountName {
+  /// `Name on card`
+  String get nameOnCard {
     return Intl.message(
-      'Account Name',
-      name: 'accountName',
+      'Name on card',
+      name: 'nameOnCard',
       desc: '',
       args: [],
     );
   }
 
-  /// `iban`
-  String get iban {
+  /// `Sort code`
+  String get sortCode {
     return Intl.message(
-      'IBAN',
-      name: 'iban',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `swiftCode`
-  String get swiftCode {
-    return Intl.message(
-      'Swift Code',
-      name: 'swiftCode',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `branchAddress`
-  String get branchAddress {
-    return Intl.message(
-      'Branch Address',
-      name: 'branchAddress',
+      'Sort code',
+      name: 'sortCode',
       desc: '',
       args: [],
     );
@@ -930,16 +900,6 @@ class S {
     );
   }
 
-  /// bankCurrency
-  String get bankCurrency {
-    return Intl.message(
-      'Bank Currency',
-      name: 'bankCurrency',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Portion`
   String get portion {
     return Intl.message(
@@ -975,16 +935,6 @@ class S {
     return Intl.message(
       'Connection Error!',
       name: 'connectionError',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Invalid Input!`
-  String get invalidInput {
-    return Intl.message(
-      'Invalid Input!',
-      name: 'invalidInput',
       desc: '',
       args: [],
     );
@@ -1075,6 +1025,116 @@ class S {
     return Intl.message(
       'Mobile',
       name: 'mobile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorites`
+  String get favorites {
+    return Intl.message(
+      'Favorites',
+      name: 'favorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Featured Chefs`
+  String get featuredChefs {
+    return Intl.message(
+      'Featured Chefs',
+      name: 'featuredChefs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Orders`
+  String get myOrders {
+    return Intl.message(
+      'My Orders',
+      name: 'myOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid input`
+  String get invalidInput {
+    return Intl.message(
+      'Invalid input',
+      name: 'invalidInput',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add bank account`
+  String get addBankAccount {
+    return Intl.message(
+      'Add bank account',
+      name: 'addBankAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bank name`
+  String get bankName {
+    return Intl.message(
+      'Bank name',
+      name: 'bankName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account name`
+  String get accountName {
+    return Intl.message(
+      'Account name',
+      name: 'accountName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bank currency`
+  String get bankCurrency {
+    return Intl.message(
+      'Bank currency',
+      name: 'bankCurrency',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `IBan`
+  String get iban {
+    return Intl.message(
+      'IBan',
+      name: 'iban',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Swift code`
+  String get swiftCode {
+    return Intl.message(
+      'Swift code',
+      name: 'swiftCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Branch address`
+  String get branchAddress {
+    return Intl.message(
+      'Branch address',
+      name: 'branchAddress',
       desc: '',
       args: [],
     );

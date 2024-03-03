@@ -48,24 +48,25 @@ class CaloriesReferenceTemplate extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ThemeSelector.statics.defaultLineGap),
-            child: TextFormFieldTemplate(
-              hintText: S.of(context).search,
-              borderStyle: TextFormFieldBorderStyle.borderedRound,
-              prefixIcon: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: ThemeSelector.statics.defaultGap,
-                  vertical: ThemeSelector.statics.defaultLineGap,
-                ),
-                child: SvgPicture.asset(
-                  'assets/images/search.svg',
-                  fit: BoxFit.fitHeight,
+          if (false)
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: ThemeSelector.statics.defaultLineGap),
+              child: TextFormFieldTemplate(
+                hintText: S.of(context).search,
+                borderStyle: TextFormFieldBorderStyle.borderedRound,
+                prefixIcon: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: ThemeSelector.statics.defaultGap,
+                    vertical: ThemeSelector.statics.defaultLineGap,
+                  ),
+                  child: SvgPicture.asset(
+                    'assets/images/search.svg',
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
               ),
             ),
-          ),
           SizedBox(height: ThemeSelector.statics.defaultGap),
           Expanded(
             child: PaginationTemplate(

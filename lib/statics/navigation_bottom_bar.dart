@@ -11,9 +11,7 @@ class NavigationBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NavigatorBloc, NavigatesState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Stack(
           clipBehavior: Clip.none,

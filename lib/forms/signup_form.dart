@@ -43,10 +43,18 @@ class SignUpForm extends StatelessWidget {
           children: [
             TextFormFieldTemplate(
               key: key,
-              label: S.of(context).name,
+              label: S.of(context).fullName,
+              onSave: (value) {
+                signupForm.fullName = value ?? '';
+              },
+              validators: requiredValidator,
+            ),
+            SizedBox(height: ThemeSelector.statics.formFieldGap),
+            TextFormFieldTemplate(
+              key: key,
+              label: S.of(context).userName,
               onSave: (value) {
                 signupForm.userName = value ?? '';
-                signupForm.fullName = value ?? '';
               },
               validators: requiredValidator,
             ),

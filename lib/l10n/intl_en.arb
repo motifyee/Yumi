@@ -96,5 +96,16 @@
   "ordersHistory": "Orders History",
   "firstName":"First name",
   "lastName":"Last name",
-  "mobile": "Mobile"
+  "mobile": "Mobile",
+  "favorites": "Favorites",
+  "featuredChefs": "Featured Chefs",
+  "myOrders": "My Orders",
+  "invalidInput": "Invalid input",
+  "addBankAccount": "Add bank account",
+  "bankName": "Bank name",
+  "accountName": "Account name",
+  "bankCurrency": "Bank currency",
+  "iban": "IBan",
+  "swiftCode": "Swift code",
+  "branchAddress": "Branch address"
 }

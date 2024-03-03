@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/screens/favorites.dart';
+import 'package:yumi/screens/featured_chefs.dart';
 import 'package:yumi/screens/menu.dart';
+import 'package:yumi/screens/my_order.dart';
 import 'package:yumi/screens/news.dart';
+import 'package:yumi/screens/notification.dart';
 import 'package:yumi/screens/order_history.dart';
 import 'package:yumi/screens/pre_order.dart';
 import 'package:yumi/screens/profile.dart';
@@ -26,10 +30,12 @@ class NavigateOptions {
         title: S.current.yumi,
         page: NewsScreen()),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/profile.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/profile1.svg'),
-        title: S.current.profile,
-        page: const ProfileScreen()),
+      icon: SvgPicture.asset('assets/images/profile.svg'),
+      selectedIcon: SvgPicture.asset('assets/images/profile1.svg'),
+      title: S.current.profile,
+      page: const ProfileScreen(),
+      isBackGroundGradient: true,
+    ),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/menu.svg'),
         selectedIcon: SvgPicture.asset('assets/images/menu1.svg'),
@@ -53,10 +59,12 @@ class NavigateOptions {
         title: S.current.yumi,
         page: NewsScreen()),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/profile.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/profile1.svg'),
-        title: S.current.profile,
-        page: const ProfileScreen()),
+      icon: SvgPicture.asset('assets/images/profile.svg'),
+      selectedIcon: SvgPicture.asset('assets/images/profile1.svg'),
+      title: S.current.profile,
+      page: const ProfileScreen(),
+      isBackGroundGradient: true,
+    ),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/history.svg'),
         selectedIcon: SvgPicture.asset('assets/images/history1.svg'),
@@ -80,25 +88,26 @@ class NavigateOptions {
         title: S.current.yumi,
         page: NewsScreen()),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/profile.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/profile1.svg'),
-        title: S.current.profile,
-        page: const ProfileScreen()),
+        icon: SvgPicture.asset('assets/images/bell.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/bell1.svg'),
+        title: S.current.notification,
+        page: const NotificationScreen()),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/menu.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/menu1.svg'),
-        title: S.current.menus,
-        page: const MenuScreen()),
+      icon: SvgPicture.asset('assets/images/heart.svg'),
+      selectedIcon: SvgPicture.asset('assets/images/heart1.svg'),
+      title: S.current.favorites,
+      page: const FavoritesScreen(),
+    ),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/pre_order.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg'),
-        title: S.current.preOrder,
-        page: const PreOrderScreen()),
+        icon: SvgPicture.asset('assets/images/bag.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/bag1.svg'),
+        title: S.current.myOrders,
+        page: const MyOrdersScreen()),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/setting.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/setting1.svg'),
-        title: S.current.setting,
-        page: const SettingScreen()),
+        icon: SvgPicture.asset('assets/images/featured.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/featured1.svg'),
+        title: S.current.featuredChefs,
+        page: const FeaturedChefsScreen()),
   ];
 
   static List<Widget> navigationDestination(BuildContext context, int index) {
@@ -131,10 +140,13 @@ class NavigateListItem {
   Widget selectedIcon;
   Widget page;
   String title;
+  bool isBackGroundGradient;
 
-  NavigateListItem(
-      {required this.title,
-      required this.page,
-      required this.icon,
-      required this.selectedIcon});
+  NavigateListItem({
+    required this.title,
+    required this.page,
+    required this.icon,
+    required this.selectedIcon,
+    this.isBackGroundGradient = false,
+  });
 }
