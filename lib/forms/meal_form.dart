@@ -138,7 +138,7 @@ class MealForm extends StatelessWidget {
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
                         TextFormFieldTemplate(
                           label: S.of(context).preparationTime,
-                          labelHint: S.of(context).min,
+                          labelHint: '(${S.of(context).min})',
                           labelIcon: 'assets/images/preperation_time.svg',
                           subLabel: S.of(context).maximum25Minutes,
                           enabled: false,
@@ -156,7 +156,7 @@ class MealForm extends StatelessWidget {
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
                         TextFormFieldTemplate(
                           label: S.of(context).price,
-                          labelHint: S.of(context).currency,
+                          labelHint: '(${S.of(context).currency})',
                           labelIcon: 'assets/images/price.svg',
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           initialValue: state.mealModel.price1,
@@ -172,7 +172,7 @@ class MealForm extends StatelessWidget {
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
                         TextFormFieldTemplate(
                           label: S.of(context).portion,
-                          labelHint: S.of(context).forHowManyPerson,
+                          labelHint: '(${S.of(context).forHowManyPerson})',
                           labelIcon: 'assets/images/description.svg',
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           initialValue: state.mealModel.portionPersons,

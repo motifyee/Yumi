@@ -29,6 +29,7 @@ class _ThemeStatics {
   double defaultGapExtreme = 65.0;
   double defaultGapExtraExtreme = 85.0;
   double defaultGapXXL = 95.0;
+  double defaultGapXXXL = 125.0;
 
   double defaultBorderRadius = 16;
   double defaultBorderRadiusSmall = 4;
@@ -57,6 +58,7 @@ class _ThemeFontSize {
   double font_14 = 14;
   double font_16 = 16;
   double font_18 = 18;
+  double font_20 = 20;
   double font_24 = 24;
   double font_38 = 38;
 }

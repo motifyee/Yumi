@@ -8,7 +8,7 @@ class DialogContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(child: child);
+    return Material(color: Colors.transparent, child: child);
   }
 }
 
@@ -93,7 +93,7 @@ Future<void> showAlertDialog(
 //       return Padding(
 //         padding: const EdgeInsets.all(8.0),
 //         child: AlertDialog(
-          
+
 //           title: title,
 //           content: Container(
 //             color: const Color.fromARGB(255, 63, 23, 224),

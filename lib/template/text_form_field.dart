@@ -184,7 +184,7 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
         prefixIcon: widget.prefixIcon,
         hintText: widget.hintText,
         hintStyle: TextStyle(
-          color: ThemeSelector.colors.secondaryTant,
+          color: ThemeSelector.colors.secondaryTantLighter,
         ),
         suffixIcon: widget.isPassword
             ? IconButton(

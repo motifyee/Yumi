@@ -82,10 +82,10 @@
   "price": "Price",
   "save": "Save",
   "cancel": "Cancel",
-  "min": "(Min)",
-  "currency": "($)",
+  "min": "Min",
+  "currency": "$",
   "portion": "Portion",
-  "forHowManyPerson": "(For how many person)",
+  "forHowManyPerson": "For how many person",
   "maximum25Minutes": "Maximum 25 minutes",
   "connectionError": "Connection Error!",
   "measurement": "gm",
@@ -114,5 +114,13 @@
   "cuisine": "Cuisine",
   "addPreOrder": "Add Pre-order",
   "happyCustomer": "Happy Customer",
-  "createYourReviewNow": "Create your review now"
+  "createYourReviewNow": "Create your review now",
+  "pleaseSpecifyTheDayTimeOfDelivery": "Please specify the day & time of delivery",
+  "day": "Day",
+  "time": "Time",
+  "deliveryDay": "Delivery day",
+  "deliveryTime": "Delivery time",
+  "pm": "PM",
+  "am": "AM",
+  "continue0": "Continue"
 }

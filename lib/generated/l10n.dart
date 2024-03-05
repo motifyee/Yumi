@@ -880,20 +880,20 @@ class S {
     );
   }
 
-  /// `(Min)`
+  /// `Min`
   String get min {
     return Intl.message(
-      '(Min)',
+      'Min',
       name: 'min',
       desc: '',
       args: [],
     );
   }
 
-  /// `($)`
+  /// `$`
   String get currency {
     return Intl.message(
-      '(\$)',
+      '\$',
       name: 'currency',
       desc: '',
       args: [],
@@ -910,10 +910,10 @@ class S {
     );
   }
 
-  /// `(For how many person)`
+  /// `For how many person`
   String get forHowManyPerson {
     return Intl.message(
-      '(For how many person)',
+      'For how many person',
       name: 'forHowManyPerson',
       desc: '',
       args: [],
@@ -1205,6 +1205,86 @@ class S {
     return Intl.message(
       'Create your review now',
       name: 'createYourReviewNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please specify the day & time of delivery`
+  String get pleaseSpecifyTheDayTimeOfDelivery {
+    return Intl.message(
+      'Please specify the day & time of delivery',
+      name: 'pleaseSpecifyTheDayTimeOfDelivery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Day`
+  String get day {
+    return Intl.message(
+      'Day',
+      name: 'day',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time`
+  String get time {
+    return Intl.message(
+      'Time',
+      name: 'time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delivery day`
+  String get deliveryDay {
+    return Intl.message(
+      'Delivery day',
+      name: 'deliveryDay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delivery time`
+  String get deliveryTime {
+    return Intl.message(
+      'Delivery time',
+      name: 'deliveryTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PM`
+  String get pm {
+    return Intl.message(
+      'PM',
+      name: 'pm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AM`
+  String get am {
+    return Intl.message(
+      'AM',
+      name: 'am',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get continue0 {
+    return Intl.message(
+      'Continue',
+      name: 'continue0',
       desc: '',
       args: [],
     );

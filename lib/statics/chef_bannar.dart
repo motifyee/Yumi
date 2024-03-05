@@ -77,21 +77,22 @@ class ChefBanner extends StatelessWidget {
                   Row(
                     children: [
                       RatingBar(
-                          ignoreGestures: true,
-                          initialRating: 3.5,
-                          allowHalfRating: true,
-                          itemSize: ThemeSelector.fonts.font_24,
-                          ratingWidget: RatingWidget(
-                            empty: Icon(Icons.star_border,
-                                color: ThemeSelector.colors.warning),
-                            full: Icon(Icons.star,
-                                color: ThemeSelector.colors.warning),
-                            half: Icon(
-                              Icons.star_half,
-                              color: ThemeSelector.colors.warning,
-                            ),
+                        ignoreGestures: true,
+                        initialRating: 3.5,
+                        allowHalfRating: true,
+                        itemSize: ThemeSelector.fonts.font_24,
+                        ratingWidget: RatingWidget(
+                          empty: Icon(Icons.star_border,
+                              color: ThemeSelector.colors.warning),
+                          full: Icon(Icons.star,
+                              color: ThemeSelector.colors.warning),
+                          half: Icon(
+                            Icons.star_half,
+                            color: ThemeSelector.colors.warning,
                           ),
-                          onRatingUpdate: (value) {}),
+                        ),
+                        onRatingUpdate: (value) {},
+                      ),
                       Text(' | ',
                           style:
                               TextStyle(color: ThemeSelector.colors.secondary)),

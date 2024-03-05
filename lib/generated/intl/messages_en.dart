@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
+        "am": MessageLookupByLibrary.simpleMessage("AM"),
         "areYouSureToDeleteAMeal": MessageLookupByLibrary.simpleMessage(
             "Are you sure to delete a meal?"),
         "bankAccount": MessageLookupByLibrary.simpleMessage("Bank Account"),
@@ -51,17 +52,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "connectionError":
             MessageLookupByLibrary.simpleMessage("Connection Error!"),
+        "continue0": MessageLookupByLibrary.simpleMessage("Continue"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
         "createNewAccount":
             MessageLookupByLibrary.simpleMessage("Create New Account"),
         "createYourReviewNow":
             MessageLookupByLibrary.simpleMessage("Create your review now"),
         "cuisine": MessageLookupByLibrary.simpleMessage("Cuisine"),
-        "currency": MessageLookupByLibrary.simpleMessage("(\$)"),
+        "currency": MessageLookupByLibrary.simpleMessage("\$"),
+        "day": MessageLookupByLibrary.simpleMessage("Day"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
         "deleteMeal": MessageLookupByLibrary.simpleMessage("Delete meal"),
+        "deliveryDay": MessageLookupByLibrary.simpleMessage("Delivery day"),
         "deliveryFee": MessageLookupByLibrary.simpleMessage("Delivery Fee"),
+        "deliveryTime": MessageLookupByLibrary.simpleMessage("Delivery time"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "documentation": MessageLookupByLibrary.simpleMessage("Documentation"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
@@ -73,7 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "financialView": MessageLookupByLibrary.simpleMessage("Financial view"),
         "firstName": MessageLookupByLibrary.simpleMessage("First name"),
         "forHowManyPerson":
-            MessageLookupByLibrary.simpleMessage("(For how many person)"),
+            MessageLookupByLibrary.simpleMessage("For how many person"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Forget password"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
@@ -98,7 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "menuPreOrders":
             MessageLookupByLibrary.simpleMessage("Menu (pre-orders)"),
         "menus": MessageLookupByLibrary.simpleMessage("Menus"),
-        "min": MessageLookupByLibrary.simpleMessage("(Min)"),
+        "min": MessageLookupByLibrary.simpleMessage("Min"),
         "mobile": MessageLookupByLibrary.simpleMessage("Mobile"),
         "myOrders": MessageLookupByLibrary.simpleMessage("My Orders"),
         "myReviews": MessageLookupByLibrary.simpleMessage("My reviews"),
@@ -123,6 +128,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Performance analysis"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "pickup": MessageLookupByLibrary.simpleMessage("Pickup"),
+        "pleaseSpecifyTheDayTimeOfDelivery":
+            MessageLookupByLibrary.simpleMessage(
+                "Please specify the day & time of delivery"),
+        "pm": MessageLookupByLibrary.simpleMessage("PM"),
         "portion": MessageLookupByLibrary.simpleMessage("Portion"),
         "preOrder": MessageLookupByLibrary.simpleMessage("Pre Orders"),
         "preparationTime":
@@ -157,6 +166,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "This button means that the chef is currently not available"),
         "thisSectionYourSavedAddress": MessageLookupByLibrary.simpleMessage(
             "This section your saved address"),
+        "time": MessageLookupByLibrary.simpleMessage("Time"),
         "total": MessageLookupByLibrary.simpleMessage("Total"),
         "transactions": MessageLookupByLibrary.simpleMessage("Transactions"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),

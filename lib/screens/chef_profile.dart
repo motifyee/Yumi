@@ -2,12 +2,14 @@ import 'package:auto_route/annotations.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:yumi/forms/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/chef_bannar.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/category_card.dart';
 import 'package:yumi/template/chef_meal_card.dart';
 import 'package:yumi/template/pagination_template.dart';
+import 'package:yumi/template/review_card.dart';
 
 @RoutePage()
 class ChefProfile extends StatelessWidget {
@@ -148,7 +150,13 @@ class ChefProfile extends StatelessWidget {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              builder: (context) => CustomerPreOrderForm());
+                        },
                         child: Row(
                           children: [
                             Text(
@@ -243,7 +251,23 @@ class ChefProfile extends StatelessWidget {
                         ],
                       ),
                     ],
-                  )
+                  ),
+                  SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                  PaginationTemplate(
+                    loadDate: () {},
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        for (var review in [0, 1, 2, 3, 4])
+                          Padding(
+                            padding: EdgeInsets.all(
+                                ThemeSelector.statics.defaultGap),
+                            child: ReviewCard(),
+                          ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                 ],
               ),
             ),
