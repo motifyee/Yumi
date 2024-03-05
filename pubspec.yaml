@@ -35,8 +35,8 @@ dependencies:
   flutter_bloc: ^8.1.4
   equatable: ^2.0.5
   auto_route: ^7.8.4
-  flutter_svg: ^2.0.9
-  dio: ^5.4.0
+  flutter_svg: ^2.0.10+1
+  dio: ^5.4.1
   shared_preferences: ^2.2.2
   loading_indicator: ^3.1.1
   image_picker: ^1.0.7
