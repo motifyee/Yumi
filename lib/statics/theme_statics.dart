@@ -49,6 +49,7 @@ class _ThemeStatics {
   double iconSizeExtreme = 65;
 
   Duration animationDuration = const Duration(milliseconds: 250);
+  Duration slowAnimationDuration = const Duration(milliseconds: 650);
 }
 
 class _ThemeFontSize {

@@ -145,6 +145,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "required": MessageLookupByLibrary.simpleMessage("Required"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "searchForFood":
+            MessageLookupByLibrary.simpleMessage("Search for food"),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "signToContinue":
             MessageLookupByLibrary.simpleMessage("Sign to continue"),
@@ -174,6 +176,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "userName": MessageLookupByLibrary.simpleMessage("User name"),
         "view": MessageLookupByLibrary.simpleMessage("View"),
         "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
+        "whatYouWishToEatToday":
+            MessageLookupByLibrary.simpleMessage("What you wish to eat today?"),
         "writeABio": MessageLookupByLibrary.simpleMessage("Write a Bio"),
         "yumi": MessageLookupByLibrary.simpleMessage("YUMI")
       };

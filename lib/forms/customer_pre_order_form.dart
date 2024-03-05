@@ -153,72 +153,52 @@ class CustomerPreOrderForm extends StatelessWidget {
                 )),
               ],
             ),
-            SizedBox(height: ThemeSelector.statics.defaultMicroGap),
-            Row(
-              children: [
-                SizedBox(
-                  width: ThemeSelector.statics.defaultGapExtreme,
-                  child: Text(
-                    '${S.of(context).portion}:',
-                    style: TextStyle(
-                      color: ThemeSelector.colors.secondary,
-                      fontSize: ThemeSelector.fonts.font_14,
-                    ),
-                  ),
-                ),
-                SizedBox(width: ThemeSelector.statics.defaultMicroGap),
-                SizedBox(
-                  width: ThemeSelector.statics.defaultGapXXXL,
-                  child: TextFormFieldTemplate(
-                    hintText: S.of(context).forHowManyPerson,
-                    textInputType: TextInputType.number,
-                    borderStyle: TextFormFieldBorderStyle.borderedRound,
-                  ),
-                ),
-              ],
-            ),
             SizedBox(height: ThemeSelector.statics.defaultBlockGap),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: Container(
-                        width: ThemeSelector.statics.defaultGapXXXL,
-                        height: ThemeSelector.statics.defaultTitleGapLarge,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                                ThemeSelector.statics.defaultBorderRadius),
-                            border: Border.all(
-                                color: ThemeSelector.colors.primary, width: 1)),
-                        child: Center(
-                          child: Text(
-                            S.of(context).cancel,
-                            style: TextStyle(
-                              color: ThemeSelector.colors.primary,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ))),
+                  onTap: () => Navigator.of(context).pop(),
+                  child: Container(
+                    width: ThemeSelector.statics.defaultGapXXXL,
+                    height: ThemeSelector.statics.defaultTitleGapLarge,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                            ThemeSelector.statics.defaultBorderRadius),
+                        border: Border.all(
+                            color: ThemeSelector.colors.primary, width: 1)),
+                    child: Center(
+                      child: Text(
+                        S.of(context).cancel,
+                        style: TextStyle(
+                          color: ThemeSelector.colors.primary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(width: ThemeSelector.statics.defaultGap),
                 GestureDetector(
-                    child: Container(
-                        width: ThemeSelector.statics.defaultGapXXXL,
-                        height: ThemeSelector.statics.defaultTitleGapLarge,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                              ThemeSelector.statics.defaultBorderRadius),
-                          color: ThemeSelector.colors.primary,
+                  child: Container(
+                    width: ThemeSelector.statics.defaultGapXXXL,
+                    height: ThemeSelector.statics.defaultTitleGapLarge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                          ThemeSelector.statics.defaultBorderRadius),
+                      color: ThemeSelector.colors.primary,
+                    ),
+                    child: Center(
+                      child: Text(
+                        S.of(context).continue0,
+                        style: TextStyle(
+                          color: ThemeSelector.colors.onPrimary,
+                          fontWeight: FontWeight.w700,
                         ),
-                        child: Center(
-                          child: Text(
-                            S.of(context).continue0,
-                            style: TextStyle(
-                              color: ThemeSelector.colors.onPrimary,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ))),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             )
           ],

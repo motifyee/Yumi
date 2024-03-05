@@ -122,5 +122,7 @@
   "deliveryTime": "Delivery time",
   "pm": "PM",
   "am": "AM",
-  "continue0": "Continue"
+  "continue0": "Continue",
+  "whatYouWishToEatToday": "What you wish to eat today?",
+  "searchForFood": "Search for food"
 }

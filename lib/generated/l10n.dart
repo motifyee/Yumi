@@ -1289,6 +1289,26 @@ class S {
       args: [],
     );
   }
+
+  /// `What you wish to eat today?`
+  String get whatYouWishToEatToday {
+    return Intl.message(
+      'What you wish to eat today?',
+      name: 'whatYouWishToEatToday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for food`
+  String get searchForFood {
+    return Intl.message(
+      'Search for food',
+      name: 'searchForFood',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

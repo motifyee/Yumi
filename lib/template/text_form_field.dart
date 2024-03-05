@@ -24,6 +24,7 @@ class TextFormFieldTemplate extends StatefulWidget {
     this.dropdownSelectionTargetLabel,
     this.dropdownSelectionList,
     this.prefixIcon,
+    this.suffixIcon,
     this.textInputType = TextInputType.text,
     this.isPassword = false,
     this.enabled = true,
@@ -63,6 +64,7 @@ class TextFormFieldTemplate extends StatefulWidget {
   List<dynamic>? dropdownSelectionList;
   dynamic initialValue;
   Widget? prefixIcon;
+  Widget? suffixIcon;
   List<TextInputFormatter> inputFormatters;
   int maxLines = 1;
   int minLines = 1;
@@ -200,7 +202,7 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
                   color: ThemeSelector.colors.secondary.withOpacity(.6),
                 ),
               )
-            : null);
+            : widget.suffixIcon);
 
     return widget.dropdownSelection
         ? DropdownButtonFormField(

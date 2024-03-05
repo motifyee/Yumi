@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/screens/customer_menu_pre.dart';
+import 'package:yumi/screens/cutomer_menu.dart';
 import 'package:yumi/screens/favorites.dart';
-import 'package:yumi/screens/featured_chefs.dart';
 import 'package:yumi/screens/menu.dart';
 import 'package:yumi/screens/my_order.dart';
 import 'package:yumi/screens/news.dart';
@@ -85,8 +86,8 @@ class NavigateOptions {
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/home.svg'),
         selectedIcon: SvgPicture.asset('assets/images/home1.svg'),
-        title: S.current.yumi,
-        page: NewsScreen()),
+        title: S.current.menus,
+        page: const CustomerMenuScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/bell.svg'),
         selectedIcon: SvgPicture.asset('assets/images/bell1.svg'),
@@ -106,8 +107,8 @@ class NavigateOptions {
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/featured.svg'),
         selectedIcon: SvgPicture.asset('assets/images/featured1.svg'),
-        title: S.current.featuredChefs,
-        page: const FeaturedChefsScreen()),
+        title: S.current.preOrder,
+        page: const CustomerMenuPreScreen()),
   ];
 
   static List<Widget> navigationDestination(BuildContext context, int index) {
