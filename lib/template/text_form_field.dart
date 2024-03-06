@@ -26,6 +26,7 @@ class TextFormFieldTemplate extends StatefulWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.textInputType = TextInputType.text,
+    this.isDense = false,
     this.isPassword = false,
     this.enabled = true,
     this.readOnly = false,
@@ -59,6 +60,7 @@ class TextFormFieldTemplate extends StatefulWidget {
   bool enabled;
   bool readOnly;
   bool dropdownSelection;
+  bool? isDense;
   String? dropdownSelectionTargetLabel;
   dynamic dropdownSelectionValue;
   List<dynamic>? dropdownSelectionList;
@@ -73,20 +75,25 @@ class TextFormFieldTemplate extends StatefulWidget {
   TextCapitalization textCapitalization = TextCapitalization.none;
 
   calcBorderStyle({bool isFocused = false}) {
-    return borderStyle == TextFormFieldBorderStyle.borderBottom
-        ? UnderlineInputBorder(
-            borderSide: BorderSide(
-                color:
-                    isFocused ? borderStyle!.focusColor : borderStyle!.color),
-          )
-        : OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(borderStyle!.borderRadius),
-            ),
-            borderSide: BorderSide(
-                color:
-                    isFocused ? borderStyle!.focusColor : borderStyle!.color),
-          );
+    if (borderStyle == TextFormFieldBorderStyle.borderBottom) {
+      return UnderlineInputBorder(
+        borderSide: BorderSide(
+            color: isFocused ? borderStyle!.focusColor : borderStyle!.color),
+      );
+    }
+    if (borderStyle == TextFormFieldBorderStyle.borderNone) {
+      return const UnderlineInputBorder(
+        borderSide: BorderSide.none,
+      );
+    }
+
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(borderStyle!.borderRadius),
+      ),
+      borderSide: BorderSide(
+          color: isFocused ? borderStyle!.focusColor : borderStyle!.color),
+    );
   }
 
   @override
@@ -175,12 +182,11 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
                 horizontal: widget.borderStyle!.inputIndent,
                 vertical: ThemeSelector.statics.defaultInputGap,
               )
-            : EdgeInsets.symmetric(
-                horizontal: widget.borderStyle!.inputIndent,
-              ),
+            : EdgeInsets.symmetric(horizontal: widget.borderStyle!.inputIndent),
         border: widget.calcBorderStyle(),
         enabledBorder: widget.calcBorderStyle(),
-        isDense: widget.dropdownSelection ? true : false,
+        isDense:
+            widget.isDense == true || widget.dropdownSelection ? true : false,
         focusedBorder: widget.calcBorderStyle(isFocused: true),
         errorBorder: widget.calcBorderStyle(isFocused: true),
         prefixIcon: widget.prefixIcon,
@@ -279,6 +285,13 @@ class TextFormFieldBorderStyle {
 
   static TextFormFieldBorderStyleType borderBottom =
       TextFormFieldBorderStyleType(
+    borderRadius: ThemeSelector.statics.buttonBorderRadius,
+    color: ThemeSelector.colors.secondaryTantLighter,
+    focusColor: ThemeSelector.colors.primary,
+    inputIndent: ThemeSelector.statics.defaultGap,
+  );
+
+  static TextFormFieldBorderStyleType borderNone = TextFormFieldBorderStyleType(
     borderRadius: ThemeSelector.statics.buttonBorderRadius,
     color: ThemeSelector.colors.secondaryTantLighter,
     focusColor: ThemeSelector.colors.primary,

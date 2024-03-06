@@ -131,5 +131,15 @@
   "suggestions": "Suggestions",
   "onlineChefs": "Online Chefs",
   "points": "Points",
-  "chefs": "Chefs"
+  "chefs": "Chefs",
+  "basket": "Basket",
+  "specialRequest": "Special request",
+  "anythingElseWeNeedToKnow": "Anything else we need to know?",
+  "addANote": "Add a note",
+  "paymentSummary": "Payment summary",
+  "subtotal": "Subtotal",
+  "totalAmount": "Total amount",
+  "readMoreAboutFees": "Read more about fees",
+  "addFoods": "Add foods",
+  "checkout": "Checkout"
 }

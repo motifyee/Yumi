@@ -44,6 +44,7 @@ class _ThemeStatics {
   double buttonBorderRadiusRounded = 8;
   double buttonBorderRadius = 50;
 
+  double iconSizeDefault = 18;
   double iconSizeSmall = 25;
   double iconSizeMedium = 35;
   double iconSizeLarge = 50;

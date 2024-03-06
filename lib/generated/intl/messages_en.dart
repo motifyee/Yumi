@@ -25,18 +25,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "about": MessageLookupByLibrary.simpleMessage("About"),
         "accountName": MessageLookupByLibrary.simpleMessage("Account name"),
         "accountNumber": MessageLookupByLibrary.simpleMessage("Account Number"),
+        "addANote": MessageLookupByLibrary.simpleMessage("Add a note"),
         "addBankAccount":
             MessageLookupByLibrary.simpleMessage("Add bank account"),
+        "addFoods": MessageLookupByLibrary.simpleMessage("Add foods"),
         "addPreOrder": MessageLookupByLibrary.simpleMessage("Add Pre-order"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "am": MessageLookupByLibrary.simpleMessage("AM"),
+        "anythingElseWeNeedToKnow": MessageLookupByLibrary.simpleMessage(
+            "Anything else we need to know?"),
         "areYouSureToDeleteAMeal": MessageLookupByLibrary.simpleMessage(
             "Are you sure to delete a meal?"),
         "bankAccount": MessageLookupByLibrary.simpleMessage("Bank Account"),
         "bankCurrency": MessageLookupByLibrary.simpleMessage("Bank currency"),
         "bankName": MessageLookupByLibrary.simpleMessage("Bank name"),
+        "basket": MessageLookupByLibrary.simpleMessage("Basket"),
         "bio": MessageLookupByLibrary.simpleMessage("Bio"),
         "branchAddress": MessageLookupByLibrary.simpleMessage("Branch address"),
         "busy": MessageLookupByLibrary.simpleMessage("Busy"),
@@ -44,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "caloriesReference":
             MessageLookupByLibrary.simpleMessage("Calories reference"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
         "chefEvents": MessageLookupByLibrary.simpleMessage("Chef events"),
         "chefs": MessageLookupByLibrary.simpleMessage("Chefs"),
         "clickTheIconToViewCustomerNotes": MessageLookupByLibrary.simpleMessage(
@@ -128,6 +134,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password does not match!"),
         "passwordMustBe": MessageLookupByLibrary.simpleMessage(
             "Password must be 8 characters contains:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # \$ & * ~ )."),
+        "paymentSummary":
+            MessageLookupByLibrary.simpleMessage("Payment summary"),
         "performanceAnalysis":
             MessageLookupByLibrary.simpleMessage("Performance analysis"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
@@ -146,6 +154,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "profileSetting":
             MessageLookupByLibrary.simpleMessage("Profile Setting"),
+        "readMoreAboutFees":
+            MessageLookupByLibrary.simpleMessage("Read more about fees"),
         "ready": MessageLookupByLibrary.simpleMessage("Ready"),
         "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
@@ -160,6 +170,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "sortCode": MessageLookupByLibrary.simpleMessage("Sort code"),
         "specialCharacter": MessageLookupByLibrary.simpleMessage(
             "1 special character ( ! @ # \$ & * ~ )"),
+        "specialRequest":
+            MessageLookupByLibrary.simpleMessage("Special request"),
+        "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
         "suggestions": MessageLookupByLibrary.simpleMessage("Suggestions"),
         "swiftCode": MessageLookupByLibrary.simpleMessage("Swift code"),
         "theTotalPriceIncludesTax": MessageLookupByLibrary.simpleMessage(
@@ -177,6 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "This section your saved address"),
         "time": MessageLookupByLibrary.simpleMessage("Time"),
         "total": MessageLookupByLibrary.simpleMessage("Total"),
+        "totalAmount": MessageLookupByLibrary.simpleMessage("Total amount"),
         "transactions": MessageLookupByLibrary.simpleMessage("Transactions"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "upperCase": MessageLookupByLibrary.simpleMessage("1 upper case"),
