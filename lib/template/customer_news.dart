@@ -1,18 +1,20 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/chef_bannar.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/categories_list_dialog.dart';
 import 'package:yumi/template/offer_carousel.dart';
 import 'package:yumi/template/pagination_template.dart';
 import 'package:yumi/template/text_form_field.dart';
 
 class CustomerNews extends StatelessWidget {
-  const CustomerNews({super.key});
+  CustomerNews({super.key, required this.menuTarget});
+
+  MenuTarget menuTarget;
 
   @override
   Widget build(BuildContext context) {
@@ -99,11 +101,11 @@ class CustomerNews extends StatelessWidget {
                 child: Container(
                   height: ThemeSelector.statics.defaultTitleGap,
                   width: (MediaQuery.of(context).size.width / 4) +
-                      (ThemeSelector.statics.defaultLineGap),
+                      (ThemeSelector.statics.defaultLineGap * 1.5),
                   decoration: BoxDecoration(
                       color: ThemeSelector.colors.backgroundTant,
                       borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.defaultBorderRadius),
+                          ThemeSelector.statics.defaultBorderRadiusMedium),
                       boxShadow: [
                         BoxShadow(
                             color: ThemeSelector.colors.shadow.withOpacity(.1),
@@ -123,6 +125,11 @@ class CustomerNews extends StatelessWidget {
               left: (MediaQuery.of(context).size.width / 4) -
                   ThemeSelector.statics.defaultLineGap,
               child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => CategoriesListDialog());
+                },
                 child: Container(
                   height: ThemeSelector.statics.defaultTitleGap,
                   width: (MediaQuery.of(context).size.width / 4) +
@@ -225,7 +232,9 @@ class CustomerNews extends StatelessWidget {
                   ),
                   Text(' '),
                   Text(
-                    S.of(context).onlineChefs,
+                    menuTarget == MenuTarget.preOrder
+                        ? S.of(context).chefs
+                        : S.of(context).onlineChefs,
                     style: TextStyle(
                       color: ThemeSelector.colors.secondary,
                       fontSize: ThemeSelector.fonts.font_16,
