@@ -21,6 +21,24 @@ class OfferCarousel extends StatefulWidget {
       'percent': 15,
       'image': "assets/images/soup.png"
     },
+    {
+      'id': 3,
+      'color': ThemeSelector.colors.warning,
+      'percent': 20,
+      'image': "assets/images/pizza.png"
+    },
+    {
+      'id': 4,
+      'color': ThemeSelector.colors.success,
+      'percent': 10,
+      'image': "assets/images/salad.png"
+    },
+    {
+      'id': 5,
+      'color': ThemeSelector.colors.secondary,
+      'percent': 15,
+      'image': "assets/images/soup.png"
+    },
   ];
 
   @override
@@ -30,7 +48,7 @@ class OfferCarousel extends StatefulWidget {
 class _OfferCarouselState extends State<OfferCarousel> {
   @override
   void initState() {
-    Timer.periodic(Duration(seconds: 5), (timer) {
+    Timer.periodic(Duration(seconds: 8), (timer) {
       setState(() {
         if (widget.index == widget.items.length - 1) {
           widget.index = 0;
@@ -81,14 +99,14 @@ class _OfferCarouselState extends State<OfferCarousel> {
                     padding: EdgeInsets.symmetric(
                         horizontal: ThemeSelector.statics.defaultMicroGap),
                     child: Container(
-                      width: ThemeSelector.statics.defaultLineGap,
-                      height: ThemeSelector.statics.defaultLineGap,
+                      width: ThemeSelector.statics.defaultInputGap,
+                      height: ThemeSelector.statics.defaultInputGap,
                       decoration: BoxDecoration(
                         color: widget.index == i
                             ? ThemeSelector.colors.primary
                             : ThemeSelector.colors.secondaryFaint,
                         borderRadius: BorderRadius.circular(
-                            ThemeSelector.statics.defaultLineGap),
+                            ThemeSelector.statics.defaultInputGap),
                       ),
                     ),
                   ),

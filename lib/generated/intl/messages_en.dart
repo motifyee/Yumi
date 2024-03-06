@@ -59,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createYourReviewNow":
             MessageLookupByLibrary.simpleMessage("Create your review now"),
         "cuisine": MessageLookupByLibrary.simpleMessage("Cuisine"),
+        "cuisines": MessageLookupByLibrary.simpleMessage("Cuisines"),
         "currency": MessageLookupByLibrary.simpleMessage("\$"),
         "day": MessageLookupByLibrary.simpleMessage("Day"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
@@ -68,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deliveryFee": MessageLookupByLibrary.simpleMessage("Delivery Fee"),
         "deliveryTime": MessageLookupByLibrary.simpleMessage("Delivery time"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "dishName": MessageLookupByLibrary.simpleMessage("Dish Name"),
         "documentation": MessageLookupByLibrary.simpleMessage("Documentation"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -112,6 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nameOnCard": MessageLookupByLibrary.simpleMessage("Name on card"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "numNumber": MessageLookupByLibrary.simpleMessage("1 number"),
+        "onlineChefs": MessageLookupByLibrary.simpleMessage("Online Chefs"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "opened": MessageLookupByLibrary.simpleMessage("Opened"),
         "orSignUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
@@ -132,6 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Please specify the day & time of delivery"),
         "pm": MessageLookupByLibrary.simpleMessage("PM"),
+        "points": MessageLookupByLibrary.simpleMessage("Points"),
         "portion": MessageLookupByLibrary.simpleMessage("Portion"),
         "preOrder": MessageLookupByLibrary.simpleMessage("Pre Orders"),
         "preparationTime":
@@ -142,6 +146,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profileSetting":
             MessageLookupByLibrary.simpleMessage("Profile Setting"),
         "ready": MessageLookupByLibrary.simpleMessage("Ready"),
+        "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
@@ -154,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sortCode": MessageLookupByLibrary.simpleMessage("Sort code"),
         "specialCharacter": MessageLookupByLibrary.simpleMessage(
             "1 special character ( ! @ # \$ & * ~ )"),
+        "suggestions": MessageLookupByLibrary.simpleMessage("Suggestions"),
         "swiftCode": MessageLookupByLibrary.simpleMessage("Swift code"),
         "theTotalPriceIncludesTax": MessageLookupByLibrary.simpleMessage(
             "The total price includes tax"),

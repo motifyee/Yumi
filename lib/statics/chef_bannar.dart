@@ -8,18 +8,20 @@ class ChefBanner extends StatelessWidget {
       {super.key,
       required this.chef,
       required this.borderRadius,
-      required this.width});
+      required this.width,
+      this.height});
 
   final dynamic chef;
   final BorderRadius borderRadius;
   final double width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(
-          height: ThemeSelector.statics.defaultImageHeight,
+          height: height ?? ThemeSelector.statics.defaultImageHeight,
           child: Stack(children: [
             Container(
               clipBehavior: Clip.hardEdge,

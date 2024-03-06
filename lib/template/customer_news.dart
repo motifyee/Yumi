@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/chef_bannar.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/carousel.dart';
+import 'package:yumi/template/offer_carousel.dart';
 import 'package:yumi/template/pagination_template.dart';
 import 'package:yumi/template/text_form_field.dart';
 
@@ -16,6 +17,7 @@ class CustomerNews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(
@@ -23,8 +25,8 @@ class CustomerNews extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(
-                  height: ThemeSelector.statics.defaultBlockGap,
-                  width: ThemeSelector.statics.defaultBlockGap,
+                  height: ThemeSelector.statics.defaultLineGap,
+                  width: ThemeSelector.statics.defaultLineGap,
                   child: SvgPicture.asset(
                     'assets/images/location'
                     '.svg',
@@ -37,7 +39,7 @@ class CustomerNews extends StatelessWidget {
                   RichText(
                       text: TextSpan(
                     style: TextStyle(
-                      fontSize: ThemeSelector.fonts.font_18,
+                      fontSize: ThemeSelector.fonts.font_12,
                       fontWeight: FontWeight.w700,
                     ),
                     children: [
@@ -56,14 +58,15 @@ class CustomerNews extends StatelessWidget {
                   )),
                   Text(
                     S.of(context).whatYouWishToEatToday,
-                    style: TextStyle(color: ThemeSelector.colors.secondaryTant),
+                    style: TextStyle(
+                        color: ThemeSelector.colors.secondaryTant,
+                        fontSize: ThemeSelector.fonts.font_9),
                   ),
                 ],
               ),
             ],
           ),
         ),
-        SizedBox(height: ThemeSelector.statics.defaultBlockGap),
         Padding(
           padding: EdgeInsets.symmetric(
               horizontal: ThemeSelector.statics.defaultInputGap),
@@ -82,37 +85,229 @@ class CustomerNews extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: ThemeSelector.statics.defaultBlockGap),
         OfferCarousel(),
-        SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-        PaginationTemplate(
-          scrollDirection: Axis.horizontal,
-          loadDate: () {},
-          child: Row(
-            children: [
-              for (var chef in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-                GestureDetector(
-                  onTap: () {
-                    context.router.push(ChefProfile(chef: chef));
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultInputGap),
-                    child: ChefBanner(
-                      chef: chef,
-                      width: MediaQuery.of(context).size.width -
-                          (ThemeSelector.statics.defaultInputGap * 5),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(
-                            ThemeSelector.statics.defaultBorderRadius),
-                        topRight: Radius.circular(
-                            ThemeSelector.statics.defaultBorderRadius),
-                      ),
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            SizedBox(
+              height: ThemeSelector.statics.defaultTitleGap,
+              width: MediaQuery.of(context).size.width,
+            ),
+            Positioned(
+              left: -ThemeSelector.statics.defaultLineGap,
+              child: GestureDetector(
+                child: Container(
+                  height: ThemeSelector.statics.defaultTitleGap,
+                  width: (MediaQuery.of(context).size.width / 4) +
+                      (ThemeSelector.statics.defaultLineGap),
+                  decoration: BoxDecoration(
+                      color: ThemeSelector.colors.backgroundTant,
+                      borderRadius: BorderRadius.circular(
+                          ThemeSelector.statics.defaultBorderRadius),
+                      boxShadow: [
+                        BoxShadow(
+                            color: ThemeSelector.colors.shadow.withOpacity(.1),
+                            blurRadius: 4)
+                      ]),
+                  child: Center(
+                      child: Text(
+                    S.of(context).dishName,
+                    style: TextStyle(
+                        color: ThemeSelector.colors.secondary,
+                        fontSize: ThemeSelector.fonts.font_9),
+                  )),
+                ),
+              ),
+            ),
+            Positioned(
+              left: (MediaQuery.of(context).size.width / 4) -
+                  ThemeSelector.statics.defaultLineGap,
+              child: GestureDetector(
+                child: Container(
+                  height: ThemeSelector.statics.defaultTitleGap,
+                  width: (MediaQuery.of(context).size.width / 4) +
+                      (ThemeSelector.statics.defaultLineGap),
+                  decoration: BoxDecoration(
+                      color: ThemeSelector.colors.backgroundTant,
+                      borderRadius: BorderRadius.circular(
+                          ThemeSelector.statics.defaultBorderRadius),
+                      boxShadow: [
+                        BoxShadow(
+                            color: ThemeSelector.colors.shadow.withOpacity(.1),
+                            blurRadius: 4)
+                      ]),
+                  child: Center(
+                      child: Text(
+                    S.of(context).cuisines,
+                    style: TextStyle(
+                        color: ThemeSelector.colors.secondary,
+                        fontSize: ThemeSelector.fonts.font_9),
+                  )),
+                ),
+              ),
+            ),
+            Positioned(
+              left: ((MediaQuery.of(context).size.width / 4) * 2) -
+                  ThemeSelector.statics.defaultLineGap,
+              child: GestureDetector(
+                child: Container(
+                  height: ThemeSelector.statics.defaultTitleGap,
+                  width: (MediaQuery.of(context).size.width / 4) +
+                      (ThemeSelector.statics.defaultLineGap),
+                  decoration: BoxDecoration(
+                      color: ThemeSelector.colors.backgroundTant,
+                      borderRadius: BorderRadius.circular(
+                          ThemeSelector.statics.defaultBorderRadius),
+                      boxShadow: [
+                        BoxShadow(
+                            color: ThemeSelector.colors.shadow.withOpacity(.1),
+                            blurRadius: 4)
+                      ]),
+                  child: Center(
+                      child: Text(
+                    S.of(context).recentSearch,
+                    style: TextStyle(
+                        color: ThemeSelector.colors.secondary,
+                        fontSize: ThemeSelector.fonts.font_9),
+                  )),
+                ),
+              ),
+            ),
+            Positioned(
+              left: ((MediaQuery.of(context).size.width / 4) * 3) -
+                  ThemeSelector.statics.defaultLineGap,
+              child: GestureDetector(
+                child: Container(
+                  height: ThemeSelector.statics.defaultTitleGap,
+                  width: (MediaQuery.of(context).size.width / 4) +
+                      (ThemeSelector.statics.defaultLineGap),
+                  decoration: BoxDecoration(
+                      color: ThemeSelector.colors.backgroundTant,
+                      borderRadius: BorderRadius.circular(
+                          ThemeSelector.statics.defaultBorderRadius),
+                      boxShadow: [
+                        BoxShadow(
+                            color: ThemeSelector.colors.shadow.withOpacity(.1),
+                            blurRadius: 4)
+                      ]),
+                  child: Center(
+                      child: Text(
+                    S.of(context).suggestions,
+                    style: TextStyle(
+                        color: ThemeSelector.colors.secondary,
+                        fontSize: ThemeSelector.fonts.font_9),
+                  )),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: ThemeSelector.statics.defaultGap * 2,
+                  vertical: ThemeSelector.statics.defaultGap),
+              child: Row(
+                children: [
+                  Container(
+                    width: ThemeSelector.statics.defaultLineGap,
+                    height: ThemeSelector.statics.defaultLineGap,
+                    padding:
+                        EdgeInsets.all(ThemeSelector.statics.defaultMicroGap),
+                    decoration: BoxDecoration(
+                        color: ThemeSelector.colors.secondary,
+                        borderRadius: BorderRadius.circular(
+                            ThemeSelector.statics.defaultBorderRadiusSmall)),
+                    child: Center(
+                      child: SvgPicture.asset('assets/images/profile1.svg'),
                     ),
                   ),
+                  Text(' '),
+                  Text(
+                    S.of(context).onlineChefs,
+                    style: TextStyle(
+                      color: ThemeSelector.colors.secondary,
+                      fontSize: ThemeSelector.fonts.font_16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            PaginationTemplate(
+              scrollDirection: Axis.horizontal,
+              loadDate: () {},
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: ThemeSelector.statics.defaultGap),
+                child: Row(
+                  children: [
+                    for (var chef in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+                      GestureDetector(
+                        onTap: () {
+                          context.router.push(ChefProfile(chef: chef));
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ThemeSelector.statics.defaultGap),
+                          child: ChefBanner(
+                            chef: chef,
+                            width: MediaQuery.of(context).size.width -
+                                (ThemeSelector.statics.defaultGap * 10),
+                            height:
+                                ThemeSelector.statics.defaultImageHeightSmall,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(
+                                  ThemeSelector.statics.defaultBorderRadius),
+                              topRight: Radius.circular(
+                                  ThemeSelector.statics.defaultBorderRadius),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
-            ],
-          ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              child: SvgPicture.asset('assets/images/surprise.svg'),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: ThemeSelector.statics.defaultBlockGap,
+                vertical: ThemeSelector.statics.defaultMicroGap,
+              ),
+              decoration: BoxDecoration(
+                  color: ThemeSelector.colors.backgroundTant,
+                  borderRadius: BorderRadius.circular(
+                      ThemeSelector.statics.defaultBorderRadiusExtraLarge)),
+              child: Column(
+                children: [
+                  Text(
+                    '150',
+                    style: TextStyle(
+                      color: ThemeSelector.colors.primary,
+                      fontSize: ThemeSelector.fonts.font_24,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    S.of(context).points,
+                    style: TextStyle(
+                      color: ThemeSelector.colors.secondary,
+                      fontSize: ThemeSelector.fonts.font_12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ],
     );

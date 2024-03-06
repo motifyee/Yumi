@@ -16,6 +16,7 @@ class _ThemeStatics {
 
   double defaultElevation = 2.0;
 
+  double defaultImageHeightSmall = 120.0;
   double defaultImageHeight = 160.0;
 
   double defaultMicroGap = 4.0;

@@ -45,10 +45,8 @@ class _OfferCardState extends State<OfferCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-        top: ThemeSelector.statics.defaultLineGap,
-        left: ThemeSelector.statics.defaultGap,
-        right: ThemeSelector.statics.defaultGap,
+      padding: EdgeInsets.symmetric(
+        horizontal: ThemeSelector.statics.defaultGap,
       ),
       child: Stack(
         clipBehavior: Clip.none,
@@ -117,7 +115,7 @@ class _OfferCardState extends State<OfferCard> {
                       Center(
                         child: Padding(
                           padding: EdgeInsets.only(
-                            top: ThemeSelector.statics.defaultTitleGapLarge,
+                            top: ThemeSelector.statics.defaultMediumGap,
                           ),
                           child: Text(
                             '${widget.offer['percent'].toString()}%',
@@ -136,7 +134,7 @@ class _OfferCardState extends State<OfferCard> {
             ),
           ),
           AnimatedPositioned(
-            top: -ThemeSelector.statics.defaultLineGap,
+            top: 0,
             right: rightPosition,
             width: ThemeSelector.statics.defaultGapExtraExtreme,
             height: ThemeSelector.statics.defaultGapExtraExtreme,

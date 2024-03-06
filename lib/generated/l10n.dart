@@ -1309,6 +1309,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Dish Name`
+  String get dishName {
+    return Intl.message(
+      'Dish Name',
+      name: 'dishName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cuisines`
+  String get cuisines {
+    return Intl.message(
+      'Cuisines',
+      name: 'cuisines',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recent Search`
+  String get recentSearch {
+    return Intl.message(
+      'Recent Search',
+      name: 'recentSearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Suggestions`
+  String get suggestions {
+    return Intl.message(
+      'Suggestions',
+      name: 'suggestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Online Chefs`
+  String get onlineChefs {
+    return Intl.message(
+      'Online Chefs',
+      name: 'onlineChefs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Points`
+  String get points {
+    return Intl.message(
+      'Points',
+      name: 'points',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -124,5 +124,11 @@
   "am": "AM",
   "continue0": "Continue",
   "whatYouWishToEatToday": "What you wish to eat today?",
-  "searchForFood": "Search for food"
+  "searchForFood": "Search for food",
+  "dishName": "Dish Name",
+  "cuisines": "Cuisines",
+  "recentSearch": "Recent Search",
+  "suggestions": "Suggestions",
+  "onlineChefs": "Online Chefs",
+  "points": "Points"
 }
