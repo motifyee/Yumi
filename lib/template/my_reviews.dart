@@ -19,11 +19,7 @@ class MyReviews extends StatelessWidget {
               SizedBox(width: ThemeSelector.statics.defaultLineGap),
               Text(
                 S.of(context).myReviews,
-                style: TextStyle(
-                  color: ThemeSelector.colors.secondary,
-                  fontSize: ThemeSelector.fonts.font_14,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: Theme.of(context).textTheme.labelLarge,
               ),
             ],
           ),
@@ -59,8 +55,7 @@ class MyReviews extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(review.toString(),
-                            style: TextStyle(
-                                color: ThemeSelector.colors.onPrimary)),
+                            style: Theme.of(context).textTheme.displaySmall),
                         SizedBox(width: ThemeSelector.statics.defaultGap / 2),
                         SvgPicture.asset(
                           'assets/images/star.svg',

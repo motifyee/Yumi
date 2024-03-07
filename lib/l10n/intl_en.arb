@@ -141,5 +141,14 @@
   "totalAmount": "Total amount",
   "readMoreAboutFees": "Read more about fees",
   "addFoods": "Add foods",
-  "checkout": "Checkout"
+  "checkout": "Checkout",
+  "payWith": "Pay with",
+  "debitCreditCard": "Debit/Credit Card",
+  "wallet": "Wallet",
+  "paypal": "Paypal",
+  "saveOnYourOrder": "Save on your order",
+  "enterVoucherCode": "Enter voucher code",
+  "submit": "Submit",
+  "disclaimer": "Disclaimer",
+  "placeOrder": "Place order"
 }

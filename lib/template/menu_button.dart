@@ -28,11 +28,7 @@ class MenuButton extends StatelessWidget {
           SizedBox(width: ThemeSelector.statics.defaultGap),
           Text(
             menuItem.label,
-            style: TextStyle(
-              color: ThemeSelector.colors.secondary,
-              fontSize: ThemeSelector.fonts.font_14,
-              fontWeight: FontWeight.w700,
-            ),
+            style: Theme.of(context).textTheme.labelLarge,
           ),
         ],
       ),

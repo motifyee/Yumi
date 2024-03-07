@@ -22,9 +22,10 @@ class LoginThirdPart extends StatelessWidget {
               )),
               Text(
                 S.of(context).orSignUpWith,
-                style: TextStyle(
-                    color: ThemeSelector.colors.secondaryTant,
-                    fontSize: ThemeSelector.fonts.font_12),
+                style: Theme.of(context)
+                    .textTheme
+                    .labelSmall
+                    ?.copyWith(fontSize: ThemeSelector.fonts.font_12),
               ),
               Expanded(
                   child: Padding(

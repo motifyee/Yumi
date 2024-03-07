@@ -62,9 +62,7 @@ class MealCard extends StatelessWidget {
                 SizedBox(height: ThemeSelector.statics.defaultGap),
                 Text(
                   meal.name?.capitalize() ?? '',
-                  style: TextStyle(
-                      color: ThemeSelector.colors.secondary,
-                      fontSize: ThemeSelector.fonts.font_14),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(height: ThemeSelector.statics.defaultGap),
                 Text(
@@ -73,8 +71,7 @@ class MealCard extends StatelessWidget {
                           .join(', ') ??
                       '',
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      color: ThemeSelector.colors.secondary,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontSize: ThemeSelector.fonts.font_9,
                       fontWeight: FontWeight.w300),
                 ),
@@ -114,11 +111,7 @@ class MealCard extends StatelessWidget {
                       const Text(' '),
                       Text(
                         'Edit',
-                        style: TextStyle(
-                          color: ThemeSelector.colors.success,
-                          fontSize: ThemeSelector.fonts.font_10,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Theme.of(context).textTheme.displayMedium,
                       )
                     ],
                   )),
@@ -156,11 +149,10 @@ class MealCard extends StatelessWidget {
                       const Text(' '),
                       Text(
                         'Remove',
-                        style: TextStyle(
-                          color: ThemeSelector.colors.primary,
-                          fontSize: ThemeSelector.fonts.font_10,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontSize: ThemeSelector.fonts.font_10,
+                                ),
                       )
                     ],
                   )),

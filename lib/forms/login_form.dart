@@ -62,9 +62,7 @@ class LoginForm extends StatelessWidget {
                       alignment: Alignment.centerLeft),
                   child: Text(
                     "${S.of(context).forgetPassword}?",
-                    style: TextStyle(
-                        fontSize: ThemeSelector.fonts.font_9,
-                        color: ThemeSelector.colors.primary),
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
                 )
               ],

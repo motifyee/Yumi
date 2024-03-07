@@ -32,11 +32,11 @@ class ActionButton extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: TextStyle(
-            color: isActive
-                ? ThemeSelector.colors.onPrimary
-                : ThemeSelector.colors.secondary,
-          ),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: isActive
+                    ? ThemeSelector.colors.onPrimary
+                    : ThemeSelector.colors.secondary,
+              ),
         ));
   }
 }

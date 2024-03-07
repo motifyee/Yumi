@@ -48,17 +48,14 @@ class _OrderCardState extends State<OrderCard> {
                     children: [
                       Text(
                         '${S.of(context).orderId}: #1302',
-                        style: TextStyle(
-                          color: ThemeSelector.colors.primary,
-                          fontSize: ThemeSelector.fonts.font_12,
-                        ),
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       Text(
                         '10-05-2022 | 16:51',
-                        style: TextStyle(
-                            color: ThemeSelector.colors.secondaryTant,
-                            fontSize: ThemeSelector.fonts.font_9,
-                            fontWeight: FontWeight.w300),
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelSmall
+                            ?.copyWith(fontWeight: FontWeight.w300),
                       ),
                     ],
                   ),
@@ -75,9 +72,10 @@ class _OrderCardState extends State<OrderCard> {
                   ),
                   Text(
                     S.of(context).clickTheIconToViewCustomerNotes,
-                    style: TextStyle(
-                        color: ThemeSelector.colors.secondary,
-                        fontSize: ThemeSelector.fonts.font_10),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(fontSize: ThemeSelector.fonts.font_10),
                   ),
                 ],
               ),
@@ -89,9 +87,7 @@ class _OrderCardState extends State<OrderCard> {
                   Expanded(
                     child: Text(
                       S.of(context).deliveryFee,
-                      style: TextStyle(
-                          color: ThemeSelector.colors.secondary,
-                          fontSize: ThemeSelector.fonts.font_12),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
                   TextCurrency(
@@ -105,10 +101,10 @@ class _OrderCardState extends State<OrderCard> {
                 children: [
                   Text(
                     S.of(context).theTotalPriceIncludesTax,
-                    style: TextStyle(
-                        color: ThemeSelector.colors.primary,
-                        fontSize: ThemeSelector.fonts.font_10,
-                        fontWeight: FontWeight.w300),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(fontWeight: FontWeight.w300),
                   ),
                 ],
               ),
@@ -118,11 +114,9 @@ class _OrderCardState extends State<OrderCard> {
                   Expanded(
                     child: Text(
                       S.of(context).total,
-                      style: TextStyle(
-                        color: ThemeSelector.colors.secondary,
-                        fontSize: ThemeSelector.fonts.font_16,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            fontSize: ThemeSelector.fonts.font_16,
+                          ),
                     ),
                   ),
                   TextCurrency(value: 10.00),
@@ -146,10 +140,10 @@ class _OrderCardState extends State<OrderCard> {
             ),
             child: Text(
               S.of(context).orderReceived,
-              style: TextStyle(
-                color: ThemeSelector.colors.onPrimary,
-                fontSize: ThemeSelector.fonts.font_12,
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontWeight: FontWeight.w500),
             ),
           ),
         ),
@@ -164,10 +158,7 @@ class _OrderCardState extends State<OrderCard> {
             },
             child: Text(
               S.of(context).view,
-              style: TextStyle(
-                color: ThemeSelector.colors.secondary,
-                fontSize: ThemeSelector.fonts.font_12,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
         ),

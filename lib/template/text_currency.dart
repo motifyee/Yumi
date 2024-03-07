@@ -19,19 +19,17 @@ class TextCurrency extends StatelessWidget {
       children: [
         Text(
           '\$',
-          style: TextStyle(
-            color: ThemeSelector.colors.secondary,
-            fontWeight: FontWeight.w300,
-            fontSize: (fontSize ?? ThemeSelector.fonts.font_16) * .75,
-          ),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w300,
+                fontSize: (fontSize ?? ThemeSelector.fonts.font_16) * .75,
+              ),
         ),
         Text(
           value.toStringAsFixed(2),
-          style: TextStyle(
-            color: ThemeSelector.colors.secondary,
-            fontWeight: fontWeight,
-            fontSize: fontSize ?? ThemeSelector.fonts.font_16,
-          ),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: fontWeight,
+                fontSize: fontSize ?? ThemeSelector.fonts.font_16,
+              ),
         ),
       ],
     );

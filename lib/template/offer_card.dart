@@ -65,7 +65,7 @@ class _OfferCardState extends State<OfferCard> {
                   child: Padding(
                     padding: EdgeInsets.only(
                       top: ThemeSelector.statics.defaultTitleGap,
-                      left: ThemeSelector.statics.defaultInputGap,
+                      left: ThemeSelector.statics.defaultLineGap,
                       right: ThemeSelector.statics.defaultInputGap,
                     ),
                     child: Column(
@@ -73,19 +73,23 @@ class _OfferCardState extends State<OfferCard> {
                       children: [
                         Text(
                           'Great healthy food and lots of discounted prices',
-                          style: TextStyle(
-                            color: ThemeSelector.colors.onPrimary,
-                            fontSize: ThemeSelector.fonts.font_12,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge
+                              ?.copyWith(
+                                fontSize: ThemeSelector.fonts.font_12,
+                              ),
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultGap),
                         Text(
                           'Our Happy Customer',
-                          style: TextStyle(
-                            color: ThemeSelector.colors.onPrimary,
-                            fontSize: ThemeSelector.fonts.font_10,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge
+                              ?.copyWith(
+                                fontSize: ThemeSelector.fonts.font_10,
+                                fontWeight: FontWeight.w500,
+                              ),
                         ),
                         Row(
                           children: [
@@ -96,10 +100,13 @@ class _OfferCardState extends State<OfferCard> {
                             ),
                             Text(
                               '4.2 (2k Reviews)',
-                              style: TextStyle(
-                                color: ThemeSelector.colors.onPrimary,
-                                fontSize: ThemeSelector.fonts.font_10,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge
+                                  ?.copyWith(
+                                    fontSize: ThemeSelector.fonts.font_10,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                             ),
                           ],
                         ),
@@ -119,11 +126,12 @@ class _OfferCardState extends State<OfferCard> {
                           ),
                           child: Text(
                             '${widget.offer['percent'].toString()}%',
-                            style: TextStyle(
-                              color: ThemeSelector.colors.onPrimary,
-                              fontSize: ThemeSelector.fonts.font_38,
-                              fontWeight: FontWeight.w700,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge
+                                ?.copyWith(
+                                  fontSize: ThemeSelector.fonts.font_38,
+                                ),
                           ),
                         ),
                       ),

@@ -20,11 +20,9 @@ class DeleteDialogTemplate extends StatelessWidget {
     return AlertDialog(
       backgroundColor: ThemeSelector.colors.background,
       surfaceTintColor: Colors.transparent,
-      titleTextStyle: TextStyle(
-        color: ThemeSelector.colors.primary,
-        fontSize: ThemeSelector.fonts.font_12,
-        fontWeight: FontWeight.w700,
-      ),
+      titleTextStyle: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
       title: Row(
         children: [
           SvgPicture.asset(

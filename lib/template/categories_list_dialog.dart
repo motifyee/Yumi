@@ -13,6 +13,7 @@ class CategoriesListDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<CategoriesBloc>().add(ResetCategoryEvent());
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width -
@@ -35,11 +36,9 @@ class CategoriesListDialog extends StatelessWidget {
                   Text(' '),
                   Text(
                     S.of(context).cuisines,
-                    style: TextStyle(
-                      color: ThemeSelector.colors.secondary,
-                      fontSize: ThemeSelector.fonts.font_16,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          fontSize: ThemeSelector.fonts.font_16,
+                        ),
                   ),
                 ],
               ),
@@ -50,7 +49,6 @@ class CategoriesListDialog extends StatelessWidget {
               builder: (context, state) {
                 return PaginationTemplate(
                   loadDate: () {
-                    context.read<CategoriesBloc>().add(ResetCategoryEvent());
                     context
                         .read<CategoriesBloc>()
                         .add(GetCategoriesEvent(context: context));
@@ -92,10 +90,7 @@ class CategoriesListDialog extends StatelessWidget {
                                   height: ThemeSelector.statics.defaultGap),
                               Text(
                                 category.name ?? '',
-                                style: TextStyle(
-                                  color: ThemeSelector.colors.secondary,
-                                  fontSize: ThemeSelector.fonts.font_12,
-                                ),
+                                style: Theme.of(context).textTheme.bodyMedium,
                               )
                             ],
                           ),

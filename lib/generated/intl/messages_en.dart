@@ -69,6 +69,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cuisines": MessageLookupByLibrary.simpleMessage("Cuisines"),
         "currency": MessageLookupByLibrary.simpleMessage("\$"),
         "day": MessageLookupByLibrary.simpleMessage("Day"),
+        "debitCreditCard":
+            MessageLookupByLibrary.simpleMessage("Debit/Credit Card"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
         "deleteMeal": MessageLookupByLibrary.simpleMessage("Delete meal"),
@@ -76,11 +78,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "deliveryFee": MessageLookupByLibrary.simpleMessage("Delivery Fee"),
         "deliveryTime": MessageLookupByLibrary.simpleMessage("Delivery time"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "disclaimer": MessageLookupByLibrary.simpleMessage("Disclaimer"),
         "dishName": MessageLookupByLibrary.simpleMessage("Dish Name"),
         "documentation": MessageLookupByLibrary.simpleMessage("Documentation"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "empty": MessageLookupByLibrary.simpleMessage("Empty"),
+        "enterVoucherCode":
+            MessageLookupByLibrary.simpleMessage("Enter voucher code"),
         "eventsPhoto": MessageLookupByLibrary.simpleMessage("Events Photo"),
         "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
         "featuredChefs": MessageLookupByLibrary.simpleMessage("Featured Chefs"),
@@ -134,12 +139,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password does not match!"),
         "passwordMustBe": MessageLookupByLibrary.simpleMessage(
             "Password must be 8 characters contains:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # \$ & * ~ )."),
+        "payWith": MessageLookupByLibrary.simpleMessage("Pay with"),
         "paymentSummary":
             MessageLookupByLibrary.simpleMessage("Payment summary"),
+        "paypal": MessageLookupByLibrary.simpleMessage("Paypal"),
         "performanceAnalysis":
             MessageLookupByLibrary.simpleMessage("Performance analysis"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "pickup": MessageLookupByLibrary.simpleMessage("Pickup"),
+        "placeOrder": MessageLookupByLibrary.simpleMessage("Place order"),
         "pleaseSpecifyTheDayTimeOfDelivery":
             MessageLookupByLibrary.simpleMessage(
                 "Please specify the day & time of delivery"),
@@ -160,6 +168,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "saveOnYourOrder":
+            MessageLookupByLibrary.simpleMessage("Save on your order"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchForFood":
             MessageLookupByLibrary.simpleMessage("Search for food"),
@@ -172,6 +182,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "1 special character ( ! @ # \$ & * ~ )"),
         "specialRequest":
             MessageLookupByLibrary.simpleMessage("Special request"),
+        "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
         "suggestions": MessageLookupByLibrary.simpleMessage("Suggestions"),
         "swiftCode": MessageLookupByLibrary.simpleMessage("Swift code"),
@@ -196,6 +207,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "upperCase": MessageLookupByLibrary.simpleMessage("1 upper case"),
         "userName": MessageLookupByLibrary.simpleMessage("User name"),
         "view": MessageLookupByLibrary.simpleMessage("View"),
+        "wallet": MessageLookupByLibrary.simpleMessage("Wallet"),
         "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
         "whatYouWishToEatToday":
             MessageLookupByLibrary.simpleMessage("What you wish to eat today?"),

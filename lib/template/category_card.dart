@@ -54,11 +54,9 @@ class CategoriesCard extends StatelessWidget {
                   Text(
                     'Shrimp Zucchini Pasta ',
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: ThemeSelector.colors.secondary,
-                      fontSize: ThemeSelector.fonts.font_9,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          fontSize: ThemeSelector.fonts.font_9,
+                        ),
                   ),
                 ],
               ),

@@ -9,10 +9,9 @@ class PreOrderScreen extends StatelessWidget {
     return Center(
         child: Text(
       'pre order',
-      style: TextStyle(
-        color: ThemeSelector.colors.primary,
-        fontSize: ThemeSelector.fonts.font_14,
-      ),
+      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            fontSize: ThemeSelector.fonts.font_14,
+          ),
     ));
   }
 }

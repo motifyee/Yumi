@@ -34,18 +34,14 @@ class ProductInCard extends StatelessWidget {
                   children: [
                     Text(
                       'Breakfast',
-                      style: TextStyle(
-                        color: ThemeSelector.colors.secondary,
-                        fontSize: ThemeSelector.fonts.font_14,
-                      ),
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Text(
                       '81 calories, 1.7g protein, 12g carbs, 2.74 fat',
-                      style: TextStyle(
-                        color: ThemeSelector.colors.secondary,
-                        fontSize: ThemeSelector.fonts.font_9,
-                        fontWeight: FontWeight.w300,
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontSize: ThemeSelector.fonts.font_9,
+                            fontWeight: FontWeight.w300,
+                          ),
                     ),
                   ],
                 )

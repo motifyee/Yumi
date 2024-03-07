@@ -38,16 +38,11 @@ class LoginScreen extends StatelessWidget {
                         children: [
                           Text(
                             S.of(context).welcomeBack,
-                            style: TextStyle(
-                                color: ThemeSelector.colors.primary,
-                                fontSize: ThemeSelector.fonts.font_24,
-                                fontWeight: FontWeight.w700),
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           Text(
                             S.of(context).signToContinue,
-                            style: TextStyle(
-                                color: ThemeSelector.colors.secondaryTant,
-                                fontSize: ThemeSelector.fonts.font_9),
+                            style: Theme.of(context).textTheme.labelSmall,
                           ),
                           SizedBox(
                             height: ThemeSelector.statics.defaultTitleGap,
@@ -87,10 +82,7 @@ class LoginScreen extends StatelessWidget {
                             alignment: Alignment.bottomCenter,
                             child: Text(
                               S.of(context).createNewAccount,
-                              style: TextStyle(
-                                  color: ThemeSelector.colors.onPrimary,
-                                  fontSize: ThemeSelector.fonts.font_14,
-                                  fontWeight: FontWeight.w700),
+                              style: Theme.of(context).textTheme.displayLarge,
                             ),
                           ),
                         ),

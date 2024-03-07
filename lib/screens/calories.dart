@@ -34,11 +34,9 @@ class CaloriesReferenceTemplate extends StatelessWidget {
         title: Center(
             child: Text(
           S.of(context).caloriesReference,
-          style: TextStyle(
-            color: ThemeSelector.colors.primary,
-            fontSize: ThemeSelector.fonts.font_14,
-            fontWeight: FontWeight.w700,
-          ),
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
         )),
         actions: [
           TextButton(
@@ -98,20 +96,13 @@ class CaloriesReferenceTemplate extends StatelessWidget {
                                   child: Text(
                                     meal.name ?? '',
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: ThemeSelector.colors.secondary,
-                                      fontSize: ThemeSelector.fonts.font_14,
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.labelLarge,
                                   ),
                                 ),
                                 Text(
                                   meal.caloriesValue ?? '',
-                                  style: TextStyle(
-                                    color: ThemeSelector.colors.secondary,
-                                    fontSize: ThemeSelector.fonts.font_12,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style: Theme.of(context).textTheme.labelLarge,
                                 ),
                               ],
                             ),

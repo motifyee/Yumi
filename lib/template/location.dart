@@ -20,17 +20,15 @@ class Location extends StatelessWidget {
           children: [
             Text(
               '356-565 main St.',
-              style: TextStyle(
-                fontSize: ThemeSelector.fonts.font_12,
-                color: ThemeSelector.colors.secondaryFaint,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: ThemeSelector.colors.secondaryFaint,
+                  ),
             ),
             Text(
               'New York NY 23212',
-              style: TextStyle(
-                fontSize: ThemeSelector.fonts.font_12,
-                color: ThemeSelector.colors.secondaryFaint,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: ThemeSelector.colors.secondaryFaint,
+                  ),
             ),
           ],
         ),

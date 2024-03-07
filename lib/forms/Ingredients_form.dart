@@ -96,13 +96,9 @@ class IngredientsForm extends StatelessWidget {
                                                 .statics.defaultGap),
                                         child: Text(
                                           S.of(context).ingredients,
-                                          style: TextStyle(
-                                            color:
-                                                ThemeSelector.colors.secondary,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize:
-                                                ThemeSelector.fonts.font_12,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium,
                                         ),
                                       ),
                                       Padding(
@@ -111,13 +107,9 @@ class IngredientsForm extends StatelessWidget {
                                                 .statics.defaultGap),
                                         child: Text(
                                           S.of(context).measurement,
-                                          style: TextStyle(
-                                            color:
-                                                ThemeSelector.colors.secondary,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize:
-                                                ThemeSelector.fonts.font_12,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium,
                                         ),
                                       ),
                                       const SizedBox(width: 60),
@@ -142,12 +134,9 @@ class IngredientsForm extends StatelessWidget {
                                                   .statics.defaultGap),
                                           child: Text(
                                             ingredient.name.toString(),
-                                            style: TextStyle(
-                                              color: ThemeSelector
-                                                  .colors.secondary,
-                                              fontSize:
-                                                  ThemeSelector.fonts.font_12,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium,
                                           ),
                                         ),
                                         Padding(
@@ -156,12 +145,9 @@ class IngredientsForm extends StatelessWidget {
                                                   .statics.defaultGap),
                                           child: Text(
                                             ingredient.portionGrams.toString(),
-                                            style: TextStyle(
-                                              color: ThemeSelector
-                                                  .colors.secondary,
-                                              fontSize:
-                                                  ThemeSelector.fonts.font_12,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium,
                                           ),
                                         ),
                                         GestureDetector(
@@ -278,8 +264,7 @@ class IngredientsForm extends StatelessWidget {
                           },
                           child: Text(
                             S.of(context).cancel,
-                            style: TextStyle(
-                                color: ThemeSelector.colors.secondary),
+                            style: Theme.of(context).textTheme.bodyMedium,
                           )),
                       TextButton(
                           onPressed: () {
@@ -296,8 +281,10 @@ class IngredientsForm extends StatelessWidget {
                           },
                           child: Text(
                             S.of(context).save,
-                            style:
-                                TextStyle(color: ThemeSelector.colors.primary),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(color: ThemeSelector.colors.primary),
                           )),
                     ],
                   ),

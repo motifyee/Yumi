@@ -32,24 +32,14 @@ class CustomerPreOrderForm extends StatelessWidget {
         height: MediaQuery.of(context).size.height * .5,
         child: Column(
           children: [
-            Text(
-              S.of(context).preOrder,
-              style: TextStyle(
-                color: ThemeSelector.colors.secondary,
-                fontSize: ThemeSelector.fonts.font_14,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text(S.of(context).preOrder,
+                style: Theme.of(context).textTheme.labelLarge),
             SizedBox(height: ThemeSelector.statics.defaultBlockGap),
             Row(
               children: [
                 Text(
                   'Hi Ayman',
-                  style: TextStyle(
-                    color: ThemeSelector.colors.primary,
-                    fontSize: ThemeSelector.fonts.font_16,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],
             ),
@@ -57,10 +47,7 @@ class CustomerPreOrderForm extends StatelessWidget {
               children: [
                 Text(
                   '${S.of(context).pleaseSpecifyTheDayTimeOfDelivery}:',
-                  style: TextStyle(
-                    color: ThemeSelector.colors.secondary,
-                    fontSize: ThemeSelector.fonts.font_12,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
             ),
@@ -71,10 +58,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                   width: ThemeSelector.statics.defaultGapExtreme,
                   child: Text(
                     '${S.of(context).day}:',
-                    style: TextStyle(
-                      color: ThemeSelector.colors.secondary,
-                      fontSize: ThemeSelector.fonts.font_14,
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
                 SizedBox(width: ThemeSelector.statics.defaultMicroGap),
@@ -108,10 +92,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                   width: ThemeSelector.statics.defaultGapExtreme,
                   child: Text(
                     '${S.of(context).time}:',
-                    style: TextStyle(
-                      color: ThemeSelector.colors.secondary,
-                      fontSize: ThemeSelector.fonts.font_14,
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
                 SizedBox(width: ThemeSelector.statics.defaultMicroGap),
@@ -134,7 +115,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                           ThemeSelector.statics.defaultBorderRadiusSmall)),
                   child: Text(
                     S.of(context).pm,
-                    style: TextStyle(color: ThemeSelector.colors.onPrimary),
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                 )),
                 SizedBox(width: ThemeSelector.statics.defaultMicroGap),
@@ -148,7 +129,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                           ThemeSelector.statics.defaultBorderRadiusSmall)),
                   child: Text(
                     S.of(context).am,
-                    style: TextStyle(color: ThemeSelector.colors.onPrimary),
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                 )),
               ],
@@ -170,10 +151,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                     child: Center(
                       child: Text(
                         S.of(context).cancel,
-                        style: TextStyle(
-                          color: ThemeSelector.colors.primary,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ),
                   ),
@@ -191,10 +169,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                     child: Center(
                       child: Text(
                         S.of(context).continue0,
-                        style: TextStyle(
-                          color: ThemeSelector.colors.onPrimary,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Theme.of(context).textTheme.displaySmall,
                       ),
                     ),
                   ),

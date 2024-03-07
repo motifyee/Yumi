@@ -38,11 +38,11 @@ class StatusButton extends StatelessWidget {
                 : status == StatusEnum.closed
                     ? S.of(context).closed
                     : S.of(context).busy,
-            style: TextStyle(
-              color: status == StatusEnum.opened
-                  ? ThemeSelector.colors.onSuccess
-                  : ThemeSelector.colors.onPrimary,
-            ),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: status == StatusEnum.opened
+                      ? ThemeSelector.colors.onSuccess
+                      : ThemeSelector.colors.onPrimary,
+                ),
           )
         ],
       ),

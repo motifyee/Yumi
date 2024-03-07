@@ -37,9 +37,7 @@ class NewsGuide extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 child: Text(
                   '${S.of(context).hi}: Ayman,',
-                  style: TextStyle(
-                      color: ThemeSelector.colors.primary,
-                      fontWeight: FontWeight.w700),
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
               SizedBox(height: ThemeSelector.statics.defaultBlockGap),
@@ -48,10 +46,9 @@ class NewsGuide extends StatelessWidget {
               Text(
                 S.of(context).thisSectionYourSavedAddress,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: ThemeSelector.colors.secondary,
-                  fontSize: ThemeSelector.fonts.font_16,
-                ),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontSize: ThemeSelector.fonts.font_16,
+                    ),
               ),
               SizedBox(height: ThemeSelector.statics.defaultTitleGap),
               StatusButton(status: StatusEnum.opened, onPressed: () {}),
@@ -59,10 +56,9 @@ class NewsGuide extends StatelessWidget {
               Text(
                 S.of(context).thisButtonMeansThatTheChefIsCurrentlyAvailable,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: ThemeSelector.colors.secondary,
-                  fontSize: ThemeSelector.fonts.font_16,
-                ),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontSize: ThemeSelector.fonts.font_16,
+                    ),
               ),
               SizedBox(height: ThemeSelector.statics.defaultTitleGap),
               StatusButton(status: StatusEnum.closed, onPressed: () {}),
@@ -70,10 +66,9 @@ class NewsGuide extends StatelessWidget {
               Text(
                 S.of(context).thisButtonMeansThatTheChefIsCurrentlyClosed,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: ThemeSelector.colors.secondary,
-                  fontSize: ThemeSelector.fonts.font_16,
-                ),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontSize: ThemeSelector.fonts.font_16,
+                    ),
               ),
               SizedBox(height: ThemeSelector.statics.defaultTitleGap),
               StatusButton(status: StatusEnum.busy),
@@ -81,10 +76,9 @@ class NewsGuide extends StatelessWidget {
               Text(
                 S.of(context).thisButtonMeansThatTheChefIsCurrentlyNotAvailable,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: ThemeSelector.colors.secondary,
-                  fontSize: ThemeSelector.fonts.font_16,
-                ),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontSize: ThemeSelector.fonts.font_16,
+                    ),
               ),
               SizedBox(height: ThemeSelector.statics.defaultGap),
               Row(
@@ -98,9 +92,7 @@ class NewsGuide extends StatelessWidget {
                       },
                       child: Text(
                         S.of(context).skip,
-                        style: TextStyle(
-                          color: ThemeSelector.colors.primary,
-                        ),
+                        style: Theme.of(context).textTheme.headlineMedium,
                       )),
                 ],
               )

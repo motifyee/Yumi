@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/forms/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/chef_bannar.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/category_card.dart';
+import 'package:yumi/template/chef_bannar.dart';
 import 'package:yumi/template/chef_meal_card.dart';
 import 'package:yumi/template/pagination_template.dart';
 import 'package:yumi/template/review_card.dart';
@@ -41,11 +41,7 @@ class ChefProfile extends StatelessWidget {
                     children: [
                       Text(
                         S.of(context).orderAgain,
-                        style: TextStyle(
-                          color: ThemeSelector.colors.secondary,
-                          fontSize: ThemeSelector.fonts.font_12,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Theme.of(context).textTheme.labelMedium,
                       ),
                     ],
                   ),
@@ -64,11 +60,7 @@ class ChefProfile extends StatelessWidget {
                     children: [
                       Text(
                         S.of(context).chefEvents,
-                        style: TextStyle(
-                          color: ThemeSelector.colors.secondary,
-                          fontSize: ThemeSelector.fonts.font_12,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Theme.of(context).textTheme.labelMedium,
                       ),
                     ],
                   ),
@@ -97,11 +89,7 @@ class ChefProfile extends StatelessWidget {
                     children: [
                       Text(
                         S.of(context).orderAgain,
-                        style: TextStyle(
-                          color: ThemeSelector.colors.secondary,
-                          fontSize: ThemeSelector.fonts.font_12,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Theme.of(context).textTheme.labelMedium,
                       ),
                     ],
                   ),
@@ -131,11 +119,7 @@ class ChefProfile extends StatelessWidget {
                     children: [
                       Text(
                         S.of(context).cuisine,
-                        style: TextStyle(
-                          color: ThemeSelector.colors.secondary,
-                          fontSize: ThemeSelector.fonts.font_12,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Theme.of(context).textTheme.labelMedium,
                       ),
                     ],
                   ),
@@ -161,11 +145,11 @@ class ChefProfile extends StatelessWidget {
                           children: [
                             Text(
                               S.of(context).addPreOrder,
-                              style: TextStyle(
-                                color: ThemeSelector.colors.secondary,
-                                fontSize: ThemeSelector.fonts.font_10,
-                                fontWeight: FontWeight.w700,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium
+                                  ?.copyWith(
+                                      fontSize: ThemeSelector.fonts.font_10),
                             ),
                             Text(' '),
                             Container(
@@ -198,11 +182,7 @@ class ChefProfile extends StatelessWidget {
                         children: [
                           Text(
                             S.of(context).happyCustomer,
-                            style: TextStyle(
-                              color: ThemeSelector.colors.secondary,
-                              fontSize: ThemeSelector.fonts.font_12,
-                              fontWeight: FontWeight.w700,
-                            ),
+                            style: Theme.of(context).textTheme.labelMedium,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -214,9 +194,11 @@ class ChefProfile extends StatelessWidget {
                               ),
                               Text(
                                 '4.8(1.3k Reviews)',
-                                style: TextStyle(
-                                    color: ThemeSelector.colors.secondaryTant,
-                                    fontSize: ThemeSelector.fonts.font_12),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelSmall
+                                    ?.copyWith(
+                                        fontSize: ThemeSelector.fonts.font_10),
                               )
                             ],
                           )
@@ -227,11 +209,13 @@ class ChefProfile extends StatelessWidget {
                         children: [
                           Text(
                             S.of(context).createYourReviewNow,
-                            style: TextStyle(
-                              color: ThemeSelector.colors.secondaryTant,
-                              fontSize: ThemeSelector.fonts.font_12,
-                              fontWeight: FontWeight.w700,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(
+                                  fontSize: ThemeSelector.fonts.font_12,
+                                  fontWeight: FontWeight.w700,
+                                ),
                           ),
                           RatingBar(
                               initialRating: 0,

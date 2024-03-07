@@ -23,15 +23,10 @@ class Calendar extends StatelessWidget {
       ),
       child: CalendarDatePicker2(
         config: CalendarDatePicker2Config(
-          controlsTextStyle: TextStyle(
-            color: ThemeSelector.colors.secondary,
-            fontSize: ThemeSelector.fonts.font_20,
-            fontWeight: FontWeight.w700,
-          ),
-          dayTextStyle: TextStyle(
-            color: ThemeSelector.colors.secondary,
-            fontSize: ThemeSelector.fonts.font_14,
-          ),
+          controlsTextStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+                fontSize: ThemeSelector.fonts.font_20,
+              ),
+          dayTextStyle: Theme.of(context).textTheme.bodyLarge,
           weekdayLabels: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
           dayBuilder: (
               {required DateTime date,

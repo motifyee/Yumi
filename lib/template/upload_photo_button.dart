@@ -47,10 +47,9 @@ class UploadPhotoButton extends StatelessWidget {
           SizedBox(height: ThemeSelector.statics.defaultGap),
           Text(
             S.of(context).upload,
-            style: TextStyle(
-              color: ThemeSelector.colors.secondary,
-              fontSize: ThemeSelector.fonts.font_10,
-            ),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontSize: ThemeSelector.fonts.font_10,
+                ),
           )
         ],
       ),

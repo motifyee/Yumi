@@ -53,11 +53,7 @@ class ReviewCard extends StatelessWidget {
                     horizontal: ThemeSelector.statics.defaultMicroGap),
                 child: Text(
                   'Ahmed',
-                  style: TextStyle(
-                    color: ThemeSelector.colors.secondary,
-                    fontSize: ThemeSelector.fonts.font_12,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
               RatingBar(

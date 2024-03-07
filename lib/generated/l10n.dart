@@ -1479,6 +1479,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Pay with`
+  String get payWith {
+    return Intl.message(
+      'Pay with',
+      name: 'payWith',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Debit/Credit Card`
+  String get debitCreditCard {
+    return Intl.message(
+      'Debit/Credit Card',
+      name: 'debitCreditCard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wallet`
+  String get wallet {
+    return Intl.message(
+      'Wallet',
+      name: 'wallet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Paypal`
+  String get paypal {
+    return Intl.message(
+      'Paypal',
+      name: 'paypal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save on your order`
+  String get saveOnYourOrder {
+    return Intl.message(
+      'Save on your order',
+      name: 'saveOnYourOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter voucher code`
+  String get enterVoucherCode {
+    return Intl.message(
+      'Enter voucher code',
+      name: 'enterVoucherCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit`
+  String get submit {
+    return Intl.message(
+      'Submit',
+      name: 'submit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Disclaimer`
+  String get disclaimer {
+    return Intl.message(
+      'Disclaimer',
+      name: 'disclaimer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Place order`
+  String get placeOrder {
+    return Intl.message(
+      'Place order',
+      name: 'placeOrder',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

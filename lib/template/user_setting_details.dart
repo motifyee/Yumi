@@ -60,8 +60,7 @@ class UserSettingDetails extends StatelessWidget {
                         },
                         child: Text(
                           S.of(context).edit,
-                          style:
-                              TextStyle(color: ThemeSelector.colors.secondary),
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ))
                   ],
                 ),
@@ -70,13 +69,15 @@ class UserSettingDetails extends StatelessWidget {
                   children: [
                     Text(
                       S.of(context).fullName,
-                      style: TextStyle(color: ThemeSelector.colors.secondary),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const Expanded(child: Text('')),
                     Text(
                       state.profile.fullName,
-                      style:
-                          TextStyle(color: ThemeSelector.colors.secondaryTant),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: ThemeSelector.colors.secondaryTant),
                     ),
                   ],
                 ),
@@ -85,13 +86,15 @@ class UserSettingDetails extends StatelessWidget {
                   children: [
                     Text(
                       S.of(context).userName,
-                      style: TextStyle(color: ThemeSelector.colors.secondary),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const Expanded(child: Text('')),
                     Text(
                       state.profile.userName,
-                      style:
-                          TextStyle(color: ThemeSelector.colors.secondaryTant),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: ThemeSelector.colors.secondaryTant),
                     ),
                   ],
                 ),
@@ -100,13 +103,15 @@ class UserSettingDetails extends StatelessWidget {
                   children: [
                     Text(
                       S.of(context).phone,
-                      style: TextStyle(color: ThemeSelector.colors.secondary),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const Expanded(child: Text('')),
                     Text(
                       state.profile.mobile,
-                      style:
-                          TextStyle(color: ThemeSelector.colors.secondaryTant),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: ThemeSelector.colors.secondaryTant),
                     ),
                   ],
                 ),
@@ -115,13 +120,15 @@ class UserSettingDetails extends StatelessWidget {
                   children: [
                     Text(
                       S.of(context).address,
-                      style: TextStyle(color: ThemeSelector.colors.secondary),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const Expanded(child: Text('')),
                     Text(
                       state.profile.country.name,
-                      style:
-                          TextStyle(color: ThemeSelector.colors.secondaryTant),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: ThemeSelector.colors.secondaryTant),
                     ),
                   ],
                 ),
@@ -130,13 +137,15 @@ class UserSettingDetails extends StatelessWidget {
                   children: [
                     Text(
                       S.of(context).pickup,
-                      style: TextStyle(color: ThemeSelector.colors.secondary),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const Expanded(child: Text('')),
                     Text(
                       state.profile.pickup ? 'Allowed' : 'Not Allowed',
-                      style:
-                          TextStyle(color: ThemeSelector.colors.secondaryTant),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: ThemeSelector.colors.secondaryTant),
                     ),
                   ],
                 ),
@@ -145,13 +154,15 @@ class UserSettingDetails extends StatelessWidget {
                   children: [
                     Text(
                       S.of(context).about,
-                      style: TextStyle(color: ThemeSelector.colors.secondary),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const Expanded(child: Text('')),
                     Text(
                       state.profile.about,
-                      style:
-                          TextStyle(color: ThemeSelector.colors.secondaryTant),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: ThemeSelector.colors.secondaryTant),
                     ),
                   ],
                 ),

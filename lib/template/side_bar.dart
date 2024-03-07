@@ -81,11 +81,11 @@ class SideBar extends StatelessWidget {
                         child: Center(
                           child: Text(
                             (state.user.userName[0]).toUpperCase(),
-                            style: TextStyle(
-                              color: ThemeSelector.colors.onSecondary,
-                              fontSize: ThemeSelector.fonts.font_38,
-                              fontWeight: FontWeight.w700,
-                            ),
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      fontSize: ThemeSelector.fonts.font_38,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                           ),
                         ),
                       ),
@@ -94,10 +94,9 @@ class SideBar extends StatelessWidget {
                   SizedBox(height: ThemeSelector.statics.defaultGap),
                   Text(
                     state.user.userName.capitalize(),
-                    style: TextStyle(
-                        color: ThemeSelector.colors.secondary,
-                        fontSize: ThemeSelector.fonts.font_18,
-                        fontWeight: FontWeight.w700),
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          fontSize: ThemeSelector.fonts.font_18,
+                        ),
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
@@ -135,11 +134,7 @@ class SideBar extends StatelessWidget {
                               children: [
                                 Text(
                                   S.of(context).logOut,
-                                  style: TextStyle(
-                                    color: ThemeSelector.colors.secondary,
-                                    fontSize: ThemeSelector.fonts.font_14,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style: Theme.of(context).textTheme.labelLarge,
                                 ),
                                 SizedBox(
                                     width: ThemeSelector.statics.defaultGap),
@@ -154,11 +149,7 @@ class SideBar extends StatelessWidget {
                   ),
                   Text(
                     S.of(context).yumi.toUpperCase(),
-                    style: TextStyle(
-                      color: ThemeSelector.colors.primary,
-                      fontSize: ThemeSelector.fonts.font_12,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                   SizedBox(height: ThemeSelector.statics.defaultGap),
                 ],

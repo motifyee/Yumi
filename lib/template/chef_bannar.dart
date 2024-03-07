@@ -49,11 +49,7 @@ class ChefBanner extends StatelessWidget {
                           ThemeSelector.statics.defaultBorderRadiusLarge)),
                   child: Text(
                     S.of(context).open,
-                    style: TextStyle(
-                      color: ThemeSelector.colors.onSuccess,
-                      fontSize: ThemeSelector.fonts.font_12,
-                      fontWeight: FontWeight.w300,
-                    ),
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
               ),
@@ -70,11 +66,9 @@ class ChefBanner extends StatelessWidget {
                 children: [
                   Text(
                     'iman ibrahim ismail',
-                    style: TextStyle(
-                      color: ThemeSelector.colors.secondary,
-                      fontSize: ThemeSelector.fonts.font_16,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          fontSize: ThemeSelector.fonts.font_16,
+                        ),
                   ),
                   Row(
                     children: [
@@ -96,20 +90,16 @@ class ChefBanner extends StatelessWidget {
                         onRatingUpdate: (value) {},
                       ),
                       Text(' | ',
-                          style:
-                              TextStyle(color: ThemeSelector.colors.secondary)),
+                          style: Theme.of(context).textTheme.bodyMedium),
                       Text('Hygiene -',
-                          style:
-                              TextStyle(color: ThemeSelector.colors.secondary)),
+                          style: Theme.of(context).textTheme.bodyMedium),
                     ],
                   )
                 ],
               ),
               Text(
                 '0.2 Km',
-                style: TextStyle(
-                  color: ThemeSelector.colors.secondary,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium,
               )
             ],
           ),

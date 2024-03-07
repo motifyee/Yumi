@@ -37,18 +37,11 @@ class SignUpScreen extends StatelessWidget {
                       SizedBox(
                         height: ThemeSelector.statics.defaultBlockGap,
                       ),
-                      Text(
-                        S.of(context).createAccount,
-                        style: TextStyle(
-                            color: ThemeSelector.colors.primary,
-                            fontSize: ThemeSelector.fonts.font_24,
-                            fontWeight: FontWeight.w700),
-                      ),
+                      Text(S.of(context).createAccount,
+                          style: Theme.of(context).textTheme.titleLarge),
                       Text(
                         S.of(context).createNewAccount,
-                        style: TextStyle(
-                            color: ThemeSelector.colors.secondaryTant,
-                            fontSize: ThemeSelector.fonts.font_9),
+                        style: Theme.of(context).textTheme.labelSmall,
                       ),
                       SizedBox(
                         height: ThemeSelector.statics.defaultTitleGap,
@@ -71,9 +64,7 @@ class SignUpScreen extends StatelessWidget {
                         },
                         child: RichText(
                           text: TextSpan(
-                            style: TextStyle(
-                                color: ThemeSelector.colors.secondary,
-                                fontSize: ThemeSelector.fonts.font_12),
+                            style: Theme.of(context).textTheme.bodyMedium,
                             children: [
                               TextSpan(text: S.of(context).alreadyHaveAccount),
                               WidgetSpan(
@@ -82,11 +73,13 @@ class SignUpScreen extends StatelessWidget {
                               )),
                               TextSpan(
                                   text: S.of(context).login,
-                                  style: TextStyle(
-                                      color: ThemeSelector.colors.primary,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize:
-                                          ThemeSelector.fonts.font_12 * 1.3)),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(
+                                          fontSize:
+                                              ThemeSelector.fonts.font_12 *
+                                                  1.3)),
                             ],
                           ),
                         ),

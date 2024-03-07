@@ -102,9 +102,8 @@ class SettingScreen extends StatelessWidget {
                                   ),
                                   Text(
                                     S.of(context).addBankAccount,
-                                    style: TextStyle(
-                                        color:
-                                            ThemeSelector.colors.onSecondary),
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
                                   ),
                                 ],
                               ),
@@ -130,8 +129,7 @@ class SettingScreen extends StatelessWidget {
                               ),
                               child: Text(
                                 S.of(context).deleteAccount,
-                                style: TextStyle(
-                                    color: ThemeSelector.colors.onPrimary),
+                                style: Theme.of(context).textTheme.displaySmall,
                               ),
                             ),
                           ),

@@ -23,10 +23,7 @@ class ConfirmButton extends StatelessWidget {
         child: Center(
           child: Text(
             label,
-            style: TextStyle(
-                color: ThemeSelector.colors.onPrimary,
-                fontSize: ThemeSelector.fonts.font_14,
-                fontWeight: FontWeight.w700),
+            style: Theme.of(context).textTheme.displayLarge,
           ),
         ),
       ),

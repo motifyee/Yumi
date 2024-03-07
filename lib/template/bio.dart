@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/bank-account/form/bankinfo_form_bloc.dart';
 import 'package:yumi/bloc/profile/form/profile_form_bloc.dart';
 import 'package:yumi/bloc/profile/profile_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/forms/profile_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/profile_model.dart';
 import 'package:yumi/service/profile_service.dart';
@@ -31,11 +29,7 @@ class Bio extends StatelessWidget {
               SizedBox(width: ThemeSelector.statics.defaultLineGap),
               Text(
                 S.of(context).bio,
-                style: TextStyle(
-                  color: ThemeSelector.colors.secondary,
-                  fontSize: ThemeSelector.fonts.font_14,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: Theme.of(context).textTheme.labelLarge,
               ),
               const Expanded(child: Text('')),
               IconButton(
@@ -59,10 +53,9 @@ class Bio extends StatelessWidget {
             child: Center(
               child: Text(
                 S.of(context).writeABio,
-                style: TextStyle(
-                  color: ThemeSelector.colors.secondary,
-                  fontSize: ThemeSelector.fonts.font_10,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontSize: ThemeSelector.fonts.font_10,
+                    ),
               ),
             ),
           )

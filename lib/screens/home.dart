@@ -6,8 +6,8 @@ import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/navigate_option.dart';
-import 'package:yumi/statics/navigation_bottom_bar.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/navigation_bottom_bar.dart';
 import 'package:yumi/template/screen_container.dart';
 import 'package:yumi/template/side_bar.dart';
 
@@ -74,9 +74,13 @@ class HomeScreen extends StatelessWidget {
                             child: Center(
                               child: Text(
                                 '3',
-                                style: TextStyle(
-                                    color: ThemeSelector.colors.onPrimary,
-                                    fontSize: ThemeSelector.fonts.font_9),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall
+                                    ?.copyWith(
+                                      fontSize: ThemeSelector.fonts.font_9,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                               ),
                             ),
                           ),
@@ -99,10 +103,7 @@ class HomeScreen extends StatelessWidget {
               title: Center(
                 child: Text(
                   NavigateOptions.navigateList[state.selectedIndex].title,
-                  style: TextStyle(
-                    color: ThemeSelector.colors.primary,
-                    fontSize: ThemeSelector.fonts.font_14,
-                  ),
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
             ),

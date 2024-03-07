@@ -79,9 +79,7 @@ class MealForm extends StatelessWidget {
                         ),
                         if (state.mealModel.photo == null)
                           Text(S.of(context).required,
-                              style: TextStyle(
-                                color: ThemeSelector.colors.primary,
-                              )),
+                              style: Theme.of(context).textTheme.titleSmall),
                         SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                         TextFormFieldTemplate(
                           label: S.of(context).mealName,
@@ -273,8 +271,7 @@ class MealForm extends StatelessWidget {
                         if (state.mealModel.categoriesids?.length == 0)
                           Text(
                             S.of(context).required,
-                            style:
-                                TextStyle(color: ThemeSelector.colors.primary),
+                            style: Theme.of(context).textTheme.titleSmall,
                           ),
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
                         Row(
@@ -289,8 +286,7 @@ class MealForm extends StatelessWidget {
                               },
                               child: Text(
                                 S.of(context).cancel,
-                                style: TextStyle(
-                                    color: ThemeSelector.colors.secondary),
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ),
                             TextButton(
@@ -322,8 +318,8 @@ class MealForm extends StatelessWidget {
                               },
                               child: Text(
                                 S.of(context).save,
-                                style: TextStyle(
-                                    color: ThemeSelector.colors.primary),
+                                style:
+                                    Theme.of(context).textTheme.headlineMedium,
                               ),
                             ),
                           ],

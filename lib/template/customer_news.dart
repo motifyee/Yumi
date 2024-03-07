@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/chef_bannar.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/categories_list_dialog.dart';
+import 'package:yumi/template/chef_bannar.dart';
 import 'package:yumi/template/offer_carousel.dart';
 import 'package:yumi/template/pagination_template.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -40,29 +40,26 @@ class CustomerNews extends StatelessWidget {
                 children: [
                   RichText(
                       text: TextSpan(
-                    style: TextStyle(
-                      fontSize: ThemeSelector.fonts.font_12,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: Theme.of(context).textTheme.labelMedium,
                     children: [
                       TextSpan(
                         text: S.of(context).hi,
-                        style: TextStyle(color: ThemeSelector.colors.secondary),
                       ),
                       TextSpan(
                         text: ' ',
                       ),
                       TextSpan(
                         text: 'Ayman!',
-                        style: TextStyle(color: ThemeSelector.colors.primary),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(fontWeight: FontWeight.w700),
                       ),
                     ],
                   )),
                   Text(
                     S.of(context).whatYouWishToEatToday,
-                    style: TextStyle(
-                        color: ThemeSelector.colors.secondaryTant,
-                        fontSize: ThemeSelector.fonts.font_9),
+                    style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ],
               ),
@@ -114,9 +111,10 @@ class CustomerNews extends StatelessWidget {
                   child: Center(
                       child: Text(
                     S.of(context).dishName,
-                    style: TextStyle(
-                        color: ThemeSelector.colors.secondary,
-                        fontSize: ThemeSelector.fonts.font_9),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontSize: ThemeSelector.fonts.font_9),
                   )),
                 ),
               ),
@@ -146,9 +144,10 @@ class CustomerNews extends StatelessWidget {
                   child: Center(
                       child: Text(
                     S.of(context).cuisines,
-                    style: TextStyle(
-                        color: ThemeSelector.colors.secondary,
-                        fontSize: ThemeSelector.fonts.font_9),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontSize: ThemeSelector.fonts.font_9),
                   )),
                 ),
               ),
@@ -173,9 +172,10 @@ class CustomerNews extends StatelessWidget {
                   child: Center(
                       child: Text(
                     S.of(context).recentSearch,
-                    style: TextStyle(
-                        color: ThemeSelector.colors.secondary,
-                        fontSize: ThemeSelector.fonts.font_9),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontSize: ThemeSelector.fonts.font_9),
                   )),
                 ),
               ),
@@ -200,9 +200,10 @@ class CustomerNews extends StatelessWidget {
                   child: Center(
                       child: Text(
                     S.of(context).suggestions,
-                    style: TextStyle(
-                        color: ThemeSelector.colors.secondary,
-                        fontSize: ThemeSelector.fonts.font_9),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontSize: ThemeSelector.fonts.font_9),
                   )),
                 ),
               ),
@@ -235,11 +236,9 @@ class CustomerNews extends StatelessWidget {
                     menuTarget == MenuTarget.preOrder
                         ? S.of(context).chefs
                         : S.of(context).onlineChefs,
-                    style: TextStyle(
-                      color: ThemeSelector.colors.secondary,
-                      fontSize: ThemeSelector.fonts.font_16,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          fontSize: ThemeSelector.fonts.font_16,
+                        ),
                   ),
                 ],
               ),
@@ -300,18 +299,11 @@ class CustomerNews extends StatelessWidget {
                 children: [
                   Text(
                     '150',
-                    style: TextStyle(
-                      color: ThemeSelector.colors.primary,
-                      fontSize: ThemeSelector.fonts.font_24,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Text(
                     S.of(context).points,
-                    style: TextStyle(
-                      color: ThemeSelector.colors.secondary,
-                      fontSize: ThemeSelector.fonts.font_12,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ],
               ),

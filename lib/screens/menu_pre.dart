@@ -25,10 +25,10 @@ class MenuPreOrderScreen extends StatelessWidget {
         title: Center(
           child: Text(
             S.of(context).menuPreOrders,
-            style: TextStyle(
-              color: ThemeSelector.colors.primary,
-              fontSize: ThemeSelector.fonts.font_14,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .headlineMedium
+                ?.copyWith(fontSize: ThemeSelector.fonts.font_14),
           ),
         ),
       ),

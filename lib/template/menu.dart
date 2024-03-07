@@ -74,13 +74,17 @@ class MenuTemplate extends StatelessWidget {
                                   child: Center(
                                     child: Text(
                                       'All',
-                                      style: TextStyle(
-                                        color: mealListBlocState
-                                                    .selectedCategory ==
-                                                0
-                                            ? ThemeSelector.colors.onPrimary
-                                            : ThemeSelector.colors.secondary,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                            color: mealListBlocState
+                                                        .selectedCategory ==
+                                                    0
+                                                ? ThemeSelector.colors.onPrimary
+                                                : ThemeSelector
+                                                    .colors.secondary,
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -118,13 +122,18 @@ class MenuTemplate extends StatelessWidget {
                                     child: Center(
                                       child: Text(
                                         category.name,
-                                        style: TextStyle(
-                                          color: mealListBlocState
-                                                      .selectedCategory ==
-                                                  category.id
-                                              ? ThemeSelector.colors.onPrimary
-                                              : ThemeSelector.colors.secondary,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                              color: mealListBlocState
+                                                          .selectedCategory ==
+                                                      category.id
+                                                  ? ThemeSelector
+                                                      .colors.onPrimary
+                                                  : ThemeSelector
+                                                      .colors.secondary,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -190,11 +199,11 @@ class MenuTemplate extends StatelessWidget {
                     Expanded(
                       child: Text(
                         S.of(context).empty,
-                        style: TextStyle(
-                          color: ThemeSelector.colors.secondaryFaint,
-                          fontSize: ThemeSelector.fonts.font_38,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style:
+                            Theme.of(context).textTheme.displaySmall?.copyWith(
+                                  color: ThemeSelector.colors.secondaryFaint,
+                                  fontSize: ThemeSelector.fonts.font_38,
+                                ),
                       ),
                     ),
                 ],

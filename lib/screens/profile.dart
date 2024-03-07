@@ -42,27 +42,20 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   Text(
                     state.profile.fullName,
-                    style: TextStyle(
-                        color: ThemeSelector.colors.primary,
-                        fontSize: ThemeSelector.fonts.font_24),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   SizedBox(height: ThemeSelector.statics.defaultGap),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('4.5',
-                          style:
-                              TextStyle(color: ThemeSelector.colors.secondary)),
-                      Text(' ',
-                          style:
-                              TextStyle(color: ThemeSelector.colors.secondary)),
+                          style: Theme.of(context).textTheme.bodyMedium),
+                      Text(' ', style: Theme.of(context).textTheme.bodyMedium),
                       SvgPicture.asset('assets/images/star.svg'),
                       Text(' | ',
-                          style:
-                              TextStyle(color: ThemeSelector.colors.secondary)),
+                          style: Theme.of(context).textTheme.bodyMedium),
                       Text(S.of(context).hygiene,
-                          style:
-                              TextStyle(color: ThemeSelector.colors.secondary)),
+                          style: Theme.of(context).textTheme.bodyMedium),
                     ],
                   ),
                   SizedBox(height: ThemeSelector.statics.defaultTitleGap),

@@ -54,8 +54,7 @@ class BankSettingsCard extends StatelessWidget {
                         onPressed: () => showBankInfoEdit(context, id: id),
                         child: Text(
                           S.of(context).edit,
-                          style:
-                              TextStyle(color: ThemeSelector.colors.secondary),
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ))
                 ],
               ),
@@ -101,12 +100,15 @@ class BankInfoFields extends StatelessWidget {
                 children: [
                   Text(
                     S.of(context).bankName,
-                    style: TextStyle(color: ThemeSelector.colors.secondary),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const Expanded(child: Text('')),
                   Text(
                     bankInfo.bankName,
-                    style: TextStyle(color: ThemeSelector.colors.secondaryTant),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: ThemeSelector.colors.secondaryTant),
                   ),
                 ],
               ),
@@ -116,12 +118,15 @@ class BankInfoFields extends StatelessWidget {
                 children: [
                   Text(
                     S.of(context).accountNumber,
-                    style: TextStyle(color: ThemeSelector.colors.secondary),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const Expanded(child: Text('')),
                   Text(
                     bankInfo.accountNumber.toString(),
-                    style: TextStyle(color: ThemeSelector.colors.secondaryTant),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: ThemeSelector.colors.secondaryTant),
                   ),
                 ],
               ),
@@ -131,12 +136,15 @@ class BankInfoFields extends StatelessWidget {
                 children: [
                   Text(
                     S.of(context).bankCurrency,
-                    style: TextStyle(color: ThemeSelector.colors.secondary),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const Expanded(child: Text('')),
                   Text(
                     bankInfo.currency,
-                    style: TextStyle(color: ThemeSelector.colors.secondaryTant),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: ThemeSelector.colors.secondaryTant),
                   ),
                 ],
               ),
@@ -146,12 +154,15 @@ class BankInfoFields extends StatelessWidget {
                 children: [
                   Text(
                     S.of(context).iban,
-                    style: TextStyle(color: ThemeSelector.colors.secondary),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const Expanded(child: Text('')),
                   Text(
                     bankInfo.iban,
-                    style: TextStyle(color: ThemeSelector.colors.secondaryTant),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: ThemeSelector.colors.secondaryTant),
                   ),
                 ],
               ),
@@ -161,12 +172,15 @@ class BankInfoFields extends StatelessWidget {
                 children: [
                   Text(
                     S.of(context).swiftCode,
-                    style: TextStyle(color: ThemeSelector.colors.secondary),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const Expanded(child: Text('')),
                   Text(
                     bankInfo.swiftCode,
-                    style: TextStyle(color: ThemeSelector.colors.secondaryTant),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: ThemeSelector.colors.secondaryTant),
                   ),
                 ],
               ),
@@ -176,12 +190,15 @@ class BankInfoFields extends StatelessWidget {
                 children: [
                   Text(
                     S.of(context).branchAddress,
-                    style: TextStyle(color: ThemeSelector.colors.secondary),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const Expanded(child: Text('')),
                   Text(
                     bankInfo.branchAddress,
-                    style: TextStyle(color: ThemeSelector.colors.secondaryTant),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: ThemeSelector.colors.secondaryTant),
                   ),
                 ],
               ),

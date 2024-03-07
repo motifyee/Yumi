@@ -22,7 +22,9 @@ class CartMealCard extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
+          padding: EdgeInsets.symmetric(
+              horizontal: ThemeSelector.statics.defaultTitleGap,
+              vertical: ThemeSelector.statics.defaultLineGap),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -34,18 +36,16 @@ class CartMealCard extends StatelessWidget {
                       children: [
                         Text(
                           'Pumpkin Soup',
-                          style: TextStyle(
-                            color: ThemeSelector.colors.secondary,
-                            fontSize: ThemeSelector.fonts.font_18,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.labelLarge?.copyWith(
+                                    fontSize: ThemeSelector.fonts.font_18,
+                                  ),
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(
-                              width:
-                                  ThemeSelector.statics.defaultGapExtraExtreme,
+                              width: ThemeSelector.statics.defaultGapExtreme,
                               child: TextCurrency(
                                 value: 0.65,
                                 fontSize: ThemeSelector.fonts.font_14,
@@ -61,9 +61,10 @@ class CartMealCard extends StatelessWidget {
                                 onPressed: () {},
                                 child: Text(
                                   '-',
-                                  style: TextStyle(
-                                      color: ThemeSelector.colors.primary,
-                                      fontSize: ThemeSelector.fonts.font_16),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(fontWeight: FontWeight.w500),
                                 )),
                             SizedBox(
                               width: ThemeSelector.statics.defaultTitleGapLarge,
@@ -86,9 +87,10 @@ class CartMealCard extends StatelessWidget {
                                 onPressed: () {},
                                 child: Text(
                                   '+',
-                                  style: TextStyle(
-                                      color: ThemeSelector.colors.primary,
-                                      fontSize: ThemeSelector.fonts.font_16),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(fontWeight: FontWeight.w500),
                                 )),
                           ],
                         ),
@@ -112,11 +114,7 @@ class CartMealCard extends StatelessWidget {
               ),
               Text(
                 S.of(context).specialRequest,
-                style: TextStyle(
-                  color: ThemeSelector.colors.secondary,
-                  fontSize: ThemeSelector.fonts.font_14,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: Theme.of(context).textTheme.labelLarge,
               ),
               SizedBox(height: ThemeSelector.statics.defaultLineGap),
               TextFormFieldTemplate(

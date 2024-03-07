@@ -50,11 +50,9 @@ class ChefMealCard extends StatelessWidget {
                 children: [
                   Text(
                     'Shrimp Zucchini Pasta ',
-                    style: TextStyle(
-                      color: ThemeSelector.colors.secondary,
-                      fontSize: ThemeSelector.fonts.font_10,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          fontSize: ThemeSelector.fonts.font_10,
+                        ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
