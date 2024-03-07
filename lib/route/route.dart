@@ -30,5 +30,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: ChefProfile.page),
         AutoRoute(page: Cart.page),
         AutoRoute(page: CheckOut.page),
+        AutoRoute(page: PaymentVisa.page),
       ];
 }

@@ -28,6 +28,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "addANote": MessageLookupByLibrary.simpleMessage("Add a note"),
         "addBankAccount":
             MessageLookupByLibrary.simpleMessage("Add bank account"),
+        "addCardDetails":
+            MessageLookupByLibrary.simpleMessage("Add Card details"),
         "addFoods": MessageLookupByLibrary.simpleMessage("Add foods"),
         "addPreOrder": MessageLookupByLibrary.simpleMessage("Add Pre-order"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
@@ -49,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "caloriesReference":
             MessageLookupByLibrary.simpleMessage("Calories reference"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "cardNumber": MessageLookupByLibrary.simpleMessage("Card number"),
         "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
         "chefEvents": MessageLookupByLibrary.simpleMessage("Chef events"),
         "chefs": MessageLookupByLibrary.simpleMessage("Chefs"),
@@ -87,6 +90,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterVoucherCode":
             MessageLookupByLibrary.simpleMessage("Enter voucher code"),
         "eventsPhoto": MessageLookupByLibrary.simpleMessage("Events Photo"),
+        "expiryDateMMYY":
+            MessageLookupByLibrary.simpleMessage("Expiry date (mm/yy)"),
         "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
         "featuredChefs": MessageLookupByLibrary.simpleMessage("Featured Chefs"),
         "financialView": MessageLookupByLibrary.simpleMessage("Financial view"),
@@ -139,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password does not match!"),
         "passwordMustBe": MessageLookupByLibrary.simpleMessage(
             "Password must be 8 characters contains:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # \$ & * ~ )."),
+        "pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "payWith": MessageLookupByLibrary.simpleMessage("Pay with"),
         "paymentSummary":
             MessageLookupByLibrary.simpleMessage("Payment summary"),
@@ -168,11 +174,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "saveCreditCardDetails":
+            MessageLookupByLibrary.simpleMessage("Save credit card details"),
         "saveOnYourOrder":
             MessageLookupByLibrary.simpleMessage("Save on your order"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchForFood":
             MessageLookupByLibrary.simpleMessage("Search for food"),
+        "securePaymentWithSSLEncryptionInfo":
+            MessageLookupByLibrary.simpleMessage(
+                "Secure payment with SSL Encryption info"),
+        "securityCode": MessageLookupByLibrary.simpleMessage("Security code"),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "signToContinue":
             MessageLookupByLibrary.simpleMessage("Sign to continue"),

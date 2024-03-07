@@ -1569,6 +1569,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Add Card details`
+  String get addCardDetails {
+    return Intl.message(
+      'Add Card details',
+      name: 'addCardDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pay`
+  String get pay {
+    return Intl.message(
+      'Pay',
+      name: 'pay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Card number`
+  String get cardNumber {
+    return Intl.message(
+      'Card number',
+      name: 'cardNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expiry date (mm/yy)`
+  String get expiryDateMMYY {
+    return Intl.message(
+      'Expiry date (mm/yy)',
+      name: 'expiryDateMMYY',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Security code`
+  String get securityCode {
+    return Intl.message(
+      'Security code',
+      name: 'securityCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save credit card details`
+  String get saveCreditCardDetails {
+    return Intl.message(
+      'Save credit card details',
+      name: 'saveCreditCardDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Secure payment with SSL Encryption info`
+  String get securePaymentWithSSLEncryptionInfo {
+    return Intl.message(
+      'Secure payment with SSL Encryption info',
+      name: 'securePaymentWithSSLEncryptionInfo',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

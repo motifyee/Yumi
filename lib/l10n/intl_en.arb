@@ -150,5 +150,12 @@
   "enterVoucherCode": "Enter voucher code",
   "submit": "Submit",
   "disclaimer": "Disclaimer",
-  "placeOrder": "Place order"
+  "placeOrder": "Place order",
+  "addCardDetails": "Add Card details",
+  "pay": "Pay",
+  "cardNumber": "Card number",
+  "expiryDateMMYY": "Expiry date (mm/yy)",
+  "securityCode": "Security code",
+  "saveCreditCardDetails": "Save credit card details",
+  "securePaymentWithSSLEncryptionInfo": "Secure payment with SSL Encryption info"
 }

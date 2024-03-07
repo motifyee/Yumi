@@ -177,16 +177,17 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
               )
             : null,
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        contentPadding: widget.dropdownSelection
+        contentPadding: widget.isDense == true
             ? EdgeInsets.symmetric(
                 horizontal: widget.borderStyle!.inputIndent,
-                vertical: ThemeSelector.statics.defaultInputGap,
               )
-            : EdgeInsets.symmetric(horizontal: widget.borderStyle!.inputIndent),
+            : EdgeInsets.symmetric(
+                horizontal: widget.borderStyle!.inputIndent,
+                vertical: ThemeSelector.statics.defaultInputGap,
+              ),
         border: widget.calcBorderStyle(),
         enabledBorder: widget.calcBorderStyle(),
-        isDense:
-            widget.isDense == true || widget.dropdownSelection ? true : false,
+        isDense: widget.isDense,
         focusedBorder: widget.calcBorderStyle(isFocused: true),
         errorBorder: widget.calcBorderStyle(isFocused: true),
         prefixIcon: widget.prefixIcon,

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/payment_summary_card.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -50,161 +51,184 @@ class CheckOut extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(
-                    S.of(context).payWith,
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          fontSize: ThemeSelector.fonts.font_18,
-                        ),
-                  ),
-                  SizedBox(height: ThemeSelector.statics.defaultGap),
-                  GestureDetector(
-                    onTap: () {
-                      _option = PaymentOption.visa;
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ThemeSelector.statics.defaultInputGap),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: ThemeSelector.statics.defaultLineGap,
-                            height: ThemeSelector.statics.defaultLineGap,
-                            decoration: BoxDecoration(
-                                color: _option == PaymentOption.visa
-                                    ? ThemeSelector.colors.primary
-                                    : ThemeSelector.colors.secondaryFaint,
-                                borderRadius: BorderRadius.circular(
-                                    ThemeSelector.statics.defaultLineGap)),
-                          ),
-                          SizedBox(width: ThemeSelector.statics.defaultGap),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/images/add_visa_card.svg',
-                                height: ThemeSelector.fonts.font_12,
-                              ),
-                              Text(' '),
-                              Text(
-                                S.of(context).debitCreditCard,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _option = PaymentOption.wallet;
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ThemeSelector.statics.defaultInputGap),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: ThemeSelector.statics.defaultLineGap,
-                            height: ThemeSelector.statics.defaultLineGap,
-                            decoration: BoxDecoration(
-                                color: _option == PaymentOption.wallet
-                                    ? ThemeSelector.colors.primary
-                                    : ThemeSelector.colors.secondaryFaint,
-                                borderRadius: BorderRadius.circular(
-                                    ThemeSelector.statics.defaultLineGap)),
-                          ),
-                          SizedBox(width: ThemeSelector.statics.defaultGap),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/images/schedule_menu.svg',
-                                height: ThemeSelector.fonts.font_12,
-                              ),
-                              Text(' '),
-                              Text(
-                                S.of(context).wallet,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _option = PaymentOption.paypal;
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ThemeSelector.statics.defaultInputGap),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: ThemeSelector.statics.defaultLineGap,
-                            height: ThemeSelector.statics.defaultLineGap,
-                            decoration: BoxDecoration(
-                                color: _option == PaymentOption.paypal
-                                    ? ThemeSelector.colors.primary
-                                    : ThemeSelector.colors.secondaryFaint,
-                                borderRadius: BorderRadius.circular(
-                                    ThemeSelector.statics.defaultLineGap)),
-                          ),
-                          SizedBox(width: ThemeSelector.statics.defaultGap),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/images/paypal.svg',
-                                height: ThemeSelector.fonts.font_12,
-                              ),
-                              Text(' '),
-                              Text(
-                                S.of(context).paypal,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: ThemeSelector.statics.defaultTitleGap),
-                  Text(
-                    S.of(context).saveOnYourOrder,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: ThemeSelector.fonts.font_18,
-                        ),
-                  ),
-                  TextFormFieldTemplate(
-                    borderStyle: TextFormFieldBorderStyle.borderedRound,
-                    hintText: S.of(context).enterVoucherCode,
-                    prefixIcon: Container(
-                      padding:
-                          EdgeInsets.all(ThemeSelector.statics.defaultInputGap),
-                      child: SvgPicture.asset('assets/images/voucher.svg'),
-                    ),
-                    suffixIcon: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        S.of(context).submit,
-                        style: TextStyle(
-                          color: ThemeSelector.colors.secondaryTantLighter,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: ThemeSelector.statics.defaultTitleGap),
-                  PaymentSummaryCard(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        S.of(context).disclaimer,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        S.of(context).payWith,
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                              fontSize: ThemeSelector.fonts.font_18,
+                            ),
+                      ),
+                      SizedBox(height: ThemeSelector.statics.defaultGap),
+                      GestureDetector(
+                        onTap: () {
+                          _option = PaymentOption.visa;
+                          context.router.push(PaymentVisa());
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  ThemeSelector.statics.defaultInputGap),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: ThemeSelector.statics.defaultLineGap,
+                                height: ThemeSelector.statics.defaultLineGap,
+                                decoration: BoxDecoration(
+                                    color: _option == PaymentOption.visa
+                                        ? ThemeSelector.colors.primary
+                                        : ThemeSelector.colors.secondaryFaint,
+                                    borderRadius: BorderRadius.circular(
+                                        ThemeSelector.statics.defaultLineGap)),
+                              ),
+                              SizedBox(width: ThemeSelector.statics.defaultGap),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/images/add_visa_card.svg',
+                                    height: ThemeSelector.fonts.font_12,
+                                  ),
+                                  Text(' '),
+                                  Text(
+                                    S.of(context).debitCreditCard,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: ThemeSelector.statics.defaultGap),
+                      GestureDetector(
+                        onTap: () {
+                          _option = PaymentOption.wallet;
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  ThemeSelector.statics.defaultInputGap),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: ThemeSelector.statics.defaultLineGap,
+                                height: ThemeSelector.statics.defaultLineGap,
+                                decoration: BoxDecoration(
+                                    color: _option == PaymentOption.wallet
+                                        ? ThemeSelector.colors.primary
+                                        : ThemeSelector.colors.secondaryFaint,
+                                    borderRadius: BorderRadius.circular(
+                                        ThemeSelector.statics.defaultLineGap)),
+                              ),
+                              SizedBox(width: ThemeSelector.statics.defaultGap),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/images/schedule_menu.svg',
+                                    height: ThemeSelector.fonts.font_12,
+                                  ),
+                                  Text(' '),
+                                  Text(
+                                    S.of(context).wallet,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: ThemeSelector.statics.defaultGap),
+                      GestureDetector(
+                        onTap: () {
+                          _option = PaymentOption.paypal;
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  ThemeSelector.statics.defaultInputGap),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: ThemeSelector.statics.defaultLineGap,
+                                height: ThemeSelector.statics.defaultLineGap,
+                                decoration: BoxDecoration(
+                                    color: _option == PaymentOption.paypal
+                                        ? ThemeSelector.colors.primary
+                                        : ThemeSelector.colors.secondaryFaint,
+                                    borderRadius: BorderRadius.circular(
+                                        ThemeSelector.statics.defaultLineGap)),
+                              ),
+                              SizedBox(width: ThemeSelector.statics.defaultGap),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/images/paypal.svg',
+                                    height: ThemeSelector.fonts.font_12,
+                                  ),
+                                  Text(' '),
+                                  Text(
+                                    S.of(context).paypal,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        S.of(context).saveOnYourOrder,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontSize: ThemeSelector.fonts.font_18,
+                            ),
+                      ),
+                      TextFormFieldTemplate(
+                        borderStyle: TextFormFieldBorderStyle.borderedRound,
+                        hintText: S.of(context).enterVoucherCode,
+                        prefixIcon: Container(
+                          padding: EdgeInsets.all(
+                              ThemeSelector.statics.defaultInputGap),
+                          child: SvgPicture.asset('assets/images/voucher.svg'),
+                        ),
+                        suffixIcon: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            S.of(context).submit,
+                            style: TextStyle(
+                              color: ThemeSelector.colors.secondaryTantLighter,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      PaymentSummaryCard(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            S.of(context).disclaimer,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
                       ),
                     ],
                   ),
