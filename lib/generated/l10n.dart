@@ -460,6 +460,16 @@ class S {
     );
   }
 
+  /// `Contract`
+  String get contract {
+    return Intl.message(
+      'Contract',
+      name: 'contract',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Menus`
   String get menus {
     return Intl.message(
@@ -651,10 +661,10 @@ class S {
   }
 
   /// `Profile Setting`
-  String get profileSetting {
+  String get profileSettings {
     return Intl.message(
-      'Profile Setting',
-      name: 'profileSetting',
+      'Profile Settings',
+      name: 'profileSettings',
       desc: '',
       args: [],
     );

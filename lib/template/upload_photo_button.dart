@@ -7,7 +7,21 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class UploadPhotoButton extends StatelessWidget {
-  UploadPhotoButton({super.key, required this.onPressed, this.defaultImage});
+  double? borderWidth;
+  double? size;
+  double? padding;
+  String? title;
+  bool multi;
+  UploadPhotoButton({
+    super.key,
+    required this.onPressed,
+    this.defaultImage,
+    this.borderWidth,
+    this.size,
+    this.padding,
+    this.title = 'Upload',
+    this.multi = false,
+  });
 
   final Function(dynamic) onPressed;
   String? defaultImage;
@@ -16,41 +30,55 @@ class UploadPhotoButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () async {
-        ImagePicker imagePicker = ImagePicker();
-        final image = await imagePicker.pickImage(source: ImageSource.gallery);
+        ImagePicker picker = ImagePicker();
+        final image =
+            !multi ? await picker.pickImage(source: ImageSource.gallery) : null;
+        final images = multi ? await picker.pickMultiImage() : null;
         if (image == null) {
-          onPressed(image);
+          onPressed(null);
         } else {
-          var blob = base64Encode(await image.readAsBytes());
-          onPressed(blob);
+          b64(XFile fl) async => base64Encode(await fl.readAsBytes());
+
+          var blob = !multi ? b64(image) : null;
+          var blobs = multi ? images?.map((e) async => b64(e)) : null;
+          onPressed(blob ?? blobs);
         }
       },
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
-            width: ThemeSelector.statics.iconSizeExtreme,
-            height: ThemeSelector.statics.iconSizeExtreme,
+            padding:
+                EdgeInsets.all(padding ?? ThemeSelector.statics.defaultGap),
+            width: size ?? ThemeSelector.statics.iconSizeExtreme,
+            height: size ?? ThemeSelector.statics.iconSizeExtreme,
             decoration: BoxDecoration(
                 borderRadius:
                     BorderRadius.circular(ThemeSelector.statics.iconSizeLarge),
-                border: Border.fromBorderSide(BorderSide(
-                  width: defaultImage != null
-                      ? 0
-                      : ThemeSelector.statics.defaultGap,
-                  color: ThemeSelector.colors.primary,
-                ))),
+                border: (borderWidth ?? 1) > 0
+                    ? Border.fromBorderSide(BorderSide(
+                        width: defaultImage != null
+                            ? 0
+                            : borderWidth ?? ThemeSelector.statics.defaultGap,
+                        color: ThemeSelector.colors.primary,
+                      ))
+                    : null),
             child: defaultImage != null
                 ? Image.memory(base64Decode(defaultImage ?? ''))
                 : SvgPicture.asset('assets/images/camera.svg'),
           ),
-          SizedBox(height: ThemeSelector.statics.defaultGap),
-          Text(
-            S.of(context).upload,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontSize: ThemeSelector.fonts.font_10,
-                ),
-          )
+          if (title != null)
+            Column(
+              children: [
+                SizedBox(height: ThemeSelector.statics.defaultGap),
+                Text(
+                  S.of(context).upload,
+                  style: TextStyle(
+                    color: ThemeSelector.colors.secondary,
+                    fontSize: ThemeSelector.fonts.font_10,
+                  ),
+                )
+              ],
+            ),
         ],
       ),
     );

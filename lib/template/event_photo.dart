@@ -31,6 +31,7 @@ class EventsPhoto extends StatelessWidget {
             child: Center(
               child: UploadPhotoButton(
                 onPressed: (image) {},
+                multi: true,
               ),
             ),
           )

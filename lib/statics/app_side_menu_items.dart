@@ -28,6 +28,14 @@ class AppMenuList {
         },
       ),
       AppMenuItem(
+        icon: 'assets/images/contract_icon.svg',
+        label: S.of(context).contract,
+        onPressed: () {
+          Navigator.of(context, rootNavigator: true).pop();
+          context.router.push(const ContractRoute());
+        },
+      ),
+      AppMenuItem(
         icon: 'assets/images/menus_menu.svg',
         label: S.of(context).menus,
         onPressed: () {
@@ -98,7 +106,7 @@ class AppMenuList {
         label: S.of(context).documentation,
         onPressed: () {
           Navigator.of(context, rootNavigator: true).pop();
-          context.router.push(const DocumentationRoute());
+          context.router.push(DocumentationRoute());
         },
       ),
       AppMenuItem(

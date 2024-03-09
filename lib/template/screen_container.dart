@@ -10,21 +10,24 @@ class ScreenContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BoxDecoration? decoration;
+    if (isColored) {
+      decoration = BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            ThemeSelector.colors.primaryTant,
+            ThemeSelector.colors.onPrimary,
+          ],
+          begin: const FractionalOffset(0.0, 0.0),
+          end: const FractionalOffset(0.0, 1.0),
+          stops: const [0.0, 0.3],
+          tileMode: TileMode.clamp,
+        ),
+      );
+    }
+
     return Container(
-      decoration: isColored
-          ? BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  ThemeSelector.colors.primaryTant,
-                  ThemeSelector.colors.onPrimary,
-                ],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(0.0, 1.0),
-                stops: const [0.0, 0.3],
-                tileMode: TileMode.clamp,
-              ),
-            )
-          : null,
+      decoration: decoration,
       child: child,
     );
   }

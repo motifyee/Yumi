@@ -11,8 +11,8 @@ import 'package:yumi/screens/news.dart';
 import 'package:yumi/screens/notification.dart';
 import 'package:yumi/screens/order_history.dart';
 import 'package:yumi/screens/pre_order.dart';
-import 'package:yumi/screens/profile.dart';
-import 'package:yumi/screens/setting.dart';
+import 'package:yumi/features/settings/profle/profile_screen.dart';
+import 'package:yumi/features/settings/settings_screen.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class NavigateOptions {
