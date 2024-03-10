@@ -61,7 +61,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         }
 
         emit(state.copyWith(
-            meals: data,
+            meals: [...state.meals, ...data],
             paginationHelper: state.paginationHelper.copyWith(
               pageNumber: res['pagination']['page'],
               lastPage: res['pagination']['pages'],
