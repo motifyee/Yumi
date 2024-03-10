@@ -1639,6 +1639,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Pay By Paypal`
+  String get payByPaypal {
+    return Intl.message(
+      'Pay By Paypal',
+      name: 'payByPaypal',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

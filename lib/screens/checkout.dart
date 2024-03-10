@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/screens/payment_paypal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/payment_summary_card.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -160,6 +161,12 @@ class CheckOut extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             _option = PaymentOption.paypal;
+                            showDialog(
+                              context: context,
+                              builder: (context) => Center(
+                                child: PaymentPaypal(),
+                              ),
+                            );
                           },
                           child: Padding(
                             padding: EdgeInsets.symmetric(

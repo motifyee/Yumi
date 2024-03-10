@@ -10,5 +10,6 @@ class CustomerMenuPreScreen extends StatelessWidget {
     return CustomerNews(
       menuTarget: MenuTarget.preOrder,
     );
+
   }
 }

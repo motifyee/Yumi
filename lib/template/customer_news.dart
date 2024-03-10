@@ -93,6 +93,7 @@ class CustomerNews extends StatelessWidget {
                   ),
                 ),
                 OfferCarousel(),
+
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
@@ -151,7 +152,7 @@ class CustomerNews extends StatelessWidget {
                                     color: ThemeSelector.colors.shadow
                                         .withOpacity(.1),
                                     blurRadius: 4)
-                              ]),
+                              ],),
                           child: Center(
                               child: Text(
                             S.of(context).cuisines,
@@ -160,7 +161,7 @@ class CustomerNews extends StatelessWidget {
                                 .bodyLarge
                                 ?.copyWith(
                                     fontSize: ThemeSelector.fonts.font_9),
-                          )),
+                          ),),
                         ),
                       ),
                     ),
@@ -226,6 +227,15 @@ class CustomerNews extends StatelessWidget {
                     ),
                   ],
                 ),
+
+
+                ///
+                ///
+                ///
+                ///
+                ///
+                ///
+
                 Column(
                   children: [
                     Padding(
@@ -302,6 +312,19 @@ class CustomerNews extends StatelessWidget {
                     ),
                   ],
                 ),
+
+
+                ///
+                ///
+                ///
+                ///
+                ///
+                ///
+                ///
+
+
+
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
