@@ -1709,6 +1709,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Arrives In`
+  String get arrivesIn {
+    return Intl.message(
+      'Arrives In',
+      name: 'arrivesIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minutes`
+  String get minutes {
+    return Intl.message(
+      'Minutes',
+      name: 'minutes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Details`
+  String get orderDetails {
+    return Intl.message(
+      'Order Details',
+      name: 'orderDetails',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

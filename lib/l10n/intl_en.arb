@@ -164,5 +164,8 @@
   "preparingOrder": "Preparing Order",
   "onTheWay": "On The Way",
   "tracking": "Tracking",
-  "confirmDelivery": "Confirm Delivery"
+  "confirmDelivery": "Confirm Delivery",
+  "arrivesIn": "Arrives In",
+    "minutes": "Minutes",
+  "orderDetails": "Order Details"
 }

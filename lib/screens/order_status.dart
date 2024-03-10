@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 @RoutePage()
@@ -218,7 +219,9 @@ class OrderStatusScreen extends StatelessWidget {
                             ],
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              context.router.push(TrackingOrderRoute());
+                            },
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                   horizontal: ThemeSelector.statics.defaultGap,

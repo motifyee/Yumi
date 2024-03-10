@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Anything else we need to know?"),
         "areYouSureToDeleteAMeal": MessageLookupByLibrary.simpleMessage(
             "Are you sure to delete a meal?"),
+        "arrivesIn": MessageLookupByLibrary.simpleMessage("Arrives In"),
         "bankAccount": MessageLookupByLibrary.simpleMessage("Bank Account"),
         "bankCurrency": MessageLookupByLibrary.simpleMessage("Bank currency"),
         "bankName": MessageLookupByLibrary.simpleMessage("Bank name"),
@@ -126,6 +127,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Menu (pre-orders)"),
         "menus": MessageLookupByLibrary.simpleMessage("Menus"),
         "min": MessageLookupByLibrary.simpleMessage("Min"),
+        "minutes": MessageLookupByLibrary.simpleMessage("Minutes"),
         "mobile": MessageLookupByLibrary.simpleMessage("Mobile"),
         "myOrders": MessageLookupByLibrary.simpleMessage("My Orders"),
         "myReviews": MessageLookupByLibrary.simpleMessage("My reviews"),
@@ -140,6 +142,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "opened": MessageLookupByLibrary.simpleMessage("Opened"),
         "orSignUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
         "orderAgain": MessageLookupByLibrary.simpleMessage("Order Again"),
+        "orderDetails": MessageLookupByLibrary.simpleMessage("Order Details"),
         "orderId": MessageLookupByLibrary.simpleMessage("Order Id"),
         "orderReceived": MessageLookupByLibrary.simpleMessage("Order received"),
         "orderStatus": MessageLookupByLibrary.simpleMessage("Order Status"),

@@ -44,7 +44,11 @@ class CartScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            for (var i in [0, 1, 2, 3, 4]) CartMealCard(),
+            for (var i in [
+              0,
+              1,
+            ])
+              CartMealCard(),
             SizedBox(height: ThemeSelector.statics.defaultBlockGap),
             Padding(
               padding: EdgeInsets.symmetric(
