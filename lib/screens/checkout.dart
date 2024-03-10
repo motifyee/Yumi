@@ -9,8 +9,8 @@ import 'package:yumi/template/payment_summary_card.dart';
 import 'package:yumi/template/text_form_field.dart';
 
 @RoutePage()
-class CheckOut extends StatelessWidget {
-  CheckOut({super.key});
+class CheckOutScreen extends StatelessWidget {
+  CheckOutScreen({super.key});
 
   PaymentOption _option = PaymentOption.visa;
 
@@ -72,7 +72,7 @@ class CheckOut extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             _option = PaymentOption.visa;
-                            context.router.push(PaymentVisa());
+                            context.router.push(PaymentVisaRoute());
                           },
                           child: Padding(
                             padding: EdgeInsets.symmetric(
@@ -164,7 +164,7 @@ class CheckOut extends StatelessWidget {
                             showDialog(
                               context: context,
                               builder: (context) => Center(
-                                child: PaymentPaypal(),
+                                child: PaymentPaypalScreen(),
                               ),
                             );
                           },
@@ -264,7 +264,9 @@ class CheckOut extends StatelessWidget {
                             Hero(
                               tag: 'ConfirmCartSeries',
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  context.router.push(OrderStatusRoute());
+                                },
                                 child: Container(
                                   width: ThemeSelector.statics.defaultGapXXXL *
                                       1.5,

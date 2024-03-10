@@ -144,24 +144,26 @@ class CustomerNews extends StatelessWidget {
                           width: (MediaQuery.of(context).size.width / 4) +
                               (ThemeSelector.statics.defaultLineGap),
                           decoration: BoxDecoration(
-                              color: ThemeSelector.colors.backgroundTant,
-                              borderRadius: BorderRadius.circular(
-                                  ThemeSelector.statics.defaultBorderRadius),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: ThemeSelector.colors.shadow
-                                        .withOpacity(.1),
-                                    blurRadius: 4)
-                              ],),
+                            color: ThemeSelector.colors.backgroundTant,
+                            borderRadius: BorderRadius.circular(
+                                ThemeSelector.statics.defaultBorderRadius),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: ThemeSelector.colors.shadow
+                                      .withOpacity(.1),
+                                  blurRadius: 4)
+                            ],
+                          ),
                           child: Center(
-                              child: Text(
-                            S.of(context).cuisines,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                    fontSize: ThemeSelector.fonts.font_9),
-                          ),),
+                            child: Text(
+                              S.of(context).cuisines,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                      fontSize: ThemeSelector.fonts.font_9),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -228,7 +230,6 @@ class CustomerNews extends StatelessWidget {
                   ],
                 ),
 
-
                 ///
                 ///
                 ///
@@ -285,7 +286,8 @@ class CustomerNews extends StatelessWidget {
                             for (var chef in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
                               GestureDetector(
                                 onTap: () {
-                                  context.router.push(ChefProfile(chef: chef));
+                                  context.router
+                                      .push(ChefProfileRoute(chef: chef));
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
@@ -313,7 +315,6 @@ class CustomerNews extends StatelessWidget {
                   ],
                 ),
 
-
                 ///
                 ///
                 ///
@@ -321,9 +322,6 @@ class CustomerNews extends StatelessWidget {
                 ///
                 ///
                 ///
-
-
-
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

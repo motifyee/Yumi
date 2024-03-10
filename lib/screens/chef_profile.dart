@@ -12,8 +12,8 @@ import 'package:yumi/template/pagination_template.dart';
 import 'package:yumi/template/review_card.dart';
 
 @RoutePage()
-class ChefProfile extends StatelessWidget {
-  ChefProfile({super.key, required this.chef});
+class ChefProfileScreen extends StatelessWidget {
+  ChefProfileScreen({super.key, required this.chef});
 
   final dynamic chef;
 

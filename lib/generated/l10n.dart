@@ -1649,6 +1649,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Order Status`
+  String get orderStatus {
+    return Intl.message(
+      'Order Status',
+      name: 'orderStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invoice`
+  String get invoice {
+    return Intl.message(
+      'Invoice',
+      name: 'invoice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preparing Order`
+  String get preparingOrder {
+    return Intl.message(
+      'Preparing Order',
+      name: 'preparingOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `On The Way`
+  String get onTheWay {
+    return Intl.message(
+      'On The Way',
+      name: 'onTheWay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tracking`
+  String get tracking {
+    return Intl.message(
+      'Tracking',
+      name: 'tracking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Delivery`
+  String get confirmDelivery {
+    return Intl.message(
+      'Confirm Delivery',
+      name: 'confirmDelivery',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

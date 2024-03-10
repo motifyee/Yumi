@@ -7,8 +7,8 @@ import 'package:yumi/template/cart_meal_card.dart';
 import 'package:yumi/template/payment_summary_card.dart';
 
 @RoutePage()
-class Cart extends StatelessWidget {
-  const Cart({super.key});
+class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,7 @@ class Cart extends StatelessWidget {
                   tag: 'ConfirmCartSeries',
                   child: GestureDetector(
                     onTap: () {
-                      context.router.push(CheckOut());
+                      context.router.push(CheckOutRoute());
                     },
                     child: Container(
                       width: ThemeSelector.statics.defaultGapXXXL,

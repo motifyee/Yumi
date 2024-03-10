@@ -11,8 +11,8 @@ import 'package:yumi/validators/card_number_input_formatter.dart';
 import 'package:yumi/validators/expiry_date_input_formatter.dart';
 
 @RoutePage()
-class PaymentVisa extends StatelessWidget {
-  PaymentVisa({super.key});
+class PaymentVisaScreen extends StatelessWidget {
+  PaymentVisaScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
