@@ -28,7 +28,7 @@ class ChefBanner extends StatelessWidget {
               width: width,
               decoration: BoxDecoration(borderRadius: borderRadius),
               child: Hero(
-                tag: chef,
+                tag: 'chef_$chef',
                 child: Image.asset(
                   'assets/images/354.jpeg',
                   fit: BoxFit.cover,

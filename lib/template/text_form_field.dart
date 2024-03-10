@@ -25,6 +25,7 @@ class TextFormFieldTemplate extends StatefulWidget {
     this.dropdownSelectionList,
     this.prefixIcon,
     this.suffixIcon,
+    this.suffixIconConstraints,
     this.textInputType = TextInputType.text,
     this.isDense = false,
     this.isPassword = false,
@@ -67,6 +68,7 @@ class TextFormFieldTemplate extends StatefulWidget {
   dynamic initialValue;
   Widget? prefixIcon;
   Widget? suffixIcon;
+  BoxConstraints? suffixIconConstraints;
   List<TextInputFormatter> inputFormatters;
   int maxLines = 1;
   int minLines = 1;
@@ -128,88 +130,82 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
     }
 
     InputDecoration inputDecoration = InputDecoration(
-        label: widget.label != null
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+      label: widget.label != null
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (widget.labelIcon != null)
+                      SvgPicture.asset(widget.labelIcon ?? ''),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            widget.label ?? '',
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                          Text(
+                            widget.labelHint ?? '',
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                if (widget.subLabel != null && widget.subLabel != '')
                   Row(
-                    mainAxisSize: MainAxisSize.min,
                     children: [
                       if (widget.labelIcon != null)
-                        SvgPicture.asset(widget.labelIcon ?? ''),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              widget.label ?? '',
-                              style: TextStyle(
-                                fontSize: ThemeSelector.fonts.font_14,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            Text(
-                              widget.labelHint ?? '',
-                              style: TextStyle(
-                                  color: ThemeSelector.colors.secondaryTant,
-                                  fontSize: ThemeSelector.fonts.font_10),
-                            ),
-                          ],
-                        ),
+                        SizedBox(width: ThemeSelector.statics.defaultBlockGap),
+                      Text(
+                        widget.subLabel ?? '',
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ],
-                  ),
-                  if (widget.subLabel != null && widget.subLabel != '')
-                    Row(
-                      children: [
-                        if (widget.labelIcon != null)
-                          SizedBox(
-                              width: ThemeSelector.statics.defaultBlockGap),
-                        Text(
-                          widget.subLabel ?? '',
-                          style: TextStyle(
-                              color: ThemeSelector.colors.primary,
-                              fontSize: ThemeSelector.fonts.font_10),
-                        ),
-                      ],
-                    )
-                ],
-              )
-            : null,
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        contentPadding: widget.isDense == true
-            ? EdgeInsets.symmetric(
-                horizontal: widget.borderStyle!.inputIndent,
-              )
-            : EdgeInsets.symmetric(
-                horizontal: widget.borderStyle!.inputIndent,
-                vertical: ThemeSelector.statics.defaultInputGap,
+                  )
+              ],
+            )
+          : null,
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      contentPadding: widget.isDense == true
+          ? EdgeInsets.symmetric(
+              horizontal: widget.borderStyle!.inputIndent,
+            )
+          : EdgeInsets.symmetric(
+              horizontal: widget.borderStyle!.inputIndent,
+              vertical: ThemeSelector.statics.defaultInputGap,
+            ),
+      border: widget.calcBorderStyle(),
+      enabledBorder: widget.calcBorderStyle(),
+      isDense: widget.isDense,
+      focusedBorder: widget.calcBorderStyle(isFocused: true),
+      errorBorder: widget.calcBorderStyle(isFocused: true),
+      prefixIcon: widget.prefixIcon,
+      hintText: widget.hintText,
+      hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: ThemeSelector.colors.secondaryTantLighter,
+          ),
+      suffixIcon: widget.isPassword
+          ? IconButton(
+              onPressed: () {
+                setState(() {
+                  isHide = !isHide;
+                });
+              },
+              icon: Icon(
+                isHide
+                    ? Icons.remove_red_eye_outlined
+                    : Icons.visibility_off_outlined,
+                color: ThemeSelector.colors.secondary.withOpacity(.6),
               ),
-        border: widget.calcBorderStyle(),
-        enabledBorder: widget.calcBorderStyle(),
-        isDense: widget.isDense,
-        focusedBorder: widget.calcBorderStyle(isFocused: true),
-        errorBorder: widget.calcBorderStyle(isFocused: true),
-        prefixIcon: widget.prefixIcon,
-        hintText: widget.hintText,
-        hintStyle: TextStyle(
-          color: ThemeSelector.colors.secondaryTantLighter,
-        ),
-        suffixIcon: widget.isPassword
-            ? IconButton(
-                onPressed: () {
-                  setState(() {
-                    isHide = !isHide;
-                  });
-                },
-                icon: Icon(
-                  isHide
-                      ? Icons.remove_red_eye_outlined
-                      : Icons.visibility_off_outlined,
-                  color: ThemeSelector.colors.secondary.withOpacity(.6),
-                ),
-              )
-            : widget.suffixIcon);
+            )
+          : widget.suffixIcon,
+      suffixIconConstraints: widget.suffixIconConstraints,
+    );
 
     return widget.dropdownSelection
         ? DropdownButtonFormField(
@@ -251,7 +247,7 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
             controller: widget.controller,
             autofillHints: widget.autoHint,
             keyboardType: widget.textInputType,
-            style: TextStyle(color: ThemeSelector.colors.secondary),
+            style: Theme.of(context).textTheme.bodyMedium,
             decoration: inputDecoration,
             validator: widget.validators,
             obscureText: widget.isPassword && isHide,

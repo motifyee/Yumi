@@ -35,6 +35,7 @@ class _ThemeStatics {
   double defaultBorderRadius = 16;
   double defaultBorderRadiusSmall = 4;
   double defaultBorderRadiusMedium = 8;
+  double defaultBorderRadiusSubLarge = 10;
   double defaultBorderRadiusLarge = 25;
   double defaultBorderRadiusExtraLarge = 55;
   double defaultBorderRadiusExtreme = 120;

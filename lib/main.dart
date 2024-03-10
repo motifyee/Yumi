@@ -59,12 +59,14 @@ class MyApp extends StatelessWidget {
         theme: defaultTheme,
         builder: (context, child) {
           return Container(
-              decoration: const BoxDecoration(color: Colors.transparent),
-              child: SafeArea(
-                  child: Container(
+            decoration: const BoxDecoration(color: Colors.transparent),
+            child: SafeArea(
+              child: Container(
                 color: ThemeSelector.colors.background,
                 child: child ?? const Text(''),
-              )));
+              ),
+            ),
+          );
         },
       ),
     );
