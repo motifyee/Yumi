@@ -66,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "connectionError":
             MessageLookupByLibrary.simpleMessage("Connection Error!"),
         "continue0": MessageLookupByLibrary.simpleMessage("Continue"),
+        "contract": MessageLookupByLibrary.simpleMessage("Contract"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
         "createNewAccount":
             MessageLookupByLibrary.simpleMessage("Create New Account"),
@@ -136,6 +137,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nameOnCard": MessageLookupByLibrary.simpleMessage("Name on card"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "numNumber": MessageLookupByLibrary.simpleMessage("1 number"),
+        "offers": MessageLookupByLibrary.simpleMessage("Offers"),
         "onTheWay": MessageLookupByLibrary.simpleMessage("On The Way"),
         "onlineChefs": MessageLookupByLibrary.simpleMessage("Online Chefs"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
@@ -179,6 +181,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "profileSetting":
             MessageLookupByLibrary.simpleMessage("Profile Setting"),
+        "profileSettings":
+            MessageLookupByLibrary.simpleMessage("Profile Settings"),
         "readMoreAboutFees":
             MessageLookupByLibrary.simpleMessage("Read more about fees"),
         "ready": MessageLookupByLibrary.simpleMessage("Ready"),
@@ -231,11 +235,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "upperCase": MessageLookupByLibrary.simpleMessage("1 upper case"),
         "userName": MessageLookupByLibrary.simpleMessage("User name"),
         "view": MessageLookupByLibrary.simpleMessage("View"),
+        "vouchers": MessageLookupByLibrary.simpleMessage("Vouchers"),
         "wallet": MessageLookupByLibrary.simpleMessage("Wallet"),
         "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
         "whatYouWishToEatToday":
             MessageLookupByLibrary.simpleMessage("What you wish to eat today?"),
         "writeABio": MessageLookupByLibrary.simpleMessage("Write a Bio"),
+        "yourOrders": MessageLookupByLibrary.simpleMessage("Your orders"),
+        "yourWallet": MessageLookupByLibrary.simpleMessage("Your wallet"),
         "yumi": MessageLookupByLibrary.simpleMessage("YUMI")
       };
 }

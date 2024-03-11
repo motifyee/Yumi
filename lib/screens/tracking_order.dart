@@ -32,7 +32,10 @@ class TrackingOrderScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Expanded(child: Container()),
+          Expanded(
+              child: Center(
+            child: SvgPicture.asset('assets/images/delivery_on_road.svg'),
+          )),
           Column(
             children: [
               Text(
@@ -87,7 +90,7 @@ class TrackingOrderScreen extends StatelessWidget {
               ),
               SizedBox(height: ThemeSelector.statics.defaultGap),
               Hero(
-                tag: 'ConfirmCartSeries',
+                tag: 'ConfirmBasketSeries',
                 child: GestureDetector(
                   onTap: () {
                     context.router.pop();

@@ -62,8 +62,8 @@ class SideBar extends StatelessWidget {
                           ThemeSelector.statics.defaultBorderRadiusExtreme),
                       color: ThemeSelector.colors.onPrimary,
                     ),
-                    child: TextButton(
-                      onPressed: () {
+                    child: GestureDetector(
+                      onTap: () {
                         Navigator.of(context).pop();
                         context
                             .read<NavigatorBloc>()

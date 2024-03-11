@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/cart_meal_card.dart';
+import 'package:yumi/template/basket_meal_card.dart';
 import 'package:yumi/template/payment_summary_card.dart';
 
 @RoutePage()
-class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
+class BasketScreen extends StatelessWidget {
+  const BasketScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +16,17 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        leading: TextButton(
-            onPressed: () {
-              context.router.pop();
-            },
-            child: Icon(
-              Icons.arrow_back,
-              color: ThemeSelector.colors.primary,
-            )),
+        leading: Container(),
+        actions: [
+          TextButton(
+              onPressed: () {
+                context.router.pop();
+              },
+              child: Icon(
+                Icons.close,
+                color: ThemeSelector.colors.primary,
+              )),
+        ],
         title: Column(
           children: [
             Text(
@@ -48,7 +51,7 @@ class CartScreen extends StatelessWidget {
               0,
               1,
             ])
-              CartMealCard(),
+              BasketMealCard(),
             SizedBox(height: ThemeSelector.statics.defaultBlockGap),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -79,7 +82,7 @@ class CartScreen extends StatelessWidget {
                 ),
                 SizedBox(width: ThemeSelector.statics.defaultGap),
                 Hero(
-                  tag: 'ConfirmCartSeries',
+                  tag: 'ConfirmBasketSeries',
                   child: GestureDetector(
                     onTap: () {
                       context.router.push(CheckOutRoute());

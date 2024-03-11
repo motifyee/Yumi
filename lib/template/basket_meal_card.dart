@@ -4,8 +4,8 @@ import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
 import 'package:yumi/template/text_form_field.dart';
 
-class CartMealCard extends StatelessWidget {
-  const CartMealCard({super.key});
+class BasketMealCard extends StatelessWidget {
+  const BasketMealCard({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -167,5 +167,11 @@
   "confirmDelivery": "Confirm Delivery",
   "arrivesIn": "Arrives In",
     "minutes": "Minutes",
-  "orderDetails": "Order Details"
+  "orderDetails": "Order Details",
+  "yourOrders": "Your orders",
+  "offers": "Offers",
+  "vouchers": "Vouchers",
+  "yourWallet": "Your wallet",
+  "contract": "Contract",
+  "profileSettings": "Profile Settings"
 }

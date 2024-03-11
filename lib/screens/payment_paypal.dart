@@ -113,7 +113,7 @@ class PaymentPaypalScreen extends StatelessWidget {
                         ),
                         SizedBox(width: ThemeSelector.statics.defaultGap),
                         Hero(
-                          tag: 'ConfirmCartSeries',
+                          tag: 'ConfirmBasketSeries',
                           child: GestureDetector(
                             onTap: () {},
                             child: Container(
