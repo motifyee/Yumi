@@ -9,7 +9,7 @@ class BankInfo {
   final String swiftCode;
   final String branchAddress;
 
-  BankInfo({
+  const BankInfo({
     this.id = '',
     this.code = '',
     this.bankName = '',

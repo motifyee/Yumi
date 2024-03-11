@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/profile/form/profile_form_bloc.dart';
-import 'package:yumi/bloc/profile/profile_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/profile_model.dart';
-import 'package:yumi/service/profile_service.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
 import 'package:yumi/template/snack_bar.dart';
@@ -18,6 +16,9 @@ class Bio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    final profile = context.watch<ProfileBloc>().state.profile;
+
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: ThemeSelector.statics.defaultTitleGap),
@@ -31,16 +32,16 @@ class Bio extends StatelessWidget {
                 S.of(context).bio,
                 style: Theme.of(context).textTheme.labelLarge,
               ),
-              const Expanded(child: Text('')),
+              Expanded(child: Container()),
               IconButton(
                 icon: SvgPicture.asset('assets/images/pin.svg'),
                 onPressed: () {
                   showAlertDialog(
                     context: context,
                     title: Container(),
-                    content: const BioForm(),
+                    content: BioForm(profile, formKey),
                     actions: {'Cancel': null},
-                    actionWidgets: [const BioFormSubmitButton()],
+                    actionWidgets: [BioFormSubmitButton(profile, formKey)],
                   );
                 },
               )
@@ -52,7 +53,7 @@ class Bio extends StatelessWidget {
                 minHeight: ThemeSelector.statics.defaultGapExtreme),
             child: Center(
               child: Text(
-                S.of(context).writeABio,
+                profile.bio.isNotEmpty ? profile.bio : S.of(context).writeABio,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontSize: ThemeSelector.fonts.font_10,
                     ),
@@ -65,49 +66,52 @@ class Bio extends StatelessWidget {
   }
 }
 
-final GlobalKey<FormState> bioForm = GlobalKey<FormState>();
-
 class BioForm extends StatelessWidget {
-  const BioForm({super.key});
+  final Profile profile;
+  final GlobalKey<FormState> formKey;
+
+  const BioForm(this.profile, this.formKey, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final profileFormBloc = context.read<ProfileFormBloc>();
+    final profileFormBloc = context.read<ProfileBloc>();
 
-    profileFormBloc.add(
-      ProfileFormUpdateEvent(
-        profileModel: context.read<ProfileBloc>().state.profile.copyWith(
-              // updatedBy: context.read<UserBloc>().state.user.chefId,
-              updatedBy: '366',
-              email: context.read<UserBloc>().state.user.email,
+    return BlocConsumer<ProfileBloc, ProfileState>(
+      listener: (context, state) => {
+        if (state.status.isSaved)
+          profileFormBloc.add(
+            ProfileUpdateEvent(
+              context: context,
+              profile: state.profile,
             ),
-      ),
-    );
-
-    return BlocConsumer<ProfileFormBloc, ProfileFormState>(
-      listener: (context, state) {},
+          )
+      },
       builder: (context, state) {
-        if (state.loading) {
+        if (state.status.isLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
 
         return Form(
-          key: bioForm,
+          key: formKey,
           child: TextFormFieldTemplate(
             borderStyle: TextFormFieldBorderStyle.borderBottom,
-            // initialValue: state.profileModel.bio,
-            initialValue: 'XXXXXXXXX',
+            initialValue: profile.bio,
+            // initialValue: 'XXXXXXXXX',
             minLines: 3,
             maxLines: 5,
             hintText: S.of(context).writeABio,
             validators: requiredValidator,
             onSave: (value) {
+              var profile = state.profile;
+
+              // if (state is ProfileFormInitialState) profile = state.profile;
+              // if (state is ProfileFormUpdatedState) profile = state.profile;
+
               profileFormBloc.add(
-                ProfileFormUpdateEvent(
-                  profileModel: state.profileModel.copyWith(bio: value),
-                ),
+                ProfileUpdateEvent(
+                    context: context, profile: profile.copyWith(bio: value)),
               );
             },
           ),
@@ -118,66 +122,27 @@ class BioForm extends StatelessWidget {
 }
 
 class BioFormSubmitButton extends StatelessWidget {
-  const BioFormSubmitButton({super.key});
+  final Profile profile;
+  final GlobalKey<FormState> formKey;
+
+  const BioFormSubmitButton(this.profile, this.formKey, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProfileFormBloc, ProfileFormState>(
-      listener: (context, state) => {},
+    return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
-        return Form(
-          child: Container(
-            padding: EdgeInsets.all(ThemeSelector.statics.defaultBlockGap),
-            child: TextButton(
-              child: Text(S.of(context).save),
-              onPressed: () async {
-                if (!bioForm.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content:
-                        SnackBarMassage(massage: S.of(context).invalidInput),
-                  ));
+        return TextButton(
+          child: Text(S.of(context).save),
+          onPressed: () async {
+            if (!formKey.currentState!.validate()) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: SnackBarMassage(massage: S.of(context).invalidInput),
+              ));
 
-                  return;
-                }
-
-                bioForm.currentState!.save();
-
-                Future.delayed(Duration.zero, () async {
-                  final res = await ProfileService.updateProfile(
-                      context: context, data: state.profileModel.toJson());
-
-                  if (res != null && res != false) {
-                    if (context.mounted) {
-                      Navigator.of(context).pop();
-
-                      context
-                          .read<ProfileBloc>()
-                          .add(ProfileEvent(context: context));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: SnackBarMassage(
-                            massage: res.toString(),
-                          ),
-                        ),
-                      );
-
-                      context.read<ProfileFormBloc>().add(
-                          ProfileFormUpdateEvent(profileModel: ProfileModel()));
-                    }
-                  } else {
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: SnackBarMassage(
-                              massage: S.of(context).connectionError),
-                        ),
-                      );
-                    }
-                  }
-                });
-              },
-            ),
-          ),
+              return;
+            }
+            formKey.currentState?.save();
+          },
         );
       },
     );

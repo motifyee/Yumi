@@ -1,9 +1,10 @@
-class ProfileModel {
+class Profile {
   final String guid;
   final int id;
   final String fullName;
   final String userName;
   final String bio;
+  final String? profileImage;
   //
   final String mobile;
   final String email;
@@ -18,12 +19,13 @@ class ProfileModel {
   final Country country;
   final String updatedBy;
 
-  ProfileModel({
+  const Profile({
     this.guid = '',
     this.id = 0,
     this.fullName = '',
     this.userName = '',
     this.bio = '',
+    this.profileImage,
     this.mobile = '',
     this.email = '',
     this.address = '',
@@ -37,12 +39,13 @@ class ProfileModel {
     this.updatedBy = '366',
   });
 
-  ProfileModel copyWith({
+  Profile copyWith({
     String? guid,
     int? id,
     String? fullName,
     String? userName,
     String? bio,
+    String? profileImage,
     String? mobile,
     String? email,
     String? address,
@@ -55,12 +58,13 @@ class ProfileModel {
     Country? country,
     String? updatedBy,
   }) {
-    return ProfileModel(
+    return Profile(
       guid: guid ?? this.guid,
       id: id ?? this.id,
       fullName: fullName ?? this.fullName,
       userName: userName ?? this.userName,
       bio: bio ?? this.bio,
+      profileImage: profileImage ?? this.profileImage,
       mobile: mobile ?? this.mobile,
       email: email ?? this.email,
       address: address ?? this.address,
@@ -82,6 +86,7 @@ class ProfileModel {
       'fullName': fullName,
       'userName': userName,
       'bio': bio,
+      'image_profile': profileImage,
       'mobile': mobile,
       'email': email,
       'address': address,
@@ -96,19 +101,20 @@ class ProfileModel {
     };
   }
 
-  ProfileModel fromJson({required dynamic value}) {
-    return ProfileModel(
+  factory Profile.fromJson({required dynamic value}) {
+    return Profile(
       guid: value['guid'] ?? '',
       id: value['id'] ?? 0,
       fullName: value['fullName'] ?? '',
       userName: value['userName'] ?? '',
       bio: value['bio'] ?? '',
+      profileImage: value['image_Profile'],
       mobile: value['mobile'] ?? '',
       email: value['email'] ?? '',
       address: value['address'] ?? '',
       about: value['about'] ?? '',
-      pickup: value['pickup'] ?? false,
-      pickupOnly: value['pickupOnly'] ?? false,
+      pickup: value['pickup_Allowed'] ?? false,
+      pickupOnly: value['pickup_Only'] ?? false,
       signupType: value['signupType'] ?? 0,
       registerDate: value['registerDate'] ?? '',
       status: value['status'] ?? true,
