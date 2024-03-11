@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app_target.dart';
+import 'package:yumi/features/settings/profle/profile_screen.dart';
+import 'package:yumi/features/settings/settings_screen.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/screens/customer_menu_pre.dart';
 import 'package:yumi/screens/cutomer_menu.dart';
@@ -11,8 +13,6 @@ import 'package:yumi/screens/news.dart';
 import 'package:yumi/screens/notification.dart';
 import 'package:yumi/screens/order_history.dart';
 import 'package:yumi/screens/pre_order.dart';
-import 'package:yumi/features/settings/profle/profile_screen.dart';
-import 'package:yumi/features/settings/settings_screen.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class NavigateOptions {
@@ -97,7 +97,7 @@ class NavigateOptions {
       icon: SvgPicture.asset('assets/images/heart.svg'),
       selectedIcon: SvgPicture.asset('assets/images/heart1.svg'),
       title: S.current.favorites,
-      page: const FavoritesScreen(),
+      page: FavoritesScreen(),
     ),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/bag.svg'),

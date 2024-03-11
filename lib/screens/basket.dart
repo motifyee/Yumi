@@ -16,14 +16,17 @@ class BasketScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        leading: TextButton(
-            onPressed: () {
-              context.router.pop();
-            },
-            child: Icon(
-              Icons.arrow_back,
-              color: ThemeSelector.colors.primary,
-            )),
+        leading: Container(),
+        actions: [
+          TextButton(
+              onPressed: () {
+                context.router.pop();
+              },
+              child: Icon(
+                Icons.close,
+                color: ThemeSelector.colors.primary,
+              )),
+        ],
         title: Column(
           children: [
             Text(
