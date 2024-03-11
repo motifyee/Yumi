@@ -158,5 +158,14 @@
   "securityCode": "Security code",
   "saveCreditCardDetails": "Save credit card details",
   "securePaymentWithSSLEncryptionInfo": "Secure payment with SSL Encryption info",
-    "payByPaypal": "Pay By Paypal"
+    "payByPaypal": "Pay By Paypal",
+  "orderStatus": "Order Status",
+  "invoice": "Invoice",
+  "preparingOrder": "Preparing Order",
+  "onTheWay": "On The Way",
+  "tracking": "Tracking",
+  "confirmDelivery": "Confirm Delivery",
+  "arrivesIn": "Arrives In",
+    "minutes": "Minutes",
+  "orderDetails": "Order Details"
 }

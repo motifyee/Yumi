@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -93,7 +95,6 @@ class CustomerNews extends StatelessWidget {
                   ),
                 ),
                 OfferCarousel(),
-
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
@@ -144,24 +145,26 @@ class CustomerNews extends StatelessWidget {
                           width: (MediaQuery.of(context).size.width / 4) +
                               (ThemeSelector.statics.defaultLineGap),
                           decoration: BoxDecoration(
-                              color: ThemeSelector.colors.backgroundTant,
-                              borderRadius: BorderRadius.circular(
-                                  ThemeSelector.statics.defaultBorderRadius),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: ThemeSelector.colors.shadow
-                                        .withOpacity(.1),
-                                    blurRadius: 4)
-                              ],),
+                            color: ThemeSelector.colors.backgroundTant,
+                            borderRadius: BorderRadius.circular(
+                                ThemeSelector.statics.defaultBorderRadius),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: ThemeSelector.colors.shadow
+                                      .withOpacity(.1),
+                                  blurRadius: 4)
+                            ],
+                          ),
                           child: Center(
-                              child: Text(
-                            S.of(context).cuisines,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                    fontSize: ThemeSelector.fonts.font_9),
-                          ),),
+                            child: Text(
+                              S.of(context).cuisines,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                      fontSize: ThemeSelector.fonts.font_9),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -227,15 +230,6 @@ class CustomerNews extends StatelessWidget {
                     ),
                   ],
                 ),
-
-
-                ///
-                ///
-                ///
-                ///
-                ///
-                ///
-
                 Column(
                   children: [
                     Padding(
@@ -276,55 +270,56 @@ class CustomerNews extends StatelessWidget {
                     ),
                     PaginationTemplate(
                       scrollDirection: Axis.horizontal,
-                      loadDate: () {},
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ThemeSelector.statics.defaultGap),
-                        child: Row(
-                          children: [
-                            for (var chef in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-                              GestureDetector(
-                                onTap: () {
-                                  context.router.push(ChefProfile(chef: chef));
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          ThemeSelector.statics.defaultGap),
-                                  child: ChefBanner(
-                                    chef: chef,
-                                    width: MediaQuery.of(context).size.width -
-                                        (ThemeSelector.statics.defaultGap * 10),
-                                    height: ThemeSelector
-                                        .statics.defaultImageHeightSmall,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(ThemeSelector
-                                          .statics.defaultBorderRadius),
-                                      topRight: Radius.circular(ThemeSelector
-                                          .statics.defaultBorderRadius),
+                      loadDate: () {
+                        context
+                            .read<ChefsListBloc>()
+                            .add(GetChefsListEvent(context: context));
+                      },
+                      child: BlocConsumer<ChefsListBloc, ChefsListState>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: ThemeSelector.statics.defaultGap),
+                            child: Row(
+                              children: [
+                                for (var chef in state.chefs)
+                                  GestureDetector(
+                                    onTap: () {
+                                      context.router
+                                          .push(ChefProfileRoute(chef: chef));
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              ThemeSelector.statics.defaultGap),
+                                      child: ChefBanner(
+                                        chef: chef,
+                                        width: MediaQuery.of(context)
+                                                .size
+                                                .width -
+                                            (ThemeSelector.statics.defaultGap *
+                                                10),
+                                        height: ThemeSelector
+                                            .statics.defaultImageHeightSmall,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(ThemeSelector
+                                              .statics.defaultBorderRadius),
+                                          topRight: Radius.circular(
+                                              ThemeSelector
+                                                  .statics.defaultBorderRadius),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                          ],
-                        ),
+                              ],
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],
                 ),
-
-
-                ///
-                ///
-                ///
-                ///
-                ///
-                ///
-                ///
-
-
-
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [

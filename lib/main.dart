@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:yumi/features/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
+import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
 import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SVGBloc()),
         BlocProvider(create: (context) => IngredientListBloc()),
         BlocProvider(create: (context) => IngredientFormBloc()),
+        BlocProvider(create: (context) => ChefsListBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

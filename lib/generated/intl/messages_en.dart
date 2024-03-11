@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Anything else we need to know?"),
         "areYouSureToDeleteAMeal": MessageLookupByLibrary.simpleMessage(
             "Are you sure to delete a meal?"),
+        "arrivesIn": MessageLookupByLibrary.simpleMessage("Arrives In"),
         "bankAccount": MessageLookupByLibrary.simpleMessage("Bank Account"),
         "bankCurrency": MessageLookupByLibrary.simpleMessage("Bank currency"),
         "bankName": MessageLookupByLibrary.simpleMessage("Bank name"),
@@ -58,6 +59,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "clickTheIconToViewCustomerNotes": MessageLookupByLibrary.simpleMessage(
             "Click the icon to view customer notes"),
         "closed": MessageLookupByLibrary.simpleMessage("Closed"),
+        "confirmDelivery":
+            MessageLookupByLibrary.simpleMessage("Confirm Delivery"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "connectionError":
@@ -110,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ingredients": MessageLookupByLibrary.simpleMessage("Ingredients"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidInput": MessageLookupByLibrary.simpleMessage("Invalid input"),
+        "invoice": MessageLookupByLibrary.simpleMessage("Invoice"),
         "lastName": MessageLookupByLibrary.simpleMessage("Last name"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
@@ -123,6 +127,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Menu (pre-orders)"),
         "menus": MessageLookupByLibrary.simpleMessage("Menus"),
         "min": MessageLookupByLibrary.simpleMessage("Min"),
+        "minutes": MessageLookupByLibrary.simpleMessage("Minutes"),
         "mobile": MessageLookupByLibrary.simpleMessage("Mobile"),
         "myOrders": MessageLookupByLibrary.simpleMessage("My Orders"),
         "myReviews": MessageLookupByLibrary.simpleMessage("My reviews"),
@@ -131,13 +136,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "nameOnCard": MessageLookupByLibrary.simpleMessage("Name on card"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "numNumber": MessageLookupByLibrary.simpleMessage("1 number"),
+        "onTheWay": MessageLookupByLibrary.simpleMessage("On The Way"),
         "onlineChefs": MessageLookupByLibrary.simpleMessage("Online Chefs"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "opened": MessageLookupByLibrary.simpleMessage("Opened"),
         "orSignUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
         "orderAgain": MessageLookupByLibrary.simpleMessage("Order Again"),
+        "orderDetails": MessageLookupByLibrary.simpleMessage("Order Details"),
         "orderId": MessageLookupByLibrary.simpleMessage("Order Id"),
         "orderReceived": MessageLookupByLibrary.simpleMessage("Order received"),
+        "orderStatus": MessageLookupByLibrary.simpleMessage("Order Status"),
         "ordersHistory": MessageLookupByLibrary.simpleMessage("Orders History"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordDoesNotMatch":
@@ -165,6 +173,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "preparationTime":
             MessageLookupByLibrary.simpleMessage("Preparation time"),
         "preparing": MessageLookupByLibrary.simpleMessage("Preparing"),
+        "preparingOrder":
+            MessageLookupByLibrary.simpleMessage("Preparing Order"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "profileSetting":
@@ -215,6 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "time": MessageLookupByLibrary.simpleMessage("Time"),
         "total": MessageLookupByLibrary.simpleMessage("Total"),
         "totalAmount": MessageLookupByLibrary.simpleMessage("Total amount"),
+        "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "transactions": MessageLookupByLibrary.simpleMessage("Transactions"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "upperCase": MessageLookupByLibrary.simpleMessage("1 upper case"),

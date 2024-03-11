@@ -7,8 +7,9 @@ import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/password_validator.dart';
 
-class PaymentPaypal extends StatelessWidget {
-  const PaymentPaypal({super.key});
+@RoutePage()
+class PaymentPaypalScreen extends StatelessWidget {
+  const PaymentPaypalScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

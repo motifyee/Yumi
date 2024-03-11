@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/chef_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class ChefBanner extends StatelessWidget {
@@ -11,7 +15,7 @@ class ChefBanner extends StatelessWidget {
       required this.width,
       this.height});
 
-  final dynamic chef;
+  final ChefModel chef;
   final BorderRadius borderRadius;
   final double width;
   final double? height;
@@ -28,12 +32,19 @@ class ChefBanner extends StatelessWidget {
               width: width,
               decoration: BoxDecoration(borderRadius: borderRadius),
               child: Hero(
-                tag: 'chef_$chef',
-                child: Image.asset(
-                  'assets/images/354.jpeg',
-                  fit: BoxFit.cover,
-                  alignment: Alignment.topCenter,
-                ),
+                tag: 'chef_${chef.id}',
+                child: chef.imageProfile != null
+                    ? Image.memory(
+                        Uint8List.fromList(
+                            base64Decode(chef.imageProfile ?? '')),
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      )
+                    : Image.asset(
+                        'assets/images/354.jpeg',
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
               ),
             ),
             Align(
@@ -65,7 +76,7 @@ class ChefBanner extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'iman ibrahim ismail',
+                    chef.fullName ?? '',
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           fontSize: ThemeSelector.fonts.font_16,
                         ),
