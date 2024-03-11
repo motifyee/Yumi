@@ -460,16 +460,6 @@ class S {
     );
   }
 
-  /// `Contract`
-  String get contract {
-    return Intl.message(
-      'Contract',
-      name: 'contract',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Menus`
   String get menus {
     return Intl.message(
@@ -661,10 +651,10 @@ class S {
   }
 
   /// `Profile Setting`
-  String get profileSettings {
+  String get profileSetting {
     return Intl.message(
-      'Profile Settings',
-      name: 'profileSettings',
+      'Profile Setting',
+      name: 'profileSetting',
       desc: '',
       args: [],
     );
@@ -1745,6 +1735,66 @@ class S {
     return Intl.message(
       'Order Details',
       name: 'orderDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your orders`
+  String get yourOrders {
+    return Intl.message(
+      'Your orders',
+      name: 'yourOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Offers`
+  String get offers {
+    return Intl.message(
+      'Offers',
+      name: 'offers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vouchers`
+  String get vouchers {
+    return Intl.message(
+      'Vouchers',
+      name: 'vouchers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your wallet`
+  String get yourWallet {
+    return Intl.message(
+      'Your wallet',
+      name: 'yourWallet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contract`
+  String get contract {
+    return Intl.message(
+      'Contract',
+      name: 'contract',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile Settings`
+  String get profileSettings {
+    return Intl.message(
+      'Profile Settings',
+      name: 'profileSettings',
       desc: '',
       args: [],
     );
