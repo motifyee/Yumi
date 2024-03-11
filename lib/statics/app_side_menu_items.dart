@@ -8,6 +8,7 @@ import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
 import 'package:yumi/template/menu_button.dart';
+import 'package:yumi/template/text_currency.dart';
 
 class AppMenuList {
   static List<AppMenuItem> appList(BuildContext context) {
@@ -196,6 +197,8 @@ class _AppMenuList {
         AppMenuItem(
           icon: 'assets/images/schedule_menu.svg',
           label: S.of(context).yourWallet,
+          textLabel:
+              TextCurrency(value: 10.0, fontSize: ThemeSelector.fonts.font_14),
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
           },
@@ -230,8 +233,12 @@ class _AppMenuList {
 class AppMenuItem {
   String icon;
   String label;
+  Widget? textLabel;
   Function() onPressed;
 
   AppMenuItem(
-      {required this.icon, required this.label, required this.onPressed});
+      {required this.icon,
+      required this.label,
+      required this.onPressed,
+      this.textLabel});
 }

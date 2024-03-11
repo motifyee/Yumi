@@ -30,6 +30,8 @@ class MenuButton extends StatelessWidget {
             menuItem.label,
             style: Theme.of(context).textTheme.labelLarge,
           ),
+          Expanded(child: Container()),
+          if (menuItem.textLabel != null) menuItem.textLabel!
         ],
       ),
     );
