@@ -36,6 +36,14 @@ class AppMenuList {
         },
       ),
       AppMenuItem(
+        icon: 'assets/images/contract_icon.svg',
+        label: "Chef Application Flow",
+        onPressed: () {
+          Navigator.of(context, rootNavigator: true).pop();
+          context.router.push(const ChefApplicationFlowRoute());
+        },
+      ),
+      AppMenuItem(
         icon: 'assets/images/menus_menu.svg',
         label: S.of(context).menus,
         onPressed: () {

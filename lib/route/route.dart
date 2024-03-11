@@ -24,6 +24,8 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: CaloriesReferenceRoute.page),
         AutoRoute(page: DocumentationRoute.page),
         AutoRoute(page: ContractRoute.page),
+        AutoRoute(page: ChefApplicationFlowRoute.page),
+
         AutoRoute(page: PerformanceAnalysisRoute.page),
         AutoRoute(page: FinancialViewRoute.page),
         AutoRoute(page: ChatRoute.page),

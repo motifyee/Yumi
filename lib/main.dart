@@ -12,7 +12,7 @@ import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/features/documentation/bloc/ui/icon_bloc.dart';
+import 'package:yumi/features/chef_application/documentation/bloc/ui/icon_bloc.dart';
 import 'package:yumi/route/route.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/theme/theme.dart';
