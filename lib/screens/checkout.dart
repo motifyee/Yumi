@@ -262,7 +262,7 @@ class CheckOutScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Hero(
-                              tag: 'ConfirmCartSeries',
+                              tag: 'ConfirmBasketSeries',
                               child: GestureDetector(
                                 onTap: () {
                                   context.router.push(OrderStatusRoute());

@@ -90,7 +90,7 @@ class TrackingOrderScreen extends StatelessWidget {
               ),
               SizedBox(height: ThemeSelector.statics.defaultGap),
               Hero(
-                tag: 'ConfirmCartSeries',
+                tag: 'ConfirmBasketSeries',
                 child: GestureDetector(
                   onTap: () {
                     context.router.pop();

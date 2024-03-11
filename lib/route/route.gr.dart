@@ -12,8 +12,8 @@ import 'package:auto_route/auto_route.dart' as _i22;
 import 'package:flutter/material.dart' as _i23;
 import 'package:yumi/features/contract/contract_screen.dart' as _i6;
 import 'package:yumi/features/documentation/documentation_screen.dart' as _i7;
+import 'package:yumi/screens/basket.dart' as _i2;
 import 'package:yumi/screens/calories.dart' as _i1;
-import 'package:yumi/screens/cart.dart' as _i2;
 import 'package:yumi/screens/chat.dart' as _i3;
 import 'package:yumi/screens/checkout.dart' as _i4;
 import 'package:yumi/screens/chef_profile.dart' as _i5;
@@ -43,10 +43,10 @@ abstract class $AppRouter extends _i22.RootStackRouter {
         child: const _i1.CaloriesReferenceScreen(),
       );
     },
-    CartRoute.name: (routeData) {
+    BasketRoute.name: (routeData) {
       return _i22.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.CartScreen(),
+        child: const _i2.BasketScreen(),
       );
     },
     ChatRoute.name: (routeData) {
@@ -197,15 +197,15 @@ class CaloriesReferenceRoute extends _i22.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.CartScreen]
-class CartRoute extends _i22.PageRouteInfo<void> {
-  const CartRoute({List<_i22.PageRouteInfo>? children})
+/// [_i2.BasketScreen]
+class BasketRoute extends _i22.PageRouteInfo<void> {
+  const BasketRoute({List<_i22.PageRouteInfo>? children})
       : super(
-          CartRoute.name,
+          BasketRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'CartRoute';
+  static const String name = 'BasketRoute';
 
   static const _i22.PageInfo<void> page = _i22.PageInfo<void>(name);
 }

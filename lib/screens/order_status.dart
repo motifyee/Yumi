@@ -258,7 +258,7 @@ class OrderStatusScreen extends StatelessWidget {
               ],
             ),
             Hero(
-              tag: 'ConfirmCartSeries',
+              tag: 'ConfirmBasketSeries',
               child: GestureDetector(
                 onTap: () {},
                 child: Container(

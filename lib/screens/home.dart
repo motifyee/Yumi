@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                 if (AppTarget.user == AppTargetUser.customers)
                   TextButton(
                     onPressed: () {
-                      context.router.push(CartRoute());
+                      context.router.push(BasketRoute());
                     },
                     child: SvgPicture.asset(
                       'assets/images/shop_car.svg',
