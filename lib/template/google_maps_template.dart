@@ -21,37 +21,48 @@ class GoogleMapsTemplateState extends State<GoogleMapsTemplate> {
   static CameraPosition? _kGooglePlex;
 
   Future<Position> getUserCurrentLocation() async {
-    await Geolocator.requestPermission()
-        .then((value) {})
-        .onError((error, stackTrace) async {
-      await Geolocator.requestPermission();
-      print("ERROR" + error.toString());
-    });
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
     return await Geolocator.getCurrentPosition();
   }
 
   @override
   void initState() {
     super.initState();
-    getUserCurrentLocation().then((value) {
-      print(value);
-      Geolocator.getCurrentPosition().then((currLocation) async {
-        setState(() {
-          _kGooglePlex = CameraPosition(
-            target: LatLng(currLocation.latitude, currLocation.longitude),
-            zoom: 16,
-          );
-          widget._markers.add(Marker(
-              markerId: MarkerId('1'),
-              position: LatLng(currLocation.latitude, currLocation.longitude),
-              icon: BitmapDescriptor.defaultMarkerWithHue(8),
-              infoWindow: InfoWindow(
-                title: 'My Position',
-              )));
-        });
-
-        final GoogleMapController controller = await _controller.future;
-        controller.animateCamera(CameraUpdate.newCameraPosition(_kGooglePlex!));
+    getUserCurrentLocation().then((currLocation) async {
+      setState(() {
+        _kGooglePlex = CameraPosition(
+          target: LatLng(currLocation.latitude, currLocation.longitude),
+          zoom: 16,
+        );
+        widget._markers.add(
+          Marker(
+            markerId: MarkerId('1'),
+            position: LatLng(currLocation.latitude, currLocation.longitude),
+            icon: BitmapDescriptor.defaultMarkerWithHue(8),
+            infoWindow: InfoWindow(
+              title: 'My Position',
+            ),
+          ),
+        );
       });
     });
   }
