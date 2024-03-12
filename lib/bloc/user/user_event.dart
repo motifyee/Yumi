@@ -21,3 +21,9 @@ class UserFromJsonEvent extends UserEvent {
   @override
   List<Object?> get props => [user, loading];
 }
+
+class UserResetEvent extends UserEvent {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}

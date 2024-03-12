@@ -21,5 +21,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserFromJsonEvent>((event, emit) {
       emit(state.copyWith(user: UserModel.fromJson(event.user)));
     });
+    on<UserResetEvent>((event, emit) {
+      emit(state.copyWith(
+          user: UserModel(
+        accessToken: '',
+        chefId: '',
+        code: '',
+        email: '',
+        expiresIn: '',
+        message: '',
+        userName: ' ',
+      )));
+    });
   }
 }
