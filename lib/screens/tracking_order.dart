@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/google_maps_template.dart';
 
 @RoutePage()
 class TrackingOrderScreen extends StatelessWidget {
@@ -33,9 +34,13 @@ class TrackingOrderScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-              child: Center(
-            child: SvgPicture.asset('assets/images/delivery_on_road.svg'),
-          )),
+            child: Center(
+              child: GoogleMapsTemplate(
+                loadingChild:
+                    SvgPicture.asset('assets/images/delivery_on_road.svg'),
+              ),
+            ),
+          ),
           Column(
             children: [
               Text(

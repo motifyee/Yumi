@@ -34,5 +34,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: PaymentVisaRoute.page),
         AutoRoute(page: OrderStatusRoute.page),
         AutoRoute(page: TrackingOrderRoute.page),
+        AutoRoute(page: CustomerWalletRoute.page),
       ];
 }
