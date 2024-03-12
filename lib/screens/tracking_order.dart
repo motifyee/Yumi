@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/google_maps_template.dart';
+import 'package:yumi/template/snack_bar.dart';
 
 @RoutePage()
 class TrackingOrderScreen extends StatelessWidget {
@@ -63,7 +65,22 @@ class TrackingOrderScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () async {
+                      if (!await launchUrl(
+                        Uri(
+                          scheme: 'tel',
+                          path: '01015306632',
+                        ),
+                      )) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: SnackBarMassage(
+                              massage: S.of(context).noAccessToDailSystem,
+                            ),
+                          ),
+                        );
+                      }
+                    },
                     child: Container(
                       width: ThemeSelector.statics.defaultBlockGap,
                       height: ThemeSelector.statics.defaultBlockGap,

@@ -1799,6 +1799,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No Access To Dail System!`
+  String get noAccessToDailSystem {
+    return Intl.message(
+      'No Access To Dail System!',
+      name: 'noAccessToDailSystem',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
