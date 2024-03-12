@@ -193,7 +193,9 @@ class MealForm extends StatelessWidget {
                                     loadDate: () => context
                                         .read<CategoriesBloc>()
                                         .add(GetCategoriesEvent(
-                                            context: context)),
+                                            context: context,
+                                            isPreOrder: menuTarget ==
+                                                MenuTarget.preOrder)),
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
                                       mainAxisAlignment:

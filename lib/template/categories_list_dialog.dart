@@ -49,9 +49,8 @@ class CategoriesListDialog extends StatelessWidget {
               builder: (context, state) {
                 return PaginationTemplate(
                   loadDate: () {
-                    context
-                        .read<CategoriesBloc>()
-                        .add(GetCategoriesEvent(context: context));
+                    context.read<CategoriesBloc>().add(GetCategoriesEvent(
+                        context: context, isPreOrder: false));
                   },
                   scrollDirection: Axis.horizontal,
                   child: Row(

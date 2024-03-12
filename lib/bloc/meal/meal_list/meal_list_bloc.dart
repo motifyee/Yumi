@@ -28,32 +28,20 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         List<MealModel> data = [];
 
         if (state.selectedCategory == 0) {
-          if (state.menuTarget == MenuTarget.order) {
-            res = await MealService.getMeals(
-                context: event.context,
-                queryParameters: {...state.paginationHelper.toJson()});
-          }
-          if (state.menuTarget == MenuTarget.preOrder) {
-            res = await MealService.getMealsPre(
-                context: event.context,
-                queryParameters: {...state.paginationHelper.toJson()});
-          }
+          res = await MealService.getMeals(
+              context: event.context,
+              isPreorder: state.menuTarget == MenuTarget.preOrder,
+              queryParameters: {...state.paginationHelper.toJson()});
+
           data = res['data'].map<MealModel>((value) {
             return MealModel.fromJson(value);
           }).toList();
         } else {
-          if (state.menuTarget == MenuTarget.order) {
-            res = await MealService.getMealsByCategory(
-                context: event.context,
-                id: state.selectedCategory,
-                queryParameters: {...state.paginationHelper.toJson()});
-          }
-          if (state.menuTarget == MenuTarget.preOrder) {
-            res = await MealService.getMealsPreByCategory(
-                context: event.context,
-                id: state.selectedCategory,
-                queryParameters: {...state.paginationHelper.toJson()});
-          }
+          res = await MealService.getMealsByCategory(
+              context: event.context,
+              categoryId: state.selectedCategory,
+              isPreorder: state.menuTarget == MenuTarget.preOrder,
+              pagination: {...state.paginationHelper.toJson()});
 
           data = res['data'].map<MealModel>((value) {
             return MealModel.fromJson(value['product']);
@@ -82,7 +70,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
 
         res = await MealService.getMealsCalories(
             context: event.context,
-            queryParameters: {...state.paginationHelper.toJson()});
+            pagination: {...state.paginationHelper.toJson()});
 
         data = res['data'].map<MealModel>((value) {
           return MealModel.fromJson(value);

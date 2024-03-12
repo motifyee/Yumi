@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/statics/app_side_menu_items.dart';
+import 'package:yumi/statics/side_menu_items.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class MenuButton extends StatelessWidget {

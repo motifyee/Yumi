@@ -217,7 +217,7 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
               Icons.arrow_drop_up,
               color: ThemeSelector.colors.secondaryFaint,
             ),
-            // iconSize: ThemeSelector.fonts.font_38,
+            style: Theme.of(context).textTheme.bodyMedium,
             items: widget.dropdownSelectionList
                     ?.map(
                       (e) => DropdownMenuItem(

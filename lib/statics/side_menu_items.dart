@@ -61,6 +61,11 @@ class _AppMenuList {
                           padding: EdgeInsets.symmetric(
                               vertical: ThemeSelector.statics.defaultGap,
                               horizontal: ThemeSelector.statics.defaultGap),
+                          decoration: BoxDecoration(
+                            color: ThemeSelector.colors.background,
+                            borderRadius: BorderRadius.circular(ThemeSelector
+                                .statics.defaultBorderRadiusMedium),
+                          ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [

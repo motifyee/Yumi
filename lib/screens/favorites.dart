@@ -16,6 +16,7 @@ class FavoritesScreen extends StatelessWidget {
   FavoritesScreen({super.key});
 
   final PageController favPageController = PageController(initialPage: 0);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -115,9 +116,8 @@ class FavoritesScreen extends StatelessWidget {
                 ),
                 PaginationTemplate(
                   loadDate: () {
-                    context
-                        .read<CategoriesBloc>()
-                        .add(GetCategoriesEvent(context: context));
+                    context.read<CategoriesBloc>().add(GetCategoriesEvent(
+                        context: context, isPreOrder: false));
                   },
                   scrollDirection: Axis.vertical,
                   child: BlocConsumer<CategoriesBloc, CategoriesState>(
