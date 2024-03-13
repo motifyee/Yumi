@@ -286,8 +286,8 @@ class CustomerNews extends StatelessWidget {
                                 for (var chef in state.chefs)
                                   GestureDetector(
                                     onTap: () {
-                                      context.router
-                                          .push(ChefProfileRoute(chef: chef));
+                                      context.router.push(ChefProfileRoute(
+                                          chef: chef, menuTarget: menuTarget));
                                     },
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(

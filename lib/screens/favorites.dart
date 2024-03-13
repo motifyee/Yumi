@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/chef_bannar.dart';
@@ -91,8 +92,9 @@ class FavoritesScreen extends StatelessWidget {
                             for (var chef in state.chefs)
                               GestureDetector(
                                 onTap: () {
-                                  context.router
-                                      .push(ChefProfileRoute(chef: chef));
+                                  context.router.push(ChefProfileRoute(
+                                      chef: chef,
+                                      menuTarget: MenuTarget.order));
                                 },
                                 child: ChefBanner(
                                   chef: chef,

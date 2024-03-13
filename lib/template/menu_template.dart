@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/forms/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -98,7 +99,12 @@ class MenuTemplate extends StatelessWidget {
                                     context.read<MealListBloc>().add(
                                         MealListUpdateCategoryEvent(
                                             context: context,
-                                            selectedCategory: category.id));
+                                            selectedCategory: category.id,
+                                            chefId: context
+                                                .read<UserBloc>()
+                                                .state
+                                                .user
+                                                .chefId));
                                   },
                                   child: Container(
                                     padding: EdgeInsets.symmetric(
@@ -170,9 +176,8 @@ class MenuTemplate extends StatelessWidget {
                                 children: [
                                   for (var mealIndex = 0;
                                       mealIndex < state.meals.length;
-                                      mealIndex++)
-                                    if (mealIndex % 2 == 0)
-                                      MealCard(meal: state.meals[mealIndex])
+                                      mealIndex += 2)
+                                    MealCard(meal: state.meals[mealIndex])
                                 ],
                               ),
                               Column(
@@ -180,11 +185,10 @@ class MenuTemplate extends StatelessWidget {
                                   SizedBox(
                                       height: ThemeSelector
                                           .statics.defaultTitleGapLarge),
-                                  for (var mealIndex = 0;
+                                  for (var mealIndex = 1;
                                       mealIndex < state.meals.length;
-                                      mealIndex++)
-                                    if (mealIndex % 2 != 0)
-                                      MealCard(meal: state.meals[mealIndex])
+                                      mealIndex += 2)
+                                    MealCard(meal: state.meals[mealIndex])
                                 ],
                               ),
                             ],

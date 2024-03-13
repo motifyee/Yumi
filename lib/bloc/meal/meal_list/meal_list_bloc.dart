@@ -30,7 +30,10 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         if (state.selectedCategory == 0) {
           res = await MealService.getMeals(
               context: event.context,
-              isPreorder: state.menuTarget == MenuTarget.preOrder,
+              chefId: event.chefId,
+              isPreorder: event.menuTarget != null
+                  ? event.menuTarget == MenuTarget.preOrder
+                  : state.menuTarget == MenuTarget.preOrder,
               queryParameters: {...state.paginationHelper.toJson()});
 
           data = res['data'].map<MealModel>((value) {
@@ -39,8 +42,11 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         } else {
           res = await MealService.getMealsByCategory(
               context: event.context,
+              chefId: event.chefId,
               categoryId: state.selectedCategory,
-              isPreorder: state.menuTarget == MenuTarget.preOrder,
+              isPreorder: event.menuTarget != null
+                  ? event.menuTarget == MenuTarget.preOrder
+                  : state.menuTarget == MenuTarget.preOrder,
               pagination: {...state.paginationHelper.toJson()});
 
           data = res['data'].map<MealModel>((value) {
@@ -92,9 +98,8 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
           selectedCategory: event.selectedCategory,
           paginationHelper: PaginationHelper()));
 
-      event.context
-          .read<MealListBloc>()
-          .add(MealListUpdateEvent(context: event.context));
+      event.context.read<MealListBloc>().add(
+          MealListUpdateEvent(context: event.context, chefId: event.chefId));
     });
 
     on<MealListResetEvent>((event, emit) {
