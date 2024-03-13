@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/profile_model.dart';
@@ -9,6 +10,7 @@ import 'package:yumi/template/bio.dart';
 import 'package:yumi/template/event_photo.dart';
 import 'package:yumi/template/loading.dart';
 import 'package:yumi/template/my_reviews.dart';
+import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/upload_photo_button.dart';
 
 Widget profileImagePicker(BuildContext context, Profile profile, bool loading) {
@@ -52,16 +54,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
 
-    return BlocConsumer<ProfileBloc, ProfileState>(
-      listener: (context, state) {
-        if (state is ProfileUpdateEvent) {
-          BlocProvider.of<ProfileBloc>(context)
-              .add(ProfileInitEvent(context: context));
-        }
-        if (state is ProfileInitEvent) {
-          context.read<ProfileBloc>().add(ProfileLoadingEvent());
-        }
-      },
+    return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
         if (state is ProfileLoadingEvent) return Loading();
 

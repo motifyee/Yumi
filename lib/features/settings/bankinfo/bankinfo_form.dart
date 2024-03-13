@@ -229,22 +229,21 @@ class BankInfoForm extends StatelessWidget {
     }
 
     return BlocConsumer<BankInfoBloc, BankInfoState>(
-        listener: (context, state) => {},
-        builder: (context, state) {
-          return Scaffold(body: LayoutBuilder(builder: (context, constraint) {
-            return state.status.isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Form(
-                    key: bankInfo,
-                    child: Container(
-                      padding:
-                          EdgeInsets.all(ThemeSelector.statics.defaultBlockGap),
-                      child: const SingleChildScrollView(child: FormData()),
-                    ),
-                  );
-          }));
-        });
+      listener: (context, state) => {},
+      builder: (context, state) {
+        return state.status.isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Form(
+                key: bankInfo,
+                child: Container(
+                  padding:
+                      EdgeInsets.all(ThemeSelector.statics.defaultBlockGap),
+                  child: const SingleChildScrollView(child: FormData()),
+                ),
+              );
+      },
+    );
   }
 }

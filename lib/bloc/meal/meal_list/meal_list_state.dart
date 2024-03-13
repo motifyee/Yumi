@@ -7,22 +7,28 @@ class MealListState extends Equatable {
   PaginationHelper paginationHelper;
   MenuTarget menuTarget;
 
+  BlocStatus status;
+
   MealListState({
     required this.meals,
     required this.selectedCategory,
     required this.paginationHelper,
     required this.menuTarget,
+    this.status = BlocStatus.init,
   });
 
-  MealListState copyWith(
-      {List<MealModel>? meals,
-      int? selectedCategory,
-      PaginationHelper? paginationHelper}) {
+  MealListState copyWith({
+    List<MealModel>? meals,
+    int? selectedCategory,
+    PaginationHelper? paginationHelper,
+    BlocStatus? status,
+  }) {
     return MealListState(
       meals: meals ?? this.meals,
       selectedCategory: selectedCategory ?? this.selectedCategory,
       paginationHelper: paginationHelper ?? this.paginationHelper,
-      menuTarget: this.menuTarget,
+      menuTarget: menuTarget,
+      status: status ?? this.status,
     );
   }
 

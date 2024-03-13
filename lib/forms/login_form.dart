@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/features/chef_application/application_flow_screen.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/login_model.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -21,6 +25,27 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future skipLogin() async {
+      try {
+        String data = await rootBundle.loadString('assets/.autologin');
+        var dataList = (const LineSplitter()).convert(data);
+
+        if (!context.mounted) return;
+        print("auto login...");
+
+        performLogin(
+          context,
+          LoginModel(email: dataList[0], password: dataList[1]),
+          dataList.length > 2 ? dataList[2] : null,
+        );
+        // ignore: empty_catches
+      } catch (e) {
+        print(e);
+      }
+    }
+
+    skipLogin();
+
     return Form(
       key: loginFormKey,
       child: Padding(
@@ -76,31 +101,7 @@ class LoginForm extends StatelessWidget {
                 if (loginFormKey.currentState!.validate()) {
                   loginFormKey.currentState!.save();
 
-                  LoginServices.login(login: loginForm, context: context)
-                      .then((value) {
-                    if (value['access_Token'] != null) {
-                      context
-                          .read<UserBloc>()
-                          .add(UserFromJsonEvent(user: value));
-                      context.router.replaceAll([HomeRoute()]);
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: SnackBarMassage(
-                            massage: value["message"],
-                          ),
-                        ),
-                      );
-                    }
-                  }).catchError((onError) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: SnackBarMassage(
-                          massage: S.of(context).connectionError,
-                        ),
-                      ),
-                    );
-                  });
+                  performLogin(context, loginForm);
                 }
               },
             ),
@@ -109,4 +110,40 @@ class LoginForm extends StatelessWidget {
       ),
     );
   }
+}
+
+void performLogin(BuildContext context, LoginModel loginForm, [String? route]) {
+  LoginServices.login(login: loginForm, context: context).then((value) {
+    if (value['access_Token'] != null) {
+      context.read<UserBloc>().add(UserFromJsonEvent(user: value));
+
+      if (route == "flow") {
+        context.router.replaceAll([const ChefApplicationFlowRoute()]);
+      }
+      // else if (route == "")
+      //   context.router.replaceAll([]);
+
+      else {
+        context.router.replaceAll([HomeRoute()]);
+      }
+
+      // ignore: empty_catches
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: SnackBarMassage(
+            massage: value["message"],
+          ),
+        ),
+      );
+    }
+  }).catchError((onError) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: SnackBarMassage(
+          massage: S.of(context).connectionError,
+        ),
+      ),
+    );
+  });
 }

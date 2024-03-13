@@ -1,5 +1,7 @@
 enum BlocStatus {
-  initial,
+  init,
+  initSuccess,
+  initError,
   success,
   error,
   loading,
@@ -10,7 +12,9 @@ enum BlocStatus {
 }
 
 extension BlocStatusX on BlocStatus {
-  bool get isInitial => this == BlocStatus.initial;
+  bool get isInit => this == BlocStatus.init;
+  bool get isInitSucces => this == BlocStatus.initSuccess;
+  bool get isInitError => this == BlocStatus.initError;
   bool get isSuccess => this == BlocStatus.success;
   bool get isError => this == BlocStatus.error;
   bool get isLoading => this == BlocStatus.loading;
@@ -23,7 +27,9 @@ extension BlocStatusX on BlocStatus {
 typedef BlocStatusHistory = List<BlocStatus>;
 
 extension BlocStatusHistoryX on BlocStatusHistory {
-  bool get hasInit => contains(BlocStatus.initial);
+  bool get hasInit => contains(BlocStatus.init);
+  bool get hasInitSuccess => contains(BlocStatus.initSuccess);
+  bool get hasInitError => contains(BlocStatus.initError);
   bool get hasSuccess => contains(BlocStatus.success);
   bool get hasError => contains(BlocStatus.error);
   bool get hasLoading => contains(BlocStatus.loading);
@@ -36,7 +42,9 @@ extension BlocStatusHistoryX on BlocStatusHistory {
 typedef BlocStatusSet = Set<BlocStatus>;
 
 extension BlocStatusSetX on BlocStatusHistory {
-  bool get hasInit => contains(BlocStatus.initial);
+  bool get hasInit => contains(BlocStatus.init);
+  bool get hasInitSuccess => contains(BlocStatus.initSuccess);
+  bool get hasInitError => contains(BlocStatus.initError);
   bool get hasSuccess => contains(BlocStatus.success);
   bool get hasError => contains(BlocStatus.error);
   bool get hasLoading => contains(BlocStatus.loading);

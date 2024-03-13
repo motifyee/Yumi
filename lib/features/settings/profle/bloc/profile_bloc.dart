@@ -57,7 +57,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
               updatedBy: '366',
               email: event.context.read<UserBloc>().state.user.email,
             ),
-            status: BlocStatus.success,
+            status: BlocStatus.initSuccess,
           ),
         );
       },
@@ -68,7 +68,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
         emit(
           state.copyWith(
-            status: BlocStatus.error,
+            status: BlocStatus.initError,
           ),
         );
       },
@@ -85,22 +85,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         if (value != null && value != false) {
           emit(
             state.copyWith(
-              profile: event.profile,
-              status: BlocStatus.success,
-            ),
+                profile: event.profile,
+                status: BlocStatus.success,
+                apiMessage: value.toString()),
           );
 
-          if (event.context.mounted) {
-            Navigator.of(event.context).pop();
-
-            ScaffoldMessenger.of(event.context).showSnackBar(
-              SnackBar(
-                content: SnackBarMassage(
-                  massage: value.toString(),
-                ),
-              ),
-            );
-          }
+          if (event.context.mounted) {}
         } else {
           emit(
             state.copyWith(status: BlocStatus.error),

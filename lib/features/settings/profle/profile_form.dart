@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/features/chef_application/bloc.dart';
 import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -112,21 +113,21 @@ Widget profileFormFields(
         SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
         // const Divider(height: 0),
         FormField<bool>(
+          initialValue: profile.pickup,
           onSaved: (value) => save(profile0 = profile0.copyWith(pickup: value)),
           builder: (fieldState) => CheckboxListTile(
-            value: profile.pickup,
-            // ignore: invalid_use_of_protected_member
-            onChanged: (bool? value) => fieldState.setValue(value),
+            value: fieldState.value,
+            onChanged: (bool? value) => fieldState.didChange(value),
             title: const Text('Pickup'),
           ),
         ),
         FormField<bool>(
+          initialValue: profile.pickupOnly,
           onSaved: (value) =>
               save(profile0 = profile0.copyWith(pickupOnly: value)),
           builder: (fieldState) => CheckboxListTile(
-            value: profile.pickupOnly,
-            // ignore: invalid_use_of_protected_member
-            onChanged: (bool? value) => fieldState.setValue(value),
+            value: fieldState.value,
+            onChanged: (bool? value) => fieldState.didChange(value),
             title: const Text('Pickup Only'),
           ),
         ),
@@ -144,64 +145,73 @@ class ProfileForm extends StatelessWidget {
 
     return BlocConsumer<ProfileBloc, ProfileState>(
       listener: (context, state) {
-        // if (state is ProfileFormLoadingState) {
-        //   return;
-        // }
+        if (!state.status.isError && !state.status.isSuccess) return;
+
+        if (state.status.isSuccess) Navigator.of(context).pop();
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: SnackBarMassage(
+              massage: state.apiMessage ??
+                  (state.status.isSuccess ? "Success!" : "Error!"),
+            ),
+          ),
+        );
+
+        if (!state.status.isSuccess) return;
+        context.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
       },
       builder: (context, state) {
         final profileFormBloc = context.read<ProfileBloc>();
 
-        return Scaffold(
-          body: LayoutBuilder(
+        return SizedBox(
+          child: LayoutBuilder(
             builder: (context, constraint) {
               var profile = state.profile;
 
               return Form(
                 key: profileForm,
                 child: Container(
-                  height: MediaQuery.of(context).size.height,
+                  // height: MediaQuery.of(context).size.height,
                   padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultBlockGap),
+                    horizontal: ThemeSelector.statics.defaultBlockGap,
+                  ),
                   child: SingleChildScrollView(
-                    child: ConstrainedBox(
-                      constraints:
-                          BoxConstraints(minHeight: constraint.maxHeight),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          const SizedBox(height: 5),
-                          state.status.isLoading
-                              ? const Center(child: CircularProgressIndicator())
-                              : profileFormFields(
-                                  profile,
-                                  onFormFieldsSaved<Profile>(
-                                    profileForm,
-                                    onAllFieldsSaved: (profile, _) {
-                                      profileFormBloc.add(
-                                        ProfileFormSavedEvent(profile),
-                                      );
-                                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const SizedBox(height: 5),
+                        state.status.isLoading
+                            ? const Center(child: CircularProgressIndicator())
+                            : profileFormFields(
+                                profile,
+                                onFormFieldsSaved<Profile>(
+                                  profileForm,
+                                  onAllFieldsSaved: (profile, _) {
+                                    profileFormBloc.add(
+                                      ProfileFormSavedEvent(profile),
+                                    );
+                                  },
 
-                                    // (controlsCount) {
-                                    //   int saveCount = 0;
-                                    //   return (profile0) {
-                                    //     saveCount++;
-                                    //     profile = profile0;
+                                  // (controlsCount) {
+                                  //   int saveCount = 0;
+                                  //   return (profile0) {
+                                  //     saveCount++;
+                                  //     profile = profile0;
 
-                                    //     if (saveCount >= controlsCount) {
-                                    //       profileFormBloc.add(
-                                    //         ProfileFormSavedEvent(profile),
-                                    //       );
-                                    //     }
-                                    //   };
-                                    // },
-                                  ),
+                                  //     if (saveCount >= controlsCount) {
+                                  //       profileFormBloc.add(
+                                  //         ProfileFormSavedEvent(profile),
+                                  //       );
+                                  //     }
+                                  //   };
+                                  // },
                                 ),
-                          const SizedBox(height: 5),
-                          // FormSubmitButtons()
-                        ],
-                      ),
+                              ),
+                        const SizedBox(height: 5),
+                        // FormSubmitButtons()
+                      ],
                     ),
                   ),
                 ),

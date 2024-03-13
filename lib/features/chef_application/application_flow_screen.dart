@@ -1,6 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/features/chef_application/bloc.dart';
+import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
+import 'package:yumi/features/settings/profle/profile_form.dart';
+import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/template/dialog.dart';
+import 'package:yumi/template/menu_template.dart';
 import 'package:yumi/template/screen_container.dart';
 
 part "curve.dart";
@@ -47,7 +57,11 @@ class ChefApplicationFlowScreen extends StatelessWidget {
                 child: Center(
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 800),
-                    child: stepStack(),
+                    child: BlocBuilder<ChefFlowBloc, ChefFlowState>(
+                      builder: (context, state) {
+                        return stepStack(context, state.activeIdx);
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -60,34 +74,76 @@ class ChefApplicationFlowScreen extends StatelessWidget {
   }
 }
 
-Widget stepStack() {
-  List iconNames = [
-    "profile",
-    "approval",
-    "contract",
-    "documentation",
-    "menu",
-  ];
-  var headers = [
-    ["Profile", "First, you should complete your profile"],
-    ["Your Menu", "Secondly, add your meals on menu and schedule it"],
-    ["Documentation", "Third, attach your documents"],
-    ["Get Approval", "Then, waiting for approval within 72 hours"],
-    ["Get Contract", "Finally, download the contract to sign and upload it"],
+Widget stepStack(BuildContext context, int activeIdx) {
+  List stepsInfo = [
+    [
+      "profile",
+      ["Profile", "First, you should complete your profile"],
+      () => showAlertDialog(
+            context: context,
+            title: Container(),
+            content: const ProfileForm(),
+            // actions: {'Cancel': null},
+            actionWidgets: [const ProfileFormSubmitButton()],
+          ),
+    ],
+    [
+      "menu",
+      ["Your Menu", "Secondly, add your meals on menu and schedule it"],
+      () => showAlertDialog(
+            context: context,
+            title: Container(),
+            content: BlocProvider(
+              create: (context) => MealListBloc(),
+              child: const MenuTemplate(
+                menuTarget: MenuTarget.order,
+              ),
+            ),
+            actions: {'Ok': null},
+            // onDismissed: () {
+            //   context.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
+            // },
+          ),
+    ],
+    [
+      "documentation",
+      ["Documentation", "Third, attach your documents"],
+      () => context.router.push(const DocumentationRoute()),
+    ],
+    [
+      "approval",
+      ["Get Approval", "Then, waiting for approval within 72 hours"],
+      () => showAlertDialog(
+          context: context,
+          title: Container(),
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(activeIdx == 3
+                ? "Waiting for approval within 72 hours..."
+                : "Your application has been approved"),
+          ),
+          actions: {'Ok': null},
+          dismissible: true),
+    ],
+    [
+      "contract",
+      ["Get Contract", "Finally, download the contract to sign and upload it"],
+      () => context.router.push(const ContractRoute()),
+    ],
   ];
 
-  Function(int, num, num, List<String>, {bool alignRight}) stepperFn(
+  Function(int, num, num, {bool alignRight}) stepperFn(
       BoxConstraints constraints) {
     var hs = constraints.maxWidth / 4.9;
     var vs = constraints.maxHeight / 5;
-    var iconBuilders = iconNames
-        .map((e) => (String header, String subHeader, bool alignRight) {
+    var iconBuilders = stepsInfo
+        .map((info) => (bool alignRight) {
               var items = [
                 SizedBox(
                   // height: vs,
 
                   child: SvgPicture.asset(
-                    "assets/images/flow/$e.svg",
+                    "assets/images/flow/${info[0]}.svg",
                   ),
                 ),
                 Flexible(
@@ -100,14 +156,14 @@ Widget stepStack() {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        header,
+                        info[1][0],
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 14),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          subHeader,
+                          info[1][1],
                           // overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -134,34 +190,38 @@ Widget stepStack() {
             })
         .toList();
 
-    return (int i, num x, num y, List<String> header,
-        {bool alignRight = false}) {
-      var items = iconBuilders[i](header[0], header[1], alignRight);
-      var foregroundDecoration = const BoxDecoration(
-        color: Colors.grey,
-        backgroundBlendMode: BlendMode.saturation,
-      );
+    return (int i, num x, num y, {bool alignRight = false}) {
+      var items = iconBuilders[i](alignRight);
+      var foregroundDecoration = i > activeIdx
+          ? const BoxDecoration(
+              color: Colors.grey,
+              backgroundBlendMode: BlendMode.saturation,
+            )
+          : null;
 
       return Positioned(
         left: !alignRight ? hs * x : 0,
-        // left: alignRight ? hs * x - 150 : hs * x,
         width: alignRight ? hs * x : null,
         right: alignRight ? null : 0,
         top: vs * y,
         child: Container(
-          // ColorFiltered
-          // colorFilter: const ColorFilter.mode(
-          //   Colors.white,
-          //   BlendMode.saturation,
-          // ),
-          // decoration: BoxDecoration(border: Border.all()),
           foregroundDecoration: foregroundDecoration,
-          child: items,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(10),
+            onTap: () => i > activeIdx ? null : stepsInfo[i][2](),
+            child: items,
+          ),
         ),
       );
     };
   }
 
+  // ColorFiltered
+  // colorFilter: const ColorFilter.mode(
+  //   Colors.white,
+  //   BlendMode.saturation,
+  // ),
+  // decoration: BoxDecoration(border: Border.all()),
   return LayoutBuilder(
     builder: (context, constraints) {
       var step = stepperFn(constraints);
@@ -170,23 +230,36 @@ Widget stepStack() {
         clipBehavior: Clip.none,
         children: [
           Positioned.fill(
-            child: Container(child: curve()),
+            child: CustomPaint(
+              painter: CurvePainter(),
+            ),
           ),
-          step(0, 0, 0.25, headers[0]),
-          step(1, 1, 1.25, headers[1]),
-          step(2, 2.83, 2.25, headers[2], alignRight: true),
-          step(3, 3.83, 3.25, headers[3], alignRight: true),
-          step(4, 4.83, 4.25, headers[4], alignRight: true),
+          step(0, 0, 0.25),
+          step(1, 1, 1.25),
+          step(2, 2.83, 2.25, alignRight: true),
+          step(3, 3.83, 3.25, alignRight: true),
+          step(4, 4.83, 4.25, alignRight: true),
         ],
       );
     },
   );
 }
 
-Widget curve() {
-  return Container(
-    child: CustomPaint(
-      painter: CurvePainter(),
-    ),
-  );
-}
+// MultiBlocListener blocListeners() {
+//   void next(c, s, i) => c.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: i));
+
+//   return MultiBlocListener(
+//     listeners: [
+//       BlocListener<ProfileBloc, ProfileState>(
+//         listener: (c, s) => s.status.isSuccess ? next(c, s, 1) : null,
+//       ),
+//       BlocListener<MealListBloc, MealListState>(
+//         listener: (c, s) => s.status.isSuccess ? next(c, s, 2) : null,
+//       ),
+//       BlocListener<MealListBloc, MealListState>(
+//         listener: (c, s) => s.status.isSuccess ? next(c, s, 2) : null,
+//       ),
+//     ],
+//     child: const Text(""),
+//   );
+// }
