@@ -195,7 +195,6 @@ class IngredientsForm extends StatelessWidget {
                               borderStyle:
                                   TextFormFieldBorderStyle.borderedRound,
                               objectValidators: requiredObjectValidator,
-                              isDense: true,
                               dropdownSelection: true,
                               dropdownSelectionTargetLabel: 'name',
                               dropdownSelectionList: filteredList(

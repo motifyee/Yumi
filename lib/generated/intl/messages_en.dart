@@ -135,6 +135,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "mySchedule": MessageLookupByLibrary.simpleMessage("My schedule"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "nameOnCard": MessageLookupByLibrary.simpleMessage("Name on card"),
+        "noAccessToDailSystem":
+            MessageLookupByLibrary.simpleMessage("No Access To Dail System!"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "numNumber": MessageLookupByLibrary.simpleMessage("1 number"),
         "offers": MessageLookupByLibrary.simpleMessage("Offers"),

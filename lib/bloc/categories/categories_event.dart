@@ -7,6 +7,7 @@ class ResetCategoryEvent implements CategoriesEvent {}
 
 class GetCategoriesEvent implements CategoriesEvent {
   final BuildContext context;
+  final bool isPreOrder;
 
-  GetCategoriesEvent({required this.context});
+  GetCategoriesEvent({required this.context, required this.isPreOrder});
 }

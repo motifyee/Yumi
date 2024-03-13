@@ -173,5 +173,6 @@
   "vouchers": "Vouchers",
   "yourWallet": "Your wallet",
   "contract": "Contract",
-  "profileSettings": "Profile Settings"
+  "profileSettings": "Profile Settings",
+  "noAccessToDailSystem": "No Access To Dail System!"
 }

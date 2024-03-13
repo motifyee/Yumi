@@ -4,9 +4,15 @@ class CategoriesModel {
   String? description;
   String? color;
   String? image;
+  bool? isPreOrder;
 
   CategoriesModel(
-      {this.id, this.name, this.description, this.color, this.image});
+      {this.id,
+      this.name,
+      this.description,
+      this.color,
+      this.image,
+      this.isPreOrder = false});
 
   CategoriesModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -14,6 +20,7 @@ class CategoriesModel {
     description = json['description'];
     color = json['color'];
     image = json['image'];
+    isPreOrder = json['isPreOrder'] ?? false;
   }
 
   Map<String, dynamic> toJson() {
@@ -23,6 +30,7 @@ class CategoriesModel {
     data['description'] = this.description;
     data['color'] = this.color;
     data['image'] = this.image;
+    data['isPreOrder'] = this.isPreOrder;
     return data;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
@@ -52,7 +53,22 @@ class LoginThirdPart extends StatelessWidget {
                   )),
               const SizedBox(width: 10),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    const List<String> scopes = <String>[
+                      'email',
+                      'https://www.googleapis.com/auth/contacts.readonly',
+                    ];
+
+                    GoogleSignIn _googleSignIn = GoogleSignIn(
+                      // Optional clientId
+                      // clientId: 'your-client_id.apps.googleusercontent.com',
+                      scopes: scopes,
+                    );
+                    var account = await _googleSignIn.signIn();
+                    print('google account '
+                        '..........................................');
+                    print(account);
+                  },
                   style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,
                       minimumSize: const Size(20, 20),

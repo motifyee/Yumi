@@ -6,10 +6,9 @@ import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/features/settings/profle/profile_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/user_model.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/app_side_menu_items.dart';
 import 'package:yumi/statics/capitalize_string.dart';
+import 'package:yumi/statics/side_menu_items.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
 import 'package:yumi/template/menu_button.dart';
@@ -80,7 +79,9 @@ class SideBar extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            (state.user.userName[0]).toUpperCase(),
+                            state.user.userName.isEmpty
+                                ? ''
+                                : (state.user.userName[0]).toUpperCase(),
                             style:
                                 Theme.of(context).textTheme.bodySmall?.copyWith(
                                       fontSize: ThemeSelector.fonts.font_38,
@@ -124,9 +125,7 @@ class SideBar extends StatelessWidget {
                             MenuButton(menuItem: menuItem),
                           TextButton(
                             onPressed: () {
-                              context
-                                  .read<UserBloc>()
-                                  .add(UserFromJsonEvent(user: UserModel()));
+                              context.read<UserBloc>().add(UserResetEvent());
                               context.router.replaceAll([LoginRoute()]);
                             },
                             child: Row(

@@ -44,9 +44,11 @@ class MenuTemplate extends StatelessWidget {
                             context.read<MealListBloc>().state;
                         return PaginationTemplate(
                           scrollDirection: Axis.horizontal,
-                          loadDate: () => context
-                              .read<CategoriesBloc>()
-                              .add(GetCategoriesEvent(context: context)),
+                          loadDate: () => context.read<CategoriesBloc>().add(
+                              GetCategoriesEvent(
+                                  context: context,
+                                  isPreOrder:
+                                      menuTarget == MenuTarget.preOrder)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -156,6 +158,9 @@ class MenuTemplate extends StatelessWidget {
                   Expanded(
                     child: PaginationTemplate(
                       scrollDirection: Axis.vertical,
+                      loadDate: () => context
+                          .read<MealListBloc>()
+                          .add(MealListUpdateEvent(context: context)),
                       child: Column(
                         children: [
                           Row(
@@ -190,9 +195,6 @@ class MenuTemplate extends StatelessWidget {
                           )
                         ],
                       ),
-                      loadDate: () => context
-                          .read<MealListBloc>()
-                          .add(MealListUpdateEvent(context: context)),
                     ),
                   ),
                   if (state.meals.isEmpty)

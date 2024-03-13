@@ -61,6 +61,11 @@ class _AppMenuList {
                           padding: EdgeInsets.symmetric(
                               vertical: ThemeSelector.statics.defaultGap,
                               horizontal: ThemeSelector.statics.defaultGap),
+                          decoration: BoxDecoration(
+                            color: ThemeSelector.colors.background,
+                            borderRadius: BorderRadius.circular(ThemeSelector
+                                .statics.defaultBorderRadiusMedium),
+                          ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -201,6 +206,7 @@ class _AppMenuList {
               TextCurrency(value: 10.0, fontSize: ThemeSelector.fonts.font_14),
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(CustomerWalletRoute());
           },
         ),
         AppMenuItem(

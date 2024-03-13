@@ -28,6 +28,7 @@ class UploadPhotoButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(defaultImage);
     return TextButton(
       onPressed: () async {
         ImagePicker picker = ImagePicker();
@@ -39,8 +40,8 @@ class UploadPhotoButton extends StatelessWidget {
         } else {
           b64(XFile fl) async => base64Encode(await fl.readAsBytes());
 
-          var blob = !multi ? b64(image) : null;
-          var blobs = multi ? images?.map((e) async => b64(e)) : null;
+          var blob = !multi ? await b64(image) : null;
+          var blobs = multi ? images?.map((e) async => await b64(e)) : null;
           onPressed(blob ?? blobs);
         }
       },
