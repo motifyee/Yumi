@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+//TODO: must config google maps and geolocation for ios ...
+
 class GoogleMapsTemplate extends StatefulWidget {
   GoogleMapsTemplate({super.key, required this.loadingChild});
 

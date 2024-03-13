@@ -1,9 +1,13 @@
 import 'package:auto_route/annotations.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/forms/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/chef_model.dart';
+import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/category_card.dart';
 import 'package:yumi/template/chef_bannar.dart';
@@ -13,12 +17,14 @@ import 'package:yumi/template/review_card.dart';
 
 @RoutePage()
 class ChefProfileScreen extends StatelessWidget {
-  ChefProfileScreen({super.key, required this.chef});
+  ChefProfileScreen({super.key, required this.chef, required this.menuTarget});
 
-  final dynamic chef;
+  final ChefModel chef;
+  MenuTarget menuTarget;
 
   @override
   Widget build(BuildContext context) {
+    print(chef.toJson());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -37,25 +43,30 @@ class ChefProfileScreen extends StatelessWidget {
                   horizontal: ThemeSelector.statics.defaultGap),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        S.of(context).orderAgain,
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
-                    ],
-                  ),
-                  PaginationTemplate(
-                    loadDate: () {},
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
+                  if (false)
+                    Column(
                       children: [
-                        for (var meal in [0, 1, 2, 3, 4, 5, 6])
-                          ChefMealCard(meal: meal)
+                        Row(
+                          children: [
+                            Text(
+                              S.of(context).orderAgain,
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                          ],
+                        ),
+                        PaginationTemplate(
+                          loadDate: () {},
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              for (var meal in [MealModel()])
+                                ChefMealCard(meal: meal)
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                       ],
                     ),
-                  ),
-                  SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                   Row(
                     children: [
                       Text(
@@ -93,25 +104,43 @@ class ChefProfileScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  PaginationTemplate(
-                    loadDate: () {},
-                    scrollDirection: Axis.horizontal,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            for (var meal in [0, 1, 2, 3, 4, 5, 6])
-                              ChefMealCard(meal: meal)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            for (var meal in [0, 1, 2, 3, 4])
-                              ChefMealCard(meal: meal)
-                          ],
-                        ),
-                      ],
+                  BlocProvider(
+                    create: (context) => MealListBloc(),
+                    child: BlocConsumer<MealListBloc, MealListState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        return PaginationTemplate(
+                          loadDate: () {
+                            context.read<MealListBloc>().add(
+                                MealListUpdateEvent(
+                                    context: context,
+                                    chefId: chef.guid,
+                                    menuTarget: menuTarget));
+                          },
+                          scrollDirection: Axis.horizontal,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  for (var mealIndex = 0;
+                                      mealIndex < state.meals.length;
+                                      mealIndex += 2)
+                                    ChefMealCard(meal: state.meals[mealIndex])
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  for (var mealIndex = 1;
+                                      mealIndex < state.meals.length;
+                                      mealIndex += 2)
+                                    ChefMealCard(meal: state.meals[mealIndex])
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ),
                   SizedBox(height: ThemeSelector.statics.defaultBlockGap),

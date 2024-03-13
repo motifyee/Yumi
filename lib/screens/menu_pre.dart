@@ -5,7 +5,7 @@ import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/menu.dart';
+import 'package:yumi/template/menu_template.dart';
 
 @RoutePage()
 class MenuPreOrderScreen extends StatelessWidget {

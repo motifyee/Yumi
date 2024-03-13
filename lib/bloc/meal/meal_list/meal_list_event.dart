@@ -10,16 +10,19 @@ class MealListResetEvent implements MealListEvent {
 
 class MealListUpdateEvent implements MealListEvent {
   BuildContext context;
+  String? chefId;
+  MenuTarget? menuTarget;
 
-  MealListUpdateEvent({required this.context});
+  MealListUpdateEvent({required this.context, this.chefId, this.menuTarget});
 }
 
 class MealListUpdateCategoryEvent implements MealListEvent {
   int selectedCategory;
+  String? chefId;
   BuildContext context;
 
   MealListUpdateCategoryEvent(
-      {required this.selectedCategory, required this.context});
+      {required this.selectedCategory, this.chefId, required this.context});
 }
 
 class MealListUpdateCaloriesEvent implements MealListEvent {
