@@ -79,9 +79,11 @@ class BankInfoFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<BankInfoBloc>().add(BankInfoInitEvent(context: context));
-
     return BlocBuilder<BankInfoBloc, BankInfoState>(builder: (context, state) {
+      if (!state.statusSet.contains(BlocStatus.init)) {
+        context.read<BankInfoBloc>().add(BankInfoInitEvent(context: context));
+      }
+
       if (state.status.isLoading) {
         return const Center(child: CircularProgressIndicator());
       }

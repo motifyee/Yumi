@@ -19,21 +19,21 @@ class ProfileFormSubmitButton extends StatelessWidget {
     super.key,
   });
 
-  // final profileForm = GlobalKey<FormState>().currentState;
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileBloc, ProfileState>(
+    return BlocConsumer<ProfileBloc, ProfileState>(
+      listener: (context, state) => {
+        if (state.status.isSaved)
+          {
+            context.read<ProfileBloc>().add(
+                  ProfileUpdateEvent(
+                    context: context,
+                    profile: state.profile,
+                  ),
+                )
+          }
+      },
       builder: (context, state) {
-        if (state.status.isSaved) {
-          context.read<ProfileBloc>().add(
-                ProfileUpdateEvent(
-                  context: context,
-                  profile: state.profile,
-                ),
-              );
-        }
-
         return TextButton(
           child: Text(S.of(context).save),
           onPressed: () async {
@@ -47,8 +47,6 @@ class ProfileFormSubmitButton extends StatelessWidget {
             profileForm.currentState!.save();
           },
         );
-        //   ],
-        // );
       },
     );
   }
@@ -59,6 +57,7 @@ Widget profileFormFields(
   Function save,
 ) {
   var profile0 = profile;
+
   return BlocBuilder<ProfileBloc, ProfileState>(
     builder: (context, state) => Column(
       children: [
@@ -80,14 +79,14 @@ Widget profileFormFields(
               save(profile0 = profile0.copyWith(userName: value)),
         ),
         SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-        TextFormFieldTemplate(
-          label: S.of(context).email,
-          borderStyle: TextFormFieldBorderStyle.borderBottom,
-          initialValue: profile.email,
-          validators: emailValidator,
-          enabled: false,
-          // onSave: (value) => save(profile0 = profile0.copyWith(email: value)),
-        ),
+        // TextFormFieldTemplate(
+        //   label: S.of(context).email,
+        //   borderStyle: TextFormFieldBorderStyle.borderBottom,
+        //   initialValue: profile.email,
+        //   validators: emailValidator,
+        //   enabled: false,
+        //   // onSave: (value) => save(profile0 = profile0.copyWith(email: value)),
+        // ),
         SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
         TextFormFieldTemplate(
           label: S.of(context).mobile,
@@ -193,24 +192,9 @@ class ProfileForm extends StatelessWidget {
                                       ProfileFormSavedEvent(profile),
                                     );
                                   },
-
-                                  // (controlsCount) {
-                                  //   int saveCount = 0;
-                                  //   return (profile0) {
-                                  //     saveCount++;
-                                  //     profile = profile0;
-
-                                  //     if (saveCount >= controlsCount) {
-                                  //       profileFormBloc.add(
-                                  //         ProfileFormSavedEvent(profile),
-                                  //       );
-                                  //     }
-                                  //   };
-                                  // },
                                 ),
                               ),
                         const SizedBox(height: 5),
-                        // FormSubmitButtons()
                       ],
                     ),
                   ),

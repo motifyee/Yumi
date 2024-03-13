@@ -41,7 +41,7 @@ extension BlocStatusHistoryX on BlocStatusHistory {
 
 typedef BlocStatusSet = Set<BlocStatus>;
 
-extension BlocStatusSetX on BlocStatusHistory {
+extension BlocStatusSetX on BlocStatusSet {
   bool get hasInit => contains(BlocStatus.init);
   bool get hasInitSuccess => contains(BlocStatus.initSuccess);
   bool get hasInitError => contains(BlocStatus.initError);

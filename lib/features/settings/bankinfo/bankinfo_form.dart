@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/features/settings/bankinfo/bloc/bankinfo_bloc.dart';
+import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/features/settings/bankinfo/bankinfo_service.dart';
+import 'package:yumi/model/bankinfo_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/validators/required_validator.dart';
 
-final GlobalKey<FormState> bankInfo = GlobalKey<FormState>();
+final GlobalKey<FormState> bankInfoKey = GlobalKey<FormState>();
 
 class BankInfoSubmitButtons extends StatelessWidget {
   const BankInfoSubmitButtons({
@@ -19,7 +21,44 @@ class BankInfoSubmitButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BankInfoBloc, BankInfoState>(
+    return BlocConsumer<BankInfoBloc, BankInfoState>(
+      listener: (context, state) async {
+        if (!state.status.isSaved) return;
+        final dynamic res;
+        if (state.selectedBank.id.isEmpty) {
+          res = await BankInfoService.addBankInfo(
+              context: context, data: state.bankInfoForm?.toJson() ?? {});
+        } else {
+          res = await BankInfoService.updateBankInfo(
+              context: context, data: state.bankInfoForm?.toJson() ?? {});
+        }
+
+        if (!context.mounted) return;
+
+        // context
+        //     .read<BankInfoBloc>()
+        //     .add(const BankInfoUpdateEvent(bankInfo: ));
+
+        if (res != null && res != false) {
+          Navigator.of(context).pop();
+
+          context.read<BankInfoBloc>().add(BankInfoInitEvent(context: context));
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: SnackBarMassage(
+                massage: res.toString(),
+              ),
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: SnackBarMassage(massage: S.of(context).connectionError),
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,8 +81,8 @@ class BankInfoSubmitButtons extends StatelessWidget {
             TextButton(
               child: Text(S.of(context).save),
               onPressed: () {
-                if (bankInfo.currentState == null ||
-                    bankInfo.currentState!.validate()) {
+                if (bankInfoKey.currentState == null ||
+                    !bankInfoKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content:
                         SnackBarMassage(massage: S.of(context).invalidInput),
@@ -51,56 +90,17 @@ class BankInfoSubmitButtons extends StatelessWidget {
                   return;
                 }
 
-                bankInfo.currentState!.save();
+                bankInfoKey.currentState!.save();
 
-                if (!context.mounted) return;
+                // if (!context.mounted) return;
 
                 // context
                 //     .read<BankInfoBloc>()
                 //     .add( BankInfoUpdateEvent(context: context));
 
-                Future.delayed(const Duration(seconds: 1)).then((value) async {
-                  final dynamic res;
-                  if (state.selectedBank.id.isEmpty) {
-                    res = await BankInfoService.addBankInfo(
-                        context: context, data: state.selectedBank.toJson());
-                  } else {
-                    res = await BankInfoService.updateBankInfo(
-                        context: context, data: state.selectedBank.toJson());
-                  }
+                // Future.delayed(const Duration(seconds: 1)).then((value) async {
 
-                  if (!context.mounted) return;
-
-                  // context
-                  //     .read<BankInfoBloc>()
-                  //     .add(const BankInfoUpdateEvent(bankInfo: ));
-
-                  if (res != null && res != false) {
-                    Navigator.of(context).pop();
-
-                    context
-                        .read<BankInfoBloc>()
-                        .add(BankInfoInitEvent(context: context));
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: SnackBarMassage(
-                          massage: res.toString(),
-                        ),
-                      ),
-                    );
-
-                    // context.read<BankInfoBloc>().add(
-                    //     const BankInfoUpdateEvent(bankInfo: BankInfo()));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: SnackBarMassage(
-                            massage: S.of(context).connectionError),
-                      ),
-                    );
-                  }
-                });
+                // });
               },
             ),
           ],
@@ -110,108 +110,144 @@ class BankInfoSubmitButtons extends StatelessWidget {
   }
 }
 
-class FormData extends StatelessWidget {
-  const FormData({super.key});
+Widget FormData(BankInfo bankInfo, Function save) {
+  var bankInfo0 = bankInfo;
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<BankInfoBloc, BankInfoState>(
-        listener: (context, state) {
-      print(state);
-    }, builder: (context, state) {
-      if (state.status.isLoading) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      }
+  return BlocBuilder<BankInfoBloc, BankInfoState>(
+    builder: (ctx, _) {
+      List fields = [
+        [
+          S.of(ctx).bankName,
+          bankInfo0.bankName,
+          requiredValidator,
+          (value) => save(bankInfo0 = bankInfo0.copyWith(bankName: value)),
+        ],
+        [
+          S.of(ctx).accountName,
+          bankInfo0.accountName,
+          requiredValidator,
+          (value) => save(bankInfo0 = bankInfo0.copyWith(accountName: value)),
+        ],
+        [
+          S.of(ctx).accountNumber,
+          bankInfo0.accountNumber,
+          requiredValidator,
+          (value) => save(
+              bankInfo0 = bankInfo0.copyWith(accountNumber: int.parse(value))),
+        ],
+        [
+          S.of(ctx).bankCurrency,
+          bankInfo0.currency,
+          requiredValidator,
+          (value) => save(bankInfo0 = bankInfo0.copyWith(currency: value)),
+        ],
+        [
+          S.of(ctx).iban,
+          bankInfo0.iban,
+          null,
+          (value) => save(bankInfo0 = bankInfo0.copyWith(iban: value)),
+        ],
+        [
+          S.of(ctx).swiftCode,
+          bankInfo0.swiftCode,
+          null,
+          (value) => save(bankInfo0 = bankInfo0.copyWith(swiftCode: value)),
+        ],
+        [
+          S.of(ctx).branchAddress,
+          bankInfo0.branchAddress,
+          null,
+          (value) => save(bankInfo0 = bankInfo0.copyWith(branchAddress: value)),
+        ],
+      ];
 
       return Column(
-        children: [
-          TextFormFieldTemplate(
-            label: S.of(context).bankName,
-            borderStyle: TextFormFieldBorderStyle.borderBottom,
-            initialValue: state.selectedBank.bankName,
-            validators: requiredValidator,
-            onChange: (value) {
-              context.read<BankInfoBloc>().add(BankInfoUpdateEvent(
-                  context: context,
-                  bankInfo: state.selectedBank.copyWith(bankName: value)));
-            },
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-          TextFormFieldTemplate(
-            label: S.of(context).accountName,
-            borderStyle: TextFormFieldBorderStyle.borderBottom,
-            initialValue: state.selectedBank.accountName,
-            validators: requiredValidator,
-            onChange: (value) {
-              context.read<BankInfoBloc>().add(BankInfoUpdateEvent(
-                  context: context,
-                  bankInfo: state.selectedBank.copyWith(accountName: value)));
-            },
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-          TextFormFieldTemplate(
-            label: S.of(context).accountNumber,
-            borderStyle: TextFormFieldBorderStyle.borderBottom,
-            initialValue: state.selectedBank.accountNumber,
-            validators: requiredValidator,
-            onChange: (value) {
-              context.read<BankInfoBloc>().add(BankInfoUpdateEvent(
-                  context: context,
-                  bankInfo: state.selectedBank
-                      .copyWith(accountNumber: int.parse(value))));
-            },
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-          TextFormFieldTemplate(
-            label: S.of(context).bankCurrency,
-            borderStyle: TextFormFieldBorderStyle.borderBottom,
-            initialValue: state.selectedBank.currency,
-            validators: requiredValidator,
-            onChange: (value) {
-              context.read<BankInfoBloc>().add(BankInfoUpdateEvent(
-                  context: context,
-                  bankInfo: state.selectedBank.copyWith(currency: value)));
-            },
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-          TextFormFieldTemplate(
-            label: S.of(context).iban,
-            borderStyle: TextFormFieldBorderStyle.borderBottom,
-            initialValue: state.selectedBank.iban,
-            onChange: (value) {
-              context.read<BankInfoBloc>().add(BankInfoUpdateEvent(
-                  context: context,
-                  bankInfo: state.selectedBank.copyWith(iban: value)));
-            },
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-          TextFormFieldTemplate(
-            label: S.of(context).swiftCode,
-            borderStyle: TextFormFieldBorderStyle.borderBottom,
-            initialValue: state.selectedBank.swiftCode,
-            onChange: (value) {
-              context.read<BankInfoBloc>().add(BankInfoUpdateEvent(
-                  context: context,
-                  bankInfo: state.selectedBank.copyWith(swiftCode: value)));
-            },
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-          TextFormFieldTemplate(
-            label: S.of(context).branchAddress,
-            borderStyle: TextFormFieldBorderStyle.borderBottom,
-            initialValue: state.selectedBank.branchAddress,
-            onChange: (value) {
-              context.read<BankInfoBloc>().add(BankInfoUpdateEvent(
-                  context: context,
-                  bankInfo: state.selectedBank.copyWith(branchAddress: value)));
-            },
-          ),
-        ],
+        children: fields
+            .map((field) => [
+                  TextFormFieldTemplate(
+                    label: field[0] as String,
+                    borderStyle: TextFormFieldBorderStyle.borderBottom,
+                    initialValue: field[1],
+                    validators: field[2] == null
+                        ? null
+                        : (field[2] as String? Function(String?)),
+                    onSave: field[3] as Function(dynamic),
+                  ),
+                  // gap
+                  SizedBox(
+                    height: ThemeSelector.statics.defaultLineGap,
+                  ),
+                ])
+            .reduce((v, e) {
+          v.addAll(e);
+          return v;
+        }).toList(),
       );
-    });
-  }
+
+      //   children: [
+      //     TextFormFieldTemplate(
+      //       label: S.of(ctx).bankName,
+      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
+      //       initialValue: bankInfo0.bankName,
+      //       validators: requiredValidator,
+      //       onSave: (value) =>
+      //           save(bankInfo0 = bankInfo0.copyWith(bankName: value)),
+      //     ),
+      //     SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
+      //     TextFormFieldTemplate(
+      //       label: S.of(ctx).accountName,
+      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
+      //       initialValue: bankInfo0.accountName,
+      //       validators: requiredValidator,
+      //       onSave: (value) =>
+      //           save(bankInfo0 = bankInfo0.copyWith(accountName: value)),
+      //     ),
+      //     SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
+      //     TextFormFieldTemplate(
+      //       label: S.of(ctx).accountNumber,
+      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
+      //       initialValue: bankInfo0.accountNumber,
+      //       validators: requiredValidator,
+      //       onSave: (value) =>
+      //           save(bankInfo0 = bankInfo0.copyWith(accountNumber: value)),
+      //     ),
+      //     SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
+      //     TextFormFieldTemplate(
+      //       label: S.of(ctx).bankCurrency,
+      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
+      //       initialValue: bankInfo0.currency,
+      //       validators: requiredValidator,
+      //       onSave: (value) =>
+      //           save(bankInfo0 = bankInfo0.copyWith(currency: value)),
+      //     ),
+      //     SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
+      //     TextFormFieldTemplate(
+      //       label: S.of(ctx).iban,
+      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
+      //       initialValue: bankInfo0.iban,
+      //       onSave: (value) =>
+      //           save(bankInfo0 = bankInfo0.copyWith(iban: value)),
+      //     ),
+      //     SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
+      //     TextFormFieldTemplate(
+      //       label: S.of(ctx).swiftCode,
+      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
+      //       initialValue: bankInfo0.swiftCode,
+      //       onSave: (value) =>
+      //           save(bankInfo0 = bankInfo0.copyWith(swiftCode: value)),
+      //     ),
+      //     SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
+      //     TextFormFieldTemplate(
+      //       label: S.of(ctx).branchAddress,
+      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
+      //       initialValue: bankInfo0.branchAddress,
+      //       onSave: (value) =>
+      //           save(bankInfo0 = bankInfo0.copyWith(branchAddress: value)),
+      //     ),
+      //   ],
+      // );
+    },
+  );
 }
 
 class BankInfoForm extends StatelessWidget {
@@ -231,16 +267,28 @@ class BankInfoForm extends StatelessWidget {
     return BlocConsumer<BankInfoBloc, BankInfoState>(
       listener: (context, state) => {},
       builder: (context, state) {
+        if (state.statusSet.hasInit) {}
+
+        var bankInfo = state.selectedBank;
+
         return state.status.isLoading
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Form(
-                key: bankInfo,
+                key: bankInfoKey,
                 child: Container(
                   padding:
                       EdgeInsets.all(ThemeSelector.statics.defaultBlockGap),
-                  child: const SingleChildScrollView(child: FormData()),
+                  child: SingleChildScrollView(
+                      child: FormData(
+                          bankInfo,
+                          onFormFieldsSaved<BankInfo>(
+                            bankInfoKey,
+                            onAllFieldsSaved: (info, fields) => context
+                                .read<BankInfoBloc>()
+                                .add(BankInfoFormSavedEvent(info)),
+                          ))),
                 ),
               );
       },

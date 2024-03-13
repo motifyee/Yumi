@@ -44,7 +44,7 @@ class ChefFlowState extends Equatable {
 // Bloc
 
 class ChefFlowBloc extends Bloc<ChefFlowEvent, ChefFlowState> {
-  ChefFlowBloc() : super(const ChefFlowState(2, started: true)) {
+  ChefFlowBloc() : super(const ChefFlowState(0, started: true)) {
     on<ChefFlowEventStart>((event, emit) {
       emit(state.copyWith(started: true));
     });

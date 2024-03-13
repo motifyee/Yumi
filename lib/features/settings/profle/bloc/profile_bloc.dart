@@ -41,6 +41,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   _porfileInit(ProfileInitEvent event, emit) async {
+    emit(state.copyWith(status: BlocStatus.init));
     emit(state.copyWith(status: BlocStatus.loading));
 
     await ProfileService.getProfile(

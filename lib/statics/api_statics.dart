@@ -8,8 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 
-const originApi = 'https://10.99.77.247:5012';
-// const originApi = 'https://b1bc-81-10-105-81.ngrok-free.app';
+// const originApi = 'https://10.99.77.247:5012';
+const originApi = 'https://0c7b-81-10-105-81.ngrok-free.app';
 
 class DioClient {
   static Dio simpleDio(BuildContext context) {

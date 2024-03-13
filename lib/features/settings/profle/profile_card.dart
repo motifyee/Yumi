@@ -13,11 +13,13 @@ class UserSettingDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
-
     return BlocSelector<ProfileBloc, ProfileState, ProfileState>(
       selector: (state) => state,
       builder: (context, state) {
+        if (!state.statusSet.hasInit) {
+          context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
+        }
+
         return Padding(
           padding: EdgeInsets.only(
             top: ThemeSelector.statics.defaultTitleGap,
@@ -141,7 +143,7 @@ class UserSettingDetails extends StatelessWidget {
                           ),
                           const Expanded(child: Text('')),
                           Text(
-                            state.profile.country.name,
+                            state.profile.address,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
