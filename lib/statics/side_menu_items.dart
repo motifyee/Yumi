@@ -12,8 +12,9 @@ import 'package:yumi/template/text_currency.dart';
 
 class AppMenuList {
   static List<AppMenuItem> appList(BuildContext context) {
-    if (AppTarget.user == AppTargetUser.customers)
+    if (AppTarget.user == AppTargetUser.customers) {
       return _AppMenuList.customerList(context: context);
+    }
     return _AppMenuList.chefList(context: context);
   }
 }
@@ -42,6 +43,14 @@ class _AppMenuList {
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
             context.router.push(const ContractRoute());
+          },
+        ),
+        AppMenuItem(
+          icon: 'assets/images/contract_icon.svg',
+          label: "Chef Flow",
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(const ChefApplicationFlowRoute());
           },
         ),
         AppMenuItem(

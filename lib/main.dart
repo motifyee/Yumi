@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/features/chef_application/bloc.dart';
+import 'package:yumi/features/chef_application/documentation/bloc/documentation_bloc.dart';
 import 'package:yumi/features/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
@@ -12,7 +15,7 @@ import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/features/documentation/bloc/ui/icon_bloc.dart';
+import 'package:yumi/features/chef_application/documentation/bloc/ui/icon_bloc.dart';
 import 'package:yumi/route/route.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/theme/theme.dart';
@@ -41,7 +44,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ProfileBloc()),
         BlocProvider(create: (context) => BankInfoBloc()),
         BlocProvider(create: (context) => CategoriesBloc()),
+        BlocProvider(create: (context) => ChefFlowBloc()),
+        BlocProvider(create: (context) => DocsBloc()),
         BlocProvider(create: (context) => MealFormBloc()),
+        BlocProvider(create: (context) => MealListBloc()),
         BlocProvider(create: (context) => SVGBloc()),
         BlocProvider(create: (context) => IngredientListBloc()),
         BlocProvider(create: (context) => IngredientFormBloc()),

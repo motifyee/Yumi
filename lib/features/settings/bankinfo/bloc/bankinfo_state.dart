@@ -12,7 +12,7 @@ class BankInfoState extends Equatable {
   const BankInfoState({
     this.banks = const [],
     this.bankInfoForm,
-    this.status = BlocStatus.initial,
+    this.status = BlocStatus.init,
     this.statusSet = const {},
   });
 

@@ -11,7 +11,7 @@ class MenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MealListBloc(),
-      child: MenuTemplate(
+      child: const MenuTemplate(
         menuTarget: MenuTarget.order,
       ),
     );

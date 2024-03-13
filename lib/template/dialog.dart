@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
@@ -17,18 +19,24 @@ class Tmp {
 }
 
 // ignore: non_constant_identifier_names
-Future<void> showAlertDialog(
-    {required BuildContext context,
-    Widget title = const SizedBox(),
-    Widget content = const SizedBox(),
-    List<Widget> actionWidgets = const [],
-    Map<String, Function(BuildContext context)?> actions = const {}}) {
+Future<void> showAlertDialog({
+  required BuildContext context,
+  Widget title = const SizedBox(),
+  Widget content = const SizedBox(),
+  List<Widget> actionWidgets = const [],
+  Map<String, Function(BuildContext context)?> actions = const {},
+  bool dismissible = false,
+  Function? onDismissed,
+}) {
   if (actions.isEmpty && actionWidgets.isEmpty) actions['OK'] = null;
 
   var actions0 = {...actions};
   var res = <Widget>[];
 
-  dynamic popFn = ((context) => Navigator.pop(context));
+  dynamic popFn = ((context) {
+    Navigator.pop(context);
+    onDismissed?.call();
+  });
   actions0.forEach((key, value) {
     res.add(
       TextButton(
@@ -50,7 +58,8 @@ Future<void> showAlertDialog(
     pageBuilder: (context, anim1, anim2) {
       return const SizedBox();
     },
-    barrierDismissible: true,
+    barrierDismissible: dismissible,
+
     // barrierColor: Colors.black.withOpacity(0.4),
     barrierLabel: '',
     barrierColor: Colors.black.withOpacity(.6),

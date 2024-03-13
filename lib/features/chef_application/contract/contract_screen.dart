@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/features/documentation/bloc/ui/icon_bloc.dart';
-import 'package:yumi/features/documentation/documentation_screen.dart';
+import 'package:yumi/features/chef_application/documentation/bloc/ui/icon_bloc.dart';
+import 'package:yumi/features/chef_application/documentation/documentation_screen.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/screen_container.dart';
@@ -52,7 +52,8 @@ class ContractScreen extends StatelessWidget {
                 hexBg: "#F4F4F4",
                 title: "Contract",
                 desc: "Download the contract to sign it and upload it",
-                docLink: "",
+                data: "",
+                uploadAction: (data) => {},
               )),
             ],
           ),
