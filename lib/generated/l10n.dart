@@ -1809,6 +1809,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Add`
+  String get add {
+    return Intl.message(
+      'Add',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipping fee`
+  String get shippingFee {
+    return Intl.message(
+      'Shipping fee',
+      name: 'shippingFee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delivery in`
+  String get deliveryIn {
+    return Intl.message(
+      'Delivery in',
+      name: 'deliveryIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Km`
+  String get km {
+    return Intl.message(
+      'Km',
+      name: 'km',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nutritional value per 100g`
+  String get nutritionalValuePer100g {
+    return Intl.message(
+      'Nutritional value per 100g',
+      name: 'nutritionalValuePer100g',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reviews`
+  String get reviews {
+    return Intl.message(
+      'Reviews',
+      name: 'reviews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Meals`
+  String get meals {
+    return Intl.message(
+      'Meals',
+      name: 'meals',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -99,7 +99,7 @@ class ChefProfileScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        S.of(context).orderAgain,
+                        S.of(context).meals,
                         style: Theme.of(context).textTheme.labelMedium,
                       ),
                     ],

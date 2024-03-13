@@ -18,6 +18,7 @@ class _ThemeStatics {
 
   double defaultImageHeightSmall = 120.0;
   double defaultImageHeight = 160.0;
+  double defaultImageHeightLarge = 300.0;
 
   double defaultMicroGap = 4.0;
   double defaultGap = 8.0;

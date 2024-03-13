@@ -174,5 +174,12 @@
   "yourWallet": "Your wallet",
   "contract": "Contract",
   "profileSettings": "Profile Settings",
-  "noAccessToDailSystem": "No Access To Dail System!"
+  "noAccessToDailSystem": "No Access To Dail System!",
+  "add": "Add",
+  "shippingFee": "Shipping fee",
+  "deliveryIn": "Delivery in",
+  "km": "Km",
+  "nutritionalValuePer100g": "Nutritional value per 100g",
+  "reviews": "Reviews",
+  "meals": "Meals"
 }
