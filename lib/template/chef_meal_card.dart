@@ -17,7 +17,7 @@ class ChefMealCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.router.push(MealProfileRoute());
+        context.router.push(MealProfileRoute(meal: meal));
       },
       child: Padding(
         padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),

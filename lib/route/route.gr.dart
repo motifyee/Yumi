@@ -129,9 +129,13 @@ abstract class $AppRouter extends _i24.RootStackRouter {
       );
     },
     MealProfileRoute.name: (routeData) {
+      final args = routeData.argsAs<MealProfileRouteArgs>();
       return _i24.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i13.MealProfileScreen(),
+        child: _i13.MealProfileScreen(
+          key: args.key,
+          meal: args.meal,
+        ),
       );
     },
     MenuPreOrderRoute.name: (routeData) {
@@ -475,16 +479,40 @@ class LoginRouteArgs {
 
 /// generated route for
 /// [_i13.MealProfileScreen]
-class MealProfileRoute extends _i24.PageRouteInfo<void> {
-  const MealProfileRoute({List<_i24.PageRouteInfo>? children})
-      : super(
+class MealProfileRoute extends _i24.PageRouteInfo<MealProfileRouteArgs> {
+  MealProfileRoute({
+    _i25.Key? key,
+    required _i27.MealModel meal,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
           MealProfileRoute.name,
+          args: MealProfileRouteArgs(
+            key: key,
+            meal: meal,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'MealProfileRoute';
 
-  static const _i24.PageInfo<void> page = _i24.PageInfo<void>(name);
+  static const _i24.PageInfo<MealProfileRouteArgs> page =
+      _i24.PageInfo<MealProfileRouteArgs>(name);
+}
+
+class MealProfileRouteArgs {
+  const MealProfileRouteArgs({
+    this.key,
+    required this.meal,
+  });
+
+  final _i25.Key? key;
+
+  final _i27.MealModel meal;
+
+  @override
+  String toString() {
+    return 'MealProfileRouteArgs{key: $key, meal: $meal}';
+  }
 }
 
 /// generated route for
