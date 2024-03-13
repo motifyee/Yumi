@@ -33,7 +33,6 @@ Widget profileImagePicker(BuildContext context, Profile profile, bool loading) {
         title: null,
         size: ThemeSelector.statics.iconSizeExtreme * 1.3,
         onPressed: (image) async {
-          print('\n---> image: \n$image');
           final newProfile = profile.copyWith(profileImage: image);
 
           context.read<ProfileBloc>().add(ProfileLoadingEvent());
@@ -82,10 +81,9 @@ class ProfileScreen extends StatelessWidget {
                 Text(' ',
                     style: TextStyle(color: ThemeSelector.colors.secondary)),
                 SvgPicture.asset('assets/images/star.svg'),
-                Text(' | ',
-                    style: TextStyle(color: ThemeSelector.colors.secondary)),
-                Text(S.of(context).hygiene,
-                    style: TextStyle(color: ThemeSelector.colors.secondary)),
+                if (state.profile.isHygiene)
+                  Text(' | ${S.of(context).hygiene}',
+                      style: TextStyle(color: ThemeSelector.colors.secondary)),
               ],
             ),
             SizedBox(height: ThemeSelector.statics.defaultTitleGap),

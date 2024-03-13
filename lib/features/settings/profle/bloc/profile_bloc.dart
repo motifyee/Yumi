@@ -21,6 +21,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ProfileLoadedEvent>(
         (_, emit) => emit(state.copyWith(status: BlocStatus.loaded)));
 
+    on<ProfileFailedEvent>(
+        (_, emit) => emit(state.copyWith(status: BlocStatus.error)));
+
     on<ProfileUpdateEvent>(_profileUpdate);
 
     on<ProfileFormSavedEvent>(
@@ -38,6 +41,41 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         ),
       ),
     );
+
+    on<ProfileUploadPhotosEvent>((event, emit) {
+      var photos0 = [
+        ...event.photos,
+        for (var i = event.photos.length; i < 5; i++) null
+      ];
+
+      var profile = state.profile.copyWith(
+        eventPhoto0: photos0[0],
+        eventPhoto1: photos0[1],
+        eventPhoto2: photos0[2],
+        eventPhoto3: photos0[3],
+        eventPhoto4: photos0[4],
+      );
+
+      emit(state.copyWith(profile: profile, status: BlocStatus.formSaved));
+    });
+
+    on<ProfileDeletePhotoEvent>((event, emit) {
+      List<String> photos = state.profile.eventPhotos
+          .where((element) => element != event.photo)
+          .toList();
+
+      photos = [...photos, for (var i = photos.length; i < 5; i++) ''];
+
+      var profile = state.profile.copyWith(
+        eventPhoto0: photos[0],
+        eventPhoto1: photos[1],
+        eventPhoto2: photos[2],
+        eventPhoto3: photos[3],
+        eventPhoto4: photos[4],
+      );
+
+      emit(state.copyWith(profile: profile, status: BlocStatus.formSaved));
+    });
   }
 
   _porfileInit(ProfileInitEvent event, emit) async {

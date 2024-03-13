@@ -1,7 +1,15 @@
+import 'dart:convert';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/dialog.dart';
 import 'package:yumi/template/upload_photo_button.dart';
 
 class EventsPhoto extends StatelessWidget {
@@ -9,33 +17,189 @@ class EventsPhoto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: ThemeSelector.statics.defaultTitleGap),
-      child: Column(
-        children: [
-          Row(
+    return BlocConsumer<ProfileBloc, ProfileState>(
+      listener: (ctx, state) {
+        if (state.status.isSaved) {
+          ctx.read<ProfileBloc>().add(
+              ProfileUpdateEvent(context: context, profile: state.profile));
+        }
+      },
+      builder: (ctx, state) {
+        var eventPhotosTitle = Row(
+          children: [
+            SvgPicture.asset('assets/images/camera_dark.svg'),
+            SizedBox(width: ThemeSelector.statics.defaultLineGap),
+            Text(
+              S.of(ctx).eventsPhoto,
+              style: Theme.of(ctx).textTheme.labelLarge,
+            ),
+          ],
+        );
+
+        return Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: ThemeSelector.statics.defaultTitleGap),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              SvgPicture.asset('assets/images/camera_dark.svg'),
-              SizedBox(width: ThemeSelector.statics.defaultLineGap),
-              Text(
-                S.of(context).eventsPhoto,
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
+              eventPhotosTitle,
+              SizedBox(height: ThemeSelector.statics.defaultGap),
+              Flexible(
+                fit: FlexFit.loose,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      ...state.profile.eventPhotos
+                          .map((e) => _photoCard(ctx, state, e)),
+                      if (state.profile.eventPhotosCount < 5)
+                        _photoCard(ctx, state),
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
-          SizedBox(height: ThemeSelector.statics.defaultGap),
-          Container(
-            constraints: BoxConstraints(
-                minHeight: ThemeSelector.statics.defaultGapExtreme),
-            child: Center(
-              child: UploadPhotoButton(
-                onPressed: (image) {},
-                multi: true,
+        );
+      },
+    );
+  }
+
+  Container _oldButton(ProfileState state, BuildContext context) {
+    return Container(
+      constraints:
+          BoxConstraints(minHeight: ThemeSelector.statics.defaultGapExtreme),
+      child: Center(
+        child: UploadPhotoButton(
+          multi: true,
+          onPressed: (data) {},
+        ),
+      ),
+    );
+  }
+
+  Card _photoCard(BuildContext ctx, ProfileState state, [String? image]) {
+    return Card(
+      elevation: 3,
+      child: SizedBox(
+        height: 150,
+        width: 100,
+        child: Stack(
+          children: [
+            if (image != null && image.isNotEmpty) ...[
+              Image.memory(
+                base64Decode(image),
+                height: 150,
+                fit: BoxFit.cover,
+              ),
+              _deleteButton(ctx, image)
+            ] else if (state.status.isLoading)
+              const Center(
+                child: CircularProgressIndicator(),
+              )
+            else
+              _addButton(ctx, state),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _addButton(BuildContext ctx, ProfileState state) {
+    return Center(
+      child: IconButton(
+          onPressed: () async {
+            ImagePicker picker = ImagePicker();
+
+            final images = await picker.pickMultiImage();
+
+            b64e(XFile fl) async => base64Encode(await fl.readAsBytes());
+            var newPhotos = await Future.wait(images.map((e) => b64e(e)));
+
+            if (newPhotos.isEmpty) return;
+
+            // var len = state.profile.eventPhotosCount + newPhotos.length;
+            List<String?> photos = [
+              ...state.profile.eventPhotos,
+              ...newPhotos,
+            ];
+
+            var allowed = 5 - state.profile.eventPhotosCount;
+
+            if (!ctx.mounted) return;
+
+            if (photos.length <= 5) {
+              ctx.read<ProfileBloc>().add(ProfileUploadPhotosEvent(photos));
+              return;
+            }
+
+            showAlertDialog(
+              context: ctx,
+              content: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(
+                  "You're only allowed to upload a total of 5 photos.\n\n "
+                  "${allowed > 0 ? 'You\'ve selected ${newPhotos.length} of which $allowed ${allowed > 1 ? "photos" : "photo"} will be uploaded.' : 'no more photos can be uploaded.'}",
+                ),
+              ),
+              actions: {
+                if (allowed > 0) 'Cancel': (ctx) => ctx.router.pop(),
+                'Ok': (ctx) {
+                  ctx.read<ProfileBloc>().add(ProfileUploadPhotosEvent(photos));
+                  ctx.router.pop();
+                },
+              },
+            );
+          },
+          icon: const Icon(Icons.add)),
+    );
+  }
+
+  Widget _deleteButton(BuildContext ctx, String? image) {
+    return Positioned(
+      right: 0,
+      bottom: 0,
+      child: InkWell(
+        onTap: () {
+          showAlertDialog(
+              context: ctx,
+              content: const Padding(
+                padding: EdgeInsets.all(12),
+                child: Text("Are you sure you want ot delete selected image"),
+              ),
+              actions: {
+                'Cancel': null,
+                'Ok': (ctx) {
+                  ctx.read<ProfileBloc>().add(ProfileDeletePhotoEvent(image!));
+                  ctx.router.pop();
+                }
+              });
+        },
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(0.3),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(40),
+              bottomRight: Radius.circular(10),
+            ),
+          ),
+          height: 35,
+          width: 35,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 5, top: 5),
+              child: Icon(
+                Icons.close,
+                size: 15,
+                color: ThemeSelector.colors.primary,
               ),
             ),
-          )
-        ],
+          ),
+        ),
       ),
     );
   }

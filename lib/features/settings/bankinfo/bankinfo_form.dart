@@ -34,11 +34,6 @@ class BankInfoSubmitButtons extends StatelessWidget {
         }
 
         if (!context.mounted) return;
-
-        // context
-        //     .read<BankInfoBloc>()
-        //     .add(const BankInfoUpdateEvent(bankInfo: ));
-
         if (res != null && res != false) {
           Navigator.of(context).pop();
 
@@ -91,16 +86,6 @@ class BankInfoSubmitButtons extends StatelessWidget {
                 }
 
                 bankInfoKey.currentState!.save();
-
-                // if (!context.mounted) return;
-
-                // context
-                //     .read<BankInfoBloc>()
-                //     .add( BankInfoUpdateEvent(context: context));
-
-                // Future.delayed(const Duration(seconds: 1)).then((value) async {
-
-                // });
               },
             ),
           ],
@@ -183,69 +168,6 @@ Widget FormData(BankInfo bankInfo, Function save) {
           return v;
         }).toList(),
       );
-
-      //   children: [
-      //     TextFormFieldTemplate(
-      //       label: S.of(ctx).bankName,
-      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
-      //       initialValue: bankInfo0.bankName,
-      //       validators: requiredValidator,
-      //       onSave: (value) =>
-      //           save(bankInfo0 = bankInfo0.copyWith(bankName: value)),
-      //     ),
-      //     SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-      //     TextFormFieldTemplate(
-      //       label: S.of(ctx).accountName,
-      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
-      //       initialValue: bankInfo0.accountName,
-      //       validators: requiredValidator,
-      //       onSave: (value) =>
-      //           save(bankInfo0 = bankInfo0.copyWith(accountName: value)),
-      //     ),
-      //     SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-      //     TextFormFieldTemplate(
-      //       label: S.of(ctx).accountNumber,
-      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
-      //       initialValue: bankInfo0.accountNumber,
-      //       validators: requiredValidator,
-      //       onSave: (value) =>
-      //           save(bankInfo0 = bankInfo0.copyWith(accountNumber: value)),
-      //     ),
-      //     SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-      //     TextFormFieldTemplate(
-      //       label: S.of(ctx).bankCurrency,
-      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
-      //       initialValue: bankInfo0.currency,
-      //       validators: requiredValidator,
-      //       onSave: (value) =>
-      //           save(bankInfo0 = bankInfo0.copyWith(currency: value)),
-      //     ),
-      //     SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-      //     TextFormFieldTemplate(
-      //       label: S.of(ctx).iban,
-      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
-      //       initialValue: bankInfo0.iban,
-      //       onSave: (value) =>
-      //           save(bankInfo0 = bankInfo0.copyWith(iban: value)),
-      //     ),
-      //     SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-      //     TextFormFieldTemplate(
-      //       label: S.of(ctx).swiftCode,
-      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
-      //       initialValue: bankInfo0.swiftCode,
-      //       onSave: (value) =>
-      //           save(bankInfo0 = bankInfo0.copyWith(swiftCode: value)),
-      //     ),
-      //     SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-      //     TextFormFieldTemplate(
-      //       label: S.of(ctx).branchAddress,
-      //       borderStyle: TextFormFieldBorderStyle.borderBottom,
-      //       initialValue: bankInfo0.branchAddress,
-      //       onSave: (value) =>
-      //           save(bankInfo0 = bankInfo0.copyWith(branchAddress: value)),
-      //     ),
-      //   ],
-      // );
     },
   );
 }

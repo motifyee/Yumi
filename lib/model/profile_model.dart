@@ -28,8 +28,19 @@ class Profile {
   final String? eventPhoto2;
   final String? eventPhoto3;
   final String? eventPhoto4;
+  List<String> get eventPhotos => [
+        eventPhoto0,
+        eventPhoto1,
+        eventPhoto2,
+        eventPhoto3,
+        eventPhoto4,
+      ]
+          .where((e) => e != null && e.isNotEmpty)
+          .map((e) => e as String)
+          .toList();
+  get eventPhotosCount => eventPhotos.length;
 
-  //
+//
   final bool accountApproved;
   final bool isHygiene;
 
@@ -150,7 +161,7 @@ class Profile {
       // documents
       hygienePhoto: hygienePhoto ?? this.hygienePhoto,
       riskPhoto: riskPhoto ?? this.riskPhoto,
-      registerationPhoto: regiserationPhoto ?? this.registerationPhoto,
+      registerationPhoto: regiserationPhoto ?? registerationPhoto,
       passportPhoto: passportPhoto ?? this.passportPhoto,
       nidPhoto: nidPhoto ?? this.nidPhoto,
       contractPhoto: contractPhoto ?? this.contractPhoto,
