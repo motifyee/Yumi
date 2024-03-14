@@ -1,31 +1,12 @@
 name: yumi
-description: "A new Flutter project."
+description: 'A new Flutter project.'
 
-
-publish_to: 'none' 
-
-
-
-
-
-
-
-
-
-
-
-
+publish_to: 'none'
 
 version: 1.0.9+1
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
-
-
-
-
-
-
 
 dependencies:
   flutter:
@@ -40,14 +21,11 @@ dependencies:
   shared_preferences: ^2.2.2
   loading_indicator: ^3.1.1
   image_picker: ^1.0.7
-  wakelock_plus: ^1.1.6
+  wakelock_plus: ^1.1.4
   flutter_rating_bar: ^4.0.1
   card_swiper: ^3.0.1
   calendar_date_picker2: ^0.5.5
 
-
-  
-  
   cupertino_icons: ^1.0.2
   dotted_border: ^2.1.0
   google_maps_flutter: ^2.2.8
@@ -55,51 +33,24 @@ dependencies:
   url_launcher: ^6.2.5
   google_sign_in: ^6.2.1
 
+  json_serializable: ^6.7.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   auto_route_generator: ^7.3.2
   build_runner: ^2.4.8
 
-
-  
-  
-  
-  
-  
   flutter_lints: ^3.0.1
 
-
-
-
-
 flutter:
-
-  
-  
-  
   uses-material-design: true
 
-  
   assets:
     - assets/
     - assets/images/
     - assets/images/flow/
 
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-  
-  
-  
   fonts:
     - family: Inter
       fonts:
@@ -109,18 +60,7 @@ flutter:
         - asset: 'fonts/Inter/static/Inter-Bold.ttf'
           weight: 700
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   #
-  
-  
+
 flutter_intl:
   enabled: true
