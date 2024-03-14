@@ -168,8 +168,7 @@ class ChefProfileScreen extends StatelessWidget {
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
                               context: context,
-                              builder: (context) =>
-                                  const CustomerPreOrderForm());
+                              builder: (context) => CustomerPreOrderForm());
                         },
                         child: Row(
                           children: [
