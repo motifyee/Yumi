@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/calener.dart';
 import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/validators/required_validator.dart';
+import 'package:yumi/validators/time_hour_min_input_formatter.dart';
 
 class CustomerPreOrderForm extends StatelessWidget {
-  const CustomerPreOrderForm({super.key});
+  CustomerPreOrderForm({super.key, this.meal});
+
+  static GlobalKey<FormState> preOrderForm = GlobalKey<FormState>();
+
+  MealModel? meal;
 
   @override
   Widget build(BuildContext context) {
@@ -28,155 +38,165 @@ class CustomerPreOrderForm extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       constraints:
           BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .9),
-      child: Container(
-        height: MediaQuery.of(context).size.height * .5,
-        child: Column(
-          children: [
-            Text(S.of(context).preOrder,
-                style: Theme.of(context).textTheme.labelLarge),
-            SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-            Row(
-              children: [
-                Text(
-                  'Hi Ayman',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Text(
-                  '${S.of(context).pleaseSpecifyTheDayTimeOfDelivery}:',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
-            ),
-            SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-            Row(
-              children: [
-                SizedBox(
-                  width: ThemeSelector.statics.defaultGapExtreme,
-                  child: Text(
-                    '${S.of(context).day}:',
-                    style: Theme.of(context).textTheme.bodyLarge,
+      child: Form(
+        key: preOrderForm,
+        child: Container(
+          height: MediaQuery.of(context).size.height * .5,
+          child: Column(
+            children: [
+              Text(S.of(context).preOrder,
+                  style: Theme.of(context).textTheme.labelLarge),
+              SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+              Row(
+                children: [
+                  Text(
+                    'Hi ${context.read<UserBloc>().state.user.userName}',
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
-                ),
-                SizedBox(width: ThemeSelector.statics.defaultMicroGap),
-                SizedBox(
-                  width: ThemeSelector.statics.defaultGapXXXL,
-                  child: TextFormFieldTemplate(
-                    onTap: () {
-                      showDialog(
-                        barrierColor: Colors.transparent,
-                        context: context,
-                        builder: (context) => const Dialog(
-                          insetPadding: EdgeInsets.zero,
-                          backgroundColor: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                          surfaceTintColor: Colors.transparent,
-                          child: Calendar(),
-                        ),
-                      );
-                    },
-                    readOnly: true,
-                    hintText: S.of(context).deliveryDay,
-                    borderStyle: TextFormFieldBorderStyle.borderedRound,
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    '${S.of(context).pleaseSpecifyTheDayTimeOfDelivery}:',
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: ThemeSelector.statics.defaultMicroGap),
-            Row(
-              children: [
-                SizedBox(
-                  width: ThemeSelector.statics.defaultGapExtreme,
-                  child: Text(
-                    '${S.of(context).time}:',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                ],
+              ),
+              SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+              Row(
+                children: [
+                  SizedBox(
+                    width: ThemeSelector.statics.defaultGapExtreme,
+                    child: Text(
+                      '${S.of(context).day}:',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                   ),
-                ),
-                SizedBox(width: ThemeSelector.statics.defaultMicroGap),
-                SizedBox(
-                  width: ThemeSelector.statics.defaultGapXXXL,
-                  child: TextFormFieldTemplate(
-                    hintText: S.of(context).deliveryTime,
-                    textInputType: TextInputType.number,
-                    borderStyle: TextFormFieldBorderStyle.borderedRound,
-                  ),
-                ),
-                SizedBox(width: ThemeSelector.statics.defaultMicroGap),
-                GestureDetector(
-                    child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultMicroGap),
-                  decoration: BoxDecoration(
-                      color: ThemeSelector.colors.primary,
-                      borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.defaultBorderRadiusSmall)),
-                  child: Text(
-                    S.of(context).pm,
-                    style: Theme.of(context).textTheme.displayLarge,
-                  ),
-                )),
-                SizedBox(width: ThemeSelector.statics.defaultMicroGap),
-                GestureDetector(
-                    child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultMicroGap),
-                  decoration: BoxDecoration(
-                      color: ThemeSelector.colors.primary,
-                      borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.defaultBorderRadiusSmall)),
-                  child: Text(
-                    S.of(context).am,
-                    style: Theme.of(context).textTheme.displayLarge,
-                  ),
-                )),
-              ],
-            ),
-            SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: Container(
+                  SizedBox(width: ThemeSelector.statics.defaultMicroGap),
+                  SizedBox(
                     width: ThemeSelector.statics.defaultGapXXXL,
-                    height: ThemeSelector.statics.defaultTitleGapLarge,
+                    child: TextFormFieldTemplate(
+                      onTap: () {
+                        showDialog(
+                          barrierColor: Colors.transparent,
+                          context: context,
+                          builder: (context) => const Dialog(
+                            insetPadding: EdgeInsets.zero,
+                            backgroundColor: Colors.transparent,
+                            shadowColor: Colors.transparent,
+                            surfaceTintColor: Colors.transparent,
+                            child: Calendar(),
+                          ),
+                        );
+                      },
+                      readOnly: true,
+                      hintText: S.of(context).deliveryDay,
+                      borderStyle: TextFormFieldBorderStyle.borderedRound,
+                      validators: requiredValidator,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: ThemeSelector.statics.defaultMicroGap),
+              Row(
+                children: [
+                  SizedBox(
+                    width: ThemeSelector.statics.defaultGapExtreme,
+                    child: Text(
+                      '${S.of(context).time}:',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ),
+                  SizedBox(width: ThemeSelector.statics.defaultMicroGap),
+                  SizedBox(
+                    width: ThemeSelector.statics.defaultGapXXXL,
+                    child: TextFormFieldTemplate(
+                      hintText: S.of(context).deliveryTime,
+                      textInputType: TextInputType.number,
+                      borderStyle: TextFormFieldBorderStyle.borderedRound,
+                      validators: requiredValidator,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(4),
+                        TimeHourMinInputFormatter()
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: ThemeSelector.statics.defaultMicroGap),
+                  GestureDetector(
+                      child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ThemeSelector.statics.defaultMicroGap),
                     decoration: BoxDecoration(
+                        color: ThemeSelector.colors.primary,
+                        borderRadius: BorderRadius.circular(
+                            ThemeSelector.statics.defaultBorderRadiusSmall)),
+                    child: Text(
+                      S.of(context).pm,
+                      style: Theme.of(context).textTheme.displayLarge,
+                    ),
+                  )),
+                  SizedBox(width: ThemeSelector.statics.defaultMicroGap),
+                  GestureDetector(
+                      child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ThemeSelector.statics.defaultMicroGap),
+                    decoration: BoxDecoration(
+                        color: ThemeSelector.colors.primary,
+                        borderRadius: BorderRadius.circular(
+                            ThemeSelector.statics.defaultBorderRadiusSmall)),
+                    child: Text(
+                      S.of(context).am,
+                      style: Theme.of(context).textTheme.displayLarge,
+                    ),
+                  )),
+                ],
+              ),
+              SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      width: ThemeSelector.statics.defaultGapXXXL,
+                      height: ThemeSelector.statics.defaultTitleGapLarge,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                              ThemeSelector.statics.defaultBorderRadius),
+                          border: Border.all(
+                              color: ThemeSelector.colors.primary, width: 1)),
+                      child: Center(
+                        child: Text(
+                          S.of(context).cancel,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: ThemeSelector.statics.defaultGap),
+                  GestureDetector(
+                    child: Container(
+                      width: ThemeSelector.statics.defaultGapXXXL,
+                      height: ThemeSelector.statics.defaultTitleGapLarge,
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(
                             ThemeSelector.statics.defaultBorderRadius),
-                        border: Border.all(
-                            color: ThemeSelector.colors.primary, width: 1)),
-                    child: Center(
-                      child: Text(
-                        S.of(context).cancel,
-                        style: Theme.of(context).textTheme.titleSmall,
+                        color: ThemeSelector.colors.primary,
+                      ),
+                      child: Center(
+                        child: Text(
+                          S.of(context).continue0,
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(width: ThemeSelector.statics.defaultGap),
-                GestureDetector(
-                  child: Container(
-                    width: ThemeSelector.statics.defaultGapXXXL,
-                    height: ThemeSelector.statics.defaultTitleGapLarge,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.defaultBorderRadius),
-                      color: ThemeSelector.colors.primary,
-                    ),
-                    child: Center(
-                      child: Text(
-                        S.of(context).continue0,
-                        style: Theme.of(context).textTheme.displaySmall,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            )
-          ],
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

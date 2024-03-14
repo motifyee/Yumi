@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "about": MessageLookupByLibrary.simpleMessage("About"),
         "accountName": MessageLookupByLibrary.simpleMessage("Account name"),
         "accountNumber": MessageLookupByLibrary.simpleMessage("Account Number"),
+        "add": MessageLookupByLibrary.simpleMessage("Add"),
         "addANote": MessageLookupByLibrary.simpleMessage("Add a note"),
         "addBankAccount":
             MessageLookupByLibrary.simpleMessage("Add bank account"),
@@ -83,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteMeal": MessageLookupByLibrary.simpleMessage("Delete meal"),
         "deliveryDay": MessageLookupByLibrary.simpleMessage("Delivery day"),
         "deliveryFee": MessageLookupByLibrary.simpleMessage("Delivery Fee"),
+        "deliveryIn": MessageLookupByLibrary.simpleMessage("Delivery in"),
         "deliveryTime": MessageLookupByLibrary.simpleMessage("Delivery time"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "disclaimer": MessageLookupByLibrary.simpleMessage("Disclaimer"),
@@ -115,6 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidInput": MessageLookupByLibrary.simpleMessage("Invalid input"),
         "invoice": MessageLookupByLibrary.simpleMessage("Invoice"),
+        "km": MessageLookupByLibrary.simpleMessage("Km"),
         "lastName": MessageLookupByLibrary.simpleMessage("Last name"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
@@ -122,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "maximum25Minutes":
             MessageLookupByLibrary.simpleMessage("Maximum 25 minutes"),
         "mealName": MessageLookupByLibrary.simpleMessage("Meal name"),
+        "meals": MessageLookupByLibrary.simpleMessage("Meals"),
         "measurement": MessageLookupByLibrary.simpleMessage("gm"),
         "menuOrders": MessageLookupByLibrary.simpleMessage("Menu (orders)"),
         "menuPreOrders":
@@ -139,6 +143,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No Access To Dail System!"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "numNumber": MessageLookupByLibrary.simpleMessage("1 number"),
+        "nutritionalValuePer100g":
+            MessageLookupByLibrary.simpleMessage("Nutritional value per 100g"),
         "offers": MessageLookupByLibrary.simpleMessage("Offers"),
         "onTheWay": MessageLookupByLibrary.simpleMessage("On The Way"),
         "onlineChefs": MessageLookupByLibrary.simpleMessage("Online Chefs"),
@@ -190,6 +196,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ready": MessageLookupByLibrary.simpleMessage("Ready"),
         "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
+        "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saveCreditCardDetails":
             MessageLookupByLibrary.simpleMessage("Save credit card details"),
@@ -203,6 +210,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Secure payment with SSL Encryption info"),
         "securityCode": MessageLookupByLibrary.simpleMessage("Security code"),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
+        "shippingFee": MessageLookupByLibrary.simpleMessage("Shipping fee"),
         "signToContinue":
             MessageLookupByLibrary.simpleMessage("Sign to continue"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),

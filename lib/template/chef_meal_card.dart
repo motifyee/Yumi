@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/screens/meal_profile.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
 
@@ -17,7 +16,15 @@ class ChefMealCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.router.push(MealProfileRoute());
+        showBottomSheet(
+            context: context,
+            builder: (context) => MealProfileScreen(
+                  meal: meal,
+                ),
+            backgroundColor: Colors.transparent,
+            constraints:
+                BoxConstraints(minHeight: MediaQuery.of(context).size.height));
+        // context.router.push(MealProfileRoute(meal: meal));
       },
       child: Padding(
         padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
@@ -42,7 +49,7 @@ class ChefMealCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
                         ThemeSelector.statics.defaultMediumGap)),
-                child: meal.photo != null && false
+                child: meal.photo != null
                     ? Image.memory(
                         Uint8List.fromList(base64Decode(meal.photo!)),
                         fit: BoxFit.cover,
