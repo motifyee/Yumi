@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -43,7 +45,7 @@ class EventsPhoto extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               eventPhotosTitle,
-              SizedBox(height: ThemeSelector.statics.defaultGap),
+              SizedBox(height: ThemeSelector.statics.defaultGap * 2),
               Flexible(
                 fit: FlexFit.loose,
                 child: SingleChildScrollView(
@@ -79,18 +81,30 @@ class EventsPhoto extends StatelessWidget {
   }
 
   Card _photoCard(BuildContext ctx, ProfileState state, [String? image]) {
+    var w = 120.0;
+    var h = 200.0;
     return Card(
       elevation: 3,
       child: SizedBox(
-        height: 150,
-        width: 100,
+        // padding: const EdgeInsets.all(5),
+        height: h,
+        width: image != null && image.isNotEmpty ? null : w,
+        // alignment: Alignment.center,
         child: Stack(
           children: [
             if (image != null && image.isNotEmpty) ...[
-              Image.memory(
-                base64Decode(image),
-                height: 150,
-                fit: BoxFit.cover,
+              Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: w * 2),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    child: Image.memory(
+                      base64Decode(image),
+                      height: h,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
               ),
               _deleteButton(ctx, image)
             ] else if (state.status.isLoading)
