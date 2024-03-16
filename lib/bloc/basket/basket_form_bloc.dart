@@ -89,6 +89,27 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
     on<BasketFormCalcEvent>((event, emit) {
       print('Calc started !!!!!!');
       print(state.invoice.toJson());
+
+      InvoiceModel invoice = state.invoice;
+
+      invoice.invoice!.totalPrice = double.parse(invoice.invoiceDetails!
+          .fold(0.0,
+              (p, e) => p + (e.productVarintPrice! * int.parse(e.quantity!)))
+          .toStringAsFixed(2));
+
+      invoice.invoice!.invoicetax = double.parse(
+          (((invoice.invoice!.totalPrice! - invoice.invoice!.invoiceDiscount!) *
+                      .3) *
+                  .25)
+              .toStringAsFixed(2));
+
+      invoice.invoice!.finalprice = double.parse((invoice.invoice!.totalPrice! -
+              invoice.invoice!.invoiceDiscount! +
+              invoice.invoice!.invoicetax! +
+              invoice.invoice!.deliveryAreaPrice!)
+          .toStringAsFixed(2));
+
+      print(invoice.toJson());
       // emit(BasketFormState(invoice: InvoiceModel()));
     });
   }

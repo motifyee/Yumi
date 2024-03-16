@@ -97,15 +97,15 @@ class Invoice {
   Invoice(
       {this.createdBy,
       this.chefID,
-      this.clientNote,
-      this.preparationNotes,
-      this.employeeNote,
-      this.deliveryCostPrice,
-      this.deliveryAreaPrice,
-      this.invoiceDiscount,
-      this.invoicetax,
-      this.finalprice,
-      this.totalPrice,
+      this.clientNote = '',
+      this.preparationNotes = '',
+      this.employeeNote = '',
+      this.deliveryCostPrice = 4.5,
+      this.deliveryAreaPrice = 4.5,
+      this.invoiceDiscount = 0.0,
+      this.invoicetax = 0.0,
+      this.finalprice = 0.0,
+      this.totalPrice = 0.0,
       this.scheduleDate});
 
   Invoice.fromJson(Map<String, dynamic> json) {
