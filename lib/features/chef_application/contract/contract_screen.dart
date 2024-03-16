@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/features/chef_application/documentation/bloc/ui/icon_bloc.dart';
+import 'package:yumi/features/chef_application/documentation/bloc/icon_bloc.dart';
 import 'package:yumi/features/chef_application/documentation/documentation_screen.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -14,8 +14,6 @@ class ContractScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext ctx) {
-    ctx.read<SVGBloc>().add(SVGEvent());
-
     return ScreenContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -62,30 +60,3 @@ class ContractScreen extends StatelessWidget {
     );
   }
 }
-
-// Widget document = Container(
-//   height: 155,
-//   width: 340,
-//   child: Stack(
-//     // fit: StackFit.expand,
-//     children: [
-//       // Icon
-//       // Transform.scale(scale: 1.1, child: bg),
-//       // Text
-//       Column(
-//         children: [
-//           const SizedBox(height: 60),
-//           title,
-//           const SizedBox(height: 5),
-//           desription,
-//         ],
-//       ),
-//       // Button
-//       Positioned(
-//         right: 22,
-//         bottom: 15,
-//         child: Container(child: uploadButton),
-//       )
-//     ],
-//   ),
-// );

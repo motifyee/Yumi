@@ -1,10 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
+import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/profile_model.dart';
+import 'package:yumi/features/settings/profile/model/profile_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
 import 'package:yumi/template/snack_bar.dart';
@@ -77,43 +78,45 @@ class BioForm extends StatelessWidget {
     final profileFormBloc = context.read<ProfileBloc>();
 
     return BlocConsumer<ProfileBloc, ProfileState>(
-      listener: (context, state) => {
-        if (state.status.isSaved)
-          profileFormBloc.add(
-            ProfileUpdateEvent(
-              context: context,
-              profile: state.profile,
-            ),
-          )
+      listener: (context, state) {
+        if (!state.status.isSuccess) return;
+
+        context.router.pop();
+
+        profileFormBloc.add(
+          ProfileLoadedEvent(),
+        );
       },
       builder: (context, state) {
         if (state.status.isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return const SizedBox(
+            height: 80,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
 
         return Form(
           key: formKey,
-          child: TextFormFieldTemplate(
-            borderStyle: TextFormFieldBorderStyle.borderBottom,
-            initialValue: profile.bio,
-            // initialValue: 'XXXXXXXXX',
-            minLines: 3,
-            maxLines: 5,
-            hintText: S.of(context).writeABio,
-            validators: requiredValidator,
-            onSave: (value) {
-              var profile = state.profile;
+          child: SizedBox(
+            height: 80,
+            child: TextFormFieldTemplate(
+              borderStyle: TextFormFieldBorderStyle.borderBottom,
+              initialValue: profile.bio,
+              minLines: 3,
+              maxLines: 5,
+              hintText: S.of(context).writeABio,
+              validators: requiredValidator,
+              onSave: (value) {
+                var profile = state.profile;
 
-              // if (state is ProfileFormInitialState) profile = state.profile;
-              // if (state is ProfileFormUpdatedState) profile = state.profile;
-
-              profileFormBloc.add(
-                ProfileUpdateEvent(
-                    context: context, profile: profile.copyWith(bio: value)),
-              );
-            },
+                profileFormBloc.add(
+                  ProfileUpdateEvent(
+                      context: context, profile: profile.copyWith(bio: value)),
+                );
+              },
+            ),
           ),
         );
       },

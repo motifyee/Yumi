@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
-import 'package:yumi/features/settings/profle/profile_form.dart';
+import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
+import 'package:yumi/features/settings/profile/profile_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
@@ -13,11 +13,13 @@ class UserSettingDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
-
     return BlocSelector<ProfileBloc, ProfileState, ProfileState>(
       selector: (state) => state,
       builder: (context, state) {
+        if (!state.statusSet.hasInit) {
+          context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
+        }
+
         return Padding(
           padding: EdgeInsets.only(
             top: ThemeSelector.statics.defaultTitleGap,
@@ -141,7 +143,7 @@ class UserSettingDetails extends StatelessWidget {
                           ),
                           const Expanded(child: Text('')),
                           Text(
-                            state.profile.country.name,
+                            state.profile.address,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium

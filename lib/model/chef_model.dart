@@ -1,3 +1,5 @@
+import 'package:yumi/model/country_model.dart';
+
 class ChefModel {
   String? guid;
   int? id;
@@ -69,54 +71,35 @@ class ChefModel {
     pickupAllowed = json['pickup_Allowed'];
     pickupOnly = json['pickup_Only'];
     country =
-        json['country'] != null ? new Country.fromJson(json['country']) : null;
+        json['country'] != null ? Country.fromJson(json['country']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['guid'] = this.guid;
-    data['id'] = this.id;
-    data['fullName'] = this.fullName;
-    data['userName'] = this.userName;
-    data['email'] = this.email;
-    data['signupType'] = this.signupType;
-    data['mobile'] = this.mobile;
-    data['registerDate'] = this.registerDate;
-    data['status'] = this.status;
-    data['bio'] = this.bio;
-    data['about'] = this.about;
-    data['address'] = this.address;
-    data['image_Profile'] = this.imageProfile;
-    data['image_Profile_1'] = this.imageProfile1;
-    data['image_Profile_2'] = this.imageProfile2;
-    data['image_Profile_3'] = this.imageProfile3;
-    data['image_Profile_4'] = this.imageProfile4;
-    data['image_Profile_5'] = this.imageProfile5;
-    data['account_Approved'] = this.accountApproved;
-    data['pickup_Allowed'] = this.pickupAllowed;
-    data['pickup_Only'] = this.pickupOnly;
-    if (this.country != null) {
-      data['country'] = this.country!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['guid'] = guid;
+    data['id'] = id;
+    data['fullName'] = fullName;
+    data['userName'] = userName;
+    data['email'] = email;
+    data['signupType'] = signupType;
+    data['mobile'] = mobile;
+    data['registerDate'] = registerDate;
+    data['status'] = status;
+    data['bio'] = bio;
+    data['about'] = about;
+    data['address'] = address;
+    data['image_Profile'] = imageProfile;
+    data['image_Profile_1'] = imageProfile1;
+    data['image_Profile_2'] = imageProfile2;
+    data['image_Profile_3'] = imageProfile3;
+    data['image_Profile_4'] = imageProfile4;
+    data['image_Profile_5'] = imageProfile5;
+    data['account_Approved'] = accountApproved;
+    data['pickup_Allowed'] = pickupAllowed;
+    data['pickup_Only'] = pickupOnly;
+    if (country != null) {
+      data['country'] = country!.toJson();
     }
-    return data;
-  }
-}
-
-class Country {
-  int? id;
-  String? name;
-
-  Country({this.id, this.name});
-
-  Country.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
     return data;
   }
 }

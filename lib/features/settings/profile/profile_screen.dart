@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
+import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/profile_model.dart';
+import 'package:yumi/features/settings/profile/model/profile_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/bio.dart';
 import 'package:yumi/template/event_photo.dart';
@@ -33,7 +33,6 @@ Widget profileImagePicker(BuildContext context, Profile profile, bool loading) {
         title: null,
         size: ThemeSelector.statics.iconSizeExtreme * 1.3,
         onPressed: (image) async {
-          print('\n---> image: \n$image');
           final newProfile = profile.copyWith(profileImage: image);
 
           context.read<ProfileBloc>().add(ProfileLoadingEvent());
@@ -82,10 +81,9 @@ class ProfileScreen extends StatelessWidget {
                 Text(' ',
                     style: TextStyle(color: ThemeSelector.colors.secondary)),
                 SvgPicture.asset('assets/images/star.svg'),
-                Text(' | ',
-                    style: TextStyle(color: ThemeSelector.colors.secondary)),
-                Text(S.of(context).hygiene,
-                    style: TextStyle(color: ThemeSelector.colors.secondary)),
+                if (state.profile.isHygiene)
+                  Text(' | ${S.of(context).hygiene}',
+                      style: TextStyle(color: ThemeSelector.colors.secondary)),
               ],
             ),
             SizedBox(height: ThemeSelector.statics.defaultTitleGap),

@@ -27,12 +27,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   project.set_dart_entrypoint_arguments(std::move(command_line_arguments));
 
   FlutterWindow window(project);
-  Win32Window::Point origin(10, 10);
-  Win32Window::Size size(400, 950);
+  Win32Window::Point origin(GetSystemMetrics(SM_CXSCREEN) - 400, 100);
+  Win32Window::Size size(400, 900);
   if (!window.Create(L"yumi", origin, size))
   {
     return EXIT_FAILURE;
   }
+
+  SetWindowPos(window.GetHandle(), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+
   window.SetQuitOnClose(true);
 
   ::MSG msg;

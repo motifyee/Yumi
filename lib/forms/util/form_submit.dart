@@ -30,7 +30,7 @@ onFormFieldsSaved<T>(
     saveCount++;
 
     if (onFieldsSaved != null) onFieldsSaved(saveCount, obj, fields);
-    formKey.currentState?.fields;
+
     if (saveCount >= controlsCount && onAllFieldsSaved != null) {
       if (onAllSavedCalled) throw Exception('onAllFieldsSaved called twice');
       onAllSavedCalled = true;

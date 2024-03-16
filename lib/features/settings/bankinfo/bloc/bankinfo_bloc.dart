@@ -28,6 +28,7 @@ class BankInfoBloc extends Bloc<BankInfoEvent, BankInfoState> {
   }
 
   _initBankInfo(BankInfoInitEvent event, emit) async {
+    emit(state.copyWith(status: BlocStatus.init));
     emit(state.copyWith(status: BlocStatus.loading));
 
     await BankInfoService.getBankInfo(context: event.context).then((banks) {
@@ -37,9 +38,9 @@ class BankInfoBloc extends Bloc<BankInfoEvent, BankInfoState> {
         arr.add(BankInfo.fromJson(value: banks[i]));
       }
 
-      emit(state.copyWith(banks: arr, status: BlocStatus.loaded));
+      emit(state.copyWith(banks: arr, status: BlocStatus.initSuccess));
     }).catchError(
-      (error) => emit(state.copyWith(status: BlocStatus.error)),
+      (error) => emit(state.copyWith(status: BlocStatus.initSuccess)),
     );
   }
 

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/features/chef_application/bloc.dart';
-import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
+import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/profile_model.dart';
+import 'package:yumi/features/settings/profile/model/profile_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -19,21 +19,21 @@ class ProfileFormSubmitButton extends StatelessWidget {
     super.key,
   });
 
-  // final profileForm = GlobalKey<FormState>().currentState;
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileBloc, ProfileState>(
+    return BlocConsumer<ProfileBloc, ProfileState>(
+      listener: (context, state) => {
+        if (state.status.isSaved)
+          {
+            context.read<ProfileBloc>().add(
+                  ProfileUpdateEvent(
+                    context: context,
+                    profile: state.profile,
+                  ),
+                )
+          }
+      },
       builder: (context, state) {
-        if (state.status.isSaved) {
-          context.read<ProfileBloc>().add(
-                ProfileUpdateEvent(
-                  context: context,
-                  profile: state.profile,
-                ),
-              );
-        }
-
         return TextButton(
           child: Text(S.of(context).save),
           onPressed: () async {
@@ -47,8 +47,6 @@ class ProfileFormSubmitButton extends StatelessWidget {
             profileForm.currentState!.save();
           },
         );
-        //   ],
-        // );
       },
     );
   }
@@ -59,6 +57,7 @@ Widget profileFormFields(
   Function save,
 ) {
   var profile0 = profile;
+
   return BlocBuilder<ProfileBloc, ProfileState>(
     builder: (context, state) => Column(
       children: [
@@ -80,15 +79,15 @@ Widget profileFormFields(
               save(profile0 = profile0.copyWith(userName: value)),
         ),
         SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-        TextFormFieldTemplate(
-          label: S.of(context).email,
-          borderStyle: TextFormFieldBorderStyle.borderBottom,
-          initialValue: profile.email,
-          validators: emailValidator,
-          enabled: false,
-          // onSave: (value) => save(profile0 = profile0.copyWith(email: value)),
-        ),
-        SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
+        // TextFormFieldTemplate(
+        //   label: S.of(context).email,
+        //   borderStyle: TextFormFieldBorderStyle.borderBottom,
+        //   initialValue: profile.email,
+        //   validators: emailValidator,
+        //   enabled: false,
+        //   // onSave: (value) => save(profile0 = profile0.copyWith(email: value)),
+        // ),
+        // SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
         TextFormFieldTemplate(
           label: S.of(context).mobile,
           borderStyle: TextFormFieldBorderStyle.borderBottom,
@@ -114,7 +113,8 @@ Widget profileFormFields(
         // const Divider(height: 0),
         FormField<bool>(
           initialValue: profile.pickup,
-          onSaved: (value) => save(profile0 = profile0.copyWith(pickup: value)),
+          onSaved: (value) =>
+              save(profile0 = profile0.copyWith(pickup: value ?? false)),
           builder: (fieldState) => CheckboxListTile(
             value: fieldState.value,
             onChanged: (bool? value) => fieldState.didChange(value),
@@ -124,7 +124,7 @@ Widget profileFormFields(
         FormField<bool>(
           initialValue: profile.pickupOnly,
           onSaved: (value) =>
-              save(profile0 = profile0.copyWith(pickupOnly: value)),
+              save(profile0 = profile0.copyWith(pickupOnly: value ?? false)),
           builder: (fieldState) => CheckboxListTile(
             value: fieldState.value,
             onChanged: (bool? value) => fieldState.didChange(value),
@@ -193,24 +193,9 @@ class ProfileForm extends StatelessWidget {
                                       ProfileFormSavedEvent(profile),
                                     );
                                   },
-
-                                  // (controlsCount) {
-                                  //   int saveCount = 0;
-                                  //   return (profile0) {
-                                  //     saveCount++;
-                                  //     profile = profile0;
-
-                                  //     if (saveCount >= controlsCount) {
-                                  //       profileFormBloc.add(
-                                  //         ProfileFormSavedEvent(profile),
-                                  //       );
-                                  //     }
-                                  //   };
-                                  // },
                                 ),
                               ),
                         const SizedBox(height: 5),
-                        // FormSubmitButtons()
                       ],
                     ),
                   ),

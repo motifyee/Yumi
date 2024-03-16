@@ -16,6 +16,7 @@ import 'package:yumi/features/chef_application/contract/contract_screen.dart'
     as _i7;
 import 'package:yumi/features/chef_application/documentation/documentation_screen.dart'
     as _i9;
+import 'package:yumi/features/schedule/schedule_screen.dart' as _i16;
 import 'package:yumi/model/chef_model.dart' as _i27;
 import 'package:yumi/model/meal_model.dart' as _i28;
 import 'package:yumi/screens/basket.dart' as _i1;
@@ -30,7 +31,6 @@ import 'package:yumi/screens/home.dart' as _i12;
 import 'package:yumi/screens/login.dart' as _i13;
 import 'package:yumi/screens/meal_profile.dart' as _i14;
 import 'package:yumi/screens/menu_pre.dart' as _i15;
-import 'package:yumi/screens/my_schedule.dart' as _i16;
 import 'package:yumi/screens/notification.dart' as _i17;
 import 'package:yumi/screens/order_status.dart' as _i18;
 import 'package:yumi/screens/payment_paypal.dart' as _i19;

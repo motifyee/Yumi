@@ -31,5 +31,5 @@ class BankInfoState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [banks];
+  List<Object?> get props => [banks, status, bankInfoForm];
 }

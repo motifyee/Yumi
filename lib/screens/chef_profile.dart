@@ -181,7 +181,7 @@ class ChefProfileScreen extends StatelessWidget {
                                   ?.copyWith(
                                       fontSize: ThemeSelector.fonts.font_10),
                             ),
-                            Text(' '),
+                            const Text(' '),
                             Container(
                               width: ThemeSelector.statics.defaultLineGap,
                               height: ThemeSelector.statics.defaultLineGap,
@@ -276,7 +276,7 @@ class ChefProfileScreen extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.all(
                                 ThemeSelector.statics.defaultGap),
-                            child: ReviewCard(),
+                            child: const ReviewCard(),
                           ),
                       ],
                     ),
