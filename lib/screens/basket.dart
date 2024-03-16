@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,8 +14,6 @@ import 'package:yumi/template/payment_summary_card.dart';
 @RoutePage()
 class BasketScreen extends StatelessWidget {
   BasketScreen({super.key});
-
-  bool isInit = false;
 
   void openAddFood(
       {required BuildContext context, required BasketFormState state}) {
@@ -40,12 +36,6 @@ class BasketScreen extends StatelessWidget {
     return BlocConsumer<BasketFormBloc, BasketFormState>(
       listener: (context, state) {},
       builder: (context, state) {
-        if ((state.invoice.invoiceDetails ?? []).isEmpty && isInit == false) {
-          isInit = true;
-          Timer(const Duration(milliseconds: 100), () {
-            openAddFood(context: context, state: state);
-          });
-        }
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,

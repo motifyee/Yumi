@@ -182,5 +182,6 @@
   "nutritionalValuePer100g": "Nutritional value per 100g",
   "reviews": "Reviews",
   "meals": "Meals",
-  "chefMenu": "Chef Menu"
+  "chefMenu": "Chef Menu",
+  "delivery": "Delivery"
 }

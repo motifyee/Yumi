@@ -83,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
         "deleteMeal": MessageLookupByLibrary.simpleMessage("Delete meal"),
+        "delivery": MessageLookupByLibrary.simpleMessage("Delivery"),
         "deliveryDay": MessageLookupByLibrary.simpleMessage("Delivery day"),
         "deliveryFee": MessageLookupByLibrary.simpleMessage("Delivery Fee"),
         "deliveryIn": MessageLookupByLibrary.simpleMessage("Delivery in"),

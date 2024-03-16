@@ -5,6 +5,7 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/screens/payment_paypal.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/delivery_option_dialog.dart';
 import 'package:yumi/template/payment_summary_card.dart';
 import 'package:yumi/template/text_form_field.dart';
 
@@ -265,7 +266,11 @@ class CheckOutScreen extends StatelessWidget {
                               tag: 'ConfirmBasketSeries',
                               child: GestureDetector(
                                 onTap: () {
-                                  context.router.push(OrderStatusRoute());
+                                  // context.router.push(OrderStatusRoute());
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          DeliveryOptionDialog());
                                 },
                                 child: Container(
                                   width: ThemeSelector.statics.defaultGapXXXL *

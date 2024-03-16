@@ -232,6 +232,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                                     .invoice
                                     .copyWith(
                                       isPreorder: true,
+                                      isSchedule: true,
                                       invoice: context
                                           .read<BasketFormBloc>()
                                           .state

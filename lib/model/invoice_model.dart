@@ -14,11 +14,11 @@ class InvoiceModel {
   InvoiceModel(
       {this.invoice,
       this.invoiceDetails,
-      this.bankId,
+      this.bankId = 44,
       this.shippedAddressId,
       this.isSchedule,
-      this.isPickup,
-      this.isDelivery,
+      this.isPickup = false,
+      this.isDelivery = true,
       this.isPreorder});
 
   InvoiceModel.fromJson(Map<String, dynamic> json) {
@@ -47,12 +47,13 @@ class InvoiceModel {
       data['invoiceDetails'] =
           this.invoiceDetails!.map((v) => v.toJson()).toList();
     }
-    data['bankId'] = this.bankId;
-    data['shippedAddressId'] = this.shippedAddressId;
-    data['isSchedule'] = this.isSchedule;
-    data['is_Pickup'] = this.isPickup;
-    data['is_Delivery'] = this.isDelivery;
-    data['is_Preorder'] = this.isPreorder;
+    if (this.bankId != null) data['bankId'] = this.bankId;
+    if (this.shippedAddressId != null)
+      data['shippedAddressId'] = this.shippedAddressId;
+    if (this.isSchedule != null) data['isSchedule'] = this.isSchedule;
+    if (this.isPickup != null) data['is_Pickup'] = this.isPickup;
+    if (this.isDelivery != null) data['is_Delivery'] = this.isDelivery;
+    if (this.isPreorder != null) data['is_Preorder'] = this.isPreorder;
     return data;
   }
 
@@ -178,7 +179,7 @@ class InvoiceDetails {
   int? productVarintId;
   String? quantity;
   double? productVarintPrice;
-  double? discountListId;
+  int? discountListId;
   MealModel? meal;
 
   InvoiceDetails(
@@ -216,7 +217,7 @@ class InvoiceDetails {
     int? productVarintId,
     String? quantity,
     double? productVarintPrice,
-    double? discountListId,
+    int? discountListId,
   }) {
     return InvoiceDetails(
       discountListId: discountListId ?? this.discountListId,

@@ -1,8 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:yumi/extensions/date_time_extension.dart';
 import 'package:yumi/model/invoice_model.dart';
+import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/service/oreder_service.dart';
 
 part 'basket_form_event.dart';
 part 'basket_form_state.dart';
@@ -87,9 +91,6 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
     });
 
     on<BasketFormCalcEvent>((event, emit) {
-      print('Calc started !!!!!!');
-      print(state.invoice.toJson());
-
       InvoiceModel invoice = state.invoice;
 
       invoice.invoice!.totalPrice = double.parse(invoice.invoiceDetails!
@@ -109,8 +110,21 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
               invoice.invoice!.deliveryAreaPrice!)
           .toStringAsFixed(2));
 
-      print(invoice.toJson());
-      // emit(BasketFormState(invoice: InvoiceModel()));
+      emit(state.copyWith(invoice: invoice));
+    });
+
+    on<BasketFormPostRequestEvent>((event, emit) async {
+      late Response res;
+      if (state.invoice.isDelivery == true &&
+          state.invoice.isPreorder == true) {
+        res = await OrderService.createPreOrderDelivery(
+            context: event.context, invoice: state.invoice);
+      }
+
+      if (res.statusCode == 200) {
+        add(BasketFormResetEvent());
+        event.context.router.replaceAll([HomeRoute()]);
+      }
     });
   }
 }

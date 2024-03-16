@@ -41,3 +41,9 @@ class BasketFormRemoveMealEvent implements BasketFormEvent {
 class BasketFormCalcEvent implements BasketFormEvent {}
 
 class BasketFormResetEvent implements BasketFormEvent {}
+
+class BasketFormPostRequestEvent implements BasketFormEvent {
+  BuildContext context;
+
+  BasketFormPostRequestEvent({required this.context});
+}

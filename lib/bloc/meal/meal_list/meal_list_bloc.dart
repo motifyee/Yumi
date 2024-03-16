@@ -21,9 +21,11 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
     on<MealListUpdateEvent>((event, emit) async {
       if (state.paginationHelper.pageNumber < state.paginationHelper.lastPage &&
           !state.paginationHelper.isLoading) {
-        emit(state.copyWith(
-            paginationHelper:
-                state.paginationHelper.copyWith(isLoading: true)));
+        emit(
+          state.copyWith(
+              paginationHelper:
+                  state.paginationHelper.copyWith(isLoading: true)),
+        );
 
         late dynamic res = [];
         List<MealModel> data = [];
