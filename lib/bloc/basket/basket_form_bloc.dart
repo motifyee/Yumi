@@ -88,6 +88,7 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
 
     on<BasketFormCalcEvent>((event, emit) {
       print('Calc started !!!!!!');
+      print(state.invoice.toJson());
       // emit(BasketFormState(invoice: InvoiceModel()));
     });
   }

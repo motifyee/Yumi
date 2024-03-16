@@ -1,11 +1,14 @@
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/invoice_model.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/chef_meal_basket_card.dart';
@@ -106,8 +109,31 @@ class ChefMealsScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             for (var meal in state.meals)
-                              ChefMealBasketCard(
-                                meal: meal,
+                              BlocConsumer<BasketFormBloc, BasketFormState>(
+                                listener: (context, state) {},
+                                builder: (context, state) {
+                                  return ChefMealBasketCard(
+                                    meal: meal,
+                                    isDisabled: context
+                                            .read<BasketFormBloc>()
+                                            .state
+                                            .invoice
+                                            .invoiceDetails!
+                                            .firstWhereOrNull((e) =>
+                                                e.productVarintId ==
+                                                meal.productVariantID) !=
+                                        null,
+                                    onTap: () {
+                                      context.read<BasketFormBloc>().add(
+                                            BasketFormAddMealEvent(
+                                              invoiceDetails:
+                                                  InvoiceDetails.fromMeal(
+                                                      meal: meal),
+                                            ),
+                                          );
+                                    },
+                                  );
+                                },
                               ),
                           ],
                         ),

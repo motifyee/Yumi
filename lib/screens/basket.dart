@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,13 +15,37 @@ import 'package:yumi/template/payment_summary_card.dart';
 
 @RoutePage()
 class BasketScreen extends StatelessWidget {
-  const BasketScreen({super.key});
+  BasketScreen({super.key});
+
+  bool isInit = false;
+
+  void openAddFood(
+      {required BuildContext context, required BasketFormState state}) {
+    context.read<MealListBloc>().add(MealListResetEvent());
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => ChefMealsScreen(
+        menuTarget: state.invoice.isPreorder == true
+            ? MenuTarget.preOrder
+            : MenuTarget.order,
+        chefId: state.invoice.invoice?.chefID ?? '',
+      ),
+      scrollControlDisabledMaxHeightRatio: .9,
+      backgroundColor: Colors.transparent,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BasketFormBloc, BasketFormState>(
       listener: (context, state) {},
       builder: (context, state) {
+        if ((state.invoice.invoiceDetails ?? []).isEmpty && isInit == false) {
+          isInit = true;
+          Timer(const Duration(milliseconds: 100), () {
+            openAddFood(context: context, state: state);
+          });
+        }
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -81,20 +107,7 @@ class BasketScreen extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              context
-                                  .read<MealListBloc>()
-                                  .add(MealListResetEvent());
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) => ChefMealsScreen(
-                                  menuTarget: state.invoice.isPreorder == true
-                                      ? MenuTarget.preOrder
-                                      : MenuTarget.order,
-                                  chefId: state.invoice.invoice?.chefID ?? '',
-                                ),
-                                scrollControlDisabledMaxHeightRatio: .9,
-                                backgroundColor: Colors.transparent,
-                              );
+                              openAddFood(context: context, state: state);
                             },
                             child: Container(
                               width: ThemeSelector.statics.defaultGapXXXL,

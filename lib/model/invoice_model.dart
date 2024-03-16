@@ -127,7 +127,7 @@ class Invoice {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['createdBy'] = this.createdBy;
+    // data['createdBy'] = this.createdBy;
     data['chef_ID'] = this.chefID;
     data['clientNote'] = this.clientNote;
     data['preparationNotes'] = this.preparationNotes;
@@ -187,6 +187,14 @@ class InvoiceDetails {
       this.productVarintPrice,
       this.meal,
       this.discountListId = 1205});
+
+  InvoiceDetails.fromMeal({required MealModel meal}) {
+    productVarintId = meal.productVariantID;
+    quantity = "1";
+    productVarintPrice = double.tryParse(meal.price1 ?? '');
+    discountListId = 1205;
+    this.meal = meal;
+  }
 
   InvoiceDetails.fromJson(Map<String, dynamic> json) {
     productVarintId = json['productVarintId'];

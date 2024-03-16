@@ -15,11 +15,12 @@ import 'package:yumi/validators/required_validator.dart';
 import 'package:yumi/validators/time_hour_min_input_formatter.dart';
 
 class CustomerPreOrderForm extends StatelessWidget {
-  CustomerPreOrderForm({super.key, this.meal});
+  CustomerPreOrderForm({super.key, this.meal, required this.chefId});
 
   static GlobalKey<FormState> preOrderForm = GlobalKey<FormState>();
 
   MealModel? meal;
+  String chefId;
 
   @override
   Widget build(BuildContext context) {
@@ -222,26 +223,26 @@ class CustomerPreOrderForm extends StatelessWidget {
                                   ),
                                 ),
                               );
-                          context.read<BasketFormBloc>().add(
-                                BasketFormUpdateEvent(
-                                  invoice: context
-                                      .read<BasketFormBloc>()
-                                      .state
-                                      .invoice
-                                      .copyWith(
-                                        isPreorder: true,
-                                        invoice: context
-                                            .read<BasketFormBloc>()
-                                            .state
-                                            .invoice
-                                            .invoice
-                                            ?.copyWith(
-                                              chefID: meal?.chefId,
-                                            ),
-                                      ),
-                                ),
-                              );
                         }
+                        context.read<BasketFormBloc>().add(
+                              BasketFormUpdateEvent(
+                                invoice: context
+                                    .read<BasketFormBloc>()
+                                    .state
+                                    .invoice
+                                    .copyWith(
+                                      isPreorder: true,
+                                      invoice: context
+                                          .read<BasketFormBloc>()
+                                          .state
+                                          .invoice
+                                          .invoice
+                                          ?.copyWith(
+                                            chefID: chefId,
+                                          ),
+                                    ),
+                              ),
+                            );
                         context.router.replaceAll([BasketRoute()]);
                       }
                     },

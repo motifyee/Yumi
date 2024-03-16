@@ -48,7 +48,7 @@ abstract class $AppRouter extends _i25.RootStackRouter {
     BasketRoute.name: (routeData) {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i1.BasketScreen(),
+        child: _i1.BasketScreen(),
       );
     },
     CaloriesReferenceRoute.name: (routeData) {

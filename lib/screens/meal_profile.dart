@@ -212,7 +212,10 @@ class MealProfileScreen extends StatelessWidget {
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,
                     context: context,
-                    builder: (context) => CustomerPreOrderForm(meal: meal),
+                    builder: (context) => CustomerPreOrderForm(
+                      meal: meal,
+                      chefId: meal.chefId ?? '',
+                    ),
                   );
                 },
                 child: Container(
