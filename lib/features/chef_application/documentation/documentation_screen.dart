@@ -12,7 +12,7 @@ import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/extensions/color.dart';
 import 'package:yumi/features/chef_application/application_flow_screen.dart';
 import 'package:yumi/features/chef_application/documentation/bloc/documentation_bloc.dart';
-import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
+import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/screen_container.dart';
 

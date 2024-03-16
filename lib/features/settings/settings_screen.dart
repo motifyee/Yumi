@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/features/settings/bankinfo/bloc/bankinfo_bloc.dart';
-import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
-import 'package:yumi/features/settings/profle/profile_card.dart';
+import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
+import 'package:yumi/features/settings/profile/profile_card.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/features/settings/bankinfo/bank_settings_card.dart';

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/model/profile_model.dart';
+import 'package:yumi/features/settings/profile/model/profile_model.dart';
 
 part 'documentation_events.dart';
 part 'documentation_state.dart';
@@ -38,7 +38,7 @@ class DocsBloc extends Bloc<DocsEvents, DocsState> {
 
 // Registeration
     on<UploadRegisterationEvent>((event, emit) => emit(state.copyWith(
-        profile: state.profile.copyWith(regiserationPhoto: event.data),
+        profile: state.profile.copyWith(registerationPhoto: event.data),
         registerationStatus: BlocStatus.loading)));
     on<UploadRegisterationSuccessEvent>((event, emit) =>
         emit(state.copyWith(registerationStatus: BlocStatus.success)));

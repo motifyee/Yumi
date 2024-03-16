@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
+import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/features/settings/profle/profile_form.dart';
+import 'package:yumi/features/settings/profile/profile_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/capitalize_string.dart';

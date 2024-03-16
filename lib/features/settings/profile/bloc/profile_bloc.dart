@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/profile_model.dart';
-import 'package:yumi/features/settings/profle/profile_service.dart';
+import 'package:yumi/features/settings/profile/model/profile_model.dart';
+import 'package:yumi/features/settings/profile/profile_service.dart';
 import 'package:yumi/template/snack_bar.dart';
 
 part 'profile_event.dart';
@@ -92,7 +92,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
         emit(
           state.copyWith(
-            profile: Profile.fromJson(value: value).copyWith(
+            profile: Profile.fromJson(value).copyWith(
               updatedBy: '366',
               email: event.context.read<UserBloc>().state.user.email,
             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app_target.dart';
-import 'package:yumi/features/settings/profle/profile_screen.dart';
+import 'package:yumi/features/settings/profile/profile_screen.dart';
 import 'package:yumi/features/settings/settings_screen.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/screens/customer_menu_pre.dart';

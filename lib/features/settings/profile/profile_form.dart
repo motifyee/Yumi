@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/features/chef_application/bloc.dart';
-import 'package:yumi/features/settings/profle/bloc/profile_bloc.dart';
+import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/profile_model.dart';
+import 'package:yumi/features/settings/profile/model/profile_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -87,7 +87,7 @@ Widget profileFormFields(
         //   enabled: false,
         //   // onSave: (value) => save(profile0 = profile0.copyWith(email: value)),
         // ),
-        SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
+        // SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
         TextFormFieldTemplate(
           label: S.of(context).mobile,
           borderStyle: TextFormFieldBorderStyle.borderBottom,
@@ -113,7 +113,8 @@ Widget profileFormFields(
         // const Divider(height: 0),
         FormField<bool>(
           initialValue: profile.pickup,
-          onSaved: (value) => save(profile0 = profile0.copyWith(pickup: value)),
+          onSaved: (value) =>
+              save(profile0 = profile0.copyWith(pickup: value ?? false)),
           builder: (fieldState) => CheckboxListTile(
             value: fieldState.value,
             onChanged: (bool? value) => fieldState.didChange(value),
@@ -123,7 +124,7 @@ Widget profileFormFields(
         FormField<bool>(
           initialValue: profile.pickupOnly,
           onSaved: (value) =>
-              save(profile0 = profile0.copyWith(pickupOnly: value)),
+              save(profile0 = profile0.copyWith(pickupOnly: value ?? false)),
           builder: (fieldState) => CheckboxListTile(
             value: fieldState.value,
             onChanged: (bool? value) => fieldState.didChange(value),
