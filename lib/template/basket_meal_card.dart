@@ -1,11 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/invoice_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
 import 'package:yumi/template/text_form_field.dart';
 
 class BasketMealCard extends StatelessWidget {
-  const BasketMealCard({super.key});
+  BasketMealCard(
+      {super.key, required this.invoiceDetails, required this.indexInList});
+
+  final InvoiceDetails invoiceDetails;
+  final int indexInList;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +45,7 @@ class BasketMealCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Pumpkin Soup',
+                          invoiceDetails.meal?.name ?? '',
                           style:
                               Theme.of(context).textTheme.labelLarge?.copyWith(
                                     fontSize: ThemeSelector.fonts.font_18,
@@ -47,7 +57,7 @@ class BasketMealCard extends StatelessWidget {
                             SizedBox(
                               width: ThemeSelector.statics.defaultGapExtreme,
                               child: TextCurrency(
-                                value: 0.65,
+                                value: invoiceDetails.productVarintPrice ?? 0,
                                 fontSize: ThemeSelector.fonts.font_14,
                               ),
                             ),
@@ -58,7 +68,24 @@ class BasketMealCard extends StatelessWidget {
                                   tapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (invoiceDetails.quantity == "1") {
+                                    context
+                                        .read<BasketFormBloc>()
+                                        .add(BasketFormRemoveMealEvent(
+                                          invoiceDetails: invoiceDetails,
+                                        ));
+                                  } else {
+                                    context
+                                        .read<BasketFormBloc>()
+                                        .add(BasketFormUpdateMealEvent(
+                                          invoiceDetails: invoiceDetails,
+                                          indexInList: indexInList,
+                                          newQuantity:
+                                              '${int.parse(invoiceDetails.quantity!) - 1}',
+                                        ));
+                                  }
+                                },
                                 child: Text(
                                   '-',
                                   style: Theme.of(context)
@@ -72,9 +99,22 @@ class BasketMealCard extends StatelessWidget {
                                 isDense: true,
                                 borderStyle:
                                     TextFormFieldBorderStyle.borderNone,
-                                initialValue: 1,
+                                initialValue: invoiceDetails.quantity,
                                 textInputType: TextInputType.number,
                                 textAlign: TextAlign.center,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'^[1-9][0-9]*'))
+                                ],
+                                onChange: (value) {
+                                  context
+                                      .read<BasketFormBloc>()
+                                      .add(BasketFormUpdateMealEvent(
+                                        invoiceDetails: invoiceDetails,
+                                        indexInList: indexInList,
+                                        newQuantity: value,
+                                      ));
+                                },
                               ),
                             ),
                             TextButton(
@@ -84,7 +124,16 @@ class BasketMealCard extends StatelessWidget {
                                   tapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  context
+                                      .read<BasketFormBloc>()
+                                      .add(BasketFormUpdateMealEvent(
+                                        invoiceDetails: invoiceDetails,
+                                        indexInList: indexInList,
+                                        newQuantity:
+                                            '${int.parse(invoiceDetails.quantity!) + 1}',
+                                      ));
+                                },
                                 child: Text(
                                   '+',
                                   style: Theme.of(context)
@@ -105,10 +154,15 @@ class BasketMealCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(
                           ThemeSelector.statics.defaultBorderRadius),
                     ),
-                    child: Image.asset(
-                      'assets/images/354.jpeg',
-                      fit: BoxFit.cover,
-                    ),
+                    child: invoiceDetails.meal?.photo != null
+                        ? Image.memory(
+                            base64Decode(invoiceDetails.meal!.photo!),
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            'assets/images/354.jpeg',
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ],
               ),

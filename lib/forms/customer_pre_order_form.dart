@@ -1,11 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/invoice_model.dart';
 import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/calener.dart';
+import 'package:yumi/template/calendar.dart';
 import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/validators/required_validator.dart';
 import 'package:yumi/validators/time_hour_min_input_formatter.dart';
@@ -74,27 +78,47 @@ class CustomerPreOrderForm extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: ThemeSelector.statics.defaultMicroGap),
-                  SizedBox(
-                    width: ThemeSelector.statics.defaultGapXXXL,
-                    child: TextFormFieldTemplate(
-                      onTap: () {
-                        showDialog(
-                          barrierColor: Colors.transparent,
-                          context: context,
-                          builder: (context) => const Dialog(
-                            insetPadding: EdgeInsets.zero,
-                            backgroundColor: Colors.transparent,
-                            shadowColor: Colors.transparent,
-                            surfaceTintColor: Colors.transparent,
-                            child: Calendar(),
-                          ),
-                        );
-                      },
-                      readOnly: true,
-                      hintText: S.of(context).deliveryDay,
-                      borderStyle: TextFormFieldBorderStyle.borderedRound,
-                      validators: requiredValidator,
-                    ),
+                  BlocConsumer<BasketFormBloc, BasketFormState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      print(state.invoice.toJson());
+                      return SizedBox(
+                        width: ThemeSelector.statics.defaultGapXXXL,
+                        child: TextFormFieldTemplate(
+                          onTap: () {
+                            showDialog(
+                              barrierColor: Colors.transparent,
+                              context: context,
+                              builder: (context) => Dialog(
+                                insetPadding: EdgeInsets.zero,
+                                backgroundColor: Colors.transparent,
+                                shadowColor: Colors.transparent,
+                                surfaceTintColor: Colors.transparent,
+                                child: Calendar(
+                                  onValueChanged: (value) {
+                                    if (value.length > 0) {
+                                      context.read<BasketFormBloc>().add(
+                                            BasketFormUpdateScheduleEvent(
+                                                date: value[0]),
+                                          );
+                                      context.router.pop();
+                                    }
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                          initialValue: state.invoice.invoice?.scheduleDate !=
+                                  null
+                              ? '${state.invoice.invoice!.scheduleDate!.day}/${state.invoice.invoice!.scheduleDate!.month}/${state.invoice.invoice!.scheduleDate!.year}'
+                              : '',
+                          readOnly: true,
+                          hintText: S.of(context).deliveryDay,
+                          borderStyle: TextFormFieldBorderStyle.borderedRound,
+                          validators: requiredValidator,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -116,6 +140,11 @@ class CustomerPreOrderForm extends StatelessWidget {
                       textInputType: TextInputType.number,
                       borderStyle: TextFormFieldBorderStyle.borderedRound,
                       validators: requiredValidator,
+                      onSave: (value) {
+                        context.read<BasketFormBloc>().add(
+                              BasketFormUpdateScheduleEvent(time: value),
+                            );
+                      },
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                         LengthLimitingTextInputFormatter(4),
@@ -177,6 +206,45 @@ class CustomerPreOrderForm extends StatelessWidget {
                   ),
                   SizedBox(width: ThemeSelector.statics.defaultGap),
                   GestureDetector(
+                    onTap: () {
+                      if (preOrderForm.currentState!.validate()) {
+                        preOrderForm.currentState!.save();
+                        context.router.pop();
+                        if (meal != null) {
+                          context.read<BasketFormBloc>().add(
+                                BasketFormAddMealEvent(
+                                  invoiceDetails: InvoiceDetails(
+                                    productVarintPrice:
+                                        double.parse(meal?.price1 ?? "0"),
+                                    quantity: "1",
+                                    productVarintId: meal?.productVariantID,
+                                    meal: meal,
+                                  ),
+                                ),
+                              );
+                          context.read<BasketFormBloc>().add(
+                                BasketFormUpdateEvent(
+                                  invoice: context
+                                      .read<BasketFormBloc>()
+                                      .state
+                                      .invoice
+                                      .copyWith(
+                                        isPreorder: true,
+                                        invoice: context
+                                            .read<BasketFormBloc>()
+                                            .state
+                                            .invoice
+                                            .invoice
+                                            ?.copyWith(
+                                              chefID: meal?.chefId,
+                                            ),
+                                      ),
+                                ),
+                              );
+                        }
+                        context.router.replaceAll([BasketRoute()]);
+                      }
+                    },
                     child: Container(
                       width: ThemeSelector.statics.defaultGapXXXL,
                       height: ThemeSelector.statics.defaultTitleGapLarge,

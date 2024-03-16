@@ -3,10 +3,10 @@ import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/forms/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/statics/capitalize_string.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
 
@@ -18,7 +18,6 @@ class MealProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(meal.toJson());
     return Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(color: ThemeSelector.colors.background),

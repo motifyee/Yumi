@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/features/chef_application/application_flow_screen.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/login_model.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -22,6 +21,7 @@ class LoginForm extends StatelessWidget {
 
   final LoginModel loginForm = LoginModel(email: '', password: '');
   final GlobalKey<FormState> loginFormKey;
+  static bool loginAttempted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,10 @@ class LoginForm extends StatelessWidget {
       }
     }
 
-    skipLogin();
+    if (loginAttempted == false) {
+      loginAttempted = true;
+      skipLogin();
+    }
 
     return Form(
       key: loginFormKey,

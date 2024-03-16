@@ -24,7 +24,6 @@ class ChefProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(chef.toJson());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

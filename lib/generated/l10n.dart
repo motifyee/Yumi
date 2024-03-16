@@ -1879,6 +1879,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Chef Menu`
+  String get chefMenu {
+    return Intl.message(
+      'Chef Menu',
+      name: 'chefMenu',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

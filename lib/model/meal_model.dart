@@ -1,5 +1,7 @@
 class MealModel {
   int? id;
+  int? productVariantID;
+  String? chefId;
   String? code;
   String? name;
   String? photo;
@@ -12,22 +14,27 @@ class MealModel {
   List<int>? categoriesids;
   List<IngredientsModel>? ingredients;
 
-  MealModel(
-      {this.id,
-      this.code,
-      this.name,
-      this.photo,
-      this.price1,
-      this.caloriesValue,
-      this.preparationTime,
-      this.isOrder,
-      this.isPreOrder,
-      this.portionPersons,
-      this.categoriesids,
-      this.ingredients});
+  MealModel({
+    this.id,
+    this.productVariantID,
+    this.chefId,
+    this.code,
+    this.name,
+    this.photo,
+    this.price1,
+    this.caloriesValue,
+    this.preparationTime,
+    this.isOrder,
+    this.isPreOrder,
+    this.portionPersons,
+    this.categoriesids,
+    this.ingredients,
+  });
 
   MealModel copyWith({
     int? id,
+    int? productVariantID,
+    String? chefId,
     String? code,
     String? name,
     String? photo,
@@ -42,6 +49,8 @@ class MealModel {
   }) {
     return MealModel(
       id: id ?? this.id,
+      productVariantID: productVariantID ?? this.productVariantID,
+      chefId: chefId ?? this.chefId,
       code: code ?? this.code,
       name: name ?? this.name,
       photo: photo ?? this.photo,
@@ -58,6 +67,8 @@ class MealModel {
 
   MealModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    productVariantID = json['productVariantID'];
+    chefId = json['chefId'];
     code = json['code'];
     name = json['name'];
     photo = json['photo'];
@@ -80,7 +91,9 @@ class MealModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (showID == true) {
       data['id'] = this.id;
+      data['productVariantID'] = this.productVariantID;
     }
+    data['chefId'] = this.chefId;
     data['code'] = this.code;
     data['name'] = this.name;
     data['photo'] = this.photo;
