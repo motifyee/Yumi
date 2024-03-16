@@ -97,15 +97,15 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
               (p, e) => p + (e.productVarintPrice! * int.parse(e.quantity!)))
           .toStringAsFixed(2));
 
-      invoice.invoice!.invoicetax = double.parse(
+      invoice.invoice!.invoiceTax = double.parse(
           (((invoice.invoice!.totalPrice! - invoice.invoice!.invoiceDiscount!) *
                       .3) *
                   .25)
               .toStringAsFixed(2));
 
-      invoice.invoice!.finalprice = double.parse((invoice.invoice!.totalPrice! -
+      invoice.invoice!.finalPrice = double.parse((invoice.invoice!.totalPrice! -
               invoice.invoice!.invoiceDiscount! +
-              invoice.invoice!.invoicetax! +
+              invoice.invoice!.invoiceTax! +
               invoice.invoice!.deliveryAreaPrice!)
           .toStringAsFixed(2));
 

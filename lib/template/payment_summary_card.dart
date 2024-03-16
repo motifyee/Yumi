@@ -40,7 +40,7 @@ class PaymentSummaryCard extends StatelessWidget {
                     TextCurrency(
                       value: state.invoice.invoice!.totalPrice! -
                           state.invoice.invoice!.invoiceDiscount! +
-                          state.invoice.invoice!.invoicetax!,
+                          state.invoice.invoice!.invoiceTax!,
                       fontSize: ThemeSelector.fonts.font_12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -68,7 +68,7 @@ class PaymentSummaryCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     TextCurrency(
-                      value: state.invoice.invoice?.finalprice ?? 0.0,
+                      value: state.invoice.invoice?.finalPrice ?? 0.0,
                       fontSize: ThemeSelector.fonts.font_14,
                       fontWeight: FontWeight.w700,
                     ),

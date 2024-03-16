@@ -88,8 +88,8 @@ class Invoice {
   double? deliveryCostPrice;
   double? deliveryAreaPrice;
   double? invoiceDiscount;
-  double? invoicetax;
-  double? finalprice;
+  double? invoiceTax;
+  double? finalPrice;
   double? totalPrice;
   DateTime? scheduleDate;
   String invoiceCode = CodeGenerator.getRandomCode(codeLength: 15);
@@ -103,8 +103,8 @@ class Invoice {
       this.deliveryCostPrice = 4.5,
       this.deliveryAreaPrice = 4.5,
       this.invoiceDiscount = 0.0,
-      this.invoicetax = 0.0,
-      this.finalprice = 0.0,
+      this.invoiceTax = 0.0,
+      this.finalPrice = 0.0,
       this.totalPrice = 0.0,
       this.scheduleDate});
 
@@ -117,8 +117,8 @@ class Invoice {
     deliveryCostPrice = json['deliveryCostPrice'];
     deliveryAreaPrice = json['deliveryAreaPrice'];
     invoiceDiscount = json['invoiceDiscount'];
-    invoicetax = json['invoicetax'];
-    finalprice = json['finalprice'];
+    invoiceTax = json['invoicetax'];
+    finalPrice = json['finalprice'];
     totalPrice = json['totalPrice'];
     scheduleDate =
         json['scheduleDate'] ? DateTime.parse(json['scheduleDate']) : null;
@@ -135,8 +135,8 @@ class Invoice {
     data['deliveryCostPrice'] = this.deliveryCostPrice;
     data['deliveryAreaPrice'] = this.deliveryAreaPrice;
     data['invoiceDiscount'] = this.invoiceDiscount;
-    data['invoicetax'] = this.invoicetax;
-    data['finalprice'] = this.finalprice;
+    data['invoicetax'] = this.invoiceTax;
+    data['finalprice'] = this.finalPrice;
     data['totalPrice'] = this.totalPrice;
     data['scheduleDate'] = this.scheduleDate?.toIso8601String();
     data['invoiceCode'] = this.invoiceCode;
@@ -152,8 +152,8 @@ class Invoice {
     double? deliveryCostPrice,
     double? deliveryAreaPrice,
     double? invoiceDiscount,
-    double? invoicetax,
-    double? finalprice,
+    double? invoiceTax,
+    double? finalPrice,
     double? totalPrice,
     DateTime? scheduleDate,
   }) {
@@ -164,9 +164,9 @@ class Invoice {
       deliveryAreaPrice: deliveryAreaPrice ?? this.deliveryAreaPrice,
       deliveryCostPrice: deliveryCostPrice ?? this.deliveryCostPrice,
       employeeNote: employeeNote ?? this.employeeNote,
-      finalprice: finalprice ?? this.finalprice,
+      finalPrice: finalPrice ?? this.finalPrice,
       invoiceDiscount: invoiceDiscount ?? this.invoiceDiscount,
-      invoicetax: invoicetax ?? this.invoicetax,
+      invoiceTax: invoiceTax ?? this.invoiceTax,
       preparationNotes: preparationNotes ?? this.preparationNotes,
       totalPrice: totalPrice ?? this.totalPrice,
       scheduleDate: scheduleDate ?? this.scheduleDate,
