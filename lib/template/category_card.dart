@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:yumi/model/categories_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class CategoriesCard extends StatelessWidget {
   const CategoriesCard({super.key, required this.category});
 
-  final category;
+  final CategoriesModel category;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +38,13 @@ class CategoriesCard extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(
                       ThemeSelector.statics.defaultBlockGap)),
-              child: Image.asset(
-                'assets/images/354.jpeg',
+              child: Image.memory(
+                base64Decode(category.image ?? ''),
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Image.asset(
+                  'assets/images/354.jpeg',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Container(
@@ -52,7 +59,7 @@ class CategoriesCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    'Shrimp Zucchini Pasta ',
+                    category.name ?? '',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
                           fontSize: ThemeSelector.fonts.font_9,

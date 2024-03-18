@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:auto_route/annotations.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/forms/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -22,8 +25,18 @@ class ChefProfileScreen extends StatelessWidget {
   final ChefModel chef;
   MenuTarget menuTarget;
 
+  late List<String> eventPhotos;
+
   @override
   Widget build(BuildContext context) {
+    context.read<CategoriesBloc>().add(ResetCategoryEvent());
+    eventPhotos = [
+      chef.imageProfile1 ?? '',
+      chef.imageProfile2 ?? '',
+      chef.imageProfile3 ?? '',
+      chef.imageProfile4 ?? '',
+      chef.imageProfile5 ?? '',
+    ]..removeWhere((e) => e.isEmpty);
     return DraggableScrollableSheet(
       expand: false,
       initialChildSize: 1,
@@ -84,23 +97,41 @@ class ChefProfileScreen extends StatelessWidget {
                     ),
                     SizedBox(
                       height: ThemeSelector.statics.defaultImageHeight,
-                      child: Swiper(
-                        itemCount: 5,
-                        autoplay: true,
-                        viewportFraction: 0.8,
-                        layout: SwiperLayout.STACK,
-                        itemWidth: MediaQuery.of(context).size.width * .8,
-                        itemBuilder: (context, index) => Container(
-                          clipBehavior: Clip.hardEdge,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(ThemeSelector
-                                  .statics.defaultBorderRadiusExtraLarge)),
-                          child: Image.asset(
-                            'assets/images/354.jpeg',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
+                      child: eventPhotos.isEmpty
+                          ? Center(
+                              child: Text(
+                                S.of(context).empty,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(
+                                        color: ThemeSelector
+                                            .colors.secondaryFaint),
+                              ),
+                            )
+                          : Swiper(
+                              itemCount: eventPhotos.length,
+                              autoplay: true,
+                              viewportFraction: 0.8,
+                              layout: SwiperLayout.STACK,
+                              itemWidth: MediaQuery.of(context).size.width * .8,
+                              itemBuilder: (context, index) => Container(
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        ThemeSelector.statics
+                                            .defaultBorderRadiusExtraLarge)),
+                                child: Image.memory(
+                                  base64Decode(eventPhotos[index]),
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      Image.asset(
+                                    'assets/images/354.jpeg',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
                     ),
                     SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                     Row(
@@ -162,22 +193,40 @@ class ChefProfileScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: Row(
-                            children: [
-                              for (var category in [0, 1, 2])
-                                CategoriesCard(category: category),
-                            ],
+                          child: PaginationTemplate(
+                            scrollDirection: Axis.horizontal,
+                            loadDate: () {
+                              context.read<CategoriesBloc>().add(
+                                  GetCategoriesEvent(
+                                      context: context,
+                                      isPreOrder:
+                                          menuTarget == MenuTarget.preOrder));
+                            },
+                            child:
+                                BlocConsumer<CategoriesBloc, CategoriesState>(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                return Row(
+                                  children: [
+                                    for (var category
+                                        in state.categoriesModelList)
+                                      CategoriesCard(category: category),
+                                  ],
+                                );
+                              },
+                            ),
                           ),
                         ),
                         TextButton(
                           onPressed: () {
                             showModalBottomSheet(
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                context: context,
-                                builder: (context) => CustomerPreOrderForm(
-                                      chefId: chef.guid ?? '',
-                                    ));
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              builder: (context) => CustomerPreOrderForm(
+                                chefId: chef.guid ?? '',
+                              ),
+                            );
                           },
                           child: Row(
                             children: [

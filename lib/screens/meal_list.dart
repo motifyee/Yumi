@@ -137,21 +137,6 @@ class _MealList extends StatelessWidget {
                           meal: meal,
                           onTap: () {
                             context.read<BasketFormBloc>().add(
-                                BasketFormUpdateEvent(
-                                    invoice: context
-                                        .read<BasketFormBloc>()
-                                        .state
-                                        .invoice
-                                        .copyWith(
-                                            isPreorder: meal.isPreOrder,
-                                            invoice: context
-                                                .read<BasketFormBloc>()
-                                                .state
-                                                .invoice
-                                                .invoice
-                                                ?.copyWith(
-                                                    chefID: meal.chefId))));
-                            context.read<BasketFormBloc>().add(
                                   BasketFormAddMealEvent(
                                     invoiceDetails:
                                         InvoiceDetails.fromMeal(meal: meal),

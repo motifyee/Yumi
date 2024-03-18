@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -34,7 +33,7 @@ class ChefBanner extends StatelessWidget {
               child: Hero(
                 tag: 'chef_${chef.id}',
                 child: Image.memory(
-                  Uint8List.fromList(base64Decode(chef.imageProfile ?? '')),
+                  base64Decode(chef.imageProfile ?? ''),
                   fit: BoxFit.cover,
                   alignment: Alignment.topCenter,
                   errorBuilder: (context, error, stackTrace) => Image.asset(

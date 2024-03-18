@@ -50,7 +50,7 @@ class ChefMealCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(
                         ThemeSelector.statics.defaultMediumGap)),
                 child: Image.memory(
-                  Uint8List.fromList(base64Decode(meal.photo!)),
+                  Uint8List.fromList(base64Decode(meal.photo ?? '')),
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Image.asset(
                     'assets/images/354.jpeg',

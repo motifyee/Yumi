@@ -36,7 +36,15 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
       invoiceDetails.add(event.invoiceDetails);
 
       emit(state.copyWith(
-          invoice: state.invoice.copyWith(invoiceDetails: invoiceDetails)));
+        invoice: state.invoice.copyWith(
+          invoiceDetails: invoiceDetails,
+          isPreorder:
+              event.invoiceDetails.meal?.isPreOrder ?? state.invoice.isPreorder,
+          invoice: state.invoice.invoice?.copyWith(
+              chefID: event.invoiceDetails.meal?.chefId ??
+                  state.invoice.invoice?.chefID),
+        ),
+      ));
       add(BasketFormCalcEvent());
     });
 
