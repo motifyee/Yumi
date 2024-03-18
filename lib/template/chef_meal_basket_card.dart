@@ -7,8 +7,12 @@ import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
 
 class ChefMealBasketCard extends StatelessWidget {
-  const ChefMealBasketCard(
-      {super.key, required this.meal, this.onTap, this.isDisabled = false});
+  const ChefMealBasketCard({
+    super.key,
+    required this.meal,
+    this.onTap,
+    this.isDisabled = false,
+  });
 
   final MealModel meal;
   final Function()? onTap;
@@ -42,29 +46,21 @@ class ChefMealBasketCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
                         ThemeSelector.statics.defaultGap)),
-                child: meal.photo != null
-                    ? ImageFiltered(
-                        imageFilter: isDisabled
-                            ? const ColorFilter.mode(
-                                Colors.grey, BlendMode.saturation)
-                            : const ColorFilter.mode(
-                                Colors.transparent, BlendMode.darken),
-                        child: Image.memory(
-                          base64Decode(meal.photo!),
-                          fit: BoxFit.cover,
-                        ),
-                      )
-                    : ImageFiltered(
-                        imageFilter: isDisabled
-                            ? const ColorFilter.mode(
-                                Colors.grey, BlendMode.saturation)
-                            : const ColorFilter.mode(
-                                Colors.transparent, BlendMode.darken),
-                        child: Image.asset(
-                          'assets/images/354.jpeg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                child: ImageFiltered(
+                  imageFilter: isDisabled
+                      ? const ColorFilter.mode(
+                          Colors.grey, BlendMode.saturation)
+                      : const ColorFilter.mode(
+                          Colors.transparent, BlendMode.darken),
+                  child: Image.memory(
+                    base64Decode(meal.photo!),
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Image.asset(
+                      'assets/images/354.jpeg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
               ),
               Expanded(
                   child: Padding(

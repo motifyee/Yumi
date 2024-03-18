@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +20,8 @@ class HomeScreen extends StatelessWidget {
   final PageController navPageController = PageController(initialPage: 0);
   final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
+  bool isInit = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NavigatorBloc, NavigatesState>(
@@ -27,6 +31,12 @@ class HomeScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        if (!isInit) {
+          Timer(Duration(milliseconds: 100), () {
+            navPageController.jumpToPage(state.selectedIndex);
+          });
+          isInit = true;
+        }
         return ScreenContainer(
           isColored: NavigateOptions
                   .navigateList[state.selectedIndex].isBackGroundGradient ??

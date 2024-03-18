@@ -72,7 +72,7 @@ class InvoiceModel {
       bankId: bankId ?? this.bankId,
       invoiceDetails: invoiceDetails ?? this.invoiceDetails,
       isDelivery: isDelivery ?? this.isDelivery,
-      isPickup: isDelivery ?? this.isPickup,
+      isPickup: isPickup ?? this.isPickup,
       isPreorder: isPreorder ?? this.isPreorder,
       isSchedule: isSchedule ?? this.isSchedule,
       shippedAddressId: shippedAddressId ?? this.shippedAddressId,

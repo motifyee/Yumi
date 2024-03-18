@@ -33,18 +33,16 @@ class ChefBanner extends StatelessWidget {
               decoration: BoxDecoration(borderRadius: borderRadius),
               child: Hero(
                 tag: 'chef_${chef.id}',
-                child: chef.imageProfile != null
-                    ? Image.memory(
-                        Uint8List.fromList(
-                            base64Decode(chef.imageProfile ?? '')),
-                        fit: BoxFit.cover,
-                        alignment: Alignment.topCenter,
-                      )
-                    : Image.asset(
-                        'assets/images/354.jpeg',
-                        fit: BoxFit.cover,
-                        alignment: Alignment.topCenter,
-                      ),
+                child: Image.memory(
+                  Uint8List.fromList(base64Decode(chef.imageProfile ?? '')),
+                  fit: BoxFit.cover,
+                  alignment: Alignment.topCenter,
+                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                    'assets/images/354.jpeg',
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topCenter,
+                  ),
+                ),
               ),
             ),
             Align(

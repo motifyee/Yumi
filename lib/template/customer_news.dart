@@ -1,11 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/screens/chef_profile.dart';
+import 'package:yumi/screens/meal_list.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/categories_list_dialog.dart';
 import 'package:yumi/template/chef_bannar.dart';
@@ -53,11 +54,15 @@ class CustomerNews extends StatelessWidget {
                               TextSpan(
                                 text: S.of(context).hi,
                               ),
-                              TextSpan(
+                              const TextSpan(
                                 text: ' ',
                               ),
                               TextSpan(
-                                text: 'Ayman!',
+                                text: context
+                                    .read<UserBloc>()
+                                    .state
+                                    .user
+                                    .userName,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineMedium
@@ -105,6 +110,19 @@ class CustomerNews extends StatelessWidget {
                     Positioned(
                       left: -ThemeSelector.statics.defaultLineGap,
                       child: GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            isDismissible: true,
+                            constraints: BoxConstraints(
+                                maxHeight:
+                                    MediaQuery.of(context).size.height * .8),
+                            builder: (context) =>
+                                MealListScreen(menuTarget: menuTarget),
+                            backgroundColor: Colors.transparent,
+                          );
+                        },
                         child: Container(
                           height: ThemeSelector.statics.defaultTitleGap,
                           width: (MediaQuery.of(context).size.width / 4) +
@@ -138,7 +156,8 @@ class CustomerNews extends StatelessWidget {
                         onTap: () {
                           showDialog(
                               context: context,
-                              builder: (context) => CategoriesListDialog());
+                              builder: (context) =>
+                                  CategoriesListDialog(menuTarget: menuTarget));
                         },
                         child: Container(
                           height: ThemeSelector.statics.defaultTitleGap,
@@ -286,8 +305,17 @@ class CustomerNews extends StatelessWidget {
                                 for (var chef in state.chefs)
                                   GestureDetector(
                                     onTap: () {
-                                      context.router.push(ChefProfileRoute(
-                                          chef: chef, menuTarget: menuTarget));
+                                      showModalBottomSheet(
+                                        context: context,
+                                        isScrollControlled: true,
+                                        isDismissible: true,
+                                        backgroundColor:
+                                            ThemeSelector.colors.background,
+                                        builder: (context) => ChefProfileScreen(
+                                          chef: chef,
+                                          menuTarget: menuTarget,
+                                        ),
+                                      );
                                     },
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(

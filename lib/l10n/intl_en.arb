@@ -183,5 +183,7 @@
   "reviews": "Reviews",
   "meals": "Meals",
   "chefMenu": "Chef Menu",
-  "delivery": "Delivery"
+  "delivery": "Delivery",
+  "orderCreatedSuccessfully": "Order created successfully",
+  "hour": "Hour"
 }

@@ -154,15 +154,14 @@ class BasketMealCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(
                           ThemeSelector.statics.defaultBorderRadius),
                     ),
-                    child: invoiceDetails.meal?.photo != null
-                        ? Image.memory(
-                            base64Decode(invoiceDetails.meal!.photo!),
-                            fit: BoxFit.cover,
-                          )
-                        : Image.asset(
-                            'assets/images/354.jpeg',
-                            fit: BoxFit.cover,
-                          ),
+                    child: Image.memory(
+                      base64Decode(invoiceDetails.meal!.photo ?? ''),
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Image.asset(
+                        'assets/images/354.jpeg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ],
               ),

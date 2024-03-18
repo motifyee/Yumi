@@ -113,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "happyCustomer": MessageLookupByLibrary.simpleMessage("Happy Customer"),
         "hi": MessageLookupByLibrary.simpleMessage("Hi"),
         "holderName": MessageLookupByLibrary.simpleMessage("Holder name"),
+        "hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "hygiene": MessageLookupByLibrary.simpleMessage("Hygiene"),
         "iban": MessageLookupByLibrary.simpleMessage("IBan"),
         "ingredients": MessageLookupByLibrary.simpleMessage("Ingredients"),
@@ -154,6 +155,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "opened": MessageLookupByLibrary.simpleMessage("Opened"),
         "orSignUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
         "orderAgain": MessageLookupByLibrary.simpleMessage("Order Again"),
+        "orderCreatedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Order created successfully"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("Order Details"),
         "orderId": MessageLookupByLibrary.simpleMessage("Order Id"),
         "orderReceived": MessageLookupByLibrary.simpleMessage("Order received"),

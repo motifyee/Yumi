@@ -30,31 +30,63 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         late dynamic res = [];
         List<MealModel> data = [];
 
-        if (state.selectedCategory == 0) {
-          res = await MealService.getMeals(
+        if (event.chefId == null) {
+          if (state.selectedCategory == 0) {
+            res = await MealService.getMeals(
+              context: event.context,
+              isPreorder: event.menuTarget != null
+                  ? event.menuTarget == MenuTarget.preOrder
+                  : state.menuTarget == MenuTarget.preOrder,
+              queryParameters: {...state.paginationHelper.toJson()},
+            );
+
+            data = res['data'].map<MealModel>((value) {
+              return MealModel.fromJson(value);
+            }).toList();
+          } else {
+            res = await MealService.getMealsByCategory(
+              context: event.context,
+              categoryId: state.selectedCategory,
+              isPreorder: event.menuTarget != null
+                  ? event.menuTarget == MenuTarget.preOrder
+                  : state.menuTarget == MenuTarget.preOrder,
+              pagination: {...state.paginationHelper.toJson()},
+            );
+
+            data = res['data'].map<MealModel>((value) {
+              return MealModel.fromJson(value['product']);
+            }).toList();
+          }
+        }
+        if (event.chefId != null) {
+          if (state.selectedCategory == 0) {
+            res = await MealService.getMealsByChef(
               context: event.context,
               chefId: event.chefId,
               isPreorder: event.menuTarget != null
                   ? event.menuTarget == MenuTarget.preOrder
                   : state.menuTarget == MenuTarget.preOrder,
-              queryParameters: {...state.paginationHelper.toJson()});
+              queryParameters: {...state.paginationHelper.toJson()},
+            );
 
-          data = res['data'].map<MealModel>((value) {
-            return MealModel.fromJson(value);
-          }).toList();
-        } else {
-          res = await MealService.getMealsByCategory(
+            data = res['data'].map<MealModel>((value) {
+              return MealModel.fromJson(value);
+            }).toList();
+          } else {
+            res = await MealService.getMealsByChefByCategory(
               context: event.context,
               chefId: event.chefId,
               categoryId: state.selectedCategory,
               isPreorder: event.menuTarget != null
                   ? event.menuTarget == MenuTarget.preOrder
                   : state.menuTarget == MenuTarget.preOrder,
-              pagination: {...state.paginationHelper.toJson()});
+              pagination: {...state.paginationHelper.toJson()},
+            );
 
-          data = res['data'].map<MealModel>((value) {
-            return MealModel.fromJson(value['product']);
-          }).toList();
+            data = res['data'].map<MealModel>((value) {
+              return MealModel.fromJson(value['product']);
+            }).toList();
+          }
         }
 
         emit(state.copyWith(
@@ -96,19 +128,24 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
     });
 
     on<MealListUpdateCategoryEvent>((event, emit) {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           meals: [],
           selectedCategory: event.selectedCategory,
-          paginationHelper: PaginationHelper()));
+          paginationHelper: PaginationHelper(),
+        ),
+      );
 
-      event.context.read<MealListBloc>().add(
-          MealListUpdateEvent(context: event.context, chefId: event.chefId));
+      add(MealListUpdateEvent(
+        context: event.context,
+        chefId: event.chefId,
+      ));
     });
 
     on<MealListResetEvent>((event, emit) {
       emit(MealListState(
         meals: const [],
-        selectedCategory: 0,
+        selectedCategory: event.categoryId ?? 0,
         paginationHelper: PaginationHelper(),
         menuTarget: event.menuTarget ?? state.menuTarget,
       ));

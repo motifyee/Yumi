@@ -16,4 +16,17 @@ class CategoriesService {
 
     return jsonDecode(res.toString());
   }
+
+  static Future<dynamic> getCategoriesForCustomer(
+      {required BuildContext context,
+      Map<String, dynamic>? pagination,
+      bool isPreOrder = false}) async {
+    final res = await DioClient.simpleDio(context).get(
+      ApiKeys.getApiKeyString(apiKey: ApiKeys.categoriesForCustomer),
+      queryParameters: {...?pagination, 'isPreOrder': isPreOrder}
+        ..removeWhere((key, value) => value == null),
+    );
+
+    return jsonDecode(res.toString());
+  }
 }
