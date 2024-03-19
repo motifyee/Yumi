@@ -23,12 +23,13 @@ class CustomerNews extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) =>
-          ConstrainedBox(
-        constraints: BoxConstraints(minHeight: constraints.maxHeight),
-        child: SingleChildScrollView(
+          SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
           child: IntrinsicHeight(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(
