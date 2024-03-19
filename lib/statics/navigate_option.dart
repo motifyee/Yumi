@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app_target.dart';
@@ -27,102 +29,123 @@ class NavigateOptions {
   static List<NavigateListItem> navigateListChefs = [
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/home.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/home1.svg'),
+        selectedIcon:
+            SvgPicture.asset('assets/images/home1.svg', fit: BoxFit.fitWidth),
         title: S.current.yumi,
         page: NewsScreen()),
     NavigateListItem(
       icon: SvgPicture.asset('assets/images/profile.svg'),
-      selectedIcon: SvgPicture.asset('assets/images/profile1.svg'),
+      selectedIcon:
+          SvgPicture.asset('assets/images/profile1.svg', fit: BoxFit.fitWidth),
       title: S.current.profile,
       page: const ProfileScreen(),
       isBackGroundGradient: true,
     ),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/menu.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/menu1.svg'),
+        selectedIcon:
+            SvgPicture.asset('assets/images/menu1.svg', fit: BoxFit.fitWidth),
         title: S.current.menus,
         page: const MenuScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/pre_order.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg',
+            fit: BoxFit.fitWidth),
         title: S.current.preOrder,
         page: const PreOrderScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/setting.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/setting1.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/setting1.svg',
+            fit: BoxFit.fitWidth),
         title: S.current.setting,
         page: const SettingScreen()),
   ];
   static List<NavigateListItem> navigateListDrivers = [
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/home.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/home1.svg'),
+        selectedIcon:
+            SvgPicture.asset('assets/images/home1.svg', fit: BoxFit.fitWidth),
         title: S.current.yumi,
         page: NewsScreen()),
     NavigateListItem(
       icon: SvgPicture.asset('assets/images/profile.svg'),
-      selectedIcon: SvgPicture.asset('assets/images/profile1.svg'),
+      selectedIcon:
+          SvgPicture.asset('assets/images/profile1.svg', fit: BoxFit.fitWidth),
       title: S.current.profile,
       page: const ProfileScreen(),
       isBackGroundGradient: true,
     ),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/history.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/history1.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/history1.svg',
+            fit: BoxFit.fitWidth),
         title: S.current.ordersHistory,
         page: const OrderHistoryScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/pre_order.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg',
+            fit: BoxFit.fitWidth),
         title: S.current.preOrder,
         page: const PreOrderScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/setting.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/setting1.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/setting1.svg',
+            fit: BoxFit.fitWidth),
         title: S.current.setting,
         page: const SettingScreen()),
   ];
   static List<NavigateListItem> navigateListCustomer = [
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/home.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/home1.svg'),
+        selectedIcon:
+            SvgPicture.asset('assets/images/home1.svg', fit: BoxFit.fitWidth),
         title: S.current.menus,
         page: const CustomerMenuScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/bell.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/bell1.svg'),
+        selectedIcon:
+            SvgPicture.asset('assets/images/bell1.svg', fit: BoxFit.fitWidth),
         title: S.current.notification,
         page: const NotificationScreen()),
     NavigateListItem(
       icon: SvgPicture.asset('assets/images/heart.svg'),
-      selectedIcon: SvgPicture.asset('assets/images/heart1.svg'),
+      selectedIcon:
+          SvgPicture.asset('assets/images/heart1.svg', fit: BoxFit.fitWidth),
       title: S.current.favorites,
       page: FavoritesScreen(),
     ),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/bag.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/bag1.svg'),
+        selectedIcon:
+            SvgPicture.asset('assets/images/bag1.svg', fit: BoxFit.fitWidth),
         title: S.current.myOrders,
         page: const MyOrdersScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/featured.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/featured1.svg'),
+        selectedIcon: SvgPicture.asset('assets/images/featured1.svg',
+            fit: BoxFit.fitWidth),
         title: S.current.preOrder,
         page: const CustomerMenuPreScreen()),
   ];
 
-  static List<Widget> navigationDestination(BuildContext context, int index) {
+  static List<Widget> navigationDestination(
+      BuildContext context, int index, double navWidth) {
     return navigateList
         .asMap()
         .map((i, e) => MapEntry(
               i,
               NavigationDestination(
-                icon: AnimatedContainer(
+                icon: AnimatedAlign(
                   duration: ThemeSelector.statics.animationDuration,
-                  padding: index == i
-                      ? const EdgeInsets.only(bottom: 53)
-                      : EdgeInsets.zero,
-                  child: index == i ? e.selectedIcon : e.icon,
+                  alignment:
+                      index == i ? Alignment.topCenter : Alignment.center,
+                  child: index == i
+                      ? Container(
+                          width: min(23, navWidth - 45),
+                          height: min(23, navWidth - 45),
+                          child: e.selectedIcon,
+                        )
+                      : e.icon,
                 ),
                 label: '',
               ),

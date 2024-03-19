@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,12 +35,13 @@ class NavigationBottomBar extends StatelessWidget {
                     SvgPicture.asset(
                       'assets/images/menu_back_icon.svg',
                       fit: BoxFit.fitWidth,
+                      alignment: Alignment.topCenter,
                     ),
                     Positioned(
                       top: -8,
                       child: Container(
-                        width: 45,
-                        height: 45,
+                        width: min(45, selectedPageIndicator - 30),
+                        height: min(45, selectedPageIndicator - 30),
                         decoration: BoxDecoration(
                           color: ThemeSelector.colors.primary,
                           borderRadius: BorderRadius.circular(
@@ -57,10 +60,11 @@ class NavigationBottomBar extends StatelessWidget {
               shadowColor: Colors.transparent,
               indicatorColor: Colors.transparent,
               overlayColor: MaterialStateProperty.resolveWith(
-                  (states) => Colors.transparent),
+                (states) => Colors.transparent,
+              ),
               animationDuration: ThemeSelector.statics.animationDuration,
               destinations: NavigateOptions.navigationDestination(
-                  context, state.selectedIndex),
+                  context, state.selectedIndex, selectedPageIndicator),
               selectedIndex: state.selectedIndex,
               onDestinationSelected: (index) {
                 context
