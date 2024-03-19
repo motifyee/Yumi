@@ -143,7 +143,7 @@ class _MealList extends StatelessWidget {
                                   ),
                                 );
 
-                            context.router.replaceAll([const BasketRoute()]);
+                            context.router.replaceAll([BasketRoute()]);
                           },
                         ),
                     ],

@@ -13,6 +13,9 @@ class NavigationBottomBar extends StatelessWidget {
     return BlocConsumer<NavigatorBloc, NavigatesState>(
       listener: (context, state) {},
       builder: (context, state) {
+        double selectedPageIndicator = (MediaQuery.of(context).size.width -
+                (ThemeSelector.statics.defaultBorderRadius * 2)) /
+            5;
         return Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.center,
@@ -20,29 +23,31 @@ class NavigationBottomBar extends StatelessWidget {
             AnimatedPositioned(
               duration: ThemeSelector.statics.animationDuration,
               top: 0,
-              left: (((MediaQuery.of(context).size.width -
-                              (ThemeSelector.statics.defaultBorderRadius * 2)) /
-                          5) *
-                      state.selectedIndex) -
-                  10,
-              child: Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.center,
-                children: [
-                  SvgPicture.asset('assets/images/menu_back_icon.svg'),
-                  Positioned(
-                    top: -8,
-                    child: Container(
-                      width: 45,
-                      height: 45,
-                      decoration: BoxDecoration(
-                        color: ThemeSelector.colors.primary,
-                        borderRadius: BorderRadius.circular(
-                            ThemeSelector.statics.buttonBorderRadius),
-                      ),
+              left: selectedPageIndicator * state.selectedIndex,
+              child: Container(
+                width: selectedPageIndicator,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/images/menu_back_icon.svg',
+                      fit: BoxFit.fitWidth,
                     ),
-                  )
-                ],
+                    Positioned(
+                      top: -8,
+                      child: Container(
+                        width: 45,
+                        height: 45,
+                        decoration: BoxDecoration(
+                          color: ThemeSelector.colors.primary,
+                          borderRadius: BorderRadius.circular(
+                              ThemeSelector.statics.buttonBorderRadius),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             NavigationBar(
