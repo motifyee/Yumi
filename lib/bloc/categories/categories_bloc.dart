@@ -34,11 +34,19 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
         }
 
         if (AppTarget.user == AppTargetUser.chefs) {
-          res = await CategoriesService.getCategories(
-            context: event.context,
-            pagination: state.paginationHelper.toJson(),
-            isPreOrder: event.isPreOrder,
-          );
+          if (event.isAll) {
+            res = await CategoriesService.getCategories(
+              context: event.context,
+              pagination: state.paginationHelper.toJson(),
+              isPreOrder: event.isPreOrder,
+            );
+          } else {
+            res = await CategoriesService.getCategoriesForChef(
+              context: event.context,
+              pagination: state.paginationHelper.toJson(),
+              isPreOrder: event.isPreOrder,
+            );
+          }
         }
 
         List<CategoriesModel> data = [];

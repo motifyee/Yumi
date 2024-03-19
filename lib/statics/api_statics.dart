@@ -9,7 +9,7 @@ import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 
 // const originApi = 'https://10.99.77.247:5012';
-const originApi = 'https://9016-81-10-105-81.ngrok-free.app';
+const originApi = 'https://0cb4-81-10-105-81.ngrok-free.app';
 
 class DioClient {
   static Dio simpleDio(BuildContext context) {
@@ -50,6 +50,7 @@ class ApiKeys {
   static String profile = '/accounts/_';
   static String info = '/_';
   static String categories = '/products/setting/categories';
+  static String categoriesForChef = '/meals/categories/chef';
   static String categoriesForCustomer = '/meals/categories';
   static String ingredient = '/Product/Ingredients';
   static String meal = '/Product/_/meal';

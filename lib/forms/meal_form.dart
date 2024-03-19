@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
 import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
-import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/forms/Ingredients_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -195,7 +194,8 @@ class MealForm extends StatelessWidget {
                                         .add(GetCategoriesEvent(
                                             context: context,
                                             isPreOrder: menuTarget ==
-                                                MenuTarget.preOrder)),
+                                                MenuTarget.preOrder,
+                                            isAll: true)),
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
                                       mainAxisAlignment:
@@ -281,10 +281,7 @@ class MealForm extends StatelessWidget {
                           children: [
                             TextButton(
                               onPressed: () {
-                                context.router.pop();
-                                context.read<MealListBloc>().add(
-                                    MealListUpdateCategoryEvent(
-                                        selectedCategory: 0, context: context));
+                                context.router.popForced();
                               },
                               child: Text(
                                 S.of(context).cancel,
