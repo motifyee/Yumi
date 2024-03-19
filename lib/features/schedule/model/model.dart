@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/features/schedule/model/converters.dart';
@@ -11,27 +13,44 @@ class Schedule with _$Schedule {
   const factory Schedule({
     @Default('') String id,
     @Default('') String userID,
-    bool? saturdayActive,
-    @TimeOfDayConverter() TimeOfDay? saturdayStart,
-    @TimeOfDayConverter() TimeOfDay? saturdayEnd,
-    bool? sundayActive,
-    @TimeOfDayConverter() TimeOfDay? sundayStart,
-    @TimeOfDayConverter() TimeOfDay? sundayEnd,
-    bool? mondayActive,
-    @TimeOfDayConverter() TimeOfDay? mondayStart,
-    @TimeOfDayConverter() TimeOfDay? mondayEnd,
-    bool? tuesdayActive,
-    @TimeOfDayConverter() TimeOfDay? tuesdayStart,
-    @TimeOfDayConverter() TimeOfDay? tuesdayEnd,
-    bool? wednesdayActive,
-    @TimeOfDayConverter() TimeOfDay? wednesdayStart,
-    @TimeOfDayConverter() TimeOfDay? wednesdayEnd,
-    bool? thursdayActive,
-    @TimeOfDayConverter() TimeOfDay? thursdayStart,
-    @TimeOfDayConverter() TimeOfDay? thursdayEnd,
-    bool? fridayActive,
-    @TimeOfDayConverter() TimeOfDay? fridayStart,
-    @TimeOfDayConverter() TimeOfDay? fridayEnd,
+    //
+    @JsonKey(name: 'saturday_Active') bool? saturdayActive,
+    @TimeOfDayConverter()
+    @JsonKey(name: 'saturday_Start')
+    TimeOfDay? saturdayStart,
+    //
+    @TimeOfDayConverter() @JsonKey(name: 'saturday_End') TimeOfDay? saturdayEnd,
+    @JsonKey(name: 'sunday_Active') bool? sundayActive,
+    @TimeOfDayConverter() @JsonKey(name: 'sunday_Start') TimeOfDay? sundayStart,
+    @TimeOfDayConverter() @JsonKey(name: 'sunday_End') TimeOfDay? sundayEnd,
+    //
+    @JsonKey(name: 'monday_Active') bool? mondayActive,
+    @TimeOfDayConverter() @JsonKey(name: 'monday_Start') TimeOfDay? mondayStart,
+    @TimeOfDayConverter() @JsonKey(name: 'monday_End') TimeOfDay? mondayEnd,
+    //
+    @JsonKey(name: 'tuesday_Active') bool? tuesdayActive,
+    @TimeOfDayConverter()
+    @JsonKey(name: 'tuesday_Start')
+    TimeOfDay? tuesdayStart,
+    @TimeOfDayConverter() @JsonKey(name: 'tuesday_End') TimeOfDay? tuesdayEnd,
+    //
+    @JsonKey(name: 'wednesday_Active') bool? wednesdayActive,
+    @TimeOfDayConverter()
+    @JsonKey(name: 'wednesday_Start')
+    TimeOfDay? wednesdayStart,
+    @TimeOfDayConverter()
+    @JsonKey(name: 'wednesday_End')
+    TimeOfDay? wednesdayEnd,
+    //
+    @JsonKey(name: 'thursday_Active') bool? thursdayActive,
+    @TimeOfDayConverter()
+    @JsonKey(name: 'thursday_Start')
+    TimeOfDay? thursdayStart,
+    @TimeOfDayConverter() @JsonKey(name: 'thursday_End') TimeOfDay? thursdayEnd,
+    //
+    @JsonKey(name: 'friday_Active') bool? fridayActive,
+    @TimeOfDayConverter() @JsonKey(name: 'friday_Start') TimeOfDay? fridayStart,
+    @TimeOfDayConverter() @JsonKey(name: 'friday_End') TimeOfDay? fridayEnd,
   }) = ScheduleData;
 
   const Schedule._();
@@ -41,9 +60,9 @@ class Schedule with _$Schedule {
 
     return ScheduleDay(
       name: day,
-      active: json0['${day.name}Active'],
-      start: (json0['${day.name}Start'] as String?)?.toTimeOfDay,
-      end: (json0['${day.name}End'] as String?)?.toTimeOfDay,
+      active: json0['${day.name}_Active'],
+      start: (json0['${day.name}_Start'] as String?)?.toTimeOfDay,
+      end: (json0['${day.name}_End'] as String?)?.toTimeOfDay,
     );
   }
 
@@ -65,9 +84,9 @@ class Schedule with _$Schedule {
     String day = scheduleDay.name?.name ?? '';
     if (day.isEmpty) return this;
 
-    json['${day}Active'] = scheduleDay.active;
-    json['${day}Start'] = scheduleDay.start?.toStringF;
-    json['${day}End'] = scheduleDay.end?.toStringF;
+    json['${day}_Active'] = scheduleDay.active;
+    json['${day}_Start'] = scheduleDay.start?.toStringF;
+    json['${day}_End'] = scheduleDay.end?.toStringF;
 
     return Schedule.fromJson(json);
   }

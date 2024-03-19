@@ -21,41 +21,62 @@ Schedule _$ScheduleFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Schedule {
   String get id => throw _privateConstructorUsedError;
-  String get userID => throw _privateConstructorUsedError;
+  String get userID => throw _privateConstructorUsedError; //
+  @JsonKey(name: 'saturday_Active')
   bool? get saturdayActive => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
-  TimeOfDay? get saturdayStart => throw _privateConstructorUsedError;
+  @JsonKey(name: 'saturday_Start')
+  TimeOfDay? get saturdayStart => throw _privateConstructorUsedError; //
   @TimeOfDayConverter()
+  @JsonKey(name: 'saturday_End')
   TimeOfDay? get saturdayEnd => throw _privateConstructorUsedError;
+  @JsonKey(name: 'sunday_Active')
   bool? get sundayActive => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
+  @JsonKey(name: 'sunday_Start')
   TimeOfDay? get sundayStart => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
-  TimeOfDay? get sundayEnd => throw _privateConstructorUsedError;
+  @JsonKey(name: 'sunday_End')
+  TimeOfDay? get sundayEnd => throw _privateConstructorUsedError; //
+  @JsonKey(name: 'monday_Active')
   bool? get mondayActive => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
+  @JsonKey(name: 'monday_Start')
   TimeOfDay? get mondayStart => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
-  TimeOfDay? get mondayEnd => throw _privateConstructorUsedError;
+  @JsonKey(name: 'monday_End')
+  TimeOfDay? get mondayEnd => throw _privateConstructorUsedError; //
+  @JsonKey(name: 'tuesday_Active')
   bool? get tuesdayActive => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
+  @JsonKey(name: 'tuesday_Start')
   TimeOfDay? get tuesdayStart => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
-  TimeOfDay? get tuesdayEnd => throw _privateConstructorUsedError;
+  @JsonKey(name: 'tuesday_End')
+  TimeOfDay? get tuesdayEnd => throw _privateConstructorUsedError; //
+  @JsonKey(name: 'wednesday_Active')
   bool? get wednesdayActive => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
+  @JsonKey(name: 'wednesday_Start')
   TimeOfDay? get wednesdayStart => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
-  TimeOfDay? get wednesdayEnd => throw _privateConstructorUsedError;
+  @JsonKey(name: 'wednesday_End')
+  TimeOfDay? get wednesdayEnd => throw _privateConstructorUsedError; //
+  @JsonKey(name: 'thursday_Active')
   bool? get thursdayActive => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
+  @JsonKey(name: 'thursday_Start')
   TimeOfDay? get thursdayStart => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
-  TimeOfDay? get thursdayEnd => throw _privateConstructorUsedError;
+  @JsonKey(name: 'thursday_End')
+  TimeOfDay? get thursdayEnd => throw _privateConstructorUsedError; //
+  @JsonKey(name: 'friday_Active')
   bool? get fridayActive => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
+  @JsonKey(name: 'friday_Start')
   TimeOfDay? get fridayStart => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
+  @JsonKey(name: 'friday_End')
   TimeOfDay? get fridayEnd => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -72,27 +93,47 @@ abstract class $ScheduleCopyWith<$Res> {
   $Res call(
       {String id,
       String userID,
-      bool? saturdayActive,
-      @TimeOfDayConverter() TimeOfDay? saturdayStart,
-      @TimeOfDayConverter() TimeOfDay? saturdayEnd,
-      bool? sundayActive,
-      @TimeOfDayConverter() TimeOfDay? sundayStart,
-      @TimeOfDayConverter() TimeOfDay? sundayEnd,
-      bool? mondayActive,
-      @TimeOfDayConverter() TimeOfDay? mondayStart,
-      @TimeOfDayConverter() TimeOfDay? mondayEnd,
-      bool? tuesdayActive,
-      @TimeOfDayConverter() TimeOfDay? tuesdayStart,
-      @TimeOfDayConverter() TimeOfDay? tuesdayEnd,
-      bool? wednesdayActive,
-      @TimeOfDayConverter() TimeOfDay? wednesdayStart,
-      @TimeOfDayConverter() TimeOfDay? wednesdayEnd,
-      bool? thursdayActive,
-      @TimeOfDayConverter() TimeOfDay? thursdayStart,
-      @TimeOfDayConverter() TimeOfDay? thursdayEnd,
-      bool? fridayActive,
-      @TimeOfDayConverter() TimeOfDay? fridayStart,
-      @TimeOfDayConverter() TimeOfDay? fridayEnd});
+      @JsonKey(name: 'saturday_Active') bool? saturdayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'saturday_Start')
+      TimeOfDay? saturdayStart,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'saturday_End')
+      TimeOfDay? saturdayEnd,
+      @JsonKey(name: 'sunday_Active') bool? sundayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'sunday_Start')
+      TimeOfDay? sundayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'sunday_End') TimeOfDay? sundayEnd,
+      @JsonKey(name: 'monday_Active') bool? mondayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'monday_Start')
+      TimeOfDay? mondayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'monday_End') TimeOfDay? mondayEnd,
+      @JsonKey(name: 'tuesday_Active') bool? tuesdayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'tuesday_Start')
+      TimeOfDay? tuesdayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'tuesday_End') TimeOfDay? tuesdayEnd,
+      @JsonKey(name: 'wednesday_Active') bool? wednesdayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'wednesday_Start')
+      TimeOfDay? wednesdayStart,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'wednesday_End')
+      TimeOfDay? wednesdayEnd,
+      @JsonKey(name: 'thursday_Active') bool? thursdayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'thursday_Start')
+      TimeOfDay? thursdayStart,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'thursday_End')
+      TimeOfDay? thursdayEnd,
+      @JsonKey(name: 'friday_Active') bool? fridayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'friday_Start')
+      TimeOfDay? fridayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'friday_End') TimeOfDay? fridayEnd});
 }
 
 /// @nodoc
@@ -240,27 +281,47 @@ abstract class _$$ScheduleDataImplCopyWith<$Res>
   $Res call(
       {String id,
       String userID,
-      bool? saturdayActive,
-      @TimeOfDayConverter() TimeOfDay? saturdayStart,
-      @TimeOfDayConverter() TimeOfDay? saturdayEnd,
-      bool? sundayActive,
-      @TimeOfDayConverter() TimeOfDay? sundayStart,
-      @TimeOfDayConverter() TimeOfDay? sundayEnd,
-      bool? mondayActive,
-      @TimeOfDayConverter() TimeOfDay? mondayStart,
-      @TimeOfDayConverter() TimeOfDay? mondayEnd,
-      bool? tuesdayActive,
-      @TimeOfDayConverter() TimeOfDay? tuesdayStart,
-      @TimeOfDayConverter() TimeOfDay? tuesdayEnd,
-      bool? wednesdayActive,
-      @TimeOfDayConverter() TimeOfDay? wednesdayStart,
-      @TimeOfDayConverter() TimeOfDay? wednesdayEnd,
-      bool? thursdayActive,
-      @TimeOfDayConverter() TimeOfDay? thursdayStart,
-      @TimeOfDayConverter() TimeOfDay? thursdayEnd,
-      bool? fridayActive,
-      @TimeOfDayConverter() TimeOfDay? fridayStart,
-      @TimeOfDayConverter() TimeOfDay? fridayEnd});
+      @JsonKey(name: 'saturday_Active') bool? saturdayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'saturday_Start')
+      TimeOfDay? saturdayStart,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'saturday_End')
+      TimeOfDay? saturdayEnd,
+      @JsonKey(name: 'sunday_Active') bool? sundayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'sunday_Start')
+      TimeOfDay? sundayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'sunday_End') TimeOfDay? sundayEnd,
+      @JsonKey(name: 'monday_Active') bool? mondayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'monday_Start')
+      TimeOfDay? mondayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'monday_End') TimeOfDay? mondayEnd,
+      @JsonKey(name: 'tuesday_Active') bool? tuesdayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'tuesday_Start')
+      TimeOfDay? tuesdayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'tuesday_End') TimeOfDay? tuesdayEnd,
+      @JsonKey(name: 'wednesday_Active') bool? wednesdayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'wednesday_Start')
+      TimeOfDay? wednesdayStart,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'wednesday_End')
+      TimeOfDay? wednesdayEnd,
+      @JsonKey(name: 'thursday_Active') bool? thursdayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'thursday_Start')
+      TimeOfDay? thursdayStart,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'thursday_End')
+      TimeOfDay? thursdayEnd,
+      @JsonKey(name: 'friday_Active') bool? fridayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'friday_Start')
+      TimeOfDay? fridayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'friday_End') TimeOfDay? fridayEnd});
 }
 
 /// @nodoc
@@ -401,27 +462,29 @@ class _$ScheduleDataImpl extends ScheduleData {
   const _$ScheduleDataImpl(
       {this.id = '',
       this.userID = '',
-      this.saturdayActive,
-      @TimeOfDayConverter() this.saturdayStart,
-      @TimeOfDayConverter() this.saturdayEnd,
-      this.sundayActive,
-      @TimeOfDayConverter() this.sundayStart,
-      @TimeOfDayConverter() this.sundayEnd,
-      this.mondayActive,
-      @TimeOfDayConverter() this.mondayStart,
-      @TimeOfDayConverter() this.mondayEnd,
-      this.tuesdayActive,
-      @TimeOfDayConverter() this.tuesdayStart,
-      @TimeOfDayConverter() this.tuesdayEnd,
-      this.wednesdayActive,
-      @TimeOfDayConverter() this.wednesdayStart,
-      @TimeOfDayConverter() this.wednesdayEnd,
-      this.thursdayActive,
-      @TimeOfDayConverter() this.thursdayStart,
-      @TimeOfDayConverter() this.thursdayEnd,
-      this.fridayActive,
-      @TimeOfDayConverter() this.fridayStart,
-      @TimeOfDayConverter() this.fridayEnd})
+      @JsonKey(name: 'saturday_Active') this.saturdayActive,
+      @TimeOfDayConverter() @JsonKey(name: 'saturday_Start') this.saturdayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'saturday_End') this.saturdayEnd,
+      @JsonKey(name: 'sunday_Active') this.sundayActive,
+      @TimeOfDayConverter() @JsonKey(name: 'sunday_Start') this.sundayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'sunday_End') this.sundayEnd,
+      @JsonKey(name: 'monday_Active') this.mondayActive,
+      @TimeOfDayConverter() @JsonKey(name: 'monday_Start') this.mondayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'monday_End') this.mondayEnd,
+      @JsonKey(name: 'tuesday_Active') this.tuesdayActive,
+      @TimeOfDayConverter() @JsonKey(name: 'tuesday_Start') this.tuesdayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'tuesday_End') this.tuesdayEnd,
+      @JsonKey(name: 'wednesday_Active') this.wednesdayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'wednesday_Start')
+      this.wednesdayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'wednesday_End') this.wednesdayEnd,
+      @JsonKey(name: 'thursday_Active') this.thursdayActive,
+      @TimeOfDayConverter() @JsonKey(name: 'thursday_Start') this.thursdayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'thursday_End') this.thursdayEnd,
+      @JsonKey(name: 'friday_Active') this.fridayActive,
+      @TimeOfDayConverter() @JsonKey(name: 'friday_Start') this.fridayStart,
+      @TimeOfDayConverter() @JsonKey(name: 'friday_End') this.fridayEnd})
       : super._();
 
   factory _$ScheduleDataImpl.fromJson(Map<String, dynamic> json) =>
@@ -433,61 +496,89 @@ class _$ScheduleDataImpl extends ScheduleData {
   @override
   @JsonKey()
   final String userID;
+//
   @override
+  @JsonKey(name: 'saturday_Active')
   final bool? saturdayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'saturday_Start')
   final TimeOfDay? saturdayStart;
+//
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'saturday_End')
   final TimeOfDay? saturdayEnd;
   @override
+  @JsonKey(name: 'sunday_Active')
   final bool? sundayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'sunday_Start')
   final TimeOfDay? sundayStart;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'sunday_End')
   final TimeOfDay? sundayEnd;
+//
   @override
+  @JsonKey(name: 'monday_Active')
   final bool? mondayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'monday_Start')
   final TimeOfDay? mondayStart;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'monday_End')
   final TimeOfDay? mondayEnd;
+//
   @override
+  @JsonKey(name: 'tuesday_Active')
   final bool? tuesdayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'tuesday_Start')
   final TimeOfDay? tuesdayStart;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'tuesday_End')
   final TimeOfDay? tuesdayEnd;
+//
   @override
+  @JsonKey(name: 'wednesday_Active')
   final bool? wednesdayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'wednesday_Start')
   final TimeOfDay? wednesdayStart;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'wednesday_End')
   final TimeOfDay? wednesdayEnd;
+//
   @override
+  @JsonKey(name: 'thursday_Active')
   final bool? thursdayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'thursday_Start')
   final TimeOfDay? thursdayStart;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'thursday_End')
   final TimeOfDay? thursdayEnd;
+//
   @override
+  @JsonKey(name: 'friday_Active')
   final bool? fridayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'friday_Start')
   final TimeOfDay? fridayStart;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'friday_End')
   final TimeOfDay? fridayEnd;
 
   @override
@@ -593,27 +684,55 @@ abstract class ScheduleData extends Schedule {
   const factory ScheduleData(
       {final String id,
       final String userID,
-      final bool? saturdayActive,
-      @TimeOfDayConverter() final TimeOfDay? saturdayStart,
-      @TimeOfDayConverter() final TimeOfDay? saturdayEnd,
-      final bool? sundayActive,
-      @TimeOfDayConverter() final TimeOfDay? sundayStart,
-      @TimeOfDayConverter() final TimeOfDay? sundayEnd,
-      final bool? mondayActive,
-      @TimeOfDayConverter() final TimeOfDay? mondayStart,
-      @TimeOfDayConverter() final TimeOfDay? mondayEnd,
-      final bool? tuesdayActive,
-      @TimeOfDayConverter() final TimeOfDay? tuesdayStart,
-      @TimeOfDayConverter() final TimeOfDay? tuesdayEnd,
-      final bool? wednesdayActive,
-      @TimeOfDayConverter() final TimeOfDay? wednesdayStart,
-      @TimeOfDayConverter() final TimeOfDay? wednesdayEnd,
-      final bool? thursdayActive,
-      @TimeOfDayConverter() final TimeOfDay? thursdayStart,
-      @TimeOfDayConverter() final TimeOfDay? thursdayEnd,
-      final bool? fridayActive,
-      @TimeOfDayConverter() final TimeOfDay? fridayStart,
-      @TimeOfDayConverter() final TimeOfDay? fridayEnd}) = _$ScheduleDataImpl;
+      @JsonKey(name: 'saturday_Active') final bool? saturdayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'saturday_Start')
+      final TimeOfDay? saturdayStart,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'saturday_End')
+      final TimeOfDay? saturdayEnd,
+      @JsonKey(name: 'sunday_Active') final bool? sundayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'sunday_Start')
+      final TimeOfDay? sundayStart,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'sunday_End')
+      final TimeOfDay? sundayEnd,
+      @JsonKey(name: 'monday_Active') final bool? mondayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'monday_Start')
+      final TimeOfDay? mondayStart,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'monday_End')
+      final TimeOfDay? mondayEnd,
+      @JsonKey(name: 'tuesday_Active') final bool? tuesdayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'tuesday_Start')
+      final TimeOfDay? tuesdayStart,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'tuesday_End')
+      final TimeOfDay? tuesdayEnd,
+      @JsonKey(name: 'wednesday_Active') final bool? wednesdayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'wednesday_Start')
+      final TimeOfDay? wednesdayStart,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'wednesday_End')
+      final TimeOfDay? wednesdayEnd,
+      @JsonKey(name: 'thursday_Active') final bool? thursdayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'thursday_Start')
+      final TimeOfDay? thursdayStart,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'thursday_End')
+      final TimeOfDay? thursdayEnd,
+      @JsonKey(name: 'friday_Active') final bool? fridayActive,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'friday_Start')
+      final TimeOfDay? fridayStart,
+      @TimeOfDayConverter()
+      @JsonKey(name: 'friday_End')
+      final TimeOfDay? fridayEnd}) = _$ScheduleDataImpl;
   const ScheduleData._() : super._();
 
   factory ScheduleData.fromJson(Map<String, dynamic> json) =
@@ -623,61 +742,82 @@ abstract class ScheduleData extends Schedule {
   String get id;
   @override
   String get userID;
-  @override
+  @override //
+  @JsonKey(name: 'saturday_Active')
   bool? get saturdayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'saturday_Start')
   TimeOfDay? get saturdayStart;
-  @override
+  @override //
   @TimeOfDayConverter()
+  @JsonKey(name: 'saturday_End')
   TimeOfDay? get saturdayEnd;
   @override
+  @JsonKey(name: 'sunday_Active')
   bool? get sundayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'sunday_Start')
   TimeOfDay? get sundayStart;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'sunday_End')
   TimeOfDay? get sundayEnd;
-  @override
+  @override //
+  @JsonKey(name: 'monday_Active')
   bool? get mondayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'monday_Start')
   TimeOfDay? get mondayStart;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'monday_End')
   TimeOfDay? get mondayEnd;
-  @override
+  @override //
+  @JsonKey(name: 'tuesday_Active')
   bool? get tuesdayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'tuesday_Start')
   TimeOfDay? get tuesdayStart;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'tuesday_End')
   TimeOfDay? get tuesdayEnd;
-  @override
+  @override //
+  @JsonKey(name: 'wednesday_Active')
   bool? get wednesdayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'wednesday_Start')
   TimeOfDay? get wednesdayStart;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'wednesday_End')
   TimeOfDay? get wednesdayEnd;
-  @override
+  @override //
+  @JsonKey(name: 'thursday_Active')
   bool? get thursdayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'thursday_Start')
   TimeOfDay? get thursdayStart;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'thursday_End')
   TimeOfDay? get thursdayEnd;
-  @override
+  @override //
+  @JsonKey(name: 'friday_Active')
   bool? get fridayActive;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'friday_Start')
   TimeOfDay? get fridayStart;
   @override
   @TimeOfDayConverter()
+  @JsonKey(name: 'friday_End')
   TimeOfDay? get fridayEnd;
   @override
   @JsonKey(ignore: true)
