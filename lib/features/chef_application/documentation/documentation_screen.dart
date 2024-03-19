@@ -1,16 +1,17 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/extensions/color.dart';
-import 'package:yumi/features/chef_application/application_flow_screen.dart';
 import 'package:yumi/features/chef_application/documentation/bloc/documentation_bloc.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -248,12 +249,25 @@ Widget fileSvg(String hexColor) {
   );
 }
 
+Future<String> _createFileFromString(String data, String? fileName) async {
+  Uint8List bytes = base64.decode(data);
+
+  final path = (await getApplicationDocumentsDirectory()).path;
+
+  String fileName0 = fileName ?? "${DateTime.now().millisecondsSinceEpoch}.pdf";
+
+  File file = File("$path/$fileName0.pdf");
+  await file.writeAsBytes(bytes);
+  return file.path;
+}
+
 Widget documentWidget({
   String? hexBg,
   int? positionedIdx,
   String? title,
   String? desc,
   String? data,
+  String? fileName,
   bool loading = false,
   bool enabled = true,
   required Function(String) uploadAction,
@@ -312,7 +326,7 @@ Widget documentWidget({
     alignment: Alignment.bottomRight,
     child: TextButton(
       onPressed: () async {
-        print(data);
+        _createFileFromString(data!, fileName);
       },
       child: Row(children: [
         SvgPicture.asset("assets/images/download_icon.svg"),

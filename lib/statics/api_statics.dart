@@ -5,6 +5,7 @@ import 'package:dio/io.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 
@@ -13,11 +14,14 @@ const originApi = 'https://0cb4-81-10-105-81.ngrok-free.app';
 
 class DioClient {
   static Dio simpleDio(BuildContext context) {
+    var token = context.read<UserBloc>().state.user.accessToken;
+    // final prefs = await SharedPreferences.getInstance();
+    // final token = await prefs.getString('token');
+
     Dio dio = Dio(
       BaseOptions(baseUrl: originApi, headers: {
         'Content-Type': 'application/json; charset=UTF-8',
-        'authorization':
-            'Bearer ${context.read<UserBloc>().state.user.accessToken}',
+        'authorization': 'Bearer $token',
       }),
     );
 

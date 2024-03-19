@@ -27,7 +27,7 @@ mixin _$Profile {
   String get fullName => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
   String get bio => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_profile')
+  @JsonKey(name: 'image_Profile')
   String? get profileImage => throw _privateConstructorUsedError; //
   String get mobile => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
@@ -41,31 +41,31 @@ mixin _$Profile {
   @JsonKey(includeToJson: false)
   Country get country => throw _privateConstructorUsedError;
   String get updatedBy => throw _privateConstructorUsedError; // Event Photos
-  @JsonKey(name: 'image_profile_1')
+  @JsonKey(name: 'image_Profile_1')
   String? get eventPhoto0 => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_profile_2')
+  @JsonKey(name: 'image_Profile_2')
   String? get eventPhoto1 => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_profile_3')
+  @JsonKey(name: 'image_Profile_3')
   String? get eventPhoto2 => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_profile_4')
+  @JsonKey(name: 'image_Profile_4')
   String? get eventPhoto3 => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_profile_5')
+  @JsonKey(name: 'image_Profile_5')
   String? get eventPhoto4 => throw _privateConstructorUsedError; //
-  @JsonKey(name: 'account_approved')
+  @JsonKey(name: 'account_Approved')
   bool get accountApproved => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_hygiene')
+  @JsonKey(name: 'is_Hygiene')
   bool get isHygiene => throw _privateConstructorUsedError; // Documents
-  @JsonKey(name: 'image_hygiene')
+  @JsonKey(name: 'image_Hygiene')
   String? get hygienePhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_risk')
+  @JsonKey(name: 'image_Risk')
   String? get riskPhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_authority_reg')
+  @JsonKey(name: 'image_Authority_Reg')
   String? get registerationPhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_passport')
+  @JsonKey(name: 'image_Passport')
   String? get passportPhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_id')
+  @JsonKey(name: 'image_Id')
   String? get nidPhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_contract')
+  @JsonKey(name: 'image_Contract')
   String? get contractPhoto => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -86,7 +86,7 @@ abstract class $ProfileCopyWith<$Res> {
       String fullName,
       String userName,
       String bio,
-      @JsonKey(name: 'image_profile') String? profileImage,
+      @JsonKey(name: 'image_Profile') String? profileImage,
       String mobile,
       String email,
       String address,
@@ -98,19 +98,19 @@ abstract class $ProfileCopyWith<$Res> {
       bool status,
       @JsonKey(includeToJson: false) Country country,
       String updatedBy,
-      @JsonKey(name: 'image_profile_1') String? eventPhoto0,
-      @JsonKey(name: 'image_profile_2') String? eventPhoto1,
-      @JsonKey(name: 'image_profile_3') String? eventPhoto2,
-      @JsonKey(name: 'image_profile_4') String? eventPhoto3,
-      @JsonKey(name: 'image_profile_5') String? eventPhoto4,
-      @JsonKey(name: 'account_approved') bool accountApproved,
-      @JsonKey(name: 'is_hygiene') bool isHygiene,
-      @JsonKey(name: 'image_hygiene') String? hygienePhoto,
-      @JsonKey(name: 'image_risk') String? riskPhoto,
-      @JsonKey(name: 'image_authority_reg') String? registerationPhoto,
-      @JsonKey(name: 'image_passport') String? passportPhoto,
-      @JsonKey(name: 'image_id') String? nidPhoto,
-      @JsonKey(name: 'image_contract') String? contractPhoto});
+      @JsonKey(name: 'image_Profile_1') String? eventPhoto0,
+      @JsonKey(name: 'image_Profile_2') String? eventPhoto1,
+      @JsonKey(name: 'image_Profile_3') String? eventPhoto2,
+      @JsonKey(name: 'image_Profile_4') String? eventPhoto3,
+      @JsonKey(name: 'image_Profile_5') String? eventPhoto4,
+      @JsonKey(name: 'account_Approved') bool accountApproved,
+      @JsonKey(name: 'is_Hygiene') bool isHygiene,
+      @JsonKey(name: 'image_Hygiene') String? hygienePhoto,
+      @JsonKey(name: 'image_Risk') String? riskPhoto,
+      @JsonKey(name: 'image_Authority_Reg') String? registerationPhoto,
+      @JsonKey(name: 'image_Passport') String? passportPhoto,
+      @JsonKey(name: 'image_Id') String? nidPhoto,
+      @JsonKey(name: 'image_Contract') String? contractPhoto});
 }
 
 /// @nodoc
@@ -307,7 +307,7 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       String fullName,
       String userName,
       String bio,
-      @JsonKey(name: 'image_profile') String? profileImage,
+      @JsonKey(name: 'image_Profile') String? profileImage,
       String mobile,
       String email,
       String address,
@@ -319,19 +319,19 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       bool status,
       @JsonKey(includeToJson: false) Country country,
       String updatedBy,
-      @JsonKey(name: 'image_profile_1') String? eventPhoto0,
-      @JsonKey(name: 'image_profile_2') String? eventPhoto1,
-      @JsonKey(name: 'image_profile_3') String? eventPhoto2,
-      @JsonKey(name: 'image_profile_4') String? eventPhoto3,
-      @JsonKey(name: 'image_profile_5') String? eventPhoto4,
-      @JsonKey(name: 'account_approved') bool accountApproved,
-      @JsonKey(name: 'is_hygiene') bool isHygiene,
-      @JsonKey(name: 'image_hygiene') String? hygienePhoto,
-      @JsonKey(name: 'image_risk') String? riskPhoto,
-      @JsonKey(name: 'image_authority_reg') String? registerationPhoto,
-      @JsonKey(name: 'image_passport') String? passportPhoto,
-      @JsonKey(name: 'image_id') String? nidPhoto,
-      @JsonKey(name: 'image_contract') String? contractPhoto});
+      @JsonKey(name: 'image_Profile_1') String? eventPhoto0,
+      @JsonKey(name: 'image_Profile_2') String? eventPhoto1,
+      @JsonKey(name: 'image_Profile_3') String? eventPhoto2,
+      @JsonKey(name: 'image_Profile_4') String? eventPhoto3,
+      @JsonKey(name: 'image_Profile_5') String? eventPhoto4,
+      @JsonKey(name: 'account_Approved') bool accountApproved,
+      @JsonKey(name: 'is_Hygiene') bool isHygiene,
+      @JsonKey(name: 'image_Hygiene') String? hygienePhoto,
+      @JsonKey(name: 'image_Risk') String? riskPhoto,
+      @JsonKey(name: 'image_Authority_Reg') String? registerationPhoto,
+      @JsonKey(name: 'image_Passport') String? passportPhoto,
+      @JsonKey(name: 'image_Id') String? nidPhoto,
+      @JsonKey(name: 'image_Contract') String? contractPhoto});
 }
 
 /// @nodoc
@@ -522,7 +522,7 @@ class _$ProfileImpl extends _Profile {
       this.fullName = '',
       this.userName = '',
       this.bio = '',
-      @JsonKey(name: 'image_profile') this.profileImage,
+      @JsonKey(name: 'image_Profile') this.profileImage,
       this.mobile = '',
       this.email = '',
       this.address = '',
@@ -534,19 +534,19 @@ class _$ProfileImpl extends _Profile {
       this.status = false,
       @JsonKey(includeToJson: false) this.country = const Country(),
       this.updatedBy = '',
-      @JsonKey(name: 'image_profile_1') this.eventPhoto0,
-      @JsonKey(name: 'image_profile_2') this.eventPhoto1,
-      @JsonKey(name: 'image_profile_3') this.eventPhoto2,
-      @JsonKey(name: 'image_profile_4') this.eventPhoto3,
-      @JsonKey(name: 'image_profile_5') this.eventPhoto4,
-      @JsonKey(name: 'account_approved') this.accountApproved = false,
-      @JsonKey(name: 'is_hygiene') this.isHygiene = false,
-      @JsonKey(name: 'image_hygiene') this.hygienePhoto,
-      @JsonKey(name: 'image_risk') this.riskPhoto,
-      @JsonKey(name: 'image_authority_reg') this.registerationPhoto,
-      @JsonKey(name: 'image_passport') this.passportPhoto,
-      @JsonKey(name: 'image_id') this.nidPhoto,
-      @JsonKey(name: 'image_contract') this.contractPhoto})
+      @JsonKey(name: 'image_Profile_1') this.eventPhoto0,
+      @JsonKey(name: 'image_Profile_2') this.eventPhoto1,
+      @JsonKey(name: 'image_Profile_3') this.eventPhoto2,
+      @JsonKey(name: 'image_Profile_4') this.eventPhoto3,
+      @JsonKey(name: 'image_Profile_5') this.eventPhoto4,
+      @JsonKey(name: 'account_Approved') this.accountApproved = false,
+      @JsonKey(name: 'is_Hygiene') this.isHygiene = false,
+      @JsonKey(name: 'image_Hygiene') this.hygienePhoto,
+      @JsonKey(name: 'image_Risk') this.riskPhoto,
+      @JsonKey(name: 'image_Authority_Reg') this.registerationPhoto,
+      @JsonKey(name: 'image_Passport') this.passportPhoto,
+      @JsonKey(name: 'image_Id') this.nidPhoto,
+      @JsonKey(name: 'image_Contract') this.contractPhoto})
       : super._();
 
   factory _$ProfileImpl.fromJson(Map<String, dynamic> json) =>
@@ -574,7 +574,7 @@ class _$ProfileImpl extends _Profile {
   @JsonKey()
   final String bio;
   @override
-  @JsonKey(name: 'image_profile')
+  @JsonKey(name: 'image_Profile')
   final String? profileImage;
 //
   @override
@@ -613,45 +613,45 @@ class _$ProfileImpl extends _Profile {
   final String updatedBy;
 // Event Photos
   @override
-  @JsonKey(name: 'image_profile_1')
+  @JsonKey(name: 'image_Profile_1')
   final String? eventPhoto0;
   @override
-  @JsonKey(name: 'image_profile_2')
+  @JsonKey(name: 'image_Profile_2')
   final String? eventPhoto1;
   @override
-  @JsonKey(name: 'image_profile_3')
+  @JsonKey(name: 'image_Profile_3')
   final String? eventPhoto2;
   @override
-  @JsonKey(name: 'image_profile_4')
+  @JsonKey(name: 'image_Profile_4')
   final String? eventPhoto3;
   @override
-  @JsonKey(name: 'image_profile_5')
+  @JsonKey(name: 'image_Profile_5')
   final String? eventPhoto4;
 //
   @override
-  @JsonKey(name: 'account_approved')
+  @JsonKey(name: 'account_Approved')
   final bool accountApproved;
   @override
-  @JsonKey(name: 'is_hygiene')
+  @JsonKey(name: 'is_Hygiene')
   final bool isHygiene;
 // Documents
   @override
-  @JsonKey(name: 'image_hygiene')
+  @JsonKey(name: 'image_Hygiene')
   final String? hygienePhoto;
   @override
-  @JsonKey(name: 'image_risk')
+  @JsonKey(name: 'image_Risk')
   final String? riskPhoto;
   @override
-  @JsonKey(name: 'image_authority_reg')
+  @JsonKey(name: 'image_Authority_Reg')
   final String? registerationPhoto;
   @override
-  @JsonKey(name: 'image_passport')
+  @JsonKey(name: 'image_Passport')
   final String? passportPhoto;
   @override
-  @JsonKey(name: 'image_id')
+  @JsonKey(name: 'image_Id')
   final String? nidPhoto;
   @override
-  @JsonKey(name: 'image_contract')
+  @JsonKey(name: 'image_Contract')
   final String? contractPhoto;
 
   @override
@@ -780,7 +780,7 @@ abstract class _Profile extends Profile {
       final String fullName,
       final String userName,
       final String bio,
-      @JsonKey(name: 'image_profile') final String? profileImage,
+      @JsonKey(name: 'image_Profile') final String? profileImage,
       final String mobile,
       final String email,
       final String address,
@@ -792,19 +792,19 @@ abstract class _Profile extends Profile {
       final bool status,
       @JsonKey(includeToJson: false) final Country country,
       final String updatedBy,
-      @JsonKey(name: 'image_profile_1') final String? eventPhoto0,
-      @JsonKey(name: 'image_profile_2') final String? eventPhoto1,
-      @JsonKey(name: 'image_profile_3') final String? eventPhoto2,
-      @JsonKey(name: 'image_profile_4') final String? eventPhoto3,
-      @JsonKey(name: 'image_profile_5') final String? eventPhoto4,
-      @JsonKey(name: 'account_approved') final bool accountApproved,
-      @JsonKey(name: 'is_hygiene') final bool isHygiene,
-      @JsonKey(name: 'image_hygiene') final String? hygienePhoto,
-      @JsonKey(name: 'image_risk') final String? riskPhoto,
-      @JsonKey(name: 'image_authority_reg') final String? registerationPhoto,
-      @JsonKey(name: 'image_passport') final String? passportPhoto,
-      @JsonKey(name: 'image_id') final String? nidPhoto,
-      @JsonKey(name: 'image_contract')
+      @JsonKey(name: 'image_Profile_1') final String? eventPhoto0,
+      @JsonKey(name: 'image_Profile_2') final String? eventPhoto1,
+      @JsonKey(name: 'image_Profile_3') final String? eventPhoto2,
+      @JsonKey(name: 'image_Profile_4') final String? eventPhoto3,
+      @JsonKey(name: 'image_Profile_5') final String? eventPhoto4,
+      @JsonKey(name: 'account_Approved') final bool accountApproved,
+      @JsonKey(name: 'is_Hygiene') final bool isHygiene,
+      @JsonKey(name: 'image_Hygiene') final String? hygienePhoto,
+      @JsonKey(name: 'image_Risk') final String? riskPhoto,
+      @JsonKey(name: 'image_Authority_Reg') final String? registerationPhoto,
+      @JsonKey(name: 'image_Passport') final String? passportPhoto,
+      @JsonKey(name: 'image_Id') final String? nidPhoto,
+      @JsonKey(name: 'image_Contract')
       final String? contractPhoto}) = _$ProfileImpl;
   const _Profile._() : super._();
 
@@ -825,7 +825,7 @@ abstract class _Profile extends Profile {
   @override
   String get bio;
   @override
-  @JsonKey(name: 'image_profile')
+  @JsonKey(name: 'image_Profile')
   String? get profileImage;
   @override //
   String get mobile;
@@ -851,43 +851,43 @@ abstract class _Profile extends Profile {
   @override
   String get updatedBy;
   @override // Event Photos
-  @JsonKey(name: 'image_profile_1')
+  @JsonKey(name: 'image_Profile_1')
   String? get eventPhoto0;
   @override
-  @JsonKey(name: 'image_profile_2')
+  @JsonKey(name: 'image_Profile_2')
   String? get eventPhoto1;
   @override
-  @JsonKey(name: 'image_profile_3')
+  @JsonKey(name: 'image_Profile_3')
   String? get eventPhoto2;
   @override
-  @JsonKey(name: 'image_profile_4')
+  @JsonKey(name: 'image_Profile_4')
   String? get eventPhoto3;
   @override
-  @JsonKey(name: 'image_profile_5')
+  @JsonKey(name: 'image_Profile_5')
   String? get eventPhoto4;
   @override //
-  @JsonKey(name: 'account_approved')
+  @JsonKey(name: 'account_Approved')
   bool get accountApproved;
   @override
-  @JsonKey(name: 'is_hygiene')
+  @JsonKey(name: 'is_Hygiene')
   bool get isHygiene;
   @override // Documents
-  @JsonKey(name: 'image_hygiene')
+  @JsonKey(name: 'image_Hygiene')
   String? get hygienePhoto;
   @override
-  @JsonKey(name: 'image_risk')
+  @JsonKey(name: 'image_Risk')
   String? get riskPhoto;
   @override
-  @JsonKey(name: 'image_authority_reg')
+  @JsonKey(name: 'image_Authority_Reg')
   String? get registerationPhoto;
   @override
-  @JsonKey(name: 'image_passport')
+  @JsonKey(name: 'image_Passport')
   String? get passportPhoto;
   @override
-  @JsonKey(name: 'image_id')
+  @JsonKey(name: 'image_Id')
   String? get nidPhoto;
   @override
-  @JsonKey(name: 'image_contract')
+  @JsonKey(name: 'image_Contract')
   String? get contractPhoto;
   @override
   @JsonKey(ignore: true)

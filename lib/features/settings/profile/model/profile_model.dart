@@ -16,7 +16,7 @@ class Profile with _$Profile {
     @Default('') String fullName,
     @Default('') String userName,
     @Default('') String bio,
-    @JsonKey(name: 'image_profile') String? profileImage,
+    @JsonKey(name: 'image_Profile') String? profileImage,
 
     //
     @Default('') String mobile,
@@ -34,23 +34,23 @@ class Profile with _$Profile {
     @Default('') String updatedBy,
 
     // Event Photos
-    @JsonKey(name: 'image_profile_1') String? eventPhoto0,
-    @JsonKey(name: 'image_profile_2') String? eventPhoto1,
-    @JsonKey(name: 'image_profile_3') String? eventPhoto2,
-    @JsonKey(name: 'image_profile_4') String? eventPhoto3,
-    @JsonKey(name: 'image_profile_5') String? eventPhoto4,
+    @JsonKey(name: 'image_Profile_1') String? eventPhoto0,
+    @JsonKey(name: 'image_Profile_2') String? eventPhoto1,
+    @JsonKey(name: 'image_Profile_3') String? eventPhoto2,
+    @JsonKey(name: 'image_Profile_4') String? eventPhoto3,
+    @JsonKey(name: 'image_Profile_5') String? eventPhoto4,
 
     //
-    @Default(false) @JsonKey(name: 'account_approved') bool accountApproved,
-    @Default(false) @JsonKey(name: 'is_hygiene') bool isHygiene,
+    @Default(false) @JsonKey(name: 'account_Approved') bool accountApproved,
+    @Default(false) @JsonKey(name: 'is_Hygiene') bool isHygiene,
 
     // Documents
-    @JsonKey(name: 'image_hygiene') String? hygienePhoto,
-    @JsonKey(name: 'image_risk') String? riskPhoto,
-    @JsonKey(name: 'image_authority_reg') String? registerationPhoto,
-    @JsonKey(name: 'image_passport') String? passportPhoto,
-    @JsonKey(name: 'image_id') String? nidPhoto,
-    @JsonKey(name: 'image_contract') String? contractPhoto,
+    @JsonKey(name: 'image_Hygiene') String? hygienePhoto,
+    @JsonKey(name: 'image_Risk') String? riskPhoto,
+    @JsonKey(name: 'image_Authority_Reg') String? registerationPhoto,
+    @JsonKey(name: 'image_Passport') String? passportPhoto,
+    @JsonKey(name: 'image_Id') String? nidPhoto,
+    @JsonKey(name: 'image_Contract') String? contractPhoto,
   }) = _Profile;
 
   const Profile._();
