@@ -4,12 +4,12 @@ import 'package:yumi/features/schedule/repository/interface.dart';
 
 class ScheduleMockRepo implements IScheduleRepo {
   @override
-  Future<Schedule> getSchedule() {
+  Future<Schedule> getMySchedule(BuildContext? ctx) {
     return Future.delayed(
         const Duration(seconds: 1),
         () => Schedule(
-              guid: '',
-              userId: '',
+              id: '',
+              userID: '',
               saturdayActive: true,
               saturdayStart: TimeOfDay.now(),
               saturdayEnd: TimeOfDay.now(),
@@ -23,7 +23,7 @@ class ScheduleMockRepo implements IScheduleRepo {
   }
 
   @override
-  Future<String> saveSchedule(Schedule schedule) {
+  Future<String> saveMySchedule(BuildContext? ctx, Schedule schedule) {
     // TODO: implement saveSchedule
     throw UnimplementedError();
   }

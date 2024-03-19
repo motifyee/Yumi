@@ -20,8 +20,8 @@ Schedule _$ScheduleFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Schedule {
-  String get guid => throw _privateConstructorUsedError;
-  String get userId => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String get userID => throw _privateConstructorUsedError;
   bool? get saturdayActive => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
   TimeOfDay? get saturdayStart => throw _privateConstructorUsedError;
@@ -70,8 +70,8 @@ abstract class $ScheduleCopyWith<$Res> {
       _$ScheduleCopyWithImpl<$Res, Schedule>;
   @useResult
   $Res call(
-      {String guid,
-      String userId,
+      {String id,
+      String userID,
       bool? saturdayActive,
       @TimeOfDayConverter() TimeOfDay? saturdayStart,
       @TimeOfDayConverter() TimeOfDay? saturdayEnd,
@@ -108,8 +108,8 @@ class _$ScheduleCopyWithImpl<$Res, $Val extends Schedule>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? guid = null,
-    Object? userId = null,
+    Object? id = null,
+    Object? userID = null,
     Object? saturdayActive = freezed,
     Object? saturdayStart = freezed,
     Object? saturdayEnd = freezed,
@@ -133,13 +133,13 @@ class _$ScheduleCopyWithImpl<$Res, $Val extends Schedule>
     Object? fridayEnd = freezed,
   }) {
     return _then(_value.copyWith(
-      guid: null == guid
-          ? _value.guid
-          : guid // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
+      userID: null == userID
+          ? _value.userID
+          : userID // ignore: cast_nullable_to_non_nullable
               as String,
       saturdayActive: freezed == saturdayActive
           ? _value.saturdayActive
@@ -238,8 +238,8 @@ abstract class _$$ScheduleDataImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String guid,
-      String userId,
+      {String id,
+      String userID,
       bool? saturdayActive,
       @TimeOfDayConverter() TimeOfDay? saturdayStart,
       @TimeOfDayConverter() TimeOfDay? saturdayEnd,
@@ -274,8 +274,8 @@ class __$$ScheduleDataImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? guid = null,
-    Object? userId = null,
+    Object? id = null,
+    Object? userID = null,
     Object? saturdayActive = freezed,
     Object? saturdayStart = freezed,
     Object? saturdayEnd = freezed,
@@ -299,13 +299,13 @@ class __$$ScheduleDataImplCopyWithImpl<$Res>
     Object? fridayEnd = freezed,
   }) {
     return _then(_$ScheduleDataImpl(
-      guid: null == guid
-          ? _value.guid
-          : guid // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
+      userID: null == userID
+          ? _value.userID
+          : userID // ignore: cast_nullable_to_non_nullable
               as String,
       saturdayActive: freezed == saturdayActive
           ? _value.saturdayActive
@@ -399,8 +399,8 @@ class __$$ScheduleDataImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ScheduleDataImpl extends ScheduleData {
   const _$ScheduleDataImpl(
-      {this.guid = '',
-      this.userId = '',
+      {this.id = '',
+      this.userID = '',
       this.saturdayActive,
       @TimeOfDayConverter() this.saturdayStart,
       @TimeOfDayConverter() this.saturdayEnd,
@@ -429,10 +429,10 @@ class _$ScheduleDataImpl extends ScheduleData {
 
   @override
   @JsonKey()
-  final String guid;
+  final String id;
   @override
   @JsonKey()
-  final String userId;
+  final String userID;
   @override
   final bool? saturdayActive;
   @override
@@ -492,7 +492,7 @@ class _$ScheduleDataImpl extends ScheduleData {
 
   @override
   String toString() {
-    return 'Schedule(guid: $guid, userId: $userId, saturdayActive: $saturdayActive, saturdayStart: $saturdayStart, saturdayEnd: $saturdayEnd, sundayActive: $sundayActive, sundayStart: $sundayStart, sundayEnd: $sundayEnd, mondayActive: $mondayActive, mondayStart: $mondayStart, mondayEnd: $mondayEnd, tuesdayActive: $tuesdayActive, tuesdayStart: $tuesdayStart, tuesdayEnd: $tuesdayEnd, wednesdayActive: $wednesdayActive, wednesdayStart: $wednesdayStart, wednesdayEnd: $wednesdayEnd, thursdayActive: $thursdayActive, thursdayStart: $thursdayStart, thursdayEnd: $thursdayEnd, fridayActive: $fridayActive, fridayStart: $fridayStart, fridayEnd: $fridayEnd)';
+    return 'Schedule(id: $id, userID: $userID, saturdayActive: $saturdayActive, saturdayStart: $saturdayStart, saturdayEnd: $saturdayEnd, sundayActive: $sundayActive, sundayStart: $sundayStart, sundayEnd: $sundayEnd, mondayActive: $mondayActive, mondayStart: $mondayStart, mondayEnd: $mondayEnd, tuesdayActive: $tuesdayActive, tuesdayStart: $tuesdayStart, tuesdayEnd: $tuesdayEnd, wednesdayActive: $wednesdayActive, wednesdayStart: $wednesdayStart, wednesdayEnd: $wednesdayEnd, thursdayActive: $thursdayActive, thursdayStart: $thursdayStart, thursdayEnd: $thursdayEnd, fridayActive: $fridayActive, fridayStart: $fridayStart, fridayEnd: $fridayEnd)';
   }
 
   @override
@@ -500,8 +500,8 @@ class _$ScheduleDataImpl extends ScheduleData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ScheduleDataImpl &&
-            (identical(other.guid, guid) || other.guid == guid) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.userID, userID) || other.userID == userID) &&
             (identical(other.saturdayActive, saturdayActive) ||
                 other.saturdayActive == saturdayActive) &&
             (identical(other.saturdayStart, saturdayStart) ||
@@ -550,8 +550,8 @@ class _$ScheduleDataImpl extends ScheduleData {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        guid,
-        userId,
+        id,
+        userID,
         saturdayActive,
         saturdayStart,
         saturdayEnd,
@@ -591,8 +591,8 @@ class _$ScheduleDataImpl extends ScheduleData {
 
 abstract class ScheduleData extends Schedule {
   const factory ScheduleData(
-      {final String guid,
-      final String userId,
+      {final String id,
+      final String userID,
       final bool? saturdayActive,
       @TimeOfDayConverter() final TimeOfDay? saturdayStart,
       @TimeOfDayConverter() final TimeOfDay? saturdayEnd,
@@ -620,9 +620,9 @@ abstract class ScheduleData extends Schedule {
       _$ScheduleDataImpl.fromJson;
 
   @override
-  String get guid;
+  String get id;
   @override
-  String get userId;
+  String get userID;
   @override
   bool? get saturdayActive;
   @override
@@ -795,8 +795,9 @@ class __$$scheduleDayInitImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$scheduleDayInitImpl implements _scheduleDayInit {
-  const _$scheduleDayInitImpl({this.name, this.active, this.start, this.end});
+class _$scheduleDayInitImpl extends _scheduleDayInit {
+  const _$scheduleDayInitImpl({this.name, this.active, this.start, this.end})
+      : super._();
 
   @override
   final WeekDay? name;
@@ -834,12 +835,13 @@ class _$scheduleDayInitImpl implements _scheduleDayInit {
           this, _$identity);
 }
 
-abstract class _scheduleDayInit implements ScheduleDay {
+abstract class _scheduleDayInit extends ScheduleDay {
   const factory _scheduleDayInit(
       {final WeekDay? name,
       final bool? active,
       final TimeOfDay? start,
       final TimeOfDay? end}) = _$scheduleDayInitImpl;
+  const _scheduleDayInit._() : super._();
 
   @override
   WeekDay? get name;

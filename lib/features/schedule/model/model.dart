@@ -9,8 +9,8 @@ part 'model.g.dart';
 @freezed
 class Schedule with _$Schedule {
   const factory Schedule({
-    @Default('') String guid,
-    @Default('') String userId,
+    @Default('') String id,
+    @Default('') String userID,
     bool? saturdayActive,
     @TimeOfDayConverter() TimeOfDay? saturdayStart,
     @TimeOfDayConverter() TimeOfDay? saturdayEnd,
@@ -53,9 +53,17 @@ class Schedule with _$Schedule {
     return WeekDay.values.map((day) => scheduleDay(day, json)).toList();
   }
 
+  bool get uiValid =>
+      scheduleDays.every((day) => day.uiValid) &&
+      scheduleDays.any((day) => day.active ?? false);
+
+  bool isDifferent(Schedule schedule) => this == schedule;
+
   copyWithScheduleDay(ScheduleDay scheduleDay) {
     var json = toJson();
+
     String day = scheduleDay.name?.name ?? '';
+    if (day.isEmpty) return this;
 
     json['${day}Active'] = scheduleDay.active;
     json['${day}Start'] = scheduleDay.start?.toStringF;
@@ -77,9 +85,11 @@ class ScheduleDay with _$ScheduleDay {
     TimeOfDay? end,
   }) = _scheduleDayInit;
 
-  // String? get apprev => name?.substring(0, 3).toUpperCase();
+  const ScheduleDay._();
 
-  // const factory ScheduleDay({this.name, this.active, this.start, this.end});
+  TimeOfDay? get activeTime => end?.difference(start);
+  bool get valid => (activeTime?.hour ?? 0) >= 2;
+  bool get uiValid => !((active ?? false) && !valid);
 }
 
 enum WeekDay {

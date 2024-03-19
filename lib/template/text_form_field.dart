@@ -25,7 +25,9 @@ class TextFormFieldTemplate extends StatefulWidget {
     this.dropdownSelectionValue,
     this.dropdownSelectionTargetLabel,
     this.dropdownSelectionList,
+    this.prefixText,
     this.prefixIcon,
+    this.suffixText,
     this.suffixIcon,
     this.suffixIconConstraints,
     this.textInputType = TextInputType.text,
@@ -69,7 +71,9 @@ class TextFormFieldTemplate extends StatefulWidget {
   dynamic dropdownSelectionValue;
   List<dynamic>? dropdownSelectionList;
   dynamic initialValue;
+  String? prefixText;
   Widget? prefixIcon;
+  String? suffixText;
   Widget? suffixIcon;
   BoxConstraints? suffixIconConstraints;
   List<TextInputFormatter> inputFormatters;
@@ -187,11 +191,13 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
       isDense: widget.isDense,
       focusedBorder: widget.calcBorderStyle(isFocused: true),
       errorBorder: widget.calcBorderStyle(isFocused: true),
+      prefixText: widget.prefixText,
       prefixIcon: widget.prefixIcon,
       hintText: widget.hintText,
       hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: ThemeSelector.colors.secondaryTantLighter,
           ),
+      suffixText: widget.suffixText,
       suffixIcon: widget.isPassword
           ? IconButton(
               onPressed: () {

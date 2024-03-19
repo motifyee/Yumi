@@ -13,6 +13,11 @@ part of 'schedule_bloc.dart';
 class ScheduleState with _$ScheduleState {
   const factory ScheduleState({
     @Default(Schedule()) Schedule schedule,
+    @Default(Schedule()) Schedule scheduleForm,
     @Default(BlocStatus.init) BlocStatus status,
   }) = Initial;
+
+  const ScheduleState._();
+
+  bool get changed => schedule != scheduleForm;
 }

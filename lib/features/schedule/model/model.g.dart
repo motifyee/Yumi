@@ -8,8 +8,8 @@ part of 'model.dart';
 
 _$ScheduleDataImpl _$$ScheduleDataImplFromJson(Map<String, dynamic> json) =>
     _$ScheduleDataImpl(
-      guid: json['guid'] as String? ?? '',
-      userId: json['userId'] as String? ?? '',
+      id: json['id'] as String? ?? '',
+      userID: json['userID'] as String? ?? '',
       saturdayActive: json['saturdayActive'] as bool?,
       saturdayStart:
           const TimeOfDayConverter().fromJson(json['saturdayStart'] as String?),
@@ -49,8 +49,8 @@ _$ScheduleDataImpl _$$ScheduleDataImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$ScheduleDataImplToJson(_$ScheduleDataImpl instance) =>
     <String, dynamic>{
-      'guid': instance.guid,
-      'userId': instance.userId,
+      'id': instance.id,
+      'userID': instance.userID,
       'saturdayActive': instance.saturdayActive,
       'saturdayStart':
           const TimeOfDayConverter().toJson(instance.saturdayStart),

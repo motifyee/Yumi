@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,8 @@ import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
 import 'package:yumi/features/schedule/model/extensions.dart';
 import 'package:yumi/features/schedule/model/model.dart';
 import 'package:yumi/features/schedule/repository/mock.dart';
+import 'package:yumi/features/schedule/repository/repository.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/screen_container.dart';
 
@@ -17,7 +20,7 @@ class MyScheduleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ScheduleBloc(scheduleRepo: ScheduleMockRepo()),
+      create: (context) => ScheduleBloc(scheduleRepo: ScheduleRepo()),
       child: ScreenContainer(
         child: Scaffold(
           backgroundColor: Colors.transparent,
@@ -27,45 +30,100 @@ class MyScheduleScreen extends StatelessWidget {
             scrolledUnderElevation: 0,
             iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
           ),
-          body: SingleChildScrollView(
-            child: BlocBuilder<ScheduleBloc, ScheduleState>(
-              builder: (context, state) {
-                if (state.status.isInit) {
-                  context.read<ScheduleBloc>().add(const ScheduleEvent.init());
-                }
-                if (state.status.isLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
+          body: BlocBuilder<ScheduleBloc, ScheduleState>(
+            builder: (context, state) {
+              if (state.status.isInit) {
+                context.read<ScheduleBloc>().add(ScheduleEvent.init(context));
+              }
+              if (state.status.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-                return Center(
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    runAlignment: WrapAlignment.center,
-                    spacing: 15,
-                    runSpacing: 15,
-                    children: [
-                      const SizedBox(width: double.infinity, height: 50),
-                      ...WeekDay.values
-                          .map((e) => [
-                                _card(state.schedule.scheduleDay(e)),
-                                const SizedBox(
-                                  height: 10,
-                                )
-                              ])
-                          .expand((e) => e),
-                    ],
+              return Column(
+                children: [
+                  Expanded(child: SingleChildScrollView(child: _cards(state))),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: _saveButton(context),
                   ),
-                );
-              },
-            ),
+                ],
+              );
+            },
           ),
         ),
       ),
     );
   }
 
+  TextButton _saveButton(BuildContext context) {
+    var bloc = context.read<ScheduleBloc>();
+    var valid = bloc.state.scheduleForm.uiValid;
+    var canUpdate = valid && bloc.state.changed;
+
+    return TextButton(
+      onPressed: () {
+        if (!canUpdate) return;
+
+        bloc.add(ScheduleEvent.saveSchedule(context));
+      },
+      child: Container(
+        width: 125,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+              Radius.circular(ThemeSelector.statics.defaultBorderRadiusLarge)),
+          color: canUpdate
+              ? ThemeSelector.colors.primary
+              : ThemeSelector.colors.primaryTant,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(
+              Icons.save,
+              color: ThemeSelector.colors.onSecondary,
+            ),
+            Text(
+              'Save',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Wrap _cards(ScheduleState state) {
+    return Wrap(
+      alignment: WrapAlignment.center,
+      runAlignment: WrapAlignment.center,
+      spacing: 15,
+      runSpacing: 15,
+      children: [
+        const SizedBox(width: double.infinity, height: 50),
+        ...WeekDay.values
+            .map((e) => [
+                  _card(state.scheduleForm.scheduleDay(e)),
+                  const SizedBox(
+                    height: 10,
+                  )
+                ])
+            .expand((e) => e),
+      ],
+    );
+  }
+
   Widget _card(ScheduleDay day) {
     return Card(
+        shape: day.uiValid
+            ? null
+            : RoundedRectangleBorder(
+                side: BorderSide(color: ThemeSelector.colors.error, width: 2.0),
+                borderRadius: BorderRadius.circular(10.0)),
+        borderOnForeground: true,
         elevation: day.active ?? false ? 5 : 1,
         child: SizedBox(
           width: 140,
@@ -100,7 +158,9 @@ class MyScheduleScreen extends StatelessWidget {
               onTap: () {
                 var d = day.copyWith(active: !(day.active ?? false));
                 HapticFeedback.lightImpact();
-                context.read<ScheduleBloc>().add(ScheduleEvent.setDay(d));
+                context
+                    .read<ScheduleBloc>()
+                    .add(ScheduleEvent.saveScheduleDay(context, d));
               },
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10), topRight: Radius.circular(10)),
@@ -128,8 +188,6 @@ class MyScheduleScreen extends StatelessWidget {
   }
 
   Widget _body(ScheduleDay day) {
-    TimeOfDay timeOfDay = TimeOfDay.now();
-
     return Builder(builder: (context) {
       return Column(
         children: [
@@ -141,7 +199,7 @@ class MyScheduleScreen extends StatelessWidget {
             children: [
               const SizedBox(width: 10),
               Text(
-                "00:00",
+                day.activeTime?.toStringD ?? "00:00",
                 style: TextStyle(
                     color: day.active ?? false
                         ? ThemeSelector.colors.secondaryTant
@@ -183,10 +241,12 @@ class MyScheduleScreen extends StatelessWidget {
 
                     context
                         .read<ScheduleBloc>()
-                        .add(ScheduleEvent.setDay(day.copyWith(
-                          start: start ? tod : day.start,
-                          end: start ? day.end : tod,
-                        )));
+                        .add(ScheduleEvent.saveScheduleDay(
+                            context,
+                            day.copyWith(
+                              start: start ? tod : day.start,
+                              end: start ? day.end : tod,
+                            )));
                   });
                 }
               : null,

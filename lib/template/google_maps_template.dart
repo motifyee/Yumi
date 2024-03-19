@@ -57,10 +57,10 @@ class GoogleMapsTemplateState extends State<GoogleMapsTemplate> {
         );
         widget._markers.add(
           Marker(
-            markerId: MarkerId('1'),
+            markerId: const MarkerId('1'),
             position: LatLng(currLocation.latitude, currLocation.longitude),
             icon: BitmapDescriptor.defaultMarkerWithHue(8),
-            infoWindow: InfoWindow(
+            infoWindow: const InfoWindow(
               title: 'My Position',
             ),
           ),
