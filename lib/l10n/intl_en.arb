@@ -185,5 +185,6 @@
   "chefMenu": "Chef Menu",
   "delivery": "Delivery",
   "orderCreatedSuccessfully": "Order created successfully",
-  "hour": "Hour"
+  "hour": "Hour",
+  "chefCuisines":"Chef Cuisines"
 }

@@ -1919,6 +1919,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Chef Cuisines`
+  String get chefCuisines {
+    return Intl.message(
+      'Chef Cuisines',
+      name: 'chefCuisines',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

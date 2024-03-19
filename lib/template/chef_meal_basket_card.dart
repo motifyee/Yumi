@@ -53,7 +53,7 @@ class ChefMealBasketCard extends StatelessWidget {
                       : const ColorFilter.mode(
                           Colors.transparent, BlendMode.darken),
                   child: Image.memory(
-                    base64Decode(meal.photo!),
+                    base64Decode(meal.photo ?? ''),
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) => Image.asset(
                       'assets/images/354.jpeg',

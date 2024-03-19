@@ -55,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cardNumber": MessageLookupByLibrary.simpleMessage("Card number"),
         "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
+        "chefCuisines": MessageLookupByLibrary.simpleMessage("Chef Cuisines"),
         "chefEvents": MessageLookupByLibrary.simpleMessage("Chef events"),
         "chefMenu": MessageLookupByLibrary.simpleMessage("Chef Menu"),
         "chefs": MessageLookupByLibrary.simpleMessage("Chefs"),

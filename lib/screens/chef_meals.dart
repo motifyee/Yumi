@@ -14,13 +14,19 @@ import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/chef_meal_basket_card.dart';
 import 'package:yumi/template/pagination_template.dart';
 
-class ChefMealsScreen extends StatelessWidget {
+class ChefMealsScreen extends StatefulWidget {
   ChefMealsScreen({super.key, required this.menuTarget, required this.chefId});
-
-  final PageController favPageController = PageController(initialPage: 0);
 
   final MenuTarget menuTarget;
   final String chefId;
+
+  @override
+  State<ChefMealsScreen> createState() => _ChefMealsScreenState();
+}
+
+class _ChefMealsScreenState extends State<ChefMealsScreen> {
+  final PageController favPageController = PageController(initialPage: 0);
+  int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,21 +49,29 @@ class ChefMealsScreen extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              SvgPicture.asset(
-                'assets/images/chef_meals_list_icon.svg',
-                height: ThemeSelector.statics.defaultInputGap,
-                colorFilter: ColorFilter.mode(
-                    ThemeSelector.colors.secondary, BlendMode.srcIn),
+              Padding(
+                padding: EdgeInsets.only(bottom: 6),
+                child: SvgPicture.asset(
+                  'assets/images/chef_meals_list_icon.svg',
+                  height: ThemeSelector.statics.defaultInputGap,
+                  colorFilter: ColorFilter.mode(
+                      ThemeSelector.colors.secondary, BlendMode.srcIn),
+                ),
               ),
               SizedBox(width: ThemeSelector.statics.defaultGap),
               Text(
-                S.of(context).chefMenu,
+                pageIndex == 0
+                    ? S.of(context).chefMenu
+                    : S.of(context).chefCuisines,
                 style: Theme.of(context).textTheme.labelLarge,
               ),
               Expanded(child: Container()),
               GestureDetector(
                 onTap: () {
-                  favPageController.jumpToPage(0);
+                  setState(() {
+                    favPageController.jumpToPage(0);
+                    pageIndex = 0;
+                  });
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(
@@ -65,19 +79,30 @@ class ChefMealsScreen extends StatelessWidget {
                   child: SvgPicture.asset(
                     'assets/images/chef_meals_list.svg',
                     colorFilter: ColorFilter.mode(
-                        ThemeSelector.colors.primary, BlendMode.srcIn),
+                        pageIndex == 0
+                            ? ThemeSelector.colors.primary
+                            : ThemeSelector.colors.secondary,
+                        BlendMode.srcIn),
                   ),
                 ),
               ),
               GestureDetector(
                 onTap: () {
-                  favPageController.jumpToPage(1);
+                  setState(() {
+                    favPageController.jumpToPage(1);
+                    pageIndex = 1;
+                  });
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: ThemeSelector.statics.defaultInputGap),
                   child: SvgPicture.asset(
                     'assets/images/meals.svg',
+                    colorFilter: ColorFilter.mode(
+                        pageIndex == 0
+                            ? ThemeSelector.colors.secondary
+                            : ThemeSelector.colors.primary,
+                        BlendMode.srcIn),
                   ),
                 ),
               ),
@@ -95,8 +120,8 @@ class ChefMealsScreen extends StatelessWidget {
                     context.read<MealListBloc>().add(
                           MealListUpdateEvent(
                             context: context,
-                            menuTarget: menuTarget,
-                            chefId: chefId,
+                            menuTarget: widget.menuTarget,
+                            chefId: widget.chefId,
                           ),
                         );
                   },
@@ -153,44 +178,79 @@ class ChefMealsScreen extends StatelessWidget {
                       return Column(
                         children: [
                           for (var category in state.categoriesModelList)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: ThemeSelector.statics.defaultGap),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: ThemeSelector
-                                        .statics.defaultGapExtraExtreme,
-                                    height:
-                                        ThemeSelector.statics.defaultGapXXXL,
-                                    clipBehavior: Clip.hardEdge,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          ThemeSelector.statics.defaultGap),
-                                    ),
-                                    child: category.image != null
-                                        ? Image.memory(
-                                            base64Decode(
-                                              category.image ?? '',
-                                            ),
-                                            fit: BoxFit.cover,
-                                            alignment: Alignment.topCenter,
-                                          )
-                                        : Image.asset(
-                                            'assets/images/354'
-                                            '.jpeg',
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  favPageController.jumpToPage(0);
+                                  pageIndex = 0;
+                                });
+                                context
+                                    .read<MealListBloc>()
+                                    .add(MealListResetEvent());
+                                context
+                                    .read<MealListBloc>()
+                                    .add(MealListUpdateCategoryEvent(
+                                      context: context,
+                                      selectedCategory: category.id ?? 0,
+                                      chefId: widget.chefId,
+                                    ));
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        ThemeSelector.statics.defaultGap),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height: ThemeSelector
+                                            .statics.defaultImageHeightSmall,
+                                        clipBehavior: Clip.hardEdge,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(
+                                                ThemeSelector
+                                                    .statics.defaultGap),
+                                            topRight: Radius.circular(
+                                                ThemeSelector
+                                                    .statics.defaultGap),
+                                          ),
+                                        ),
+                                        child: Image.memory(
+                                          base64Decode(
+                                            category.image ?? '',
+                                          ),
+                                          fit: BoxFit.cover,
+                                          alignment: Alignment.topCenter,
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  Image.asset(
+                                            'assets/images/354.jpeg',
                                             fit: BoxFit.cover,
                                             alignment: Alignment.topCenter,
                                           ),
-                                  ),
-                                  SizedBox(
-                                      height: ThemeSelector.statics.defaultGap),
-                                  Text(
-                                    category.name ?? '',
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
-                                  )
-                                ],
+                                        )),
+                                    SizedBox(
+                                        height:
+                                            ThemeSelector.statics.defaultGap),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              ThemeSelector.statics.defaultGap),
+                                      child: Text(
+                                        category.name ?? '',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            ThemeSelector.statics.defaultGap),
+                                  ],
+                                ),
                               ),
                             ),
                         ],
