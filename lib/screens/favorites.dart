@@ -77,9 +77,8 @@ class FavoritesScreen extends StatelessWidget {
                 PaginationTemplate(
                   scrollDirection: Axis.vertical,
                   loadDate: () {
-                    context
-                        .read<ChefsListBloc>()
-                        .add(GetChefsListEvent(context: context));
+                    context.read<ChefsListBloc>().add(GetChefsListEvent(
+                        context: context, menuTarget: MenuTarget.order));
                   },
                   child: BlocConsumer<ChefsListBloc, ChefsListState>(
                     listener: (context, state) {},

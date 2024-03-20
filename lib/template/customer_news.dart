@@ -35,7 +35,7 @@ class CustomerNews extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    context.router.replaceAll([CustomerLocationRoute()]);
+                    context.router.push(CustomerLocationRoute());
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -297,9 +297,8 @@ class CustomerNews extends StatelessWidget {
                     PaginationTemplate(
                       scrollDirection: Axis.horizontal,
                       loadDate: () {
-                        context
-                            .read<ChefsListBloc>()
-                            .add(GetChefsListEvent(context: context));
+                        context.read<ChefsListBloc>().add(GetChefsListEvent(
+                            context: context, menuTarget: menuTarget));
                       },
                       child: BlocConsumer<ChefsListBloc, ChefsListState>(
                         listener: (context, state) {},

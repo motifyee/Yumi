@@ -19,7 +19,7 @@ class TrackingOrderScreen extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
         leading: TextButton(
             onPressed: () {
-              context.router.pop();
+              context.router.popForced();
             },
             child: Icon(
               Icons.arrow_back,

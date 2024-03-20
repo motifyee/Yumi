@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/model/user_model.dart';
 
 part 'user_event.dart';
@@ -18,6 +19,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           message: '',
           userName: '',
         ))) {
+    on<UserUpdateLocationEvent>((event, emit) {
+      emit(state.copyWith(address: event.address));
+    });
     on<UserFromJsonEvent>((event, emit) {
       emit(state.copyWith(user: UserModel.fromJson(event.user)));
     });

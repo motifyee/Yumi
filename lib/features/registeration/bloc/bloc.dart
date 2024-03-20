@@ -10,9 +10,9 @@ import 'package:yumi/features/registeration/model/registeration.dart';
 import 'package:yumi/features/registeration/repository/address_repo.dart';
 import 'package:yumi/route/route.gr.dart';
 
+part 'bloc.freezed.dart';
 part 'event.dart';
 part 'state.dart';
-part 'bloc.freezed.dart';
 
 //** Flow bloc for registeration process
 // It is used to track the current step of the registeration process,
@@ -92,7 +92,11 @@ class RegBloc extends Bloc<RegEvent, RegState> {
             ).then((res) {
               if (res) {
                 emit(state.copyWith(addressStatus: BlocStatus.success));
-                _navigateTo(4, value.ctx, emit);
+                if (value.routeFn != null) {
+                  value.routeFn!(address: state.address);
+                } else {
+                  _navigateTo(4, value.ctx, emit);
+                }
                 return;
               }
 

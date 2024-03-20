@@ -63,6 +63,8 @@ class ApiKeys {
   static String getMealByChefByCategory = '/meals/category/chef';
   static String mealCalories = '/Product/_/calories';
   static String chefs = '/accounts/chefs';
+  static String chefsOrder = '/accounts/chefs/Order';
+  static String chefsPreOrder = '/accounts/chefs/PreOrder';
   static String preOrderDelivery = '/preorder/delivery';
   static String preOrderPickUp = '/preorder/pickup';
 }

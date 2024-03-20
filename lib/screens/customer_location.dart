@@ -1,9 +1,12 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/statics/geo_location.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 @RoutePage()
@@ -64,7 +67,19 @@ class CustomerLocationScreen extends StatelessWidget {
           Column(
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  GeoLocation.getUserCurrentLocation().then((value) {
+                    context.read<UserBloc>().add(
+                          UserUpdateLocationEvent(
+                            address: Address(
+                              latitude: value.latitude,
+                              longitude: value.longitude,
+                            ),
+                          ),
+                        );
+                    context.router.replaceAll([HomeRoute()]);
+                  });
+                },
                 child: Container(
                   width: ThemeSelector.statics.buttonWidth,
                   height: ThemeSelector.statics.defaultTitleGapLarge,
@@ -82,7 +97,16 @@ class CustomerLocationScreen extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.router.push(
+                    LocationRoute(routeFn: ({Address? address}) {
+                      context
+                          .read<UserBloc>()
+                          .add(UserUpdateLocationEvent(address: address!));
+                      context.router.replaceAll([HomeRoute()]);
+                    }),
+                  );
+                },
                 child: Container(
                   width: ThemeSelector.statics.buttonWidth,
                   height: ThemeSelector.statics.defaultTitleGapLarge,

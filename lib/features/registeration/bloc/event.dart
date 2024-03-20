@@ -13,6 +13,7 @@ class RegEvent with _$RegEvent {
       RegisterationForm signupData, BuildContext ctx) = _setAccount;
   const factory RegEvent.setPhone(String phone, BuildContext ctx) = _setPhone;
   const factory RegEvent.setOTP(String otp, BuildContext ctx) = _setOTP;
-  const factory RegEvent.saveLocation(BuildContext ctx) = _setLocation;
+  const factory RegEvent.saveLocation(BuildContext ctx,
+      {Function({required Address address})? routeFn}) = _setLocation;
   const factory RegEvent.updateLocation(Address address) = _updateLocation;
 }

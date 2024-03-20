@@ -28,7 +28,9 @@ mixin _$RegEvent {
         setAccount,
     required TResult Function(String phone, BuildContext ctx) setPhone,
     required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx) saveLocation,
+    required TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)
+        saveLocation,
     required TResult Function(Address address) updateLocation,
   }) =>
       throw _privateConstructorUsedError;
@@ -44,7 +46,9 @@ mixin _$RegEvent {
         setAccount,
     TResult? Function(String phone, BuildContext ctx)? setPhone,
     TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx)? saveLocation,
+    TResult? Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult? Function(Address address)? updateLocation,
   }) =>
       throw _privateConstructorUsedError;
@@ -60,7 +64,9 @@ mixin _$RegEvent {
         setAccount,
     TResult Function(String phone, BuildContext ctx)? setPhone,
     TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx)? saveLocation,
+    TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult Function(Address address)? updateLocation,
     required TResult orElse(),
   }) =>
@@ -177,7 +183,9 @@ class _$initImpl implements _init {
         setAccount,
     required TResult Function(String phone, BuildContext ctx) setPhone,
     required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx) saveLocation,
+    required TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)
+        saveLocation,
     required TResult Function(Address address) updateLocation,
   }) {
     return init();
@@ -196,7 +204,9 @@ class _$initImpl implements _init {
         setAccount,
     TResult? Function(String phone, BuildContext ctx)? setPhone,
     TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx)? saveLocation,
+    TResult? Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult? Function(Address address)? updateLocation,
   }) {
     return init?.call();
@@ -215,7 +225,9 @@ class _$initImpl implements _init {
         setAccount,
     TResult Function(String phone, BuildContext ctx)? setPhone,
     TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx)? saveLocation,
+    TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult Function(Address address)? updateLocation,
     required TResult orElse(),
   }) {
@@ -336,7 +348,9 @@ class _$loadingImpl implements _loading {
         setAccount,
     required TResult Function(String phone, BuildContext ctx) setPhone,
     required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx) saveLocation,
+    required TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)
+        saveLocation,
     required TResult Function(Address address) updateLocation,
   }) {
     return loading();
@@ -355,7 +369,9 @@ class _$loadingImpl implements _loading {
         setAccount,
     TResult? Function(String phone, BuildContext ctx)? setPhone,
     TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx)? saveLocation,
+    TResult? Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult? Function(Address address)? updateLocation,
   }) {
     return loading?.call();
@@ -374,7 +390,9 @@ class _$loadingImpl implements _loading {
         setAccount,
     TResult Function(String phone, BuildContext ctx)? setPhone,
     TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx)? saveLocation,
+    TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult Function(Address address)? updateLocation,
     required TResult orElse(),
   }) {
@@ -495,7 +513,9 @@ class _$loadedImpl implements _loaded {
         setAccount,
     required TResult Function(String phone, BuildContext ctx) setPhone,
     required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx) saveLocation,
+    required TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)
+        saveLocation,
     required TResult Function(Address address) updateLocation,
   }) {
     return loaded();
@@ -514,7 +534,9 @@ class _$loadedImpl implements _loaded {
         setAccount,
     TResult? Function(String phone, BuildContext ctx)? setPhone,
     TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx)? saveLocation,
+    TResult? Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult? Function(Address address)? updateLocation,
   }) {
     return loaded?.call();
@@ -533,7 +555,9 @@ class _$loadedImpl implements _loaded {
         setAccount,
     TResult Function(String phone, BuildContext ctx)? setPhone,
     TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx)? saveLocation,
+    TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult Function(Address address)? updateLocation,
     required TResult orElse(),
   }) {
@@ -679,7 +703,9 @@ class _$nextImpl implements _next {
         setAccount,
     required TResult Function(String phone, BuildContext ctx) setPhone,
     required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx) saveLocation,
+    required TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)
+        saveLocation,
     required TResult Function(Address address) updateLocation,
   }) {
     return next(ctx);
@@ -698,7 +724,9 @@ class _$nextImpl implements _next {
         setAccount,
     TResult? Function(String phone, BuildContext ctx)? setPhone,
     TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx)? saveLocation,
+    TResult? Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult? Function(Address address)? updateLocation,
   }) {
     return next?.call(ctx);
@@ -717,7 +745,9 @@ class _$nextImpl implements _next {
         setAccount,
     TResult Function(String phone, BuildContext ctx)? setPhone,
     TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx)? saveLocation,
+    TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult Function(Address address)? updateLocation,
     required TResult orElse(),
   }) {
@@ -869,7 +899,9 @@ class _$previousImpl implements _previous {
         setAccount,
     required TResult Function(String phone, BuildContext ctx) setPhone,
     required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx) saveLocation,
+    required TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)
+        saveLocation,
     required TResult Function(Address address) updateLocation,
   }) {
     return previous(ctx);
@@ -888,7 +920,9 @@ class _$previousImpl implements _previous {
         setAccount,
     TResult? Function(String phone, BuildContext ctx)? setPhone,
     TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx)? saveLocation,
+    TResult? Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult? Function(Address address)? updateLocation,
   }) {
     return previous?.call(ctx);
@@ -907,7 +941,9 @@ class _$previousImpl implements _previous {
         setAccount,
     TResult Function(String phone, BuildContext ctx)? setPhone,
     TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx)? saveLocation,
+    TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult Function(Address address)? updateLocation,
     required TResult orElse(),
   }) {
@@ -1066,7 +1102,9 @@ class _$gotoImpl implements _goto {
         setAccount,
     required TResult Function(String phone, BuildContext ctx) setPhone,
     required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx) saveLocation,
+    required TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)
+        saveLocation,
     required TResult Function(Address address) updateLocation,
   }) {
     return goto(step, ctx);
@@ -1085,7 +1123,9 @@ class _$gotoImpl implements _goto {
         setAccount,
     TResult? Function(String phone, BuildContext ctx)? setPhone,
     TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx)? saveLocation,
+    TResult? Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult? Function(Address address)? updateLocation,
   }) {
     return goto?.call(step, ctx);
@@ -1104,7 +1144,9 @@ class _$gotoImpl implements _goto {
         setAccount,
     TResult Function(String phone, BuildContext ctx)? setPhone,
     TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx)? saveLocation,
+    TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult Function(Address address)? updateLocation,
     required TResult orElse(),
   }) {
@@ -1276,7 +1318,9 @@ class _$setAccountImpl implements _setAccount {
         setAccount,
     required TResult Function(String phone, BuildContext ctx) setPhone,
     required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx) saveLocation,
+    required TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)
+        saveLocation,
     required TResult Function(Address address) updateLocation,
   }) {
     return setAccount(signupData, ctx);
@@ -1295,7 +1339,9 @@ class _$setAccountImpl implements _setAccount {
         setAccount,
     TResult? Function(String phone, BuildContext ctx)? setPhone,
     TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx)? saveLocation,
+    TResult? Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult? Function(Address address)? updateLocation,
   }) {
     return setAccount?.call(signupData, ctx);
@@ -1314,7 +1360,9 @@ class _$setAccountImpl implements _setAccount {
         setAccount,
     TResult Function(String phone, BuildContext ctx)? setPhone,
     TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx)? saveLocation,
+    TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult Function(Address address)? updateLocation,
     required TResult orElse(),
   }) {
@@ -1477,7 +1525,9 @@ class _$setPhoneImpl implements _setPhone {
         setAccount,
     required TResult Function(String phone, BuildContext ctx) setPhone,
     required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx) saveLocation,
+    required TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)
+        saveLocation,
     required TResult Function(Address address) updateLocation,
   }) {
     return setPhone(phone, ctx);
@@ -1496,7 +1546,9 @@ class _$setPhoneImpl implements _setPhone {
         setAccount,
     TResult? Function(String phone, BuildContext ctx)? setPhone,
     TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx)? saveLocation,
+    TResult? Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult? Function(Address address)? updateLocation,
   }) {
     return setPhone?.call(phone, ctx);
@@ -1515,7 +1567,9 @@ class _$setPhoneImpl implements _setPhone {
         setAccount,
     TResult Function(String phone, BuildContext ctx)? setPhone,
     TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx)? saveLocation,
+    TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult Function(Address address)? updateLocation,
     required TResult orElse(),
   }) {
@@ -1677,7 +1731,9 @@ class _$setOTPImpl implements _setOTP {
         setAccount,
     required TResult Function(String phone, BuildContext ctx) setPhone,
     required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx) saveLocation,
+    required TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)
+        saveLocation,
     required TResult Function(Address address) updateLocation,
   }) {
     return setOTP(otp, ctx);
@@ -1696,7 +1752,9 @@ class _$setOTPImpl implements _setOTP {
         setAccount,
     TResult? Function(String phone, BuildContext ctx)? setPhone,
     TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx)? saveLocation,
+    TResult? Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult? Function(Address address)? updateLocation,
   }) {
     return setOTP?.call(otp, ctx);
@@ -1715,7 +1773,9 @@ class _$setOTPImpl implements _setOTP {
         setAccount,
     TResult Function(String phone, BuildContext ctx)? setPhone,
     TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx)? saveLocation,
+    TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult Function(Address address)? updateLocation,
     required TResult orElse(),
   }) {
@@ -1801,7 +1861,9 @@ abstract class _$$setLocationImplCopyWith<$Res> {
           _$setLocationImpl value, $Res Function(_$setLocationImpl) then) =
       __$$setLocationImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({BuildContext ctx});
+  $Res call(
+      {BuildContext ctx,
+      dynamic Function({required Address address})? routeFn});
 }
 
 /// @nodoc
@@ -1816,12 +1878,17 @@ class __$$setLocationImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? ctx = null,
+    Object? routeFn = freezed,
   }) {
     return _then(_$setLocationImpl(
       null == ctx
           ? _value.ctx
           : ctx // ignore: cast_nullable_to_non_nullable
               as BuildContext,
+      routeFn: freezed == routeFn
+          ? _value.routeFn
+          : routeFn // ignore: cast_nullable_to_non_nullable
+              as dynamic Function({required Address address})?,
     ));
   }
 }
@@ -1829,14 +1896,16 @@ class __$$setLocationImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$setLocationImpl implements _setLocation {
-  const _$setLocationImpl(this.ctx);
+  const _$setLocationImpl(this.ctx, {this.routeFn});
 
   @override
   final BuildContext ctx;
+  @override
+  final dynamic Function({required Address address})? routeFn;
 
   @override
   String toString() {
-    return 'RegEvent.saveLocation(ctx: $ctx)';
+    return 'RegEvent.saveLocation(ctx: $ctx, routeFn: $routeFn)';
   }
 
   @override
@@ -1844,11 +1913,12 @@ class _$setLocationImpl implements _setLocation {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$setLocationImpl &&
-            (identical(other.ctx, ctx) || other.ctx == ctx));
+            (identical(other.ctx, ctx) || other.ctx == ctx) &&
+            (identical(other.routeFn, routeFn) || other.routeFn == routeFn));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, ctx);
+  int get hashCode => Object.hash(runtimeType, ctx, routeFn);
 
   @JsonKey(ignore: true)
   @override
@@ -1869,10 +1939,12 @@ class _$setLocationImpl implements _setLocation {
         setAccount,
     required TResult Function(String phone, BuildContext ctx) setPhone,
     required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx) saveLocation,
+    required TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)
+        saveLocation,
     required TResult Function(Address address) updateLocation,
   }) {
-    return saveLocation(ctx);
+    return saveLocation(ctx, routeFn);
   }
 
   @override
@@ -1888,10 +1960,12 @@ class _$setLocationImpl implements _setLocation {
         setAccount,
     TResult? Function(String phone, BuildContext ctx)? setPhone,
     TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx)? saveLocation,
+    TResult? Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult? Function(Address address)? updateLocation,
   }) {
-    return saveLocation?.call(ctx);
+    return saveLocation?.call(ctx, routeFn);
   }
 
   @override
@@ -1907,12 +1981,14 @@ class _$setLocationImpl implements _setLocation {
         setAccount,
     TResult Function(String phone, BuildContext ctx)? setPhone,
     TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx)? saveLocation,
+    TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult Function(Address address)? updateLocation,
     required TResult orElse(),
   }) {
     if (saveLocation != null) {
-      return saveLocation(ctx);
+      return saveLocation(ctx, routeFn);
     }
     return orElse();
   }
@@ -1977,9 +2053,12 @@ class _$setLocationImpl implements _setLocation {
 }
 
 abstract class _setLocation implements RegEvent {
-  const factory _setLocation(final BuildContext ctx) = _$setLocationImpl;
+  const factory _setLocation(final BuildContext ctx,
+          {final dynamic Function({required Address address})? routeFn}) =
+      _$setLocationImpl;
 
   BuildContext get ctx;
+  dynamic Function({required Address address})? get routeFn;
   @JsonKey(ignore: true)
   _$$setLocationImplCopyWith<_$setLocationImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2070,7 +2149,9 @@ class _$updateLocationImpl implements _updateLocation {
         setAccount,
     required TResult Function(String phone, BuildContext ctx) setPhone,
     required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx) saveLocation,
+    required TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)
+        saveLocation,
     required TResult Function(Address address) updateLocation,
   }) {
     return updateLocation(address);
@@ -2089,7 +2170,9 @@ class _$updateLocationImpl implements _updateLocation {
         setAccount,
     TResult? Function(String phone, BuildContext ctx)? setPhone,
     TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx)? saveLocation,
+    TResult? Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult? Function(Address address)? updateLocation,
   }) {
     return updateLocation?.call(address);
@@ -2108,7 +2191,9 @@ class _$updateLocationImpl implements _updateLocation {
         setAccount,
     TResult Function(String phone, BuildContext ctx)? setPhone,
     TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx)? saveLocation,
+    TResult Function(BuildContext ctx,
+            dynamic Function({required Address address})? routeFn)?
+        saveLocation,
     TResult Function(Address address)? updateLocation,
     required TResult orElse(),
   }) {
