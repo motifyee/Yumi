@@ -1,9 +1,18 @@
 part of 'bloc.dart';
 
 @freezed
-class RegisterationEvent with _$RegisterationEvent {
-  const factory RegisterationEvent.init() = _init;
-  const factory RegisterationEvent.loading() = _loading;
-  const factory RegisterationEvent.loaded() = _loaded;
-  const factory RegisterationEvent.next() = _next;
+class RegEvent with _$RegEvent {
+  const factory RegEvent.init() = _init;
+  const factory RegEvent.loading() = _loading;
+  const factory RegEvent.loaded() = _loaded;
+  const factory RegEvent.next(BuildContext ctx) = _next;
+  const factory RegEvent.previous(BuildContext ctx) = _previous;
+  const factory RegEvent.goto(int step, BuildContext ctx) = _goto;
+
+  const factory RegEvent.setAccount(
+      RegisterationForm signupData, BuildContext ctx) = _setAccount;
+  const factory RegEvent.setPhone(String phone, BuildContext ctx) = _setPhone;
+  const factory RegEvent.setOTP(String otp, BuildContext ctx) = _setOTP;
+  const factory RegEvent.saveLocation(BuildContext ctx) = _setLocation;
+  const factory RegEvent.updateLocation(Address address) = _updateLocation;
 }

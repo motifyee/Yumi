@@ -55,26 +55,10 @@ class _AppMenuList {
         ),
         AppMenuItem(
           icon: 'assets/images/contract_icon.svg',
-          label: "Reg Phone",
+          label: "Registeration",
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const AddPhoneRoute());
-          },
-        ),
-        AppMenuItem(
-          icon: 'assets/images/contract_icon.svg',
-          label: "Reg Location",
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(LocationRoute());
-          },
-        ),
-        AppMenuItem(
-          icon: 'assets/images/contract_icon.svg',
-          label: "Reg OTP",
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const OTPRoute());
+            context.router.push(const RegisterationRoute());
           },
         ),
         AppMenuItem(

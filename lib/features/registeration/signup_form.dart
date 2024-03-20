@@ -1,10 +1,15 @@
 import 'dart:convert';
 
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app_target.dart';
+import 'package:yumi/features/registeration/bloc/bloc.dart';
+import 'package:yumi/features/registeration/model/registeration.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/signup_model.dart';
-import 'package:yumi/service/signup_service.dart';
+import 'package:yumi/features/registeration/model/signup_model.dart';
+import 'package:yumi/features/registeration/repository/signup_service.dart';
 import 'package:yumi/statics/code_generator.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/confirm_button.dart';
@@ -21,7 +26,7 @@ class SignUpForm extends StatelessWidget {
   final GlobalKey<FormState> signUpFormKey;
   final TextEditingController? passwordController;
 
-  final SignUpModel signupForm = SignUpModel(
+  RegisterationForm signupForm = RegisterationForm(
       code: CodeGenerator.getRandomCode(),
       fullName: '',
       userName: '',
@@ -45,7 +50,7 @@ class SignUpForm extends StatelessWidget {
               key: key,
               label: S.of(context).fullName,
               onSave: (value) {
-                signupForm.fullName = value ?? '';
+                signupForm = signupForm.copyWith(fullName: value);
               },
               validators: requiredValidator,
             ),
@@ -54,7 +59,7 @@ class SignUpForm extends StatelessWidget {
               key: key,
               label: S.of(context).userName,
               onSave: (value) {
-                signupForm.userName = value ?? '';
+                signupForm = signupForm.copyWith(userName: value);
               },
               validators: requiredValidator,
             ),
@@ -63,7 +68,7 @@ class SignUpForm extends StatelessWidget {
               key: key,
               label: S.of(context).email,
               onSave: (value) {
-                signupForm.email = value ?? '';
+                signupForm = signupForm.copyWith(email: value);
               },
               validators: emailValidator,
             ),
@@ -72,7 +77,7 @@ class SignUpForm extends StatelessWidget {
               key: key,
               label: S.of(context).password,
               onSave: (value) {
-                signupForm.password = value ?? '';
+                signupForm = signupForm.copyWith(password: value);
               },
               validators: passwordValidator,
               isPassword: true,
@@ -83,7 +88,7 @@ class SignUpForm extends StatelessWidget {
               key: key,
               label: S.of(context).confirmPassword,
               onSave: (value) {
-                signupForm.password = value ?? '';
+                signupForm = signupForm.copyWith(password: value);
               },
               validators: (value) {
                 return confirmPasswordValidator(
@@ -95,6 +100,12 @@ class SignUpForm extends StatelessWidget {
             ConfirmButton(
               label: S.of(context).createAccount,
               onPressed: () async {
+                if (kDebugMode) {
+                  return context
+                      .read<RegBloc>()
+                      .add(RegEvent.setAccount(signupForm, context));
+                }
+
                 if (signUpFormKey.currentState!.validate()) {
                   signUpFormKey.currentState!.save();
 
@@ -103,7 +114,10 @@ class SignUpForm extends StatelessWidget {
                     value = jsonDecode(value.toString());
 
                     if (value["message"].contains('Created')) {
-                      Navigator.of(context).pop();
+                      // Navigator.of(context).pop();
+                      context
+                          .read<RegBloc>()
+                          .add(RegEvent.setAccount(signupForm, context));
                     }
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

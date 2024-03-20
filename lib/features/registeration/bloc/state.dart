@@ -1,18 +1,46 @@
 part of 'bloc.dart';
 
+//** State.flowIndex:
+// * * * * * * * * *
+// it manages automatically navigating between  screens
+//
+//! -1: Not instantiated ()
+// 0: Register
+// 1: Phone
+// 2: OTP
+// 3: Address
+// 4: Finished
+// */
+
 @freezed
-class RegisterationState with _$RegisterationState {
-  const factory RegisterationState({
-    @Default(0) double index,
-    LatLng? latLng,
-    String? address,
+class RegState with _$RegState {
+  const factory RegState({
+    @Default(0) int step,
+    RegisterationForm? singupData,
     String? phone,
     String? otp,
-  }) = Initial;
-}
+    @Default(Address()) Address address,
+    @Default(BlocStatus.init) BlocStatus addressStatus,
+  }) = _initial;
 
-// class Registeration with _$Registeration{
-//   const factory Registeration({
-//     @Default(0) double index,
-//   }) = Initial;
-// }
+  const RegState._();
+
+  // <Type>
+  List<PageRouteInfo<void>> get screens => [
+        SignUpRoute(),
+        const AddPhoneRoute(),
+        LocationRoute(),
+        const OTPRoute(),
+      ];
+
+  List<String> get screenNames => [
+        'signup',
+        'addPhone',
+        'otp',
+        'location',
+        'signup',
+      ];
+
+  PageRouteInfo? get routeScreen =>
+      step >= 0 && step < 5 ? screens[step] : null;
+}

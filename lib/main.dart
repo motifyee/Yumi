@@ -15,6 +15,7 @@ import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/features/chef_application/bloc.dart';
 import 'package:yumi/features/chef_application/documentation/bloc/documentation_bloc.dart';
 import 'package:yumi/features/chef_application/documentation/bloc/icon_bloc.dart';
+import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/route/route.dart';
