@@ -98,12 +98,12 @@ class _MapState extends State<GMap> {
         onMapCreated: _onMapCreated,
         onTap: _onTap,
         onLongPress: _onLongPress,
-        tileOverlays: {
-          const TileOverlay(
-            tileOverlayId: TileOverlayId("value"),
-          ),
-        },
-        myLocationButtonEnabled: true,
+        // tileOverlays: {
+        //   const TileOverlay(
+        //     tileOverlayId: TileOverlayId("value"),
+        //   ),
+        // },
+        // myLocationButtonEnabled: true,
         myLocationEnabled: true,
         zoomControlsEnabled: true,
         markers: widget._markers);
