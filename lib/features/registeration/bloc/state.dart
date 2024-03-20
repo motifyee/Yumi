@@ -19,7 +19,7 @@ class RegState with _$RegState {
     RegisterationForm? singupData,
     String? phone,
     String? otp,
-    @Default(Address()) Address address,
+    @Default(Address(isDefault: true)) Address address,
     @Default(BlocStatus.init) BlocStatus addressStatus,
   }) = _initial;
 

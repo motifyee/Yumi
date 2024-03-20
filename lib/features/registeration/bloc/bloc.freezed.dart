@@ -2362,7 +2362,7 @@ class _$initialImpl extends _initial {
       this.singupData,
       this.phone,
       this.otp,
-      this.address = const Address(),
+      this.address = const Address(isDefault: true),
       this.addressStatus = BlocStatus.init})
       : super._();
 

@@ -20,18 +20,16 @@ Address _$AddressFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Address {
-  String? get code => throw _privateConstructorUsedError;
-  @JsonKey(name: 'id')
-  String? get id => throw _privateConstructorUsedError;
-  String? get userId => throw _privateConstructorUsedError;
+  String? get code =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'id') String? id,
+// String? userId,
   @JsonKey(name: 'address')
   String? get country => throw _privateConstructorUsedError;
   @JsonKey(name: 'addressName')
   String? get city => throw _privateConstructorUsedError;
   @JsonKey(name: 'location')
-  String? get street => throw _privateConstructorUsedError;
-  String? get zip => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Address_Lattitude')
+  String? get street => throw _privateConstructorUsedError; // String? zip,
+  @JsonKey(name: 'Address_Latitude')
   double? get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'Address_Longitude')
   double? get longitude => throw _privateConstructorUsedError;
@@ -49,13 +47,10 @@ abstract class $AddressCopyWith<$Res> {
   @useResult
   $Res call(
       {String? code,
-      @JsonKey(name: 'id') String? id,
-      String? userId,
       @JsonKey(name: 'address') String? country,
       @JsonKey(name: 'addressName') String? city,
       @JsonKey(name: 'location') String? street,
-      String? zip,
-      @JsonKey(name: 'Address_Lattitude') double? latitude,
+      @JsonKey(name: 'Address_Latitude') double? latitude,
       @JsonKey(name: 'Address_Longitude') double? longitude,
       bool? isDefault});
 }
@@ -74,12 +69,9 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
   @override
   $Res call({
     Object? code = freezed,
-    Object? id = freezed,
-    Object? userId = freezed,
     Object? country = freezed,
     Object? city = freezed,
     Object? street = freezed,
-    Object? zip = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? isDefault = freezed,
@@ -88,14 +80,6 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
       code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
               as String?,
       country: freezed == country
           ? _value.country
@@ -108,10 +92,6 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
       street: freezed == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
-              as String?,
-      zip: freezed == zip
-          ? _value.zip
-          : zip // ignore: cast_nullable_to_non_nullable
               as String?,
       latitude: freezed == latitude
           ? _value.latitude
@@ -138,13 +118,10 @@ abstract class _$$AddressImplCopyWith<$Res> implements $AddressCopyWith<$Res> {
   @useResult
   $Res call(
       {String? code,
-      @JsonKey(name: 'id') String? id,
-      String? userId,
       @JsonKey(name: 'address') String? country,
       @JsonKey(name: 'addressName') String? city,
       @JsonKey(name: 'location') String? street,
-      String? zip,
-      @JsonKey(name: 'Address_Lattitude') double? latitude,
+      @JsonKey(name: 'Address_Latitude') double? latitude,
       @JsonKey(name: 'Address_Longitude') double? longitude,
       bool? isDefault});
 }
@@ -161,12 +138,9 @@ class __$$AddressImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? code = freezed,
-    Object? id = freezed,
-    Object? userId = freezed,
     Object? country = freezed,
     Object? city = freezed,
     Object? street = freezed,
-    Object? zip = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? isDefault = freezed,
@@ -175,14 +149,6 @@ class __$$AddressImplCopyWithImpl<$Res>
       code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
               as String?,
       country: freezed == country
           ? _value.country
@@ -195,10 +161,6 @@ class __$$AddressImplCopyWithImpl<$Res>
       street: freezed == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
-              as String?,
-      zip: freezed == zip
-          ? _value.zip
-          : zip // ignore: cast_nullable_to_non_nullable
               as String?,
       latitude: freezed == latitude
           ? _value.latitude
@@ -221,13 +183,10 @@ class __$$AddressImplCopyWithImpl<$Res>
 class _$AddressImpl extends _Address {
   const _$AddressImpl(
       {this.code,
-      @JsonKey(name: 'id') this.id,
-      this.userId,
       @JsonKey(name: 'address') this.country,
       @JsonKey(name: 'addressName') this.city,
       @JsonKey(name: 'location') this.street,
-      this.zip,
-      @JsonKey(name: 'Address_Lattitude') this.latitude,
+      @JsonKey(name: 'Address_Latitude') this.latitude,
       @JsonKey(name: 'Address_Longitude') this.longitude,
       this.isDefault})
       : super._();
@@ -237,11 +196,8 @@ class _$AddressImpl extends _Address {
 
   @override
   final String? code;
-  @override
-  @JsonKey(name: 'id')
-  final String? id;
-  @override
-  final String? userId;
+// @JsonKey(name: 'id') String? id,
+// String? userId,
   @override
   @JsonKey(name: 'address')
   final String? country;
@@ -251,10 +207,9 @@ class _$AddressImpl extends _Address {
   @override
   @JsonKey(name: 'location')
   final String? street;
+// String? zip,
   @override
-  final String? zip;
-  @override
-  @JsonKey(name: 'Address_Lattitude')
+  @JsonKey(name: 'Address_Latitude')
   final double? latitude;
   @override
   @JsonKey(name: 'Address_Longitude')
@@ -264,7 +219,7 @@ class _$AddressImpl extends _Address {
 
   @override
   String toString() {
-    return 'Address(code: $code, id: $id, userId: $userId, country: $country, city: $city, street: $street, zip: $zip, latitude: $latitude, longitude: $longitude, isDefault: $isDefault)';
+    return 'Address(code: $code, country: $country, city: $city, street: $street, latitude: $latitude, longitude: $longitude, isDefault: $isDefault)';
   }
 
   @override
@@ -273,12 +228,9 @@ class _$AddressImpl extends _Address {
         (other.runtimeType == runtimeType &&
             other is _$AddressImpl &&
             (identical(other.code, code) || other.code == code) &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.country, country) || other.country == country) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.street, street) || other.street == street) &&
-            (identical(other.zip, zip) || other.zip == zip) &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
@@ -289,8 +241,8 @@ class _$AddressImpl extends _Address {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, code, id, userId, country, city,
-      street, zip, latitude, longitude, isDefault);
+  int get hashCode => Object.hash(
+      runtimeType, code, country, city, street, latitude, longitude, isDefault);
 
   @JsonKey(ignore: true)
   @override
@@ -309,13 +261,10 @@ class _$AddressImpl extends _Address {
 abstract class _Address extends Address {
   const factory _Address(
       {final String? code,
-      @JsonKey(name: 'id') final String? id,
-      final String? userId,
       @JsonKey(name: 'address') final String? country,
       @JsonKey(name: 'addressName') final String? city,
       @JsonKey(name: 'location') final String? street,
-      final String? zip,
-      @JsonKey(name: 'Address_Lattitude') final double? latitude,
+      @JsonKey(name: 'Address_Latitude') final double? latitude,
       @JsonKey(name: 'Address_Longitude') final double? longitude,
       final bool? isDefault}) = _$AddressImpl;
   const _Address._() : super._();
@@ -324,12 +273,8 @@ abstract class _Address extends Address {
 
   @override
   String? get code;
-  @override
-  @JsonKey(name: 'id')
-  String? get id;
-  @override
-  String? get userId;
-  @override
+  @override // @JsonKey(name: 'id') String? id,
+// String? userId,
   @JsonKey(name: 'address')
   String? get country;
   @override
@@ -338,10 +283,8 @@ abstract class _Address extends Address {
   @override
   @JsonKey(name: 'location')
   String? get street;
-  @override
-  String? get zip;
-  @override
-  @JsonKey(name: 'Address_Lattitude')
+  @override // String? zip,
+  @JsonKey(name: 'Address_Latitude')
   double? get latitude;
   @override
   @JsonKey(name: 'Address_Longitude')

@@ -36,11 +36,11 @@ class RegBloc extends Bloc<RegEvent, RegState> {
 
     ctx.navigateNamedTo(state.screenNames[step]);
 
+    emit(state.copyWith(step: step));
+
     // save step index to shared preferences
     var pref = await SharedPreferences.getInstance();
     pref.setInt(RegFlowStepKey, step);
-
-    emit(state.copyWith(step: step));
   }
 
   RegBloc() : super(const RegState()) {

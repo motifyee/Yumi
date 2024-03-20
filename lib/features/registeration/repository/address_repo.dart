@@ -41,7 +41,7 @@ class AddressRepo {
   }) async {
     try {
       await DioClient.simpleDio(context).put('/accounts/address',
-          queryParameters: {'addressId': address.id}, data: address.toJson());
+          queryParameters: {'addressId': 'address.id'}, data: address.toJson());
 
       return true;
     } catch (e) {
