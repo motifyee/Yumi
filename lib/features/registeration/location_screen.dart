@@ -10,11 +10,10 @@ import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/registeration/maps/google_maps.dart';
 import 'package:yumi/features/registeration/maps/permission.dart';
 import 'package:yumi/features/registeration/model/address.dart';
-import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
-import 'package:yumi/features/schedule/repository/mock.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/screen_container.dart';
 import 'package:yumi/template/snack_bar.dart';
+
 import './maps/extenstions.dart';
 import './maps/model.dart';
 
@@ -268,25 +267,18 @@ class LocationScreen extends StatelessWidget {
                           return;
                         }
 
-                                    context.read<RegBloc>().add(
-                                        RegEvent.saveLocation(context,
-                                            routeFn: routeFn));
-                                  },
-                                  child: const Text('Ok'),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                        context.read<RegBloc>().add(
+                            RegEvent.saveLocation(context, routeFn: routeFn));
+                      },
+                      child: const Text('Ok'),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }
