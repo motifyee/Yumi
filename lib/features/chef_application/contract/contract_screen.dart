@@ -2,8 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/features/chef_application/documentation/bloc/icon_bloc.dart';
 import 'package:yumi/features/chef_application/documentation/documentation_screen.dart';
+import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/screen_container.dart';
@@ -45,14 +47,33 @@ class ContractScreen extends StatelessWidget {
               Center(
                   child: SvgPicture.asset("assets/images/chef_contract.svg")),
               const SizedBox(height: 60),
-              Container(
-                  child: documentWidget(
-                hexBg: "#F4F4F4",
-                title: "Contract",
-                desc: "Download the contract to sign it and upload it",
-                data: "",
-                uploadAction: (data) => {},
-              )),
+              BlocBuilder<ProfileBloc, ProfileState>(
+                builder: (context, state) {
+                  if (state.status.isInit) {
+                    context
+                        .read<ProfileBloc>()
+                        .add(ProfileInitEvent(context: context));
+                  }
+                  if (state.status.isLoading) {
+                    return const CircularProgressIndicator();
+                  }
+
+                  return Container(
+                      child: documentWidget(
+                    hexBg: "#F4F4F4",
+                    title: "Contract",
+                    desc: "Download the contract to sign it and upload it",
+                    data: state.profile.contractPhoto,
+                    fileName: 'YUMI-contract.pdf',
+                    uploadAction: (data) => {
+                      context.read<ProfileBloc>().add(ProfileUpdateEvent(
+                          context: context,
+                          profile:
+                              state.profile.copyWith(contractPhoto: data))),
+                    },
+                  ));
+                },
+              ),
             ],
           ),
         ),

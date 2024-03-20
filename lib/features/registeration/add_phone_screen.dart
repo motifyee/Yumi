@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
 import 'package:yumi/features/schedule/repository/mock.dart';
 import 'package:yumi/forms/login_form.dart';
@@ -12,6 +14,7 @@ import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/screen_container.dart';
 import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/validators/email_validator.dart';
+import 'package:yumi/validators/required_validator.dart';
 
 @RoutePage()
 class AddPhoneScreen extends StatelessWidget {
@@ -41,6 +44,7 @@ class AddPhoneScreen extends StatelessWidget {
                 // }
 
                 var name = "Ayman";
+                var form = GlobalKey<FormState>();
 
                 return Center(
                   child: ConstrainedBox(
@@ -69,15 +73,30 @@ class AddPhoneScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 40),
-                          TextFormFieldTemplate(
-                            label: "Enter Mobile Number",
-                            prefixText: '+44 ',
-                            validators: emailValidator,
-                            // autoHint: const [AutofillHints.username],
-                            // onSave: (value) => {LoginForm.email = value ?? ''},
+                          Form(
+                            key: form,
+                            child: TextFormFieldTemplate(
+                              label: "Enter Mobile Number",
+                              prefixText: '+44 ',
+                              textInputType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 40),
-                          ConfirmButton(label: "Get OTP", onPressed: () {}),
+                          ConfirmButton(
+                              label: "Get OTP",
+                              onPressed: () {
+                                if (!form.currentState!.validate()) return;
+
+                                var value = form
+                                    .currentState?.fields.first.value as String;
+
+                                context
+                                    .read<RegBloc>()
+                                    .add(RegEvent.setPhone(value, context));
+                              }),
                         ],
                       ),
                     ),

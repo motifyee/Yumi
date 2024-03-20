@@ -8,10 +8,10 @@ import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/features/settings/profile/profile_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/side_menu_items.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
 import 'package:yumi/template/menu_button.dart';
+import 'package:yumi/statics/side_menu_items.dart';
 
 class SideBar extends StatelessWidget {
   const SideBar({super.key});

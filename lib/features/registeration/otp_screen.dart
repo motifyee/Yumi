@@ -1,18 +1,13 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
 import 'package:yumi/features/schedule/repository/mock.dart';
 import 'package:yumi/presentation/otp.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/screen_container.dart';
-import 'package:yumi/template/text_form_field.dart';
-import 'package:yumi/validators/email_validator.dart';
 
 @RoutePage()
 class OTPScreen extends StatelessWidget {
@@ -20,6 +15,8 @@ class OTPScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var otp = '';
+
     return BlocProvider(
       create: (context) => ScheduleBloc(scheduleRepo: ScheduleMockRepo()),
       child: ScreenContainer(
@@ -31,19 +28,10 @@ class OTPScreen extends StatelessWidget {
             scrolledUnderElevation: 0,
             iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
           ),
-          body: SingleChildScrollView(
-            child: BlocBuilder<ScheduleBloc, ScheduleState>(
-              builder: (context, state) {
-                // if (state.status.isInit) {
-                //   context.read<ScheduleBloc>().add(ScheduleEvent.init(context));
-                // }
-                // if (state.status.isLoading) {
-                //   return const Center(child: CircularProgressIndicator());
-                // }
-
-                var phoneNumber = "+20-1015983432";
-
-                return Center(
+          body: BlocBuilder<RegBloc, RegState>(
+            builder: (context, state) {
+              return SingleChildScrollView(
+                child: Center(
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 300),
                     child: Padding(
@@ -73,7 +61,7 @@ class OTPScreen extends StatelessWidget {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: phoneNumber,
+                                  text: state.phone,
                                   style: TextStyle(
                                     fontSize: ThemeSelector.fonts.font_12,
                                     fontWeight: FontWeight.bold,
@@ -84,10 +72,7 @@ class OTPScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 40),
-                          OTP(
-                            onLastFilled: (input) =>
-                                print('$input | last filled'),
-                          ),
+                          OTP(onLastFilled: (input) => otp = input),
                           const SizedBox(height: 40),
                           RichText(
                             text: TextSpan(
@@ -111,14 +96,19 @@ class OTPScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 40),
                           ConfirmButton(
-                              label: "Verify & Proceed", onPressed: () {}),
+                              label: "Verify & Proceed",
+                              onPressed: () {
+                                context
+                                    .read<RegBloc>()
+                                    .add(RegEvent.setOTP(otp, context));
+                              }),
                         ],
                       ),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),

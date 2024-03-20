@@ -14,6 +14,18 @@ class AppRouter extends $AppRouter {
 
   @override
   List<AutoRoute> get routes => [
+        AutoRoute(
+          path: '/registeration',
+          page: RegisterationRoute.page,
+          children: [
+            RedirectRoute(path: '', redirectTo: 'signup'),
+            AutoRoute(path: 'signup', page: SignUpRoute.page),
+            AutoRoute(path: 'addPhone', page: AddPhoneRoute.page),
+            AutoRoute(path: 'otp', page: OTPRoute.page),
+            AutoRoute(path: 'location', page: LocationRoute.page),
+          ],
+        ),
+
         /// routes go here
         AutoRoute(page: LoginRoute.page, initial: true),
         AutoRoute(page: SignUpRoute.page, keepHistory: false),
@@ -26,9 +38,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: DocumentationRoute.page),
         AutoRoute(page: ContractRoute.page),
         AutoRoute(page: ChefApplicationFlowRoute.page),
-        AutoRoute(page: AddPhoneRoute.page),
-        AutoRoute(page: LocationRoute.page),
-        AutoRoute(page: OTPRoute.page),
 
         AutoRoute(page: PerformanceAnalysisRoute.page),
         AutoRoute(page: FinancialViewRoute.page),
