@@ -186,5 +186,9 @@
   "delivery": "Delivery",
   "orderCreatedSuccessfully": "Order created successfully",
   "hour": "Hour",
-  "chefCuisines":"Chef Cuisines"
+  "chefCuisines":"Chef Cuisines",
+  "hello": "Hello",
+  "pleaseEnterYourLocationOrAllowAccessToYourLocationToFndRestaurantsNearYou": "Please enter your location or allow access to your location to ﬁnd restaurants near you.",
+  "useCurrentLocation": "Use Current Location",
+  "searchOrEnterAnAddress": "Search or enter an address"
 }

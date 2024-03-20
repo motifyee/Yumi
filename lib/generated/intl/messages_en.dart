@@ -112,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "getHelp": MessageLookupByLibrary.simpleMessage("Get help"),
         "happyCustomer": MessageLookupByLibrary.simpleMessage("Happy Customer"),
+        "hello": MessageLookupByLibrary.simpleMessage("Hello"),
         "hi": MessageLookupByLibrary.simpleMessage("Hi"),
         "holderName": MessageLookupByLibrary.simpleMessage("Holder name"),
         "hour": MessageLookupByLibrary.simpleMessage("Hour"),
@@ -179,6 +180,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "pickup": MessageLookupByLibrary.simpleMessage("Pickup"),
         "placeOrder": MessageLookupByLibrary.simpleMessage("Place order"),
+        "pleaseEnterYourLocationOrAllowAccessToYourLocationToFndRestaurantsNearYou":
+            MessageLookupByLibrary.simpleMessage(
+                "Please enter your location or allow access to your location to ﬁnd restaurants near you."),
         "pleaseSpecifyTheDayTimeOfDelivery":
             MessageLookupByLibrary.simpleMessage(
                 "Please specify the day & time of delivery"),
@@ -211,6 +215,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchForFood":
             MessageLookupByLibrary.simpleMessage("Search for food"),
+        "searchOrEnterAnAddress":
+            MessageLookupByLibrary.simpleMessage("Search or enter an address"),
         "securePaymentWithSSLEncryptionInfo":
             MessageLookupByLibrary.simpleMessage(
                 "Secure payment with SSL Encryption info"),
@@ -249,6 +255,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "transactions": MessageLookupByLibrary.simpleMessage("Transactions"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "upperCase": MessageLookupByLibrary.simpleMessage("1 upper case"),
+        "useCurrentLocation":
+            MessageLookupByLibrary.simpleMessage("Use Current Location"),
         "userName": MessageLookupByLibrary.simpleMessage("User name"),
         "view": MessageLookupByLibrary.simpleMessage("View"),
         "vouchers": MessageLookupByLibrary.simpleMessage("Vouchers"),

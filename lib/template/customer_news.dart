@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,6 +6,7 @@ import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/screens/chef_profile.dart';
 import 'package:yumi/screens/meal_list.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -31,53 +33,57 @@ class CustomerNews extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultBlockGap),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                          height: ThemeSelector.statics.defaultLineGap,
-                          width: ThemeSelector.statics.defaultLineGap,
-                          child: SvgPicture.asset(
-                            'assets/images/location'
-                            '.svg',
-                            fit: BoxFit.fill,
-                          )),
-                      SizedBox(width: ThemeSelector.statics.defaultMicroGap),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          RichText(
-                              text: TextSpan(
-                            style: Theme.of(context).textTheme.labelMedium,
-                            children: [
-                              TextSpan(
-                                text: S.of(context).hi,
-                              ),
-                              const TextSpan(
-                                text: ' ',
-                              ),
-                              TextSpan(
-                                text: context
-                                    .read<UserBloc>()
-                                    .state
-                                    .user
-                                    .userName,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineMedium
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                            ],
-                          )),
-                          Text(
-                            S.of(context).whatYouWishToEatToday,
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
-                        ],
-                      ),
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    context.router.replaceAll([CustomerLocationRoute()]);
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ThemeSelector.statics.defaultBlockGap),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                            height: ThemeSelector.statics.defaultLineGap,
+                            width: ThemeSelector.statics.defaultLineGap,
+                            child: SvgPicture.asset(
+                              'assets/images/location.svg',
+                              fit: BoxFit.fill,
+                            )),
+                        SizedBox(width: ThemeSelector.statics.defaultMicroGap),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                                text: TextSpan(
+                              style: Theme.of(context).textTheme.labelMedium,
+                              children: [
+                                TextSpan(
+                                  text: S.of(context).hi,
+                                ),
+                                const TextSpan(
+                                  text: ' ',
+                                ),
+                                TextSpan(
+                                  text: context
+                                      .read<UserBloc>()
+                                      .state
+                                      .user
+                                      .userName,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium
+                                      ?.copyWith(fontWeight: FontWeight.w700),
+                                ),
+                              ],
+                            )),
+                            Text(
+                              S.of(context).whatYouWishToEatToday,
+                              style: Theme.of(context).textTheme.labelSmall,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Padding(

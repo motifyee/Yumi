@@ -1929,6 +1929,48 @@ class S {
       args: [],
     );
   }
+
+  /// `Hello`
+  String get hello {
+    return Intl.message(
+      'Hello',
+      name: 'hello',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your location or allow access to your location to ﬁnd restaurants near you.`
+  String
+      get pleaseEnterYourLocationOrAllowAccessToYourLocationToFndRestaurantsNearYou {
+    return Intl.message(
+      'Please enter your location or allow access to your location to ﬁnd restaurants near you.',
+      name:
+          'pleaseEnterYourLocationOrAllowAccessToYourLocationToFndRestaurantsNearYou',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use Current Location`
+  String get useCurrentLocation {
+    return Intl.message(
+      'Use Current Location',
+      name: 'useCurrentLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search or enter an address`
+  String get searchOrEnterAnAddress {
+    return Intl.message(
+      'Search or enter an address',
+      name: 'searchOrEnterAnAddress',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
