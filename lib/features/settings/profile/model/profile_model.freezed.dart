@@ -33,7 +33,9 @@ mixin _$Profile {
   String get email => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String get about => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_Allowed')
   bool get pickup => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_Only')
   bool get pickupOnly => throw _privateConstructorUsedError; //
   int get signupType => throw _privateConstructorUsedError;
   String get registerDate => throw _privateConstructorUsedError;
@@ -91,8 +93,8 @@ abstract class $ProfileCopyWith<$Res> {
       String email,
       String address,
       String about,
-      bool pickup,
-      bool pickupOnly,
+      @JsonKey(name: 'pickup_Allowed') bool pickup,
+      @JsonKey(name: 'pickup_Only') bool pickupOnly,
       int signupType,
       String registerDate,
       bool status,
@@ -312,8 +314,8 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       String email,
       String address,
       String about,
-      bool pickup,
-      bool pickupOnly,
+      @JsonKey(name: 'pickup_Allowed') bool pickup,
+      @JsonKey(name: 'pickup_Only') bool pickupOnly,
       int signupType,
       String registerDate,
       bool status,
@@ -527,8 +529,8 @@ class _$ProfileImpl extends _Profile {
       this.email = '',
       this.address = '',
       this.about = '',
-      this.pickup = false,
-      this.pickupOnly = false,
+      @JsonKey(name: 'pickup_Allowed') this.pickup = false,
+      @JsonKey(name: 'pickup_Only') this.pickupOnly = false,
       this.signupType = 0,
       this.registerDate = '',
       this.status = false,
@@ -590,10 +592,10 @@ class _$ProfileImpl extends _Profile {
   @JsonKey()
   final String about;
   @override
-  @JsonKey()
+  @JsonKey(name: 'pickup_Allowed')
   final bool pickup;
   @override
-  @JsonKey()
+  @JsonKey(name: 'pickup_Only')
   final bool pickupOnly;
 //
   @override
@@ -785,8 +787,8 @@ abstract class _Profile extends Profile {
       final String email,
       final String address,
       final String about,
-      final bool pickup,
-      final bool pickupOnly,
+      @JsonKey(name: 'pickup_Allowed') final bool pickup,
+      @JsonKey(name: 'pickup_Only') final bool pickupOnly,
       final int signupType,
       final String registerDate,
       final bool status,
@@ -836,8 +838,10 @@ abstract class _Profile extends Profile {
   @override
   String get about;
   @override
+  @JsonKey(name: 'pickup_Allowed')
   bool get pickup;
   @override
+  @JsonKey(name: 'pickup_Only')
   bool get pickupOnly;
   @override //
   int get signupType;

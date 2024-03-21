@@ -16,51 +16,83 @@ import 'package:yumi/template/upload_photo_button.dart';
 Widget profileImagePicker(BuildContext context, Profile profile, bool loading) {
   if (loading) return Loading();
 
-  return TextButton(
-    onPressed: () {},
-    child: Container(
-      width: ThemeSelector.statics.defaultBorderRadiusExtreme * 1.3,
-      height: ThemeSelector.statics.defaultBorderRadiusExtreme * 1.3,
-      padding: EdgeInsets.all(ThemeSelector.statics.defaultBlockGap),
-      decoration: BoxDecoration(
-        color: ThemeSelector.colors.onSecondary,
-        borderRadius: BorderRadius.circular(
-            ThemeSelector.statics.defaultBorderRadiusExtreme),
+  return Container(
+    width: ThemeSelector.statics.defaultBorderRadiusExtreme * 1.3,
+    height: ThemeSelector.statics.defaultBorderRadiusExtreme * 1.3,
+    // padding: EdgeInsets.all(ThemeSelector.statics.defaultBlockGap),
+    decoration: BoxDecoration(
+      // border: Border.all(
+      //   color: ThemeSelector.colors.secondary,
+      //   width: 2,
+      // ),
+      color: ThemeSelector.colors.onSecondary,
+      borderRadius: BorderRadius.circular(
+        ThemeSelector.statics.defaultBorderRadiusExtreme,
       ),
-      child: UploadPhotoButton(
-        defaultImage: profile.profileImage,
-        borderWidth: 0,
-        title: null,
-        size: ThemeSelector.statics.iconSizeExtreme * 1.3,
-        onPressed: (image) async {
-          final newProfile = profile.copyWith(profileImage: image);
+    ),
+    child: UploadPhotoButton(
+      defaultImage: profile.profileImage,
+      borderWidth: 0,
+      title: null,
+      size: ThemeSelector.statics.iconSizeExtreme * 2.3,
+      onPressed: (image) async {
+        final newProfile = profile.copyWith(profileImage: image);
 
-          context.read<ProfileBloc>().add(ProfileLoadingEvent());
+        context.read<ProfileBloc>().add(ProfileLoadingEvent());
 
-          context
-              .read<ProfileBloc>()
-              .add(ProfileUpdateEvent(context: context, profile: newProfile));
-        },
-      ),
+        context
+            .read<ProfileBloc>()
+            .add(ProfileUpdateEvent(context: context, profile: newProfile));
+      },
     ),
   );
 }
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final bool isSheet;
+  const ProfileScreen({super.key, this.isSheet = false});
 
   @override
   Widget build(BuildContext context) {
     context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
 
+    return Column(
+      children: [
+        const ProfilePicture(),
+        if (isSheet)
+          bottom()
+        else
+          Expanded(
+            child: SingleChildScrollView(
+              child: bottom(),
+            ),
+          ),
+      ],
+    );
+  }
+
+  Column bottom() {
+    return Column(
+      children: [
+        const Bio(),
+        SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+        const EventsPhoto(),
+        SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+        if (!isSheet) const MyReviews(),
+      ],
+    );
+  }
+}
+
+class ProfilePicture extends StatelessWidget {
+  const ProfilePicture({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
         if (state is ProfileLoadingEvent) return Loading();
-
         var profile = state.profile;
-
-        // if (state is ProfileFormInitialState) profile = state.profile;
-        // if (state is ProfileFormUpdatedState) profile = state.profile;
 
         return Column(
           children: [
@@ -87,19 +119,14 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: ThemeSelector.statics.defaultTitleGap),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const Bio(),
-                    SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-                    const EventsPhoto(),
-                    SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-                    const MyReviews(),
-                  ],
-                ),
-              ),
-            ),
+            // Expanded(
+            //   // child: bottom(),
+            //   child: isSheet
+            //       ? bottom()
+            //       : SingleChildScrollView(
+            //           child: bottom(),
+            //         ),
+            // ),
           ],
         );
       },

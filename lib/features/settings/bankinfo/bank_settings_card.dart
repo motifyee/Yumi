@@ -51,14 +51,14 @@ class BankSettingsCard extends StatelessWidget {
                   SizedBox(width: ThemeSelector.statics.defaultGap),
                   Text(S.of(context).bankAccount),
                   const Expanded(child: SizedBox()),
-                  if (bankInfo.id.isNotEmpty)
-                    TextButton(
-                        onPressed: () =>
-                            showBankInfoForm(context, id: bankInfo.id),
-                        child: Text(
-                          S.of(context).edit,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ))
+                  // if (bankInfo.id.isNotEmpty)
+                  TextButton(
+                      onPressed: () =>
+                          showBankInfoForm(context, id: bankInfo.id),
+                      child: Text(
+                        S.of(context).edit,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ))
                 ],
               ),
               SizedBox(height: ThemeSelector.statics.defaultLineGap),
@@ -88,11 +88,11 @@ class BankInfoFields extends StatelessWidget {
         return const Center(child: CircularProgressIndicator());
       }
 
-      if (bankInfo.id.isEmpty) {
-        return IconButton(
-            onPressed: () => showBankInfoForm(context),
-            icon: Icon(Icons.add, color: ThemeSelector.colors.secondary));
-      }
+      // if (bankInfo.id.isEmpty) {
+      //   return IconButton(
+      //       onPressed: () => showBankInfoForm(context),
+      //       icon: Icon(Icons.add, color: ThemeSelector.colors.secondary));
+      // }
 
       return Column(
         children: [
@@ -123,7 +123,7 @@ class BankInfoFields extends StatelessWidget {
               ),
               const Expanded(child: Text('')),
               Text(
-                bankInfo.accountNumber.toString(),
+                bankInfo.accountNumber,
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium

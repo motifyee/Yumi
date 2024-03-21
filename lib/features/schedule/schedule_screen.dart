@@ -42,7 +42,8 @@ class MyScheduleScreen extends StatelessWidget {
               return Column(
                 children: [
                   Expanded(child: SingleChildScrollView(child: _cards(state))),
-                  Padding(
+                  Container(
+                    // color: Colors.green,
                     padding: const EdgeInsets.all(16.0),
                     child: _saveButton(context),
                   ),

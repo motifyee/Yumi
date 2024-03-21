@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/features/chef_application/bloc.dart';
+import 'package:yumi/features/settings/profile/bio_sheet.dart';
 import 'package:yumi/features/settings/profile/profile_form.dart';
+import 'package:yumi/forms/meal_form.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/template/dialog.dart';
@@ -77,13 +79,19 @@ Widget stepStack(BuildContext context, int activeIdx) {
     [
       "profile",
       ["Profile", "First, you should complete your profile"],
-      () => showAlertDialog(
+      () => showModalBottomSheet(
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
             context: context,
-            title: Container(),
-            content: const ProfileForm(),
-            // actions: {'Cancel': null},
-            actionWidgets: [const ProfileFormSubmitButton()],
+            builder: (context) => const EditBioSheet(),
           ),
+      // showAlertDialog(
+      //     context: context,
+      //     title: Container(),
+      //     content: const ProfileForm(),
+      //     // actions: {'Cancel': null},
+      //     actionWidgets: [const ProfileFormSubmitButton()],
+      //   ),
     ],
     [
       "menu",
@@ -130,66 +138,15 @@ Widget stepStack(BuildContext context, int activeIdx) {
     ],
   ];
 
-  Function(int, num, num, {bool alignRight}) stepperFn(
+  var tileChildrenBuilders = stepsInfo.map(tileChildrenFn).toList();
+
+  Function(int, num, num, {bool alignRight}) tileBuilderFn(
       BoxConstraints constraints) {
     var hs = constraints.maxWidth / 4.9;
     var vs = constraints.maxHeight / 5;
-    var iconBuilders = stepsInfo
-        .map((info) => (bool alignRight) {
-              var items = [
-                SizedBox(
-                  // height: vs,
-
-                  child: SvgPicture.asset(
-                    "assets/images/flow/${info[0]}.svg",
-                  ),
-                ),
-                Flexible(
-                  fit: FlexFit.loose,
-                  child: Column(
-                    crossAxisAlignment: alignRight
-                        ? CrossAxisAlignment.end
-                        : CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        info[1][0],
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(
-                          info[1][1],
-                          // overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ];
-
-              return Container(
-                  padding: EdgeInsets.only(
-                      left: 4.0,
-                      right: 4.0,
-                      top: alignRight ? 8 : 0,
-                      bottom: alignRight ? 0 : 12),
-                  alignment:
-                      alignRight ? Alignment.centerRight : Alignment.centerLeft,
-                  child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: alignRight
-                          ? MainAxisAlignment.end
-                          : MainAxisAlignment.start,
-                      children: alignRight ? items.reversed.toList() : items));
-            })
-        .toList();
 
     return (int i, num x, num y, {bool alignRight = false}) {
-      var items = iconBuilders[i](alignRight);
+      var items = tileChildrenBuilders[i](alignRight);
       var foregroundDecoration = i > activeIdx
           ? const BoxDecoration(
               color: Colors.grey,
@@ -222,7 +179,7 @@ Widget stepStack(BuildContext context, int activeIdx) {
   // decoration: BoxDecoration(border: Border.all()),
   return LayoutBuilder(
     builder: (context, constraints) {
-      var step = stepperFn(constraints);
+      var step = tileBuilderFn(constraints);
 
       return Stack(
         clipBehavior: Clip.none,
@@ -243,21 +200,52 @@ Widget stepStack(BuildContext context, int activeIdx) {
   );
 }
 
-// MultiBlocListener blocListeners() {
-//   void next(c, s, i) => c.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: i));
+Function(bool alignRight) tileChildrenFn(info) {
+  return (bool alignRight) {
+    var tileChildren = [
+      SizedBox(
+        // height: vs,
+        child: SvgPicture.asset(
+          "assets/images/flow/${info[0]}.svg",
+        ),
+      ),
+      Flexible(
+        fit: FlexFit.loose,
+        child: Column(
+          crossAxisAlignment:
+              alignRight ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              info[1][0],
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                info[1][1],
+                // overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+      )
+    ];
 
-//   return MultiBlocListener(
-//     listeners: [
-//       BlocListener<ProfileBloc, ProfileState>(
-//         listener: (c, s) => s.status.isSuccess ? next(c, s, 1) : null,
-//       ),
-//       BlocListener<MealListBloc, MealListState>(
-//         listener: (c, s) => s.status.isSuccess ? next(c, s, 2) : null,
-//       ),
-//       BlocListener<MealListBloc, MealListState>(
-//         listener: (c, s) => s.status.isSuccess ? next(c, s, 2) : null,
-//       ),
-//     ],
-//     child: const Text(""),
-//   );
-// }
+    return Container(
+        padding: EdgeInsets.only(
+            left: 4.0,
+            right: 4.0,
+            top: alignRight ? 8 : 0,
+            bottom: alignRight ? 0 : 12),
+        alignment: alignRight ? Alignment.centerRight : Alignment.centerLeft,
+        child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment:
+                alignRight ? MainAxisAlignment.end : MainAxisAlignment.start,
+            children:
+                alignRight ? tileChildren.reversed.toList() : tileChildren));
+  };
+}
