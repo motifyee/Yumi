@@ -21,6 +21,14 @@ class UserFromJsonEvent extends UserEvent {
   List<Object?> get props => [user, loading];
 }
 
+class UserFromSharedRefEvent extends UserEvent {
+  Function() afterFetchSuccess;
+  UserFromSharedRefEvent({required this.afterFetchSuccess});
+
+  @override
+  List<Object?> get props => [afterFetchSuccess];
+}
+
 class UserResetEvent extends UserEvent {
   @override
   // TODO: implement props

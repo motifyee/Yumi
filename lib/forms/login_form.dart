@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/login_model.dart';
@@ -50,6 +49,9 @@ class LoginForm extends StatelessWidget {
       loginAttempted = true;
       skipLogin();
     }
+
+    context.read<UserBloc>().add(UserFromSharedRefEvent(
+        afterFetchSuccess: () => routeAfterLogin(context: context)));
 
     return Form(
       key: loginFormKey,
@@ -121,30 +123,7 @@ void performLogin(BuildContext context, LoginModel loginForm, [String? route]) {
   LoginServices.login(login: loginForm, context: context).then((value) async {
     if (value['access_Token'] != null) {
       context.read<UserBloc>().add(UserFromJsonEvent(user: value));
-
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString('user', jsonEncode(value));
-      prefs.setString('token', value['access_Token']);
-
-      if (!context.mounted) return;
-
-      if (route == "flow") {
-        context.router.replaceAll([const ChefApplicationFlowRoute()]);
-      } else if (route == "schedule") {
-        context.router.replaceAll([const MyScheduleRoute()]);
-      } else if (route == "phone") {
-        context.router.replaceAll([const AddPhoneRoute()]);
-      } else if (route == "location") {
-        context.router.replaceAll([LocationRoute()]);
-      } else if (route == "otp") {
-        context.router.replaceAll([const OTPRoute()]);
-      } else if (route == "regmap") {
-        context.router.replaceAll([LocationRoute()]);
-      } else {
-        context.router.replaceAll([HomeRoute()]);
-      }
-
-      // ignore: empty_catches
+      routeAfterLogin(context: context, route: route);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -163,4 +142,24 @@ void performLogin(BuildContext context, LoginModel loginForm, [String? route]) {
       ),
     );
   });
+}
+
+void routeAfterLogin({required BuildContext context, String? route}) {
+  if (!context.mounted) return;
+
+  if (route == "flow") {
+    context.router.replaceAll([const ChefApplicationFlowRoute()]);
+  } else if (route == "schedule") {
+    context.router.replaceAll([const MyScheduleRoute()]);
+  } else if (route == "phone") {
+    context.router.replaceAll([const AddPhoneRoute()]);
+  } else if (route == "location") {
+    context.router.replaceAll([LocationRoute()]);
+  } else if (route == "otp") {
+    context.router.replaceAll([const OTPRoute()]);
+  } else if (route == "regmap") {
+    context.router.replaceAll([LocationRoute()]);
+  } else {
+    context.router.replaceAll([HomeRoute()]);
+  }
 }

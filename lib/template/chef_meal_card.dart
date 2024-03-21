@@ -16,8 +16,6 @@ class ChefMealCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('ChefMealCard : clicked');
-
         showBottomSheet(
             context: context,
             builder: (context) => MealProfileScreen(

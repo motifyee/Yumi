@@ -87,7 +87,7 @@ class NewsGuide extends StatelessWidget {
                   TextButton(
                       onPressed: () async {
                         await LocalStorage.sharedRef
-                            .setValue('news_guide', true);
+                            .setValue(LocalStorage.newsGuide, true);
                         Navigator.pop(context);
                       },
                       child: Text(
