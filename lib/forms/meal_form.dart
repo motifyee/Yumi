@@ -186,21 +186,21 @@ class MealForm extends StatelessWidget {
                         BlocConsumer<CategoriesBloc, CategoriesState>(
                           listener: (context, state) {},
                           builder: (context, state) {
-                            return state.categoriesModelList.isEmpty
-                                ? Loading()
-                                : PaginationTemplate(
-                                    loadDate: () => context
-                                        .read<CategoriesBloc>()
-                                        .add(GetCategoriesEvent(
-                                            context: context,
-                                            isPreOrder: menuTarget ==
-                                                MenuTarget.preOrder,
-                                            isAll: true)),
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
+                            return PaginationTemplate(
+                              loadDate: () => context
+                                  .read<CategoriesBloc>()
+                                  .add(GetCategoriesEvent(
+                                      context: context,
+                                      isPreOrder:
+                                          menuTarget == MenuTarget.preOrder,
+                                      isAll: true)),
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: state.categoriesModelList.isEmpty
+                                    ? [Loading()]
+                                    : [
                                         for (var category
                                             in state.categoriesModelList ?? [])
                                           BlocConsumer<MealFormBloc,
@@ -266,8 +266,8 @@ class MealForm extends StatelessWidget {
                                                   : const Text(''),
                                         ),
                                       ],
-                                    ),
-                                  );
+                              ),
+                            );
                           },
                         ),
                         if (state.mealModel.categoriesids?.length == 0)
