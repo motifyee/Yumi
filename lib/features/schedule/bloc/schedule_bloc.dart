@@ -19,22 +19,29 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
           init: (value) async {
             emit(state.copyWith(status: BlocStatus.loading));
 
-            await scheduleRepo.getMySchedule(value.ctx).then(
+            await scheduleRepo
+                .getMySchedule(value.ctx)
+                .then(
                   (value) => emit(state.copyWith(
                     schedule: value,
                     scheduleForm: value,
                     status: BlocStatus.loaded,
                   )),
-                );
+                )
+                .catchError(
+                    () => emit(state.copyWith(status: BlocStatus.error)));
           },
           saveSchedule: (evt) async {
             emit(state.copyWith(status: BlocStatus.loading));
             // sends the form to the repo
-            await scheduleRepo.saveMySchedule(evt.ctx, state.scheduleForm);
+            await scheduleRepo
+                .saveMySchedule(evt.ctx, state.scheduleForm)
+                .then((val) => emit(state.copyWith(
+                    schedule: state.scheduleForm, status: BlocStatus.loaded)))
+                .catchError(
+                    () => emit(state.copyWith(status: BlocStatus.error)));
 
             // updates the schedule in the state
-            emit(state.copyWith(
-                schedule: state.scheduleForm, status: BlocStatus.loaded));
           },
           saveScheduleDay: (evt) {
             // only updates the schedule form

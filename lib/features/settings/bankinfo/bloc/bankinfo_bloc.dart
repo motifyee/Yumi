@@ -35,7 +35,7 @@ class BankInfoBloc extends Bloc<BankInfoEvent, BankInfoState> {
       final List<BankInfo> arr = [];
 
       for (var i = 0; i < banks.length; i++) {
-        arr.add(BankInfo.fromJson(value: banks[i]));
+        arr.add(BankInfo.fromJson(banks[i]));
       }
 
       emit(state.copyWith(banks: arr, status: BlocStatus.initSuccess));
@@ -60,7 +60,7 @@ class BankInfoBloc extends Bloc<BankInfoEvent, BankInfoState> {
       emit(
         state.copyWith(
           status: BlocStatus.loaded,
-          banks: [...state.banks, BankInfo.fromJson(value: res)],
+          banks: [...state.banks, BankInfo.fromJson(res)],
         ),
       );
     }).catchError(
@@ -84,7 +84,7 @@ class BankInfoBloc extends Bloc<BankInfoEvent, BankInfoState> {
       emit(
         state.copyWith(
           status: BlocStatus.loaded,
-          banks: [...state.banks, BankInfo.fromJson(value: res)],
+          banks: [...state.banks, BankInfo.fromJson(res)],
         ),
       );
     }).catchError(

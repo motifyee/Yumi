@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -28,31 +29,46 @@ class UploadPhotoButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () async {
-        ImagePicker picker = ImagePicker();
+    return Container(
+      decoration: BoxDecoration(
+        // border: Border.all(
+        //   color: ThemeSelector.colors.secondary,
+        //   width: 2,
+        // ),
+        borderRadius: BorderRadius.circular(
+          ThemeSelector.statics.defaultBorderRadiusExtreme,
+        ),
+      ),
+      child: InkWell(
+        borderRadius:
+            BorderRadius.circular(ThemeSelector.statics.iconSizeLarge),
+        onTap: () async {
+          ImagePicker picker = ImagePicker();
 
-        final image =
-            !multi ? await picker.pickImage(source: ImageSource.gallery) : null;
-        final images = multi ? await picker.pickMultiImage() : null;
+          final image = !multi
+              ? await picker.pickImage(source: ImageSource.gallery)
+              : null;
+          final images = multi ? await picker.pickMultiImage() : null;
 
-        b64e(XFile fl) async => base64Encode(await fl.readAsBytes());
+          b64e(XFile fl) async => base64Encode(await fl.readAsBytes());
 
-        var blob = image != null ? await b64e(image) : null;
-        var blobs = images != null
-            ? await Future.wait(images.map((e) async => await b64e(e)))
-            : null;
+          var blob = image != null ? await b64e(image) : null;
+          var blobs = images != null
+              ? await Future.wait(images.map((e) async => await b64e(e)))
+              : null;
 
-        onPressed(blob ?? blobs);
-      },
-      child: Column(
-        children: [
-          Container(
-            padding:
-                EdgeInsets.all(padding ?? ThemeSelector.statics.defaultGap),
-            width: size ?? ThemeSelector.statics.iconSizeExtreme,
-            height: size ?? ThemeSelector.statics.iconSizeExtreme,
-            decoration: BoxDecoration(
+          onPressed(blob ?? blobs);
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              padding:
+                  EdgeInsets.all(padding ?? ThemeSelector.statics.defaultGap),
+              width: size ?? ThemeSelector.statics.iconSizeExtreme,
+              height: size ?? ThemeSelector.statics.iconSizeExtreme,
+              decoration: BoxDecoration(
                 borderRadius:
                     BorderRadius.circular(ThemeSelector.statics.iconSizeLarge),
                 border: (borderWidth ?? 1) > 0
@@ -62,25 +78,36 @@ class UploadPhotoButton extends StatelessWidget {
                             : borderWidth ?? ThemeSelector.statics.defaultGap,
                         color: ThemeSelector.colors.primary,
                       ))
-                    : null),
-            child: defaultImage != null
-                ? Image.memory(base64Decode(defaultImage ?? ''))
-                : SvgPicture.asset('assets/images/camera.svg'),
-          ),
-          if (title != null)
-            Column(
-              children: [
-                SizedBox(height: ThemeSelector.statics.defaultGap),
-                Text(
-                  S.of(context).upload,
-                  style: TextStyle(
-                    color: ThemeSelector.colors.secondary,
-                    fontSize: ThemeSelector.fonts.font_10,
-                  ),
-                )
-              ],
+                    : null,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(120.0),
+                child: SizedBox.fromSize(
+                  size: const Size.fromRadius(120),
+                  child: defaultImage != null
+                      ? Image.memory(
+                          base64Decode(defaultImage ?? ''),
+                          fit: BoxFit.cover,
+                        )
+                      : SvgPicture.asset('assets/images/camera.svg'),
+                ),
+              ),
             ),
-        ],
+            if (title != null)
+              Column(
+                children: [
+                  SizedBox(height: ThemeSelector.statics.defaultGap),
+                  Text(
+                    S.of(context).upload,
+                    style: TextStyle(
+                      color: ThemeSelector.colors.secondary,
+                      fontSize: ThemeSelector.fonts.font_10,
+                    ),
+                  )
+                ],
+              ),
+          ],
+        ),
       ),
     );
   }

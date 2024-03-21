@@ -23,8 +23,8 @@ class Profile with _$Profile {
     @Default('') String email,
     @Default('') String address,
     @Default('') String about,
-    @Default(false) bool pickup,
-    @Default(false) bool pickupOnly,
+    @Default(false) @JsonKey(name: 'pickup_Allowed') bool pickup,
+    @Default(false) @JsonKey(name: 'pickup_Only') bool pickupOnly,
 
     //
     @Default(0) int signupType,

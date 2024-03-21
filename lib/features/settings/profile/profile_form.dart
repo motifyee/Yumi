@@ -164,7 +164,8 @@ class ProfileForm extends StatelessWidget {
       builder: (context, state) {
         final profileFormBloc = context.read<ProfileBloc>();
 
-        return SizedBox(
+        return Container(
+          color: Colors.white,
           child: LayoutBuilder(
             builder: (context, constraint) {
               var profile = state.profile;

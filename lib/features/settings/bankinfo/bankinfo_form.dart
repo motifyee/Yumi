@@ -117,8 +117,7 @@ Widget FormData(BankInfo bankInfo, Function save) {
           S.of(ctx).accountNumber,
           bankInfo0.accountNumber,
           requiredValidator,
-          (value) => save(
-              bankInfo0 = bankInfo0.copyWith(accountNumber: int.parse(value))),
+          (value) => save(bankInfo0 = bankInfo0.copyWith(accountNumber: value)),
         ],
         [
           S.of(ctx).bankCurrency,
