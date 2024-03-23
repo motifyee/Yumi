@@ -1971,6 +1971,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Confirm location`
+  String get confirmLocation {
+    return Intl.message(
+      'Confirm location',
+      name: 'confirmLocation',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

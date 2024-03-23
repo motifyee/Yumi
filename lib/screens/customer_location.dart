@@ -6,7 +6,6 @@ import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/geo_location.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 @RoutePage()
@@ -64,22 +63,55 @@ class CustomerLocationScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
+          Expanded(
+              child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: ThemeSelector.statics.defaultMediumGap),
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3, childAspectRatio: 2),
+              itemBuilder: (_, index) => Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ThemeSelector.statics.defaultMicroGap),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: ThemeSelector.statics.defaultGap,
+                      vertical: ThemeSelector.statics.defaultGap,
+                    ),
+                    decoration: BoxDecoration(
+                      color: ThemeSelector.colors.primary.withAlpha(100),
+                      borderRadius: BorderRadius.circular(
+                          ThemeSelector.statics.defaultBorderRadiusMedium),
+                    ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                            'assets/images/location_indecator.svg'),
+                        Text('  '),
+                        Expanded(
+                          child: Text(
+                            'Home',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
+                                    fontSize: ThemeSelector.fonts.font_9),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              itemCount: 4,
+            ),
+          )),
           Column(
             children: [
               TextButton(
-                onPressed: () {
-                  GeoLocation.getUserCurrentLocation().then((value) {
-                    context.read<UserBloc>().add(
-                          UserUpdateLocationEvent(
-                            address: Address(
-                              latitude: value.latitude,
-                              longitude: value.longitude,
-                            ),
-                          ),
-                        );
-                    context.router.replaceAll([HomeRoute()]);
-                  });
-                },
+                onPressed: () {},
                 child: Container(
                   width: ThemeSelector.statics.buttonWidth,
                   height: ThemeSelector.statics.defaultTitleGapLarge,
@@ -90,7 +122,7 @@ class CustomerLocationScreen extends StatelessWidget {
                           ThemeSelector.statics.buttonBorderRadius)),
                   child: Center(
                     child: Text(
-                      S.of(context).useCurrentLocation,
+                      S.of(context).confirmLocation,
                       style: Theme.of(context).textTheme.displaySmall,
                     ),
                   ),
