@@ -46,6 +46,7 @@ class TransactionsScreen extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: ThemeSelector.statics.defaultGap),
           Expanded(
             child: PaginationTemplate(
               scrollDirection: Axis.vertical,
