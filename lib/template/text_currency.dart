@@ -6,17 +6,26 @@ class TextCurrency extends StatelessWidget {
       {super.key,
       required this.value,
       this.fontSize,
+      this.prefix,
       this.fontWeight = FontWeight.w700});
 
   final double value;
   final double? fontSize;
   final FontWeight? fontWeight;
+  final String? prefix;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
+        Text(
+          prefix ?? '',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: fontWeight,
+                fontSize: (fontSize ?? ThemeSelector.fonts.font_16),
+              ),
+        ),
         Text(
           '\$',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
