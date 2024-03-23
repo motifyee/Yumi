@@ -52,6 +52,7 @@ class ChefProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 ChefBanner(
+                  menuTarget: menuTarget,
                   chef: chef,
                   width: MediaQuery.of(context).size.width,
                   borderRadius: BorderRadius.only(
@@ -158,7 +159,7 @@ class ChefProfileScreen extends StatelessWidget {
                                 context.read<MealListBloc>().add(
                                     MealListUpdateEvent(
                                         context: context,
-                                        chefId: chef.guid,
+                                        chefId: chef.id,
                                         menuTarget: menuTarget));
                               },
                               scrollDirection: Axis.horizontal,
@@ -232,7 +233,7 @@ class ChefProfileScreen extends StatelessWidget {
                                 backgroundColor: Colors.transparent,
                                 context: context,
                                 builder: (context) => CustomerPreOrderForm(
-                                  chefId: chef.guid ?? '',
+                                  chefId: chef.id ?? '',
                                 ),
                               );
                             },

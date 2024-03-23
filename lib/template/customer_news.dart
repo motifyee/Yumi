@@ -328,6 +328,7 @@ class CustomerNews extends StatelessWidget {
                                           horizontal:
                                               ThemeSelector.statics.defaultGap),
                                       child: ChefBanner(
+                                        menuTarget: menuTarget,
                                         chef: chef,
                                         width: MediaQuery.of(context)
                                                 .size
@@ -345,6 +346,12 @@ class CustomerNews extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+                                  ),
+                                if (state.chefs.isEmpty)
+                                  SizedBox(
+                                    height: ThemeSelector
+                                            .statics.defaultImageHeightSmall +
+                                        ThemeSelector.statics.defaultMediumGap,
                                   ),
                               ],
                             ),

@@ -96,6 +96,7 @@ class FavoritesScreen extends StatelessWidget {
                                       menuTarget: MenuTarget.order));
                                 },
                                 child: ChefBanner(
+                                  menuTarget: MenuTarget.preOrder,
                                   chef: chef,
                                   width: MediaQuery.of(context).size.width -
                                       (ThemeSelector.statics.defaultGap * 10),

@@ -4,20 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/chef_model.dart';
+import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class ChefBanner extends StatelessWidget {
-  const ChefBanner(
-      {super.key,
-      required this.chef,
-      required this.borderRadius,
-      required this.width,
-      this.height});
+  const ChefBanner({
+    super.key,
+    required this.chef,
+    required this.borderRadius,
+    required this.width,
+    required this.menuTarget,
+    this.height,
+  });
 
   final ChefModel chef;
   final BorderRadius borderRadius;
   final double width;
   final double? height;
+  final MenuTarget menuTarget;
 
   @override
   Widget build(BuildContext context) {
@@ -32,36 +36,39 @@ class ChefBanner extends StatelessWidget {
               decoration: BoxDecoration(borderRadius: borderRadius),
               child: Hero(
                 tag: 'chef_${chef.id}',
-                child: Image.memory(
-                  base64Decode(chef.imageProfile ?? ''),
-                  fit: BoxFit.cover,
-                  alignment: Alignment.topCenter,
-                  errorBuilder: (context, error, stackTrace) => Image.asset(
-                    'assets/images/354.jpeg',
+                child: SizedBox(
+                  child: Image.memory(
+                    base64Decode(chef.imageProfile ?? ''),
                     fit: BoxFit.cover,
                     alignment: Alignment.topCenter,
+                    errorBuilder: (context, error, stackTrace) => Image.asset(
+                      'assets/images/354.jpeg',
+                      fit: BoxFit.cover,
+                      alignment: Alignment.topCenter,
+                    ),
                   ),
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultGap),
-                  decoration: BoxDecoration(
-                      color: ThemeSelector.colors.success,
-                      borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.defaultBorderRadiusLarge)),
-                  child: Text(
-                    S.of(context).open,
-                    style: Theme.of(context).textTheme.bodySmall,
+            if (menuTarget == MenuTarget.order)
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ThemeSelector.statics.defaultGap),
+                    decoration: BoxDecoration(
+                        color: ThemeSelector.colors.success,
+                        borderRadius: BorderRadius.circular(
+                            ThemeSelector.statics.defaultBorderRadiusLarge)),
+                    child: Text(
+                      S.of(context).open,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ),
                 ),
               ),
-            ),
           ]),
         ),
         Padding(
@@ -73,7 +80,7 @@ class ChefBanner extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    chef.fullName ?? '',
+                    [chef.firstName, chef.lastName].join(' '),
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           fontSize: ThemeSelector.fonts.font_16,
                         ),
