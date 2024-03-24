@@ -1,18 +1,9 @@
-import 'package:yumi/model/country_model.dart';
-
 class ChefModel {
-  String? guid;
-  int? id;
-  String? fullName;
-  String? userName;
-  String? email;
-  int? signupType;
+  String? id;
+  String? firstName;
+  String? lastName;
   String? mobile;
-  String? registerDate;
-  bool? status;
-  String? bio;
-  String? about;
-  String? address;
+  String? code;
   String? imageProfile;
   String? imageProfile1;
   String? imageProfile2;
@@ -22,21 +13,23 @@ class ChefModel {
   bool? accountApproved;
   bool? pickupAllowed;
   bool? pickupOnly;
-  Country? country;
+  bool? isHygiene;
+  String? imageHygieneCert;
+  String? imageAuthorityReg;
+  String? imageRiskAssessment;
+  String? imageContract;
+  String? imageID;
+  String? imagePassport;
+  String? email;
+  int? signupType;
+  String? createdBy;
 
   ChefModel(
-      {this.guid,
-      this.id,
-      this.fullName,
-      this.userName,
-      this.email,
-      this.signupType,
+      {this.id,
+      this.firstName,
+      this.lastName,
       this.mobile,
-      this.registerDate,
-      this.status,
-      this.bio,
-      this.about,
-      this.address,
+      this.code,
       this.imageProfile,
       this.imageProfile1,
       this.imageProfile2,
@@ -46,21 +39,23 @@ class ChefModel {
       this.accountApproved,
       this.pickupAllowed,
       this.pickupOnly,
-      this.country});
+      this.isHygiene,
+      this.imageHygieneCert,
+      this.imageAuthorityReg,
+      this.imageRiskAssessment,
+      this.imageContract,
+      this.imageID,
+      this.imagePassport,
+      this.email,
+      this.signupType,
+      this.createdBy});
 
   ChefModel.fromJson(Map<String, dynamic> json) {
-    guid = json['guid'];
     id = json['id'];
-    fullName = json['fullName'];
-    userName = json['userName'];
-    email = json['email'];
-    signupType = json['signupType'];
+    firstName = json['firstName'];
+    lastName = json['lastName'];
     mobile = json['mobile'];
-    registerDate = json['registerDate'];
-    status = json['status'];
-    bio = json['bio'];
-    about = json['about'];
-    address = json['address'];
+    code = json['code'];
     imageProfile = json['image_Profile'];
     imageProfile1 = json['image_Profile_1'];
     imageProfile2 = json['image_Profile_2'];
@@ -70,36 +65,44 @@ class ChefModel {
     accountApproved = json['account_Approved'];
     pickupAllowed = json['pickup_Allowed'];
     pickupOnly = json['pickup_Only'];
-    country =
-        json['country'] != null ? Country.fromJson(json['country']) : null;
+    isHygiene = json['is_Hygiene'];
+    imageHygieneCert = json['image_Hygiene_Cert'];
+    imageAuthorityReg = json['image_Authority_Reg'];
+    imageRiskAssessment = json['image_Risk_Assessment'];
+    imageContract = json['image_Contract'];
+    imageID = json['image_ID'];
+    imagePassport = json['image_Passport'];
+    email = json['email'];
+    signupType = json['signupType'];
+    createdBy = json['createdBy'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['guid'] = guid;
-    data['id'] = id;
-    data['fullName'] = fullName;
-    data['userName'] = userName;
-    data['email'] = email;
-    data['signupType'] = signupType;
-    data['mobile'] = mobile;
-    data['registerDate'] = registerDate;
-    data['status'] = status;
-    data['bio'] = bio;
-    data['about'] = about;
-    data['address'] = address;
-    data['image_Profile'] = imageProfile;
-    data['image_Profile_1'] = imageProfile1;
-    data['image_Profile_2'] = imageProfile2;
-    data['image_Profile_3'] = imageProfile3;
-    data['image_Profile_4'] = imageProfile4;
-    data['image_Profile_5'] = imageProfile5;
-    data['account_Approved'] = accountApproved;
-    data['pickup_Allowed'] = pickupAllowed;
-    data['pickup_Only'] = pickupOnly;
-    if (country != null) {
-      data['country'] = country!.toJson();
-    }
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['firstName'] = this.firstName;
+    data['lastName'] = this.lastName;
+    data['mobile'] = this.mobile;
+    data['code'] = this.code;
+    data['image_Profile'] = this.imageProfile;
+    data['image_Profile_1'] = this.imageProfile1;
+    data['image_Profile_2'] = this.imageProfile2;
+    data['image_Profile_3'] = this.imageProfile3;
+    data['image_Profile_4'] = this.imageProfile4;
+    data['image_Profile_5'] = this.imageProfile5;
+    data['account_Approved'] = this.accountApproved;
+    data['pickup_Allowed'] = this.pickupAllowed;
+    data['pickup_Only'] = this.pickupOnly;
+    data['is_Hygiene'] = this.isHygiene;
+    data['image_Hygiene_Cert'] = this.imageHygieneCert;
+    data['image_Authority_Reg'] = this.imageAuthorityReg;
+    data['image_Risk_Assessment'] = this.imageRiskAssessment;
+    data['image_Contract'] = this.imageContract;
+    data['image_ID'] = this.imageID;
+    data['image_Passport'] = this.imagePassport;
+    data['email'] = this.email;
+    data['signupType'] = this.signupType;
+    data['createdBy'] = this.createdBy;
     return data;
   }
 }

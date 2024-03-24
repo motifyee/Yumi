@@ -58,6 +58,8 @@ class MealCard extends StatelessWidget {
                             ThemeSelector.statics.defaultBorderRadiusSmall)),
                     child: Image.memory(
                       base64Decode(meal.photo ?? ''),
+                      errorBuilder: (context, error, stackTrace) =>
+                          Image.asset('assets/images/354.jpeg'),
                     )),
                 SizedBox(height: ThemeSelector.statics.defaultGap),
                 Text(

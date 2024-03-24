@@ -49,15 +49,14 @@ class ChefMealCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
                         ThemeSelector.statics.defaultMediumGap)),
-                child: meal.photo != null
-                    ? Image.memory(
-                        Uint8List.fromList(base64Decode(meal.photo!)),
-                        fit: BoxFit.cover,
-                      )
-                    : Image.asset(
-                        'assets/images/354.jpeg',
-                        fit: BoxFit.cover,
-                      ),
+                child: Image.memory(
+                  Uint8List.fromList(base64Decode(meal.photo ?? '')),
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                    'assets/images/354.jpeg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               Container(
                 width: ThemeSelector.statics.defaultGapXXL,

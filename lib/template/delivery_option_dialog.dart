@@ -46,12 +46,12 @@ class DeliveryOptionDialog extends StatelessWidget {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          context
-                              .read<BasketFormBloc>()
-                              .add(BasketFormUpdateEvent(
-                                invoice: state.invoice.copyWith(
-                                    isPickup: true, isDelivery: false),
-                              ));
+                          context.read<BasketFormBloc>().add(
+                                BasketFormUpdateEvent(
+                                  invoice: state.invoice.copyWith(
+                                      isPickup: true, isDelivery: false),
+                                ),
+                              );
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -136,7 +136,7 @@ class DeliveryOptionDialog extends StatelessWidget {
               children: [
                 TextButton(
                     onPressed: () {
-                      context.router.pop();
+                      context.router.popForced();
                     },
                     child: Text(
                       S.of(context).cancel,

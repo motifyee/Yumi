@@ -77,9 +77,8 @@ class FavoritesScreen extends StatelessWidget {
                 PaginationTemplate(
                   scrollDirection: Axis.vertical,
                   loadDate: () {
-                    context
-                        .read<ChefsListBloc>()
-                        .add(GetChefsListEvent(context: context));
+                    context.read<ChefsListBloc>().add(GetChefsListEvent(
+                        context: context, menuTarget: MenuTarget.order));
                   },
                   child: BlocConsumer<ChefsListBloc, ChefsListState>(
                     listener: (context, state) {},
@@ -97,6 +96,7 @@ class FavoritesScreen extends StatelessWidget {
                                       menuTarget: MenuTarget.order));
                                 },
                                 child: ChefBanner(
+                                  menuTarget: MenuTarget.preOrder,
                                   chef: chef,
                                   width: MediaQuery.of(context).size.width -
                                       (ThemeSelector.statics.defaultGap * 10),

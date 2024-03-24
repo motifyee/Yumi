@@ -45,6 +45,7 @@ class _OfferCardState extends State<OfferCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 355,
       padding: EdgeInsets.symmetric(
         horizontal: ThemeSelector.statics.defaultGap,
       ),

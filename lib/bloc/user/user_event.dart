@@ -3,13 +3,12 @@ part of 'user_bloc.dart';
 @immutable
 abstract class UserEvent extends Equatable {}
 
-class UserUpdateEvent extends UserEvent {
-  final UserModel? user;
-  final bool? loading;
-  UserUpdateEvent({this.user, this.loading});
+class UserUpdateLocationEvent extends UserEvent {
+  final Address address;
+  UserUpdateLocationEvent({required this.address});
 
   @override
-  List<Object?> get props => [user, loading];
+  List<Object?> get props => [address];
 }
 
 class UserFromJsonEvent extends UserEvent {
@@ -20,6 +19,14 @@ class UserFromJsonEvent extends UserEvent {
 
   @override
   List<Object?> get props => [user, loading];
+}
+
+class UserFromSharedRefEvent extends UserEvent {
+  Function() afterFetchSuccess;
+  UserFromSharedRefEvent({required this.afterFetchSuccess});
+
+  @override
+  List<Object?> get props => [afterFetchSuccess];
 }
 
 class UserResetEvent extends UserEvent {

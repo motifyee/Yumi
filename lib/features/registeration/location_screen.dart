@@ -37,10 +37,12 @@ class LocationScreen extends StatelessWidget {
   late GMapInfo mapInfo;
   var selectedAddr = const Address();
 
+  Function({required Address address})? routeFn;
+
   // onAddressTap: (address) => print(address)
   // onMapCreated: (c) => controller = c,
 
-  LocationScreen({super.key});
+  LocationScreen({super.key, this.routeFn});
 
   Future<Location?> _navToAddress(String address) async {
     List<Location>? locations = await tryV(() => locationFromAddress(address));

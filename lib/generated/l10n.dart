@@ -1899,6 +1899,88 @@ class S {
       args: [],
     );
   }
+
+  /// `Order created successfully`
+  String get orderCreatedSuccessfully {
+    return Intl.message(
+      'Order created successfully',
+      name: 'orderCreatedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hour`
+  String get hour {
+    return Intl.message(
+      'Hour',
+      name: 'hour',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chef Cuisines`
+  String get chefCuisines {
+    return Intl.message(
+      'Chef Cuisines',
+      name: 'chefCuisines',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hello`
+  String get hello {
+    return Intl.message(
+      'Hello',
+      name: 'hello',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your location or allow access to your location to ﬁnd restaurants near you.`
+  String
+      get pleaseEnterYourLocationOrAllowAccessToYourLocationToFndRestaurantsNearYou {
+    return Intl.message(
+      'Please enter your location or allow access to your location to ﬁnd restaurants near you.',
+      name:
+          'pleaseEnterYourLocationOrAllowAccessToYourLocationToFndRestaurantsNearYou',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use Current Location`
+  String get useCurrentLocation {
+    return Intl.message(
+      'Use Current Location',
+      name: 'useCurrentLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search or enter an address`
+  String get searchOrEnterAnAddress {
+    return Intl.message(
+      'Search or enter an address',
+      name: 'searchOrEnterAnAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm location`
+  String get confirmLocation {
+    return Intl.message(
+      'Confirm location',
+      name: 'confirmLocation',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

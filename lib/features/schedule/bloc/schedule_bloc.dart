@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/features/schedule/model/model.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/features/schedule/repository/interface.dart';
 
-part 'schedule_state.dart';
-part 'schedule_event.dart';
 part 'schedule_bloc.freezed.dart';
+part 'schedule_event.dart';
+part 'schedule_state.dart';
 
 class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
   final IScheduleRepo scheduleRepo;
@@ -49,11 +49,13 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
                 scheduleForm:
                     state.scheduleForm.copyWithScheduleDay(evt.scheduleDay)));
           },
-          loading: (evt) {},
+          loading: (evt) => {_onInit(evt, emit)},
           loaded: (evt) {},
           saved: (evt) {},
         );
       },
     );
   }
+
+  _onInit(evt, emit) {}
 }

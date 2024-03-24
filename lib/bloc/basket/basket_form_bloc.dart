@@ -2,11 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:yumi/extensions/date_time_extension.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/invoice_model.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/service/oreder_service.dart';
+import 'package:yumi/service/order_service.dart';
+import 'package:yumi/template/snack_bar.dart';
 
 part 'basket_form_event.dart';
 part 'basket_form_state.dart';
@@ -34,7 +36,15 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
       invoiceDetails.add(event.invoiceDetails);
 
       emit(state.copyWith(
-          invoice: state.invoice.copyWith(invoiceDetails: invoiceDetails)));
+        invoice: state.invoice.copyWith(
+          invoiceDetails: invoiceDetails,
+          isPreorder:
+              event.invoiceDetails.meal?.isPreOrder ?? state.invoice.isPreorder,
+          invoice: state.invoice.invoice?.copyWith(
+              chefID: event.invoiceDetails.meal?.chefId ??
+                  state.invoice.invoice?.chefID),
+        ),
+      ));
       add(BasketFormCalcEvent());
     });
 
@@ -53,7 +63,9 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
         emit(state.copyWith(
           invoice: state.invoice.copyWith(
             invoice: state.invoice.invoice?.copyWith(
-              scheduleDate: state.invoice.invoice!.scheduleDate?.copyWith(
+              scheduleDate:
+                  (state.invoice.invoice!.scheduleDate ?? DateTime.now())
+                      .copyWith(
                 hour: int.parse(event.time!.split(":")[0]),
                 minute: int.parse(event.time!.split(":")[1]),
               ),
@@ -120,10 +132,29 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
         res = await OrderService.createPreOrderDelivery(
             context: event.context, invoice: state.invoice);
       }
+      if (state.invoice.isPickup == true && state.invoice.isPreorder == true) {
+        res = await OrderService.createPreOrderPickUp(
+            context: event.context, invoice: state.invoice);
+      }
 
       if (res.statusCode == 200) {
         add(BasketFormResetEvent());
+        ScaffoldMessenger.of(event.context).showSnackBar(
+          SnackBar(
+            content: SnackBarMassage(
+              massage: S.current.orderCreatedSuccessfully,
+            ),
+          ),
+        );
         event.context.router.replaceAll([HomeRoute()]);
+      } else {
+        ScaffoldMessenger.of(event.context).showSnackBar(
+          SnackBar(
+            content: SnackBarMassage(
+              massage: res.data['message'],
+            ),
+          ),
+        );
       }
     });
   }

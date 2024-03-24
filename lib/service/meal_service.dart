@@ -33,10 +33,40 @@ class MealService {
   static Future<dynamic> getMeals(
       {required BuildContext context,
       required Map<String, dynamic>? queryParameters,
-      String? chefId,
       bool? isPreorder = false}) async {
     final res = await DioClient.simpleDio(context).get(
       ApiKeys.getApiKeyString(apiKey: ApiKeys.getMeal),
+      queryParameters: {...?queryParameters, 'isPreorder': isPreorder}
+        ..removeWhere((key, value) => value == null),
+    );
+
+    return jsonDecode(res.toString());
+  }
+
+  static Future<dynamic> getMealsByCategory(
+      {required BuildContext context,
+      required Map<String, dynamic>? pagination,
+      required int? categoryId,
+      bool? isPreorder = false}) async {
+    final res = await DioClient.simpleDio(context).get(
+      ApiKeys.getApiKeyString(apiKey: ApiKeys.getMealByCategory),
+      queryParameters: {
+        ...?pagination,
+        'categoryId': categoryId,
+        'isPreorder': isPreorder
+      }..removeWhere((key, value) => value == null),
+    );
+
+    return jsonDecode(res.toString());
+  }
+
+  static Future<dynamic> getMealsByChef(
+      {required BuildContext context,
+      required Map<String, dynamic>? queryParameters,
+      String? chefId,
+      bool? isPreorder = false}) async {
+    final res = await DioClient.simpleDio(context).get(
+      ApiKeys.getApiKeyString(apiKey: ApiKeys.getMealByChef),
       queryParameters: {
         ...?queryParameters,
         'chefId': chefId,
@@ -47,14 +77,14 @@ class MealService {
     return jsonDecode(res.toString());
   }
 
-  static Future<dynamic> getMealsByCategory(
+  static Future<dynamic> getMealsByChefByCategory(
       {required BuildContext context,
       required Map<String, dynamic>? pagination,
       required int? categoryId,
       String? chefId,
       bool? isPreorder = false}) async {
     final res = await DioClient.simpleDio(context).get(
-      ApiKeys.getApiKeyString(apiKey: ApiKeys.getMealByCategory),
+      ApiKeys.getApiKeyString(apiKey: ApiKeys.getMealByChefByCategory),
       queryParameters: {
         ...?pagination,
         'chefId': chefId,

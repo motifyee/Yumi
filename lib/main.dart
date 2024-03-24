@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
@@ -15,7 +16,6 @@ import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/features/chef_application/bloc.dart';
 import 'package:yumi/features/chef_application/documentation/bloc/documentation_bloc.dart';
 import 'package:yumi/features/chef_application/documentation/bloc/icon_bloc.dart';
-import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/route/route.dart';
@@ -25,10 +25,12 @@ import 'package:yumi/theme/theme.dart';
 import 'generated/l10n.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  WakelockPlus.enable();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+  WakelockPlus.enable();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   runApp(MyApp());
 }
 

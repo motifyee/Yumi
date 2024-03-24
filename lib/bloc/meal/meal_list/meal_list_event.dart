@@ -5,7 +5,9 @@ abstract class MealListEvent {}
 
 class MealListResetEvent implements MealListEvent {
   MenuTarget? menuTarget;
-  MealListResetEvent({this.menuTarget});
+  int? categoryId;
+
+  MealListResetEvent({this.menuTarget, this.categoryId});
 }
 
 class MealListUpdateEvent implements MealListEvent {
@@ -21,8 +23,11 @@ class MealListUpdateCategoryEvent implements MealListEvent {
   String? chefId;
   BuildContext context;
 
-  MealListUpdateCategoryEvent(
-      {required this.selectedCategory, this.chefId, required this.context});
+  MealListUpdateCategoryEvent({
+    required this.selectedCategory,
+    this.chefId,
+    required this.context,
+  });
 }
 
 class MealListUpdateCaloriesEvent implements MealListEvent {

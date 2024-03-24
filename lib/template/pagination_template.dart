@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
 class PaginationTemplate extends StatefulWidget {
-  PaginationTemplate(
-      {super.key,
-      required this.scrollDirection,
-      required this.child,
-      required this.loadDate});
+  PaginationTemplate({
+    super.key,
+    required this.scrollDirection,
+    required this.child,
+    required this.loadDate,
+    this.controller,
+  });
 
   Axis scrollDirection;
   Widget child;
   Function loadDate;
+  ScrollController? controller;
 
   @override
   State<PaginationTemplate> createState() => _PaginationTemplateState();
@@ -27,7 +30,8 @@ class _PaginationTemplateState extends State<PaginationTemplate> {
   @override
   void initState() {
     super.initState();
-    _controller = ScrollController()..addListener(_scrollListener);
+    _controller = (widget.controller ?? ScrollController())
+      ..addListener(_scrollListener);
     widget.loadDate();
   }
 

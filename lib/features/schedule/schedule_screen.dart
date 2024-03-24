@@ -195,6 +195,7 @@ class MyScheduleScreen extends StatelessWidget {
           _timeRow(day, true),
           _timeRow(day, false),
           const SizedBox(height: 5),
+          //
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -18,7 +18,7 @@ class NewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LocalStorage.sharedRef.getValue('news_guide', 'bool').then((res) => {
+    LocalStorage.sharedRef.getValue(LocalStorage.newsGuide).then((res) => {
           if (res != true)
             {
               SchedulerBinding.instance.addPostFrameCallback((timeStamp) {

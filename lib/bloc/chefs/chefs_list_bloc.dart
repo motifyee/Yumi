@@ -1,8 +1,11 @@
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/model/chef_model.dart';
+import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/service/chef_service.dart';
 import 'package:yumi/statics/pagination_helper.dart';
 
@@ -20,9 +23,20 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
             paginationHelper:
                 state.paginationHelper.copyWith(isLoading: true)));
 
+        Address? userLocation = event.context.read<UserBloc>().state.address;
+        if (userLocation == null ||
+            userLocation.latitude == null ||
+            userLocation.longitude == null) {
+          return;
+        }
+
         final Response res = await ChefService.getChefs(
-            context: event.context,
-            queryParameters: state.paginationHelper.toJson());
+          context: event.context,
+          isPreOrder: event.menuTarget == MenuTarget.preOrder,
+          latitude: userLocation.latitude!,
+          longitude: userLocation.longitude!,
+          queryParameters: state.paginationHelper.toJson(),
+        );
 
         List<ChefModel> data = res.data['data']
             .map<ChefModel>((chef) => ChefModel.fromJson(chef))

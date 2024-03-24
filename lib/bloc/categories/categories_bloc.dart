@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app_target.dart';
 import 'package:yumi/model/categories_model.dart';
 import 'package:yumi/service/categories_service.dart';
 import 'package:yumi/statics/pagination_helper.dart';
@@ -21,11 +22,32 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
         emit(state.copyWith(
             paginationHelper:
                 state.paginationHelper.copyWith(isLoading: true)));
-        final res = await CategoriesService.getCategories(
-          context: event.context,
-          pagination: state.paginationHelper.toJson(),
-          isPreOrder: event.isPreOrder,
-        );
+
+        dynamic res;
+
+        if (AppTarget.user == AppTargetUser.customers) {
+          res = await CategoriesService.getCategoriesForCustomer(
+            context: event.context,
+            pagination: state.paginationHelper.toJson(),
+            isPreOrder: event.isPreOrder,
+          );
+        }
+
+        if (AppTarget.user == AppTargetUser.chefs) {
+          if (event.isAll) {
+            res = await CategoriesService.getCategories(
+              context: event.context,
+              pagination: state.paginationHelper.toJson(),
+              isPreOrder: event.isPreOrder,
+            );
+          } else {
+            res = await CategoriesService.getCategoriesForChef(
+              context: event.context,
+              pagination: state.paginationHelper.toJson(),
+              isPreOrder: event.isPreOrder,
+            );
+          }
+        }
 
         List<CategoriesModel> data = [];
         data = res['data'].map<CategoriesModel>((value) {

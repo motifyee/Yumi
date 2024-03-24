@@ -30,6 +30,7 @@ class MenuTemplate extends StatelessWidget {
         BlocConsumer<MealListBloc, MealListState>(
           listener: (context, state) {},
           builder: (context, state) {
+            var mealListBlocState = state;
             return SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Column(
@@ -41,24 +42,29 @@ class MenuTemplate extends StatelessWidget {
                     child: BlocConsumer<CategoriesBloc, CategoriesState>(
                       listener: (context, state) {},
                       builder: (context, state) {
-                        var mealListBlocState =
-                            context.read<MealListBloc>().state;
                         return PaginationTemplate(
                           scrollDirection: Axis.horizontal,
                           loadDate: () => context.read<CategoriesBloc>().add(
                               GetCategoriesEvent(
                                   context: context,
-                                  isPreOrder:
-                                      menuTarget == MenuTarget.preOrder)),
+                                  isPreOrder: menuTarget == MenuTarget.preOrder,
+                                  isAll: false)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  context.read<MealListBloc>().add(
-                                      MealListUpdateCategoryEvent(
-                                          context: context,
-                                          selectedCategory: 0));
+                                  context
+                                      .read<MealListBloc>()
+                                      .add(MealListUpdateCategoryEvent(
+                                        context: context,
+                                        selectedCategory: 0,
+                                        chefId: context
+                                            .read<UserBloc>()
+                                            .state
+                                            .user
+                                            .chefId,
+                                      ));
                                 },
                                 child: Container(
                                   width: ((MediaQuery.of(context).size.width -
@@ -164,9 +170,13 @@ class MenuTemplate extends StatelessWidget {
                   Expanded(
                     child: PaginationTemplate(
                       scrollDirection: Axis.vertical,
-                      loadDate: () => context
-                          .read<MealListBloc>()
-                          .add(MealListUpdateEvent(context: context)),
+                      loadDate: () => context.read<MealListBloc>().add(
+                            MealListUpdateEvent(
+                              context: context,
+                              chefId:
+                                  context.read<UserBloc>().state.user.chefId,
+                            ),
+                          ),
                       child: Column(
                         children: [
                           Row(
@@ -229,7 +239,23 @@ class MenuTemplate extends StatelessWidget {
                           child: MealForm(
                             menuTarget: menuTarget,
                           ),
-                        ));
+                        )).then((value) {
+                  context.read<CategoriesBloc>().add(ResetCategoryEvent());
+
+                  context.read<CategoriesBloc>().add(GetCategoriesEvent(
+                      context: context,
+                      isPreOrder: menuTarget == MenuTarget.preOrder,
+                      isAll: false));
+                  context
+                      .read<MealListBloc>()
+                      .add(MealListResetEvent(menuTarget: menuTarget));
+                  context.read<MealListBloc>().add(
+                        MealListUpdateEvent(
+                          context: context,
+                          chefId: context.read<UserBloc>().state.user.chefId,
+                        ),
+                      );
+                });
               },
               child: Container(
                 child: Stack(

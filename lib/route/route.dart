@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/screens/customer_location.dart';
 
 /// every change must:
 /// add @RoutePage() to screen widget
@@ -50,5 +51,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: TrackingOrderRoute.page),
         AutoRoute(page: CustomerWalletRoute.page),
         AutoRoute(page: MealProfileRoute.page),
+        AutoRoute(page: CustomerLocationRoute.page),
       ];
 }

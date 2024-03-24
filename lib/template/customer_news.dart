@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/screens/chef_profile.dart';
+import 'package:yumi/screens/meal_list.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/categories_list_dialog.dart';
 import 'package:yumi/template/chef_bannar.dart';
@@ -22,56 +25,65 @@ class CustomerNews extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) =>
-          ConstrainedBox(
-        constraints: BoxConstraints(minHeight: constraints.maxHeight),
-        child: SingleChildScrollView(
+          SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
           child: IntrinsicHeight(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultBlockGap),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                          height: ThemeSelector.statics.defaultLineGap,
-                          width: ThemeSelector.statics.defaultLineGap,
-                          child: SvgPicture.asset(
-                            'assets/images/location'
-                            '.svg',
-                            fit: BoxFit.fill,
-                          )),
-                      SizedBox(width: ThemeSelector.statics.defaultMicroGap),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          RichText(
-                              text: TextSpan(
-                            style: Theme.of(context).textTheme.labelMedium,
-                            children: [
-                              TextSpan(
-                                text: S.of(context).hi,
-                              ),
-                              TextSpan(
-                                text: ' ',
-                              ),
-                              TextSpan(
-                                text: 'Ayman!',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineMedium
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                            ],
-                          )),
-                          Text(
-                            S.of(context).whatYouWishToEatToday,
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
-                        ],
-                      ),
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    context.router.push(CustomerLocationRoute());
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ThemeSelector.statics.defaultBlockGap),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                            height: ThemeSelector.statics.defaultLineGap,
+                            width: ThemeSelector.statics.defaultLineGap,
+                            child: SvgPicture.asset(
+                              'assets/images/location.svg',
+                              fit: BoxFit.fill,
+                            )),
+                        SizedBox(width: ThemeSelector.statics.defaultMicroGap),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                                text: TextSpan(
+                              style: Theme.of(context).textTheme.labelMedium,
+                              children: [
+                                TextSpan(
+                                  text: S.of(context).hi,
+                                ),
+                                const TextSpan(
+                                  text: ' ',
+                                ),
+                                TextSpan(
+                                  text: context
+                                      .read<UserBloc>()
+                                      .state
+                                      .user
+                                      .userName,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium
+                                      ?.copyWith(fontWeight: FontWeight.w700),
+                                ),
+                              ],
+                            )),
+                            Text(
+                              S.of(context).whatYouWishToEatToday,
+                              style: Theme.of(context).textTheme.labelSmall,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
@@ -105,6 +117,19 @@ class CustomerNews extends StatelessWidget {
                     Positioned(
                       left: -ThemeSelector.statics.defaultLineGap,
                       child: GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            isDismissible: true,
+                            constraints: BoxConstraints(
+                                maxHeight:
+                                    MediaQuery.of(context).size.height * .8),
+                            builder: (context) =>
+                                MealListScreen(menuTarget: menuTarget),
+                            backgroundColor: Colors.transparent,
+                          );
+                        },
                         child: Container(
                           height: ThemeSelector.statics.defaultTitleGap,
                           width: (MediaQuery.of(context).size.width / 4) +
@@ -138,7 +163,8 @@ class CustomerNews extends StatelessWidget {
                         onTap: () {
                           showDialog(
                               context: context,
-                              builder: (context) => CategoriesListDialog());
+                              builder: (context) =>
+                                  CategoriesListDialog(menuTarget: menuTarget));
                         },
                         child: Container(
                           height: ThemeSelector.statics.defaultTitleGap,
@@ -271,9 +297,8 @@ class CustomerNews extends StatelessWidget {
                     PaginationTemplate(
                       scrollDirection: Axis.horizontal,
                       loadDate: () {
-                        context
-                            .read<ChefsListBloc>()
-                            .add(GetChefsListEvent(context: context));
+                        context.read<ChefsListBloc>().add(GetChefsListEvent(
+                            context: context, menuTarget: menuTarget));
                       },
                       child: BlocConsumer<ChefsListBloc, ChefsListState>(
                         listener: (context, state) {},
@@ -286,14 +311,24 @@ class CustomerNews extends StatelessWidget {
                                 for (var chef in state.chefs)
                                   GestureDetector(
                                     onTap: () {
-                                      context.router.push(ChefProfileRoute(
-                                          chef: chef, menuTarget: menuTarget));
+                                      showModalBottomSheet(
+                                        context: context,
+                                        isScrollControlled: true,
+                                        isDismissible: true,
+                                        backgroundColor:
+                                            ThemeSelector.colors.background,
+                                        builder: (context) => ChefProfileScreen(
+                                          chef: chef,
+                                          menuTarget: menuTarget,
+                                        ),
+                                      );
                                     },
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal:
                                               ThemeSelector.statics.defaultGap),
                                       child: ChefBanner(
+                                        menuTarget: menuTarget,
                                         chef: chef,
                                         width: MediaQuery.of(context)
                                                 .size
@@ -311,6 +346,12 @@ class CustomerNews extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+                                  ),
+                                if (state.chefs.isEmpty)
+                                  SizedBox(
+                                    height: ThemeSelector
+                                            .statics.defaultImageHeightSmall +
+                                        ThemeSelector.statics.defaultMediumGap,
                                   ),
                               ],
                             ),
