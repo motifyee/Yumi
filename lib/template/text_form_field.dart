@@ -32,6 +32,7 @@ class TextFormFieldTemplate extends StatefulWidget {
     this.suffixIconConstraints,
     this.textInputType = TextInputType.text,
     this.isDense = false,
+    this.floatingLabelBehavior,
     this.isPassword = false,
     this.enabled = true,
     this.readOnly = false,
@@ -67,6 +68,7 @@ class TextFormFieldTemplate extends StatefulWidget {
   bool readOnly;
   bool dropdownSelection;
   bool? isDense;
+  FloatingLabelBehavior? floatingLabelBehavior;
   String? dropdownSelectionTargetLabel;
   dynamic dropdownSelectionValue;
   List<dynamic>? dropdownSelectionList;
@@ -177,7 +179,8 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
               ],
             )
           : null,
-      floatingLabelBehavior: FloatingLabelBehavior.always,
+      floatingLabelBehavior:
+          widget.floatingLabelBehavior ?? FloatingLabelBehavior.always,
       contentPadding: widget.isDense == true
           ? EdgeInsets.symmetric(
               horizontal: widget.borderStyle!.inputIndent,

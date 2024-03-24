@@ -23,7 +23,7 @@ onFormFieldsSaved<T>(
     onSaveCalled = true;
   }
 
-  bool onAllSavedCalled = false;
+  // bool onAllSavedCalled = false;
   return (T obj) {
     if (!onSaveCalled) setControlsCount();
 
@@ -32,8 +32,9 @@ onFormFieldsSaved<T>(
     if (onFieldsSaved != null) onFieldsSaved(saveCount, obj, fields);
 
     if (saveCount >= controlsCount && onAllFieldsSaved != null) {
-      if (onAllSavedCalled) throw Exception('onAllFieldsSaved called twice');
-      onAllSavedCalled = true;
+      // if (onAllSavedCalled) throw Exception('onAllFieldsSaved called twice');
+      // onAllSavedCalled = true;
+      saveCount = 0;
 
       onAllFieldsSaved(obj, fields);
     }

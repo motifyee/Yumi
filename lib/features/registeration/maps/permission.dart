@@ -33,9 +33,10 @@ Future<bool> checkGEOLocation([bool prompt = true]) async {
 // safe executer for geo operations.
 Future<T> geo<T>(Function func, [bool prompt = true]) async {
   if (!await checkGEOLocation(prompt)) {
+    return null as T;
     // replace with a gracceful error message.
-    throw Exception(
-        'Location services are not accessable. replace this message with a gracceful error message.');
+    // throw Exception(
+    //     'Location services are not accessable. replace this message with a gracceful error message.');
   }
 
   return func();

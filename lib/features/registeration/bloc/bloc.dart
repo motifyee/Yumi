@@ -8,6 +8,8 @@ import 'package:yumi/features/registeration/maps/permission.dart';
 import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/features/registeration/model/registeration.dart';
 import 'package:yumi/features/registeration/repository/address_repo.dart';
+import 'package:yumi/features/settings/profile/model/profile_model.dart';
+import 'package:yumi/features/settings/profile/profile_service.dart';
 import 'package:yumi/route/route.gr.dart';
 
 part 'event.dart';
@@ -78,6 +80,13 @@ class RegBloc extends Bloc<RegEvent, RegState> {
             _navigateTo(1, value.ctx, emit);
           },
           setPhone: (_setPhone value) {
+            ProfileService.updateProfile(
+                context: value.ctx,
+                data: Profile(
+                        mobile: value.phone,
+                        updatedBy: '366',
+                        registerDate: DateTime.now().toString())
+                    .toJson());
             _navigateTo(2, value.ctx, emit);
             emit(state.copyWith(phone: value.phone));
           },

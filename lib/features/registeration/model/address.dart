@@ -11,9 +11,9 @@ class Address with _$Address {
     String? code,
     // @JsonKey(name: 'id') String? id,
     // String? userId,
-    @JsonKey(name: 'address') String? country,
-    @JsonKey(name: 'addressName') String? city,
-    @JsonKey(name: 'location') String? street,
+    @JsonKey(name: 'address') String? addressDetails,
+    @JsonKey(name: 'addressName') String? addresssTitle,
+    @JsonKey(name: 'location') String? location,
     // String? zip,
     @JsonKey(name: 'Address_Latitude') double? latitude,
     @JsonKey(name: 'Address_Longitude') double? longitude,
@@ -22,7 +22,7 @@ class Address with _$Address {
 
   const Address._();
 
-  String get fullAddress => "${street ?? ''}, ${city ?? ''}, ${country ?? ''}";
+  // String get fullAddress => "${street ?? ''}, ${city ?? ''}, ${country ?? ''}";
 
   factory Address.fromJson(Map<String, dynamic> json) =>
       _$$AddressImplFromJson(json);

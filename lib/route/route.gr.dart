@@ -9,6 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i29;
+import 'package:flutter/cupertino.dart' as _i33;
 import 'package:flutter/material.dart' as _i30;
 import 'package:yumi/features/chef_application/application_flow_screen.dart'
     as _i6;
@@ -520,7 +521,7 @@ class HomeRouteArgs {
 /// [_i14.LocationScreen]
 class LocationRoute extends _i29.PageRouteInfo<LocationRouteArgs> {
   LocationRoute({
-    _i30.Key? key,
+    _i33.Key? key,
     List<_i29.PageRouteInfo>? children,
   }) : super(
           LocationRoute.name,
@@ -537,7 +538,7 @@ class LocationRoute extends _i29.PageRouteInfo<LocationRouteArgs> {
 class LocationRouteArgs {
   const LocationRouteArgs({this.key});
 
-  final _i30.Key? key;
+  final _i33.Key? key;
 
   @override
   String toString() {

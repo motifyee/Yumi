@@ -103,9 +103,9 @@ class _MapState extends State<GMap> {
         //     tileOverlayId: TileOverlayId("value"),
         //   ),
         // },
-        // myLocationButtonEnabled: true,
+        myLocationButtonEnabled: false,
         myLocationEnabled: true,
-        zoomControlsEnabled: true,
+        zoomControlsEnabled: false,
         markers: widget._markers);
   }
 
