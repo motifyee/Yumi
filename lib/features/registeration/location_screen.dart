@@ -1,10 +1,5 @@
-import 'dart:ffi';
-
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart';
@@ -17,16 +12,13 @@ import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/registeration/maps/google_maps.dart';
 import 'package:yumi/features/registeration/maps/permission.dart';
 import 'package:yumi/features/registeration/model/address.dart';
-import 'package:yumi/features/registeration/model/registeration.dart';
-import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
-import 'package:yumi/features/schedule/repository/mock.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/screen_container.dart';
 import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
-import 'package:yumi/validators/required_validator.dart';
+
 import './maps/extenstions.dart';
 import './maps/model.dart';
 
@@ -304,7 +296,7 @@ class LocationScreen extends StatelessWidget {
           "Please enter your address details",
         ],
         [
-          address.addresssTitle?.isEmpty ?? true,
+          address.addressTitle?.isEmpty ?? true,
           "Please enter a title for your address",
         ],
         [
@@ -371,11 +363,11 @@ class LocationScreen extends StatelessWidget {
           SizedBox(
             // height: 50,
             child: TextFormFieldTemplate(
-              initialValue: state.address.addresssTitle,
+              initialValue: state.address.addressTitle,
               key: UniqueKey(),
               floatingLabelBehavior: FloatingLabelBehavior.auto,
               onSave: (value) {
-                save(address = address.copyWith(addresssTitle: value));
+                save(address = address.copyWith(addressTitle: value));
                 // context.read<RegBloc>().add(
                 //       RegEvent.updateLocation(
                 //         state.address.copyWith(

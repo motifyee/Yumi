@@ -115,7 +115,9 @@ class CustomerLocationScreen extends StatelessWidget {
                                           Text('  '),
                                           Expanded(
                                             child: Text(
-                                              state.addressList[i].fullAddress,
+                                              state.addressList[i]
+                                                      .addressTitle ??
+                                                  '',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displaySmall
