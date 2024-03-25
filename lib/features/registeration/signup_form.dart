@@ -118,7 +118,12 @@ class SignUpForm extends StatelessWidget {
                       context
                           .read<RegBloc>()
                           .add(RegEvent.setAccount(signupForm, context));
+
+                      return context
+                          .read<RegBloc>()
+                          .add(RegEvent.setAccount(signupForm, context));
                     }
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: SnackBarMassage(

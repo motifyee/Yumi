@@ -19,5 +19,54 @@
 
 ## Frontend
 
+- **Error Handling**
+
+  - handle asynchronous errors
+  - asyncronous requests overlapping
+
+- **Structure**
+
+  - proper structure and workflow
+
+- **Design**
+
+  - proper design/UI/UX
+  - RTL
+
 - **Bloc**
+
   - handling on save event for TextField & TileCheckbox
+  - consequetive bloc events
+
+- **API**
+
+  - handling errors
+  - error messages
+
+- **Localization**
+
+  - proper localization
+
+- **Tests**
+
+  - logic
+  - UI
+  - integration
+  - performance
+  - security
+  - accessibility
+  - internationalization
+  - usability
+
+- **Analytics**
+
+  - crash analytics
+  - performance analytics
+  - user analytics
+  - event analytics
+  - content analytics
+  - conversion analytics
+
+- **Documentation**
+
+  - business logic documentation

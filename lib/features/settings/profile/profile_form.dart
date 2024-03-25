@@ -111,16 +111,16 @@ Widget profileFormFields(
         ),
         SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
         // const Divider(height: 0),
-        FormField<bool>(
-          initialValue: profile.pickup,
-          onSaved: (value) =>
-              save(profile0 = profile0.copyWith(pickup: value ?? false)),
-          builder: (fieldState) => CheckboxListTile(
-            value: fieldState.value,
-            onChanged: (bool? value) => fieldState.didChange(value),
-            title: const Text('Pickup'),
-          ),
-        ),
+        // FormField<bool>(
+        //   initialValue: profile.pickup,
+        //   onSaved: (value) =>
+        //       save(profile0 = profile0.copyWith(pickup: value ?? false)),
+        //   builder: (fieldState) => CheckboxListTile(
+        //     value: fieldState.value,
+        //     onChanged: (bool? value) => fieldState.didChange(value),
+        //     title: const Text('Pickup'),
+        //   ),
+        // ),
         FormField<bool>(
           initialValue: profile.pickupOnly,
           onSaved: (value) =>

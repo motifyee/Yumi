@@ -1,19 +1,32 @@
+import 'dart:ffi';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:google_places_flutter/model/prediction.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/registeration/maps/google_maps.dart';
 import 'package:yumi/features/registeration/maps/permission.dart';
 import 'package:yumi/features/registeration/model/address.dart';
+import 'package:yumi/features/registeration/model/registeration.dart';
+import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
+import 'package:yumi/features/schedule/repository/mock.dart';
+import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/screen_container.dart';
 import 'package:yumi/template/snack_bar.dart';
-
+import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/validators/required_validator.dart';
 import './maps/extenstions.dart';
 import './maps/model.dart';
 
@@ -51,13 +64,14 @@ class LocationScreen extends StatelessWidget {
 
     mapInfo = GMapInfo(
         setMarkerOnLongPress: true,
-        onAddressLongPress: (address, coord, info) {
+        onAddressLongPress: (placemark, coord, info) {
           regBloc.add(
             RegEvent.updateLocation(
               regBloc.state.address.copyWith(
-                country: address.country,
-                city: address.locality,
-                street: address.street,
+                // addressDetails: address.country,
+                // addresssTitle: address.locality,
+                location:
+                    '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
                 latitude: coord.latitude,
                 longitude: coord.longitude,
               ),
@@ -68,214 +82,351 @@ class LocationScreen extends StatelessWidget {
           print(await info.controller?.getZoomLevel());
         });
 
-    getLocation() {
-      geo(() async {
-        var loc = await Geolocator.getCurrentPosition();
-
-        mapInfo.controller?.animateCamera(CameraUpdate.newLatLngZoom(
-            LatLng(loc.latitude, loc.longitude), 11));
-
-        List<Placemark> placemarks = await tryV(() => placemarkFromCoordinates(
-              loc.latitude,
-              loc.longitude,
-            ));
-
-        var placemark = placemarks[0];
-
-        regBloc.add(RegEvent.updateLocation(regBloc.state.address.copyWith(
-          country: placemark.country,
-          city: placemark.locality,
-          street: placemark.street,
-          latitude: loc.latitude,
-          longitude: loc.longitude,
-        )));
-      }, true);
-    }
-
     return ScreenContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          bottomOpacity: 0,
-          scrolledUnderElevation: 0,
-          iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
-          title: Center(
-            child: Text(
-              "Pick your location",
-              style: TextStyle(fontSize: ThemeSelector.fonts.font_16),
-            ),
-          ),
-        ),
-        body: Column(
+        // appBar: AppBar(
+        //   backgroundColor: Colors.transparent,
+        //   bottomOpacity: 0,
+        //   scrolledUnderElevation: 0,
+        //   iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
+        //   title: Center(
+        //     child: Text(
+        //       "Pick your location",
+        //       style: TextStyle(fontSize: ThemeSelector.fonts.font_16),
+        //     ),
+        //   ),
+        // ),
+        body: Stack(
           children: [
             Expanded(child: GMap(info: mapInfo)),
-            BlocConsumer<RegBloc, RegState>(
-              listener: (context, state) {
-                if (state.addressStatus == BlocStatus.error) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: SnackBarMassage(
-                        massage: "Error updating location",
-                      ),
-                    ),
-                  );
-                }
-              },
-              builder: (context, state) {
-                return locationForm(getLocation, state, context);
-              },
-            ),
+            locationBar(),
+            addressCard(),
           ],
         ),
       ),
     );
   }
 
-  Center locationForm(
-      Null Function() getLocation, RegState state, BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          TextButton(
-            onPressed: getLocation,
-            child: const Text('Get You Current Location'),
-          ),
-          Form(
-            key: formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
+  TextEditingController controller = TextEditingController();
+
+  Widget locationBar() {
+    return BlocBuilder<RegBloc, RegState>(
+      builder: (context, state) {
+        getLocation() {
+          debugPrint('clicks');
+          geo(() async {
+            await Geolocator.getCurrentPosition().then((loc) async {
+              mapInfo.controller?.animateCamera(CameraUpdate.newLatLngZoom(
+                  LatLng(loc.latitude, loc.longitude), 11));
+
+              await tryV(() => placemarkFromCoordinates(
+                    loc.latitude,
+                    loc.longitude,
+                  )).then((placemarks) {
+                var placemark = placemarks[0];
+
+                context
+                    .read<RegBloc>()
+                    .add(RegEvent.updateLocation(state.address.copyWith(
+                      location:
+                          '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
+                      latitude: loc.latitude,
+                      longitude: loc.longitude,
+                    )));
+              });
+            });
+          }, true, context);
+        }
+
+        return Positioned(
+          top: 20,
+          left: 20,
+          right: 20,
+          child: Card(
+            elevation: 5,
+            child: SizedBox(
+              height: 50,
+              // padding: const EdgeInsets.only(left: 16),
+              child: Stack(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          initialValue: state.address.country,
-                          key: UniqueKey(),
-                          onSaved: (value) {
-                            context.read<RegBloc>().add(
-                                  RegEvent.updateLocation(
-                                    state.address.copyWith(
-                                      country: value,
-                                    ),
-                                  ),
-                                );
-                          },
-                          decoration:
-                              const InputDecoration(hintText: "Country"),
-                        ),
+                  Expanded(
+                    child: GooglePlaceAutoCompleteTextField(
+                      textEditingController: controller,
+                      googleAPIKey: "AIzaSyCT36qFZg_DTHBU0fdTWdooUtixPJw3TUA",
+                      // inputDecoration: const InputDecoration(),
+                      boxDecoration: const BoxDecoration(
+                        // border: Border.all(width: 1, color: Colors.transparent),
+                        color: Colors.transparent,
                       ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: TextFormField(
-                          initialValue: state.address.city,
-                          key: UniqueKey(),
-                          onSaved: (value) {
-                            context.read<RegBloc>().add(
-                                  RegEvent.updateLocation(
-                                    state.address.copyWith(
-                                      city: value,
-                                    ),
-                                  ),
-                                );
-                          },
-                          decoration: const InputDecoration(hintText: "city"),
-                        ),
+                      inputDecoration: const InputDecoration(
+                        border: InputBorder.none,
                       ),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          initialValue: state.address.street,
-                          key: UniqueKey(),
-                          onSaved: (value) {
-                            context.read<RegBloc>().add(
-                                  RegEvent.updateLocation(
-                                    state.address.copyWith(
-                                      street: value,
-                                    ),
-                                  ),
-                                );
-                          },
-                          decoration: const InputDecoration(
-                              hintText: "Enter your address"),
-                        ),
-                      ),
-                      IconButton(
-                          onPressed: () async {
-                            formKey.currentState!.save();
 
-                            await tryV(
-                              () => _navToAddress(state.address.fullAddress),
-                            ).then((value) {
-                              if (value != null) {
-                                context.read<RegBloc>().add(
-                                      RegEvent.updateLocation(
-                                        state.address.copyWith(
-                                          latitude: value.latitude,
-                                          longitude: value.longitude,
-                                        ),
-                                      ),
-                                    );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: SnackBarMassage(
-                                      massage: "Please enter a valid address",
-                                    ),
-                                  ),
-                                );
-                              }
-                            });
-                          },
-                          icon: SvgPicture.asset(
-                              'assets/images/map/map_pin.svg')),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {
-                        if (state.address.fullAddress.isEmpty ||
-                            (state.address.city?.isEmpty ?? false) ||
-                            (state.address.street?.isEmpty ?? false)) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: SnackBarMassage(
-                                massage: "Please enter a valid address",
-                              ),
-                            ),
-                          );
-                          return;
-                        }
-
-                        if (state.address.latitude == null ||
-                            state.address.longitude == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: SnackBarMassage(
-                                massage:
-                                    "Please interact with the map to specify your exact location",
-                              ),
-                            ),
-                          );
-                          return;
-                        }
+                      debounceTime: 800,
+                      countries: const ["uk", "ir"],
+                      isLatLngRequired: true,
+                      getPlaceDetailWithLatLng: (Prediction prediction) {
+                        print("placeDetails${prediction.lng}");
 
                         context.read<RegBloc>().add(
-                            RegEvent.saveLocation(context, routeFn: routeFn));
+                              RegEvent.updateLocation(
+                                state.address.copyWith(
+                                  latitude:
+                                      double.tryParse(prediction.lat ?? ''),
+                                  longitude:
+                                      double.tryParse(prediction.lng ?? ''),
+                                ),
+                              ),
+                            );
                       },
-                      child: const Text('Ok'),
+                      itemClick: (Prediction prediction) {
+                        controller.text = prediction.description ?? '';
+                        controller.selection = TextSelection.fromPosition(
+                          TextPosition(
+                              offset: prediction.description?.length ?? 0),
+                        );
+                      },
+                      itemBuilder: (context, index, Prediction prediction) {
+                        return Container(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.location_on),
+                              const SizedBox(
+                                width: 7,
+                              ),
+                              Expanded(
+                                  child: Text(prediction.description ?? ""))
+                            ],
+                          ),
+                        );
+                      },
+                      seperatedBuilder: Divider(
+                          color: ThemeSelector.colors.primary.withOpacity(.1)),
+                      isCrossBtnShown: true,
+                      containerHorizontalPadding: 50,
+                    ),
+                    //   Autocomplete(
+                    //     optionsBuilder: (TextEditingValue textEditingValue) {
+                    //       locationFromAddress(textEditingValue.text);
+                    //       return [''];
+                    //     },
+                    //     fieldViewBuilder: (context, textEditingController,
+                    //             focusNode, onFieldSubmitted) =>
+                    //         TextField(
+                    //             decoration: InputDecoration(
+                    //       border: InputBorder.none,
+                    //       hintText: 'Search location...',
+                    //       hintStyle: TextStyle(
+                    //         fontSize: ThemeSelector.fonts.font_14,
+                    //         fontWeight: FontWeight.w400,
+                    //       ),
+                    //     )),
+                    //   ),
+                    // ),
+                  ),
+                  Positioned(
+                      top: 0,
+                      bottom: 0,
+                      left: 16,
+                      child: Icon(Icons.search,
+                          color: ThemeSelector.colors.primary)),
+                  Positioned(
+                    top: 5,
+                    bottom: 5,
+                    right: 5,
+                    child: IconButton(
+                      onPressed: getLocation,
+                      icon: SvgPicture.asset('assets/images/map/map_pin.svg'),
                     ),
                   ),
                 ],
               ),
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget addressCard() {
+    return BlocConsumer<RegBloc, RegState>(
+      listener: (context, state) {
+        if (state.addressStatus == BlocStatus.error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: SnackBarMassage(
+                massage: "Error updating location",
+              ),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state.address.latitude == null) return const SizedBox();
+
+        return Positioned(
+            bottom: 20,
+            left: 20,
+            right: 20,
+            child: Card(
+              elevation: 5,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                child: addressForm(state, context),
+              ),
+            ));
+      },
+    );
+  }
+
+  Widget? addressForm(RegState state, BuildContext context) {
+    acceptAddress() {
+      formKey.currentState!.save();
+
+      // context.read<RegBloc>().add(RegEvent.saveLocation(context));
+    }
+
+    Address address = state.address;
+
+    bool validate() {
+      var values = [
+        [
+          address.location?.isEmpty ?? true,
+          "Please choose a valid address",
+        ],
+        [
+          address.addressDetails?.isEmpty ?? true,
+          "Please enter your address details",
+        ],
+        [
+          address.addresssTitle?.isEmpty ?? true,
+          "Please enter a title for your address",
+        ],
+        [
+          address.latitude == null || state.address.longitude == null,
+          "Please interact with the map to specify your exact location"
+        ]
+      ];
+      var trueV = values.firstWhere((element) => element[0] as bool,
+          orElse: () => [false]);
+
+      if (!(trueV[0] as bool)) return true;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: SnackBarMassage(
+            massage: trueV[1] as String,
+          ),
+        ),
+      );
+      return false;
+    }
+
+    var save = onFormFieldsSaved<Address>(
+      formKey,
+      onAllFieldsSaved: (reg, _) {
+        if (!validate()) return;
+
+        context.read<RegBloc>().add(RegEvent.updateLocation(address));
+        context.read<RegBloc>().add(RegEvent.saveLocation(context));
+      },
+    );
+    moveCameraToManualAddress() async {
+      formKey.currentState!.save();
+
+      await tryV(
+        () => _navToAddress(state.address.location ?? ''),
+      ).then((value) {
+        if (value != null) {
+          context.read<RegBloc>().add(
+                RegEvent.updateLocation(
+                  state.address.copyWith(
+                    latitude: value.latitude,
+                    longitude: value.longitude,
+                  ),
+                ),
+              );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: SnackBarMassage(
+                massage: "Please enter a valid address",
+              ),
+            ),
+          );
+        }
+      });
+    }
+
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          // Row( children: [ Expanded( child: TextFormFieldTemplate( initialValue: state.address.country, key: UniqueKey(), onSave: (value) { context.read<RegBloc>().add( RegEvent.updateLocation( state.address.copyWith( country: value,),),); }, label: "Country", hintText: "Country",),), // Expanded( child:), ],),
+          SizedBox(
+            // height: 50,
+            child: TextFormFieldTemplate(
+              initialValue: state.address.addresssTitle,
+              key: UniqueKey(),
+              floatingLabelBehavior: FloatingLabelBehavior.auto,
+              onSave: (value) {
+                save(address = address.copyWith(addresssTitle: value));
+                // context.read<RegBloc>().add(
+                //       RegEvent.updateLocation(
+                //         state.address.copyWith(
+                //           addresssTitle: value,
+                //         ),
+                //       ),
+                //     );
+              },
+              validators: (val) => (val?.length ?? 0) < 3
+                  ? 'Minimum 3 characters required'
+                  : null,
+              hintText: 'Address Title, eg: My Home Address',
+              label: "Address Title",
+            ),
+          ),
+          const SizedBox(height: 20),
+          TextFormFieldTemplate(
+            initialValue: state.address.addressDetails,
+            key: UniqueKey(),
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
+            onSave: (value) {
+              save(address = address.copyWith(addressDetails: value));
+              // context.read<RegBloc>().add(
+              //       RegEvent.updateLocation(
+              //         state.address.copyWith(
+              //           addressDetails: value,
+              //         ),
+              //       ),
+              //     );
+            },
+            validators: (val) =>
+                (val?.length ?? 0) < 8 ? 'Minimum 8 characters required' : null,
+            hintText: 'Address Details, eg: House No., Building Name, etc',
+            label: 'Adddress Details',
+          ),
+          const SizedBox(height: 20),
+          Row(
+            children: [
+              SvgPicture.asset('assets/images/map/map_pin.svg'),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Text(state.address.location ?? ''),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          ConfirmButton(
+            label: 'Ok',
+            onPressed: acceptAddress,
           ),
         ],
       ),

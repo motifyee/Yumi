@@ -22,8 +22,17 @@ class UserFromJsonEvent extends UserEvent {
 }
 
 class UserFromSharedRefEvent extends UserEvent {
-  Function() afterFetchSuccess;
-  UserFromSharedRefEvent({required this.afterFetchSuccess});
+  final BuildContext context;
+  final String? route;
+  final Function(BuildContext, String?) afterFetchSuccess;
+  final Function(BuildContext) autoLogin;
+
+  UserFromSharedRefEvent({
+    required this.context,
+    required this.route,
+    required this.afterFetchSuccess,
+    required this.autoLogin,
+  });
 
   @override
   List<Object?> get props => [afterFetchSuccess];

@@ -26,13 +26,13 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future skipLogin() async {
+    Future skipLogin(BuildContext context) async {
       try {
         String data = await rootBundle.loadString('assets/.autologin');
         var dataList = (const LineSplitter()).convert(data);
 
         if (!context.mounted) return;
-        print("auto login...");
+        debugPrint("auto login...");
 
         performLogin(
           context,
@@ -41,17 +41,29 @@ class LoginForm extends StatelessWidget {
         );
         // ignore: empty_catches
       } catch (e) {
-        print(e);
+        debugPrint(e.toString());
       }
     }
 
     if (!kReleaseMode && loginAttempted == false) {
       loginAttempted = true;
-      skipLogin();
-    }
+      // skipLogin();
 
-    context.read<UserBloc>().add(UserFromSharedRefEvent(
-        afterFetchSuccess: () => routeAfterLogin(context: context)));
+      () async {
+        await rootBundle.loadString('assets/.autologin').then((data) {
+          var dataList = (const LineSplitter()).convert(data);
+
+          context.read<UserBloc>().add(
+                UserFromSharedRefEvent(
+                  context: context,
+                  route: dataList.length > 2 ? dataList[2] : null,
+                  afterFetchSuccess: routeAfterLogin,
+                  autoLogin: skipLogin,
+                ),
+              );
+        });
+      }();
+    }
 
     return Form(
       key: loginFormKey,
@@ -123,7 +135,7 @@ void performLogin(BuildContext context, LoginModel loginForm, [String? route]) {
   LoginServices.login(login: loginForm, context: context).then((value) async {
     if (value['access_Token'] != null) {
       context.read<UserBloc>().add(UserFromJsonEvent(user: value));
-      routeAfterLogin(context: context, route: route);
+      // routeAfterLogin(context: context, route: route);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -144,7 +156,7 @@ void performLogin(BuildContext context, LoginModel loginForm, [String? route]) {
   });
 }
 
-void routeAfterLogin({required BuildContext context, String? route}) {
+void routeAfterLogin(BuildContext context, String? route) async {
   if (!context.mounted) return;
 
   if (route == "flow") {
