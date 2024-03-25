@@ -2,11 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/address/address_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/pagination_template.dart';
 
 @RoutePage()
 class CustomerLocationScreen extends StatelessWidget {
@@ -64,48 +66,78 @@ class CustomerLocationScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-              child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ThemeSelector.statics.defaultMediumGap),
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, childAspectRatio: 2),
-              itemBuilder: (_, index) => Center(
-                child: Padding(
+              child: BlocProvider(
+            create: (context) => AddressBloc(),
+            child: BlocConsumer<AddressBloc, AddressState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                return Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultMicroGap),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultGap,
-                      vertical: ThemeSelector.statics.defaultGap,
-                    ),
-                    decoration: BoxDecoration(
-                      color: ThemeSelector.colors.primary.withAlpha(100),
-                      borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.defaultBorderRadiusMedium),
-                    ),
-                    child: Row(
+                      horizontal: ThemeSelector.statics.defaultMediumGap),
+                  child: PaginationTemplate(
+                    scrollDirection: Axis.vertical,
+                    loadDate: () {
+                      context.read<AddressBloc>().add(
+                          AddressEvent.updateAddressListEvent(
+                              context: context));
+                    },
+                    child: Column(
                       children: [
-                        SvgPicture.asset(
-                            'assets/images/location_indecator.svg'),
-                        Text('  '),
-                        Expanded(
-                          child: Text(
-                            'Home',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall
-                                ?.copyWith(
-                                    fontSize: ThemeSelector.fonts.font_9),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                for (var i = 0;
+                                    i < state.addressList.length;
+                                    i += 3)
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: ThemeSelector
+                                            .statics.defaultMicroGap),
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            ThemeSelector.statics.defaultGap,
+                                        vertical:
+                                            ThemeSelector.statics.defaultGap,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: ThemeSelector.colors.primary
+                                            .withAlpha(100),
+                                        borderRadius: BorderRadius.circular(
+                                            ThemeSelector.statics
+                                                .defaultBorderRadiusMedium),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                              'assets/images/location_indecator.svg'),
+                                          Text('  '),
+                                          Expanded(
+                                            child: Text(
+                                              state.addressList[i].fullAddress,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displaySmall
+                                                  ?.copyWith(
+                                                      fontSize: ThemeSelector
+                                                          .fonts.font_9),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
-                ),
-              ),
-              itemCount: 4,
+                );
+              },
             ),
           )),
           Column(

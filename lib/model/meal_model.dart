@@ -81,7 +81,7 @@ class MealModel {
     preparationTime = json['preparation_time']?.toString();
     isOrder = json['is_Order'];
     isPreOrder = json['is_Pre_Order'];
-    isPickUpOnly = json['isPickUpOnly'];
+    isPickUpOnly = json['pickup_Only'];
     portionPersons = json['portion_Persons']?.toString();
     categoriesids = json['categoriesIds']?.cast<int>();
     if (json['ingredients'] != null) {
@@ -107,7 +107,7 @@ class MealModel {
     data['preparation_Time'] = this.preparationTime;
     data['is_Order'] = this.isOrder;
     data['is_Pre_Order'] = this.isPreOrder;
-    data['isPickUpOnly'] = this.isPickUpOnly;
+    data['pickup_Only'] = this.isPickUpOnly;
     data['portion_Persons'] = this.portionPersons;
     data['categoriesIds'] = this.categoriesids;
     if (this.ingredients != null) {
