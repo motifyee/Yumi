@@ -13,12 +13,14 @@ import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 class CustomerPreOrderForm extends StatelessWidget {
-  CustomerPreOrderForm({super.key, this.meal, required this.chefId});
+  CustomerPreOrderForm(
+      {super.key, this.meal, required this.chefId, required this.isPickUpOnly});
 
   static GlobalKey<FormState> preOrderForm = GlobalKey<FormState>();
 
   MealModel? meal;
   String chefId;
+  bool isPickUpOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -219,14 +221,15 @@ class CustomerPreOrderForm extends StatelessWidget {
                             if (meal != null) {
                               context.read<BasketFormBloc>().add(
                                     BasketFormAddMealEvent(
-                                      invoiceDetails: InvoiceDetails(
-                                        productVarintPrice:
-                                            double.parse(meal?.price1 ?? "0"),
-                                        quantity: "1",
-                                        productVarintId: meal?.productVariantID,
-                                        meal: meal,
-                                      ),
-                                    ),
+                                        invoiceDetails: InvoiceDetails(
+                                          productVarintPrice:
+                                              double.parse(meal?.price1 ?? "0"),
+                                          quantity: "1",
+                                          productVarintId:
+                                              meal?.productVariantID,
+                                          meal: meal,
+                                        ),
+                                        isPickUpOnly: isPickUpOnly),
                                   );
                             }
                             context.read<BasketFormBloc>().add(

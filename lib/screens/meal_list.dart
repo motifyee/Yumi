@@ -140,6 +140,7 @@ class _MealList extends StatelessWidget {
                                   BasketFormAddMealEvent(
                                     invoiceDetails:
                                         InvoiceDetails.fromMeal(meal: meal),
+                                    isPickUpOnly: meal.isPickUpOnly ?? false,
                                   ),
                                 );
 

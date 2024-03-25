@@ -21,14 +21,21 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
           invoiceDetails: [],
         ))) {
     on<BasketFormResetEvent>((event, emit) {
-      emit(BasketFormState(
+      emit(
+        BasketFormState(
           invoice: InvoiceModel(
-        invoice: Invoice(),
-        invoiceDetails: [],
-      )));
+            invoice: Invoice(),
+            invoiceDetails: [],
+          ),
+        ),
+      );
     });
     on<BasketFormUpdateEvent>((event, emit) {
       emit(state.copyWith(invoice: event.invoice));
+    });
+
+    on<BasketFormUpdateIsPickUpOnlyEvent>((event, emit) {
+      emit(state.copyWith(isPickUpOnly: event.isPickUpOnly));
     });
 
     on<BasketFormAddMealEvent>((event, emit) {
@@ -45,6 +52,8 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
                   state.invoice.invoice?.chefID),
         ),
       ));
+
+      add(BasketFormUpdateIsPickUpOnlyEvent(isPickUpOnly: event.isPickUpOnly));
       add(BasketFormCalcEvent());
     });
 
@@ -127,14 +136,17 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
 
     on<BasketFormPostRequestEvent>((event, emit) async {
       late Response res;
-      if (state.invoice.isDelivery == true &&
-          state.invoice.isPreorder == true) {
+      if (state.invoice.isDelivery == true) {
         res = await OrderService.createPreOrderDelivery(
-            context: event.context, invoice: state.invoice);
+            context: event.context,
+            invoice: state.invoice,
+            isPreOrder: state.invoice.isPreorder ?? false);
       }
-      if (state.invoice.isPickup == true && state.invoice.isPreorder == true) {
+      if (state.invoice.isPickup == true) {
         res = await OrderService.createPreOrderPickUp(
-            context: event.context, invoice: state.invoice);
+            context: event.context,
+            invoice: state.invoice,
+            isPreOrder: state.invoice.isPreorder ?? false);
       }
 
       if (res.statusCode == 200) {

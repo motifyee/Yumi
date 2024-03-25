@@ -3,18 +3,27 @@ import 'package:yumi/model/invoice_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 
 class OrderService {
-  static Future<dynamic> createPreOrderDelivery(
-      {required BuildContext context, required InvoiceModel invoice}) async {
+  static Future<dynamic> createPreOrderDelivery({
+    required BuildContext context,
+    required InvoiceModel invoice,
+    required bool isPreOrder,
+  }) async {
     var res = await DioClient.simpleDio(context).post(
-        ApiKeys.getApiKeyString(apiKey: ApiKeys.preOrderDelivery),
+        ApiKeys.getApiKeyString(
+            apiKey:
+                isPreOrder ? ApiKeys.preOrderDelivery : ApiKeys.orderDelivery),
         data: invoice.toJson());
     return res;
   }
 
-  static Future<dynamic> createPreOrderPickUp(
-      {required BuildContext context, required InvoiceModel invoice}) async {
+  static Future<dynamic> createPreOrderPickUp({
+    required BuildContext context,
+    required InvoiceModel invoice,
+    required bool isPreOrder,
+  }) async {
     var res = await DioClient.simpleDio(context).post(
-        ApiKeys.getApiKeyString(apiKey: ApiKeys.preOrderPickUp),
+        ApiKeys.getApiKeyString(
+            apiKey: isPreOrder ? ApiKeys.preOrderPickUp : ApiKeys.orderPickUp),
         data: invoice.toJson());
     return res;
   }

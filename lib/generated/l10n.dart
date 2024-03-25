@@ -1981,6 +1981,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Pick up only`
+  String get pickUpOnly {
+    return Intl.message(
+      'Pick up only',
+      name: 'pickUpOnly',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -9,14 +9,14 @@ part 'address.g.dart';
 class Address with _$Address {
   const factory Address({
     String? code,
-    // @JsonKey(name: 'id') String? id,
+    @JsonKey(name: 'id') int? id,
     // String? userId,
     @JsonKey(name: 'address') String? addressDetails,
-    @JsonKey(name: 'addressName') String? addresssTitle,
+    @JsonKey(name: 'address_Name') String? addressTitle,
     @JsonKey(name: 'location') String? location,
     // String? zip,
-    @JsonKey(name: 'Address_Latitude') double? latitude,
-    @JsonKey(name: 'Address_Longitude') double? longitude,
+    @JsonKey(name: 'address_Latitude') double? latitude,
+    @JsonKey(name: 'address_Longitude') double? longitude,
     bool? isDefault,
   }) = _Address;
 

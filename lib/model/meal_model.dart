@@ -10,6 +10,7 @@ class MealModel {
   String? preparationTime;
   bool? isOrder;
   bool? isPreOrder;
+  bool? isPickUpOnly;
   String? portionPersons;
   List<int>? categoriesids;
   List<IngredientsModel>? ingredients;
@@ -26,6 +27,7 @@ class MealModel {
     this.preparationTime,
     this.isOrder,
     this.isPreOrder,
+    this.isPickUpOnly,
     this.portionPersons,
     this.categoriesids,
     this.ingredients,
@@ -43,6 +45,7 @@ class MealModel {
     String? preparationTime,
     bool? isOrder,
     bool? isPreOrder,
+    bool? isPickUpOnly,
     String? portionPersons,
     List<int>? categoriesids,
     List<IngredientsModel>? ingredients,
@@ -59,6 +62,7 @@ class MealModel {
       preparationTime: preparationTime ?? this.preparationTime,
       isOrder: isOrder ?? this.isOrder,
       isPreOrder: isPreOrder ?? this.isPreOrder,
+      isPickUpOnly: isPickUpOnly ?? this.isPickUpOnly,
       portionPersons: portionPersons ?? this.portionPersons,
       categoriesids: categoriesids ?? this.categoriesids,
       ingredients: ingredients ?? this.ingredients,
@@ -77,6 +81,7 @@ class MealModel {
     preparationTime = json['preparation_time']?.toString();
     isOrder = json['is_Order'];
     isPreOrder = json['is_Pre_Order'];
+    isPickUpOnly = json['pickup_Only'];
     portionPersons = json['portion_Persons']?.toString();
     categoriesids = json['categoriesIds']?.cast<int>();
     if (json['ingredients'] != null) {
@@ -102,6 +107,7 @@ class MealModel {
     data['preparation_Time'] = this.preparationTime;
     data['is_Order'] = this.isOrder;
     data['is_Pre_Order'] = this.isPreOrder;
+    data['pickup_Only'] = this.isPickUpOnly;
     data['portion_Persons'] = this.portionPersons;
     data['categoriesIds'] = this.categoriesids;
     if (this.ingredients != null) {

@@ -226,48 +226,51 @@ class ChefProfileScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              showModalBottomSheet(
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                context: context,
-                                builder: (context) => CustomerPreOrderForm(
-                                  chefId: chef.id ?? '',
-                                ),
-                              );
-                            },
-                            child: Row(
-                              children: [
-                                Text(
-                                  S.of(context).addPreOrder,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium
-                                      ?.copyWith(
-                                          fontSize:
-                                              ThemeSelector.fonts.font_10),
-                                ),
-                                const Text(' '),
-                                Container(
-                                  width: ThemeSelector.statics.defaultLineGap,
-                                  height: ThemeSelector.statics.defaultLineGap,
-                                  decoration: BoxDecoration(
-                                    color: ThemeSelector.colors.primary,
-                                    borderRadius: BorderRadius.circular(
-                                        ThemeSelector.statics.defaultLineGap),
+                          if (menuTarget == MenuTarget.preOrder)
+                            TextButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  context: context,
+                                  builder: (context) => CustomerPreOrderForm(
+                                    chefId: chef.id ?? '',
+                                    isPickUpOnly: chef.pickupOnly ?? false,
                                   ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.add,
-                                      color: ThemeSelector.colors.onPrimary,
-                                      size: ThemeSelector.fonts.font_12,
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    S.of(context).addPreOrder,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium
+                                        ?.copyWith(
+                                            fontSize:
+                                                ThemeSelector.fonts.font_10),
+                                  ),
+                                  const Text(' '),
+                                  Container(
+                                    width: ThemeSelector.statics.defaultLineGap,
+                                    height:
+                                        ThemeSelector.statics.defaultLineGap,
+                                    decoration: BoxDecoration(
+                                      color: ThemeSelector.colors.primary,
+                                      borderRadius: BorderRadius.circular(
+                                          ThemeSelector.statics.defaultLineGap),
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.add,
+                                        color: ThemeSelector.colors.onPrimary,
+                                        size: ThemeSelector.fonts.font_12,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
                         ],
                       ),
                       SizedBox(height: ThemeSelector.statics.defaultBlockGap),

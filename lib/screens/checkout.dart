@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/screens/payment_paypal.dart';
@@ -264,34 +266,53 @@ class CheckOutScreen extends StatelessWidget {
                           children: [
                             Hero(
                               tag: 'ConfirmBasketSeries',
-                              child: GestureDetector(
-                                onTap: () {
-                                  // context.router.push(OrderStatusRoute());
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) =>
-                                          DeliveryOptionDialog());
-                                },
-                                child: Container(
-                                  width: ThemeSelector.statics.defaultGapXXXL *
-                                      1.5,
-                                  height: ThemeSelector
-                                      .statics.defaultTitleGapLarge,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(
-                                        ThemeSelector
-                                            .statics.defaultBorderRadius),
-                                    color: ThemeSelector.colors.primary,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      S.of(context).placeOrder,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall,
+                              child:
+                                  BlocConsumer<BasketFormBloc, BasketFormState>(
+                                listener: (context, state) {},
+                                builder: (context, state) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      if (state.isPickUpOnly) {
+                                        context.read<BasketFormBloc>().add(
+                                              BasketFormUpdateEvent(
+                                                invoice: state.invoice.copyWith(
+                                                    isPickup: true,
+                                                    isDelivery: false),
+                                              ),
+                                            );
+                                        context.read<BasketFormBloc>().add(
+                                            BasketFormPostRequestEvent(
+                                                context: context));
+                                      } else {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                DeliveryOptionDialog());
+                                      }
+                                    },
+                                    child: Container(
+                                      width:
+                                          ThemeSelector.statics.defaultGapXXXL *
+                                              1.5,
+                                      height: ThemeSelector
+                                          .statics.defaultTitleGapLarge,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            ThemeSelector
+                                                .statics.defaultBorderRadius),
+                                        color: ThemeSelector.colors.primary,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          S.of(context).placeOrder,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                  );
+                                },
                               ),
                             ),
                           ],

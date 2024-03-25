@@ -15,10 +15,15 @@ import 'package:yumi/template/chef_meal_basket_card.dart';
 import 'package:yumi/template/pagination_template.dart';
 
 class ChefMealsScreen extends StatefulWidget {
-  ChefMealsScreen({super.key, required this.menuTarget, required this.chefId});
+  ChefMealsScreen(
+      {super.key,
+      required this.menuTarget,
+      required this.chefId,
+      required this.isPickUpOnly});
 
   final MenuTarget menuTarget;
   final String chefId;
+  final bool isPickUpOnly;
 
   @override
   State<ChefMealsScreen> createState() => _ChefMealsScreenState();
@@ -154,6 +159,7 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                                               invoiceDetails:
                                                   InvoiceDetails.fromMeal(
                                                       meal: meal),
+                                              isPickUpOnly: widget.isPickUpOnly,
                                             ),
                                           );
                                     },

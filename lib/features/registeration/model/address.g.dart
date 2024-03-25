@@ -9,21 +9,23 @@ part of 'address.dart';
 _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
     _$AddressImpl(
       code: json['code'] as String?,
+      id: json['id'] as int?,
       addressDetails: json['address'] as String?,
-      addresssTitle: json['addressName'] as String?,
+      addressTitle: json['address_Name'] as String?,
       location: json['location'] as String?,
-      latitude: (json['Address_Latitude'] as num?)?.toDouble(),
-      longitude: (json['Address_Longitude'] as num?)?.toDouble(),
+      latitude: (json['address_Latitude'] as num?)?.toDouble(),
+      longitude: (json['address_Longitude'] as num?)?.toDouble(),
       isDefault: json['isDefault'] as bool?,
     );
 
 Map<String, dynamic> _$$AddressImplToJson(_$AddressImpl instance) =>
     <String, dynamic>{
       'code': instance.code,
+      'id': instance.id,
       'address': instance.addressDetails,
-      'addressName': instance.addresssTitle,
+      'address_Name': instance.addressTitle,
       'location': instance.location,
-      'Address_Latitude': instance.latitude,
-      'Address_Longitude': instance.longitude,
+      'address_Latitude': instance.latitude,
+      'address_Longitude': instance.longitude,
       'isDefault': instance.isDefault,
     };

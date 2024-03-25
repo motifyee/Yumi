@@ -53,29 +53,32 @@ class CustomerNews extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            RichText(
-                                text: TextSpan(
-                              style: Theme.of(context).textTheme.labelMedium,
-                              children: [
-                                TextSpan(
-                                  text: S.of(context).hi,
-                                ),
-                                const TextSpan(
-                                  text: ' ',
-                                ),
-                                TextSpan(
-                                  text: context
-                                      .read<UserBloc>()
-                                      .state
-                                      .user
-                                      .userName,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium
-                                      ?.copyWith(fontWeight: FontWeight.w700),
-                                ),
-                              ],
-                            )),
+                            BlocConsumer<UserBloc, UserState>(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                return RichText(
+                                    text: TextSpan(
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                  children: [
+                                    TextSpan(
+                                      text: S.of(context).hi,
+                                    ),
+                                    const TextSpan(
+                                      text: ' ',
+                                    ),
+                                    TextSpan(
+                                      text: state.user.userName,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.w700),
+                                    ),
+                                  ],
+                                ));
+                              },
+                            ),
                             Text(
                               S.of(context).whatYouWishToEatToday,
                               style: Theme.of(context).textTheme.labelSmall,

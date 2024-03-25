@@ -191,5 +191,6 @@
   "pleaseEnterYourLocationOrAllowAccessToYourLocationToFndRestaurantsNearYou": "Please enter your location or allow access to your location to ﬁnd restaurants near you.",
   "useCurrentLocation": "Use Current Location",
   "searchOrEnterAnAddress": "Search or enter an address",
-  "confirmLocation": "Confirm location"
+  "confirmLocation": "Confirm location",
+  "pickUpOnly": "Pick up only"
 }
