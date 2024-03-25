@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
@@ -33,7 +32,8 @@ Future<void> showAlertDialog({
   var res = <Widget>[];
 
   dynamic popFn = ((context) {
-    Navigator.pop(context);
+    Navigator.of(context, rootNavigator: true).pop();
+
     onDismissed?.call();
   });
   actions0.forEach((key, value) {

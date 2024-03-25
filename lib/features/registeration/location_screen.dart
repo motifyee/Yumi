@@ -114,32 +114,29 @@ class LocationScreen extends StatelessWidget {
     return BlocBuilder<RegBloc, RegState>(
       builder: (context, state) {
         getLocation() {
-          print('clicks');
+          debugPrint('clicks');
           geo(() async {
-            var loc = await Geolocator.getCurrentPosition();
+            await Geolocator.getCurrentPosition().then((loc) async {
+              mapInfo.controller?.animateCamera(CameraUpdate.newLatLngZoom(
+                  LatLng(loc.latitude, loc.longitude), 11));
 
-            mapInfo.controller?.animateCamera(CameraUpdate.newLatLngZoom(
-                LatLng(loc.latitude, loc.longitude), 11));
+              await tryV(() => placemarkFromCoordinates(
+                    loc.latitude,
+                    loc.longitude,
+                  )).then((placemarks) {
+                var placemark = placemarks[0];
 
-            List<Placemark> placemarks =
-                await tryV(() => placemarkFromCoordinates(
-                      loc.latitude,
-                      loc.longitude,
-                    ));
-
-            var placemark = placemarks[0];
-
-            context
-                .read<RegBloc>()
-                .add(RegEvent.updateLocation(state.address.copyWith(
-                  // country: placemark.country,
-                  // city: placemark.locality,
-                  location:
-                      '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
-                  latitude: loc.latitude,
-                  longitude: loc.longitude,
-                )));
-          }, true);
+                context
+                    .read<RegBloc>()
+                    .add(RegEvent.updateLocation(state.address.copyWith(
+                      location:
+                          '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
+                      latitude: loc.latitude,
+                      longitude: loc.longitude,
+                    )));
+              });
+            });
+          }, true, context);
         }
 
         return Positioned(
@@ -152,102 +149,102 @@ class LocationScreen extends StatelessWidget {
               height: 50,
               // padding: const EdgeInsets.only(left: 16),
               child: Stack(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Positioned(
-                        top: 0,
-                        bottom: 0,
-                        left: 16,
-                        child: Icon(Icons.search,
-                            color: ThemeSelector.colors.primary)),
-                    Positioned(
-                      top: 5,
-                      bottom: 5,
-                      right: 5,
-                      child: IconButton(
-                        onPressed: getLocation,
-                        icon: SvgPicture.asset('assets/images/map/map_pin.svg'),
+                // mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: GooglePlaceAutoCompleteTextField(
+                      textEditingController: controller,
+                      googleAPIKey: "AIzaSyCT36qFZg_DTHBU0fdTWdooUtixPJw3TUA",
+                      // inputDecoration: const InputDecoration(),
+                      boxDecoration: const BoxDecoration(
+                        // border: Border.all(width: 1, color: Colors.transparent),
+                        color: Colors.transparent,
                       ),
-                    ),
-                    Expanded(
-                      child: GooglePlaceAutoCompleteTextField(
-                        textEditingController: controller,
-                        googleAPIKey: "AIzaSyCT36qFZg_DTHBU0fdTWdooUtixPJw3TUA",
-                        // inputDecoration: const InputDecoration(),
-                        boxDecoration: const BoxDecoration(
-                          // border: Border.all(width: 1, color: Colors.transparent),
-                          color: Colors.transparent,
-                        ),
-                        inputDecoration: const InputDecoration(
-                          border: InputBorder.none,
-                        ),
-
-                        debounceTime: 800,
-                        countries: const ["uk", "ir"],
-                        isLatLngRequired: true,
-                        getPlaceDetailWithLatLng: (Prediction prediction) {
-                          print("placeDetails${prediction.lng}");
-
-                          context.read<RegBloc>().add(
-                                RegEvent.updateLocation(
-                                  state.address.copyWith(
-                                    latitude:
-                                        double.tryParse(prediction.lat ?? ''),
-                                    longitude:
-                                        double.tryParse(prediction.lng ?? ''),
-                                  ),
-                                ),
-                              );
-                        },
-                        itemClick: (Prediction prediction) {
-                          controller.text = prediction.description ?? '';
-                          controller.selection = TextSelection.fromPosition(
-                            TextPosition(
-                                offset: prediction.description?.length ?? 0),
-                          );
-                        },
-                        itemBuilder: (context, index, Prediction prediction) {
-                          return Container(
-                            padding: const EdgeInsets.all(10),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.location_on),
-                                const SizedBox(
-                                  width: 7,
-                                ),
-                                Expanded(
-                                    child: Text(prediction.description ?? ""))
-                              ],
-                            ),
-                          );
-                        },
-                        seperatedBuilder: Divider(
-                            color:
-                                ThemeSelector.colors.primary.withOpacity(.1)),
-                        isCrossBtnShown: true,
-                        containerHorizontalPadding: 50,
+                      inputDecoration: const InputDecoration(
+                        border: InputBorder.none,
                       ),
-                      //   Autocomplete(
-                      //     optionsBuilder: (TextEditingValue textEditingValue) {
-                      //       locationFromAddress(textEditingValue.text);
-                      //       return [''];
-                      //     },
-                      //     fieldViewBuilder: (context, textEditingController,
-                      //             focusNode, onFieldSubmitted) =>
-                      //         TextField(
-                      //             decoration: InputDecoration(
-                      //       border: InputBorder.none,
-                      //       hintText: 'Search location...',
-                      //       hintStyle: TextStyle(
-                      //         fontSize: ThemeSelector.fonts.font_14,
-                      //         fontWeight: FontWeight.w400,
-                      //       ),
-                      //     )),
-                      //   ),
-                      // ),
+
+                      debounceTime: 800,
+                      countries: const ["uk", "ir"],
+                      isLatLngRequired: true,
+                      getPlaceDetailWithLatLng: (Prediction prediction) {
+                        print("placeDetails${prediction.lng}");
+
+                        context.read<RegBloc>().add(
+                              RegEvent.updateLocation(
+                                state.address.copyWith(
+                                  latitude:
+                                      double.tryParse(prediction.lat ?? ''),
+                                  longitude:
+                                      double.tryParse(prediction.lng ?? ''),
+                                ),
+                              ),
+                            );
+                      },
+                      itemClick: (Prediction prediction) {
+                        controller.text = prediction.description ?? '';
+                        controller.selection = TextSelection.fromPosition(
+                          TextPosition(
+                              offset: prediction.description?.length ?? 0),
+                        );
+                      },
+                      itemBuilder: (context, index, Prediction prediction) {
+                        return Container(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.location_on),
+                              const SizedBox(
+                                width: 7,
+                              ),
+                              Expanded(
+                                  child: Text(prediction.description ?? ""))
+                            ],
+                          ),
+                        );
+                      },
+                      seperatedBuilder: Divider(
+                          color: ThemeSelector.colors.primary.withOpacity(.1)),
+                      isCrossBtnShown: true,
+                      containerHorizontalPadding: 50,
                     ),
-                  ]),
+                    //   Autocomplete(
+                    //     optionsBuilder: (TextEditingValue textEditingValue) {
+                    //       locationFromAddress(textEditingValue.text);
+                    //       return [''];
+                    //     },
+                    //     fieldViewBuilder: (context, textEditingController,
+                    //             focusNode, onFieldSubmitted) =>
+                    //         TextField(
+                    //             decoration: InputDecoration(
+                    //       border: InputBorder.none,
+                    //       hintText: 'Search location...',
+                    //       hintStyle: TextStyle(
+                    //         fontSize: ThemeSelector.fonts.font_14,
+                    //         fontWeight: FontWeight.w400,
+                    //       ),
+                    //     )),
+                    //   ),
+                    // ),
+                  ),
+                  Positioned(
+                      top: 0,
+                      bottom: 0,
+                      left: 16,
+                      child: Icon(Icons.search,
+                          color: ThemeSelector.colors.primary)),
+                  Positioned(
+                    top: 5,
+                    bottom: 5,
+                    right: 5,
+                    child: IconButton(
+                      onPressed: getLocation,
+                      icon: SvgPicture.asset('assets/images/map/map_pin.svg'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
