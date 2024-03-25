@@ -25,6 +25,7 @@ class BasketScreen extends StatelessWidget {
             ? MenuTarget.preOrder
             : MenuTarget.order,
         chefId: state.invoice.invoice?.chefID ?? '',
+        isPickUpOnly: state.isPickUpOnly,
       ),
       scrollControlDisabledMaxHeightRatio: .9,
       backgroundColor: Colors.transparent,
@@ -123,6 +124,7 @@ class BasketScreen extends StatelessWidget {
                             tag: 'ConfirmBasketSeries',
                             child: GestureDetector(
                               onTap: () {
+                                if(state.invoice.invoiceDetails!.isEmpty) return;
                                 context.router.push(CheckOutRoute());
                               },
                               child: Container(

@@ -50,25 +50,42 @@ class ChefBanner extends StatelessWidget {
                 ),
               ),
             ),
-            if (menuTarget == MenuTarget.order)
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultGap),
-                    decoration: BoxDecoration(
-                        color: ThemeSelector.colors.success,
-                        borderRadius: BorderRadius.circular(
-                            ThemeSelector.statics.defaultBorderRadiusLarge)),
-                    child: Text(
-                      S.of(context).open,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+                child: Row(
+                  children: [
+                    if (menuTarget == MenuTarget.order)
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ThemeSelector.statics.defaultGap),
+                        decoration: BoxDecoration(
+                            color: ThemeSelector.colors.success,
+                            borderRadius: BorderRadius.circular(ThemeSelector
+                                .statics.defaultBorderRadiusLarge)),
+                        child: Text(
+                          S.of(context).open,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ),
+                    if (chef.pickupOnly == true)
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ThemeSelector.statics.defaultGap),
+                        decoration: BoxDecoration(
+                            color: ThemeSelector.colors.primary,
+                            borderRadius: BorderRadius.circular(ThemeSelector
+                                .statics.defaultBorderRadiusLarge)),
+                        child: Text(
+                          S.of(context).pickUpOnly,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ),
+                  ],
                 ),
               ),
+            ),
           ]),
         ),
         Padding(

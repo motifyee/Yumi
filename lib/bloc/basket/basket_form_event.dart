@@ -8,10 +8,16 @@ class BasketFormUpdateEvent implements BasketFormEvent {
   BasketFormUpdateEvent({required this.invoice});
 }
 
+class BasketFormUpdateIsPickUpOnlyEvent implements BasketFormEvent {
+  final bool isPickUpOnly;
+  BasketFormUpdateIsPickUpOnlyEvent({required this.isPickUpOnly});
+}
+
 class BasketFormAddMealEvent implements BasketFormEvent {
   final InvoiceDetails invoiceDetails;
-
-  BasketFormAddMealEvent({required this.invoiceDetails});
+  final bool isPickUpOnly;
+  BasketFormAddMealEvent(
+      {required this.invoiceDetails, required this.isPickUpOnly});
 }
 
 class BasketFormUpdateMealEvent implements BasketFormEvent {

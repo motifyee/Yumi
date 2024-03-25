@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/forms/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
 
@@ -206,15 +209,40 @@ class MealProfileScreen extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    context: context,
-                    builder: (context) => CustomerPreOrderForm(
-                      meal: meal,
-                      chefId: meal.chefId ?? '',
-                    ),
-                  );
+                  if (meal.isPreOrder == true) {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (context) => CustomerPreOrderForm(
+                        meal: meal,
+                        chefId: meal.chefId ?? '',
+                        isPickUpOnly: meal.isPickUpOnly ?? false,
+                      ),
+                    );
+                  } else {
+                    context.read<BasketFormBloc>().add(
+                          BasketFormUpdateEvent(
+                            invoice: context
+                                .read<BasketFormBloc>()
+                                .state
+                                .invoice
+                                .copyWith(
+                                  isPreorder: false,
+                                  isSchedule: true,
+                                  invoice: context
+                                      .read<BasketFormBloc>()
+                                      .state
+                                      .invoice
+                                      .invoice
+                                      ?.copyWith(
+                                        chefID: meal.chefId,
+                                      ),
+                                ),
+                          ),
+                        );
+                    context.router.replaceAll([BasketRoute()]);
+                  }
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(

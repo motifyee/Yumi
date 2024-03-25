@@ -180,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "performanceAnalysis":
             MessageLookupByLibrary.simpleMessage("Performance analysis"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
+        "pickUpOnly": MessageLookupByLibrary.simpleMessage("Pick up only"),
         "pickup": MessageLookupByLibrary.simpleMessage("Pickup"),
         "placeOrder": MessageLookupByLibrary.simpleMessage("Place order"),
         "pleaseEnterYourLocationOrAllowAccessToYourLocationToFndRestaurantsNearYou":

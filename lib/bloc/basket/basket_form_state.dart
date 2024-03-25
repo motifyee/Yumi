@@ -1,17 +1,19 @@
 part of 'basket_form_bloc.dart';
 
 @immutable
-  class BasketFormState  extends Equatable{
+class BasketFormState extends Equatable {
+  final InvoiceModel invoice;
+  final bool isPickUpOnly;
 
-  InvoiceModel invoice;
+  const BasketFormState({required this.invoice, this.isPickUpOnly = false});
 
-  BasketFormState({required this.invoice});
-
-  BasketFormState copyWith({InvoiceModel? invoice}){
-    return BasketFormState(invoice: invoice ?? this.invoice);
+  BasketFormState copyWith({InvoiceModel? invoice, bool? isPickUpOnly}) {
+    return BasketFormState(
+      invoice: invoice ?? this.invoice,
+      isPickUpOnly: isPickUpOnly ?? this.isPickUpOnly,
+    );
   }
 
   @override
-  List<Object?> get props => [invoice];
+  List<Object?> get props => [invoice, isPickUpOnly];
 }
-
