@@ -71,8 +71,6 @@ class CustomerLocationScreen extends StatelessWidget {
             child: BlocConsumer<AddressBloc, AddressState>(
               listener: (context, state) {},
               builder: (context, state) {
-                print('consumer *********************************');
-                print(state.addressList.map((e) => e.isDefault).toList());
                 return Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: ThemeSelector.statics.defaultMediumGap),
@@ -97,7 +95,9 @@ class CustomerLocationScreen extends StatelessWidget {
           Column(
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.router.replaceAll([HomeRoute()]);
+                },
                 child: Container(
                   width: ThemeSelector.statics.buttonWidth,
                   height: ThemeSelector.statics.defaultTitleGapLarge,

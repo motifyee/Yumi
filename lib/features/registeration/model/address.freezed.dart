@@ -215,7 +215,7 @@ class _$AddressImpl extends _Address {
       @JsonKey(name: 'address_Latitude') this.latitude,
       @JsonKey(name: 'address_Longitude') this.longitude,
       this.isDefault,
-      this.isDeleted})
+      this.isDeleted = false})
       : super._();
 
   factory _$AddressImpl.fromJson(Map<String, dynamic> json) =>
@@ -246,6 +246,7 @@ class _$AddressImpl extends _Address {
   @override
   final bool? isDefault;
   @override
+  @JsonKey()
   final bool? isDeleted;
 
   @override

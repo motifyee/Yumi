@@ -135,7 +135,7 @@ void performLogin(BuildContext context, LoginModel loginForm, [String? route]) {
   LoginServices.login(login: loginForm, context: context).then((value) async {
     if (value['access_Token'] != null) {
       context.read<UserBloc>().add(UserFromJsonEvent(user: value));
-      // routeAfterLogin(context: context, route: route);
+      routeAfterLogin(context, '');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

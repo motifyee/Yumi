@@ -325,7 +325,9 @@ class LocationScreen extends StatelessWidget {
         if (!validate()) return;
 
         context.read<RegBloc>().add(RegEvent.updateLocation(address));
-        context.read<RegBloc>().add(RegEvent.saveLocation(context));
+        context
+            .read<RegBloc>()
+            .add(RegEvent.saveLocation(context, routeFn: routeFn));
       },
     );
     moveCameraToManualAddress() async {

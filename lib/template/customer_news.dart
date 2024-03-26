@@ -35,7 +35,7 @@ class CustomerNews extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    context.router.push(CustomerLocationRoute());
+                    context.router.replaceAll([CustomerLocationRoute()]);
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(

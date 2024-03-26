@@ -1,10 +1,12 @@
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/features/registeration/model/address.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/service/address_service.dart';
 import 'package:yumi/statics/pagination_helper.dart';
 
@@ -29,10 +31,15 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
   _updateAddressList(
       {required _updateAddressListEvent event,
       required Emitter<AddressState> emit}) {
+    List<Address> _address =
+        [...event.address, ...state.addressList].unique((x) => x.id);
+
+    G.builderKey.currentContext?.read<UserBloc>().add(UserUpdateLocationEvent(
+        address: _address.firstWhere((e) => e.isDefault == true)));
+
     emit(
       state.copyWith(
-        addressList:
-            [...event.address, ...state.addressList].unique((x) => x.id),
+        addressList: _address,
         paginationHelper: state.paginationHelper.copyWith(
           pageNumber: 1,
           lastPage: 1,

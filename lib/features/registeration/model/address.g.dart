@@ -16,7 +16,7 @@ _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
       latitude: (json['address_Latitude'] as num?)?.toDouble(),
       longitude: (json['address_Longitude'] as num?)?.toDouble(),
       isDefault: json['isDefault'] as bool?,
-      isDeleted: json['isDeleted'] as bool?,
+      isDeleted: json['isDeleted'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$AddressImplToJson(_$AddressImpl instance) =>
