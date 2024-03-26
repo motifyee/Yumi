@@ -18,20 +18,23 @@ class NewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LocalStorage.sharedRef.getValue(LocalStorage.newsGuide).then((res) => {
-          if (res != true)
-            {
-              SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                showModalBottomSheet(
-                    context: context,
-                    backgroundColor: Colors.transparent,
-                    isScrollControlled: true,
-                    builder: (BuildContext context) {
-                      return NewsGuide();
-                    });
-              })
-            }
-        });
+    bool isShown = false;
+    LocalStorage.sharedRef.getValue(LocalStorage.newsGuide).then((res) {
+      if (res != true) {
+        if (!isShown) {
+          isShown = true;
+          SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+            showModalBottomSheet(
+                context: context,
+                backgroundColor: Colors.transparent,
+                isScrollControlled: true,
+                builder: (BuildContext context) {
+                  return NewsGuide();
+                });
+          });
+        }
+      }
+    });
 
     return BlocProvider(
       create: (context) => NewsBloc(),

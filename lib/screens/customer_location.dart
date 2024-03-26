@@ -78,63 +78,12 @@ class CustomerLocationScreen extends StatelessWidget {
                     scrollDirection: Axis.vertical,
                     loadDate: () {
                       context.read<AddressBloc>().add(
-                          AddressEvent.updateAddressListEvent(
-                              context: context));
+                          AddressEvent.getAddressListEvent(context: context));
                     },
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            Column(
-                              children: [
-                                for (var i = 0;
-                                    i < state.addressList.length;
-                                    i += 3)
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: ThemeSelector
-                                            .statics.defaultMicroGap),
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            ThemeSelector.statics.defaultGap,
-                                        vertical:
-                                            ThemeSelector.statics.defaultGap,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: ThemeSelector.colors.primary
-                                            .withAlpha(100),
-                                        borderRadius: BorderRadius.circular(
-                                            ThemeSelector.statics
-                                                .defaultBorderRadiusMedium),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                              'assets/images/location_indecator.svg'),
-                                          Text('  '),
-                                          Expanded(
-                                            child: Text(
-                                              state.addressList[i]
-                                                      .addressTitle ??
-                                                  '',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall
-                                                  ?.copyWith(
-                                                      fontSize: ThemeSelector
-                                                          .fonts.font_9),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ],
-                        )
+                        for (var i = 1; i < state.addressList.length; i++)
+                          _LocationCard(address: state.addressList[i]),
                       ],
                     ),
                   ),
@@ -178,10 +127,11 @@ class CustomerLocationScreen extends StatelessWidget {
                   height: ThemeSelector.statics.defaultTitleGapLarge,
                   padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
                   decoration: BoxDecoration(
-                      border: Border.all(
-                          color: ThemeSelector.colors.secondary, width: 1),
-                      borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.buttonBorderRadius)),
+                    border: Border.all(
+                        color: ThemeSelector.colors.secondary, width: 1),
+                    borderRadius: BorderRadius.circular(
+                        ThemeSelector.statics.buttonBorderRadius),
+                  ),
                   child: Row(
                     children: [
                       Container(
@@ -216,6 +166,90 @@ class CustomerLocationScreen extends StatelessWidget {
           ),
           SizedBox(height: ThemeSelector.statics.defaultBlockGap),
         ],
+      ),
+    );
+  }
+}
+
+class _LocationCard extends StatelessWidget {
+  _LocationCard({super.key, required this.address});
+
+  Address address;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: ThemeSelector.statics.defaultMicroGap,
+          vertical: ThemeSelector.statics.defaultMicroGap),
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: ThemeSelector.statics.defaultGap,
+        ),
+        height: ThemeSelector.statics.defaultTitleGapLarge,
+        decoration: BoxDecoration(
+          color: ThemeSelector.colors.primary
+              .withAlpha(address.isDefault == true ? 255 : 100),
+          borderRadius: BorderRadius.circular(
+              ThemeSelector.statics.defaultBorderRadiusMedium),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: InkWell(
+                onTap: address.isDefault == true
+                    ? null
+                    : () {
+                        context.read<AddressBloc>().add(
+                              AddressEvent.editAddressEvent(
+                                context: context,
+                                address: address.copyWith(isDefault: true),
+                              ),
+                            );
+                      },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: ThemeSelector.statics.defaultGap,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/location_indecator.svg',
+                            height: ThemeSelector.fonts.font_12,
+                          ),
+                          Text('  '),
+                          Expanded(
+                            child: Text(
+                              address.addressTitle ?? '',
+                              style: Theme.of(context).textTheme.displaySmall,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            if (address.isDefault != true)
+              InkWell(
+                  onTap: () {},
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ThemeSelector.statics.defaultGap,
+                        vertical: ThemeSelector.statics.defaultGap),
+                    child: Icon(
+                      Icons.delete,
+                      color: ThemeSelector.colors.onPrimary,
+                      size: ThemeSelector.fonts.font_16,
+                    ),
+                  ))
+          ],
+        ),
       ),
     );
   }
