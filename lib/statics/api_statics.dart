@@ -9,8 +9,8 @@ import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/global.dart';
 
-const originApi = 'https://10.99.77.247:5012';
-// const originApi = 'https://0cb4-81-10-105-81.ngrok-free.app';
+// const originApi = 'https://10.99.77.247:5012';
+const originApi = 'https://0cb4-81-10-105-81.ngrok-free.app';
 
 class DioClient {
   static Dio get dio => simpleDio();

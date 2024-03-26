@@ -142,6 +142,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "minutes": MessageLookupByLibrary.simpleMessage("Minutes"),
         "mobile": MessageLookupByLibrary.simpleMessage("Mobile"),
         "myOrders": MessageLookupByLibrary.simpleMessage("My Orders"),
+        "myPreOrder": MessageLookupByLibrary.simpleMessage("My pre-order"),
         "myReviews": MessageLookupByLibrary.simpleMessage("My reviews"),
         "mySchedule": MessageLookupByLibrary.simpleMessage("My schedule"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),

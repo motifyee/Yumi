@@ -192,5 +192,6 @@
   "useCurrentLocation": "Use Current Location",
   "searchOrEnterAnAddress": "Search or enter an address",
   "confirmLocation": "Confirm location",
-  "pickUpOnly": "Pick up only"
+  "pickUpOnly": "Pick up only",
+  "myPreOrder": "My pre-order"
 }

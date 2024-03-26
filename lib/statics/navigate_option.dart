@@ -119,7 +119,7 @@ class NavigateOptions {
         selectedIcon:
             SvgPicture.asset('assets/images/bag1.svg', fit: BoxFit.fitWidth),
         title: S.current.myOrders,
-        page: const MyOrdersScreen()),
+        page: MyOrdersScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/featured.svg'),
         selectedIcon: SvgPicture.asset('assets/images/featured1.svg',

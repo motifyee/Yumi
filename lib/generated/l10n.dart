@@ -1991,6 +1991,16 @@ class S {
       args: [],
     );
   }
+
+  /// `My pre-order`
+  String get myPreOrder {
+    return Intl.message(
+      'My pre-order',
+      name: 'myPreOrder',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
