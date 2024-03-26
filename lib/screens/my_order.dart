@@ -12,6 +12,7 @@ class MyOrdersScreen extends StatefulWidget {
 
 class _MyOrdersScreenState extends State<MyOrdersScreen> {
   final PageController _controller = PageController(initialPage: 0);
+  int _index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +25,14 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
               onPressed: () {
                 setState(() {
                   _controller.jumpToPage(0);
+                  _index = 0;
                 });
               },
               child: Text(
                 S.of(context).myOrders,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: ThemeSelector.colors.primary
-                        .withAlpha(_controller.page == 0 ? 255 : 150)),
+                        .withAlpha(_index == 0 ? 255 : 150)),
               ),
             ),
             SizedBox(width: ThemeSelector.statics.defaultGap),
@@ -38,13 +40,14 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
               onPressed: () {
                 setState(() {
                   _controller.jumpToPage(1);
+                  _index = 1;
                 });
               },
               child: Text(
                 S.of(context).myPreOrder,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: ThemeSelector.colors.primary
-                        .withAlpha(_controller.page == 1 ? 255 : 150)),
+                        .withAlpha(_index == 1 ? 255 : 150)),
               ),
             ),
           ],

@@ -15,7 +15,12 @@ class OrderCard extends StatefulWidget {
   State<OrderCard> createState() => _OrderCardState();
 }
 
-class _OrderCardState extends State<OrderCard> {
+class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 2),
+    vsync: this,
+  )..repeat(reverse: true);
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -80,8 +85,37 @@ class _OrderCardState extends State<OrderCard> {
                 ],
               ),
               SizedBox(height: ThemeSelector.statics.defaultGap),
-              for (var _ in widget.isView ? [0, 1, 2] : [0])
-                const ProductInCard(),
+              LayoutBuilder(
+                builder: (context, constraints) => AnimatedSize(
+                  duration: ThemeSelector.statics.animationDuration,
+                  child: SizedBox(
+                    height: widget.isView ? 5 * 55 : 50,
+                    width: constraints.maxWidth,
+                    child: Stack(
+                      children: [
+                        AnimatedSize(
+                          duration: ThemeSelector.statics.animationDuration,
+                          child: SizedBox(
+                            height: widget.isView ? 5 * 55 : 50,
+                            width: constraints.maxWidth,
+                          ),
+                        ),
+                        for (var i = 0; i < [0, 1, 2, 3, 4].length; i++)
+                          AnimatedPositioned(
+                            left: widget.isView ? 0.0 : 30.0 * i,
+                            top: widget.isView ? 55.0 * i : 0.0,
+                            width: widget.isView ? constraints.maxWidth : 50,
+                            duration: ThemeSelector.statics.animationDuration,
+                            child: ProductInCard(
+                              isView: widget.isView,
+                              maxWidth: constraints.maxWidth,
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
               Row(
                 children: [
                   Expanded(
