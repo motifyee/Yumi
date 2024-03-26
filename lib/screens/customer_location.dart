@@ -71,6 +71,8 @@ class CustomerLocationScreen extends StatelessWidget {
             child: BlocConsumer<AddressBloc, AddressState>(
               listener: (context, state) {},
               builder: (context, state) {
+                print('consumer *********************************');
+                print(state.addressList.map((e) => e.isDefault).toList());
                 return Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: ThemeSelector.statics.defaultMediumGap),
@@ -83,7 +85,8 @@ class CustomerLocationScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         for (var i = 1; i < state.addressList.length; i++)
-                          _LocationCard(address: state.addressList[i]),
+                          if (state.addressList[i].isDeleted != true)
+                            _LocationCard(address: state.addressList[i]),
                       ],
                     ),
                   ),
@@ -172,9 +175,9 @@ class CustomerLocationScreen extends StatelessWidget {
 }
 
 class _LocationCard extends StatelessWidget {
-  _LocationCard({super.key, required this.address});
+  const _LocationCard({required this.address});
 
-  Address address;
+  final Address address;
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +199,7 @@ class _LocationCard extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: InkWell(
+              child: GestureDetector(
                 onTap: address.isDefault == true
                     ? null
                     : () {
@@ -237,17 +240,25 @@ class _LocationCard extends StatelessWidget {
             ),
             if (address.isDefault != true)
               InkWell(
-                  onTap: () {},
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultGap,
-                        vertical: ThemeSelector.statics.defaultGap),
-                    child: Icon(
-                      Icons.delete,
-                      color: ThemeSelector.colors.onPrimary,
-                      size: ThemeSelector.fonts.font_16,
-                    ),
-                  ))
+                onTap: () {
+                  context.read<AddressBloc>().add(
+                        AddressEvent.deleteAddressEvent(
+                          context: context,
+                          address: address,
+                        ),
+                      );
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ThemeSelector.statics.defaultGap,
+                      vertical: ThemeSelector.statics.defaultGap),
+                  child: Icon(
+                    Icons.delete,
+                    color: ThemeSelector.colors.onPrimary,
+                    size: ThemeSelector.fonts.font_16,
+                  ),
+                ),
+              )
           ],
         ),
       ),

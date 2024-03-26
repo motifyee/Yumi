@@ -16,11 +16,21 @@ class AddressService {
   static Future<dynamic> updateAddresses({
     required BuildContext context,
     required Address address,
-    bool isDelete = false,
     Map<String, dynamic>? queryParameters,
   }) async {
     final Response res = await DioClient.simpleDio(context).put(ApiKeys.address,
-        data: isDelete ? null : address.toJson(),
+        data: address.toJson(),
+        queryParameters: {'addressid': address.id, ...?queryParameters});
+    return res;
+  }
+
+  static Future<dynamic> deleteAddresses({
+    required BuildContext context,
+    required Address address,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    final Response res = await DioClient.simpleDio(context).delete(
+        ApiKeys.address,
         queryParameters: {'addressid': address.id, ...?queryParameters});
     return res;
   }

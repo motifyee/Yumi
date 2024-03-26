@@ -34,6 +34,7 @@ mixin _$Address {
   @JsonKey(name: 'address_Longitude')
   double? get longitude => throw _privateConstructorUsedError;
   bool? get isDefault => throw _privateConstructorUsedError;
+  bool? get isDeleted => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +54,8 @@ abstract class $AddressCopyWith<$Res> {
       @JsonKey(name: 'location') String? location,
       @JsonKey(name: 'address_Latitude') double? latitude,
       @JsonKey(name: 'address_Longitude') double? longitude,
-      bool? isDefault});
+      bool? isDefault,
+      bool? isDeleted});
 }
 
 /// @nodoc
@@ -77,6 +79,7 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? isDefault = freezed,
+    Object? isDeleted = freezed,
   }) {
     return _then(_value.copyWith(
       code: freezed == code
@@ -111,6 +114,10 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
           ? _value.isDefault
           : isDefault // ignore: cast_nullable_to_non_nullable
               as bool?,
+      isDeleted: freezed == isDeleted
+          ? _value.isDeleted
+          : isDeleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -130,7 +137,8 @@ abstract class _$$AddressImplCopyWith<$Res> implements $AddressCopyWith<$Res> {
       @JsonKey(name: 'location') String? location,
       @JsonKey(name: 'address_Latitude') double? latitude,
       @JsonKey(name: 'address_Longitude') double? longitude,
-      bool? isDefault});
+      bool? isDefault,
+      bool? isDeleted});
 }
 
 /// @nodoc
@@ -152,6 +160,7 @@ class __$$AddressImplCopyWithImpl<$Res>
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? isDefault = freezed,
+    Object? isDeleted = freezed,
   }) {
     return _then(_$AddressImpl(
       code: freezed == code
@@ -186,6 +195,10 @@ class __$$AddressImplCopyWithImpl<$Res>
           ? _value.isDefault
           : isDefault // ignore: cast_nullable_to_non_nullable
               as bool?,
+      isDeleted: freezed == isDeleted
+          ? _value.isDeleted
+          : isDeleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -201,7 +214,8 @@ class _$AddressImpl extends _Address {
       @JsonKey(name: 'location') this.location,
       @JsonKey(name: 'address_Latitude') this.latitude,
       @JsonKey(name: 'address_Longitude') this.longitude,
-      this.isDefault})
+      this.isDefault,
+      this.isDeleted})
       : super._();
 
   factory _$AddressImpl.fromJson(Map<String, dynamic> json) =>
@@ -231,10 +245,12 @@ class _$AddressImpl extends _Address {
   final double? longitude;
   @override
   final bool? isDefault;
+  @override
+  final bool? isDeleted;
 
   @override
   String toString() {
-    return 'Address(code: $code, id: $id, addressDetails: $addressDetails, addressTitle: $addressTitle, location: $location, latitude: $latitude, longitude: $longitude, isDefault: $isDefault)';
+    return 'Address(code: $code, id: $id, addressDetails: $addressDetails, addressTitle: $addressTitle, location: $location, latitude: $latitude, longitude: $longitude, isDefault: $isDefault, isDeleted: $isDeleted)';
   }
 
   @override
@@ -255,13 +271,15 @@ class _$AddressImpl extends _Address {
             (identical(other.longitude, longitude) ||
                 other.longitude == longitude) &&
             (identical(other.isDefault, isDefault) ||
-                other.isDefault == isDefault));
+                other.isDefault == isDefault) &&
+            (identical(other.isDeleted, isDeleted) ||
+                other.isDeleted == isDeleted));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, code, id, addressDetails,
-      addressTitle, location, latitude, longitude, isDefault);
+      addressTitle, location, latitude, longitude, isDefault, isDeleted);
 
   @JsonKey(ignore: true)
   @override
@@ -286,7 +304,8 @@ abstract class _Address extends Address {
       @JsonKey(name: 'location') final String? location,
       @JsonKey(name: 'address_Latitude') final double? latitude,
       @JsonKey(name: 'address_Longitude') final double? longitude,
-      final bool? isDefault}) = _$AddressImpl;
+      final bool? isDefault,
+      final bool? isDeleted}) = _$AddressImpl;
   const _Address._() : super._();
 
   factory _Address.fromJson(Map<String, dynamic> json) = _$AddressImpl.fromJson;
@@ -313,6 +332,8 @@ abstract class _Address extends Address {
   double? get longitude;
   @override
   bool? get isDefault;
+  @override
+  bool? get isDeleted;
   @override
   @JsonKey(ignore: true)
   _$$AddressImplCopyWith<_$AddressImpl> get copyWith =>

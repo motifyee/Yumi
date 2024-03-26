@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/service/address_service.dart';
 import 'package:yumi/statics/pagination_helper.dart';
@@ -27,12 +28,11 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
 
   _updateAddressList(
       {required _updateAddressListEvent event,
-      required Emitter<AddressState> emit}) async {
-    print('update ..............................................');
-    print(event.address);
+      required Emitter<AddressState> emit}) {
     emit(
       state.copyWith(
-        addressList: [...state.addressList, ...event.address],
+        addressList:
+            [...event.address, ...state.addressList].unique((x) => x.id),
         paginationHelper: state.paginationHelper.copyWith(
           pageNumber: 1,
           lastPage: 1,
@@ -76,8 +76,6 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
           ? e.copyWith(isDefault: true)
           : e.copyWith(isDefault: false);
     }).toList();
-    print('edit ************************************************');
-    print(_addressList);
 
     if (res.statusCode == 200) {
       add(AddressEvent.updateAddressListEvent(address: _addressList));
@@ -86,5 +84,21 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
 
   _deleteAddress(
       {required _deleteAddressEvent event,
-      required Emitter<AddressState> emit}) {}
+      required Emitter<AddressState> emit}) async {
+    emit(state.copyWith(
+        paginationHelper: state.paginationHelper.copyWith(isLoading: true)));
+
+    Response res = await AddressService.deleteAddresses(
+      context: event.context,
+      address: event.address,
+    );
+
+    List<Address> _addressList = state.addressList.map((e) {
+      return e.id == event.address.id ? e.copyWith(isDeleted: true) : e;
+    }).toList();
+
+    if (res.statusCode == 200) {
+      add(AddressEvent.updateAddressListEvent(address: _addressList));
+    }
+  }
 }
