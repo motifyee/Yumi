@@ -18,6 +18,7 @@ import 'package:yumi/features/chef_application/documentation/bloc/documentation_
 import 'package:yumi/features/chef_application/documentation/bloc/icon_bloc.dart';
 import 'package:yumi/features/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/route/route.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/theme/theme.dart';
@@ -71,15 +72,19 @@ class MyApp extends StatelessWidget {
         title: 'YUMI',
         theme: defaultTheme,
         builder: (context, child) {
-          return Container(
-            decoration: const BoxDecoration(color: Colors.transparent),
-            child: SafeArea(
-              child: Container(
-                color: ThemeSelector.colors.background,
-                child: child ?? const Text(''),
-              ),
-            ),
-          );
+          return Builder(
+              key: G.builderKey,
+              builder: (context) {
+                return Container(
+                  decoration: const BoxDecoration(color: Colors.transparent),
+                  child: SafeArea(
+                    child: Container(
+                      color: ThemeSelector.colors.background,
+                      child: child ?? const Text(''),
+                    ),
+                  ),
+                );
+              });
         },
       ),
     );

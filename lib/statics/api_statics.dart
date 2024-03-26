@@ -7,13 +7,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/global.dart';
 
 // const originApi = 'https://10.99.77.247:5012';
 const originApi = 'https://0cb4-81-10-105-81.ngrok-free.app';
 
 class DioClient {
-  static Dio simpleDio(BuildContext context) {
-    var token = context.read<UserBloc>().state.user.accessToken;
+  static Dio get dio => simpleDio();
+  static Dio simpleDio([BuildContext? context]) {
+    var token = G.cContext.read<UserBloc>().state.user.accessToken;
     // final prefs = await SharedPreferences.getInstance();
     // final token = await prefs.getString('token');
 
