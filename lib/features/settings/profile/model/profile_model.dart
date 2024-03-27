@@ -75,4 +75,12 @@ class Profile with _$Profile {
 
   factory Profile.fromJson(Map<String, dynamic> json) =>
       _$ProfileFromJson(json);
+
+  bool get profileSheetDone {
+    if (bio.isEmpty) return false;
+    if (profileImage == null) return false;
+    if (eventPhotosCount < 5) return false;
+
+    return true;
+  }
 }

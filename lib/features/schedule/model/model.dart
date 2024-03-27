@@ -72,6 +72,9 @@ class Schedule with _$Schedule {
     return WeekDay.values.map((day) => scheduleDay(day, json)).toList();
   }
 
+  bool get hasScheduledDays =>
+      scheduleDays.any((element) => element.active ?? false);
+
   bool get uiValid =>
       scheduleDays.every((day) => day.uiValid) &&
       scheduleDays.any((day) => day.active ?? false);

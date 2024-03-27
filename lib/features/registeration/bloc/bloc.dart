@@ -8,8 +8,10 @@ import 'package:yumi/features/registeration/maps/permission.dart';
 import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/features/registeration/model/registeration.dart';
 import 'package:yumi/features/registeration/repository/address_repo.dart';
+import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/features/settings/profile/model/profile_model.dart';
 import 'package:yumi/features/settings/profile/profile_service.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 
 part 'bloc.freezed.dart';
@@ -79,16 +81,14 @@ class RegBloc extends Bloc<RegEvent, RegState> {
             emit(state.copyWith(singupData: value.signupData));
             _navigateTo(1, value.ctx, emit);
           },
-          setPhone: (_setPhone value) {
-            ProfileService.updateProfile(
-                context: value.ctx,
-                data: Profile(
-                        mobile: value.phone,
-                        updatedBy: '366',
-                        registerDate: DateTime.now().toString())
-                    .toJson());
-            _navigateTo(2, value.ctx, emit);
-            emit(state.copyWith(phone: value.phone));
+          setPhone: (_setPhone value) async {
+            var profile = G.read<ProfileBloc>().state.profile;
+            await ProfileService.updateProfile(
+              profile.copyWith(mobile: value.phone, updatedBy: '366').toJson(),
+            ).then((res) {
+              _navigateTo(2, value.ctx, emit);
+              emit(state.copyWith(phone: value.phone));
+            });
           },
           setOTP: (_setOTP value) {
             emit(state.copyWith(otp: value.otp));

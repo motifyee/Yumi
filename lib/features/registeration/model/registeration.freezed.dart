@@ -202,7 +202,7 @@ class __$$RegisterationImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$RegisterationImpl implements _Registeration {
+class _$RegisterationImpl extends _Registeration {
   const _$RegisterationImpl(
       {this.code,
       this.fullName,
@@ -212,7 +212,8 @@ class _$RegisterationImpl implements _Registeration {
       this.countryID,
       this.email,
       this.password,
-      this.branchId});
+      this.branchId})
+      : super._();
 
   factory _$RegisterationImpl.fromJson(Map<String, dynamic> json) =>
       _$$RegisterationImplFromJson(json);
@@ -282,7 +283,7 @@ class _$RegisterationImpl implements _Registeration {
   }
 }
 
-abstract class _Registeration implements RegisterationForm {
+abstract class _Registeration extends RegisterationForm {
   const factory _Registeration(
       {final String? code,
       final String? fullName,
@@ -293,6 +294,7 @@ abstract class _Registeration implements RegisterationForm {
       final String? email,
       final String? password,
       final String? branchId}) = _$RegisterationImpl;
+  const _Registeration._() : super._();
 
   factory _Registeration.fromJson(Map<String, dynamic> json) =
       _$RegisterationImpl.fromJson;

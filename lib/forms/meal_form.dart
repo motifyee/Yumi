@@ -42,6 +42,7 @@ class MealForm extends StatelessWidget {
                   isOrder: menuTarget == MenuTarget.order,
                   isPreOrder: menuTarget == MenuTarget.preOrder,
                   preparationTime: '25',
+                  isPickUpOnly: false,
                 ),
           ),
         );
@@ -270,7 +271,7 @@ class MealForm extends StatelessWidget {
                             );
                           },
                         ),
-                        if (state.mealModel.categoriesids?.length == 0)
+                        if (state.mealModel.categoriesids?.isEmpty ?? true)
                           Text(
                             S.of(context).required,
                             style: Theme.of(context).textTheme.titleSmall,

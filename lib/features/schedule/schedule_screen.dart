@@ -3,14 +3,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/features/chef_application/bloc.dart';
 import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
 import 'package:yumi/features/schedule/model/extensions.dart';
 import 'package:yumi/features/schedule/model/model.dart';
 import 'package:yumi/features/schedule/repository/mock.dart';
 import 'package:yumi/features/schedule/repository/repository.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/dialog.dart';
 import 'package:yumi/template/screen_container.dart';
 
 @RoutePage()
@@ -19,38 +23,42 @@ class MyScheduleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ScheduleBloc(scheduleRepo: ScheduleRepo()),
-      child: ScreenContainer(
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            bottomOpacity: 0,
-            scrolledUnderElevation: 0,
-            iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
-          ),
-          body: BlocBuilder<ScheduleBloc, ScheduleState>(
-            builder: (context, state) {
-              if (state.status.isInit) {
-                context.read<ScheduleBloc>().add(ScheduleEvent.init(context));
-              }
-              if (state.status.isLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
+    Future.delayed(const Duration(seconds: 1)).then((value) {
+      if (context.read<ChefFlowBloc>().state.started &&
+          !G.read<ScheduleBloc>().state.schedule.hasScheduledDays) {
+        addYourScheduleDialog(context);
+      }
+    });
 
-              return Column(
-                children: [
-                  Expanded(child: SingleChildScrollView(child: _cards(state))),
-                  Container(
-                    // color: Colors.green,
-                    padding: const EdgeInsets.all(16.0),
-                    child: _saveButton(context),
-                  ),
-                ],
-              );
-            },
-          ),
+    return ScreenContainer(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          bottomOpacity: 0,
+          scrolledUnderElevation: 0,
+          iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
+        ),
+        body: BlocBuilder<ScheduleBloc, ScheduleState>(
+          builder: (context, state) {
+            if (state.status.isInit) {
+              context.read<ScheduleBloc>().add(const ScheduleEvent.init());
+            }
+            if (state.status.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            return Column(
+              children: [
+                Expanded(child: SingleChildScrollView(child: _cards(state))),
+                Container(
+                  // color: Colors.green,
+                  padding: const EdgeInsets.all(16.0),
+                  child: _saveButton(context),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -65,7 +73,7 @@ class MyScheduleScreen extends StatelessWidget {
       onPressed: () {
         if (!canUpdate) return;
 
-        bloc.add(ScheduleEvent.saveSchedule(context));
+        bloc.add(const ScheduleEvent.saveSchedule());
       },
       child: Container(
         width: 125,
@@ -327,4 +335,46 @@ class MyScheduleScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+void addYourScheduleDialog(BuildContext context) {
+  showAlertDialog(
+    context: context,
+    content: SizedBox(
+      height: 150,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SvgPicture.asset('assets/images/flow/add-schedule.svg'),
+          const SizedBox(height: 16),
+          Text(
+            'You should schedule your own menu',
+            style: TextStyle(
+              fontSize: ThemeSelector.fonts.font_14,
+            ),
+          ),
+        ],
+      ),
+    ),
+    actions: {'Next': null},
+  );
+}
+
+void sheduleDialog(BuildContext context) {
+  showAlertDialog(
+    context: context,
+    // title: Container(),
+    content: const MyScheduleScreen(),
+    actions: {
+      'Next': (ctx) {
+        if (!G.read<ScheduleBloc>().state.schedule.hasScheduledDays) {
+          return addYourScheduleDialog(context);
+        }
+
+        Navigator.of(context, rootNavigator: true).pop();
+        G.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
+      },
+    },
+    insetPadding: 0,
+  );
 }

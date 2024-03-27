@@ -1,9 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/features/chef_application/bloc.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/features/settings/profile/profile_screen.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/bio.dart';
 import 'package:yumi/template/event_photo.dart';
@@ -13,7 +17,10 @@ class EditBioSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
+    // !Bug build so much
+    if (!G.read<ProfileBloc>().state.statusSet.hasInit) {
+      context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
+    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -38,16 +45,41 @@ class EditBioSheet extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         constraints:
             BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .9),
-        child: const SizedBox(
+        child: SizedBox(
           child: SingleChildScrollView(
+            // child: BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {}),
             child: Column(
               children: [
-                ProfilePicture(),
-                Bio(),
-                SizedBox(height: 160),
-                EventsPhoto(),
+                const ProfilePicture(),
+                const Bio(),
+                const SizedBox(height: 40),
+                const EventsPhoto(),
+                const SizedBox(height: 20),
+                BlocSelector<ProfileBloc, ProfileState, bool>(
+                  selector: (state) => state.profile.profileSheetDone,
+                  builder: (context, profileSheetDone) {
+                    return TextButton(
+                      onPressed: () {
+                        var state = G.read<ChefFlowBloc>().state;
+                        if (!state.profileSheetDone) return;
+
+                        G.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 1));
+
+                        Navigator.of(context, rootNavigator: true).pop();
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: profileSheetDone
+                            ? ThemeSelector.colors.primary
+                            : ThemeSelector.colors.secondary,
+                      ),
+                      child: const Text('Ok'),
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
               ],
             ),
+            // },
           ),
         ),
       ),

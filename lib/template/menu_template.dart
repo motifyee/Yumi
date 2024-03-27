@@ -1,11 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/features/chef_application/bloc.dart';
+import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/forms/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
@@ -24,6 +29,13 @@ class MenuTemplate extends StatelessWidget {
     context
         .read<MealListBloc>()
         .add(MealListResetEvent(menuTarget: menuTarget));
+
+    Future.delayed(const Duration(seconds: 1)).then((value) {
+      if (context.read<ChefFlowBloc>().state.started &&
+          G.read<MealListBloc>().state.meals.isEmpty) {
+        addYourMealsDialog(context);
+      }
+    });
 
     return Stack(
       children: [
@@ -44,11 +56,15 @@ class MenuTemplate extends StatelessWidget {
                       builder: (context, state) {
                         return PaginationTemplate(
                           scrollDirection: Axis.horizontal,
-                          loadDate: () => context.read<CategoriesBloc>().add(
-                              GetCategoriesEvent(
-                                  context: context,
-                                  isPreOrder: menuTarget == MenuTarget.preOrder,
-                                  isAll: false)),
+                          loadDate: () => {
+                            context.read<CategoriesBloc>().add(
+                                  GetCategoriesEvent(
+                                      context: context,
+                                      isPreOrder:
+                                          menuTarget == MenuTarget.preOrder,
+                                      isAll: false),
+                                )
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -170,13 +186,15 @@ class MenuTemplate extends StatelessWidget {
                   Expanded(
                     child: PaginationTemplate(
                       scrollDirection: Axis.vertical,
-                      loadDate: () => context.read<MealListBloc>().add(
-                            MealListUpdateEvent(
-                              context: context,
-                              chefId:
-                                  context.read<UserBloc>().state.user.chefId,
-                            ),
-                          ),
+                      loadDate: () => {
+                        context.read<MealListBloc>().add(
+                              MealListUpdateEvent(
+                                context: context,
+                                chefId:
+                                    context.read<UserBloc>().state.user.chefId,
+                              ),
+                            )
+                      },
                       child: Column(
                         children: [
                           Row(
@@ -283,4 +301,35 @@ class MenuTemplate extends StatelessWidget {
       ],
     );
   }
+}
+
+void addYourMealsDialog(BuildContext context) {
+  showAlertDialog(
+    context: context,
+    content: SizedBox(
+      height: 150,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(child: SvgPicture.asset('assets/images/flow/add-menu.svg')),
+          const SizedBox(height: 8),
+          Text(
+            '         Now',
+            style: TextStyle(
+              color: ThemeSelector.colors.primary,
+              fontSize: ThemeSelector.fonts.font_14,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            '         You should create your own menu',
+            style: TextStyle(
+              fontSize: ThemeSelector.fonts.font_14,
+            ),
+          ),
+        ],
+      ),
+    ),
+    actions: {'Next': null},
+  );
 }

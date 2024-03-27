@@ -5,6 +5,7 @@ import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/features/settings/profile/model/profile_model.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/bio.dart';
 import 'package:yumi/template/event_photo.dart';
@@ -38,9 +39,9 @@ Widget profileImagePicker(BuildContext context, Profile profile, bool loading) {
       onPressed: (image) async {
         final newProfile = profile.copyWith(profileImage: image);
 
-        context.read<ProfileBloc>().add(ProfileLoadingEvent());
+        G.cContext.read<ProfileBloc>().add(ProfileLoadingEvent());
 
-        context
+        G.cContext
             .read<ProfileBloc>()
             .add(ProfileUpdateEvent(context: context, profile: newProfile));
       },

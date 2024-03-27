@@ -17,7 +17,8 @@ class ScheduleRepo implements IScheduleRepo {
 
     if (res.data.toString().isNotEmpty) data = res.data;
 
-    return Schedule.fromJson(data);
+    var fromJson = Schedule.fromJson(data);
+    return fromJson;
   }
 
   @override

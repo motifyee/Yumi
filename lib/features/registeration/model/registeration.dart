@@ -17,6 +17,17 @@ class RegisterationForm with _$RegisterationForm {
     String? branchId,
   }) = _Registeration;
 
+  const RegisterationForm._();
+
+  Map<String, dynamic> toUserMap(String chefId, String token) => {
+        'chefId': chefId,
+        'userName': userName,
+        'email': email,
+        'access_Token': token,
+        'code': code,
+        // 'password': password,
+      };
+
   factory RegisterationForm.fromJson(Map<String, dynamic> json) =>
       _$RegisterationFormFromJson(json);
 }

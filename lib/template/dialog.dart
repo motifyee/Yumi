@@ -25,6 +25,7 @@ Future<void> showAlertDialog({
   Map<String, Function(BuildContext context)?> actions = const {},
   bool dismissible = false,
   Function? onDismissed,
+  double insetPadding = 20,
 }) {
   if (actions.isEmpty && actionWidgets.isEmpty) actions['OK'] = null;
 
@@ -80,7 +81,7 @@ Future<void> showAlertDialog({
             actions: res,
             alignment: Alignment.center,
             contentPadding: const EdgeInsets.all(0),
-            insetPadding: const EdgeInsets.all(20),
+            insetPadding: EdgeInsets.all(insetPadding),
             backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
             shadowColor: Colors.green,
             iconColor: Colors.green,

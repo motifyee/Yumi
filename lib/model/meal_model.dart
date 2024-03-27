@@ -93,25 +93,25 @@ class MealModel {
   }
 
   Map<String, dynamic> toJson({bool? showID}) {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (showID == true) {
-      data['id'] = this.id;
-      data['productVariantID'] = this.productVariantID;
+      data['id'] = id;
+      data['productVariantID'] = productVariantID;
     }
-    data['chefId'] = this.chefId;
-    data['code'] = this.code;
-    data['name'] = this.name;
-    data['photo'] = this.photo;
-    data['price1'] = this.price1;
-    data['calories_Value'] = this.caloriesValue;
-    data['preparation_Time'] = this.preparationTime;
-    data['is_Order'] = this.isOrder;
-    data['is_Pre_Order'] = this.isPreOrder;
-    data['pickup_Only'] = this.isPickUpOnly;
-    data['portion_Persons'] = this.portionPersons;
-    data['categoriesIds'] = this.categoriesids;
-    if (this.ingredients != null) {
-      data['ingredients'] = this.ingredients!.map((v) => v.toJson()).toList();
+    data['chefId'] = chefId;
+    data['code'] = code;
+    data['name'] = name;
+    data['photo'] = photo;
+    data['price1'] = price1;
+    data['calories_Value'] = caloriesValue;
+    data['preparation_Time'] = preparationTime;
+    data['is_Order'] = isOrder;
+    data['is_Pre_Order'] = isPreOrder;
+    data['pickup_Only'] = isPickUpOnly;
+    data['portion_Persons'] = portionPersons;
+    data['categoriesIds'] = categoriesids;
+    if (ingredients != null) {
+      data['ingredients'] = ingredients!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -133,11 +133,11 @@ class IngredientsModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['code'] = this.code;
-    data['name'] = this.name;
-    data['portion_Grams'] = this.portionGrams;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['code'] = code;
+    data['name'] = name;
+    data['portion_Grams'] = portionGrams;
     return data;
   }
 

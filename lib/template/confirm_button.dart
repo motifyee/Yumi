@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class ConfirmButton extends StatelessWidget {
-  const ConfirmButton({super.key, this.onPressed, required this.label});
+  const ConfirmButton(
+      {super.key, this.onPressed, required this.label, this.enabled = true});
 
+  final bool enabled;
   final void Function()? onPressed;
   final String label;
 
@@ -19,7 +21,9 @@ class ConfirmButton extends StatelessWidget {
             vertical: ThemeSelector.statics.buttonPaddingV),
         width: ThemeSelector.statics.buttonWidth,
         decoration: BoxDecoration(
-          color: ThemeSelector.colors.primary,
+          color: enabled
+              ? ThemeSelector.colors.primary
+              : ThemeSelector.colors.secondary,
           borderRadius:
               BorderRadius.circular(ThemeSelector.statics.buttonBorderRadius),
         ),

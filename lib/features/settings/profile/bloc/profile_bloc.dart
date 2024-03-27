@@ -83,8 +83,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(state.copyWith(status: BlocStatus.loading));
 
     await ProfileService.getProfile(
-      context: event.context,
-      id: event.context.read<UserBloc>().state.user.chefId,
+      event.context.read<UserBloc>().state.user.chefId,
     ).then(
       (value) {
         //
@@ -117,9 +116,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   _profileUpdate(ProfileUpdateEvent event, emit) async {
     emit(state.copyWith(status: BlocStatus.loading));
 
-    await ProfileService.updateProfile(
-            context: event.context, data: event.profile.toJson())
-        .then(
+    await ProfileService.updateProfile(event.profile.toJson()).then(
       (value) {
         if (value != null && value != false) {
           emit(
@@ -129,7 +126,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                 apiMessage: value.toString()),
           );
 
-          if (event.context.mounted) {}
+          add(ProfileInitEvent(context: event.context));
+
+          // if (event.context.mounted) {}
         } else {
           emit(
             state.copyWith(status: BlocStatus.error),

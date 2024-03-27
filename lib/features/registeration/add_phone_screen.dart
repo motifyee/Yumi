@@ -70,13 +70,17 @@ class AddPhoneScreen extends StatelessWidget {
                           Form(
                             key: form,
                             child: TextFormFieldTemplate(
-                              label: "Enter Mobile Number",
-                              prefixText: '+44 ',
-                              textInputType: TextInputType.number,
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
-                            ),
+                                label: "Enter Mobile Number",
+                                prefixText: '+44 ',
+                                textInputType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                                validators: (value) {
+                                  return (value?.length ?? 0) == 11
+                                      ? null
+                                      : "Invalid phone number";
+                                }),
                           ),
                           const SizedBox(height: 40),
                           ConfirmButton(
