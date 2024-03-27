@@ -29,6 +29,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserFromJsonEvent>((event, emit) async {
       await LocalStorage.sharedRef.setValue(LocalStorage.user, event.user);
       emit(state.copyWith(user: UserModel.fromJson(event.user)));
+      if (event.routeAfterLogin != null) event.routeAfterLogin!();
     });
 
     on<UserFromSharedRefEvent>((event, emit) async {

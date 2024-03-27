@@ -145,11 +145,13 @@ class LoginForm extends StatelessWidget {
 void performLogin(BuildContext context, LoginModel loginForm, [String? route]) {
   LoginServices.login(login: loginForm, context: context).then((value) async {
     if (value['access_Token'] != null) {
-      context.read<UserBloc>().add(UserFromJsonEvent(user: value));
+      context.read<UserBloc>().add(UserFromJsonEvent(
+            user: value,
+            routeAfterLogin: () => routeAfterLogin(context, ''),
+          ));
       context
           .read<UserBloc>()
           .add(UserUpdateLocationEvent(address: Address.fromJson(value)));
-      routeAfterLogin(context, '');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
