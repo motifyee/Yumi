@@ -81,13 +81,14 @@ class RegBloc extends Bloc<RegEvent, RegState> {
             emit(state.copyWith(singupData: value.signupData));
             _navigateTo(1, value.ctx, emit);
           },
-          setPhone: (_setPhone value) {
+          setPhone: (_setPhone value) async {
             var profile = G.read<ProfileBloc>().state.profile;
-            ProfileService.updateProfile(
+            await ProfileService.updateProfile(
               profile.copyWith(mobile: value.phone, updatedBy: '366').toJson(),
-            );
-            _navigateTo(2, value.ctx, emit);
-            emit(state.copyWith(phone: value.phone));
+            ).then((res) {
+              _navigateTo(2, value.ctx, emit);
+              emit(state.copyWith(phone: value.phone));
+            });
           },
           setOTP: (_setOTP value) {
             emit(state.copyWith(otp: value.otp));

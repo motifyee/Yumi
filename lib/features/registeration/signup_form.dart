@@ -117,16 +117,15 @@ class SignUpForm extends StatelessWidget {
                     value = jsonDecode(value.toString());
 
                     if (value["message"].contains('Created')) {
-                      debugger();
-
-                      var idReg = RegExp(r"Created with id:\s*(.*),");
-                      var tokenReg = RegExp(r"Token\s*=\s*(.*)[\s|,]*");
+                      var idReg = RegExp(r"Created with id:\s*(.*)");
+                      // var tokenReg = RegExp(r"Token\s*=\s*(.*)[\s|,]*");
                       var chefId =
                           idReg.firstMatch(value["message"])!.group(1)!;
-                      var token =
-                          tokenReg.firstMatch(value["message"])!.group(1)!;
+                      // var token =
+                      //     tokenReg.firstMatch(value["message"])!.group(1)!;
 
-                      var userMap = signupForm.toUserMap(chefId, token);
+                      var userMap =
+                          signupForm.toUserMap(chefId, value['token']);
 
                       context
                           .read<UserBloc>()
