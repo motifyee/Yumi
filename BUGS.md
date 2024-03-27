@@ -70,3 +70,12 @@
 - **Documentation**
 
   - business logic documentation
+
+## Flutter Specific
+
+- **Context**
+
+  - access current context of a widget
+  - context propagation
+
+- **Performance**

@@ -6,6 +6,7 @@ import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/features/settings/profile/model/profile_model.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
 import 'package:yumi/template/snack_bar.dart';
@@ -18,51 +19,58 @@ class Bio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    final profile = context.watch<ProfileBloc>().state.profile;
 
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: ThemeSelector.statics.defaultTitleGap),
-      child: Column(
-        children: [
-          Row(
+    return BlocBuilder<ProfileBloc, ProfileState>(
+      builder: (context, state) {
+        return Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: ThemeSelector.statics.defaultTitleGap),
+          child: Column(
             children: [
-              SvgPicture.asset('assets/images/bio.svg'),
-              SizedBox(width: ThemeSelector.statics.defaultLineGap),
-              Text(
-                S.of(context).bio,
-                style: Theme.of(context).textTheme.labelLarge,
+              Row(
+                children: [
+                  SvgPicture.asset('assets/images/bio.svg'),
+                  SizedBox(width: ThemeSelector.statics.defaultLineGap),
+                  Text(
+                    S.of(context).bio,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  Expanded(child: Container()),
+                  IconButton(
+                    icon: SvgPicture.asset('assets/images/pin.svg'),
+                    onPressed: () {
+                      showAlertDialog(
+                        context: context,
+                        title: Container(),
+                        content: BioForm(state.profile, formKey),
+                        actions: {'Cancel': null},
+                        actionWidgets: [
+                          BioFormSubmitButton(state.profile, formKey)
+                        ],
+                      );
+                    },
+                  )
+                ],
               ),
-              Expanded(child: Container()),
-              IconButton(
-                icon: SvgPicture.asset('assets/images/pin.svg'),
-                onPressed: () {
-                  showAlertDialog(
-                    context: context,
-                    title: Container(),
-                    content: BioForm(profile, formKey),
-                    actions: {'Cancel': null},
-                    actionWidgets: [BioFormSubmitButton(profile, formKey)],
-                  );
-                },
+              SizedBox(height: ThemeSelector.statics.defaultGap),
+              Container(
+                constraints: BoxConstraints(
+                    minHeight: ThemeSelector.statics.defaultGapExtreme),
+                child: Center(
+                  child: Text(
+                    state.profile.bio.isNotEmpty
+                        ? state.profile.bio
+                        : S.of(context).writeABio,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: ThemeSelector.fonts.font_10,
+                        ),
+                  ),
+                ),
               )
             ],
           ),
-          SizedBox(height: ThemeSelector.statics.defaultGap),
-          Container(
-            constraints: BoxConstraints(
-                minHeight: ThemeSelector.statics.defaultGapExtreme),
-            child: Center(
-              child: Text(
-                profile.bio.isNotEmpty ? profile.bio : S.of(context).writeABio,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontSize: ThemeSelector.fonts.font_10,
-                    ),
-              ),
-            ),
-          )
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -81,7 +89,7 @@ class BioForm extends StatelessWidget {
       listener: (context, state) {
         if (!state.status.isSuccess) return;
 
-        context.router.pop();
+        Navigator.of(context).pop();
 
         profileFormBloc.add(
           ProfileLoadedEvent(),
@@ -113,13 +121,17 @@ class BioForm extends StatelessWidget {
 
                 profileFormBloc.add(
                   ProfileUpdateEvent(
-                      context: context, profile: profile.copyWith(bio: value)),
+                    context: context,
+                    profile: profile.copyWith(bio: value),
+                  ),
                 );
               },
             ),
           ),
         );
       },
+      // child: BlocSelector<ProfileBloc, ProfileState, String>(
+      //   selector: (state) => state.profile.bio,),
     );
   }
 }
@@ -132,8 +144,8 @@ class BioFormSubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileBloc, ProfileState>(
-      builder: (context, state) {
+    return Builder(
+      builder: (context) {
         return TextButton(
           child: Text(S.of(context).save),
           onPressed: () async {

@@ -1,12 +1,21 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/features/chef_application/bloc.dart';
+import 'package:yumi/features/registeration/bloc/bloc.dart';
+import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
+import 'package:yumi/features/schedule/schedule_screen.dart';
+import 'package:yumi/features/schedule/repository/repository.dart';
 import 'package:yumi/features/settings/profile/bio_sheet.dart';
+import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/features/settings/profile/profile_form.dart';
 import 'package:yumi/forms/meal_form.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/template/dialog.dart';
@@ -23,6 +32,14 @@ class ChefApplicationFlowScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
+    context.read<MealListBloc>().add(
+          MealListUpdateEvent(
+            context: context,
+            chefId: context.read<UserBloc>().state.user.chefId,
+          ),
+        );
+
     return ScreenContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -59,7 +76,7 @@ class ChefApplicationFlowScreen extends StatelessWidget {
                     constraints: const BoxConstraints(maxWidth: 800),
                     child: BlocBuilder<ChefFlowBloc, ChefFlowState>(
                       builder: (context, state) {
-                        return stepStack(context, state.activeIdx);
+                        return stepStack(context, state);
                       },
                     ),
                   ),
@@ -74,7 +91,7 @@ class ChefApplicationFlowScreen extends StatelessWidget {
   }
 }
 
-Widget stepStack(BuildContext context, int activeIdx) {
+Widget stepStack(BuildContext context, ChefFlowState state) {
   List stepsInfo = [
     [
       "profile",
@@ -85,56 +102,78 @@ Widget stepStack(BuildContext context, int activeIdx) {
             context: context,
             builder: (context) => const EditBioSheet(),
           ),
-      // showAlertDialog(
-      //     context: context,
-      //     title: Container(),
-      //     content: const ProfileForm(),
-      //     // actions: {'Cancel': null},
-      //     actionWidgets: [const ProfileFormSubmitButton()],
-      //   ),
+      () => true,
     ],
     [
       "menu",
       ["Your Menu", "Secondly, add your meals on menu and schedule it"],
-      () => showAlertDialog(
-            context: context,
-            title: Container(),
-            content: BlocProvider(
-              create: (context) => MealListBloc(),
-              child: const MenuTemplate(
-                menuTarget: MenuTarget.order,
-              ),
+      () {
+        G.read<ScheduleBloc>().add(const ScheduleEvent.init());
+        // context.read<MealListBloc>().add(
+        //       MealListUpdateEvent(
+        //         context: context,
+        //         chefId: context.read<UserBloc>().state.user.chefId,
+        //       ),
+        //     );
+
+        showAlertDialog(
+          context: context,
+          // title: Container(),
+          content: BlocProvider(
+            create: (context) => MealListBloc(),
+            child: const MenuTemplate(
+              menuTarget: MenuTarget.order,
             ),
-            actions: {'Ok': null},
-            // onDismissed: () {
-            //   context.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
-            // },
           ),
+          actions: {
+            'Next': (ctx) {
+              if (G.read<MealListBloc>().state.meals.isEmpty) {
+                return addYourMealsDialog(context);
+              }
+              if (!G.read<ScheduleBloc>().state.schedule.hasScheduledDays) {
+                return sheduleDialog(context);
+              }
+
+              Navigator.of(context, rootNavigator: true).pop();
+              G.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
+            },
+          },
+          insetPadding: 0,
+          // onDismissed: () {
+          //   context.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
+          // },
+        );
+      },
+      () => state.menuActive,
     ],
     [
       "documentation",
       ["Documentation", "Third, attach your documents"],
       () => context.router.push(const DocumentationRoute()),
+      () => state.docsActive,
     ],
     [
       "approval",
       ["Get Approval", "Then, waiting for approval within 72 hours"],
       () => showAlertDialog(
-          context: context,
-          title: Container(),
-          content: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(activeIdx == 3
-                ? "Waiting for approval within 72 hours..."
-                : "Your application has been approved"),
+            context: context,
+            title: Container(),
+            content: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(state.activeIdx == 3
+                  ? "Waiting for approval within 72 hours..."
+                  : "Your application has been approved"),
+            ),
+            actions: {'Ok': null},
+            dismissible: true,
           ),
-          actions: {'Ok': null},
-          dismissible: true),
+      () => state.approvalActive,
     ],
     [
       "contract",
       ["Get Contract", "Finally, download the contract to sign and upload it"],
       () => context.router.push(const ContractRoute()),
+      () => state.contractActive,
     ],
   ];
 
@@ -147,12 +186,14 @@ Widget stepStack(BuildContext context, int activeIdx) {
 
     return (int i, num x, num y, {bool alignRight = false}) {
       var items = tileChildrenBuilders[i](alignRight);
-      var foregroundDecoration = i > activeIdx
-          ? const BoxDecoration(
+      var isActive = stepsInfo[i][3](); // i > state.activeIdx;
+
+      var foregroundDecoration = isActive
+          ? null
+          : const BoxDecoration(
               color: Colors.grey,
               backgroundBlendMode: BlendMode.saturation,
-            )
-          : null;
+            );
 
       return Positioned(
         left: !alignRight ? hs * x : 0,
@@ -163,7 +204,7 @@ Widget stepStack(BuildContext context, int activeIdx) {
           foregroundDecoration: foregroundDecoration,
           child: InkWell(
             borderRadius: BorderRadius.circular(10),
-            onTap: () => i > activeIdx ? null : stepsInfo[i][2](),
+            onTap: () => isActive ? stepsInfo[i][2]() : null,
             child: items,
           ),
         ),
