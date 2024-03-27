@@ -70,6 +70,7 @@ class MyApp extends StatelessWidget {
         ],
         supportedLocales: S.delegate.supportedLocales,
         title: 'YUMI',
+        color: ThemeSelector.colors.background,
         theme: defaultTheme,
         builder: (context, child) {
           return Builder(

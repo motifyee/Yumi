@@ -45,6 +45,17 @@ class LoginForm extends StatelessWidget {
       }
     }
 
+    if (kReleaseMode && loginAttempted == false) {
+      context.read<UserBloc>().add(
+            UserFromSharedRefEvent(
+              context: context,
+              route: null,
+              afterFetchSuccess: routeAfterLogin,
+              autoLogin: skipLogin,
+            ),
+          );
+    }
+
     if (!kReleaseMode && loginAttempted == false) {
       loginAttempted = true;
       // skipLogin();
@@ -52,7 +63,6 @@ class LoginForm extends StatelessWidget {
       () async {
         await rootBundle.loadString('assets/.autologin').then((data) {
           var dataList = (const LineSplitter()).convert(data);
-
           context.read<UserBloc>().add(
                 UserFromSharedRefEvent(
                   context: context,
