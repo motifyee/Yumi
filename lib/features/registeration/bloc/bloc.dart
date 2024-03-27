@@ -82,11 +82,10 @@ class RegBloc extends Bloc<RegEvent, RegState> {
             _navigateTo(1, value.ctx, emit);
           },
           setPhone: (_setPhone value) {
-            ProfileService.updateProfile(Profile(
-                    mobile: value.phone,
-                    updatedBy: '366',
-                    registerDate: DateTime.now().toString())
-                .toJson());
+            var profile = G.read<ProfileBloc>().state.profile;
+            ProfileService.updateProfile(
+              profile.copyWith(mobile: value.phone, updatedBy: '366').toJson(),
+            );
             _navigateTo(2, value.ctx, emit);
             emit(state.copyWith(phone: value.phone));
           },

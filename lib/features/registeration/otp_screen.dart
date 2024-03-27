@@ -72,7 +72,7 @@ class OTPScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 40),
-                          OTP(onLastFilled: (input) => otp = input),
+                          OTP(onInput: (value, _, __) => otp = value),
                           const SizedBox(height: 40),
                           RichText(
                             text: TextSpan(
@@ -98,6 +98,8 @@ class OTPScreen extends StatelessWidget {
                           ConfirmButton(
                               label: "Verify & Proceed",
                               onPressed: () {
+                                if (otp.length < 4) return;
+
                                 context
                                     .read<RegBloc>()
                                     .add(RegEvent.setOTP(otp, context));

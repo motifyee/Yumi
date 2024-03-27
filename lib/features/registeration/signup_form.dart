@@ -1,12 +1,15 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app_target.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/registeration/model/registeration.dart';
+import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/features/registeration/model/signup_model.dart';
 import 'package:yumi/features/registeration/repository/signup_service.dart';
@@ -100,11 +103,11 @@ class SignUpForm extends StatelessWidget {
             ConfirmButton(
               label: S.of(context).createAccount,
               onPressed: () async {
-                if (kDebugMode) {
-                  return context
-                      .read<RegBloc>()
-                      .add(RegEvent.setAccount(signupForm, context));
-                }
+                // if (kDebugMode) {
+                //   return context
+                //       .read<RegBloc>()
+                //       .add(RegEvent.setAccount(signupForm, context));
+                // }
 
                 if (signUpFormKey.currentState!.validate()) {
                   signUpFormKey.currentState!.save();
@@ -114,10 +117,26 @@ class SignUpForm extends StatelessWidget {
                     value = jsonDecode(value.toString());
 
                     if (value["message"].contains('Created')) {
-                      // Navigator.of(context).pop();
+                      debugger();
+
+                      var idReg = RegExp(r"Created with id:\s*(.*),");
+                      var tokenReg = RegExp(r"Token\s*=\s*(.*)[\s|,]*");
+                      var chefId =
+                          idReg.firstMatch(value["message"])!.group(1)!;
+                      var token =
+                          tokenReg.firstMatch(value["message"])!.group(1)!;
+
+                      var userMap = signupForm.toUserMap(chefId, token);
+
                       context
-                          .read<RegBloc>()
-                          .add(RegEvent.setAccount(signupForm, context));
+                          .read<UserBloc>()
+                          .add(UserFromJsonEvent(user: userMap));
+                      // Navigator.of(context).pop();
+                      Future.delayed(const Duration(seconds: 1)).then((value) {
+                        context
+                            .read<ProfileBloc>()
+                            .add(ProfileInitEvent(context: context));
+                      });
 
                       return context
                           .read<RegBloc>()
