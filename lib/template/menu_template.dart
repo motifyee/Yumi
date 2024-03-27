@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,10 +5,8 @@ import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/features/chef_application/bloc.dart';
-import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/forms/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
@@ -25,18 +21,12 @@ class MenuTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<CategoriesBloc>().add(ResetCategoryEvent());
-    context
-        .read<MealListBloc>()
-        .add(MealListResetEvent(menuTarget: menuTarget));
-
     Future.delayed(const Duration(seconds: 1)).then((value) {
       if (context.read<ChefFlowBloc>().state.started &&
-          G.read<MealListBloc>().state.meals.isEmpty) {
+          context.read<MealListBloc>().state.meals.isEmpty) {
         addYourMealsDialog(context);
       }
     });
-
     return Stack(
       children: [
         BlocConsumer<MealListBloc, MealListState>(
@@ -186,14 +176,14 @@ class MenuTemplate extends StatelessWidget {
                   Expanded(
                     child: PaginationTemplate(
                       scrollDirection: Axis.vertical,
-                      loadDate: () => {
+                      loadDate: () {
                         context.read<MealListBloc>().add(
                               MealListUpdateEvent(
                                 context: context,
                                 chefId:
                                     context.read<UserBloc>().state.user.chefId,
                               ),
-                            )
+                            );
                       },
                       child: Column(
                         children: [
@@ -250,14 +240,15 @@ class MenuTemplate extends StatelessWidget {
           child: Container(
             margin: EdgeInsets.all(ThemeSelector.statics.defaultBlockGap),
             child: TextButton(
-              onPressed: () {
+              onPressed: () async {
                 showDialog(
-                    context: context,
-                    builder: (context) => DialogContainer(
-                          child: MealForm(
-                            menuTarget: menuTarget,
-                          ),
-                        )).then((value) {
+                  context: context,
+                  builder: (contexts) => DialogContainer(
+                    child: MealForm(
+                      menuTarget: menuTarget,
+                    ),
+                  ),
+                ).then((value) {
                   context.read<CategoriesBloc>().add(ResetCategoryEvent());
 
                   context.read<CategoriesBloc>().add(GetCategoriesEvent(

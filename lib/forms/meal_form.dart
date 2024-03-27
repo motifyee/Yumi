@@ -28,8 +28,6 @@ class MealForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<CategoriesBloc>().add(ResetCategoryEvent());
-
     context.read<MealFormBloc>().add(
           MealFormUpdateEvent(
             mealModel: meal?.copyWith(
@@ -184,92 +182,98 @@ class MealForm extends StatelessWidget {
                           },
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
-                        BlocConsumer<CategoriesBloc, CategoriesState>(
-                          listener: (context, state) {},
-                          builder: (context, state) {
-                            return PaginationTemplate(
-                              loadDate: () => context
-                                  .read<CategoriesBloc>()
-                                  .add(GetCategoriesEvent(
-                                      context: context,
-                                      isPreOrder:
-                                          menuTarget == MenuTarget.preOrder,
-                                      isAll: true)),
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: state.categoriesModelList.isEmpty
-                                    ? [Loading()]
-                                    : [
-                                        for (var category
-                                            in state.categoriesModelList ?? [])
-                                          BlocConsumer<MealFormBloc,
-                                              MealFormState>(
-                                            listener: (context, state) {},
-                                            builder: (context, state) {
-                                              return Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: ThemeSelector
-                                                        .statics.defaultGap),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Checkbox(
-                                                      value: state.mealModel
-                                                              .categoriesids
-                                                              ?.contains(
-                                                                  category
-                                                                      .id) ??
-                                                          false,
-                                                      onChanged: (bool? value) {
-                                                        var listCat = state
-                                                                .mealModel
-                                                                .categoriesids ??
-                                                            [];
+                        BlocProvider(
+                          create: (context) => CategoriesBloc(),
+                          child: BlocConsumer<CategoriesBloc, CategoriesState>(
+                            listener: (context, state) {},
+                            builder: (context, state) {
+                              return PaginationTemplate(
+                                loadDate: () => context
+                                    .read<CategoriesBloc>()
+                                    .add(GetCategoriesEvent(
+                                        context: context,
+                                        isPreOrder:
+                                            menuTarget == MenuTarget.preOrder,
+                                        isAll: true)),
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: state.categoriesModelList.isEmpty
+                                      ? [Loading()]
+                                      : [
+                                          for (var category
+                                              in state.categoriesModelList ??
+                                                  [])
+                                            BlocConsumer<MealFormBloc,
+                                                MealFormState>(
+                                              listener: (context, state) {},
+                                              builder: (context, state) {
+                                                return Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: ThemeSelector
+                                                          .statics.defaultGap),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      Checkbox(
+                                                        value: state.mealModel
+                                                                .categoriesids
+                                                                ?.contains(
+                                                                    category
+                                                                        .id) ??
+                                                            false,
+                                                        onChanged:
+                                                            (bool? value) {
+                                                          var listCat = state
+                                                                  .mealModel
+                                                                  .categoriesids ??
+                                                              [];
 
-                                                        if (value == true) {
-                                                          listCat
-                                                              .add(category.id);
-                                                        } else {
-                                                          listCat.removeWhere(
-                                                              (element) =>
-                                                                  element ==
-                                                                  category.id);
-                                                        }
-                                                        context
-                                                            .read<
-                                                                MealFormBloc>()
-                                                            .add(MealFormUpdateEvent(
-                                                                mealModel: state
-                                                                    .mealModel
-                                                                    .copyWith(
-                                                                        categoriesids:
-                                                                            listCat)));
-                                                      },
-                                                    ),
-                                                    Text(category.name),
-                                                  ],
-                                                ),
-                                              );
-                                            },
+                                                          if (value == true) {
+                                                            listCat.add(
+                                                                category.id);
+                                                          } else {
+                                                            listCat.removeWhere(
+                                                                (element) =>
+                                                                    element ==
+                                                                    category
+                                                                        .id);
+                                                          }
+                                                          context
+                                                              .read<
+                                                                  MealFormBloc>()
+                                                              .add(MealFormUpdateEvent(
+                                                                  mealModel: state
+                                                                      .mealModel
+                                                                      .copyWith(
+                                                                          categoriesids:
+                                                                              listCat)));
+                                                        },
+                                                      ),
+                                                      Text(category.name),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          SizedBox(
+                                            width: ThemeSelector
+                                                .statics.defaultTitleGap,
+                                            child:
+                                                state.paginationHelper.isLoading
+                                                    ? Loading(
+                                                        size: ThemeSelector
+                                                            .statics
+                                                            .defaultTitleGap)
+                                                    : const Text(''),
                                           ),
-                                        SizedBox(
-                                          width: ThemeSelector
-                                              .statics.defaultTitleGap,
-                                          child:
-                                              state.paginationHelper.isLoading
-                                                  ? Loading(
-                                                      size: ThemeSelector
-                                                          .statics
-                                                          .defaultTitleGap)
-                                                  : const Text(''),
-                                        ),
-                                      ],
-                              ),
-                            );
-                          },
+                                        ],
+                                ),
+                              );
+                            },
+                          ),
                         ),
                         if (state.mealModel.categoriesids?.isEmpty ?? true)
                           Text(

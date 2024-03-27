@@ -126,6 +126,11 @@ class MealCard extends StatelessWidget {
                                 final res = await MealService.deleteMeal(
                                     context: context, mealModel: meal);
                                 context.read<MealListBloc>().add(
+                                    MealListResetEvent(
+                                        menuTarget: meal.isPreOrder == true
+                                            ? MenuTarget.preOrder
+                                            : MenuTarget.order));
+                                context.read<MealListBloc>().add(
                                     MealListUpdateCategoryEvent(
                                         selectedCategory: 0, context: context));
                                 Navigator.of(context).pop();

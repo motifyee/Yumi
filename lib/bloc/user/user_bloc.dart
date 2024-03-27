@@ -21,7 +21,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           message: '',
           userName: '',
         ))) {
-    on<UserUpdateLocationEvent>((event, emit) {
+    on<UserUpdateLocationEvent>((event, emit) async {
+      await LocalStorage.sharedRef
+          .setValue(LocalStorage.userLocation, event.address);
       emit(state.copyWith(address: event.address));
     });
     on<UserFromJsonEvent>((event, emit) async {
@@ -30,16 +32,20 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     });
 
     on<UserFromSharedRefEvent>((event, emit) async {
-      Map<String, dynamic>? data =
+      Map<String, dynamic>? user =
+          await LocalStorage.sharedRef.getValue(LocalStorage.user);
+      Map<String, dynamic>? userLocation =
           await LocalStorage.sharedRef.getValue(LocalStorage.user);
 
-      if (data != null) {
-        add(UserFromJsonEvent(user: data));
+      if (user != null) {
+        add(UserFromJsonEvent(user: user));
+        if (userLocation != null) {
+          add(UserUpdateLocationEvent(address: Address.fromJson(userLocation)));
+        }
         event.afterFetchSuccess(event.context, event.route);
       } else {
         event.autoLogin(event.context);
       }
-
       FlutterNativeSplash.remove();
     });
 

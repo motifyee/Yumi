@@ -9,6 +9,10 @@ class LocalStorage {
     name: 'user',
     valueType: _ValueType.json,
   );
+  static _SharedRefKeys userLocation = _SharedRefKeys(
+    name: 'user_Location',
+    valueType: _ValueType.json,
+  );
   static _SharedRefKeys token = _SharedRefKeys(
     name: 'token',
     valueType: _ValueType.string,
