@@ -45,6 +45,7 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Colors.transparent,
             key: _scaffoldState,
             appBar: AppBar(
+              centerTitle: true,
               backgroundColor: Colors.transparent,
               bottomOpacity: 0,
               scrolledUnderElevation: 0,

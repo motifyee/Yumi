@@ -193,5 +193,7 @@
   "searchOrEnterAnAddress": "Search or enter an address",
   "confirmLocation": "Confirm location",
   "pickUpOnly": "Pick up only",
-  "myPreOrder": "My pre-order"
+  "myPreOrder": "My pre-order",
+  "available": "Available",
+  "orders": "Orders"
 }

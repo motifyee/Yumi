@@ -6,12 +6,14 @@ import 'package:yumi/app_target.dart';
 import 'package:yumi/features/settings/profile/profile_screen.dart';
 import 'package:yumi/features/settings/settings_screen.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/screens/chef/menu.dart';
 import 'package:yumi/screens/chef/news.dart';
 import 'package:yumi/screens/customer/customer_menu_pre.dart';
 import 'package:yumi/screens/customer/cutomer_menu.dart';
 import 'package:yumi/screens/customer/favorites.dart';
 import 'package:yumi/screens/customer/my_order.dart';
+import 'package:yumi/screens/driver/driver_order.dart';
 import 'package:yumi/screens/notification.dart';
 import 'package:yumi/screens/order_history.dart';
 import 'package:yumi/screens/pre_order.dart';
@@ -66,7 +68,9 @@ class NavigateOptions {
         selectedIcon:
             SvgPicture.asset('assets/images/home1.svg', fit: BoxFit.fitWidth),
         title: S.current.yumi,
-        page: NewsScreen()),
+        page: DriverOrderScreen(
+          menuTarget: MenuTarget.order,
+        )),
     NavigateListItem(
       icon: SvgPicture.asset('assets/images/profile.svg'),
       selectedIcon:
@@ -86,7 +90,9 @@ class NavigateOptions {
         selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg',
             fit: BoxFit.fitWidth),
         title: S.current.preOrder,
-        page: const PreOrderScreen()),
+        page: DriverOrderScreen(
+          menuTarget: MenuTarget.preOrder,
+        )),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/setting.svg'),
         selectedIcon: SvgPicture.asset('assets/images/setting1.svg',

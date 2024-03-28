@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class Location extends StatelessWidget {
@@ -16,21 +18,19 @@ class Location extends StatelessWidget {
           height: ThemeSelector.statics.iconSizeSmall,
         ),
         SizedBox(width: ThemeSelector.statics.defaultGap),
-        Column(
-          children: [
-            Text(
-              '356-565 main St.',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: ThemeSelector.colors.secondaryFaint,
-                  ),
-            ),
-            Text(
-              'New York NY 23212',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: ThemeSelector.colors.secondaryFaint,
-                  ),
-            ),
-          ],
+        BlocConsumer<UserBloc, UserState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            return Container(
+              width: MediaQuery.of(context).size.width * .5,
+              child: Text(
+                state.address?.location ?? '',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: ThemeSelector.colors.secondaryFaint,
+                    ),
+              ),
+            );
+          },
         ),
       ],
     );
