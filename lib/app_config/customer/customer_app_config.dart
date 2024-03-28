@@ -25,26 +25,28 @@ class CustomerAppConfig implements AppConfig {
   @override
   AppTargetUser get appTargetUser => AppTargetUser.customers;
 
+  final RootStackRouter _appRouter = CustomerRoutes();
   @override
-  RootStackRouter get appRouter => CustomerRoutes();
+  RootStackRouter get appRouter => _appRouter;
 
+  final List<SingleChildWidget> _providers = [
+    BlocProvider(create: (context) => UserBloc()),
+    BlocProvider(create: (context) => NavigatorBloc()),
+    BlocProvider(create: (context) => ProfileBloc()),
+    BlocProvider(create: (context) => BankInfoBloc()),
+    BlocProvider(create: (context) => CategoriesBloc()),
+    BlocProvider(create: (context) => ChefFlowBloc()),
+    BlocProvider(create: (context) => DocsBloc()),
+    BlocProvider(create: (context) => MealFormBloc()),
+    BlocProvider(create: (context) => MealListBloc()),
+    BlocProvider(create: (context) => SVGBloc()),
+    BlocProvider(create: (context) => IngredientListBloc()),
+    BlocProvider(create: (context) => IngredientFormBloc()),
+    BlocProvider(create: (context) => ChefsListBloc()),
+    BlocProvider(create: (context) => BasketFormBloc()),
+    BlocProvider(
+        create: (context) => ScheduleBloc(scheduleRepo: ScheduleRepo())),
+  ];
   @override
-  List<SingleChildWidget> get blocProviders => [
-        BlocProvider(create: (context) => UserBloc()),
-        BlocProvider(create: (context) => NavigatorBloc()),
-        BlocProvider(create: (context) => ProfileBloc()),
-        BlocProvider(create: (context) => BankInfoBloc()),
-        BlocProvider(create: (context) => CategoriesBloc()),
-        BlocProvider(create: (context) => ChefFlowBloc()),
-        BlocProvider(create: (context) => DocsBloc()),
-        BlocProvider(create: (context) => MealFormBloc()),
-        BlocProvider(create: (context) => MealListBloc()),
-        BlocProvider(create: (context) => SVGBloc()),
-        BlocProvider(create: (context) => IngredientListBloc()),
-        BlocProvider(create: (context) => IngredientFormBloc()),
-        BlocProvider(create: (context) => ChefsListBloc()),
-        BlocProvider(create: (context) => BasketFormBloc()),
-        BlocProvider(
-            create: (context) => ScheduleBloc(scheduleRepo: ScheduleRepo())),
-      ];
+  List<SingleChildWidget> get blocProviders => _providers;
 }
