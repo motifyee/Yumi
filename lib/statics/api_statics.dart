@@ -43,7 +43,7 @@ class DioClient {
 
 class ApiKeys {
   static String getApiKeyString({required String apiKey}) {
-    return apiKey.replaceAll("_", AppTarget.user.name);
+    return apiKey.replaceAll("_", G.appName);
   }
 
   /// user ( _ ) where
