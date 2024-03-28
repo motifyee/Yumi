@@ -79,7 +79,9 @@ class ApiKeys {
 
   // get order && get preOrder X(
   static String preOrderCustomerActive = '/preorder/customer/active';
+  static String preOrderCustomerClosed = '/preorder/customer/closed';
   static String orderCustomerActive = '/order/customer/active';
+  static String orderCustomerClosed = '/order/customer/closed';
   static String orderDriverAvailable = '/order/driver/available';
   static String orderDriverActive = '/order/driver/active';
   static String preOrderDriverAvailable = '/preorder/driver/available';

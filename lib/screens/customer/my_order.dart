@@ -43,8 +43,8 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  _controller.jumpToPage(1);
-                  _index = 1;
+                  _controller.jumpToPage(2);
+                  _index = 2;
                 });
               },
               child: Text(
@@ -56,6 +56,50 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
             ),
           ],
         ),
+        Row(
+          children: [
+            SizedBox(width: ThemeSelector.statics.defaultGap),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  if (_index > 1) {
+                    _controller.jumpToPage(2);
+                    _index = 2;
+                  } else {
+                    _controller.jumpToPage(0);
+                    _index = 0;
+                  }
+                });
+              },
+              child: Text(
+                S.of(context).orders,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    color: ThemeSelector.colors.primary
+                        .withAlpha(_index == 0 || _index == 2 ? 255 : 150)),
+              ),
+            ),
+            SizedBox(width: ThemeSelector.statics.defaultGap),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  if (_index > 1) {
+                    _controller.jumpToPage(3);
+                    _index = 3;
+                  } else {
+                    _controller.jumpToPage(1);
+                    _index = 1;
+                  }
+                });
+              },
+              child: Text(
+                S.of(context).ordersHistory,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    color: ThemeSelector.colors.primary
+                        .withAlpha(_index == 1 || _index == 3 ? 255 : 150)),
+              ),
+            ),
+          ],
+        ),
         Expanded(
           child: PageView(
             physics: const NeverScrollableScrollPhysics(),
@@ -63,9 +107,20 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
             children: [
               BlocProvider(
                 create: (context) => OrderBloc(),
+                child: Column(
+                  children: [
+                    NewsOrders(
+                      menuTarget: MenuTarget.order,
+                      apiKey: ApiKeys.orderCustomerActive,
+                    ),
+                  ],
+                ),
+              ),
+              BlocProvider(
+                create: (context) => OrderBloc(),
                 child: NewsOrders(
                   menuTarget: MenuTarget.order,
-                  apiKey: ApiKeys.orderCustomerActive,
+                  apiKey: ApiKeys.orderCustomerClosed,
                 ),
               ),
               BlocProvider(
@@ -73,6 +128,13 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                 child: NewsOrders(
                   menuTarget: MenuTarget.preOrder,
                   apiKey: ApiKeys.preOrderCustomerActive,
+                ),
+              ),
+              BlocProvider(
+                create: (context) => OrderBloc(),
+                child: NewsOrders(
+                  menuTarget: MenuTarget.preOrder,
+                  apiKey: ApiKeys.preOrderCustomerClosed,
                 ),
               ),
             ],
