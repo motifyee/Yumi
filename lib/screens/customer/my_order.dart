@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/news_orders.dart';
 
@@ -57,8 +61,20 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
             physics: const NeverScrollableScrollPhysics(),
             controller: _controller,
             children: [
-              NewsOrders(data: [0, 1, 2, 3, 4, 5]),
-              NewsOrders(data: [0]),
+              BlocProvider(
+                create: (context) => OrderBloc(),
+                child: NewsOrders(
+                  menuTarget: MenuTarget.order,
+                  apiKey: ApiKeys.orderCustomerActive,
+                ),
+              ),
+              BlocProvider(
+                create: (context) => OrderBloc(),
+                child: NewsOrders(
+                  menuTarget: MenuTarget.preOrder,
+                  apiKey: ApiKeys.preOrderCustomerActive,
+                ),
+              ),
             ],
           ),
         ),

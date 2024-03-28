@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
 import 'package:yumi/template/text_quntaty.dart';
@@ -8,10 +9,12 @@ class ProductInCard extends StatelessWidget {
     super.key,
     required this.isView,
     required this.maxWidth,
+    required this.invoiceDetails,
   });
 
   final bool isView;
   final double maxWidth;
+  final InvoiceDetails invoiceDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class ProductInCard extends StatelessWidget {
               width: isView ? maxWidth - 50 : 0,
               child: Row(
                 children: [
+                  SizedBox(width: ThemeSelector.statics.defaultGap),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,9 +55,10 @@ class ProductInCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       TextCurrency(
-                          value: 5.00, fontSize: ThemeSelector.fonts.font_14),
+                          value: invoiceDetails.productVarintPrice ?? 0.0,
+                          fontSize: ThemeSelector.fonts.font_14),
                       TextQuantity(
-                        value: 2.00,
+                        value: invoiceDetails.quantity ?? 0.0,
                         fontSize: ThemeSelector.fonts.font_10,
                       ),
                     ],
