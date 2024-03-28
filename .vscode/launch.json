@@ -1,0 +1,43 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    // {
+    //   "name": "yumi",
+    //   "request": "launch",
+    //   "type": "dart",
+    // },
+    {
+      "name": "chef",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/chef.dart"
+    },
+    {
+      "name": "driver",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/driver.dart"
+    },
+    {
+      "name": "customer",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/customer.dart"
+    },
+    {
+      "name": "yumi (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "yumi (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    }
+  ]
+}

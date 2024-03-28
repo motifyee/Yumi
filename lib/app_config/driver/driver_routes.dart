@@ -1,17 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:yumi/app_target.dart';
-import 'package:yumi/app_config/app_config.dart';
 import 'package:yumi/route/route.gr.dart';
 
-/// every change must:
-/// add @RoutePage() to screen widget
-/// then run:
-/// dart run build_runner build
-/// dart run build_runner watch
-
-@AutoRouterConfig()
-class AppRouter extends $AppRouter {
-  AppRouter();
+class DriverRoutes extends $AppRouter {
+  DriverRoutes();
 
   @override
   List<AutoRoute> get routes => [
