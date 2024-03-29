@@ -56,7 +56,7 @@ class ApiKeys {
   static String info = '/_';
   static String address = '/accounts/address';
 
-  static String categories = '/products/setting/categories';
+  static String categories = '/categories';
   static String categoriesForChef = '/meals/categories/chef';
   static String categoriesForCustomer = '/meals/categories';
   static String ingredient = '/Product/Ingredients';
@@ -76,4 +76,14 @@ class ApiKeys {
   static String preOrderPickUp = '/preorder/pickup';
   static String orderDelivery = '/order/delivery';
   static String orderPickUp = '/order/pickup';
+
+  // get order && get preOrder X(
+  static String preOrderCustomerActive = '/preorder/customer/active';
+  static String preOrderCustomerClosed = '/preorder/customer/closed';
+  static String orderCustomerActive = '/order/customer/active';
+  static String orderCustomerClosed = '/order/customer/closed';
+  static String orderDriverAvailable = '/order/driver/available';
+  static String orderDriverActive = '/order/driver/active';
+  static String preOrderDriverAvailable = '/preorder/driver/available';
+  static String preOrderDriverActive = '/preorder/driver/active';
 }

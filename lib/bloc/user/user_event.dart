@@ -14,8 +14,9 @@ class UserUpdateLocationEvent extends UserEvent {
 class UserFromJsonEvent extends UserEvent {
   final dynamic user;
   final bool? loading;
+  final Function()? routeAfterLogin;
 
-  UserFromJsonEvent({this.user, this.loading});
+  UserFromJsonEvent({this.user, this.loading, this.routeAfterLogin});
 
   @override
   List<Object?> get props => [user, loading];

@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/screens/payment_paypal.dart';
+import 'package:yumi/screens/customer/payment_paypal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/delivery_option_dialog.dart';
 import 'package:yumi/template/payment_summary_card.dart';

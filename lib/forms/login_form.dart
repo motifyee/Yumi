@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/login_model.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -46,6 +46,17 @@ class LoginForm extends StatelessWidget {
       }
     }
 
+    if (kReleaseMode && loginAttempted == false) {
+      context.read<UserBloc>().add(
+            UserFromSharedRefEvent(
+              context: context,
+              route: null,
+              afterFetchSuccess: routeAfterLogin,
+              autoLogin: skipLogin,
+            ),
+          );
+    }
+
     if (!kReleaseMode && loginAttempted == false) {
       loginAttempted = true;
       // skipLogin();
@@ -53,7 +64,6 @@ class LoginForm extends StatelessWidget {
       () async {
         await rootBundle.loadString('assets/.autologin').then((data) {
           var dataList = (const LineSplitter()).convert(data);
-
           context.read<UserBloc>().add(
                 UserFromSharedRefEvent(
                   context: context,
@@ -135,8 +145,13 @@ class LoginForm extends StatelessWidget {
 void performLogin(BuildContext context, LoginModel loginForm, [String? route]) {
   LoginServices.login(login: loginForm, context: context).then((value) async {
     if (value['access_Token'] != null) {
-      context.read<UserBloc>().add(UserFromJsonEvent(user: value));
-      // routeAfterLogin(context: context, route: route);
+      context.read<UserBloc>().add(UserFromJsonEvent(
+            user: value,
+            routeAfterLogin: () => routeAfterLogin(context, ''),
+          ));
+      context
+          .read<UserBloc>()
+          .add(UserUpdateLocationEvent(address: Address.fromJson(value)));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

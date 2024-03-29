@@ -7,7 +7,7 @@ import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/screens/chef_profile.dart';
+import 'package:yumi/screens/customer/chef_profile.dart';
 import 'package:yumi/screens/meal_list.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/categories_list_dialog.dart';
@@ -35,7 +35,7 @@ class CustomerNews extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    context.router.push(CustomerLocationRoute());
+                    context.router.replaceAll([CustomerLocationRoute()]);
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(

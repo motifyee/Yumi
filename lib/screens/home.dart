@@ -32,10 +32,10 @@ class HomeScreen extends StatelessWidget {
       },
       builder: (context, state) {
         if (!isInit) {
+          isInit = true;
           Timer(Duration(milliseconds: 100), () {
             navPageController.jumpToPage(state.selectedIndex);
           });
-          isInit = true;
         }
         return ScreenContainer(
           isColored: NavigateOptions
@@ -45,6 +45,7 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Colors.transparent,
             key: _scaffoldState,
             appBar: AppBar(
+              centerTitle: true,
               backgroundColor: Colors.transparent,
               bottomOpacity: 0,
               scrolledUnderElevation: 0,

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -32,8 +33,13 @@ class MenuPreOrderScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocProvider(
-        create: (context) => MealListBloc(),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+              create: (context) => MealListBloc()
+                ..add(MealListResetEvent(menuTarget: MenuTarget.preOrder))),
+          BlocProvider(create: (context) => CategoriesBloc()),
+        ],
         child: MenuTemplate(
           menuTarget: MenuTarget.preOrder,
         ),

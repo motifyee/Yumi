@@ -3,6 +3,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/local_storage.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/action_button.dart';
@@ -18,20 +20,23 @@ class NewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LocalStorage.sharedRef.getValue(LocalStorage.newsGuide).then((res) => {
-          if (res != true)
-            {
-              SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                showModalBottomSheet(
-                    context: context,
-                    backgroundColor: Colors.transparent,
-                    isScrollControlled: true,
-                    builder: (BuildContext context) {
-                      return NewsGuide();
-                    });
-              })
-            }
-        });
+    bool isShown = false;
+    LocalStorage.sharedRef.getValue(LocalStorage.newsGuide).then((res) {
+      if (res != true) {
+        if (!isShown) {
+          isShown = true;
+          SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+            showModalBottomSheet(
+                context: context,
+                backgroundColor: Colors.transparent,
+                isScrollControlled: true,
+                builder: (BuildContext context) {
+                  return NewsGuide();
+                });
+          });
+        }
+      }
+    });
 
     return BlocProvider(
       create: (context) => NewsBloc(),
@@ -92,9 +97,18 @@ class NewsScreen extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               controller: _controller,
               children: [
-                NewsOrders(data: [0, 1, 2, 3, 4, 5]),
-                NewsOrders(data: [0]),
-                NewsOrders(data: [0, 1, 2]),
+                NewsOrders(
+                  menuTarget: MenuTarget.order,
+                  apiKey: ApiKeys.orderCustomerActive,
+                ),
+                NewsOrders(
+                  menuTarget: MenuTarget.order,
+                  apiKey: ApiKeys.orderCustomerActive,
+                ),
+                NewsOrders(
+                  menuTarget: MenuTarget.order,
+                  apiKey: ApiKeys.orderCustomerActive,
+                ),
               ],
             ),
           ),

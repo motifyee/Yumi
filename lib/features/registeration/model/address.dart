@@ -18,6 +18,7 @@ class Address with _$Address {
     @JsonKey(name: 'address_Latitude') double? latitude,
     @JsonKey(name: 'address_Longitude') double? longitude,
     bool? isDefault,
+    @Default(false) bool? isDeleted,
   }) = _Address;
 
   const Address._();

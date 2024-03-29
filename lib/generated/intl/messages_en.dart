@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "areYouSureToDeleteAMeal": MessageLookupByLibrary.simpleMessage(
             "Are you sure to delete a meal?"),
         "arrivesIn": MessageLookupByLibrary.simpleMessage("Arrives In"),
+        "available": MessageLookupByLibrary.simpleMessage("Available"),
         "bankAccount": MessageLookupByLibrary.simpleMessage("Bank Account"),
         "bankCurrency": MessageLookupByLibrary.simpleMessage("Bank currency"),
         "bankName": MessageLookupByLibrary.simpleMessage("Bank name"),
@@ -142,6 +143,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "minutes": MessageLookupByLibrary.simpleMessage("Minutes"),
         "mobile": MessageLookupByLibrary.simpleMessage("Mobile"),
         "myOrders": MessageLookupByLibrary.simpleMessage("My Orders"),
+        "myPreOrder": MessageLookupByLibrary.simpleMessage("My pre-order"),
         "myReviews": MessageLookupByLibrary.simpleMessage("My reviews"),
         "mySchedule": MessageLookupByLibrary.simpleMessage("My schedule"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
@@ -165,6 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderId": MessageLookupByLibrary.simpleMessage("Order Id"),
         "orderReceived": MessageLookupByLibrary.simpleMessage("Order received"),
         "orderStatus": MessageLookupByLibrary.simpleMessage("Order Status"),
+        "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "ordersHistory": MessageLookupByLibrary.simpleMessage("Orders History"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordDoesNotMatch":

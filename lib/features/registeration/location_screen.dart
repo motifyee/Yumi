@@ -91,7 +91,11 @@ class LocationScreen extends StatelessWidget {
         // ),
         body: Stack(
           children: [
-            Expanded(child: GMap(info: mapInfo)),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: GMap(info: mapInfo),
+            ),
             locationBar(),
             addressCard(),
           ],
@@ -144,81 +148,59 @@ class LocationScreen extends StatelessWidget {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: GooglePlaceAutoCompleteTextField(
-                      textEditingController: controller,
-                      googleAPIKey: "AIzaSyCT36qFZg_DTHBU0fdTWdooUtixPJw3TUA",
-                      // inputDecoration: const InputDecoration(),
-                      boxDecoration: const BoxDecoration(
-                        // border: Border.all(width: 1, color: Colors.transparent),
-                        color: Colors.transparent,
-                      ),
-                      inputDecoration: const InputDecoration(
-                        border: InputBorder.none,
-                      ),
-
-                      debounceTime: 800,
-                      countries: const ["uk", "ir"],
-                      isLatLngRequired: true,
-                      getPlaceDetailWithLatLng: (Prediction prediction) {
-                        print("placeDetails${prediction.lng}");
-
-                        context.read<RegBloc>().add(
-                              RegEvent.updateLocation(
-                                state.address.copyWith(
-                                  latitude:
-                                      double.tryParse(prediction.lat ?? ''),
-                                  longitude:
-                                      double.tryParse(prediction.lng ?? ''),
-                                ),
-                              ),
-                            );
-                      },
-                      itemClick: (Prediction prediction) {
-                        controller.text = prediction.description ?? '';
-                        controller.selection = TextSelection.fromPosition(
-                          TextPosition(
-                              offset: prediction.description?.length ?? 0),
-                        );
-                      },
-                      itemBuilder: (context, index, Prediction prediction) {
-                        return Container(
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.location_on),
-                              const SizedBox(
-                                width: 7,
-                              ),
-                              Expanded(
-                                  child: Text(prediction.description ?? ""))
-                            ],
-                          ),
-                        );
-                      },
-                      seperatedBuilder: Divider(
-                          color: ThemeSelector.colors.primary.withOpacity(.1)),
-                      isCrossBtnShown: true,
-                      containerHorizontalPadding: 50,
+                  GooglePlaceAutoCompleteTextField(
+                    textEditingController: controller,
+                    googleAPIKey: "AIzaSyCT36qFZg_DTHBU0fdTWdooUtixPJw3TUA",
+                    // inputDecoration: const InputDecoration(),
+                    boxDecoration: const BoxDecoration(
+                      // border: Border.all(width: 1, color: Colors.transparent),
+                      color: Colors.transparent,
                     ),
-                    //   Autocomplete(
-                    //     optionsBuilder: (TextEditingValue textEditingValue) {
-                    //       locationFromAddress(textEditingValue.text);
-                    //       return [''];
-                    //     },
-                    //     fieldViewBuilder: (context, textEditingController,
-                    //             focusNode, onFieldSubmitted) =>
-                    //         TextField(
-                    //             decoration: InputDecoration(
-                    //       border: InputBorder.none,
-                    //       hintText: 'Search location...',
-                    //       hintStyle: TextStyle(
-                    //         fontSize: ThemeSelector.fonts.font_14,
-                    //         fontWeight: FontWeight.w400,
-                    //       ),
-                    //     )),
-                    //   ),
-                    // ),
+                    inputDecoration: const InputDecoration(
+                      border: InputBorder.none,
+                    ),
+
+                    debounceTime: 800,
+                    countries: const ["uk", "ir"],
+                    isLatLngRequired: true,
+                    getPlaceDetailWithLatLng: (Prediction prediction) {
+                      print("placeDetails${prediction.lng}");
+
+                      context.read<RegBloc>().add(
+                            RegEvent.updateLocation(
+                              state.address.copyWith(
+                                latitude: double.tryParse(prediction.lat ?? ''),
+                                longitude:
+                                    double.tryParse(prediction.lng ?? ''),
+                              ),
+                            ),
+                          );
+                    },
+                    itemClick: (Prediction prediction) {
+                      controller.text = prediction.description ?? '';
+                      controller.selection = TextSelection.fromPosition(
+                        TextPosition(
+                            offset: prediction.description?.length ?? 0),
+                      );
+                    },
+                    itemBuilder: (context, index, Prediction prediction) {
+                      return Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.location_on),
+                            const SizedBox(
+                              width: 7,
+                            ),
+                            Expanded(child: Text(prediction.description ?? ""))
+                          ],
+                        ),
+                      );
+                    },
+                    seperatedBuilder: Divider(
+                        color: ThemeSelector.colors.primary.withOpacity(.1)),
+                    isCrossBtnShown: true,
+                    containerHorizontalPadding: 50,
                   ),
                   Positioned(
                       top: 0,
@@ -325,7 +307,9 @@ class LocationScreen extends StatelessWidget {
         if (!validate()) return;
 
         context.read<RegBloc>().add(RegEvent.updateLocation(address));
-        context.read<RegBloc>().add(RegEvent.saveLocation(context));
+        context
+            .read<RegBloc>()
+            .add(RegEvent.saveLocation(context, routeFn: routeFn));
       },
     );
     moveCameraToManualAddress() async {

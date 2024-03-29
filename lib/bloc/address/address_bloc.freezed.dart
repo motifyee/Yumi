@@ -18,20 +18,32 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AddressEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(BuildContext context) updateAddressListEvent,
+    required TResult Function(List<Address> address) updateAddressListEvent,
+    required TResult Function(BuildContext context) getAddressListEvent,
     required TResult Function() resetAddressListEvent,
+    required TResult Function(BuildContext context, Address address)
+        deleteAddressEvent,
+    required TResult Function(BuildContext context, Address address)
+        editAddressEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(BuildContext context)? updateAddressListEvent,
+    TResult? Function(List<Address> address)? updateAddressListEvent,
+    TResult? Function(BuildContext context)? getAddressListEvent,
     TResult? Function()? resetAddressListEvent,
+    TResult? Function(BuildContext context, Address address)?
+        deleteAddressEvent,
+    TResult? Function(BuildContext context, Address address)? editAddressEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(BuildContext context)? updateAddressListEvent,
+    TResult Function(List<Address> address)? updateAddressListEvent,
+    TResult Function(BuildContext context)? getAddressListEvent,
     TResult Function()? resetAddressListEvent,
+    TResult Function(BuildContext context, Address address)? deleteAddressEvent,
+    TResult Function(BuildContext context, Address address)? editAddressEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,20 +51,29 @@ mixin _$AddressEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_updateAddressListEvent value)
         updateAddressListEvent,
+    required TResult Function(_getAddressListEvent value) getAddressListEvent,
     required TResult Function(_resetAddressListEvent value)
         resetAddressListEvent,
+    required TResult Function(_deleteAddressEvent value) deleteAddressEvent,
+    required TResult Function(_editAddressEvent value) editAddressEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_updateAddressListEvent value)? updateAddressListEvent,
+    TResult? Function(_getAddressListEvent value)? getAddressListEvent,
     TResult? Function(_resetAddressListEvent value)? resetAddressListEvent,
+    TResult? Function(_deleteAddressEvent value)? deleteAddressEvent,
+    TResult? Function(_editAddressEvent value)? editAddressEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_updateAddressListEvent value)? updateAddressListEvent,
+    TResult Function(_getAddressListEvent value)? getAddressListEvent,
     TResult Function(_resetAddressListEvent value)? resetAddressListEvent,
+    TResult Function(_deleteAddressEvent value)? deleteAddressEvent,
+    TResult Function(_editAddressEvent value)? editAddressEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -83,7 +104,7 @@ abstract class _$$updateAddressListEventImplCopyWith<$Res> {
           $Res Function(_$updateAddressListEventImpl) then) =
       __$$updateAddressListEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({BuildContext context});
+  $Res call({List<Address> address});
 }
 
 /// @nodoc
@@ -98,13 +119,13 @@ class __$$updateAddressListEventImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? context = null,
+    Object? address = null,
   }) {
     return _then(_$updateAddressListEventImpl(
-      context: null == context
-          ? _value.context
-          : context // ignore: cast_nullable_to_non_nullable
-              as BuildContext,
+      address: null == address
+          ? _value._address
+          : address // ignore: cast_nullable_to_non_nullable
+              as List<Address>,
     ));
   }
 }
@@ -112,14 +133,20 @@ class __$$updateAddressListEventImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$updateAddressListEventImpl implements _updateAddressListEvent {
-  const _$updateAddressListEventImpl({required this.context});
+  const _$updateAddressListEventImpl({required final List<Address> address})
+      : _address = address;
 
+  final List<Address> _address;
   @override
-  final BuildContext context;
+  List<Address> get address {
+    if (_address is EqualUnmodifiableListView) return _address;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_address);
+  }
 
   @override
   String toString() {
-    return 'AddressEvent.updateAddressListEvent(context: $context)';
+    return 'AddressEvent.updateAddressListEvent(address: $address)';
   }
 
   @override
@@ -127,11 +154,12 @@ class _$updateAddressListEventImpl implements _updateAddressListEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$updateAddressListEventImpl &&
-            (identical(other.context, context) || other.context == context));
+            const DeepCollectionEquality().equals(other._address, _address));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, context);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_address));
 
   @JsonKey(ignore: true)
   @override
@@ -143,30 +171,42 @@ class _$updateAddressListEventImpl implements _updateAddressListEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(BuildContext context) updateAddressListEvent,
+    required TResult Function(List<Address> address) updateAddressListEvent,
+    required TResult Function(BuildContext context) getAddressListEvent,
     required TResult Function() resetAddressListEvent,
+    required TResult Function(BuildContext context, Address address)
+        deleteAddressEvent,
+    required TResult Function(BuildContext context, Address address)
+        editAddressEvent,
   }) {
-    return updateAddressListEvent(context);
+    return updateAddressListEvent(address);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(BuildContext context)? updateAddressListEvent,
+    TResult? Function(List<Address> address)? updateAddressListEvent,
+    TResult? Function(BuildContext context)? getAddressListEvent,
     TResult? Function()? resetAddressListEvent,
+    TResult? Function(BuildContext context, Address address)?
+        deleteAddressEvent,
+    TResult? Function(BuildContext context, Address address)? editAddressEvent,
   }) {
-    return updateAddressListEvent?.call(context);
+    return updateAddressListEvent?.call(address);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(BuildContext context)? updateAddressListEvent,
+    TResult Function(List<Address> address)? updateAddressListEvent,
+    TResult Function(BuildContext context)? getAddressListEvent,
     TResult Function()? resetAddressListEvent,
+    TResult Function(BuildContext context, Address address)? deleteAddressEvent,
+    TResult Function(BuildContext context, Address address)? editAddressEvent,
     required TResult orElse(),
   }) {
     if (updateAddressListEvent != null) {
-      return updateAddressListEvent(context);
+      return updateAddressListEvent(address);
     }
     return orElse();
   }
@@ -176,8 +216,11 @@ class _$updateAddressListEventImpl implements _updateAddressListEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_updateAddressListEvent value)
         updateAddressListEvent,
+    required TResult Function(_getAddressListEvent value) getAddressListEvent,
     required TResult Function(_resetAddressListEvent value)
         resetAddressListEvent,
+    required TResult Function(_deleteAddressEvent value) deleteAddressEvent,
+    required TResult Function(_editAddressEvent value) editAddressEvent,
   }) {
     return updateAddressListEvent(this);
   }
@@ -186,7 +229,10 @@ class _$updateAddressListEventImpl implements _updateAddressListEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_updateAddressListEvent value)? updateAddressListEvent,
+    TResult? Function(_getAddressListEvent value)? getAddressListEvent,
     TResult? Function(_resetAddressListEvent value)? resetAddressListEvent,
+    TResult? Function(_deleteAddressEvent value)? deleteAddressEvent,
+    TResult? Function(_editAddressEvent value)? editAddressEvent,
   }) {
     return updateAddressListEvent?.call(this);
   }
@@ -195,7 +241,10 @@ class _$updateAddressListEventImpl implements _updateAddressListEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_updateAddressListEvent value)? updateAddressListEvent,
+    TResult Function(_getAddressListEvent value)? getAddressListEvent,
     TResult Function(_resetAddressListEvent value)? resetAddressListEvent,
+    TResult Function(_deleteAddressEvent value)? deleteAddressEvent,
+    TResult Function(_editAddressEvent value)? editAddressEvent,
     required TResult orElse(),
   }) {
     if (updateAddressListEvent != null) {
@@ -206,13 +255,171 @@ class _$updateAddressListEventImpl implements _updateAddressListEvent {
 }
 
 abstract class _updateAddressListEvent implements AddressEvent {
-  const factory _updateAddressListEvent({required final BuildContext context}) =
-      _$updateAddressListEventImpl;
+  const factory _updateAddressListEvent(
+      {required final List<Address> address}) = _$updateAddressListEventImpl;
 
-  BuildContext get context;
+  List<Address> get address;
   @JsonKey(ignore: true)
   _$$updateAddressListEventImplCopyWith<_$updateAddressListEventImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$getAddressListEventImplCopyWith<$Res> {
+  factory _$$getAddressListEventImplCopyWith(_$getAddressListEventImpl value,
+          $Res Function(_$getAddressListEventImpl) then) =
+      __$$getAddressListEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BuildContext context});
+}
+
+/// @nodoc
+class __$$getAddressListEventImplCopyWithImpl<$Res>
+    extends _$AddressEventCopyWithImpl<$Res, _$getAddressListEventImpl>
+    implements _$$getAddressListEventImplCopyWith<$Res> {
+  __$$getAddressListEventImplCopyWithImpl(_$getAddressListEventImpl _value,
+      $Res Function(_$getAddressListEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? context = null,
+  }) {
+    return _then(_$getAddressListEventImpl(
+      context: null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$getAddressListEventImpl implements _getAddressListEvent {
+  const _$getAddressListEventImpl({required this.context});
+
+  @override
+  final BuildContext context;
+
+  @override
+  String toString() {
+    return 'AddressEvent.getAddressListEvent(context: $context)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$getAddressListEventImpl &&
+            (identical(other.context, context) || other.context == context));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, context);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$getAddressListEventImplCopyWith<_$getAddressListEventImpl> get copyWith =>
+      __$$getAddressListEventImplCopyWithImpl<_$getAddressListEventImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Address> address) updateAddressListEvent,
+    required TResult Function(BuildContext context) getAddressListEvent,
+    required TResult Function() resetAddressListEvent,
+    required TResult Function(BuildContext context, Address address)
+        deleteAddressEvent,
+    required TResult Function(BuildContext context, Address address)
+        editAddressEvent,
+  }) {
+    return getAddressListEvent(context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Address> address)? updateAddressListEvent,
+    TResult? Function(BuildContext context)? getAddressListEvent,
+    TResult? Function()? resetAddressListEvent,
+    TResult? Function(BuildContext context, Address address)?
+        deleteAddressEvent,
+    TResult? Function(BuildContext context, Address address)? editAddressEvent,
+  }) {
+    return getAddressListEvent?.call(context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Address> address)? updateAddressListEvent,
+    TResult Function(BuildContext context)? getAddressListEvent,
+    TResult Function()? resetAddressListEvent,
+    TResult Function(BuildContext context, Address address)? deleteAddressEvent,
+    TResult Function(BuildContext context, Address address)? editAddressEvent,
+    required TResult orElse(),
+  }) {
+    if (getAddressListEvent != null) {
+      return getAddressListEvent(context);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_updateAddressListEvent value)
+        updateAddressListEvent,
+    required TResult Function(_getAddressListEvent value) getAddressListEvent,
+    required TResult Function(_resetAddressListEvent value)
+        resetAddressListEvent,
+    required TResult Function(_deleteAddressEvent value) deleteAddressEvent,
+    required TResult Function(_editAddressEvent value) editAddressEvent,
+  }) {
+    return getAddressListEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_updateAddressListEvent value)? updateAddressListEvent,
+    TResult? Function(_getAddressListEvent value)? getAddressListEvent,
+    TResult? Function(_resetAddressListEvent value)? resetAddressListEvent,
+    TResult? Function(_deleteAddressEvent value)? deleteAddressEvent,
+    TResult? Function(_editAddressEvent value)? editAddressEvent,
+  }) {
+    return getAddressListEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_updateAddressListEvent value)? updateAddressListEvent,
+    TResult Function(_getAddressListEvent value)? getAddressListEvent,
+    TResult Function(_resetAddressListEvent value)? resetAddressListEvent,
+    TResult Function(_deleteAddressEvent value)? deleteAddressEvent,
+    TResult Function(_editAddressEvent value)? editAddressEvent,
+    required TResult orElse(),
+  }) {
+    if (getAddressListEvent != null) {
+      return getAddressListEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _getAddressListEvent implements AddressEvent {
+  const factory _getAddressListEvent({required final BuildContext context}) =
+      _$getAddressListEventImpl;
+
+  BuildContext get context;
+  @JsonKey(ignore: true)
+  _$$getAddressListEventImplCopyWith<_$getAddressListEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -255,8 +462,13 @@ class _$resetAddressListEventImpl implements _resetAddressListEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(BuildContext context) updateAddressListEvent,
+    required TResult Function(List<Address> address) updateAddressListEvent,
+    required TResult Function(BuildContext context) getAddressListEvent,
     required TResult Function() resetAddressListEvent,
+    required TResult Function(BuildContext context, Address address)
+        deleteAddressEvent,
+    required TResult Function(BuildContext context, Address address)
+        editAddressEvent,
   }) {
     return resetAddressListEvent();
   }
@@ -264,8 +476,12 @@ class _$resetAddressListEventImpl implements _resetAddressListEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(BuildContext context)? updateAddressListEvent,
+    TResult? Function(List<Address> address)? updateAddressListEvent,
+    TResult? Function(BuildContext context)? getAddressListEvent,
     TResult? Function()? resetAddressListEvent,
+    TResult? Function(BuildContext context, Address address)?
+        deleteAddressEvent,
+    TResult? Function(BuildContext context, Address address)? editAddressEvent,
   }) {
     return resetAddressListEvent?.call();
   }
@@ -273,8 +489,11 @@ class _$resetAddressListEventImpl implements _resetAddressListEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(BuildContext context)? updateAddressListEvent,
+    TResult Function(List<Address> address)? updateAddressListEvent,
+    TResult Function(BuildContext context)? getAddressListEvent,
     TResult Function()? resetAddressListEvent,
+    TResult Function(BuildContext context, Address address)? deleteAddressEvent,
+    TResult Function(BuildContext context, Address address)? editAddressEvent,
     required TResult orElse(),
   }) {
     if (resetAddressListEvent != null) {
@@ -288,8 +507,11 @@ class _$resetAddressListEventImpl implements _resetAddressListEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_updateAddressListEvent value)
         updateAddressListEvent,
+    required TResult Function(_getAddressListEvent value) getAddressListEvent,
     required TResult Function(_resetAddressListEvent value)
         resetAddressListEvent,
+    required TResult Function(_deleteAddressEvent value) deleteAddressEvent,
+    required TResult Function(_editAddressEvent value) editAddressEvent,
   }) {
     return resetAddressListEvent(this);
   }
@@ -298,7 +520,10 @@ class _$resetAddressListEventImpl implements _resetAddressListEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_updateAddressListEvent value)? updateAddressListEvent,
+    TResult? Function(_getAddressListEvent value)? getAddressListEvent,
     TResult? Function(_resetAddressListEvent value)? resetAddressListEvent,
+    TResult? Function(_deleteAddressEvent value)? deleteAddressEvent,
+    TResult? Function(_editAddressEvent value)? editAddressEvent,
   }) {
     return resetAddressListEvent?.call(this);
   }
@@ -307,7 +532,10 @@ class _$resetAddressListEventImpl implements _resetAddressListEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_updateAddressListEvent value)? updateAddressListEvent,
+    TResult Function(_getAddressListEvent value)? getAddressListEvent,
     TResult Function(_resetAddressListEvent value)? resetAddressListEvent,
+    TResult Function(_deleteAddressEvent value)? deleteAddressEvent,
+    TResult Function(_editAddressEvent value)? editAddressEvent,
     required TResult orElse(),
   }) {
     if (resetAddressListEvent != null) {
@@ -319,6 +547,363 @@ class _$resetAddressListEventImpl implements _resetAddressListEvent {
 
 abstract class _resetAddressListEvent implements AddressEvent {
   const factory _resetAddressListEvent() = _$resetAddressListEventImpl;
+}
+
+/// @nodoc
+abstract class _$$deleteAddressEventImplCopyWith<$Res> {
+  factory _$$deleteAddressEventImplCopyWith(_$deleteAddressEventImpl value,
+          $Res Function(_$deleteAddressEventImpl) then) =
+      __$$deleteAddressEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BuildContext context, Address address});
+
+  $AddressCopyWith<$Res> get address;
+}
+
+/// @nodoc
+class __$$deleteAddressEventImplCopyWithImpl<$Res>
+    extends _$AddressEventCopyWithImpl<$Res, _$deleteAddressEventImpl>
+    implements _$$deleteAddressEventImplCopyWith<$Res> {
+  __$$deleteAddressEventImplCopyWithImpl(_$deleteAddressEventImpl _value,
+      $Res Function(_$deleteAddressEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? context = null,
+    Object? address = null,
+  }) {
+    return _then(_$deleteAddressEventImpl(
+      context: null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res> get address {
+    return $AddressCopyWith<$Res>(_value.address, (value) {
+      return _then(_value.copyWith(address: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$deleteAddressEventImpl implements _deleteAddressEvent {
+  const _$deleteAddressEventImpl(
+      {required this.context, required this.address});
+
+  @override
+  final BuildContext context;
+  @override
+  final Address address;
+
+  @override
+  String toString() {
+    return 'AddressEvent.deleteAddressEvent(context: $context, address: $address)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$deleteAddressEventImpl &&
+            (identical(other.context, context) || other.context == context) &&
+            (identical(other.address, address) || other.address == address));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, context, address);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$deleteAddressEventImplCopyWith<_$deleteAddressEventImpl> get copyWith =>
+      __$$deleteAddressEventImplCopyWithImpl<_$deleteAddressEventImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Address> address) updateAddressListEvent,
+    required TResult Function(BuildContext context) getAddressListEvent,
+    required TResult Function() resetAddressListEvent,
+    required TResult Function(BuildContext context, Address address)
+        deleteAddressEvent,
+    required TResult Function(BuildContext context, Address address)
+        editAddressEvent,
+  }) {
+    return deleteAddressEvent(context, address);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Address> address)? updateAddressListEvent,
+    TResult? Function(BuildContext context)? getAddressListEvent,
+    TResult? Function()? resetAddressListEvent,
+    TResult? Function(BuildContext context, Address address)?
+        deleteAddressEvent,
+    TResult? Function(BuildContext context, Address address)? editAddressEvent,
+  }) {
+    return deleteAddressEvent?.call(context, address);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Address> address)? updateAddressListEvent,
+    TResult Function(BuildContext context)? getAddressListEvent,
+    TResult Function()? resetAddressListEvent,
+    TResult Function(BuildContext context, Address address)? deleteAddressEvent,
+    TResult Function(BuildContext context, Address address)? editAddressEvent,
+    required TResult orElse(),
+  }) {
+    if (deleteAddressEvent != null) {
+      return deleteAddressEvent(context, address);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_updateAddressListEvent value)
+        updateAddressListEvent,
+    required TResult Function(_getAddressListEvent value) getAddressListEvent,
+    required TResult Function(_resetAddressListEvent value)
+        resetAddressListEvent,
+    required TResult Function(_deleteAddressEvent value) deleteAddressEvent,
+    required TResult Function(_editAddressEvent value) editAddressEvent,
+  }) {
+    return deleteAddressEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_updateAddressListEvent value)? updateAddressListEvent,
+    TResult? Function(_getAddressListEvent value)? getAddressListEvent,
+    TResult? Function(_resetAddressListEvent value)? resetAddressListEvent,
+    TResult? Function(_deleteAddressEvent value)? deleteAddressEvent,
+    TResult? Function(_editAddressEvent value)? editAddressEvent,
+  }) {
+    return deleteAddressEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_updateAddressListEvent value)? updateAddressListEvent,
+    TResult Function(_getAddressListEvent value)? getAddressListEvent,
+    TResult Function(_resetAddressListEvent value)? resetAddressListEvent,
+    TResult Function(_deleteAddressEvent value)? deleteAddressEvent,
+    TResult Function(_editAddressEvent value)? editAddressEvent,
+    required TResult orElse(),
+  }) {
+    if (deleteAddressEvent != null) {
+      return deleteAddressEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _deleteAddressEvent implements AddressEvent {
+  const factory _deleteAddressEvent(
+      {required final BuildContext context,
+      required final Address address}) = _$deleteAddressEventImpl;
+
+  BuildContext get context;
+  Address get address;
+  @JsonKey(ignore: true)
+  _$$deleteAddressEventImplCopyWith<_$deleteAddressEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$editAddressEventImplCopyWith<$Res> {
+  factory _$$editAddressEventImplCopyWith(_$editAddressEventImpl value,
+          $Res Function(_$editAddressEventImpl) then) =
+      __$$editAddressEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BuildContext context, Address address});
+
+  $AddressCopyWith<$Res> get address;
+}
+
+/// @nodoc
+class __$$editAddressEventImplCopyWithImpl<$Res>
+    extends _$AddressEventCopyWithImpl<$Res, _$editAddressEventImpl>
+    implements _$$editAddressEventImplCopyWith<$Res> {
+  __$$editAddressEventImplCopyWithImpl(_$editAddressEventImpl _value,
+      $Res Function(_$editAddressEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? context = null,
+    Object? address = null,
+  }) {
+    return _then(_$editAddressEventImpl(
+      context: null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res> get address {
+    return $AddressCopyWith<$Res>(_value.address, (value) {
+      return _then(_value.copyWith(address: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$editAddressEventImpl implements _editAddressEvent {
+  const _$editAddressEventImpl({required this.context, required this.address});
+
+  @override
+  final BuildContext context;
+  @override
+  final Address address;
+
+  @override
+  String toString() {
+    return 'AddressEvent.editAddressEvent(context: $context, address: $address)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$editAddressEventImpl &&
+            (identical(other.context, context) || other.context == context) &&
+            (identical(other.address, address) || other.address == address));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, context, address);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$editAddressEventImplCopyWith<_$editAddressEventImpl> get copyWith =>
+      __$$editAddressEventImplCopyWithImpl<_$editAddressEventImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Address> address) updateAddressListEvent,
+    required TResult Function(BuildContext context) getAddressListEvent,
+    required TResult Function() resetAddressListEvent,
+    required TResult Function(BuildContext context, Address address)
+        deleteAddressEvent,
+    required TResult Function(BuildContext context, Address address)
+        editAddressEvent,
+  }) {
+    return editAddressEvent(context, address);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Address> address)? updateAddressListEvent,
+    TResult? Function(BuildContext context)? getAddressListEvent,
+    TResult? Function()? resetAddressListEvent,
+    TResult? Function(BuildContext context, Address address)?
+        deleteAddressEvent,
+    TResult? Function(BuildContext context, Address address)? editAddressEvent,
+  }) {
+    return editAddressEvent?.call(context, address);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Address> address)? updateAddressListEvent,
+    TResult Function(BuildContext context)? getAddressListEvent,
+    TResult Function()? resetAddressListEvent,
+    TResult Function(BuildContext context, Address address)? deleteAddressEvent,
+    TResult Function(BuildContext context, Address address)? editAddressEvent,
+    required TResult orElse(),
+  }) {
+    if (editAddressEvent != null) {
+      return editAddressEvent(context, address);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_updateAddressListEvent value)
+        updateAddressListEvent,
+    required TResult Function(_getAddressListEvent value) getAddressListEvent,
+    required TResult Function(_resetAddressListEvent value)
+        resetAddressListEvent,
+    required TResult Function(_deleteAddressEvent value) deleteAddressEvent,
+    required TResult Function(_editAddressEvent value) editAddressEvent,
+  }) {
+    return editAddressEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_updateAddressListEvent value)? updateAddressListEvent,
+    TResult? Function(_getAddressListEvent value)? getAddressListEvent,
+    TResult? Function(_resetAddressListEvent value)? resetAddressListEvent,
+    TResult? Function(_deleteAddressEvent value)? deleteAddressEvent,
+    TResult? Function(_editAddressEvent value)? editAddressEvent,
+  }) {
+    return editAddressEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_updateAddressListEvent value)? updateAddressListEvent,
+    TResult Function(_getAddressListEvent value)? getAddressListEvent,
+    TResult Function(_resetAddressListEvent value)? resetAddressListEvent,
+    TResult Function(_deleteAddressEvent value)? deleteAddressEvent,
+    TResult Function(_editAddressEvent value)? editAddressEvent,
+    required TResult orElse(),
+  }) {
+    if (editAddressEvent != null) {
+      return editAddressEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _editAddressEvent implements AddressEvent {
+  const factory _editAddressEvent(
+      {required final BuildContext context,
+      required final Address address}) = _$editAddressEventImpl;
+
+  BuildContext get context;
+  Address get address;
+  @JsonKey(ignore: true)
+  _$$editAddressEventImplCopyWith<_$editAddressEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

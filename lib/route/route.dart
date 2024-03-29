@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/app_config/app_config.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/screens/customer_location.dart';
 
 /// every change must:
 /// add @RoutePage() to screen widget
