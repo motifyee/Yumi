@@ -1,19 +1,31 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app_target.dart';
+import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/product_in_card.dart';
 import 'package:yumi/template/text_currency.dart';
 
 class OrderCard extends StatefulWidget {
-  OrderCard({super.key, required this.order});
+  OrderCard(
+      {super.key,
+      required this.order,
+      required this.orderCardTargetPage,
+      required this.getApiKey,
+      required this.menuTarget});
 
   final OrderModel order;
   bool isView = false;
+  final OrderCardTargetPage orderCardTargetPage;
+  final String getApiKey;
+  final MenuTarget menuTarget;
 
   @override
   State<OrderCard> createState() => _OrderCardState();
@@ -193,15 +205,61 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    TextButton(
-                      onPressed: () {
-                        context.router.push(OrderStatusRoute());
-                      },
-                      child: Text(
-                        S.of(context).orderStatus,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                    if (widget.orderCardTargetPage ==
+                        OrderCardTargetPage.driverReceived)
+                      TextButton(
+                        onPressed: () {
+                          context.read<OrderBloc>().add(
+                                OrderEvent.putAction(
+                                  order: widget.order,
+                                  apiKey: ApiKeys.actionApiKeyString(
+                                      apiKey:
+                                          widget.menuTarget == MenuTarget.order
+                                              ? ApiKeys.orderDriverReceived
+                                              : ApiKeys.preOrderDriverReceived,
+                                      id: '${widget.order.id}'),
+                                  getApiKey: widget.getApiKey,
+                                ),
+                              );
+                        },
+                        child: Text(
+                          S.of(context).orderReceived,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
-                    ),
+                    if (widget.orderCardTargetPage ==
+                        OrderCardTargetPage.driverAccept)
+                      TextButton(
+                        onPressed: () {
+                          context.read<OrderBloc>().add(
+                                OrderEvent.putAction(
+                                  order: widget.order,
+                                  apiKey: ApiKeys.actionApiKeyString(
+                                      apiKey:
+                                          widget.menuTarget == MenuTarget.order
+                                              ? ApiKeys.orderDriverAccept
+                                              : ApiKeys.preOrderDriverAccept,
+                                      id: '${widget.order.id}'),
+                                  getApiKey: widget.getApiKey,
+                                ),
+                              );
+                        },
+                        child: Text(
+                          S.of(context).accept,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ),
+                    if (widget.orderCardTargetPage ==
+                        OrderCardTargetPage.customerView)
+                      TextButton(
+                        onPressed: () {
+                          context.router.push(OrderStatusRoute());
+                        },
+                        child: Text(
+                          S.of(context).orderStatus,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ),
                     if ((widget.order.invoiceDetails?.length ?? 0) > 1)
                       TextButton(
                         onPressed: () {

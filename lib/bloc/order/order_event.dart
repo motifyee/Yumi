@@ -8,4 +8,9 @@ class OrderEvent with _$OrderEvent {
       required PaginationHelper paginationHelper}) = _updateEvent;
   const factory OrderEvent.getRequest({required String apiKey}) =
       _getRequestEvent;
+
+  const factory OrderEvent.putAction(
+      {required OrderModel order,
+      required String apiKey,
+      required String getApiKey}) = _putActionEvent;
 }

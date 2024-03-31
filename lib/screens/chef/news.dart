@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/local_storage.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -100,14 +101,17 @@ class NewsScreen extends StatelessWidget {
                 NewsOrders(
                   menuTarget: MenuTarget.order,
                   apiKey: ApiKeys.orderCustomerActive,
+                  orderCardTargetPage: OrderCardTargetPage.customerView,
                 ),
                 NewsOrders(
                   menuTarget: MenuTarget.order,
                   apiKey: ApiKeys.orderCustomerActive,
+                  orderCardTargetPage: OrderCardTargetPage.customerView,
                 ),
                 NewsOrders(
                   menuTarget: MenuTarget.order,
                   apiKey: ApiKeys.orderCustomerActive,
+                  orderCardTargetPage: OrderCardTargetPage.customerView,
                 ),
               ],
             ),

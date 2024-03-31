@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/news_orders.dart';
@@ -112,6 +113,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                     NewsOrders(
                       menuTarget: MenuTarget.order,
                       apiKey: ApiKeys.orderCustomerActive,
+                      orderCardTargetPage: OrderCardTargetPage.customerView,
                     ),
                   ],
                 ),
@@ -121,6 +123,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                 child: NewsOrders(
                   menuTarget: MenuTarget.order,
                   apiKey: ApiKeys.orderCustomerClosed,
+                  orderCardTargetPage: OrderCardTargetPage.customerView,
                 ),
               ),
               BlocProvider(
@@ -128,6 +131,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                 child: NewsOrders(
                   menuTarget: MenuTarget.preOrder,
                   apiKey: ApiKeys.preOrderCustomerActive,
+                  orderCardTargetPage: OrderCardTargetPage.customerView,
                 ),
               ),
               BlocProvider(
@@ -135,6 +139,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                 child: NewsOrders(
                   menuTarget: MenuTarget.preOrder,
                   apiKey: ApiKeys.preOrderCustomerClosed,
+                  orderCardTargetPage: OrderCardTargetPage.customerView,
                 ),
               ),
             ],

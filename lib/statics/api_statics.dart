@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/global.dart';
+import 'package:yumi/route/route.gr.dart';
 
 // const originApi = 'https://10.99.77.247:5012';
 const originApi = 'https://0cb4-81-10-105-81.ngrok-free.app';
@@ -24,7 +26,17 @@ class DioClient {
         'Content-Type': 'application/json; charset=UTF-8',
         'authorization': 'Bearer $token',
       }),
-    );
+    )..interceptors.add(InterceptorsWrapper(
+        onError: (error, handler) {
+          print('dio error ......................');
+          print(error.response?.statusCode);
+          if (error.response?.statusCode == 401) {
+            G.cContext.read<UserBloc>().add(UserResetEvent());
+            G.cContext.router.replaceAll([LoginRoute()]);
+          }
+          handler.next(error);
+        },
+      ));
 
     if (kIsWeb) return dio;
 
@@ -44,6 +56,11 @@ class DioClient {
 class ApiKeys {
   static String getApiKeyString({required String apiKey}) {
     return apiKey.replaceAll("_", AppTarget.user.name);
+  }
+
+  static String actionApiKeyString(
+      {required String apiKey, required String id}) {
+    return apiKey.replaceAll("_", id);
   }
 
   /// user ( _ ) where
@@ -86,4 +103,11 @@ class ApiKeys {
   static String orderDriverActive = '/order/driver/active';
   static String preOrderDriverAvailable = '/preorder/driver/available';
   static String preOrderDriverActive = '/preorder/driver/active';
+
+  // action order && preOrder
+  /// replace ( _ ) with order id
+  static String orderDriverAccept = '/order/_/driver/accept';
+  static String preOrderDriverAccept = '/preorder/_/driver/accept';
+  static String orderDriverReceived = '/order/_/driver/received';
+  static String preOrderDriverReceived = '/preorder/_/driver/received';
 }

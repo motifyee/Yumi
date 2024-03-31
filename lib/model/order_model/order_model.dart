@@ -38,3 +38,10 @@ class InvoiceDetails with _$InvoiceDetails {
   factory InvoiceDetails.fromJson(Map<String, dynamic> json) =>
       _$InvoiceDetailsFromJson(json);
 }
+
+enum OrderCardTargetPage {
+  customerView,
+  driverAccept,
+  driverReceived,
+  driverView,
+}

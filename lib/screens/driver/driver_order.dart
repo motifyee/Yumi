@@ -5,6 +5,7 @@ import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/local_storage.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -92,6 +93,7 @@ class DriverOrderScreen extends StatelessWidget {
                     apiKey: menuTarget == MenuTarget.order
                         ? ApiKeys.orderDriverAvailable
                         : ApiKeys.preOrderDriverAvailable,
+                    orderCardTargetPage: OrderCardTargetPage.driverAccept,
                   ),
                 ),
                 BlocProvider(
@@ -101,6 +103,7 @@ class DriverOrderScreen extends StatelessWidget {
                     apiKey: menuTarget == MenuTarget.order
                         ? ApiKeys.orderDriverActive
                         : ApiKeys.preOrderDriverActive,
+                    orderCardTargetPage: OrderCardTargetPage.driverReceived,
                   ),
                 ),
               ],

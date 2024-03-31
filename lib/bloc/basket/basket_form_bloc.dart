@@ -137,13 +137,13 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
     on<BasketFormPostRequestEvent>((event, emit) async {
       late Response res;
       if (state.invoice.isDelivery == true) {
-        res = await OrderService.createPreOrderDelivery(
+        res = await OrderService.createOrderOrPreOrderDelivery(
             context: event.context,
             invoice: state.invoice,
             isPreOrder: state.invoice.isPreorder ?? false);
       }
       if (state.invoice.isPickup == true) {
-        res = await OrderService.createPreOrderPickUp(
+        res = await OrderService.createOrderOrPreOrderPickUp(
             context: event.context,
             invoice: state.invoice,
             isPreOrder: state.invoice.isPreorder ?? false);
