@@ -33,8 +33,11 @@ mixin _$OrderModel {
   double? get invoiceTax => throw _privateConstructorUsedError;
   double? get invoiceDiscount => throw _privateConstructorUsedError;
   int? get bankID => throw _privateConstructorUsedError;
+  String? get createdDate => throw _privateConstructorUsedError;
   List<InvoiceDetails>? get invoiceDetails =>
       throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_Pickup')
+  bool? get isPickUp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -62,7 +65,9 @@ abstract class $OrderModelCopyWith<$Res> {
       double? invoiceTax,
       double? invoiceDiscount,
       int? bankID,
-      List<InvoiceDetails>? invoiceDetails});
+      String? createdDate,
+      List<InvoiceDetails>? invoiceDetails,
+      @JsonKey(name: 'is_Pickup') bool? isPickUp});
 }
 
 /// @nodoc
@@ -91,7 +96,9 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? invoiceTax = freezed,
     Object? invoiceDiscount = freezed,
     Object? bankID = freezed,
+    Object? createdDate = freezed,
     Object? invoiceDetails = freezed,
+    Object? isPickUp = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -146,10 +153,18 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.bankID
           : bankID // ignore: cast_nullable_to_non_nullable
               as int?,
+      createdDate: freezed == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       invoiceDetails: freezed == invoiceDetails
           ? _value.invoiceDetails
           : invoiceDetails // ignore: cast_nullable_to_non_nullable
               as List<InvoiceDetails>?,
+      isPickUp: freezed == isPickUp
+          ? _value.isPickUp
+          : isPickUp // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -176,7 +191,9 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       double? invoiceTax,
       double? invoiceDiscount,
       int? bankID,
-      List<InvoiceDetails>? invoiceDetails});
+      String? createdDate,
+      List<InvoiceDetails>? invoiceDetails,
+      @JsonKey(name: 'is_Pickup') bool? isPickUp});
 }
 
 /// @nodoc
@@ -203,7 +220,9 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? invoiceTax = freezed,
     Object? invoiceDiscount = freezed,
     Object? bankID = freezed,
+    Object? createdDate = freezed,
     Object? invoiceDetails = freezed,
+    Object? isPickUp = freezed,
   }) {
     return _then(_$OrderModelImpl(
       id: freezed == id
@@ -258,10 +277,18 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.bankID
           : bankID // ignore: cast_nullable_to_non_nullable
               as int?,
+      createdDate: freezed == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       invoiceDetails: freezed == invoiceDetails
           ? _value._invoiceDetails
           : invoiceDetails // ignore: cast_nullable_to_non_nullable
               as List<InvoiceDetails>?,
+      isPickUp: freezed == isPickUp
+          ? _value.isPickUp
+          : isPickUp // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -283,7 +310,9 @@ class _$OrderModelImpl implements _OrderModel {
       this.invoiceTax,
       this.invoiceDiscount,
       this.bankID,
-      final List<InvoiceDetails>? invoiceDetails})
+      this.createdDate,
+      final List<InvoiceDetails>? invoiceDetails,
+      @JsonKey(name: 'is_Pickup') this.isPickUp})
       : _invoiceDetails = invoiceDetails;
 
   factory _$OrderModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -315,6 +344,8 @@ class _$OrderModelImpl implements _OrderModel {
   final double? invoiceDiscount;
   @override
   final int? bankID;
+  @override
+  final String? createdDate;
   final List<InvoiceDetails>? _invoiceDetails;
   @override
   List<InvoiceDetails>? get invoiceDetails {
@@ -326,8 +357,12 @@ class _$OrderModelImpl implements _OrderModel {
   }
 
   @override
+  @JsonKey(name: 'is_Pickup')
+  final bool? isPickUp;
+
+  @override
   String toString() {
-    return 'OrderModel(id: $id, chefID: $chefID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, invoiceDetails: $invoiceDetails)';
+    return 'OrderModel(id: $id, chefID: $chefID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, createdDate: $createdDate, invoiceDetails: $invoiceDetails, isPickUp: $isPickUp)';
   }
 
   @override
@@ -358,8 +393,12 @@ class _$OrderModelImpl implements _OrderModel {
             (identical(other.invoiceDiscount, invoiceDiscount) ||
                 other.invoiceDiscount == invoiceDiscount) &&
             (identical(other.bankID, bankID) || other.bankID == bankID) &&
+            (identical(other.createdDate, createdDate) ||
+                other.createdDate == createdDate) &&
             const DeepCollectionEquality()
-                .equals(other._invoiceDetails, _invoiceDetails));
+                .equals(other._invoiceDetails, _invoiceDetails) &&
+            (identical(other.isPickUp, isPickUp) ||
+                other.isPickUp == isPickUp));
   }
 
   @JsonKey(ignore: true)
@@ -379,7 +418,9 @@ class _$OrderModelImpl implements _OrderModel {
       invoiceTax,
       invoiceDiscount,
       bankID,
-      const DeepCollectionEquality().hash(_invoiceDetails));
+      createdDate,
+      const DeepCollectionEquality().hash(_invoiceDetails),
+      isPickUp);
 
   @JsonKey(ignore: true)
   @override
@@ -410,7 +451,9 @@ abstract class _OrderModel implements OrderModel {
       final double? invoiceTax,
       final double? invoiceDiscount,
       final int? bankID,
-      final List<InvoiceDetails>? invoiceDetails}) = _$OrderModelImpl;
+      final String? createdDate,
+      final List<InvoiceDetails>? invoiceDetails,
+      @JsonKey(name: 'is_Pickup') final bool? isPickUp}) = _$OrderModelImpl;
 
   factory _OrderModel.fromJson(Map<String, dynamic> json) =
       _$OrderModelImpl.fromJson;
@@ -442,7 +485,12 @@ abstract class _OrderModel implements OrderModel {
   @override
   int? get bankID;
   @override
+  String? get createdDate;
+  @override
   List<InvoiceDetails>? get invoiceDetails;
+  @override
+  @JsonKey(name: 'is_Pickup')
+  bool? get isPickUp;
   @override
   @JsonKey(ignore: true)
   _$$OrderModelImplCopyWith<_$OrderModelImpl> get copyWith =>
@@ -460,6 +508,10 @@ mixin _$InvoiceDetails {
   double? get productVarintPrice => throw _privateConstructorUsedError;
   double? get totalProductVarintFinalPrice =>
       throw _privateConstructorUsedError;
+  String? get productVarintName => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
+  String? get note => throw _privateConstructorUsedError;
+  Product? get product => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -477,7 +529,13 @@ abstract class $InvoiceDetailsCopyWith<$Res> {
       {int? productVarintId,
       double? quantity,
       double? productVarintPrice,
-      double? totalProductVarintFinalPrice});
+      double? totalProductVarintFinalPrice,
+      String? productVarintName,
+      String? image,
+      String? note,
+      Product? product});
+
+  $ProductCopyWith<$Res>? get product;
 }
 
 /// @nodoc
@@ -497,6 +555,10 @@ class _$InvoiceDetailsCopyWithImpl<$Res, $Val extends InvoiceDetails>
     Object? quantity = freezed,
     Object? productVarintPrice = freezed,
     Object? totalProductVarintFinalPrice = freezed,
+    Object? productVarintName = freezed,
+    Object? image = freezed,
+    Object? note = freezed,
+    Object? product = freezed,
   }) {
     return _then(_value.copyWith(
       productVarintId: freezed == productVarintId
@@ -515,7 +577,35 @@ class _$InvoiceDetailsCopyWithImpl<$Res, $Val extends InvoiceDetails>
           ? _value.totalProductVarintFinalPrice
           : totalProductVarintFinalPrice // ignore: cast_nullable_to_non_nullable
               as double?,
+      productVarintName: freezed == productVarintName
+          ? _value.productVarintName
+          : productVarintName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      note: freezed == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String?,
+      product: freezed == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as Product?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductCopyWith<$Res>? get product {
+    if (_value.product == null) {
+      return null;
+    }
+
+    return $ProductCopyWith<$Res>(_value.product!, (value) {
+      return _then(_value.copyWith(product: value) as $Val);
+    });
   }
 }
 
@@ -531,7 +621,14 @@ abstract class _$$InvoiceDetailsImplCopyWith<$Res>
       {int? productVarintId,
       double? quantity,
       double? productVarintPrice,
-      double? totalProductVarintFinalPrice});
+      double? totalProductVarintFinalPrice,
+      String? productVarintName,
+      String? image,
+      String? note,
+      Product? product});
+
+  @override
+  $ProductCopyWith<$Res>? get product;
 }
 
 /// @nodoc
@@ -549,6 +646,10 @@ class __$$InvoiceDetailsImplCopyWithImpl<$Res>
     Object? quantity = freezed,
     Object? productVarintPrice = freezed,
     Object? totalProductVarintFinalPrice = freezed,
+    Object? productVarintName = freezed,
+    Object? image = freezed,
+    Object? note = freezed,
+    Object? product = freezed,
   }) {
     return _then(_$InvoiceDetailsImpl(
       productVarintId: freezed == productVarintId
@@ -567,6 +668,22 @@ class __$$InvoiceDetailsImplCopyWithImpl<$Res>
           ? _value.totalProductVarintFinalPrice
           : totalProductVarintFinalPrice // ignore: cast_nullable_to_non_nullable
               as double?,
+      productVarintName: freezed == productVarintName
+          ? _value.productVarintName
+          : productVarintName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      note: freezed == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String?,
+      product: freezed == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as Product?,
     ));
   }
 }
@@ -578,7 +695,11 @@ class _$InvoiceDetailsImpl implements _InvoiceDetails {
       {this.productVarintId,
       this.quantity,
       this.productVarintPrice,
-      this.totalProductVarintFinalPrice});
+      this.totalProductVarintFinalPrice,
+      this.productVarintName,
+      this.image,
+      this.note,
+      this.product});
 
   factory _$InvoiceDetailsImpl.fromJson(Map<String, dynamic> json) =>
       _$$InvoiceDetailsImplFromJson(json);
@@ -591,10 +712,18 @@ class _$InvoiceDetailsImpl implements _InvoiceDetails {
   final double? productVarintPrice;
   @override
   final double? totalProductVarintFinalPrice;
+  @override
+  final String? productVarintName;
+  @override
+  final String? image;
+  @override
+  final String? note;
+  @override
+  final Product? product;
 
   @override
   String toString() {
-    return 'InvoiceDetails(productVarintId: $productVarintId, quantity: $quantity, productVarintPrice: $productVarintPrice, totalProductVarintFinalPrice: $totalProductVarintFinalPrice)';
+    return 'InvoiceDetails(productVarintId: $productVarintId, quantity: $quantity, productVarintPrice: $productVarintPrice, totalProductVarintFinalPrice: $totalProductVarintFinalPrice, productVarintName: $productVarintName, image: $image, note: $note, product: $product)';
   }
 
   @override
@@ -611,13 +740,26 @@ class _$InvoiceDetailsImpl implements _InvoiceDetails {
             (identical(other.totalProductVarintFinalPrice,
                     totalProductVarintFinalPrice) ||
                 other.totalProductVarintFinalPrice ==
-                    totalProductVarintFinalPrice));
+                    totalProductVarintFinalPrice) &&
+            (identical(other.productVarintName, productVarintName) ||
+                other.productVarintName == productVarintName) &&
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.note, note) || other.note == note) &&
+            (identical(other.product, product) || other.product == product));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, productVarintId, quantity,
-      productVarintPrice, totalProductVarintFinalPrice);
+  int get hashCode => Object.hash(
+      runtimeType,
+      productVarintId,
+      quantity,
+      productVarintPrice,
+      totalProductVarintFinalPrice,
+      productVarintName,
+      image,
+      note,
+      product);
 
   @JsonKey(ignore: true)
   @override
@@ -639,7 +781,11 @@ abstract class _InvoiceDetails implements InvoiceDetails {
       {final int? productVarintId,
       final double? quantity,
       final double? productVarintPrice,
-      final double? totalProductVarintFinalPrice}) = _$InvoiceDetailsImpl;
+      final double? totalProductVarintFinalPrice,
+      final String? productVarintName,
+      final String? image,
+      final String? note,
+      final Product? product}) = _$InvoiceDetailsImpl;
 
   factory _InvoiceDetails.fromJson(Map<String, dynamic> json) =
       _$InvoiceDetailsImpl.fromJson;
@@ -653,7 +799,380 @@ abstract class _InvoiceDetails implements InvoiceDetails {
   @override
   double? get totalProductVarintFinalPrice;
   @override
+  String? get productVarintName;
+  @override
+  String? get image;
+  @override
+  String? get note;
+  @override
+  Product? get product;
+  @override
   @JsonKey(ignore: true)
   _$$InvoiceDetailsImplCopyWith<_$InvoiceDetailsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Product _$ProductFromJson(Map<String, dynamic> json) {
+  return _Product.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Product {
+  int? get productID => throw _privateConstructorUsedError;
+  String? get productName => throw _privateConstructorUsedError;
+  List<Ingredients>? get ingredients => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ProductCopyWith<Product> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ProductCopyWith<$Res> {
+  factory $ProductCopyWith(Product value, $Res Function(Product) then) =
+      _$ProductCopyWithImpl<$Res, Product>;
+  @useResult
+  $Res call(
+      {int? productID, String? productName, List<Ingredients>? ingredients});
+}
+
+/// @nodoc
+class _$ProductCopyWithImpl<$Res, $Val extends Product>
+    implements $ProductCopyWith<$Res> {
+  _$ProductCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? productID = freezed,
+    Object? productName = freezed,
+    Object? ingredients = freezed,
+  }) {
+    return _then(_value.copyWith(
+      productID: freezed == productID
+          ? _value.productID
+          : productID // ignore: cast_nullable_to_non_nullable
+              as int?,
+      productName: freezed == productName
+          ? _value.productName
+          : productName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ingredients: freezed == ingredients
+          ? _value.ingredients
+          : ingredients // ignore: cast_nullable_to_non_nullable
+              as List<Ingredients>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
+  factory _$$ProductImplCopyWith(
+          _$ProductImpl value, $Res Function(_$ProductImpl) then) =
+      __$$ProductImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int? productID, String? productName, List<Ingredients>? ingredients});
+}
+
+/// @nodoc
+class __$$ProductImplCopyWithImpl<$Res>
+    extends _$ProductCopyWithImpl<$Res, _$ProductImpl>
+    implements _$$ProductImplCopyWith<$Res> {
+  __$$ProductImplCopyWithImpl(
+      _$ProductImpl _value, $Res Function(_$ProductImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? productID = freezed,
+    Object? productName = freezed,
+    Object? ingredients = freezed,
+  }) {
+    return _then(_$ProductImpl(
+      productID: freezed == productID
+          ? _value.productID
+          : productID // ignore: cast_nullable_to_non_nullable
+              as int?,
+      productName: freezed == productName
+          ? _value.productName
+          : productName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ingredients: freezed == ingredients
+          ? _value._ingredients
+          : ingredients // ignore: cast_nullable_to_non_nullable
+              as List<Ingredients>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ProductImpl implements _Product {
+  const _$ProductImpl(
+      {this.productID, this.productName, final List<Ingredients>? ingredients})
+      : _ingredients = ingredients;
+
+  factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ProductImplFromJson(json);
+
+  @override
+  final int? productID;
+  @override
+  final String? productName;
+  final List<Ingredients>? _ingredients;
+  @override
+  List<Ingredients>? get ingredients {
+    final value = _ingredients;
+    if (value == null) return null;
+    if (_ingredients is EqualUnmodifiableListView) return _ingredients;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'Product(productID: $productID, productName: $productName, ingredients: $ingredients)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProductImpl &&
+            (identical(other.productID, productID) ||
+                other.productID == productID) &&
+            (identical(other.productName, productName) ||
+                other.productName == productName) &&
+            const DeepCollectionEquality()
+                .equals(other._ingredients, _ingredients));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, productID, productName,
+      const DeepCollectionEquality().hash(_ingredients));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProductImplCopyWith<_$ProductImpl> get copyWith =>
+      __$$ProductImplCopyWithImpl<_$ProductImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ProductImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Product implements Product {
+  const factory _Product(
+      {final int? productID,
+      final String? productName,
+      final List<Ingredients>? ingredients}) = _$ProductImpl;
+
+  factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
+
+  @override
+  int? get productID;
+  @override
+  String? get productName;
+  @override
+  List<Ingredients>? get ingredients;
+  @override
+  @JsonKey(ignore: true)
+  _$$ProductImplCopyWith<_$ProductImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Ingredients _$IngredientsFromJson(Map<String, dynamic> json) {
+  return _Ingredients.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Ingredients {
+  String? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'portion_Grams')
+  double? get portionGrams => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $IngredientsCopyWith<Ingredients> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $IngredientsCopyWith<$Res> {
+  factory $IngredientsCopyWith(
+          Ingredients value, $Res Function(Ingredients) then) =
+      _$IngredientsCopyWithImpl<$Res, Ingredients>;
+  @useResult
+  $Res call(
+      {String? id,
+      String? name,
+      @JsonKey(name: 'portion_Grams') double? portionGrams});
+}
+
+/// @nodoc
+class _$IngredientsCopyWithImpl<$Res, $Val extends Ingredients>
+    implements $IngredientsCopyWith<$Res> {
+  _$IngredientsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? portionGrams = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      portionGrams: freezed == portionGrams
+          ? _value.portionGrams
+          : portionGrams // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$IngredientsImplCopyWith<$Res>
+    implements $IngredientsCopyWith<$Res> {
+  factory _$$IngredientsImplCopyWith(
+          _$IngredientsImpl value, $Res Function(_$IngredientsImpl) then) =
+      __$$IngredientsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String? id,
+      String? name,
+      @JsonKey(name: 'portion_Grams') double? portionGrams});
+}
+
+/// @nodoc
+class __$$IngredientsImplCopyWithImpl<$Res>
+    extends _$IngredientsCopyWithImpl<$Res, _$IngredientsImpl>
+    implements _$$IngredientsImplCopyWith<$Res> {
+  __$$IngredientsImplCopyWithImpl(
+      _$IngredientsImpl _value, $Res Function(_$IngredientsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? portionGrams = freezed,
+  }) {
+    return _then(_$IngredientsImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      portionGrams: freezed == portionGrams
+          ? _value.portionGrams
+          : portionGrams // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$IngredientsImpl implements _Ingredients {
+  const _$IngredientsImpl(
+      {this.id, this.name, @JsonKey(name: 'portion_Grams') this.portionGrams});
+
+  factory _$IngredientsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$IngredientsImplFromJson(json);
+
+  @override
+  final String? id;
+  @override
+  final String? name;
+  @override
+  @JsonKey(name: 'portion_Grams')
+  final double? portionGrams;
+
+  @override
+  String toString() {
+    return 'Ingredients(id: $id, name: $name, portionGrams: $portionGrams)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$IngredientsImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.portionGrams, portionGrams) ||
+                other.portionGrams == portionGrams));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name, portionGrams);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$IngredientsImplCopyWith<_$IngredientsImpl> get copyWith =>
+      __$$IngredientsImplCopyWithImpl<_$IngredientsImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$IngredientsImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Ingredients implements Ingredients {
+  const factory _Ingredients(
+          {final String? id,
+          final String? name,
+          @JsonKey(name: 'portion_Grams') final double? portionGrams}) =
+      _$IngredientsImpl;
+
+  factory _Ingredients.fromJson(Map<String, dynamic> json) =
+      _$IngredientsImpl.fromJson;
+
+  @override
+  String? get id;
+  @override
+  String? get name;
+  @override
+  @JsonKey(name: 'portion_Grams')
+  double? get portionGrams;
+  @override
+  @JsonKey(ignore: true)
+  _$$IngredientsImplCopyWith<_$IngredientsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

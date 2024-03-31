@@ -6,10 +6,11 @@ import 'package:dio/io.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
+
+import '../app_target.dart';
 
 // const originApi = 'https://10.99.77.247:5012';
 const originApi = 'https://0cb4-81-10-105-81.ngrok-free.app';
@@ -103,6 +104,14 @@ class ApiKeys {
   static String orderDriverActive = '/order/driver/active';
   static String preOrderDriverAvailable = '/preorder/driver/available';
   static String preOrderDriverActive = '/preorder/driver/active';
+  static String orderChefReceived = '/order/chef/received';
+  static String orderChefPreparing = '/order/chef/preparing';
+  static String orderChefReady = '/order/chef/ready';
+  static String orderChefClosed = '/order/chef/closed';
+  static String preOrderChefReceived = '/preorder/chef/received';
+  static String preOrderChefPreparing = '/preorder/chef/preparing';
+  static String preOrderChefReady = '/preorder/chef/ready';
+  static String preOrderChefClosed = '/preorder/chef/closed';
 
   // action order && preOrder
   /// replace ( _ ) with order id
@@ -110,4 +119,17 @@ class ApiKeys {
   static String preOrderDriverAccept = '/preorder/_/driver/accept';
   static String orderDriverReceived = '/order/_/driver/received';
   static String preOrderDriverReceived = '/preorder/_/driver/received';
+
+  static String orderChefDeliveryStart = '/order/id/chef/start';
+  static String orderChefDeliveryFinished = '/order/id/chef/finished';
+  static String orderChefPickUpStart = '/order/id/chef/pickup/start';
+  static String orderChefPickUpFinished = '/order/id/chef/pickup/finished';
+
+  static String preOrderChefDeliveryAccept = '/preorder/id/chef/accept';
+  static String preOrderChefDeliveryStart = '/preorder/id/chef/start';
+  static String preOrderChefDeliveryFinished = '/preorder/id/chef/finished';
+  static String preOrderChefPickUpAccept = '/preorder/id/chef/pickup/accept';
+  static String preOrderChefPickUpStart = '/preorder/id/chef/pickup/start';
+  static String preOrderChefPickUpFinished =
+      '/preorder/id/chef/pickup/finished';
 }

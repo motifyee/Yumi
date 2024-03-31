@@ -19,7 +19,9 @@ class OrderModel with _$OrderModel {
     double? invoiceTax,
     double? invoiceDiscount,
     int? bankID,
+    String? createdDate,
     List<InvoiceDetails>? invoiceDetails,
+    @JsonKey(name: 'is_Pickup') final bool? isPickUp,
   }) = _OrderModel;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
@@ -33,15 +35,47 @@ class InvoiceDetails with _$InvoiceDetails {
     double? quantity,
     double? productVarintPrice,
     double? totalProductVarintFinalPrice,
+    String? productVarintName,
+    String? image,
+    String? note,
+    Product? product,
   }) = _InvoiceDetails;
 
   factory InvoiceDetails.fromJson(Map<String, dynamic> json) =>
       _$InvoiceDetailsFromJson(json);
 }
 
+@freezed
+class Product with _$Product {
+  const factory Product({
+    int? productID,
+    String? productName,
+    List<Ingredients>? ingredients,
+  }) = _Product;
+
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
+}
+
+@freezed
+class Ingredients with _$Ingredients {
+  const factory Ingredients({
+    String? id,
+    String? name,
+    @JsonKey(name: 'portion_Grams') double? portionGrams,
+  }) = _Ingredients;
+
+  factory Ingredients.fromJson(Map<String, dynamic> json) =>
+      _$IngredientsFromJson(json);
+}
+
 enum OrderCardTargetPage {
-  customerView,
+  customerHistory,
   driverAccept,
   driverReceived,
-  driverView,
+  driverHistory,
+  chefReceived,
+  chefPreparing,
+  chefReady,
+  chefHistory
 }

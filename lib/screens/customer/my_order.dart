@@ -113,7 +113,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                     NewsOrders(
                       menuTarget: MenuTarget.order,
                       apiKey: ApiKeys.orderCustomerActive,
-                      orderCardTargetPage: OrderCardTargetPage.customerView,
+                      orderCardTargetPage: OrderCardTargetPage.customerHistory,
                     ),
                   ],
                 ),
@@ -123,7 +123,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                 child: NewsOrders(
                   menuTarget: MenuTarget.order,
                   apiKey: ApiKeys.orderCustomerClosed,
-                  orderCardTargetPage: OrderCardTargetPage.customerView,
+                  orderCardTargetPage: OrderCardTargetPage.customerHistory,
                 ),
               ),
               BlocProvider(
@@ -131,7 +131,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                 child: NewsOrders(
                   menuTarget: MenuTarget.preOrder,
                   apiKey: ApiKeys.preOrderCustomerActive,
-                  orderCardTargetPage: OrderCardTargetPage.customerView,
+                  orderCardTargetPage: OrderCardTargetPage.customerHistory,
                 ),
               ),
               BlocProvider(
@@ -139,7 +139,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                 child: NewsOrders(
                   menuTarget: MenuTarget.preOrder,
                   apiKey: ApiKeys.preOrderCustomerClosed,
-                  orderCardTargetPage: OrderCardTargetPage.customerView,
+                  orderCardTargetPage: OrderCardTargetPage.customerHistory,
                 ),
               ),
             ],

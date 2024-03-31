@@ -50,8 +50,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       FlutterNativeSplash.remove();
     });
 
-    on<UserResetEvent>((event, emit) {
-      LocalStorage.sharedRef.removeValue(LocalStorage.user);
+    on<UserResetEvent>((event, emit) async {
+      await LocalStorage.sharedRef.removeValue(LocalStorage.user);
+      print('user reset ..........');
       emit(state.copyWith(
           user: UserModel(
         accessToken: '',
