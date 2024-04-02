@@ -195,5 +195,12 @@
   "pickUpOnly": "Pick up only",
   "myPreOrder": "My pre-order",
   "available": "Available",
-  "orders": "Orders"
+  "orders": "Orders",
+  "accept": "Accept",
+  "newOrder": "New Order",
+  "new0": "New",
+  "received": "Received",
+  "history": "History",
+  "start": "Start",
+  "pending": "Pending"
 }

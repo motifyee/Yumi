@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -18,64 +20,97 @@ class ProductInCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: isView ? maxWidth : 50,
-      height: 50,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          _ProductImage(),
-          AnimatedSize(
-            duration: ThemeSelector.statics.animationDuration,
-            child: SizedBox(
-              width: isView ? maxWidth - 50 : 0,
-              child: Row(
-                children: [
-                  SizedBox(width: ThemeSelector.statics.defaultGap),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: () {
+        if (invoiceDetails.note != null && invoiceDetails.note != '') {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) => Container(
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
+              decoration: BoxDecoration(
+                  color: ThemeSelector.colors.background,
+                  borderRadius:
+                      BorderRadius.circular(ThemeSelector.statics.defaultGap)),
+              child: Text(
+                invoiceDetails.note ?? '',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ),
+          );
+        }
+      },
+      child: SizedBox(
+        width: isView ? maxWidth : 50,
+        height: 50,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            _ProductImage(
+              invoiceDetails: invoiceDetails,
+            ),
+            AnimatedSize(
+              duration: ThemeSelector.statics.animationDuration,
+              child: SizedBox(
+                width: isView ? maxWidth - 50 : 0,
+                child: Row(
+                  children: [
+                    SizedBox(width: ThemeSelector.statics.defaultGap),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            invoiceDetails.product?.productName ?? '',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          Text(
+                            invoiceDetails.product?.ingredients
+                                    ?.map((e) => '${e.portionGrams} ${e.name}')
+                                    .join(', ') ??
+                                '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  fontSize: ThemeSelector.fonts.font_9,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                          ),
+                          Text(
+                            invoiceDetails.note ?? '',
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(
-                          'Breakfast',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        Text(
-                          '81 calories, 1.7g protein, 12g carbs, 2.74 fat',
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontSize: ThemeSelector.fonts.font_9,
-                                    fontWeight: FontWeight.w300,
-                                  ),
+                        TextCurrency(
+                            value: invoiceDetails.productVarintPrice ?? 0.0,
+                            fontSize: ThemeSelector.fonts.font_14),
+                        TextQuantity(
+                          value: invoiceDetails.quantity ?? 0.0,
+                          fontSize: ThemeSelector.fonts.font_10,
                         ),
                       ],
                     ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      TextCurrency(
-                          value: invoiceDetails.productVarintPrice ?? 0.0,
-                          fontSize: ThemeSelector.fonts.font_14),
-                      TextQuantity(
-                        value: invoiceDetails.quantity ?? 0.0,
-                        fontSize: ThemeSelector.fonts.font_10,
-                      ),
-                    ],
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
 class _ProductImage extends StatelessWidget {
-  const _ProductImage();
-
+  _ProductImage({required this.invoiceDetails});
+  InvoiceDetails invoiceDetails;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -84,11 +119,17 @@ class _ProductImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(
             ThemeSelector.statics.defaultBorderRadiusSmall),
       ),
-      child: Image.asset(
-        'assets/images/354.jpeg',
+      child: Image.memory(
+        base64Decode(invoiceDetails.image ?? ''),
         width: ThemeSelector.statics.iconSizeLarge,
         height: ThemeSelector.statics.iconSizeLarge,
         fit: BoxFit.fill,
+        errorBuilder: (context, error, stackTrace) => Image.asset(
+          'assets/images/354.jpeg',
+          width: ThemeSelector.statics.iconSizeLarge,
+          height: ThemeSelector.statics.iconSizeLarge,
+          fit: BoxFit.fill,
+        ),
       ),
     );
   }

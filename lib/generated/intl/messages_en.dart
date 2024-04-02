@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("About"),
+        "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "accountName": MessageLookupByLibrary.simpleMessage("Account name"),
         "accountNumber": MessageLookupByLibrary.simpleMessage("Account Number"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),
@@ -117,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "happyCustomer": MessageLookupByLibrary.simpleMessage("Happy Customer"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello"),
         "hi": MessageLookupByLibrary.simpleMessage("Hi"),
+        "history": MessageLookupByLibrary.simpleMessage("History"),
         "holderName": MessageLookupByLibrary.simpleMessage("Holder name"),
         "hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "hygiene": MessageLookupByLibrary.simpleMessage("Hygiene"),
@@ -148,6 +150,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "mySchedule": MessageLookupByLibrary.simpleMessage("My schedule"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "nameOnCard": MessageLookupByLibrary.simpleMessage("Name on card"),
+        "new0": MessageLookupByLibrary.simpleMessage("New"),
+        "newOrder": MessageLookupByLibrary.simpleMessage("New Order"),
         "noAccessToDailSystem":
             MessageLookupByLibrary.simpleMessage("No Access To Dail System!"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
@@ -180,6 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "paymentSummary":
             MessageLookupByLibrary.simpleMessage("Payment summary"),
         "paypal": MessageLookupByLibrary.simpleMessage("Paypal"),
+        "pending": MessageLookupByLibrary.simpleMessage("Pending"),
         "performanceAnalysis":
             MessageLookupByLibrary.simpleMessage("Performance analysis"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
@@ -210,6 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "readMoreAboutFees":
             MessageLookupByLibrary.simpleMessage("Read more about fees"),
         "ready": MessageLookupByLibrary.simpleMessage("Ready"),
+        "received": MessageLookupByLibrary.simpleMessage("Received"),
         "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
         "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
@@ -237,6 +243,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "1 special character ( ! @ # \$ & * ~ )"),
         "specialRequest":
             MessageLookupByLibrary.simpleMessage("Special request"),
+        "start": MessageLookupByLibrary.simpleMessage("Start"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
         "suggestions": MessageLookupByLibrary.simpleMessage("Suggestions"),

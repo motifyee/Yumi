@@ -14,10 +14,12 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   OrderBloc() : super(OrderState.Initial()) {
     on<OrderEvent>((event, emit) {
       event.map(
-        reset: (_resetEvent value) => OrderState.Initial(),
+        reset: (_resetEvent value) => emit(OrderState.Initial()),
         update: (_updateEvent value) => _update(event: value, emit: emit),
         getRequest: (_getRequestEvent value) =>
             _getRequest(event: value, emit: emit),
+        putAction: (_putActionEvent value) =>
+            _putAction(event: value, emit: emit),
       );
     });
   }
@@ -58,5 +60,17 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         paginationHelper: event.paginationHelper,
       ),
     );
+  }
+
+  _putAction(
+      {required _putActionEvent event,
+      required Emitter<OrderState> emit}) async {
+    Response res =
+        await OrderService.putActionOrderOrPreOrder(apiKeys: event.apiKey);
+
+    if (res.statusCode == 200) {
+      add(const OrderEvent.reset());
+      add(OrderEvent.getRequest(apiKey: event.getApiKey));
+    }
   }
 }

@@ -4,7 +4,7 @@ import 'package:yumi/model/invoice_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 
 class OrderService {
-  static Future<dynamic> createPreOrderDelivery({
+  static Future<dynamic> createOrderOrPreOrderDelivery({
     required BuildContext context,
     required InvoiceModel invoice,
     required bool isPreOrder,
@@ -17,7 +17,7 @@ class OrderService {
     return res;
   }
 
-  static Future<dynamic> createPreOrderPickUp({
+  static Future<dynamic> createOrderOrPreOrderPickUp({
     required BuildContext context,
     required InvoiceModel invoice,
     required bool isPreOrder,
@@ -33,6 +33,13 @@ class OrderService {
       {required String apiKeys, Map<String, dynamic>? paginationHelper}) async {
     Response res = await DioClient.simpleDio()
         .get(apiKeys, queryParameters: {...?paginationHelper});
+    return res;
+  }
+
+  static Future<Response> putActionOrderOrPreOrder(
+      {required String apiKeys, Map<String, dynamic>? paginationHelper}) async {
+    Response res = await DioClient.simpleDio().put(apiKeys,
+        data: {'driver_ID': null}, queryParameters: {...?paginationHelper});
     return res;
   }
 }

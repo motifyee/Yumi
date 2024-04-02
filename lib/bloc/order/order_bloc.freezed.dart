@@ -23,6 +23,8 @@ mixin _$OrderEvent {
             List<OrderModel> orders, PaginationHelper paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
+    required TResult Function(OrderModel order, String apiKey, String getApiKey)
+        putAction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -32,6 +34,8 @@ mixin _$OrderEvent {
             List<OrderModel> orders, PaginationHelper paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
+    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
+        putAction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,6 +45,8 @@ mixin _$OrderEvent {
             List<OrderModel> orders, PaginationHelper paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
+    TResult Function(OrderModel order, String apiKey, String getApiKey)?
+        putAction,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +55,7 @@ mixin _$OrderEvent {
     required TResult Function(_resetEvent value) reset,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_getRequestEvent value) getRequest,
+    required TResult Function(_putActionEvent value) putAction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,6 +63,7 @@ mixin _$OrderEvent {
     TResult? Function(_resetEvent value)? reset,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_getRequestEvent value)? getRequest,
+    TResult? Function(_putActionEvent value)? putAction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +71,7 @@ mixin _$OrderEvent {
     TResult Function(_resetEvent value)? reset,
     TResult Function(_updateEvent value)? update,
     TResult Function(_getRequestEvent value)? getRequest,
+    TResult Function(_putActionEvent value)? putAction,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -129,6 +138,8 @@ class _$resetEventImpl implements _resetEvent {
             List<OrderModel> orders, PaginationHelper paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
+    required TResult Function(OrderModel order, String apiKey, String getApiKey)
+        putAction,
   }) {
     return reset();
   }
@@ -141,6 +152,8 @@ class _$resetEventImpl implements _resetEvent {
             List<OrderModel> orders, PaginationHelper paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
+    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
+        putAction,
   }) {
     return reset?.call();
   }
@@ -153,6 +166,8 @@ class _$resetEventImpl implements _resetEvent {
             List<OrderModel> orders, PaginationHelper paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
+    TResult Function(OrderModel order, String apiKey, String getApiKey)?
+        putAction,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -167,6 +182,7 @@ class _$resetEventImpl implements _resetEvent {
     required TResult Function(_resetEvent value) reset,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_getRequestEvent value) getRequest,
+    required TResult Function(_putActionEvent value) putAction,
   }) {
     return reset(this);
   }
@@ -177,6 +193,7 @@ class _$resetEventImpl implements _resetEvent {
     TResult? Function(_resetEvent value)? reset,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_getRequestEvent value)? getRequest,
+    TResult? Function(_putActionEvent value)? putAction,
   }) {
     return reset?.call(this);
   }
@@ -187,6 +204,7 @@ class _$resetEventImpl implements _resetEvent {
     TResult Function(_resetEvent value)? reset,
     TResult Function(_updateEvent value)? update,
     TResult Function(_getRequestEvent value)? getRequest,
+    TResult Function(_putActionEvent value)? putAction,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -287,6 +305,8 @@ class _$updateEventImpl implements _updateEvent {
             List<OrderModel> orders, PaginationHelper paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
+    required TResult Function(OrderModel order, String apiKey, String getApiKey)
+        putAction,
   }) {
     return update(orders, paginationHelper);
   }
@@ -299,6 +319,8 @@ class _$updateEventImpl implements _updateEvent {
             List<OrderModel> orders, PaginationHelper paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
+    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
+        putAction,
   }) {
     return update?.call(orders, paginationHelper);
   }
@@ -311,6 +333,8 @@ class _$updateEventImpl implements _updateEvent {
             List<OrderModel> orders, PaginationHelper paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
+    TResult Function(OrderModel order, String apiKey, String getApiKey)?
+        putAction,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -325,6 +349,7 @@ class _$updateEventImpl implements _updateEvent {
     required TResult Function(_resetEvent value) reset,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_getRequestEvent value) getRequest,
+    required TResult Function(_putActionEvent value) putAction,
   }) {
     return update(this);
   }
@@ -335,6 +360,7 @@ class _$updateEventImpl implements _updateEvent {
     TResult? Function(_resetEvent value)? reset,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_getRequestEvent value)? getRequest,
+    TResult? Function(_putActionEvent value)? putAction,
   }) {
     return update?.call(this);
   }
@@ -345,6 +371,7 @@ class _$updateEventImpl implements _updateEvent {
     TResult Function(_resetEvent value)? reset,
     TResult Function(_updateEvent value)? update,
     TResult Function(_getRequestEvent value)? getRequest,
+    TResult Function(_putActionEvent value)? putAction,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -436,6 +463,8 @@ class _$getRequestEventImpl implements _getRequestEvent {
             List<OrderModel> orders, PaginationHelper paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
+    required TResult Function(OrderModel order, String apiKey, String getApiKey)
+        putAction,
   }) {
     return getRequest(apiKey);
   }
@@ -448,6 +477,8 @@ class _$getRequestEventImpl implements _getRequestEvent {
             List<OrderModel> orders, PaginationHelper paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
+    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
+        putAction,
   }) {
     return getRequest?.call(apiKey);
   }
@@ -460,6 +491,8 @@ class _$getRequestEventImpl implements _getRequestEvent {
             List<OrderModel> orders, PaginationHelper paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
+    TResult Function(OrderModel order, String apiKey, String getApiKey)?
+        putAction,
     required TResult orElse(),
   }) {
     if (getRequest != null) {
@@ -474,6 +507,7 @@ class _$getRequestEventImpl implements _getRequestEvent {
     required TResult Function(_resetEvent value) reset,
     required TResult Function(_updateEvent value) update,
     required TResult Function(_getRequestEvent value) getRequest,
+    required TResult Function(_putActionEvent value) putAction,
   }) {
     return getRequest(this);
   }
@@ -484,6 +518,7 @@ class _$getRequestEventImpl implements _getRequestEvent {
     TResult? Function(_resetEvent value)? reset,
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_getRequestEvent value)? getRequest,
+    TResult? Function(_putActionEvent value)? putAction,
   }) {
     return getRequest?.call(this);
   }
@@ -494,6 +529,7 @@ class _$getRequestEventImpl implements _getRequestEvent {
     TResult Function(_resetEvent value)? reset,
     TResult Function(_updateEvent value)? update,
     TResult Function(_getRequestEvent value)? getRequest,
+    TResult Function(_putActionEvent value)? putAction,
     required TResult orElse(),
   }) {
     if (getRequest != null) {
@@ -510,6 +546,194 @@ abstract class _getRequestEvent implements OrderEvent {
   String get apiKey;
   @JsonKey(ignore: true)
   _$$getRequestEventImplCopyWith<_$getRequestEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$putActionEventImplCopyWith<$Res> {
+  factory _$$putActionEventImplCopyWith(_$putActionEventImpl value,
+          $Res Function(_$putActionEventImpl) then) =
+      __$$putActionEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({OrderModel order, String apiKey, String getApiKey});
+
+  $OrderModelCopyWith<$Res> get order;
+}
+
+/// @nodoc
+class __$$putActionEventImplCopyWithImpl<$Res>
+    extends _$OrderEventCopyWithImpl<$Res, _$putActionEventImpl>
+    implements _$$putActionEventImplCopyWith<$Res> {
+  __$$putActionEventImplCopyWithImpl(
+      _$putActionEventImpl _value, $Res Function(_$putActionEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? order = null,
+    Object? apiKey = null,
+    Object? getApiKey = null,
+  }) {
+    return _then(_$putActionEventImpl(
+      order: null == order
+          ? _value.order
+          : order // ignore: cast_nullable_to_non_nullable
+              as OrderModel,
+      apiKey: null == apiKey
+          ? _value.apiKey
+          : apiKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      getApiKey: null == getApiKey
+          ? _value.getApiKey
+          : getApiKey // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OrderModelCopyWith<$Res> get order {
+    return $OrderModelCopyWith<$Res>(_value.order, (value) {
+      return _then(_value.copyWith(order: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$putActionEventImpl implements _putActionEvent {
+  const _$putActionEventImpl(
+      {required this.order, required this.apiKey, required this.getApiKey});
+
+  @override
+  final OrderModel order;
+  @override
+  final String apiKey;
+  @override
+  final String getApiKey;
+
+  @override
+  String toString() {
+    return 'OrderEvent.putAction(order: $order, apiKey: $apiKey, getApiKey: $getApiKey)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$putActionEventImpl &&
+            (identical(other.order, order) || other.order == order) &&
+            (identical(other.apiKey, apiKey) || other.apiKey == apiKey) &&
+            (identical(other.getApiKey, getApiKey) ||
+                other.getApiKey == getApiKey));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, order, apiKey, getApiKey);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$putActionEventImplCopyWith<_$putActionEventImpl> get copyWith =>
+      __$$putActionEventImplCopyWithImpl<_$putActionEventImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() reset,
+    required TResult Function(
+            List<OrderModel> orders, PaginationHelper paginationHelper)
+        update,
+    required TResult Function(String apiKey) getRequest,
+    required TResult Function(OrderModel order, String apiKey, String getApiKey)
+        putAction,
+  }) {
+    return putAction(order, apiKey, getApiKey);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? reset,
+    TResult? Function(
+            List<OrderModel> orders, PaginationHelper paginationHelper)?
+        update,
+    TResult? Function(String apiKey)? getRequest,
+    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
+        putAction,
+  }) {
+    return putAction?.call(order, apiKey, getApiKey);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? reset,
+    TResult Function(
+            List<OrderModel> orders, PaginationHelper paginationHelper)?
+        update,
+    TResult Function(String apiKey)? getRequest,
+    TResult Function(OrderModel order, String apiKey, String getApiKey)?
+        putAction,
+    required TResult orElse(),
+  }) {
+    if (putAction != null) {
+      return putAction(order, apiKey, getApiKey);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_resetEvent value) reset,
+    required TResult Function(_updateEvent value) update,
+    required TResult Function(_getRequestEvent value) getRequest,
+    required TResult Function(_putActionEvent value) putAction,
+  }) {
+    return putAction(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_resetEvent value)? reset,
+    TResult? Function(_updateEvent value)? update,
+    TResult? Function(_getRequestEvent value)? getRequest,
+    TResult? Function(_putActionEvent value)? putAction,
+  }) {
+    return putAction?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_resetEvent value)? reset,
+    TResult Function(_updateEvent value)? update,
+    TResult Function(_getRequestEvent value)? getRequest,
+    TResult Function(_putActionEvent value)? putAction,
+    required TResult orElse(),
+  }) {
+    if (putAction != null) {
+      return putAction(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _putActionEvent implements OrderEvent {
+  const factory _putActionEvent(
+      {required final OrderModel order,
+      required final String apiKey,
+      required final String getApiKey}) = _$putActionEventImpl;
+
+  OrderModel get order;
+  String get apiKey;
+  String get getApiKey;
+  @JsonKey(ignore: true)
+  _$$putActionEventImplCopyWith<_$putActionEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
