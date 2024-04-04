@@ -11,15 +11,15 @@ enum VehicleType { _, car, motorcycle, bicycle, other }
 class Vehicle with _$Vehicle {
   const factory Vehicle({
     String? code,
-    @JsonKey(name: 'vehicle_Type') required String typeCode,
-    @JsonKey(name: 'Other_Type') String? otherType,
+    @JsonKey(name: 'vehicle_Type') required int typeCode,
+    @JsonKey(name: 'other_Type') String? otherType,
   }) = _Vehicle;
 
   const Vehicle._();
 
-  VehicleType typeOfCode(String typeCode) {
+  VehicleType typeOfCode(int typeCode) {
     return VehicleType.values.firstWhere(
-      (e) => e.index.toString() == typeCode,
+      (e) => e.index == typeCode,
       orElse: () => VehicleType._,
     );
   }
@@ -34,13 +34,12 @@ class Vehicle with _$Vehicle {
   }
 
   Vehicle copyWithVehicleType(String type) {
-    String code = (VehicleType.values
+    int code = (VehicleType.values
         .firstWhere((e) => e.name == type.toLowerCase(),
             orElse: () => VehicleType.other)
-        .index
-        .toString());
+        .index);
 
-    var other = code == VehicleType.other.index.toString() ? type : '';
+    var other = code == VehicleType.other.index ? type : '';
 
     return copyWith(
       typeCode: code,

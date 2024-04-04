@@ -31,7 +31,8 @@ mixin _$NRegState {
 // bool? otherVehicle,
 // String? vehicleType,
   Vehicle get vehicle => throw _privateConstructorUsedError; //
-// timeStamp forces comparison of the same state to fail
+  int get onboardingProgress =>
+      throw _privateConstructorUsedError; // timeStamp forces comparison of the same state to fail
   Unique? get unique => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -56,6 +57,7 @@ abstract class $NRegStateCopyWith<$Res> {
       String addressMessage,
       BlocStatus addressStatus,
       Vehicle vehicle,
+      int onboardingProgress,
       Unique? unique});
 
   $RegisterationFormCopyWith<$Res>? get singupData;
@@ -87,6 +89,7 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
     Object? addressMessage = null,
     Object? addressStatus = null,
     Object? vehicle = null,
+    Object? onboardingProgress = null,
     Object? unique = freezed,
   }) {
     return _then(_value.copyWith(
@@ -134,6 +137,10 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
           ? _value.vehicle
           : vehicle // ignore: cast_nullable_to_non_nullable
               as Vehicle,
+      onboardingProgress: null == onboardingProgress
+          ? _value.onboardingProgress
+          : onboardingProgress // ignore: cast_nullable_to_non_nullable
+              as int,
       unique: freezed == unique
           ? _value.unique
           : unique // ignore: cast_nullable_to_non_nullable
@@ -190,6 +197,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       String addressMessage,
       BlocStatus addressStatus,
       Vehicle vehicle,
+      int onboardingProgress,
       Unique? unique});
 
   @override
@@ -222,6 +230,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? addressMessage = null,
     Object? addressStatus = null,
     Object? vehicle = null,
+    Object? onboardingProgress = null,
     Object? unique = freezed,
   }) {
     return _then(_$InitialImpl(
@@ -269,6 +278,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.vehicle
           : vehicle // ignore: cast_nullable_to_non_nullable
               as Vehicle,
+      onboardingProgress: null == onboardingProgress
+          ? _value.onboardingProgress
+          : onboardingProgress // ignore: cast_nullable_to_non_nullable
+              as int,
       unique: freezed == unique
           ? _value.unique
           : unique // ignore: cast_nullable_to_non_nullable
@@ -291,7 +304,8 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       this.status = BlocStatus.init,
       this.addressMessage = '',
       this.addressStatus = BlocStatus.init,
-      this.vehicle = const Vehicle(typeCode: '0'),
+      this.vehicle = const Vehicle(typeCode: 0),
+      this.onboardingProgress = 0,
       this.unique})
       : super._();
 
@@ -335,13 +349,16 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   @JsonKey()
   final Vehicle vehicle;
 //
+  @override
+  @JsonKey()
+  final int onboardingProgress;
 // timeStamp forces comparison of the same state to fail
   @override
   final Unique? unique;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'NRegState(registerationStarted: $registerationStarted, step: $step, singupData: $singupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, unique: $unique)';
+    return 'NRegState(registerationStarted: $registerationStarted, step: $step, singupData: $singupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, onboardingProgress: $onboardingProgress, unique: $unique)';
   }
 
   @override
@@ -360,6 +377,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('addressMessage', addressMessage))
       ..add(DiagnosticsProperty('addressStatus', addressStatus))
       ..add(DiagnosticsProperty('vehicle', vehicle))
+      ..add(DiagnosticsProperty('onboardingProgress', onboardingProgress))
       ..add(DiagnosticsProperty('unique', unique));
   }
 
@@ -383,6 +401,8 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
             (identical(other.addressStatus, addressStatus) ||
                 other.addressStatus == addressStatus) &&
             (identical(other.vehicle, vehicle) || other.vehicle == vehicle) &&
+            (identical(other.onboardingProgress, onboardingProgress) ||
+                other.onboardingProgress == onboardingProgress) &&
             (identical(other.unique, unique) || other.unique == unique));
   }
 
@@ -400,6 +420,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       addressMessage,
       addressStatus,
       vehicle,
+      onboardingProgress,
       unique);
 
   @JsonKey(ignore: true)
@@ -422,6 +443,7 @@ abstract class _Initial extends NRegState {
       final String addressMessage,
       final BlocStatus addressStatus,
       final Vehicle vehicle,
+      final int onboardingProgress,
       final Unique? unique}) = _$InitialImpl;
   const _Initial._() : super._();
 
@@ -451,7 +473,8 @@ abstract class _Initial extends NRegState {
 // String? vehicleType,
   Vehicle get vehicle;
   @override //
-// timeStamp forces comparison of the same state to fail
+  int get onboardingProgress;
+  @override // timeStamp forces comparison of the same state to fail
   Unique? get unique;
   @override
   @JsonKey(ignore: true)

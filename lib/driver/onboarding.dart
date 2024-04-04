@@ -1,18 +1,19 @@
-// TODO check progress to determine required api calls
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/features/chef_application/documentation/bloc/cubit/docs_cubit.dart';
-import 'package:yumi/features/chef_application/documentation/bloc/documentation_bloc.dart';
-import 'package:yumi/features/chef_application/flow_step_info.dart';
 import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/features/settings/profile/model/profile_model.dart';
 import 'package:yumi/global.dart';
+import 'package:yumi/extensions/bloc.dart';
 
 class Onboarding {
   bool get profileSheetDone {
     Profile profile = G.read<ProfileBloc>().state.profile;
+
+    // Profile profile = ProfileBloc().r.state.profile;
 
     return profile.profileSheetDone;
   }
@@ -85,6 +86,13 @@ class Onboarding {
       return progress;
     }
     if (contractDone) progress += 1;
+
+    var reg = G.rd<RegCubit>();
+    if (progress < reg.state.onboardingProgress) {
+      return reg.state.onboardingProgress;
+    }
+
+    reg.setOnboardingProgress(progress);
 
     return progress;
   }

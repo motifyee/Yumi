@@ -25,6 +25,7 @@ import 'package:yumi/util/util.dart';
 part 'driver_reg_cubit.freezed.dart';
 
 const String regStepKey = 'reg_step';
+const String onboardingProgressKey = 'onboarding_progress';
 
 enum RegStep { signup, addPhone, otp, location, onboarding }
 
@@ -47,8 +48,9 @@ class NRegState with _$NRegState {
     //
     // bool? otherVehicle,
     // String? vehicleType,
-    @Default(Vehicle(typeCode: '0')) Vehicle vehicle,
+    @Default(Vehicle(typeCode: 0)) Vehicle vehicle,
     //
+    @Default(0) int onboardingProgress,
     // timeStamp forces comparison of the same state to fail
     Unique? unique,
   }) = _Initial;
@@ -85,7 +87,9 @@ class RegCubit extends Cubit<NRegState> {
     // step = 0;
     if (G.read<UserBloc>().state.user.accessToken.isEmpty) step = 0;
 
-    emit(const NRegState(registerationStarted: true));
+    if (!state.registerationStarted) {
+      emit(const NRegState(registerationStarted: true));
+    }
 
     if (step > 0) _navigateToIdx(step);
   }
@@ -93,19 +97,38 @@ class RegCubit extends Cubit<NRegState> {
   // void next() {
   //   _navigateToIdx(state.step + 1);
   // }
-
   // void previous() {
   //   _navigateToIdx(state.step - 1);
   // }
-
   // void goto(int step) {
   //   _navigateToIdx(step);
   // }
 
   void refresh() {
     if (state.registerationStarted) {
+      getOnboardingProgress();
       emit(state.copyWith(unique: unique()));
     }
+  }
+
+  int get onboardingProgress {
+    return state.onboarding.onboardingProgress;
+  }
+
+  void setOnboardingProgress(int idx) {
+    if (idx <= onboardingProgress) return;
+
+    // save step index to shared preferences
+    SharedPreferences.getInstance()
+        .then((value) => value.setInt(onboardingProgressKey, idx));
+
+    emit(state.copyWith(onboardingProgress: idx));
+  }
+
+  void getOnboardingProgress() async {
+    var pref = await SharedPreferences.getInstance();
+    var idx = pref.getInt(onboardingProgressKey) ?? 0;
+    emit(state.copyWith(onboardingProgress: idx));
   }
 
   void nextButtonPressed() {
@@ -114,7 +137,7 @@ class RegCubit extends Cubit<NRegState> {
         ? chefStepsInfo(context, state)
         : driverStepsInfo(context, state);
 
-    var idx = state.onboarding.onboardingProgress;
+    var idx = onboardingProgress;
     if (idx < stepsInfo.length) return stepsInfo[idx][2]();
 
     SharedPreferences.getInstance().then((value) => value.remove(regStepKey));
@@ -202,7 +225,7 @@ class RegCubit extends Cubit<NRegState> {
 
     var path = G.router.currentPath;
 
-    if (path == 'registeration${RegStep.values[step].name}') return;
+    if (path == '/registeration/${RegStep.values[step].name}') return;
     if (!state.registerationStarted) return;
 
     if (!path.contains("registeration")) {

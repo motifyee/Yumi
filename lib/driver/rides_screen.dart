@@ -22,10 +22,10 @@ class RidesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // var vehicles = ['Car', 'Motorcycle', 'Bicycle', 'Other'];
     var vehicles = [
-      const Vehicle(typeCode: '1'),
-      const Vehicle(typeCode: '2'),
-      const Vehicle(typeCode: '3'),
-      const Vehicle(typeCode: '4'),
+      const Vehicle(typeCode: 1),
+      const Vehicle(typeCode: 2),
+      const Vehicle(typeCode: 3),
+      const Vehicle(typeCode: 4),
     ];
     var vehicleIcons = [
       Icons.directions_car,
@@ -108,21 +108,21 @@ class RidesScreen extends StatelessWidget {
                             ))
                         .toList(),
                     onPressed: (int idx) async {
-                      // regCubit.state.canAddVehicle.then((bool canAdd) {
-                      //   if (!canAdd) {
-                      //     return ScaffoldMessenger.of(G.context).showSnackBar(
-                      //       const SnackBar(
-                      //         content: SnackBarMassage(
-                      //             massage:
-                      //                 'You can\'nt update your vehicle type now.'),
-                      //       ),
-                      //     );
-                      //   }
+                      regCubit.state.canAddVehicle.then((bool canAdd) {
+                        if (!canAdd) {
+                          return ScaffoldMessenger.of(G.context).showSnackBar(
+                            const SnackBar(
+                              content: SnackBarMassage(
+                                  massage:
+                                      'You can\'nt update your vehicle type now.'),
+                            ),
+                          );
+                        }
 
-                      var regCubit = G.rd<RegCubit>();
-                      regCubit.setVehicleType(vehicles[idx]);
-                      if (idx == 3) node.requestFocus();
-                      // });
+                        var regCubit = G.rd<RegCubit>();
+                        regCubit.setVehicleType(vehicles[idx]);
+                        if (idx == 3) node.requestFocus();
+                      });
                     },
                   ),
                   const SizedBox(height: 20),

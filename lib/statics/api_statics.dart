@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -27,8 +28,12 @@ class DioClient {
       }),
     )..interceptors.add(InterceptorsWrapper(
         onError: (error, handler) {
-          print('dio error ......................');
-          print(error.response?.statusCode);
+          debugPrint('dio error >>>>>>>>>>>>>>>>>>>>>>>>');
+          debugPrint('error code : ${error.response?.statusCode.toString()}');
+          debugPrint('error type : ${error.type}');
+          debugPrint('error response: ${error.response.toString()}');
+          debugPrint('dio error <<<<<<<<<<<<<<<<<<<<<<<<');
+
           if (error.response?.statusCode == 401) {
             G.context.read<UserBloc>().add(UserResetEvent());
             G.context.router.replaceAll([LoginRoute()]);
