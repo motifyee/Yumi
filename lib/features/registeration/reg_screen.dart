@@ -16,9 +16,6 @@ class RegisterationScreen extends StatelessWidget {
         return BlocConsumer<RegCubit, NRegState>(
           listener: (context, state) {},
           builder: (context, state) {
-            var c = context.read<RegCubit>();
-            if (!c.state.registerationStarted) c.init();
-
             context.read<UserBloc>().add(
                   UserFromSharedRefEvent(
                     context: context,
@@ -27,6 +24,12 @@ class RegisterationScreen extends StatelessWidget {
                     autoLogin: (p0) => {},
                   ),
                 );
+
+            Future.delayed(const Duration(seconds: 1)).then((value) {
+              var c = context.read<RegCubit>();
+              // if (!c.state.registerationStarted)
+              c.init();
+            });
 
             return const AutoRouter();
             // return Scaffold(

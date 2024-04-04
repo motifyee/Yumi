@@ -22,8 +22,8 @@ Vehicle _$VehicleFromJson(Map<String, dynamic> json) {
 mixin _$Vehicle {
   String? get code => throw _privateConstructorUsedError;
   @JsonKey(name: 'vehicle_Type')
-  String get typeCode => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Other_Type')
+  int get typeCode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'other_Type')
   String? get otherType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,8 +38,8 @@ abstract class $VehicleCopyWith<$Res> {
   @useResult
   $Res call(
       {String? code,
-      @JsonKey(name: 'vehicle_Type') String typeCode,
-      @JsonKey(name: 'Other_Type') String? otherType});
+      @JsonKey(name: 'vehicle_Type') int typeCode,
+      @JsonKey(name: 'other_Type') String? otherType});
 }
 
 /// @nodoc
@@ -67,7 +67,7 @@ class _$VehicleCopyWithImpl<$Res, $Val extends Vehicle>
       typeCode: null == typeCode
           ? _value.typeCode
           : typeCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       otherType: freezed == otherType
           ? _value.otherType
           : otherType // ignore: cast_nullable_to_non_nullable
@@ -85,8 +85,8 @@ abstract class _$$VehicleImplCopyWith<$Res> implements $VehicleCopyWith<$Res> {
   @useResult
   $Res call(
       {String? code,
-      @JsonKey(name: 'vehicle_Type') String typeCode,
-      @JsonKey(name: 'Other_Type') String? otherType});
+      @JsonKey(name: 'vehicle_Type') int typeCode,
+      @JsonKey(name: 'other_Type') String? otherType});
 }
 
 /// @nodoc
@@ -112,7 +112,7 @@ class __$$VehicleImplCopyWithImpl<$Res>
       typeCode: null == typeCode
           ? _value.typeCode
           : typeCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       otherType: freezed == otherType
           ? _value.otherType
           : otherType // ignore: cast_nullable_to_non_nullable
@@ -127,7 +127,7 @@ class _$VehicleImpl extends _Vehicle {
   const _$VehicleImpl(
       {this.code,
       @JsonKey(name: 'vehicle_Type') required this.typeCode,
-      @JsonKey(name: 'Other_Type') this.otherType})
+      @JsonKey(name: 'other_Type') this.otherType})
       : super._();
 
   factory _$VehicleImpl.fromJson(Map<String, dynamic> json) =>
@@ -137,9 +137,9 @@ class _$VehicleImpl extends _Vehicle {
   final String? code;
   @override
   @JsonKey(name: 'vehicle_Type')
-  final String typeCode;
+  final int typeCode;
   @override
-  @JsonKey(name: 'Other_Type')
+  @JsonKey(name: 'other_Type')
   final String? otherType;
 
   @override
@@ -180,8 +180,8 @@ class _$VehicleImpl extends _Vehicle {
 abstract class _Vehicle extends Vehicle {
   const factory _Vehicle(
       {final String? code,
-      @JsonKey(name: 'vehicle_Type') required final String typeCode,
-      @JsonKey(name: 'Other_Type') final String? otherType}) = _$VehicleImpl;
+      @JsonKey(name: 'vehicle_Type') required final int typeCode,
+      @JsonKey(name: 'other_Type') final String? otherType}) = _$VehicleImpl;
   const _Vehicle._() : super._();
 
   factory _Vehicle.fromJson(Map<String, dynamic> json) = _$VehicleImpl.fromJson;
@@ -190,9 +190,9 @@ abstract class _Vehicle extends Vehicle {
   String? get code;
   @override
   @JsonKey(name: 'vehicle_Type')
-  String get typeCode;
+  int get typeCode;
   @override
-  @JsonKey(name: 'Other_Type')
+  @JsonKey(name: 'other_Type')
   String? get otherType;
   @override
   @JsonKey(ignore: true)

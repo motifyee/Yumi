@@ -7,11 +7,9 @@ import 'package:yumi/statics/api_statics.dart';
 
 class VehicleService {
   static Future<Vehicle?> getVehicle() async {
-    String id = G.read<UserBloc>().state.user.id;
-
     try {
       final Response res = await DioClient.simpleDio().get(
-        'drivers/vehicle/$id',
+        '/drivers/vehicle',
       );
       return Vehicle.fromJson(res.data);
     } catch (e) {
@@ -32,7 +30,7 @@ class VehicleService {
     }
 
     final Response res = await DioClient.simpleDio().post(
-      'drivers/vehicle',
+      '/drivers/vehicle',
       data: v,
     );
 
@@ -50,7 +48,7 @@ class VehicleService {
     }
 
     final Response res = await DioClient.simpleDio().put(
-      'drivers/vehicle/$id',
+      '/drivers/vehicle/$id',
       data: vehicle.toJson(),
     );
 
