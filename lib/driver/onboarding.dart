@@ -53,8 +53,8 @@ class Onboarding {
   bool get docsDone => docsActive && G.rd<DocsCubit>().state.finished;
 
   bool get approvalActive => approvalDone || docsDone;
-  bool get approvalDone => true;
-  // bool get approvalDone => G.read<ProfileBloc>().state.profile.accountApproved;
+  // bool get approvalDone => true;
+  bool get approvalDone => G.read<ProfileBloc>().state.profile.accountApproved;
 
   bool get contractActive => approvalDone;
   bool get contractDone =>

@@ -70,3 +70,5 @@ if (%target%) EQU (windows) START build\windows\x64\runner\Release\yumi.exe
 if (%target%) EQU (apk) adb install .\build\app\outputs\flutter-apk\app-release.apk
 
 exit 0
+
+@REM change build applicationId @build.gradle + android:label="YUMI Chef" @main>manifest
