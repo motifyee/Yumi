@@ -2,14 +2,18 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/service/order_service.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/product_in_card.dart';
+import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_currency.dart';
 
 class OrderCard extends StatefulWidget {
@@ -20,7 +24,7 @@ class OrderCard extends StatefulWidget {
       required this.getApiKey,
       required this.menuTarget});
 
-  final OrderModel order;
+  late OrderModel order;
   bool isView = false;
   final OrderCardTargetPage orderCardTargetPage;
   final String getApiKey;
@@ -31,13 +35,28 @@ class OrderCard extends StatefulWidget {
 }
 
 class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
+  getOrderForView() {
+    OrderService.getOrderOrPreOrderDriverById(
+            apiKeys: ApiKeys.orderDriverAvailableById,
+            id: widget.order.id.toString())
+        .then((value) {
+      setState(() {
+        widget.order = OrderModel.fromJson(value.data);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    if ((widget.order.invoiceDetails?.length ?? 0) < 2) {
+    if ((widget.order.invoiceDetails?.length ?? 0) < 2 ||
+        AppTarget.user == AppTargetUser.drivers) {
       widget.isView = true;
     }
-
     DateTime? createdDate = DateTime.tryParse(widget.order.createdDate ?? '');
+
+    if (widget.orderCardTargetPage == OrderCardTargetPage.view) {
+      getOrderForView();
+    }
 
     return Stack(
       clipBehavior: Clip.none,
@@ -80,7 +99,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             if (createdDate != null)
                               Text(
                                 '${createdDate.day}-${createdDate.month}-${createdDate.year} | '
-                                '${createdDate.hour}:${createdDate.minute}',
+                                '${createdDate.hour < 10 ? 0 : ''}${createdDate.hour}:${createdDate.minute < 10 ? 0 : ''}${createdDate.minute}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelSmall
@@ -88,48 +107,124 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               ),
                           ],
                         ),
-                        // TextCurrency(value: 10.00),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: ThemeSelector.statics.defaultGap,
-                            vertical: ThemeSelector.statics.defaultMicroGap,
+                        if (AppTarget.user != AppTargetUser.drivers)
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: ThemeSelector.statics.defaultGap,
+                              vertical: ThemeSelector.statics.defaultMicroGap,
+                            ),
+                            decoration: BoxDecoration(
+                                color: ThemeSelector.colors.backgroundTant,
+                                borderRadius: BorderRadius.circular(
+                                    ThemeSelector
+                                        .statics.defaultBorderRadiusMedium)),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SvgPicture.asset(widget.order.isPickUp == true
+                                    ? 'assets/images/pickup_icon.svg'
+                                    : 'assets/images/delivery_icon.svg'),
+                                Text(' '),
+                                Text(widget.order.isPickUp == true
+                                    ? S.of(context).pickup
+                                    : S.of(context).delivery)
+                              ],
+                            ),
                           ),
-                          decoration: BoxDecoration(
-                              color: ThemeSelector.colors.backgroundTant,
-                              borderRadius: BorderRadius.circular(ThemeSelector
-                                  .statics.defaultBorderRadiusMedium)),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
+                        if (AppTarget.user == AppTargetUser.drivers)
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: ThemeSelector.statics.defaultGap,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: () async {
+                                    if (!await launchUrl(
+                                      Uri(
+                                        scheme: 'tel',
+                                        path: '01015306632',
+                                      ),
+                                    )) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: SnackBarMassage(
+                                            massage: S
+                                                .of(context)
+                                                .noAccessToDailSystem,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  child: Container(
+                                    width:
+                                        ThemeSelector.statics.defaultBlockGap,
+                                    height:
+                                        ThemeSelector.statics.defaultBlockGap,
+                                    padding: EdgeInsets.all(
+                                        ThemeSelector.statics.defaultMicroGap),
+                                    decoration: BoxDecoration(
+                                        color: ThemeSelector.colors.primary,
+                                        borderRadius: BorderRadius.circular(
+                                            ThemeSelector
+                                                .statics.defaultBlockGap)),
+                                    child: SvgPicture.asset(
+                                        'assets/images/calling.svg'),
+                                  ),
+                                ),
+                                SizedBox(
+                                    width:
+                                        ThemeSelector.statics.defaultInputGap),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                    width:
+                                        ThemeSelector.statics.defaultBlockGap,
+                                    height:
+                                        ThemeSelector.statics.defaultBlockGap,
+                                    padding: EdgeInsets.all(
+                                        ThemeSelector.statics.defaultMicroGap),
+                                    decoration: BoxDecoration(
+                                        color: ThemeSelector.colors.primary,
+                                        borderRadius: BorderRadius.circular(
+                                            ThemeSelector
+                                                .statics.defaultBlockGap)),
+                                    child: SvgPicture.asset(
+                                        'assets/images/chat.svg'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                    if (widget.order.invoiceDetails!.isNotEmpty)
+                      Column(
+                        children: [
+                          SizedBox(height: ThemeSelector.statics.defaultGap),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SvgPicture.asset(widget.order.isPickUp == true
-                                  ? 'assets/images/pickup_icon.svg'
-                                  : 'assets/images/delivery_icon.svg'),
-                              Text(' '),
-                              Text(widget.order.isPickUp == true
-                                  ? S.of(context).pickup
-                                  : S.of(context).delivery)
+                              SvgPicture.asset(
+                                  'assets/images/label_yellow.svg'),
+                              SizedBox(
+                                width: ThemeSelector.statics.defaultGap,
+                              ),
+                              Text(
+                                S.of(context).clickTheIconToViewCustomerNotes,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        fontSize: ThemeSelector.fonts.font_10),
+                              ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: ThemeSelector.statics.defaultGap),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('assets/images/label_yellow.svg'),
-                        SizedBox(
-                          width: ThemeSelector.statics.defaultGap,
-                        ),
-                        Text(
-                          S.of(context).clickTheIconToViewCustomerNotes,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(fontSize: ThemeSelector.fonts.font_10),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
                     SizedBox(height: ThemeSelector.statics.defaultGap),
                     LayoutBuilder(
                       builder: (context, constraints) => AnimatedSize(
@@ -368,12 +463,57 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
-                    if ((widget.order.invoiceDetails?.length ?? 0) > 1)
+                    if ((widget.order.invoiceDetails?.length ?? 0) > 1 &&
+                        AppTarget.user != AppTargetUser.drivers)
                       TextButton(
                         onPressed: () {
                           setState(() {
                             widget.isView = !widget.isView;
                           });
+                        },
+                        child: Text(
+                          S.of(context).view,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ),
+                    if (AppTarget.user == AppTargetUser.drivers &&
+                        widget.orderCardTargetPage != OrderCardTargetPage.view)
+                      TextButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                            backgroundColor: Colors.transparent,
+                            isScrollControlled: true,
+                            constraints: BoxConstraints.tightFor(),
+                            context: context,
+                            builder: (context) => SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: ThemeSelector
+                                            .statics.defaultBlockGap),
+                                    decoration: BoxDecoration(
+                                        color: ThemeSelector.colors.background,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(ThemeSelector
+                                              .statics.defaultBlockGap),
+                                          topRight: Radius.circular(
+                                              ThemeSelector
+                                                  .statics.defaultBlockGap),
+                                        )),
+                                    child: OrderCard(
+                                      menuTarget: widget.menuTarget,
+                                      getApiKey: widget.getApiKey,
+                                      orderCardTargetPage:
+                                          OrderCardTargetPage.view,
+                                      order: widget.order,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
                         },
                         child: Text(
                           S.of(context).view,

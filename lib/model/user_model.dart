@@ -7,17 +7,18 @@ class UserModel {
   String code;
   String expiresIn;
   String bio;
+  int multiAddressID;
 
-  UserModel({
-    this.chefId = '',
-    this.message = '',
-    this.userName = '',
-    this.email = '',
-    this.accessToken = '',
-    this.code = '',
-    this.expiresIn = '',
-    this.bio = '',
-  });
+  UserModel(
+      {this.chefId = '',
+      this.message = '',
+      this.userName = '',
+      this.email = '',
+      this.accessToken = '',
+      this.code = '',
+      this.expiresIn = '',
+      this.bio = '',
+      this.multiAddressID = 0});
 
   Map<String, dynamic> toJson() {
     return {
@@ -29,6 +30,7 @@ class UserModel {
       'code': code,
       'expiresIn': expiresIn,
       'bio': bio,
+      'multiAddressID': multiAddressID,
     };
   }
 
@@ -42,6 +44,7 @@ class UserModel {
       code: value['code'] ?? '',
       expiresIn: value['expires_In'] ?? '',
       bio: value['bio'] ?? '',
+      multiAddressID: value['multiAddressID'] ?? 0,
     );
   }
 
@@ -54,6 +57,7 @@ class UserModel {
     String? code,
     String? expiresIn,
     String? bio,
+    int? multiAddressID,
   }) {
     return UserModel(
       chefId: chefId ?? this.chefId,
@@ -64,6 +68,7 @@ class UserModel {
       code: code ?? this.code,
       expiresIn: expiresIn ?? this.expiresIn,
       bio: bio ?? this.bio,
+      multiAddressID: multiAddressID ?? this.multiAddressID,
     );
   }
 }

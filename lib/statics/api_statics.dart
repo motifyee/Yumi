@@ -13,7 +13,7 @@ import 'package:yumi/route/route.gr.dart';
 import '../app_target.dart';
 
 // const originApi = 'https://10.99.77.247:5012';
-const originApi = 'https://0cb4-81-10-105-81.ngrok-free.app';
+const originApi = 'https://22e9-81-10-105-81.ngrok-free.app';
 
 class DioClient {
   static Dio get dio => simpleDio();
@@ -104,6 +104,7 @@ class ApiKeys {
   static String orderDriverActive = '/order/driver/active';
   static String preOrderDriverAvailable = '/preorder/driver/available';
   static String preOrderDriverActive = '/preorder/driver/active';
+  static String orderDriverAvailableById = '/order/driver/available/';
   static String orderChefReceived = '/order/chef/received';
   static String orderChefPreparing = '/order/chef/preparing';
   static String orderChefReady = '/order/chef/ready';
@@ -120,16 +121,15 @@ class ApiKeys {
   static String orderDriverReceived = '/order/_/driver/received';
   static String preOrderDriverReceived = '/preorder/_/driver/received';
 
-  static String orderChefDeliveryStart = '/order/id/chef/start';
-  static String orderChefDeliveryFinished = '/order/id/chef/finished';
-  static String orderChefPickUpStart = '/order/id/chef/pickup/start';
-  static String orderChefPickUpFinished = '/order/id/chef/pickup/finished';
+  static String orderChefDeliveryStart = '/order/_/chef/start';
+  static String orderChefDeliveryFinished = '/order/_/chef/finished';
+  static String orderChefPickUpStart = '/order/_/chef/pickup/start';
+  static String orderChefPickUpFinished = '/order/_/chef/pickup/finished';
 
-  static String preOrderChefDeliveryAccept = '/preorder/id/chef/accept';
-  static String preOrderChefDeliveryStart = '/preorder/id/chef/start';
-  static String preOrderChefDeliveryFinished = '/preorder/id/chef/finished';
-  static String preOrderChefPickUpAccept = '/preorder/id/chef/pickup/accept';
-  static String preOrderChefPickUpStart = '/preorder/id/chef/pickup/start';
-  static String preOrderChefPickUpFinished =
-      '/preorder/id/chef/pickup/finished';
+  static String preOrderChefDeliveryAccept = '/preorder/_/chef/accept';
+  static String preOrderChefDeliveryStart = '/preorder/_/chef/start';
+  static String preOrderChefDeliveryFinished = '/preorder/_/chef/finished';
+  static String preOrderChefPickUpAccept = '/preorder/_/chef/pickup/accept';
+  static String preOrderChefPickUpStart = '/preorder/_/chef/pickup/start';
+  static String preOrderChefPickUpFinished = '/preorder/_/chef/pickup/finished';
 }

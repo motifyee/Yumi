@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/basket/basket_form_bloc.dart';
-import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -17,7 +16,6 @@ class BasketScreen extends StatelessWidget {
 
   void openAddFood(
       {required BuildContext context, required BasketFormState state}) {
-    context.read<MealListBloc>().add(MealListResetEvent());
     showModalBottomSheet(
       context: context,
       builder: (context) => ChefMealsScreen(
@@ -124,7 +122,8 @@ class BasketScreen extends StatelessWidget {
                             tag: 'ConfirmBasketSeries',
                             child: GestureDetector(
                               onTap: () {
-                                if(state.invoice.invoiceDetails!.isEmpty) return;
+                                if (state.invoice.invoiceDetails!.isEmpty)
+                                  return;
                                 context.router.push(CheckOutRoute());
                               },
                               child: Container(

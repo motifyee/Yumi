@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/extensions/date_time_extension.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/invoice_model.dart';
@@ -106,7 +107,9 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
       );
 
       emit(state.copyWith(
-          invoice: state.invoice.copyWith(invoiceDetails: invoiceDetails)));
+          invoice: state.invoice.copyWith(
+        invoiceDetails: invoiceDetails,
+      )));
 
       add(BasketFormCalcEvent());
     });
@@ -135,6 +138,11 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
     });
 
     on<BasketFormPostRequestEvent>((event, emit) async {
+      emit(state.copyWith(
+          invoice: state.invoice.copyWith(
+              shippedAddressId:
+                  event.context.read<UserBloc>().state.user.multiAddressID)));
+
       late Response res;
       if (state.invoice.isDelivery == true) {
         res = await OrderService.createOrderOrPreOrderDelivery(

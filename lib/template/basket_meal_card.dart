@@ -175,6 +175,14 @@ class BasketMealCard extends StatelessWidget {
                 borderStyle: TextFormFieldBorderStyle.borderNone,
                 hintText: S.of(context).anythingElseWeNeedToKnow,
                 label: S.of(context).addANote,
+                onChange: (value) {
+                  context.read<BasketFormBloc>().add(BasketFormUpdateMealEvent(
+                        invoiceDetails: invoiceDetails,
+                        indexInList: indexInList,
+                        newQuantity: invoiceDetails.quantity!,
+                        note: value,
+                      ));
+                },
               ),
             ],
           ),

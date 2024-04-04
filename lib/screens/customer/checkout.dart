@@ -15,7 +15,7 @@ import 'package:yumi/template/text_form_field.dart';
 class CheckOutScreen extends StatelessWidget {
   CheckOutScreen({super.key});
 
-  PaymentOption _option = PaymentOption.visa;
+  PaymentOption _option = PaymentOption.wallet;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class CheckOutScreen extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
         leading: TextButton(
             onPressed: () {
-              context.router.pop();
+              context.router.popForced();
             },
             child: Icon(
               Icons.arrow_back,

@@ -20,7 +20,7 @@ class OrderModel with _$OrderModel {
     double? invoiceDiscount,
     int? bankID,
     String? createdDate,
-    List<InvoiceDetails>? invoiceDetails,
+    @Default([]) List<InvoiceDetails>? invoiceDetails,
     @JsonKey(name: 'is_Pickup') final bool? isPickUp,
   }) = _OrderModel;
 
@@ -77,5 +77,6 @@ enum OrderCardTargetPage {
   chefReceived,
   chefPreparing,
   chefReady,
-  chefHistory
+  chefHistory,
+  view
 }
