@@ -75,6 +75,9 @@ class Schedule with _$Schedule {
   bool get hasScheduledDays =>
       scheduleDays.any((element) => element.active ?? false);
 
+  bool get validSchedule =>
+      scheduleDays.where((element) => element.active ?? false).length >= 2;
+
   bool get uiValid =>
       scheduleDays.every((day) => day.uiValid) &&
       scheduleDays.any((day) => day.active ?? false);

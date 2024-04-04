@@ -65,11 +65,15 @@ class ContractScreen extends StatelessWidget {
                     desc: "Download the contract to sign it and upload it",
                     data: state.profile.contractPhoto,
                     fileName: 'YUMI-contract.pdf',
-                    uploadAction: (data) => {
-                      context.read<ProfileBloc>().add(ProfileUpdateEvent(
-                          context: context,
-                          profile:
-                              state.profile.copyWith(contractPhoto: data))),
+                    uploadAction: (data, _) => {
+                      context.read<ProfileBloc>().add(
+                            ProfileUpdateEvent(
+                              update: false,
+                              context: context,
+                              profile:
+                                  state.profile.copyWith(contractPhoto: data),
+                            ),
+                          ),
                     },
                   ));
                 },

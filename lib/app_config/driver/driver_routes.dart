@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/route/route.gr.dart';
 
 class DriverRoutes extends $AppRouter {
@@ -10,11 +11,14 @@ class DriverRoutes extends $AppRouter {
           path: '/registeration',
           page: RegisterationRoute.page,
           children: [
-            RedirectRoute(path: '', redirectTo: 'signup'),
-            AutoRoute(path: 'signup', page: SignUpRoute.page),
-            AutoRoute(path: 'addPhone', page: AddPhoneRoute.page),
-            AutoRoute(path: 'otp', page: OTPRoute.page),
-            AutoRoute(path: 'location', page: LocationRoute.page),
+            RedirectRoute(path: '', redirectTo: RegStep.signup.name),
+            AutoRoute(path: RegStep.signup.name, page: SignUpRoute.page),
+            AutoRoute(path: RegStep.addPhone.name, page: AddPhoneRoute.page),
+            AutoRoute(path: RegStep.otp.name, page: OTPRoute.page),
+            AutoRoute(path: RegStep.location.name, page: LocationRoute.page),
+            AutoRoute(
+                path: RegStep.onboarding.name,
+                page: ChefApplicationFlowRoute.page),
           ],
         ),
 

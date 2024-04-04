@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,11 +9,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/registeration/maps/google_maps.dart';
 import 'package:yumi/features/registeration/maps/permission.dart';
 import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/forms/util/form_submit.dart';
+import 'package:yumi/global.dart';
+import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/screen_container.dart';
@@ -52,23 +56,32 @@ class LocationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var regBloc = context.read<RegBloc>();
+    // var regBloc = context.read<RegBloc>();
+    var regBloc = context.read<RegCubit>();
 
     mapInfo = GMapInfo(
         setMarkerOnLongPress: true,
         onAddressLongPress: (placemark, coord, info) {
-          regBloc.add(
-            RegEvent.updateLocation(
-              regBloc.state.address.copyWith(
-                // addressDetails: address.country,
-                // addresssTitle: address.locality,
-                location:
-                    '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
-                latitude: coord.latitude,
-                longitude: coord.longitude,
-              ),
+          regBloc.setLocation(
+            regBloc.state.address.copyWith(
+              location:
+                  '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
+              latitude: coord.latitude,
+              longitude: coord.longitude,
             ),
           );
+          // regBloc.add(
+          //   RegEvent.updateLocation(
+          //     regBloc.state.address.copyWith(
+          //       // addressDetails: address.country,
+          //       // addresssTitle: address.locality,
+          //       location:
+          //           '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
+          //       latitude: coord.latitude,
+          //       longitude: coord.longitude,
+          //     ),
+          //   ),
+          // );
         },
         onTap: (LatLng latLng, GMapInfo info) async {
           print(await info.controller?.getZoomLevel());
@@ -107,7 +120,7 @@ class LocationScreen extends StatelessWidget {
   TextEditingController controller = TextEditingController();
 
   Widget locationBar() {
-    return BlocBuilder<RegBloc, RegState>(
+    return BlocBuilder<RegCubit, NRegState>(
       builder: (context, state) {
         getLocation() {
           debugPrint('clicks');
@@ -122,19 +135,49 @@ class LocationScreen extends StatelessWidget {
                   )).then((placemarks) {
                 var placemark = placemarks[0];
 
-                context
-                    .read<RegBloc>()
-                    .add(RegEvent.updateLocation(state.address.copyWith(
-                      location:
-                          '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
-                      latitude: loc.latitude,
-                      longitude: loc.longitude,
-                    )));
+                // context
+                //     .read<RegBloc>()
+                //     .add(RegEvent.updateLocation(
+                // state.address.copyWith(
+                //       location:
+                //           '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
+                //       latitude: loc.latitude,
+                //       longitude: loc.longitude,
+                //     )
+                // ));
+                context.read<RegCubit>().setLocation(
+                      state.address.copyWith(
+                        location:
+                            '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
+                        latitude: loc.latitude,
+                        longitude: loc.longitude,
+                      ),
+                    );
               });
             });
           }, true, context);
         }
 
+        () async {
+          void getSuggestion(String input) async {
+            String kplacesApiKey = "CHANGE THIS WITH YOUR GOOGLE API KEY";
+            String type = '(regions)';
+            String baseURL =
+                'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+            String request = '$baseURL?input=$input&key=$kplacesApiKey';
+
+            var response = await DioClient.simpleDio().get(request);
+            debugPrint(response.toString());
+
+            // if (response. == 200) {
+            //   json.decode(response.body)['predictions'];
+            // } else {
+            //   throw Exception('Failed to load predictions');
+            // }
+          }
+
+          // getSuggestion('Egypt');
+        }();
         return Positioned(
           top: 20,
           left: 20,
@@ -166,14 +209,14 @@ class LocationScreen extends StatelessWidget {
                     getPlaceDetailWithLatLng: (Prediction prediction) {
                       print("placeDetails${prediction.lng}");
 
-                      context.read<RegBloc>().add(
-                            RegEvent.updateLocation(
-                              state.address.copyWith(
-                                latitude: double.tryParse(prediction.lat ?? ''),
-                                longitude:
-                                    double.tryParse(prediction.lng ?? ''),
-                              ),
+                      // context.read<RegBloc>().add(
+                      //       RegEvent.updateLocation(
+                      context.read<RegCubit>().setLocation(
+                            state.address.copyWith(
+                              latitude: double.tryParse(prediction.lat ?? ''),
+                              longitude: double.tryParse(prediction.lng ?? ''),
                             ),
+                            // ),
                           );
                     },
                     itemClick: (Prediction prediction) {
@@ -227,45 +270,54 @@ class LocationScreen extends StatelessWidget {
   }
 
   Widget addressCard() {
-    return BlocConsumer<RegBloc, RegState>(
+    return BlocListener<RegCubit, NRegState>(
       listener: (context, state) {
         if (state.addressStatus == BlocStatus.error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+          ScaffoldMessenger.of(G.cContext).showSnackBar(
+            SnackBar(
               content: SnackBarMassage(
-                massage: "Error updating location",
+                massage: state.addressMessage,
+                // massage: "Error updating location",
               ),
             ),
           );
         }
       },
-      builder: (context, state) {
-        if (state.address.latitude == null) return const SizedBox();
+      child: BlocSelector<RegCubit, NRegState, Address>(
+        selector: (NRegState state) {
+          return state.address;
+        },
+        // listener: (context, state) { },
+        builder: (context, address) {
+          if (address.latitude == null) return const SizedBox();
 
-        return Positioned(
-            bottom: 20,
-            left: 20,
-            right: 20,
-            child: Card(
-              elevation: 5,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-                child: addressForm(state, context),
-              ),
-            ));
-      },
+          return Positioned(
+              bottom: 20,
+              left: 20,
+              right: 20,
+              child: Card(
+                elevation: 5,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                  child: addressForm(address, context),
+                ),
+              ));
+        },
+      ),
     );
   }
 
-  Widget? addressForm(RegState state, BuildContext context) {
+  var inputKey1 = UniqueKey();
+  var inputKey2 = UniqueKey();
+  Widget? addressForm(Address address, BuildContext context) {
     acceptAddress() {
       formKey.currentState!.save();
 
       // context.read<RegBloc>().add(RegEvent.saveLocation(context));
     }
 
-    Address address = state.address;
+    // Address address = address;
 
     bool validate() {
       var values = [
@@ -282,7 +334,7 @@ class LocationScreen extends StatelessWidget {
           "Please enter a title for your address",
         ],
         [
-          address.latitude == null || state.address.longitude == null,
+          address.latitude == null || address.longitude == null,
           "Please interact with the map to specify your exact location"
         ]
       ];
@@ -306,26 +358,28 @@ class LocationScreen extends StatelessWidget {
       onAllFieldsSaved: (reg, _) {
         if (!validate()) return;
 
-        context.read<RegBloc>().add(RegEvent.updateLocation(address));
-        context
-            .read<RegBloc>()
-            .add(RegEvent.saveLocation(context, routeFn: routeFn));
+        // context.read<RegBloc>().add(RegEvent.updateLocation(address));
+        context.read<RegCubit>().setLocation(address);
+        // .read<RegBloc>()
+        // .add(RegEvent.saveLocation(context, routeFn: routeFn));
+        context.read<RegCubit>().saveLocation(routeFn: routeFn);
       },
     );
     moveCameraToManualAddress() async {
       formKey.currentState!.save();
 
       await tryV(
-        () => _navToAddress(state.address.location ?? ''),
+        () => _navToAddress(address.location ?? ''),
       ).then((value) {
         if (value != null) {
-          context.read<RegBloc>().add(
-                RegEvent.updateLocation(
-                  state.address.copyWith(
-                    latitude: value.latitude,
-                    longitude: value.longitude,
-                  ),
+          // context.read<RegBloc>().add(
+          //       RegEvent.updateLocation(
+          context.read<RegCubit>().setLocation(
+                address.copyWith(
+                  latitude: value.latitude,
+                  longitude: value.longitude,
                 ),
+                // ),
               );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -347,8 +401,8 @@ class LocationScreen extends StatelessWidget {
           SizedBox(
             // height: 50,
             child: TextFormFieldTemplate(
-              initialValue: state.address.addressTitle,
-              key: UniqueKey(),
+              initialValue: address.addressTitle,
+              key: inputKey1,
               floatingLabelBehavior: FloatingLabelBehavior.auto,
               onSave: (value) {
                 save(address = address.copyWith(addressTitle: value));
@@ -369,8 +423,8 @@ class LocationScreen extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           TextFormFieldTemplate(
-            initialValue: state.address.addressDetails,
-            key: UniqueKey(),
+            initialValue: address.addressDetails,
+            key: inputKey2,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             onSave: (value) {
               save(address = address.copyWith(addressDetails: value));
@@ -395,7 +449,7 @@ class LocationScreen extends StatelessWidget {
                 width: 10,
               ),
               Expanded(
-                child: Text(state.address.location ?? ''),
+                child: Text(address.location ?? ''),
               ),
             ],
           ),

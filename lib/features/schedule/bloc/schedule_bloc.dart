@@ -45,7 +45,7 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
                 .then((val) => emit(state.copyWith(
                     schedule: state.scheduleForm, status: BlocStatus.loaded)))
                 .catchError(
-                    () => emit(state.copyWith(status: BlocStatus.error)));
+                    (err) => emit(state.copyWith(status: BlocStatus.error)));
 
             // updates the schedule in the state
           },

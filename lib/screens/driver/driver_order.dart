@@ -20,7 +20,7 @@ class DriverOrderScreen extends StatelessWidget {
 
   final MenuTarget menuTarget;
 
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class DriverOrderScreen extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 isScrollControlled: true,
                 builder: (BuildContext context) {
-                  return NewsGuide();
+                  return const NewsGuide();
                 });
           });
         }
@@ -46,7 +46,7 @@ class DriverOrderScreen extends StatelessWidget {
       create: (context) => NewsBloc(),
       child: Column(
         children: [
-          Location(),
+          const Location(),
           SizedBox(height: ThemeSelector.statics.defaultGap),
           StatusButton(status: StatusEnum.opened),
           BlocBuilder<NewsBloc, NewsState>(
@@ -83,7 +83,7 @@ class DriverOrderScreen extends StatelessWidget {
           ),
           Expanded(
             child: PageView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               controller: _controller,
               children: [
                 BlocProvider(

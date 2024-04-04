@@ -32,24 +32,26 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       emit(state.copyWith(
           paginationHelper: state.paginationHelper.copyWith(isLoading: true)));
 
-      Response res = await OrderService.getOrderOrPreOrder(
-          apiKeys: event.apiKey,
-          paginationHelper: state.paginationHelper.toJson());
+      try {
+        Response res = await OrderService.getOrderOrPreOrder(
+            apiKeys: event.apiKey,
+            paginationHelper: state.paginationHelper.toJson());
 
-      List<OrderModel> data = res.data['data']
-          .map<OrderModel>((e) => OrderModel.fromJson(e))
-          .toList();
+        List<OrderModel> data = res.data['data']
+            .map<OrderModel>((e) => OrderModel.fromJson(e))
+            .toList();
 
-      add(
-        OrderEvent.update(
-          orders: data,
-          paginationHelper: state.paginationHelper.copyWith(
-            pageNumber: res.data['pagination']['page'],
-            lastPage: res.data['pagination']['pages'],
-            isLoading: false,
+        add(
+          OrderEvent.update(
+            orders: data,
+            paginationHelper: state.paginationHelper.copyWith(
+              pageNumber: res.data['pagination']['page'],
+              lastPage: res.data['pagination']['pages'],
+              isLoading: false,
+            ),
           ),
-        ),
-      );
+        );
+      } catch (e) {}
     }
   }
 

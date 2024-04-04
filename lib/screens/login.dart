@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/forms/login_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -60,7 +62,8 @@ class LoginScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      context.router.push(SignUpRoute());
+                      // context.router.push(SignUpRoute());
+                      context.router.push(const RegisterationRoute());
                     },
                     style: ButtonStyle(
                         backgroundColor:

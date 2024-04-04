@@ -8,9 +8,9 @@ abstract class ProfileEvent extends Equatable {
 }
 
 class ProfileInitEvent extends ProfileEvent {
-  final BuildContext context;
+  final BuildContext? context;
 
-  const ProfileInitEvent({required this.context});
+  const ProfileInitEvent({this.context});
 }
 
 class ProfileLoadingEvent extends ProfileEvent {}
@@ -20,9 +20,11 @@ class ProfileLoadedEvent extends ProfileEvent {}
 class ProfileFailedEvent extends ProfileEvent {}
 
 class ProfileUpdateEvent extends ProfileEvent {
-  final BuildContext context;
+  final BuildContext? context;
   final Profile profile;
-  const ProfileUpdateEvent({required this.context, required this.profile});
+  final bool update;
+  const ProfileUpdateEvent(
+      {this.context, required this.profile, this.update = true});
 
   @override
   List<Object> get props => [profile];

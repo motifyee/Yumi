@@ -28,16 +28,18 @@
       "program": "lib/customer.dart"
     },
     {
-      "name": "yumi (profile mode)",
+      "name": "driver (profile mode)",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "profile"
+      "flutterMode": "profile",
+      "program": "lib/driver.dart"
     },
     {
-      "name": "yumi (release mode)",
+      "name": "driver (release mode)",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "release"
+      "flutterMode": "release",
+      "program": "lib/driver.dart"
     }
   ]
 }

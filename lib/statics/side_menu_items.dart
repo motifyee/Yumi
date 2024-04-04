@@ -15,7 +15,12 @@ class AppMenuList {
     if (AppTarget.user == AppTargetUser.customers) {
       return _AppMenuList.customerList(context: context);
     }
-    return _AppMenuList.chefList(context: context);
+
+    if (AppTarget.user == AppTargetUser.chefs) {
+      return _AppMenuList.chefList(context: context);
+    }
+
+    return _AppMenuList.driverList(context: context);
   }
 }
 
@@ -224,6 +229,73 @@ class _AppMenuList {
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
             context.router.push(CustomerWalletRoute());
+          },
+        ),
+        AppMenuItem(
+          icon: 'assets/images/get_help_menu.svg',
+          label: S.of(context).getHelp,
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(const ChatRoute());
+          },
+        ),
+        AppMenuItem(
+          icon: 'assets/images/transaction_menu.svg',
+          label: S.of(context).transactions,
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(const TransactionsRoute());
+          },
+        ),
+        AppMenuItem(
+          icon: 'assets/images/setting_menu.svg',
+          label: S.of(context).setting,
+          onPressed: () {
+            context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 4));
+            context.router.pop();
+          },
+        ),
+      ];
+
+  static List<AppMenuItem> driverList({required BuildContext context}) => [
+        AppMenuItem(
+          icon: 'assets/images/notification_menu.svg',
+          label: S.of(context).notification,
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(const ChefApplicationFlowRoute());
+          },
+        ),
+        AppMenuItem(
+          icon: 'assets/images/notification_menu.svg',
+          label: S.of(context).notification,
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(const NotificationRoute());
+          },
+        ),
+        AppMenuItem(
+          icon: 'assets/images/documentation_menu.svg',
+          label: S.of(context).documentation,
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(const DocumentationRoute());
+          },
+        ),
+        AppMenuItem(
+          icon: 'assets/images/performance_menu.svg',
+          label: S.of(context).performanceAnalysis,
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(const PerformanceAnalysisRoute());
+          },
+        ),
+        AppMenuItem(
+          icon: 'assets/images/financial_menu.svg',
+          label: S.of(context).financialView,
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(const FinancialViewRoute());
           },
         ),
         AppMenuItem(

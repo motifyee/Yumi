@@ -6,6 +6,7 @@ import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/features/settings/profile/model/profile_model.dart';
 import 'package:yumi/features/settings/profile/profile_service.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/template/snack_bar.dart';
 
 part 'profile_event.dart';
@@ -83,7 +84,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(state.copyWith(status: BlocStatus.loading));
 
     await ProfileService.getProfile(
-      event.context.read<UserBloc>().state.user.chefId,
+      G.cContext.read<UserBloc>().state.user.id,
     ).then(
       (value) {
         //
@@ -93,7 +94,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           state.copyWith(
             profile: Profile.fromJson(value).copyWith(
               updatedBy: '366',
-              email: event.context.read<UserBloc>().state.user.email,
+              email: G.cContext.read<UserBloc>().state.user.email,
             ),
             status: BlocStatus.initSuccess,
           ),
@@ -126,7 +127,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                 apiMessage: value.toString()),
           );
 
-          add(ProfileInitEvent(context: event.context));
+          if (event.update) add(const ProfileInitEvent());
 
           // if (event.context.mounted) {}
         } else {
@@ -134,11 +135,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             state.copyWith(status: BlocStatus.error),
           );
 
-          if (event.context.mounted) {
-            ScaffoldMessenger.of(event.context).showSnackBar(
+          if (G.cContext.mounted) {
+            ScaffoldMessenger.of(G.cContext).showSnackBar(
               SnackBar(
-                content: SnackBarMassage(
-                    massage: S.of(event.context).connectionError),
+                content:
+                    SnackBarMassage(massage: S.of(G.cContext).connectionError),
               ),
             );
           }
@@ -157,3 +158,34 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 bool profileInfoSelector(ProfileState state) {
   return (state is! ProfileFormSavedEvent && state is! ProfileFormResetEvent);
 }
+
+// void load() {
+//   emit(state.copyWith(status: BlocStatus.loading));
+
+//   ProfileService.getProfile(G.read<UserBloc>().state.user.id).then((value) {
+//     var profile = Profile.fromJson(value).copyWith(
+//       updatedBy: '366',
+//       email: G.read<UserBloc>().state.user.email,
+//     );
+
+//     emit(state.copyWith(profile: profile, status: BlocStatus.initSuccess));
+//   }).catchError((_) {
+//     emit(state.copyWith(status: BlocStatus.initError));
+//   });
+// }
+
+// void update(Profile profile) {
+//   emit(state.copyWith(status: BlocStatus.loading));
+
+//   ProfileService.updateProfile(profile.toJson()).then((value) {
+//     if (value == null || value == false) throw '';
+
+//     emit(state.copyWith(
+//       profile: profile,
+//       status: BlocStatus.success,
+//       message: value.toString(),
+//     ));
+//   }).catchError((_) {
+//     emit(state.copyWith(status: BlocStatus.loading));
+//   });
+// }

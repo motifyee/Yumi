@@ -1,14 +1,19 @@
 import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/features/chef_application/bloc.dart';
+import 'package:yumi/features/chef_application/documentation/bloc/cubit/docs_cubit.dart';
+import 'package:yumi/features/chef_application/flow_step_info.dart';
 import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
+import 'package:yumi/features/schedule/model/model.dart';
 import 'package:yumi/features/schedule/schedule_screen.dart';
 import 'package:yumi/features/schedule/repository/repository.dart';
 import 'package:yumi/features/settings/profile/bio_sheet.dart';
@@ -40,6 +45,15 @@ class ChefApplicationFlowScreen extends StatelessWidget {
           ),
         );
 
+    if (!context.read<RegCubit>().state.registerationStarted) {
+      context.read<RegCubit>().init();
+    }
+    // context.watch<ProfileBloc>();
+    // context.watch<RegCubit>();
+    // context.watch<MealListBloc>();
+    // context.watch<ScheduleBloc>();
+    // context.watch<DocsCubit>();
+
     return ScreenContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -48,42 +62,62 @@ class ChefApplicationFlowScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
-              // padding: const EdgeInsets.all(8.0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Container(
                       // decoration: BoxDecoration(border: Border.all()),
+                      height: 250,
                       alignment: Alignment.topLeft,
-                      child: const Image(
-                        image: AssetImage('assets/images/vegies.png'),
+                      child: Image(
+                        image: G.isChefApp
+                            ? const AssetImage('assets/images/vegies.png')
+                            : const AssetImage(
+                                'assets/images/flow/driver-flow.png'),
                       ),
                     ),
                   ),
-                  Expanded(child: Container()),
+                  if (G.isChefApp) Expanded(child: Container()),
                 ],
               ),
             ),
             const SizedBox(height: 75),
             Expanded(
               child: Container(
-                margin: const EdgeInsets.all(20),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                 // padding: const EdgeInsets.all(10),
                 // decoration: BoxDecoration(border: Border.all()),
                 child: Center(
                   child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 800),
-                    child: BlocBuilder<ChefFlowBloc, ChefFlowState>(
-                      builder: (context, state) {
-                        return stepStack(context, state);
-                      },
+                    constraints: const BoxConstraints(
+                      maxWidth: 800,
+                      minHeight: 520,
+                      minWidth: 400,
+                    ),
+                    child: BlocBuilder<RegCubit, NRegState>(
+                      builder: (context, state) => stepStack(context, state),
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 100),
+            const SizedBox(height: 35),
+            Row(
+              children: [
+                const Expanded(child: SizedBox()),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButton(
+                    onPressed: () {
+                      G.rd<RegCubit>().nextButtonPressed();
+                    },
+                    child: const Text("Next"),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -91,91 +125,10 @@ class ChefApplicationFlowScreen extends StatelessWidget {
   }
 }
 
-Widget stepStack(BuildContext context, ChefFlowState state) {
-  List stepsInfo = [
-    [
-      "profile",
-      ["Profile", "First, you should complete your profile"],
-      () => showModalBottomSheet(
-            isScrollControlled: true,
-            backgroundColor: Colors.transparent,
-            context: context,
-            builder: (context) => const EditBioSheet(),
-          ),
-      () => true,
-    ],
-    [
-      "menu",
-      ["Your Menu", "Secondly, add your meals on menu and schedule it"],
-      () {
-        G.read<ScheduleBloc>().add(const ScheduleEvent.init());
-        // context.read<MealListBloc>().add(
-        //       MealListUpdateEvent(
-        //         context: context,
-        //         chefId: context.read<UserBloc>().state.user.chefId,
-        //       ),
-        //     );
-
-        showAlertDialog(
-          context: context,
-          // title: Container(),
-          content: BlocProvider(
-            create: (context) => MealListBloc(),
-            child: const MenuTemplate(
-              menuTarget: MenuTarget.order,
-            ),
-          ),
-          actions: {
-            'Next': (ctx) {
-              if (G.read<MealListBloc>().state.meals.isEmpty) {
-                return addYourMealsDialog(context);
-              }
-              if (!G.read<ScheduleBloc>().state.schedule.hasScheduledDays) {
-                return sheduleDialog(context);
-              }
-
-              Navigator.of(context, rootNavigator: true).pop();
-              G.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
-            },
-          },
-          insetPadding: 0,
-          // onDismissed: () {
-          //   context.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
-          // },
-        );
-      },
-      () => state.menuActive,
-    ],
-    [
-      "documentation",
-      ["Documentation", "Third, attach your documents"],
-      () => context.router.push(const DocumentationRoute()),
-      () => state.docsActive,
-    ],
-    [
-      "approval",
-      ["Get Approval", "Then, waiting for approval within 72 hours"],
-      () => showAlertDialog(
-            context: context,
-            title: Container(),
-            content: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(state.activeIdx == 3
-                  ? "Waiting for approval within 72 hours..."
-                  : "Your application has been approved"),
-            ),
-            actions: {'Ok': null},
-            dismissible: true,
-          ),
-      () => state.approvalActive,
-    ],
-    [
-      "contract",
-      ["Get Contract", "Finally, download the contract to sign and upload it"],
-      () => context.router.push(const ContractRoute()),
-      () => state.contractActive,
-    ],
-  ];
+Widget stepStack(BuildContext context, NRegState state) {
+  var stepsInfo = G.isChefApp
+      ? chefStepsInfo(context, state)
+      : driverStepsInfo(context, state);
 
   var tileChildrenBuilders = stepsInfo.map(tileChildrenFn).toList();
 
@@ -197,15 +150,19 @@ Widget stepStack(BuildContext context, ChefFlowState state) {
 
       return Positioned(
         left: !alignRight ? hs * x : 0,
-        width: alignRight ? hs * x : null,
+        width: alignRight ? hs * x + 7 : null,
         right: alignRight ? null : 0,
         top: vs * y,
         child: Container(
+          padding: const EdgeInsets.all(4),
           foregroundDecoration: foregroundDecoration,
           child: InkWell(
             borderRadius: BorderRadius.circular(10),
             onTap: () => isActive ? stepsInfo[i][2]() : null,
-            child: items,
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: items,
+            ),
           ),
         ),
       );
@@ -223,6 +180,7 @@ Widget stepStack(BuildContext context, ChefFlowState state) {
       var step = tileBuilderFn(constraints);
 
       return Stack(
+        fit: StackFit.expand,
         clipBehavior: Clip.none,
         children: [
           Positioned.fill(
@@ -275,12 +233,12 @@ Function(bool alignRight) tileChildrenFn(info) {
     ];
 
     return Container(
-        padding: EdgeInsets.only(
-            left: 4.0,
-            right: 4.0,
-            top: alignRight ? 8 : 0,
-            bottom: alignRight ? 0 : 12),
-        alignment: alignRight ? Alignment.centerRight : Alignment.centerLeft,
+        // padding: EdgeInsets.only(
+        //     left: 4.0,
+        //     right: 4.0,
+        //     top: alignRight ? 8 : 0,
+        //     bottom: alignRight ? 0 : 12),
+        // alignment: alignRight ? Alignment.centerRight : Alignment.centerLeft,
         child: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,

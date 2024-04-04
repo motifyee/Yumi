@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:yumi/app_config/chef/chef_app_config.dart';
 import 'package:yumi/app_config/yumi_app.dart';
+import 'package:yumi/app_target.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
@@ -14,6 +16,7 @@ void main() {
   WakelockPlus.enable();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
+  AppTarget.user = AppTargetUser.chefs;
   runApp(const ChefApp());
 }
 

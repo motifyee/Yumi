@@ -1,6 +1,6 @@
 part of 'documentation_bloc.dart';
 
-class DocsState extends Equatable {
+class DocsState {
   final Profile profile;
   final BlocStatus status;
 
@@ -9,36 +9,36 @@ class DocsState extends Equatable {
   final BlocStatus riskStatus;
   final BlocStatus idStatus;
 
-  @override
-  List<Object> get props => [
-        finished,
-        uploadedCount,
-        status,
-        hygieneStatus,
-        registerationStatus,
-        riskStatus,
-        idStatus
-      ];
+  // @override
+  // List<Object> get props => [
+  //       finished,
+  //       uploadedCount,
+  //       status,
+  //       hygieneStatus,
+  //       registerationStatus,
+  //       riskStatus,
+  //       idStatus
+  //     ];
 
-  get finished =>
-      profile.hygienePhoto != null &&
-      profile.registerationPhoto != null &&
-      profile.riskPhoto != null &&
-      profile.nidPhoto != null;
+  // get finished =>
+  //     profile.hygienePhoto != null &&
+  //     profile.registerationPhoto != null &&
+  //     profile.riskPhoto != null &&
+  //     profile.nidPhoto != null;
 
-  get uploadedCount => [
-        profile.hygienePhoto,
-        profile.registerationPhoto,
-        profile.riskPhoto,
-        profile.contractPhoto,
-        profile.nidPhoto,
-      ].where((e) => e != null).length;
+  // get uploadedCount => [
+  //       profile.hygienePhoto,
+  //       profile.registerationPhoto,
+  //       profile.riskPhoto,
+  //       profile.contractPhoto,
+  //       profile.nidPhoto,
+  //     ].where((e) => e != null).length;
 
-  get isUploadingAPhoto =>
-      hygieneStatus.isLoading ||
-      registerationStatus.isLoading ||
-      riskStatus.isLoading ||
-      idStatus.isLoading;
+  // get isUploadingAPhoto =>
+  //     hygieneStatus.isLoading ||
+  //     registerationStatus.isLoading ||
+  //     riskStatus.isLoading ||
+  //     idStatus.isLoading;
 
   const DocsState({
     this.profile = const Profile(),

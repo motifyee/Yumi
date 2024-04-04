@@ -123,6 +123,8 @@ class SideBar extends StatelessWidget {
                         children: [
                           for (var menuItem in AppMenuList.appList(context))
                             MenuButton(menuItem: menuItem),
+                          //
+                          const SizedBox(height: 40),
                           TextButton(
                             onPressed: () {
                               context.read<UserBloc>().add(UserResetEvent());

@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app_config/yumi_app.dart';
+import 'package:yumi/app_target.dart';
 
 class G {
   // static const String API_KEY = "";
@@ -11,19 +13,33 @@ class G {
   // static get navigator => navigatorKey.currentState;
   // static get currentContext => navigatorKey.currentContext;
   // static ScaffoldState get scaffold => Scaffold.of(currentContext);
+  static YumiApp get yumiApp => YumiApp.of(cContext);
+  static bool get isChefApp =>
+      yumiApp.config.appTargetUser == AppTargetUser.chefs;
+  static bool get isDriverApp =>
+      yumiApp.config.appTargetUser == AppTargetUser.drivers;
+  static bool get isCustomerApp =>
+      yumiApp.config.appTargetUser == AppTargetUser.customers;
 
-  static String get appName => YumiApp.of(cContext).config.appTargetUser.name;
+  static String get appName => yumiApp.config.appTargetUser.name;
 
   static final GlobalKey builderKey = GlobalKey();
   static BuildContext get cContext => builderKey.currentContext!;
   static ScaffoldState get scaffold => Scaffold.of(cContext);
 
+  static StackRouter get router => yumiApp.config.appRouter;
+  static BuildContext get context => router.navigatorKey.currentContext!;
+
   static void pop() {
-    Navigator.of(cContext, rootNavigator: true).pop();
+    Navigator.of(context, rootNavigator: true).pop();
   }
 
   static T read<T extends Bloc>() {
     return cContext.read<T>();
+  }
+
+  static T rd<T extends Cubit>() {
+    return context.read<T>();
   }
   // static void add<T extends Bloc<E, S>, E,S>(E event) {
   //   cContext.read<T>().add(event);

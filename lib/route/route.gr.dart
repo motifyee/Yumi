@@ -9,6 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i30;
+import 'package:flutter/foundation.dart' as _i34;
 import 'package:flutter/material.dart' as _i31;
 import 'package:yumi/features/chef_application/application_flow_screen.dart'
     as _i6;
@@ -18,7 +19,7 @@ import 'package:yumi/features/chef_application/documentation/documentation_scree
     as _i11;
 import 'package:yumi/features/registeration/add_phone_screen.dart' as _i1;
 import 'package:yumi/features/registeration/location_screen.dart' as _i15;
-import 'package:yumi/features/registeration/model/address.dart' as _i34;
+import 'package:yumi/features/registeration/model/address.dart' as _i35;
 import 'package:yumi/features/registeration/otp_screen.dart' as _i21;
 import 'package:yumi/features/registeration/reg_screen.dart' as _i26;
 import 'package:yumi/features/registeration/signup_screen.dart' as _i27;
@@ -545,8 +546,8 @@ class HomeRouteArgs {
 /// [_i15.LocationScreen]
 class LocationRoute extends _i30.PageRouteInfo<LocationRouteArgs> {
   LocationRoute({
-    _i31.Key? key,
-    dynamic Function({_i34.Address address})? routeFn,
+    _i34.Key? key,
+    dynamic Function({_i35.Address address})? routeFn,
     List<_i30.PageRouteInfo>? children,
   }) : super(
           LocationRoute.name,
@@ -569,9 +570,9 @@ class LocationRouteArgs {
     this.routeFn,
   });
 
-  final _i31.Key? key;
+  final _i34.Key? key;
 
-  final dynamic Function({_i34.Address address})? routeFn;
+  final dynamic Function({_i35.Address address})? routeFn;
 
   @override
   String toString() {

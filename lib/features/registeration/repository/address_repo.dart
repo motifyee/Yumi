@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/features/settings/bankinfo/bankinfo_service.dart';
@@ -17,22 +20,23 @@ class AddressRepo {
   }
 
   // !TODO! should return id of newly created object
-  static Future<bool> addAddress({
+  static Future<String?> addAddress({
     required Address address,
-    required BuildContext context,
   }) async {
     var data = address.toJson();
 
     data['code'] = getRandomString(15);
     data.remove('id');
 
-    try {
-      await DioClient.simpleDio(context).post('/accounts/address', data: data);
+    String? res;
+    await DioClient.simpleDio()
+        .post<String?>('/accounts/address', data: data)
+        .then((_) {})
+        .catchError((err) {
+      res = (err.response as Response).data['message'];
+    });
 
-      return true;
-    } catch (e) {
-      return false;
-    }
+    return res;
   }
 
   static Future<bool> updateAddress({

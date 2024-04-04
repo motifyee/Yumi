@@ -12,7 +12,12 @@ extension BuildContextX on BuildContext {
 }
 
 class YumiApp extends StatelessWidget {
-  const YumiApp({super.key, required this.config, required this.builder});
+  const YumiApp({
+    super.key,
+    required this.config,
+    required this.builder,
+  });
+  // : _key
 
   final AppConfig config;
   final TransitionBuilder builder;

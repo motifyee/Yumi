@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/features/chef_application/bloc.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/features/settings/profile/profile_screen.dart';
@@ -34,12 +35,11 @@ class EditBioSheet extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           color: ThemeSelector.colors.background,
-          border: Border.all(),
           borderRadius: BorderRadius.only(
-            topRight:
-                Radius.circular(ThemeSelector.statics.defaultBorderRadiusLarge),
-            topLeft:
-                Radius.circular(ThemeSelector.statics.defaultBorderRadiusLarge),
+            topRight: Radius.circular(
+                ThemeSelector.statics.defaultBorderRadiusExtraLarge),
+            topLeft: Radius.circular(
+                ThemeSelector.statics.defaultBorderRadiusExtraLarge),
           ),
         ),
         width: MediaQuery.of(context).size.width,
@@ -52,20 +52,23 @@ class EditBioSheet extends StatelessWidget {
               children: [
                 const ProfilePicture(),
                 const Bio(),
-                const SizedBox(height: 40),
-                const EventsPhoto(),
+                if (G.isChefApp) const SizedBox(height: 40),
+                if (G.isChefApp) const EventsPhoto(),
                 const SizedBox(height: 20),
                 BlocSelector<ProfileBloc, ProfileState, bool>(
                   selector: (state) => state.profile.profileSheetDone,
                   builder: (context, profileSheetDone) {
                     return TextButton(
                       onPressed: () {
-                        var state = G.read<ChefFlowBloc>().state;
-                        if (!state.profileSheetDone) return;
+                        var state = G.read<ProfileBloc>().state;
+                        if (!state.profile.profileSheetDone) return;
 
-                        G.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 1));
+                        // G.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 1));
 
-                        Navigator.of(context, rootNavigator: true).pop();
+                        Navigator.of(context).pop();
+                        G.rd<RegCubit>().refresh();
+
+                        // G.pop();
                       },
                       style: TextButton.styleFrom(
                         foregroundColor: profileSheetDone

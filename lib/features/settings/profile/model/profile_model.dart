@@ -1,6 +1,8 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/app_config/yumi_app.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/model/country_model.dart';
 
 part 'profile_model.freezed.dart';
@@ -45,11 +47,22 @@ class Profile with _$Profile {
     @Default(false) @JsonKey(name: 'is_Hygiene') bool isHygiene,
 
     // Documents
+    // chef
     @JsonKey(name: 'image_Hygiene') String? hygienePhoto,
     @JsonKey(name: 'image_Risk') String? riskPhoto,
     @JsonKey(name: 'image_Authority_Reg') String? registerationPhoto,
+    //driver
+    @JsonKey(name: 'image_Driver_License') String? driverLicensePhoto,
+    @JsonKey(name: 'Image_Driver_License_Code') String? driverLicenseCodePhoto,
+    @JsonKey(name: 'Image_Food_Delivery_Insurance')
+    String? foodDeliveryInsurancePhoto,
+    @JsonKey(name: 'Image_Evidence_Of_Residence')
+    String? evidenceOfResidencePhoto,
+    //common
     @JsonKey(name: 'image_Passport') String? passportPhoto,
     @JsonKey(name: 'image_Id') String? nidPhoto,
+
+    //
     @JsonKey(name: 'image_Contract') String? contractPhoto,
   }) = _Profile;
 
@@ -79,7 +92,30 @@ class Profile with _$Profile {
   bool get profileSheetDone {
     if (bio.isEmpty) return false;
     if (profileImage == null) return false;
-    if (eventPhotosCount < 5) return false;
+    if (G.isChefApp && eventPhotosCount < 5) return false;
+
+    return true;
+  }
+
+  bool get documentaionDone {
+    if (idPhoto == null) return false;
+
+    if (G.isDriverApp) {
+      if (driverLicensePhoto == null) return false;
+      if (driverLicenseCodePhoto == null) return false;
+      if (foodDeliveryInsurancePhoto == null) return false;
+      // if (evidenceOfResidencePhoto == null) return false;
+
+      return true;
+    }
+
+    if (G.isChefApp) {
+      if (hygienePhoto == null) return false;
+      if (riskPhoto == null) return false;
+      if (registerationPhoto == null) return false;
+
+      return true;
+    }
 
     return true;
   }

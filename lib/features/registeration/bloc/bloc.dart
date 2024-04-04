@@ -96,8 +96,7 @@ class RegBloc extends Bloc<RegEvent, RegState> {
           },
           saveLocation: (_setLocation value) async {
             await tryV(
-              () => AddressRepo.addAddress(
-                  address: state.address, context: value.ctx),
+              () => AddressRepo.addAddress(address: state.address),
             ).then((res) {
               if (res) {
                 emit(state.copyWith(addressStatus: BlocStatus.success));

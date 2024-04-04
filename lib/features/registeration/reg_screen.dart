@@ -2,7 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/features/registeration/bloc/bloc.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
+// import 'package:yumi/features/registeration/bloc/bloc.dart';
 
 @RoutePage()
 class RegisterationScreen extends StatelessWidget {
@@ -12,14 +13,30 @@ class RegisterationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
-        return BlocProvider(
-          create: (context) => RegBloc(),
-          child: BlocConsumer<RegBloc, RegState>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              return const AutoRouter();
-            },
-          ),
+        return BlocConsumer<RegCubit, NRegState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            var c = context.read<RegCubit>();
+            if (!c.state.registerationStarted) c.init();
+
+            context.read<UserBloc>().add(UserFromSharedRefEvent(
+                  context: context,
+                  route: null,
+                  afterFetchSuccess: (_, __) {},
+                  autoLogin: (p0) => {},
+                ));
+
+            return Scaffold(
+              body: Container(
+                padding: const EdgeInsets.all(10),
+                child: const Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: AutoRouter(),
+                ),
+              ),
+            );
+          },
         );
       },
     );

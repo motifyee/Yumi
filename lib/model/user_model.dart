@@ -1,69 +1,34 @@
-class UserModel {
-  String chefId;
-  String message;
-  String userName;
-  String email;
-  String accessToken;
-  String code;
-  String expiresIn;
-  String bio;
+// ignore_for_file: invalid_annotation_target
 
-  UserModel({
-    this.chefId = '',
-    this.message = '',
-    this.userName = '',
-    this.email = '',
-    this.accessToken = '',
-    this.code = '',
-    this.expiresIn = '',
-    this.bio = '',
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Map<String, dynamic> toJson() {
-    return {
-      'chefId': chefId,
-      'message': message,
-      'userName': userName,
-      'email': email,
-      'accessToken': accessToken,
-      'code': code,
-      'expiresIn': expiresIn,
-      'bio': bio,
-    };
-  }
+part 'user_model.freezed.dart';
+part 'user_model.g.dart';
 
-  static UserModel fromJson(dynamic value) {
-    return UserModel(
-      chefId: value['chefId'] ?? '',
-      message: value['message'] ?? '',
-      userName: value['userName'] ?? '',
-      email: value['email'] ?? '',
-      accessToken: value['access_Token'] ?? '',
-      code: value['code'] ?? '',
-      expiresIn: value['expires_In'] ?? '',
-      bio: value['bio'] ?? '',
-    );
-  }
-
-  UserModel copyWith({
+@freezed
+class UserModel with _$UserModel {
+  const factory UserModel({
     String? chefId,
-    String? message,
-    String? userName,
-    String? email,
-    String? accessToken,
-    String? code,
-    String? expiresIn,
-    String? bio,
-  }) {
-    return UserModel(
-      chefId: chefId ?? this.chefId,
-      message: message ?? this.message,
-      userName: userName ?? this.userName,
-      email: email ?? this.email,
-      accessToken: accessToken ?? this.accessToken,
-      code: code ?? this.code,
-      expiresIn: expiresIn ?? this.expiresIn,
-      bio: bio ?? this.bio,
-    );
-  }
+    String? driverId,
+    String? customerId,
+    @Default('') String message,
+    @Default('') String userName,
+    @Default('') String email,
+    @Default('') String code,
+    // @Default('') String bio,
+    @JsonKey(name: 'access_Token') @Default('') String accessToken,
+    @JsonKey(name: 'expires_In') @Default('') String expiresIn,
+    String? address,
+    @JsonKey(name: 'address_Name') String? addressName,
+    @JsonKey(name: 'address_Lattitude') String? lat,
+    @JsonKey(name: 'address_Longitude') String? long,
+    @Default('') String location,
+  }) = _Initial;
+
+  const UserModel._();
+
+  String get id => chefId ?? driverId ?? customerId ?? '';
+
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
 }

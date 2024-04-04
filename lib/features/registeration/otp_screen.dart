@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
 import 'package:yumi/features/schedule/repository/mock.dart';
@@ -28,7 +30,7 @@ class OTPScreen extends StatelessWidget {
             scrolledUnderElevation: 0,
             iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
           ),
-          body: BlocBuilder<RegBloc, RegState>(
+          body: BlocBuilder<RegCubit, NRegState>(
             builder: (context, state) {
               return SingleChildScrollView(
                 child: Center(
@@ -98,11 +100,12 @@ class OTPScreen extends StatelessWidget {
                           ConfirmButton(
                               label: "Verify & Proceed",
                               onPressed: () {
-                                if (otp.length < 4) return;
+                                if (kReleaseMode && otp.length < 4) return;
 
-                                context
-                                    .read<RegBloc>()
-                                    .add(RegEvent.setOTP(otp, context));
+                                // context
+                                //     .read<NRegBloc>()
+                                //     .add(RegEvent.setOTP(otp, context));
+                                context.read<RegCubit>().setOTP(otp);
                               }),
                         ],
                       ),

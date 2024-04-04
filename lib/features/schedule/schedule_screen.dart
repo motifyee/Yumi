@@ -1,11 +1,16 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/features/chef_application/bloc.dart';
+import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
 import 'package:yumi/features/schedule/model/extensions.dart';
 import 'package:yumi/features/schedule/model/model.dart';
@@ -341,19 +346,24 @@ void addYourScheduleDialog(BuildContext context) {
   showAlertDialog(
     context: context,
     content: SizedBox(
-      height: 150,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SvgPicture.asset('assets/images/flow/add-schedule.svg'),
-          const SizedBox(height: 16),
-          Text(
-            'You should schedule your own menu',
-            style: TextStyle(
-              fontSize: ThemeSelector.fonts.font_14,
+      height: 175,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset('assets/images/flow/add-schedule.svg'),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'You should schedule at least two working days with at least two hours each.',
+                style: TextStyle(
+                  fontSize: ThemeSelector.fonts.font_14,
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ),
     actions: {'Next': null},
@@ -367,12 +377,16 @@ void sheduleDialog(BuildContext context) {
     content: const MyScheduleScreen(),
     actions: {
       'Next': (ctx) {
-        if (!G.read<ScheduleBloc>().state.schedule.hasScheduledDays) {
+        if (!G.read<ScheduleBloc>().state.schedule.validSchedule) {
           return addYourScheduleDialog(context);
         }
 
-        Navigator.of(context, rootNavigator: true).pop();
-        G.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
+        G.rd<RegCubit>().refresh();
+
+        // Navigator.of(context, rootNavigator: true).pop();
+        G.pop();
+        // G.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
+        // G.cread<RegCubit>().goto(2);
       },
     },
     insetPadding: 0,

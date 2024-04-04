@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
@@ -11,11 +12,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/extensions/color.dart';
-import 'package:yumi/features/chef_application/documentation/bloc/documentation_bloc.dart';
+import 'package:yumi/features/chef_application/documentation/bloc/cubit/docs_cubit.dart';
+import 'package:yumi/features/chef_application/documentation/bloc/cubit/docs_info.dart';
+// import 'package:yumi/features/chef_application/documentation/bloc/documentation_bloc.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/screen_container.dart';
+import 'package:collection/collection.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 @RoutePage()
 class DocumentationScreen extends StatelessWidget {
@@ -55,71 +62,19 @@ class DocumentationScreen extends StatelessWidget {
                 constraints: const BoxConstraints(maxHeight: 140),
                 child: SvgPicture.asset("assets/images/documents-icon.svg"),
               ),
-              BlocListener<ProfileBloc, ProfileState>(
-                listener: (context, state) {
-                  if (state.status.isInitSucces) {
-                    context
-                        .read<DocsBloc>()
-                        .add(DocsInitSuccessEvent(state.profile));
-                  }
-
-                  if (state.status.isInitError) {
-                    context.read<DocsBloc>().add(const DocsInitFailedEvent());
-                  }
-
-                  var docsBloc = context.read<DocsBloc>();
-                  var docs = docsBloc.state;
-                  if (state.status.isSuccess) {
-                    if (docs.hygieneStatus.isLoading) {
-                      docsBloc.add(UploadHygieneSuccessEvent());
-                    } else if (docs.registerationStatus.isLoading) {
-                      docsBloc.add(UploadRegisterationSuccessEvent());
-                    } else if (docs.riskStatus.isLoading) {
-                      docsBloc.add(UploadRiskSuccessEvent());
-                    } else if (docs.idStatus.isLoading) {
-                      docsBloc.add(UploadIDSuccessEvent());
-                    }
-                  }
-
-                  if (state.status.isError) {
-                    if (docs.hygieneStatus.isLoading) {
-                      docsBloc.add(UploadHygieneErrorEvent());
-                    } else if (docs.registerationStatus.isLoading) {
-                      docsBloc.add(UploadRegisterationErrorEvent());
-                    } else if (docs.riskStatus.isLoading) {
-                      docsBloc.add(UploadRiskErrorEvent());
-                    } else if (docs.idStatus.isLoading) {
-                      docsBloc.add(UploadIDErrorEvent());
-                    }
-                  }
-                },
-                child: const SizedBox(),
-              ),
-              BlocConsumer<DocsBloc, DocsState>(
-                listener: (context, state) {
-                  if (state.isUploadingAPhoto) {
-                    context.read<ProfileBloc>().add(
-                          ProfileUpdateEvent(
-                              context: context, profile: state.profile),
-                        );
-                  } else if (state.finished) {
-                    context.router.pop();
-                  }
-                },
+              const SizedBox(),
+              BlocBuilder<DocsCubit, DocsState>(
                 builder: (context, state) {
                   if (state.status.isInit) {
-                    context.read<DocsBloc>().add(DocsInitEvent());
+                    context.read<DocsCubit>().init();
                     context
                         .read<ProfileBloc>()
                         .add(ProfileInitEvent(context: context));
                   }
 
                   return state.status.isLoading
-                      ? Container(
-                          decoration: BoxDecoration(border: Border.all()),
-                          child: const Center(
-                            child: CircularProgressIndicator(),
-                          ),
+                      ? const Center(
+                          child: CircularProgressIndicator(),
                         )
                       : documentWidgets(context, state);
                 },
@@ -131,70 +86,99 @@ class DocumentationScreen extends StatelessWidget {
     );
   }
 
-  static const List data = [
-    {"title": 'Hygiene Certificate', "desc": 'You must obtain level two'},
-    {"title": 'Local Authority Registration', "desc": ''},
-    {"title": 'Risk Assessment', "desc": ''},
-    {
-      "title": 'ID/Passport copy',
-      "desc":
-          'The passport must be of British or Irish nationality and valid for at least 6 months'
-    },
-  ];
+  List get data => G.isChefApp ? chefDocsInfo : driverDocsInfo;
 
   Widget documentWidgets(BuildContext context, DocsState state) {
+    Future<String?> Function()? preAction(dynamic e) {
+      if (e['targets'] == null) return null;
+
+      return () => showDialog(
+            context: context,
+            builder: (ctx) => FractionallySizedBox(
+              widthFactor: .85,
+              heightFactor: .3,
+              child: Material(
+                child: Container(
+                  // height: 40,
+                  constraints: const BoxConstraints(maxHeight: 60),
+                  padding: EdgeInsets.symmetric(
+                      vertical: ThemeSelector.statics.defaultGap,
+                      horizontal: ThemeSelector.statics.defaultGap),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    // border: Border.all(width: 1),
+                    color: ThemeSelector.colors.background,
+                    borderRadius: BorderRadius.circular(
+                        ThemeSelector.statics.defaultBorderRadiusMedium),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: (e['targets'] as List)
+                          .map((e) => TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, e['option']),
+                                child: Container(
+                                  width: double.infinity,
+                                  alignment: Alignment.center,
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 20),
+                                  child: Text(e['option'],
+                                      style: TextStyle(
+                                        color: ThemeSelector.colors.primary,
+                                      )),
+                                ),
+                              ))
+                          .toList(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+    }
+
+    var children = data
+        .mapIndexed(
+          (i, e) => documentWidget(
+            hexBg: e['color'],
+            positionedIdx: i,
+            title: e['title'],
+            data: () {
+              if (e['getdata'] == null) return null;
+
+              var res = e['getdata'](state.profile);
+              return res;
+            }(),
+            desc: e['desc'],
+            loading: state.docsStatuses[i]?.isLoading ?? false,
+            enabled: !state.isUploading,
+            preAction: preAction(e),
+            uploadAction: (String image, String? target) {
+              if (target == null) {
+                G.rd<DocsCubit>().update(e['update'](state.profile, image), 0);
+              } else {
+                var updater = (e['targets'] as List)
+                    .firstWhereOrNull((e) => e['option'] == target)['update'];
+
+                G.rd<DocsCubit>().update(updater(state.profile, image), 0);
+              }
+
+              // if(data[0]['targets'] != null)
+              // context.read<DocsBloc>().add(UploadHygieneEvent(value));
+            },
+            // targets: data[0]['targets'],
+          ),
+        )
+        .toList();
+
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 470),
+      constraints: const BoxConstraints(maxHeight: 670),
       child: Stack(
         clipBehavior: Clip.antiAlias,
         fit: StackFit.expand,
         alignment: Alignment.center,
-        children: [
-          documentWidget(
-            hexBg: "#F4F4F4",
-            positionedIdx: 0,
-            title: data[0]['title'],
-            data: state.profile.hygienePhoto,
-            desc: data[0]['desc'],
-            loading: state.hygieneStatus.isLoading,
-            enabled: !state.isUploadingAPhoto,
-            uploadAction: (data) =>
-                context.read<DocsBloc>().add(UploadHygieneEvent(data)),
-          ),
-          documentWidget(
-            hexBg: "#EDEDED",
-            positionedIdx: 1,
-            title: data[1]['title'],
-            data: state.profile.registerationPhoto,
-            desc: data[01]['desc'],
-            loading: state.registerationStatus.isLoading,
-            enabled: !state.isUploadingAPhoto,
-            uploadAction: (data) =>
-                context.read<DocsBloc>().add(UploadRegisterationEvent(data)),
-          ),
-          documentWidget(
-            hexBg: "#E0E0E0",
-            positionedIdx: 2,
-            title: data[02]['title'],
-            desc: data[02]['desc'],
-            data: state.profile.riskPhoto,
-            loading: state.riskStatus.isLoading,
-            enabled: !state.isUploadingAPhoto,
-            uploadAction: (data) =>
-                context.read<DocsBloc>().add(UploadRiskEvent(data)),
-          ),
-          documentWidget(
-            hexBg: "#687C8E",
-            positionedIdx: 03,
-            title: data[03]['title'],
-            desc: data[03]['desc'],
-            data: state.profile.idPhoto,
-            loading: state.idStatus.isLoading,
-            enabled: !state.isUploadingAPhoto,
-            uploadAction: (data) =>
-                context.read<DocsBloc>().add(UploadIDEvent(data)),
-          ),
-        ],
+        children: children,
       ),
     );
   }
@@ -250,13 +234,17 @@ Widget fileSvg(String hexColor) {
 }
 
 Future<String> _createFileFromString(String data, String? fileName) async {
+  var p = await Permission.storage.request();
+  if (p.isDenied) return '';
+
   Uint8List bytes = base64.decode(data);
 
-  final path = (await getApplicationDocumentsDirectory()).path;
+  // final path = (await getApplicationDocumentsDirectory()).path;
+  var path = '/storage/emulated/0/Download/';
+  if (Platform.isWindows) path = Directory.current.path;
+  String fileName0 = fileName ?? "${DateTime.now().millisecondsSinceEpoch}.jpg";
 
-  String fileName0 = fileName ?? "${DateTime.now().millisecondsSinceEpoch}.pdf";
-
-  File file = File("$path/$fileName0.pdf");
+  File file = File("$path/$fileName0");
   await file.writeAsBytes(bytes);
   return file.path;
 }
@@ -270,12 +258,14 @@ Widget documentWidget({
   String? fileName,
   bool loading = false,
   bool enabled = true,
-  required Function(String) uploadAction,
+  //
+  Future<String?> Function()? preAction,
+  required void Function(String, String?) uploadAction,
 }) {
   var titleWdg = Container(
     width: double.infinity,
     alignment: Alignment.topLeft,
-    padding: const EdgeInsets.only(left: 70),
+    padding: const EdgeInsets.only(left: 30),
     margin: const EdgeInsets.all(0),
     child: Text(
       title ?? "",
@@ -290,7 +280,7 @@ Widget documentWidget({
     width: double.infinity,
     alignment: Alignment.topLeft,
     // decoration: BoxDecoration(border: Border.all()),
-    padding: const EdgeInsets.only(left: 70, right: 10),
+    padding: const EdgeInsets.only(left: 30, right: 30),
     child: Text(
       desc ?? "",
       style: TextStyle(
@@ -314,10 +304,30 @@ Widget documentWidget({
       onPressed: () async {
         if (!enabled) return;
 
+        if (preAction != null) {
+          return preAction().then((target) async {
+            if (target == null) return;
+
+            ImagePicker imagePicker = ImagePicker();
+            final image =
+                await imagePicker.pickImage(source: ImageSource.gallery);
+            if (image == null) return;
+
+            var encoded = base64Encode(await image.readAsBytes());
+            uploadAction(encoded, target);
+
+            G.rd<RegCubit>().refresh();
+          });
+        }
+
         ImagePicker imagePicker = ImagePicker();
         final image = await imagePicker.pickImage(source: ImageSource.gallery);
         if (image == null) return;
-        uploadAction(base64Encode(await image.readAsBytes()));
+
+        var encoded = base64Encode(await image.readAsBytes());
+
+        uploadAction(encoded, null);
+        G.rd<RegCubit>().refresh();
       },
       child: const Text("Upload"),
     ),
@@ -350,18 +360,24 @@ Widget documentWidget({
   var docStack = Stack(
     // fit: StackFit.expand,
     children: [
+      //
       // Icon
       Container(child: fileSvg(hexBg ?? "FFFFFF")),
       // Transform.scale(scale: 1.1, child: bg),
+      //
       // Text
-      filter(Column(
-        children: [
-          const SizedBox(height: 60),
-          titleWdg,
-          const SizedBox(height: 5),
-          desription,
-        ],
-      )),
+      filter(
+        Column(
+          children: [
+            // if (title != null)
+            SizedBox(height: (title == null ? 50 : 60)),
+            if (title != null) titleWdg,
+            const SizedBox(height: 5),
+            desription,
+          ],
+        ),
+      ),
+      //
       // Buttons
       Positioned(
         right: 22,

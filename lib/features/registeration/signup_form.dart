@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/registeration/model/registeration.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
@@ -104,9 +105,7 @@ class SignUpForm extends StatelessWidget {
               label: S.of(context).createAccount,
               onPressed: () async {
                 // if (kDebugMode) {
-                //   return context
-                //       .read<RegBloc>()
-                //       .add(RegEvent.setAccount(signupForm, context));
+                // return context.read<RegCubit>().setAccount(signupForm);
                 // }
 
                 if (signUpFormKey.currentState!.validate()) {
@@ -137,9 +136,10 @@ class SignUpForm extends StatelessWidget {
                             .add(ProfileInitEvent(context: context));
                       });
 
-                      return context
-                          .read<RegBloc>()
-                          .add(RegEvent.setAccount(signupForm, context));
+                      // return context
+                      //     .read<RegBloc>()
+                      //     .add(RegEvent.setAccount(signupForm, context));
+                      return context.read<RegCubit>().setAccount(signupForm);
                     }
 
                     ScaffoldMessenger.of(context).showSnackBar(

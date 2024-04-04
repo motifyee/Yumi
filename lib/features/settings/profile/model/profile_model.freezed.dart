@@ -57,16 +57,26 @@ mixin _$Profile {
   bool get accountApproved => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_Hygiene')
   bool get isHygiene => throw _privateConstructorUsedError; // Documents
+// chef
   @JsonKey(name: 'image_Hygiene')
   String? get hygienePhoto => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_Risk')
   String? get riskPhoto => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_Authority_Reg')
-  String? get registerationPhoto => throw _privateConstructorUsedError;
+  String? get registerationPhoto => throw _privateConstructorUsedError; //driver
+  @JsonKey(name: 'image_Driver_License')
+  String? get driverLicensePhoto => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Image_Driver_License_Code')
+  String? get driverLicenseCodePhoto => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Image_Food_Delivery_Insurance')
+  String? get foodDeliveryInsurancePhoto => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Image_Evidence_Of_Residence')
+  String? get evidenceOfResidencePhoto =>
+      throw _privateConstructorUsedError; //common
   @JsonKey(name: 'image_Passport')
   String? get passportPhoto => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_Id')
-  String? get nidPhoto => throw _privateConstructorUsedError;
+  String? get nidPhoto => throw _privateConstructorUsedError; //
   @JsonKey(name: 'image_Contract')
   String? get contractPhoto => throw _privateConstructorUsedError;
 
@@ -110,6 +120,13 @@ abstract class $ProfileCopyWith<$Res> {
       @JsonKey(name: 'image_Hygiene') String? hygienePhoto,
       @JsonKey(name: 'image_Risk') String? riskPhoto,
       @JsonKey(name: 'image_Authority_Reg') String? registerationPhoto,
+      @JsonKey(name: 'image_Driver_License') String? driverLicensePhoto,
+      @JsonKey(name: 'Image_Driver_License_Code')
+      String? driverLicenseCodePhoto,
+      @JsonKey(name: 'Image_Food_Delivery_Insurance')
+      String? foodDeliveryInsurancePhoto,
+      @JsonKey(name: 'Image_Evidence_Of_Residence')
+      String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') String? passportPhoto,
       @JsonKey(name: 'image_Id') String? nidPhoto,
       @JsonKey(name: 'image_Contract') String? contractPhoto});
@@ -157,6 +174,10 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
     Object? hygienePhoto = freezed,
     Object? riskPhoto = freezed,
     Object? registerationPhoto = freezed,
+    Object? driverLicensePhoto = freezed,
+    Object? driverLicenseCodePhoto = freezed,
+    Object? foodDeliveryInsurancePhoto = freezed,
+    Object? evidenceOfResidencePhoto = freezed,
     Object? passportPhoto = freezed,
     Object? nidPhoto = freezed,
     Object? contractPhoto = freezed,
@@ -278,6 +299,22 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
           ? _value.registerationPhoto
           : registerationPhoto // ignore: cast_nullable_to_non_nullable
               as String?,
+      driverLicensePhoto: freezed == driverLicensePhoto
+          ? _value.driverLicensePhoto
+          : driverLicensePhoto // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverLicenseCodePhoto: freezed == driverLicenseCodePhoto
+          ? _value.driverLicenseCodePhoto
+          : driverLicenseCodePhoto // ignore: cast_nullable_to_non_nullable
+              as String?,
+      foodDeliveryInsurancePhoto: freezed == foodDeliveryInsurancePhoto
+          ? _value.foodDeliveryInsurancePhoto
+          : foodDeliveryInsurancePhoto // ignore: cast_nullable_to_non_nullable
+              as String?,
+      evidenceOfResidencePhoto: freezed == evidenceOfResidencePhoto
+          ? _value.evidenceOfResidencePhoto
+          : evidenceOfResidencePhoto // ignore: cast_nullable_to_non_nullable
+              as String?,
       passportPhoto: freezed == passportPhoto
           ? _value.passportPhoto
           : passportPhoto // ignore: cast_nullable_to_non_nullable
@@ -331,6 +368,13 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       @JsonKey(name: 'image_Hygiene') String? hygienePhoto,
       @JsonKey(name: 'image_Risk') String? riskPhoto,
       @JsonKey(name: 'image_Authority_Reg') String? registerationPhoto,
+      @JsonKey(name: 'image_Driver_License') String? driverLicensePhoto,
+      @JsonKey(name: 'Image_Driver_License_Code')
+      String? driverLicenseCodePhoto,
+      @JsonKey(name: 'Image_Food_Delivery_Insurance')
+      String? foodDeliveryInsurancePhoto,
+      @JsonKey(name: 'Image_Evidence_Of_Residence')
+      String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') String? passportPhoto,
       @JsonKey(name: 'image_Id') String? nidPhoto,
       @JsonKey(name: 'image_Contract') String? contractPhoto});
@@ -376,6 +420,10 @@ class __$$ProfileImplCopyWithImpl<$Res>
     Object? hygienePhoto = freezed,
     Object? riskPhoto = freezed,
     Object? registerationPhoto = freezed,
+    Object? driverLicensePhoto = freezed,
+    Object? driverLicenseCodePhoto = freezed,
+    Object? foodDeliveryInsurancePhoto = freezed,
+    Object? evidenceOfResidencePhoto = freezed,
     Object? passportPhoto = freezed,
     Object? nidPhoto = freezed,
     Object? contractPhoto = freezed,
@@ -497,6 +545,22 @@ class __$$ProfileImplCopyWithImpl<$Res>
           ? _value.registerationPhoto
           : registerationPhoto // ignore: cast_nullable_to_non_nullable
               as String?,
+      driverLicensePhoto: freezed == driverLicensePhoto
+          ? _value.driverLicensePhoto
+          : driverLicensePhoto // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverLicenseCodePhoto: freezed == driverLicenseCodePhoto
+          ? _value.driverLicenseCodePhoto
+          : driverLicenseCodePhoto // ignore: cast_nullable_to_non_nullable
+              as String?,
+      foodDeliveryInsurancePhoto: freezed == foodDeliveryInsurancePhoto
+          ? _value.foodDeliveryInsurancePhoto
+          : foodDeliveryInsurancePhoto // ignore: cast_nullable_to_non_nullable
+              as String?,
+      evidenceOfResidencePhoto: freezed == evidenceOfResidencePhoto
+          ? _value.evidenceOfResidencePhoto
+          : evidenceOfResidencePhoto // ignore: cast_nullable_to_non_nullable
+              as String?,
       passportPhoto: freezed == passportPhoto
           ? _value.passportPhoto
           : passportPhoto // ignore: cast_nullable_to_non_nullable
@@ -546,6 +610,12 @@ class _$ProfileImpl extends _Profile {
       @JsonKey(name: 'image_Hygiene') this.hygienePhoto,
       @JsonKey(name: 'image_Risk') this.riskPhoto,
       @JsonKey(name: 'image_Authority_Reg') this.registerationPhoto,
+      @JsonKey(name: 'image_Driver_License') this.driverLicensePhoto,
+      @JsonKey(name: 'Image_Driver_License_Code') this.driverLicenseCodePhoto,
+      @JsonKey(name: 'Image_Food_Delivery_Insurance')
+      this.foodDeliveryInsurancePhoto,
+      @JsonKey(name: 'Image_Evidence_Of_Residence')
+      this.evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') this.passportPhoto,
       @JsonKey(name: 'image_Id') this.nidPhoto,
       @JsonKey(name: 'image_Contract') this.contractPhoto})
@@ -637,6 +707,7 @@ class _$ProfileImpl extends _Profile {
   @JsonKey(name: 'is_Hygiene')
   final bool isHygiene;
 // Documents
+// chef
   @override
   @JsonKey(name: 'image_Hygiene')
   final String? hygienePhoto;
@@ -646,19 +717,34 @@ class _$ProfileImpl extends _Profile {
   @override
   @JsonKey(name: 'image_Authority_Reg')
   final String? registerationPhoto;
+//driver
+  @override
+  @JsonKey(name: 'image_Driver_License')
+  final String? driverLicensePhoto;
+  @override
+  @JsonKey(name: 'Image_Driver_License_Code')
+  final String? driverLicenseCodePhoto;
+  @override
+  @JsonKey(name: 'Image_Food_Delivery_Insurance')
+  final String? foodDeliveryInsurancePhoto;
+  @override
+  @JsonKey(name: 'Image_Evidence_Of_Residence')
+  final String? evidenceOfResidencePhoto;
+//common
   @override
   @JsonKey(name: 'image_Passport')
   final String? passportPhoto;
   @override
   @JsonKey(name: 'image_Id')
   final String? nidPhoto;
+//
   @override
   @JsonKey(name: 'image_Contract')
   final String? contractPhoto;
 
   @override
   String toString() {
-    return 'Profile(code: $code, branchId: $branchId, guid: $guid, id: $id, fullName: $fullName, userName: $userName, bio: $bio, profileImage: $profileImage, mobile: $mobile, email: $email, address: $address, about: $about, pickup: $pickup, pickupOnly: $pickupOnly, signupType: $signupType, registerDate: $registerDate, status: $status, country: $country, updatedBy: $updatedBy, eventPhoto0: $eventPhoto0, eventPhoto1: $eventPhoto1, eventPhoto2: $eventPhoto2, eventPhoto3: $eventPhoto3, eventPhoto4: $eventPhoto4, accountApproved: $accountApproved, isHygiene: $isHygiene, hygienePhoto: $hygienePhoto, riskPhoto: $riskPhoto, registerationPhoto: $registerationPhoto, passportPhoto: $passportPhoto, nidPhoto: $nidPhoto, contractPhoto: $contractPhoto)';
+    return 'Profile(code: $code, branchId: $branchId, guid: $guid, id: $id, fullName: $fullName, userName: $userName, bio: $bio, profileImage: $profileImage, mobile: $mobile, email: $email, address: $address, about: $about, pickup: $pickup, pickupOnly: $pickupOnly, signupType: $signupType, registerDate: $registerDate, status: $status, country: $country, updatedBy: $updatedBy, eventPhoto0: $eventPhoto0, eventPhoto1: $eventPhoto1, eventPhoto2: $eventPhoto2, eventPhoto3: $eventPhoto3, eventPhoto4: $eventPhoto4, accountApproved: $accountApproved, isHygiene: $isHygiene, hygienePhoto: $hygienePhoto, riskPhoto: $riskPhoto, registerationPhoto: $registerationPhoto, driverLicensePhoto: $driverLicensePhoto, driverLicenseCodePhoto: $driverLicenseCodePhoto, foodDeliveryInsurancePhoto: $foodDeliveryInsurancePhoto, evidenceOfResidencePhoto: $evidenceOfResidencePhoto, passportPhoto: $passportPhoto, nidPhoto: $nidPhoto, contractPhoto: $contractPhoto)';
   }
 
   @override
@@ -713,6 +799,17 @@ class _$ProfileImpl extends _Profile {
                 other.riskPhoto == riskPhoto) &&
             (identical(other.registerationPhoto, registerationPhoto) ||
                 other.registerationPhoto == registerationPhoto) &&
+            (identical(other.driverLicensePhoto, driverLicensePhoto) ||
+                other.driverLicensePhoto == driverLicensePhoto) &&
+            (identical(other.driverLicenseCodePhoto, driverLicenseCodePhoto) ||
+                other.driverLicenseCodePhoto == driverLicenseCodePhoto) &&
+            (identical(other.foodDeliveryInsurancePhoto,
+                    foodDeliveryInsurancePhoto) ||
+                other.foodDeliveryInsurancePhoto ==
+                    foodDeliveryInsurancePhoto) &&
+            (identical(
+                    other.evidenceOfResidencePhoto, evidenceOfResidencePhoto) ||
+                other.evidenceOfResidencePhoto == evidenceOfResidencePhoto) &&
             (identical(other.passportPhoto, passportPhoto) ||
                 other.passportPhoto == passportPhoto) &&
             (identical(other.nidPhoto, nidPhoto) ||
@@ -754,6 +851,10 @@ class _$ProfileImpl extends _Profile {
         hygienePhoto,
         riskPhoto,
         registerationPhoto,
+        driverLicensePhoto,
+        driverLicenseCodePhoto,
+        foodDeliveryInsurancePhoto,
+        evidenceOfResidencePhoto,
         passportPhoto,
         nidPhoto,
         contractPhoto
@@ -804,6 +905,13 @@ abstract class _Profile extends Profile {
       @JsonKey(name: 'image_Hygiene') final String? hygienePhoto,
       @JsonKey(name: 'image_Risk') final String? riskPhoto,
       @JsonKey(name: 'image_Authority_Reg') final String? registerationPhoto,
+      @JsonKey(name: 'image_Driver_License') final String? driverLicensePhoto,
+      @JsonKey(name: 'Image_Driver_License_Code')
+      final String? driverLicenseCodePhoto,
+      @JsonKey(name: 'Image_Food_Delivery_Insurance')
+      final String? foodDeliveryInsurancePhoto,
+      @JsonKey(name: 'Image_Evidence_Of_Residence')
+      final String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') final String? passportPhoto,
       @JsonKey(name: 'image_Id') final String? nidPhoto,
       @JsonKey(name: 'image_Contract')
@@ -876,6 +984,7 @@ abstract class _Profile extends Profile {
   @JsonKey(name: 'is_Hygiene')
   bool get isHygiene;
   @override // Documents
+// chef
   @JsonKey(name: 'image_Hygiene')
   String? get hygienePhoto;
   @override
@@ -884,13 +993,25 @@ abstract class _Profile extends Profile {
   @override
   @JsonKey(name: 'image_Authority_Reg')
   String? get registerationPhoto;
+  @override //driver
+  @JsonKey(name: 'image_Driver_License')
+  String? get driverLicensePhoto;
   @override
+  @JsonKey(name: 'Image_Driver_License_Code')
+  String? get driverLicenseCodePhoto;
+  @override
+  @JsonKey(name: 'Image_Food_Delivery_Insurance')
+  String? get foodDeliveryInsurancePhoto;
+  @override
+  @JsonKey(name: 'Image_Evidence_Of_Residence')
+  String? get evidenceOfResidencePhoto;
+  @override //common
   @JsonKey(name: 'image_Passport')
   String? get passportPhoto;
   @override
   @JsonKey(name: 'image_Id')
   String? get nidPhoto;
-  @override
+  @override //
   @JsonKey(name: 'image_Contract')
   String? get contractPhoto;
   @override

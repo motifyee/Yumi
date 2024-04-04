@@ -30,72 +30,74 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         late dynamic res = [];
         List<MealModel> data = [];
 
-        if (event.chefId == null) {
-          if (state.selectedCategory == 0) {
-            res = await MealService.getMeals(
-              context: event.context,
-              isPreorder: event.menuTarget != null
-                  ? event.menuTarget == MenuTarget.preOrder
-                  : state.menuTarget == MenuTarget.preOrder,
-              queryParameters: {...state.paginationHelper.toJson()},
-            );
+        try {
+          if (event.chefId == null) {
+            if (state.selectedCategory == 0) {
+              res = await MealService.getMeals(
+                context: event.context,
+                isPreorder: event.menuTarget != null
+                    ? event.menuTarget == MenuTarget.preOrder
+                    : state.menuTarget == MenuTarget.preOrder,
+                queryParameters: {...state.paginationHelper.toJson()},
+              );
 
-            data = res['data'].map<MealModel>((value) {
-              return MealModel.fromJson(value);
-            }).toList();
-          } else {
-            res = await MealService.getMealsByCategory(
-              context: event.context,
-              categoryId: state.selectedCategory,
-              isPreorder: event.menuTarget != null
-                  ? event.menuTarget == MenuTarget.preOrder
-                  : state.menuTarget == MenuTarget.preOrder,
-              pagination: {...state.paginationHelper.toJson()},
-            );
+              data = res['data'].map<MealModel>((value) {
+                return MealModel.fromJson(value);
+              }).toList();
+            } else {
+              res = await MealService.getMealsByCategory(
+                context: event.context,
+                categoryId: state.selectedCategory,
+                isPreorder: event.menuTarget != null
+                    ? event.menuTarget == MenuTarget.preOrder
+                    : state.menuTarget == MenuTarget.preOrder,
+                pagination: {...state.paginationHelper.toJson()},
+              );
 
-            data = res['data'].map<MealModel>((value) {
-              return MealModel.fromJson(value['product']);
-            }).toList();
+              data = res['data'].map<MealModel>((value) {
+                return MealModel.fromJson(value['product']);
+              }).toList();
+            }
           }
-        }
-        if (event.chefId != null) {
-          if (state.selectedCategory == 0) {
-            res = await MealService.getMealsByChef(
-              context: event.context,
-              chefId: event.chefId,
-              isPreorder: event.menuTarget != null
-                  ? event.menuTarget == MenuTarget.preOrder
-                  : state.menuTarget == MenuTarget.preOrder,
-              queryParameters: {...state.paginationHelper.toJson()},
-            );
+          if (event.chefId != null) {
+            if (state.selectedCategory == 0) {
+              res = await MealService.getMealsByChef(
+                context: event.context,
+                chefId: event.chefId,
+                isPreorder: event.menuTarget != null
+                    ? event.menuTarget == MenuTarget.preOrder
+                    : state.menuTarget == MenuTarget.preOrder,
+                queryParameters: {...state.paginationHelper.toJson()},
+              );
 
-            data = res['data'].map<MealModel>((value) {
-              return MealModel.fromJson(value);
-            }).toList();
-          } else {
-            res = await MealService.getMealsByChefByCategory(
-              context: event.context,
-              chefId: event.chefId,
-              categoryId: state.selectedCategory,
-              isPreorder: event.menuTarget != null
-                  ? event.menuTarget == MenuTarget.preOrder
-                  : state.menuTarget == MenuTarget.preOrder,
-              pagination: {...state.paginationHelper.toJson()},
-            );
+              data = res['data'].map<MealModel>((value) {
+                return MealModel.fromJson(value);
+              }).toList();
+            } else {
+              res = await MealService.getMealsByChefByCategory(
+                context: event.context,
+                chefId: event.chefId,
+                categoryId: state.selectedCategory,
+                isPreorder: event.menuTarget != null
+                    ? event.menuTarget == MenuTarget.preOrder
+                    : state.menuTarget == MenuTarget.preOrder,
+                pagination: {...state.paginationHelper.toJson()},
+              );
 
-            data = res['data'].map<MealModel>((value) {
-              return MealModel.fromJson(value['product']);
-            }).toList();
+              data = res['data'].map<MealModel>((value) {
+                return MealModel.fromJson(value['product']);
+              }).toList();
+            }
           }
-        }
 
-        emit(state.copyWith(
-            meals: [...state.meals, ...data],
-            paginationHelper: state.paginationHelper.copyWith(
-              pageNumber: res['pagination']['page'],
-              lastPage: res['pagination']['pages'],
-              isLoading: false,
-            )));
+          emit(state.copyWith(
+              meals: [...state.meals, ...data],
+              paginationHelper: state.paginationHelper.copyWith(
+                pageNumber: res['pagination']['page'],
+                lastPage: res['pagination']['pages'],
+                isLoading: false,
+              )));
+        } catch (e) {}
       }
     });
 

@@ -24,12 +24,19 @@ class ScheduleRepo implements IScheduleRepo {
   @override
   Future<String> saveMySchedule(BuildContext? ctx, Schedule schedule) async {
     var data = schedule.toJson();
-    data.forEach((k, v) {
-      if (v == null) data.remove(k);
-    });
 
     data.remove('id');
     data.remove('userID');
+
+    List<String> keys = [];
+    data.forEach(
+      (k, v) {
+        if (v == null) keys.add(k);
+      },
+    );
+    for (var element in keys) {
+      data.remove(element);
+    }
 
     final Response res = await DioClient.simpleDio(ctx!).put(
       '/accounts/schedule',

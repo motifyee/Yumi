@@ -27,7 +27,6 @@ class ProfileFormSubmitButton extends StatelessWidget {
           {
             context.read<ProfileBloc>().add(
                   ProfileUpdateEvent(
-                    context: context,
                     profile: state.profile,
                   ),
                 )

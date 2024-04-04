@@ -11,7 +11,7 @@ part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc()
-      : super(UserState(
+      : super(const UserState(
             user: UserModel(
           accessToken: '',
           chefId: '',
@@ -54,7 +54,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       await LocalStorage.sharedRef.removeValue(LocalStorage.user);
       print('user reset ..........');
       emit(state.copyWith(
-          user: UserModel(
+          user: const UserModel(
         accessToken: '',
         chefId: '',
         code: '',
