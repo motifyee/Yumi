@@ -15,6 +15,7 @@ class UserModel with _$UserModel {
     @Default('') String userName,
     @Default('') String email,
     @Default('') String code,
+    @Default(0) int multiAddressID,
     // @Default('') String bio,
     @JsonKey(name: 'access_Token') @Default('') String accessToken,
     @JsonKey(name: 'expires_In') @Default('') String expiresIn,

@@ -311,7 +311,7 @@ class _$OrderModelImpl implements _OrderModel {
       this.invoiceDiscount,
       this.bankID,
       this.createdDate,
-      final List<InvoiceDetails>? invoiceDetails,
+      final List<InvoiceDetails>? invoiceDetails = const [],
       @JsonKey(name: 'is_Pickup') this.isPickUp})
       : _invoiceDetails = invoiceDetails;
 
@@ -348,6 +348,7 @@ class _$OrderModelImpl implements _OrderModel {
   final String? createdDate;
   final List<InvoiceDetails>? _invoiceDetails;
   @override
+  @JsonKey()
   List<InvoiceDetails>? get invoiceDetails {
     final value = _invoiceDetails;
     if (value == null) return null;

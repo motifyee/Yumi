@@ -23,8 +23,9 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
       bankID: json['bankID'] as int?,
       createdDate: json['createdDate'] as String?,
       invoiceDetails: (json['invoiceDetails'] as List<dynamic>?)
-          ?.map((e) => InvoiceDetails.fromJson(e as Map<String, dynamic>))
-          .toList(),
+              ?.map((e) => InvoiceDetails.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       isPickUp: json['is_Pickup'] as bool?,
     );
 

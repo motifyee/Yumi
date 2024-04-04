@@ -181,19 +181,23 @@ class InvoiceDetails {
   double? productVarintPrice;
   int? discountListId;
   MealModel? meal;
+  String? note;
 
-  InvoiceDetails(
-      {this.productVarintId,
-      this.quantity,
-      this.productVarintPrice,
-      this.meal,
-      this.discountListId = 1205});
+  InvoiceDetails({
+    this.productVarintId,
+    this.quantity,
+    this.productVarintPrice,
+    this.meal,
+    this.note = '',
+    this.discountListId = 1205,
+  });
 
   InvoiceDetails.fromMeal({required MealModel meal}) {
     productVarintId = meal.productVariantID;
     quantity = "1";
     productVarintPrice = double.tryParse(meal.price1 ?? '');
     discountListId = 1205;
+    note = '';
     this.meal = meal;
   }
 
@@ -202,6 +206,7 @@ class InvoiceDetails {
     quantity = json['quantity'];
     productVarintPrice = json['productVarintPrice'];
     discountListId = json['discountListId'];
+    note = json['note'];
   }
 
   Map<String, dynamic> toJson() {
@@ -210,6 +215,7 @@ class InvoiceDetails {
     data['quantity'] = this.quantity;
     data['productVarintPrice'] = this.productVarintPrice;
     data['discountListId'] = this.discountListId;
+    data['note'] = this.note;
     return data;
   }
 
@@ -218,12 +224,14 @@ class InvoiceDetails {
     String? quantity,
     double? productVarintPrice,
     int? discountListId,
+    String? note,
   }) {
     return InvoiceDetails(
       discountListId: discountListId ?? this.discountListId,
       productVarintId: productVarintId ?? this.productVarintId,
       productVarintPrice: productVarintPrice ?? this.productVarintPrice,
       quantity: quantity ?? this.quantity,
+      note: note ?? this.note,
       meal: this.meal,
     );
   }

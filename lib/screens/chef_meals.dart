@@ -114,158 +114,169 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
             ],
           ),
           SizedBox(height: ThemeSelector.statics.defaultGap),
-          Expanded(
-            child: PageView(
-              controller: favPageController,
-              physics: NeverScrollableScrollPhysics(),
-              children: [
-                PaginationTemplate(
-                  scrollDirection: Axis.vertical,
-                  loadDate: () {
-                    context.read<MealListBloc>().add(
-                          MealListUpdateEvent(
-                            context: context,
-                            menuTarget: widget.menuTarget,
-                            chefId: widget.chefId,
-                          ),
-                        );
-                  },
-                  child: BlocConsumer<MealListBloc, MealListState>(
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ThemeSelector.statics.defaultGap),
-                        child: Column(
-                          children: [
-                            for (var meal in state.meals)
-                              BlocConsumer<BasketFormBloc, BasketFormState>(
-                                listener: (context, state) {},
-                                builder: (context, state) {
-                                  return ChefMealBasketCard(
-                                    meal: meal,
-                                    isDisabled: context
-                                            .read<BasketFormBloc>()
-                                            .state
-                                            .invoice
-                                            .invoiceDetails!
-                                            .firstWhereOrNull((e) =>
-                                                e.productVarintId ==
-                                                meal.productVariantID) !=
-                                        null,
-                                    onTap: () {
-                                      context.read<BasketFormBloc>().add(
-                                            BasketFormAddMealEvent(
-                                              invoiceDetails:
-                                                  InvoiceDetails.fromMeal(
-                                                      meal: meal),
-                                              isPickUpOnly: widget.isPickUpOnly,
-                                            ),
-                                          );
-                                    },
-                                  );
-                                },
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => MealListBloc()),
+              BlocProvider(create: (context) => CategoriesBloc()),
+            ],
+            child: Builder(builder: (context) {
+              return Expanded(
+                child: PageView(
+                  controller: favPageController,
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    PaginationTemplate(
+                      scrollDirection: Axis.vertical,
+                      loadDate: () {
+                        context.read<MealListBloc>().add(
+                              MealListUpdateEvent(
+                                context: context,
+                                menuTarget: widget.menuTarget,
+                                chefId: widget.chefId,
                               ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                PaginationTemplate(
-                  loadDate: () {
-                    context.read<CategoriesBloc>().add(GetCategoriesEvent(
-                        context: context, isPreOrder: false));
-                  },
-                  scrollDirection: Axis.vertical,
-                  child: BlocConsumer<CategoriesBloc, CategoriesState>(
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      return Column(
-                        children: [
-                          for (var category in state.categoriesModelList)
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  favPageController.jumpToPage(0);
-                                  pageIndex = 0;
-                                });
-                                context
-                                    .read<MealListBloc>()
-                                    .add(MealListResetEvent());
-                                context
-                                    .read<MealListBloc>()
-                                    .add(MealListUpdateCategoryEvent(
-                                      context: context,
-                                      selectedCategory: category.id ?? 0,
-                                      chefId: widget.chefId,
-                                    ));
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        ThemeSelector.statics.defaultGap),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: ThemeSelector
-                                            .statics.defaultImageHeightSmall,
-                                        clipBehavior: Clip.hardEdge,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(
-                                                ThemeSelector
-                                                    .statics.defaultGap),
-                                            topRight: Radius.circular(
-                                                ThemeSelector
-                                                    .statics.defaultGap),
+                            );
+                      },
+                      child: BlocConsumer<MealListBloc, MealListState>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: ThemeSelector.statics.defaultGap),
+                            child: Column(
+                              children: [
+                                for (var meal in state.meals)
+                                  BlocConsumer<BasketFormBloc, BasketFormState>(
+                                    listener: (context, state) {},
+                                    builder: (context, state) {
+                                      return ChefMealBasketCard(
+                                        meal: meal,
+                                        isDisabled: context
+                                                .read<BasketFormBloc>()
+                                                .state
+                                                .invoice
+                                                .invoiceDetails!
+                                                .firstWhereOrNull((e) =>
+                                                    e.productVarintId ==
+                                                    meal.productVariantID) !=
+                                            null,
+                                        onTap: () {
+                                          context.read<BasketFormBloc>().add(
+                                                BasketFormAddMealEvent(
+                                                  invoiceDetails:
+                                                      InvoiceDetails.fromMeal(
+                                                          meal: meal),
+                                                  isPickUpOnly:
+                                                      widget.isPickUpOnly,
+                                                ),
+                                              );
+                                        },
+                                      );
+                                    },
+                                  ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    PaginationTemplate(
+                      loadDate: () {
+                        context.read<CategoriesBloc>().add(GetCategoriesEvent(
+                            context: context, isPreOrder: false));
+                      },
+                      scrollDirection: Axis.vertical,
+                      child: BlocConsumer<CategoriesBloc, CategoriesState>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          return Column(
+                            children: [
+                              for (var category in state.categoriesModelList)
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      favPageController.jumpToPage(0);
+                                      pageIndex = 0;
+                                    });
+                                    context
+                                        .read<MealListBloc>()
+                                        .add(MealListResetEvent());
+                                    context
+                                        .read<MealListBloc>()
+                                        .add(MealListUpdateCategoryEvent(
+                                          context: context,
+                                          selectedCategory: category.id ?? 0,
+                                          chefId: widget.chefId,
+                                        ));
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            ThemeSelector.statics.defaultGap),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: ThemeSelector.statics
+                                                .defaultImageHeightSmall,
+                                            clipBehavior: Clip.hardEdge,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(
+                                                    ThemeSelector
+                                                        .statics.defaultGap),
+                                                topRight: Radius.circular(
+                                                    ThemeSelector
+                                                        .statics.defaultGap),
+                                              ),
+                                            ),
+                                            child: Image.memory(
+                                              base64Decode(
+                                                category.image ?? '',
+                                              ),
+                                              fit: BoxFit.cover,
+                                              alignment: Alignment.topCenter,
+                                              errorBuilder: (context, error,
+                                                      stackTrace) =>
+                                                  Image.asset(
+                                                'assets/images/354.jpeg',
+                                                fit: BoxFit.cover,
+                                                alignment: Alignment.topCenter,
+                                              ),
+                                            )),
+                                        SizedBox(
+                                            height: ThemeSelector
+                                                .statics.defaultGap),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: ThemeSelector
+                                                  .statics.defaultGap),
+                                          child: Text(
+                                            category.name ?? '',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelLarge,
                                           ),
                                         ),
-                                        child: Image.memory(
-                                          base64Decode(
-                                            category.image ?? '',
-                                          ),
-                                          fit: BoxFit.cover,
-                                          alignment: Alignment.topCenter,
-                                          errorBuilder:
-                                              (context, error, stackTrace) =>
-                                                  Image.asset(
-                                            'assets/images/354.jpeg',
-                                            fit: BoxFit.cover,
-                                            alignment: Alignment.topCenter,
-                                          ),
-                                        )),
-                                    SizedBox(
-                                        height:
-                                            ThemeSelector.statics.defaultGap),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              ThemeSelector.statics.defaultGap),
-                                      child: Text(
-                                        category.name ?? '',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge,
-                                      ),
+                                        SizedBox(
+                                            height: ThemeSelector
+                                                .statics.defaultGap),
+                                      ],
                                     ),
-                                    SizedBox(
-                                        height:
-                                            ThemeSelector.statics.defaultGap),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                        ],
-                      );
-                    },
-                  ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              );
+            }),
           ),
         ],
       ),

@@ -24,11 +24,13 @@ class BasketFormUpdateMealEvent implements BasketFormEvent {
   final InvoiceDetails invoiceDetails;
   final int indexInList;
   String newQuantity;
+  String note;
 
   BasketFormUpdateMealEvent({
     required this.invoiceDetails,
     required this.indexInList,
     required this.newQuantity,
+    this.note = '',
   });
 }
 

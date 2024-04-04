@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:yumi/app_target.dart';
-import 'package:yumi/app_config/app_config.dart';
+import 'package:yumi/route/auth_guard.dart';
 import 'package:yumi/route/route.gr.dart';
 
 /// every change must:
@@ -31,27 +30,28 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: LoginRoute.page, initial: true),
         AutoRoute(page: SignUpRoute.page, keepHistory: false),
         AutoRoute(page: ForgetPasswordRoute.page, keepHistory: false),
-        AutoRoute(page: HomeRoute.page),
-        AutoRoute(page: MenuPreOrderRoute.page),
-        AutoRoute(page: NotificationRoute.page),
-        AutoRoute(page: MyScheduleRoute.page),
-        AutoRoute(page: CaloriesReferenceRoute.page),
-        AutoRoute(page: DocumentationRoute.page),
-        AutoRoute(page: ContractRoute.page),
-        AutoRoute(page: ChefApplicationFlowRoute.page),
 
-        AutoRoute(page: PerformanceAnalysisRoute.page),
-        AutoRoute(page: FinancialViewRoute.page),
-        AutoRoute(page: ChatRoute.page),
-        AutoRoute(page: TransactionsRoute.page),
-        AutoRoute(page: ChefProfileRoute.page),
-        AutoRoute(page: BasketRoute.page),
-        AutoRoute(page: CheckOutRoute.page),
-        AutoRoute(page: PaymentVisaRoute.page),
-        AutoRoute(page: OrderStatusRoute.page),
-        AutoRoute(page: TrackingOrderRoute.page),
-        AutoRoute(page: CustomerWalletRoute.page),
-        AutoRoute(page: MealProfileRoute.page),
-        AutoRoute(page: CustomerLocationRoute.page),
+        AutoRoute(page: HomeRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: MenuPreOrderRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: NotificationRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: MyScheduleRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: CaloriesReferenceRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: DocumentationRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: ContractRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: ChefApplicationFlowRoute.page, guards: [AuthGuard()]),
+
+        AutoRoute(page: PerformanceAnalysisRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: FinancialViewRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: ChatRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: TransactionsRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: ChefProfileRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: BasketRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: CheckOutRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: PaymentVisaRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: OrderStatusRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: TrackingOrderRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: CustomerWalletRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: MealProfileRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: CustomerLocationRoute.page, guards: [AuthGuard()]),
       ];
 }

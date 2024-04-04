@@ -41,6 +41,5 @@ class UserFromSharedRefEvent extends UserEvent {
 
 class UserResetEvent extends UserEvent {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }

@@ -1,4 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 
 class AuthGuard extends AutoRouteGuard {
@@ -6,7 +9,8 @@ class AuthGuard extends AutoRouteGuard {
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    const authenticated = true;
+    bool authenticated =
+        G.cContext.read<UserBloc>().state.user.accessToken != null;
 
     if (authenticated) {
       resolver.next(true);

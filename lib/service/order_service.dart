@@ -36,6 +36,15 @@ class OrderService {
     return res;
   }
 
+  static Future<Response> getOrderOrPreOrderDriverById(
+      {required String apiKeys,
+      required String id,
+      Map<String, dynamic>? paginationHelper}) async {
+    Response res = await DioClient.simpleDio()
+        .get('$apiKeys$id', queryParameters: {...?paginationHelper});
+    return res;
+  }
+
   static Future<Response> putActionOrderOrPreOrder(
       {required String apiKeys, Map<String, dynamic>? paginationHelper}) async {
     Response res = await DioClient.simpleDio().put(apiKeys,
