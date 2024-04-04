@@ -34,10 +34,37 @@ mixin _$OrderModel {
   double? get invoiceDiscount => throw _privateConstructorUsedError;
   int? get bankID => throw _privateConstructorUsedError;
   String? get createdDate => throw _privateConstructorUsedError;
-  List<InvoiceDetails>? get invoiceDetails =>
-      throw _privateConstructorUsedError;
+  String? get clientName => throw _privateConstructorUsedError;
+  String? get clientMobile => throw _privateConstructorUsedError;
+  String? get clientDefaultAddress => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_Accept')
+  bool? get driverAccept => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_Accept_Date')
+  String? get driverAcceptDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_Received')
+  bool? get driverReceived => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_Received_Date')
+  String? get driverReceivedDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'chef_Accept')
+  bool? get chefAccept => throw _privateConstructorUsedError;
+  @JsonKey(name: 'chef_Accept_Date')
+  String? get chefAcceptDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'chef_Start')
+  bool? get chefStart => throw _privateConstructorUsedError;
+  @JsonKey(name: 'chef_Start_Date')
+  String? get chefStartDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'chef_Finished')
+  bool? get chefFinished => throw _privateConstructorUsedError;
+  @JsonKey(name: 'chef_Finished_Date')
+  String? get chefFinishedDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'client_Received')
+  bool? get clientReceived => throw _privateConstructorUsedError;
+  @JsonKey(name: 'client_Received_Date')
+  String? get clientReceivedDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_Pickup')
   bool? get isPickUp => throw _privateConstructorUsedError;
+  List<InvoiceDetails>? get invoiceDetails =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -66,8 +93,23 @@ abstract class $OrderModelCopyWith<$Res> {
       double? invoiceDiscount,
       int? bankID,
       String? createdDate,
-      List<InvoiceDetails>? invoiceDetails,
-      @JsonKey(name: 'is_Pickup') bool? isPickUp});
+      String? clientName,
+      String? clientMobile,
+      String? clientDefaultAddress,
+      @JsonKey(name: 'driver_Accept') bool? driverAccept,
+      @JsonKey(name: 'driver_Accept_Date') String? driverAcceptDate,
+      @JsonKey(name: 'driver_Received') bool? driverReceived,
+      @JsonKey(name: 'driver_Received_Date') String? driverReceivedDate,
+      @JsonKey(name: 'chef_Accept') bool? chefAccept,
+      @JsonKey(name: 'chef_Accept_Date') String? chefAcceptDate,
+      @JsonKey(name: 'chef_Start') bool? chefStart,
+      @JsonKey(name: 'chef_Start_Date') String? chefStartDate,
+      @JsonKey(name: 'chef_Finished') bool? chefFinished,
+      @JsonKey(name: 'chef_Finished_Date') String? chefFinishedDate,
+      @JsonKey(name: 'client_Received') bool? clientReceived,
+      @JsonKey(name: 'client_Received_Date') String? clientReceivedDate,
+      @JsonKey(name: 'is_Pickup') bool? isPickUp,
+      List<InvoiceDetails>? invoiceDetails});
 }
 
 /// @nodoc
@@ -97,8 +139,23 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? invoiceDiscount = freezed,
     Object? bankID = freezed,
     Object? createdDate = freezed,
-    Object? invoiceDetails = freezed,
+    Object? clientName = freezed,
+    Object? clientMobile = freezed,
+    Object? clientDefaultAddress = freezed,
+    Object? driverAccept = freezed,
+    Object? driverAcceptDate = freezed,
+    Object? driverReceived = freezed,
+    Object? driverReceivedDate = freezed,
+    Object? chefAccept = freezed,
+    Object? chefAcceptDate = freezed,
+    Object? chefStart = freezed,
+    Object? chefStartDate = freezed,
+    Object? chefFinished = freezed,
+    Object? chefFinishedDate = freezed,
+    Object? clientReceived = freezed,
+    Object? clientReceivedDate = freezed,
     Object? isPickUp = freezed,
+    Object? invoiceDetails = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -157,14 +214,74 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      invoiceDetails: freezed == invoiceDetails
-          ? _value.invoiceDetails
-          : invoiceDetails // ignore: cast_nullable_to_non_nullable
-              as List<InvoiceDetails>?,
+      clientName: freezed == clientName
+          ? _value.clientName
+          : clientName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clientMobile: freezed == clientMobile
+          ? _value.clientMobile
+          : clientMobile // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clientDefaultAddress: freezed == clientDefaultAddress
+          ? _value.clientDefaultAddress
+          : clientDefaultAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverAccept: freezed == driverAccept
+          ? _value.driverAccept
+          : driverAccept // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      driverAcceptDate: freezed == driverAcceptDate
+          ? _value.driverAcceptDate
+          : driverAcceptDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverReceived: freezed == driverReceived
+          ? _value.driverReceived
+          : driverReceived // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      driverReceivedDate: freezed == driverReceivedDate
+          ? _value.driverReceivedDate
+          : driverReceivedDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      chefAccept: freezed == chefAccept
+          ? _value.chefAccept
+          : chefAccept // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      chefAcceptDate: freezed == chefAcceptDate
+          ? _value.chefAcceptDate
+          : chefAcceptDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      chefStart: freezed == chefStart
+          ? _value.chefStart
+          : chefStart // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      chefStartDate: freezed == chefStartDate
+          ? _value.chefStartDate
+          : chefStartDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      chefFinished: freezed == chefFinished
+          ? _value.chefFinished
+          : chefFinished // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      chefFinishedDate: freezed == chefFinishedDate
+          ? _value.chefFinishedDate
+          : chefFinishedDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clientReceived: freezed == clientReceived
+          ? _value.clientReceived
+          : clientReceived // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      clientReceivedDate: freezed == clientReceivedDate
+          ? _value.clientReceivedDate
+          : clientReceivedDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       isPickUp: freezed == isPickUp
           ? _value.isPickUp
           : isPickUp // ignore: cast_nullable_to_non_nullable
               as bool?,
+      invoiceDetails: freezed == invoiceDetails
+          ? _value.invoiceDetails
+          : invoiceDetails // ignore: cast_nullable_to_non_nullable
+              as List<InvoiceDetails>?,
     ) as $Val);
   }
 }
@@ -192,8 +309,23 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       double? invoiceDiscount,
       int? bankID,
       String? createdDate,
-      List<InvoiceDetails>? invoiceDetails,
-      @JsonKey(name: 'is_Pickup') bool? isPickUp});
+      String? clientName,
+      String? clientMobile,
+      String? clientDefaultAddress,
+      @JsonKey(name: 'driver_Accept') bool? driverAccept,
+      @JsonKey(name: 'driver_Accept_Date') String? driverAcceptDate,
+      @JsonKey(name: 'driver_Received') bool? driverReceived,
+      @JsonKey(name: 'driver_Received_Date') String? driverReceivedDate,
+      @JsonKey(name: 'chef_Accept') bool? chefAccept,
+      @JsonKey(name: 'chef_Accept_Date') String? chefAcceptDate,
+      @JsonKey(name: 'chef_Start') bool? chefStart,
+      @JsonKey(name: 'chef_Start_Date') String? chefStartDate,
+      @JsonKey(name: 'chef_Finished') bool? chefFinished,
+      @JsonKey(name: 'chef_Finished_Date') String? chefFinishedDate,
+      @JsonKey(name: 'client_Received') bool? clientReceived,
+      @JsonKey(name: 'client_Received_Date') String? clientReceivedDate,
+      @JsonKey(name: 'is_Pickup') bool? isPickUp,
+      List<InvoiceDetails>? invoiceDetails});
 }
 
 /// @nodoc
@@ -221,8 +353,23 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? invoiceDiscount = freezed,
     Object? bankID = freezed,
     Object? createdDate = freezed,
-    Object? invoiceDetails = freezed,
+    Object? clientName = freezed,
+    Object? clientMobile = freezed,
+    Object? clientDefaultAddress = freezed,
+    Object? driverAccept = freezed,
+    Object? driverAcceptDate = freezed,
+    Object? driverReceived = freezed,
+    Object? driverReceivedDate = freezed,
+    Object? chefAccept = freezed,
+    Object? chefAcceptDate = freezed,
+    Object? chefStart = freezed,
+    Object? chefStartDate = freezed,
+    Object? chefFinished = freezed,
+    Object? chefFinishedDate = freezed,
+    Object? clientReceived = freezed,
+    Object? clientReceivedDate = freezed,
     Object? isPickUp = freezed,
+    Object? invoiceDetails = freezed,
   }) {
     return _then(_$OrderModelImpl(
       id: freezed == id
@@ -281,14 +428,74 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      invoiceDetails: freezed == invoiceDetails
-          ? _value._invoiceDetails
-          : invoiceDetails // ignore: cast_nullable_to_non_nullable
-              as List<InvoiceDetails>?,
+      clientName: freezed == clientName
+          ? _value.clientName
+          : clientName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clientMobile: freezed == clientMobile
+          ? _value.clientMobile
+          : clientMobile // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clientDefaultAddress: freezed == clientDefaultAddress
+          ? _value.clientDefaultAddress
+          : clientDefaultAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverAccept: freezed == driverAccept
+          ? _value.driverAccept
+          : driverAccept // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      driverAcceptDate: freezed == driverAcceptDate
+          ? _value.driverAcceptDate
+          : driverAcceptDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverReceived: freezed == driverReceived
+          ? _value.driverReceived
+          : driverReceived // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      driverReceivedDate: freezed == driverReceivedDate
+          ? _value.driverReceivedDate
+          : driverReceivedDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      chefAccept: freezed == chefAccept
+          ? _value.chefAccept
+          : chefAccept // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      chefAcceptDate: freezed == chefAcceptDate
+          ? _value.chefAcceptDate
+          : chefAcceptDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      chefStart: freezed == chefStart
+          ? _value.chefStart
+          : chefStart // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      chefStartDate: freezed == chefStartDate
+          ? _value.chefStartDate
+          : chefStartDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      chefFinished: freezed == chefFinished
+          ? _value.chefFinished
+          : chefFinished // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      chefFinishedDate: freezed == chefFinishedDate
+          ? _value.chefFinishedDate
+          : chefFinishedDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clientReceived: freezed == clientReceived
+          ? _value.clientReceived
+          : clientReceived // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      clientReceivedDate: freezed == clientReceivedDate
+          ? _value.clientReceivedDate
+          : clientReceivedDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       isPickUp: freezed == isPickUp
           ? _value.isPickUp
           : isPickUp // ignore: cast_nullable_to_non_nullable
               as bool?,
+      invoiceDetails: freezed == invoiceDetails
+          ? _value._invoiceDetails
+          : invoiceDetails // ignore: cast_nullable_to_non_nullable
+              as List<InvoiceDetails>?,
     ));
   }
 }
@@ -311,8 +518,23 @@ class _$OrderModelImpl implements _OrderModel {
       this.invoiceDiscount,
       this.bankID,
       this.createdDate,
-      final List<InvoiceDetails>? invoiceDetails = const [],
-      @JsonKey(name: 'is_Pickup') this.isPickUp})
+      this.clientName,
+      this.clientMobile,
+      this.clientDefaultAddress,
+      @JsonKey(name: 'driver_Accept') this.driverAccept,
+      @JsonKey(name: 'driver_Accept_Date') this.driverAcceptDate,
+      @JsonKey(name: 'driver_Received') this.driverReceived,
+      @JsonKey(name: 'driver_Received_Date') this.driverReceivedDate,
+      @JsonKey(name: 'chef_Accept') this.chefAccept,
+      @JsonKey(name: 'chef_Accept_Date') this.chefAcceptDate,
+      @JsonKey(name: 'chef_Start') this.chefStart,
+      @JsonKey(name: 'chef_Start_Date') this.chefStartDate,
+      @JsonKey(name: 'chef_Finished') this.chefFinished,
+      @JsonKey(name: 'chef_Finished_Date') this.chefFinishedDate,
+      @JsonKey(name: 'client_Received') this.clientReceived,
+      @JsonKey(name: 'client_Received_Date') this.clientReceivedDate,
+      @JsonKey(name: 'is_Pickup') this.isPickUp,
+      final List<InvoiceDetails>? invoiceDetails = const []})
       : _invoiceDetails = invoiceDetails;
 
   factory _$OrderModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -346,6 +568,51 @@ class _$OrderModelImpl implements _OrderModel {
   final int? bankID;
   @override
   final String? createdDate;
+  @override
+  final String? clientName;
+  @override
+  final String? clientMobile;
+  @override
+  final String? clientDefaultAddress;
+  @override
+  @JsonKey(name: 'driver_Accept')
+  final bool? driverAccept;
+  @override
+  @JsonKey(name: 'driver_Accept_Date')
+  final String? driverAcceptDate;
+  @override
+  @JsonKey(name: 'driver_Received')
+  final bool? driverReceived;
+  @override
+  @JsonKey(name: 'driver_Received_Date')
+  final String? driverReceivedDate;
+  @override
+  @JsonKey(name: 'chef_Accept')
+  final bool? chefAccept;
+  @override
+  @JsonKey(name: 'chef_Accept_Date')
+  final String? chefAcceptDate;
+  @override
+  @JsonKey(name: 'chef_Start')
+  final bool? chefStart;
+  @override
+  @JsonKey(name: 'chef_Start_Date')
+  final String? chefStartDate;
+  @override
+  @JsonKey(name: 'chef_Finished')
+  final bool? chefFinished;
+  @override
+  @JsonKey(name: 'chef_Finished_Date')
+  final String? chefFinishedDate;
+  @override
+  @JsonKey(name: 'client_Received')
+  final bool? clientReceived;
+  @override
+  @JsonKey(name: 'client_Received_Date')
+  final String? clientReceivedDate;
+  @override
+  @JsonKey(name: 'is_Pickup')
+  final bool? isPickUp;
   final List<InvoiceDetails>? _invoiceDetails;
   @override
   @JsonKey()
@@ -358,12 +625,8 @@ class _$OrderModelImpl implements _OrderModel {
   }
 
   @override
-  @JsonKey(name: 'is_Pickup')
-  final bool? isPickUp;
-
-  @override
   String toString() {
-    return 'OrderModel(id: $id, chefID: $chefID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, createdDate: $createdDate, invoiceDetails: $invoiceDetails, isPickUp: $isPickUp)';
+    return 'OrderModel(id: $id, chefID: $chefID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, createdDate: $createdDate, clientName: $clientName, clientMobile: $clientMobile, clientDefaultAddress: $clientDefaultAddress, driverAccept: $driverAccept, driverAcceptDate: $driverAcceptDate, driverReceived: $driverReceived, driverReceivedDate: $driverReceivedDate, chefAccept: $chefAccept, chefAcceptDate: $chefAcceptDate, chefStart: $chefStart, chefStartDate: $chefStartDate, chefFinished: $chefFinished, chefFinishedDate: $chefFinishedDate, clientReceived: $clientReceived, clientReceivedDate: $clientReceivedDate, isPickUp: $isPickUp, invoiceDetails: $invoiceDetails)';
   }
 
   @override
@@ -396,32 +659,78 @@ class _$OrderModelImpl implements _OrderModel {
             (identical(other.bankID, bankID) || other.bankID == bankID) &&
             (identical(other.createdDate, createdDate) ||
                 other.createdDate == createdDate) &&
-            const DeepCollectionEquality()
-                .equals(other._invoiceDetails, _invoiceDetails) &&
+            (identical(other.clientName, clientName) ||
+                other.clientName == clientName) &&
+            (identical(other.clientMobile, clientMobile) ||
+                other.clientMobile == clientMobile) &&
+            (identical(other.clientDefaultAddress, clientDefaultAddress) ||
+                other.clientDefaultAddress == clientDefaultAddress) &&
+            (identical(other.driverAccept, driverAccept) ||
+                other.driverAccept == driverAccept) &&
+            (identical(other.driverAcceptDate, driverAcceptDate) ||
+                other.driverAcceptDate == driverAcceptDate) &&
+            (identical(other.driverReceived, driverReceived) ||
+                other.driverReceived == driverReceived) &&
+            (identical(other.driverReceivedDate, driverReceivedDate) ||
+                other.driverReceivedDate == driverReceivedDate) &&
+            (identical(other.chefAccept, chefAccept) ||
+                other.chefAccept == chefAccept) &&
+            (identical(other.chefAcceptDate, chefAcceptDate) ||
+                other.chefAcceptDate == chefAcceptDate) &&
+            (identical(other.chefStart, chefStart) ||
+                other.chefStart == chefStart) &&
+            (identical(other.chefStartDate, chefStartDate) ||
+                other.chefStartDate == chefStartDate) &&
+            (identical(other.chefFinished, chefFinished) ||
+                other.chefFinished == chefFinished) &&
+            (identical(other.chefFinishedDate, chefFinishedDate) ||
+                other.chefFinishedDate == chefFinishedDate) &&
+            (identical(other.clientReceived, clientReceived) ||
+                other.clientReceived == clientReceived) &&
+            (identical(other.clientReceivedDate, clientReceivedDate) ||
+                other.clientReceivedDate == clientReceivedDate) &&
             (identical(other.isPickUp, isPickUp) ||
-                other.isPickUp == isPickUp));
+                other.isPickUp == isPickUp) &&
+            const DeepCollectionEquality()
+                .equals(other._invoiceDetails, _invoiceDetails));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      chefID,
-      employeeNote,
-      clientNote,
-      preparationNote,
-      shippedAddressId,
-      deliveryAreaPrice,
-      deliveryCostPrice,
-      finalPrice,
-      totalPrice,
-      invoiceTax,
-      invoiceDiscount,
-      bankID,
-      createdDate,
-      const DeepCollectionEquality().hash(_invoiceDetails),
-      isPickUp);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        chefID,
+        employeeNote,
+        clientNote,
+        preparationNote,
+        shippedAddressId,
+        deliveryAreaPrice,
+        deliveryCostPrice,
+        finalPrice,
+        totalPrice,
+        invoiceTax,
+        invoiceDiscount,
+        bankID,
+        createdDate,
+        clientName,
+        clientMobile,
+        clientDefaultAddress,
+        driverAccept,
+        driverAcceptDate,
+        driverReceived,
+        driverReceivedDate,
+        chefAccept,
+        chefAcceptDate,
+        chefStart,
+        chefStartDate,
+        chefFinished,
+        chefFinishedDate,
+        clientReceived,
+        clientReceivedDate,
+        isPickUp,
+        const DeepCollectionEquality().hash(_invoiceDetails)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -453,8 +762,23 @@ abstract class _OrderModel implements OrderModel {
       final double? invoiceDiscount,
       final int? bankID,
       final String? createdDate,
-      final List<InvoiceDetails>? invoiceDetails,
-      @JsonKey(name: 'is_Pickup') final bool? isPickUp}) = _$OrderModelImpl;
+      final String? clientName,
+      final String? clientMobile,
+      final String? clientDefaultAddress,
+      @JsonKey(name: 'driver_Accept') final bool? driverAccept,
+      @JsonKey(name: 'driver_Accept_Date') final String? driverAcceptDate,
+      @JsonKey(name: 'driver_Received') final bool? driverReceived,
+      @JsonKey(name: 'driver_Received_Date') final String? driverReceivedDate,
+      @JsonKey(name: 'chef_Accept') final bool? chefAccept,
+      @JsonKey(name: 'chef_Accept_Date') final String? chefAcceptDate,
+      @JsonKey(name: 'chef_Start') final bool? chefStart,
+      @JsonKey(name: 'chef_Start_Date') final String? chefStartDate,
+      @JsonKey(name: 'chef_Finished') final bool? chefFinished,
+      @JsonKey(name: 'chef_Finished_Date') final String? chefFinishedDate,
+      @JsonKey(name: 'client_Received') final bool? clientReceived,
+      @JsonKey(name: 'client_Received_Date') final String? clientReceivedDate,
+      @JsonKey(name: 'is_Pickup') final bool? isPickUp,
+      final List<InvoiceDetails>? invoiceDetails}) = _$OrderModelImpl;
 
   factory _OrderModel.fromJson(Map<String, dynamic> json) =
       _$OrderModelImpl.fromJson;
@@ -488,10 +812,52 @@ abstract class _OrderModel implements OrderModel {
   @override
   String? get createdDate;
   @override
-  List<InvoiceDetails>? get invoiceDetails;
+  String? get clientName;
+  @override
+  String? get clientMobile;
+  @override
+  String? get clientDefaultAddress;
+  @override
+  @JsonKey(name: 'driver_Accept')
+  bool? get driverAccept;
+  @override
+  @JsonKey(name: 'driver_Accept_Date')
+  String? get driverAcceptDate;
+  @override
+  @JsonKey(name: 'driver_Received')
+  bool? get driverReceived;
+  @override
+  @JsonKey(name: 'driver_Received_Date')
+  String? get driverReceivedDate;
+  @override
+  @JsonKey(name: 'chef_Accept')
+  bool? get chefAccept;
+  @override
+  @JsonKey(name: 'chef_Accept_Date')
+  String? get chefAcceptDate;
+  @override
+  @JsonKey(name: 'chef_Start')
+  bool? get chefStart;
+  @override
+  @JsonKey(name: 'chef_Start_Date')
+  String? get chefStartDate;
+  @override
+  @JsonKey(name: 'chef_Finished')
+  bool? get chefFinished;
+  @override
+  @JsonKey(name: 'chef_Finished_Date')
+  String? get chefFinishedDate;
+  @override
+  @JsonKey(name: 'client_Received')
+  bool? get clientReceived;
+  @override
+  @JsonKey(name: 'client_Received_Date')
+  String? get clientReceivedDate;
   @override
   @JsonKey(name: 'is_Pickup')
   bool? get isPickUp;
+  @override
+  List<InvoiceDetails>? get invoiceDetails;
   @override
   @JsonKey(ignore: true)
   _$$OrderModelImplCopyWith<_$OrderModelImpl> get copyWith =>

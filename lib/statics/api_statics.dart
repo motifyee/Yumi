@@ -10,8 +10,6 @@ import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 
-import '../app_target.dart';
-
 // const originApi = 'https://10.99.77.247:5012';
 const originApi = 'https://22e9-81-10-105-81.ngrok-free.app';
 
@@ -32,8 +30,8 @@ class DioClient {
           print('dio error ......................');
           print(error.response?.statusCode);
           if (error.response?.statusCode == 401) {
-            G.cContext.read<UserBloc>().add(UserResetEvent());
-            G.cContext.router.replaceAll([LoginRoute()]);
+            G.context.read<UserBloc>().add(UserResetEvent());
+            G.context.router.replaceAll([LoginRoute()]);
           }
           handler.next(error);
         },

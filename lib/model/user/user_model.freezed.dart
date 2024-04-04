@@ -37,9 +37,9 @@ mixin _$UserModel {
   @JsonKey(name: 'address_Name')
   String? get addressName => throw _privateConstructorUsedError;
   @JsonKey(name: 'address_Lattitude')
-  String? get lat => throw _privateConstructorUsedError;
+  double? get lat => throw _privateConstructorUsedError;
   @JsonKey(name: 'address_Longitude')
-  String? get long => throw _privateConstructorUsedError;
+  double? get long => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -66,8 +66,8 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(name: 'expires_In') String expiresIn,
       String? address,
       @JsonKey(name: 'address_Name') String? addressName,
-      @JsonKey(name: 'address_Lattitude') String? lat,
-      @JsonKey(name: 'address_Longitude') String? long,
+      @JsonKey(name: 'address_Lattitude') double? lat,
+      @JsonKey(name: 'address_Longitude') double? long,
       String location});
 }
 
@@ -152,11 +152,11 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       long: freezed == long
           ? _value.long
           : long // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -186,8 +186,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       @JsonKey(name: 'expires_In') String expiresIn,
       String? address,
       @JsonKey(name: 'address_Name') String? addressName,
-      @JsonKey(name: 'address_Lattitude') String? lat,
-      @JsonKey(name: 'address_Longitude') String? long,
+      @JsonKey(name: 'address_Lattitude') double? lat,
+      @JsonKey(name: 'address_Longitude') double? long,
       String location});
 }
 
@@ -270,11 +270,11 @@ class __$$InitialImplCopyWithImpl<$Res>
       lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       long: freezed == long
           ? _value.long
           : long // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -342,10 +342,10 @@ class _$InitialImpl extends _Initial {
   final String? addressName;
   @override
   @JsonKey(name: 'address_Lattitude')
-  final String? lat;
+  final double? lat;
   @override
   @JsonKey(name: 'address_Longitude')
-  final String? long;
+  final double? long;
   @override
   @JsonKey()
   final String location;
@@ -433,8 +433,8 @@ abstract class _Initial extends UserModel {
       @JsonKey(name: 'expires_In') final String expiresIn,
       final String? address,
       @JsonKey(name: 'address_Name') final String? addressName,
-      @JsonKey(name: 'address_Lattitude') final String? lat,
-      @JsonKey(name: 'address_Longitude') final String? long,
+      @JsonKey(name: 'address_Lattitude') final double? lat,
+      @JsonKey(name: 'address_Longitude') final double? long,
       final String location}) = _$InitialImpl;
   const _Initial._() : super._();
 
@@ -469,10 +469,10 @@ abstract class _Initial extends UserModel {
   String? get addressName;
   @override
   @JsonKey(name: 'address_Lattitude')
-  String? get lat;
+  double? get lat;
   @override
   @JsonKey(name: 'address_Longitude')
-  String? get long;
+  double? get long;
   @override
   String get location;
   @override

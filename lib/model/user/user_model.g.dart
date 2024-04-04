@@ -20,8 +20,8 @@ _$InitialImpl _$$InitialImplFromJson(Map<String, dynamic> json) =>
       expiresIn: json['expires_In'] as String? ?? '',
       address: json['address'] as String?,
       addressName: json['address_Name'] as String?,
-      lat: json['address_Lattitude'] as String?,
-      long: json['address_Longitude'] as String?,
+      lat: (json['address_Lattitude'] as num?)?.toDouble(),
+      long: (json['address_Longitude'] as num?)?.toDouble(),
       location: json['location'] as String? ?? '',
     );
 

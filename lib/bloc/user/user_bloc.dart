@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:yumi/features/registeration/model/address.dart';
-import 'package:yumi/model/user_model.dart';
+import 'package:yumi/model/user/user_model.dart';
 import 'package:yumi/statics/local_storage.dart';
 
 part 'user_event.dart';

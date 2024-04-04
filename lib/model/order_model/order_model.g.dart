@@ -22,11 +22,26 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
       invoiceDiscount: (json['invoiceDiscount'] as num?)?.toDouble(),
       bankID: json['bankID'] as int?,
       createdDate: json['createdDate'] as String?,
+      clientName: json['clientName'] as String?,
+      clientMobile: json['clientMobile'] as String?,
+      clientDefaultAddress: json['clientDefaultAddress'] as String?,
+      driverAccept: json['driver_Accept'] as bool?,
+      driverAcceptDate: json['driver_Accept_Date'] as String?,
+      driverReceived: json['driver_Received'] as bool?,
+      driverReceivedDate: json['driver_Received_Date'] as String?,
+      chefAccept: json['chef_Accept'] as bool?,
+      chefAcceptDate: json['chef_Accept_Date'] as String?,
+      chefStart: json['chef_Start'] as bool?,
+      chefStartDate: json['chef_Start_Date'] as String?,
+      chefFinished: json['chef_Finished'] as bool?,
+      chefFinishedDate: json['chef_Finished_Date'] as String?,
+      clientReceived: json['client_Received'] as bool?,
+      clientReceivedDate: json['client_Received_Date'] as String?,
+      isPickUp: json['is_Pickup'] as bool?,
       invoiceDetails: (json['invoiceDetails'] as List<dynamic>?)
               ?.map((e) => InvoiceDetails.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      isPickUp: json['is_Pickup'] as bool?,
     );
 
 Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
@@ -45,8 +60,23 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
       'invoiceDiscount': instance.invoiceDiscount,
       'bankID': instance.bankID,
       'createdDate': instance.createdDate,
-      'invoiceDetails': instance.invoiceDetails,
+      'clientName': instance.clientName,
+      'clientMobile': instance.clientMobile,
+      'clientDefaultAddress': instance.clientDefaultAddress,
+      'driver_Accept': instance.driverAccept,
+      'driver_Accept_Date': instance.driverAcceptDate,
+      'driver_Received': instance.driverReceived,
+      'driver_Received_Date': instance.driverReceivedDate,
+      'chef_Accept': instance.chefAccept,
+      'chef_Accept_Date': instance.chefAcceptDate,
+      'chef_Start': instance.chefStart,
+      'chef_Start_Date': instance.chefStartDate,
+      'chef_Finished': instance.chefFinished,
+      'chef_Finished_Date': instance.chefFinishedDate,
+      'client_Received': instance.clientReceived,
+      'client_Received_Date': instance.clientReceivedDate,
       'is_Pickup': instance.isPickUp,
+      'invoiceDetails': instance.invoiceDetails,
     };
 
 _$InvoiceDetailsImpl _$$InvoiceDetailsImplFromJson(Map<String, dynamic> json) =>

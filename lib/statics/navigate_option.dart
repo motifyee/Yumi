@@ -1,12 +1,15 @@
 import 'dart:math';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/features/settings/profile/profile_screen.dart';
 import 'package:yumi/features/settings/settings_screen.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/screens/chef/menu.dart';
 import 'package:yumi/screens/chef/news.dart';
 import 'package:yumi/screens/chef/pre_order.dart';
@@ -30,11 +33,13 @@ class NavigateOptions {
 
   static List<NavigateListItem> navigateListChefs = [
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/home.svg'),
-        selectedIcon:
-            SvgPicture.asset('assets/images/home1.svg', fit: BoxFit.fitWidth),
-        title: S.current.yumi,
-        page: NewsScreen()),
+      icon: SvgPicture.asset('assets/images/home.svg'),
+      selectedIcon:
+          SvgPicture.asset('assets/images/home1.svg', fit: BoxFit.fitWidth),
+      title: S.current.yumi,
+      page: NewsScreen(),
+      pageAction: const _ChefAction(),
+    ),
     NavigateListItem(
       icon: SvgPicture.asset('assets/images/profile.svg'),
       selectedIcon:
@@ -42,25 +47,32 @@ class NavigateOptions {
       title: S.current.profile,
       page: const ProfileScreen(),
       isBackGroundGradient: true,
+      pageAction: const _ChefAction(),
     ),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/menu.svg'),
-        selectedIcon:
-            SvgPicture.asset('assets/images/menu1.svg', fit: BoxFit.fitWidth),
-        title: S.current.menus,
-        page: const MenuScreen()),
+      icon: SvgPicture.asset('assets/images/menu.svg'),
+      selectedIcon:
+          SvgPicture.asset('assets/images/menu1.svg', fit: BoxFit.fitWidth),
+      title: S.current.menus,
+      page: const MenuScreen(),
+      pageAction: const _ChefAction(),
+    ),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/pre_order.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg',
-            fit: BoxFit.fitWidth),
-        title: S.current.preOrder,
-        page: PreOrderScreen()),
+      icon: SvgPicture.asset('assets/images/pre_order.svg'),
+      selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg',
+          fit: BoxFit.fitWidth),
+      title: S.current.preOrder,
+      page: PreOrderScreen(),
+      pageAction: const _ChefAction(),
+    ),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/setting.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/setting1.svg',
-            fit: BoxFit.fitWidth),
-        title: S.current.setting,
-        page: const SettingScreen()),
+      icon: SvgPicture.asset('assets/images/setting.svg'),
+      selectedIcon:
+          SvgPicture.asset('assets/images/setting1.svg', fit: BoxFit.fitWidth),
+      title: S.current.setting,
+      page: const SettingScreen(),
+      pageAction: const _ChefAction(),
+    ),
   ];
   static List<NavigateListItem> navigateListDrivers = [
     NavigateListItem(
@@ -102,17 +114,19 @@ class NavigateOptions {
   ];
   static List<NavigateListItem> navigateListCustomer = [
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/home.svg'),
-        selectedIcon:
-            SvgPicture.asset('assets/images/home1.svg', fit: BoxFit.fitWidth),
-        title: S.current.menus,
-        page: const CustomerMenuScreen()),
+      icon: SvgPicture.asset('assets/images/home.svg'),
+      selectedIcon:
+          SvgPicture.asset('assets/images/home1.svg', fit: BoxFit.fitWidth),
+      title: S.current.menus,
+      page: const CustomerMenuScreen(),
+    ),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/bell.svg'),
-        selectedIcon:
-            SvgPicture.asset('assets/images/bell1.svg', fit: BoxFit.fitWidth),
-        title: S.current.notification,
-        page: const NotificationScreen()),
+      icon: SvgPicture.asset('assets/images/bell.svg'),
+      selectedIcon:
+          SvgPicture.asset('assets/images/bell1.svg', fit: BoxFit.fitWidth),
+      title: S.current.notification,
+      page: const NotificationScreen(),
+    ),
     NavigateListItem(
       icon: SvgPicture.asset('assets/images/heart.svg'),
       selectedIcon:
@@ -121,17 +135,20 @@ class NavigateOptions {
       page: FavoritesScreen(),
     ),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/bag.svg'),
-        selectedIcon:
-            SvgPicture.asset('assets/images/bag1.svg', fit: BoxFit.fitWidth),
-        title: S.current.myOrders,
-        page: MyOrdersScreen()),
+      icon: SvgPicture.asset('assets/images/bag.svg'),
+      selectedIcon:
+          SvgPicture.asset('assets/images/bag1.svg', fit: BoxFit.fitWidth),
+      title: S.current.myOrders,
+      page: MyOrdersScreen(),
+      pageAction: const _CustomerAction(),
+    ),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/featured.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/featured1.svg',
-            fit: BoxFit.fitWidth),
-        title: S.current.preOrder,
-        page: const CustomerMenuPreScreen()),
+      icon: SvgPicture.asset('assets/images/featured.svg'),
+      selectedIcon:
+          SvgPicture.asset('assets/images/featured1.svg', fit: BoxFit.fitWidth),
+      title: S.current.preOrder,
+      page: const CustomerMenuPreScreen(),
+    ),
   ];
 
   static List<Widget> navigationDestination(
@@ -169,6 +186,7 @@ class NavigateListItem {
   Widget icon;
   Widget selectedIcon;
   Widget page;
+  Widget? pageAction;
   String title;
   bool isBackGroundGradient;
 
@@ -177,6 +195,68 @@ class NavigateListItem {
     required this.page,
     required this.icon,
     required this.selectedIcon,
+    this.pageAction,
     this.isBackGroundGradient = false,
   });
+}
+
+class _CustomerAction extends StatelessWidget {
+  const _CustomerAction({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {
+        G.context.router.push(MyOrdersRoute(isHistory: true));
+      },
+      child: SvgPicture.asset(
+        'assets/images/history.svg',
+        height: ThemeSelector.statics.iconSizeDefault,
+        width: ThemeSelector.statics.iconSizeDefault,
+      ),
+    );
+  }
+}
+
+class _ChefAction extends StatelessWidget {
+  const _ChefAction({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {},
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          SvgPicture.asset(
+            'assets/images/notification.svg',
+            height: ThemeSelector.statics.iconSizeSmall,
+            width: ThemeSelector.statics.iconSizeSmall,
+          ),
+          Positioned(
+            bottom: 0,
+            right: -5,
+            child: Container(
+              width: 15,
+              height: 15,
+              padding: const EdgeInsets.all(0),
+              decoration: BoxDecoration(
+                color: ThemeSelector.colors.primary,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Center(
+                child: Text(
+                  '3',
+                  style: Theme.of(G.context).textTheme.displaySmall?.copyWith(
+                        fontSize: ThemeSelector.fonts.font_9,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
