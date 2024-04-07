@@ -297,70 +297,86 @@ class CustomerNews extends StatelessWidget {
                         ],
                       ),
                     ),
-                    PaginationTemplate(
-                      scrollDirection: Axis.horizontal,
-                      loadDate: () {
-                        context.read<ChefsListBloc>().add(GetChefsListEvent(
-                            context: context, menuTarget: menuTarget));
-                      },
-                      child: BlocConsumer<ChefsListBloc, ChefsListState>(
-                        listener: (context, state) {},
-                        builder: (context, state) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: ThemeSelector.statics.defaultGap),
-                            child: Row(
-                              children: [
-                                for (var chef in state.chefs)
-                                  GestureDetector(
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                        context: context,
-                                        isScrollControlled: true,
-                                        isDismissible: true,
-                                        backgroundColor:
-                                            ThemeSelector.colors.background,
-                                        builder: (context) => ChefProfileScreen(
-                                          chef: chef,
-                                          menuTarget: menuTarget,
-                                        ),
-                                      );
-                                    },
-                                    child: Padding(
+                    BlocConsumer<UserBloc, UserState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        return state.address != null
+                            ? PaginationTemplate(
+                                scrollDirection: Axis.horizontal,
+                                loadDate: () {
+                                  context.read<ChefsListBloc>().add(
+                                      GetChefsListEvent(
+                                          context: context,
+                                          menuTarget: menuTarget));
+                                },
+                                child:
+                                    BlocConsumer<ChefsListBloc, ChefsListState>(
+                                  listener: (context, state) {},
+                                  builder: (context, state) {
+                                    return Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal:
                                               ThemeSelector.statics.defaultGap),
-                                      child: ChefBanner(
-                                        menuTarget: menuTarget,
-                                        chef: chef,
-                                        width: MediaQuery.of(context)
-                                                .size
-                                                .width -
-                                            (ThemeSelector.statics.defaultGap *
-                                                10),
-                                        height: ThemeSelector
-                                            .statics.defaultImageHeightSmall,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(ThemeSelector
-                                              .statics.defaultBorderRadius),
-                                          topRight: Radius.circular(
-                                              ThemeSelector
-                                                  .statics.defaultBorderRadius),
-                                        ),
+                                      child: Row(
+                                        children: [
+                                          for (var chef in state.chefs)
+                                            GestureDetector(
+                                              onTap: () {
+                                                showModalBottomSheet(
+                                                  context: context,
+                                                  isScrollControlled: true,
+                                                  isDismissible: true,
+                                                  backgroundColor: ThemeSelector
+                                                      .colors.background,
+                                                  builder: (context) =>
+                                                      ChefProfileScreen(
+                                                    chef: chef,
+                                                    menuTarget: menuTarget,
+                                                  ),
+                                                );
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: ThemeSelector
+                                                        .statics.defaultGap),
+                                                child: ChefBanner(
+                                                  menuTarget: menuTarget,
+                                                  chef: chef,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width -
+                                                      (ThemeSelector.statics
+                                                              .defaultGap *
+                                                          10),
+                                                  height: ThemeSelector.statics
+                                                      .defaultImageHeightSmall,
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft: Radius.circular(
+                                                        ThemeSelector.statics
+                                                            .defaultBorderRadius),
+                                                    topRight: Radius.circular(
+                                                        ThemeSelector.statics
+                                                            .defaultBorderRadius),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          if (state.chefs.isEmpty)
+                                            SizedBox(
+                                              height: ThemeSelector.statics
+                                                      .defaultImageHeightSmall +
+                                                  ThemeSelector
+                                                      .statics.defaultMediumGap,
+                                            ),
+                                        ],
                                       ),
-                                    ),
-                                  ),
-                                if (state.chefs.isEmpty)
-                                  SizedBox(
-                                    height: ThemeSelector
-                                            .statics.defaultImageHeightSmall +
-                                        ThemeSelector.statics.defaultMediumGap,
-                                  ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                                    );
+                                  },
+                                ),
+                              )
+                            : Container();
+                      },
                     ),
                   ],
                 ),

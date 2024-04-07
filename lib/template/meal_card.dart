@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -121,10 +122,11 @@ class MealCard extends StatelessWidget {
                   onPressed: () {
                     showDialog(
                         context: context,
-                        builder: (context) => DeleteDialogTemplate(
+                        builder: (ctx) => DeleteDialogTemplate(
                               actions: () async {
-                                final res = await MealService.deleteMeal(
+                                Response res = await MealService.deleteMeal(
                                     context: context, mealModel: meal);
+
                                 context.read<MealListBloc>().add(
                                     MealListResetEvent(
                                         menuTarget: meal.isPreOrder == true
@@ -133,14 +135,17 @@ class MealCard extends StatelessWidget {
                                 context.read<MealListBloc>().add(
                                     MealListUpdateCategoryEvent(
                                         selectedCategory: 0, context: context));
+
                                 Navigator.of(context).pop();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: SnackBarMassage(
-                                      massage: res.toString(),
+                                if (res.data['message'] != null) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: SnackBarMassage(
+                                        massage: res.data['message'],
+                                      ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                }
                               },
                               title: S.of(context).deleteMeal,
                               content: S.of(context).areYouSureToDeleteAMeal,

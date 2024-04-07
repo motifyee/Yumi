@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
@@ -69,54 +70,17 @@ class IngredientsForm extends StatelessWidget {
                         child: ConstrainedBox(
                           constraints: BoxConstraints.tightFor(
                               height: max(200, constraints.maxHeight)),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Table(
-                                columnWidths: const {
-                                  0: FlexColumnWidth(1),
-                                  1: IntrinsicColumnWidth(),
-                                  2: IntrinsicColumnWidth(),
-                                },
-                                children: [
-                                  TableRow(
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        bottom: BorderSide(
-                                          color: ThemeSelector
-                                              .colors.secondaryFaint,
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: ThemeSelector
-                                                .statics.defaultGap),
-                                        child: Text(
-                                          S.of(context).ingredients,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelMedium,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: ThemeSelector
-                                                .statics.defaultGap),
-                                        child: Text(
-                                          S.of(context).measurement,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelMedium,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 60),
-                                    ],
-                                  ),
-                                  for (var ingredient
-                                      in state.ingredientsModelList)
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Table(
+                                  columnWidths: const {
+                                    0: FlexColumnWidth(1),
+                                    1: IntrinsicColumnWidth(),
+                                    2: IntrinsicColumnWidth(),
+                                  },
+                                  children: [
                                     TableRow(
                                       decoration: BoxDecoration(
                                         border: Border(
@@ -133,10 +97,10 @@ class IngredientsForm extends StatelessWidget {
                                               vertical: ThemeSelector
                                                   .statics.defaultGap),
                                           child: Text(
-                                            ingredient.name.toString(),
+                                            S.of(context).ingredients,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyMedium,
+                                                .labelMedium,
                                           ),
                                         ),
                                         Padding(
@@ -144,38 +108,79 @@ class IngredientsForm extends StatelessWidget {
                                               vertical: ThemeSelector
                                                   .statics.defaultGap),
                                           child: Text(
-                                            ingredient.portionGrams.toString(),
+                                            S.of(context).measurement,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyMedium,
+                                                .labelMedium,
                                           ),
                                         ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            context
-                                                .read<IngredientFormBloc>()
-                                                .add(IngredientFormRemoveEvent(
-                                                    ingredientsModel:
-                                                        ingredient));
-                                          },
-                                          child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: ThemeSelector
-                                                    .statics.defaultLineGap,
-                                                vertical: ThemeSelector
-                                                    .statics.defaultGap),
-                                            child: Icon(
-                                              Icons.close,
-                                              color:
-                                                  ThemeSelector.colors.primary,
+                                        const SizedBox(width: 60),
+                                      ],
+                                    ),
+                                    for (var ingredient
+                                        in state.ingredientsModelList)
+                                      TableRow(
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            bottom: BorderSide(
+                                              color: ThemeSelector
+                                                  .colors.secondaryFaint,
+                                              width: 1,
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                ],
-                              ),
-                            ],
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: ThemeSelector
+                                                    .statics.defaultGap),
+                                            child: Text(
+                                              ingredient.name.toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: ThemeSelector
+                                                    .statics.defaultGap),
+                                            child: Text(
+                                              ingredient.portionGrams
+                                                  .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              context
+                                                  .read<IngredientFormBloc>()
+                                                  .add(
+                                                      IngredientFormRemoveEvent(
+                                                          ingredientsModel:
+                                                              ingredient));
+                                            },
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: ThemeSelector
+                                                      .statics.defaultLineGap,
+                                                  vertical: ThemeSelector
+                                                      .statics.defaultGap),
+                                              child: Icon(
+                                                Icons.close,
+                                                color: ThemeSelector
+                                                    .colors.primary,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -191,28 +196,28 @@ class IngredientsForm extends StatelessWidget {
                             IngredientListState>(
                           listener: (context, state) {},
                           builder: (context, state) {
+                            List<IngredientsModel> _selectFromList =
+                                filteredList(
+                                    list: state.ingredients,
+                                    selected: context
+                                        .read<IngredientFormBloc>()
+                                        .state
+                                        .ingredientsModelList);
+
                             return TextFormFieldTemplate(
                               borderStyle:
                                   TextFormFieldBorderStyle.borderedRound,
                               objectValidators: requiredObjectValidator,
                               dropdownSelection: true,
                               dropdownSelectionTargetLabel: 'name',
-                              dropdownSelectionList: filteredList(
-                                  list: state.ingredients,
-                                  selected: context
-                                      .read<IngredientFormBloc>()
-                                      .state
-                                      .ingredientsModelList),
+                              dropdownSelectionList: _selectFromList,
                               initialValue: ingredientsModel.id != null
                                   ? state.ingredients.firstWhere(
                                       (e) => e.id == ingredientsModel.id)
                                   : (state.ingredients.isNotEmpty
-                                      ? filteredList(
-                                          list: state.ingredients,
-                                          selected: context
-                                              .read<IngredientFormBloc>()
-                                              .state
-                                              .ingredientsModelList)[0]
+                                      ? _selectFromList.isNotEmpty
+                                          ? _selectFromList[0]
+                                          : null
                                       : null),
                               onChange: (value) {},
                               onSave: (value) {
@@ -230,6 +235,10 @@ class IngredientsForm extends StatelessWidget {
                           textInputType: TextInputType.number,
                           borderStyle: TextFormFieldBorderStyle.borderedRound,
                           validators: requiredValidator,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^(\d+)?\.?\d{0,2}'))
+                          ],
                           initialValue: ingredientsModel.portionGrams,
                           onSave: (value) {
                             ingredientsModel.portionGrams =
@@ -260,7 +269,7 @@ class IngredientsForm extends StatelessWidget {
                     children: [
                       TextButton(
                           onPressed: () {
-                            context.router.pop();
+                            context.router.popForced();
                           },
                           child: Text(
                             S.of(context).cancel,
@@ -277,7 +286,7 @@ class IngredientsForm extends StatelessWidget {
                                         .copyWith(
                                             ingredients:
                                                 state.ingredientsModelList)));
-                            context.router.pop();
+                            context.router.popForced();
                           },
                           child: Text(
                             S.of(context).save,

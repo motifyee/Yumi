@@ -6,6 +6,7 @@ class MealListState extends Equatable {
   int selectedCategory;
   PaginationHelper paginationHelper;
   MenuTarget menuTarget;
+  int mealsLength;
 
   BlocStatus status;
 
@@ -15,6 +16,7 @@ class MealListState extends Equatable {
     required this.paginationHelper,
     required this.menuTarget,
     this.status = BlocStatus.init,
+    this.mealsLength = 0,
   });
 
   MealListState copyWith({
@@ -29,10 +31,11 @@ class MealListState extends Equatable {
       paginationHelper: paginationHelper ?? this.paginationHelper,
       menuTarget: menuTarget,
       status: status ?? this.status,
+      mealsLength: meals?.length ?? 0,
     );
   }
 
   @override
   List<Object?> get props =>
-      [meals, selectedCategory, paginationHelper, menuTarget];
+      [meals, selectedCategory, paginationHelper, menuTarget, mealsLength];
 }

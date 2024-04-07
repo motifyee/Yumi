@@ -24,8 +24,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserUpdateLocationEvent>((event, emit) async {
       await LocalStorage.sharedRef
           .setValue(LocalStorage.userLocation, event.address);
+
       emit(state.copyWith(address: event.address));
     });
+
     on<UserFromJsonEvent>((event, emit) async {
       await LocalStorage.sharedRef.setValue(LocalStorage.user, event.user);
       emit(state.copyWith(user: UserModel.fromJson(event.user)));
@@ -36,13 +38,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       Map<String, dynamic>? user =
           await LocalStorage.sharedRef.getValue(LocalStorage.user);
       Map<String, dynamic>? userLocation =
-          await LocalStorage.sharedRef.getValue(LocalStorage.user);
+          await LocalStorage.sharedRef.getValue(LocalStorage.userLocation);
 
       if (user != null) {
         add(UserFromJsonEvent(user: user));
         if (userLocation != null) {
           add(UserUpdateLocationEvent(address: Address.fromJson(userLocation)));
         }
+
         event.afterFetchSuccess(event.context, event.route);
       } else {
         event.autoLogin(event.context);

@@ -66,11 +66,9 @@ class HomeScreen extends StatelessWidget {
                         width: 1,
                       ),
               ],
-              title: Center(
-                child: Text(
-                  NavigateOptions.navigateList[state.selectedIndex].title,
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
+              title: Text(
+                NavigateOptions.navigateList[state.selectedIndex].title,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
             bottomNavigationBar: Container(
