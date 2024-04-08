@@ -10,6 +10,7 @@ import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
 import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
+import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/driver/driver_reg_cubit.dart';
@@ -43,6 +44,7 @@ class ChefAppConfig implements AppConfig {
     //
     BlocProvider(create: (context) => ProfileBloc()),
     BlocProvider(create: (context) => DocsCubit()),
+    BlocProvider(create: (context) => MealListBloc()),
     BlocProvider(create: (context) => RegCubit()),
     BlocProvider(
         create: (context) => ScheduleBloc(scheduleRepo: ScheduleRepo())),
