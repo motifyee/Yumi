@@ -1,4 +1,6 @@
-import 'package:auto_route/auto_route.dart';
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,11 +11,27 @@ import 'package:yumi/app_config/yumi_app.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:bloc/bloc.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  if (Platform.isAndroid || Platform.isIOS) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    FlutterError.onError = (errorDetails) {
+      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+    };
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
+  }
+
+  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   WakelockPlus.enable();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

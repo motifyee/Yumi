@@ -45,6 +45,8 @@ dependencies:
   # vibration: ^1.8.4
 
   collection: ^1.18.0
+  firebase_crashlytics: ^3.5.0
+  firebase_core: ^2.28.0
 
 dev_dependencies:
   flutter_test:

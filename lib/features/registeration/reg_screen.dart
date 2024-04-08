@@ -11,39 +11,37 @@ class RegisterationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserBloc, UserState>(
-      builder: (context, state) {
-        return BlocConsumer<RegCubit, NRegState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            context.read<UserBloc>().add(
-                  UserFromSharedRefEvent(
-                    context: context,
-                    route: null,
-                    afterFetchSuccess: (_, __) {},
-                    autoLogin: (p0) => {},
-                  ),
-                );
+    return Builder(
+      builder: (context) {
+        var c = context.read<RegCubit>();
+        context.read<UserBloc>().add(
+              UserFromSharedRefEvent(
+                context: context,
+                route: null,
+                afterFetchSuccess: (_, __) {
+                  if (!c.state.registerationStarted) {
+                    c.init();
+                  }
+                },
+                autoLogin: (p0) {
+                  if (!c.state.registerationStarted) {
+                    c.init();
+                  }
+                },
+              ),
+            );
 
-            Future.delayed(const Duration(seconds: 1)).then((value) {
-              var c = context.read<RegCubit>();
-              // if (!c.state.registerationStarted)
-              c.init();
-            });
-
-            return const AutoRouter();
-            // return Scaffold(
-            //   body: Container(
-            //     padding: const EdgeInsets.all(10),
-            //     child: const Card(
-            //       shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.all(Radius.circular(20))),
-            //       child: AutoRouter(),
-            //     ),
-            //   ),
-            // );
-          },
-        );
+        return const AutoRouter();
+        // return Scaffold(
+        //   body: Container(
+        //     padding: const EdgeInsets.all(10),
+        //     child: const Card(
+        //       shape: RoundedRectangleBorder(
+        //           borderRadius: BorderRadius.all(Radius.circular(20))),
+        //       child: AutoRouter(),
+        //     ),
+        //   ),
+        // );
       },
     );
   }

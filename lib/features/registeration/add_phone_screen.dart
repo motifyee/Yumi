@@ -28,7 +28,8 @@ class AddPhoneScreen extends StatelessWidget {
           iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
         ),
         body: SingleChildScrollView(
-          child: BlocBuilder<ScheduleBloc, ScheduleState>(
+          child: BlocSelector<RegCubit, NRegState, String>(
+            selector: (state) => state.singupData?.fullName ?? "",
             builder: (context, state) {
               // if (state.status.isInit) {
               //   context.read<ScheduleBloc>().add(ScheduleEvent.init(context));
@@ -37,7 +38,6 @@ class AddPhoneScreen extends StatelessWidget {
               //   return const Center(child: CircularProgressIndicator());
               // }
 
-              var name = "Ayman";
               var form = GlobalKey<FormState>();
 
               return Center(
@@ -52,7 +52,7 @@ class AddPhoneScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 60),
                         Text(
-                          "Hi $name,",
+                          "Hi ${state.split(" ").first},",
                           style: TextStyle(
                             fontSize: ThemeSelector.fonts.font_24,
                             fontWeight: FontWeight.bold,

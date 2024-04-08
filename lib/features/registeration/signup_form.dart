@@ -126,15 +126,12 @@ class SignUpForm extends StatelessWidget {
                       var userMap =
                           signupForm.toUserMap(chefId, value['token']);
 
-                      context
-                          .read<UserBloc>()
-                          .add(UserFromJsonEvent(user: userMap));
                       // Navigator.of(context).pop();
-                      Future.delayed(const Duration(seconds: 1)).then((value) {
-                        context
-                            .read<ProfileBloc>()
-                            .add(ProfileInitEvent(context: context));
-                      });
+                      context.read<UserBloc>().add(UserFromJsonEvent(
+                          user: userMap,
+                          routeAfterLogin: () => context
+                              .read<ProfileBloc>()
+                              .add(ProfileInitEvent(context: context))));
 
                       // return context
                       //     .read<RegBloc>()

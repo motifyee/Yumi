@@ -30,8 +30,8 @@ class G {
   static StackRouter get router => yumiApp.config.appRouter;
   static BuildContext get context => router.navigatorKey.currentContext!;
 
-  static void pop() {
-    Navigator.of(context, rootNavigator: true).pop();
+  static void pop({bool rootNavigator = true}) {
+    Navigator.of(context, rootNavigator: rootNavigator).pop();
   }
 
   static T read<T extends Bloc>() {

@@ -38,12 +38,14 @@ class MyScheduleScreen extends StatelessWidget {
     return ScreenContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          bottomOpacity: 0,
-          scrolledUnderElevation: 0,
-          iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
-        ),
+        appBar: G.rd<RegCubit>().state.registerationStarted
+            ? null
+            : AppBar(
+                backgroundColor: Colors.transparent,
+                bottomOpacity: 0,
+                scrolledUnderElevation: 0,
+                iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
+              ),
         body: BlocBuilder<ScheduleBloc, ScheduleState>(
           builder: (context, state) {
             if (state.status.isInit) {
@@ -72,11 +74,14 @@ class MyScheduleScreen extends StatelessWidget {
   TextButton _saveButton(BuildContext context) {
     var bloc = context.read<ScheduleBloc>();
     var valid = bloc.state.scheduleForm.uiValid;
-    var canUpdate = valid && bloc.state.changed;
+    var validSchedule = bloc.state.scheduleForm.validSchedule;
+
+    var enableUpdate = valid && bloc.state.changed;
 
     return TextButton(
       onPressed: () {
-        if (!canUpdate) return;
+        if (!enableUpdate) return;
+        if (!validSchedule) return addYourScheduleDialog(context);
 
         bloc.add(const ScheduleEvent.saveSchedule());
       },
@@ -89,7 +94,7 @@ class MyScheduleScreen extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(
               Radius.circular(ThemeSelector.statics.defaultBorderRadiusLarge)),
-          color: canUpdate
+          color: enableUpdate
               ? ThemeSelector.colors.primary
               : ThemeSelector.colors.primaryTant,
         ),

@@ -31,6 +31,7 @@ class CustomerAppConfig implements AppConfig {
   RootStackRouter get appRouter => _appRouter;
 
   final List<SingleChildWidget> _providers = [
+    BlocProvider(create: (context) => RegCubit()),
     BlocProvider(create: (context) => UserBloc()),
     BlocProvider(create: (context) => NavigatorBloc()),
     BlocProvider(create: (context) => ProfileBloc()),

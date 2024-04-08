@@ -41,12 +41,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           await LocalStorage.sharedRef.getValue(LocalStorage.userLocation);
 
       if (user != null) {
-        add(UserFromJsonEvent(user: user));
-        if (userLocation != null) {
-          add(UserUpdateLocationEvent(address: Address.fromJson(userLocation)));
-        }
-
-        event.afterFetchSuccess(event.context, event.route);
+        add(UserFromJsonEvent(
+            user: user,
+            routeAfterLogin: () {
+              if (userLocation != null) {
+                add(UserUpdateLocationEvent(
+                    address: Address.fromJson(userLocation)));
+              }
+              event.afterFetchSuccess(event.context, event.route);
+            }));
       } else {
         event.autoLogin(event.context);
       }

@@ -94,14 +94,14 @@ Widget profileFormFields(
           onSave: (value) => save(profile0 = profile0.copyWith(mobile: value)),
         ),
         SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-        TextFormFieldTemplate(
-          label: S.of(context).address,
-          borderStyle: TextFormFieldBorderStyle.borderBottom,
-          initialValue: profile.address,
-          validators: requiredValidator,
-          onSave: (value) => save(profile0 = profile0.copyWith(address: value)),
-        ),
-        SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
+        // TextFormFieldTemplate(
+        //   label: S.of(context).address,
+        //   borderStyle: TextFormFieldBorderStyle.borderBottom,
+        //   initialValue: profile.address,
+        //   validators: requiredValidator,
+        //   onSave: (value) => save(profile0 = profile0.copyWith(address: value)),
+        // ),
+        // SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
         TextFormFieldTemplate(
           label: S.of(context).about,
           borderStyle: TextFormFieldBorderStyle.borderBottom,

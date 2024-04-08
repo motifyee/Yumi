@@ -1,11 +1,14 @@
+// ignore_for_file: void_checks
+
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/driver/model/vehicle.dart';
@@ -16,7 +19,10 @@ import 'package:yumi/features/registeration/maps/permission.dart';
 import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/features/registeration/model/registeration.dart';
 import 'package:yumi/features/registeration/repository/address_repo.dart';
+import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
+import 'package:yumi/features/schedule/model/model.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
+import 'package:yumi/features/settings/profile/model/profile_model.dart';
 import 'package:yumi/features/settings/profile/profile_service.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -58,7 +64,16 @@ class NRegState with _$NRegState {
   factory NRegState.initial() => const NRegState();
 
   Future<bool> get canAddVehicle async {
-    return await VehicleService.getVehicle() == null;
+    var regCub = G.rd<RegCubit>();
+
+    regCub.setLoading();
+    var vehicle = await VehicleService.getVehicle();
+    regCub.setLoading(false);
+
+    if (vehicle == null) return true;
+
+    regCub.setVehicleType(vehicle);
+    return false;
   }
 
   const NRegState._();
@@ -80,7 +95,29 @@ class RegCubit extends Cubit<NRegState> {
 // -----------------------------------------------------------------------------
 // Navigation
 
+  void setLoading([bool loading = true]) {
+    emit(state.copyWith(
+        status: loading ? BlocStatus.loading : BlocStatus.loaded));
+  }
+
+  void _initData() {
+    if (G.read<UserBloc>().state.user.accessToken.isEmpty) return;
+
+    if (G.read<ProfileBloc>().state.profile.guid.isEmpty) {
+      G.read<ProfileBloc>().add(ProfileInitEvent(context: G.context));
+    } else if ((G.read<UserBloc>().state.user.chefId?.isNotEmpty ?? false)) {
+      G.read<MealListBloc>().add(
+            MealListUpdateEvent(
+              context: G.context,
+              chefId: G.read<UserBloc>().state.user.chefId,
+            ),
+          );
+    }
+  }
+
   void init() async {
+    // return finish();
+    _initData();
     // read step index from shared preferences
     var pref = await SharedPreferences.getInstance();
     var step = pref.getInt(regStepKey) ?? 0;
@@ -91,7 +128,21 @@ class RegCubit extends Cubit<NRegState> {
       emit(const NRegState(registerationStarted: true));
     }
 
+    getOnboardingProgress();
+    getVehicle();
+    G.read<ScheduleBloc>().add(const ScheduleEvent.init());
+
     if (step > 0) _navigateToIdx(step);
+  }
+
+  void finish() async {
+    var pref = await SharedPreferences.getInstance();
+    pref.remove(regStepKey);
+    pref.remove(onboardingProgressKey);
+
+    G.router.replaceAll([HomeRoute()]).then((value) {
+      emit(state.copyWith(registerationStarted: false));
+    });
   }
 
   // void next() {
@@ -105,6 +156,7 @@ class RegCubit extends Cubit<NRegState> {
   // }
 
   void refresh() {
+    onboardingProgress;
     if (state.registerationStarted) {
       getOnboardingProgress();
       emit(state.copyWith(unique: unique()));
@@ -112,11 +164,18 @@ class RegCubit extends Cubit<NRegState> {
   }
 
   int get onboardingProgress {
-    return state.onboarding.onboardingProgress;
+    var p = state.onboarding.onboardingProgress;
+    var sp = state.onboardingProgress;
+    if (p > sp) {
+      setOnboardingProgress(p);
+      return p;
+    }
+    setOnboardingProgress(sp);
+    return sp;
   }
 
   void setOnboardingProgress(int idx) {
-    if (idx <= onboardingProgress) return;
+    // if (idx <= onboardingProgress) return;
 
     // save step index to shared preferences
     SharedPreferences.getInstance()
@@ -133,15 +192,20 @@ class RegCubit extends Cubit<NRegState> {
 
   void nextButtonPressed() {
     var context = G.context;
-    var stepsInfo = G.isChefApp
-        ? chefStepsInfo(context, state)
-        : driverStepsInfo(context, state);
+    setLoading();
 
-    var idx = onboardingProgress;
-    if (idx < stepsInfo.length) return stepsInfo[idx][2]();
+    context.read<ProfileBloc>().add(ProfileInitEvent(action: (newProfile) {
+      setLoading(false);
 
-    SharedPreferences.getInstance().then((value) => value.remove(regStepKey));
-    context.router.replaceAll([HomeRoute()]);
+      var stepsInfo = G.isChefApp
+          ? chefStepsInfo(context, state)
+          : driverStepsInfo(context, state);
+
+      var idx = onboardingProgress;
+      if (idx < stepsInfo.length) return stepsInfo[idx][2]();
+
+      finish();
+    }));
   }
 // -----------------------------------------------------------------------------
 // Actions
@@ -181,6 +245,7 @@ class RegCubit extends Cubit<NRegState> {
         emit(state.copyWith(addressStatus: BlocStatus.success));
 
         if (routeFn != null) return routeFn(address: state.address);
+        if (G.isCustomerApp) return finish();
         return _navigateToIdx(4);
       }
 
@@ -200,6 +265,12 @@ class RegCubit extends Cubit<NRegState> {
   //   emit(state.copyWith(otherVehicle: otherVehicle));
   // }
 
+  void getVehicle() async {
+    var vehicle = await VehicleService.getVehicle();
+    if (vehicle == null) return;
+    emit(state.copyWith(vehicle: vehicle));
+  }
+
   Future saveVehicleType() async {
     return VehicleService.addVehicle(state.vehicle)
         .then(
@@ -217,23 +288,25 @@ class RegCubit extends Cubit<NRegState> {
   }
 
   // navigate to corresponding page based on step index
-  _navigateToIdx(int step) async {
+  void _navigateToIdx(int step) async {
     if (step > 4) step = 4;
     if (step < 0) step = 0;
 
     if (!Platform.isAndroid && !Platform.isIOS && step == 3) step = 4;
+    if (G.isCustomerApp && step == 4) return finish();
 
     var path = G.router.currentPath;
 
     if (path == '/registeration/${RegStep.values[step].name}') return;
     if (!state.registerationStarted) return;
 
-    if (!path.contains("registeration")) {
-      G.router
-          .push(const RegisterationRoute())
-          .then((value) => G.router.navigateNamed(RegStep.values[step].name));
-    } else {
+    if (path.contains("/registeration")) {
+      // G.router
+      //     .push(const RegisterationRoute())
+      //     .then((value) => G.router.navigateNamed(RegStep.values[step].name));
       G.router.navigateNamed(RegStep.values[step].name);
+    } else {
+      G.router.replaceNamed('/registeration/${RegStep.values[step].name}');
     }
 
     emit(state.copyWith(step: step));

@@ -19,102 +19,100 @@ class OTPScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var otp = '';
 
-    return BlocProvider(
-      create: (context) => ScheduleBloc(scheduleRepo: ScheduleMockRepo()),
-      child: ScreenContainer(
-        child: Scaffold(
+    return ScreenContainer(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            bottomOpacity: 0,
-            scrolledUnderElevation: 0,
-            iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
-          ),
-          body: BlocBuilder<RegCubit, NRegState>(
-            builder: (context, state) {
-              return SingleChildScrollView(
-                child: Center(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 300),
-                    child: Padding(
-                      padding: const EdgeInsets.all(36.0),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            "assets/images/registeration/otp.png",
+          bottomOpacity: 0,
+          scrolledUnderElevation: 0,
+          iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
+        ),
+        body: BlocSelector<RegCubit, NRegState, String?>(
+          selector: (state) => state.phone,
+          builder: (context, state) {
+            return SingleChildScrollView(
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 300),
+                  child: Padding(
+                    padding: const EdgeInsets.all(36.0),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          "assets/images/registeration/otp.png",
+                        ),
+                        const SizedBox(height: 60),
+                        Text(
+                          "OTP Verification",
+                          style: TextStyle(
+                            fontSize: ThemeSelector.fonts.font_24,
+                            fontWeight: FontWeight.bold,
+                            color: ThemeSelector.colors.primary,
                           ),
-                          const SizedBox(height: 60),
-                          Text(
-                            "OTP Verification",
-                            style: TextStyle(
-                              fontSize: ThemeSelector.fonts.font_24,
-                              fontWeight: FontWeight.bold,
-                              color: ThemeSelector.colors.primary,
-                            ),
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "Enter the OTP sent to ",
-                                  style: TextStyle(
-                                    fontSize: ThemeSelector.fonts.font_10,
-                                    color: ThemeSelector.colors.secondaryTant,
-                                  ),
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Enter the OTP sent to ",
+                                style: TextStyle(
+                                  fontSize: ThemeSelector.fonts.font_10,
+                                  color: ThemeSelector.colors.secondaryTant,
                                 ),
-                                TextSpan(
-                                  text: state.phone,
-                                  style: TextStyle(
-                                    fontSize: ThemeSelector.fonts.font_12,
-                                    fontWeight: FontWeight.bold,
-                                    color: ThemeSelector.colors.secondary,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 40),
-                          OTP(onInput: (value, _, __) => otp = value),
-                          const SizedBox(height: 40),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "Didn't receive an OTP?  ",
-                                  style: TextStyle(
-                                    fontSize: ThemeSelector.fonts.font_12,
-                                    color: ThemeSelector.colors.secondaryTant,
-                                  ),
+                              ),
+                              TextSpan(
+                                text: state,
+                                style: TextStyle(
+                                  fontSize: ThemeSelector.fonts.font_12,
+                                  fontWeight: FontWeight.bold,
+                                  color: ThemeSelector.colors.secondary,
                                 ),
-                                TextSpan(
-                                  text: "Resned OTP",
-                                  style: TextStyle(
-                                    fontSize: ThemeSelector.fonts.font_12,
-                                    color: ThemeSelector.colors.primary,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                          const SizedBox(height: 40),
-                          ConfirmButton(
-                              label: "Verify & Proceed",
-                              onPressed: () {
-                                if (kReleaseMode && otp.length < 4) return;
+                        ),
+                        const SizedBox(height: 40),
+                        OTP(onInput: (value, _, __) => otp = value),
+                        const SizedBox(height: 40),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Didn't receive an OTP?  ",
+                                style: TextStyle(
+                                  fontSize: ThemeSelector.fonts.font_12,
+                                  color: ThemeSelector.colors.secondaryTant,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "Resned OTP",
+                                style: TextStyle(
+                                  fontSize: ThemeSelector.fonts.font_12,
+                                  color: ThemeSelector.colors.primary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 40),
+                        ConfirmButton(
+                            label: "Verify & Proceed",
+                            onPressed: () {
+                              if (kReleaseMode && otp.length < 4) return;
 
-                                // context
-                                //     .read<NRegBloc>()
-                                //     .add(RegEvent.setOTP(otp, context));
-                                context.read<RegCubit>().setOTP(otp);
-                              }),
-                        ],
-                      ),
+                              // context
+                              //     .read<NRegBloc>()
+                              //     .add(RegEvent.setOTP(otp, context));
+                              context.read<RegCubit>().setOTP(otp);
+                            }),
+                      ],
                     ),
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
