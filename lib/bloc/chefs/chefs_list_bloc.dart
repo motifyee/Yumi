@@ -17,18 +17,18 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
       : super(ChefsListState(
             chefs: [], chefsLength: 0, paginationHelper: PaginationHelper())) {
     on<GetChefsListEvent>((event, emit) async {
+      Address? userLocation = event.context.read<UserBloc>().state.address;
+      if (userLocation == null ||
+          userLocation.latitude == null ||
+          userLocation.longitude == null) {
+        return;
+      }
+
       if (state.paginationHelper.pageNumber < state.paginationHelper.lastPage &&
           !state.paginationHelper.isLoading) {
         emit(state.copyWith(
             paginationHelper:
                 state.paginationHelper.copyWith(isLoading: true)));
-
-        Address? userLocation = event.context.read<UserBloc>().state.address;
-        if (userLocation == null ||
-            userLocation.latitude == null ||
-            userLocation.longitude == null) {
-          return;
-        }
 
         final Response res = await ChefService.getChefs(
           context: event.context,

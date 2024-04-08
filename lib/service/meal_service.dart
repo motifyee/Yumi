@@ -27,7 +27,7 @@ class MealService {
     final res = await DioClient.simpleDio(context).put(
         '${ApiKeys.getApiKeyString(apiKey: ApiKeys.meal)}/${mealModel.id}/delete',
         data: {"is_Deleted": true});
-    return res.data;
+    return res;
   }
 
   static Future<dynamic> getMeals(

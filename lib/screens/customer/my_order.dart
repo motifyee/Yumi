@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
@@ -8,16 +9,52 @@ import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/news_orders.dart';
 
-class MyOrdersScreen extends StatefulWidget {
-  const MyOrdersScreen({super.key});
+@RoutePage()
+class MyOrdersScreen extends StatelessWidget {
+  MyOrdersScreen({super.key, this.isHistory = false});
+
+  bool isHistory;
 
   @override
-  State<MyOrdersScreen> createState() => _MyOrdersScreenState();
+  Widget build(BuildContext context) {
+    return isHistory
+        ? Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              backgroundColor: Colors.transparent,
+              bottomOpacity: 0,
+              scrolledUnderElevation: 0,
+              title: Text(
+                S.of(context).history,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ),
+            body: _MyOrderTemplate(isHistory: isHistory),
+          )
+        : _MyOrderTemplate(isHistory: isHistory);
+  }
 }
 
-class _MyOrdersScreenState extends State<MyOrdersScreen> {
-  final PageController _controller = PageController(initialPage: 0);
-  int _index = 0;
+class _MyOrderTemplate extends StatefulWidget {
+  _MyOrderTemplate({super.key, this.isHistory = false});
+
+  bool isHistory;
+
+  @override
+  State<_MyOrderTemplate> createState() => _MyOrderTemplateState();
+}
+
+class _MyOrderTemplateState extends State<_MyOrderTemplate> {
+  late PageController _controller;
+  late int _index;
+
+  @override
+  void initState() {
+    _controller = PageController(initialPage: widget.isHistory ? 1 : 0);
+    _index = widget.isHistory ? 1 : 0;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,74 +66,30 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  _controller.jumpToPage(0);
-                  _index = 0;
+                  _controller.jumpToPage(widget.isHistory ? 1 : 0);
+                  _index = widget.isHistory ? 1 : 0;
                 });
               },
               child: Text(
                 S.of(context).myOrders,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: ThemeSelector.colors.primary
-                        .withAlpha(_index == 0 ? 255 : 150)),
+                        .withAlpha((_index == 0 || _index == 1) ? 255 : 150)),
               ),
             ),
             SizedBox(width: ThemeSelector.statics.defaultGap),
             TextButton(
               onPressed: () {
                 setState(() {
-                  _controller.jumpToPage(2);
-                  _index = 2;
+                  _controller.jumpToPage(widget.isHistory ? 3 : 2);
+                  _index = widget.isHistory ? 3 : 2;
                 });
               },
               child: Text(
                 S.of(context).myPreOrder,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: ThemeSelector.colors.primary
-                        .withAlpha(_index == 1 ? 255 : 150)),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            SizedBox(width: ThemeSelector.statics.defaultGap),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  if (_index > 1) {
-                    _controller.jumpToPage(2);
-                    _index = 2;
-                  } else {
-                    _controller.jumpToPage(0);
-                    _index = 0;
-                  }
-                });
-              },
-              child: Text(
-                S.of(context).orders,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: ThemeSelector.colors.primary
-                        .withAlpha(_index == 0 || _index == 2 ? 255 : 150)),
-              ),
-            ),
-            SizedBox(width: ThemeSelector.statics.defaultGap),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  if (_index > 1) {
-                    _controller.jumpToPage(3);
-                    _index = 3;
-                  } else {
-                    _controller.jumpToPage(1);
-                    _index = 1;
-                  }
-                });
-              },
-              child: Text(
-                S.of(context).ordersHistory,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: ThemeSelector.colors.primary
-                        .withAlpha(_index == 1 || _index == 3 ? 255 : 150)),
+                        .withAlpha((_index == 2 || _index == 3) ? 255 : 150)),
               ),
             ),
           ],

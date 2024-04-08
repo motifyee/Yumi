@@ -41,22 +41,28 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
             id: widget.order.id.toString())
         .then((value) {
       setState(() {
-        widget.order = OrderModel.fromJson(value.data);
+        widget.order = widget.order.copyWith(
+            invoiceDetails: OrderModel.fromJson(value.data).invoiceDetails);
       });
     });
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     if ((widget.order.invoiceDetails?.length ?? 0) < 2 ||
         AppTarget.user == AppTargetUser.drivers) {
       widget.isView = true;
     }
-    DateTime? createdDate = DateTime.tryParse(widget.order.createdDate ?? '');
 
     if (widget.orderCardTargetPage == OrderCardTargetPage.view) {
       getOrderForView();
     }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    DateTime? createdDate = DateTime.tryParse(widget.order.createdDate ?? '');
 
     return Stack(
       clipBehavior: Clip.none,
@@ -144,7 +150,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                     if (!await launchUrl(
                                       Uri(
                                         scheme: 'tel',
-                                        path: '01015306632',
+                                        path: widget.order.clientMobile,
                                       ),
                                     )) {
                                       ScaffoldMessenger.of(context)
@@ -226,52 +232,83 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                         ],
                       ),
                     SizedBox(height: ThemeSelector.statics.defaultGap),
-                    LayoutBuilder(
-                      builder: (context, constraints) => AnimatedSize(
-                        duration: ThemeSelector.statics.animationDuration,
-                        child: SizedBox(
-                          height: widget.isView
-                              ? (widget.order.invoiceDetails?.length ?? 0) * 55
-                              : 50,
-                          width: constraints.maxWidth,
-                          child: Stack(
+                    if (widget.order.invoiceDetails!.isEmpty &&
+                        [
+                          OrderCardTargetPage.driverAccept,
+                          OrderCardTargetPage.driverReceived,
+                          OrderCardTargetPage.driverHistory,
+                        ].contains(widget.orderCardTargetPage))
+                      Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AnimatedSize(
-                                duration:
-                                    ThemeSelector.statics.animationDuration,
-                                child: SizedBox(
-                                  height: widget.isView
-                                      ? (widget.order.invoiceDetails?.length ??
-                                              0) *
-                                          55
-                                      : 50,
-                                  width: constraints.maxWidth,
-                                ),
+                              SizedBox(
+                                  height: ThemeSelector.statics.defaultGap),
+                              Text(
+                                widget.order.clientName ?? '',
+                                style: Theme.of(context).textTheme.labelLarge,
                               ),
-                              for (var i = 0;
-                                  i <
-                                      (widget.order.invoiceDetails?.length ??
-                                          0);
-                                  i++)
-                                AnimatedPositioned(
-                                  left: widget.isView ? 0.0 : 30.0 * i,
-                                  top: widget.isView ? 55.0 * i : 0.0,
-                                  width:
-                                      widget.isView ? constraints.maxWidth : 50,
+                              Text(
+                                widget.order.clientDefaultAddress ?? '',
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                              SizedBox(
+                                  height: ThemeSelector.statics.defaultGap),
+                            ],
+                          ),
+                        ],
+                      ),
+                    if (widget.order.invoiceDetails!.isNotEmpty)
+                      LayoutBuilder(
+                        builder: (context, constraints) => AnimatedSize(
+                          duration: ThemeSelector.statics.animationDuration,
+                          child: SizedBox(
+                            height: widget.isView
+                                ? (widget.order.invoiceDetails?.length ?? 0) *
+                                    55
+                                : 50,
+                            width: constraints.maxWidth,
+                            child: Stack(
+                              children: [
+                                AnimatedSize(
                                   duration:
                                       ThemeSelector.statics.animationDuration,
-                                  child: ProductInCard(
-                                    isView: widget.isView,
-                                    maxWidth: constraints.maxWidth,
-                                    invoiceDetails:
-                                        widget.order.invoiceDetails![i],
+                                  child: SizedBox(
+                                    height: widget.isView
+                                        ? (widget.order.invoiceDetails
+                                                    ?.length ??
+                                                0) *
+                                            55
+                                        : 50,
+                                    width: constraints.maxWidth,
                                   ),
-                                )
-                            ],
+                                ),
+                                for (var i = 0;
+                                    i <
+                                        (widget.order.invoiceDetails?.length ??
+                                            0);
+                                    i++)
+                                  AnimatedPositioned(
+                                    left: widget.isView ? 0.0 : 30.0 * i,
+                                    top: widget.isView ? 55.0 * i : 0.0,
+                                    width: widget.isView
+                                        ? constraints.maxWidth
+                                        : 50,
+                                    duration:
+                                        ThemeSelector.statics.animationDuration,
+                                    child: ProductInCard(
+                                      isView: widget.isView,
+                                      maxWidth: constraints.maxWidth,
+                                      invoiceDetails:
+                                          widget.order.invoiceDetails![i],
+                                    ),
+                                  )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
                     Row(
                       children: [
                         Expanded(
@@ -409,7 +446,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                         ),
                       ),
                     if (widget.orderCardTargetPage ==
-                        OrderCardTargetPage.driverReceived)
+                            OrderCardTargetPage.driverReceived &&
+                        widget.order.chefFinished == true)
                       TextButton(
                         onPressed: () {
                           context.read<OrderBloc>().add(
