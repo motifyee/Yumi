@@ -73,7 +73,13 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
       [
         "documentation",
         ["Documentation", "Third, attach your documents"],
-        () => G.router.push(const DocumentationRoute()),
+        // () => G.router.push(const DocumentationRoute()),
+        () => showAlertDialog(
+              context: context,
+              content: const DocumentationScreen(),
+              actions: {'Ok': null},
+              insetPadding: 0,
+            ),
         () => state.onboarding.docsActive,
       ],
       [
@@ -99,23 +105,26 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
           "Get Contract",
           "Finally, download the contract to sign and upload it"
         ],
-        () => G.router.push(const ContractRoute()),
+        // () => G.router.push(const ContractRoute()),
+        () => showAlertDialog(
+                context: context,
+                content: const ContractScreen(),
+                insetPadding: 0,
+                actions: {
+                  'Ok': (ctx) {
+                    var photo =
+                        G.read<ProfileBloc>().state.profile.contractPhoto;
+                    if (photo?.isEmpty ?? true) return;
+
+                    G.pop();
+                  },
+                }),
         () => state.onboarding.contractActive,
       ],
     ];
 
 List driverStepsInfo(BuildContext context, NRegState state) => [
-      [
-        "profile",
-        ["Profile", "First, you should complete your profile"],
-        () => showModalBottomSheet(
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              context: context,
-              builder: (context) => const EditBioSheet(),
-            ),
-        () => true,
-      ],
+      chefStepsInfo(context, state)[0],
       [
         "rides",
         [
@@ -166,54 +175,7 @@ List driverStepsInfo(BuildContext context, NRegState state) => [
         },
         () => state.onboarding.ridesActive,
       ],
-      [
-        "documentation",
-        ["Documentation", "Third, attach your documents"],
-        // () => G.router.push(const DocumentationRoute()),
-        () => showAlertDialog(
-              context: context,
-              content: const DocumentationScreen(),
-              actions: {'Ok': null},
-              insetPadding: 0,
-            ),
-        () => state.onboarding.docsActive,
-      ],
-      [
-        "approval",
-        ["Get Approval", "Then, waiting for approval within 72 hours"],
-        () => showAlertDialog(
-              context: context,
-              title: Container(),
-              content: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(!state.onboarding.approvalDone
-                    ? "Waiting for approval within 72 hours..."
-                    : "Your application has been approved"),
-              ),
-              actions: {'Ok': null},
-              dismissible: true,
-            ),
-        () => state.onboarding.approvalActive,
-      ],
-      [
-        "contract",
-        [
-          "Get Contract",
-          "Finally, download the contract to sign and upload it"
-        ],
-        () => showAlertDialog(
-                context: context,
-                content: const ContractScreen(),
-                insetPadding: 0,
-                actions: {
-                  'Ok': (ctx) {
-                    var photo =
-                        G.read<ProfileBloc>().state.profile.contractPhoto;
-                    if (photo?.isEmpty ?? true) return;
-
-                    G.pop();
-                  },
-                }),
-        () => state.onboarding.contractActive,
-      ],
+      chefStepsInfo(context, state)[2],
+      chefStepsInfo(context, state)[3],
+      chefStepsInfo(context, state)[4],
     ];
