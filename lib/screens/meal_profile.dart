@@ -7,6 +7,7 @@ import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/forms/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/invoice_model.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -230,6 +231,9 @@ class MealProfileScreen extends StatelessWidget {
                                 .copyWith(
                                   isPreorder: false,
                                   isSchedule: true,
+                                  invoiceDetails: [
+                                    InvoiceDetails.fromMeal(meal: meal)
+                                  ],
                                   invoice: context
                                       .read<BasketFormBloc>()
                                       .state
