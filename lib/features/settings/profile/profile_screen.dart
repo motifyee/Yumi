@@ -1,7 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/features/settings/profile/model/profile_model.dart';
@@ -11,10 +13,10 @@ import 'package:yumi/template/bio.dart';
 import 'package:yumi/template/event_photo.dart';
 import 'package:yumi/template/loading.dart';
 import 'package:yumi/template/my_reviews.dart';
-import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/upload_photo_button.dart';
 
-Widget profileImagePicker(BuildContext context, Profile profile, bool loading) {
+Widget profileImagePicker(
+    BuildContext context, String? profileImage, bool loading) {
   if (loading) return Loading();
 
   return Container(
@@ -32,12 +34,15 @@ Widget profileImagePicker(BuildContext context, Profile profile, bool loading) {
       ),
     ),
     child: UploadPhotoButton(
-      defaultImage: profile.profileImage,
+      defaultImage: profileImage,
       borderWidth: 0,
       title: null,
       size: ThemeSelector.statics.iconSizeExtreme * 2.3,
       onPressed: (image) async {
-        final newProfile = profile.copyWith(profileImage: image);
+        if (image == null) return;
+
+        final newProfile =
+            G.read<ProfileBloc>().state.profile.copyWith(profileImage: image);
 
         G.cContext.read<ProfileBloc>().add(ProfileLoadingEvent());
 
@@ -77,7 +82,7 @@ class ProfileScreen extends StatelessWidget {
       children: [
         const Bio(),
         SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-        const EventsPhoto(),
+        if (G.isChefApp) const EventsPhoto(),
         SizedBox(height: ThemeSelector.statics.defaultBlockGap),
         if (!isSheet) const MyReviews(),
       ],
@@ -85,40 +90,61 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
+class ProfilePhotoSlice extends Equatable {
+  final String? photo;
+  final bool isHygiene;
+  final String fullName;
+  const ProfilePhotoSlice({
+    required this.photo,
+    required this.isHygiene,
+    required this.fullName,
+  });
+
+  @override
+  List<Object?> get props => [photo, isHygiene, fullName];
+}
+
 class ProfilePicture extends StatelessWidget {
   const ProfilePicture({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileBloc, ProfileState>(
+    return BlocSelector<ProfileBloc, ProfileState, ProfilePhotoSlice>(
+      selector: (state) => ProfilePhotoSlice(
+        photo: state.profile.profileImage,
+        isHygiene: state.profile.isHygiene,
+        fullName: state.profile.fullName,
+      ),
       builder: (context, state) {
         if (state is ProfileLoadingEvent) return Loading();
-        var profile = state.profile;
 
         return Column(
           children: [
-            profileImagePicker(context, profile, state is ProfileLoadingEvent),
+            profileImagePicker(
+                context, state.photo, state is ProfileLoadingEvent),
             SizedBox(height: ThemeSelector.statics.defaultGap),
             Text(
-              profile.fullName,
+              state.fullName,
               style: TextStyle(
                   color: ThemeSelector.colors.primary,
                   fontSize: ThemeSelector.fonts.font_24),
             ),
             SizedBox(height: ThemeSelector.statics.defaultGap),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('4.5',
-                    style: TextStyle(color: ThemeSelector.colors.secondary)),
-                Text(' ',
-                    style: TextStyle(color: ThemeSelector.colors.secondary)),
-                SvgPicture.asset('assets/images/star.svg'),
-                if (state.profile.isHygiene)
-                  Text(' | ${S.of(context).hygiene}',
+            if (!G.rd<RegCubit>().state.registerationStarted)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('4.5',
                       style: TextStyle(color: ThemeSelector.colors.secondary)),
-              ],
-            ),
+                  Text(' ',
+                      style: TextStyle(color: ThemeSelector.colors.secondary)),
+                  SvgPicture.asset('assets/images/star.svg'),
+                  if (state.isHygiene)
+                    Text(' | ${S.of(context).hygiene}',
+                        style:
+                            TextStyle(color: ThemeSelector.colors.secondary)),
+                ],
+              ),
             SizedBox(height: ThemeSelector.statics.defaultTitleGap),
             // Expanded(
             //   // child: bottom(),

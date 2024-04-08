@@ -65,12 +65,14 @@ class DocumentationScreen extends StatelessWidget {
               const SizedBox(),
               BlocBuilder<DocsCubit, DocsState>(
                 builder: (context, state) {
-                  if (state.status.isInit) {
+                  if (state.profile.guid.isEmpty) {
                     context.read<DocsCubit>().init();
-                    context
-                        .read<ProfileBloc>()
-                        .add(ProfileInitEvent(context: context));
                   }
+                  // if (state.status.isInit) {
+                  //   context
+                  //       .read<ProfileBloc>()
+                  //       .add(ProfileInitEvent(context: context));
+                  // }
 
                   return state.status.isLoading
                       ? const Center(
@@ -316,7 +318,7 @@ Widget documentWidget({
             var encoded = base64Encode(await image.readAsBytes());
             uploadAction(encoded, target);
 
-            G.rd<RegCubit>().refresh();
+            // G.rd<RegCubit>().refresh();
           });
         }
 
@@ -327,7 +329,7 @@ Widget documentWidget({
         var encoded = base64Encode(await image.readAsBytes());
 
         uploadAction(encoded, null);
-        G.rd<RegCubit>().refresh();
+        // G.rd<RegCubit>().refresh();
       },
       child: const Text("Upload"),
     ),

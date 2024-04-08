@@ -5,9 +5,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/model/login_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/login_service.dart';
@@ -46,35 +49,42 @@ class LoginForm extends StatelessWidget {
       }
     }
 
-    if (kReleaseMode && loginAttempted == false) {
-      context.read<UserBloc>().add(
-            UserFromSharedRefEvent(
-              context: context,
-              route: null,
-              afterFetchSuccess: routeAfterLogin,
-              autoLogin: skipLogin,
-            ),
-          );
-    }
+    // G.rd<RegCubit>().state
+    SharedPreferences.getInstance().then((value) {
+      if (loginAttempted == false) {
+        context.read<UserBloc>().add(
+              UserFromSharedRefEvent(
+                context: context,
+                route: null,
+                afterFetchSuccess: (context, _) {
+                  if (value.getInt(regStepKey) == null) return;
+                  if (G.read<UserBloc>().state.user.accessToken.isEmpty) return;
+                  G.rd<RegCubit>().init();
+                },
+                autoLogin: skipLogin,
+              ),
+            );
+      }
 
-    if (!kReleaseMode && loginAttempted == false) {
-      loginAttempted = true;
-      // skipLogin();
+      // if (!kReleaseMode && loginAttempted == false) {
+      //   loginAttempted = true;
+      //   // skipLogin();
 
-      () async {
-        await rootBundle.loadString('assets/.autologin').then((data) {
-          var dataList = (const LineSplitter()).convert(data);
-          context.read<UserBloc>().add(
-                UserFromSharedRefEvent(
-                  context: context,
-                  route: dataList.length > 2 ? dataList[2] : null,
-                  afterFetchSuccess: routeAfterLogin,
-                  autoLogin: skipLogin,
-                ),
-              );
-        });
-      }();
-    }
+      //   () async {
+      //     await rootBundle.loadString('assets/.autologin').then((data) {
+      //       var dataList = (const LineSplitter()).convert(data);
+      //       context.read<UserBloc>().add(
+      //             UserFromSharedRefEvent(
+      //               context: context,
+      //               route: dataList.length > 2 ? dataList[2] : null,
+      //               afterFetchSuccess: routeAfterLogin,
+      //               autoLogin: skipLogin,
+      //             ),
+      //           );
+      //     });
+      //   }();
+      // }
+    });
 
     return Form(
       key: loginFormKey,

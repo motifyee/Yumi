@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/features/chef_application/documentation/bloc/icon_bloc.dart';
 import 'package:yumi/features/chef_application/documentation/documentation_screen.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/screen_container.dart';
 
@@ -19,12 +21,14 @@ class ContractScreen extends StatelessWidget {
     return ScreenContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          bottomOpacity: 0,
-          scrolledUnderElevation: 0,
-          iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
-        ),
+        appBar: G.rd<RegCubit>().state.registerationStarted
+            ? null
+            : AppBar(
+                backgroundColor: Colors.transparent,
+                bottomOpacity: 0,
+                scrolledUnderElevation: 0,
+                iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
+              ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -49,7 +53,8 @@ class ContractScreen extends StatelessWidget {
               const SizedBox(height: 60),
               BlocBuilder<ProfileBloc, ProfileState>(
                 builder: (context, state) {
-                  if (state.status.isInit) {
+                  if (!G.rd<RegCubit>().state.registerationStarted &&
+                      state.status.isInit) {
                     context
                         .read<ProfileBloc>()
                         .add(ProfileInitEvent(context: context));

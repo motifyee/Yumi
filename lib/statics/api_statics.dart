@@ -14,7 +14,7 @@ import 'package:yumi/route/route.gr.dart';
 import '../app_target.dart';
 
 // const originApi = 'https://10.99.77.247:5012';
-const originApi = 'https://22e9-81-10-105-81.ngrok-free.app';
+const originApi = 'https://vroot.tarabia.online';
 
 class DioClient {
   static Dio get dio => simpleDio();

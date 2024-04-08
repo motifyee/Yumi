@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/features/chef_application/documentation/bloc/cubit/docs_cubit.dart';
+import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/features/settings/profile/model/profile_model.dart';
@@ -19,7 +22,8 @@ class Onboarding {
   }
 
   // chefs only
-  bool get mealsActive => approvalDone || profileSheetDone;
+  bool get mealsActive =>
+      _onboardingProgress > 0 || approvalDone || profileSheetDone;
   bool get mealsDone {
     if (!mealsActive) return false;
     if (G.read<MealListBloc>().state.meals.isEmpty) return false;
@@ -29,7 +33,8 @@ class Onboarding {
   }
 
   // drivers only
-  bool get ridesActive => approvalDone || profileSheetDone;
+  bool get ridesActive =>
+      _onboardingProgress > 0 || approvalDone || profileSheetDone;
   bool get ridesDone {
     if (!ridesActive) return false;
     // if (G.cread<RegCubit>().state.vehicleType == null) return false;
@@ -50,10 +55,11 @@ class Onboarding {
     return mealsDone;
   }
 
-  bool get docsActive => stepTwoDone;
+  bool get docsActive => _onboardingProgress > 1 || stepTwoDone;
   bool get docsDone => docsActive && G.rd<DocsCubit>().state.finished;
 
-  bool get approvalActive => approvalDone || docsDone;
+  bool get approvalActive =>
+      _onboardingProgress > 2 || approvalDone || docsDone;
   // bool get approvalDone => true;
   bool get approvalDone => G.read<ProfileBloc>().state.profile.accountApproved;
 
@@ -62,6 +68,7 @@ class Onboarding {
       contractActive &&
       G.read<ProfileBloc>().state.profile.contractPhoto != null;
 
+  int get _onboardingProgress => G.rd<RegCubit>().state.onboardingProgress;
   int get onboardingProgress {
     int progress = 0;
 
@@ -75,24 +82,16 @@ class Onboarding {
     } else {
       return progress;
     }
-    if (docsDone) {
-      progress += 1;
-    } else {
-      return progress;
-    }
+
     if (approvalDone) {
+      progress += 2;
+    } else if (docsDone) {
       progress += 1;
+      return progress;
     } else {
       return progress;
     }
     if (contractDone) progress += 1;
-
-    var reg = G.rd<RegCubit>();
-    if (progress < reg.state.onboardingProgress) {
-      return reg.state.onboardingProgress;
-    }
-
-    reg.setOnboardingProgress(progress);
 
     return progress;
   }

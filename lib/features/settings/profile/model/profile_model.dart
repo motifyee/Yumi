@@ -92,7 +92,7 @@ class Profile with _$Profile {
   bool get profileSheetDone {
     if (bio.isEmpty) return false;
     if (profileImage == null) return false;
-    if (G.isChefApp && eventPhotosCount < 5) return false;
+    if (G.isChefApp && (eventPhotosCount == 0)) return false;
 
     return true;
   }

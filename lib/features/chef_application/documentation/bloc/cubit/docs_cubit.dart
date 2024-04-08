@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/features/settings/profile/model/profile_model.dart';
 import 'package:yumi/global.dart';
@@ -56,6 +57,8 @@ class DocsCubit extends Cubit<DocsState> {
     var profileBloc = G.read<ProfileBloc>();
     profileBloc.add(ProfileUpdateEvent(profile: profile));
 
+    var regCubit = G.rd<RegCubit>();
+
     StreamSubscription<ProfileState>? sub;
     sub = profileBloc.stream.listen((event) {
       if (event.status.isLoading) {
@@ -72,6 +75,7 @@ class DocsCubit extends Cubit<DocsState> {
           docsStatuses: [...state.docsStatuses]..[idx] = BlocStatus.success,
         ));
         if (sub != null) sub.cancel();
+        regCubit.refresh();
       }
 
       if (event.status.isError) {
@@ -80,6 +84,7 @@ class DocsCubit extends Cubit<DocsState> {
           docsStatuses: [...state.docsStatuses]..[idx] = BlocStatus.error,
         ));
         if (sub != null) sub.cancel();
+        regCubit.refresh();
       }
     });
   }

@@ -9,8 +9,10 @@ abstract class ProfileEvent extends Equatable {
 
 class ProfileInitEvent extends ProfileEvent {
   final BuildContext? context;
+  final Function(Profile)? action;
+  final Function(Profile)? failedAction;
 
-  const ProfileInitEvent({this.context});
+  const ProfileInitEvent({this.context, this.action, this.failedAction});
 }
 
 class ProfileLoadingEvent extends ProfileEvent {}

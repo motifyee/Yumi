@@ -6,6 +6,7 @@ import 'package:yumi/features/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/features/settings/bankinfo/bankinfo_service.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/model/bankinfo_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
@@ -64,9 +65,12 @@ class BankInfoSubmitButtons extends StatelessWidget {
                 foregroundColor: ThemeSelector.colors.secondary,
               ),
               onPressed: () {
-                context.router.pop();
-
-                context.read<BankInfoBloc>().add(BankInfoFormResetEvent());
+                // G.pop();
+                context.router.maybePop().then(
+                      (value) => context
+                          .read<BankInfoBloc>()
+                          .add(BankInfoFormResetEvent()),
+                    );
               },
               child: Text(S.of(context).cancel),
             ),

@@ -37,22 +37,14 @@ class ChefApplicationFlowScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
-    context.read<MealListBloc>().add(
-          MealListUpdateEvent(
-            context: context,
-            chefId: context.read<UserBloc>().state.user.chefId,
-          ),
-        );
-
     if (!context.read<RegCubit>().state.registerationStarted) {
       context.read<RegCubit>().init();
     }
-    // context.watch<ProfileBloc>();
-    // context.watch<RegCubit>();
-    // context.watch<MealListBloc>();
-    // context.watch<ScheduleBloc>();
-    // context.watch<DocsCubit>();
+    context.watch<ProfileBloc>();
+    context.watch<RegCubit>();
+    context.watch<MealListBloc>();
+    context.watch<ScheduleBloc>();
+    context.watch<DocsCubit>();
 
     return ScreenContainer(
       child: Scaffold(

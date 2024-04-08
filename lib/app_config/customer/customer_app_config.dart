@@ -12,6 +12,7 @@ import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/features/chef_application/bloc.dart';
 import 'package:yumi/features/chef_application/documentation/bloc/documentation_bloc.dart';
 import 'package:yumi/features/chef_application/documentation/bloc/icon_bloc.dart';
@@ -30,6 +31,7 @@ class CustomerAppConfig implements AppConfig {
   RootStackRouter get appRouter => _appRouter;
 
   final List<SingleChildWidget> _providers = [
+    BlocProvider(create: (context) => RegCubit()),
     BlocProvider(create: (context) => UserBloc()),
     BlocProvider(create: (context) => NavigatorBloc()),
     BlocProvider(create: (context) => ProfileBloc()),

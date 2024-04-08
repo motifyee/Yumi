@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "369476238484",
+    "firebase_url": "https://fir-computers-ip.firebaseio.com",
+    "project_id": "fir-computers-ip",
+    "storage_bucket": "fir-computers-ip.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369476238484:android:67365d6d87653772178881",
+        "android_client_info": {
+          "package_name": "com.yumi.deliveryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "369476238484-47jltp17ahm3dkcu98sd5v6kkt7quh2n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlhKSqJ_5FgfUS3tnGmjV6hxPocuFBB_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "369476238484-12pk8lcgt1r27n5bt9ee29ngbdiujm7g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "369476238484-cg12r40td5ot34aadjmsqtg7qao9fqbj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.yumi.deliveryapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369476238484:android:3f5301c1fb5667b9178881",
+        "android_client_info": {
+          "package_name": "com.yumi.drivers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "369476238484-47jltp17ahm3dkcu98sd5v6kkt7quh2n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlhKSqJ_5FgfUS3tnGmjV6hxPocuFBB_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "369476238484-12pk8lcgt1r27n5bt9ee29ngbdiujm7g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "369476238484-cg12r40td5ot34aadjmsqtg7qao9fqbj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.yumi.deliveryapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

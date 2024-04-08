@@ -1,15 +1,14 @@
 import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
 import 'package:yumi/template/upload_photo_button.dart';
@@ -52,10 +51,10 @@ class EventsPhoto extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      ...state.profile.eventPhotos
-                          .map((e) => _photoCard(ctx, state, e)),
                       if (state.profile.eventPhotosCount < 5)
                         _photoCard(ctx, state),
+                      ...state.profile.eventPhotos
+                          .map((e) => _photoCard(ctx, state, e)),
                     ],
                   ),
                 ),
@@ -64,19 +63,6 @@ class EventsPhoto extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  Container _oldButton(ProfileState state, BuildContext context) {
-    return Container(
-      constraints:
-          BoxConstraints(minHeight: ThemeSelector.statics.defaultGapExtreme),
-      child: Center(
-        child: UploadPhotoButton(
-          multi: true,
-          onPressed: (data) {},
-        ),
-      ),
     );
   }
 
@@ -132,13 +118,12 @@ class EventsPhoto extends StatelessWidget {
 
             if (newPhotos.isEmpty) return;
 
-            // var len = state.profile.eventPhotosCount + newPhotos.length;
             List<String?> photos = [
               ...state.profile.eventPhotos,
               ...newPhotos,
             ];
 
-            var allowed = 5 - state.profile.eventPhotosCount;
+            var allowed = 5 - state.profile.eventPhotos.length;
 
             if (!ctx.mounted) return;
 
@@ -157,10 +142,10 @@ class EventsPhoto extends StatelessWidget {
                 ),
               ),
               actions: {
-                if (allowed > 0) 'Cancel': (ctx) => ctx.router.pop(),
+                if (allowed > 0) 'Cancel': (ctx) => ctx.router.popForced(),
                 'Ok': (ctx) {
                   ctx.read<ProfileBloc>().add(ProfileUploadPhotosEvent(photos));
-                  ctx.router.pop();
+                  ctx.router.popForced();
                 },
               },
             );
@@ -184,8 +169,9 @@ class EventsPhoto extends StatelessWidget {
               actions: {
                 'Cancel': null,
                 'Ok': (ctx) {
+                  G.pop();
                   ctx.read<ProfileBloc>().add(ProfileDeletePhotoEvent(image!));
-                  ctx.router.pop();
+                  // ctx.router.pop();
                 }
               });
         },

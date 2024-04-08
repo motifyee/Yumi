@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/driver/model/vehicle.dart';
 import 'package:yumi/driver/rides_service.dart';
@@ -53,12 +54,14 @@ class RidesScreen extends StatelessWidget {
     return ScreenContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          bottomOpacity: 0,
-          scrolledUnderElevation: 0,
-          iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
-        ),
+        appBar: G.rd<RegCubit>().state.registerationStarted
+            ? null
+            : AppBar(
+                backgroundColor: Colors.transparent,
+                bottomOpacity: 0,
+                scrolledUnderElevation: 0,
+                iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
+              ),
         body: BlocBuilder<RegCubit, NRegState>(
           builder: (context, state) {
             return SingleChildScrollView(
@@ -75,75 +78,89 @@ class RidesScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 40),
-                  Container(
-                    padding: const EdgeInsets.all(16.0),
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
-                      'Choose your vehicle type:',
-                      style: TextStyle(
-                          // fontSize: 20,
-                          // fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  ToggleButtons(
-                    isSelected: List.generate(
-                      4,
-                      (index) =>
-                          state.vehicle.typeCode == vehicles[index].typeCode,
-                      //  || index == 3 && state.otherVehicle == true,
-                    ),
-                    children: vehicles
-                        .mapIndexed((i, e) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  if (i <= 2) Icon(vehicleIcons[i]),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                      e.vehicleName()?.capitalize() ?? 'Other'),
-                                ],
+                  state.status.isLoading
+                      ? const CircularProgressIndicator()
+                      : Column(
+                          children: [
+                            ToggleButtons(
+                              isSelected: List.generate(
+                                4,
+                                (index) =>
+                                    state.vehicle.typeCode ==
+                                    vehicles[index].typeCode,
+                                //  || index == 3 && state.otherVehicle == true,
                               ),
-                            ))
-                        .toList(),
-                    onPressed: (int idx) async {
-                      regCubit.state.canAddVehicle.then((bool canAdd) {
-                        if (!canAdd) {
-                          return ScaffoldMessenger.of(G.context).showSnackBar(
-                            const SnackBar(
-                              content: SnackBarMassage(
-                                  massage:
-                                      'You can\'nt update your vehicle type now.'),
-                            ),
-                          );
-                        }
+                              children: vehicles
+                                  .mapIndexed((i, e) => Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children: [
+                                            if (i <= 2) Icon(vehicleIcons[i]),
+                                            const SizedBox(width: 10),
+                                            Text(
+                                                e.vehicleName()?.capitalize() ??
+                                                    'Other'),
+                                          ],
+                                        ),
+                                      ))
+                                  .toList(),
+                              onPressed: (int idx) async {
+                                regCubit.state.canAddVehicle
+                                    .then((bool canAdd) {
+                                  var regCubit = G.rd<RegCubit>();
+                                  if (!canAdd) {
+                                    regCubit
+                                        .setVehicleType(regCubit.state.vehicle);
 
-                        var regCubit = G.rd<RegCubit>();
-                        regCubit.setVehicleType(vehicles[idx]);
-                        if (idx == 3) node.requestFocus();
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: TextField(
-                      // initialValue:
-                      //     state.otherVehicle == true ? state.vehicleType : '',
-                      controller: controller,
-                      focusNode: node,
-                      enabled: state.vehicle.vehicleType == VehicleType.other,
-                      onTapOutside: (evt) {
-                        G.rd<RegCubit>().setVehicleType(
-                            state.vehicle.copyWithVehicleType(controller.text));
-                      },
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Enter your vehicle type',
-                      ),
-                    ),
-                  ),
+                                    return ScaffoldMessenger.of(G.context)
+                                        .showSnackBar(
+                                      const SnackBar(
+                                        content: SnackBarMassage(
+                                            massage:
+                                                'You can\'nt update your vehicle type now.'),
+                                      ),
+                                    );
+                                  }
+
+                                  regCubit.setVehicleType(vehicles[idx]);
+                                  if (idx == 3) node.requestFocus();
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: TextField(
+                                // initialValue:
+                                //     state.otherVehicle == true ? state.vehicleType : '',
+                                controller: controller,
+                                focusNode: node,
+                                enabled: state.vehicle.vehicleType ==
+                                    VehicleType.other,
+                                onTapOutside: (evt) {
+                                  G.rd<RegCubit>().setVehicleType(state.vehicle
+                                      .copyWithVehicleType(controller.text));
+                                },
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Enter your vehicle type',
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(16.0),
+                              alignment: Alignment.centerLeft,
+                              child: const Text(
+                                'Choose your vehicle type:',
+                                style: TextStyle(
+                                    // fontSize: 20,
+                                    // fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                          ],
+                        ),
                 ],
               ),
             );

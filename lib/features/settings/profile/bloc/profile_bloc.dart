@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/driver/driver_reg_cubit.dart';
+import 'package:yumi/features/registeration/bloc/bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/features/settings/profile/model/profile_model.dart';
 import 'package:yumi/features/settings/profile/profile_service.dart';
@@ -61,9 +65,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     });
 
     on<ProfileDeletePhotoEvent>((event, emit) {
-      List<String> photos = state.profile.eventPhotos
-          .where((element) => element != event.photo)
-          .toList();
+      bool removed = false;
+      List<String> photos = state.profile.eventPhotos.where((element) {
+        if (removed) return true;
+        if (element != event.photo) return true;
+        removed = true;
+        return false;
+      }).toList();
 
       photos = [...photos, for (var i = photos.length; i < 5; i++) ''];
 
@@ -89,16 +97,32 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       (value) {
         //
         // Emit new state
+        var newProfile = Profile.fromJson(value).copyWith(
+          updatedBy: '366',
+          email: G.cContext.read<UserBloc>().state.user.email,
+          //
+          hygienePhoto: state.profile.hygienePhoto,
+          riskPhoto: state.profile.riskPhoto,
+          registerationPhoto: state.profile.registerationPhoto,
+          //
+          driverLicensePhoto: state.profile.driverLicensePhoto,
+          driverLicenseCodePhoto: state.profile.driverLicenseCodePhoto,
+          foodDeliveryInsurancePhoto: state.profile.foodDeliveryInsurancePhoto,
+          //
+          passportPhoto: state.profile.passportPhoto,
+          nidPhoto: state.profile.nidPhoto,
+          //
+          contractPhoto: state.profile.contractPhoto,
+        );
 
         emit(
           state.copyWith(
-            profile: Profile.fromJson(value).copyWith(
-              updatedBy: '366',
-              email: G.cContext.read<UserBloc>().state.user.email,
-            ),
+            profile: newProfile,
             status: BlocStatus.initSuccess,
           ),
         );
+
+        if (event.action != null) event.action!(newProfile);
       },
     ).catchError(
       (error) {
@@ -110,6 +134,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             status: BlocStatus.initError,
           ),
         );
+        if (event.failedAction != null) event.failedAction!(state.profile);
       },
     );
   }

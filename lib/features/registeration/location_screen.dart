@@ -120,7 +120,8 @@ class LocationScreen extends StatelessWidget {
   TextEditingController controller = TextEditingController();
 
   Widget locationBar() {
-    return BlocBuilder<RegCubit, NRegState>(
+    return BlocSelector<RegCubit, NRegState, Address>(
+      selector: (state) => state.address,
       builder: (context, state) {
         getLocation() {
           debugPrint('clicks');
@@ -146,7 +147,7 @@ class LocationScreen extends StatelessWidget {
                 //     )
                 // ));
                 context.read<RegCubit>().setLocation(
-                      state.address.copyWith(
+                      state.copyWith(
                         location:
                             '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
                         latitude: loc.latitude,
@@ -212,7 +213,7 @@ class LocationScreen extends StatelessWidget {
                       // context.read<RegBloc>().add(
                       //       RegEvent.updateLocation(
                       context.read<RegCubit>().setLocation(
-                            state.address.copyWith(
+                            state.copyWith(
                               latitude: double.tryParse(prediction.lat ?? ''),
                               longitude: double.tryParse(prediction.lng ?? ''),
                             ),

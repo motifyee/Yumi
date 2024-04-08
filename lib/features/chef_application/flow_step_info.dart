@@ -6,9 +6,13 @@ import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/driver/driver_reg_cubit.dart';
 import 'package:yumi/driver/rides_screen.dart';
 import 'package:yumi/features/chef_application/bloc.dart';
+import 'package:yumi/features/chef_application/contract/contract_screen.dart';
+import 'package:yumi/features/chef_application/documentation/documentation_screen.dart';
 import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
 import 'package:yumi/features/schedule/schedule_screen.dart';
 import 'package:yumi/features/settings/profile/bio_sheet.dart';
+import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
+import 'package:yumi/features/settings/profile/model/profile_model.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -165,7 +169,13 @@ List driverStepsInfo(BuildContext context, NRegState state) => [
       [
         "documentation",
         ["Documentation", "Third, attach your documents"],
-        () => G.router.push(const DocumentationRoute()),
+        // () => G.router.push(const DocumentationRoute()),
+        () => showAlertDialog(
+              context: context,
+              content: const DocumentationScreen(),
+              actions: {'Ok': null},
+              insetPadding: 0,
+            ),
         () => state.onboarding.docsActive,
       ],
       [
@@ -191,7 +201,19 @@ List driverStepsInfo(BuildContext context, NRegState state) => [
           "Get Contract",
           "Finally, download the contract to sign and upload it"
         ],
-        () => G.router.push(const ContractRoute()),
+        () => showAlertDialog(
+                context: context,
+                content: const ContractScreen(),
+                insetPadding: 0,
+                actions: {
+                  'Ok': (ctx) {
+                    var photo =
+                        G.read<ProfileBloc>().state.profile.contractPhoto;
+                    if (photo?.isEmpty ?? true) return;
+
+                    G.pop();
+                  },
+                }),
         () => state.onboarding.contractActive,
       ],
     ];

@@ -20,7 +20,8 @@ class Bio extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-    return BlocBuilder<ProfileBloc, ProfileState>(
+    return BlocSelector<ProfileBloc, ProfileState, String>(
+      selector: (state) => state.profile.bio,
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.symmetric(
@@ -42,11 +43,9 @@ class Bio extends StatelessWidget {
                       showAlertDialog(
                         context: context,
                         title: Container(),
-                        content: BioForm(state.profile, formKey),
+                        content: BioForm(state, formKey),
                         actions: {'Cancel': null},
-                        actionWidgets: [
-                          BioFormSubmitButton(state.profile, formKey)
-                        ],
+                        actionWidgets: [BioFormSubmitButton(formKey)],
                       );
                     },
                   )
@@ -58,9 +57,7 @@ class Bio extends StatelessWidget {
                     minHeight: ThemeSelector.statics.defaultGapExtreme),
                 child: Center(
                   child: Text(
-                    state.profile.bio.isNotEmpty
-                        ? state.profile.bio
-                        : S.of(context).writeABio,
+                    state.isNotEmpty ? state : S.of(context).writeABio,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontSize: ThemeSelector.fonts.font_10,
                         ),
@@ -76,10 +73,10 @@ class Bio extends StatelessWidget {
 }
 
 class BioForm extends StatelessWidget {
-  final Profile profile;
+  final String bio;
   final GlobalKey<FormState> formKey;
 
-  const BioForm(this.profile, this.formKey, {super.key});
+  const BioForm(this.bio, this.formKey, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +108,7 @@ class BioForm extends StatelessWidget {
             height: 80,
             child: TextFormFieldTemplate(
               borderStyle: TextFormFieldBorderStyle.borderBottom,
-              initialValue: profile.bio,
+              initialValue: bio,
               minLines: 3,
               maxLines: 5,
               hintText: S.of(context).writeABio,
@@ -137,10 +134,9 @@ class BioForm extends StatelessWidget {
 }
 
 class BioFormSubmitButton extends StatelessWidget {
-  final Profile profile;
   final GlobalKey<FormState> formKey;
 
-  const BioFormSubmitButton(this.profile, this.formKey, {super.key});
+  const BioFormSubmitButton(this.formKey, {super.key});
 
   @override
   Widget build(BuildContext context) {
