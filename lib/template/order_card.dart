@@ -309,20 +309,22 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            S.of(context).deliveryFee,
-                            style: Theme.of(context).textTheme.bodyMedium,
+                    SizedBox(height: ThemeSelector.statics.defaultGap),
+                    if (widget.order.isPickUp != true)
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              S.of(context).deliveryFee,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
                           ),
-                        ),
-                        TextCurrency(
-                          value: widget.order.deliveryAreaPrice ?? 0.0,
-                          fontSize: ThemeSelector.fonts.font_14,
-                        ),
-                      ],
-                    ),
+                          TextCurrency(
+                            value: widget.order.deliveryAreaPrice ?? 0.0,
+                            fontSize: ThemeSelector.fonts.font_14,
+                          ),
+                        ],
+                      ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -494,7 +496,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                         OrderCardTargetPage.customerHistory)
                       TextButton(
                         onPressed: () {
-                          context.router.push(OrderStatusRoute());
+                          context.router
+                              .push(OrderStatusRoute(order: widget.order));
                         },
                         child: Text(
                           S.of(context).orderStatus,

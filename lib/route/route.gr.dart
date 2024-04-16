@@ -26,6 +26,7 @@ import 'package:yumi/features/registeration/signup_screen.dart' as _i28;
 import 'package:yumi/features/schedule/schedule_screen.dart' as _i20;
 import 'package:yumi/model/chef_model.dart' as _i33;
 import 'package:yumi/model/meal_model.dart' as _i34;
+import 'package:yumi/model/order_model/order_model.dart' as _i37;
 import 'package:yumi/screens/chat.dart' as _i4;
 import 'package:yumi/screens/chef/calories.dart' as _i3;
 import 'package:yumi/screens/chef/menu_pre.dart' as _i18;
@@ -215,9 +216,13 @@ abstract class $AppRouter extends _i31.RootStackRouter {
       );
     },
     OrderStatusRoute.name: (routeData) {
+      final args = routeData.argsAs<OrderStatusRouteArgs>();
       return _i31.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i23.OrderStatusScreen(),
+        child: _i23.OrderStatusScreen(
+          key: args.key,
+          order: args.order,
+        ),
       );
     },
     PaymentPaypalRoute.name: (routeData) {
@@ -755,16 +760,40 @@ class OTPRoute extends _i31.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i23.OrderStatusScreen]
-class OrderStatusRoute extends _i31.PageRouteInfo<void> {
-  const OrderStatusRoute({List<_i31.PageRouteInfo>? children})
-      : super(
+class OrderStatusRoute extends _i31.PageRouteInfo<OrderStatusRouteArgs> {
+  OrderStatusRoute({
+    _i32.Key? key,
+    required _i37.OrderModel order,
+    List<_i31.PageRouteInfo>? children,
+  }) : super(
           OrderStatusRoute.name,
+          args: OrderStatusRouteArgs(
+            key: key,
+            order: order,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'OrderStatusRoute';
 
-  static const _i31.PageInfo<void> page = _i31.PageInfo<void>(name);
+  static const _i31.PageInfo<OrderStatusRouteArgs> page =
+      _i31.PageInfo<OrderStatusRouteArgs>(name);
+}
+
+class OrderStatusRouteArgs {
+  const OrderStatusRouteArgs({
+    this.key,
+    required this.order,
+  });
+
+  final _i32.Key? key;
+
+  final _i37.OrderModel order;
+
+  @override
+  String toString() {
+    return 'OrderStatusRouteArgs{key: $key, order: $order}';
+  }
 }
 
 /// generated route for
