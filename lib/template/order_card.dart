@@ -396,31 +396,57 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                     if (widget.orderCardTargetPage ==
                         OrderCardTargetPage.chefPreparing)
                       TextButton(
-                        onPressed: () {
-                          String _apiKey = '';
-                          if (widget.menuTarget == MenuTarget.order) {
-                            _apiKey = widget.order.isPickUp == true
-                                ? ApiKeys.orderChefPickUpStart
-                                : ApiKeys.orderChefDeliveryStart;
-                          } else {
-                            _apiKey = widget.order.isPickUp == true
-                                ? ApiKeys.preOrderChefPickUpStart
-                                : ApiKeys.preOrderChefDeliveryStart;
-                          }
+                        onPressed: widget.order.isPickUp != true &&
+                                widget.order.driverAccept != true
+                            ? null
+                            : () {
+                                String _apiKey = '';
+                                if (widget.menuTarget == MenuTarget.order) {
+                                  _apiKey = widget.order.isPickUp == true
+                                      ? ApiKeys.orderChefPickUpStart
+                                      : ApiKeys.orderChefDeliveryStart;
+                                } else {
+                                  _apiKey = widget.order.isPickUp == true
+                                      ? ApiKeys.preOrderChefPickUpStart
+                                      : ApiKeys.preOrderChefDeliveryStart;
+                                }
 
-                          context.read<OrderBloc>().add(
-                                OrderEvent.putAction(
-                                  order: widget.order,
-                                  apiKey: ApiKeys.actionApiKeyString(
-                                      apiKey: _apiKey,
-                                      id: '${widget.order.id}'),
-                                  getApiKey: widget.getApiKey,
-                                ),
-                              );
-                        },
-                        child: Text(
-                          S.of(context).start,
-                          style: Theme.of(context).textTheme.bodyMedium,
+                                context.read<OrderBloc>().add(
+                                      OrderEvent.putAction(
+                                        order: widget.order,
+                                        apiKey: ApiKeys.actionApiKeyString(
+                                            apiKey: _apiKey,
+                                            id: '${widget.order.id}'),
+                                        getApiKey: widget.getApiKey,
+                                      ),
+                                    );
+                              },
+                        child: Row(
+                          children: [
+                            if (widget.order.isPickUp != true &&
+                                widget.order.driverAccept != true)
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        ThemeSelector.statics.defaultMicroGap),
+                                child: SvgPicture.asset(
+                                    'assets/images/waiting.svg'),
+                              ),
+                            Text(
+                              S.of(context).start,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                      color: ThemeSelector.colors.secondary
+                                          .withAlpha(widget.order.isPickUp !=
+                                                      true &&
+                                                  widget.order.driverAccept !=
+                                                      true
+                                              ? 100
+                                              : 255)),
+                            ),
+                          ],
                         ),
                       ),
                     if (widget.orderCardTargetPage ==
