@@ -52,6 +52,7 @@ class BasketFormResetEvent implements BasketFormEvent {}
 
 class BasketFormPostRequestEvent implements BasketFormEvent {
   BuildContext context;
+  bool? isDone;
 
-  BasketFormPostRequestEvent({required this.context});
+  BasketFormPostRequestEvent({required this.context, this.isDone = false});
 }

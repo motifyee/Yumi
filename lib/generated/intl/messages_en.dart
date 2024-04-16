@@ -108,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
         "featuredChefs": MessageLookupByLibrary.simpleMessage("Featured Chefs"),
         "financialView": MessageLookupByLibrary.simpleMessage("Financial view"),
+        "finish": MessageLookupByLibrary.simpleMessage("Finish"),
         "firstName": MessageLookupByLibrary.simpleMessage("First name"),
         "forHowManyPerson":
             MessageLookupByLibrary.simpleMessage("For how many person"),

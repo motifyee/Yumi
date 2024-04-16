@@ -202,5 +202,6 @@
   "received": "Received",
   "history": "History",
   "start": "Start",
-  "pending": "Pending"
+  "pending": "Pending",
+  "finish": "Finish"
 }

@@ -282,7 +282,8 @@ class CheckOutScreen extends StatelessWidget {
                                             );
                                         context.read<BasketFormBloc>().add(
                                             BasketFormPostRequestEvent(
-                                                context: context));
+                                                context: context,
+                                                isDone: true));
                                       } else {
                                         showDialog(
                                             context: context,

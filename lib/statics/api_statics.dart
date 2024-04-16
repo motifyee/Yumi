@@ -134,4 +134,6 @@ class ApiKeys {
   static String preOrderChefPickUpAccept = '/preorder/_/chef/pickup/accept';
   static String preOrderChefPickUpStart = '/preorder/_/chef/pickup/start';
   static String preOrderChefPickUpFinished = '/preorder/_/chef/pickup/finished';
+
+  static String updateInvoice = '/api/Invoices/UpdateRestaurantInvoice/_/48';
 }

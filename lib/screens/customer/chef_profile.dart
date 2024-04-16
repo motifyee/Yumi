@@ -25,7 +25,7 @@ class ChefProfileScreen extends StatelessWidget {
   final ChefModel chef;
   MenuTarget menuTarget;
 
-  late List<String> eventPhotos;
+  List<String> eventPhotos = [];
 
   @override
   Widget build(BuildContext context) {

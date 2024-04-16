@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/extensions/date_time_extension.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/model/invoice_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/order_service.dart';
@@ -135,6 +136,7 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
           .toStringAsFixed(2));
 
       emit(state.copyWith(invoice: invoice));
+      add(BasketFormPostRequestEvent(context: G.context));
     });
 
     on<BasketFormPostRequestEvent>((event, emit) async {
@@ -144,30 +146,38 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
                   event.context.read<UserBloc>().state.user.multiAddressID)));
 
       late Response res;
-      if (state.invoice.isDelivery == true) {
-        res = await OrderService.createOrderOrPreOrderDelivery(
-            context: event.context,
-            invoice: state.invoice,
-            isPreOrder: state.invoice.isPreorder ?? false);
-      }
-      if (state.invoice.isPickup == true) {
-        res = await OrderService.createOrderOrPreOrderPickUp(
-            context: event.context,
-            invoice: state.invoice,
-            isPreOrder: state.invoice.isPreorder ?? false);
-      }
+      if (state.invoice.id == null) {
+        if (state.invoice.isDelivery == true) {
+          res = await OrderService.createOrderOrPreOrderDelivery(
+              context: event.context,
+              invoice: state.invoice,
+              isPreOrder: state.invoice.isPreorder ?? false);
+        }
+        if (state.invoice.isPickup == true) {
+          res = await OrderService.createOrderOrPreOrderPickUp(
+              context: event.context,
+              invoice: state.invoice,
+              isPreOrder: state.invoice.isPreorder ?? false);
+        }
+      } else {}
 
       if (res.statusCode == 200) {
-        add(BasketFormResetEvent());
-        ScaffoldMessenger.of(event.context).showSnackBar(
-          SnackBar(
-            content: SnackBarMassage(
-              massage: S.current.orderCreatedSuccessfully,
+        if (event.isDone == true) {
+          add(BasketFormResetEvent());
+          ScaffoldMessenger.of(event.context).showSnackBar(
+            SnackBar(
+              content: SnackBarMassage(
+                massage: S.current.orderCreatedSuccessfully,
+              ),
             ),
-          ),
-        );
-        event.context.router.replaceAll([HomeRoute()]);
-      } else {
+          );
+          event.context.router.replaceAll([HomeRoute()]);
+        }
+        if (state.invoice.id == null) {
+          emit(state.copyWith(
+              invoice: state.invoice.copyWith(id: res.data['invoiceId'])));
+        }
+      } else if (res.statusCode! < 400) {
         ScaffoldMessenger.of(event.context).showSnackBar(
           SnackBar(
             content: SnackBarMassage(

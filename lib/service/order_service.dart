@@ -51,4 +51,12 @@ class OrderService {
         data: {'driver_ID': null}, queryParameters: {...?paginationHelper});
     return res;
   }
+
+  static Future<Response> updateInvoice(
+      {required InvoiceModel invoice,
+      Map<String, dynamic>? paginationHelper}) async {
+    Response res = await DioClient.simpleDio().put(ApiKeys.address,
+        data: invoice.toJson(), queryParameters: {...?paginationHelper});
+    return res;
+  }
 }

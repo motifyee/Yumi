@@ -2,6 +2,7 @@ import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/code_generator.dart';
 
 class InvoiceModel {
+  int? id;
   Invoice? invoice;
   List<InvoiceDetails>? invoiceDetails;
   int? bankId;
@@ -11,17 +12,20 @@ class InvoiceModel {
   bool? isDelivery;
   bool? isPreorder;
 
-  InvoiceModel(
-      {this.invoice,
-      this.invoiceDetails,
-      this.bankId = 44,
-      this.shippedAddressId,
-      this.isSchedule,
-      this.isPickup = false,
-      this.isDelivery = true,
-      this.isPreorder});
+  InvoiceModel({
+    this.id,
+    this.invoice,
+    this.invoiceDetails,
+    this.bankId = 44,
+    this.shippedAddressId,
+    this.isSchedule,
+    this.isPickup = false,
+    this.isDelivery = true,
+    this.isPreorder,
+  });
 
   InvoiceModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     invoice =
         json['invoice'] != null ? Invoice.fromJson(json['invoice']) : null;
     if (json['invoiceDetails'] != null) {
@@ -40,6 +44,9 @@ class InvoiceModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    if (this.id != null) {
+      data['id'] = this.id;
+    }
     if (this.invoice != null) {
       data['invoice'] = this.invoice!.toJson();
     }
@@ -58,6 +65,7 @@ class InvoiceModel {
   }
 
   InvoiceModel copyWith({
+    int? id,
     Invoice? invoice,
     List<InvoiceDetails>? invoiceDetails,
     int? bankId,
@@ -68,6 +76,7 @@ class InvoiceModel {
     bool? isPreorder,
   }) {
     return InvoiceModel(
+      id: id ?? this.id,
       invoice: invoice ?? this.invoice,
       bankId: bankId ?? this.bankId,
       invoiceDetails: invoiceDetails ?? this.invoiceDetails,

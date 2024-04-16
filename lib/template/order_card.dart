@@ -387,7 +387,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               );
                         },
                         child: Text(
-                          S.of(context).start,
+                          S.of(context).finish,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
