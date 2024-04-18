@@ -11,7 +11,7 @@ echo
 echo "building: customer app ..."
 
 sed -i -E "s/applicationId .+/applicationId 'com.yumi.customers'/" "$gradle"
-sed -i -E "s/android:label=.+/android:label='YUMI customers'/" "$manifest"
+sed -i -E "s/android:label=.+/android:label='YUMI'/" "$manifest"
 flutter build apk -t lib/customer.dart
 mv "$output/app-release.apk" "$output/out/customer.apk"
 
