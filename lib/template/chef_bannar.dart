@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/chef_model.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -129,9 +132,33 @@ class ChefBanner extends StatelessWidget {
                   )
                 ],
               ),
-              Text(
-                '0.2 Km',
-                style: Theme.of(context).textTheme.bodyMedium,
+              Column(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      if (chef.isFavorite) {
+                        context
+                            .read<ChefsListBloc>()
+                            .add(RemoveChefToFavoriteEvent(chef: chef));
+                      } else {
+                        context
+                            .read<ChefsListBloc>()
+                            .add(AddChefToFavoriteEvent(chef: chef));
+                      }
+                    },
+                    child: chef.isFavorite
+                        ? SvgPicture.asset('assets/images/heart.svg',
+                            colorFilter: ColorFilter.mode(
+                                ThemeSelector.colors.primary, BlendMode.srcIn),
+                            fit: BoxFit.contain)
+                        : SvgPicture.asset('assets/images/heart_outline.svg',
+                            fit: BoxFit.contain),
+                  ),
+                  Text(
+                    '0.2 Km',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
               )
             ],
           ),

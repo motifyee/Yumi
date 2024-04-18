@@ -11,6 +11,7 @@ class InvoiceModel {
   bool? isPickup;
   bool? isDelivery;
   bool? isPreorder;
+  int? status;
 
   InvoiceModel({
     this.id,
@@ -22,10 +23,12 @@ class InvoiceModel {
     this.isPickup = false,
     this.isDelivery = true,
     this.isPreorder,
+    this.status = 1,
   });
 
   InvoiceModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    status = json['status'];
     invoice =
         json['invoice'] != null ? Invoice.fromJson(json['invoice']) : null;
     if (json['invoiceDetails'] != null) {
@@ -44,12 +47,9 @@ class InvoiceModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (this.id != null) {
-      data['id'] = this.id;
-    }
-    if (this.invoice != null) {
-      data['invoice'] = this.invoice!.toJson();
-    }
+    if (this.id != null) data['id'] = this.id;
+    if (this.status != null) data['status'] = this.status;
+    if (this.invoice != null) data['invoice'] = this.invoice!.toJson();
     if (this.invoiceDetails != null) {
       data['invoiceDetails'] =
           this.invoiceDetails!.map((v) => v.toJson()).toList();
@@ -66,6 +66,7 @@ class InvoiceModel {
 
   InvoiceModel copyWith({
     int? id,
+    int? status,
     Invoice? invoice,
     List<InvoiceDetails>? invoiceDetails,
     int? bankId,
@@ -77,6 +78,7 @@ class InvoiceModel {
   }) {
     return InvoiceModel(
       id: id ?? this.id,
+      status: status ?? this.status,
       invoice: invoice ?? this.invoice,
       bankId: bankId ?? this.bankId,
       invoiceDetails: invoiceDetails ?? this.invoiceDetails,

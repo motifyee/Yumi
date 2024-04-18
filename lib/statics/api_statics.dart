@@ -91,6 +91,7 @@ class ApiKeys {
   static String chefs = '/accounts/chefs';
   static String chefsOrder = '/accounts/chefs/Order';
   static String chefsPreOrder = '/accounts/chefs/PreOrder';
+  static String favoriteChefs = '/accounts/favorite';
 
   static String preOrderDelivery = '/preorder/delivery';
   static String preOrderPickUp = '/preorder/pickup';

@@ -23,6 +23,7 @@ class ChefModel {
   String? email;
   int? signupType;
   String? createdBy;
+  late bool isFavorite;
 
   ChefModel(
       {this.id,
@@ -48,7 +49,8 @@ class ChefModel {
       this.imagePassport,
       this.email,
       this.signupType,
-      this.createdBy});
+      this.createdBy,
+      this.isFavorite = false});
 
   ChefModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -75,6 +77,7 @@ class ChefModel {
     email = json['email'];
     signupType = json['signupType'];
     createdBy = json['createdBy'];
+    isFavorite = json['isFavorite'] ?? false;
   }
 
   Map<String, dynamic> toJson() {
@@ -103,6 +106,7 @@ class ChefModel {
     data['email'] = this.email;
     data['signupType'] = this.signupType;
     data['createdBy'] = this.createdBy;
+    data['isFavorite'] = this.isFavorite;
     return data;
   }
 }

@@ -6,7 +6,6 @@ import 'package:yumi/app_config/customer/customer_routes.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
-import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
 import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
@@ -44,7 +43,6 @@ class CustomerAppConfig implements AppConfig {
     BlocProvider(create: (context) => SVGBloc()),
     BlocProvider(create: (context) => IngredientListBloc()),
     BlocProvider(create: (context) => IngredientFormBloc()),
-    BlocProvider(create: (context) => ChefsListBloc()),
     BlocProvider(create: (context) => BasketFormBloc()),
     BlocProvider(
         create: (context) => ScheduleBloc(scheduleRepo: ScheduleRepo())),

@@ -15,7 +15,7 @@ part 'chefs_list_state.dart';
 class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
   ChefsListBloc()
       : super(ChefsListState(
-            chefs: [], chefsLength: 0, paginationHelper: PaginationHelper())) {
+            chefs: const [], paginationHelper: PaginationHelper())) {
     on<GetChefsListEvent>((event, emit) async {
       Address? userLocation = event.context.read<UserBloc>().state.address;
       if (userLocation == null ||
@@ -30,13 +30,20 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
             paginationHelper:
                 state.paginationHelper.copyWith(isLoading: true)));
 
-        final Response res = await ChefService.getChefs(
-          context: event.context,
-          isPreOrder: event.menuTarget == MenuTarget.preOrder,
-          latitude: userLocation.latitude!,
-          longitude: userLocation.longitude!,
-          queryParameters: state.paginationHelper.toJson(),
-        );
+        late Response res;
+        if (event.isFavorite) {
+          res = await ChefService.getFavoriteChefs(
+            queryParameters: state.paginationHelper.toJson(),
+          );
+        } else {
+          res = await ChefService.getChefs(
+            context: event.context,
+            isPreOrder: event.menuTarget == MenuTarget.preOrder,
+            latitude: userLocation.latitude!,
+            longitude: userLocation.longitude!,
+            queryParameters: state.paginationHelper.toJson(),
+          );
+        }
 
         List<ChefModel> data = res.data['data']
             .map<ChefModel>((chef) => ChefModel.fromJson(chef))
@@ -53,9 +60,31 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
       }
     });
 
+    on<AddChefToFavoriteEvent>((event, emit) async {
+      final Response res =
+          await ChefService.addFavoriteChef(chefId: event.chef.id!);
+      if (res.statusCode == 200) {
+        List<ChefModel> chefs = state.chefs
+          ..firstWhere((e) => e.id == event.chef.id).isFavorite = true;
+
+        emit(state.copyWith(chefs: chefs));
+      }
+    });
+
+    on<RemoveChefToFavoriteEvent>((event, emit) async {
+      final Response res =
+          await ChefService.removeFavoriteChef(chefId: event.chef.id!);
+      if (res.statusCode == 200) {
+        List<ChefModel> chefs = state.chefs
+          ..firstWhere((e) => e.id == event.chef.id).isFavorite = false;
+
+        emit(state.copyWith(chefs: chefs));
+      }
+    });
+
     on<ResetChefsListEvent>((event, emit) {
       emit(ChefsListState(
-          chefs: [], chefsLength: 0, paginationHelper: PaginationHelper()));
+          chefs: const [], paginationHelper: PaginationHelper()));
     });
   }
 }
