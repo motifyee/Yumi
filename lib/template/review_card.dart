@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/model/review_model/review_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class ReviewCard extends StatelessWidget {
-  const ReviewCard({super.key});
+  ReviewCard({super.key, required this.review});
+
+  ReviewModel review;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,8 @@ class ReviewCard extends StatelessWidget {
         boxShadow: [
           BoxShadow(
               color: ThemeSelector.colors.shadow.withOpacity(.05),
-              blurRadius: 15)
+              blurRadius: 5,
+              offset: const Offset(2, 3))
         ],
       ),
       child: Row(
@@ -32,15 +35,12 @@ class ReviewCard extends StatelessWidget {
                 color: ThemeSelector.colors.secondaryFaint,
                 borderRadius: BorderRadius.circular(
                     ThemeSelector.statics.defaultTitleGapLarge)),
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: ThemeSelector.statics.defaultMicroGap,
-                right: ThemeSelector.statics.defaultMicroGap,
-                left: ThemeSelector.statics.defaultMicroGap,
-              ),
-              child: SvgPicture.asset(
-                'assets/images/profile.svg',
-                fit: BoxFit.fill,
+            child: Center(
+              child: Text(
+                review.customerName[0].toUpperCase(),
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    fontSize: ThemeSelector.fonts.font_24,
+                    color: ThemeSelector.colors.onSecondary),
               ),
             ),
           ),
@@ -52,13 +52,13 @@ class ReviewCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: ThemeSelector.statics.defaultMicroGap),
                 child: Text(
-                  'Ahmed',
+                  review.customerName,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
               RatingBar(
                 ignoreGestures: true,
-                initialRating: 3.5,
+                initialRating: review.rate,
                 allowHalfRating: true,
                 itemSize: ThemeSelector.fonts.font_18,
                 ratingWidget: RatingWidget(

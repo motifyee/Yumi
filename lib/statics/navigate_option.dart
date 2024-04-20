@@ -17,9 +17,9 @@ import 'package:yumi/screens/customer/customer_menu_pre.dart';
 import 'package:yumi/screens/customer/cutomer_menu.dart';
 import 'package:yumi/screens/customer/favorites.dart';
 import 'package:yumi/screens/customer/my_order.dart';
+import 'package:yumi/screens/driver/chef_history.dart';
 import 'package:yumi/screens/driver/driver_order.dart';
 import 'package:yumi/screens/notification.dart';
-import 'package:yumi/screens/order_history.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class NavigateOptions {
@@ -95,8 +95,8 @@ class NavigateOptions {
         icon: SvgPicture.asset('assets/images/history.svg'),
         selectedIcon: SvgPicture.asset('assets/images/history1.svg',
             fit: BoxFit.fitWidth),
-        title: S.current.ordersHistory,
-        page: const OrderHistoryScreen()),
+        title: S.current.history,
+        page: DriverHistoryScreen()),
     NavigateListItem(
         icon: SvgPicture.asset('assets/images/pre_order.svg'),
         selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg',

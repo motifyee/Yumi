@@ -4,8 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/order_model/order_model.dart';
+import 'package:yumi/model/review_model/review_model.dart';
 import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/statics/code_generator.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/review_chef_delivery.dart';
 
 @RoutePage()
 class OrderStatusScreen extends StatelessWidget {
@@ -76,7 +79,7 @@ class OrderStatusScreen extends StatelessWidget {
                       height: 75,
                       width: 5,
                       clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(),
+                      decoration: const BoxDecoration(),
                       child: Center(
                         child: CustomPaint(
                           painter: DrawDottedVerticalLine(
@@ -95,7 +98,7 @@ class OrderStatusScreen extends StatelessWidget {
                       height: 75,
                       width: 5,
                       clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(),
+                      decoration: const BoxDecoration(),
                       child: Center(
                         child: CustomPaint(
                           painter: DrawDottedVerticalLine(
@@ -144,7 +147,7 @@ class OrderStatusScreen extends StatelessWidget {
                                 color: ThemeSelector.colors.primary,
                                 size: ThemeSelector.fonts.font_14,
                               ),
-                              Text(' '),
+                              const Text(' '),
                               Text(
                                 order.driverAccept == true
                                     ? DateFormat('hh:mm a, d MMM yyyy')
@@ -160,7 +163,7 @@ class OrderStatusScreen extends StatelessWidget {
                         height: 60,
                         width: 5,
                         clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: Center(
                           child: Container(),
                         ),
@@ -191,7 +194,7 @@ class OrderStatusScreen extends StatelessWidget {
                                 color: ThemeSelector.colors.primary,
                                 size: ThemeSelector.fonts.font_14,
                               ),
-                              Text(' '),
+                              const Text(' '),
                               Text(
                                 order.chefStart == true
                                     ? DateFormat('hh:mm a, d MMM yyyy')
@@ -207,7 +210,7 @@ class OrderStatusScreen extends StatelessWidget {
                         height: 60,
                         width: 5,
                         clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: Center(
                           child: Container(),
                         ),
@@ -238,7 +241,7 @@ class OrderStatusScreen extends StatelessWidget {
                                 color: ThemeSelector.colors.primary,
                                 size: ThemeSelector.fonts.font_14,
                               ),
-                              Text(' '),
+                              const Text(' '),
                               Text(
                                 order.driverReceived == true
                                     ? DateFormat('hh:mm a, d MMM yyyy')
@@ -251,7 +254,7 @@ class OrderStatusScreen extends StatelessWidget {
                           if (order.driverReceived == true)
                             GestureDetector(
                               onTap: () {
-                                context.router.push(TrackingOrderRoute());
+                                context.router.push(const TrackingOrderRoute());
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
@@ -292,7 +295,29 @@ class OrderStatusScreen extends StatelessWidget {
             Hero(
               tag: 'ConfirmBasketSeries',
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                    useSafeArea: true,
+                    context: context,
+                    builder: (context) => AlertDialog(
+                        scrollable: true,
+                        alignment: Alignment.center,
+                        backgroundColor: Colors.transparent,
+                        surfaceTintColor: Colors.transparent,
+                        insetPadding: EdgeInsets.zero,
+                        content: ReviewChefDriver(
+                          isChefOnly: false,
+                          reviewChef: const ReviewModel().copyWith(
+                            buddiesUserId: order.chefID ?? '',
+                            code: CodeGenerator.getRandomCode(),
+                          ),
+                          reviewDriver: const ReviewModel().copyWith(
+                            buddiesUserId: order.driverID ?? '',
+                            code: CodeGenerator.getRandomCode(),
+                          ),
+                        )),
+                  );
+                },
                 child: Container(
                   width: ThemeSelector.statics.defaultGapXXXL * 1.6,
                   height: ThemeSelector.statics.defaultTitleGapLarge,

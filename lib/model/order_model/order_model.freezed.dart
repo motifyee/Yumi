@@ -21,7 +21,10 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$OrderModel {
   int? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'chef_ID')
   String? get chefID => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_ID')
+  String? get driverID => throw _privateConstructorUsedError;
   String? get employeeNote => throw _privateConstructorUsedError;
   String? get clientNote => throw _privateConstructorUsedError;
   String? get preparationNote => throw _privateConstructorUsedError;
@@ -80,7 +83,8 @@ abstract class $OrderModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
-      String? chefID,
+      @JsonKey(name: 'chef_ID') String? chefID,
+      @JsonKey(name: 'driver_ID') String? driverID,
       String? employeeNote,
       String? clientNote,
       String? preparationNote,
@@ -127,6 +131,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
   $Res call({
     Object? id = freezed,
     Object? chefID = freezed,
+    Object? driverID = freezed,
     Object? employeeNote = freezed,
     Object? clientNote = freezed,
     Object? preparationNote = freezed,
@@ -165,6 +170,10 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
       chefID: freezed == chefID
           ? _value.chefID
           : chefID // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverID: freezed == driverID
+          ? _value.driverID
+          : driverID // ignore: cast_nullable_to_non_nullable
               as String?,
       employeeNote: freezed == employeeNote
           ? _value.employeeNote
@@ -296,7 +305,8 @@ abstract class _$$OrderModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {int? id,
-      String? chefID,
+      @JsonKey(name: 'chef_ID') String? chefID,
+      @JsonKey(name: 'driver_ID') String? driverID,
       String? employeeNote,
       String? clientNote,
       String? preparationNote,
@@ -341,6 +351,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? chefID = freezed,
+    Object? driverID = freezed,
     Object? employeeNote = freezed,
     Object? clientNote = freezed,
     Object? preparationNote = freezed,
@@ -379,6 +390,10 @@ class __$$OrderModelImplCopyWithImpl<$Res>
       chefID: freezed == chefID
           ? _value.chefID
           : chefID // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverID: freezed == driverID
+          ? _value.driverID
+          : driverID // ignore: cast_nullable_to_non_nullable
               as String?,
       employeeNote: freezed == employeeNote
           ? _value.employeeNote
@@ -505,7 +520,8 @@ class __$$OrderModelImplCopyWithImpl<$Res>
 class _$OrderModelImpl implements _OrderModel {
   const _$OrderModelImpl(
       {this.id,
-      this.chefID,
+      @JsonKey(name: 'chef_ID') this.chefID,
+      @JsonKey(name: 'driver_ID') this.driverID,
       this.employeeNote,
       this.clientNote,
       this.preparationNote,
@@ -543,7 +559,11 @@ class _$OrderModelImpl implements _OrderModel {
   @override
   final int? id;
   @override
+  @JsonKey(name: 'chef_ID')
   final String? chefID;
+  @override
+  @JsonKey(name: 'driver_ID')
+  final String? driverID;
   @override
   final String? employeeNote;
   @override
@@ -626,7 +646,7 @@ class _$OrderModelImpl implements _OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(id: $id, chefID: $chefID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, createdDate: $createdDate, clientName: $clientName, clientMobile: $clientMobile, clientDefaultAddress: $clientDefaultAddress, driverAccept: $driverAccept, driverAcceptDate: $driverAcceptDate, driverReceived: $driverReceived, driverReceivedDate: $driverReceivedDate, chefAccept: $chefAccept, chefAcceptDate: $chefAcceptDate, chefStart: $chefStart, chefStartDate: $chefStartDate, chefFinished: $chefFinished, chefFinishedDate: $chefFinishedDate, clientReceived: $clientReceived, clientReceivedDate: $clientReceivedDate, isPickUp: $isPickUp, invoiceDetails: $invoiceDetails)';
+    return 'OrderModel(id: $id, chefID: $chefID, driverID: $driverID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, createdDate: $createdDate, clientName: $clientName, clientMobile: $clientMobile, clientDefaultAddress: $clientDefaultAddress, driverAccept: $driverAccept, driverAcceptDate: $driverAcceptDate, driverReceived: $driverReceived, driverReceivedDate: $driverReceivedDate, chefAccept: $chefAccept, chefAcceptDate: $chefAcceptDate, chefStart: $chefStart, chefStartDate: $chefStartDate, chefFinished: $chefFinished, chefFinishedDate: $chefFinishedDate, clientReceived: $clientReceived, clientReceivedDate: $clientReceivedDate, isPickUp: $isPickUp, invoiceDetails: $invoiceDetails)';
   }
 
   @override
@@ -636,6 +656,8 @@ class _$OrderModelImpl implements _OrderModel {
             other is _$OrderModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.chefID, chefID) || other.chefID == chefID) &&
+            (identical(other.driverID, driverID) ||
+                other.driverID == driverID) &&
             (identical(other.employeeNote, employeeNote) ||
                 other.employeeNote == employeeNote) &&
             (identical(other.clientNote, clientNote) ||
@@ -701,6 +723,7 @@ class _$OrderModelImpl implements _OrderModel {
         runtimeType,
         id,
         chefID,
+        driverID,
         employeeNote,
         clientNote,
         preparationNote,
@@ -749,7 +772,8 @@ class _$OrderModelImpl implements _OrderModel {
 abstract class _OrderModel implements OrderModel {
   const factory _OrderModel(
       {final int? id,
-      final String? chefID,
+      @JsonKey(name: 'chef_ID') final String? chefID,
+      @JsonKey(name: 'driver_ID') final String? driverID,
       final String? employeeNote,
       final String? clientNote,
       final String? preparationNote,
@@ -786,7 +810,11 @@ abstract class _OrderModel implements OrderModel {
   @override
   int? get id;
   @override
+  @JsonKey(name: 'chef_ID')
   String? get chefID;
+  @override
+  @JsonKey(name: 'driver_ID')
+  String? get driverID;
   @override
   String? get employeeNote;
   @override

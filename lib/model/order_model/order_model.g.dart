@@ -9,7 +9,8 @@ part of 'order_model.dart';
 _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
     _$OrderModelImpl(
       id: json['id'] as int?,
-      chefID: json['chefID'] as String?,
+      chefID: json['chef_ID'] as String?,
+      driverID: json['driver_ID'] as String?,
       employeeNote: json['employeeNote'] as String?,
       clientNote: json['clientNote'] as String?,
       preparationNote: json['preparationNote'] as String?,
@@ -47,7 +48,8 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'chefID': instance.chefID,
+      'chef_ID': instance.chefID,
+      'driver_ID': instance.driverID,
       'employeeNote': instance.employeeNote,
       'clientNote': instance.clientNote,
       'preparationNote': instance.preparationNote,

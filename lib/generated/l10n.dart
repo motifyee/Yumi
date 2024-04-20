@@ -2101,6 +2101,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Active`
+  String get active {
+    return Intl.message(
+      'Active',
+      name: 'active',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can now create your review to the driver & chef`
+  String get youCanNowCreateYourReviewToTheDriverChef {
+    return Intl.message(
+      'You can now create your review to the driver & chef',
+      name: 'youCanNowCreateYourReviewToTheDriverChef',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The driver`
+  String get theDriver {
+    return Intl.message(
+      'The driver',
+      name: 'theDriver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The chef`
+  String get theChef {
+    return Intl.message(
+      'The chef',
+      name: 'theChef',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Review`
+  String get review {
+    return Intl.message(
+      'Review',
+      name: 'review',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Review the driver`
+  String get reviewTheDriver {
+    return Intl.message(
+      'Review the driver',
+      name: 'reviewTheDriver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Review the chef`
+  String get reviewTheChef {
+    return Intl.message(
+      'Review the chef',
+      name: 'reviewTheChef',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thank you for your review.`
+  String get thankYouForYourReview {
+    return Intl.message(
+      'Thank you for your review.',
+      name: 'thankYouForYourReview',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

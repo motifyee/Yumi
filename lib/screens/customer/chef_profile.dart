@@ -7,16 +7,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/bloc/reviews/reviews_bloc.dart';
 import 'package:yumi/forms/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/chef_model.dart';
 import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/model/review_model/review_model.dart';
+import 'package:yumi/statics/code_generator.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/category_card.dart';
 import 'package:yumi/template/chef_bannar.dart';
 import 'package:yumi/template/chef_meal_card.dart';
 import 'package:yumi/template/pagination_template.dart';
 import 'package:yumi/template/review_card.dart';
+import 'package:yumi/template/review_chef_delivery.dart';
 
 @RoutePage()
 class ChefProfileScreen extends StatelessWidget {
@@ -322,39 +326,115 @@ class ChefProfileScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w700,
                                       ),
                                 ),
-                                RatingBar(
-                                    initialRating: 0,
-                                    allowHalfRating: true,
-                                    itemSize: ThemeSelector.fonts.font_24,
-                                    ratingWidget: RatingWidget(
-                                      empty: Icon(Icons.star_border,
-                                          color: ThemeSelector.colors.warning),
-                                      full: Icon(Icons.star,
-                                          color: ThemeSelector.colors.warning),
-                                      half: Icon(
-                                        Icons.star_half,
-                                        color: ThemeSelector.colors.warning,
-                                      ),
-                                    ),
-                                    onRatingUpdate: (value) {})
+                                BlocProvider(
+                                  create: (context) => ReviewsBloc(),
+                                  child: Builder(builder: (context) {
+                                    context.read<ReviewsBloc>().add(
+                                        ReviewsEvent.getAll(
+                                            chefID: chef.id!,
+                                            isMyReviews: true));
+
+                                    return BlocConsumer<ReviewsBloc,
+                                        ReviewsState>(
+                                      listener: (context, state) {},
+                                      builder: (context, state) {
+                                        return RatingBar(
+                                            initialRating: state.reviews
+                                                    .firstOrNull?.rate ??
+                                                0,
+                                            allowHalfRating: true,
+                                            itemSize:
+                                                ThemeSelector.fonts.font_24,
+                                            ratingWidget: RatingWidget(
+                                              empty: Icon(Icons.star_border,
+                                                  color: ThemeSelector
+                                                      .colors.warning),
+                                              full: Icon(Icons.star,
+                                                  color: ThemeSelector
+                                                      .colors.warning),
+                                              half: Icon(
+                                                Icons.star_half,
+                                                color: ThemeSelector
+                                                    .colors.warning,
+                                              ),
+                                            ),
+                                            onRatingUpdate: (value) {
+                                              showDialog(
+                                                useSafeArea: true,
+                                                context: context,
+                                                builder: (context) =>
+                                                    AlertDialog(
+                                                        scrollable: true,
+                                                        alignment:
+                                                            Alignment.center,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        surfaceTintColor:
+                                                            Colors.transparent,
+                                                        insetPadding:
+                                                            EdgeInsets.zero,
+                                                        content:
+                                                            ReviewChefDriver(
+                                                          isChefOnly: true,
+                                                          reviewChef:
+                                                              const ReviewModel()
+                                                                  .copyWith(
+                                                            buddiesUserId:
+                                                                chef.id ?? '',
+                                                            rate: value,
+                                                            code: CodeGenerator
+                                                                .getRandomCode(),
+                                                            id: state
+                                                                    .reviews
+                                                                    .firstOrNull
+                                                                    ?.id ??
+                                                                '',
+                                                            reviewComment: state
+                                                                    .reviews
+                                                                    .firstOrNull
+                                                                    ?.reviewComment ??
+                                                                '',
+                                                          ),
+                                                          reviewDriver:
+                                                              const ReviewModel(),
+                                                        )),
+                                              );
+                                            });
+                                      },
+                                    );
+                                  }),
+                                )
                               ],
                             ),
                           ],
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-                        PaginationTemplate(
-                          loadDate: () {},
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              for (var review in [0, 1, 2, 3, 4])
-                                Padding(
-                                  padding: EdgeInsets.all(
-                                      ThemeSelector.statics.defaultGap),
-                                  child: const ReviewCard(),
-                                ),
-                            ],
-                          ),
+                        BlocProvider(
+                          create: (context) => ReviewsBloc(),
+                          child: Builder(builder: (context) {
+                            return BlocConsumer<ReviewsBloc, ReviewsState>(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                return PaginationTemplate(
+                                  loadDate: () {
+                                    context.read<ReviewsBloc>().add(
+                                        ReviewsEvent.getAll(chefID: chef.id!));
+                                  },
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      for (var review in state.reviews)
+                                        Padding(
+                                          padding: EdgeInsets.all(
+                                              ThemeSelector.statics.defaultGap),
+                                          child: ReviewCard(review: review),
+                                        ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          }),
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                       ],

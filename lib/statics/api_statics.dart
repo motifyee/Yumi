@@ -105,8 +105,10 @@ class ApiKeys {
   static String orderCustomerClosed = '/order/customer/closed';
   static String orderDriverAvailable = '/order/driver/available';
   static String orderDriverActive = '/order/driver/active';
+  static String orderDriverClosed = '/order/driver/closed';
   static String preOrderDriverAvailable = '/preorder/driver/available';
   static String preOrderDriverActive = '/preorder/driver/active';
+  static String preOrderDriverClosed = '/preorder/driver/closed';
   static String orderDriverAvailableById = '/order/driver/available/';
   static String orderChefReceived = '/order/chef/received';
   static String orderChefPreparing = '/order/chef/preparing';
@@ -137,4 +139,6 @@ class ApiKeys {
   static String preOrderChefPickUpFinished = '/preorder/_/chef/pickup/finished';
 
   static String updateInvoice = '/api/Invoices/UpdateRestaurantInvoice/_/48';
+
+  static String review = '/accounts/review';
 }

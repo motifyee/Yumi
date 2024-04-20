@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "accountName": MessageLookupByLibrary.simpleMessage("Account name"),
         "accountNumber": MessageLookupByLibrary.simpleMessage("Account Number"),
+        "active": MessageLookupByLibrary.simpleMessage("Active"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "addANote": MessageLookupByLibrary.simpleMessage("Add a note"),
         "addBankAccount":
@@ -219,6 +220,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "received": MessageLookupByLibrary.simpleMessage("Received"),
         "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
+        "review": MessageLookupByLibrary.simpleMessage("Review"),
+        "reviewTheChef":
+            MessageLookupByLibrary.simpleMessage("Review the chef"),
+        "reviewTheDriver":
+            MessageLookupByLibrary.simpleMessage("Review the driver"),
         "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saveCreditCardDetails":
@@ -249,6 +255,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
         "suggestions": MessageLookupByLibrary.simpleMessage("Suggestions"),
         "swiftCode": MessageLookupByLibrary.simpleMessage("Swift code"),
+        "thankYouForYourReview":
+            MessageLookupByLibrary.simpleMessage("Thank you for your review."),
+        "theChef": MessageLookupByLibrary.simpleMessage("The chef"),
+        "theDriver": MessageLookupByLibrary.simpleMessage("The driver"),
         "theTotalPriceIncludesTax": MessageLookupByLibrary.simpleMessage(
             "The total price includes tax"),
         "thisButtonMeansThatTheChefIsCurrentlyAvailable":
@@ -279,6 +289,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatYouWishToEatToday":
             MessageLookupByLibrary.simpleMessage("What you wish to eat today?"),
         "writeABio": MessageLookupByLibrary.simpleMessage("Write a Bio"),
+        "youCanNowCreateYourReviewToTheDriverChef":
+            MessageLookupByLibrary.simpleMessage(
+                "You can now create your review to the driver & chef"),
         "yourOrders": MessageLookupByLibrary.simpleMessage("Your orders"),
         "yourWallet": MessageLookupByLibrary.simpleMessage("Your wallet"),
         "yumi": MessageLookupByLibrary.simpleMessage("YUMI")

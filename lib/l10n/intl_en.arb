@@ -203,5 +203,13 @@
   "history": "History",
   "start": "Start",
   "pending": "Pending",
-  "finish": "Finish"
+  "finish": "Finish",
+  "active": "Active",
+  "youCanNowCreateYourReviewToTheDriverChef": "You can now create your review to the driver & chef",
+  "theDriver": "The driver",
+  "theChef": "The chef",
+  "review": "Review",
+  "reviewTheDriver": "Review the driver",
+  "reviewTheChef": "Review the chef",
+  "thankYouForYourReview": "Thank you for your review."
 }

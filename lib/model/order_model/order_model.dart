@@ -7,7 +7,8 @@ part 'order_model.g.dart';
 class OrderModel with _$OrderModel {
   const factory OrderModel({
     int? id,
-    String? chefID,
+    @JsonKey(name: 'chef_ID') String? chefID,
+    @JsonKey(name: 'driver_ID') String? driverID,
     String? employeeNote,
     String? clientNote,
     String? preparationNote,
