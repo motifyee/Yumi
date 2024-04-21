@@ -474,26 +474,48 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                         ),
                       ),
                     if (widget.orderCardTargetPage ==
-                            OrderCardTargetPage.driverReceived &&
-                        widget.order.chefFinished == true)
+                        OrderCardTargetPage.driverReceived)
                       TextButton(
-                        onPressed: () {
-                          context.read<OrderBloc>().add(
-                                OrderEvent.putAction(
-                                  order: widget.order,
-                                  apiKey: ApiKeys.actionApiKeyString(
-                                      apiKey:
-                                          widget.menuTarget == MenuTarget.order
-                                              ? ApiKeys.orderDriverReceived
-                                              : ApiKeys.preOrderDriverReceived,
-                                      id: '${widget.order.id}'),
-                                  getApiKey: widget.getApiKey,
-                                ),
-                              );
-                        },
-                        child: Text(
-                          S.of(context).orderReceived,
-                          style: Theme.of(context).textTheme.bodyMedium,
+                        onPressed: widget.order.chefFinished != true
+                            ? null
+                            : () {
+                                context.read<OrderBloc>().add(
+                                      OrderEvent.putAction(
+                                        order: widget.order,
+                                        apiKey: ApiKeys.actionApiKeyString(
+                                            apiKey: widget.menuTarget ==
+                                                    MenuTarget.order
+                                                ? ApiKeys.orderDriverReceived
+                                                : ApiKeys
+                                                    .preOrderDriverReceived,
+                                            id: '${widget.order.id}'),
+                                        getApiKey: widget.getApiKey,
+                                      ),
+                                    );
+                              },
+                        child: Row(
+                          children: [
+                            if (widget.order.chefFinished != true)
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        ThemeSelector.statics.defaultMicroGap),
+                                child: SvgPicture.asset(
+                                    'assets/images/waiting.svg'),
+                              ),
+                            Text(
+                              S.of(context).orderReceived,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                      color: ThemeSelector.colors.secondary
+                                          .withAlpha(
+                                              widget.order.chefFinished == true
+                                                  ? 255
+                                                  : 100)),
+                            ),
+                          ],
                         ),
                       ),
                     if (widget.orderCardTargetPage ==

@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -66,7 +65,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       if (event.statusEnum == StatusEnum.ready) status = 1;
       if (event.statusEnum == StatusEnum.busy) status = 2;
       try {
-        Response res = await UserStatusService.updateStatus(status: status);
+        await UserStatusService.updateStatus(status: status);
         emit(state.copyWith(
           loading: false,
           user: state.user.copyWith(status: status),

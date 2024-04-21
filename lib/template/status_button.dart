@@ -22,8 +22,6 @@ class StatusButton extends StatelessWidget {
           onPressed: forGuide != null
               ? null
               : () {
-                  print('asdas das das d asd ........................');
-                  print(state.loading);
                   if (state.loading) return;
                   context.read<UserBloc>().add(UserStatusUpdateEvent());
                 },
