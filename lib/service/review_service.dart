@@ -5,14 +5,14 @@ import 'package:yumi/statics/api_statics.dart';
 class ReviewService {
   static Future<dynamic> getAllReviews({
     required String chefId,
-    bool customerLogin = false,
+    bool loginCustomer = false,
     Map<String, dynamic>? queryParameters,
   }) async {
     final Response res = await DioClient.simpleDio().get(ApiKeys.review,
         queryParameters: {
           ...?queryParameters,
           'chefId': chefId,
-          'customerLogin': customerLogin,
+          'loginCustomer': loginCustomer,
         }..removeWhere((key, value) => value == null));
     return res;
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/user/user_model.dart';
 import 'package:yumi/statics/local_storage.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/location.dart';
@@ -51,7 +52,7 @@ class NewsGuide extends StatelessWidget {
                     ),
               ),
               SizedBox(height: ThemeSelector.statics.defaultTitleGap),
-              StatusButton(status: StatusEnum.opened, onPressed: () {}),
+              StatusButton(forGuide: StatusEnum.ready),
               SizedBox(height: ThemeSelector.statics.defaultGap),
               Text(
                 S.of(context).thisButtonMeansThatTheChefIsCurrentlyAvailable,
@@ -61,17 +62,7 @@ class NewsGuide extends StatelessWidget {
                     ),
               ),
               SizedBox(height: ThemeSelector.statics.defaultTitleGap),
-              StatusButton(status: StatusEnum.closed, onPressed: () {}),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
-              Text(
-                S.of(context).thisButtonMeansThatTheChefIsCurrentlyClosed,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: ThemeSelector.fonts.font_16,
-                    ),
-              ),
-              SizedBox(height: ThemeSelector.statics.defaultTitleGap),
-              StatusButton(status: StatusEnum.busy),
+              StatusButton(forGuide: StatusEnum.busy),
               SizedBox(height: ThemeSelector.statics.defaultGap),
               Text(
                 S.of(context).thisButtonMeansThatTheChefIsCurrentlyNotAvailable,

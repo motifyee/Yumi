@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:yumi/features/registeration/model/address.dart';
 import 'package:yumi/model/user/user_model.dart';
+import 'package:yumi/service/user_status_service.dart';
 import 'package:yumi/statics/local_storage.dart';
 
 part 'user_event.dart';
@@ -54,6 +56,26 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         event.autoLogin(event.context);
       }
       FlutterNativeSplash.remove();
+    });
+
+    on<UserStatusUpdateEvent>((event, emit) async {
+      if (state.loading) return;
+      emit(state.copyWith(loading: true));
+
+      int status = state.user.status == 1 ? 2 : 1;
+      if (event.statusEnum == StatusEnum.ready) status = 1;
+      if (event.statusEnum == StatusEnum.busy) status = 2;
+      try {
+        Response res = await UserStatusService.updateStatus(status: status);
+        emit(state.copyWith(
+          loading: false,
+          user: state.user.copyWith(status: status),
+        ));
+      } catch (err) {
+        emit(state.copyWith(
+          loading: false,
+        ));
+      }
     });
 
     on<UserResetEvent>((event, emit) async {

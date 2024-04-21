@@ -28,7 +28,7 @@ class ReviewsBloc extends Bloc<ReviewsEvent, ReviewsState> {
 
       Response res = await ReviewService.getAllReviews(
         chefId: event.chefID,
-        customerLogin: event.isMyReviews,
+        loginCustomer: event.isMyReviews,
         queryParameters: state.paginationHelper.toJson(),
       );
 

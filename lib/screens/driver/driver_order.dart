@@ -48,7 +48,7 @@ class DriverOrderScreen extends StatelessWidget {
         children: [
           const Location(),
           SizedBox(height: ThemeSelector.statics.defaultGap),
-          StatusButton(status: StatusEnum.opened),
+          StatusButton(),
           BlocBuilder<NewsBloc, NewsState>(
             builder: (context, state) {
               return Row(

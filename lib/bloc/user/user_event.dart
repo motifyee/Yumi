@@ -39,6 +39,15 @@ class UserFromSharedRefEvent extends UserEvent {
   List<Object?> get props => [afterFetchSuccess];
 }
 
+class UserStatusUpdateEvent extends UserEvent {
+  StatusEnum? statusEnum;
+
+  UserStatusUpdateEvent({this.statusEnum});
+
+  @override
+  List<Object?> get props => [];
+}
+
 class UserResetEvent extends UserEvent {
   @override
   List<Object?> get props => [];

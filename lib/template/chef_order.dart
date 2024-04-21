@@ -24,7 +24,7 @@ class ChefOrder extends StatelessWidget {
         BlocBuilder<NewsBloc, NewsState>(
           builder: (context, state) {
             return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ActionButton(
                   key: key,

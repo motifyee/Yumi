@@ -41,6 +41,7 @@ mixin _$UserModel {
   @JsonKey(name: 'address_Longitude')
   double? get long => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
+  int? get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,7 +69,8 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(name: 'address_Name') String? addressName,
       @JsonKey(name: 'address_Lattitude') double? lat,
       @JsonKey(name: 'address_Longitude') double? long,
-      String location});
+      String location,
+      int? status});
 }
 
 /// @nodoc
@@ -99,6 +101,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? lat = freezed,
     Object? long = freezed,
     Object? location = null,
+    Object? status = freezed,
   }) {
     return _then(_value.copyWith(
       chefId: freezed == chefId
@@ -161,6 +164,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -188,7 +195,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       @JsonKey(name: 'address_Name') String? addressName,
       @JsonKey(name: 'address_Lattitude') double? lat,
       @JsonKey(name: 'address_Longitude') double? long,
-      String location});
+      String location,
+      int? status});
 }
 
 /// @nodoc
@@ -217,6 +225,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? lat = freezed,
     Object? long = freezed,
     Object? location = null,
+    Object? status = freezed,
   }) {
     return _then(_$InitialImpl(
       chefId: freezed == chefId
@@ -279,6 +288,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -301,7 +314,8 @@ class _$InitialImpl extends _Initial {
       @JsonKey(name: 'address_Name') this.addressName,
       @JsonKey(name: 'address_Lattitude') this.lat,
       @JsonKey(name: 'address_Longitude') this.long,
-      this.location = ''})
+      this.location = '',
+      this.status})
       : super._();
 
   factory _$InitialImpl.fromJson(Map<String, dynamic> json) =>
@@ -349,10 +363,12 @@ class _$InitialImpl extends _Initial {
   @override
   @JsonKey()
   final String location;
+  @override
+  final int? status;
 
   @override
   String toString() {
-    return 'UserModel(chefId: $chefId, driverId: $driverId, customerId: $customerId, message: $message, userName: $userName, email: $email, code: $code, multiAddressID: $multiAddressID, accessToken: $accessToken, expiresIn: $expiresIn, address: $address, addressName: $addressName, lat: $lat, long: $long, location: $location)';
+    return 'UserModel(chefId: $chefId, driverId: $driverId, customerId: $customerId, message: $message, userName: $userName, email: $email, code: $code, multiAddressID: $multiAddressID, accessToken: $accessToken, expiresIn: $expiresIn, address: $address, addressName: $addressName, lat: $lat, long: $long, location: $location, status: $status)';
   }
 
   @override
@@ -382,7 +398,8 @@ class _$InitialImpl extends _Initial {
             (identical(other.lat, lat) || other.lat == lat) &&
             (identical(other.long, long) || other.long == long) &&
             (identical(other.location, location) ||
-                other.location == location));
+                other.location == location) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(ignore: true)
@@ -403,7 +420,8 @@ class _$InitialImpl extends _Initial {
       addressName,
       lat,
       long,
-      location);
+      location,
+      status);
 
   @JsonKey(ignore: true)
   @override
@@ -435,7 +453,8 @@ abstract class _Initial extends UserModel {
       @JsonKey(name: 'address_Name') final String? addressName,
       @JsonKey(name: 'address_Lattitude') final double? lat,
       @JsonKey(name: 'address_Longitude') final double? long,
-      final String location}) = _$InitialImpl;
+      final String location,
+      final int? status}) = _$InitialImpl;
   const _Initial._() : super._();
 
   factory _Initial.fromJson(Map<String, dynamic> json) = _$InitialImpl.fromJson;
@@ -475,6 +494,8 @@ abstract class _Initial extends UserModel {
   double? get long;
   @override
   String get location;
+  @override
+  int? get status;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

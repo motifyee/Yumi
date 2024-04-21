@@ -42,7 +42,7 @@ class NewsScreen extends StatelessWidget {
         children: [
           Location(),
           SizedBox(height: ThemeSelector.statics.defaultGap),
-          StatusButton(status: StatusEnum.opened),
+          StatusButton(),
           SizedBox(
             height: ThemeSelector.statics.defaultTitleGap,
           ),
