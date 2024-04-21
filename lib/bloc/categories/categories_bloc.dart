@@ -27,25 +27,30 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
         dynamic res;
 
         if (AppTarget.user == AppTargetUser.customers) {
-          res = await CategoriesService.getCategoriesForCustomer(
-            context: event.context,
-            pagination: state.paginationHelper.toJson(),
-            isPreOrder: event.isPreOrder,
-            lat: G.context.read<UserBloc>().state.address?.latitude,
-            long: G.context.read<UserBloc>().state.address?.longitude,
-          );
+          if (event.chefId == null) {
+            res = await CategoriesService.getCategoriesForCustomer(
+              pagination: state.paginationHelper.toJson(),
+              isPreOrder: event.isPreOrder,
+              lat: G.context.read<UserBloc>().state.address?.latitude,
+              long: G.context.read<UserBloc>().state.address?.longitude,
+            );
+          } else {
+            res = await CategoriesService.getCategoriesForCustomerByChefId(
+              pagination: state.paginationHelper.toJson(),
+              isPreOrder: event.isPreOrder,
+              chefId: event.chefId!,
+            );
+          }
         }
 
         if (AppTarget.user == AppTargetUser.chefs) {
           if (event.isAll) {
             res = await CategoriesService.getCategories(
-              context: event.context,
               pagination: state.paginationHelper.toJson(),
               isPreOrder: event.isPreOrder,
             );
           } else {
             res = await CategoriesService.getCategoriesForChef(
-              context: event.context,
               pagination: state.paginationHelper.toJson(),
               isPreOrder: event.isPreOrder,
             );

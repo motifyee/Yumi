@@ -218,10 +218,13 @@ class ChefProfileScreen extends StatelessWidget {
                                 scrollDirection: Axis.horizontal,
                                 loadDate: () {
                                   context.read<CategoriesBloc>().add(
-                                      GetCategoriesEvent(
+                                        GetCategoriesEvent(
                                           context: context,
-                                          isPreOrder: menuTarget ==
-                                              MenuTarget.preOrder));
+                                          isPreOrder:
+                                              menuTarget == MenuTarget.preOrder,
+                                          chefId: chef.id,
+                                        ),
+                                      );
                                 },
                                 child: BlocConsumer<CategoriesBloc,
                                     CategoriesState>(
