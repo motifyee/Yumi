@@ -88,7 +88,10 @@ class ChefProfileScreen extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     for (var meal in [MealModel()])
-                                      ChefMealCard(meal: meal)
+                                      ChefMealCard(
+                                        meal: meal,
+                                        chef: chef,
+                                      )
                                   ],
                                 ),
                               ),
@@ -177,7 +180,9 @@ class ChefProfileScreen extends StatelessWidget {
                                             mealIndex < state.meals.length;
                                             mealIndex += 2)
                                           ChefMealCard(
-                                              meal: state.meals[mealIndex])
+                                            meal: state.meals[mealIndex],
+                                            chef: chef,
+                                          )
                                       ],
                                     ),
                                     Row(
@@ -186,7 +191,9 @@ class ChefProfileScreen extends StatelessWidget {
                                             mealIndex < state.meals.length;
                                             mealIndex += 2)
                                           ChefMealCard(
-                                              meal: state.meals[mealIndex])
+                                            meal: state.meals[mealIndex],
+                                            chef: chef,
+                                          )
                                       ],
                                     ),
                                   ],
@@ -328,17 +335,19 @@ class ChefProfileScreen extends StatelessWidget {
                                 ),
                                 BlocProvider(
                                   create: (context) => ReviewsBloc(),
-                                  child: Builder(builder: (context) {
-                                    context.read<ReviewsBloc>().add(
-                                        ReviewsEvent.getAll(
-                                            chefID: chef.id!,
-                                            isMyReviews: true));
+                                  child: Builder(
+                                    builder: (context) {
+                                      context.read<ReviewsBloc>().add(
+                                            ReviewsEvent.getAll(
+                                                chefID: chef.id!,
+                                                isMyReviews: true),
+                                          );
 
-                                    return BlocConsumer<ReviewsBloc,
-                                        ReviewsState>(
-                                      listener: (context, state) {},
-                                      builder: (context, state) {
-                                        return RatingBar(
+                                      return BlocConsumer<ReviewsBloc,
+                                          ReviewsState>(
+                                        listener: (context, state) {},
+                                        builder: (context, state) {
+                                          return RatingBar(
                                             initialRating: state.reviews
                                                     .firstOrNull?.rate ??
                                                 0,
@@ -364,45 +373,45 @@ class ChefProfileScreen extends StatelessWidget {
                                                 context: context,
                                                 builder: (context) =>
                                                     AlertDialog(
-                                                        scrollable: true,
-                                                        alignment:
-                                                            Alignment.center,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        surfaceTintColor:
-                                                            Colors.transparent,
-                                                        insetPadding:
-                                                            EdgeInsets.zero,
-                                                        content:
-                                                            ReviewChefDriver(
-                                                          isChefOnly: true,
-                                                          reviewChef:
-                                                              const ReviewModel()
-                                                                  .copyWith(
-                                                            buddiesUserId:
-                                                                chef.id ?? '',
-                                                            rate: value,
-                                                            code: CodeGenerator
-                                                                .getRandomCode(),
-                                                            id: state
-                                                                    .reviews
-                                                                    .firstOrNull
-                                                                    ?.id ??
-                                                                '',
-                                                            reviewComment: state
-                                                                    .reviews
-                                                                    .firstOrNull
-                                                                    ?.reviewComment ??
-                                                                '',
-                                                          ),
-                                                          reviewDriver:
-                                                              const ReviewModel(),
-                                                        )),
+                                                  scrollable: true,
+                                                  alignment: Alignment.center,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  surfaceTintColor:
+                                                      Colors.transparent,
+                                                  insetPadding: EdgeInsets.zero,
+                                                  content: ReviewChefDriver(
+                                                    isChefOnly: true,
+                                                    reviewChef:
+                                                        const ReviewModel()
+                                                            .copyWith(
+                                                      buddiesUserId:
+                                                          chef.id ?? '',
+                                                      rate: value,
+                                                      code: CodeGenerator
+                                                          .getRandomCode(),
+                                                      id: state
+                                                              .reviews
+                                                              .firstOrNull
+                                                              ?.id ??
+                                                          '',
+                                                      reviewComment: state
+                                                              .reviews
+                                                              .firstOrNull
+                                                              ?.reviewComment ??
+                                                          '',
+                                                    ),
+                                                    reviewDriver:
+                                                        const ReviewModel(),
+                                                  ),
+                                                ),
                                               );
-                                            });
-                                      },
-                                    );
-                                  }),
+                                            },
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
                                 )
                               ],
                             ),

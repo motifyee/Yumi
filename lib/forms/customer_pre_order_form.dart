@@ -217,7 +217,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                         onTap: () {
                           if (preOrderForm.currentState!.validate()) {
                             preOrderForm.currentState!.save();
-                            context.router.pop();
+                            context.router.popForced();
                             if (meal != null) {
                               context.read<BasketFormBloc>().add(
                                     BasketFormAddMealEvent(
@@ -250,6 +250,10 @@ class CustomerPreOrderForm extends StatelessWidget {
                                                 chefID: chefId,
                                               ),
                                         ),
+                                    isPickUpOnly: context
+                                        .read<BasketFormBloc>()
+                                        .state
+                                        .isPickUpOnly,
                                   ),
                                 );
                             context.router.replaceAll([BasketRoute()]);

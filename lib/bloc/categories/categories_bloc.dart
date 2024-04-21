@@ -1,8 +1,9 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app_target.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/model/categories_model.dart';
 import 'package:yumi/service/categories_service.dart';
 import 'package:yumi/statics/pagination_helper.dart';
@@ -30,6 +31,8 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
             context: event.context,
             pagination: state.paginationHelper.toJson(),
             isPreOrder: event.isPreOrder,
+            lat: G.context.read<UserBloc>().state.address?.latitude,
+            long: G.context.read<UserBloc>().state.address?.longitude,
           );
         }
 

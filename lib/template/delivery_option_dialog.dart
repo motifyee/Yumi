@@ -48,9 +48,9 @@ class DeliveryOptionDialog extends StatelessWidget {
                         onTap: () {
                           context.read<BasketFormBloc>().add(
                                 BasketFormUpdateEvent(
-                                  invoice: state.invoice.copyWith(
-                                      isPickup: true, isDelivery: false),
-                                ),
+                                    invoice: state.invoice.copyWith(
+                                        isPickup: true, isDelivery: false),
+                                    isPickUpOnly: false),
                               );
                         },
                         child: Padding(
@@ -93,6 +93,7 @@ class DeliveryOptionDialog extends StatelessWidget {
                               .add(BasketFormUpdateEvent(
                                 invoice: state.invoice.copyWith(
                                     isPickup: false, isDelivery: true),
+                                isPickUpOnly: false,
                               ));
                         },
                         child: Padding(

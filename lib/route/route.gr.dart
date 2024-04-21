@@ -177,6 +177,7 @@ abstract class $AppRouter extends _i31.RootStackRouter {
         child: _i17.MealProfileScreen(
           key: args.key,
           meal: args.meal,
+          chef: args.chef,
         ),
       );
     },
@@ -632,12 +633,14 @@ class MealProfileRoute extends _i31.PageRouteInfo<MealProfileRouteArgs> {
   MealProfileRoute({
     _i32.Key? key,
     required _i34.MealModel meal,
+    required _i33.ChefModel chef,
     List<_i31.PageRouteInfo>? children,
   }) : super(
           MealProfileRoute.name,
           args: MealProfileRouteArgs(
             key: key,
             meal: meal,
+            chef: chef,
           ),
           initialChildren: children,
         );
@@ -652,15 +655,18 @@ class MealProfileRouteArgs {
   const MealProfileRouteArgs({
     this.key,
     required this.meal,
+    required this.chef,
   });
 
   final _i32.Key? key;
 
   final _i34.MealModel meal;
 
+  final _i33.ChefModel chef;
+
   @override
   String toString() {
-    return 'MealProfileRouteArgs{key: $key, meal: $meal}';
+    return 'MealProfileRouteArgs{key: $key, meal: $meal, chef: $chef}';
   }
 }
 

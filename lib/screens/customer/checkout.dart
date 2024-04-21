@@ -278,6 +278,8 @@ class CheckOutScreen extends StatelessWidget {
                                                 invoice: state.invoice.copyWith(
                                                     isPickup: true,
                                                     isDelivery: false),
+                                                isPickUpOnly:
+                                                    state.isPickUpOnly,
                                               ),
                                             );
                                         context.read<BasketFormBloc>().add(

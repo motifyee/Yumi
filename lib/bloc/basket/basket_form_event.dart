@@ -5,7 +5,8 @@ abstract class BasketFormEvent {}
 
 class BasketFormUpdateEvent implements BasketFormEvent {
   final InvoiceModel invoice;
-  BasketFormUpdateEvent({required this.invoice});
+  final bool isPickUpOnly;
+  BasketFormUpdateEvent({required this.invoice, required this.isPickUpOnly});
 }
 
 class BasketFormUpdateIsPickUpOnlyEvent implements BasketFormEvent {

@@ -30,14 +30,21 @@ class MealService {
     return res;
   }
 
-  static Future<dynamic> getMeals(
-      {required BuildContext context,
-      required Map<String, dynamic>? queryParameters,
-      bool? isPreorder = false}) async {
+  static Future<dynamic> getMeals({
+    required BuildContext context,
+    double? lat,
+    double? long,
+    required Map<String, dynamic>? queryParameters,
+    bool? isPreorder = false,
+  }) async {
     final res = await DioClient.simpleDio(context).get(
       ApiKeys.getApiKeyString(apiKey: ApiKeys.getMeal),
-      queryParameters: {...?queryParameters, 'isPreorder': isPreorder}
-        ..removeWhere((key, value) => value == null),
+      queryParameters: {
+        ...?queryParameters,
+        'isPreorder': isPreorder,
+        'longitude': long,
+        'latitude': lat,
+      }..removeWhere((key, value) => value == null),
     );
 
     return jsonDecode(res.toString());
@@ -47,13 +54,17 @@ class MealService {
       {required BuildContext context,
       required Map<String, dynamic>? pagination,
       required int? categoryId,
+      double? lat,
+      double? long,
       bool? isPreorder = false}) async {
     final res = await DioClient.simpleDio(context).get(
       ApiKeys.getApiKeyString(apiKey: ApiKeys.getMealByCategory),
       queryParameters: {
         ...?pagination,
         'categoryId': categoryId,
-        'isPreorder': isPreorder
+        'isPreorder': isPreorder,
+        'longitude': long,
+        'latitude': lat,
       }..removeWhere((key, value) => value == null),
     );
 

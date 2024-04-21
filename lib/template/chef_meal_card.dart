@@ -2,15 +2,17 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:yumi/model/chef_model.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/screens/customer/meal_profile.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
 
 class ChefMealCard extends StatelessWidget {
-  const ChefMealCard({super.key, required this.meal});
+  const ChefMealCard({super.key, required this.meal, required this.chef});
 
   final MealModel meal;
+  final ChefModel chef;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class ChefMealCard extends StatelessWidget {
             context: context,
             builder: (context) => MealProfileScreen(
                   meal: meal,
+                  chef: chef,
                 ),
             backgroundColor: Colors.transparent,
             constraints:

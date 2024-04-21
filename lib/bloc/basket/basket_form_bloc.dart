@@ -33,7 +33,9 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
       );
     });
     on<BasketFormUpdateEvent>((event, emit) {
-      emit(state.copyWith(invoice: event.invoice));
+      emit(state.copyWith(
+          invoice: event.invoice, isPickUpOnly: event.isPickUpOnly));
+      add(BasketFormCalcEvent());
     });
 
     on<BasketFormUpdateIsPickUpOnlyEvent>((event, emit) {
@@ -159,7 +161,10 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
               invoice: state.invoice,
               isPreOrder: state.invoice.isPreorder ?? false);
         }
-      } else {}
+      } else {
+        add(BasketFormResetEvent());
+        event.context.router.replaceAll([HomeRoute()]);
+      }
 
       if (res.statusCode == 200) {
         if (event.isDone == true) {
