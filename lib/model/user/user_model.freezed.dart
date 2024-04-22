@@ -41,6 +41,7 @@ mixin _$UserModel {
   @JsonKey(name: 'address_Longitude')
   double? get long => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
+  @JsonKey(name: 'status_Work')
   int? get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -70,7 +71,7 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(name: 'address_Lattitude') double? lat,
       @JsonKey(name: 'address_Longitude') double? long,
       String location,
-      int? status});
+      @JsonKey(name: 'status_Work') int? status});
 }
 
 /// @nodoc
@@ -196,7 +197,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       @JsonKey(name: 'address_Lattitude') double? lat,
       @JsonKey(name: 'address_Longitude') double? long,
       String location,
-      int? status});
+      @JsonKey(name: 'status_Work') int? status});
 }
 
 /// @nodoc
@@ -315,7 +316,7 @@ class _$InitialImpl extends _Initial {
       @JsonKey(name: 'address_Lattitude') this.lat,
       @JsonKey(name: 'address_Longitude') this.long,
       this.location = '',
-      this.status})
+      @JsonKey(name: 'status_Work') this.status})
       : super._();
 
   factory _$InitialImpl.fromJson(Map<String, dynamic> json) =>
@@ -364,6 +365,7 @@ class _$InitialImpl extends _Initial {
   @JsonKey()
   final String location;
   @override
+  @JsonKey(name: 'status_Work')
   final int? status;
 
   @override
@@ -454,7 +456,7 @@ abstract class _Initial extends UserModel {
       @JsonKey(name: 'address_Lattitude') final double? lat,
       @JsonKey(name: 'address_Longitude') final double? long,
       final String location,
-      final int? status}) = _$InitialImpl;
+      @JsonKey(name: 'status_Work') final int? status}) = _$InitialImpl;
   const _Initial._() : super._();
 
   factory _Initial.fromJson(Map<String, dynamic> json) = _$InitialImpl.fromJson;
@@ -495,6 +497,7 @@ abstract class _Initial extends UserModel {
   @override
   String get location;
   @override
+  @JsonKey(name: 'status_Work')
   int? get status;
   @override
   @JsonKey(ignore: true)

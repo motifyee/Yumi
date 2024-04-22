@@ -18,12 +18,11 @@ class OrderStatusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('order ............................');
-    print(order);
-
     DateTime? _driverAcceptDate =
         DateTime.tryParse(order.driverAcceptDate ?? '');
     DateTime? _chefStartDate = DateTime.tryParse(order.chefStartDate ?? '');
+    DateTime? _chefFinishedDate =
+        DateTime.tryParse(order.chefFinishedDate ?? '');
     DateTime? _driverReceivedDate =
         DateTime.tryParse(order.driverReceivedDate ?? '');
 
@@ -215,78 +214,121 @@ class OrderStatusScreen extends StatelessWidget {
                           child: Container(),
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(S.of(context).onTheWay,
-                                  style:
-                                      Theme.of(context).textTheme.bodyMedium),
-                              if (order.driverReceived == true)
-                                Text('05:00',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(
-                                            color: ThemeSelector
-                                                .colors.secondaryTantLighter)),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.access_time,
-                                color: ThemeSelector.colors.primary,
-                                size: ThemeSelector.fonts.font_14,
-                              ),
-                              const Text(' '),
-                              Text(
-                                order.driverReceived == true
-                                    ? DateFormat('hh:mm a, d MMM yyyy')
-                                        .format(_driverReceivedDate!)
-                                    : '--:--',
-                                style: Theme.of(context).textTheme.labelMedium,
-                              ),
-                            ],
-                          ),
-                          if (order.driverReceived == true)
-                            GestureDetector(
-                              onTap: () {
-                                context.router.push(const TrackingOrderRoute());
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        ThemeSelector.statics.defaultGap,
-                                    vertical:
-                                        ThemeSelector.statics.defaultMicroGap),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                      ThemeSelector
-                                          .statics.defaultBorderRadiusMedium),
-                                  color: ThemeSelector.colors.primary,
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      S.of(context).tracking,
+                      if (order.isPickUp != true)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(S.of(context).onTheWay,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium),
+                                if (order.driverReceived == true)
+                                  Text('05:00',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .displaySmall,
-                                    ),
-                                    SizedBox(
-                                        width: ThemeSelector
-                                            .statics.defaultMicroGap),
-                                    SvgPicture.asset('assets/images/dot.svg')
-                                  ],
+                                          .bodyLarge
+                                          ?.copyWith(
+                                              color: ThemeSelector.colors
+                                                  .secondaryTantLighter)),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.access_time,
+                                  color: ThemeSelector.colors.primary,
+                                  size: ThemeSelector.fonts.font_14,
+                                ),
+                                const Text(' '),
+                                Text(
+                                  order.driverReceived == true
+                                      ? DateFormat('hh:mm a, d MMM yyyy')
+                                          .format(_driverReceivedDate!)
+                                      : '--:--',
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                ),
+                              ],
+                            ),
+                            if (order.driverReceived == true)
+                              GestureDetector(
+                                onTap: () {
+                                  context.router
+                                      .push(const TrackingOrderRoute());
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          ThemeSelector.statics.defaultGap,
+                                      vertical: ThemeSelector
+                                          .statics.defaultMicroGap),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        ThemeSelector
+                                            .statics.defaultBorderRadiusMedium),
+                                    color: ThemeSelector.colors.primary,
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        S.of(context).tracking,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall,
+                                      ),
+                                      SizedBox(
+                                          width: ThemeSelector
+                                              .statics.defaultMicroGap),
+                                      SvgPicture.asset('assets/images/dot.svg')
+                                    ],
+                                  ),
                                 ),
                               ),
+                          ],
+                        ),
+                      if (order.isPickUp == true)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(S.of(context).ready,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium),
+                                if (order.chefFinished == true)
+                                  Text('05:00',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(
+                                              color: ThemeSelector.colors
+                                                  .secondaryTantLighter)),
+                              ],
                             ),
-                        ],
-                      ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.access_time,
+                                  color: ThemeSelector.colors.primary,
+                                  size: ThemeSelector.fonts.font_14,
+                                ),
+                                const Text(' '),
+                                Text(
+                                  order.chefFinished == true
+                                      ? DateFormat('hh:mm a, d MMM yyyy')
+                                          .format(_chefFinishedDate!)
+                                      : '--:--',
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                     ],
                   ),
                 ),
@@ -300,22 +342,23 @@ class OrderStatusScreen extends StatelessWidget {
                     useSafeArea: true,
                     context: context,
                     builder: (context) => AlertDialog(
-                        scrollable: true,
-                        alignment: Alignment.center,
-                        backgroundColor: Colors.transparent,
-                        surfaceTintColor: Colors.transparent,
-                        insetPadding: EdgeInsets.zero,
-                        content: ReviewChefDriver(
-                          isChefOnly: false,
-                          reviewChef: const ReviewModel().copyWith(
-                            buddiesUserId: order.chefID ?? '',
-                            code: CodeGenerator.getRandomCode(),
-                          ),
-                          reviewDriver: const ReviewModel().copyWith(
-                            buddiesUserId: order.driverID ?? '',
-                            code: CodeGenerator.getRandomCode(),
-                          ),
-                        )),
+                      scrollable: true,
+                      alignment: Alignment.center,
+                      backgroundColor: Colors.transparent,
+                      surfaceTintColor: Colors.transparent,
+                      insetPadding: EdgeInsets.zero,
+                      content: ReviewChefDriver(
+                        isChefOnly: order.isPickUp == true ? true : false,
+                        reviewChef: const ReviewModel().copyWith(
+                          buddiesUserId: order.chefID ?? '',
+                          code: CodeGenerator.getRandomCode(),
+                        ),
+                        reviewDriver: const ReviewModel().copyWith(
+                          buddiesUserId: order.driverID ?? '',
+                          code: CodeGenerator.getRandomCode(),
+                        ),
+                      ),
+                    ),
                   );
                 },
                 child: Container(
@@ -328,7 +371,9 @@ class OrderStatusScreen extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      S.of(context).confirmDelivery,
+                      order.isPickUp == true
+                          ? S.of(context).confirmPickUp
+                          : S.of(context).confirmDelivery,
                       style: Theme.of(context).textTheme.displaySmall,
                     ),
                   ),

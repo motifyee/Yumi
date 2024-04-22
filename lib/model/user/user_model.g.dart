@@ -23,7 +23,7 @@ _$InitialImpl _$$InitialImplFromJson(Map<String, dynamic> json) =>
       lat: (json['address_Lattitude'] as num?)?.toDouble(),
       long: (json['address_Longitude'] as num?)?.toDouble(),
       location: json['location'] as String? ?? '',
-      status: json['status'] as int?,
+      status: json['status_Work'] as int?,
     );
 
 Map<String, dynamic> _$$InitialImplToJson(_$InitialImpl instance) =>
@@ -43,5 +43,5 @@ Map<String, dynamic> _$$InitialImplToJson(_$InitialImpl instance) =>
       'address_Lattitude': instance.lat,
       'address_Longitude': instance.long,
       'location': instance.location,
-      'status': instance.status,
+      'status_Work': instance.status,
     };

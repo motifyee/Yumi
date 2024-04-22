@@ -71,6 +71,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm location"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "confirmPickUp":
+            MessageLookupByLibrary.simpleMessage("confirm Pick Up"),
         "connectionError":
             MessageLookupByLibrary.simpleMessage("Connection Error!"),
         "continue0": MessageLookupByLibrary.simpleMessage("Continue"),

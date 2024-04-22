@@ -101,14 +101,10 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
             children: [
               BlocProvider(
                 create: (context) => OrderBloc(),
-                child: Column(
-                  children: [
-                    NewsOrders(
-                      menuTarget: MenuTarget.order,
-                      apiKey: ApiKeys.orderCustomerActive,
-                      orderCardTargetPage: OrderCardTargetPage.customerHistory,
-                    ),
-                  ],
+                child: NewsOrders(
+                  menuTarget: MenuTarget.order,
+                  apiKey: ApiKeys.orderCustomerActive,
+                  orderCardTargetPage: OrderCardTargetPage.customerHistory,
                 ),
               ),
               BlocProvider(

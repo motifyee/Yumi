@@ -24,7 +24,7 @@ class UserModel with _$UserModel {
     @JsonKey(name: 'address_Lattitude') double? lat,
     @JsonKey(name: 'address_Longitude') double? long,
     @Default('') String location,
-    int? status,
+    @JsonKey(name: 'status_Work') int? status,
   }) = _Initial;
 
   const UserModel._();

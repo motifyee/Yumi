@@ -211,5 +211,6 @@
   "review": "Review",
   "reviewTheDriver": "Review the driver",
   "reviewTheChef": "Review the chef",
-  "thankYouForYourReview": "Thank you for your review."
+  "thankYouForYourReview": "Thank you for your review.",
+  "confirmPickUp": "confirm Pick Up"
 }

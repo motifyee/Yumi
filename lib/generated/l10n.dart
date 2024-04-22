@@ -2181,6 +2181,16 @@ class S {
       args: [],
     );
   }
+
+  /// `confirm Pick Up`
+  String get confirmPickUp {
+    return Intl.message(
+      'confirm Pick Up',
+      name: 'confirmPickUp',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
