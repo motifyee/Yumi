@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/features/registeration/model/address.dart';
+import 'package:yumi/app/pages/auth/register/model/address.dart';
 import 'package:yumi/model/chef_model.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/service/chef_service.dart';
@@ -15,7 +15,13 @@ part 'chefs_list_state.dart';
 class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
   ChefsListBloc()
       : super(ChefsListState(
+<<<<<<< Updated upstream
             chefs: const [], paginationHelper: PaginationHelper())) {
+=======
+            chefs: const [],
+            chefsLength: 0,
+            paginationHelper: PaginationHelper())) {
+>>>>>>> Stashed changes
     on<GetChefsListEvent>((event, emit) async {
       Address? userLocation = event.context.read<UserBloc>().state.address;
       if (userLocation == null ||
@@ -84,7 +90,13 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
 
     on<ResetChefsListEvent>((event, emit) {
       emit(ChefsListState(
+<<<<<<< Updated upstream
           chefs: const [], paginationHelper: PaginationHelper()));
+=======
+          chefs: const [],
+          chefsLength: 0,
+          paginationHelper: PaginationHelper()));
+>>>>>>> Stashed changes
     });
   }
 }

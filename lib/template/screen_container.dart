@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
+var screenGradient = LinearGradient(
+  colors: [
+    ThemeSelector.colors.primaryTant,
+    ThemeSelector.colors.onPrimary,
+  ],
+  begin: const FractionalOffset(0.0, 0.0),
+  end: const FractionalOffset(0.0, 1.0),
+  stops: const [0.0, 0.3],
+  tileMode: TileMode.clamp,
+);
+
 class ScreenContainer extends StatelessWidget {
   const ScreenContainer(
       {super.key, required this.child, this.isColored = true});
@@ -13,16 +24,7 @@ class ScreenContainer extends StatelessWidget {
     BoxDecoration? decoration;
     if (isColored) {
       decoration = BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            ThemeSelector.colors.primaryTant,
-            ThemeSelector.colors.onPrimary,
-          ],
-          begin: const FractionalOffset(0.0, 0.0),
-          end: const FractionalOffset(0.0, 1.0),
-          stops: const [0.0, 0.3],
-          tileMode: TileMode.clamp,
-        ),
+        gradient: screenGradient,
       );
     }
 

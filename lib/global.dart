@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app_config/yumi_app.dart';
 import 'package:yumi/app_target.dart';
+import 'package:yumi/template/snack_bar.dart';
 
 class G {
   // static const String API_KEY = "";
@@ -32,6 +33,12 @@ class G {
 
   static void pop({bool rootNavigator = true}) {
     Navigator.of(context, rootNavigator: rootNavigator).pop();
+  }
+
+  static void snackBar(String message) {
+    ScaffoldMessenger.of(G.context).showSnackBar(SnackBar(
+      content: SnackBarMassage(massage: message),
+    ));
   }
 
   static T read<T extends Bloc>() {

@@ -5,8 +5,15 @@ class OTP extends StatelessWidget {
   final void Function(String input, String otp, int idx)? onInput;
   final void Function(Object?)? onSaved;
   final void Function(String)? onLastFilled;
+  final String? initialOTP;
 
-  OTP({super.key, this.onInput, this.onSaved, this.onLastFilled});
+  OTP({
+    super.key,
+    this.onInput,
+    this.onSaved,
+    this.onLastFilled,
+    this.initialOTP,
+  });
 
   final List<FocusNode> fieldNodes =
       [0, 1, 2, 3].map((e) => FocusNode()).toList();
@@ -17,7 +24,8 @@ class OTP extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> otp = List.filled(4, "");
+    final init = initialOTP?.padRight(4, '0');
+    List<String> otp = init?.split('') ?? List.filled(4, "");
 
     return FormField(
         onSaved: onSaved,
@@ -39,6 +47,7 @@ class OTP extends StatelessWidget {
   SizedBox _input(int idx, List<String> otp, BuildContext context) {
     var fieldNode = fieldNodes[idx];
     var ctrl = controllers[idx];
+    ctrl.text = otp[idx].length == 1 ? otp[idx] : '';
 
     return SizedBox(
       height: 68,

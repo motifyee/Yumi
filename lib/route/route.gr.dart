@@ -11,19 +11,19 @@
 import 'package:auto_route/auto_route.dart' as _i31;
 import 'package:flutter/foundation.dart' as _i35;
 import 'package:flutter/material.dart' as _i32;
-import 'package:yumi/features/chef_application/application_flow_screen.dart'
+import 'package:yumi/app/pages/auth/register/add_phone_screen.dart' as _i1;
+import 'package:yumi/app/pages/auth/register/location_screen.dart' as _i15;
+import 'package:yumi/app/pages/auth/register/model/address.dart' as _i36;
+import 'package:yumi/app/pages/auth/register/otp_screen.dart' as _i22;
+import 'package:yumi/app/pages/auth/register/reg_screen.dart' as _i27;
+import 'package:yumi/app/pages/auth/register/signup_screen.dart' as _i28;
+import 'package:yumi/app/pages/chef_application/application_flow_screen.dart'
     as _i6;
-import 'package:yumi/features/chef_application/contract/contract_screen.dart'
+import 'package:yumi/app/pages/chef_application/contract/contract_screen.dart'
     as _i8;
-import 'package:yumi/features/chef_application/documentation/documentation_screen.dart'
+import 'package:yumi/app/pages/chef_application/documentation/documentation_screen.dart'
     as _i11;
-import 'package:yumi/features/registeration/add_phone_screen.dart' as _i1;
-import 'package:yumi/features/registeration/location_screen.dart' as _i15;
-import 'package:yumi/features/registeration/model/address.dart' as _i36;
-import 'package:yumi/features/registeration/otp_screen.dart' as _i22;
-import 'package:yumi/features/registeration/reg_screen.dart' as _i27;
-import 'package:yumi/features/registeration/signup_screen.dart' as _i28;
-import 'package:yumi/features/schedule/schedule_screen.dart' as _i20;
+import 'package:yumi/app/pages/schedule/schedule_screen.dart' as _i20;
 import 'package:yumi/model/chef_model.dart' as _i33;
 import 'package:yumi/model/meal_model.dart' as _i34;
 import 'package:yumi/model/order_model/order_model.dart' as _i37;

@@ -12,14 +12,12 @@ import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/driver/driver_reg_cubit.dart';
-import 'package:yumi/features/chef_application/bloc.dart';
-import 'package:yumi/features/chef_application/documentation/bloc/documentation_bloc.dart';
-import 'package:yumi/features/chef_application/documentation/bloc/icon_bloc.dart';
-import 'package:yumi/features/schedule/bloc/schedule_bloc.dart';
-import 'package:yumi/features/schedule/repository/repository.dart';
-import 'package:yumi/features/settings/bankinfo/bloc/bankinfo_bloc.dart';
-import 'package:yumi/features/settings/profile/bloc/profile_bloc.dart';
+import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
+import 'package:yumi/app/pages/chef_application/bloc.dart';
+import 'package:yumi/app/pages/chef_application/documentation/bloc/documentation_bloc.dart';
+import 'package:yumi/app/pages/chef_application/documentation/bloc/icon_bloc.dart';
+import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
+import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
 
 class CustomerAppConfig implements AppConfig {
   @override
@@ -44,8 +42,6 @@ class CustomerAppConfig implements AppConfig {
     BlocProvider(create: (context) => IngredientListBloc()),
     BlocProvider(create: (context) => IngredientFormBloc()),
     BlocProvider(create: (context) => BasketFormBloc()),
-    BlocProvider(
-        create: (context) => ScheduleBloc(scheduleRepo: ScheduleRepo())),
     BlocProvider(create: (context) => RegCubit()),
   ];
   @override

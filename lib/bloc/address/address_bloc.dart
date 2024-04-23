@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
-import 'package:yumi/features/registeration/model/address.dart';
+import 'package:yumi/app/pages/auth/register/model/address.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/service/address_service.dart';
 import 'package:yumi/statics/pagination_helper.dart';
@@ -31,15 +31,15 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
   _updateAddressList(
       {required _updateAddressListEvent event,
       required Emitter<AddressState> emit}) {
-    List<Address> _address =
+    List<Address> address =
         [...event.address, ...state.addressList].unique((x) => x.id);
 
     G.builderKey.currentContext?.read<UserBloc>().add(UserUpdateLocationEvent(
-        address: _address.firstWhere((e) => e.isDefault == true)));
+        address: address.firstWhere((e) => e.isDefault == true)));
 
     emit(
       state.copyWith(
-        addressList: _address,
+        addressList: address,
         paginationHelper: state.paginationHelper.copyWith(
           pageNumber: 1,
           lastPage: 1,
@@ -78,14 +78,14 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     Response res = await AddressService.updateAddresses(
         context: event.context, address: event.address);
 
-    List<Address> _addressList = state.addressList.map((e) {
+    List<Address> addressList = state.addressList.map((e) {
       return e.id == event.address.id
           ? e.copyWith(isDefault: true)
           : e.copyWith(isDefault: false);
     }).toList();
 
     if (res.statusCode == 200) {
-      add(AddressEvent.updateAddressListEvent(address: _addressList));
+      add(AddressEvent.updateAddressListEvent(address: addressList));
     }
   }
 
@@ -100,12 +100,12 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
       address: event.address,
     );
 
-    List<Address> _addressList = state.addressList.map((e) {
+    List<Address> addressList = state.addressList.map((e) {
       return e.id == event.address.id ? e.copyWith(isDeleted: true) : e;
     }).toList();
 
     if (res.statusCode == 200) {
-      add(AddressEvent.updateAddressListEvent(address: _addressList));
+      add(AddressEvent.updateAddressListEvent(address: addressList));
     }
   }
 }

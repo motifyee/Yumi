@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/address/address_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/features/registeration/model/address.dart';
+import 'package:yumi/app/pages/auth/register/model/address.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -31,7 +31,7 @@ class CustomerLocationScreen extends StatelessWidget {
             children: [
               Text(S.of(context).hello,
                   style: Theme.of(context).textTheme.titleLarge),
-              Text(' '),
+              const Text(' '),
               Text(context.read<UserBloc>().state.user.userName,
                   style: Theme.of(context).textTheme.titleLarge),
               Text(',', style: Theme.of(context).textTheme.titleLarge)
@@ -55,7 +55,7 @@ class CustomerLocationScreen extends StatelessWidget {
             ],
           ),
           SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width * .75,
             child: Text(
               S
@@ -157,7 +157,7 @@ class CustomerLocationScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
+                      const SizedBox(
                         width: 27,
                         height: 27,
                       ),
@@ -223,7 +223,7 @@ class _LocationCard extends StatelessWidget {
                             'assets/images/location_indecator.svg',
                             height: ThemeSelector.fonts.font_12,
                           ),
-                          Text('  '),
+                          const Text('  '),
                           Expanded(
                             child: Text(
                               address.addressTitle ?? '',

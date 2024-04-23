@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:yumi/app/inject.dart';
 import 'package:yumi/app_config/driver/dirver_app_config.dart';
 import 'package:yumi/app_config/yumi_app.dart';
 import 'package:yumi/app_target.dart';
@@ -37,6 +38,8 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   // Bloc.observer = SimpleBlocObserver();
+
+  await init();
 
   AppTarget.user = AppTargetUser.drivers;
   runApp(const YumiDriver());

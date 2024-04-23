@@ -13,22 +13,29 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_bloc: ^8.1.4
+  bloc: ^8.1.4
+  flutter_bloc: ^8.1.5
+  nested: ^1.0.0
   equatable: ^2.0.5
-  auto_route: ^8.0.0
+  auto_route: ^8.0.3
   flutter_svg: ^2.0.10+1
-  dio: ^5.4.1
-  shared_preferences: ^2.2.2
+  dio: ^5.4.3+1
+  shared_preferences: ^2.2.3
   loading_indicator: ^3.1.1
-  image_picker: ^1.0.7
-  wakelock_plus: ^1.1.4
+  image_picker: ^1.0.8
+  wakelock_plus: ^1.2.4
   flutter_rating_bar: ^4.0.1
   card_swiper: ^3.0.1
   calendar_date_picker2: ^0.5.5
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.6
   dotted_border: ^2.1.0
-  url_launcher: ^6.2.5
+  url_launcher: ^6.2.6
+
+  intl: ^0.18.1
+
   google_sign_in: ^6.2.1
+  flutter_facebook_auth: ^6.2.0
+  twitter_login: ^4.4.2
 
   google_maps_flutter: ^2.2.8
   geolocator: ^11.0.0
@@ -40,14 +47,23 @@ dependencies:
   json_annotation: ^4.8.1
   freezed_annotation: ^2.4.1
 
-  path_provider: ^2.1.2
+  path_provider: ^2.1.3
   flutter_native_splash: ^2.4.0
   # vibration: ^1.8.4
 
+  firebase_crashlytics: ^3.5.1
+  firebase_core: ^2.29.0
+
+  uuid: ^4.4.0
+  logger: ^2.2.0
+
   collection: ^1.18.0
-  firebase_crashlytics: ^3.5.0
-  firebase_core: ^2.28.0
-  intl: ^0.18.1
+  get_it: ^7.7.0
+  fpdart: ^1.1.0
+  # either_dart: ^1.0.0
+  # hive: ^2.2.3
+  # easy_localization: ^3.0.5
+  # go_router: ^13.2.4
 
 dev_dependencies:
   flutter_test:

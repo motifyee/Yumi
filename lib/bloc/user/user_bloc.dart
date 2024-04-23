@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:yumi/features/registeration/model/address.dart';
+import 'package:yumi/app/pages/auth/register/model/address.dart';
 import 'package:yumi/model/user/user_model.dart';
 import 'package:yumi/service/user_status_service.dart';
 import 'package:yumi/statics/local_storage.dart';

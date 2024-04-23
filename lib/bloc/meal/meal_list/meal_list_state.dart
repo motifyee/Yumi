@@ -8,14 +8,14 @@ class MealListState extends Equatable {
   MenuTarget menuTarget;
   int mealsLength;
 
-  BlocStatus status;
+  ObseleteStatusEnum status;
 
   MealListState({
     required this.meals,
     required this.selectedCategory,
     required this.paginationHelper,
     required this.menuTarget,
-    this.status = BlocStatus.init,
+    this.status = ObseleteStatusEnum.init,
     this.mealsLength = 0,
   });
 
@@ -23,7 +23,7 @@ class MealListState extends Equatable {
     List<MealModel>? meals,
     int? selectedCategory,
     PaginationHelper? paginationHelper,
-    BlocStatus? status,
+    ObseleteStatusEnum? status,
   }) {
     return MealListState(
       meals: meals ?? this.meals,

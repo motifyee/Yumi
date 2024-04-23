@@ -7,8 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/driver/driver_reg_cubit.dart';
-import 'package:yumi/features/registeration/model/address.dart';
+import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
+import 'package:yumi/app/pages/auth/forgot_password/forgot_password_sheet.dart';
+import 'package:yumi/app/pages/auth/register/model/address.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/login_model.dart';
@@ -116,9 +117,16 @@ class LoginForm extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                const SizedBox(height: 30),
                 TextButton(
                   onPressed: () {
-                    context.router.push(const ForgetPasswordRoute());
+                    // context.router.push(const ForgetPasswordRoute());
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (context) => const ForgotPasswordSheetProvider(),
+                    );
                   },
                   style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,
@@ -194,7 +202,7 @@ void routeAfterLogin(BuildContext context, String? route) async {
   } else if (route == "location") {
     context.router.replaceAll([LocationRoute()]);
   } else if (route == "otp") {
-    context.router.replaceAll([const OTPRoute()]);
+    context.router.replaceAll([OTPRoute()]);
   } else if (route == "regmap") {
     context.router.replaceAll([LocationRoute()]);
   } else {

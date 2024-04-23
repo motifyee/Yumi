@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:yumi/driver/driver_reg_cubit.dart';
+import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
 import 'package:yumi/route/route.gr.dart';
 
 class DriverRoutes extends $AppRouter {
