@@ -15,13 +15,7 @@ part 'chefs_list_state.dart';
 class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
   ChefsListBloc()
       : super(ChefsListState(
-<<<<<<< Updated upstream
             chefs: const [], paginationHelper: PaginationHelper())) {
-=======
-            chefs: const [],
-            chefsLength: 0,
-            paginationHelper: PaginationHelper())) {
->>>>>>> Stashed changes
     on<GetChefsListEvent>((event, emit) async {
       Address? userLocation = event.context.read<UserBloc>().state.address;
       if (userLocation == null ||
@@ -90,13 +84,7 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
 
     on<ResetChefsListEvent>((event, emit) {
       emit(ChefsListState(
-<<<<<<< Updated upstream
           chefs: const [], paginationHelper: PaginationHelper()));
-=======
-          chefs: const [],
-          chefsLength: 0,
-          paginationHelper: PaginationHelper()));
->>>>>>> Stashed changes
     });
   }
 }
