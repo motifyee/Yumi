@@ -43,7 +43,9 @@ class BasketScreen extends StatelessWidget {
             actions: [
               TextButton(
                   onPressed: () {
-                    context.read<BasketFormBloc>().add(BasketFormResetEvent());
+                    context
+                        .read<BasketFormBloc>()
+                        .add(BasketFormResetEvent(invoice: state.invoice));
                     context.router.replaceAll([HomeRoute()]);
                   },
                   child: Icon(

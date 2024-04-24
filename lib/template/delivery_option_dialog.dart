@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class DeliveryOptionDialog extends StatelessWidget {
@@ -106,11 +107,12 @@ class DeliveryOptionDialog extends StatelessWidget {
                                 width: ThemeSelector.statics.defaultLineGap,
                                 height: ThemeSelector.statics.defaultLineGap,
                                 decoration: BoxDecoration(
-                                    color: _option == true
-                                        ? ThemeSelector.colors.primary
-                                        : ThemeSelector.colors.secondaryFaint,
-                                    borderRadius: BorderRadius.circular(
-                                        ThemeSelector.statics.defaultLineGap)),
+                                  color: _option == true
+                                      ? ThemeSelector.colors.primary
+                                      : ThemeSelector.colors.secondaryFaint,
+                                  borderRadius: BorderRadius.circular(
+                                      ThemeSelector.statics.defaultLineGap),
+                                ),
                               ),
                               SizedBox(width: ThemeSelector.statics.defaultGap),
                               Row(
@@ -149,9 +151,12 @@ class DeliveryOptionDialog extends StatelessWidget {
                 SizedBox(width: ThemeSelector.statics.defaultLineGap),
                 TextButton(
                     onPressed: () {
-                      context
-                          .read<BasketFormBloc>()
-                          .add(BasketFormPostRequestEvent(context: context));
+                      context.read<BasketFormBloc>().add(
+                          BasketFormPostRequestEvent(
+                              context: context,
+                              isDone: true,
+                              invoiceTransaction:
+                                  InvoiceTransactionModel.initial()));
                     },
                     child: Text(
                       S.of(context).placeOrder,

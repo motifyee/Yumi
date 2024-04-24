@@ -8,6 +8,7 @@ import 'package:yumi/extensions/date_time_extension.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/invoice_model.dart';
+import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/order_service.dart';
 import 'package:yumi/template/snack_bar.dart';
@@ -22,7 +23,11 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
           invoice: Invoice(),
           invoiceDetails: [],
         ))) {
-    on<BasketFormResetEvent>((event, emit) {
+    on<BasketFormResetEvent>((event, emit) async {
+      if (event.invoice != null) {
+        Response res =
+            await OrderService.deleteInvoice(invoice: event.invoice!);
+      }
       emit(
         BasketFormState(
           invoice: InvoiceModel(
@@ -32,6 +37,7 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
         ),
       );
     });
+
     on<BasketFormUpdateEvent>((event, emit) {
       emit(state.copyWith(
           invoice: event.invoice, isPickUpOnly: event.isPickUpOnly));
@@ -100,8 +106,9 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
     });
 
     on<BasketFormUpdateMealEvent>((event, emit) {
-      if (event.newQuantity.isEmpty || int.parse(event.newQuantity) <= 0)
+      if (event.newQuantity.isEmpty || int.parse(event.newQuantity) <= 0) {
         return;
+      }
 
       List<InvoiceDetails> invoiceDetails = state.invoice.invoiceDetails ?? [];
       invoiceDetails[event.indexInList] =
@@ -148,22 +155,28 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
                   event.context.read<UserBloc>().state.user.multiAddressID)));
 
       late Response res;
-      if (state.invoice.id == null) {
-        if (state.invoice.isDelivery == true) {
-          res = await OrderService.createOrderOrPreOrderDelivery(
-              context: event.context,
-              invoice: state.invoice,
-              isPreOrder: state.invoice.isPreorder ?? false);
-        }
-        if (state.invoice.isPickup == true) {
-          res = await OrderService.createOrderOrPreOrderPickUp(
-              context: event.context,
-              invoice: state.invoice,
-              isPreOrder: state.invoice.isPreorder ?? false);
-        }
+      if (event.isDone == true) {
+        res = await OrderService.closeInvoice(
+            invoice: state.invoice,
+            invoiceTransaction: event.invoiceTransaction!);
       } else {
-        add(BasketFormResetEvent());
-        event.context.router.replaceAll([HomeRoute()]);
+        if (state.invoice.id == null) {
+          if (state.invoice.isDelivery == true) {
+            res = await OrderService.createOrderOrPreOrderDelivery(
+                context: event.context,
+                invoice: state.invoice,
+                isPreOrder: state.invoice.isPreorder ?? false);
+          }
+          if (state.invoice.isPickup == true) {
+            res = await OrderService.createOrderOrPreOrderPickUp(
+                context: event.context,
+                invoice: state.invoice,
+                isPreOrder: state.invoice.isPreorder ?? false);
+          }
+        } else {
+          // add(BasketFormResetEvent());
+          // event.context.router.replaceAll([HomeRoute()]);
+        }
       }
 
       if (res.statusCode == 200) {

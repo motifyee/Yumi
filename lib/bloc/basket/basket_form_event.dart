@@ -49,11 +49,17 @@ class BasketFormRemoveMealEvent implements BasketFormEvent {
 
 class BasketFormCalcEvent implements BasketFormEvent {}
 
-class BasketFormResetEvent implements BasketFormEvent {}
+class BasketFormResetEvent implements BasketFormEvent {
+  InvoiceModel? invoice;
+
+  BasketFormResetEvent({this.invoice});
+}
 
 class BasketFormPostRequestEvent implements BasketFormEvent {
   BuildContext context;
   bool? isDone;
+  InvoiceTransactionModel? invoiceTransaction;
 
-  BasketFormPostRequestEvent({required this.context, this.isDone = false});
+  BasketFormPostRequestEvent(
+      {required this.context, this.invoiceTransaction, this.isDone = false});
 }

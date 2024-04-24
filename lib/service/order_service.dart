@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:yumi/model/invoice_model.dart';
+import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 
 class OrderService {
@@ -52,11 +53,23 @@ class OrderService {
     return res;
   }
 
-  static Future<Response> updateInvoice(
+  static Future<Response> closeInvoice(
+      {required InvoiceModel invoice,
+      required InvoiceTransactionModel invoiceTransaction,
+      Map<String, dynamic>? paginationHelper}) async {
+    Response res = await DioClient.simpleDio().post(ApiKeys.order,
+        data: invoiceTransaction.toJson(),
+        queryParameters: {...?paginationHelper, 'orderId': invoice.id}
+          ..removeWhere((key, value) => value == null));
+    return res;
+  }
+
+  static Future<Response> deleteInvoice(
       {required InvoiceModel invoice,
       Map<String, dynamic>? paginationHelper}) async {
-    Response res = await DioClient.simpleDio().put(ApiKeys.address,
-        data: invoice.toJson(), queryParameters: {...?paginationHelper});
+    Response res = await DioClient.simpleDio().delete(ApiKeys.order,
+        queryParameters: {...?paginationHelper, 'orderId': invoice.id}
+          ..removeWhere((key, value) => value == null));
     return res;
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/screens/customer/payment_paypal.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -282,10 +283,15 @@ class CheckOutScreen extends StatelessWidget {
                                                     state.isPickUpOnly,
                                               ),
                                             );
-                                        context.read<BasketFormBloc>().add(
-                                            BasketFormPostRequestEvent(
-                                                context: context,
-                                                isDone: true));
+                                        context
+                                            .read<BasketFormBloc>()
+                                            .add(BasketFormPostRequestEvent(
+                                              context: context,
+                                              isDone: true,
+                                              invoiceTransaction:
+                                                  InvoiceTransactionModel
+                                                      .initial(),
+                                            ));
                                       } else {
                                         showDialog(
                                             context: context,

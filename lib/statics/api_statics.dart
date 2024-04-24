@@ -99,6 +99,7 @@ class ApiKeys {
   static String preOrderPickUp = '/preorder/pickup';
   static String orderDelivery = '/order/delivery';
   static String orderPickUp = '/order/pickup';
+  static String order = '/order';
 
   // get order && get preOrder X(
   static String preOrderCustomerActive = '/preorder/customer/active';
