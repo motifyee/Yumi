@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/calories/calories_cubit/calories_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/pagination_template.dart';
@@ -15,7 +15,7 @@ class CaloriesReferenceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MealListBloc(),
+      create: (context) => CaloriesCubit(),
       child: CaloriesReferenceTemplate(),
     );
   }
@@ -26,8 +26,6 @@ class CaloriesReferenceTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<MealListBloc>().add(MealListResetEvent());
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -69,15 +67,13 @@ class CaloriesReferenceTemplate extends StatelessWidget {
           Expanded(
             child: PaginationTemplate(
               scrollDirection: Axis.vertical,
-              loadDate: () => context.read<MealListBloc>().add(
-                  MealListUpdateCaloriesEvent(
-                      context: context, searchText: '')),
-              child: BlocConsumer<MealListBloc, MealListState>(
+              loadDate: () => context.read<CaloriesCubit>().loadCalories(),
+              child: BlocConsumer<CaloriesCubit, CaloriesState>(
                 listener: (context, state) {},
                 builder: (context, state) {
                   return Column(
                     children: [
-                      for (var meal in state.meals)
+                      for (var calorie in state.paginationHelper.data)
                         Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: ThemeSelector.statics.defaultMicroGap),
@@ -94,14 +90,14 @@ class CaloriesReferenceTemplate extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    meal.name ?? '',
+                                    calorie.name ?? '',
                                     overflow: TextOverflow.ellipsis,
                                     style:
                                         Theme.of(context).textTheme.labelLarge,
                                   ),
                                 ),
                                 Text(
-                                  meal.caloriesValue ?? '',
+                                  calorie.caloriesValue ?? '',
                                   style: Theme.of(context).textTheme.labelLarge,
                                 ),
                               ],

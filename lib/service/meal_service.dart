@@ -106,14 +106,4 @@ class MealService {
 
     return jsonDecode(res.toString());
   }
-
-  static Future<dynamic> getMealsCalories(
-      {required BuildContext context,
-      required Map<String, dynamic>? pagination}) async {
-    final res = await DioClient.simpleDio(context).get(
-        ApiKeys.getApiKeyString(apiKey: ApiKeys.mealCalories),
-        queryParameters: pagination);
-
-    return jsonDecode(res.toString());
-  }
 }

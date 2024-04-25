@@ -117,9 +117,9 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         late dynamic res = [];
         List<MealModel> data = [];
 
-        res = await MealService.getMealsCalories(
-            context: event.context,
-            pagination: {...state.paginationHelper.toJson()});
+        // res = await MealService.getMealsCalories(
+        //     context: event.context,
+        //     pagination: {...state.paginationHelper.toJson()});
 
         data = res['data'].map<MealModel>((value) {
           return MealModel.fromJson(value);

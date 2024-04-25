@@ -909,7 +909,8 @@ abstract class _editAddressEvent implements AddressEvent {
 /// @nodoc
 mixin _$AddressState {
   List<Address> get addressList => throw _privateConstructorUsedError;
-  PaginationHelper get paginationHelper => throw _privateConstructorUsedError;
+  PaginationHelper<dynamic> get paginationHelper =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AddressStateCopyWith<AddressState> get copyWith =>
@@ -922,7 +923,10 @@ abstract class $AddressStateCopyWith<$Res> {
           AddressState value, $Res Function(AddressState) then) =
       _$AddressStateCopyWithImpl<$Res, AddressState>;
   @useResult
-  $Res call({List<Address> addressList, PaginationHelper paginationHelper});
+  $Res call(
+      {List<Address> addressList, PaginationHelper<dynamic> paginationHelper});
+
+  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper;
 }
 
 /// @nodoc
@@ -949,8 +953,17 @@ class _$AddressStateCopyWithImpl<$Res, $Val extends AddressState>
       paginationHelper: null == paginationHelper
           ? _value.paginationHelper
           : paginationHelper // ignore: cast_nullable_to_non_nullable
-              as PaginationHelper,
+              as PaginationHelper<dynamic>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper {
+    return $PaginationHelperCopyWith<dynamic, $Res>(_value.paginationHelper,
+        (value) {
+      return _then(_value.copyWith(paginationHelper: value) as $Val);
+    });
   }
 }
 
@@ -962,7 +975,11 @@ abstract class _$$AddressStateImplCopyWith<$Res>
       __$$AddressStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Address> addressList, PaginationHelper paginationHelper});
+  $Res call(
+      {List<Address> addressList, PaginationHelper<dynamic> paginationHelper});
+
+  @override
+  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper;
 }
 
 /// @nodoc
@@ -987,7 +1004,7 @@ class __$$AddressStateImplCopyWithImpl<$Res>
       paginationHelper: null == paginationHelper
           ? _value.paginationHelper
           : paginationHelper // ignore: cast_nullable_to_non_nullable
-              as PaginationHelper,
+              as PaginationHelper<dynamic>,
     ));
   }
 }
@@ -1009,7 +1026,7 @@ class _$AddressStateImpl implements _AddressState {
   }
 
   @override
-  final PaginationHelper paginationHelper;
+  final PaginationHelper<dynamic> paginationHelper;
 
   @override
   String toString() {
@@ -1040,13 +1057,14 @@ class _$AddressStateImpl implements _AddressState {
 
 abstract class _AddressState implements AddressState {
   factory _AddressState(
-      {required final List<Address> addressList,
-      required final PaginationHelper paginationHelper}) = _$AddressStateImpl;
+          {required final List<Address> addressList,
+          required final PaginationHelper<dynamic> paginationHelper}) =
+      _$AddressStateImpl;
 
   @override
   List<Address> get addressList;
   @override
-  PaginationHelper get paginationHelper;
+  PaginationHelper<dynamic> get paginationHelper;
   @override
   @JsonKey(ignore: true)
   _$$AddressStateImplCopyWith<_$AddressStateImpl> get copyWith =>

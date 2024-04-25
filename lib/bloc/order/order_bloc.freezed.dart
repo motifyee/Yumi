@@ -20,7 +20,7 @@ mixin _$OrderEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() reset,
     required TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)
+            List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
     required TResult Function(OrderModel order, String apiKey, String getApiKey)
@@ -30,8 +30,8 @@ mixin _$OrderEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? reset,
-    TResult? Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
+    TResult? Function(List<OrderModel> orders,
+            PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
     TResult? Function(OrderModel order, String apiKey, String getApiKey)?
@@ -41,8 +41,8 @@ mixin _$OrderEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? reset,
-    TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
+    TResult Function(List<OrderModel> orders,
+            PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
     TResult Function(OrderModel order, String apiKey, String getApiKey)?
@@ -135,7 +135,7 @@ class _$resetEventImpl implements _resetEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() reset,
     required TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)
+            List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
     required TResult Function(OrderModel order, String apiKey, String getApiKey)
@@ -148,8 +148,8 @@ class _$resetEventImpl implements _resetEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? reset,
-    TResult? Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
+    TResult? Function(List<OrderModel> orders,
+            PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
     TResult? Function(OrderModel order, String apiKey, String getApiKey)?
@@ -162,8 +162,8 @@ class _$resetEventImpl implements _resetEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? reset,
-    TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
+    TResult Function(List<OrderModel> orders,
+            PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
     TResult Function(OrderModel order, String apiKey, String getApiKey)?
@@ -224,7 +224,10 @@ abstract class _$$updateEventImplCopyWith<$Res> {
           _$updateEventImpl value, $Res Function(_$updateEventImpl) then) =
       __$$updateEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<OrderModel> orders, PaginationHelper paginationHelper});
+  $Res call(
+      {List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper});
+
+  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper;
 }
 
 /// @nodoc
@@ -249,8 +252,17 @@ class __$$updateEventImplCopyWithImpl<$Res>
       paginationHelper: null == paginationHelper
           ? _value.paginationHelper
           : paginationHelper // ignore: cast_nullable_to_non_nullable
-              as PaginationHelper,
+              as PaginationHelper<dynamic>,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper {
+    return $PaginationHelperCopyWith<dynamic, $Res>(_value.paginationHelper,
+        (value) {
+      return _then(_value.copyWith(paginationHelper: value));
+    });
   }
 }
 
@@ -270,7 +282,7 @@ class _$updateEventImpl implements _updateEvent {
   }
 
   @override
-  final PaginationHelper paginationHelper;
+  final PaginationHelper<dynamic> paginationHelper;
 
   @override
   String toString() {
@@ -302,7 +314,7 @@ class _$updateEventImpl implements _updateEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() reset,
     required TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)
+            List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
     required TResult Function(OrderModel order, String apiKey, String getApiKey)
@@ -315,8 +327,8 @@ class _$updateEventImpl implements _updateEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? reset,
-    TResult? Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
+    TResult? Function(List<OrderModel> orders,
+            PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
     TResult? Function(OrderModel order, String apiKey, String getApiKey)?
@@ -329,8 +341,8 @@ class _$updateEventImpl implements _updateEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? reset,
-    TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
+    TResult Function(List<OrderModel> orders,
+            PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
     TResult Function(OrderModel order, String apiKey, String getApiKey)?
@@ -383,11 +395,12 @@ class _$updateEventImpl implements _updateEvent {
 
 abstract class _updateEvent implements OrderEvent {
   const factory _updateEvent(
-      {required final List<OrderModel> orders,
-      required final PaginationHelper paginationHelper}) = _$updateEventImpl;
+          {required final List<OrderModel> orders,
+          required final PaginationHelper<dynamic> paginationHelper}) =
+      _$updateEventImpl;
 
   List<OrderModel> get orders;
-  PaginationHelper get paginationHelper;
+  PaginationHelper<dynamic> get paginationHelper;
   @JsonKey(ignore: true)
   _$$updateEventImplCopyWith<_$updateEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -460,7 +473,7 @@ class _$getRequestEventImpl implements _getRequestEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() reset,
     required TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)
+            List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
     required TResult Function(OrderModel order, String apiKey, String getApiKey)
@@ -473,8 +486,8 @@ class _$getRequestEventImpl implements _getRequestEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? reset,
-    TResult? Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
+    TResult? Function(List<OrderModel> orders,
+            PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
     TResult? Function(OrderModel order, String apiKey, String getApiKey)?
@@ -487,8 +500,8 @@ class _$getRequestEventImpl implements _getRequestEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? reset,
-    TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
+    TResult Function(List<OrderModel> orders,
+            PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
     TResult Function(OrderModel order, String apiKey, String getApiKey)?
@@ -644,7 +657,7 @@ class _$putActionEventImpl implements _putActionEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() reset,
     required TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)
+            List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
     required TResult Function(OrderModel order, String apiKey, String getApiKey)
@@ -657,8 +670,8 @@ class _$putActionEventImpl implements _putActionEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? reset,
-    TResult? Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
+    TResult? Function(List<OrderModel> orders,
+            PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
     TResult? Function(OrderModel order, String apiKey, String getApiKey)?
@@ -671,8 +684,8 @@ class _$putActionEventImpl implements _putActionEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? reset,
-    TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
+    TResult Function(List<OrderModel> orders,
+            PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
     TResult Function(OrderModel order, String apiKey, String getApiKey)?
@@ -740,7 +753,8 @@ abstract class _putActionEvent implements OrderEvent {
 /// @nodoc
 mixin _$OrderState {
   List<OrderModel> get orders => throw _privateConstructorUsedError;
-  PaginationHelper get paginationHelper => throw _privateConstructorUsedError;
+  PaginationHelper<dynamic> get paginationHelper =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OrderStateCopyWith<OrderState> get copyWith =>
@@ -753,7 +767,10 @@ abstract class $OrderStateCopyWith<$Res> {
           OrderState value, $Res Function(OrderState) then) =
       _$OrderStateCopyWithImpl<$Res, OrderState>;
   @useResult
-  $Res call({List<OrderModel> orders, PaginationHelper paginationHelper});
+  $Res call(
+      {List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper});
+
+  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper;
 }
 
 /// @nodoc
@@ -780,8 +797,17 @@ class _$OrderStateCopyWithImpl<$Res, $Val extends OrderState>
       paginationHelper: null == paginationHelper
           ? _value.paginationHelper
           : paginationHelper // ignore: cast_nullable_to_non_nullable
-              as PaginationHelper,
+              as PaginationHelper<dynamic>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper {
+    return $PaginationHelperCopyWith<dynamic, $Res>(_value.paginationHelper,
+        (value) {
+      return _then(_value.copyWith(paginationHelper: value) as $Val);
+    });
   }
 }
 
@@ -793,7 +819,11 @@ abstract class _$$OrderStateImplCopyWith<$Res>
       __$$OrderStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<OrderModel> orders, PaginationHelper paginationHelper});
+  $Res call(
+      {List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper});
+
+  @override
+  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper;
 }
 
 /// @nodoc
@@ -818,7 +848,7 @@ class __$$OrderStateImplCopyWithImpl<$Res>
       paginationHelper: null == paginationHelper
           ? _value.paginationHelper
           : paginationHelper // ignore: cast_nullable_to_non_nullable
-              as PaginationHelper,
+              as PaginationHelper<dynamic>,
     ));
   }
 }
@@ -839,7 +869,7 @@ class _$OrderStateImpl implements _OrderState {
   }
 
   @override
-  final PaginationHelper paginationHelper;
+  final PaginationHelper<dynamic> paginationHelper;
 
   @override
   String toString() {
@@ -869,13 +899,14 @@ class _$OrderStateImpl implements _OrderState {
 
 abstract class _OrderState implements OrderState {
   const factory _OrderState(
-      {required final List<OrderModel> orders,
-      required final PaginationHelper paginationHelper}) = _$OrderStateImpl;
+          {required final List<OrderModel> orders,
+          required final PaginationHelper<dynamic> paginationHelper}) =
+      _$OrderStateImpl;
 
   @override
   List<OrderModel> get orders;
   @override
-  PaginationHelper get paginationHelper;
+  PaginationHelper<dynamic> get paginationHelper;
   @override
   @JsonKey(ignore: true)
   _$$OrderStateImplCopyWith<_$OrderStateImpl> get copyWith =>

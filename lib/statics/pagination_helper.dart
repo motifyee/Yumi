@@ -1,32 +1,28 @@
-class PaginationHelper {
-  int pageNumber;
-  int pageSize;
-  int lastPage;
-  bool isLoading;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  PaginationHelper(
-      {this.pageNumber = 0,
-      this.lastPage = 1,
-      this.pageSize = 20,
-      this.isLoading = false});
+part 'pagination_helper.freezed.dart';
+part 'pagination_helper.g.dart';
 
-  Map<String, dynamic> toJson({int pageNumberPlus = 1}) {
-    return {
-      'pageNumber': pageNumber + pageNumberPlus,
-      'pageSize': pageSize,
-    };
-  }
+@freezed
+class PaginationHelper<T> with _$PaginationHelper {
+  const factory PaginationHelper({
+    @Default(0) @JsonKey(toJson: _pageNumberToJson) int pageNumber,
+    @Default(1) int pageSize,
+    @Default(20) @JsonKey(includeFromJson: false) int lastPage,
+    @Default(false) @JsonKey(includeFromJson: false) bool isLoading,
+    @Default([])
+    @JsonKey(includeToJson: false, includeFromJson: false)
+    List<T> data,
+  }) = _PaginationHelper;
 
-  PaginationHelper copyWith({
-    int? pageNumber,
-    int? pageSize,
-    int? lastPage,
-    bool? isLoading,
-  }) {
-    return PaginationHelper(
-        pageNumber: pageNumber ?? this.pageNumber,
-        pageSize: pageSize ?? this.pageSize,
-        lastPage: lastPage ?? this.lastPage,
-        isLoading: isLoading ?? this.isLoading);
-  }
+  const PaginationHelper._();
+
+  bool get canRequest => pageNumber != lastPage && !isLoading;
+
+  factory PaginationHelper.fromJson(Map<String, dynamic> json) =>
+      _$PaginationHelperFromJson(json);
+}
+
+int _pageNumberToJson(int value) {
+  return value + 1;
 }
