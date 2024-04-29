@@ -17,6 +17,7 @@ import 'package:yumi/app/pages/auth/register/model/address.dart' as _i36;
 import 'package:yumi/app/pages/auth/register/otp_screen.dart' as _i22;
 import 'package:yumi/app/pages/auth/register/reg_screen.dart' as _i27;
 import 'package:yumi/app/pages/auth/register/signup_screen.dart' as _i28;
+import 'package:yumi/app/pages/basket/basket_screen.dart' as _i2;
 import 'package:yumi/app/pages/calories/calories_screen.dart' as _i3;
 import 'package:yumi/app/pages/chef_application/application_flow_screen.dart'
     as _i6;
@@ -30,7 +31,6 @@ import 'package:yumi/model/meal_model.dart' as _i34;
 import 'package:yumi/model/order_model/order_model.dart' as _i37;
 import 'package:yumi/screens/chat.dart' as _i4;
 import 'package:yumi/screens/chef/menu_pre.dart' as _i18;
-import 'package:yumi/screens/customer/basket.dart' as _i2;
 import 'package:yumi/screens/customer/checkout.dart' as _i5;
 import 'package:yumi/screens/customer/chef_profile.dart' as _i7;
 import 'package:yumi/screens/customer/customer_location.dart' as _i9;

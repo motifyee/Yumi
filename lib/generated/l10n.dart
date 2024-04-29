@@ -2191,6 +2191,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Order Deleted Successfully`
+  String get orderDeletedSuccessfully {
+    return Intl.message(
+      'Order Deleted Successfully',
+      name: 'orderDeletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

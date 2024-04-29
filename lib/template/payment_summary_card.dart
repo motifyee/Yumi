@@ -38,9 +38,9 @@ class PaymentSummaryCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     TextCurrency(
-                      value: state.invoice.invoice!.totalPrice! -
-                          state.invoice.invoice!.invoiceDiscount! +
-                          state.invoice.invoice!.invoiceTax!,
+                      value: state.basket.invoice!.totalPrice -
+                          state.basket.invoice!.invoiceDiscount +
+                          state.basket.invoice!.invoiceTax,
                       fontSize: ThemeSelector.fonts.font_12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -54,7 +54,7 @@ class PaymentSummaryCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     TextCurrency(
-                      value: state.invoice.invoice?.deliveryAreaPrice ?? 0.0,
+                      value: state.basket.invoice?.deliveryAreaPrice ?? 0.0,
                       fontSize: ThemeSelector.fonts.font_12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -68,7 +68,7 @@ class PaymentSummaryCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     TextCurrency(
-                      value: state.invoice.invoice?.finalPrice ?? 0.0,
+                      value: state.basket.invoice?.finalPrice ?? 0.0,
                       fontSize: ThemeSelector.fonts.font_14,
                       fontWeight: FontWeight.w700,
                     ),

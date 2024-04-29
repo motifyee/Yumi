@@ -4,9 +4,9 @@ part of 'basket_form_bloc.dart';
 abstract class BasketFormEvent {}
 
 class BasketFormUpdateEvent implements BasketFormEvent {
-  final InvoiceModel invoice;
+  final Basket basket;
   final bool isPickUpOnly;
-  BasketFormUpdateEvent({required this.invoice, required this.isPickUpOnly});
+  BasketFormUpdateEvent({required this.basket, required this.isPickUpOnly});
 }
 
 class BasketFormUpdateIsPickUpOnlyEvent implements BasketFormEvent {
@@ -47,12 +47,14 @@ class BasketFormRemoveMealEvent implements BasketFormEvent {
   BasketFormRemoveMealEvent({required this.invoiceDetails});
 }
 
+class BasketFormGetNotFinishedEvent implements BasketFormEvent {}
+
 class BasketFormCalcEvent implements BasketFormEvent {}
 
 class BasketFormResetEvent implements BasketFormEvent {
-  InvoiceModel? invoice;
+  Basket? basket;
 
-  BasketFormResetEvent({this.invoice});
+  BasketFormResetEvent({this.basket});
 }
 
 class BasketFormPostRequestEvent implements BasketFormEvent {

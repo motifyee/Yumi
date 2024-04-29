@@ -276,7 +276,7 @@ class CheckOutScreen extends StatelessWidget {
                                       if (state.isPickUpOnly) {
                                         context.read<BasketFormBloc>().add(
                                               BasketFormUpdateEvent(
-                                                invoice: state.invoice.copyWith(
+                                                basket: state.basket.copyWith(
                                                     isPickup: true,
                                                     isDelivery: false),
                                                 isPickUpOnly:
@@ -290,7 +290,12 @@ class CheckOutScreen extends StatelessWidget {
                                               isDone: true,
                                               invoiceTransaction:
                                                   InvoiceTransactionModel
-                                                      .initial(),
+                                                      .initial(
+                                                          treasuryAmountPaid:
+                                                              state
+                                                                  .basket
+                                                                  .invoice
+                                                                  .finalPrice),
                                             ));
                                       } else {
                                         showDialog(

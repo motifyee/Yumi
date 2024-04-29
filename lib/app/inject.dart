@@ -1,4 +1,8 @@
 import 'package:get_it/get_it.dart';
+import 'package:yumi/domain/basket/data/repo/basket_repo.dart';
+import 'package:yumi/domain/basket/data/repo/remote/basket_remote_repo.dart';
+import 'package:yumi/domain/basket/data/source/basket_source.dart';
+import 'package:yumi/domain/basket/data/source/remote/basket_remote_source.dart';
 import 'package:yumi/domain/calories/data/repo/calories_repo.dart';
 import 'package:yumi/domain/calories/data/repo/remote/calories_repo_remote.dart';
 import 'package:yumi/domain/calories/data/source/calories_source.dart';
@@ -38,6 +42,9 @@ Future<void> init() async {
   sl.registerFactory<CaloriesRepo>(
       () => CaloriesRepoRemote(caloriesSource: sl()));
   sl.registerFactory<CaloriesSource>(() => CaloriesSourceRemote());
+
+  sl.registerFactory<BasketRepo>(() => BasketRemoteRepo());
+  sl.registerFactory<BasketSource>(() => BasketRemoteSource());
 
   // instantianes a new instance of ProfileRepo first time it is called
   // saves the instance for future Use

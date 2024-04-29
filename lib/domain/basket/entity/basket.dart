@@ -1,0 +1,82 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/extensions/datetime_toIso8601string_converter.dart';
+import 'package:yumi/extensions/string_to_double_converter.dart';
+import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/statics/code_generator.dart';
+
+part 'basket.freezed.dart';
+part 'basket.g.dart';
+
+@freezed
+class Basket with _$Basket {
+  const factory Basket({
+    int? id,
+    required Invoice invoice,
+    required List<InvoiceDetails> invoiceDetails,
+    @Default(44) int? bankId,
+    int? shippedAddressId,
+    @Default(false) bool isSchedule,
+    @Default(true) @JsonKey(name: 'is_Pickup') bool isPickup,
+    @Default(false) bool isDelivery,
+    @Default(false) @JsonKey(name: 'is_Preorder') bool isPreorder,
+    @Default(1) int? status,
+  }) = _Basket;
+
+  factory Basket.fromJson(Map<String, dynamic> json) => _$BasketFromJson(json);
+}
+
+@freezed
+class Invoice with _$Invoice {
+  const factory Invoice({
+    int? createdBy,
+    @JsonKey(name: 'chef_ID') String? chefID,
+    @Default('') String clientNote,
+    @Default('') String preparationNotes,
+    @Default('') String employeeNote,
+    @Default(4.5) double deliveryCostPrice,
+    @Default(4.5) double deliveryAreaPrice,
+    @Default(0.0) double invoiceDiscount,
+    @Default(0.0) double invoiceTax,
+    @Default(0.0) double finalPrice,
+    @Default(0.0) double totalPrice,
+    @JsonKey(name: 'schedule_Date')
+    @DateTimeToIso8601StringConverter()
+    DateTime? scheduleDate,
+    String? invoiceCode,
+  }) = _Invoice;
+
+  factory Invoice.initial() {
+    return Invoice(
+        scheduleDate: DateTime.now(),
+        invoiceCode: CodeGenerator.getRandomCode());
+  }
+
+  factory Invoice.fromJson(Map<String, dynamic> json) =>
+      _$InvoiceFromJson(json);
+}
+
+@freezed
+class InvoiceDetails with _$InvoiceDetails {
+  const factory InvoiceDetails({
+    int? productVarintId,
+    @StringToDoubleAsIntStringConverter() String? quantity,
+    double? productVarintPrice,
+    @Default(1205) int? discountListId,
+    @Default('') String? note,
+    @JsonKey(includeFromJson: false, includeToJson: false) MealModel? meal,
+  }) = _InvoiceDetails;
+
+  factory InvoiceDetails.fromMeal({required MealModel meal}) {
+    return InvoiceDetails(
+      productVarintId: meal.productVariantID,
+      quantity: '1',
+      productVarintPrice: double.tryParse(meal.price1 ?? ''),
+      discountListId: 1205,
+      note: '',
+      meal: meal,
+    );
+  }
+
+  factory InvoiceDetails.fromJson(Map<String, dynamic> json) =>
+      _$InvoiceDetailsFromJson(json);
+}

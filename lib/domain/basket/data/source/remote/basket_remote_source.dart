@@ -1,43 +1,45 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:yumi/domain/basket/data/source/basket_source.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 
-class OrderService {
-  static Future<dynamic> createOrderOrPreOrderDelivery({
-    required BuildContext context,
-    required Basket invoice,
+class BasketRemoteSource implements BasketSource {
+  @override
+  Future<Basket> createOrderOrPreOrderDelivery({
+    required Basket basket,
     required bool isPreOrder,
   }) async {
-    var res = await DioClient.simpleDio(context).post(
+    var res = await DioClient.simpleDio().post(
         ApiKeys.getApiKeyString(
             apiKey:
                 isPreOrder ? ApiKeys.preOrderDelivery : ApiKeys.orderDelivery),
-        data: invoice.toJson());
-    return res;
+        data: basket.toJson());
+    return basket.copyWith(id: res.data['invoiceId']);
   }
 
-  static Future<dynamic> createOrderOrPreOrderPickUp({
-    required BuildContext context,
-    required Basket invoice,
+  @override
+  Future<Basket> createOrderOrPreOrderPickUp({
+    required Basket basket,
     required bool isPreOrder,
   }) async {
-    var res = await DioClient.simpleDio(context).post(
+    var res = await DioClient.simpleDio().post(
         ApiKeys.getApiKeyString(
             apiKey: isPreOrder ? ApiKeys.preOrderPickUp : ApiKeys.orderPickUp),
-        data: invoice.toJson());
-    return res;
+        data: basket.toJson());
+    return basket.copyWith(id: res.data['invoiceId']);
   }
 
-  static Future<Response> getOrderOrPreOrder(
+  @override
+  Future<Response> getOrderOrPreOrder(
       {required String apiKeys, Map<String, dynamic>? paginationHelper}) async {
     Response res = await DioClient.simpleDio()
         .get(apiKeys, queryParameters: {...?paginationHelper});
     return res;
   }
 
-  static Future<Response> getOrderOrPreOrderDriverById(
+  @override
+  Future<Response> getOrderOrPreOrderDriverById(
       {required String apiKeys,
       required String id,
       Map<String, dynamic>? paginationHelper}) async {
@@ -46,22 +48,25 @@ class OrderService {
     return res;
   }
 
-  static Future<Response> putActionOrderOrPreOrder(
+  @override
+  Future<Response> putActionOrderOrPreOrder(
       {required String apiKeys, Map<String, dynamic>? paginationHelper}) async {
     Response res = await DioClient.simpleDio().put(apiKeys,
         data: {'driver_ID': null}, queryParameters: {...?paginationHelper});
     return res;
   }
 
-  static Future<Response> getBaskets(
-      {Map<String, dynamic>? paginationHelper}) async {
+  @override
+  Future<Basket?> getBaskets({Map<String, dynamic>? paginationHelper}) async {
     Response res = await DioClient.simpleDio().get(ApiKeys.order,
         queryParameters: {...?paginationHelper}
           ..removeWhere((key, value) => value == null));
-    return res;
+    if (res.data['data'].isEmpty) return null;
+    return Basket.fromJson(res.data['data'][0]);
   }
 
-  static Future<Response> closeInvoice(
+  @override
+  Future<Response> closeBasket(
       {required Basket basket,
       required InvoiceTransactionModel invoiceTransaction,
       Map<String, dynamic>? paginationHelper}) async {
@@ -69,23 +74,27 @@ class OrderService {
         data: invoiceTransaction.toJson(),
         queryParameters: {...?paginationHelper, 'orderId': basket.id}
           ..removeWhere((key, value) => value == null));
+
     return res;
   }
 
-  static Future<Response> updateInvoice({required Basket basket}) async {
+  @override
+  Future<Basket> updateBasket({required Basket basket}) async {
     Response res = await DioClient.simpleDio().put(
       ApiKeys.order,
       data: basket.toJson(),
       queryParameters: {'orderId': basket.id},
     );
-    return res;
+    return basket;
   }
 
-  static Future<Response> deleteInvoice(
-      {required Basket invoice, Map<String, dynamic>? paginationHelper}) async {
-    Response res = await DioClient.simpleDio().delete(ApiKeys.order,
-        queryParameters: {...?paginationHelper, 'orderId': invoice.id}
-          ..removeWhere((key, value) => value == null));
+  @override
+  Future<Response> deleteBasket({required Basket basket}) async {
+    Response res = await DioClient.simpleDio().delete(
+      ApiKeys.order,
+      queryParameters: {'orderId': basket.id},
+    );
+
     return res;
   }
 }

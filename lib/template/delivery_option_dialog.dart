@@ -41,7 +41,7 @@ class DeliveryOptionDialog extends StatelessWidget {
             BlocConsumer<BasketFormBloc, BasketFormState>(
               listener: (context, state) {},
               builder: (context, state) {
-                bool? _option = state.invoice.isDelivery;
+                bool? _option = state.basket.isDelivery;
                 return Row(
                   children: [
                     Expanded(
@@ -49,7 +49,7 @@ class DeliveryOptionDialog extends StatelessWidget {
                         onTap: () {
                           context.read<BasketFormBloc>().add(
                                 BasketFormUpdateEvent(
-                                    invoice: state.invoice.copyWith(
+                                    basket: state.basket.copyWith(
                                         isPickup: true, isDelivery: false),
                                     isPickUpOnly: false),
                               );
@@ -92,7 +92,7 @@ class DeliveryOptionDialog extends StatelessWidget {
                           context
                               .read<BasketFormBloc>()
                               .add(BasketFormUpdateEvent(
-                                invoice: state.invoice.copyWith(
+                                basket: state.basket.copyWith(
                                     isPickup: false, isDelivery: true),
                                 isPickUpOnly: false,
                               ));
@@ -156,7 +156,13 @@ class DeliveryOptionDialog extends StatelessWidget {
                               context: context,
                               isDone: true,
                               invoiceTransaction:
-                                  InvoiceTransactionModel.initial()));
+                                  InvoiceTransactionModel.initial(
+                                      treasuryAmountPaid: context
+                                          .read<BasketFormBloc>()
+                                          .state
+                                          .basket
+                                          .invoice
+                                          .finalPrice)));
                     },
                     child: Text(
                       S.of(context).placeOrder,

@@ -13,13 +13,13 @@ class InvoiceTransactionModel with _$InvoiceTransactionModel {
     int? transactionType,
   }) = _InvoiceTransactionModel;
 
-  factory InvoiceTransactionModel.initial() {
-    return const InvoiceTransactionModel(
+  factory InvoiceTransactionModel.initial({double? treasuryAmountPaid}) {
+    return InvoiceTransactionModel(
         status: 2,
         paymentType: 1,
         transactionType: 36,
         treasuryId: 47,
-        treasuryAmountPaid: 0);
+        treasuryAmountPaid: treasuryAmountPaid ?? 0);
   }
 
   factory InvoiceTransactionModel.fromJson(Map<String, dynamic> json) =>

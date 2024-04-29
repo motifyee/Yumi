@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/invoice_model.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -108,9 +108,9 @@ class CustomerPreOrderForm extends StatelessWidget {
                               ),
                             );
                           },
-                          initialValue: state.invoice.invoice?.scheduleDate !=
+                          initialValue: state.basket.invoice?.scheduleDate !=
                                   null
-                              ? '${state.invoice.invoice!.scheduleDate!.day}/${state.invoice.invoice!.scheduleDate!.month}/${state.invoice.invoice!.scheduleDate!.year}'
+                              ? '${state.basket.invoice!.scheduleDate!.day}/${state.basket.invoice!.scheduleDate!.month}/${state.basket.invoice!.scheduleDate!.year}'
                               : '',
                           readOnly: true,
                           hintText: S.of(context).deliveryDay,
@@ -138,9 +138,9 @@ class CustomerPreOrderForm extends StatelessWidget {
                           textInputType: TextInputType.number,
                           borderStyle: TextFormFieldBorderStyle.borderedRound,
                           validators: requiredValidator,
-                          initialValue: state.invoice.invoice?.scheduleDate !=
+                          initialValue: state.basket.invoice?.scheduleDate !=
                                   null
-                              ? '${state.invoice.invoice!.scheduleDate!.hour}:${state.invoice.invoice!.scheduleDate!.minute}'
+                              ? '${state.basket.invoice!.scheduleDate!.hour}:${state.basket.invoice!.scheduleDate!.minute}'
                               : '',
                           onSave: (value) {
                             context.read<BasketFormBloc>().add(
@@ -234,19 +234,19 @@ class CustomerPreOrderForm extends StatelessWidget {
                             }
                             context.read<BasketFormBloc>().add(
                                   BasketFormUpdateEvent(
-                                    invoice: context
+                                    basket: context
                                         .read<BasketFormBloc>()
                                         .state
-                                        .invoice
+                                        .basket
                                         .copyWith(
                                           isPreorder: true,
                                           isSchedule: true,
                                           invoice: context
                                               .read<BasketFormBloc>()
                                               .state
+                                              .basket
                                               .invoice
-                                              .invoice
-                                              ?.copyWith(
+                                              .copyWith(
                                                 chefID: chefId,
                                               ),
                                         ),

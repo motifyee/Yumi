@@ -7,8 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/invoice_model.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/chef_meal_basket_card.dart';
@@ -153,7 +153,7 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                                         isDisabled: context
                                                 .read<BasketFormBloc>()
                                                 .state
-                                                .invoice
+                                                .basket
                                                 .invoiceDetails!
                                                 .firstWhereOrNull((e) =>
                                                     e.productVarintId ==

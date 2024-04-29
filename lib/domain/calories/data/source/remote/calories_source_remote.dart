@@ -17,7 +17,7 @@ class CaloriesSourceRemote implements CaloriesSource {
         .toList();
 
     return paginationHelper.copyWith(
-      data: [...?paginationHelper.data, ...calories].unique((e) => e.id),
+      data: [...paginationHelper.data, ...calories].unique((e) => e.id),
       isLoading: false,
       pageNumber: res.data['pagination']['page'],
       lastPage: res.data['pagination']['pages'],

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/basket/basket_form_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -19,10 +20,10 @@ class BasketScreen extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       builder: (context) => ChefMealsScreen(
-        menuTarget: state.invoice.isPreorder == true
+        menuTarget: state.basket.isPreorder == true
             ? MenuTarget.preOrder
             : MenuTarget.order,
-        chefId: state.invoice.invoice?.chefID ?? '',
+        chefId: state.basket.invoice.chefID ?? '',
         isPickUpOnly: state.isPickUpOnly,
       ),
       scrollControlDisabledMaxHeightRatio: .9,
@@ -45,7 +46,7 @@ class BasketScreen extends StatelessWidget {
                   onPressed: () {
                     context
                         .read<BasketFormBloc>()
-                        .add(BasketFormResetEvent(invoice: state.invoice));
+                        .add(BasketFormResetEvent(basket: state.basket));
                     context.router.replaceAll([HomeRoute()]);
                   },
                   child: Icon(
@@ -62,7 +63,7 @@ class BasketScreen extends StatelessWidget {
                       ),
                 ),
                 Text(
-                  '356-565 main St. New York NY 23212',
+                  context.read<UserBloc>().state.address?.addressTitle ?? '',
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],
@@ -79,10 +80,10 @@ class BasketScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       for (var i = 0;
-                          i < (state.invoice.invoiceDetails ?? []).length;
+                          i < (state.basket.invoiceDetails ?? []).length;
                           i++)
                         BasketMealCard(
-                          invoiceDetails: state.invoice.invoiceDetails![i],
+                          invoiceDetails: state.basket.invoiceDetails[i],
                           indexInList: i,
                         ),
                       Expanded(child: Container()),
@@ -124,7 +125,7 @@ class BasketScreen extends StatelessWidget {
                             tag: 'ConfirmBasketSeries',
                             child: GestureDetector(
                               onTap: () {
-                                if (state.invoice.invoiceDetails!.isEmpty)
+                                if (state.basket.invoiceDetails!.isEmpty)
                                   return;
                                 context.router.push(CheckOutRoute());
                               },

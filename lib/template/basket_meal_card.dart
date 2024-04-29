@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/basket/basket_form_bloc.dart';
+import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/invoice_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -155,7 +155,7 @@ class BasketMealCard extends StatelessWidget {
                           ThemeSelector.statics.defaultBorderRadius),
                     ),
                     child: Image.memory(
-                      base64Decode(invoiceDetails.meal!.photo ?? ''),
+                      base64Decode(invoiceDetails.meal?.photo ?? ''),
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => Image.asset(
                         'assets/images/354.jpeg',

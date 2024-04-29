@@ -171,6 +171,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderAgain": MessageLookupByLibrary.simpleMessage("Order Again"),
         "orderCreatedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Order created successfully"),
+        "orderDeletedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Order Deleted Successfully"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("Order Details"),
         "orderId": MessageLookupByLibrary.simpleMessage("Order Id"),
         "orderReceived": MessageLookupByLibrary.simpleMessage("Order received"),
