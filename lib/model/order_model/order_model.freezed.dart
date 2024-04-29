@@ -517,7 +517,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OrderModelImpl implements _OrderModel {
+class _$OrderModelImpl extends _OrderModel {
   const _$OrderModelImpl(
       {this.id,
       @JsonKey(name: 'chef_ID') this.chefID,
@@ -551,7 +551,8 @@ class _$OrderModelImpl implements _OrderModel {
       @JsonKey(name: 'client_Received_Date') this.clientReceivedDate,
       @JsonKey(name: 'is_Pickup') this.isPickUp,
       final List<InvoiceDetails>? invoiceDetails = const []})
-      : _invoiceDetails = invoiceDetails;
+      : _invoiceDetails = invoiceDetails,
+        super._();
 
   factory _$OrderModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$OrderModelImplFromJson(json);
@@ -769,7 +770,7 @@ class _$OrderModelImpl implements _OrderModel {
   }
 }
 
-abstract class _OrderModel implements OrderModel {
+abstract class _OrderModel extends OrderModel {
   const factory _OrderModel(
       {final int? id,
       @JsonKey(name: 'chef_ID') final String? chefID,
@@ -803,6 +804,7 @@ abstract class _OrderModel implements OrderModel {
       @JsonKey(name: 'client_Received_Date') final String? clientReceivedDate,
       @JsonKey(name: 'is_Pickup') final bool? isPickUp,
       final List<InvoiceDetails>? invoiceDetails}) = _$OrderModelImpl;
+  const _OrderModel._() : super._();
 
   factory _OrderModel.fromJson(Map<String, dynamic> json) =
       _$OrderModelImpl.fromJson;

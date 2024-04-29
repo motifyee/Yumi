@@ -213,5 +213,8 @@
   "reviewTheChef": "Review the chef",
   "thankYouForYourReview": "Thank you for your review.",
   "confirmPickUp": "confirm Pick Up",
-  "orderDeletedSuccessfully": "Order Deleted Successfully"
+  "orderDeletedSuccessfully": "Order Deleted Successfully",
+  "wait": "Wait",
+  "thankYouForWaiting": "Thank you for waiting",
+  "orderCanceled": "Order Canceled"
 }

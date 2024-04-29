@@ -2201,6 +2201,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Wait`
+  String get wait {
+    return Intl.message(
+      'Wait',
+      name: 'wait',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thank you for waiting`
+  String get thankYouForWaiting {
+    return Intl.message(
+      'Thank you for waiting',
+      name: 'thankYouForWaiting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Canceled`
+  String get orderCanceled {
+    return Intl.message(
+      'Order Canceled',
+      name: 'orderCanceled',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

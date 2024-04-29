@@ -552,6 +552,50 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
+                    if (widget.orderCardTargetPage ==
+                            OrderCardTargetPage.customerHistory &&
+                        widget.order.isChefDelayed)
+                      TextButton(
+                        onPressed: () {
+                          OrderService.putActionOrderOrPreOrder(
+                              apiKeys: ApiKeys.waitOrder,
+                              paginationHelper: {
+                                'orderId': widget.order.id
+                              }).then((value) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: SnackBarMassage(
+                                massage: S.of(context).thankYouForWaiting,
+                              ),
+                            ));
+                          });
+                        },
+                        child: Text(
+                          S.of(context).wait,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ),
+                    if (widget.orderCardTargetPage ==
+                            OrderCardTargetPage.customerHistory &&
+                        widget.order.isChefDelayed)
+                      TextButton(
+                        onPressed: () {
+                          OrderService.putActionOrderOrPreOrder(
+                              apiKeys: ApiKeys.cancelOrder,
+                              paginationHelper: {
+                                'orderId': widget.order.id
+                              }).then((value) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: SnackBarMassage(
+                                massage: S.of(context).orderCanceled,
+                              ),
+                            ));
+                          });
+                        },
+                        child: Text(
+                          S.of(context).cancel,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ),
                     if ((widget.order.invoiceDetails?.length ?? 0) > 1 &&
                         AppTarget.user != AppTargetUser.drivers)
                       TextButton(

@@ -40,6 +40,16 @@ class OrderModel with _$OrderModel {
     @Default([]) List<InvoiceDetails>? invoiceDetails,
   }) = _OrderModel;
 
+  const OrderModel._();
+
+  bool get isChefDelayed =>
+      DateTime.now()
+              .difference(
+                  DateTime.tryParse(chefStartDate ?? '') ?? DateTime.now())
+              .inMinutes >
+          45 &&
+      chefFinished != true;
+
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
 }

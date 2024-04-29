@@ -169,6 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "opened": MessageLookupByLibrary.simpleMessage("Opened"),
         "orSignUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
         "orderAgain": MessageLookupByLibrary.simpleMessage("Order Again"),
+        "orderCanceled": MessageLookupByLibrary.simpleMessage("Order Canceled"),
         "orderCreatedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Order created successfully"),
         "orderDeletedSuccessfully":
@@ -259,6 +260,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
         "suggestions": MessageLookupByLibrary.simpleMessage("Suggestions"),
         "swiftCode": MessageLookupByLibrary.simpleMessage("Swift code"),
+        "thankYouForWaiting":
+            MessageLookupByLibrary.simpleMessage("Thank you for waiting"),
         "thankYouForYourReview":
             MessageLookupByLibrary.simpleMessage("Thank you for your review."),
         "theChef": MessageLookupByLibrary.simpleMessage("The chef"),
@@ -288,6 +291,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "userName": MessageLookupByLibrary.simpleMessage("User name"),
         "view": MessageLookupByLibrary.simpleMessage("View"),
         "vouchers": MessageLookupByLibrary.simpleMessage("Vouchers"),
+        "wait": MessageLookupByLibrary.simpleMessage("Wait"),
         "wallet": MessageLookupByLibrary.simpleMessage("Wallet"),
         "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
         "whatYouWishToEatToday":
