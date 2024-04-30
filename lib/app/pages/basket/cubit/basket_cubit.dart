@@ -14,6 +14,7 @@ import 'package:yumi/domain/basket/use_case/get_basket.dart';
 import 'package:yumi/domain/basket/use_case/remove_meal_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_meal_basket.dart';
+import 'package:yumi/domain/basket/use_case/update_schedule_basket.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -28,6 +29,13 @@ class BasketCubit extends Cubit<BasketState> {
 
   pickUpOnly({bool isPickUpOnly = true}) {
     emit(state.copyWith(isPickUpOnly: isPickUpOnly));
+  }
+
+  updateSchedule({DateTime? date, String? time}) async {
+    final Either<Failure, Basket> task = await UpdateScheduleInBasket().call(
+        UpdateScheduleInBasketParams(
+            date: date, time: time, basket: state.basket));
+    task.fold((l) => null, (r) => emit(state.copyWith(basket: r)));
   }
 
   addMeal({required MealModel meal}) async {
