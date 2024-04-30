@@ -363,8 +363,42 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+
+                    // chef close order pickup
                     if (widget.orderCardTargetPage ==
-                        OrderCardTargetPage.chefReady)
+                            OrderCardTargetPage.chefReady &&
+                        widget.order.isPickUp == true)
+                      TextButton(
+                        onPressed: () {
+                          String _apiKey = widget.menuTarget == MenuTarget.order
+                              ? ApiKeys.orderChefPickUpDelivered
+                              : ApiKeys.preOrderChefPickUpDelivered;
+
+                          context.read<OrderBloc>().add(
+                                OrderEvent.putAction(
+                                  order: widget.order,
+                                  apiKey: ApiKeys.actionApiKeyString(
+                                      apiKey: _apiKey,
+                                      id: '${widget.order.id}'),
+                                  getApiKey: widget.getApiKey,
+                                ),
+                              );
+                        },
+                        child: Text(
+                          S.of(context).clientReceived,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ),
+
+                    // chef finish order
+                    if (widget.orderCardTargetPage ==
+                        OrderCardTargetPage.chefPreparing)
                       TextButton(
                         onPressed: () {
                           String _apiKey = '';
@@ -393,8 +427,9 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
+                    // chef start order
                     if (widget.orderCardTargetPage ==
-                        OrderCardTargetPage.chefPreparing)
+                        OrderCardTargetPage.chefReceived)
                       TextButton(
                         onPressed: widget.order.isPickUp != true &&
                                 widget.order.driverAccept != true
@@ -449,8 +484,9 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           ],
                         ),
                       ),
+                    // chef accept preorder
                     if (widget.orderCardTargetPage ==
-                            OrderCardTargetPage.chefReceived &&
+                            OrderCardTargetPage.chefPending &&
                         widget.menuTarget == MenuTarget.preOrder)
                       TextButton(
                         onPressed: () {
@@ -473,6 +509,16 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
+
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+
                     if (widget.orderCardTargetPage ==
                         OrderCardTargetPage.driverReceived)
                       TextButton(

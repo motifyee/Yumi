@@ -65,8 +65,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   _putAction(
       {required _putActionEvent event,
       required Emitter<OrderState> emit}) async {
-    Response res =
-        await OrderService.putActionOrderOrPreOrder(apiKeys: event.apiKey);
+    Response res = await OrderService.putActionOrderOrPreOrder(
+        apiKeys: event.apiKey, orderId: event.order.id);
 
     if (res.statusCode == 200) {
       add(const OrderEvent.reset());

@@ -64,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chefs": MessageLookupByLibrary.simpleMessage("Chefs"),
         "clickTheIconToViewCustomerNotes": MessageLookupByLibrary.simpleMessage(
             "Click the icon to view customer notes"),
+        "clientReceived":
+            MessageLookupByLibrary.simpleMessage("Client Received"),
         "closed": MessageLookupByLibrary.simpleMessage("Closed"),
         "confirmDelivery":
             MessageLookupByLibrary.simpleMessage("Confirm Delivery"),

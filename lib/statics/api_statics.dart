@@ -118,6 +118,7 @@ class ApiKeys {
   static String orderChefReady = '/order/chef/ready';
   static String orderChefClosed = '/order/chef/closed';
   static String preOrderChefReceived = '/preorder/chef/received';
+  static String preOrderChefAccepted = '/preorder/chef/accepted';
   static String preOrderChefPreparing = '/preorder/chef/preparing';
   static String preOrderChefReady = '/preorder/chef/ready';
   static String preOrderChefClosed = '/preorder/chef/closed';
@@ -133,6 +134,7 @@ class ApiKeys {
   static String orderChefDeliveryFinished = '/order/_/chef/finished';
   static String orderChefPickUpStart = '/order/_/chef/pickup/start';
   static String orderChefPickUpFinished = '/order/_/chef/pickup/finished';
+  static String orderChefPickUpDelivered = '/order/pickup/chef/delivered';
 
   static String preOrderChefDeliveryAccept = '/preorder/_/chef/accept';
   static String preOrderChefDeliveryStart = '/preorder/_/chef/start';
@@ -140,6 +142,7 @@ class ApiKeys {
   static String preOrderChefPickUpAccept = '/preorder/_/chef/pickup/accept';
   static String preOrderChefPickUpStart = '/preorder/_/chef/pickup/start';
   static String preOrderChefPickUpFinished = '/preorder/_/chef/pickup/finished';
+  static String preOrderChefPickUpDelivered = '/preorder/pickup/chef/delivered';
 
   static String waitOrder = '/order/wait';
   static String cancelOrder = '/order/cancel';

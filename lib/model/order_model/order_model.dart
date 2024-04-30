@@ -100,9 +100,12 @@ enum OrderCardTargetPage {
   driverAccept,
   driverReceived,
   driverHistory,
+
+  chefPending,
   chefReceived,
   chefPreparing,
   chefReady,
   chefHistory,
+
   view
 }

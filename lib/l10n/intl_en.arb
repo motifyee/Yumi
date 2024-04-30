@@ -216,5 +216,6 @@
   "orderDeletedSuccessfully": "Order Deleted Successfully",
   "wait": "Wait",
   "thankYouForWaiting": "Thank you for waiting",
-  "orderCanceled": "Order Canceled"
+  "orderCanceled": "Order Canceled",
+  "clientReceived": "Client Received"
 }

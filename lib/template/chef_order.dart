@@ -26,17 +26,18 @@ class ChefOrder extends StatelessWidget {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ActionButton(
-                  key: key,
-                  label: S.of(context).pending,
-                  isActive: state.selectedList == 0,
-                  onPressed: () {
-                    context
-                        .read<NewsBloc>()
-                        .add(const NewsEvent(selectedList: 0));
-                    controller.jumpToPage(0);
-                  },
-                ),
+                if (menuTarget == MenuTarget.preOrder)
+                  ActionButton(
+                    key: key,
+                    label: S.of(context).pending,
+                    isActive: state.selectedList == 0,
+                    onPressed: () {
+                      context
+                          .read<NewsBloc>()
+                          .add(const NewsEvent(selectedList: 0));
+                      controller.jumpToPage(0);
+                    },
+                  ),
                 ActionButton(
                   key: key,
                   label: S.of(context).received,
@@ -99,25 +100,19 @@ class ChefOrder extends StatelessWidget {
                 create: (context) => OrderBloc(),
                 child: NewsOrders(
                   menuTarget: menuTarget,
-                  apiKey: menuTarget == MenuTarget.order
-                      ? ApiKeys.orderChefReceived
-                      : ApiKeys.preOrderChefReceived,
-                  orderCardTargetPage: OrderCardTargetPage.chefReceived,
+                  apiKey: ApiKeys.preOrderChefReceived,
+                  orderCardTargetPage: OrderCardTargetPage.chefPending,
                 ),
               ),
               BlocProvider(
                 create: (context) => OrderBloc(),
-                child: true
-                    ? Center(
-                        child: Text('Need request....'),
-                      )
-                    : NewsOrders(
-                        menuTarget: menuTarget,
-                        apiKey: menuTarget == MenuTarget.order
-                            ? ApiKeys.orderChefReceived
-                            : ApiKeys.preOrderChefReceived,
-                        orderCardTargetPage: OrderCardTargetPage.chefReceived,
-                      ),
+                child: NewsOrders(
+                  menuTarget: menuTarget,
+                  apiKey: menuTarget == MenuTarget.order
+                      ? ApiKeys.orderChefReceived
+                      : ApiKeys.preOrderChefAccepted,
+                  orderCardTargetPage: OrderCardTargetPage.chefReceived,
+                ),
               ),
               BlocProvider(
                 create: (context) => OrderBloc(),
