@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/basket/basket_form_bloc.dart';
+import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -24,7 +23,7 @@ class CustomerPreOrderForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<BasketFormBloc, BasketFormState>(
+    return BlocConsumer<BasketCubit, BasketState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Container(
@@ -96,11 +95,10 @@ class CustomerPreOrderForm extends StatelessWidget {
                                 surfaceTintColor: Colors.transparent,
                                 child: Calendar(
                                   onValueChanged: (value) {
-                                    if (value.length > 0) {
-                                      context.read<BasketFormBloc>().add(
-                                            BasketFormUpdateScheduleEvent(
-                                                date: value[0]),
-                                          );
+                                    if (value.isNotEmpty) {
+                                      context
+                                          .read<BasketCubit>()
+                                          .updateSchedule(date: value[0]);
                                       context.router.popForced();
                                     }
                                   },
@@ -108,9 +106,9 @@ class CustomerPreOrderForm extends StatelessWidget {
                               ),
                             );
                           },
-                          initialValue: state.basket.invoice?.scheduleDate !=
+                          initialValue: state.basket.invoice.scheduleDate !=
                                   null
-                              ? '${state.basket.invoice!.scheduleDate!.day}/${state.basket.invoice!.scheduleDate!.month}/${state.basket.invoice!.scheduleDate!.year}'
+                              ? '${state.basket.invoice.scheduleDate!.day}/${state.basket.invoice.scheduleDate!.month}/${state.basket.invoice.scheduleDate!.year}'
                               : '',
                           readOnly: true,
                           hintText: S.of(context).deliveryDay,
@@ -138,14 +136,14 @@ class CustomerPreOrderForm extends StatelessWidget {
                           textInputType: TextInputType.number,
                           borderStyle: TextFormFieldBorderStyle.borderedRound,
                           validators: requiredValidator,
-                          initialValue: state.basket.invoice?.scheduleDate !=
+                          initialValue: state.basket.invoice.scheduleDate !=
                                   null
-                              ? '${state.basket.invoice!.scheduleDate!.hour}:${state.basket.invoice!.scheduleDate!.minute}'
+                              ? '${state.basket.invoice.scheduleDate!.hour}:${state.basket.invoice.scheduleDate!.minute}'
                               : '',
                           onSave: (value) {
-                            context.read<BasketFormBloc>().add(
-                                  BasketFormUpdateScheduleEvent(time: value),
-                                );
+                            context
+                                .read<BasketCubit>()
+                                .updateSchedule(time: value);
                           },
                           onTap: () async {
                             final picked = await showTimePicker(
@@ -176,12 +174,10 @@ class CustomerPreOrderForm extends StatelessWidget {
                                 );
                               },
                             );
-                            context.read<BasketFormBloc>().add(
-                                  BasketFormUpdateScheduleEvent(
-                                      time: picked?.hour != null
-                                          ? '${picked?.hour}:${picked?.minute}'
-                                          : null),
-                                );
+                            context.read<BasketCubit>().updateSchedule(
+                                time: picked?.hour != null
+                                    ? '${picked?.hour}:${picked?.minute}'
+                                    : null);
                           },
                           readOnly: true,
                         ),
@@ -218,44 +214,18 @@ class CustomerPreOrderForm extends StatelessWidget {
                           if (preOrderForm.currentState!.validate()) {
                             preOrderForm.currentState!.save();
                             context.router.popForced();
+
                             if (meal != null) {
-                              context.read<BasketFormBloc>().add(
-                                    BasketFormAddMealEvent(
-                                        invoiceDetails: InvoiceDetails(
-                                          productVarintPrice:
-                                              double.parse(meal?.price1 ?? "0"),
-                                          quantity: "1",
-                                          productVarintId:
-                                              meal?.productVariantID,
-                                          meal: meal,
-                                        ),
-                                        isPickUpOnly: isPickUpOnly),
-                                  );
+                              context.read<BasketCubit>().addMeal(meal: meal!);
                             }
-                            context.read<BasketFormBloc>().add(
-                                  BasketFormUpdateEvent(
-                                    basket: context
-                                        .read<BasketFormBloc>()
-                                        .state
-                                        .basket
-                                        .copyWith(
-                                          isPreorder: true,
-                                          isSchedule: true,
-                                          invoice: context
-                                              .read<BasketFormBloc>()
-                                              .state
-                                              .basket
-                                              .invoice
-                                              .copyWith(
-                                                chefID: chefId,
-                                              ),
-                                        ),
-                                    isPickUpOnly: context
-                                        .read<BasketFormBloc>()
-                                        .state
-                                        .isPickUpOnly,
-                                  ),
-                                );
+                            context.read<BasketCubit>().updateBasket(
+                                    basket: state.basket.copyWith(
+                                  isPreorder: true,
+                                  isSchedule: true,
+                                  isPickupOnly: isPickUpOnly,
+                                  invoice: state.basket.invoice
+                                      .copyWith(chefID: chefId),
+                                ));
                             context.router.replaceAll([BasketRoute()]);
                           }
                         },

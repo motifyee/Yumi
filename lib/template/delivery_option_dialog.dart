@@ -1,10 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/basket/basket_form_bloc.dart';
+import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class DeliveryOptionDialog extends StatelessWidget {
@@ -38,7 +37,7 @@ class DeliveryOptionDialog extends StatelessWidget {
                 ),
               ],
             ),
-            BlocConsumer<BasketFormBloc, BasketFormState>(
+            BlocConsumer<BasketCubit, BasketState>(
               listener: (context, state) {},
               builder: (context, state) {
                 bool? _option = state.basket.isDelivery;
@@ -47,12 +46,11 @@ class DeliveryOptionDialog extends StatelessWidget {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          context.read<BasketFormBloc>().add(
-                                BasketFormUpdateEvent(
-                                    basket: state.basket.copyWith(
-                                        isPickup: true, isDelivery: false),
-                                    isPickUpOnly: false),
-                              );
+                          context.read<BasketCubit>().updateBasket(
+                              basket: state.basket.copyWith(
+                                  isPickup: true,
+                                  isDelivery: false,
+                                  isPickupOnly: false));
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -89,13 +87,11 @@ class DeliveryOptionDialog extends StatelessWidget {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          context
-                              .read<BasketFormBloc>()
-                              .add(BasketFormUpdateEvent(
-                                basket: state.basket.copyWith(
-                                    isPickup: false, isDelivery: true),
-                                isPickUpOnly: false,
-                              ));
+                          context.read<BasketCubit>().updateBasket(
+                              basket: state.basket.copyWith(
+                                  isPickup: false,
+                                  isDelivery: true,
+                                  isPickupOnly: false));
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -151,18 +147,7 @@ class DeliveryOptionDialog extends StatelessWidget {
                 SizedBox(width: ThemeSelector.statics.defaultLineGap),
                 TextButton(
                     onPressed: () {
-                      context.read<BasketFormBloc>().add(
-                          BasketFormPostRequestEvent(
-                              context: context,
-                              isDone: true,
-                              invoiceTransaction:
-                                  InvoiceTransactionModel.initial(
-                                      treasuryAmountPaid: context
-                                          .read<BasketFormBloc>()
-                                          .state
-                                          .basket
-                                          .invoice
-                                          .finalPrice)));
+                      context.read<BasketCubit>().closeBasket();
                     },
                     child: Text(
                       S.of(context).placeOrder,

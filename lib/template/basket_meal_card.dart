@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/basket/basket_form_bloc.dart';
+import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -70,20 +70,15 @@ class BasketMealCard extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   if (invoiceDetails.quantity == "1") {
-                                    context
-                                        .read<BasketFormBloc>()
-                                        .add(BasketFormRemoveMealEvent(
-                                          invoiceDetails: invoiceDetails,
-                                        ));
+                                    context.read<BasketCubit>().removeMeal(
+                                        invoiceDetails: invoiceDetails);
                                   } else {
-                                    context
-                                        .read<BasketFormBloc>()
-                                        .add(BasketFormUpdateMealEvent(
-                                          invoiceDetails: invoiceDetails,
-                                          indexInList: indexInList,
-                                          newQuantity:
-                                              '${int.parse(invoiceDetails.quantity!) - 1}',
-                                        ));
+                                    context.read<BasketCubit>().updateMeal(
+                                        invoiceDetails: invoiceDetails,
+                                        indexInList: indexInList,
+                                        newQuantity:
+                                            '${int.parse(invoiceDetails.quantity!) - 1}',
+                                        note: invoiceDetails.note);
                                   }
                                 },
                                 child: Text(
@@ -107,13 +102,11 @@ class BasketMealCard extends StatelessWidget {
                                       RegExp(r'^[1-9][0-9]*'))
                                 ],
                                 onChange: (value) {
-                                  context
-                                      .read<BasketFormBloc>()
-                                      .add(BasketFormUpdateMealEvent(
-                                        invoiceDetails: invoiceDetails,
-                                        indexInList: indexInList,
-                                        newQuantity: value,
-                                      ));
+                                  context.read<BasketCubit>().updateMeal(
+                                      invoiceDetails: invoiceDetails,
+                                      indexInList: indexInList,
+                                      newQuantity: value,
+                                      note: invoiceDetails.note);
                                 },
                               ),
                             ),
@@ -125,14 +118,12 @@ class BasketMealCard extends StatelessWidget {
                                       MaterialTapTargetSize.shrinkWrap,
                                 ),
                                 onPressed: () {
-                                  context
-                                      .read<BasketFormBloc>()
-                                      .add(BasketFormUpdateMealEvent(
-                                        invoiceDetails: invoiceDetails,
-                                        indexInList: indexInList,
-                                        newQuantity:
-                                            '${int.parse(invoiceDetails.quantity!) + 1}',
-                                      ));
+                                  context.read<BasketCubit>().updateMeal(
+                                      invoiceDetails: invoiceDetails,
+                                      indexInList: indexInList,
+                                      newQuantity:
+                                          '${int.parse(invoiceDetails.quantity!) + 1}',
+                                      note: invoiceDetails.note);
                                 },
                                 child: Text(
                                   '+',
@@ -176,12 +167,11 @@ class BasketMealCard extends StatelessWidget {
                 hintText: S.of(context).anythingElseWeNeedToKnow,
                 label: S.of(context).addANote,
                 onChange: (value) {
-                  context.read<BasketFormBloc>().add(BasketFormUpdateMealEvent(
-                        invoiceDetails: invoiceDetails,
-                        indexInList: indexInList,
-                        newQuantity: invoiceDetails.quantity!,
-                        note: value,
-                      ));
+                  context.read<BasketCubit>().updateMeal(
+                      invoiceDetails: invoiceDetails,
+                      indexInList: indexInList,
+                      newQuantity: invoiceDetails.quantity,
+                      note: value);
                 },
               ),
             ],

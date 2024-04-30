@@ -88,9 +88,8 @@ Json? _$JsonConverterToJson<Json, Value>(
 _$InvoiceDetailsImpl _$$InvoiceDetailsImplFromJson(Map<String, dynamic> json) =>
     _$InvoiceDetailsImpl(
       productVarintId: json['productVarintId'] as int?,
-      quantity: const StringToDoubleAsIntStringConverter()
-          .fromJson(json['quantity'] as double?),
-      productVarintPrice: (json['productVarintPrice'] as num?)?.toDouble(),
+      quantity: json['quantity'] as String? ?? "0",
+      productVarintPrice: (json['productVarintPrice'] as num?)?.toDouble() ?? 0,
       discountListId: json['discountListId'] as int? ?? 1205,
       note: json['note'] as String? ?? '',
     );
@@ -99,8 +98,7 @@ Map<String, dynamic> _$$InvoiceDetailsImplToJson(
         _$InvoiceDetailsImpl instance) =>
     <String, dynamic>{
       'productVarintId': instance.productVarintId,
-      'quantity':
-          const StringToDoubleAsIntStringConverter().toJson(instance.quantity),
+      'quantity': instance.quantity,
       'productVarintPrice': instance.productVarintPrice,
       'discountListId': instance.discountListId,
       'note': instance.note,

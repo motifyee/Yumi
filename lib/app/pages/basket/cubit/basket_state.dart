@@ -4,13 +4,12 @@ part of 'basket_cubit.dart';
 class BasketState with _$BasketState {
   const factory BasketState({
     required Basket basket,
-    required bool isPickUpOnly,
   }) = _BasketState;
 
   factory BasketState.initial() {
     return BasketState(
-        basket: Basket(invoice: Invoice.initial(), invoiceDetails: []),
-        isPickUpOnly: false);
+      basket: Basket(invoice: Invoice.initial(), invoiceDetails: []),
+    );
   }
 
   factory BasketState.fromJson(Map<String, dynamic> json) =>

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/basket/basket_form_bloc.dart';
+import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
@@ -13,7 +13,7 @@ class PaymentSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<BasketFormBloc, BasketFormState>(
+    return BlocConsumer<BasketCubit, BasketState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Hero(

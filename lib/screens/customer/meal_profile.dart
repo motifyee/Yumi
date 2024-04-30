@@ -3,14 +3,13 @@ import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/basket/basket_form_bloc.dart';
+import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/forms/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/chef_model.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
 
@@ -224,31 +223,24 @@ class MealProfileScreen extends StatelessWidget {
                       ),
                     );
                   } else {
-                    context.read<BasketFormBloc>().add(
-                          BasketFormUpdateEvent(
-                            basket: context
-                                .read<BasketFormBloc>()
-                                .state
-                                .basket
-                                .copyWith(
+                    context.read<BasketCubit>().createBasket(
+                        basket:
+                            context.read<BasketCubit>().state.basket.copyWith(
                                   isPreorder: false,
                                   isSchedule: true,
+                                  isPickupOnly: chef.pickupOnly == true,
                                   invoiceDetails: [
                                     InvoiceDetails.fromMeal(meal: meal)
                                   ],
                                   invoice: context
-                                      .read<BasketFormBloc>()
+                                      .read<BasketCubit>()
                                       .state
                                       .basket
                                       .invoice
                                       .copyWith(
                                         chefID: meal.chefId,
                                       ),
-                                ),
-                            isPickUpOnly: chef.pickupOnly == true,
-                          ),
-                        );
-                    context.router.replaceAll([BasketRoute()]);
+                                ));
                   }
                 },
                 child: Container(

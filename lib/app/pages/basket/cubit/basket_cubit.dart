@@ -28,7 +28,8 @@ class BasketCubit extends Cubit<BasketState> {
   BasketCubit() : super(BasketState.initial());
 
   pickUpOnly({bool isPickUpOnly = true}) {
-    emit(state.copyWith(isPickUpOnly: isPickUpOnly));
+    emit(state.copyWith(
+        basket: state.basket.copyWith(isPickupOnly: isPickUpOnly)));
   }
 
   updateSchedule({DateTime? date, String? time}) async {
@@ -73,7 +74,7 @@ class BasketCubit extends Cubit<BasketState> {
         final Either<Failure, Basket> task2 =
             await CalcBasket().call(CalcBasketParams(basket: r));
         task2.fold((l) => null, (r) {
-          emit(state.copyWith(basket: r, isPickUpOnly: false));
+          emit(state.copyWith(basket: r));
           G.router.replaceAll([BasketRoute()]);
         });
       }
@@ -91,7 +92,7 @@ class BasketCubit extends Cubit<BasketState> {
     final Either<Failure, Basket> task = await CreateBasket().call(
         CreateBasketParams(basket: basket, isPreOrder: basket.isPreorder));
     task.fold((l) => null, (r) {
-      emit(state.copyWith(basket: r, isPickUpOnly: r.isPreorder));
+      emit(state.copyWith(basket: r));
       G.router.replaceAll([BasketRoute()]);
     });
   }
@@ -115,7 +116,7 @@ class BasketCubit extends Cubit<BasketState> {
     });
   }
 
-  deleteBasket() async {
+  void deleteBasket() async {
     final Either<Failure, Response> task =
         await DeleteBasket().call(DeleteBasketParam(basket: state.basket));
     task.fold((l) => null, (r) {

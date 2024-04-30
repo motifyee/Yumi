@@ -28,6 +28,8 @@ mixin _$Basket {
   bool get isSchedule => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_Pickup')
   bool get isPickup => throw _privateConstructorUsedError;
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  bool get isPickupOnly => throw _privateConstructorUsedError;
   bool get isDelivery => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_Preorder')
   bool get isPreorder => throw _privateConstructorUsedError;
@@ -51,6 +53,7 @@ abstract class $BasketCopyWith<$Res> {
       int? shippedAddressId,
       bool isSchedule,
       @JsonKey(name: 'is_Pickup') bool isPickup,
+      @JsonKey(includeToJson: false, includeFromJson: false) bool isPickupOnly,
       bool isDelivery,
       @JsonKey(name: 'is_Preorder') bool isPreorder,
       int? status});
@@ -78,6 +81,7 @@ class _$BasketCopyWithImpl<$Res, $Val extends Basket>
     Object? shippedAddressId = freezed,
     Object? isSchedule = null,
     Object? isPickup = null,
+    Object? isPickupOnly = null,
     Object? isDelivery = null,
     Object? isPreorder = null,
     Object? status = freezed,
@@ -110,6 +114,10 @@ class _$BasketCopyWithImpl<$Res, $Val extends Basket>
       isPickup: null == isPickup
           ? _value.isPickup
           : isPickup // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPickupOnly: null == isPickupOnly
+          ? _value.isPickupOnly
+          : isPickupOnly // ignore: cast_nullable_to_non_nullable
               as bool,
       isDelivery: null == isDelivery
           ? _value.isDelivery
@@ -150,6 +158,7 @@ abstract class _$$BasketImplCopyWith<$Res> implements $BasketCopyWith<$Res> {
       int? shippedAddressId,
       bool isSchedule,
       @JsonKey(name: 'is_Pickup') bool isPickup,
+      @JsonKey(includeToJson: false, includeFromJson: false) bool isPickupOnly,
       bool isDelivery,
       @JsonKey(name: 'is_Preorder') bool isPreorder,
       int? status});
@@ -176,6 +185,7 @@ class __$$BasketImplCopyWithImpl<$Res>
     Object? shippedAddressId = freezed,
     Object? isSchedule = null,
     Object? isPickup = null,
+    Object? isPickupOnly = null,
     Object? isDelivery = null,
     Object? isPreorder = null,
     Object? status = freezed,
@@ -209,6 +219,10 @@ class __$$BasketImplCopyWithImpl<$Res>
           ? _value.isPickup
           : isPickup // ignore: cast_nullable_to_non_nullable
               as bool,
+      isPickupOnly: null == isPickupOnly
+          ? _value.isPickupOnly
+          : isPickupOnly // ignore: cast_nullable_to_non_nullable
+              as bool,
       isDelivery: null == isDelivery
           ? _value.isDelivery
           : isDelivery // ignore: cast_nullable_to_non_nullable
@@ -236,6 +250,8 @@ class _$BasketImpl implements _Basket {
       this.shippedAddressId,
       this.isSchedule = false,
       @JsonKey(name: 'is_Pickup') this.isPickup = true,
+      @JsonKey(includeToJson: false, includeFromJson: false)
+      this.isPickupOnly = false,
       this.isDelivery = false,
       @JsonKey(name: 'is_Preorder') this.isPreorder = false,
       this.status = 1})
@@ -268,6 +284,9 @@ class _$BasketImpl implements _Basket {
   @JsonKey(name: 'is_Pickup')
   final bool isPickup;
   @override
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  final bool isPickupOnly;
+  @override
   @JsonKey()
   final bool isDelivery;
   @override
@@ -279,7 +298,7 @@ class _$BasketImpl implements _Basket {
 
   @override
   String toString() {
-    return 'Basket(id: $id, invoice: $invoice, invoiceDetails: $invoiceDetails, bankId: $bankId, shippedAddressId: $shippedAddressId, isSchedule: $isSchedule, isPickup: $isPickup, isDelivery: $isDelivery, isPreorder: $isPreorder, status: $status)';
+    return 'Basket(id: $id, invoice: $invoice, invoiceDetails: $invoiceDetails, bankId: $bankId, shippedAddressId: $shippedAddressId, isSchedule: $isSchedule, isPickup: $isPickup, isPickupOnly: $isPickupOnly, isDelivery: $isDelivery, isPreorder: $isPreorder, status: $status)';
   }
 
   @override
@@ -298,6 +317,8 @@ class _$BasketImpl implements _Basket {
                 other.isSchedule == isSchedule) &&
             (identical(other.isPickup, isPickup) ||
                 other.isPickup == isPickup) &&
+            (identical(other.isPickupOnly, isPickupOnly) ||
+                other.isPickupOnly == isPickupOnly) &&
             (identical(other.isDelivery, isDelivery) ||
                 other.isDelivery == isDelivery) &&
             (identical(other.isPreorder, isPreorder) ||
@@ -316,6 +337,7 @@ class _$BasketImpl implements _Basket {
       shippedAddressId,
       isSchedule,
       isPickup,
+      isPickupOnly,
       isDelivery,
       isPreorder,
       status);
@@ -343,6 +365,8 @@ abstract class _Basket implements Basket {
       final int? shippedAddressId,
       final bool isSchedule,
       @JsonKey(name: 'is_Pickup') final bool isPickup,
+      @JsonKey(includeToJson: false, includeFromJson: false)
+      final bool isPickupOnly,
       final bool isDelivery,
       @JsonKey(name: 'is_Preorder') final bool isPreorder,
       final int? status}) = _$BasketImpl;
@@ -364,6 +388,9 @@ abstract class _Basket implements Basket {
   @override
   @JsonKey(name: 'is_Pickup')
   bool get isPickup;
+  @override
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  bool get isPickupOnly;
   @override
   bool get isDelivery;
   @override
@@ -813,10 +840,10 @@ InvoiceDetails _$InvoiceDetailsFromJson(Map<String, dynamic> json) {
 mixin _$InvoiceDetails {
   int? get productVarintId => throw _privateConstructorUsedError;
   @StringToDoubleAsIntStringConverter()
-  String? get quantity => throw _privateConstructorUsedError;
-  double? get productVarintPrice => throw _privateConstructorUsedError;
-  int? get discountListId => throw _privateConstructorUsedError;
-  String? get note => throw _privateConstructorUsedError;
+  String get quantity => throw _privateConstructorUsedError;
+  double get productVarintPrice => throw _privateConstructorUsedError;
+  int get discountListId => throw _privateConstructorUsedError;
+  String get note => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false, includeToJson: false)
   MealModel? get meal => throw _privateConstructorUsedError;
 
@@ -834,10 +861,10 @@ abstract class $InvoiceDetailsCopyWith<$Res> {
   @useResult
   $Res call(
       {int? productVarintId,
-      @StringToDoubleAsIntStringConverter() String? quantity,
-      double? productVarintPrice,
-      int? discountListId,
-      String? note,
+      @StringToDoubleAsIntStringConverter() String quantity,
+      double productVarintPrice,
+      int discountListId,
+      String note,
       @JsonKey(includeFromJson: false, includeToJson: false) MealModel? meal});
 }
 
@@ -855,10 +882,10 @@ class _$InvoiceDetailsCopyWithImpl<$Res, $Val extends InvoiceDetails>
   @override
   $Res call({
     Object? productVarintId = freezed,
-    Object? quantity = freezed,
-    Object? productVarintPrice = freezed,
-    Object? discountListId = freezed,
-    Object? note = freezed,
+    Object? quantity = null,
+    Object? productVarintPrice = null,
+    Object? discountListId = null,
+    Object? note = null,
     Object? meal = freezed,
   }) {
     return _then(_value.copyWith(
@@ -866,22 +893,22 @@ class _$InvoiceDetailsCopyWithImpl<$Res, $Val extends InvoiceDetails>
           ? _value.productVarintId
           : productVarintId // ignore: cast_nullable_to_non_nullable
               as int?,
-      quantity: freezed == quantity
+      quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
-              as String?,
-      productVarintPrice: freezed == productVarintPrice
+              as String,
+      productVarintPrice: null == productVarintPrice
           ? _value.productVarintPrice
           : productVarintPrice // ignore: cast_nullable_to_non_nullable
-              as double?,
-      discountListId: freezed == discountListId
+              as double,
+      discountListId: null == discountListId
           ? _value.discountListId
           : discountListId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      note: freezed == note
+              as int,
+      note: null == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       meal: freezed == meal
           ? _value.meal
           : meal // ignore: cast_nullable_to_non_nullable
@@ -900,10 +927,10 @@ abstract class _$$InvoiceDetailsImplCopyWith<$Res>
   @useResult
   $Res call(
       {int? productVarintId,
-      @StringToDoubleAsIntStringConverter() String? quantity,
-      double? productVarintPrice,
-      int? discountListId,
-      String? note,
+      @StringToDoubleAsIntStringConverter() String quantity,
+      double productVarintPrice,
+      int discountListId,
+      String note,
       @JsonKey(includeFromJson: false, includeToJson: false) MealModel? meal});
 }
 
@@ -919,10 +946,10 @@ class __$$InvoiceDetailsImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? productVarintId = freezed,
-    Object? quantity = freezed,
-    Object? productVarintPrice = freezed,
-    Object? discountListId = freezed,
-    Object? note = freezed,
+    Object? quantity = null,
+    Object? productVarintPrice = null,
+    Object? discountListId = null,
+    Object? note = null,
     Object? meal = freezed,
   }) {
     return _then(_$InvoiceDetailsImpl(
@@ -930,22 +957,22 @@ class __$$InvoiceDetailsImplCopyWithImpl<$Res>
           ? _value.productVarintId
           : productVarintId // ignore: cast_nullable_to_non_nullable
               as int?,
-      quantity: freezed == quantity
+      quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
-              as String?,
-      productVarintPrice: freezed == productVarintPrice
+              as String,
+      productVarintPrice: null == productVarintPrice
           ? _value.productVarintPrice
           : productVarintPrice // ignore: cast_nullable_to_non_nullable
-              as double?,
-      discountListId: freezed == discountListId
+              as double,
+      discountListId: null == discountListId
           ? _value.discountListId
           : discountListId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      note: freezed == note
+              as int,
+      note: null == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       meal: freezed == meal
           ? _value.meal
           : meal // ignore: cast_nullable_to_non_nullable
@@ -959,8 +986,8 @@ class __$$InvoiceDetailsImplCopyWithImpl<$Res>
 class _$InvoiceDetailsImpl implements _InvoiceDetails {
   const _$InvoiceDetailsImpl(
       {this.productVarintId,
-      @StringToDoubleAsIntStringConverter() this.quantity,
-      this.productVarintPrice,
+      @StringToDoubleAsIntStringConverter() this.quantity = "0",
+      this.productVarintPrice = 0,
       this.discountListId = 1205,
       this.note = '',
       @JsonKey(includeFromJson: false, includeToJson: false) this.meal});
@@ -971,16 +998,18 @@ class _$InvoiceDetailsImpl implements _InvoiceDetails {
   @override
   final int? productVarintId;
   @override
+  @JsonKey()
   @StringToDoubleAsIntStringConverter()
-  final String? quantity;
-  @override
-  final double? productVarintPrice;
+  final String quantity;
   @override
   @JsonKey()
-  final int? discountListId;
+  final double productVarintPrice;
   @override
   @JsonKey()
-  final String? note;
+  final int discountListId;
+  @override
+  @JsonKey()
+  final String note;
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   final MealModel? meal;
@@ -1030,10 +1059,10 @@ class _$InvoiceDetailsImpl implements _InvoiceDetails {
 abstract class _InvoiceDetails implements InvoiceDetails {
   const factory _InvoiceDetails(
       {final int? productVarintId,
-      @StringToDoubleAsIntStringConverter() final String? quantity,
-      final double? productVarintPrice,
-      final int? discountListId,
-      final String? note,
+      @StringToDoubleAsIntStringConverter() final String quantity,
+      final double productVarintPrice,
+      final int discountListId,
+      final String note,
       @JsonKey(includeFromJson: false, includeToJson: false)
       final MealModel? meal}) = _$InvoiceDetailsImpl;
 
@@ -1044,13 +1073,13 @@ abstract class _InvoiceDetails implements InvoiceDetails {
   int? get productVarintId;
   @override
   @StringToDoubleAsIntStringConverter()
-  String? get quantity;
+  String get quantity;
   @override
-  double? get productVarintPrice;
+  double get productVarintPrice;
   @override
-  int? get discountListId;
+  int get discountListId;
   @override
-  String? get note;
+  String get note;
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   MealModel? get meal;

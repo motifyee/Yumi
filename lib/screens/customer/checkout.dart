@@ -2,9 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/basket/basket_form_bloc.dart';
+import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/screens/customer/payment_paypal.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -267,36 +266,22 @@ class CheckOutScreen extends StatelessWidget {
                           children: [
                             Hero(
                               tag: 'ConfirmBasketSeries',
-                              child:
-                                  BlocConsumer<BasketFormBloc, BasketFormState>(
+                              child: BlocConsumer<BasketCubit, BasketState>(
                                 listener: (context, state) {},
                                 builder: (context, state) {
                                   return GestureDetector(
                                     onTap: () {
-                                      if (state.isPickUpOnly) {
-                                        context.read<BasketFormBloc>().add(
-                                              BasketFormUpdateEvent(
+                                      if (state.basket.isPickupOnly) {
+                                        context
+                                            .read<BasketCubit>()
+                                            .updateBasket(
                                                 basket: state.basket.copyWith(
                                                     isPickup: true,
-                                                    isDelivery: false),
-                                                isPickUpOnly:
-                                                    state.isPickUpOnly,
-                                              ),
-                                            );
+                                                    isDelivery: false));
+
                                         context
-                                            .read<BasketFormBloc>()
-                                            .add(BasketFormPostRequestEvent(
-                                              context: context,
-                                              isDone: true,
-                                              invoiceTransaction:
-                                                  InvoiceTransactionModel
-                                                      .initial(
-                                                          treasuryAmountPaid:
-                                                              state
-                                                                  .basket
-                                                                  .invoice
-                                                                  .finalPrice),
-                                            ));
+                                            .read<BasketCubit>()
+                                            .closeBasket();
                                       } else {
                                         showDialog(
                                             context: context,

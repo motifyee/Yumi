@@ -1,13 +1,11 @@
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/basket/basket_form_bloc.dart';
+import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
-import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -145,30 +143,29 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                             child: Column(
                               children: [
                                 for (var meal in state.meals)
-                                  BlocConsumer<BasketFormBloc, BasketFormState>(
+                                  BlocConsumer<BasketCubit, BasketState>(
                                     listener: (context, state) {},
                                     builder: (context, state) {
                                       return ChefMealBasketCard(
                                         meal: meal,
                                         isDisabled: context
-                                                .read<BasketFormBloc>()
-                                                .state
-                                                .basket
-                                                .invoiceDetails!
-                                                .firstWhereOrNull((e) =>
-                                                    e.productVarintId ==
-                                                    meal.productVariantID) !=
-                                            null,
+                                            .read<BasketCubit>()
+                                            .state
+                                            .basket
+                                            .invoiceDetails
+                                            .any((e) =>
+                                                e.productVarintId ==
+                                                meal.productVariantID),
                                         onTap: () {
-                                          context.read<BasketFormBloc>().add(
-                                                BasketFormAddMealEvent(
-                                                  invoiceDetails:
-                                                      InvoiceDetails.fromMeal(
-                                                          meal: meal),
-                                                  isPickUpOnly:
-                                                      widget.isPickUpOnly,
-                                                ),
-                                              );
+                                          context
+                                              .read<BasketCubit>()
+                                              .updateBasket(
+                                                  basket: state.basket.copyWith(
+                                                      isPickupOnly:
+                                                          widget.isPickUpOnly));
+                                          context
+                                              .read<BasketCubit>()
+                                              .addMeal(meal: meal);
                                         },
                                       );
                                     },

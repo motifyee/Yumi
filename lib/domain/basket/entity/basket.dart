@@ -17,6 +17,9 @@ class Basket with _$Basket {
     int? shippedAddressId,
     @Default(false) bool isSchedule,
     @Default(true) @JsonKey(name: 'is_Pickup') bool isPickup,
+    @Default(false)
+    @JsonKey(includeToJson: false, includeFromJson: false)
+    bool isPickupOnly,
     @Default(false) bool isDelivery,
     @Default(false) @JsonKey(name: 'is_Preorder') bool isPreorder,
     @Default(1) int? status,
@@ -59,10 +62,10 @@ class Invoice with _$Invoice {
 class InvoiceDetails with _$InvoiceDetails {
   const factory InvoiceDetails({
     int? productVarintId,
-    @StringToDoubleAsIntStringConverter() String? quantity,
-    double? productVarintPrice,
-    @Default(1205) int? discountListId,
-    @Default('') String? note,
+    @Default("0") @StringToDoubleAsIntStringConverter() String quantity,
+    @Default(0) double productVarintPrice,
+    @Default(1205) int discountListId,
+    @Default('') String note,
     @JsonKey(includeFromJson: false, includeToJson: false) MealModel? meal,
   }) = _InvoiceDetails;
 
@@ -70,7 +73,7 @@ class InvoiceDetails with _$InvoiceDetails {
     return InvoiceDetails(
       productVarintId: meal.productVariantID,
       quantity: '1',
-      productVarintPrice: double.tryParse(meal.price1 ?? ''),
+      productVarintPrice: double.parse(meal.price1 ?? '0'),
       discountListId: 1205,
       note: '',
       meal: meal,

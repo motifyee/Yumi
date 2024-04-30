@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/basket/basket_form_bloc.dart';
+import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -16,7 +16,7 @@ class BasketScreen extends StatelessWidget {
   BasketScreen({super.key});
 
   void openAddFood(
-      {required BuildContext context, required BasketFormState state}) {
+      {required BuildContext context, required BasketState state}) {
     showModalBottomSheet(
       context: context,
       builder: (context) => ChefMealsScreen(
@@ -24,7 +24,7 @@ class BasketScreen extends StatelessWidget {
             ? MenuTarget.preOrder
             : MenuTarget.order,
         chefId: state.basket.invoice.chefID ?? '',
-        isPickUpOnly: state.isPickUpOnly,
+        isPickUpOnly: state.basket.isPickupOnly,
       ),
       scrollControlDisabledMaxHeightRatio: .9,
       backgroundColor: Colors.transparent,
@@ -33,7 +33,7 @@ class BasketScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<BasketFormBloc, BasketFormState>(
+    return BlocConsumer<BasketCubit, BasketState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
@@ -44,10 +44,7 @@ class BasketScreen extends StatelessWidget {
             actions: [
               TextButton(
                   onPressed: () {
-                    context
-                        .read<BasketFormBloc>()
-                        .add(BasketFormResetEvent(basket: state.basket));
-                    context.router.replaceAll([HomeRoute()]);
+                    context.read<BasketCubit>().deleteBasket();
                   },
                   child: Icon(
                     Icons.close,
@@ -125,8 +122,7 @@ class BasketScreen extends StatelessWidget {
                             tag: 'ConfirmBasketSeries',
                             child: GestureDetector(
                               onTap: () {
-                                if (state.basket.invoiceDetails!.isEmpty)
-                                  return;
+                                if (state.basket.invoiceDetails.isEmpty) return;
                                 context.router.push(CheckOutRoute());
                               },
                               child: Container(
