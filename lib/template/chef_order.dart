@@ -19,6 +19,8 @@ class ChefOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
+
     return Column(
       children: [
         BlocBuilder<NewsBloc, NewsState>(
