@@ -48,7 +48,17 @@ class OrderModel with _$OrderModel {
                   DateTime.tryParse(chefStartDate ?? '') ?? DateTime.now())
               .inMinutes >
           45 &&
+      chefStart == true &&
       chefFinished != true;
+
+  bool get isDriverDelayed =>
+      DateTime.now()
+              .difference(
+                  DateTime.tryParse(chefStartDate ?? '') ?? DateTime.now())
+              .inMinutes >
+          70 &&
+      chefFinished == true &&
+      clientReceived != true;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
