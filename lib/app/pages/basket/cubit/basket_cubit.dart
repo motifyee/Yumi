@@ -80,19 +80,24 @@ class BasketCubit extends Cubit<BasketState> {
     });
   }
 
-  calcBasket({required Basket basket}) async {
+  calcBasket({required Basket basket, bool isUpdateBasket = true}) async {
     final Either<Failure, Basket> task =
         await CalcBasket().call(CalcBasketParams(basket: basket));
-
-    task.fold((l) => null, (r) => updateBasket(basket: r));
+    task.fold(
+        (l) => null, (r) => isUpdateBasket ? updateBasket(basket: r) : null);
   }
 
   createBasket({required Basket basket}) async {
-    final Either<Failure, Basket> task = await CreateBasket().call(
-        CreateBasketParams(basket: basket, isPreOrder: basket.isPreorder));
-    task.fold((l) => null, (r) {
-      emit(state.copyWith(basket: r));
-      G.router.replaceAll([BasketRoute()]);
+    final Either<Failure, Basket> task =
+        await CalcBasket().call(CalcBasketParams(basket: basket));
+    task.fold((l) => null, (r) async {
+      final Either<Failure, Basket> task2 = await CreateBasket()
+          .call(CreateBasketParams(basket: r, isPreOrder: basket.isPreorder));
+
+      task2.fold((l) => null, (r) {
+        emit(state.copyWith(basket: r));
+        G.router.replaceAll([BasketRoute()]);
+      });
     });
   }
 

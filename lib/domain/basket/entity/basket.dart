@@ -9,11 +9,12 @@ part 'basket.g.dart';
 
 @freezed
 class Basket with _$Basket {
+  @JsonSerializable(includeIfNull: false)
   const factory Basket({
     int? id,
     required Invoice invoice,
     required List<InvoiceDetails> invoiceDetails,
-    @Default(44) int? bankId,
+    int? bankId,
     int? shippedAddressId,
     @Default(false) bool isSchedule,
     @Default(true) @JsonKey(name: 'is_Pickup') bool isPickup,

@@ -12,7 +12,7 @@ _$BasketImpl _$$BasketImplFromJson(Map<String, dynamic> json) => _$BasketImpl(
       invoiceDetails: (json['invoiceDetails'] as List<dynamic>)
           .map((e) => InvoiceDetails.fromJson(e as Map<String, dynamic>))
           .toList(),
-      bankId: json['bankId'] as int? ?? 44,
+      bankId: json['bankId'] as int?,
       shippedAddressId: json['shippedAddressId'] as int?,
       isSchedule: json['isSchedule'] as bool? ?? false,
       isPickup: json['is_Pickup'] as bool? ?? true,
@@ -21,19 +21,27 @@ _$BasketImpl _$$BasketImplFromJson(Map<String, dynamic> json) => _$BasketImpl(
       status: json['status'] as int? ?? 1,
     );
 
-Map<String, dynamic> _$$BasketImplToJson(_$BasketImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'invoice': instance.invoice,
-      'invoiceDetails': instance.invoiceDetails,
-      'bankId': instance.bankId,
-      'shippedAddressId': instance.shippedAddressId,
-      'isSchedule': instance.isSchedule,
-      'is_Pickup': instance.isPickup,
-      'isDelivery': instance.isDelivery,
-      'is_Preorder': instance.isPreorder,
-      'status': instance.status,
-    };
+Map<String, dynamic> _$$BasketImplToJson(_$BasketImpl instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  val['invoice'] = instance.invoice;
+  val['invoiceDetails'] = instance.invoiceDetails;
+  writeNotNull('bankId', instance.bankId);
+  writeNotNull('shippedAddressId', instance.shippedAddressId);
+  val['isSchedule'] = instance.isSchedule;
+  val['is_Pickup'] = instance.isPickup;
+  val['isDelivery'] = instance.isDelivery;
+  val['is_Preorder'] = instance.isPreorder;
+  writeNotNull('status', instance.status);
+  return val;
+}
 
 _$InvoiceImpl _$$InvoiceImplFromJson(Map<String, dynamic> json) =>
     _$InvoiceImpl(

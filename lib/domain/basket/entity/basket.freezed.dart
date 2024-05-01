@@ -240,13 +240,14 @@ class __$$BasketImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(includeIfNull: false)
 class _$BasketImpl implements _Basket {
   const _$BasketImpl(
       {this.id,
       required this.invoice,
       required final List<InvoiceDetails> invoiceDetails,
-      this.bankId = 44,
+      this.bankId,
       this.shippedAddressId,
       this.isSchedule = false,
       @JsonKey(name: 'is_Pickup') this.isPickup = true,
@@ -273,7 +274,6 @@ class _$BasketImpl implements _Basket {
   }
 
   @override
-  @JsonKey()
   final int? bankId;
   @override
   final int? shippedAddressId;
