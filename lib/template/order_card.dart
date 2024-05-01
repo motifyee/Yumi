@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,6 +65,22 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     DateTime? createdDate = DateTime.tryParse(widget.order.createdDate ?? '');
+
+    if (widget.orderCardTargetPage == OrderCardTargetPage.driverAccept) {
+      if (widget.menuTarget == MenuTarget.order &&
+          widget.order.isDriverOrderPendingEnd) {
+        return const SizedBox.shrink();
+      }
+      if (widget.menuTarget == MenuTarget.preOrder &&
+          widget.order.isDriverPreOrderPendingEnd) {
+        return const SizedBox.shrink();
+      }
+
+      // TODO: worst thing ever X(
+      Timer.periodic(const Duration(seconds: 1), (timer) {
+        setState(() {});
+      });
+    }
 
     return Stack(
       clipBehavior: Clip.none,
@@ -130,7 +148,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                 SvgPicture.asset(widget.order.isPickUp == true
                                     ? 'assets/images/pickup_icon.svg'
                                     : 'assets/images/delivery_icon.svg'),
-                                Text(' '),
+                                const Text(' '),
                                 Text(widget.order.isPickUp == true
                                     ? S.of(context).pickup
                                     : S.of(context).delivery)
@@ -570,25 +588,34 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           // driver accepted
                           if (widget.orderCardTargetPage ==
                               OrderCardTargetPage.driverAccept)
-                            TextButton(
-                              onPressed: () {
-                                context.read<OrderBloc>().add(
-                                      OrderEvent.putAction(
-                                        order: widget.order,
-                                        apiKey: ApiKeys.actionApiKeyString(
-                                            apiKey: widget.menuTarget ==
-                                                    MenuTarget.order
-                                                ? ApiKeys.orderDriverAccept
-                                                : ApiKeys.preOrderDriverAccept,
-                                            id: '${widget.order.id}'),
-                                        getApiKey: widget.getApiKey,
-                                      ),
-                                    );
-                              },
-                              child: Text(
-                                S.of(context).accept,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
+                            Row(
+                              children: [
+                                Text(widget.menuTarget == MenuTarget.order
+                                    ? widget.order.driverOrderPendingCount
+                                    : widget.order.driverPreOrderPendingCount),
+                                TextButton(
+                                  onPressed: () {
+                                    context.read<OrderBloc>().add(
+                                          OrderEvent.putAction(
+                                            order: widget.order,
+                                            apiKey: ApiKeys.actionApiKeyString(
+                                                apiKey: widget.menuTarget ==
+                                                        MenuTarget.order
+                                                    ? ApiKeys.orderDriverAccept
+                                                    : ApiKeys
+                                                        .preOrderDriverAccept,
+                                                id: '${widget.order.id}'),
+                                            getApiKey: widget.getApiKey,
+                                          ),
+                                        );
+                                  },
+                                  child: Text(
+                                    S.of(context).accept,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ),
+                              ],
                             ),
 
                           // customer order status
@@ -718,7 +745,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                 showModalBottomSheet(
                                   backgroundColor: Colors.transparent,
                                   isScrollControlled: true,
-                                  constraints: BoxConstraints.tightFor(),
+                                  constraints: const BoxConstraints.tightFor(),
                                   context: context,
                                   builder: (context) => SingleChildScrollView(
                                     child: Column(

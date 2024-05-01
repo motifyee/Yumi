@@ -60,6 +60,32 @@ class OrderModel with _$OrderModel {
       chefFinished == true &&
       clientReceived != true;
 
+  bool get isDriverOrderPendingEnd =>
+      DateTime.now().difference(DateTime.parse(createdDate ?? '')).inSeconds >
+      120;
+
+  bool get isDriverPreOrderPendingEnd =>
+      DateTime.now().difference(DateTime.parse(createdDate ?? '')).inMinutes >
+      (24 * 60);
+
+  String get driverOrderPendingCount =>
+      '${120 - DateTime.now().difference(DateTime.parse(createdDate ?? '')).inSeconds}s';
+
+  String get driverPreOrderPendingCount => [
+        if ((24 -
+                DateTime.now()
+                    .difference(DateTime.parse(createdDate ?? ''))
+                    .inHours) >
+            0)
+          '${24 - DateTime.now().difference(DateTime.parse(createdDate ?? '')).inHours}h ',
+        if ((24 -
+                DateTime.now()
+                    .difference(DateTime.parse(createdDate ?? ''))
+                    .inHours) ==
+            0)
+          '${(24 * 60) - DateTime.now().difference(DateTime.parse(createdDate ?? '')).inMinutes}m'
+      ].join(' ');
+
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
 }

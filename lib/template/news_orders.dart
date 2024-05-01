@@ -27,23 +27,9 @@ class NewsOrders extends StatelessWidget {
         child: BlocConsumer<OrderBloc, OrderState>(
           listener: (context, state) {},
           builder: (context, state) {
-            List<OrderModel> orders = state.orders;
-            if (orderCardTargetPage == OrderCardTargetPage.driverReceived) {
-              orders = state.orders
-                  .where((o) => menuTarget == MenuTarget.order
-                      ? DateTime.now()
-                              .difference(DateTime.parse(o.createdDate ?? ''))
-                              .inMinutes <=
-                          2
-                      : DateTime.now()
-                              .difference(DateTime.parse(o.createdDate ?? ''))
-                              .inMinutes <=
-                          24)
-                  .toList();
-            }
             return Column(
               children: [
-                for (var order in orders)
+                for (var order in state.orders)
                   OrderCard(
                     order: order,
                     orderCardTargetPage: orderCardTargetPage,
