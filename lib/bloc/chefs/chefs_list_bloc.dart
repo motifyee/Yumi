@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/app/pages/auth/register/model/address.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/model/chef_model.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/service/chef_service.dart';
@@ -57,6 +57,17 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
             isLoading: false,
           ),
         ));
+      }
+    });
+
+    on<GetChefIsFavoriteEvent>((event, emit) async {
+      final Response res =
+          await ChefService.getIsChefFavorite(chefId: event.chef.id!);
+      if (res.statusCode == 200) {
+        List<ChefModel> chefs = state.chefs
+          ..firstWhere((e) => e.id == event.chef.id).isFavorite = true;
+
+        emit(state.copyWith(chefs: chefs));
       }
     });
 

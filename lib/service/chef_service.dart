@@ -32,6 +32,16 @@ class ChefService {
     return res;
   }
 
+  static Future<dynamic> getIsChefFavorite({
+    required String chefId,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    final Response res = await DioClient.simpleDio().get(ApiKeys.favoriteChefs,
+        queryParameters: {...?queryParameters, 'chefId': chefId});
+
+    return res;
+  }
+
   static Future<dynamic> addFavoriteChef({
     required String chefId,
     Map<String, dynamic>? queryParameters,
