@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:yumi/domain/basket/data/source/basket_source.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
-import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 
 class BasketRemoteSource implements BasketSource {
@@ -67,11 +66,8 @@ class BasketRemoteSource implements BasketSource {
 
   @override
   Future<Response> closeBasket(
-      {required Basket basket,
-      required InvoiceTransactionModel invoiceTransaction,
-      Map<String, dynamic>? paginationHelper}) async {
+      {required Basket basket, Map<String, dynamic>? paginationHelper}) async {
     Response res = await DioClient.simpleDio().post(ApiKeys.order,
-        data: invoiceTransaction.toJson(),
         queryParameters: {...?paginationHelper, 'orderId': basket.id}
           ..removeWhere((key, value) => value == null));
 

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
-import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 
 abstract class BasketSource {
   Future<Response> deleteBasket({required Basket basket});
@@ -22,8 +21,6 @@ abstract class BasketSource {
       {required String apiKeys, Map<String, dynamic>? paginationHelper});
   Future<Basket?> getBaskets({Map<String, dynamic>? paginationHelper});
   Future<Response> closeBasket(
-      {required Basket basket,
-      required InvoiceTransactionModel invoiceTransaction,
-      Map<String, dynamic>? paginationHelper});
+      {required Basket basket, Map<String, dynamic>? paginationHelper});
   Future<Basket> updateBasket({required Basket basket});
 }

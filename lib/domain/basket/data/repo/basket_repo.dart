@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
-import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 
 abstract class BasketRepo {
   TaskEither<Failure, Response> deleteBasket({required Basket basket});
@@ -32,9 +31,7 @@ abstract class BasketRepo {
       {Map<String, dynamic>? paginationHelper});
 
   TaskEither<Failure, Response> closeBasket(
-      {required Basket basket,
-      required InvoiceTransactionModel invoiceTransaction,
-      Map<String, dynamic>? paginationHelper});
+      {required Basket basket, Map<String, dynamic>? paginationHelper});
 
   TaskEither<Failure, Basket> updateBasket({required Basket basket});
 }

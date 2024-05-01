@@ -16,7 +16,6 @@ import 'package:yumi/domain/basket/use_case/update_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_meal_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_schedule_basket.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
 
@@ -105,11 +104,8 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   closeBasket() async {
-    final Either<Failure, Response> task = await CloseBasket().call(
-        CloseBasketParams(
-            basket: state.basket,
-            invoiceTransaction: InvoiceTransactionModel.initial(
-                treasuryAmountPaid: state.basket.invoice.finalPrice)));
+    final Either<Failure, Response> task =
+        await CloseBasket().call(CloseBasketParams(basket: state.basket));
     task.fold((l) => null, (r) {
       emit(BasketState.initial());
       G.router.replaceAll([HomeRoute()]);

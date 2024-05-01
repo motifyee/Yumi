@@ -5,7 +5,6 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/basket/data/repo/basket_repo.dart';
 import 'package:yumi/domain/basket/data/source/basket_source.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
-import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 
 class BasketRemoteRepo implements BasketRepo {
   final BasketSource basketSource;
@@ -19,14 +18,10 @@ class BasketRemoteRepo implements BasketRepo {
 
   @override
   TaskEither<Failure, Response> closeBasket(
-          {required Basket basket,
-          required InvoiceTransactionModel invoiceTransaction,
-          Map<String, dynamic>? paginationHelper}) =>
+          {required Basket basket, Map<String, dynamic>? paginationHelper}) =>
       TaskEither.tryCatch(
           () => basketSource.closeBasket(
-              basket: basket,
-              invoiceTransaction: invoiceTransaction,
-              paginationHelper: paginationHelper),
+              basket: basket, paginationHelper: paginationHelper),
           (error, stackTrace) => ApiFailure(error, stackTrace));
 
   @override

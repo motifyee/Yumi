@@ -5,7 +5,6 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/basket/data/repo/basket_repo.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
-import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
 
 class CloseBasket extends UseCase<Response, CloseBasketParams> {
   final BasketRepo basketRepo;
@@ -15,20 +14,15 @@ class CloseBasket extends UseCase<Response, CloseBasketParams> {
 
   @override
   Future<Either<Failure, Response>> call(CloseBasketParams params) async {
-    return await basketRepo
-        .closeBasket(
-            basket: params.basket,
-            invoiceTransaction: params.invoiceTransaction)
-        .run();
+    return await basketRepo.closeBasket(basket: params.basket).run();
   }
 }
 
 class CloseBasketParams extends Params {
   final Basket basket;
-  final InvoiceTransactionModel invoiceTransaction;
 
-  CloseBasketParams({required this.basket, required this.invoiceTransaction});
+  CloseBasketParams({required this.basket});
 
   @override
-  List<Object?> get props => [basket, invoiceTransaction];
+  List<Object?> get props => [basket];
 }
