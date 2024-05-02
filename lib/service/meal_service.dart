@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/api_statics.dart';
+import 'package:yumi/statics/code_generator.dart';
 
 class MealService {
   static Future<dynamic> createMeal(
@@ -105,5 +107,31 @@ class MealService {
     );
 
     return jsonDecode(res.toString());
+  }
+
+  static Future<dynamic> getFavoriteMeals(
+      {required Map<String, dynamic>? pagination}) async {
+    final res = await DioClient.simpleDio().get(
+      ApiKeys.favoriteMeals,
+      queryParameters: {...?pagination},
+    );
+
+    return res;
+  }
+
+  static Future<Response> addMealToFavorite({required MealModel meal}) async {
+    final res = await DioClient.simpleDio().post(ApiKeys.favoriteMeals,
+        data: {'code': CodeGenerator.getRandomCode()},
+        queryParameters: {'productId': meal.id});
+
+    return res;
+  }
+
+  static Future<Response> removeMealToFavorite(
+      {required MealModel meal}) async {
+    final res = await DioClient.simpleDio()
+        .delete(ApiKeys.favoriteMeals, queryParameters: {'productId': meal.id});
+
+    return res;
   }
 }

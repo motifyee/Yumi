@@ -88,6 +88,7 @@ class ApiKeys {
   static String getMealByCategory = '/meals/category';
   static String getMealByChef = '/meals/chef';
   static String getMealByChefByCategory = '/meals/category/chef';
+  static String favoriteMeals = '/meals/favorite';
   static String mealCalories = '/Product/_/calories';
 
   static String chefs = '/accounts/chefs';

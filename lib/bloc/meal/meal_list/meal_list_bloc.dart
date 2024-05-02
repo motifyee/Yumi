@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -157,6 +158,64 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         paginationHelper: PaginationHelper(),
         menuTarget: event.menuTarget ?? state.menuTarget,
       ));
+    });
+
+    on<MealListGetFavoriteMealsEvent>((event, emit) async {
+      if (state.paginationHelper.pageNumber < state.paginationHelper.lastPage &&
+          !state.paginationHelper.isLoading) {
+        emit(
+          state.copyWith(
+              paginationHelper:
+                  state.paginationHelper.copyWith(isLoading: true)),
+        );
+
+        Response res = await MealService.getFavoriteMeals(
+            pagination: {...state.paginationHelper.toJson()});
+
+        List<MealModel> data = res.data['data'].map<MealModel>((value) {
+          return MealModel.fromJson({
+            ...value,
+            'id': value['productId'],
+            'isFavorite': true,
+          });
+        }).toList();
+
+        emit(state.copyWith(
+            meals: [...state.meals, ...data],
+            paginationHelper: state.paginationHelper.copyWith(
+              pageNumber: res.data['pagination']['page'],
+              lastPage: res.data['pagination']['pages'],
+              isLoading: false,
+            )));
+      }
+    });
+
+    on<MealListAddFavoriteMealEvent>((event, emit) async {
+      Response res = await MealService.addMealToFavorite(meal: event.meal);
+      if (res.statusCode == 200) {
+        List<MealModel> meals = state.meals;
+        if (meals.indexWhere((e) => e.id == event.meal.id) > -1) {
+          meals[meals.indexWhere((e) => e.id == event.meal.id)].isFavorite =
+              true;
+        }
+        emit(state.copyWith(
+          meals: meals,
+        ));
+      }
+    });
+
+    on<MealListRemoveFavoriteMealEvent>((event, emit) async {
+      Response res = await MealService.removeMealToFavorite(meal: event.meal);
+      if (res.statusCode == 200) {
+        List<MealModel> meals = state.meals;
+        if (meals.indexWhere((e) => e.id == event.meal.id) > -1) {
+          meals[meals.indexWhere((e) => e.id == event.meal.id)].isFavorite =
+              false;
+        }
+        emit(state.copyWith(
+          meals: meals,
+        ));
+      }
     });
   }
 }

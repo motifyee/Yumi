@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
+import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/extensions/capitalize_string_extension.dart';
@@ -60,8 +62,32 @@ class MealProfileScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           vertical: ThemeSelector.statics.defaultGap),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+                          InkWell(
+                            onTap: () {
+                              if (meal.isFavorite == true) {
+                                context.read<MealListBloc>().add(
+                                    MealListRemoveFavoriteMealEvent(
+                                        meal: meal));
+                              } else {
+                                context.read<MealListBloc>().add(
+                                    MealListAddFavoriteMealEvent(meal: meal));
+                              }
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: ThemeSelector.statics.defaultGap),
+                              child: SvgPicture.asset(
+                                meal.isFavorite == true
+                                    ? 'assets/images/heart.svg'
+                                    : 'assets/images/heart_outline.svg',
+                                colorFilter: ColorFilter.mode(
+                                    ThemeSelector.colors.primary,
+                                    BlendMode.srcIn),
+                              ),
+                            ),
+                          ),
+                          const Expanded(child: SizedBox.shrink()),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [

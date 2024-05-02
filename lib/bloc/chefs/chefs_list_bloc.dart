@@ -31,10 +31,14 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
                 state.paginationHelper.copyWith(isLoading: true)));
 
         late Response res;
+        List<Chef> data = [];
         if (event.isFavorite) {
           res = await ChefService.getFavoriteChefs(
             queryParameters: state.paginationHelper.toJson(),
           );
+          data = res.data['data']
+              .map<Chef>((chef) => Chef.fromJson({...chef, ...chef['chef']}))
+              .toList();
         } else {
           res = await ChefService.getChefs(
             context: event.context,
@@ -43,10 +47,11 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
             longitude: userLocation.longitude!,
             queryParameters: state.paginationHelper.toJson(),
           );
-        }
 
-        List<Chef> data =
-            res.data['data'].map<Chef>((chef) => Chef.fromJson(chef)).toList();
+          data = res.data['data']
+              .map<Chef>((chef) => Chef.fromJson(chef))
+              .toList();
+        }
 
         emit(state.copyWith(
           chefs: [...state.chefs, ...data],
