@@ -10,7 +10,7 @@ _$PaginationHelperImpl<T> _$$PaginationHelperImplFromJson<T>(
         Map<String, dynamic> json) =>
     _$PaginationHelperImpl<T>(
       pageNumber: json['pageNumber'] as int? ?? 0,
-      pageSize: json['pageSize'] as int? ?? 1,
+      pageSize: json['pageSize'] as int? ?? 20,
     );
 
 Map<String, dynamic> _$$PaginationHelperImplToJson<T>(

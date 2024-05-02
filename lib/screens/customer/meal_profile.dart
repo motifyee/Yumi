@@ -63,8 +63,8 @@ class MealProfileScreen extends StatelessWidget {
                           vertical: ThemeSelector.statics.defaultGap),
                       child: Row(
                         children: [
-                          InkWell(
-                            onTap: () {
+                          TextButton(
+                            onPressed: () {
                               if (meal.isFavorite == true) {
                                 context.read<MealListBloc>().add(
                                     MealListRemoveFavoriteMealEvent(
@@ -74,17 +74,13 @@ class MealProfileScreen extends StatelessWidget {
                                     MealListAddFavoriteMealEvent(meal: meal));
                               }
                             },
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: ThemeSelector.statics.defaultGap),
-                              child: SvgPicture.asset(
-                                meal.isFavorite == true
-                                    ? 'assets/images/heart.svg'
-                                    : 'assets/images/heart_outline.svg',
-                                colorFilter: ColorFilter.mode(
-                                    ThemeSelector.colors.primary,
-                                    BlendMode.srcIn),
-                              ),
+                            child: SvgPicture.asset(
+                              meal.isFavorite == true
+                                  ? 'assets/images/heart.svg'
+                                  : 'assets/images/heart_outline.svg',
+                              colorFilter: ColorFilter.mode(
+                                  ThemeSelector.colors.primary,
+                                  BlendMode.srcIn),
                             ),
                           ),
                           const Expanded(child: SizedBox.shrink()),

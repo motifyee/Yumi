@@ -157,8 +157,8 @@ class __$$PaginationHelperImplCopyWithImpl<T, $Res>
 class _$PaginationHelperImpl<T> extends _PaginationHelper<T> {
   const _$PaginationHelperImpl(
       {@JsonKey(toJson: _pageNumberToJson) this.pageNumber = 0,
-      this.pageSize = 1,
-      @JsonKey(includeFromJson: false) this.lastPage = 20,
+      this.pageSize = 20,
+      @JsonKey(includeFromJson: false) this.lastPage = 1,
       @JsonKey(includeFromJson: false) this.isLoading = false,
       @JsonKey(includeToJson: false, includeFromJson: false)
       final List<T> data = const []})

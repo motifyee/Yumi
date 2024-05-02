@@ -7,8 +7,8 @@ part 'pagination_helper.g.dart';
 class PaginationHelper<T> with _$PaginationHelper {
   const factory PaginationHelper({
     @Default(0) @JsonKey(toJson: _pageNumberToJson) int pageNumber,
-    @Default(1) int pageSize,
-    @Default(20) @JsonKey(includeFromJson: false) int lastPage,
+    @Default(20) int pageSize,
+    @Default(1) @JsonKey(includeFromJson: false) int lastPage,
     @Default(false) @JsonKey(includeFromJson: false) bool isLoading,
     @Default([])
     @JsonKey(includeToJson: false, includeFromJson: false)

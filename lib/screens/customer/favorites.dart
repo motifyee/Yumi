@@ -167,15 +167,12 @@ class FavoritesScreen extends StatelessWidget {
                               return Column(
                                 children: [
                                   for (var meal in state.meals)
-                                    Text(meal.name ?? ' s s s s s s s'),
-
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            ThemeSelector.statics.defaultGap),
-                                    child: Column(
-                                      children: [
-                                        for (var meal in state.meals)
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              ThemeSelector.statics.defaultGap),
+                                      child: Column(
+                                        children: [
                                           ChefMealBasketCard(
                                             meal: meal,
                                             isDisabled: false,
@@ -194,9 +191,9 @@ class FavoritesScreen extends StatelessWidget {
                                               );
                                             },
                                           ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
 
                                   // Padding(
                                   //   padding: EdgeInsets.symmetric(
