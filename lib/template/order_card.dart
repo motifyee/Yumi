@@ -401,6 +401,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                 context.read<OrderBloc>().add(
                                       OrderEvent.putAction(
                                         order: widget.order,
+                                        isFakeBody: false,
                                         apiKey: ApiKeys.actionApiKeyString(
                                             apiKey: _apiKey,
                                             id: '${widget.order.id}'),
@@ -535,9 +536,38 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               ),
                             ),
 
+                          // driver close order delivery
+                          if (widget.orderCardTargetPage ==
+                                  OrderCardTargetPage.driverReceived &&
+                              widget.order.driverReceived == true)
+                            TextButton(
+                              onPressed: () {
+                                String _apiKey =
+                                    widget.menuTarget == MenuTarget.order
+                                        ? ApiKeys.orderDriverDelivered
+                                        : ApiKeys.preOrderDriverDelivered;
+
+                                context.read<OrderBloc>().add(
+                                      OrderEvent.putAction(
+                                        order: widget.order,
+                                        isFakeBody: false,
+                                        apiKey: ApiKeys.actionApiKeyString(
+                                            apiKey: _apiKey,
+                                            id: '${widget.order.id}'),
+                                        getApiKey: widget.getApiKey,
+                                      ),
+                                    );
+                              },
+                              child: Text(
+                                S.of(context).clientReceived,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+
                           // driver received
                           if (widget.orderCardTargetPage ==
-                              OrderCardTargetPage.driverReceived)
+                                  OrderCardTargetPage.driverReceived &&
+                              widget.order.driverReceived != true)
                             TextButton(
                               onPressed: widget.order.chefFinished != true
                                   ? null

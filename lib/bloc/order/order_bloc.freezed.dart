@@ -23,7 +23,8 @@ mixin _$OrderEvent {
             List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
-    required TResult Function(OrderModel order, String apiKey, String getApiKey)
+    required TResult Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)
         putAction,
   }) =>
       throw _privateConstructorUsedError;
@@ -34,7 +35,8 @@ mixin _$OrderEvent {
             PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
-    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
+    TResult? Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)?
         putAction,
   }) =>
       throw _privateConstructorUsedError;
@@ -45,7 +47,8 @@ mixin _$OrderEvent {
             PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
-    TResult Function(OrderModel order, String apiKey, String getApiKey)?
+    TResult Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)?
         putAction,
     required TResult orElse(),
   }) =>
@@ -138,7 +141,8 @@ class _$resetEventImpl implements _resetEvent {
             List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
-    required TResult Function(OrderModel order, String apiKey, String getApiKey)
+    required TResult Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)
         putAction,
   }) {
     return reset();
@@ -152,7 +156,8 @@ class _$resetEventImpl implements _resetEvent {
             PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
-    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
+    TResult? Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)?
         putAction,
   }) {
     return reset?.call();
@@ -166,7 +171,8 @@ class _$resetEventImpl implements _resetEvent {
             PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
-    TResult Function(OrderModel order, String apiKey, String getApiKey)?
+    TResult Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)?
         putAction,
     required TResult orElse(),
   }) {
@@ -317,7 +323,8 @@ class _$updateEventImpl implements _updateEvent {
             List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
-    required TResult Function(OrderModel order, String apiKey, String getApiKey)
+    required TResult Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)
         putAction,
   }) {
     return update(orders, paginationHelper);
@@ -331,7 +338,8 @@ class _$updateEventImpl implements _updateEvent {
             PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
-    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
+    TResult? Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)?
         putAction,
   }) {
     return update?.call(orders, paginationHelper);
@@ -345,7 +353,8 @@ class _$updateEventImpl implements _updateEvent {
             PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
-    TResult Function(OrderModel order, String apiKey, String getApiKey)?
+    TResult Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)?
         putAction,
     required TResult orElse(),
   }) {
@@ -476,7 +485,8 @@ class _$getRequestEventImpl implements _getRequestEvent {
             List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
-    required TResult Function(OrderModel order, String apiKey, String getApiKey)
+    required TResult Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)
         putAction,
   }) {
     return getRequest(apiKey);
@@ -490,7 +500,8 @@ class _$getRequestEventImpl implements _getRequestEvent {
             PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
-    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
+    TResult? Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)?
         putAction,
   }) {
     return getRequest?.call(apiKey);
@@ -504,7 +515,8 @@ class _$getRequestEventImpl implements _getRequestEvent {
             PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
-    TResult Function(OrderModel order, String apiKey, String getApiKey)?
+    TResult Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)?
         putAction,
     required TResult orElse(),
   }) {
@@ -568,7 +580,8 @@ abstract class _$$putActionEventImplCopyWith<$Res> {
           $Res Function(_$putActionEventImpl) then) =
       __$$putActionEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({OrderModel order, String apiKey, String getApiKey});
+  $Res call(
+      {OrderModel order, String apiKey, String getApiKey, bool isFakeBody});
 
   $OrderModelCopyWith<$Res> get order;
 }
@@ -587,6 +600,7 @@ class __$$putActionEventImplCopyWithImpl<$Res>
     Object? order = null,
     Object? apiKey = null,
     Object? getApiKey = null,
+    Object? isFakeBody = null,
   }) {
     return _then(_$putActionEventImpl(
       order: null == order
@@ -601,6 +615,10 @@ class __$$putActionEventImplCopyWithImpl<$Res>
           ? _value.getApiKey
           : getApiKey // ignore: cast_nullable_to_non_nullable
               as String,
+      isFakeBody: null == isFakeBody
+          ? _value.isFakeBody
+          : isFakeBody // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -617,7 +635,10 @@ class __$$putActionEventImplCopyWithImpl<$Res>
 
 class _$putActionEventImpl implements _putActionEvent {
   const _$putActionEventImpl(
-      {required this.order, required this.apiKey, required this.getApiKey});
+      {required this.order,
+      required this.apiKey,
+      required this.getApiKey,
+      this.isFakeBody = true});
 
   @override
   final OrderModel order;
@@ -625,10 +646,13 @@ class _$putActionEventImpl implements _putActionEvent {
   final String apiKey;
   @override
   final String getApiKey;
+  @override
+  @JsonKey()
+  final bool isFakeBody;
 
   @override
   String toString() {
-    return 'OrderEvent.putAction(order: $order, apiKey: $apiKey, getApiKey: $getApiKey)';
+    return 'OrderEvent.putAction(order: $order, apiKey: $apiKey, getApiKey: $getApiKey, isFakeBody: $isFakeBody)';
   }
 
   @override
@@ -639,11 +663,14 @@ class _$putActionEventImpl implements _putActionEvent {
             (identical(other.order, order) || other.order == order) &&
             (identical(other.apiKey, apiKey) || other.apiKey == apiKey) &&
             (identical(other.getApiKey, getApiKey) ||
-                other.getApiKey == getApiKey));
+                other.getApiKey == getApiKey) &&
+            (identical(other.isFakeBody, isFakeBody) ||
+                other.isFakeBody == isFakeBody));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, order, apiKey, getApiKey);
+  int get hashCode =>
+      Object.hash(runtimeType, order, apiKey, getApiKey, isFakeBody);
 
   @JsonKey(ignore: true)
   @override
@@ -660,10 +687,11 @@ class _$putActionEventImpl implements _putActionEvent {
             List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper)
         update,
     required TResult Function(String apiKey) getRequest,
-    required TResult Function(OrderModel order, String apiKey, String getApiKey)
+    required TResult Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)
         putAction,
   }) {
-    return putAction(order, apiKey, getApiKey);
+    return putAction(order, apiKey, getApiKey, isFakeBody);
   }
 
   @override
@@ -674,10 +702,11 @@ class _$putActionEventImpl implements _putActionEvent {
             PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult? Function(String apiKey)? getRequest,
-    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
+    TResult? Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)?
         putAction,
   }) {
-    return putAction?.call(order, apiKey, getApiKey);
+    return putAction?.call(order, apiKey, getApiKey, isFakeBody);
   }
 
   @override
@@ -688,12 +717,13 @@ class _$putActionEventImpl implements _putActionEvent {
             PaginationHelper<dynamic> paginationHelper)?
         update,
     TResult Function(String apiKey)? getRequest,
-    TResult Function(OrderModel order, String apiKey, String getApiKey)?
+    TResult Function(
+            OrderModel order, String apiKey, String getApiKey, bool isFakeBody)?
         putAction,
     required TResult orElse(),
   }) {
     if (putAction != null) {
-      return putAction(order, apiKey, getApiKey);
+      return putAction(order, apiKey, getApiKey, isFakeBody);
     }
     return orElse();
   }
@@ -740,11 +770,13 @@ abstract class _putActionEvent implements OrderEvent {
   const factory _putActionEvent(
       {required final OrderModel order,
       required final String apiKey,
-      required final String getApiKey}) = _$putActionEventImpl;
+      required final String getApiKey,
+      final bool isFakeBody}) = _$putActionEventImpl;
 
   OrderModel get order;
   String get apiKey;
   String get getApiKey;
+  bool get isFakeBody;
   @JsonKey(ignore: true)
   _$$putActionEventImplCopyWith<_$putActionEventImpl> get copyWith =>
       throw _privateConstructorUsedError;

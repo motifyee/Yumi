@@ -49,9 +49,10 @@ class OrderService {
   static Future<Response> putActionOrderOrPreOrder(
       {required String apiKeys,
       int? orderId,
+      bool isFakeBody = true,
       Map<String, dynamic>? paginationHelper}) async {
     Response res = await DioClient.simpleDio().put(apiKeys,
-        data: {'driver_ID': null},
+        data: isFakeBody ? {'driver_ID': null} : null,
         queryParameters: {...?paginationHelper, 'orderId': orderId}
           ..removeWhere((key, value) => value == null));
     return res;

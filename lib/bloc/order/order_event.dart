@@ -9,8 +9,10 @@ class OrderEvent with _$OrderEvent {
   const factory OrderEvent.getRequest({required String apiKey}) =
       _getRequestEvent;
 
-  const factory OrderEvent.putAction(
-      {required OrderModel order,
-      required String apiKey,
-      required String getApiKey}) = _putActionEvent;
+  const factory OrderEvent.putAction({
+    required OrderModel order,
+    required String apiKey,
+    required String getApiKey,
+    @Default(true) bool isFakeBody,
+  }) = _putActionEvent;
 }

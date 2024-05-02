@@ -126,9 +126,11 @@ class ApiKeys {
   // action order && preOrder
   /// replace ( _ ) with order id
   static String orderDriverAccept = '/order/_/driver/accept';
-  static String preOrderDriverAccept = '/preorder/_/driver/accept';
   static String orderDriverReceived = '/order/_/driver/received';
+  static String orderDriverDelivered = '/order/delivery/driver/delivered';
+  static String preOrderDriverAccept = '/preorder/_/driver/accept';
   static String preOrderDriverReceived = '/preorder/_/driver/received';
+  static String preOrderDriverDelivered = '/preorder/delivery/driver/delivered';
 
   static String orderChefDeliveryStart = '/order/_/chef/start';
   static String orderChefDeliveryFinished = '/order/_/chef/finished';
