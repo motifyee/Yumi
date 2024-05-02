@@ -30,7 +30,7 @@ mixin _$ReviewModel {
   @JsonKey(includeToJson: false)
   String get customerName => throw _privateConstructorUsedError;
   @JsonKey(includeToJson: false)
-  ChefModel? get chef => throw _privateConstructorUsedError;
+  Chef? get chef => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +51,9 @@ abstract class $ReviewModelCopyWith<$Res> {
       @JsonKey(name: 'review_Comment') String reviewComment,
       double rate,
       @JsonKey(includeToJson: false) String customerName,
-      @JsonKey(includeToJson: false) ChefModel? chef});
+      @JsonKey(includeToJson: false) Chef? chef});
+
+  $ChefCopyWith<$Res>? get chef;
 }
 
 /// @nodoc
@@ -103,8 +105,20 @@ class _$ReviewModelCopyWithImpl<$Res, $Val extends ReviewModel>
       chef: freezed == chef
           ? _value.chef
           : chef // ignore: cast_nullable_to_non_nullable
-              as ChefModel?,
+              as Chef?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ChefCopyWith<$Res>? get chef {
+    if (_value.chef == null) {
+      return null;
+    }
+
+    return $ChefCopyWith<$Res>(_value.chef!, (value) {
+      return _then(_value.copyWith(chef: value) as $Val);
+    });
   }
 }
 
@@ -123,7 +137,10 @@ abstract class _$$ReviewModelImplCopyWith<$Res>
       @JsonKey(name: 'review_Comment') String reviewComment,
       double rate,
       @JsonKey(includeToJson: false) String customerName,
-      @JsonKey(includeToJson: false) ChefModel? chef});
+      @JsonKey(includeToJson: false) Chef? chef});
+
+  @override
+  $ChefCopyWith<$Res>? get chef;
 }
 
 /// @nodoc
@@ -173,7 +190,7 @@ class __$$ReviewModelImplCopyWithImpl<$Res>
       chef: freezed == chef
           ? _value.chef
           : chef // ignore: cast_nullable_to_non_nullable
-              as ChefModel?,
+              as Chef?,
     ));
   }
 }
@@ -213,7 +230,7 @@ class _$ReviewModelImpl implements _ReviewModel {
   final String customerName;
   @override
   @JsonKey(includeToJson: false)
-  final ChefModel? chef;
+  final Chef? chef;
 
   @override
   String toString() {
@@ -258,14 +275,13 @@ class _$ReviewModelImpl implements _ReviewModel {
 
 abstract class _ReviewModel implements ReviewModel {
   const factory _ReviewModel(
-          {final String id,
-          @JsonKey(name: 'buddies_User_ID') final String buddiesUserId,
-          final String code,
-          @JsonKey(name: 'review_Comment') final String reviewComment,
-          final double rate,
-          @JsonKey(includeToJson: false) final String customerName,
-          @JsonKey(includeToJson: false) final ChefModel? chef}) =
-      _$ReviewModelImpl;
+      {final String id,
+      @JsonKey(name: 'buddies_User_ID') final String buddiesUserId,
+      final String code,
+      @JsonKey(name: 'review_Comment') final String reviewComment,
+      final double rate,
+      @JsonKey(includeToJson: false) final String customerName,
+      @JsonKey(includeToJson: false) final Chef? chef}) = _$ReviewModelImpl;
 
   factory _ReviewModel.fromJson(Map<String, dynamic> json) =
       _$ReviewModelImpl.fromJson;
@@ -287,7 +303,7 @@ abstract class _ReviewModel implements ReviewModel {
   String get customerName;
   @override
   @JsonKey(includeToJson: false)
-  ChefModel? get chef;
+  Chef? get chef;
   @override
   @JsonKey(ignore: true)
   _$$ReviewModelImplCopyWith<_$ReviewModelImpl> get copyWith =>

@@ -26,7 +26,7 @@ import 'package:yumi/app/pages/chef_application/contract/contract_screen.dart'
 import 'package:yumi/app/pages/chef_application/documentation/documentation_screen.dart'
     as _i11;
 import 'package:yumi/app/pages/schedule/schedule_screen.dart' as _i20;
-import 'package:yumi/model/chef_model.dart' as _i33;
+import 'package:yumi/domain/chef/entity/chef.dart' as _i33;
 import 'package:yumi/model/meal_model.dart' as _i34;
 import 'package:yumi/model/order_model/order_model.dart' as _i37;
 import 'package:yumi/screens/chat.dart' as _i4;
@@ -394,7 +394,7 @@ class ChefApplicationFlowRoute extends _i31.PageRouteInfo<void> {
 class ChefProfileRoute extends _i31.PageRouteInfo<ChefProfileRouteArgs> {
   ChefProfileRoute({
     _i32.Key? key,
-    required _i33.ChefModel chef,
+    required _i33.Chef chef,
     required _i34.MenuTarget menuTarget,
     List<_i31.PageRouteInfo>? children,
   }) : super(
@@ -422,7 +422,7 @@ class ChefProfileRouteArgs {
 
   final _i32.Key? key;
 
-  final _i33.ChefModel chef;
+  final _i33.Chef chef;
 
   final _i34.MenuTarget menuTarget;
 
@@ -633,7 +633,7 @@ class MealProfileRoute extends _i31.PageRouteInfo<MealProfileRouteArgs> {
   MealProfileRoute({
     _i32.Key? key,
     required _i34.MealModel meal,
-    required _i33.ChefModel chef,
+    required _i33.Chef chef,
     List<_i31.PageRouteInfo>? children,
   }) : super(
           MealProfileRoute.name,
@@ -662,7 +662,7 @@ class MealProfileRouteArgs {
 
   final _i34.MealModel meal;
 
-  final _i33.ChefModel chef;
+  final _i33.Chef chef;
 
   @override
   String toString() {

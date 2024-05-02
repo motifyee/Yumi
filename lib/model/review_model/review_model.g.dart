@@ -16,7 +16,7 @@ _$ReviewModelImpl _$$ReviewModelImplFromJson(Map<String, dynamic> json) =>
       customerName: json['customerName'] as String? ?? '',
       chef: json['chef'] == null
           ? null
-          : ChefModel.fromJson(json['chef'] as Map<String, dynamic>),
+          : Chef.fromJson(json['chef'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ReviewModelImplToJson(_$ReviewModelImpl instance) =>

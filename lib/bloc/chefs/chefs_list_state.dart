@@ -2,7 +2,7 @@ part of 'chefs_list_bloc.dart';
 
 @immutable
 class ChefsListState extends Equatable {
-  List<ChefModel> chefs;
+  List<Chef> chefs;
   int chefsUpdated;
   PaginationHelper paginationHelper;
 
@@ -13,7 +13,7 @@ class ChefsListState extends Equatable {
   });
 
   ChefsListState copyWith(
-      {List<ChefModel>? chefs, PaginationHelper? paginationHelper}) {
+      {List<Chef>? chefs, PaginationHelper? paginationHelper}) {
     return ChefsListState(
         chefs: chefs ?? this.chefs,
         chefsUpdated: chefsUpdated + 1,

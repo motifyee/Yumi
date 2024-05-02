@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:yumi/model/chef_model.dart';
+import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/screens/customer/meal_profile.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -12,7 +12,7 @@ class ChefMealCard extends StatelessWidget {
   const ChefMealCard({super.key, required this.meal, required this.chef});
 
   final MealModel meal;
-  final ChefModel chef;
+  final Chef chef;
 
   @override
   Widget build(BuildContext context) {

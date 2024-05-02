@@ -8,9 +8,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/reviews/reviews_bloc.dart';
+import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/forms/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/chef_model.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/model/review_model/review_model.dart';
 import 'package:yumi/statics/code_generator.dart';
@@ -26,7 +26,7 @@ import 'package:yumi/template/review_chef_delivery.dart';
 class ChefProfileScreen extends StatelessWidget {
   ChefProfileScreen({super.key, required this.chef, required this.menuTarget});
 
-  final ChefModel chef;
+  final Chef chef;
   MenuTarget menuTarget;
 
   List<String> eventPhotos = [];

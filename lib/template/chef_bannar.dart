@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/chef_model.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/service/chef_service.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class ChefBanner extends StatefulWidget {
-  const ChefBanner({
+  ChefBanner({
     super.key,
     required this.chef,
     required this.borderRadius,
@@ -20,7 +20,7 @@ class ChefBanner extends StatefulWidget {
     this.isShowFav = false,
   });
 
-  final ChefModel chef;
+  Chef chef;
   final BorderRadius borderRadius;
   final double width;
   final double? height;
@@ -36,7 +36,8 @@ class _ChefBannerState extends State<ChefBanner> {
     if (widget.isShowFav) {
       ChefService.getIsChefFavorite(chefId: widget.chef.id!)
           .then((value) => setState(() {
-                widget.chef.isFavorite = value.data['data'].isNotEmpty;
+                widget.chef = widget.chef
+                    .copyWith(isFavorite: value.data['data'].isNotEmpty);
               }));
     }
 
@@ -157,13 +158,15 @@ class _ChefBannerState extends State<ChefBanner> {
                         if (widget.chef.isFavorite != true) {
                           ChefService.addFavoriteChef(chefId: widget.chef.id!)
                               .then((value) => setState(() {
-                                    widget.chef.isFavorite = true;
+                                    widget.chef =
+                                        widget.chef.copyWith(isFavorite: true);
                                   }));
                         } else {
                           ChefService.removeFavoriteChef(
                                   chefId: widget.chef.id!)
                               .then((value) => setState(() {
-                                    widget.chef.isFavorite = false;
+                                    widget.chef =
+                                        widget.chef.copyWith(isFavorite: false);
                                   }));
                         }
                       },
