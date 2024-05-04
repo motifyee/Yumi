@@ -322,52 +322,57 @@ class OrderStatusScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Hero(
-              tag: 'ConfirmBasketSeries',
-              child: GestureDetector(
-                onTap: () {
-                  showDialog(
-                    useSafeArea: true,
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      scrollable: true,
-                      alignment: Alignment.center,
-                      backgroundColor: Colors.transparent,
-                      surfaceTintColor: Colors.transparent,
-                      insetPadding: EdgeInsets.zero,
-                      content: ReviewChefDriver(
-                        isChefOnly: order.isPickUp == true ? true : false,
-                        reviewChef: const ReviewModel().copyWith(
-                          buddiesUserId: order.chefID ?? '',
-                          code: CodeGenerator.getRandomCode(),
-                        ),
-                        reviewDriver: const ReviewModel().copyWith(
-                          buddiesUserId: order.driverID ?? '',
-                          code: CodeGenerator.getRandomCode(),
-                        ),
-                      ),
+            if (!order.isClientReceivedOverDay)
+              Hero(
+                tag: 'ConfirmBasketSeries',
+                child: GestureDetector(
+                  onTap: order.clientReceived != true
+                      ? null
+                      : () {
+                          showDialog(
+                            useSafeArea: true,
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              scrollable: true,
+                              alignment: Alignment.center,
+                              backgroundColor: Colors.transparent,
+                              surfaceTintColor: Colors.transparent,
+                              insetPadding: EdgeInsets.zero,
+                              content: ReviewChefDriver(
+                                isChefOnly:
+                                    order.isPickUp == true ? true : false,
+                                reviewChef: const ReviewModel().copyWith(
+                                  buddiesUserId: order.chefID ?? '',
+                                  code: CodeGenerator.getRandomCode(),
+                                ),
+                                reviewDriver: const ReviewModel().copyWith(
+                                  buddiesUserId: order.driverID ?? '',
+                                  code: CodeGenerator.getRandomCode(),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                  child: Container(
+                    width: ThemeSelector.statics.defaultGapXXXL * 1.6,
+                    height: ThemeSelector.statics.defaultTitleGapLarge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                          ThemeSelector.statics.defaultBorderRadius),
+                      color: ThemeSelector.colors.primary
+                          .withAlpha(order.clientReceived != true ? 100 : 255),
                     ),
-                  );
-                },
-                child: Container(
-                  width: ThemeSelector.statics.defaultGapXXXL * 1.6,
-                  height: ThemeSelector.statics.defaultTitleGapLarge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                        ThemeSelector.statics.defaultBorderRadius),
-                    color: ThemeSelector.colors.primary,
-                  ),
-                  child: Center(
-                    child: Text(
-                      order.isPickUp == true
-                          ? S.of(context).confirmPickUp
-                          : S.of(context).confirmDelivery,
-                      style: Theme.of(context).textTheme.displaySmall,
+                    child: Center(
+                      child: Text(
+                        order.isPickUp == true
+                            ? S.of(context).confirmPickUp
+                            : S.of(context).confirmDelivery,
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),

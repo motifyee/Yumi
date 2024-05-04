@@ -86,6 +86,14 @@ class OrderModel with _$OrderModel {
           '${(24 * 60) - DateTime.now().difference(DateTime.parse(createdDate ?? '')).inMinutes}m'
       ].join(' ');
 
+  bool get isClientReceivedOverDay =>
+      DateTime.now()
+              .difference(
+                  DateTime.tryParse(clientReceivedDate ?? '') ?? DateTime.now())
+              .inHours >
+          24 &&
+      clientReceived == true;
+
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
 }
