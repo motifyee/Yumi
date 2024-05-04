@@ -2241,6 +2241,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Basket Created`
+  String get basketCreated {
+    return Intl.message(
+      'Basket Created',
+      name: 'basketCreated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Basket Updated`
+  String get basketUpdated {
+    return Intl.message(
+      'Basket Updated',
+      name: 'basketUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Created`
+  String get OrderCreated {
+    return Intl.message(
+      'Order Created',
+      name: 'OrderCreated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Basket Deleted`
+  String get basketDeleted {
+    return Intl.message(
+      'Basket Deleted',
+      name: 'basketDeleted',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

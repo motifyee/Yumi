@@ -217,5 +217,9 @@
   "wait": "Wait",
   "thankYouForWaiting": "Thank you for waiting",
   "orderCanceled": "Order Canceled",
-  "clientReceived": "Client Received"
+  "clientReceived": "Client Received",
+  "basketCreated": "Basket Created",
+  "basketUpdated": "Basket Updated",
+  "OrderCreated": "Order Created",
+  "basketDeleted": "Basket Deleted"
 }
