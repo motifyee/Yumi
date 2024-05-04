@@ -71,7 +71,6 @@ class CustomerLocationScreen extends StatelessWidget {
             child: BlocConsumer<AddressBloc, AddressState>(
               listener: (context, state) {},
               builder: (context, state) {
-                print(state.addressList);
                 return Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: ThemeSelector.statics.defaultMediumGap),
@@ -83,7 +82,7 @@ class CustomerLocationScreen extends StatelessWidget {
                     },
                     child: Column(
                       children: [
-                        for (var i = 1; i < state.addressList.length; i++)
+                        for (var i = 0; i < state.addressList.length; i++)
                           if (state.addressList[i].isDeleted != true)
                             _LocationCard(address: state.addressList[i]),
                       ],
