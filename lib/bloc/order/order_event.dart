@@ -14,5 +14,6 @@ class OrderEvent with _$OrderEvent {
     required String apiKey,
     required String getApiKey,
     @Default(true) bool isFakeBody,
+    Function()? navFun,
   }) = _putActionEvent;
 }

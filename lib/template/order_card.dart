@@ -19,18 +19,21 @@ import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_currency.dart';
 
 class OrderCard extends StatefulWidget {
-  OrderCard(
-      {super.key,
-      required this.order,
-      required this.orderCardTargetPage,
-      required this.getApiKey,
-      required this.menuTarget});
+  OrderCard({
+    super.key,
+    required this.order,
+    required this.orderCardTargetPage,
+    required this.getApiKey,
+    required this.menuTarget,
+    this.navFun,
+  });
 
   late OrderModel order;
   bool isView = false;
   final OrderCardTargetPage orderCardTargetPage;
   final String getApiKey;
   final MenuTarget menuTarget;
+  final Function()? navFun;
 
   @override
   State<OrderCard> createState() => _OrderCardState();
@@ -434,6 +437,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                 context.read<OrderBloc>().add(
                                       OrderEvent.putAction(
                                         order: widget.order,
+                                        navFun: widget.navFun,
                                         apiKey: ApiKeys.actionApiKeyString(
                                             apiKey: _apiKey,
                                             id: '${widget.order.id}'),
@@ -470,6 +474,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       context.read<OrderBloc>().add(
                                             OrderEvent.putAction(
                                               order: widget.order,
+                                              navFun: widget.navFun,
                                               apiKey:
                                                   ApiKeys.actionApiKeyString(
                                                       apiKey: _apiKey,
@@ -523,6 +528,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                 context.read<OrderBloc>().add(
                                       OrderEvent.putAction(
                                         order: widget.order,
+                                        navFun: widget.navFun,
                                         apiKey: ApiKeys.actionApiKeyString(
                                             apiKey: _apiKey,
                                             id: '${widget.order.id}'),
@@ -665,7 +671,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           // wait & cancel driver
                           if (widget.orderCardTargetPage ==
                                   OrderCardTargetPage.customerHistory &&
-                              widget.order.isDriverDelayed)
+                              widget.order.isDriverDelayed &&
+                              widget.menuTarget == MenuTarget.order)
                             TextButton(
                               onPressed: () {
                                 OrderService.putActionOrderOrPreOrder(
@@ -687,7 +694,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
                           if (widget.orderCardTargetPage ==
                                   OrderCardTargetPage.customerHistory &&
-                              widget.order.isDriverDelayed)
+                              widget.order.isDriverDelayed &&
+                              widget.menuTarget == MenuTarget.order)
                             TextButton(
                               onPressed: () {
                                 OrderService.putActionOrderOrPreOrder(
@@ -711,7 +719,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           // wait & cancel chef
                           if (widget.orderCardTargetPage ==
                                   OrderCardTargetPage.customerHistory &&
-                              widget.order.isChefDelayed)
+                              widget.order.isChefDelayed &&
+                              widget.menuTarget == MenuTarget.order)
                             TextButton(
                               onPressed: () {
                                 OrderService.putActionOrderOrPreOrder(
@@ -733,7 +742,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
                           if (widget.orderCardTargetPage ==
                                   OrderCardTargetPage.customerHistory &&
-                              widget.order.isChefDelayed)
+                              widget.order.isChefDelayed &&
+                              widget.menuTarget == MenuTarget.order)
                             TextButton(
                               onPressed: () {
                                 OrderService.putActionOrderOrPreOrder(

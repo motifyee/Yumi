@@ -49,7 +49,7 @@ class ReviewChefDriver extends StatelessWidget {
                   );
                 },
               ),
-              Text(S.of(context).youCanNowCreateYourReviewToTheDriverChef,
+              Text(S.of(context).youCanNowCreateYourReview,
                   style: Theme.of(context).textTheme.bodyMedium),
               if (!isChefOnly)
                 Column(
@@ -111,7 +111,7 @@ class ReviewChefDriver extends StatelessWidget {
               Material(
                 child: TextFormFieldTemplate(
                   borderStyle: TextFormFieldBorderStyle.borderedRound,
-                  hintText: S.of(context).reviewTheDriver,
+                  hintText: S.of(context).reviewTheChef,
                   onChange: (value) => reviewChef =
                       reviewChef.copyWith(reviewComment: value ?? ''),
                 ),

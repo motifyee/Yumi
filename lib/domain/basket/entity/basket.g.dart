@@ -16,7 +16,7 @@ _$BasketImpl _$$BasketImplFromJson(Map<String, dynamic> json) => _$BasketImpl(
       shippedAddressId: json['shippedAddressId'] as int?,
       isSchedule: json['isSchedule'] as bool? ?? false,
       isPickup: json['is_Pickup'] as bool? ?? true,
-      isDelivery: json['isDelivery'] as bool? ?? false,
+      isDelivery: json['is_Delivery'] as bool? ?? true,
       isPreorder: json['is_Preorder'] as bool? ?? false,
       status: json['status'] as int? ?? 1,
     );
@@ -37,7 +37,7 @@ Map<String, dynamic> _$$BasketImplToJson(_$BasketImpl instance) {
   writeNotNull('shippedAddressId', instance.shippedAddressId);
   val['isSchedule'] = instance.isSchedule;
   val['is_Pickup'] = instance.isPickup;
-  val['isDelivery'] = instance.isDelivery;
+  val['is_Delivery'] = instance.isDelivery;
   val['is_Preorder'] = instance.isPreorder;
   writeNotNull('status', instance.status);
   return val;

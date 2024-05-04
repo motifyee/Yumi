@@ -58,16 +58,22 @@ class ReviewWidget extends StatelessWidget {
             width: ThemeSelector.statics.iconSizeMedium,
             height: ThemeSelector.statics.iconSizeMedium,
             decoration: BoxDecoration(
-              color: ThemeSelector.colors.secondaryTant,
+              color: ThemeSelector.colors.secondaryFaint,
               borderRadius: BorderRadius.circular(
                   ThemeSelector.statics.buttonBorderRadius),
             ),
             child: Center(
-              child: SvgPicture.asset('assets/images/profile1.svg'),
+              child: Text(
+                (review.customerName[0] ?? '').toUpperCase(),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(fontSize: ThemeSelector.fonts.font_24),
+              ),
             ),
           ),
           const SizedBox(width: 5),
-          const Expanded(child: Text('review.comment')),
+          Expanded(child: Text(review.customerName)),
           Container(
             padding: EdgeInsets.symmetric(
                 horizontal: ThemeSelector.statics.defaultGap,

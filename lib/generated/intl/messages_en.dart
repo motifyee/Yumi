@@ -299,9 +299,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatYouWishToEatToday":
             MessageLookupByLibrary.simpleMessage("What you wish to eat today?"),
         "writeABio": MessageLookupByLibrary.simpleMessage("Write a Bio"),
-        "youCanNowCreateYourReviewToTheDriverChef":
-            MessageLookupByLibrary.simpleMessage(
-                "You can now create your review to the driver & chef"),
+        "youCanNowCreateYourReview": MessageLookupByLibrary.simpleMessage(
+            "You can now create your review."),
         "yourOrders": MessageLookupByLibrary.simpleMessage("Your orders"),
         "yourWallet": MessageLookupByLibrary.simpleMessage("Your wallet"),
         "yumi": MessageLookupByLibrary.simpleMessage("YUMI")

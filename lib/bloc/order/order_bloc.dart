@@ -73,6 +73,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     if (res.statusCode == 200) {
       add(const OrderEvent.reset());
       add(OrderEvent.getRequest(apiKey: event.getApiKey));
+      if (event.navFun != null) event.navFun!();
     }
   }
 }

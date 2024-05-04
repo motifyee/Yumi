@@ -18,8 +18,7 @@ class OrderStatusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime? _driverAcceptDate =
-        DateTime.tryParse(order.driverAcceptDate ?? '');
+    DateTime? _createdDate = DateTime.tryParse(order.createdDate ?? '');
     DateTime? _chefStartDate = DateTime.tryParse(order.chefStartDate ?? '');
     DateTime? _chefFinishedDate =
         DateTime.tryParse(order.chefFinishedDate ?? '');
@@ -71,8 +70,7 @@ class OrderStatusScreen extends StatelessWidget {
                     SizedBox(height: ThemeSelector.statics.defaultGap),
                     Icon(
                       Icons.access_time_filled,
-                      color: ThemeSelector.colors.primary
-                          .withAlpha(order.driverAccept == true ? 255 : 100),
+                      color: ThemeSelector.colors.primary.withAlpha(255),
                     ),
                     Container(
                       height: 75,
@@ -83,8 +81,8 @@ class OrderStatusScreen extends StatelessWidget {
                         child: CustomPaint(
                           painter: DrawDottedVerticalLine(
                               height: 200,
-                              color: ThemeSelector.colors.primary.withAlpha(
-                                  order.driverAccept == true ? 255 : 100)),
+                              color:
+                                  ThemeSelector.colors.primary.withAlpha(255)),
                         ),
                       ),
                     ),
@@ -129,14 +127,6 @@ class OrderStatusScreen extends StatelessWidget {
                               Text(S.of(context).orderReceived,
                                   style:
                                       Theme.of(context).textTheme.bodyMedium),
-                              if (order.driverAccept == true)
-                                Text('05:00',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(
-                                            color: ThemeSelector
-                                                .colors.secondaryTantLighter)),
                             ],
                           ),
                           Row(
@@ -148,10 +138,8 @@ class OrderStatusScreen extends StatelessWidget {
                               ),
                               const Text(' '),
                               Text(
-                                order.driverAccept == true
-                                    ? DateFormat('hh:mm a, d MMM yyyy')
-                                        .format(_driverAcceptDate!)
-                                    : '--:--',
+                                DateFormat('hh:mm a, d MMM yyyy')
+                                    .format(_createdDate!),
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ],
@@ -198,7 +186,7 @@ class OrderStatusScreen extends StatelessWidget {
                                 order.chefStart == true
                                     ? DateFormat('hh:mm a, d MMM yyyy')
                                         .format(_chefStartDate!)
-                                    : '08:04 AM, 10 Nov 2023',
+                                    : '--:--',
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ],

@@ -205,7 +205,7 @@
   "pending": "Pending",
   "finish": "Finish",
   "active": "Active",
-  "youCanNowCreateYourReviewToTheDriverChef": "You can now create your review to the driver & chef",
+  "youCanNowCreateYourReview": "You can now create your review.",
   "theDriver": "The driver",
   "theChef": "The chef",
   "review": "Review",

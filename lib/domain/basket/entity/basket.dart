@@ -21,7 +21,10 @@ class Basket with _$Basket {
     @Default(false)
     @JsonKey(includeToJson: false, includeFromJson: false)
     bool isPickupOnly,
-    @Default(false) bool isDelivery,
+    @Default(true)
+    @JsonKey(name: 'is_Delivery')
+    @Default(false)
+    bool isDelivery,
     @Default(false) @JsonKey(name: 'is_Preorder') bool isPreorder,
     @Default(1) int? status,
   }) = _Basket;

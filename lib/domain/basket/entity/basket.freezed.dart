@@ -30,6 +30,7 @@ mixin _$Basket {
   bool get isPickup => throw _privateConstructorUsedError;
   @JsonKey(includeToJson: false, includeFromJson: false)
   bool get isPickupOnly => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_Delivery')
   bool get isDelivery => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_Preorder')
   bool get isPreorder => throw _privateConstructorUsedError;
@@ -54,7 +55,7 @@ abstract class $BasketCopyWith<$Res> {
       bool isSchedule,
       @JsonKey(name: 'is_Pickup') bool isPickup,
       @JsonKey(includeToJson: false, includeFromJson: false) bool isPickupOnly,
-      bool isDelivery,
+      @JsonKey(name: 'is_Delivery') bool isDelivery,
       @JsonKey(name: 'is_Preorder') bool isPreorder,
       int? status});
 
@@ -159,7 +160,7 @@ abstract class _$$BasketImplCopyWith<$Res> implements $BasketCopyWith<$Res> {
       bool isSchedule,
       @JsonKey(name: 'is_Pickup') bool isPickup,
       @JsonKey(includeToJson: false, includeFromJson: false) bool isPickupOnly,
-      bool isDelivery,
+      @JsonKey(name: 'is_Delivery') bool isDelivery,
       @JsonKey(name: 'is_Preorder') bool isPreorder,
       int? status});
 
@@ -253,7 +254,7 @@ class _$BasketImpl implements _Basket {
       @JsonKey(name: 'is_Pickup') this.isPickup = true,
       @JsonKey(includeToJson: false, includeFromJson: false)
       this.isPickupOnly = false,
-      this.isDelivery = false,
+      @JsonKey(name: 'is_Delivery') this.isDelivery = true,
       @JsonKey(name: 'is_Preorder') this.isPreorder = false,
       this.status = 1})
       : _invoiceDetails = invoiceDetails;
@@ -287,7 +288,7 @@ class _$BasketImpl implements _Basket {
   @JsonKey(includeToJson: false, includeFromJson: false)
   final bool isPickupOnly;
   @override
-  @JsonKey()
+  @JsonKey(name: 'is_Delivery')
   final bool isDelivery;
   @override
   @JsonKey(name: 'is_Preorder')
@@ -367,7 +368,7 @@ abstract class _Basket implements Basket {
       @JsonKey(name: 'is_Pickup') final bool isPickup,
       @JsonKey(includeToJson: false, includeFromJson: false)
       final bool isPickupOnly,
-      final bool isDelivery,
+      @JsonKey(name: 'is_Delivery') final bool isDelivery,
       @JsonKey(name: 'is_Preorder') final bool isPreorder,
       final int? status}) = _$BasketImpl;
 
@@ -392,6 +393,7 @@ abstract class _Basket implements Basket {
   @JsonKey(includeToJson: false, includeFromJson: false)
   bool get isPickupOnly;
   @override
+  @JsonKey(name: 'is_Delivery')
   bool get isDelivery;
   @override
   @JsonKey(name: 'is_Preorder')

@@ -2112,11 +2112,11 @@ class S {
     );
   }
 
-  /// `You can now create your review to the driver & chef`
-  String get youCanNowCreateYourReviewToTheDriverChef {
+  /// `You can now create your review.`
+  String get youCanNowCreateYourReview {
     return Intl.message(
-      'You can now create your review to the driver & chef',
-      name: 'youCanNowCreateYourReviewToTheDriverChef',
+      'You can now create your review.',
+      name: 'youCanNowCreateYourReview',
       desc: '',
       args: [],
     );
