@@ -25,6 +25,7 @@ mixin _$PaginationHelper<T> {
   int get pageSize => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false)
   int get lastPage => throw _privateConstructorUsedError;
+  int get total => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false)
   bool get isLoading => throw _privateConstructorUsedError;
   @JsonKey(includeToJson: false, includeFromJson: false)
@@ -46,6 +47,7 @@ abstract class $PaginationHelperCopyWith<T, $Res> {
       {@JsonKey(toJson: _pageNumberToJson) int pageNumber,
       int pageSize,
       @JsonKey(includeFromJson: false) int lastPage,
+      int total,
       @JsonKey(includeFromJson: false) bool isLoading,
       @JsonKey(includeToJson: false, includeFromJson: false) List<T> data});
 }
@@ -66,6 +68,7 @@ class _$PaginationHelperCopyWithImpl<T, $Res, $Val extends PaginationHelper<T>>
     Object? pageNumber = null,
     Object? pageSize = null,
     Object? lastPage = null,
+    Object? total = null,
     Object? isLoading = null,
     Object? data = null,
   }) {
@@ -81,6 +84,10 @@ class _$PaginationHelperCopyWithImpl<T, $Res, $Val extends PaginationHelper<T>>
       lastPage: null == lastPage
           ? _value.lastPage
           : lastPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
               as int,
       isLoading: null == isLoading
           ? _value.isLoading
@@ -106,6 +113,7 @@ abstract class _$$PaginationHelperImplCopyWith<T, $Res>
       {@JsonKey(toJson: _pageNumberToJson) int pageNumber,
       int pageSize,
       @JsonKey(includeFromJson: false) int lastPage,
+      int total,
       @JsonKey(includeFromJson: false) bool isLoading,
       @JsonKey(includeToJson: false, includeFromJson: false) List<T> data});
 }
@@ -124,6 +132,7 @@ class __$$PaginationHelperImplCopyWithImpl<T, $Res>
     Object? pageNumber = null,
     Object? pageSize = null,
     Object? lastPage = null,
+    Object? total = null,
     Object? isLoading = null,
     Object? data = null,
   }) {
@@ -139,6 +148,10 @@ class __$$PaginationHelperImplCopyWithImpl<T, $Res>
       lastPage: null == lastPage
           ? _value.lastPage
           : lastPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
               as int,
       isLoading: null == isLoading
           ? _value.isLoading
@@ -159,6 +172,7 @@ class _$PaginationHelperImpl<T> extends _PaginationHelper<T> {
       {@JsonKey(toJson: _pageNumberToJson) this.pageNumber = 0,
       this.pageSize = 20,
       @JsonKey(includeFromJson: false) this.lastPage = 1,
+      this.total = 0,
       @JsonKey(includeFromJson: false) this.isLoading = false,
       @JsonKey(includeToJson: false, includeFromJson: false)
       final List<T> data = const []})
@@ -178,6 +192,9 @@ class _$PaginationHelperImpl<T> extends _PaginationHelper<T> {
   @JsonKey(includeFromJson: false)
   final int lastPage;
   @override
+  @JsonKey()
+  final int total;
+  @override
   @JsonKey(includeFromJson: false)
   final bool isLoading;
   final List<T> _data;
@@ -191,7 +208,7 @@ class _$PaginationHelperImpl<T> extends _PaginationHelper<T> {
 
   @override
   String toString() {
-    return 'PaginationHelper<$T>(pageNumber: $pageNumber, pageSize: $pageSize, lastPage: $lastPage, isLoading: $isLoading, data: $data)';
+    return 'PaginationHelper<$T>(pageNumber: $pageNumber, pageSize: $pageSize, lastPage: $lastPage, total: $total, isLoading: $isLoading, data: $data)';
   }
 
   @override
@@ -205,6 +222,7 @@ class _$PaginationHelperImpl<T> extends _PaginationHelper<T> {
                 other.pageSize == pageSize) &&
             (identical(other.lastPage, lastPage) ||
                 other.lastPage == lastPage) &&
+            (identical(other.total, total) || other.total == total) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             const DeepCollectionEquality().equals(other._data, _data));
@@ -213,7 +231,7 @@ class _$PaginationHelperImpl<T> extends _PaginationHelper<T> {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, pageNumber, pageSize, lastPage,
-      isLoading, const DeepCollectionEquality().hash(_data));
+      total, isLoading, const DeepCollectionEquality().hash(_data));
 
   @JsonKey(ignore: true)
   @override
@@ -235,6 +253,7 @@ abstract class _PaginationHelper<T> extends PaginationHelper<T> {
       {@JsonKey(toJson: _pageNumberToJson) final int pageNumber,
       final int pageSize,
       @JsonKey(includeFromJson: false) final int lastPage,
+      final int total,
       @JsonKey(includeFromJson: false) final bool isLoading,
       @JsonKey(includeToJson: false, includeFromJson: false)
       final List<T> data}) = _$PaginationHelperImpl<T>;
@@ -251,6 +270,8 @@ abstract class _PaginationHelper<T> extends PaginationHelper<T> {
   @override
   @JsonKey(includeFromJson: false)
   int get lastPage;
+  @override
+  int get total;
   @override
   @JsonKey(includeFromJson: false)
   bool get isLoading;

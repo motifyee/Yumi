@@ -16,7 +16,7 @@ _$BasketImpl _$$BasketImplFromJson(Map<String, dynamic> json) => _$BasketImpl(
       shippedAddressId: json['shippedAddressId'] as int?,
       isSchedule: json['isSchedule'] as bool? ?? false,
       isPickup: json['is_Pickup'] as bool? ?? true,
-      isDelivery: json['is_Delivery'] as bool? ?? true,
+      isDelivery: json['is_Delivery'] as bool? ?? false,
       isPreorder: json['is_Preorder'] as bool? ?? false,
       status: json['status'] as int? ?? 1,
     );

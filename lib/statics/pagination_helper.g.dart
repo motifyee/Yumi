@@ -11,6 +11,7 @@ _$PaginationHelperImpl<T> _$$PaginationHelperImplFromJson<T>(
     _$PaginationHelperImpl<T>(
       pageNumber: json['pageNumber'] as int? ?? 0,
       pageSize: json['pageSize'] as int? ?? 20,
+      total: json['total'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$$PaginationHelperImplToJson<T>(
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$PaginationHelperImplToJson<T>(
     <String, dynamic>{
       'pageNumber': _pageNumberToJson(instance.pageNumber),
       'pageSize': instance.pageSize,
+      'total': instance.total,
     };

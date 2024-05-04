@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/statics/debouncer.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -16,6 +17,8 @@ class BasketMealCard extends StatelessWidget {
 
   final InvoiceDetails invoiceDetails;
   final int indexInList;
+
+  final _debouncer = Debouncer(milliseconds: 3000);
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +80,7 @@ class BasketMealCard extends StatelessWidget {
                                         invoiceDetails: invoiceDetails,
                                         indexInList: indexInList,
                                         newQuantity:
-                                            '${int.parse(invoiceDetails.quantity!) - 1}',
+                                            '${int.parse(invoiceDetails.quantity) - 1}',
                                         note: invoiceDetails.note);
                                   }
                                 },
@@ -167,11 +170,13 @@ class BasketMealCard extends StatelessWidget {
                 hintText: S.of(context).anythingElseWeNeedToKnow,
                 label: S.of(context).addANote,
                 onChange: (value) {
-                  context.read<BasketCubit>().updateMeal(
-                      invoiceDetails: invoiceDetails,
-                      indexInList: indexInList,
-                      newQuantity: invoiceDetails.quantity,
-                      note: value);
+                  _debouncer.run(() {
+                    context.read<BasketCubit>().updateMeal(
+                        invoiceDetails: invoiceDetails,
+                        indexInList: indexInList,
+                        newQuantity: invoiceDetails.quantity,
+                        note: value);
+                  });
                 },
               ),
             ],

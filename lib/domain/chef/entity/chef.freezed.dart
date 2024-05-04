@@ -25,21 +25,37 @@ mixin _$Chef {
   String? get lastName => throw _privateConstructorUsedError;
   String? get mobile => throw _privateConstructorUsedError;
   String? get code => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_Profile')
   String? get imageProfile => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_Profile_1')
   String? get imageProfile1 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_Profile_2')
   String? get imageProfile2 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_Profile_3')
   String? get imageProfile3 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_Profile_4')
   String? get imageProfile4 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_Profile_5')
   String? get imageProfile5 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'account_Approved')
   bool? get accountApproved => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_Allowed')
   bool? get pickupAllowed => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_Only')
   bool? get pickupOnly => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_Hygiene')
   bool? get isHygiene => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_Hygiene_Cert')
   String? get imageHygieneCert => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_Authority_Reg')
   String? get imageAuthorityReg => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_Risk_Assessment')
   String? get imageRiskAssessment => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_Contract')
   String? get imageContract => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_ID')
   String? get imageID => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_Passport')
   String? get imagePassport => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   int? get signupType => throw _privateConstructorUsedError;
@@ -62,22 +78,22 @@ abstract class $ChefCopyWith<$Res> {
       String? lastName,
       String? mobile,
       String? code,
-      String? imageProfile,
-      String? imageProfile1,
-      String? imageProfile2,
-      String? imageProfile3,
-      String? imageProfile4,
-      String? imageProfile5,
-      bool? accountApproved,
-      bool? pickupAllowed,
-      bool? pickupOnly,
-      bool? isHygiene,
-      String? imageHygieneCert,
-      String? imageAuthorityReg,
-      String? imageRiskAssessment,
-      String? imageContract,
-      String? imageID,
-      String? imagePassport,
+      @JsonKey(name: 'image_Profile') String? imageProfile,
+      @JsonKey(name: 'image_Profile_1') String? imageProfile1,
+      @JsonKey(name: 'image_Profile_2') String? imageProfile2,
+      @JsonKey(name: 'image_Profile_3') String? imageProfile3,
+      @JsonKey(name: 'image_Profile_4') String? imageProfile4,
+      @JsonKey(name: 'image_Profile_5') String? imageProfile5,
+      @JsonKey(name: 'account_Approved') bool? accountApproved,
+      @JsonKey(name: 'pickup_Allowed') bool? pickupAllowed,
+      @JsonKey(name: 'pickup_Only') bool? pickupOnly,
+      @JsonKey(name: 'is_Hygiene') bool? isHygiene,
+      @JsonKey(name: 'image_Hygiene_Cert') String? imageHygieneCert,
+      @JsonKey(name: 'image_Authority_Reg') String? imageAuthorityReg,
+      @JsonKey(name: 'image_Risk_Assessment') String? imageRiskAssessment,
+      @JsonKey(name: 'image_Contract') String? imageContract,
+      @JsonKey(name: 'image_ID') String? imageID,
+      @JsonKey(name: 'image_Passport') String? imagePassport,
       String? email,
       int? signupType,
       String? createdBy,
@@ -241,22 +257,22 @@ abstract class _$$ChefImplCopyWith<$Res> implements $ChefCopyWith<$Res> {
       String? lastName,
       String? mobile,
       String? code,
-      String? imageProfile,
-      String? imageProfile1,
-      String? imageProfile2,
-      String? imageProfile3,
-      String? imageProfile4,
-      String? imageProfile5,
-      bool? accountApproved,
-      bool? pickupAllowed,
-      bool? pickupOnly,
-      bool? isHygiene,
-      String? imageHygieneCert,
-      String? imageAuthorityReg,
-      String? imageRiskAssessment,
-      String? imageContract,
-      String? imageID,
-      String? imagePassport,
+      @JsonKey(name: 'image_Profile') String? imageProfile,
+      @JsonKey(name: 'image_Profile_1') String? imageProfile1,
+      @JsonKey(name: 'image_Profile_2') String? imageProfile2,
+      @JsonKey(name: 'image_Profile_3') String? imageProfile3,
+      @JsonKey(name: 'image_Profile_4') String? imageProfile4,
+      @JsonKey(name: 'image_Profile_5') String? imageProfile5,
+      @JsonKey(name: 'account_Approved') bool? accountApproved,
+      @JsonKey(name: 'pickup_Allowed') bool? pickupAllowed,
+      @JsonKey(name: 'pickup_Only') bool? pickupOnly,
+      @JsonKey(name: 'is_Hygiene') bool? isHygiene,
+      @JsonKey(name: 'image_Hygiene_Cert') String? imageHygieneCert,
+      @JsonKey(name: 'image_Authority_Reg') String? imageAuthorityReg,
+      @JsonKey(name: 'image_Risk_Assessment') String? imageRiskAssessment,
+      @JsonKey(name: 'image_Contract') String? imageContract,
+      @JsonKey(name: 'image_ID') String? imageID,
+      @JsonKey(name: 'image_Passport') String? imagePassport,
       String? email,
       int? signupType,
       String? createdBy,
@@ -414,22 +430,22 @@ class _$ChefImpl implements _Chef {
       this.lastName,
       this.mobile,
       this.code,
-      this.imageProfile,
-      this.imageProfile1,
-      this.imageProfile2,
-      this.imageProfile3,
-      this.imageProfile4,
-      this.imageProfile5,
-      this.accountApproved,
-      this.pickupAllowed,
-      this.pickupOnly,
-      this.isHygiene,
-      this.imageHygieneCert,
-      this.imageAuthorityReg,
-      this.imageRiskAssessment,
-      this.imageContract,
-      this.imageID,
-      this.imagePassport,
+      @JsonKey(name: 'image_Profile') this.imageProfile,
+      @JsonKey(name: 'image_Profile_1') this.imageProfile1,
+      @JsonKey(name: 'image_Profile_2') this.imageProfile2,
+      @JsonKey(name: 'image_Profile_3') this.imageProfile3,
+      @JsonKey(name: 'image_Profile_4') this.imageProfile4,
+      @JsonKey(name: 'image_Profile_5') this.imageProfile5,
+      @JsonKey(name: 'account_Approved') this.accountApproved,
+      @JsonKey(name: 'pickup_Allowed') this.pickupAllowed,
+      @JsonKey(name: 'pickup_Only') this.pickupOnly,
+      @JsonKey(name: 'is_Hygiene') this.isHygiene,
+      @JsonKey(name: 'image_Hygiene_Cert') this.imageHygieneCert,
+      @JsonKey(name: 'image_Authority_Reg') this.imageAuthorityReg,
+      @JsonKey(name: 'image_Risk_Assessment') this.imageRiskAssessment,
+      @JsonKey(name: 'image_Contract') this.imageContract,
+      @JsonKey(name: 'image_ID') this.imageID,
+      @JsonKey(name: 'image_Passport') this.imagePassport,
       this.email,
       this.signupType,
       this.createdBy,
@@ -449,36 +465,52 @@ class _$ChefImpl implements _Chef {
   @override
   final String? code;
   @override
+  @JsonKey(name: 'image_Profile')
   final String? imageProfile;
   @override
+  @JsonKey(name: 'image_Profile_1')
   final String? imageProfile1;
   @override
+  @JsonKey(name: 'image_Profile_2')
   final String? imageProfile2;
   @override
+  @JsonKey(name: 'image_Profile_3')
   final String? imageProfile3;
   @override
+  @JsonKey(name: 'image_Profile_4')
   final String? imageProfile4;
   @override
+  @JsonKey(name: 'image_Profile_5')
   final String? imageProfile5;
   @override
+  @JsonKey(name: 'account_Approved')
   final bool? accountApproved;
   @override
+  @JsonKey(name: 'pickup_Allowed')
   final bool? pickupAllowed;
   @override
+  @JsonKey(name: 'pickup_Only')
   final bool? pickupOnly;
   @override
+  @JsonKey(name: 'is_Hygiene')
   final bool? isHygiene;
   @override
+  @JsonKey(name: 'image_Hygiene_Cert')
   final String? imageHygieneCert;
   @override
+  @JsonKey(name: 'image_Authority_Reg')
   final String? imageAuthorityReg;
   @override
+  @JsonKey(name: 'image_Risk_Assessment')
   final String? imageRiskAssessment;
   @override
+  @JsonKey(name: 'image_Contract')
   final String? imageContract;
   @override
+  @JsonKey(name: 'image_ID')
   final String? imageID;
   @override
+  @JsonKey(name: 'image_Passport')
   final String? imagePassport;
   @override
   final String? email;
@@ -599,22 +631,22 @@ abstract class _Chef implements Chef {
       final String? lastName,
       final String? mobile,
       final String? code,
-      final String? imageProfile,
-      final String? imageProfile1,
-      final String? imageProfile2,
-      final String? imageProfile3,
-      final String? imageProfile4,
-      final String? imageProfile5,
-      final bool? accountApproved,
-      final bool? pickupAllowed,
-      final bool? pickupOnly,
-      final bool? isHygiene,
-      final String? imageHygieneCert,
-      final String? imageAuthorityReg,
-      final String? imageRiskAssessment,
-      final String? imageContract,
-      final String? imageID,
-      final String? imagePassport,
+      @JsonKey(name: 'image_Profile') final String? imageProfile,
+      @JsonKey(name: 'image_Profile_1') final String? imageProfile1,
+      @JsonKey(name: 'image_Profile_2') final String? imageProfile2,
+      @JsonKey(name: 'image_Profile_3') final String? imageProfile3,
+      @JsonKey(name: 'image_Profile_4') final String? imageProfile4,
+      @JsonKey(name: 'image_Profile_5') final String? imageProfile5,
+      @JsonKey(name: 'account_Approved') final bool? accountApproved,
+      @JsonKey(name: 'pickup_Allowed') final bool? pickupAllowed,
+      @JsonKey(name: 'pickup_Only') final bool? pickupOnly,
+      @JsonKey(name: 'is_Hygiene') final bool? isHygiene,
+      @JsonKey(name: 'image_Hygiene_Cert') final String? imageHygieneCert,
+      @JsonKey(name: 'image_Authority_Reg') final String? imageAuthorityReg,
+      @JsonKey(name: 'image_Risk_Assessment') final String? imageRiskAssessment,
+      @JsonKey(name: 'image_Contract') final String? imageContract,
+      @JsonKey(name: 'image_ID') final String? imageID,
+      @JsonKey(name: 'image_Passport') final String? imagePassport,
       final String? email,
       final int? signupType,
       final String? createdBy,
@@ -633,36 +665,52 @@ abstract class _Chef implements Chef {
   @override
   String? get code;
   @override
+  @JsonKey(name: 'image_Profile')
   String? get imageProfile;
   @override
+  @JsonKey(name: 'image_Profile_1')
   String? get imageProfile1;
   @override
+  @JsonKey(name: 'image_Profile_2')
   String? get imageProfile2;
   @override
+  @JsonKey(name: 'image_Profile_3')
   String? get imageProfile3;
   @override
+  @JsonKey(name: 'image_Profile_4')
   String? get imageProfile4;
   @override
+  @JsonKey(name: 'image_Profile_5')
   String? get imageProfile5;
   @override
+  @JsonKey(name: 'account_Approved')
   bool? get accountApproved;
   @override
+  @JsonKey(name: 'pickup_Allowed')
   bool? get pickupAllowed;
   @override
+  @JsonKey(name: 'pickup_Only')
   bool? get pickupOnly;
   @override
+  @JsonKey(name: 'is_Hygiene')
   bool? get isHygiene;
   @override
+  @JsonKey(name: 'image_Hygiene_Cert')
   String? get imageHygieneCert;
   @override
+  @JsonKey(name: 'image_Authority_Reg')
   String? get imageAuthorityReg;
   @override
+  @JsonKey(name: 'image_Risk_Assessment')
   String? get imageRiskAssessment;
   @override
+  @JsonKey(name: 'image_Contract')
   String? get imageContract;
   @override
+  @JsonKey(name: 'image_ID')
   String? get imageID;
   @override
+  @JsonKey(name: 'image_Passport')
   String? get imagePassport;
   @override
   String? get email;

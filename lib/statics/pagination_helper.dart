@@ -9,6 +9,7 @@ class PaginationHelper<T> with _$PaginationHelper {
     @Default(0) @JsonKey(toJson: _pageNumberToJson) int pageNumber,
     @Default(20) int pageSize,
     @Default(1) @JsonKey(includeFromJson: false) int lastPage,
+    @Default(0) int total,
     @Default(false) @JsonKey(includeFromJson: false) bool isLoading,
     @Default([])
     @JsonKey(includeToJson: false, includeFromJson: false)

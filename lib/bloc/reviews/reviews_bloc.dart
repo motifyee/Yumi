@@ -43,6 +43,7 @@ class ReviewsBloc extends Bloc<ReviewsEvent, ReviewsState> {
             paginationHelper: state.paginationHelper.copyWith(
               pageNumber: res.data['pagination']['page'],
               lastPage: res.data['pagination']['pages'],
+              total: res.data['pagination']['total'],
               isLoading: false,
             ),
           ),

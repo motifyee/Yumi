@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/domain/basket/entity/basket.dart';
+import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/calendar.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -13,12 +14,15 @@ import 'package:yumi/validators/required_validator.dart';
 
 class CustomerPreOrderForm extends StatelessWidget {
   CustomerPreOrderForm(
-      {super.key, this.meal, required this.chefId, required this.isPickUpOnly});
+      {super.key,
+      required this.meal,
+      required this.chef,
+      required this.isPickUpOnly});
 
   static GlobalKey<FormState> preOrderForm = GlobalKey<FormState>();
 
-  MealModel? meal;
-  String chefId;
+  MealModel meal;
+  Chef chef;
   bool isPickUpOnly;
 
   @override
@@ -213,20 +217,18 @@ class CustomerPreOrderForm extends StatelessWidget {
                         onTap: () {
                           if (preOrderForm.currentState!.validate()) {
                             preOrderForm.currentState!.save();
-                            context.router.popForced();
 
-                            if (meal != null) {
-                              context.read<BasketCubit>().addMeal(meal: meal!);
-                            }
-                            context.read<BasketCubit>().updateBasket(
-                                    basket: state.basket.copyWith(
+                            context.read<BasketCubit>().createBasket(
+                                    basket: Basket(
                                   isPreorder: true,
                                   isSchedule: true,
-                                  isPickupOnly: isPickUpOnly,
-                                  invoice: state.basket.invoice
-                                      .copyWith(chefID: chefId),
+                                  isPickupOnly: chef.pickupOnly == true,
+                                  invoice: Invoice.initial()
+                                      .copyWith(chefID: chef.id),
+                                  invoiceDetails: [
+                                    InvoiceDetails.fromMeal(meal: meal)
+                                  ],
                                 ));
-                            context.router.replaceAll([BasketRoute()]);
                           }
                         },
                         child: Container(

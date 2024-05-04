@@ -26,10 +26,10 @@ mixin _$Basket {
   int? get bankId => throw _privateConstructorUsedError;
   int? get shippedAddressId => throw _privateConstructorUsedError;
   bool get isSchedule => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_Pickup')
-  bool get isPickup => throw _privateConstructorUsedError;
   @JsonKey(includeToJson: false, includeFromJson: false)
   bool get isPickupOnly => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_Pickup')
+  bool get isPickup => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_Delivery')
   bool get isDelivery => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_Preorder')
@@ -53,8 +53,8 @@ abstract class $BasketCopyWith<$Res> {
       int? bankId,
       int? shippedAddressId,
       bool isSchedule,
-      @JsonKey(name: 'is_Pickup') bool isPickup,
       @JsonKey(includeToJson: false, includeFromJson: false) bool isPickupOnly,
+      @JsonKey(name: 'is_Pickup') bool isPickup,
       @JsonKey(name: 'is_Delivery') bool isDelivery,
       @JsonKey(name: 'is_Preorder') bool isPreorder,
       int? status});
@@ -81,8 +81,8 @@ class _$BasketCopyWithImpl<$Res, $Val extends Basket>
     Object? bankId = freezed,
     Object? shippedAddressId = freezed,
     Object? isSchedule = null,
-    Object? isPickup = null,
     Object? isPickupOnly = null,
+    Object? isPickup = null,
     Object? isDelivery = null,
     Object? isPreorder = null,
     Object? status = freezed,
@@ -112,13 +112,13 @@ class _$BasketCopyWithImpl<$Res, $Val extends Basket>
           ? _value.isSchedule
           : isSchedule // ignore: cast_nullable_to_non_nullable
               as bool,
-      isPickup: null == isPickup
-          ? _value.isPickup
-          : isPickup // ignore: cast_nullable_to_non_nullable
-              as bool,
       isPickupOnly: null == isPickupOnly
           ? _value.isPickupOnly
           : isPickupOnly // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPickup: null == isPickup
+          ? _value.isPickup
+          : isPickup // ignore: cast_nullable_to_non_nullable
               as bool,
       isDelivery: null == isDelivery
           ? _value.isDelivery
@@ -158,8 +158,8 @@ abstract class _$$BasketImplCopyWith<$Res> implements $BasketCopyWith<$Res> {
       int? bankId,
       int? shippedAddressId,
       bool isSchedule,
-      @JsonKey(name: 'is_Pickup') bool isPickup,
       @JsonKey(includeToJson: false, includeFromJson: false) bool isPickupOnly,
+      @JsonKey(name: 'is_Pickup') bool isPickup,
       @JsonKey(name: 'is_Delivery') bool isDelivery,
       @JsonKey(name: 'is_Preorder') bool isPreorder,
       int? status});
@@ -185,8 +185,8 @@ class __$$BasketImplCopyWithImpl<$Res>
     Object? bankId = freezed,
     Object? shippedAddressId = freezed,
     Object? isSchedule = null,
-    Object? isPickup = null,
     Object? isPickupOnly = null,
+    Object? isPickup = null,
     Object? isDelivery = null,
     Object? isPreorder = null,
     Object? status = freezed,
@@ -216,13 +216,13 @@ class __$$BasketImplCopyWithImpl<$Res>
           ? _value.isSchedule
           : isSchedule // ignore: cast_nullable_to_non_nullable
               as bool,
-      isPickup: null == isPickup
-          ? _value.isPickup
-          : isPickup // ignore: cast_nullable_to_non_nullable
-              as bool,
       isPickupOnly: null == isPickupOnly
           ? _value.isPickupOnly
           : isPickupOnly // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPickup: null == isPickup
+          ? _value.isPickup
+          : isPickup // ignore: cast_nullable_to_non_nullable
               as bool,
       isDelivery: null == isDelivery
           ? _value.isDelivery
@@ -251,10 +251,10 @@ class _$BasketImpl implements _Basket {
       this.bankId,
       this.shippedAddressId,
       this.isSchedule = false,
-      @JsonKey(name: 'is_Pickup') this.isPickup = true,
       @JsonKey(includeToJson: false, includeFromJson: false)
       this.isPickupOnly = false,
-      @JsonKey(name: 'is_Delivery') this.isDelivery = true,
+      @JsonKey(name: 'is_Pickup') this.isPickup = true,
+      @JsonKey(name: 'is_Delivery') this.isDelivery = false,
       @JsonKey(name: 'is_Preorder') this.isPreorder = false,
       this.status = 1})
       : _invoiceDetails = invoiceDetails;
@@ -282,11 +282,11 @@ class _$BasketImpl implements _Basket {
   @JsonKey()
   final bool isSchedule;
   @override
-  @JsonKey(name: 'is_Pickup')
-  final bool isPickup;
-  @override
   @JsonKey(includeToJson: false, includeFromJson: false)
   final bool isPickupOnly;
+  @override
+  @JsonKey(name: 'is_Pickup')
+  final bool isPickup;
   @override
   @JsonKey(name: 'is_Delivery')
   final bool isDelivery;
@@ -299,7 +299,7 @@ class _$BasketImpl implements _Basket {
 
   @override
   String toString() {
-    return 'Basket(id: $id, invoice: $invoice, invoiceDetails: $invoiceDetails, bankId: $bankId, shippedAddressId: $shippedAddressId, isSchedule: $isSchedule, isPickup: $isPickup, isPickupOnly: $isPickupOnly, isDelivery: $isDelivery, isPreorder: $isPreorder, status: $status)';
+    return 'Basket(id: $id, invoice: $invoice, invoiceDetails: $invoiceDetails, bankId: $bankId, shippedAddressId: $shippedAddressId, isSchedule: $isSchedule, isPickupOnly: $isPickupOnly, isPickup: $isPickup, isDelivery: $isDelivery, isPreorder: $isPreorder, status: $status)';
   }
 
   @override
@@ -316,10 +316,10 @@ class _$BasketImpl implements _Basket {
                 other.shippedAddressId == shippedAddressId) &&
             (identical(other.isSchedule, isSchedule) ||
                 other.isSchedule == isSchedule) &&
-            (identical(other.isPickup, isPickup) ||
-                other.isPickup == isPickup) &&
             (identical(other.isPickupOnly, isPickupOnly) ||
                 other.isPickupOnly == isPickupOnly) &&
+            (identical(other.isPickup, isPickup) ||
+                other.isPickup == isPickup) &&
             (identical(other.isDelivery, isDelivery) ||
                 other.isDelivery == isDelivery) &&
             (identical(other.isPreorder, isPreorder) ||
@@ -337,8 +337,8 @@ class _$BasketImpl implements _Basket {
       bankId,
       shippedAddressId,
       isSchedule,
-      isPickup,
       isPickupOnly,
+      isPickup,
       isDelivery,
       isPreorder,
       status);
@@ -365,9 +365,9 @@ abstract class _Basket implements Basket {
       final int? bankId,
       final int? shippedAddressId,
       final bool isSchedule,
-      @JsonKey(name: 'is_Pickup') final bool isPickup,
       @JsonKey(includeToJson: false, includeFromJson: false)
       final bool isPickupOnly,
+      @JsonKey(name: 'is_Pickup') final bool isPickup,
       @JsonKey(name: 'is_Delivery') final bool isDelivery,
       @JsonKey(name: 'is_Preorder') final bool isPreorder,
       final int? status}) = _$BasketImpl;
@@ -387,11 +387,11 @@ abstract class _Basket implements Basket {
   @override
   bool get isSchedule;
   @override
-  @JsonKey(name: 'is_Pickup')
-  bool get isPickup;
-  @override
   @JsonKey(includeToJson: false, includeFromJson: false)
   bool get isPickupOnly;
+  @override
+  @JsonKey(name: 'is_Pickup')
+  bool get isPickup;
   @override
   @JsonKey(name: 'is_Delivery')
   bool get isDelivery;

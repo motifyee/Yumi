@@ -12,22 +12,22 @@ _$ChefImpl _$$ChefImplFromJson(Map<String, dynamic> json) => _$ChefImpl(
       lastName: json['lastName'] as String?,
       mobile: json['mobile'] as String?,
       code: json['code'] as String?,
-      imageProfile: json['imageProfile'] as String?,
-      imageProfile1: json['imageProfile1'] as String?,
-      imageProfile2: json['imageProfile2'] as String?,
-      imageProfile3: json['imageProfile3'] as String?,
-      imageProfile4: json['imageProfile4'] as String?,
-      imageProfile5: json['imageProfile5'] as String?,
-      accountApproved: json['accountApproved'] as bool?,
-      pickupAllowed: json['pickupAllowed'] as bool?,
-      pickupOnly: json['pickupOnly'] as bool?,
-      isHygiene: json['isHygiene'] as bool?,
-      imageHygieneCert: json['imageHygieneCert'] as String?,
-      imageAuthorityReg: json['imageAuthorityReg'] as String?,
-      imageRiskAssessment: json['imageRiskAssessment'] as String?,
-      imageContract: json['imageContract'] as String?,
-      imageID: json['imageID'] as String?,
-      imagePassport: json['imagePassport'] as String?,
+      imageProfile: json['image_Profile'] as String?,
+      imageProfile1: json['image_Profile_1'] as String?,
+      imageProfile2: json['image_Profile_2'] as String?,
+      imageProfile3: json['image_Profile_3'] as String?,
+      imageProfile4: json['image_Profile_4'] as String?,
+      imageProfile5: json['image_Profile_5'] as String?,
+      accountApproved: json['account_Approved'] as bool?,
+      pickupAllowed: json['pickup_Allowed'] as bool?,
+      pickupOnly: json['pickup_Only'] as bool?,
+      isHygiene: json['is_Hygiene'] as bool?,
+      imageHygieneCert: json['image_Hygiene_Cert'] as String?,
+      imageAuthorityReg: json['image_Authority_Reg'] as String?,
+      imageRiskAssessment: json['image_Risk_Assessment'] as String?,
+      imageContract: json['image_Contract'] as String?,
+      imageID: json['image_ID'] as String?,
+      imagePassport: json['image_Passport'] as String?,
       email: json['email'] as String?,
       signupType: json['signupType'] as int?,
       createdBy: json['createdBy'] as String?,
@@ -48,22 +48,22 @@ Map<String, dynamic> _$$ChefImplToJson(_$ChefImpl instance) {
   writeNotNull('lastName', instance.lastName);
   writeNotNull('mobile', instance.mobile);
   writeNotNull('code', instance.code);
-  writeNotNull('imageProfile', instance.imageProfile);
-  writeNotNull('imageProfile1', instance.imageProfile1);
-  writeNotNull('imageProfile2', instance.imageProfile2);
-  writeNotNull('imageProfile3', instance.imageProfile3);
-  writeNotNull('imageProfile4', instance.imageProfile4);
-  writeNotNull('imageProfile5', instance.imageProfile5);
-  writeNotNull('accountApproved', instance.accountApproved);
-  writeNotNull('pickupAllowed', instance.pickupAllowed);
-  writeNotNull('pickupOnly', instance.pickupOnly);
-  writeNotNull('isHygiene', instance.isHygiene);
-  writeNotNull('imageHygieneCert', instance.imageHygieneCert);
-  writeNotNull('imageAuthorityReg', instance.imageAuthorityReg);
-  writeNotNull('imageRiskAssessment', instance.imageRiskAssessment);
-  writeNotNull('imageContract', instance.imageContract);
-  writeNotNull('imageID', instance.imageID);
-  writeNotNull('imagePassport', instance.imagePassport);
+  writeNotNull('image_Profile', instance.imageProfile);
+  writeNotNull('image_Profile_1', instance.imageProfile1);
+  writeNotNull('image_Profile_2', instance.imageProfile2);
+  writeNotNull('image_Profile_3', instance.imageProfile3);
+  writeNotNull('image_Profile_4', instance.imageProfile4);
+  writeNotNull('image_Profile_5', instance.imageProfile5);
+  writeNotNull('account_Approved', instance.accountApproved);
+  writeNotNull('pickup_Allowed', instance.pickupAllowed);
+  writeNotNull('pickup_Only', instance.pickupOnly);
+  writeNotNull('is_Hygiene', instance.isHygiene);
+  writeNotNull('image_Hygiene_Cert', instance.imageHygieneCert);
+  writeNotNull('image_Authority_Reg', instance.imageAuthorityReg);
+  writeNotNull('image_Risk_Assessment', instance.imageRiskAssessment);
+  writeNotNull('image_Contract', instance.imageContract);
+  writeNotNull('image_ID', instance.imageID);
+  writeNotNull('image_Passport', instance.imagePassport);
   writeNotNull('email', instance.email);
   writeNotNull('signupType', instance.signupType);
   writeNotNull('createdBy', instance.createdBy);

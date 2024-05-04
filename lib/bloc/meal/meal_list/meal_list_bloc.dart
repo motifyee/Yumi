@@ -193,10 +193,12 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
     on<MealListAddFavoriteMealEvent>((event, emit) async {
       Response res = await MealService.addMealToFavorite(meal: event.meal);
       if (res.statusCode == 200) {
-        List<MealModel> meals = state.meals;
+        List<MealModel> meals = List.from(state.meals);
         if (meals.indexWhere((e) => e.id == event.meal.id) > -1) {
           meals[meals.indexWhere((e) => e.id == event.meal.id)].isFavorite =
               true;
+        } else {
+          meals.add(event.meal.copyWith(isFavorite: true));
         }
         emit(state.copyWith(
           meals: meals,
@@ -211,6 +213,8 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         if (meals.indexWhere((e) => e.id == event.meal.id) > -1) {
           meals[meals.indexWhere((e) => e.id == event.meal.id)].isFavorite =
               false;
+        } else {
+          meals.add(event.meal.copyWith(isFavorite: false));
         }
         emit(state.copyWith(
           meals: meals,

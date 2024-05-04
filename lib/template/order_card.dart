@@ -79,7 +79,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
         return const SizedBox.shrink();
       }
 
-      // TODO: worst thing ever X(
+      /// TODO: worst thing ever X(
+      /// this is for time count
       Timer.periodic(const Duration(seconds: 1), (timer) {
         setState(() {});
       });

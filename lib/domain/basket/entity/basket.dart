@@ -17,14 +17,11 @@ class Basket with _$Basket {
     int? bankId,
     int? shippedAddressId,
     @Default(false) bool isSchedule,
-    @Default(true) @JsonKey(name: 'is_Pickup') bool isPickup,
     @Default(false)
     @JsonKey(includeToJson: false, includeFromJson: false)
     bool isPickupOnly,
-    @Default(true)
-    @JsonKey(name: 'is_Delivery')
-    @Default(false)
-    bool isDelivery,
+    @Default(true) @JsonKey(name: 'is_Pickup') bool isPickup,
+    @Default(false) @JsonKey(name: 'is_Delivery') bool isDelivery,
     @Default(false) @JsonKey(name: 'is_Preorder') bool isPreorder,
     @Default(1) int? status,
   }) = _Basket;

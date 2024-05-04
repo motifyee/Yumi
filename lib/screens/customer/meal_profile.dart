@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -63,25 +64,33 @@ class MealProfileScreen extends StatelessWidget {
                           vertical: ThemeSelector.statics.defaultGap),
                       child: Row(
                         children: [
-                          TextButton(
-                            onPressed: () {
-                              if (meal.isFavorite == true) {
-                                context.read<MealListBloc>().add(
-                                    MealListRemoveFavoriteMealEvent(
-                                        meal: meal));
-                              } else {
-                                context.read<MealListBloc>().add(
-                                    MealListAddFavoriteMealEvent(meal: meal));
-                              }
+                          BlocBuilder<MealListBloc, MealListState>(
+                            builder: (context, state) {
+                              MealModel meal = state.meals.firstWhereOrNull(
+                                      (e) => e.id == this.meal.id) ??
+                                  this.meal;
+                              return TextButton(
+                                onPressed: () {
+                                  if (meal.isFavorite == true) {
+                                    context.read<MealListBloc>().add(
+                                        MealListRemoveFavoriteMealEvent(
+                                            meal: meal));
+                                  } else {
+                                    context.read<MealListBloc>().add(
+                                        MealListAddFavoriteMealEvent(
+                                            meal: meal));
+                                  }
+                                },
+                                child: SvgPicture.asset(
+                                  meal.isFavorite == true
+                                      ? 'assets/images/heart.svg'
+                                      : 'assets/images/heart_outline.svg',
+                                  colorFilter: ColorFilter.mode(
+                                      ThemeSelector.colors.primary,
+                                      BlendMode.srcIn),
+                                ),
+                              );
                             },
-                            child: SvgPicture.asset(
-                              meal.isFavorite == true
-                                  ? 'assets/images/heart.svg'
-                                  : 'assets/images/heart_outline.svg',
-                              colorFilter: ColorFilter.mode(
-                                  ThemeSelector.colors.primary,
-                                  BlendMode.srcIn),
-                            ),
                           ),
                           const Expanded(child: SizedBox.shrink()),
                           Column(
@@ -97,10 +106,10 @@ class MealProfileScreen extends StatelessWidget {
                               SizedBox(
                                   height:
                                       ThemeSelector.statics.defaultElevation),
-                              Text(
-                                '4.0${S.of(context).km}',
-                                style: Theme.of(context).textTheme.labelMedium,
-                              )
+                              TextCurrency(
+                                value: 4.5,
+                                fontSize: ThemeSelector.fonts.font_12,
+                              ),
                             ],
                           ),
                           SizedBox(width: ThemeSelector.statics.defaultGap),
@@ -108,7 +117,7 @@ class MealProfileScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                S.of(context).deliveryIn,
+                                S.of(context).portion,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall
@@ -118,7 +127,7 @@ class MealProfileScreen extends StatelessWidget {
                                   height:
                                       ThemeSelector.statics.defaultElevation),
                               Text(
-                                '15${S.of(context).min}',
+                                meal.portionPersons ?? '',
                                 style: Theme.of(context).textTheme.labelMedium,
                               )
                             ],
@@ -157,68 +166,44 @@ class MealProfileScreen extends StatelessWidget {
                           ),
                         ),
                         TextCurrency(
-                          value: 0.5,
+                          value: double.parse(meal.price1 ?? '0'),
                           fontSize: ThemeSelector.fonts.font_24,
                         )
                       ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: ThemeSelector.statics.defaultGap),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.star,
-                            color: ThemeSelector.colors.warning,
-                            size: ThemeSelector.fonts.font_12,
-                          ),
-                          SizedBox(
-                              width: ThemeSelector.statics.defaultElevation),
-                          Text('4.2',
-                              style: Theme.of(context).textTheme.labelMedium),
-                          SizedBox(
-                              width: ThemeSelector.statics.defaultElevation),
-                          Text('(2K ${S.of(context).reviews})',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall
-                                  ?.copyWith(fontWeight: FontWeight.w700)),
-                        ],
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.symmetric(
+                    //       vertical: ThemeSelector.statics.defaultGap),
+                    //   child: Row(
+                    //     children: [
+                    //       Icon(
+                    //         Icons.star,
+                    //         color: ThemeSelector.colors.warning,
+                    //         size: ThemeSelector.fonts.font_12,
+                    //       ),
+                    //       SizedBox(
+                    //           width: ThemeSelector.statics.defaultElevation),
+                    //       Text('4.2',
+                    //           style: Theme.of(context).textTheme.labelMedium),
+                    //       SizedBox(
+                    //           width: ThemeSelector.statics.defaultElevation),
+                    //       Text('(2K ${S.of(context).reviews})',
+                    //           style: Theme.of(context)
+                    //               .textTheme
+                    //               .labelSmall
+                    //               ?.copyWith(fontWeight: FontWeight.w700)),
+                    //     ],
+                    //   ),
+                    // ),
                     SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                     Text(S.of(context).nutritionalValuePer100g,
                         style: Theme.of(context).textTheme.labelLarge),
                     SizedBox(height: ThemeSelector.statics.defaultGap),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          '2.00',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(
-                                  color: ThemeSelector.colors.secondaryTant),
-                        ),
-                        Text(
-                          '19.50',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(
-                                  color: ThemeSelector.colors.secondaryTant),
-                        ),
-                        Text(
-                          '35.00',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(
-                                  color: ThemeSelector.colors.secondaryTant),
-                        ),
-                        Text(
-                          '7.60',
+                          meal.caloriesValue ?? '',
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium
@@ -240,7 +225,7 @@ class MealProfileScreen extends StatelessWidget {
                       context: context,
                       builder: (context) => CustomerPreOrderForm(
                         meal: meal,
-                        chefId: meal.chefId ?? '',
+                        chef: chef,
                         isPickUpOnly: meal.isPickUpOnly ?? false,
                       ),
                     );
@@ -249,7 +234,7 @@ class MealProfileScreen extends StatelessWidget {
                         basket:
                             context.read<BasketCubit>().state.basket.copyWith(
                                   isPreorder: false,
-                                  isSchedule: true,
+                                  isSchedule: false,
                                   isPickupOnly: chef.pickupOnly == true,
                                   invoiceDetails: [
                                     InvoiceDetails.fromMeal(meal: meal)

@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/pages/auth/register/model/address.dart';
 import 'package:yumi/bloc/address/address_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/app/pages/auth/register/model/address.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -71,6 +71,7 @@ class CustomerLocationScreen extends StatelessWidget {
             child: BlocConsumer<AddressBloc, AddressState>(
               listener: (context, state) {},
               builder: (context, state) {
+                print(state.addressList);
                 return Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: ThemeSelector.statics.defaultMediumGap),
