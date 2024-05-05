@@ -1,15 +1,14 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class StringToDoubleAsIntStringConverter
-    extends JsonConverter<String?, double?> {
+class StringToDoubleAsIntStringConverter extends JsonConverter<String, double> {
   const StringToDoubleAsIntStringConverter();
   @override
-  String? fromJson(double? json) {
-    return json?.round().toString();
+  String fromJson(double json) {
+    return json.round().toString();
   }
 
   @override
-  double? toJson(String? object) {
-    return object == null ? null : double.parse(object);
+  double toJson(String object) {
+    return double.parse(object);
   }
 }

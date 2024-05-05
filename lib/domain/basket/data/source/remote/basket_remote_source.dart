@@ -60,8 +60,28 @@ class BasketRemoteSource implements BasketSource {
     Response res = await DioClient.simpleDio().get(ApiKeys.order,
         queryParameters: {...?paginationHelper}
           ..removeWhere((key, value) => value == null));
+
     if (res.data['data'].isEmpty) return null;
-    return Basket.fromJson(res.data['data'][0]);
+
+    List<dynamic> invoiceDetails =
+        res.data['data'][0]['invoiceDetails'].map((e) {
+      return <String, dynamic>{
+        ...e,
+        'meal': {
+          'name': e['product']['productName'],
+          'photo': e['image'],
+          'price1': e['productVarintPrice'],
+          'productVariantID': e['productVariantID'],
+          'ingredients': e['product']['ingredients'],
+        }
+      };
+    }).toList();
+
+    return Basket.fromJson({
+      ...res.data['data'][0],
+      'invoice': res.data['data'][0],
+      'invoiceDetails': invoiceDetails
+    });
   }
 
   @override

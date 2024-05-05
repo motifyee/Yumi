@@ -43,8 +43,7 @@ Map<String, dynamic> _$$BasketImplToJson(_$BasketImpl instance) {
   return val;
 }
 
-_$InvoiceImpl _$$InvoiceImplFromJson(Map<String, dynamic> json) =>
-    _$InvoiceImpl(
+_$InvoiceImpl _$$InvoiceImplFromJson(Map json) => _$InvoiceImpl(
       createdBy: json['createdBy'] as int?,
       chefID: json['chef_ID'] as String?,
       clientNote: json['clientNote'] as String? ?? '',
@@ -96,17 +95,24 @@ Json? _$JsonConverterToJson<Json, Value>(
 _$InvoiceDetailsImpl _$$InvoiceDetailsImplFromJson(Map<String, dynamic> json) =>
     _$InvoiceDetailsImpl(
       productVarintId: json['productVarintId'] as int?,
-      quantity: json['quantity'] as String? ?? "0",
+      quantity: json['quantity'] == null
+          ? "0"
+          : const StringToDoubleAsIntStringConverter()
+              .fromJson(json['quantity'] as double),
       productVarintPrice: (json['productVarintPrice'] as num?)?.toDouble() ?? 0,
       discountListId: json['discountListId'] as int? ?? 1205,
       note: json['note'] as String? ?? '',
+      meal: json['meal'] == null
+          ? null
+          : MealModel.fromJson(json['meal'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$InvoiceDetailsImplToJson(
         _$InvoiceDetailsImpl instance) =>
     <String, dynamic>{
       'productVarintId': instance.productVarintId,
-      'quantity': instance.quantity,
+      'quantity':
+          const StringToDoubleAsIntStringConverter().toJson(instance.quantity),
       'productVarintPrice': instance.productVarintPrice,
       'discountListId': instance.discountListId,
       'note': instance.note,

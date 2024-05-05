@@ -649,7 +649,8 @@ class __$$InvoiceImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(anyMap: true)
 class _$InvoiceImpl implements _Invoice {
   const _$InvoiceImpl(
       {this.createdBy,
@@ -846,7 +847,7 @@ mixin _$InvoiceDetails {
   double get productVarintPrice => throw _privateConstructorUsedError;
   int get discountListId => throw _privateConstructorUsedError;
   String get note => throw _privateConstructorUsedError;
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(includeToJson: false)
   MealModel? get meal => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -867,7 +868,7 @@ abstract class $InvoiceDetailsCopyWith<$Res> {
       double productVarintPrice,
       int discountListId,
       String note,
-      @JsonKey(includeFromJson: false, includeToJson: false) MealModel? meal});
+      @JsonKey(includeToJson: false) MealModel? meal});
 }
 
 /// @nodoc
@@ -933,7 +934,7 @@ abstract class _$$InvoiceDetailsImplCopyWith<$Res>
       double productVarintPrice,
       int discountListId,
       String note,
-      @JsonKey(includeFromJson: false, includeToJson: false) MealModel? meal});
+      @JsonKey(includeToJson: false) MealModel? meal});
 }
 
 /// @nodoc
@@ -992,7 +993,7 @@ class _$InvoiceDetailsImpl implements _InvoiceDetails {
       this.productVarintPrice = 0,
       this.discountListId = 1205,
       this.note = '',
-      @JsonKey(includeFromJson: false, includeToJson: false) this.meal});
+      @JsonKey(includeToJson: false) this.meal});
 
   factory _$InvoiceDetailsImpl.fromJson(Map<String, dynamic> json) =>
       _$$InvoiceDetailsImplFromJson(json);
@@ -1013,7 +1014,7 @@ class _$InvoiceDetailsImpl implements _InvoiceDetails {
   @JsonKey()
   final String note;
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(includeToJson: false)
   final MealModel? meal;
 
   @override
@@ -1060,13 +1061,13 @@ class _$InvoiceDetailsImpl implements _InvoiceDetails {
 
 abstract class _InvoiceDetails implements InvoiceDetails {
   const factory _InvoiceDetails(
-      {final int? productVarintId,
-      @StringToDoubleAsIntStringConverter() final String quantity,
-      final double productVarintPrice,
-      final int discountListId,
-      final String note,
-      @JsonKey(includeFromJson: false, includeToJson: false)
-      final MealModel? meal}) = _$InvoiceDetailsImpl;
+          {final int? productVarintId,
+          @StringToDoubleAsIntStringConverter() final String quantity,
+          final double productVarintPrice,
+          final int discountListId,
+          final String note,
+          @JsonKey(includeToJson: false) final MealModel? meal}) =
+      _$InvoiceDetailsImpl;
 
   factory _InvoiceDetails.fromJson(Map<String, dynamic> json) =
       _$InvoiceDetailsImpl.fromJson;
@@ -1083,7 +1084,7 @@ abstract class _InvoiceDetails implements InvoiceDetails {
   @override
   String get note;
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(includeToJson: false)
   MealModel? get meal;
   @override
   @JsonKey(ignore: true)

@@ -31,6 +31,7 @@ class Basket with _$Basket {
 
 @freezed
 class Invoice with _$Invoice {
+  @JsonSerializable(anyMap: true)
   const factory Invoice({
     int? createdBy,
     @JsonKey(name: 'chef_ID') String? chefID,
@@ -67,7 +68,7 @@ class InvoiceDetails with _$InvoiceDetails {
     @Default(0) double productVarintPrice,
     @Default(1205) int discountListId,
     @Default('') String note,
-    @JsonKey(includeFromJson: false, includeToJson: false) MealModel? meal,
+    @JsonKey(includeToJson: false) MealModel? meal,
   }) = _InvoiceDetails;
 
   factory InvoiceDetails.fromMeal({required MealModel meal}) {
