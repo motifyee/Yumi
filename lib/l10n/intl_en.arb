@@ -221,5 +221,6 @@
   "basketCreated": "Basket Created",
   "basketUpdated": "Basket Updated",
   "OrderCreated": "Order Created",
-  "basketDeleted": "Basket Deleted"
+  "basketDeleted": "Basket Deleted",
+  "apiError": "Api Error"
 }

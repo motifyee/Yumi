@@ -44,6 +44,7 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   addMeal({required MealModel meal}) async {
+    print('addMeal ...');
     final Either<Failure, Basket> task = await AddMealToBasket()
         .call(AddMealToBasketParams(meal: meal, basket: state.basket));
     task.fold((l) => null, (r) => calcBasket(basket: r));
@@ -65,6 +66,7 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   removeMeal({required InvoiceDetails invoiceDetails}) async {
+    print('removeMeal ...');
     final Either<Failure, Basket> task = await RemoveMealFromBasket().call(
         RemoveMealFromBasketParams(
             basket: state.basket, invoiceDetails: invoiceDetails));
@@ -77,7 +79,7 @@ class BasketCubit extends Cubit<BasketState> {
       if (r != null) {
         final Either<Failure, Basket> task2 =
             await CalcBasket().call(CalcBasketParams(basket: r));
-        task2.fold((l) => null, (r) {
+        task2.fold((l) => _message(S.current.apiError), (r) {
           emit(state.copyWith(basket: r));
           G.router.replaceAll([BasketRoute()]);
         });
@@ -86,6 +88,7 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   calcBasket({required Basket basket, bool isUpdateBasket = true}) async {
+    print('calcBasket ...');
     final Either<Failure, Basket> task =
         await CalcBasket().call(CalcBasketParams(basket: basket));
     task.fold(
@@ -93,7 +96,8 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   createBasket({required Basket basket}) async {
-    _loadingInd();
+    print('createBasket ...');
+    _loadingIndicator();
     emit(state.copyWith());
     final Either<Failure, Basket> task =
         await CalcBasket().call(CalcBasketParams(basket: basket));
@@ -101,7 +105,7 @@ class BasketCubit extends Cubit<BasketState> {
       final Either<Failure, Basket> task2 = await CreateBasket()
           .call(CreateBasketParams(basket: r, isPreOrder: basket.isPreorder));
 
-      task2.fold((l) => null, (r) {
+      task2.fold((l) => _message(S.current.apiError), (r) {
         _message(S.current.basketCreated);
         emit(state.copyWith(basket: r));
         G.router.replaceAll([BasketRoute()]);
@@ -110,11 +114,12 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   updateBasket({required Basket basket}) async {
-    _loadingInd();
+    print('updateBasket ...');
+    _loadingIndicator();
     final Either<Failure, Basket> task =
         await UpdateBasket().call(UpdateBasketParams(basket: basket));
 
-    task.fold((l) => null, (r) {
+    task.fold((l) => _message(S.current.apiError), (r) {
       _message(S.current.basketUpdated);
       emit(state.copyWith(basket: r));
     });
@@ -122,11 +127,12 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   closeBasket() async {
-    _loadingInd();
+    print('closeBasket ...');
+    _loadingIndicator();
 
     final Either<Failure, Response> task =
         await CloseBasket().call(CloseBasketParams(basket: state.basket));
-    task.fold((l) => null, (r) {
+    task.fold((l) => _message(S.current.apiError), (r) {
       _message(S.current.OrderCreated);
       emit(BasketState.initial());
       G.router.replaceAll([HomeRoute()]);
@@ -134,11 +140,12 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   void deleteBasket() async {
-    _loadingInd();
+    print('deleteBasket ...');
+    _loadingIndicator();
 
     final Either<Failure, Response> task =
         await DeleteBasket().call(DeleteBasketParam(basket: state.basket));
-    task.fold((l) => null, (r) {
+    task.fold((l) => _message(S.current.apiError), (r) {
       _message(S.current.basketDeleted);
       emit(BasketState.initial());
       G.router.replaceAll([HomeRoute()]);
@@ -146,7 +153,7 @@ class BasketCubit extends Cubit<BasketState> {
   }
 }
 
-void _loadingInd() => showDialog(
+void _loadingIndicator() => showDialog(
     context: G.context,
     builder: (context) => Center(
           child: SizedBox(

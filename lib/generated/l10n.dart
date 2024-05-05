@@ -2281,6 +2281,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Api Error`
+  String get apiError {
+    return Intl.message(
+      'Api Error',
+      name: 'apiError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

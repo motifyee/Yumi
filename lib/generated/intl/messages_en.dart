@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "am": MessageLookupByLibrary.simpleMessage("AM"),
         "anythingElseWeNeedToKnow": MessageLookupByLibrary.simpleMessage(
             "Anything else we need to know?"),
+        "apiError": MessageLookupByLibrary.simpleMessage("Api Error"),
         "areYouSureToDeleteAMeal": MessageLookupByLibrary.simpleMessage(
             "Are you sure to delete a meal?"),
         "arrivesIn": MessageLookupByLibrary.simpleMessage("Arrives In"),

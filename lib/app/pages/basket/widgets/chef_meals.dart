@@ -159,12 +159,6 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                                         onTap: () {
                                           context
                                               .read<BasketCubit>()
-                                              .updateBasket(
-                                                  basket: state.basket.copyWith(
-                                                      isPickupOnly:
-                                                          widget.isPickUpOnly));
-                                          context
-                                              .read<BasketCubit>()
                                               .addMeal(meal: meal);
                                         },
                                       );
