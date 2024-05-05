@@ -7,6 +7,10 @@ import 'package:yumi/domain/calories/data/repo/calories_repo.dart';
 import 'package:yumi/domain/calories/data/repo/remote/calories_repo_remote.dart';
 import 'package:yumi/domain/calories/data/source/calories_source.dart';
 import 'package:yumi/domain/calories/data/source/remote/calories_source_remote.dart';
+import 'package:yumi/domain/notification/data/repo/notification_repo.dart';
+import 'package:yumi/domain/notification/data/repo/remote/notification_repo_remote.dart';
+import 'package:yumi/domain/notification/data/source/notification_source.dart';
+import 'package:yumi/domain/notification/data/source/remote/notification_source_remote.dart';
 import 'package:yumi/domain/profile/data/repos/profile_repo.dart';
 import 'package:yumi/domain/profile/data/repos/remote/profile_remote_repo.dart';
 import 'package:yumi/domain/profile/data/sources/profile_source.dart';
@@ -16,23 +20,12 @@ import 'package:yumi/domain/schedule/data/repos/schedule_repo.dart';
 import 'package:yumi/domain/schedule/data/sources/remote/schedule_remote_source.dart';
 import 'package:yumi/domain/schedule/data/sources/schedule_sources.dart';
 
-// get_it -> dependency injection, allocates resources app wide
-// view_it -> state management using get_it
-
-// getx -> state management, routing, .....
-// get
-
-// Provider
-// Riverpod
-// Bloc/Cubit
-
 final sl = GetIt.I; // sl == Service Locator
 final getIt = sl.get;
 
 void initGetItBase() {}
 
 Future<void> init() async {
-  // instantianes a new instance of ProfileRepo each time it is called
   sl.registerFactory<ProfileRepo>(() => ProfileRemoteRepo(profileSrc: sl()));
   sl.registerFactory<ProfileSrc>(() => ProfileRemoteSrc());
 
@@ -46,10 +39,6 @@ Future<void> init() async {
   sl.registerFactory<BasketRepo>(() => BasketRemoteRepo());
   sl.registerFactory<BasketSource>(() => BasketRemoteSource());
 
-  // instantianes a new instance of ProfileRepo first time it is called
-  // saves the instance for future Use
-
-  // getIt<UserState>();
-  // sl.registerLazySingleton<UserState>(() => G.read<UserBloc>().state);
-  // sl.registerFactory<UserState>(() => G.read<UserBloc>().state);
+  sl.registerFactory<NotificationRepo>(() => NotificationRepoRemote());
+  sl.registerFactory<NotificationSource>(() => NotificationSourceRemote());
 }

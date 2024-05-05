@@ -25,6 +25,7 @@ import 'package:yumi/app/pages/chef_application/contract/contract_screen.dart'
     as _i8;
 import 'package:yumi/app/pages/chef_application/documentation/documentation_screen.dart'
     as _i11;
+import 'package:yumi/app/pages/notification/notification.dart' as _i21;
 import 'package:yumi/app/pages/schedule/schedule_screen.dart' as _i20;
 import 'package:yumi/domain/chef/entity/chef.dart' as _i33;
 import 'package:yumi/model/meal_model.dart' as _i34;
@@ -45,7 +46,6 @@ import 'package:yumi/screens/financial_view.dart' as _i12;
 import 'package:yumi/screens/forget_password.dart' as _i13;
 import 'package:yumi/screens/home.dart' as _i14;
 import 'package:yumi/screens/login.dart' as _i16;
-import 'package:yumi/screens/notification.dart' as _i21;
 import 'package:yumi/screens/performance_analysis.dart' as _i26;
 import 'package:yumi/screens/transactions.dart' as _i30;
 

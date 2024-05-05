@@ -3,9 +3,10 @@ import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app_target.dart';
+import 'package:yumi/app/pages/notification/notification.dart';
 import 'package:yumi/app/pages/settings/profile/profile_screen.dart';
 import 'package:yumi/app/pages/settings/settings_screen.dart';
+import 'package:yumi/app_target.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -19,7 +20,6 @@ import 'package:yumi/screens/customer/favorites.dart';
 import 'package:yumi/screens/customer/my_order.dart';
 import 'package:yumi/screens/driver/chef_history.dart';
 import 'package:yumi/screens/driver/driver_order.dart';
-import 'package:yumi/screens/notification.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class NavigateOptions {
