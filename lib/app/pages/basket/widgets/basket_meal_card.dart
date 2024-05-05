@@ -125,7 +125,7 @@ class BasketMealCard extends StatelessWidget {
                                       invoiceDetails: invoiceDetails,
                                       indexInList: indexInList,
                                       newQuantity:
-                                          '${int.parse(invoiceDetails.quantity!) + 1}',
+                                          '${int.parse(invoiceDetails.quantity) + 1}',
                                       note: invoiceDetails.note);
                                 },
                                 child: Text(
@@ -169,6 +169,7 @@ class BasketMealCard extends StatelessWidget {
                 borderStyle: TextFormFieldBorderStyle.borderNone,
                 hintText: S.of(context).anythingElseWeNeedToKnow,
                 label: S.of(context).addANote,
+                initialValue: invoiceDetails.note,
                 onChange: (value) {
                   _debouncer.run(() {
                     context.read<BasketCubit>().updateMeal(

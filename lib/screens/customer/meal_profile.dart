@@ -71,7 +71,7 @@ class MealProfileScreen extends StatelessWidget {
                                   this.meal;
                               return TextButton(
                                 onPressed: () {
-                                  if (meal.isFavorite == true) {
+                                  if (meal.isFavoritProduct == true) {
                                     context.read<MealListBloc>().add(
                                         MealListRemoveFavoriteMealEvent(
                                             meal: meal));
@@ -82,7 +82,7 @@ class MealProfileScreen extends StatelessWidget {
                                   }
                                 },
                                 child: SvgPicture.asset(
-                                  meal.isFavorite == true
+                                  meal.isFavoritProduct == true
                                       ? 'assets/images/heart.svg'
                                       : 'assets/images/heart_outline.svg',
                                   colorFilter: ColorFilter.mode(

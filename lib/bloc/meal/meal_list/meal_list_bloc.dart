@@ -47,7 +47,10 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
               );
 
               data = res['data'].map<MealModel>((value) {
-                return MealModel.fromJson(value);
+                return MealModel.fromJson({
+                  ...value,
+                  ...value['meal'],
+                });
               }).toList();
             } else {
               res = await MealService.getMealsByCategory(
@@ -62,7 +65,11 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
               );
 
               data = res['data'].map<MealModel>((value) {
-                return MealModel.fromJson(value['product']);
+                return MealModel.fromJson({
+                  ...value,
+                  ...value['meal'],
+                  ...value['product'],
+                });
               }).toList();
             }
           }
@@ -92,7 +99,11 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
               );
 
               data = res['data'].map<MealModel>((value) {
-                return MealModel.fromJson(value['product']);
+                return MealModel.fromJson({
+                  ...value,
+                  ...value['meal'],
+                  ...value['product'],
+                });
               }).toList();
             }
           }
@@ -195,8 +206,8 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       if (res.statusCode == 200) {
         List<MealModel> meals = List.from(state.meals);
         if (meals.indexWhere((e) => e.id == event.meal.id) > -1) {
-          meals[meals.indexWhere((e) => e.id == event.meal.id)].isFavorite =
-              true;
+          meals[meals.indexWhere((e) => e.id == event.meal.id)]
+              .isFavoritProduct = true;
         } else {
           meals.add(event.meal.copyWith(isFavorite: true));
         }
@@ -211,8 +222,8 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       if (res.statusCode == 200) {
         List<MealModel> meals = state.meals;
         if (meals.indexWhere((e) => e.id == event.meal.id) > -1) {
-          meals[meals.indexWhere((e) => e.id == event.meal.id)].isFavorite =
-              false;
+          meals[meals.indexWhere((e) => e.id == event.meal.id)]
+              .isFavoritProduct = false;
         } else {
           meals.add(event.meal.copyWith(isFavorite: false));
         }

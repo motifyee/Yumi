@@ -15,6 +15,7 @@ class UpdateMealInBasket extends UseCase<Basket, UpdateMealInBasketParams> {
     invoiceDetails[params.indexInList] =
         invoiceDetails[params.indexInList].copyWith(
       quantity: params.newQuantity,
+      note: params.note,
     );
 
     return Right(params.basket.copyWith(invoiceDetails: invoiceDetails));
