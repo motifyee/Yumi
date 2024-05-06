@@ -6,8 +6,8 @@ part 'notification.freezed.dart';
 part 'notification.g.dart';
 
 @freezed
-class Notification with _$Notification {
-  const factory Notification({
+class NotificationS with _$Notification {
+  const factory NotificationS({
     required String id,
     @NotificationTypeConverter() required NotificationTypeEnum notificationType,
     @DateTimeToIso8601StringConverter() required DateTime date,
@@ -19,11 +19,14 @@ class Notification with _$Notification {
     @JsonKey(name: 'employee_ID') int? employeeID,
   }) = _Notification;
 
-  factory Notification.fromJson(Map<String, dynamic> json) =>
+  factory NotificationS.fromJson(Map<String, dynamic> json) =>
       _$NotificationFromJson(json);
 }
 
 enum NotificationTypeEnum {
   FinishOrder,
   PickupPreOrder,
+  PickupOrder,
+  DeliveryPreOrder,
+  DeliveryOrder,
 }

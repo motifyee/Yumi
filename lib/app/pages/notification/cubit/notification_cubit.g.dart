@@ -9,7 +9,7 @@ part of 'notification_cubit.dart';
 _$NotificationStateImpl _$$NotificationStateImplFromJson(
         Map<String, dynamic> json) =>
     _$NotificationStateImpl(
-      pagination: PaginationHelper<Notification>.fromJson(
+      pagination: PaginationHelper<NotificationS>.fromJson(
           json['pagination'] as Map<String, dynamic>),
     );
 

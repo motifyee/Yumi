@@ -11,8 +11,8 @@ class NotificationRepoRemote implements NotificationRepo {
   NotificationRepoRemote({NotificationSource? notificationSource})
       : notificationSource = notificationSource ?? getIt<NotificationSource>();
   @override
-  TaskEither<Failure, PaginationHelper<Notification>> loadNotification(
-          {required PaginationHelper<Notification> pagination}) =>
+  TaskEither<Failure, PaginationHelper<NotificationS>> loadNotification(
+          {required PaginationHelper<NotificationS> pagination}) =>
       TaskEither.tryCatch(
           () => notificationSource.loadNotifications(pagination: pagination),
           (error, stackTrace) => ApiFailure(error, stackTrace));

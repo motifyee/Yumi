@@ -2,7 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
+import 'package:yumi/domain/notification/entity/notification.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/pagination_template.dart';
@@ -72,11 +74,9 @@ class _NotificationList extends StatelessWidget {
       },
       child: BlocBuilder<NotificationCubit, NotificationState>(
         builder: (context, state) {
-          print(' notification render ------------------------------------ ');
-          print(state.pagination.toJson());
           return Column(
             children: [
-              for (var notification in state.pagination.data)
+              for (NotificationS notification in state.pagination.data)
                 GestureDetector(
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -97,15 +97,22 @@ class _NotificationList extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: ThemeSelector.statics.defaultGap),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Save 30% when you order burger',
-                                style:
-                                    Theme.of(context).textTheme.headlineMedium),
-                            Text('2023-02-10 | 14:11',
-                                style: Theme.of(context).textTheme.labelSmall),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(notification.description,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium),
+                              Text(
+                                  DateFormat('hh:mm a, d MMM yyyy')
+                                      .format(notification.date),
+                                  style:
+                                      Theme.of(context).textTheme.labelSmall),
+                            ],
+                          ),
                         ),
                       ],
                     ),

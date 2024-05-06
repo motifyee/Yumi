@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Notification _$NotificationFromJson(Map<String, dynamic> json) {
+NotificationS _$NotificationFromJson(Map<String, dynamic> json) {
   return _Notification.fromJson(json);
 }
 
@@ -40,15 +40,15 @@ mixin _$Notification {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $NotificationCopyWith<Notification> get copyWith =>
+  $NotificationCopyWith<NotificationS> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $NotificationCopyWith<$Res> {
   factory $NotificationCopyWith(
-          Notification value, $Res Function(Notification) then) =
-      _$NotificationCopyWithImpl<$Res, Notification>;
+          NotificationS value, $Res Function(NotificationS) then) =
+      _$NotificationCopyWithImpl<$Res, NotificationS>;
   @useResult
   $Res call(
       {String id,
@@ -63,7 +63,7 @@ abstract class $NotificationCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$NotificationCopyWithImpl<$Res, $Val extends Notification>
+class _$NotificationCopyWithImpl<$Res, $Val extends NotificationS>
     implements $NotificationCopyWith<$Res> {
   _$NotificationCopyWithImpl(this._value, this._then);
 
@@ -296,7 +296,7 @@ class _$NotificationImpl implements _Notification {
   }
 }
 
-abstract class _Notification implements Notification {
+abstract class _Notification implements NotificationS {
   const factory _Notification(
           {required final String id,
           @NotificationTypeConverter()

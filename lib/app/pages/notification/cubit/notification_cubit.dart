@@ -14,7 +14,7 @@ class NotificationCubit extends Cubit<NotificationState> {
   NotificationCubit() : super(NotificationState.initial());
 
   loadNotification() async {
-    Either<Failure, PaginationHelper<Notification>> task =
+    Either<Failure, PaginationHelper<NotificationS>> task =
         await LoadNotification()
             .call(LoadNotificationParams(pagination: state.pagination));
 
