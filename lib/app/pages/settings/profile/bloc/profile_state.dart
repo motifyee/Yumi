@@ -7,30 +7,30 @@ class ProfileState extends Equatable {
 
   final String? apiMessage;
 
-  final ObseleteStatusEnum status;
+  final Status status;
   final StatusSet statusSet;
 
-  final ObseleteStatusEnum formStatus;
+  final Status formStatus;
 
-  final Status<List<Review>> reviews;
+  final List<Review> reviews;
 
   const ProfileState({
     Profile? profile,
     Profile? profileForm,
     this.apiMessage,
-    this.status = ObseleteStatusEnum.init,
+    this.status = Status.init,
     this.statusSet = const {},
-    this.formStatus = ObseleteStatusEnum.init,
-    this.reviews = const Status<List<Review>>(),
+    this.formStatus = Status.init,
+    this.reviews = const [],
   })  : profile = profile ?? const Profile(),
         profileForm = profileForm ?? const Profile();
 
   ProfileState copyWith({
     Profile? profile,
     Profile? profileForm,
-    ObseleteStatusEnum? status,
+    Status? status,
     String? apiMessage,
-    Status<List<Review>>? reviews,
+    List<Review>? reviews,
   }) {
     return ProfileState(
       profile: profile ?? this.profile,

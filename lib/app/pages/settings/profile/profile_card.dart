@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/profile_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -13,11 +12,11 @@ class UserSettingDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<ProfileBloc, ProfileState, ProfileState>(
+    return BlocSelector<ProfileCubit, ProfileState, ProfileState>(
       selector: (state) => state,
       builder: (context, state) {
-        if (!state.statusSet.hasInit) {
-          context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
+        if (!state.profile.entityStatus.hasSuccess) {
+          context.read<ProfileCubit>().getProfile();
         }
 
         return Padding(
@@ -43,7 +42,7 @@ class UserSettingDetails extends StatelessWidget {
               ],
             ),
             child: Column(
-              children: state.status.isLoading
+              children: state.profile.entityStatus.isLoading
                   ? [
                       const SizedBox(
                           height: 150,

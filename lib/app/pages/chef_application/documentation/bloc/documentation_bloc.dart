@@ -9,7 +9,7 @@ part 'documentation_state.dart';
 class DocsBloc extends Bloc<DocsEvents, DocsState> {
   DocsBloc() : super(const DocsState()) {
     on<DocsInitEvent>((event, emit) {
-      emit(state.copyWith(status: ObseleteStatusEnum.loading));
+      emit(state.copyWith(status: Status.loading));
     });
     on<DocsInitSuccessEvent>((event, emit) => emit(state.copyWith(
           profile: event.profile,
@@ -18,49 +18,49 @@ class DocsBloc extends Bloc<DocsEvents, DocsState> {
           // registeration: event.profile.regiserationPhoto,
           // passport: event.profile.passportPhoto,
           // nid: event.profile.nidPhoto,
-          status: ObseleteStatusEnum.initSuccess,
+          status: Status.initSuccess,
         )));
-    on<DocsInitFailedEvent>((event, emit) =>
-        emit(state.copyWith(status: ObseleteStatusEnum.initError)));
+    on<DocsInitFailedEvent>(
+        (event, emit) => emit(state.copyWith(status: Status.initError)));
 
     on<UploadCompleteEvent>((event, emit) {
-      emit(state.copyWith(status: ObseleteStatusEnum.success));
+      emit(state.copyWith(status: Status.success));
     });
 
 // Hygiene
     on<UploadHygieneEvent>((event, emit) => emit(state.copyWith(
         profile: state.profile.copyWith(hygienePhoto: event.data),
-        hygieneStatus: ObseleteStatusEnum.loading)));
-    on<UploadHygieneSuccessEvent>((event, emit) =>
-        emit(state.copyWith(hygieneStatus: ObseleteStatusEnum.success)));
-    on<UploadHygieneErrorEvent>((event, emit) =>
-        emit(state.copyWith(hygieneStatus: ObseleteStatusEnum.error)));
+        hygieneStatus: Status.loading)));
+    on<UploadHygieneSuccessEvent>(
+        (event, emit) => emit(state.copyWith(hygieneStatus: Status.success)));
+    on<UploadHygieneErrorEvent>(
+        (event, emit) => emit(state.copyWith(hygieneStatus: Status.error)));
 
 // Registeration
     on<UploadRegisterationEvent>((event, emit) => emit(state.copyWith(
         profile: state.profile.copyWith(registerationPhoto: event.data),
-        registerationStatus: ObseleteStatusEnum.loading)));
+        registerationStatus: Status.loading)));
     on<UploadRegisterationSuccessEvent>((event, emit) =>
-        emit(state.copyWith(registerationStatus: ObseleteStatusEnum.success)));
+        emit(state.copyWith(registerationStatus: Status.success)));
     on<UploadRegisterationErrorEvent>((event, emit) =>
-        emit(state.copyWith(registerationStatus: ObseleteStatusEnum.error)));
+        emit(state.copyWith(registerationStatus: Status.error)));
 
 // Risk
     on<UploadRiskEvent>((event, emit) => emit(state.copyWith(
         profile: state.profile.copyWith(riskPhoto: event.data),
-        riskStatus: ObseleteStatusEnum.loading)));
-    on<UploadRiskSuccessEvent>((event, emit) =>
-        emit(state.copyWith(riskStatus: ObseleteStatusEnum.success)));
-    on<UploadRiskErrorEvent>((event, emit) =>
-        emit(state.copyWith(riskStatus: ObseleteStatusEnum.error)));
+        riskStatus: Status.loading)));
+    on<UploadRiskSuccessEvent>(
+        (event, emit) => emit(state.copyWith(riskStatus: Status.success)));
+    on<UploadRiskErrorEvent>(
+        (event, emit) => emit(state.copyWith(riskStatus: Status.error)));
 
 // ID
     on<UploadIDEvent>((event, emit) => emit(state.copyWith(
         profile: state.profile.copyWith(nidPhoto: event.data),
-        idStatus: ObseleteStatusEnum.loading)));
-    on<UploadIDSuccessEvent>((event, emit) =>
-        emit(state.copyWith(idStatus: ObseleteStatusEnum.success)));
-    on<UploadIDErrorEvent>((event, emit) =>
-        emit(state.copyWith(idStatus: ObseleteStatusEnum.error)));
+        idStatus: Status.loading)));
+    on<UploadIDSuccessEvent>(
+        (event, emit) => emit(state.copyWith(idStatus: Status.success)));
+    on<UploadIDErrorEvent>(
+        (event, emit) => emit(state.copyWith(idStatus: Status.error)));
   }
 }

@@ -6,7 +6,6 @@ import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bankinfo_service.dart';
-import 'package:yumi/global.dart';
 import 'package:yumi/model/bankinfo_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
@@ -25,6 +24,9 @@ class BankInfoSubmitButtons extends StatelessWidget {
     return BlocConsumer<BankInfoBloc, BankInfoState>(
       listener: (context, state) async {
         if (!state.status.isSaved) return;
+
+        context.read<BankInfoBloc>().add(BankInfoLoadingEvent());
+
         final dynamic res;
         if (state.selectedBank.id.isEmpty) {
           res = await BankInfoService.addBankInfo(
@@ -99,7 +101,7 @@ class BankInfoSubmitButtons extends StatelessWidget {
   }
 }
 
-Widget FormData(BankInfo bankInfo, Function save) {
+Widget formData(BankInfo bankInfo, Function save) {
   var bankInfo0 = bankInfo;
 
   return BlocBuilder<BankInfoBloc, BankInfoState>(
@@ -197,16 +199,20 @@ class BankInfoForm extends StatelessWidget {
         var bankInfo = state.selectedBank;
 
         return state.status.isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
+            ? Container(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * 0.6,
+                ),
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
               )
-            : Form(
-                key: bankInfoKey,
-                child: Container(
-                  padding:
-                      EdgeInsets.all(ThemeSelector.statics.defaultBlockGap),
+            : Container(
+                padding: EdgeInsets.all(ThemeSelector.statics.defaultBlockGap),
+                child: Form(
+                  key: bankInfoKey,
                   child: SingleChildScrollView(
-                      child: FormData(
+                      child: formData(
                           bankInfo,
                           onFormFieldsSaved<BankInfo>(
                             bankInfoKey,

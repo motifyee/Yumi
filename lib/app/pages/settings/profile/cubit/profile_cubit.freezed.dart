@@ -17,14 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ProfileState {
   Profile get profile => throw _privateConstructorUsedError;
-  ObseleteStatusEnum get status => throw _privateConstructorUsedError;
-  Set<ObseleteStatusEnum> get statusSet =>
-      throw _privateConstructorUsedError; //
-  Profile get profileForm => throw _privateConstructorUsedError;
-  ObseleteStatusEnum get formStatus => throw _privateConstructorUsedError; //
-  String? get apiMessage => throw _privateConstructorUsedError; //
-  Status<List<Review>> get reviews => throw _privateConstructorUsedError;
-  Status<Profile>? get test => throw _privateConstructorUsedError;
+  Profile get form => throw _privateConstructorUsedError;
+  List<Review> get reviews => throw _privateConstructorUsedError;
+  EntityStatus get reviewsStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProfileStateCopyWith<ProfileState> get copyWith =>
@@ -39,16 +34,12 @@ abstract class $ProfileStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Profile profile,
-      ObseleteStatusEnum status,
-      Set<ObseleteStatusEnum> statusSet,
-      Profile profileForm,
-      ObseleteStatusEnum formStatus,
-      String? apiMessage,
-      Status<List<Review>> reviews,
-      Status<Profile>? test});
+      Profile form,
+      List<Review> reviews,
+      EntityStatus reviewsStatus});
 
   $ProfileCopyWith<$Res> get profile;
-  $ProfileCopyWith<$Res> get profileForm;
+  $ProfileCopyWith<$Res> get form;
 }
 
 /// @nodoc
@@ -65,47 +56,27 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
   @override
   $Res call({
     Object? profile = null,
-    Object? status = null,
-    Object? statusSet = null,
-    Object? profileForm = null,
-    Object? formStatus = null,
-    Object? apiMessage = freezed,
+    Object? form = null,
     Object? reviews = null,
-    Object? test = freezed,
+    Object? reviewsStatus = null,
   }) {
     return _then(_value.copyWith(
       profile: null == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as Profile,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
-      statusSet: null == statusSet
-          ? _value.statusSet
-          : statusSet // ignore: cast_nullable_to_non_nullable
-              as Set<ObseleteStatusEnum>,
-      profileForm: null == profileForm
-          ? _value.profileForm
-          : profileForm // ignore: cast_nullable_to_non_nullable
+      form: null == form
+          ? _value.form
+          : form // ignore: cast_nullable_to_non_nullable
               as Profile,
-      formStatus: null == formStatus
-          ? _value.formStatus
-          : formStatus // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
-      apiMessage: freezed == apiMessage
-          ? _value.apiMessage
-          : apiMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
       reviews: null == reviews
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
-              as Status<List<Review>>,
-      test: freezed == test
-          ? _value.test
-          : test // ignore: cast_nullable_to_non_nullable
-              as Status<Profile>?,
+              as List<Review>,
+      reviewsStatus: null == reviewsStatus
+          ? _value.reviewsStatus
+          : reviewsStatus // ignore: cast_nullable_to_non_nullable
+              as EntityStatus,
     ) as $Val);
   }
 
@@ -119,9 +90,9 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
 
   @override
   @pragma('vm:prefer-inline')
-  $ProfileCopyWith<$Res> get profileForm {
-    return $ProfileCopyWith<$Res>(_value.profileForm, (value) {
-      return _then(_value.copyWith(profileForm: value) as $Val);
+  $ProfileCopyWith<$Res> get form {
+    return $ProfileCopyWith<$Res>(_value.form, (value) {
+      return _then(_value.copyWith(form: value) as $Val);
     });
   }
 }
@@ -136,18 +107,14 @@ abstract class _$$ProfileStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {Profile profile,
-      ObseleteStatusEnum status,
-      Set<ObseleteStatusEnum> statusSet,
-      Profile profileForm,
-      ObseleteStatusEnum formStatus,
-      String? apiMessage,
-      Status<List<Review>> reviews,
-      Status<Profile>? test});
+      Profile form,
+      List<Review> reviews,
+      EntityStatus reviewsStatus});
 
   @override
   $ProfileCopyWith<$Res> get profile;
   @override
-  $ProfileCopyWith<$Res> get profileForm;
+  $ProfileCopyWith<$Res> get form;
 }
 
 /// @nodoc
@@ -162,47 +129,27 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? profile = null,
-    Object? status = null,
-    Object? statusSet = null,
-    Object? profileForm = null,
-    Object? formStatus = null,
-    Object? apiMessage = freezed,
+    Object? form = null,
     Object? reviews = null,
-    Object? test = freezed,
+    Object? reviewsStatus = null,
   }) {
     return _then(_$ProfileStateImpl(
       profile: null == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as Profile,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
-      statusSet: null == statusSet
-          ? _value._statusSet
-          : statusSet // ignore: cast_nullable_to_non_nullable
-              as Set<ObseleteStatusEnum>,
-      profileForm: null == profileForm
-          ? _value.profileForm
-          : profileForm // ignore: cast_nullable_to_non_nullable
+      form: null == form
+          ? _value.form
+          : form // ignore: cast_nullable_to_non_nullable
               as Profile,
-      formStatus: null == formStatus
-          ? _value.formStatus
-          : formStatus // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
-      apiMessage: freezed == apiMessage
-          ? _value.apiMessage
-          : apiMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
       reviews: null == reviews
-          ? _value.reviews
+          ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
-              as Status<List<Review>>,
-      test: freezed == test
-          ? _value.test
-          : test // ignore: cast_nullable_to_non_nullable
-              as Status<Profile>?,
+              as List<Review>,
+      reviewsStatus: null == reviewsStatus
+          ? _value.reviewsStatus
+          : reviewsStatus // ignore: cast_nullable_to_non_nullable
+              as EntityStatus,
     ));
   }
 }
@@ -212,50 +159,33 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
 class _$ProfileStateImpl implements _ProfileState {
   const _$ProfileStateImpl(
       {this.profile = const Profile(),
-      this.status = ObseleteStatusEnum.init,
-      final Set<ObseleteStatusEnum> statusSet = const {},
-      this.profileForm = const Profile(),
-      this.formStatus = ObseleteStatusEnum.init,
-      this.apiMessage,
-      this.reviews = const Status<List<Review>>(),
-      this.test})
-      : _statusSet = statusSet;
+      this.form = const Profile(),
+      final List<Review> reviews = const [],
+      this.reviewsStatus = const EntityStatus(status: Status.idle)})
+      : _reviews = reviews;
 
   @override
   @JsonKey()
   final Profile profile;
   @override
   @JsonKey()
-  final ObseleteStatusEnum status;
-  final Set<ObseleteStatusEnum> _statusSet;
+  final Profile form;
+  final List<Review> _reviews;
   @override
   @JsonKey()
-  Set<ObseleteStatusEnum> get statusSet {
-    if (_statusSet is EqualUnmodifiableSetView) return _statusSet;
+  List<Review> get reviews {
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_statusSet);
+    return EqualUnmodifiableListView(_reviews);
   }
 
-//
   @override
   @JsonKey()
-  final Profile profileForm;
-  @override
-  @JsonKey()
-  final ObseleteStatusEnum formStatus;
-//
-  @override
-  final String? apiMessage;
-//
-  @override
-  @JsonKey()
-  final Status<List<Review>> reviews;
-  @override
-  final Status<Profile>? test;
+  final EntityStatus reviewsStatus;
 
   @override
   String toString() {
-    return 'ProfileState(profile: $profile, status: $status, statusSet: $statusSet, profileForm: $profileForm, formStatus: $formStatus, apiMessage: $apiMessage, reviews: $reviews, test: $test)';
+    return 'ProfileState(profile: $profile, form: $form, reviews: $reviews, reviewsStatus: $reviewsStatus)';
   }
 
   @override
@@ -264,30 +194,15 @@ class _$ProfileStateImpl implements _ProfileState {
         (other.runtimeType == runtimeType &&
             other is _$ProfileStateImpl &&
             (identical(other.profile, profile) || other.profile == profile) &&
-            (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality()
-                .equals(other._statusSet, _statusSet) &&
-            (identical(other.profileForm, profileForm) ||
-                other.profileForm == profileForm) &&
-            (identical(other.formStatus, formStatus) ||
-                other.formStatus == formStatus) &&
-            (identical(other.apiMessage, apiMessage) ||
-                other.apiMessage == apiMessage) &&
-            (identical(other.reviews, reviews) || other.reviews == reviews) &&
-            (identical(other.test, test) || other.test == test));
+            (identical(other.form, form) || other.form == form) &&
+            const DeepCollectionEquality().equals(other._reviews, _reviews) &&
+            (identical(other.reviewsStatus, reviewsStatus) ||
+                other.reviewsStatus == reviewsStatus));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      profile,
-      status,
-      const DeepCollectionEquality().hash(_statusSet),
-      profileForm,
-      formStatus,
-      apiMessage,
-      reviews,
-      test);
+  int get hashCode => Object.hash(runtimeType, profile, form,
+      const DeepCollectionEquality().hash(_reviews), reviewsStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -299,30 +214,18 @@ class _$ProfileStateImpl implements _ProfileState {
 abstract class _ProfileState implements ProfileState {
   const factory _ProfileState(
       {final Profile profile,
-      final ObseleteStatusEnum status,
-      final Set<ObseleteStatusEnum> statusSet,
-      final Profile profileForm,
-      final ObseleteStatusEnum formStatus,
-      final String? apiMessage,
-      final Status<List<Review>> reviews,
-      final Status<Profile>? test}) = _$ProfileStateImpl;
+      final Profile form,
+      final List<Review> reviews,
+      final EntityStatus reviewsStatus}) = _$ProfileStateImpl;
 
   @override
   Profile get profile;
   @override
-  ObseleteStatusEnum get status;
+  Profile get form;
   @override
-  Set<ObseleteStatusEnum> get statusSet;
-  @override //
-  Profile get profileForm;
+  List<Review> get reviews;
   @override
-  ObseleteStatusEnum get formStatus;
-  @override //
-  String? get apiMessage;
-  @override //
-  Status<List<Review>> get reviews;
-  @override
-  Status<Profile>? get test;
+  EntityStatus get reviewsStatus;
   @override
   @JsonKey(ignore: true)
   _$$ProfileStateImplCopyWith<_$ProfileStateImpl> get copyWith =>

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nested/nested.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_config/app_config.dart';
 import 'package:yumi/app_config/customer/customer_routes.dart';
 import 'package:yumi/app_target.dart';
@@ -17,7 +18,6 @@ import 'package:yumi/app/pages/chef_application/bloc.dart';
 import 'package:yumi/app/pages/chef_application/documentation/bloc/documentation_bloc.dart';
 import 'package:yumi/app/pages/chef_application/documentation/bloc/icon_bloc.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
 
 class CustomerAppConfig implements AppConfig {
   @override
@@ -31,7 +31,7 @@ class CustomerAppConfig implements AppConfig {
     BlocProvider(create: (context) => RegCubit()),
     BlocProvider(create: (context) => UserBloc()),
     BlocProvider(create: (context) => NavigatorBloc()),
-    BlocProvider(create: (context) => ProfileBloc()),
+    BlocProvider(create: (context) => ProfileCubit()),
     BlocProvider(create: (context) => BankInfoBloc()),
     BlocProvider(create: (context) => CategoriesBloc()),
     BlocProvider(create: (context) => ChefFlowBloc()),

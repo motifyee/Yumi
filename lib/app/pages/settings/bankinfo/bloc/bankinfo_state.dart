@@ -6,13 +6,13 @@ class BankInfoState extends Equatable {
   BankInfo get selectedBank => banks.firstOrNull ?? const BankInfo();
   final BankInfo? bankInfoForm;
 
-  final ObseleteStatusEnum status;
+  final Status status;
   final StatusSet statusSet;
 
   const BankInfoState({
     this.banks = const [],
     this.bankInfoForm,
-    this.status = ObseleteStatusEnum.init,
+    this.status = Status.init,
     this.statusSet = const {},
   });
 
@@ -20,7 +20,7 @@ class BankInfoState extends Equatable {
     List<BankInfo>? banks,
     BankInfo? selectedBank,
     BankInfo? bankInfoForm,
-    ObseleteStatusEnum? status,
+    Status? status,
   }) {
     return BankInfoState(
       banks: banks ?? this.banks,

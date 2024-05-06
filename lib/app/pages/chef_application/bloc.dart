@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -43,7 +43,7 @@ class ChefFlowState extends Equatable {
       );
 
   bool get profileSheetDone {
-    Profile profile = G.read<ProfileBloc>().state.profile;
+    Profile profile = G.rd<ProfileCubit>().state.form;
 
     return profile.profileSheetDone;
   }

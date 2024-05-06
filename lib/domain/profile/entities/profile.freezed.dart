@@ -20,6 +20,8 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Profile {
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  EntityStatus get entityStatus => throw _privateConstructorUsedError; //
   String get code => throw _privateConstructorUsedError;
   String get branchId => throw _privateConstructorUsedError;
   String get guid => throw _privateConstructorUsedError;
@@ -39,7 +41,8 @@ mixin _$Profile {
   bool get pickupOnly => throw _privateConstructorUsedError; //
   int get signupType => throw _privateConstructorUsedError;
   String get registerDate => throw _privateConstructorUsedError;
-  bool get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'status')
+  bool get userStatus => throw _privateConstructorUsedError;
   @JsonKey(includeToJson: false)
   Country get country => throw _privateConstructorUsedError;
   String get updatedBy => throw _privateConstructorUsedError; // Event Photos
@@ -58,11 +61,11 @@ mixin _$Profile {
   @JsonKey(name: 'is_Hygiene')
   bool get isHygiene => throw _privateConstructorUsedError; // Documents
 // chef
-  @JsonKey(name: 'image_Hygiene')
+  @JsonKey(name: 'Image_Hygiene_Cert')
   String? get hygienePhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_Risk')
+  @JsonKey(name: 'Image_Risk_Assessment')
   String? get riskPhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_Authority_Reg')
+  @JsonKey(name: 'Image_Authority_Reg')
   String? get registerationPhoto => throw _privateConstructorUsedError; //driver
   @JsonKey(name: 'image_Driver_License')
   String? get driverLicensePhoto => throw _privateConstructorUsedError;
@@ -77,7 +80,7 @@ mixin _$Profile {
   String? get passportPhoto => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_Id')
   String? get nidPhoto => throw _privateConstructorUsedError; //
-  @JsonKey(name: 'image_Contract')
+  @JsonKey(name: 'Image_Contract')
   String? get contractPhoto => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -91,7 +94,9 @@ abstract class $ProfileCopyWith<$Res> {
       _$ProfileCopyWithImpl<$Res, Profile>;
   @useResult
   $Res call(
-      {String code,
+      {@JsonKey(includeToJson: false, includeFromJson: false)
+      EntityStatus entityStatus,
+      String code,
       String branchId,
       String guid,
       int id,
@@ -107,7 +112,7 @@ abstract class $ProfileCopyWith<$Res> {
       @JsonKey(name: 'pickup_Only') bool pickupOnly,
       int signupType,
       String registerDate,
-      bool status,
+      @JsonKey(name: 'status') bool userStatus,
       @JsonKey(includeToJson: false) Country country,
       String updatedBy,
       @JsonKey(name: 'image_Profile_1') String? eventPhoto0,
@@ -117,9 +122,9 @@ abstract class $ProfileCopyWith<$Res> {
       @JsonKey(name: 'image_Profile_5') String? eventPhoto4,
       @JsonKey(name: 'account_Approved') bool accountApproved,
       @JsonKey(name: 'is_Hygiene') bool isHygiene,
-      @JsonKey(name: 'image_Hygiene') String? hygienePhoto,
-      @JsonKey(name: 'image_Risk') String? riskPhoto,
-      @JsonKey(name: 'image_Authority_Reg') String? registerationPhoto,
+      @JsonKey(name: 'Image_Hygiene_Cert') String? hygienePhoto,
+      @JsonKey(name: 'Image_Risk_Assessment') String? riskPhoto,
+      @JsonKey(name: 'Image_Authority_Reg') String? registerationPhoto,
       @JsonKey(name: 'image_Driver_License') String? driverLicensePhoto,
       @JsonKey(name: 'Image_Driver_License_Code')
       String? driverLicenseCodePhoto,
@@ -129,7 +134,7 @@ abstract class $ProfileCopyWith<$Res> {
       String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') String? passportPhoto,
       @JsonKey(name: 'image_Id') String? nidPhoto,
-      @JsonKey(name: 'image_Contract') String? contractPhoto});
+      @JsonKey(name: 'Image_Contract') String? contractPhoto});
 }
 
 /// @nodoc
@@ -145,6 +150,7 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? entityStatus = null,
     Object? code = null,
     Object? branchId = null,
     Object? guid = null,
@@ -161,7 +167,7 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
     Object? pickupOnly = null,
     Object? signupType = null,
     Object? registerDate = null,
-    Object? status = null,
+    Object? userStatus = null,
     Object? country = null,
     Object? updatedBy = null,
     Object? eventPhoto0 = freezed,
@@ -183,6 +189,10 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
     Object? contractPhoto = freezed,
   }) {
     return _then(_value.copyWith(
+      entityStatus: null == entityStatus
+          ? _value.entityStatus
+          : entityStatus // ignore: cast_nullable_to_non_nullable
+              as EntityStatus,
       code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -247,9 +257,9 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
           ? _value.registerDate
           : registerDate // ignore: cast_nullable_to_non_nullable
               as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
+      userStatus: null == userStatus
+          ? _value.userStatus
+          : userStatus // ignore: cast_nullable_to_non_nullable
               as bool,
       country: null == country
           ? _value.country
@@ -339,7 +349,9 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String code,
+      {@JsonKey(includeToJson: false, includeFromJson: false)
+      EntityStatus entityStatus,
+      String code,
       String branchId,
       String guid,
       int id,
@@ -355,7 +367,7 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       @JsonKey(name: 'pickup_Only') bool pickupOnly,
       int signupType,
       String registerDate,
-      bool status,
+      @JsonKey(name: 'status') bool userStatus,
       @JsonKey(includeToJson: false) Country country,
       String updatedBy,
       @JsonKey(name: 'image_Profile_1') String? eventPhoto0,
@@ -365,9 +377,9 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       @JsonKey(name: 'image_Profile_5') String? eventPhoto4,
       @JsonKey(name: 'account_Approved') bool accountApproved,
       @JsonKey(name: 'is_Hygiene') bool isHygiene,
-      @JsonKey(name: 'image_Hygiene') String? hygienePhoto,
-      @JsonKey(name: 'image_Risk') String? riskPhoto,
-      @JsonKey(name: 'image_Authority_Reg') String? registerationPhoto,
+      @JsonKey(name: 'Image_Hygiene_Cert') String? hygienePhoto,
+      @JsonKey(name: 'Image_Risk_Assessment') String? riskPhoto,
+      @JsonKey(name: 'Image_Authority_Reg') String? registerationPhoto,
       @JsonKey(name: 'image_Driver_License') String? driverLicensePhoto,
       @JsonKey(name: 'Image_Driver_License_Code')
       String? driverLicenseCodePhoto,
@@ -377,7 +389,7 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') String? passportPhoto,
       @JsonKey(name: 'image_Id') String? nidPhoto,
-      @JsonKey(name: 'image_Contract') String? contractPhoto});
+      @JsonKey(name: 'Image_Contract') String? contractPhoto});
 }
 
 /// @nodoc
@@ -391,6 +403,7 @@ class __$$ProfileImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? entityStatus = null,
     Object? code = null,
     Object? branchId = null,
     Object? guid = null,
@@ -407,7 +420,7 @@ class __$$ProfileImplCopyWithImpl<$Res>
     Object? pickupOnly = null,
     Object? signupType = null,
     Object? registerDate = null,
-    Object? status = null,
+    Object? userStatus = null,
     Object? country = null,
     Object? updatedBy = null,
     Object? eventPhoto0 = freezed,
@@ -429,6 +442,10 @@ class __$$ProfileImplCopyWithImpl<$Res>
     Object? contractPhoto = freezed,
   }) {
     return _then(_$ProfileImpl(
+      entityStatus: null == entityStatus
+          ? _value.entityStatus
+          : entityStatus // ignore: cast_nullable_to_non_nullable
+              as EntityStatus,
       code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -493,9 +510,9 @@ class __$$ProfileImplCopyWithImpl<$Res>
           ? _value.registerDate
           : registerDate // ignore: cast_nullable_to_non_nullable
               as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
+      userStatus: null == userStatus
+          ? _value.userStatus
+          : userStatus // ignore: cast_nullable_to_non_nullable
               as bool,
       country: null == country
           ? _value.country
@@ -581,7 +598,9 @@ class __$$ProfileImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProfileImpl extends _Profile {
   const _$ProfileImpl(
-      {this.code = '',
+      {@JsonKey(includeToJson: false, includeFromJson: false)
+      this.entityStatus = const EntityStatus(status: Status.idle),
+      this.code = '',
       this.branchId = '',
       this.guid = '',
       this.id = 0,
@@ -597,7 +616,7 @@ class _$ProfileImpl extends _Profile {
       @JsonKey(name: 'pickup_Only') this.pickupOnly = false,
       this.signupType = 0,
       this.registerDate = '',
-      this.status = false,
+      @JsonKey(name: 'status') this.userStatus = false,
       @JsonKey(includeToJson: false) this.country = const Country(),
       this.updatedBy = '',
       @JsonKey(name: 'image_Profile_1') this.eventPhoto0,
@@ -607,9 +626,9 @@ class _$ProfileImpl extends _Profile {
       @JsonKey(name: 'image_Profile_5') this.eventPhoto4,
       @JsonKey(name: 'account_Approved') this.accountApproved = false,
       @JsonKey(name: 'is_Hygiene') this.isHygiene = false,
-      @JsonKey(name: 'image_Hygiene') this.hygienePhoto,
-      @JsonKey(name: 'image_Risk') this.riskPhoto,
-      @JsonKey(name: 'image_Authority_Reg') this.registerationPhoto,
+      @JsonKey(name: 'Image_Hygiene_Cert') this.hygienePhoto,
+      @JsonKey(name: 'Image_Risk_Assessment') this.riskPhoto,
+      @JsonKey(name: 'Image_Authority_Reg') this.registerationPhoto,
       @JsonKey(name: 'image_Driver_License') this.driverLicensePhoto,
       @JsonKey(name: 'Image_Driver_License_Code') this.driverLicenseCodePhoto,
       @JsonKey(name: 'Image_Food_Delivery_Insurance')
@@ -618,12 +637,16 @@ class _$ProfileImpl extends _Profile {
       this.evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') this.passportPhoto,
       @JsonKey(name: 'image_Id') this.nidPhoto,
-      @JsonKey(name: 'image_Contract') this.contractPhoto})
+      @JsonKey(name: 'Image_Contract') this.contractPhoto})
       : super._();
 
   factory _$ProfileImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProfileImplFromJson(json);
 
+  @override
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  final EntityStatus entityStatus;
+//
   @override
   @JsonKey()
   final String code;
@@ -675,8 +698,8 @@ class _$ProfileImpl extends _Profile {
   @JsonKey()
   final String registerDate;
   @override
-  @JsonKey()
-  final bool status;
+  @JsonKey(name: 'status')
+  final bool userStatus;
   @override
   @JsonKey(includeToJson: false)
   final Country country;
@@ -709,13 +732,13 @@ class _$ProfileImpl extends _Profile {
 // Documents
 // chef
   @override
-  @JsonKey(name: 'image_Hygiene')
+  @JsonKey(name: 'Image_Hygiene_Cert')
   final String? hygienePhoto;
   @override
-  @JsonKey(name: 'image_Risk')
+  @JsonKey(name: 'Image_Risk_Assessment')
   final String? riskPhoto;
   @override
-  @JsonKey(name: 'image_Authority_Reg')
+  @JsonKey(name: 'Image_Authority_Reg')
   final String? registerationPhoto;
 //driver
   @override
@@ -739,12 +762,12 @@ class _$ProfileImpl extends _Profile {
   final String? nidPhoto;
 //
   @override
-  @JsonKey(name: 'image_Contract')
+  @JsonKey(name: 'Image_Contract')
   final String? contractPhoto;
 
   @override
   String toString() {
-    return 'Profile(code: $code, branchId: $branchId, guid: $guid, id: $id, fullName: $fullName, userName: $userName, bio: $bio, profileImage: $profileImage, mobile: $mobile, email: $email, address: $address, about: $about, pickup: $pickup, pickupOnly: $pickupOnly, signupType: $signupType, registerDate: $registerDate, status: $status, country: $country, updatedBy: $updatedBy, eventPhoto0: $eventPhoto0, eventPhoto1: $eventPhoto1, eventPhoto2: $eventPhoto2, eventPhoto3: $eventPhoto3, eventPhoto4: $eventPhoto4, accountApproved: $accountApproved, isHygiene: $isHygiene, hygienePhoto: $hygienePhoto, riskPhoto: $riskPhoto, registerationPhoto: $registerationPhoto, driverLicensePhoto: $driverLicensePhoto, driverLicenseCodePhoto: $driverLicenseCodePhoto, foodDeliveryInsurancePhoto: $foodDeliveryInsurancePhoto, evidenceOfResidencePhoto: $evidenceOfResidencePhoto, passportPhoto: $passportPhoto, nidPhoto: $nidPhoto, contractPhoto: $contractPhoto)';
+    return 'Profile(entityStatus: $entityStatus, code: $code, branchId: $branchId, guid: $guid, id: $id, fullName: $fullName, userName: $userName, bio: $bio, profileImage: $profileImage, mobile: $mobile, email: $email, address: $address, about: $about, pickup: $pickup, pickupOnly: $pickupOnly, signupType: $signupType, registerDate: $registerDate, userStatus: $userStatus, country: $country, updatedBy: $updatedBy, eventPhoto0: $eventPhoto0, eventPhoto1: $eventPhoto1, eventPhoto2: $eventPhoto2, eventPhoto3: $eventPhoto3, eventPhoto4: $eventPhoto4, accountApproved: $accountApproved, isHygiene: $isHygiene, hygienePhoto: $hygienePhoto, riskPhoto: $riskPhoto, registerationPhoto: $registerationPhoto, driverLicensePhoto: $driverLicensePhoto, driverLicenseCodePhoto: $driverLicenseCodePhoto, foodDeliveryInsurancePhoto: $foodDeliveryInsurancePhoto, evidenceOfResidencePhoto: $evidenceOfResidencePhoto, passportPhoto: $passportPhoto, nidPhoto: $nidPhoto, contractPhoto: $contractPhoto)';
   }
 
   @override
@@ -752,6 +775,8 @@ class _$ProfileImpl extends _Profile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProfileImpl &&
+            (identical(other.entityStatus, entityStatus) ||
+                other.entityStatus == entityStatus) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.branchId, branchId) ||
                 other.branchId == branchId) &&
@@ -775,7 +800,8 @@ class _$ProfileImpl extends _Profile {
                 other.signupType == signupType) &&
             (identical(other.registerDate, registerDate) ||
                 other.registerDate == registerDate) &&
-            (identical(other.status, status) || other.status == status) &&
+            (identical(other.userStatus, userStatus) ||
+                other.userStatus == userStatus) &&
             (identical(other.country, country) || other.country == country) &&
             (identical(other.updatedBy, updatedBy) ||
                 other.updatedBy == updatedBy) &&
@@ -822,6 +848,7 @@ class _$ProfileImpl extends _Profile {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
+        entityStatus,
         code,
         branchId,
         guid,
@@ -838,7 +865,7 @@ class _$ProfileImpl extends _Profile {
         pickupOnly,
         signupType,
         registerDate,
-        status,
+        userStatus,
         country,
         updatedBy,
         eventPhoto0,
@@ -876,7 +903,9 @@ class _$ProfileImpl extends _Profile {
 
 abstract class _Profile extends Profile {
   const factory _Profile(
-      {final String code,
+      {@JsonKey(includeToJson: false, includeFromJson: false)
+      final EntityStatus entityStatus,
+      final String code,
       final String branchId,
       final String guid,
       final int id,
@@ -892,7 +921,7 @@ abstract class _Profile extends Profile {
       @JsonKey(name: 'pickup_Only') final bool pickupOnly,
       final int signupType,
       final String registerDate,
-      final bool status,
+      @JsonKey(name: 'status') final bool userStatus,
       @JsonKey(includeToJson: false) final Country country,
       final String updatedBy,
       @JsonKey(name: 'image_Profile_1') final String? eventPhoto0,
@@ -902,9 +931,9 @@ abstract class _Profile extends Profile {
       @JsonKey(name: 'image_Profile_5') final String? eventPhoto4,
       @JsonKey(name: 'account_Approved') final bool accountApproved,
       @JsonKey(name: 'is_Hygiene') final bool isHygiene,
-      @JsonKey(name: 'image_Hygiene') final String? hygienePhoto,
-      @JsonKey(name: 'image_Risk') final String? riskPhoto,
-      @JsonKey(name: 'image_Authority_Reg') final String? registerationPhoto,
+      @JsonKey(name: 'Image_Hygiene_Cert') final String? hygienePhoto,
+      @JsonKey(name: 'Image_Risk_Assessment') final String? riskPhoto,
+      @JsonKey(name: 'Image_Authority_Reg') final String? registerationPhoto,
       @JsonKey(name: 'image_Driver_License') final String? driverLicensePhoto,
       @JsonKey(name: 'Image_Driver_License_Code')
       final String? driverLicenseCodePhoto,
@@ -914,13 +943,16 @@ abstract class _Profile extends Profile {
       final String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') final String? passportPhoto,
       @JsonKey(name: 'image_Id') final String? nidPhoto,
-      @JsonKey(name: 'image_Contract')
+      @JsonKey(name: 'Image_Contract')
       final String? contractPhoto}) = _$ProfileImpl;
   const _Profile._() : super._();
 
   factory _Profile.fromJson(Map<String, dynamic> json) = _$ProfileImpl.fromJson;
 
   @override
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  EntityStatus get entityStatus;
+  @override //
   String get code;
   @override
   String get branchId;
@@ -956,7 +988,8 @@ abstract class _Profile extends Profile {
   @override
   String get registerDate;
   @override
-  bool get status;
+  @JsonKey(name: 'status')
+  bool get userStatus;
   @override
   @JsonKey(includeToJson: false)
   Country get country;
@@ -985,13 +1018,13 @@ abstract class _Profile extends Profile {
   bool get isHygiene;
   @override // Documents
 // chef
-  @JsonKey(name: 'image_Hygiene')
+  @JsonKey(name: 'Image_Hygiene_Cert')
   String? get hygienePhoto;
   @override
-  @JsonKey(name: 'image_Risk')
+  @JsonKey(name: 'Image_Risk_Assessment')
   String? get riskPhoto;
   @override
-  @JsonKey(name: 'image_Authority_Reg')
+  @JsonKey(name: 'Image_Authority_Reg')
   String? get registerationPhoto;
   @override //driver
   @JsonKey(name: 'image_Driver_License')
@@ -1012,7 +1045,7 @@ abstract class _Profile extends Profile {
   @JsonKey(name: 'image_Id')
   String? get nidPhoto;
   @override //
-  @JsonKey(name: 'image_Contract')
+  @JsonKey(name: 'Image_Contract')
   String? get contractPhoto;
   @override
   @JsonKey(ignore: true)

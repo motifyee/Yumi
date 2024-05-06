@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/app/inject.dart';
+import 'package:yumi/app/core/setup/inject.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/schedule/data/repos/schedule_repo.dart';
@@ -16,7 +16,7 @@ class ScheduleState with _$ScheduleState {
   const factory ScheduleState({
     @Default(Schedule()) Schedule schedule,
     @Default(Schedule()) Schedule scheduleForm,
-    @Default(ObseleteStatusEnum.init) ObseleteStatusEnum status,
+    @Default(Status.init) Status status,
   }) = Initial;
 
   const ScheduleState._();
@@ -34,34 +34,34 @@ class ScheduleCubit extends Cubit<ScheduleState> {
         super(const ScheduleState());
 
   void loadSchedule() async {
-    emit(state.copyWith(status: ObseleteStatusEnum.loading));
+    emit(state.copyWith(status: Status.loading));
 
     final task = await LoadSchedule(repo).call(NoParams());
 
     task.fold(
-      (l) => emit(state.copyWith(status: ObseleteStatusEnum.error)),
+      (l) => emit(state.copyWith(status: Status.error)),
       (r) => emit(
         state.copyWith(
           schedule: r,
           scheduleForm: r,
-          status: ObseleteStatusEnum.idle,
+          status: Status.idle,
         ),
       ),
     );
   }
 
   void updateSchedule() async {
-    emit(state.copyWith(status: ObseleteStatusEnum.loading));
+    emit(state.copyWith(status: Status.loading));
 
     final task =
         await SaveSchedule(repo).call(ScheduleParam(state.scheduleForm));
 
     task.fold(
-      (l) => emit(state.copyWith(status: ObseleteStatusEnum.error)),
+      (l) => emit(state.copyWith(status: Status.error)),
       (r) => emit(
         state.copyWith(
           schedule: state.scheduleForm,
-          status: ObseleteStatusEnum.idle,
+          status: Status.idle,
         ),
       ),
     );
@@ -74,9 +74,8 @@ class ScheduleCubit extends Cubit<ScheduleState> {
     ));
 
     apply.fold(
-      (l) => emit(state.copyWith(status: ObseleteStatusEnum.error)),
-      (r) => emit(
-          state.copyWith(scheduleForm: r, status: ObseleteStatusEnum.success)),
+      (l) => emit(state.copyWith(status: Status.error)),
+      (r) => emit(state.copyWith(scheduleForm: r, status: Status.success)),
     );
   }
 

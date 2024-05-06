@@ -1,10 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/profile_card.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
+import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bank_settings_card.dart';
 
@@ -13,7 +16,7 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProfileBloc, ProfileState>(
+    return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Column(
@@ -34,8 +37,17 @@ class SettingScreen extends StatelessWidget {
 
                         // Delete account button
                         TextButton(
-                          onPressed: () =>
-                              {G.read<ProfileBloc>().add(ProfileDeleteEvent())},
+                          onPressed: () async {
+                            await G
+                                .rd<ProfileCubit>()
+                                .deleteProfile()
+                                .then((value) {
+                              if (!value.contains("Deleting a Account")) return;
+
+                              context.read<UserBloc>().add(UserResetEvent());
+                              context.router.replaceAll([LoginRoute()]);
+                            });
+                          },
                           child: Container(
                             width: 175,
                             padding: const EdgeInsets.symmetric(

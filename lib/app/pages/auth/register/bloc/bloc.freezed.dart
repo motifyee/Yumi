@@ -17,61 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$RegEvent {
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx) next,
-    required TResult Function(BuildContext ctx) previous,
-    required TResult Function(int step, BuildContext ctx) goto,
-    required TResult Function(RegisterationForm signupData, BuildContext ctx)
-        setAccount,
-    required TResult Function(String phone, BuildContext ctx) setPhone,
-    required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)
-        saveLocation,
-    required TResult Function(Address address) updateLocation,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx)? next,
-    TResult? Function(BuildContext ctx)? previous,
-    TResult? Function(int step, BuildContext ctx)? goto,
-    TResult? Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult? Function(String phone, BuildContext ctx)? setPhone,
-    TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult? Function(Address address)? updateLocation,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx)? next,
-    TResult Function(BuildContext ctx)? previous,
-    TResult Function(int step, BuildContext ctx)? goto,
-    TResult Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult Function(String phone, BuildContext ctx)? setPhone,
-    TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult Function(Address address)? updateLocation,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -99,22 +44,6 @@ mixin _$RegEvent {
     TResult? Function(_setOTP value)? setOTP,
     TResult? Function(_setLocation value)? saveLocation,
     TResult? Function(_updateLocation value)? updateLocation,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_next value)? next,
-    TResult Function(_previous value)? previous,
-    TResult Function(_goto value)? goto,
-    TResult Function(_setAccount value)? setAccount,
-    TResult Function(_setPhone value)? setPhone,
-    TResult Function(_setOTP value)? setOTP,
-    TResult Function(_setLocation value)? saveLocation,
-    TResult Function(_updateLocation value)? updateLocation,
-    required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
@@ -172,73 +101,6 @@ class _$initImpl implements _init {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx) next,
-    required TResult Function(BuildContext ctx) previous,
-    required TResult Function(int step, BuildContext ctx) goto,
-    required TResult Function(RegisterationForm signupData, BuildContext ctx)
-        setAccount,
-    required TResult Function(String phone, BuildContext ctx) setPhone,
-    required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)
-        saveLocation,
-    required TResult Function(Address address) updateLocation,
-  }) {
-    return init();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx)? next,
-    TResult? Function(BuildContext ctx)? previous,
-    TResult? Function(int step, BuildContext ctx)? goto,
-    TResult? Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult? Function(String phone, BuildContext ctx)? setPhone,
-    TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult? Function(Address address)? updateLocation,
-  }) {
-    return init?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx)? next,
-    TResult Function(BuildContext ctx)? previous,
-    TResult Function(int step, BuildContext ctx)? goto,
-    TResult Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult Function(String phone, BuildContext ctx)? setPhone,
-    TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult Function(Address address)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (init != null) {
-      return init();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -271,28 +133,6 @@ class _$initImpl implements _init {
     TResult? Function(_updateLocation value)? updateLocation,
   }) {
     return init?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_next value)? next,
-    TResult Function(_previous value)? previous,
-    TResult Function(_goto value)? goto,
-    TResult Function(_setAccount value)? setAccount,
-    TResult Function(_setPhone value)? setPhone,
-    TResult Function(_setOTP value)? setOTP,
-    TResult Function(_setLocation value)? saveLocation,
-    TResult Function(_updateLocation value)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (init != null) {
-      return init(this);
-    }
-    return orElse();
   }
 }
 
@@ -337,73 +177,6 @@ class _$loadingImpl implements _loading {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx) next,
-    required TResult Function(BuildContext ctx) previous,
-    required TResult Function(int step, BuildContext ctx) goto,
-    required TResult Function(RegisterationForm signupData, BuildContext ctx)
-        setAccount,
-    required TResult Function(String phone, BuildContext ctx) setPhone,
-    required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)
-        saveLocation,
-    required TResult Function(Address address) updateLocation,
-  }) {
-    return loading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx)? next,
-    TResult? Function(BuildContext ctx)? previous,
-    TResult? Function(int step, BuildContext ctx)? goto,
-    TResult? Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult? Function(String phone, BuildContext ctx)? setPhone,
-    TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult? Function(Address address)? updateLocation,
-  }) {
-    return loading?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx)? next,
-    TResult Function(BuildContext ctx)? previous,
-    TResult Function(int step, BuildContext ctx)? goto,
-    TResult Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult Function(String phone, BuildContext ctx)? setPhone,
-    TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult Function(Address address)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -436,28 +209,6 @@ class _$loadingImpl implements _loading {
     TResult? Function(_updateLocation value)? updateLocation,
   }) {
     return loading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_next value)? next,
-    TResult Function(_previous value)? previous,
-    TResult Function(_goto value)? goto,
-    TResult Function(_setAccount value)? setAccount,
-    TResult Function(_setPhone value)? setPhone,
-    TResult Function(_setOTP value)? setOTP,
-    TResult Function(_setLocation value)? saveLocation,
-    TResult Function(_updateLocation value)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading(this);
-    }
-    return orElse();
   }
 }
 
@@ -502,73 +253,6 @@ class _$loadedImpl implements _loaded {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx) next,
-    required TResult Function(BuildContext ctx) previous,
-    required TResult Function(int step, BuildContext ctx) goto,
-    required TResult Function(RegisterationForm signupData, BuildContext ctx)
-        setAccount,
-    required TResult Function(String phone, BuildContext ctx) setPhone,
-    required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)
-        saveLocation,
-    required TResult Function(Address address) updateLocation,
-  }) {
-    return loaded();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx)? next,
-    TResult? Function(BuildContext ctx)? previous,
-    TResult? Function(int step, BuildContext ctx)? goto,
-    TResult? Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult? Function(String phone, BuildContext ctx)? setPhone,
-    TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult? Function(Address address)? updateLocation,
-  }) {
-    return loaded?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx)? next,
-    TResult Function(BuildContext ctx)? previous,
-    TResult Function(int step, BuildContext ctx)? goto,
-    TResult Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult Function(String phone, BuildContext ctx)? setPhone,
-    TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult Function(Address address)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -601,28 +285,6 @@ class _$loadedImpl implements _loaded {
     TResult? Function(_updateLocation value)? updateLocation,
   }) {
     return loaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_next value)? next,
-    TResult Function(_previous value)? previous,
-    TResult Function(_goto value)? goto,
-    TResult Function(_setAccount value)? setAccount,
-    TResult Function(_setPhone value)? setPhone,
-    TResult Function(_setOTP value)? setOTP,
-    TResult Function(_setLocation value)? saveLocation,
-    TResult Function(_updateLocation value)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(this);
-    }
-    return orElse();
   }
 }
 
@@ -692,73 +354,6 @@ class _$nextImpl implements _next {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx) next,
-    required TResult Function(BuildContext ctx) previous,
-    required TResult Function(int step, BuildContext ctx) goto,
-    required TResult Function(RegisterationForm signupData, BuildContext ctx)
-        setAccount,
-    required TResult Function(String phone, BuildContext ctx) setPhone,
-    required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)
-        saveLocation,
-    required TResult Function(Address address) updateLocation,
-  }) {
-    return next(ctx);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx)? next,
-    TResult? Function(BuildContext ctx)? previous,
-    TResult? Function(int step, BuildContext ctx)? goto,
-    TResult? Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult? Function(String phone, BuildContext ctx)? setPhone,
-    TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult? Function(Address address)? updateLocation,
-  }) {
-    return next?.call(ctx);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx)? next,
-    TResult Function(BuildContext ctx)? previous,
-    TResult Function(int step, BuildContext ctx)? goto,
-    TResult Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult Function(String phone, BuildContext ctx)? setPhone,
-    TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult Function(Address address)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (next != null) {
-      return next(ctx);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -791,28 +386,6 @@ class _$nextImpl implements _next {
     TResult? Function(_updateLocation value)? updateLocation,
   }) {
     return next?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_next value)? next,
-    TResult Function(_previous value)? previous,
-    TResult Function(_goto value)? goto,
-    TResult Function(_setAccount value)? setAccount,
-    TResult Function(_setPhone value)? setPhone,
-    TResult Function(_setOTP value)? setOTP,
-    TResult Function(_setLocation value)? saveLocation,
-    TResult Function(_updateLocation value)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (next != null) {
-      return next(this);
-    }
-    return orElse();
   }
 }
 
@@ -888,73 +461,6 @@ class _$previousImpl implements _previous {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx) next,
-    required TResult Function(BuildContext ctx) previous,
-    required TResult Function(int step, BuildContext ctx) goto,
-    required TResult Function(RegisterationForm signupData, BuildContext ctx)
-        setAccount,
-    required TResult Function(String phone, BuildContext ctx) setPhone,
-    required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)
-        saveLocation,
-    required TResult Function(Address address) updateLocation,
-  }) {
-    return previous(ctx);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx)? next,
-    TResult? Function(BuildContext ctx)? previous,
-    TResult? Function(int step, BuildContext ctx)? goto,
-    TResult? Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult? Function(String phone, BuildContext ctx)? setPhone,
-    TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult? Function(Address address)? updateLocation,
-  }) {
-    return previous?.call(ctx);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx)? next,
-    TResult Function(BuildContext ctx)? previous,
-    TResult Function(int step, BuildContext ctx)? goto,
-    TResult Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult Function(String phone, BuildContext ctx)? setPhone,
-    TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult Function(Address address)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (previous != null) {
-      return previous(ctx);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -987,28 +493,6 @@ class _$previousImpl implements _previous {
     TResult? Function(_updateLocation value)? updateLocation,
   }) {
     return previous?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_next value)? next,
-    TResult Function(_previous value)? previous,
-    TResult Function(_goto value)? goto,
-    TResult Function(_setAccount value)? setAccount,
-    TResult Function(_setPhone value)? setPhone,
-    TResult Function(_setOTP value)? setOTP,
-    TResult Function(_setLocation value)? saveLocation,
-    TResult Function(_updateLocation value)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (previous != null) {
-      return previous(this);
-    }
-    return orElse();
   }
 }
 
@@ -1091,73 +575,6 @@ class _$gotoImpl implements _goto {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx) next,
-    required TResult Function(BuildContext ctx) previous,
-    required TResult Function(int step, BuildContext ctx) goto,
-    required TResult Function(RegisterationForm signupData, BuildContext ctx)
-        setAccount,
-    required TResult Function(String phone, BuildContext ctx) setPhone,
-    required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)
-        saveLocation,
-    required TResult Function(Address address) updateLocation,
-  }) {
-    return goto(step, ctx);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx)? next,
-    TResult? Function(BuildContext ctx)? previous,
-    TResult? Function(int step, BuildContext ctx)? goto,
-    TResult? Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult? Function(String phone, BuildContext ctx)? setPhone,
-    TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult? Function(Address address)? updateLocation,
-  }) {
-    return goto?.call(step, ctx);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx)? next,
-    TResult Function(BuildContext ctx)? previous,
-    TResult Function(int step, BuildContext ctx)? goto,
-    TResult Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult Function(String phone, BuildContext ctx)? setPhone,
-    TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult Function(Address address)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (goto != null) {
-      return goto(step, ctx);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -1190,28 +607,6 @@ class _$gotoImpl implements _goto {
     TResult? Function(_updateLocation value)? updateLocation,
   }) {
     return goto?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_next value)? next,
-    TResult Function(_previous value)? previous,
-    TResult Function(_goto value)? goto,
-    TResult Function(_setAccount value)? setAccount,
-    TResult Function(_setPhone value)? setPhone,
-    TResult Function(_setOTP value)? setOTP,
-    TResult Function(_setLocation value)? saveLocation,
-    TResult Function(_updateLocation value)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (goto != null) {
-      return goto(this);
-    }
-    return orElse();
   }
 }
 
@@ -1307,73 +702,6 @@ class _$setAccountImpl implements _setAccount {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx) next,
-    required TResult Function(BuildContext ctx) previous,
-    required TResult Function(int step, BuildContext ctx) goto,
-    required TResult Function(RegisterationForm signupData, BuildContext ctx)
-        setAccount,
-    required TResult Function(String phone, BuildContext ctx) setPhone,
-    required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)
-        saveLocation,
-    required TResult Function(Address address) updateLocation,
-  }) {
-    return setAccount(signupData, ctx);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx)? next,
-    TResult? Function(BuildContext ctx)? previous,
-    TResult? Function(int step, BuildContext ctx)? goto,
-    TResult? Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult? Function(String phone, BuildContext ctx)? setPhone,
-    TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult? Function(Address address)? updateLocation,
-  }) {
-    return setAccount?.call(signupData, ctx);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx)? next,
-    TResult Function(BuildContext ctx)? previous,
-    TResult Function(int step, BuildContext ctx)? goto,
-    TResult Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult Function(String phone, BuildContext ctx)? setPhone,
-    TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult Function(Address address)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (setAccount != null) {
-      return setAccount(signupData, ctx);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -1406,28 +734,6 @@ class _$setAccountImpl implements _setAccount {
     TResult? Function(_updateLocation value)? updateLocation,
   }) {
     return setAccount?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_next value)? next,
-    TResult Function(_previous value)? previous,
-    TResult Function(_goto value)? goto,
-    TResult Function(_setAccount value)? setAccount,
-    TResult Function(_setPhone value)? setPhone,
-    TResult Function(_setOTP value)? setOTP,
-    TResult Function(_setLocation value)? saveLocation,
-    TResult Function(_updateLocation value)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (setAccount != null) {
-      return setAccount(this);
-    }
-    return orElse();
   }
 }
 
@@ -1514,73 +820,6 @@ class _$setPhoneImpl implements _setPhone {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx) next,
-    required TResult Function(BuildContext ctx) previous,
-    required TResult Function(int step, BuildContext ctx) goto,
-    required TResult Function(RegisterationForm signupData, BuildContext ctx)
-        setAccount,
-    required TResult Function(String phone, BuildContext ctx) setPhone,
-    required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)
-        saveLocation,
-    required TResult Function(Address address) updateLocation,
-  }) {
-    return setPhone(phone, ctx);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx)? next,
-    TResult? Function(BuildContext ctx)? previous,
-    TResult? Function(int step, BuildContext ctx)? goto,
-    TResult? Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult? Function(String phone, BuildContext ctx)? setPhone,
-    TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult? Function(Address address)? updateLocation,
-  }) {
-    return setPhone?.call(phone, ctx);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx)? next,
-    TResult Function(BuildContext ctx)? previous,
-    TResult Function(int step, BuildContext ctx)? goto,
-    TResult Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult Function(String phone, BuildContext ctx)? setPhone,
-    TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult Function(Address address)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (setPhone != null) {
-      return setPhone(phone, ctx);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -1613,28 +852,6 @@ class _$setPhoneImpl implements _setPhone {
     TResult? Function(_updateLocation value)? updateLocation,
   }) {
     return setPhone?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_next value)? next,
-    TResult Function(_previous value)? previous,
-    TResult Function(_goto value)? goto,
-    TResult Function(_setAccount value)? setAccount,
-    TResult Function(_setPhone value)? setPhone,
-    TResult Function(_setOTP value)? setOTP,
-    TResult Function(_setLocation value)? saveLocation,
-    TResult Function(_updateLocation value)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (setPhone != null) {
-      return setPhone(this);
-    }
-    return orElse();
   }
 }
 
@@ -1720,73 +937,6 @@ class _$setOTPImpl implements _setOTP {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx) next,
-    required TResult Function(BuildContext ctx) previous,
-    required TResult Function(int step, BuildContext ctx) goto,
-    required TResult Function(RegisterationForm signupData, BuildContext ctx)
-        setAccount,
-    required TResult Function(String phone, BuildContext ctx) setPhone,
-    required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)
-        saveLocation,
-    required TResult Function(Address address) updateLocation,
-  }) {
-    return setOTP(otp, ctx);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx)? next,
-    TResult? Function(BuildContext ctx)? previous,
-    TResult? Function(int step, BuildContext ctx)? goto,
-    TResult? Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult? Function(String phone, BuildContext ctx)? setPhone,
-    TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult? Function(Address address)? updateLocation,
-  }) {
-    return setOTP?.call(otp, ctx);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx)? next,
-    TResult Function(BuildContext ctx)? previous,
-    TResult Function(int step, BuildContext ctx)? goto,
-    TResult Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult Function(String phone, BuildContext ctx)? setPhone,
-    TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult Function(Address address)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (setOTP != null) {
-      return setOTP(otp, ctx);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -1819,28 +969,6 @@ class _$setOTPImpl implements _setOTP {
     TResult? Function(_updateLocation value)? updateLocation,
   }) {
     return setOTP?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_next value)? next,
-    TResult Function(_previous value)? previous,
-    TResult Function(_goto value)? goto,
-    TResult Function(_setAccount value)? setAccount,
-    TResult Function(_setPhone value)? setPhone,
-    TResult Function(_setOTP value)? setOTP,
-    TResult Function(_setLocation value)? saveLocation,
-    TResult Function(_updateLocation value)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (setOTP != null) {
-      return setOTP(this);
-    }
-    return orElse();
   }
 }
 
@@ -1928,73 +1056,6 @@ class _$setLocationImpl implements _setLocation {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx) next,
-    required TResult Function(BuildContext ctx) previous,
-    required TResult Function(int step, BuildContext ctx) goto,
-    required TResult Function(RegisterationForm signupData, BuildContext ctx)
-        setAccount,
-    required TResult Function(String phone, BuildContext ctx) setPhone,
-    required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)
-        saveLocation,
-    required TResult Function(Address address) updateLocation,
-  }) {
-    return saveLocation(ctx, routeFn);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx)? next,
-    TResult? Function(BuildContext ctx)? previous,
-    TResult? Function(int step, BuildContext ctx)? goto,
-    TResult? Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult? Function(String phone, BuildContext ctx)? setPhone,
-    TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult? Function(Address address)? updateLocation,
-  }) {
-    return saveLocation?.call(ctx, routeFn);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx)? next,
-    TResult Function(BuildContext ctx)? previous,
-    TResult Function(int step, BuildContext ctx)? goto,
-    TResult Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult Function(String phone, BuildContext ctx)? setPhone,
-    TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult Function(Address address)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (saveLocation != null) {
-      return saveLocation(ctx, routeFn);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -2027,28 +1088,6 @@ class _$setLocationImpl implements _setLocation {
     TResult? Function(_updateLocation value)? updateLocation,
   }) {
     return saveLocation?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_next value)? next,
-    TResult Function(_previous value)? previous,
-    TResult Function(_goto value)? goto,
-    TResult Function(_setAccount value)? setAccount,
-    TResult Function(_setPhone value)? setPhone,
-    TResult Function(_setOTP value)? setOTP,
-    TResult Function(_setLocation value)? saveLocation,
-    TResult Function(_updateLocation value)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (saveLocation != null) {
-      return saveLocation(this);
-    }
-    return orElse();
   }
 }
 
@@ -2138,73 +1177,6 @@ class _$updateLocationImpl implements _updateLocation {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx) next,
-    required TResult Function(BuildContext ctx) previous,
-    required TResult Function(int step, BuildContext ctx) goto,
-    required TResult Function(RegisterationForm signupData, BuildContext ctx)
-        setAccount,
-    required TResult Function(String phone, BuildContext ctx) setPhone,
-    required TResult Function(String otp, BuildContext ctx) setOTP,
-    required TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)
-        saveLocation,
-    required TResult Function(Address address) updateLocation,
-  }) {
-    return updateLocation(address);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx)? next,
-    TResult? Function(BuildContext ctx)? previous,
-    TResult? Function(int step, BuildContext ctx)? goto,
-    TResult? Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult? Function(String phone, BuildContext ctx)? setPhone,
-    TResult? Function(String otp, BuildContext ctx)? setOTP,
-    TResult? Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult? Function(Address address)? updateLocation,
-  }) {
-    return updateLocation?.call(address);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx)? next,
-    TResult Function(BuildContext ctx)? previous,
-    TResult Function(int step, BuildContext ctx)? goto,
-    TResult Function(RegisterationForm signupData, BuildContext ctx)?
-        setAccount,
-    TResult Function(String phone, BuildContext ctx)? setPhone,
-    TResult Function(String otp, BuildContext ctx)? setOTP,
-    TResult Function(BuildContext ctx,
-            dynamic Function({required Address address})? routeFn)?
-        saveLocation,
-    TResult Function(Address address)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (updateLocation != null) {
-      return updateLocation(address);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -2238,28 +1210,6 @@ class _$updateLocationImpl implements _updateLocation {
   }) {
     return updateLocation?.call(this);
   }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_next value)? next,
-    TResult Function(_previous value)? previous,
-    TResult Function(_goto value)? goto,
-    TResult Function(_setAccount value)? setAccount,
-    TResult Function(_setPhone value)? setPhone,
-    TResult Function(_setOTP value)? setOTP,
-    TResult Function(_setLocation value)? saveLocation,
-    TResult Function(_updateLocation value)? updateLocation,
-    required TResult orElse(),
-  }) {
-    if (updateLocation != null) {
-      return updateLocation(this);
-    }
-    return orElse();
-  }
 }
 
 abstract class _updateLocation implements RegEvent {
@@ -2278,7 +1228,7 @@ mixin _$RegState {
   String? get phone => throw _privateConstructorUsedError;
   String? get otp => throw _privateConstructorUsedError;
   Address get address => throw _privateConstructorUsedError;
-  ObseleteStatusEnum get addressStatus => throw _privateConstructorUsedError;
+  Status get addressStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RegStateCopyWith<RegState> get copyWith =>
@@ -2296,7 +1246,7 @@ abstract class $RegStateCopyWith<$Res> {
       String? phone,
       String? otp,
       Address address,
-      ObseleteStatusEnum addressStatus});
+      Status addressStatus});
 
   $RegisterationFormCopyWith<$Res>? get singupData;
   $AddressCopyWith<$Res> get address;
@@ -2346,7 +1296,7 @@ class _$RegStateCopyWithImpl<$Res, $Val extends RegState>
       addressStatus: null == addressStatus
           ? _value.addressStatus
           : addressStatus // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
+              as Status,
     ) as $Val);
   }
 
@@ -2384,7 +1334,7 @@ abstract class _$$initialImplCopyWith<$Res> implements $RegStateCopyWith<$Res> {
       String? phone,
       String? otp,
       Address address,
-      ObseleteStatusEnum addressStatus});
+      Status addressStatus});
 
   @override
   $RegisterationFormCopyWith<$Res>? get singupData;
@@ -2434,7 +1384,7 @@ class __$$initialImplCopyWithImpl<$Res>
       addressStatus: null == addressStatus
           ? _value.addressStatus
           : addressStatus // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
+              as Status,
     ));
   }
 }
@@ -2448,7 +1398,7 @@ class _$initialImpl extends _initial {
       this.phone,
       this.otp,
       this.address = const Address(isDefault: true),
-      this.addressStatus = ObseleteStatusEnum.init})
+      this.addressStatus = Status.init})
       : super._();
 
   @override
@@ -2465,7 +1415,7 @@ class _$initialImpl extends _initial {
   final Address address;
   @override
   @JsonKey()
-  final ObseleteStatusEnum addressStatus;
+  final Status addressStatus;
 
   @override
   String toString() {
@@ -2505,7 +1455,7 @@ abstract class _initial extends RegState {
       final String? phone,
       final String? otp,
       final Address address,
-      final ObseleteStatusEnum addressStatus}) = _$initialImpl;
+      final Status addressStatus}) = _$initialImpl;
   const _initial._() : super._();
 
   @override
@@ -2519,7 +1469,7 @@ abstract class _initial extends RegState {
   @override
   Address get address;
   @override
-  ObseleteStatusEnum get addressStatus;
+  Status get addressStatus;
   @override
   @JsonKey(ignore: true)
   _$$initialImplCopyWith<_$initialImpl> get copyWith =>

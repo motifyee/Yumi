@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
+import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -41,14 +42,7 @@ Widget profileImagePicker(
       onPressed: (image) async {
         if (image == null) return;
 
-        final newProfile =
-            G.read<ProfileBloc>().state.profile.copyWith(profileImage: image);
-
-        G.cContext.read<ProfileBloc>().add(ProfileLoadingEvent());
-
-        G.cContext
-            .read<ProfileBloc>()
-            .add(ProfileUpdateEvent(context: context, profile: newProfile));
+        G.rd<ProfileCubit>().updateProfilePhoto(image);
       },
     ),
   );
@@ -60,8 +54,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
-    context.read<ProfileBloc>().add(ProfileLoadReviewsEvent());
+    context.read<ProfileCubit>().getProfileForm();
+    context.read<ProfileCubit>().getReviews();
 
     return Column(
       children: [
@@ -95,14 +89,17 @@ class ProfilePhotoSlice extends Equatable {
   final String? photo;
   final bool isHygiene;
   final String fullName;
+  final EntityStatus entityStatus;
+
   const ProfilePhotoSlice({
     required this.photo,
     required this.isHygiene,
     required this.fullName,
+    required this.entityStatus,
   });
 
   @override
-  List<Object?> get props => [photo, isHygiene, fullName];
+  List<Object?> get props => [photo, isHygiene, fullName, entityStatus];
 }
 
 class ProfilePicture extends StatelessWidget {
@@ -110,19 +107,22 @@ class ProfilePicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<ProfileBloc, ProfileState, ProfilePhotoSlice>(
+    return BlocSelector<ProfileCubit, ProfileState, ProfilePhotoSlice>(
       selector: (state) => ProfilePhotoSlice(
-        photo: state.profile.profileImage,
-        isHygiene: state.profile.isHygiene,
-        fullName: state.profile.fullName,
+        photo: state.form.profileImage,
+        isHygiene: state.form.isHygiene,
+        fullName: state.form.fullName,
+        entityStatus: state.form.entityStatus,
       ),
       builder: (context, state) {
-        if (state is ProfileLoadingEvent) return Loading();
+        if (state.photo == null && state.entityStatus.isLoading) {
+          return Loading();
+        }
 
         return Column(
           children: [
             profileImagePicker(
-                context, state.photo, state is ProfileLoadingEvent),
+                context, state.photo, state.entityStatus.isLoading),
             SizedBox(height: ThemeSelector.statics.defaultGap),
             Text(
               state.fullName,
@@ -147,14 +147,6 @@ class ProfilePicture extends StatelessWidget {
                 ],
               ),
             SizedBox(height: ThemeSelector.statics.defaultTitleGap),
-            // Expanded(
-            //   // child: bottom(),
-            //   child: isSheet
-            //       ? bottom()
-            //       : SingleChildScrollView(
-            //           child: bottom(),
-            //         ),
-            // ),
           ],
         );
       },

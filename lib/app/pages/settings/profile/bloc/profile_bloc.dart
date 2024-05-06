@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/profile/entities/review.dart';
-import 'package:yumi/domain/profile/use_cases/load_reviews.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/app/pages/settings/profile/profile_service.dart';
@@ -23,15 +20,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ProfileInitEvent>(_porfileInit);
 
     on<ProfileLoadingEvent>(
-        (_, emit) => emit(state.copyWith(status: ObseleteStatusEnum.loading)));
+        (_, emit) => emit(state.copyWith(status: Status.loading)));
 
     on<ProfileLoadedEvent>(
-        (_, emit) => emit(state.copyWith(status: ObseleteStatusEnum.idle)));
+        (_, emit) => emit(state.copyWith(status: Status.idle)));
 
     on<ProfileFormSavedEvent>(
       (event, emit) async {
-        emit(state.copyWith(
-            profile: event.profile, status: ObseleteStatusEnum.formSaved));
+        emit(state.copyWith(profile: event.profile, status: Status.formSaved));
       },
     );
 
@@ -51,8 +47,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         eventPhoto4: photos0[4],
       );
 
-      emit(state.copyWith(
-          profile: profile, status: ObseleteStatusEnum.formSaved));
+      emit(state.copyWith(profile: profile, status: Status.formSaved));
     });
 
     on<ProfileDeletePhotoEvent>((event, emit) {
@@ -74,8 +69,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         eventPhoto4: photos[4],
       );
 
-      emit(state.copyWith(
-          profile: profile, status: ObseleteStatusEnum.formSaved));
+      emit(state.copyWith(profile: profile, status: Status.formSaved));
     });
 
     on<ProfileDeleteEvent>(
@@ -86,26 +80,26 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       },
     );
 
-    on<ProfileLoadReviewsEvent>((event, emit) async {
-      await xProfileSrc.getReviews().then((value) {
-        final Status<List<Review>> reviews = state.reviews.copyWith(
-          value: value,
-          status: ObseleteStatusEnum.success,
-          message: '',
-        );
+    // on<ProfileLoadReviewsEvent>((event, emit) async {
+    //   await xProfileSrc.getReviews().then((value) {
+    //     final EntityStatus<List<Review>> reviews = state.reviews.copyWith(
+    //       value: value,
+    //       status: Status.success,
+    //       message: '',
+    //     );
 
-        debugPrint(reviews.toString());
-        emit(state.copyWith(
-          reviews: reviews,
-          status: ObseleteStatusEnum.success,
-        ));
-      });
-    });
+    //     debugPrint(reviews.toString());
+    //     emit(state.copyWith(
+    //       reviews: reviews,
+    //       status: Status.success,
+    //     ));
+    //   });
+    // });
   }
 
   _porfileInit(ProfileInitEvent event, emit) async {
-    emit(state.copyWith(status: ObseleteStatusEnum.init));
-    emit(state.copyWith(status: ObseleteStatusEnum.loading));
+    emit(state.copyWith(status: Status.init));
+    emit(state.copyWith(status: Status.loading));
 
     await xProfileSrc
         .getProfile(
@@ -135,7 +129,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         emit(
           state.copyWith(
             profile: newProfile,
-            status: ObseleteStatusEnum.initSuccess,
+            status: Status.initSuccess,
           ),
         );
 
@@ -148,7 +142,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
         emit(
           state.copyWith(
-            status: ObseleteStatusEnum.initError,
+            status: Status.initError,
           ),
         );
         if (event.failedAction != null) event.failedAction!(state.profile);
@@ -157,7 +151,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   _profileUpdate(ProfileUpdateEvent event, emit) async {
-    emit(state.copyWith(status: ObseleteStatusEnum.loading));
+    emit(state.copyWith(status: Status.loading));
 
     await xProfileSrc.updateProfile(event.profile.toJson()).then(
       (value) {
@@ -165,7 +159,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           emit(
             state.copyWith(
                 profile: event.profile,
-                status: ObseleteStatusEnum.success,
+                status: Status.success,
                 apiMessage: value.toString()),
           );
 
@@ -174,7 +168,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           // if (event.context.mounted) {}
         } else {
           emit(
-            state.copyWith(status: ObseleteStatusEnum.error),
+            state.copyWith(status: Status.error),
           );
 
           if (G.cContext.mounted) {
@@ -190,7 +184,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     ).catchError(
       (err) {
         emit(
-          state.copyWith(status: ObseleteStatusEnum.error),
+          state.copyWith(status: Status.error),
         );
       },
     );

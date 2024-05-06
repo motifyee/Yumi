@@ -20,7 +20,7 @@ class RegState with _$RegState {
     String? phone,
     String? otp,
     @Default(Address(isDefault: true)) Address address,
-    @Default(ObseleteStatusEnum.init) ObseleteStatusEnum addressStatus,
+    @Default(Status.init) Status addressStatus,
   }) = _initial;
 
   const RegState._();

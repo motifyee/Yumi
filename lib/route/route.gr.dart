@@ -9,11 +9,10 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i31;
-import 'package:flutter/foundation.dart' as _i35;
 import 'package:flutter/material.dart' as _i32;
 import 'package:yumi/app/pages/auth/register/add_phone_screen.dart' as _i1;
 import 'package:yumi/app/pages/auth/register/location_screen.dart' as _i15;
-import 'package:yumi/app/pages/auth/register/model/address.dart' as _i36;
+import 'package:yumi/app/pages/auth/register/model/address.dart' as _i35;
 import 'package:yumi/app/pages/auth/register/otp_screen.dart' as _i22;
 import 'package:yumi/app/pages/auth/register/reg_screen.dart' as _i27;
 import 'package:yumi/app/pages/auth/register/signup_screen.dart' as _i28;
@@ -26,7 +25,7 @@ import 'package:yumi/app/pages/chef_application/documentation/documentation_scre
 import 'package:yumi/app/pages/schedule/schedule_screen.dart' as _i20;
 import 'package:yumi/model/chef_model.dart' as _i33;
 import 'package:yumi/model/meal_model.dart' as _i34;
-import 'package:yumi/model/order_model/order_model.dart' as _i37;
+import 'package:yumi/model/order_model/order_model.dart' as _i36;
 import 'package:yumi/screens/chat.dart' as _i4;
 import 'package:yumi/screens/chef/calories.dart' as _i3;
 import 'package:yumi/screens/chef/menu_pre.dart' as _i18;
@@ -564,8 +563,8 @@ class HomeRouteArgs {
 /// [_i15.LocationScreen]
 class LocationRoute extends _i31.PageRouteInfo<LocationRouteArgs> {
   LocationRoute({
-    _i35.Key? key,
-    dynamic Function({_i36.Address address})? routeFn,
+    _i32.Key? key,
+    dynamic Function({_i35.Address address})? routeFn,
     List<_i31.PageRouteInfo>? children,
   }) : super(
           LocationRoute.name,
@@ -588,9 +587,9 @@ class LocationRouteArgs {
     this.routeFn,
   });
 
-  final _i35.Key? key;
+  final _i32.Key? key;
 
-  final dynamic Function({_i36.Address address})? routeFn;
+  final dynamic Function({_i35.Address address})? routeFn;
 
   @override
   String toString() {
@@ -769,7 +768,7 @@ class OTPRoute extends _i31.PageRouteInfo<void> {
 class OrderStatusRoute extends _i31.PageRouteInfo<OrderStatusRouteArgs> {
   OrderStatusRoute({
     _i32.Key? key,
-    required _i37.OrderModel order,
+    required _i36.OrderModel order,
     List<_i31.PageRouteInfo>? children,
   }) : super(
           OrderStatusRoute.name,
@@ -794,7 +793,7 @@ class OrderStatusRouteArgs {
 
   final _i32.Key? key;
 
-  final _i37.OrderModel order;
+  final _i36.OrderModel order;
 
   @override
   String toString() {

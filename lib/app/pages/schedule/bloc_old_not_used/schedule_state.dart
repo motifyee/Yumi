@@ -14,7 +14,7 @@ class ScheduleState with _$ScheduleState {
   const factory ScheduleState({
     @Default(Schedule()) Schedule schedule,
     @Default(Schedule()) Schedule scheduleForm,
-    @Default(ObseleteStatusEnum.init) ObseleteStatusEnum status,
+    @Default(Status.init) Status status,
   }) = Initial;
 
   const ScheduleState._();

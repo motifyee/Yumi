@@ -11,7 +11,7 @@ class ScheduleRemoteSrc implements ScheduleSrc {
       '/accounts/schedule',
     );
 
-    if (res.statusCode != 200 && res.statusCode != 201) throw ApiException();
+    if (res.statusCode != 200 && res.statusCode != 201) throw ServerException();
 
     var data = <String, dynamic>{};
 
@@ -45,7 +45,7 @@ class ScheduleRemoteSrc implements ScheduleSrc {
       data: data,
     );
 
-    if (res.statusCode != 200) throw ApiException();
+    if (res.statusCode != 200) throw ServerException();
 
     return res.data.toString();
   }

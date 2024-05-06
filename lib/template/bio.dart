@@ -1,12 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/domain/profile/entities/profile.dart';
-import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
 import 'package:yumi/template/snack_bar.dart';
@@ -20,8 +16,8 @@ class Bio extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-    return BlocSelector<ProfileBloc, ProfileState, String>(
-      selector: (state) => state.profile.bio,
+    return BlocSelector<ProfileCubit, ProfileState, String>(
+      selector: (state) => state.form.bio,
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.symmetric(
@@ -80,20 +76,18 @@ class BioForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final profileFormBloc = context.read<ProfileBloc>();
+    final profileCubit = context.read<ProfileCubit>();
 
-    return BlocConsumer<ProfileBloc, ProfileState>(
+    return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {
-        if (!state.status.isSuccess) return;
+        if (!state.form.entityStatus.isSuccess) return;
 
         Navigator.of(context).pop();
 
-        profileFormBloc.add(
-          ProfileLoadedEvent(),
-        );
+        // profileFormBloc.add( ProfileLoadedEvent(),);
       },
       builder: (context, state) {
-        if (state.status.isLoading) {
+        if (state.form.entityStatus.isLoading) {
           return const SizedBox(
             height: 80,
             child: Center(
@@ -114,21 +108,12 @@ class BioForm extends StatelessWidget {
               hintText: S.of(context).writeABio,
               validators: requiredValidator,
               onSave: (value) {
-                var profile = state.profile;
-
-                profileFormBloc.add(
-                  ProfileUpdateEvent(
-                    context: context,
-                    profile: profile.copyWith(bio: value),
-                  ),
-                );
+                profileCubit.updateProfileForm(state.form.copyWith(bio: value));
               },
             ),
           ),
         );
       },
-      // child: BlocSelector<ProfileBloc, ProfileState, String>(
-      //   selector: (state) => state.profile.bio,),
     );
   }
 }

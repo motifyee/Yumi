@@ -1,18 +1,15 @@
-import 'package:flutter/foundation.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
 import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/global.dart';
 
 class Onboarding {
   bool get profileSheetDone {
-    Profile profile = G.read<ProfileBloc>().state.profile;
-
-    // Profile profile = ProfileBloc().r.state.profile;
+    Profile profile = G.rd<ProfileCubit>().state.form;
 
     return profile.profileSheetDone;
   }
@@ -59,11 +56,11 @@ class Onboarding {
   bool get approvalActive =>
       _onboardingProgress > 2 || approvalDone || docsDone;
   // bool get approvalDone => true;
-  bool get approvalDone => G.read<ProfileBloc>().state.profile.accountApproved;
+  bool get approvalDone => G.rd<ProfileCubit>().state.form.accountApproved;
 
   bool get contractActive => approvalDone;
-  bool get contractDone => (contractActive &&
-      G.read<ProfileBloc>().state.profile.contractPhoto != null);
+  bool get contractDone =>
+      (contractActive && G.rd<ProfileCubit>().state.form.contractPhoto != null);
 
   int get _onboardingProgress => G.rd<RegCubit>().state.onboardingProgress;
   int get onboardingProgress {

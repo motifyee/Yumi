@@ -1,6 +1,12 @@
-class ApiException implements Exception {}
+sealed class CException implements Exception {}
 
-class UserNotFoundException implements ApiException {
+class NetworkException extends CException {}
+
+// -----------------------------------------------------------------------------
+
+class ServerException extends CException {}
+
+class UserNotFoundException extends ServerException {
   final String id;
 
   UserNotFoundException({required this.id});
@@ -8,6 +14,10 @@ class UserNotFoundException implements ApiException {
 
 // -----------------------------------------------------------------------------
 
-class CacheException implements Exception {}
+class CacheException implements CException {}
 
 class CacheUserFoundException implements CacheException {}
+
+// -----------------------------------------------------------------------------
+
+class GenericException implements CException {}

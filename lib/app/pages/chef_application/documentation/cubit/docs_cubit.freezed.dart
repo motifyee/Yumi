@@ -17,10 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$DocsState {
   Profile get profile => throw _privateConstructorUsedError;
-  ObseleteStatusEnum get status => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
-  List<ObseleteStatusEnum?> get docsStatuses =>
-      throw _privateConstructorUsedError;
+  List<Status?> get docsStatuses => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DocsStateCopyWith<DocsState> get copyWith =>
@@ -34,9 +33,9 @@ abstract class $DocsStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Profile profile,
-      ObseleteStatusEnum status,
+      Status status,
       String message,
-      List<ObseleteStatusEnum?> docsStatuses});
+      List<Status?> docsStatuses});
 
   $ProfileCopyWith<$Res> get profile;
 }
@@ -67,7 +66,7 @@ class _$DocsStateCopyWithImpl<$Res, $Val extends DocsState>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
+              as Status,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -75,7 +74,7 @@ class _$DocsStateCopyWithImpl<$Res, $Val extends DocsState>
       docsStatuses: null == docsStatuses
           ? _value.docsStatuses
           : docsStatuses // ignore: cast_nullable_to_non_nullable
-              as List<ObseleteStatusEnum?>,
+              as List<Status?>,
     ) as $Val);
   }
 
@@ -97,9 +96,9 @@ abstract class _$$InitImplCopyWith<$Res> implements $DocsStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Profile profile,
-      ObseleteStatusEnum status,
+      Status status,
       String message,
-      List<ObseleteStatusEnum?> docsStatuses});
+      List<Status?> docsStatuses});
 
   @override
   $ProfileCopyWith<$Res> get profile;
@@ -128,7 +127,7 @@ class __$$InitImplCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
+              as Status,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -136,7 +135,7 @@ class __$$InitImplCopyWithImpl<$Res>
       docsStatuses: null == docsStatuses
           ? _value._docsStatuses
           : docsStatuses // ignore: cast_nullable_to_non_nullable
-              as List<ObseleteStatusEnum?>,
+              as List<Status?>,
     ));
   }
 }
@@ -146,15 +145,9 @@ class __$$InitImplCopyWithImpl<$Res>
 class _$InitImpl extends _Init {
   const _$InitImpl(
       {this.profile = const Profile(),
-      this.status = ObseleteStatusEnum.init,
+      this.status = Status.init,
       this.message = '',
-      final List<ObseleteStatusEnum?> docsStatuses = const [
-        null,
-        null,
-        null,
-        null,
-        null
-      ]})
+      final List<Status?> docsStatuses = const [null, null, null, null, null]})
       : _docsStatuses = docsStatuses,
         super._();
 
@@ -163,14 +156,14 @@ class _$InitImpl extends _Init {
   final Profile profile;
   @override
   @JsonKey()
-  final ObseleteStatusEnum status;
+  final Status status;
   @override
   @JsonKey()
   final String message;
-  final List<ObseleteStatusEnum?> _docsStatuses;
+  final List<Status?> _docsStatuses;
   @override
   @JsonKey()
-  List<ObseleteStatusEnum?> get docsStatuses {
+  List<Status?> get docsStatuses {
     if (_docsStatuses is EqualUnmodifiableListView) return _docsStatuses;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_docsStatuses);
@@ -207,19 +200,19 @@ class _$InitImpl extends _Init {
 abstract class _Init extends DocsState {
   const factory _Init(
       {final Profile profile,
-      final ObseleteStatusEnum status,
+      final Status status,
       final String message,
-      final List<ObseleteStatusEnum?> docsStatuses}) = _$InitImpl;
+      final List<Status?> docsStatuses}) = _$InitImpl;
   const _Init._() : super._();
 
   @override
   Profile get profile;
   @override
-  ObseleteStatusEnum get status;
+  Status get status;
   @override
   String get message;
   @override
-  List<ObseleteStatusEnum?> get docsStatuses;
+  List<Status?> get docsStatuses;
   @override
   @JsonKey(ignore: true)
   _$$InitImplCopyWith<_$InitImpl> get copyWith =>

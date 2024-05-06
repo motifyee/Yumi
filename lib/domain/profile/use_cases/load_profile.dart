@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/app/inject.dart';
+import 'package:yumi/app/core/setup/inject.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';

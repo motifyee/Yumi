@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
-import 'package:yumi/app/inject.dart';
+import 'package:yumi/app/core/setup/init.dart';
 import 'package:yumi/app_config/customer/customer_app_config.dart';
 import 'package:yumi/app_config/yumi_app.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
-void main() {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+Future main() async {
+  await init();
 
-  WakelockPlus.enable();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
-  init();
   AppTarget.user = AppTargetUser.customers;
+
   runApp(const YumiCustomer());
 }
 

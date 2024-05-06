@@ -17,40 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$OrderEvent {
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() reset,
-    required TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)
-        update,
-    required TResult Function(String apiKey) getRequest,
-    required TResult Function(OrderModel order, String apiKey, String getApiKey)
-        putAction,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? reset,
-    TResult? Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
-        update,
-    TResult? Function(String apiKey)? getRequest,
-    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
-        putAction,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
-        update,
-    TResult Function(String apiKey)? getRequest,
-    TResult Function(OrderModel order, String apiKey, String getApiKey)?
-        putAction,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_resetEvent value) reset,
     required TResult Function(_updateEvent value) update,
@@ -64,15 +30,6 @@ mixin _$OrderEvent {
     TResult? Function(_updateEvent value)? update,
     TResult? Function(_getRequestEvent value)? getRequest,
     TResult? Function(_putActionEvent value)? putAction,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_resetEvent value)? reset,
-    TResult Function(_updateEvent value)? update,
-    TResult Function(_getRequestEvent value)? getRequest,
-    TResult Function(_putActionEvent value)? putAction,
-    required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
@@ -132,52 +89,6 @@ class _$resetEventImpl implements _resetEvent {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() reset,
-    required TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)
-        update,
-    required TResult Function(String apiKey) getRequest,
-    required TResult Function(OrderModel order, String apiKey, String getApiKey)
-        putAction,
-  }) {
-    return reset();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? reset,
-    TResult? Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
-        update,
-    TResult? Function(String apiKey)? getRequest,
-    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
-        putAction,
-  }) {
-    return reset?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
-        update,
-    TResult Function(String apiKey)? getRequest,
-    TResult Function(OrderModel order, String apiKey, String getApiKey)?
-        putAction,
-    required TResult orElse(),
-  }) {
-    if (reset != null) {
-      return reset();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_resetEvent value) reset,
     required TResult Function(_updateEvent value) update,
@@ -196,21 +107,6 @@ class _$resetEventImpl implements _resetEvent {
     TResult? Function(_putActionEvent value)? putAction,
   }) {
     return reset?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_resetEvent value)? reset,
-    TResult Function(_updateEvent value)? update,
-    TResult Function(_getRequestEvent value)? getRequest,
-    TResult Function(_putActionEvent value)? putAction,
-    required TResult orElse(),
-  }) {
-    if (reset != null) {
-      return reset(this);
-    }
-    return orElse();
   }
 }
 
@@ -299,52 +195,6 @@ class _$updateEventImpl implements _updateEvent {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() reset,
-    required TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)
-        update,
-    required TResult Function(String apiKey) getRequest,
-    required TResult Function(OrderModel order, String apiKey, String getApiKey)
-        putAction,
-  }) {
-    return update(orders, paginationHelper);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? reset,
-    TResult? Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
-        update,
-    TResult? Function(String apiKey)? getRequest,
-    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
-        putAction,
-  }) {
-    return update?.call(orders, paginationHelper);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
-        update,
-    TResult Function(String apiKey)? getRequest,
-    TResult Function(OrderModel order, String apiKey, String getApiKey)?
-        putAction,
-    required TResult orElse(),
-  }) {
-    if (update != null) {
-      return update(orders, paginationHelper);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_resetEvent value) reset,
     required TResult Function(_updateEvent value) update,
@@ -363,21 +213,6 @@ class _$updateEventImpl implements _updateEvent {
     TResult? Function(_putActionEvent value)? putAction,
   }) {
     return update?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_resetEvent value)? reset,
-    TResult Function(_updateEvent value)? update,
-    TResult Function(_getRequestEvent value)? getRequest,
-    TResult Function(_putActionEvent value)? putAction,
-    required TResult orElse(),
-  }) {
-    if (update != null) {
-      return update(this);
-    }
-    return orElse();
   }
 }
 
@@ -457,52 +292,6 @@ class _$getRequestEventImpl implements _getRequestEvent {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() reset,
-    required TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)
-        update,
-    required TResult Function(String apiKey) getRequest,
-    required TResult Function(OrderModel order, String apiKey, String getApiKey)
-        putAction,
-  }) {
-    return getRequest(apiKey);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? reset,
-    TResult? Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
-        update,
-    TResult? Function(String apiKey)? getRequest,
-    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
-        putAction,
-  }) {
-    return getRequest?.call(apiKey);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
-        update,
-    TResult Function(String apiKey)? getRequest,
-    TResult Function(OrderModel order, String apiKey, String getApiKey)?
-        putAction,
-    required TResult orElse(),
-  }) {
-    if (getRequest != null) {
-      return getRequest(apiKey);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_resetEvent value) reset,
     required TResult Function(_updateEvent value) update,
@@ -521,21 +310,6 @@ class _$getRequestEventImpl implements _getRequestEvent {
     TResult? Function(_putActionEvent value)? putAction,
   }) {
     return getRequest?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_resetEvent value)? reset,
-    TResult Function(_updateEvent value)? update,
-    TResult Function(_getRequestEvent value)? getRequest,
-    TResult Function(_putActionEvent value)? putAction,
-    required TResult orElse(),
-  }) {
-    if (getRequest != null) {
-      return getRequest(this);
-    }
-    return orElse();
   }
 }
 
@@ -641,52 +415,6 @@ class _$putActionEventImpl implements _putActionEvent {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() reset,
-    required TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)
-        update,
-    required TResult Function(String apiKey) getRequest,
-    required TResult Function(OrderModel order, String apiKey, String getApiKey)
-        putAction,
-  }) {
-    return putAction(order, apiKey, getApiKey);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? reset,
-    TResult? Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
-        update,
-    TResult? Function(String apiKey)? getRequest,
-    TResult? Function(OrderModel order, String apiKey, String getApiKey)?
-        putAction,
-  }) {
-    return putAction?.call(order, apiKey, getApiKey);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(
-            List<OrderModel> orders, PaginationHelper paginationHelper)?
-        update,
-    TResult Function(String apiKey)? getRequest,
-    TResult Function(OrderModel order, String apiKey, String getApiKey)?
-        putAction,
-    required TResult orElse(),
-  }) {
-    if (putAction != null) {
-      return putAction(order, apiKey, getApiKey);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_resetEvent value) reset,
     required TResult Function(_updateEvent value) update,
@@ -705,21 +433,6 @@ class _$putActionEventImpl implements _putActionEvent {
     TResult? Function(_putActionEvent value)? putAction,
   }) {
     return putAction?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_resetEvent value)? reset,
-    TResult Function(_updateEvent value)? update,
-    TResult Function(_getRequestEvent value)? getRequest,
-    TResult Function(_putActionEvent value)? putAction,
-    required TResult orElse(),
-  }) {
-    if (putAction != null) {
-      return putAction(this);
-    }
-    return orElse();
   }
 }
 

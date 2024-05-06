@@ -23,7 +23,7 @@ final getIt = sl.get;
 
 void initGetItBase() {}
 
-Future<void> init() async {
+Future<void> inject() async {
   // instantianes a new instance of ProfileRepo each time it is called
   sl.registerFactory<ProfileRepo>(() => ProfileRemoteRepo(profileSrc: sl()));
   sl.registerFactory<ProfileSrc>(() => ProfileRemoteSrc());

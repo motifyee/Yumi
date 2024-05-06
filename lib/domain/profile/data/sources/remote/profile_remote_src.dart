@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/profile/data/sources/profile_source.dart';
@@ -14,11 +11,11 @@ class ProfileRemoteSrc extends ProfileSrc {
   @override
   Future<Profile> loadProfile(String id) async {
     final Response res = await DioClient.dio
-        .get('${ApiKeys.getApiKeyString(apiKey: ApiKeys.profile)}/$id')
-        .then((value) => value.data)
-        .catchError((_) => false);
+        .get('${ApiKeys.getApiKeyString(apiKey: ApiKeys.profile)}/$id');
+    // .then((value) => value.data);
+    // .catchError((_) => false);
 
-    if (res.statusCode != 200) throw ApiException();
+    if (res.statusCode != 200) throw ServerException();
 
     return Profile.fromJson(res.data).copyWith(
       updatedBy: '366',
@@ -37,10 +34,10 @@ class ProfileRemoteSrc extends ProfileSrc {
         data: data,
       );
     } catch (e) {
-      throw ApiException();
+      throw ServerException();
     }
 
-    if (res.data == null) throw ApiException();
+    if (res.data == null) throw ServerException();
     return res.data!;
   }
 
@@ -51,10 +48,10 @@ class ProfileRemoteSrc extends ProfileSrc {
     try {
       res = await DioClient.dio.delete<String>('/accounts?isDelete=true');
     } catch (e) {
-      throw ApiException();
+      throw ServerException();
     }
 
-    if (res.data == null) throw ApiException();
+    if (res.data == null) throw ServerException();
     return res.data!;
   }
 
@@ -66,7 +63,7 @@ class ProfileRemoteSrc extends ProfileSrc {
 
       return call.data['otp'];
     } catch (e) {
-      throw ApiException();
+      throw ServerException();
     }
   }
 
@@ -79,10 +76,10 @@ class ProfileRemoteSrc extends ProfileSrc {
         '/accounts/mobileverified?OTP=$otp',
       );
     } catch (e) {
-      throw ApiException();
+      throw ServerException();
     }
 
-    if (res.data == null) throw ApiException();
+    if (res.data == null) throw ServerException();
     return res.data!;
   }
 
@@ -95,10 +92,10 @@ class ProfileRemoteSrc extends ProfileSrc {
         '/accounts/review',
       );
     } catch (e) {
-      throw ApiException();
+      throw ServerException();
     }
 
-    if (res.data?['data'] == null) throw ApiException();
+    if (res.data?['data'] == null) throw ServerException();
     final List<Review> reviews =
         res.data['data'].map<Review>((e) => Review.fromJson(e)).toList();
 
@@ -114,10 +111,10 @@ class ProfileRemoteSrc extends ProfileSrc {
         '/accounts/password?mail=$email',
       );
     } catch (e) {
-      throw ApiException();
+      throw ServerException();
     }
 
-    if (res.data?['message'] == null) throw ApiException();
+    if (res.data?['message'] == null) throw ServerException();
     return res.data['message'] as String;
   }
 }

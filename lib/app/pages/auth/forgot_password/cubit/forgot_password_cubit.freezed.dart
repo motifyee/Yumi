@@ -23,7 +23,8 @@ mixin _$ForgotPasswordState {
   bool get emailSent => throw _privateConstructorUsedError;
   bool get emailFound => throw _privateConstructorUsedError; //
   String get otpCode => throw _privateConstructorUsedError;
-  bool get codeSent => throw _privateConstructorUsedError;
+  bool get codeSent =>
+      throw _privateConstructorUsedError; // sent to be verified
   bool get codeVerified => throw _privateConstructorUsedError;
   String get newPassword => throw _privateConstructorUsedError;
   bool get passwordUpdated => throw _privateConstructorUsedError; //
@@ -277,6 +278,7 @@ class _$InitialImpl extends Initial {
   @override
   @JsonKey()
   final bool codeSent;
+// sent to be verified
   @override
   @JsonKey()
   final bool codeVerified;
@@ -377,7 +379,7 @@ abstract class Initial extends ForgotPasswordState {
   String get otpCode;
   @override
   bool get codeSent;
-  @override
+  @override // sent to be verified
   bool get codeVerified;
   @override
   String get newPassword;

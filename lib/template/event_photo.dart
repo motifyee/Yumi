@@ -5,25 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
-import 'package:yumi/template/upload_photo_button.dart';
 
 class EventsPhoto extends StatelessWidget {
   const EventsPhoto({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProfileBloc, ProfileState>(
+    return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (ctx, state) {
-        if (state.status.isSaved) {
-          ctx.read<ProfileBloc>().add(
-              ProfileUpdateEvent(context: context, profile: state.profile));
-        }
+        // if (state.status.isSaved) {
+        // ctx.read<ProfileCubit>().updateProfileForm(state.profile);
+        // ProfileUpdateEvent(context: context, profile: state.profile));
+        // }
       },
       builder: (ctx, state) {
         var eventPhotosTitle = Row(
@@ -51,9 +49,9 @@ class EventsPhoto extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      if (state.profile.eventPhotosCount < 5)
+                      if (state.form.eventPhotosCount < 5)
                         _photoCard(ctx, state),
-                      ...state.profile.eventPhotos
+                      ...state.form.eventPhotos
                           .map((e) => _photoCard(ctx, state, e)),
                     ],
                   ),
@@ -93,7 +91,7 @@ class EventsPhoto extends StatelessWidget {
                 ),
               ),
               _deleteButton(ctx, image)
-            ] else if (state.status.isLoading)
+            ] else if (state.form.entityStatus.isLoading)
               const Center(
                 child: CircularProgressIndicator(),
               )
@@ -119,16 +117,16 @@ class EventsPhoto extends StatelessWidget {
             if (newPhotos.isEmpty) return;
 
             List<String?> photos = [
-              ...state.profile.eventPhotos,
+              ...state.form.eventPhotos,
               ...newPhotos,
             ];
 
-            var allowed = 5 - state.profile.eventPhotos.length;
+            var allowed = 5 - state.form.eventPhotos.length;
 
             if (!ctx.mounted) return;
 
             if (photos.length <= 5) {
-              ctx.read<ProfileBloc>().add(ProfileUploadPhotosEvent(photos));
+              ctx.read<ProfileCubit>().uploadFormPhotos(photos);
               return;
             }
 
@@ -144,7 +142,7 @@ class EventsPhoto extends StatelessWidget {
               actions: {
                 if (allowed > 0) 'Cancel': (ctx) => ctx.router.popForced(),
                 'Ok': (ctx) {
-                  ctx.read<ProfileBloc>().add(ProfileUploadPhotosEvent(photos));
+                  ctx.read<ProfileCubit>().uploadFormPhotos(photos);
                   ctx.router.popForced();
                 },
               },
@@ -170,8 +168,7 @@ class EventsPhoto extends StatelessWidget {
                 'Cancel': null,
                 'Ok': (ctx) {
                   G.pop();
-                  ctx.read<ProfileBloc>().add(ProfileDeletePhotoEvent(image!));
-                  // ctx.router.pop();
+                  ctx.read<ProfileCubit>().deleteFormPhoto(photo: image!);
                 }
               });
         },

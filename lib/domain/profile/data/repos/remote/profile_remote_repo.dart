@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/app/inject.dart';
+import 'package:yumi/app/core/setup/inject.dart';
+import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/profile/data/repos/profile_repo.dart';
 import 'package:yumi/domain/profile/data/sources/profile_source.dart';
@@ -15,44 +16,50 @@ class ProfileRemoteRepo implements ProfileRepo {
   @override
   TaskEither<Failure, Profile> loadProfile(String id) => TaskEither.tryCatch(
         () => profileSrc.loadProfile(id),
-        (error, stackTrace) => ApiFailure(error, stackTrace),
+        (error, stackTrace) => switch (error) {
+          ServerException() => ServerFailure(error, stackTrace),
+          _ => GenericFailure(error, stackTrace),
+        } as Failure,
       );
 
   @override
-  TaskEither<Failure, String> updateProfile(Profile profile) =>
+  TaskEither<Failure, Profile> updateProfile(Profile profile) =>
       TaskEither.tryCatch(
-        () => profileSrc.updateProfile(profile),
-        (error, stackTrace) => ApiFailure(error, stackTrace),
+        () async {
+          await profileSrc.updateProfile(profile);
+          return profile;
+        },
+        (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 
   @override
   TaskEither<Failure, String> deleteProfile() => TaskEither.tryCatch(
         () => profileSrc.deleteProfile(),
-        (error, stackTrace) => ApiFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 
   @override
   TaskEither<Failure, String> getOTP() => TaskEither.tryCatch(
         () => profileSrc.getOTP(),
-        (error, stackTrace) => ApiFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 
   @override
   TaskEither<Failure, String> verifyOTP(String otp) => TaskEither.tryCatch(
         () => profileSrc.verifyOTP(otp),
-        (error, stackTrace) => ApiFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 
   @override
   TaskEither<Failure, List<Review>> getReviews() => TaskEither.tryCatch(
         () => profileSrc.getReviews(),
-        (error, stackTrace) => ApiFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 
   @override
   TaskEither<Failure, String> resetPassword(String email) =>
       TaskEither.tryCatch(
         () => profileSrc.resetPassword(email),
-        (error, stackTrace) => ApiFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 }

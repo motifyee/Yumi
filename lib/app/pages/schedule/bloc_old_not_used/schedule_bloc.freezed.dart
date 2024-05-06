@@ -17,40 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ScheduleEvent {
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx, ScheduleDay scheduleDay)
-        saveScheduleDay,
-    required TResult Function() saveSchedule,
-    required TResult Function() saved,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult? Function()? saveSchedule,
-    TResult? Function()? saved,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult Function()? saveSchedule,
-    TResult Function()? saved,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -68,17 +34,6 @@ mixin _$ScheduleEvent {
     TResult? Function(_saveScheduleDay value)? saveScheduleDay,
     TResult? Function(_saveSchedule value)? saveSchedule,
     TResult? Function(_saved value)? saved,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_saveScheduleDay value)? saveScheduleDay,
-    TResult Function(_saveSchedule value)? saveSchedule,
-    TResult Function(_saved value)? saved,
-    required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
@@ -137,52 +92,6 @@ class _$initImpl implements _init {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx, ScheduleDay scheduleDay)
-        saveScheduleDay,
-    required TResult Function() saveSchedule,
-    required TResult Function() saved,
-  }) {
-    return init();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult? Function()? saveSchedule,
-    TResult? Function()? saved,
-  }) {
-    return init?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult Function()? saveSchedule,
-    TResult Function()? saved,
-    required TResult orElse(),
-  }) {
-    if (init != null) {
-      return init();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -205,23 +114,6 @@ class _$initImpl implements _init {
     TResult? Function(_saved value)? saved,
   }) {
     return init?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_saveScheduleDay value)? saveScheduleDay,
-    TResult Function(_saveSchedule value)? saveSchedule,
-    TResult Function(_saved value)? saved,
-    required TResult orElse(),
-  }) {
-    if (init != null) {
-      return init(this);
-    }
-    return orElse();
   }
 }
 
@@ -266,52 +158,6 @@ class _$loadingImpl implements _loading {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx, ScheduleDay scheduleDay)
-        saveScheduleDay,
-    required TResult Function() saveSchedule,
-    required TResult Function() saved,
-  }) {
-    return loading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult? Function()? saveSchedule,
-    TResult? Function()? saved,
-  }) {
-    return loading?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult Function()? saveSchedule,
-    TResult Function()? saved,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -334,23 +180,6 @@ class _$loadingImpl implements _loading {
     TResult? Function(_saved value)? saved,
   }) {
     return loading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_saveScheduleDay value)? saveScheduleDay,
-    TResult Function(_saveSchedule value)? saveSchedule,
-    TResult Function(_saved value)? saved,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading(this);
-    }
-    return orElse();
   }
 }
 
@@ -395,52 +224,6 @@ class _$loadedImpl implements _loaded {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx, ScheduleDay scheduleDay)
-        saveScheduleDay,
-    required TResult Function() saveSchedule,
-    required TResult Function() saved,
-  }) {
-    return loaded();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult? Function()? saveSchedule,
-    TResult? Function()? saved,
-  }) {
-    return loaded?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult Function()? saveSchedule,
-    TResult Function()? saved,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -463,23 +246,6 @@ class _$loadedImpl implements _loaded {
     TResult? Function(_saved value)? saved,
   }) {
     return loaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_saveScheduleDay value)? saveScheduleDay,
-    TResult Function(_saveSchedule value)? saveSchedule,
-    TResult Function(_saved value)? saved,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(this);
-    }
-    return orElse();
   }
 }
 
@@ -570,52 +336,6 @@ class _$saveScheduleDayImpl implements _saveScheduleDay {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx, ScheduleDay scheduleDay)
-        saveScheduleDay,
-    required TResult Function() saveSchedule,
-    required TResult Function() saved,
-  }) {
-    return saveScheduleDay(ctx, scheduleDay);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult? Function()? saveSchedule,
-    TResult? Function()? saved,
-  }) {
-    return saveScheduleDay?.call(ctx, scheduleDay);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult Function()? saveSchedule,
-    TResult Function()? saved,
-    required TResult orElse(),
-  }) {
-    if (saveScheduleDay != null) {
-      return saveScheduleDay(ctx, scheduleDay);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -638,23 +358,6 @@ class _$saveScheduleDayImpl implements _saveScheduleDay {
     TResult? Function(_saved value)? saved,
   }) {
     return saveScheduleDay?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_saveScheduleDay value)? saveScheduleDay,
-    TResult Function(_saveSchedule value)? saveSchedule,
-    TResult Function(_saved value)? saved,
-    required TResult orElse(),
-  }) {
-    if (saveScheduleDay != null) {
-      return saveScheduleDay(this);
-    }
-    return orElse();
   }
 }
 
@@ -707,52 +410,6 @@ class _$saveScheduleImpl implements _saveSchedule {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx, ScheduleDay scheduleDay)
-        saveScheduleDay,
-    required TResult Function() saveSchedule,
-    required TResult Function() saved,
-  }) {
-    return saveSchedule();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult? Function()? saveSchedule,
-    TResult? Function()? saved,
-  }) {
-    return saveSchedule?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult Function()? saveSchedule,
-    TResult Function()? saved,
-    required TResult orElse(),
-  }) {
-    if (saveSchedule != null) {
-      return saveSchedule();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -775,23 +432,6 @@ class _$saveScheduleImpl implements _saveSchedule {
     TResult? Function(_saved value)? saved,
   }) {
     return saveSchedule?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_saveScheduleDay value)? saveScheduleDay,
-    TResult Function(_saveSchedule value)? saveSchedule,
-    TResult Function(_saved value)? saved,
-    required TResult orElse(),
-  }) {
-    if (saveSchedule != null) {
-      return saveSchedule(this);
-    }
-    return orElse();
   }
 }
 
@@ -836,52 +476,6 @@ class _$savedImpl implements _saved {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(BuildContext ctx, ScheduleDay scheduleDay)
-        saveScheduleDay,
-    required TResult Function() saveSchedule,
-    required TResult Function() saved,
-  }) {
-    return saved();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult? Function()? saveSchedule,
-    TResult? Function()? saved,
-  }) {
-    return saved?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(BuildContext ctx, ScheduleDay scheduleDay)?
-        saveScheduleDay,
-    TResult Function()? saveSchedule,
-    TResult Function()? saved,
-    required TResult orElse(),
-  }) {
-    if (saved != null) {
-      return saved();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_init value) init,
     required TResult Function(_loading value) loading,
@@ -905,23 +499,6 @@ class _$savedImpl implements _saved {
   }) {
     return saved?.call(this);
   }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_init value)? init,
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_saveScheduleDay value)? saveScheduleDay,
-    TResult Function(_saveSchedule value)? saveSchedule,
-    TResult Function(_saved value)? saved,
-    required TResult orElse(),
-  }) {
-    if (saved != null) {
-      return saved(this);
-    }
-    return orElse();
-  }
 }
 
 abstract class _saved implements ScheduleEvent {
@@ -932,7 +509,7 @@ abstract class _saved implements ScheduleEvent {
 mixin _$ScheduleState {
   Schedule get schedule => throw _privateConstructorUsedError;
   Schedule get scheduleForm => throw _privateConstructorUsedError;
-  ObseleteStatusEnum get status => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScheduleStateCopyWith<ScheduleState> get copyWith =>
@@ -945,8 +522,7 @@ abstract class $ScheduleStateCopyWith<$Res> {
           ScheduleState value, $Res Function(ScheduleState) then) =
       _$ScheduleStateCopyWithImpl<$Res, ScheduleState>;
   @useResult
-  $Res call(
-      {Schedule schedule, Schedule scheduleForm, ObseleteStatusEnum status});
+  $Res call({Schedule schedule, Schedule scheduleForm, Status status});
 
   $ScheduleCopyWith<$Res> get schedule;
   $ScheduleCopyWith<$Res> get scheduleForm;
@@ -981,7 +557,7 @@ class _$ScheduleStateCopyWithImpl<$Res, $Val extends ScheduleState>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
+              as Status,
     ) as $Val);
   }
 
@@ -1010,8 +586,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {Schedule schedule, Schedule scheduleForm, ObseleteStatusEnum status});
+  $Res call({Schedule schedule, Schedule scheduleForm, Status status});
 
   @override
   $ScheduleCopyWith<$Res> get schedule;
@@ -1046,7 +621,7 @@ class __$$InitialImplCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
+              as Status,
     ));
   }
 }
@@ -1057,7 +632,7 @@ class _$InitialImpl extends Initial {
   const _$InitialImpl(
       {this.schedule = const Schedule(),
       this.scheduleForm = const Schedule(),
-      this.status = ObseleteStatusEnum.init})
+      this.status = Status.init})
       : super._();
 
   @override
@@ -1068,7 +643,7 @@ class _$InitialImpl extends Initial {
   final Schedule scheduleForm;
   @override
   @JsonKey()
-  final ObseleteStatusEnum status;
+  final Status status;
 
   @override
   String toString() {
@@ -1101,7 +676,7 @@ abstract class Initial extends ScheduleState {
   const factory Initial(
       {final Schedule schedule,
       final Schedule scheduleForm,
-      final ObseleteStatusEnum status}) = _$InitialImpl;
+      final Status status}) = _$InitialImpl;
   const Initial._() : super._();
 
   @override
@@ -1109,7 +684,7 @@ abstract class Initial extends ScheduleState {
   @override
   Schedule get scheduleForm;
   @override
-  ObseleteStatusEnum get status;
+  Status get status;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

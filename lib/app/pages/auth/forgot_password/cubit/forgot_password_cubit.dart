@@ -12,6 +12,10 @@ part 'forgot_password_cubit.freezed.dart';
 class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
   ForgotPwdCubit() : super(const ForgotPasswordState());
 
+  void emailChanged(String email) {
+    emit(state.copyWith(email: email));
+  }
+
   Future<void> forgotPassword(String email) async {
     emit(state.copyWith(isLoading: true, email: email));
 

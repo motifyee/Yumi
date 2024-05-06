@@ -17,28 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ReviewsEvent {
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String chefID, bool isMyReviews) getAll,
-    required TResult Function(ReviewsState reviewsState) updateReviews,
-    required TResult Function() resetReviews,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String chefID, bool isMyReviews)? getAll,
-    TResult? Function(ReviewsState reviewsState)? updateReviews,
-    TResult? Function()? resetReviews,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String chefID, bool isMyReviews)? getAll,
-    TResult Function(ReviewsState reviewsState)? updateReviews,
-    TResult Function()? resetReviews,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_getAllEvent value) getAll,
     required TResult Function(_updateReviewsEvent value) updateReviews,
@@ -50,14 +28,6 @@ mixin _$ReviewsEvent {
     TResult? Function(_getAllEvent value)? getAll,
     TResult? Function(_updateReviewsEvent value)? updateReviews,
     TResult? Function(_resetReviewsEvent value)? resetReviews,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_getAllEvent value)? getAll,
-    TResult Function(_updateReviewsEvent value)? updateReviews,
-    TResult Function(_resetReviewsEvent value)? resetReviews,
-    required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
@@ -153,40 +123,6 @@ class _$getAllEventImpl implements _getAllEvent {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String chefID, bool isMyReviews) getAll,
-    required TResult Function(ReviewsState reviewsState) updateReviews,
-    required TResult Function() resetReviews,
-  }) {
-    return getAll(chefID, isMyReviews);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String chefID, bool isMyReviews)? getAll,
-    TResult? Function(ReviewsState reviewsState)? updateReviews,
-    TResult? Function()? resetReviews,
-  }) {
-    return getAll?.call(chefID, isMyReviews);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String chefID, bool isMyReviews)? getAll,
-    TResult Function(ReviewsState reviewsState)? updateReviews,
-    TResult Function()? resetReviews,
-    required TResult orElse(),
-  }) {
-    if (getAll != null) {
-      return getAll(chefID, isMyReviews);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_getAllEvent value) getAll,
     required TResult Function(_updateReviewsEvent value) updateReviews,
@@ -203,20 +139,6 @@ class _$getAllEventImpl implements _getAllEvent {
     TResult? Function(_resetReviewsEvent value)? resetReviews,
   }) {
     return getAll?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_getAllEvent value)? getAll,
-    TResult Function(_updateReviewsEvent value)? updateReviews,
-    TResult Function(_resetReviewsEvent value)? resetReviews,
-    required TResult orElse(),
-  }) {
-    if (getAll != null) {
-      return getAll(this);
-    }
-    return orElse();
   }
 }
 
@@ -307,40 +229,6 @@ class _$updateReviewsEventImpl implements _updateReviewsEvent {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String chefID, bool isMyReviews) getAll,
-    required TResult Function(ReviewsState reviewsState) updateReviews,
-    required TResult Function() resetReviews,
-  }) {
-    return updateReviews(reviewsState);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String chefID, bool isMyReviews)? getAll,
-    TResult? Function(ReviewsState reviewsState)? updateReviews,
-    TResult? Function()? resetReviews,
-  }) {
-    return updateReviews?.call(reviewsState);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String chefID, bool isMyReviews)? getAll,
-    TResult Function(ReviewsState reviewsState)? updateReviews,
-    TResult Function()? resetReviews,
-    required TResult orElse(),
-  }) {
-    if (updateReviews != null) {
-      return updateReviews(reviewsState);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_getAllEvent value) getAll,
     required TResult Function(_updateReviewsEvent value) updateReviews,
@@ -357,20 +245,6 @@ class _$updateReviewsEventImpl implements _updateReviewsEvent {
     TResult? Function(_resetReviewsEvent value)? resetReviews,
   }) {
     return updateReviews?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_getAllEvent value)? getAll,
-    TResult Function(_updateReviewsEvent value)? updateReviews,
-    TResult Function(_resetReviewsEvent value)? resetReviews,
-    required TResult orElse(),
-  }) {
-    if (updateReviews != null) {
-      return updateReviews(this);
-    }
-    return orElse();
   }
 }
 
@@ -421,40 +295,6 @@ class _$resetReviewsEventImpl implements _resetReviewsEvent {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String chefID, bool isMyReviews) getAll,
-    required TResult Function(ReviewsState reviewsState) updateReviews,
-    required TResult Function() resetReviews,
-  }) {
-    return resetReviews();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String chefID, bool isMyReviews)? getAll,
-    TResult? Function(ReviewsState reviewsState)? updateReviews,
-    TResult? Function()? resetReviews,
-  }) {
-    return resetReviews?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String chefID, bool isMyReviews)? getAll,
-    TResult Function(ReviewsState reviewsState)? updateReviews,
-    TResult Function()? resetReviews,
-    required TResult orElse(),
-  }) {
-    if (resetReviews != null) {
-      return resetReviews();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_getAllEvent value) getAll,
     required TResult Function(_updateReviewsEvent value) updateReviews,
@@ -471,20 +311,6 @@ class _$resetReviewsEventImpl implements _resetReviewsEvent {
     TResult? Function(_resetReviewsEvent value)? resetReviews,
   }) {
     return resetReviews?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_getAllEvent value)? getAll,
-    TResult Function(_updateReviewsEvent value)? updateReviews,
-    TResult Function(_resetReviewsEvent value)? resetReviews,
-    required TResult orElse(),
-  }) {
-    if (resetReviews != null) {
-      return resetReviews(this);
-    }
-    return orElse();
   }
 }
 

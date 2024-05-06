@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/global.dart';
 
@@ -14,10 +14,9 @@ part 'docs_cubit.freezed.dart';
 class DocsState with _$DocsState {
   const factory DocsState({
     @Default(Profile()) Profile profile,
-    @Default(ObseleteStatusEnum.init) ObseleteStatusEnum status,
+    @Default(Status.init) Status status,
     @Default('') String message,
-    @Default([null, null, null, null, null])
-    List<ObseleteStatusEnum?> docsStatuses,
+    @Default([null, null, null, null, null]) List<Status?> docsStatuses,
   }) = _Init;
 
   const DocsState._();
@@ -29,63 +28,60 @@ class DocsState with _$DocsState {
 class DocsCubit extends Cubit<DocsState> {
   DocsCubit() : super(const DocsState());
 
-  void init() {
-    var profileBloc = G.read<ProfileBloc>();
-    profileBloc.add(const ProfileInitEvent());
+  void init() async {
+    var profileCubit = G.rd<ProfileCubit>();
+    await profileCubit.getProfileForm();
 
     StreamSubscription<ProfileState>? sub;
-    sub = profileBloc.stream.listen((event) {
-      if (event.status.isLoading) {
-        emit(state.copyWith(status: ObseleteStatusEnum.loading));
+    sub = profileCubit.stream.listen((event) {
+      if (event.form.entityStatus.isLoading) {
+        emit(state.copyWith(status: Status.loading));
       }
 
-      if (event.status.isInitSucces) {
+      if (event.form.entityStatus.isSuccess) {
         emit(state.copyWith(
-          profile: profileBloc.state.profile,
-          status: ObseleteStatusEnum.initSuccess,
+          profile: profileCubit.state.form,
+          status: Status.initSuccess,
         ));
         if (sub != null) sub.cancel();
       }
 
-      if (event.status.isInitError) {
-        emit(state.copyWith(status: ObseleteStatusEnum.initError));
+      if (event.form.entityStatus.isError) {
+        emit(state.copyWith(status: Status.initError));
         if (sub != null) sub.cancel();
       }
     });
   }
 
-  void update(Profile profile, int idx) {
-    var profileBloc = G.read<ProfileBloc>();
-    profileBloc.add(ProfileUpdateEvent(profile: profile));
+  void update(Profile profile, int idx) async {
+    var profileCubit = G.rd<ProfileCubit>();
+    await profileCubit.updateProfileForm(profile);
 
     var regCubit = G.rd<RegCubit>();
 
     StreamSubscription<ProfileState>? sub;
-    sub = profileBloc.stream.listen((event) {
-      if (event.status.isLoading) {
+    sub = profileCubit.stream.listen((event) {
+      if (event.form.entityStatus.isLoading) {
         emit(state.copyWith(
-          status: ObseleteStatusEnum.loading,
-          docsStatuses: [...state.docsStatuses]..[idx] =
-              ObseleteStatusEnum.loading,
+          status: Status.loading,
+          docsStatuses: [...state.docsStatuses]..[idx] = Status.loading,
         ));
       }
 
-      if (event.status.isSuccess) {
+      if (event.form.entityStatus.isSuccess) {
         emit(state.copyWith(
-          profile: profileBloc.state.profile,
-          status: ObseleteStatusEnum.success,
-          docsStatuses: [...state.docsStatuses]..[idx] =
-              ObseleteStatusEnum.success,
+          profile: profileCubit.state.form,
+          status: Status.success,
+          docsStatuses: [...state.docsStatuses]..[idx] = Status.success,
         ));
         if (sub != null) sub.cancel();
         regCubit.refresh();
       }
 
-      if (event.status.isError) {
+      if (event.form.entityStatus.isError) {
         emit(state.copyWith(
-          status: ObseleteStatusEnum.error,
-          docsStatuses: [...state.docsStatuses]..[idx] =
-              ObseleteStatusEnum.error,
+          status: Status.error,
+          docsStatuses: [...state.docsStatuses]..[idx] = Status.error,
         ));
         if (sub != null) sub.cancel();
         regCubit.refresh();

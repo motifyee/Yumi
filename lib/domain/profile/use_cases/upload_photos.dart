@@ -1,18 +1,18 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/app/inject.dart';
+import 'package:yumi/app/core/setup/inject.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/profile/data/repos/profile_repo.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
 
-class UploadProfilePhotos extends UseCase<String, UploadProfilePhotoParam> {
+class UploadProfilePhotos extends UseCase<Profile, UploadProfilePhotosParam> {
   final ProfileRepo repo;
 
   UploadProfilePhotos({ProfileRepo? repo})
       : repo = repo ?? getIt<ProfileRepo>();
 
   @override
-  Future<Either<Failure, String>> call(params) {
+  Future<Either<Failure, Profile>> call(params) {
     final photos = [
       ...params.photos,
       for (var i = params.photos.length; i < 5; i++) null
@@ -30,11 +30,11 @@ class UploadProfilePhotos extends UseCase<String, UploadProfilePhotoParam> {
   }
 }
 
-class UploadProfilePhotoParam extends Params {
+class UploadProfilePhotosParam extends Params {
   final List<String?> photos;
   final Profile profile;
 
-  UploadProfilePhotoParam(this.profile, this.photos);
+  UploadProfilePhotosParam(this.profile, this.photos);
 
   @override
   List<Object?> get props => [photos];
