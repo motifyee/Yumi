@@ -2341,6 +2341,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Schedule Date`
+  String get scheduleDate {
+    return Intl.message(
+      'Schedule Date',
+      name: 'scheduleDate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

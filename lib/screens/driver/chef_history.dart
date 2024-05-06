@@ -64,7 +64,7 @@ class DriverHistoryScreen extends StatelessWidget {
                   child: NewsOrders(
                     menuTarget: MenuTarget.order,
                     apiKey: ApiKeys.orderDriverClosed,
-                    orderCardTargetPage: OrderCardTargetPage.driverAccept,
+                    orderCardTargetPage: OrderCardTargetPage.driverHistory,
                   ),
                 ),
                 BlocProvider(
@@ -72,7 +72,7 @@ class DriverHistoryScreen extends StatelessWidget {
                   child: NewsOrders(
                     menuTarget: MenuTarget.preOrder,
                     apiKey: ApiKeys.preOrderDriverClosed,
-                    orderCardTargetPage: OrderCardTargetPage.driverReceived,
+                    orderCardTargetPage: OrderCardTargetPage.driverHistory,
                   ),
                 ),
               ],

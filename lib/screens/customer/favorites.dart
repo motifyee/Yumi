@@ -188,7 +188,13 @@ class FavoritesScreen extends StatelessWidget {
                                                     Colors.transparent,
                                                 scrollControlDisabledMaxHeightRatio:
                                                     1,
-                                              );
+                                              ).then((value) {
+                                                context
+                                                    .read<MealListBloc>()
+                                                    .add(MealListResetEvent());
+                                                context.read<MealListBloc>().add(
+                                                    MealListGetFavoriteMealsEvent());
+                                              });
                                             },
                                           ),
                                         ],

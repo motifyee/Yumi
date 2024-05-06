@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
@@ -67,11 +68,18 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    DateTime? createdDate = DateTime.tryParse(widget.order.createdDate ?? '');
+    DateTime? updatedDate = DateTime.tryParse(widget.order.updatedDate ?? '');
+    DateTime? scheduleDate = DateTime.tryParse(widget.order.scheduleDate ?? '');
+
+    print('aaaaaaa -------------------------------------------');
+    print(widget.orderCardTargetPage);
+    print(widget.menuTarget);
+    print(widget.order.isDriverOrderPendingEnd);
 
     if (widget.orderCardTargetPage == OrderCardTargetPage.driverAccept) {
       if (widget.menuTarget == MenuTarget.order &&
           widget.order.isDriverOrderPendingEnd) {
+        print('asdasd 000000000000000000000');
         return const SizedBox.shrink();
       }
       if (widget.menuTarget == MenuTarget.preOrder &&
@@ -119,15 +127,16 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               '${S.of(context).orderId}: #${widget.order.id}',
                               style: Theme.of(context).textTheme.headlineMedium,
                             ),
-                            if (createdDate != null)
+                            if (updatedDate != null)
                               Text(
-                                '${createdDate.day}-${createdDate.month}-${createdDate.year} | '
-                                '${createdDate.hour < 10 ? 0 : ''}${createdDate.hour}:${createdDate.minute < 10 ? 0 : ''}${createdDate.minute}',
+                                DateFormat('d-M-yyyy | hh:mm')
+                                    .format(updatedDate),
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelSmall
@@ -135,6 +144,41 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               ),
                           ],
                         ),
+                        if (scheduleDate != null)
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: ThemeSelector.statics.defaultMicroGap),
+                                child: SvgPicture.asset(
+                                  'assets/images/schedule_icon.svg',
+                                  height: 28,
+                                ),
+                              ),
+                              SizedBox(
+                                  width: ThemeSelector.statics.defaultMicroGap),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '${S.of(context).scheduleDate}:',
+                                    style:
+                                        Theme.of(context).textTheme.labelSmall,
+                                  ),
+                                  Text(
+                                    DateFormat('d-M-yyyy | hh:mm')
+                                        .format(scheduleDate),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(fontWeight: FontWeight.w300),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         if (AppTarget.user != AppTargetUser.drivers)
                           Container(
                             padding: EdgeInsets.symmetric(
@@ -686,6 +730,13 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       massage: S.of(context).thankYouForWaiting,
                                     ),
                                   ));
+                                }).catchError((err) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: err.response?.data['message'],
+                                    ),
+                                  ));
                                 });
                               },
                               child: Text(
@@ -707,6 +758,13 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       .showSnackBar(SnackBar(
                                     content: SnackBarMassage(
                                       massage: S.of(context).orderCanceled,
+                                    ),
+                                  ));
+                                }).catchError((err) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: err.response?.data['message'],
                                     ),
                                   ));
                                 });
@@ -734,6 +792,13 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       massage: S.of(context).thankYouForWaiting,
                                     ),
                                   ));
+                                }).catchError((err) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: err.response?.data['message'],
+                                    ),
+                                  ));
                                 });
                               },
                               child: Text(
@@ -755,6 +820,13 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       .showSnackBar(SnackBar(
                                     content: SnackBarMassage(
                                       massage: S.of(context).orderCanceled,
+                                    ),
+                                  ));
+                                }).catchError((err) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: err.response?.data['message'],
                                     ),
                                   ));
                                 });

@@ -225,7 +225,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
     on<MealListRemoveFavoriteMealEvent>((event, emit) async {
       Response res = await MealService.removeMealToFavorite(meal: event.meal);
       if (res.statusCode == 200) {
-        List<MealModel> meals = state.meals;
+        List<MealModel> meals = List.from(state.meals);
         if (meals.indexWhere((e) => e.id == event.meal.id) > -1) {
           meals[meals.indexWhere((e) => e.id == event.meal.id)]
               .isFavoritProduct = false;

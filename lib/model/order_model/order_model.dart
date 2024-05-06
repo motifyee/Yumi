@@ -21,6 +21,8 @@ class OrderModel with _$OrderModel {
     double? invoiceDiscount,
     int? bankID,
     String? createdDate,
+    String? updatedDate,
+    @JsonKey(name: 'schedule_Date') String? scheduleDate,
     String? clientName,
     String? clientMobile,
     String? clientDefaultAddress,
@@ -45,7 +47,7 @@ class OrderModel with _$OrderModel {
   bool get isChefDelayed =>
       DateTime.now()
               .difference(
-                  DateTime.tryParse(createdDate ?? '') ?? DateTime.now())
+                  DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
               .inMinutes >
           35 &&
       chefStart == true &&
@@ -54,36 +56,42 @@ class OrderModel with _$OrderModel {
   bool get isDriverDelayed =>
       DateTime.now()
               .difference(
-                  DateTime.tryParse(createdDate ?? '') ?? DateTime.now())
+                  DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
               .inMinutes >
           70 &&
       chefFinished == true &&
       clientReceived != true;
 
   bool get isDriverOrderPendingEnd =>
-      DateTime.now().difference(DateTime.parse(createdDate ?? '')).inSeconds >
+      DateTime.now()
+          .difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
+          .inSeconds >
       120;
 
   bool get isDriverPreOrderPendingEnd =>
-      DateTime.now().difference(DateTime.parse(createdDate ?? '')).inMinutes >
+      DateTime.now()
+          .difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
+          .inMinutes >
       (24 * 60);
 
   String get driverOrderPendingCount =>
-      '${120 - DateTime.now().difference(DateTime.parse(createdDate ?? '')).inSeconds}s';
+      '${120 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inSeconds}s';
 
   String get driverPreOrderPendingCount => [
         if ((24 -
                 DateTime.now()
-                    .difference(DateTime.parse(createdDate ?? ''))
+                    .difference(
+                        DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
                     .inHours) >
             0)
-          '${24 - DateTime.now().difference(DateTime.parse(createdDate ?? '')).inHours}h ',
+          '${24 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours}h ',
         if ((24 -
                 DateTime.now()
-                    .difference(DateTime.parse(createdDate ?? ''))
+                    .difference(
+                        DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
                     .inHours) ==
             0)
-          '${(24 * 60) - DateTime.now().difference(DateTime.parse(createdDate ?? '')).inMinutes}m'
+          '${(24 * 60) - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes}m'
       ].join(' ');
 
   bool get isClientReceivedOverDay =>

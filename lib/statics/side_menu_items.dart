@@ -205,6 +205,7 @@ class _AppMenuList {
           label: S.of(context).yourOrders,
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
+            context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 3));
           },
         ),
         AppMenuItem(

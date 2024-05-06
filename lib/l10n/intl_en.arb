@@ -227,5 +227,6 @@
   "doYouWantToContinue": "Do you want to continue?",
   "change": "Change",
   "yes": "Yes",
-  "yourOrderWillBeCancelled": "Your order will be cancelled"
+  "yourOrderWillBeCancelled": "Your order will be cancelled",
+  "scheduleDate": "Schedule Date"
 }

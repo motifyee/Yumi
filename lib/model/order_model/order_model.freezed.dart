@@ -37,6 +37,9 @@ mixin _$OrderModel {
   double? get invoiceDiscount => throw _privateConstructorUsedError;
   int? get bankID => throw _privateConstructorUsedError;
   String? get createdDate => throw _privateConstructorUsedError;
+  String? get updatedDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'schedule_Date')
+  String? get scheduleDate => throw _privateConstructorUsedError;
   String? get clientName => throw _privateConstructorUsedError;
   String? get clientMobile => throw _privateConstructorUsedError;
   String? get clientDefaultAddress => throw _privateConstructorUsedError;
@@ -97,6 +100,8 @@ abstract class $OrderModelCopyWith<$Res> {
       double? invoiceDiscount,
       int? bankID,
       String? createdDate,
+      String? updatedDate,
+      @JsonKey(name: 'schedule_Date') String? scheduleDate,
       String? clientName,
       String? clientMobile,
       String? clientDefaultAddress,
@@ -144,6 +149,8 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? invoiceDiscount = freezed,
     Object? bankID = freezed,
     Object? createdDate = freezed,
+    Object? updatedDate = freezed,
+    Object? scheduleDate = freezed,
     Object? clientName = freezed,
     Object? clientMobile = freezed,
     Object? clientDefaultAddress = freezed,
@@ -222,6 +229,14 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
       createdDate: freezed == createdDate
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedDate: freezed == updatedDate
+          ? _value.updatedDate
+          : updatedDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      scheduleDate: freezed == scheduleDate
+          ? _value.scheduleDate
+          : scheduleDate // ignore: cast_nullable_to_non_nullable
               as String?,
       clientName: freezed == clientName
           ? _value.clientName
@@ -319,6 +334,8 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       double? invoiceDiscount,
       int? bankID,
       String? createdDate,
+      String? updatedDate,
+      @JsonKey(name: 'schedule_Date') String? scheduleDate,
       String? clientName,
       String? clientMobile,
       String? clientDefaultAddress,
@@ -364,6 +381,8 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? invoiceDiscount = freezed,
     Object? bankID = freezed,
     Object? createdDate = freezed,
+    Object? updatedDate = freezed,
+    Object? scheduleDate = freezed,
     Object? clientName = freezed,
     Object? clientMobile = freezed,
     Object? clientDefaultAddress = freezed,
@@ -442,6 +461,14 @@ class __$$OrderModelImplCopyWithImpl<$Res>
       createdDate: freezed == createdDate
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      updatedDate: freezed == updatedDate
+          ? _value.updatedDate
+          : updatedDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      scheduleDate: freezed == scheduleDate
+          ? _value.scheduleDate
+          : scheduleDate // ignore: cast_nullable_to_non_nullable
               as String?,
       clientName: freezed == clientName
           ? _value.clientName
@@ -534,6 +561,8 @@ class _$OrderModelImpl extends _OrderModel {
       this.invoiceDiscount,
       this.bankID,
       this.createdDate,
+      this.updatedDate,
+      @JsonKey(name: 'schedule_Date') this.scheduleDate,
       this.clientName,
       this.clientMobile,
       this.clientDefaultAddress,
@@ -589,6 +618,11 @@ class _$OrderModelImpl extends _OrderModel {
   final int? bankID;
   @override
   final String? createdDate;
+  @override
+  final String? updatedDate;
+  @override
+  @JsonKey(name: 'schedule_Date')
+  final String? scheduleDate;
   @override
   final String? clientName;
   @override
@@ -647,7 +681,7 @@ class _$OrderModelImpl extends _OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(id: $id, chefID: $chefID, driverID: $driverID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, createdDate: $createdDate, clientName: $clientName, clientMobile: $clientMobile, clientDefaultAddress: $clientDefaultAddress, driverAccept: $driverAccept, driverAcceptDate: $driverAcceptDate, driverReceived: $driverReceived, driverReceivedDate: $driverReceivedDate, chefAccept: $chefAccept, chefAcceptDate: $chefAcceptDate, chefStart: $chefStart, chefStartDate: $chefStartDate, chefFinished: $chefFinished, chefFinishedDate: $chefFinishedDate, clientReceived: $clientReceived, clientReceivedDate: $clientReceivedDate, isPickUp: $isPickUp, invoiceDetails: $invoiceDetails)';
+    return 'OrderModel(id: $id, chefID: $chefID, driverID: $driverID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, createdDate: $createdDate, updatedDate: $updatedDate, scheduleDate: $scheduleDate, clientName: $clientName, clientMobile: $clientMobile, clientDefaultAddress: $clientDefaultAddress, driverAccept: $driverAccept, driverAcceptDate: $driverAcceptDate, driverReceived: $driverReceived, driverReceivedDate: $driverReceivedDate, chefAccept: $chefAccept, chefAcceptDate: $chefAcceptDate, chefStart: $chefStart, chefStartDate: $chefStartDate, chefFinished: $chefFinished, chefFinishedDate: $chefFinishedDate, clientReceived: $clientReceived, clientReceivedDate: $clientReceivedDate, isPickUp: $isPickUp, invoiceDetails: $invoiceDetails)';
   }
 
   @override
@@ -682,6 +716,10 @@ class _$OrderModelImpl extends _OrderModel {
             (identical(other.bankID, bankID) || other.bankID == bankID) &&
             (identical(other.createdDate, createdDate) ||
                 other.createdDate == createdDate) &&
+            (identical(other.updatedDate, updatedDate) ||
+                other.updatedDate == updatedDate) &&
+            (identical(other.scheduleDate, scheduleDate) ||
+                other.scheduleDate == scheduleDate) &&
             (identical(other.clientName, clientName) ||
                 other.clientName == clientName) &&
             (identical(other.clientMobile, clientMobile) ||
@@ -737,6 +775,8 @@ class _$OrderModelImpl extends _OrderModel {
         invoiceDiscount,
         bankID,
         createdDate,
+        updatedDate,
+        scheduleDate,
         clientName,
         clientMobile,
         clientDefaultAddress,
@@ -787,6 +827,8 @@ abstract class _OrderModel extends OrderModel {
       final double? invoiceDiscount,
       final int? bankID,
       final String? createdDate,
+      final String? updatedDate,
+      @JsonKey(name: 'schedule_Date') final String? scheduleDate,
       final String? clientName,
       final String? clientMobile,
       final String? clientDefaultAddress,
@@ -841,6 +883,11 @@ abstract class _OrderModel extends OrderModel {
   int? get bankID;
   @override
   String? get createdDate;
+  @override
+  String? get updatedDate;
+  @override
+  @JsonKey(name: 'schedule_Date')
+  String? get scheduleDate;
   @override
   String? get clientName;
   @override

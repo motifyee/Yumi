@@ -138,7 +138,7 @@ class OrderStatusScreen extends StatelessWidget {
                               ),
                               const Text(' '),
                               Text(
-                                DateFormat('hh:mm a, d MMM yyyy')
+                                DateFormat('d-M-yyyy | hh:mm')
                                     .format(_createdDate!),
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
@@ -164,14 +164,6 @@ class OrderStatusScreen extends StatelessWidget {
                               Text(S.of(context).preparingOrder,
                                   style:
                                       Theme.of(context).textTheme.bodyMedium),
-                              if (order.chefStart == true)
-                                Text('05:00',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(
-                                            color: ThemeSelector
-                                                .colors.secondaryTantLighter)),
                             ],
                           ),
                           Row(
@@ -184,7 +176,7 @@ class OrderStatusScreen extends StatelessWidget {
                               const Text(' '),
                               Text(
                                 order.chefStart == true
-                                    ? DateFormat('hh:mm a, d MMM yyyy')
+                                    ? DateFormat('d-M-yyyy | hh:mm')
                                         .format(_chefStartDate!)
                                     : '--:--',
                                 style: Theme.of(context).textTheme.labelMedium,
@@ -212,14 +204,6 @@ class OrderStatusScreen extends StatelessWidget {
                                 Text(S.of(context).onTheWay,
                                     style:
                                         Theme.of(context).textTheme.bodyMedium),
-                                if (order.driverReceived == true)
-                                  Text('05:00',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(
-                                              color: ThemeSelector.colors
-                                                  .secondaryTantLighter)),
                               ],
                             ),
                             Row(
@@ -232,7 +216,7 @@ class OrderStatusScreen extends StatelessWidget {
                                 const Text(' '),
                                 Text(
                                   order.driverReceived == true
-                                      ? DateFormat('hh:mm a, d MMM yyyy')
+                                      ? DateFormat('d-M-yyyy | hh:mm')
                                           .format(_driverReceivedDate!)
                                       : '--:--',
                                   style:
@@ -287,14 +271,6 @@ class OrderStatusScreen extends StatelessWidget {
                                 Text(S.of(context).ready,
                                     style:
                                         Theme.of(context).textTheme.bodyMedium),
-                                if (order.chefFinished == true)
-                                  Text('05:00',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(
-                                              color: ThemeSelector.colors
-                                                  .secondaryTantLighter)),
                               ],
                             ),
                             Row(
@@ -307,7 +283,7 @@ class OrderStatusScreen extends StatelessWidget {
                                 const Text(' '),
                                 Text(
                                   order.chefFinished == true
-                                      ? DateFormat('hh:mm a, d MMM yyyy')
+                                      ? DateFormat('d-M-yyyy | hh:mm')
                                           .format(_chefFinishedDate!)
                                       : '--:--',
                                   style:

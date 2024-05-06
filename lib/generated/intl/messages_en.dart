@@ -246,6 +246,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Save credit card details"),
         "saveOnYourOrder":
             MessageLookupByLibrary.simpleMessage("Save on your order"),
+        "scheduleDate": MessageLookupByLibrary.simpleMessage("Schedule Date"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchForFood":
             MessageLookupByLibrary.simpleMessage("Search for food"),
