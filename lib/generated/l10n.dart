@@ -2291,6 +2291,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Your order send to saved location`
+  String get yourOrderSendToSavedLocation {
+    return Intl.message(
+      'Your order send to saved location',
+      name: 'yourOrderSendToSavedLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to continue?`
+  String get doYouWantToContinue {
+    return Intl.message(
+      'Do you want to continue?',
+      name: 'doYouWantToContinue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change`
+  String get change {
+    return Intl.message(
+      'Change',
+      name: 'change',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your order will be cancelled`
+  String get yourOrderWillBeCancelled {
+    return Intl.message(
+      'Your order will be cancelled',
+      name: 'yourOrderWillBeCancelled',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

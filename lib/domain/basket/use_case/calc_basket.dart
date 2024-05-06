@@ -6,9 +6,14 @@ import 'package:yumi/domain/basket/entity/basket.dart';
 class CalcBasket extends UseCase<Basket, CalcBasketParams> {
   @override
   Future<Either<Failure, Basket>> call(CalcBasketParams params) async {
+    params.basket = params.basket.copyWith(
+        invoice: params.basket.invoice.copyWith(
+      deliveryAreaPrice: params.basket.isPickup == true ? 0 : 4.5,
+      deliveryCostPrice: params.basket.isPickup == true ? 0 : 4.5,
+    ));
+
     double totalPrice = double.parse(params.basket.invoiceDetails
-        .fold(
-            0.0, (p, e) => p + (e.productVarintPrice! * int.parse(e.quantity!)))
+        .fold(0.0, (p, e) => p + (e.productVarintPrice * int.parse(e.quantity)))
         .toStringAsFixed(2));
 
     double invoiceTax = double.parse(
@@ -34,7 +39,7 @@ class CalcBasket extends UseCase<Basket, CalcBasketParams> {
 }
 
 class CalcBasketParams extends Params {
-  final Basket basket;
+  Basket basket;
 
   CalcBasketParams({required this.basket});
 

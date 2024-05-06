@@ -2,13 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
+import 'package:yumi/app/pages/basket/widgets/basket_meal_card.dart';
+import 'package:yumi/app/pages/basket/widgets/chef_meals.dart';
+import 'package:yumi/app/pages/basket/widgets/confirm_checkout_basket.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/app/pages/basket/widgets/chef_meals.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/pages/basket/widgets/basket_meal_card.dart';
 import 'package:yumi/template/payment_summary_card.dart';
 
 @RoutePage()
@@ -121,10 +121,14 @@ class BasketScreen extends StatelessWidget {
                           Hero(
                             tag: 'ConfirmBasketSeries',
                             child: GestureDetector(
-                              onTap: () {
-                                if (state.basket.invoiceDetails.isEmpty) return;
-                                context.router.push(CheckOutRoute());
-                              },
+                              onTap: state.basket.invoiceDetails.isEmpty
+                                  ? null
+                                  : () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              ConfirmCheckOutBasket());
+                                    },
                               child: Container(
                                 width: ThemeSelector.statics.defaultGapXXXL,
                                 height:

@@ -145,7 +145,9 @@ class MealListCard extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: ThemeSelector.statics.defaultGap),
                           child: SvgPicture.asset(
-                            'assets/images/heart_outline.svg',
+                            meal.isFavoritProduct == true
+                                ? 'assets/images/heart.svg'
+                                : 'assets/images/heart_outline.svg',
                             colorFilter: ColorFilter.mode(
                                 isDisabled
                                     ? ThemeSelector.colors.secondary

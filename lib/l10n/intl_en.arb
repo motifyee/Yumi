@@ -222,5 +222,10 @@
   "basketUpdated": "Basket Updated",
   "OrderCreated": "Order Created",
   "basketDeleted": "Basket Deleted",
-  "apiError": "Api Error"
+  "apiError": "Api Error",
+  "yourOrderSendToSavedLocation": "Your order send to saved location",
+  "doYouWantToContinue": "Do you want to continue?",
+  "change": "Change",
+  "yes": "Yes",
+  "yourOrderWillBeCancelled": "Your order will be cancelled"
 }

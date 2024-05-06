@@ -46,11 +46,9 @@ class DeliveryOptionDialog extends StatelessWidget {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          context.read<BasketCubit>().updateBasket(
-                              basket: state.basket.copyWith(
-                                  isPickup: true,
-                                  isDelivery: false,
-                                  isPickupOnly: false));
+                          context
+                              .read<BasketCubit>()
+                              .updateDeliverPickUp(isDelivery: false);
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -87,11 +85,9 @@ class DeliveryOptionDialog extends StatelessWidget {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          context.read<BasketCubit>().updateBasket(
-                              basket: state.basket.copyWith(
-                                  isPickup: false,
-                                  isDelivery: true,
-                                  isPickupOnly: false));
+                          context
+                              .read<BasketCubit>()
+                              .updateDeliverPickUp(isDelivery: true);
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(

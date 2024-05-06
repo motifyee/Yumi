@@ -248,15 +248,16 @@ class CheckOutScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         PaymentSummaryCard(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              S.of(context).disclaimer,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ],
-                        ),
+                        if (false)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                S.of(context).disclaimer,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
                       ],
                     ),
                     Column(
@@ -272,13 +273,6 @@ class CheckOutScreen extends StatelessWidget {
                                   return GestureDetector(
                                     onTap: () {
                                       if (state.basket.isPickupOnly) {
-                                        context
-                                            .read<BasketCubit>()
-                                            .updateBasket(
-                                                basket: state.basket.copyWith(
-                                                    isPickup: true,
-                                                    isDelivery: false));
-
                                         context
                                             .read<BasketCubit>()
                                             .closeBasket();

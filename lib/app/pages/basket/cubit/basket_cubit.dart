@@ -15,7 +15,9 @@ import 'package:yumi/domain/basket/use_case/delete_basket.dart';
 import 'package:yumi/domain/basket/use_case/get_basket.dart';
 import 'package:yumi/domain/basket/use_case/remove_meal_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_basket.dart';
+import 'package:yumi/domain/basket/use_case/update_delivery_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_meal_basket.dart';
+import 'package:yumi/domain/basket/use_case/update_pickUp_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_schedule_basket.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
@@ -87,6 +89,17 @@ class BasketCubit extends Cubit<BasketState> {
     });
   }
 
+  updateDeliverPickUp({
+    required bool isDelivery,
+  }) async {
+    final Either<Failure, Basket> task = isDelivery
+        ? await UpdateDeliveryBasket()
+            .call(UpdateDeliveryBasketParams(basket: state.basket))
+        : await UpdatePickUpBasket()
+            .call(UpdatePickUpBasketParams(basket: state.basket));
+    task.fold((l) => null, (r) => calcBasket(basket: r));
+  }
+
   calcBasket({required Basket basket, bool isUpdateBasket = true}) async {
     print('calcBasket ...');
     final Either<Failure, Basket> task =
@@ -139,7 +152,7 @@ class BasketCubit extends Cubit<BasketState> {
     });
   }
 
-  void deleteBasket() async {
+  void deleteBasket({isLocationChange = false}) async {
     print('deleteBasket ...');
     _loadingIndicator();
 
@@ -148,7 +161,11 @@ class BasketCubit extends Cubit<BasketState> {
     task.fold((l) => _message(S.current.apiError), (r) {
       _message(S.current.basketDeleted);
       emit(BasketState.initial());
-      G.router.replaceAll([HomeRoute()]);
+      if (isLocationChange) {
+        G.router.replaceAll([CustomerLocationRoute()]);
+      } else {
+        G.router.replaceAll([HomeRoute()]);
+      }
     });
   }
 }

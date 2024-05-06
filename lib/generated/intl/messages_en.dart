@@ -62,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Calories reference"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cardNumber": MessageLookupByLibrary.simpleMessage("Card number"),
+        "change": MessageLookupByLibrary.simpleMessage("Change"),
         "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
         "chefCuisines": MessageLookupByLibrary.simpleMessage("Chef Cuisines"),
         "chefEvents": MessageLookupByLibrary.simpleMessage("Chef events"),
@@ -106,6 +107,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "disclaimer": MessageLookupByLibrary.simpleMessage("Disclaimer"),
         "dishName": MessageLookupByLibrary.simpleMessage("Dish Name"),
+        "doYouWantToContinue":
+            MessageLookupByLibrary.simpleMessage("Do you want to continue?"),
         "documentation": MessageLookupByLibrary.simpleMessage("Documentation"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -304,8 +307,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatYouWishToEatToday":
             MessageLookupByLibrary.simpleMessage("What you wish to eat today?"),
         "writeABio": MessageLookupByLibrary.simpleMessage("Write a Bio"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "youCanNowCreateYourReview": MessageLookupByLibrary.simpleMessage(
             "You can now create your review."),
+        "yourOrderSendToSavedLocation": MessageLookupByLibrary.simpleMessage(
+            "Your order send to saved location"),
+        "yourOrderWillBeCancelled": MessageLookupByLibrary.simpleMessage(
+            "Your order will be cancelled"),
         "yourOrders": MessageLookupByLibrary.simpleMessage("Your orders"),
         "yourWallet": MessageLookupByLibrary.simpleMessage("Your wallet"),
         "yumi": MessageLookupByLibrary.simpleMessage("YUMI")

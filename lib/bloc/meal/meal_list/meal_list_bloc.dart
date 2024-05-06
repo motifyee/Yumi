@@ -48,8 +48,9 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
 
               data = res['data'].map<MealModel>((value) {
                 return MealModel.fromJson({
-                  ...value,
-                  ...value['meal'],
+                  ...?value,
+                  ...?value['meal'],
+                  ...?value['product'],
                 });
               }).toList();
             } else {
@@ -66,9 +67,9 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
 
               data = res['data'].map<MealModel>((value) {
                 return MealModel.fromJson({
-                  ...value,
-                  ...value['meal'],
-                  ...value['product'],
+                  ...?value,
+                  ...?value['meal'],
+                  ...?value['product'],
                 });
               }).toList();
             }
@@ -85,7 +86,11 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
               );
 
               data = res['data'].map<MealModel>((value) {
-                return MealModel.fromJson(value);
+                return MealModel.fromJson({
+                  ...?value,
+                  ...?value['meal'],
+                  ...?value['product'],
+                });
               }).toList();
             } else {
               res = await MealService.getMealsByChefByCategory(
@@ -100,9 +105,9 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
 
               data = res['data'].map<MealModel>((value) {
                 return MealModel.fromJson({
-                  ...value,
-                  ...value['meal'],
-                  ...value['product'],
+                  ...?value,
+                  ...?value['meal'],
+                  ...?value['product'],
                 });
               }).toList();
             }
@@ -187,7 +192,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
           return MealModel.fromJson({
             ...value,
             'id': value['productId'],
-            'isFavorite': true,
+            'isFavoritProduct': true,
           });
         }).toList();
 
