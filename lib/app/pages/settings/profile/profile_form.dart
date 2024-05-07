@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/chef_application/bloc.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
+// import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
@@ -21,16 +22,11 @@ class ProfileFormSubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProfileBloc, ProfileState>(
-      listener: (context, state) => {
-        if (state.status.isSaved)
-          {
-            context.read<ProfileBloc>().add(
-                  ProfileUpdateEvent(
-                    profile: state.profile,
-                  ),
-                )
-          }
+    return BlocConsumer<ProfileCubit, ProfileState>(
+      listener: (context, state) {
+        // if (state.form.entityStatus.isSaved) {
+        //   context.read<ProfileCubit>().updateProfileForm();
+        // }
       },
       builder: (context, state) {
         return TextButton(
@@ -57,7 +53,7 @@ Widget profileFormFields(
 ) {
   var profile0 = profile;
 
-  return BlocBuilder<ProfileBloc, ProfileState>(
+  return BlocBuilder<ProfileCubit, ProfileState>(
     builder: (context, state) => Column(
       children: [
         TextFormFieldTemplate(
@@ -141,34 +137,24 @@ class ProfileForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
+    context.read<ProfileCubit>().getProfileForm();
 
-    return BlocConsumer<ProfileBloc, ProfileState>(
+    return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {
-        if (!state.status.isError && !state.status.isSuccess) return;
+        if (!state.form.entityStatus.isError &&
+            !state.form.entityStatus.isSuccess) return;
 
-        if (state.status.isSuccess) Navigator.of(context).pop();
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: SnackBarMassage(
-              massage: state.apiMessage ??
-                  (state.status.isSuccess ? "Success!" : "Error!"),
-            ),
-          ),
-        );
-
-        if (!state.status.isSuccess) return;
+        if (!state.form.entityStatus.isSuccess) return;
         context.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
       },
       builder: (context, state) {
-        final profileFormBloc = context.read<ProfileBloc>();
+        final profileFormCubit = context.read<ProfileCubit>();
 
         return Container(
           color: Colors.white,
           child: LayoutBuilder(
             builder: (context, constraint) {
-              var profile = state.profile;
+              var profile = state.form;
 
               return Form(
                 key: profileForm,
@@ -183,16 +169,30 @@ class ProfileForm extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         const SizedBox(height: 5),
-                        state.status.isLoading
-                            ? const Center(child: CircularProgressIndicator())
+                        state.form.entityStatus.isLoading
+                            ? Container(
+                                constraints: BoxConstraints(
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height * 0.5,
+                                ),
+                                child: const Center(
+                                    child: CircularProgressIndicator()))
                             : profileFormFields(
                                 profile,
                                 onFormFieldsSaved<Profile>(
                                   profileForm,
-                                  onAllFieldsSaved: (profile, _) {
-                                    profileFormBloc.add(
-                                      ProfileFormSavedEvent(profile),
-                                    );
+                                  onAllFieldsSaved: (profile, _) async {
+                                    await profileFormCubit
+                                        .updateProfileForm(profile)
+                                        .then((value) {
+                                      if (value != null) {
+                                        Navigator.of(context).pop();
+                                      }
+                                      G.snackBar(state.form.entityStatus
+                                          .messageOrMapStatus(
+                                              success: "Success!",
+                                              error: "Error!"));
+                                    });
                                   },
                                 ),
                               ),

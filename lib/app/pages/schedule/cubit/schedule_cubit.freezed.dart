@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ScheduleState {
   Schedule get schedule => throw _privateConstructorUsedError;
   Schedule get scheduleForm => throw _privateConstructorUsedError;
-  ObseleteStatusEnum get status => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScheduleStateCopyWith<ScheduleState> get copyWith =>
@@ -31,8 +31,7 @@ abstract class $ScheduleStateCopyWith<$Res> {
           ScheduleState value, $Res Function(ScheduleState) then) =
       _$ScheduleStateCopyWithImpl<$Res, ScheduleState>;
   @useResult
-  $Res call(
-      {Schedule schedule, Schedule scheduleForm, ObseleteStatusEnum status});
+  $Res call({Schedule schedule, Schedule scheduleForm, Status status});
 
   $ScheduleCopyWith<$Res> get schedule;
   $ScheduleCopyWith<$Res> get scheduleForm;
@@ -67,7 +66,7 @@ class _$ScheduleStateCopyWithImpl<$Res, $Val extends ScheduleState>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
+              as Status,
     ) as $Val);
   }
 
@@ -96,8 +95,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {Schedule schedule, Schedule scheduleForm, ObseleteStatusEnum status});
+  $Res call({Schedule schedule, Schedule scheduleForm, Status status});
 
   @override
   $ScheduleCopyWith<$Res> get schedule;
@@ -132,7 +130,7 @@ class __$$InitialImplCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
+              as Status,
     ));
   }
 }
@@ -143,7 +141,7 @@ class _$InitialImpl extends Initial {
   const _$InitialImpl(
       {this.schedule = const Schedule(),
       this.scheduleForm = const Schedule(),
-      this.status = ObseleteStatusEnum.init})
+      this.status = Status.init})
       : super._();
 
   @override
@@ -154,7 +152,7 @@ class _$InitialImpl extends Initial {
   final Schedule scheduleForm;
   @override
   @JsonKey()
-  final ObseleteStatusEnum status;
+  final Status status;
 
   @override
   String toString() {
@@ -187,7 +185,7 @@ abstract class Initial extends ScheduleState {
   const factory Initial(
       {final Schedule schedule,
       final Schedule scheduleForm,
-      final ObseleteStatusEnum status}) = _$InitialImpl;
+      final Status status}) = _$InitialImpl;
   const Initial._() : super._();
 
   @override
@@ -195,7 +193,7 @@ abstract class Initial extends ScheduleState {
   @override
   Schedule get scheduleForm;
   @override
-  ObseleteStatusEnum get status;
+  Status get status;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

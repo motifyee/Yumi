@@ -3,17 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yumi/app/inject.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/auth/register/maps/permission.dart';
 import 'package:yumi/app/pages/auth/register/model/address.dart';
 import 'package:yumi/app/pages/auth/register/model/registeration.dart';
 import 'package:yumi/app/pages/auth/register/repository/address_repo.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
-import 'package:yumi/domain/profile/data/repos/profile_repo.dart';
-import 'package:yumi/domain/profile/data/repos/remote/profile_remote_repo.dart';
-import 'package:yumi/domain/profile/entities/profile.dart';
-import 'package:yumi/app/pages/settings/profile/profile_service.dart';
 import 'package:yumi/domain/profile/use_cases/update_profile.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -86,11 +81,8 @@ class RegBloc extends Bloc<RegEvent, RegState> {
             _navigateTo(1, value.ctx, emit);
           },
           setPhone: (_setPhone phone) async {
-            var profile = G
-                .read<ProfileBloc>()
-                .state
-                .profile
-                .copyWith(mobile: phone.phone);
+            var profile =
+                G.rd<ProfileCubit>().state.form.copyWith(mobile: phone.phone);
 
             UpdateProfile().call(UpdateProfileParam(profile)).then((value) {
               _navigateTo(2, phone.ctx, emit);
@@ -114,7 +106,7 @@ class RegBloc extends Bloc<RegEvent, RegState> {
               () => AddressRepo.addAddress(address: state.address),
             ).then((res) {
               if (res) {
-                emit(state.copyWith(addressStatus: ObseleteStatusEnum.success));
+                emit(state.copyWith(addressStatus: Status.success));
                 if (value.routeFn != null) {
                   value.routeFn!(address: state.address);
                 } else {
@@ -123,7 +115,7 @@ class RegBloc extends Bloc<RegEvent, RegState> {
                 return;
               }
 
-              emit(state.copyWith(addressStatus: ObseleteStatusEnum.error));
+              emit(state.copyWith(addressStatus: Status.error));
             });
           },
           updateLocation: (value) {

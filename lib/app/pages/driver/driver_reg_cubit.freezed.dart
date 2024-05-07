@@ -25,9 +25,9 @@ mixin _$NRegState {
   Address get address => throw _privateConstructorUsedError; // step: 3
 //
   String get message => throw _privateConstructorUsedError;
-  ObseleteStatusEnum get status => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
   String get addressMessage => throw _privateConstructorUsedError;
-  ObseleteStatusEnum get addressStatus => throw _privateConstructorUsedError; //
+  Status get addressStatus => throw _privateConstructorUsedError; //
 // bool? otherVehicle,
 // String? vehicleType,
   Vehicle get vehicle => throw _privateConstructorUsedError; //
@@ -54,9 +54,9 @@ abstract class $NRegStateCopyWith<$Res> {
       String? otp,
       Address address,
       String message,
-      ObseleteStatusEnum status,
+      Status status,
       String addressMessage,
-      ObseleteStatusEnum addressStatus,
+      Status addressStatus,
       Vehicle vehicle,
       int onboardingProgress,
       Unique? unique,
@@ -127,7 +127,7 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
+              as Status,
       addressMessage: null == addressMessage
           ? _value.addressMessage
           : addressMessage // ignore: cast_nullable_to_non_nullable
@@ -135,7 +135,7 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
       addressStatus: null == addressStatus
           ? _value.addressStatus
           : addressStatus // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
+              as Status,
       vehicle: null == vehicle
           ? _value.vehicle
           : vehicle // ignore: cast_nullable_to_non_nullable
@@ -200,9 +200,9 @@ abstract class _$$InitialImplCopyWith<$Res>
       String? otp,
       Address address,
       String message,
-      ObseleteStatusEnum status,
+      Status status,
       String addressMessage,
-      ObseleteStatusEnum addressStatus,
+      Status addressStatus,
       Vehicle vehicle,
       int onboardingProgress,
       Unique? unique,
@@ -274,7 +274,7 @@ class __$$InitialImplCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
+              as Status,
       addressMessage: null == addressMessage
           ? _value.addressMessage
           : addressMessage // ignore: cast_nullable_to_non_nullable
@@ -282,7 +282,7 @@ class __$$InitialImplCopyWithImpl<$Res>
       addressStatus: null == addressStatus
           ? _value.addressStatus
           : addressStatus // ignore: cast_nullable_to_non_nullable
-              as ObseleteStatusEnum,
+              as Status,
       vehicle: null == vehicle
           ? _value.vehicle
           : vehicle // ignore: cast_nullable_to_non_nullable
@@ -314,9 +314,9 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       this.otp,
       this.address = const Address(isDefault: true),
       this.message = '',
-      this.status = ObseleteStatusEnum.init,
+      this.status = Status.init,
       this.addressMessage = '',
-      this.addressStatus = ObseleteStatusEnum.init,
+      this.addressStatus = Status.init,
       this.vehicle = const Vehicle(typeCode: 0),
       this.onboardingProgress = 0,
       this.unique,
@@ -349,13 +349,13 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   final String message;
   @override
   @JsonKey()
-  final ObseleteStatusEnum status;
+  final Status status;
   @override
   @JsonKey()
   final String addressMessage;
   @override
   @JsonKey()
-  final ObseleteStatusEnum addressStatus;
+  final Status addressStatus;
 //
 // bool? otherVehicle,
 // String? vehicleType,
@@ -459,9 +459,9 @@ abstract class _Initial extends NRegState {
       final String? otp,
       final Address address,
       final String message,
-      final ObseleteStatusEnum status,
+      final Status status,
       final String addressMessage,
-      final ObseleteStatusEnum addressStatus,
+      final Status addressStatus,
       final Vehicle vehicle,
       final int onboardingProgress,
       final Unique? unique,
@@ -484,11 +484,11 @@ abstract class _Initial extends NRegState {
 //
   String get message;
   @override
-  ObseleteStatusEnum get status;
+  Status get status;
   @override
   String get addressMessage;
   @override
-  ObseleteStatusEnum get addressStatus;
+  Status get addressStatus;
   @override //
 // bool? otherVehicle,
 // String? vehicleType,

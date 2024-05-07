@@ -17,10 +17,10 @@ class BankInfoBloc extends Bloc<BankInfoEvent, BankInfoState> {
     on<BankInfoUpdateEvent>(_updateBankInfo);
 
     on<BankInfoLoadingEvent>(
-        (_, emit) => emit(state.copyWith(status: ObseleteStatusEnum.loading)));
+        (_, emit) => emit(state.copyWith(status: Status.loading)));
 
     on<BankInfoLoadedEvent>(
-        (_, emit) => emit(state.copyWith(status: ObseleteStatusEnum.idle)));
+        (_, emit) => emit(state.copyWith(status: Status.idle)));
 
     on<BankInfoFormSavedEvent>(_saveBankInfoForm);
 
@@ -28,8 +28,8 @@ class BankInfoBloc extends Bloc<BankInfoEvent, BankInfoState> {
   }
 
   _initBankInfo(BankInfoInitEvent event, emit) async {
-    emit(state.copyWith(status: ObseleteStatusEnum.init));
-    emit(state.copyWith(status: ObseleteStatusEnum.loading));
+    emit(state.copyWith(status: Status.init));
+    emit(state.copyWith(status: Status.loading));
 
     await BankInfoService.getBankInfo(context: event.context).then((banks) {
       final List<BankInfo> arr = [];
@@ -38,57 +38,57 @@ class BankInfoBloc extends Bloc<BankInfoEvent, BankInfoState> {
         arr.add(BankInfo.fromJson(banks[i]));
       }
 
-      emit(state.copyWith(banks: arr, status: ObseleteStatusEnum.initSuccess));
+      emit(state.copyWith(banks: arr, status: Status.initSuccess));
     }).catchError(
-      (error) => emit(state.copyWith(status: ObseleteStatusEnum.initSuccess)),
+      (error) => emit(state.copyWith(status: Status.initSuccess)),
     );
   }
 
   _addBankInfo(BankInfoAddEvent event, emit) async {
-    emit(state.copyWith(status: ObseleteStatusEnum.loading));
+    emit(state.copyWith(status: Status.loading));
 
     await BankInfoService.updateBankInfo(
       context: event.context,
       data: event.bankInfo.toJson(),
     ).then((res) {
-      emit(state.copyWith(status: ObseleteStatusEnum.idle));
+      emit(state.copyWith(status: Status.idle));
 
       if (res == null || res == false) {
-        emit(state.copyWith(status: ObseleteStatusEnum.error));
+        emit(state.copyWith(status: Status.error));
       }
 
       emit(
         state.copyWith(
-          status: ObseleteStatusEnum.idle,
+          status: Status.idle,
           banks: [...state.banks, BankInfo.fromJson(res)],
         ),
       );
     }).catchError(
-      (error) => emit(state.copyWith(status: ObseleteStatusEnum.error)),
+      (error) => emit(state.copyWith(status: Status.error)),
     );
   }
 
   _updateBankInfo(BankInfoUpdateEvent event, emit) async {
-    emit(state.copyWith(status: ObseleteStatusEnum.loading));
+    emit(state.copyWith(status: Status.loading));
 
     await BankInfoService.addBankInfo(
       context: event.context,
       data: event.bankInfo.toJson(),
     ).then((res) {
-      emit(state.copyWith(status: ObseleteStatusEnum.idle));
+      emit(state.copyWith(status: Status.idle));
 
       if (res == null || res == false) {
-        return emit(state.copyWith(status: ObseleteStatusEnum.error));
+        return emit(state.copyWith(status: Status.error));
       }
 
       emit(
         state.copyWith(
-          status: ObseleteStatusEnum.idle,
+          status: Status.idle,
           banks: [...state.banks, BankInfo.fromJson(res)],
         ),
       );
     }).catchError(
-      (error) => emit(state.copyWith(status: ObseleteStatusEnum.error)),
+      (error) => emit(state.copyWith(status: Status.error)),
     );
   }
 
@@ -96,7 +96,7 @@ class BankInfoBloc extends Bloc<BankInfoEvent, BankInfoState> {
     emit(
       state.copyWith(
         bankInfoForm: event.bankInfo,
-        status: ObseleteStatusEnum.formSaved,
+        status: Status.formSaved,
       ),
     );
   }
@@ -105,7 +105,7 @@ class BankInfoBloc extends Bloc<BankInfoEvent, BankInfoState> {
     emit(
       state.copyWith(
         bankInfoForm: const BankInfo(),
-        status: ObseleteStatusEnum.formReset,
+        status: Status.formReset,
       ),
     );
   }

@@ -1,22 +1,51 @@
 import 'package:equatable/equatable.dart';
 
-class Status<T> extends Equatable {
+class EntityStatus extends Equatable {
   // TODO dosn't work with serializable, figure away to do so.
   // TODO cooperate with freezed deep copyWith
-  final T? value;
+  // final T? value;
 
   final String message;
-  final ObseleteStatusEnum status;
+  final Status status;
   final StatusSet statusSet;
   final StatusHistory statusHistory;
 
-  const Status({
-    this.value,
-    this.status = ObseleteStatusEnum.idle,
+  const EntityStatus({
+    // this.value,
+    this.status = Status.idle,
     this.message = '',
     this.statusSet = const {},
     this.statusHistory = const [],
   });
+
+  messageOrMapStatus({
+    bool message = true,
+    String? init,
+    String? initSuccess,
+    String? initError,
+    String? loading,
+    String? success,
+    String? error,
+    String? idle,
+    String? formSaved,
+    String? formReset,
+    String? selected,
+  }) {
+    if (message && this.message.isNotEmpty) return message;
+
+    return switch (status) {
+      Status.initSuccess => initSuccess ?? 'Initialising Success',
+      Status.init => init ?? 'Initialising',
+      Status.initError => initError ?? 'Initialising Error',
+      Status.loading => loading ?? 'Loading',
+      Status.success => success ?? 'Success',
+      Status.error => error ?? 'Error',
+      Status.idle => idle ?? 'Idle',
+      Status.formSaved => formSaved ?? 'Form Saved',
+      Status.formReset => formReset ?? 'Form Reset',
+      Status.selected => selected ?? 'Selected',
+    };
+  }
 
   // const factory Status({
   //   T? value,
@@ -27,15 +56,15 @@ class Status<T> extends Equatable {
   // }) = _Status;
   // const Status._();
 
-  Status<T> copyWith({
-    T? value,
+  EntityStatus copyWith({
+    // T? value,
     String? message,
-    ObseleteStatusEnum? status,
+    Status? status,
     StatusSet? statusSet,
     StatusHistory? statusHistory,
   }) =>
-      Status(
-        value: value ?? this.value,
+      EntityStatus(
+        // value: value ?? this.value,
         message: message ?? this.message,
         status: status ?? this.status,
         statusSet: statusSet ?? {...this.statusSet, status ?? this.status},
@@ -44,35 +73,35 @@ class Status<T> extends Equatable {
       );
 
   //
-  bool get isInit => status == ObseleteStatusEnum.init;
-  bool get isInitSucces => status == ObseleteStatusEnum.initSuccess;
-  bool get isInitError => status == ObseleteStatusEnum.initError;
-  bool get isLoading => status == ObseleteStatusEnum.loading;
-  bool get isSuccess => status == ObseleteStatusEnum.success;
-  bool get isError => status == ObseleteStatusEnum.error;
-  bool get isIdle => status == ObseleteStatusEnum.idle;
-  bool get isSaved => status == ObseleteStatusEnum.formSaved;
-  bool get isReset => status == ObseleteStatusEnum.formReset;
-  bool get isSelected => status == ObseleteStatusEnum.selected;
+  bool get isInit => status == Status.init;
+  bool get isInitSucces => status == Status.initSuccess;
+  bool get isInitError => status == Status.initError;
+  bool get isLoading => status == Status.loading;
+  bool get isSuccess => status == Status.success;
+  bool get isError => status == Status.error;
+  bool get isIdle => status == Status.idle;
+  bool get isSaved => status == Status.formSaved;
+  bool get isReset => status == Status.formReset;
+  bool get isSelected => status == Status.selected;
 
   //
-  bool get hasInit => statusSet.contains(ObseleteStatusEnum.init);
-  bool get hasInitSuccess => statusSet.contains(ObseleteStatusEnum.initSuccess);
-  bool get hasInitError => statusSet.contains(ObseleteStatusEnum.initError);
-  bool get hasLoading => statusSet.contains(ObseleteStatusEnum.loading);
-  bool get hasSuccess => statusSet.contains(ObseleteStatusEnum.success);
-  bool get hasError => statusSet.contains(ObseleteStatusEnum.error);
-  bool get hasIdle => statusSet.contains(ObseleteStatusEnum.idle);
-  bool get hasSaved => statusSet.contains(ObseleteStatusEnum.formSaved);
-  bool get hasReset => statusSet.contains(ObseleteStatusEnum.formReset);
-  bool get hasSelected => statusSet.contains(ObseleteStatusEnum.selected);
+  bool get hasInit => statusSet.contains(Status.init);
+  bool get hasInitSuccess => statusSet.contains(Status.initSuccess);
+  bool get hasInitError => statusSet.contains(Status.initError);
+  bool get hasLoading => statusSet.contains(Status.loading);
+  bool get hasSuccess => statusSet.contains(Status.success);
+  bool get hasError => statusSet.contains(Status.error);
+  bool get hasIdle => statusSet.contains(Status.idle);
+  bool get hasSaved => statusSet.contains(Status.formSaved);
+  bool get hasReset => statusSet.contains(Status.formReset);
+  bool get hasSelected => statusSet.contains(Status.selected);
 
   @override
-  List<Object?> get props => [value, message, status, statusHistory];
+  List<Object?> get props => [message, status, statusHistory];
 }
 
 // Todo set as a private enum
-enum ObseleteStatusEnum {
+enum Status {
   init,
   initSuccess,
   initError,
@@ -89,45 +118,45 @@ enum ObseleteStatusEnum {
   selected
 }
 
-extension BlocStatusX on ObseleteStatusEnum {
-  bool get isInit => this == ObseleteStatusEnum.init;
-  bool get isInitSucces => this == ObseleteStatusEnum.initSuccess;
-  bool get isInitError => this == ObseleteStatusEnum.initError;
-  bool get isSuccess => this == ObseleteStatusEnum.success;
-  bool get isError => this == ObseleteStatusEnum.error;
-  bool get isLoading => this == ObseleteStatusEnum.loading;
-  bool get isIdle => this == ObseleteStatusEnum.idle;
-  bool get isSaved => this == ObseleteStatusEnum.formSaved;
-  bool get isReset => this == ObseleteStatusEnum.formReset;
-  bool get isSelected => this == ObseleteStatusEnum.selected;
+extension BlocStatusX on Status {
+  bool get isInit => this == Status.init;
+  bool get isInitSucces => this == Status.initSuccess;
+  bool get isInitError => this == Status.initError;
+  bool get isSuccess => this == Status.success;
+  bool get isError => this == Status.error;
+  bool get isLoading => this == Status.loading;
+  bool get isIdle => this == Status.idle;
+  bool get isSaved => this == Status.formSaved;
+  bool get isReset => this == Status.formReset;
+  bool get isSelected => this == Status.selected;
 }
 
-typedef StatusHistory = List<ObseleteStatusEnum>;
+typedef StatusHistory = List<Status>;
 
 extension BlocStatusHistoryX on StatusHistory {
-  bool get hasInit => contains(ObseleteStatusEnum.init);
-  bool get hasInitSuccess => contains(ObseleteStatusEnum.initSuccess);
-  bool get hasInitError => contains(ObseleteStatusEnum.initError);
-  bool get hasSuccess => contains(ObseleteStatusEnum.success);
-  bool get hasError => contains(ObseleteStatusEnum.error);
-  bool get hasLoading => contains(ObseleteStatusEnum.loading);
-  bool get hasIdle => contains(ObseleteStatusEnum.idle);
-  bool get hasSaved => contains(ObseleteStatusEnum.formSaved);
-  bool get hasReset => contains(ObseleteStatusEnum.formReset);
-  bool get hasSelected => contains(ObseleteStatusEnum.selected);
+  bool get hasInit => contains(Status.init);
+  bool get hasInitSuccess => contains(Status.initSuccess);
+  bool get hasInitError => contains(Status.initError);
+  bool get hasSuccess => contains(Status.success);
+  bool get hasError => contains(Status.error);
+  bool get hasLoading => contains(Status.loading);
+  bool get hasIdle => contains(Status.idle);
+  bool get hasSaved => contains(Status.formSaved);
+  bool get hasReset => contains(Status.formReset);
+  bool get hasSelected => contains(Status.selected);
 }
 
-typedef StatusSet = Set<ObseleteStatusEnum>;
+typedef StatusSet = Set<Status>;
 
 extension StatusSetX on StatusSet {
-  bool get hasInit => contains(ObseleteStatusEnum.init);
-  bool get hasInitSuccess => contains(ObseleteStatusEnum.initSuccess);
-  bool get hasInitError => contains(ObseleteStatusEnum.initError);
-  bool get hasSuccess => contains(ObseleteStatusEnum.success);
-  bool get hasError => contains(ObseleteStatusEnum.error);
-  bool get hasLoading => contains(ObseleteStatusEnum.loading);
-  bool get hasLoaded => contains(ObseleteStatusEnum.idle);
-  bool get hasSaved => contains(ObseleteStatusEnum.formSaved);
-  bool get hasReset => contains(ObseleteStatusEnum.formReset);
-  bool get hasSelected => contains(ObseleteStatusEnum.selected);
+  bool get hasInit => contains(Status.init);
+  bool get hasInitSuccess => contains(Status.initSuccess);
+  bool get hasInitError => contains(Status.initError);
+  bool get hasSuccess => contains(Status.success);
+  bool get hasError => contains(Status.error);
+  bool get hasLoading => contains(Status.loading);
+  bool get hasLoaded => contains(Status.idle);
+  bool get hasSaved => contains(Status.formSaved);
+  bool get hasReset => contains(Status.formReset);
+  bool get hasSelected => contains(Status.selected);
 }

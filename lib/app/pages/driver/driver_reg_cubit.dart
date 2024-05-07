@@ -1,13 +1,12 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/bloc/util/status.dart';
@@ -20,7 +19,6 @@ import 'package:yumi/app/pages/auth/register/model/address.dart';
 import 'package:yumi/app/pages/auth/register/model/registeration.dart';
 import 'package:yumi/app/pages/auth/register/repository/address_repo.dart';
 import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/profile/use_cases/get_otp.dart';
@@ -50,9 +48,9 @@ class NRegState with _$NRegState {
     @Default(Address(isDefault: true)) Address address, // step: 3
     //
     @Default('') String message,
-    @Default(ObseleteStatusEnum.init) ObseleteStatusEnum status,
+    @Default(Status.init) Status status,
     @Default('') String addressMessage,
-    @Default(ObseleteStatusEnum.init) ObseleteStatusEnum addressStatus,
+    @Default(Status.init) Status addressStatus,
     //
     // bool? otherVehicle,
     // String? vehicleType,
@@ -99,16 +97,14 @@ class RegCubit extends Cubit<NRegState> {
 // Navigation
 
   void setLoading([bool loading = true]) {
-    emit(state.copyWith(
-        status:
-            loading ? ObseleteStatusEnum.loading : ObseleteStatusEnum.idle));
+    emit(state.copyWith(status: loading ? Status.loading : Status.idle));
   }
 
   void _initData() {
     if (G.read<UserBloc>().state.user.accessToken.isEmpty) return;
 
-    if (G.read<ProfileBloc>().state.profile.guid.isEmpty) {
-      G.read<ProfileBloc>().add(ProfileInitEvent(context: G.context));
+    if (G.rd<ProfileCubit>().state.form.guid.isEmpty) {
+      G.rd<ProfileCubit>().getProfileForm();
     } else if ((G.read<UserBloc>().state.user.chefId?.isNotEmpty ?? false)) {
       G.read<MealListBloc>().add(
             MealListUpdateEvent(
@@ -196,11 +192,11 @@ class RegCubit extends Cubit<NRegState> {
     emit(state.copyWith(onboardingProgress: idx));
   }
 
-  void nextButtonPressed() {
+  void nextButtonPressed() async {
     var context = G.context;
     setLoading();
 
-    context.read<ProfileBloc>().add(ProfileInitEvent(action: (newProfile) {
+    await context.read<ProfileCubit>().getProfileForm().then((value) {
       setLoading(false);
 
       var stepsInfo = G.isChefApp
@@ -211,7 +207,7 @@ class RegCubit extends Cubit<NRegState> {
       if (idx < stepsInfo.length) return stepsInfo[idx][2]();
 
       finish();
-    }));
+    });
   }
 // -----------------------------------------------------------------------------
 // Actions
@@ -238,30 +234,36 @@ class RegCubit extends Cubit<NRegState> {
   }
 
   void setPhone(String phone) async {
-    var profile = G.read<ProfileBloc>().state.profile.copyWith(mobile: phone);
+    var profile = G.rd<ProfileCubit>().state.form.copyWith(mobile: phone);
+    var update = await G.rd<ProfileCubit>().updateProfileForm(profile);
 
-    final update = await UpdateProfile().call(UpdateProfileParam(profile));
+    // final update = await UpdateProfile().call(UpdateProfileParam(profile));
+    if (update == null) return emit(state.copyWith(status: Status.error));
 
-    update.fold(
-      (l) => emit(state.copyWith(status: ObseleteStatusEnum.error)),
-      (r) async {
-        emit(state.copyWith(phone: phone));
+    emit(state.copyWith(phone: phone));
 
-        (await getOTP()).fold((l) => null, (r) => _navigateToIdx(2, otp: r));
-      },
-    );
+    (await getOTP()).fold((l) => null, (r) => _navigateToIdx(2, otp: r));
+
+    // update.fold(
+    //   (l) => emit(state.copyWith(status: Status.error)),
+    //   (r) async {
+    //     emit(state.copyWith(phone: phone));
+
+    //     (await getOTP()).fold((l) => null, (r) => _navigateToIdx(2, otp: r));
+    //   },
+    // );
   }
 
   Future<Either<Failure, String>> getOTP() async {
-    emit(state.copyWith(status: ObseleteStatusEnum.loading));
+    emit(state.copyWith(status: Status.loading));
     final getOTP = await GetOTP().call(NoParams());
 
     getOTP.fold(
       (l) {
-        emit(state.copyWith(status: ObseleteStatusEnum.error));
+        emit(state.copyWith(status: Status.error));
       },
       (r) {
-        emit(state.copyWith(status: ObseleteStatusEnum.success, otp: r));
+        emit(state.copyWith(status: Status.success, otp: r));
         startCountDown();
       },
     );
@@ -270,7 +272,7 @@ class RegCubit extends Cubit<NRegState> {
   }
 
   Future verifyOTP(String otp) async {
-    emit(state.copyWith(status: ObseleteStatusEnum.loading));
+    emit(state.copyWith(status: Status.loading));
     final verify = await VerifyOTP().call(VerifyOTPParams(otp));
 
     // if (!kReleaseMode) {
@@ -279,9 +281,9 @@ class RegCubit extends Cubit<NRegState> {
     // }
 
     verify.fold(
-      (l) => emit(state.copyWith(status: ObseleteStatusEnum.error)),
+      (l) => emit(state.copyWith(status: Status.error)),
       (r) {
-        emit(state.copyWith(status: ObseleteStatusEnum.success));
+        emit(state.copyWith(status: Status.success));
         stopCountDown();
         _navigateToIdx(3);
       },
@@ -299,7 +301,7 @@ class RegCubit extends Cubit<NRegState> {
       () => AddressRepo.addAddress(address: state.address),
     ).then((res) {
       if (res == null) {
-        emit(state.copyWith(addressStatus: ObseleteStatusEnum.success));
+        emit(state.copyWith(addressStatus: Status.success));
 
         if (routeFn != null) return routeFn(address: state.address);
         if (G.isCustomerApp) return finish();
@@ -308,7 +310,7 @@ class RegCubit extends Cubit<NRegState> {
 
       emit(state.copyWith(
         addressMessage: res,
-        addressStatus: ObseleteStatusEnum.error,
+        addressStatus: Status.error,
         unique: unique(),
       ));
     });
@@ -336,8 +338,7 @@ class RegCubit extends Cubit<NRegState> {
         .catchError((_) {
       emit(
         state.copyWith(
-            status: ObseleteStatusEnum.error,
-            message: 'could\'nt update your vehicle!'),
+            status: Status.error, message: 'could\'nt update your vehicle!'),
       );
 
       throw 'could\'nt update your vehicle!';

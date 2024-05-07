@@ -3,12 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
 import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/chef_application/flow_step_info.dart';
 import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/template/screen_container.dart';
 
@@ -25,7 +25,7 @@ class ChefApplicationFlowScreen extends StatelessWidget {
     if (!context.read<RegCubit>().state.registerationStarted) {
       context.read<RegCubit>().init();
     }
-    context.watch<ProfileBloc>();
+    context.watch<ProfileCubit>();
     context.watch<RegCubit>();
     context.watch<MealListBloc>();
     // context.watch<ScheduleBloc>();

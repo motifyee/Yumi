@@ -15,18 +15,18 @@ typedef SE<T> = StatusEntry<T>;
 class StatusEntry<T> {
   final T value;
   final String message;
-  final ObseleteStatusEnum status;
+  final Status status;
 
   const StatusEntry({
     required this.value,
     this.message = '',
-    this.status = ObseleteStatusEnum.init,
+    this.status = Status.init,
   });
 
   StatusEntry<T> copyWith({
     T? value,
     String? message,
-    ObseleteStatusEnum? status,
+    Status? status,
   }) {
     return StatusEntry<T>(
       value: value ?? this.value,

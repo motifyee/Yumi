@@ -1,36 +1,18 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:yumi/app/core/setup/crashlyticts.dart';
 import 'package:yumi/app/core/setup/inject.dart';
-import 'package:yumi/app_config/driver/dirver_app_config.dart';
-import 'package:yumi/app_config/yumi_app.dart';
-import 'package:yumi/app_target.dart';
-import 'package:yumi/global.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'package:yumi/app/core/setup/signalr.dart';
 
-Future<void> main() async {
+Future init() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-
-  if (Platform.isAndroid || Platform.isIOS) {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    FlutterError.onError = (errorDetails) {
-      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-    };
-    PlatformDispatcher.instance.onError = (error, stack) {
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      return true;
-    };
-  }
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -39,40 +21,11 @@ Future<void> main() async {
 
   // Bloc.observer = SimpleBlocObserver();
 
+  await initCrashlytics();
+
+  Signalr.startConnection();
+
   await inject();
-
-  AppTarget.user = AppTargetUser.drivers;
-  runApp(const YumiDriver());
-}
-
-var config = DriverAppConfig();
-
-class YumiDriver extends StatelessWidget {
-  const YumiDriver({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return YumiApp(
-      config: config,
-      builder: (context, child) => _builder(context, child),
-    );
-  }
-}
-
-Widget _builder(context, child) {
-  return Builder(
-      key: G.builderKey,
-      builder: (context) {
-        return Container(
-          decoration: const BoxDecoration(color: Colors.transparent),
-          child: SafeArea(
-            child: Container(
-              color: ThemeSelector.colors.background,
-              child: child ?? const Text(''),
-            ),
-          ),
-        );
-      });
 }
 
 // class MyBlocDelegate extends BlocDelegate  {

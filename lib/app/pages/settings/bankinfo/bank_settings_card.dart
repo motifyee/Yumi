@@ -80,7 +80,7 @@ class BankInfoFields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BankInfoBloc, BankInfoState>(builder: (context, state) {
-      if (!state.statusSet.contains(ObseleteStatusEnum.init)) {
+      if (!state.statusSet.contains(Status.init)) {
         context.read<BankInfoBloc>().add(BankInfoInitEvent(context: context));
       }
 

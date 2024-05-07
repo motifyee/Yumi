@@ -21,32 +21,31 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
       (events, emit) async {
         await events.map<FutureOr<void>>(
           init: (value) async {
-            emit(state.copyWith(status: ObseleteStatusEnum.loading));
+            emit(state.copyWith(status: Status.loading));
 
             await scheduleRepo.getMySchedule(G.cContext).then((value) {
               emit(
                 state.copyWith(
                   schedule: value,
                   scheduleForm: value,
-                  status: ObseleteStatusEnum.idle,
+                  status: Status.idle,
                 ),
               );
             }).catchError(
               (err) {
-                emit(state.copyWith(status: ObseleteStatusEnum.error));
+                emit(state.copyWith(status: Status.error));
               },
             );
           },
           saveSchedule: (evt) async {
-            emit(state.copyWith(status: ObseleteStatusEnum.loading));
+            emit(state.copyWith(status: Status.loading));
             // sends the form to the repo
             await scheduleRepo
                 .saveMySchedule(G.cContext, state.scheduleForm)
                 .then((val) => emit(state.copyWith(
-                    schedule: state.scheduleForm,
-                    status: ObseleteStatusEnum.idle)))
-                .catchError((err) =>
-                    emit(state.copyWith(status: ObseleteStatusEnum.error)));
+                    schedule: state.scheduleForm, status: Status.idle)))
+                .catchError(
+                    (err) => emit(state.copyWith(status: Status.error)));
 
             // updates the schedule in the state
           },

@@ -1,18 +1,18 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/app/inject.dart';
+import 'package:yumi/app/core/setup/inject.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/profile/data/repos/profile_repo.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
 
-class DeleteProfilePhoto extends UseCase<String, DeleteProfilePhotoParam> {
+class DeleteProfilePhoto extends UseCase<Profile, DeleteProfilePhotoParam> {
   final ProfileRepo repo;
 
   DeleteProfilePhoto({ProfileRepo? repo}) : repo = repo ?? getIt<ProfileRepo>();
 
   @override
   // TODO delete by index
-  Future<Either<Failure, String>> call(params) {
+  Future<Either<Failure, Profile>> call(params) {
     bool removed = false;
     List<String> photos = params.profile.eventPhotos.where((element) {
       if (removed) return true;

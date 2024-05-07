@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
 import 'package:yumi/app/pages/driver/rides_screen.dart';
@@ -7,7 +8,6 @@ import 'package:yumi/app/pages/chef_application/documentation/documentation_scre
 import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/schedule/schedule_screen.dart';
 import 'package:yumi/app/pages/settings/profile/bio_sheet.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/template/dialog.dart';
@@ -101,8 +101,7 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
                 insetPadding: 0,
                 actions: {
                   'Ok': (ctx) {
-                    var photo =
-                        G.read<ProfileBloc>().state.profile.contractPhoto;
+                    var photo = G.rd<ProfileCubit>().state.form.contractPhoto;
                     if (photo?.isEmpty ?? true) return;
 
                     G.pop();

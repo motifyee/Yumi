@@ -5,6 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
@@ -120,22 +121,15 @@ class SignUpForm extends StatelessWidget {
                       // var tokenReg = RegExp(r"Token\s*=\s*(.*)[\s|,]*");
                       var chefId =
                           idReg.firstMatch(value["message"])!.group(1)!;
-                      // var token =
-                      //     tokenReg.firstMatch(value["message"])!.group(1)!;
 
                       var userMap =
                           signupForm.toUserMap(chefId, value['token']);
 
-                      // Navigator.of(context).pop();
                       context.read<UserBloc>().add(UserFromJsonEvent(
                           user: userMap,
-                          routeAfterLogin: () => context
-                              .read<ProfileBloc>()
-                              .add(ProfileInitEvent(context: context))));
+                          routeAfterLogin: () =>
+                              context.read<ProfileCubit>().getProfileForm()));
 
-                      // return context
-                      //     .read<RegBloc>()
-                      //     .add(RegEvent.setAccount(signupForm, context));
                       return context.read<RegCubit>().setAccount(signupForm);
                     }
 

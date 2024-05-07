@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
+// import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/app/pages/settings/profile/profile_screen.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -15,8 +16,8 @@ class EditBioSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // !Bug build so much
-    if (!G.read<ProfileBloc>().state.statusSet.hasInit) {
-      context.read<ProfileBloc>().add(ProfileInitEvent(context: context));
+    if (!G.rd<ProfileCubit>().state.form.entityStatus.hasSuccess) {
+      context.read<ProfileCubit>().getProfileForm();
     }
 
     return Padding(
@@ -43,7 +44,6 @@ class EditBioSheet extends StatelessWidget {
             BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .9),
         child: SizedBox(
           child: SingleChildScrollView(
-            // child: BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {}),
             child: Column(
               children: [
                 const ProfilePicture(),
@@ -51,13 +51,13 @@ class EditBioSheet extends StatelessWidget {
                 if (G.isChefApp) const SizedBox(height: 40),
                 if (G.isChefApp) const EventsPhoto(),
                 const SizedBox(height: 20),
-                BlocSelector<ProfileBloc, ProfileState, bool>(
-                  selector: (state) => state.profile.profileSheetDone,
+                BlocSelector<ProfileCubit, ProfileState, bool>(
+                  selector: (state) => state.form.profileSheetDone,
                   builder: (context, profileSheetDone) {
                     return TextButton(
                       onPressed: () {
-                        var state = G.read<ProfileBloc>().state;
-                        if (!state.profile.profileSheetDone) return;
+                        var state = G.rd<ProfileCubit>().state;
+                        if (!state.form.profileSheetDone) return;
 
                         // G.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 1));
 

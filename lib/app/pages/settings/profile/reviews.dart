@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/domain/profile/entities/review.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -14,7 +14,7 @@ class MyReviews extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: ThemeSelector.statics.defaultTitleGap),
-      child: BlocBuilder<ProfileBloc, ProfileState>(
+      child: BlocBuilder<ProfileCubit, ProfileState>(
         // selector: (state) => state.reviews,, Status<List<Review>>
         builder: (context, state) {
           return Column(
@@ -30,8 +30,7 @@ class MyReviews extends StatelessWidget {
                   SizedBox(height: ThemeSelector.statics.defaultMediumGap),
                 ],
               ),
-              for (var review in state.reviews.value ?? [])
-                ReviewWidget(review: review),
+              for (var review in state.reviews) ReviewWidget(review: review),
             ],
           );
         },

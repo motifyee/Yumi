@@ -1,12 +1,13 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/app/pages/chef_application/contract/contract_image.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
-import 'package:yumi/app/pages/chef_application/documentation/bloc/icon_bloc.dart';
 import 'package:yumi/app/pages/chef_application/documentation/documentation_screen.dart';
-import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -51,15 +52,14 @@ class ContractScreen extends StatelessWidget {
               Center(
                   child: SvgPicture.asset("assets/images/chef_contract.svg")),
               const SizedBox(height: 60),
-              BlocBuilder<ProfileBloc, ProfileState>(
+              BlocBuilder<ProfileCubit, ProfileState>(
                 builder: (context, state) {
                   if (!G.rd<RegCubit>().state.registerationStarted &&
-                      state.status.isInit) {
-                    context
-                        .read<ProfileBloc>()
-                        .add(ProfileInitEvent(context: context));
+                      state.form.entityStatus.hasSuccess) {
+                    debugger();
+                    context.read<ProfileCubit>().getProfileForm();
                   }
-                  if (state.status.isLoading) {
+                  if (state.form.entityStatus.isLoading) {
                     return const CircularProgressIndicator();
                   }
 
@@ -68,17 +68,12 @@ class ContractScreen extends StatelessWidget {
                     hexBg: "#F4F4F4",
                     title: "Contract",
                     desc: "Download the contract to sign it and upload it",
-                    data: state.profile.contractPhoto,
+                    data: contractImage, //state.form.contractPhoto,
                     fileName: 'YUMI-contract.pdf',
-                    uploadAction: (data, _) => {
-                      context.read<ProfileBloc>().add(
-                            ProfileUpdateEvent(
-                              update: false,
-                              context: context,
-                              profile:
-                                  state.profile.copyWith(contractPhoto: data),
-                            ),
-                          ),
+                    uploadAction: (data, _) {
+                      var c = context.read<ProfileCubit>();
+                      c.updateProfileForm(
+                          c.state.form.copyWith(contractPhoto: data));
                     },
                   ));
                 },

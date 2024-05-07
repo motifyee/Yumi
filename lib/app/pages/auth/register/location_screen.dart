@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,7 +9,6 @@ import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
-import 'package:yumi/app/pages/auth/register/bloc/bloc.dart';
 import 'package:yumi/app/pages/auth/register/maps/google_maps.dart';
 import 'package:yumi/app/pages/auth/register/maps/permission.dart';
 import 'package:yumi/app/pages/auth/register/model/address.dart';
@@ -274,7 +272,7 @@ class LocationScreen extends StatelessWidget {
   Widget addressCard() {
     return BlocListener<RegCubit, NRegState>(
       listener: (context, state) {
-        if (state.addressStatus == ObseleteStatusEnum.error) {
+        if (state.addressStatus == Status.error) {
           ScaffoldMessenger.of(G.cContext).showSnackBar(
             SnackBar(
               content: SnackBarMassage(

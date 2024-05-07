@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
@@ -32,6 +33,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future skipLogin(BuildContext context) async {
+      return;
       try {
         String data = await rootBundle.loadString('assets/.autologin');
         var dataList = (const LineSplitter()).convert(data);
@@ -125,7 +127,9 @@ class LoginForm extends StatelessWidget {
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,
                       context: context,
-                      builder: (context) => const ForgotPasswordSheetProvider(),
+                      builder: (context) => const ForgotPasswordSheetProvider(
+                        key: Key("ForgotPasswordSheet"),
+                      ),
                     );
                   },
                   style: TextButton.styleFrom(
@@ -202,7 +206,7 @@ void routeAfterLogin(BuildContext context, String? route) async {
   } else if (route == "location") {
     context.router.replaceAll([LocationRoute()]);
   } else if (route == "otp") {
-    context.router.replaceAll([OTPRoute()]);
+    context.router.replaceAll([const OTPRoute()]);
   } else if (route == "regmap") {
     context.router.replaceAll([LocationRoute()]);
   } else {

@@ -1,6 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/country_model.dart';
 
@@ -9,8 +10,13 @@ part 'profile.g.dart';
 
 // TODO abstract to a base_profile and 3 profile types
 @freezed
-class Profile with _$Profile {
+abstract class Profile with _$Profile {
   const factory Profile({
+    @JsonKey(includeToJson: false, includeFromJson: false)
+    @Default(EntityStatus(status: Status.idle))
+    EntityStatus entityStatus,
+
+    //
     @Default('') String code,
     @Default('') String branchId,
     @Default('') String guid,
@@ -31,7 +37,7 @@ class Profile with _$Profile {
     //
     @Default(0) int signupType,
     @Default('') String registerDate,
-    @Default(false) bool status,
+    @JsonKey(name: 'status') @Default(false) bool userStatus,
     @Default(Country()) @JsonKey(includeToJson: false) Country country,
     @Default('') String updatedBy,
 
@@ -48,9 +54,9 @@ class Profile with _$Profile {
 
     // Documents
     // chef
-    @JsonKey(name: 'image_Hygiene') String? hygienePhoto,
-    @JsonKey(name: 'image_Risk') String? riskPhoto,
-    @JsonKey(name: 'image_Authority_Reg') String? registerationPhoto,
+    @JsonKey(name: 'Image_Hygiene_Cert') String? hygienePhoto,
+    @JsonKey(name: 'Image_Risk_Assessment') String? riskPhoto,
+    @JsonKey(name: 'Image_Authority_Reg') String? registerationPhoto,
     //driver
     @JsonKey(name: 'image_Driver_License') String? driverLicensePhoto,
     @JsonKey(name: 'Image_Driver_License_Code') String? driverLicenseCodePhoto,
@@ -63,7 +69,7 @@ class Profile with _$Profile {
     @JsonKey(name: 'image_Id') String? nidPhoto,
 
     //
-    @JsonKey(name: 'image_Contract') String? contractPhoto,
+    @JsonKey(name: 'Image_Contract') String? contractPhoto,
   }) = _Profile;
 
   const Profile._();

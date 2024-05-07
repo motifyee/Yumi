@@ -24,7 +24,7 @@ _$ProfileImpl _$$ProfileImplFromJson(Map<String, dynamic> json) =>
       pickupOnly: json['pickup_Only'] as bool? ?? false,
       signupType: json['signupType'] as int? ?? 0,
       registerDate: json['registerDate'] as String? ?? '',
-      status: json['status'] as bool? ?? false,
+      userStatus: json['status'] as bool? ?? false,
       country: json['country'] == null
           ? const Country()
           : Country.fromJson(json['country'] as Map<String, dynamic>),
@@ -36,9 +36,9 @@ _$ProfileImpl _$$ProfileImplFromJson(Map<String, dynamic> json) =>
       eventPhoto4: json['image_Profile_5'] as String?,
       accountApproved: json['account_Approved'] as bool? ?? false,
       isHygiene: json['is_Hygiene'] as bool? ?? false,
-      hygienePhoto: json['image_Hygiene'] as String?,
-      riskPhoto: json['image_Risk'] as String?,
-      registerationPhoto: json['image_Authority_Reg'] as String?,
+      hygienePhoto: json['Image_Hygiene_Cert'] as String?,
+      riskPhoto: json['Image_Risk_Assessment'] as String?,
+      registerationPhoto: json['Image_Authority_Reg'] as String?,
       driverLicensePhoto: json['image_Driver_License'] as String?,
       driverLicenseCodePhoto: json['Image_Driver_License_Code'] as String?,
       foodDeliveryInsurancePhoto:
@@ -46,7 +46,7 @@ _$ProfileImpl _$$ProfileImplFromJson(Map<String, dynamic> json) =>
       evidenceOfResidencePhoto: json['Image_Evidence_Of_Residence'] as String?,
       passportPhoto: json['image_Passport'] as String?,
       nidPhoto: json['image_Id'] as String?,
-      contractPhoto: json['image_Contract'] as String?,
+      contractPhoto: json['Image_Contract'] as String?,
     );
 
 Map<String, dynamic> _$$ProfileImplToJson(_$ProfileImpl instance) =>
@@ -68,7 +68,7 @@ Map<String, dynamic> _$$ProfileImplToJson(_$ProfileImpl instance) =>
       'pickup_Only': instance.pickupOnly,
       'signupType': instance.signupType,
       'registerDate': instance.registerDate,
-      'status': instance.status,
+      'status': instance.userStatus,
       'updatedBy': instance.updatedBy,
       'image_Profile_1': instance.eventPhoto0,
       'image_Profile_2': instance.eventPhoto1,
@@ -77,14 +77,14 @@ Map<String, dynamic> _$$ProfileImplToJson(_$ProfileImpl instance) =>
       'image_Profile_5': instance.eventPhoto4,
       'account_Approved': instance.accountApproved,
       'is_Hygiene': instance.isHygiene,
-      'image_Hygiene': instance.hygienePhoto,
-      'image_Risk': instance.riskPhoto,
-      'image_Authority_Reg': instance.registerationPhoto,
+      'Image_Hygiene_Cert': instance.hygienePhoto,
+      'Image_Risk_Assessment': instance.riskPhoto,
+      'Image_Authority_Reg': instance.registerationPhoto,
       'image_Driver_License': instance.driverLicensePhoto,
       'Image_Driver_License_Code': instance.driverLicenseCodePhoto,
       'Image_Food_Delivery_Insurance': instance.foodDeliveryInsurancePhoto,
       'Image_Evidence_Of_Residence': instance.evidenceOfResidencePhoto,
       'image_Passport': instance.passportPhoto,
       'image_Id': instance.nidPhoto,
-      'image_Contract': instance.contractPhoto,
+      'Image_Contract': instance.contractPhoto,
     };
