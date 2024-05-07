@@ -153,6 +153,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
     });
 
     on<MealListUpdateCategoryEvent>((event, emit) {
+      if (state.paginationHelper.isLoading) return;
       emit(
         state.copyWith(
           meals: [],

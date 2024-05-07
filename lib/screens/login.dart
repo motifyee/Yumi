@@ -26,6 +26,7 @@ class LoginScreen extends StatelessWidget {
             child: IntrinsicHeight(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
                     height: ThemeSelector.statics.defaultBlockGap,
