@@ -321,7 +321,8 @@ abstract class _resetReviewsEvent implements ReviewsEvent {
 /// @nodoc
 mixin _$ReviewsState {
   List<ReviewModel> get reviews => throw _privateConstructorUsedError;
-  PaginationHelper get paginationHelper => throw _privateConstructorUsedError;
+  PaginationHelper<dynamic> get paginationHelper =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ReviewsStateCopyWith<ReviewsState> get copyWith =>
@@ -334,7 +335,10 @@ abstract class $ReviewsStateCopyWith<$Res> {
           ReviewsState value, $Res Function(ReviewsState) then) =
       _$ReviewsStateCopyWithImpl<$Res, ReviewsState>;
   @useResult
-  $Res call({List<ReviewModel> reviews, PaginationHelper paginationHelper});
+  $Res call(
+      {List<ReviewModel> reviews, PaginationHelper<dynamic> paginationHelper});
+
+  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper;
 }
 
 /// @nodoc
@@ -361,8 +365,17 @@ class _$ReviewsStateCopyWithImpl<$Res, $Val extends ReviewsState>
       paginationHelper: null == paginationHelper
           ? _value.paginationHelper
           : paginationHelper // ignore: cast_nullable_to_non_nullable
-              as PaginationHelper,
+              as PaginationHelper<dynamic>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper {
+    return $PaginationHelperCopyWith<dynamic, $Res>(_value.paginationHelper,
+        (value) {
+      return _then(_value.copyWith(paginationHelper: value) as $Val);
+    });
   }
 }
 
@@ -374,7 +387,11 @@ abstract class _$$ReviewsStateImplCopyWith<$Res>
       __$$ReviewsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<ReviewModel> reviews, PaginationHelper paginationHelper});
+  $Res call(
+      {List<ReviewModel> reviews, PaginationHelper<dynamic> paginationHelper});
+
+  @override
+  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper;
 }
 
 /// @nodoc
@@ -399,7 +416,7 @@ class __$$ReviewsStateImplCopyWithImpl<$Res>
       paginationHelper: null == paginationHelper
           ? _value.paginationHelper
           : paginationHelper // ignore: cast_nullable_to_non_nullable
-              as PaginationHelper,
+              as PaginationHelper<dynamic>,
     ));
   }
 }
@@ -421,7 +438,7 @@ class _$ReviewsStateImpl implements _ReviewsState {
   }
 
   @override
-  final PaginationHelper paginationHelper;
+  final PaginationHelper<dynamic> paginationHelper;
 
   @override
   String toString() {
@@ -451,13 +468,14 @@ class _$ReviewsStateImpl implements _ReviewsState {
 
 abstract class _ReviewsState implements ReviewsState {
   const factory _ReviewsState(
-      {required final List<ReviewModel> reviews,
-      required final PaginationHelper paginationHelper}) = _$ReviewsStateImpl;
+          {required final List<ReviewModel> reviews,
+          required final PaginationHelper<dynamic> paginationHelper}) =
+      _$ReviewsStateImpl;
 
   @override
   List<ReviewModel> get reviews;
   @override
-  PaginationHelper get paginationHelper;
+  PaginationHelper<dynamic> get paginationHelper;
   @override
   @JsonKey(ignore: true)
   _$$ReviewsStateImplCopyWith<_$ReviewsStateImpl> get copyWith =>

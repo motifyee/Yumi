@@ -8,9 +8,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/reviews/reviews_bloc.dart';
-import 'package:yumi/forms/customer_pre_order_form.dart';
+import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/chef_model.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/model/review_model/review_model.dart';
 import 'package:yumi/statics/code_generator.dart';
@@ -26,7 +25,7 @@ import 'package:yumi/template/review_chef_delivery.dart';
 class ChefProfileScreen extends StatelessWidget {
   ChefProfileScreen({super.key, required this.chef, required this.menuTarget});
 
-  final ChefModel chef;
+  final Chef chef;
   MenuTarget menuTarget;
 
   List<String> eventPhotos = [];
@@ -59,6 +58,7 @@ class ChefProfileScreen extends StatelessWidget {
                     menuTarget: menuTarget,
                     chef: chef,
                     width: MediaQuery.of(context).size.width,
+                    isShowFav: true,
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(
                           ThemeSelector.statics.defaultBorderRadiusLarge),
@@ -241,87 +241,103 @@ class ChefProfileScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            if (menuTarget == MenuTarget.preOrder)
-                              TextButton(
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    context: context,
-                                    builder: (context) => CustomerPreOrderForm(
-                                      chefId: chef.id ?? '',
-                                      isPickUpOnly: chef.pickupOnly ?? false,
-                                    ),
-                                  );
-                                },
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      S.of(context).addPreOrder,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium
-                                          ?.copyWith(
-                                              fontSize:
-                                                  ThemeSelector.fonts.font_10),
-                                    ),
-                                    const Text(' '),
-                                    Container(
-                                      width:
-                                          ThemeSelector.statics.defaultLineGap,
-                                      height:
-                                          ThemeSelector.statics.defaultLineGap,
-                                      decoration: BoxDecoration(
-                                        color: ThemeSelector.colors.primary,
-                                        borderRadius: BorderRadius.circular(
-                                            ThemeSelector
-                                                .statics.defaultLineGap),
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.add,
-                                          color: ThemeSelector.colors.onPrimary,
-                                          size: ThemeSelector.fonts.font_12,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            // if (menuTarget == MenuTarget.preOrder)
+                            //   TextButton(
+                            //     onPressed: () {
+                            //       showModalBottomSheet(
+                            //         isScrollControlled: true,
+                            //         backgroundColor: Colors.transparent,
+                            //         context: context,
+                            //         builder: (context) => CustomerPreOrderForm(
+                            //           chef: chef,
+                            //           isPickUpOnly: chef.pickupOnly ?? false, meal: null,
+                            //         ),
+                            //       );
+                            //     },
+                            //     child: Row(
+                            //       children: [
+                            //         Text(
+                            //           S.of(context).addPreOrder,
+                            //           style: Theme.of(context)
+                            //               .textTheme
+                            //               .labelMedium
+                            //               ?.copyWith(
+                            //                   fontSize:
+                            //                       ThemeSelector.fonts.font_10),
+                            //         ),
+                            //         const Text(' '),
+                            //         Container(
+                            //           width:
+                            //               ThemeSelector.statics.defaultLineGap,
+                            //           height:
+                            //               ThemeSelector.statics.defaultLineGap,
+                            //           decoration: BoxDecoration(
+                            //             color: ThemeSelector.colors.primary,
+                            //             borderRadius: BorderRadius.circular(
+                            //                 ThemeSelector
+                            //                     .statics.defaultLineGap),
+                            //           ),
+                            //           child: Center(
+                            //             child: Icon(
+                            //               Icons.add,
+                            //               color: ThemeSelector.colors.onPrimary,
+                            //               size: ThemeSelector.fonts.font_12,
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
                           ],
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  S.of(context).happyCustomer,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: ThemeSelector.colors.warning,
-                                      size: ThemeSelector.fonts.font_12,
-                                    ),
-                                    Text(
-                                      '4.8(1.3k Reviews)',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelSmall
-                                          ?.copyWith(
-                                              fontSize:
-                                                  ThemeSelector.fonts.font_10),
-                                    )
-                                  ],
-                                )
-                              ],
+                            BlocProvider(
+                              create: (context) => ReviewsBloc(),
+                              child: Builder(builder: (context) {
+                                context.read<ReviewsBloc>().add(
+                                      ReviewsEvent.getAll(chefID: chef.id!),
+                                    );
+                                return BlocBuilder<ReviewsBloc, ReviewsState>(
+                                  builder: (context, state) {
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          S.of(context).happyCustomer,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            // Icon(
+                                            //   Icons.star,
+                                            //   color: ThemeSelector.colors.warning,
+                                            //   size: ThemeSelector.fonts.font_12,
+                                            // ),
+
+                                            Text(
+                                              ' ${state.paginationHelper.total} Reviews ',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelSmall
+                                                  ?.copyWith(
+                                                      fontSize: ThemeSelector
+                                                          .fonts.font_10),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
+                              }),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,

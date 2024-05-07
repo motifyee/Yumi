@@ -14,6 +14,7 @@ class MealModel {
   String? portionPersons;
   List<int>? categoriesids;
   List<IngredientsModel>? ingredients;
+  bool? isFavoritProduct;
 
   MealModel({
     this.id,
@@ -31,6 +32,7 @@ class MealModel {
     this.portionPersons,
     this.categoriesids,
     this.ingredients,
+    this.isFavoritProduct = false,
   });
 
   MealModel copyWith({
@@ -49,6 +51,7 @@ class MealModel {
     String? portionPersons,
     List<int>? categoriesids,
     List<IngredientsModel>? ingredients,
+    bool? isFavorite,
   }) {
     return MealModel(
       id: id ?? this.id,
@@ -66,6 +69,7 @@ class MealModel {
       portionPersons: portionPersons ?? this.portionPersons,
       categoriesids: categoriesids ?? this.categoriesids,
       ingredients: ingredients ?? this.ingredients,
+      isFavoritProduct: isFavorite ?? this.isFavoritProduct,
     );
   }
 
@@ -84,6 +88,7 @@ class MealModel {
     isPickUpOnly = json['pickup_Only'];
     portionPersons = json['portion_Persons']?.toString();
     categoriesids = json['categoriesIds']?.cast<int>();
+    isFavoritProduct = json['isFavoritProduct'];
     if (json['ingredients'] != null) {
       ingredients = <IngredientsModel>[];
       json['ingredients'].forEach((v) {

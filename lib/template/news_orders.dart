@@ -7,15 +7,18 @@ import 'package:yumi/template/order_card.dart';
 import 'package:yumi/template/pagination_template.dart';
 
 class NewsOrders extends StatelessWidget {
-  const NewsOrders(
-      {super.key,
-      required this.menuTarget,
-      required this.apiKey,
-      required this.orderCardTargetPage});
+  NewsOrders({
+    super.key,
+    required this.menuTarget,
+    required this.apiKey,
+    required this.orderCardTargetPage,
+    this.navFun,
+  });
 
   final MenuTarget menuTarget;
   final String apiKey;
   final OrderCardTargetPage orderCardTargetPage;
+  final Function()? navFun;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,7 @@ class NewsOrders extends StatelessWidget {
                     orderCardTargetPage: orderCardTargetPage,
                     getApiKey: apiKey,
                     menuTarget: menuTarget,
+                    navFun: navFun,
                   ),
               ],
             );

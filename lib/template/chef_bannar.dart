@@ -1,47 +1,65 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
+import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/chef_model.dart';
 import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/service/chef_service.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
-class ChefBanner extends StatelessWidget {
-  const ChefBanner({
+class ChefBanner extends StatefulWidget {
+  ChefBanner({
     super.key,
     required this.chef,
     required this.borderRadius,
     required this.width,
     required this.menuTarget,
     this.height,
+    this.isShowFav = false,
   });
 
-  final ChefModel chef;
+  Chef chef;
   final BorderRadius borderRadius;
   final double width;
   final double? height;
   final MenuTarget menuTarget;
+  final bool isShowFav;
+  @override
+  State<ChefBanner> createState() => _ChefBannerState();
+}
+
+class _ChefBannerState extends State<ChefBanner> {
+  @override
+  void initState() {
+    if (widget.isShowFav) {
+      ChefService.getIsChefFavorite(chefId: widget.chef.id!)
+          .then((value) => setState(() {
+                widget.chef = widget.chef
+                    .copyWith(isFavorite: value.data['data'].isNotEmpty);
+              }));
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(
-          height: height ?? ThemeSelector.statics.defaultImageHeight,
+          height: widget.height ?? ThemeSelector.statics.defaultImageHeight,
           child: Stack(children: [
             Container(
               clipBehavior: Clip.hardEdge,
-              width: width,
-              decoration: BoxDecoration(borderRadius: borderRadius),
+              width: widget.width,
+              decoration: BoxDecoration(borderRadius: widget.borderRadius),
               child: Hero(
-                tag: 'chef_${chef.id}',
+                tag: 'chef_${widget.chef.id}',
                 child: SizedBox(
                   child: Image.memory(
-                    base64Decode(chef.imageProfile ?? ''),
+                    base64Decode(widget.chef.imageProfile ?? ''),
                     fit: BoxFit.cover,
                     alignment: Alignment.topCenter,
                     errorBuilder: (context, error, stackTrace) => Image.asset(
@@ -59,7 +77,7 @@ class ChefBanner extends StatelessWidget {
                 padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
                 child: Row(
                   children: [
-                    if (menuTarget == MenuTarget.order)
+                    if (widget.menuTarget == MenuTarget.order)
                       Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: ThemeSelector.statics.defaultGap),
@@ -72,7 +90,7 @@ class ChefBanner extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ),
-                    if (chef.pickupOnly == true)
+                    if (widget.chef.pickupOnly == true)
                       Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: ThemeSelector.statics.defaultGap),
@@ -100,7 +118,7 @@ class ChefBanner extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    [chef.firstName, chef.lastName].join(' '),
+                    [widget.chef.firstName, widget.chef.lastName].join(' '),
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           fontSize: ThemeSelector.fonts.font_16,
                         ),
@@ -134,26 +152,33 @@ class ChefBanner extends StatelessWidget {
               ),
               Column(
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      if (chef.isFavorite) {
-                        context
-                            .read<ChefsListBloc>()
-                            .add(RemoveChefToFavoriteEvent(chef: chef));
-                      } else {
-                        context
-                            .read<ChefsListBloc>()
-                            .add(AddChefToFavoriteEvent(chef: chef));
-                      }
-                    },
-                    child: chef.isFavorite
-                        ? SvgPicture.asset('assets/images/heart.svg',
-                            colorFilter: ColorFilter.mode(
-                                ThemeSelector.colors.primary, BlendMode.srcIn),
-                            fit: BoxFit.contain)
-                        : SvgPicture.asset('assets/images/heart_outline.svg',
-                            fit: BoxFit.contain),
-                  ),
+                  if (widget.isShowFav)
+                    TextButton(
+                      onPressed: () {
+                        if (widget.chef.isFavorite != true) {
+                          ChefService.addFavoriteChef(chefId: widget.chef.id!)
+                              .then((value) => setState(() {
+                                    widget.chef =
+                                        widget.chef.copyWith(isFavorite: true);
+                                  }));
+                        } else {
+                          ChefService.removeFavoriteChef(
+                                  chefId: widget.chef.id!)
+                              .then((value) => setState(() {
+                                    widget.chef =
+                                        widget.chef.copyWith(isFavorite: false);
+                                  }));
+                        }
+                      },
+                      child: widget.chef.isFavorite
+                          ? SvgPicture.asset('assets/images/heart.svg',
+                              colorFilter: ColorFilter.mode(
+                                  ThemeSelector.colors.primary,
+                                  BlendMode.srcIn),
+                              fit: BoxFit.contain)
+                          : SvgPicture.asset('assets/images/heart_outline.svg',
+                              fit: BoxFit.contain),
+                    ),
                   Text(
                     '0.2 Km',
                     style: Theme.of(context).textTheme.bodyMedium,

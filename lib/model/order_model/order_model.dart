@@ -21,6 +21,8 @@ class OrderModel with _$OrderModel {
     double? invoiceDiscount,
     int? bankID,
     String? createdDate,
+    String? updatedDate,
+    @JsonKey(name: 'schedule_Date') String? scheduleDate,
     String? clientName,
     String? clientMobile,
     String? clientDefaultAddress,
@@ -39,6 +41,66 @@ class OrderModel with _$OrderModel {
     @JsonKey(name: 'is_Pickup') final bool? isPickUp,
     @Default([]) List<InvoiceDetails>? invoiceDetails,
   }) = _OrderModel;
+
+  const OrderModel._();
+
+  bool get isChefDelayed =>
+      DateTime.now()
+              .difference(
+                  DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
+              .inMinutes >
+          35 &&
+      chefStart == true &&
+      chefFinished != true;
+
+  bool get isDriverDelayed =>
+      DateTime.now()
+              .difference(
+                  DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
+              .inMinutes >
+          70 &&
+      chefFinished == true &&
+      clientReceived != true;
+
+  bool get isDriverOrderPendingEnd =>
+      DateTime.now()
+          .difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
+          .inSeconds >
+      120;
+
+  bool get isDriverPreOrderPendingEnd =>
+      DateTime.now()
+          .difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
+          .inMinutes >
+      (24 * 60);
+
+  String get driverOrderPendingCount =>
+      '${120 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inSeconds}s';
+
+  String get driverPreOrderPendingCount => [
+        if ((24 -
+                DateTime.now()
+                    .difference(
+                        DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
+                    .inHours) >
+            0)
+          '${24 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours}h ',
+        if ((24 -
+                DateTime.now()
+                    .difference(
+                        DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
+                    .inHours) ==
+            0)
+          '${(24 * 60) - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes}m'
+      ].join(' ');
+
+  bool get isClientReceivedOverDay =>
+      DateTime.now()
+              .difference(
+                  DateTime.tryParse(clientReceivedDate ?? '') ?? DateTime.now())
+              .inHours >
+          24 &&
+      clientReceived == true;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
@@ -90,9 +152,12 @@ enum OrderCardTargetPage {
   driverAccept,
   driverReceived,
   driverHistory,
+
+  chefPending,
   chefReceived,
   chefPreparing,
   chefReady,
   chefHistory,
+
   view
 }

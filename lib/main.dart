@@ -1,23 +1,22 @@
-import 'package:nested/nested.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:nested/nested.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:yumi/app/pages/chef_application/bloc.dart';
+import 'package:yumi/app/pages/chef_application/documentation/bloc/documentation_bloc.dart';
+import 'package:yumi/app/pages/chef_application/documentation/bloc/icon_bloc.dart';
+import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
+import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
-import 'package:yumi/bloc/basket/basket_form_bloc.dart';
 import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
 import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/app/pages/chef_application/bloc.dart';
-import 'package:yumi/app/pages/chef_application/documentation/bloc/documentation_bloc.dart';
-import 'package:yumi/app/pages/chef_application/documentation/bloc/icon_bloc.dart';
-import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
-import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -78,7 +77,6 @@ class MyApp extends StatelessWidget {
       BlocProvider(create: (context) => IngredientListBloc()),
       BlocProvider(create: (context) => IngredientFormBloc()),
       BlocProvider(create: (context) => ChefsListBloc()),
-      BlocProvider(create: (context) => BasketFormBloc()),
       BlocProvider(create: (context) => ScheduleCubit()),
     ];
   }

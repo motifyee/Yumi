@@ -37,3 +37,17 @@ class MealListUpdateCaloriesEvent implements MealListEvent {
   MealListUpdateCaloriesEvent(
       {required this.searchText, required this.context});
 }
+
+class MealListGetFavoriteMealsEvent implements MealListEvent {}
+
+class MealListAddFavoriteMealEvent implements MealListEvent {
+  final MealModel meal;
+
+  MealListAddFavoriteMealEvent({required this.meal});
+}
+
+class MealListRemoveFavoriteMealEvent implements MealListEvent {
+  final MealModel meal;
+
+  MealListRemoveFavoriteMealEvent({required this.meal});
+}

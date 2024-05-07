@@ -2112,11 +2112,11 @@ class S {
     );
   }
 
-  /// `You can now create your review to the driver & chef`
-  String get youCanNowCreateYourReviewToTheDriverChef {
+  /// `You can now create your review.`
+  String get youCanNowCreateYourReview {
     return Intl.message(
-      'You can now create your review to the driver & chef',
-      name: 'youCanNowCreateYourReviewToTheDriverChef',
+      'You can now create your review.',
+      name: 'youCanNowCreateYourReview',
       desc: '',
       args: [],
     );
@@ -2187,6 +2187,166 @@ class S {
     return Intl.message(
       'confirm Pick Up',
       name: 'confirmPickUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Deleted Successfully`
+  String get orderDeletedSuccessfully {
+    return Intl.message(
+      'Order Deleted Successfully',
+      name: 'orderDeletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wait`
+  String get wait {
+    return Intl.message(
+      'Wait',
+      name: 'wait',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thank you for waiting`
+  String get thankYouForWaiting {
+    return Intl.message(
+      'Thank you for waiting',
+      name: 'thankYouForWaiting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Canceled`
+  String get orderCanceled {
+    return Intl.message(
+      'Order Canceled',
+      name: 'orderCanceled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Client Received`
+  String get clientReceived {
+    return Intl.message(
+      'Client Received',
+      name: 'clientReceived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Basket Created`
+  String get basketCreated {
+    return Intl.message(
+      'Basket Created',
+      name: 'basketCreated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Basket Updated`
+  String get basketUpdated {
+    return Intl.message(
+      'Basket Updated',
+      name: 'basketUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Created`
+  String get OrderCreated {
+    return Intl.message(
+      'Order Created',
+      name: 'OrderCreated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Basket Deleted`
+  String get basketDeleted {
+    return Intl.message(
+      'Basket Deleted',
+      name: 'basketDeleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Api Error`
+  String get apiError {
+    return Intl.message(
+      'Api Error',
+      name: 'apiError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your order send to saved location`
+  String get yourOrderSendToSavedLocation {
+    return Intl.message(
+      'Your order send to saved location',
+      name: 'yourOrderSendToSavedLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to continue?`
+  String get doYouWantToContinue {
+    return Intl.message(
+      'Do you want to continue?',
+      name: 'doYouWantToContinue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change`
+  String get change {
+    return Intl.message(
+      'Change',
+      name: 'change',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your order will be cancelled`
+  String get yourOrderWillBeCancelled {
+    return Intl.message(
+      'Your order will be cancelled',
+      name: 'yourOrderWillBeCancelled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Schedule Date`
+  String get scheduleDate {
+    return Intl.message(
+      'Schedule Date',
+      name: 'scheduleDate',
       desc: '',
       args: [],
     );

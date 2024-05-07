@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/model/chef_model.dart';
+import 'package:yumi/domain/chef/entity/chef.dart';
 
 part 'review_model.freezed.dart';
 part 'review_model.g.dart';
@@ -13,7 +13,7 @@ class ReviewModel with _$ReviewModel {
     @Default('') @JsonKey(name: 'review_Comment') String reviewComment,
     @Default(0.0) double rate,
     @Default('') @JsonKey(includeToJson: false) String customerName,
-    @JsonKey(includeToJson: false) ChefModel? chef,
+    @JsonKey(includeToJson: false) Chef? chef,
   }) = _ReviewModel;
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) =>

@@ -18,8 +18,7 @@ class OrderStatusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime? _driverAcceptDate =
-        DateTime.tryParse(order.driverAcceptDate ?? '');
+    DateTime? _createdDate = DateTime.tryParse(order.createdDate ?? '');
     DateTime? _chefStartDate = DateTime.tryParse(order.chefStartDate ?? '');
     DateTime? _chefFinishedDate =
         DateTime.tryParse(order.chefFinishedDate ?? '');
@@ -71,8 +70,7 @@ class OrderStatusScreen extends StatelessWidget {
                     SizedBox(height: ThemeSelector.statics.defaultGap),
                     Icon(
                       Icons.access_time_filled,
-                      color: ThemeSelector.colors.primary
-                          .withAlpha(order.driverAccept == true ? 255 : 100),
+                      color: ThemeSelector.colors.primary.withAlpha(255),
                     ),
                     Container(
                       height: 75,
@@ -83,8 +81,8 @@ class OrderStatusScreen extends StatelessWidget {
                         child: CustomPaint(
                           painter: DrawDottedVerticalLine(
                               height: 200,
-                              color: ThemeSelector.colors.primary.withAlpha(
-                                  order.driverAccept == true ? 255 : 100)),
+                              color:
+                                  ThemeSelector.colors.primary.withAlpha(255)),
                         ),
                       ),
                     ),
@@ -129,14 +127,6 @@ class OrderStatusScreen extends StatelessWidget {
                               Text(S.of(context).orderReceived,
                                   style:
                                       Theme.of(context).textTheme.bodyMedium),
-                              if (order.driverAccept == true)
-                                Text('05:00',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(
-                                            color: ThemeSelector
-                                                .colors.secondaryTantLighter)),
                             ],
                           ),
                           Row(
@@ -148,10 +138,8 @@ class OrderStatusScreen extends StatelessWidget {
                               ),
                               const Text(' '),
                               Text(
-                                order.driverAccept == true
-                                    ? DateFormat('hh:mm a, d MMM yyyy')
-                                        .format(_driverAcceptDate!)
-                                    : '--:--',
+                                DateFormat('d-M-yyyy | hh:mm')
+                                    .format(_createdDate!),
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ],
@@ -176,14 +164,6 @@ class OrderStatusScreen extends StatelessWidget {
                               Text(S.of(context).preparingOrder,
                                   style:
                                       Theme.of(context).textTheme.bodyMedium),
-                              if (order.chefStart == true)
-                                Text('05:00',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(
-                                            color: ThemeSelector
-                                                .colors.secondaryTantLighter)),
                             ],
                           ),
                           Row(
@@ -196,9 +176,9 @@ class OrderStatusScreen extends StatelessWidget {
                               const Text(' '),
                               Text(
                                 order.chefStart == true
-                                    ? DateFormat('hh:mm a, d MMM yyyy')
+                                    ? DateFormat('d-M-yyyy | hh:mm')
                                         .format(_chefStartDate!)
-                                    : '08:04 AM, 10 Nov 2023',
+                                    : '--:--',
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ],
@@ -224,14 +204,6 @@ class OrderStatusScreen extends StatelessWidget {
                                 Text(S.of(context).onTheWay,
                                     style:
                                         Theme.of(context).textTheme.bodyMedium),
-                                if (order.driverReceived == true)
-                                  Text('05:00',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(
-                                              color: ThemeSelector.colors
-                                                  .secondaryTantLighter)),
                               ],
                             ),
                             Row(
@@ -244,7 +216,7 @@ class OrderStatusScreen extends StatelessWidget {
                                 const Text(' '),
                                 Text(
                                   order.driverReceived == true
-                                      ? DateFormat('hh:mm a, d MMM yyyy')
+                                      ? DateFormat('d-M-yyyy | hh:mm')
                                           .format(_driverReceivedDate!)
                                       : '--:--',
                                   style:
@@ -299,14 +271,6 @@ class OrderStatusScreen extends StatelessWidget {
                                 Text(S.of(context).ready,
                                     style:
                                         Theme.of(context).textTheme.bodyMedium),
-                                if (order.chefFinished == true)
-                                  Text('05:00',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(
-                                              color: ThemeSelector.colors
-                                                  .secondaryTantLighter)),
                               ],
                             ),
                             Row(
@@ -319,7 +283,7 @@ class OrderStatusScreen extends StatelessWidget {
                                 const Text(' '),
                                 Text(
                                   order.chefFinished == true
-                                      ? DateFormat('hh:mm a, d MMM yyyy')
+                                      ? DateFormat('d-M-yyyy | hh:mm')
                                           .format(_chefFinishedDate!)
                                       : '--:--',
                                   style:
@@ -334,52 +298,57 @@ class OrderStatusScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Hero(
-              tag: 'ConfirmBasketSeries',
-              child: GestureDetector(
-                onTap: () {
-                  showDialog(
-                    useSafeArea: true,
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      scrollable: true,
-                      alignment: Alignment.center,
-                      backgroundColor: Colors.transparent,
-                      surfaceTintColor: Colors.transparent,
-                      insetPadding: EdgeInsets.zero,
-                      content: ReviewChefDriver(
-                        isChefOnly: order.isPickUp == true ? true : false,
-                        reviewChef: const ReviewModel().copyWith(
-                          buddiesUserId: order.chefID ?? '',
-                          code: CodeGenerator.getRandomCode(),
-                        ),
-                        reviewDriver: const ReviewModel().copyWith(
-                          buddiesUserId: order.driverID ?? '',
-                          code: CodeGenerator.getRandomCode(),
-                        ),
-                      ),
+            if (!order.isClientReceivedOverDay)
+              Hero(
+                tag: 'ConfirmBasketSeries',
+                child: GestureDetector(
+                  onTap: order.clientReceived != true
+                      ? null
+                      : () {
+                          showDialog(
+                            useSafeArea: true,
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              scrollable: true,
+                              alignment: Alignment.center,
+                              backgroundColor: Colors.transparent,
+                              surfaceTintColor: Colors.transparent,
+                              insetPadding: EdgeInsets.zero,
+                              content: ReviewChefDriver(
+                                isChefOnly:
+                                    order.isPickUp == true ? true : false,
+                                reviewChef: const ReviewModel().copyWith(
+                                  buddiesUserId: order.chefID ?? '',
+                                  code: CodeGenerator.getRandomCode(),
+                                ),
+                                reviewDriver: const ReviewModel().copyWith(
+                                  buddiesUserId: order.driverID ?? '',
+                                  code: CodeGenerator.getRandomCode(),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                  child: Container(
+                    width: ThemeSelector.statics.defaultGapXXXL * 1.6,
+                    height: ThemeSelector.statics.defaultTitleGapLarge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                          ThemeSelector.statics.defaultBorderRadius),
+                      color: ThemeSelector.colors.primary
+                          .withAlpha(order.clientReceived != true ? 100 : 255),
                     ),
-                  );
-                },
-                child: Container(
-                  width: ThemeSelector.statics.defaultGapXXXL * 1.6,
-                  height: ThemeSelector.statics.defaultTitleGapLarge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                        ThemeSelector.statics.defaultBorderRadius),
-                    color: ThemeSelector.colors.primary,
-                  ),
-                  child: Center(
-                    child: Text(
-                      order.isPickUp == true
-                          ? S.of(context).confirmPickUp
-                          : S.of(context).confirmDelivery,
-                      style: Theme.of(context).textTheme.displaySmall,
+                    child: Center(
+                      child: Text(
+                        order.isPickUp == true
+                            ? S.of(context).confirmPickUp
+                            : S.of(context).confirmDelivery,
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),

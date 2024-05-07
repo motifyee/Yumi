@@ -16,20 +16,21 @@ import 'package:yumi/app/pages/auth/register/model/address.dart' as _i35;
 import 'package:yumi/app/pages/auth/register/otp_screen.dart' as _i22;
 import 'package:yumi/app/pages/auth/register/reg_screen.dart' as _i27;
 import 'package:yumi/app/pages/auth/register/signup_screen.dart' as _i28;
+import 'package:yumi/app/pages/basket/basket_screen.dart' as _i2;
+import 'package:yumi/app/pages/calories/calories_screen.dart' as _i3;
 import 'package:yumi/app/pages/chef_application/application_flow_screen.dart'
     as _i6;
 import 'package:yumi/app/pages/chef_application/contract/contract_screen.dart'
     as _i8;
 import 'package:yumi/app/pages/chef_application/documentation/documentation_screen.dart'
     as _i11;
+import 'package:yumi/app/pages/notification/notification.dart' as _i21;
 import 'package:yumi/app/pages/schedule/schedule_screen.dart' as _i20;
-import 'package:yumi/model/chef_model.dart' as _i33;
+import 'package:yumi/domain/chef/entity/chef.dart' as _i33;
 import 'package:yumi/model/meal_model.dart' as _i34;
 import 'package:yumi/model/order_model/order_model.dart' as _i36;
 import 'package:yumi/screens/chat.dart' as _i4;
-import 'package:yumi/screens/chef/calories.dart' as _i3;
 import 'package:yumi/screens/chef/menu_pre.dart' as _i18;
-import 'package:yumi/screens/customer/basket.dart' as _i2;
 import 'package:yumi/screens/customer/checkout.dart' as _i5;
 import 'package:yumi/screens/customer/chef_profile.dart' as _i7;
 import 'package:yumi/screens/customer/customer_location.dart' as _i9;
@@ -44,7 +45,6 @@ import 'package:yumi/screens/financial_view.dart' as _i12;
 import 'package:yumi/screens/forget_password.dart' as _i13;
 import 'package:yumi/screens/home.dart' as _i14;
 import 'package:yumi/screens/login.dart' as _i16;
-import 'package:yumi/screens/notification.dart' as _i21;
 import 'package:yumi/screens/performance_analysis.dart' as _i26;
 import 'package:yumi/screens/transactions.dart' as _i30;
 
@@ -393,7 +393,7 @@ class ChefApplicationFlowRoute extends _i31.PageRouteInfo<void> {
 class ChefProfileRoute extends _i31.PageRouteInfo<ChefProfileRouteArgs> {
   ChefProfileRoute({
     _i32.Key? key,
-    required _i33.ChefModel chef,
+    required _i33.Chef chef,
     required _i34.MenuTarget menuTarget,
     List<_i31.PageRouteInfo>? children,
   }) : super(
@@ -421,7 +421,7 @@ class ChefProfileRouteArgs {
 
   final _i32.Key? key;
 
-  final _i33.ChefModel chef;
+  final _i33.Chef chef;
 
   final _i34.MenuTarget menuTarget;
 
@@ -632,7 +632,7 @@ class MealProfileRoute extends _i31.PageRouteInfo<MealProfileRouteArgs> {
   MealProfileRoute({
     _i32.Key? key,
     required _i34.MealModel meal,
-    required _i33.ChefModel chef,
+    required _i33.Chef chef,
     List<_i31.PageRouteInfo>? children,
   }) : super(
           MealProfileRoute.name,
@@ -661,7 +661,7 @@ class MealProfileRouteArgs {
 
   final _i34.MealModel meal;
 
-  final _i33.ChefModel chef;
+  final _i33.Chef chef;
 
   @override
   String toString() {

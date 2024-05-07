@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/basket/basket_form_bloc.dart';
+import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/screens/customer/payment_paypal.dart';
@@ -248,15 +248,16 @@ class CheckOutScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         PaymentSummaryCard(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              S.of(context).disclaimer,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ],
-                        ),
+                        if (false)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                S.of(context).disclaimer,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
                       ],
                     ),
                     Column(
@@ -266,26 +267,15 @@ class CheckOutScreen extends StatelessWidget {
                           children: [
                             Hero(
                               tag: 'ConfirmBasketSeries',
-                              child:
-                                  BlocConsumer<BasketFormBloc, BasketFormState>(
+                              child: BlocConsumer<BasketCubit, BasketState>(
                                 listener: (context, state) {},
                                 builder: (context, state) {
                                   return GestureDetector(
                                     onTap: () {
-                                      if (state.isPickUpOnly) {
-                                        context.read<BasketFormBloc>().add(
-                                              BasketFormUpdateEvent(
-                                                invoice: state.invoice.copyWith(
-                                                    isPickup: true,
-                                                    isDelivery: false),
-                                                isPickUpOnly:
-                                                    state.isPickUpOnly,
-                                              ),
-                                            );
-                                        context.read<BasketFormBloc>().add(
-                                            BasketFormPostRequestEvent(
-                                                context: context,
-                                                isDone: true));
+                                      if (state.basket.isPickupOnly) {
+                                        context
+                                            .read<BasketCubit>()
+                                            .closeBasket();
                                       } else {
                                         showDialog(
                                             context: context,

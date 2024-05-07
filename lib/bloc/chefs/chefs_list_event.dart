@@ -14,13 +14,19 @@ class GetChefsListEvent implements ChefsListEvent {
       this.isFavorite = false});
 }
 
+class GetChefIsFavoriteEvent implements ChefsListEvent {
+  final Chef chef;
+
+  GetChefIsFavoriteEvent({required this.chef});
+}
+
 class AddChefToFavoriteEvent implements ChefsListEvent {
-  final ChefModel chef;
+  final Chef chef;
   AddChefToFavoriteEvent({required this.chef});
 }
 
 class RemoveChefToFavoriteEvent implements ChefsListEvent {
-  final ChefModel chef;
+  final Chef chef;
   RemoveChefToFavoriteEvent({required this.chef});
 }
 

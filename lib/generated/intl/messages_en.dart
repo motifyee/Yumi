@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "OrderCreated": MessageLookupByLibrary.simpleMessage("Order Created"),
         "about": MessageLookupByLibrary.simpleMessage("About"),
         "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "accountName": MessageLookupByLibrary.simpleMessage("Account name"),
@@ -41,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "am": MessageLookupByLibrary.simpleMessage("AM"),
         "anythingElseWeNeedToKnow": MessageLookupByLibrary.simpleMessage(
             "Anything else we need to know?"),
+        "apiError": MessageLookupByLibrary.simpleMessage("Api Error"),
         "areYouSureToDeleteAMeal": MessageLookupByLibrary.simpleMessage(
             "Are you sure to delete a meal?"),
         "arrivesIn": MessageLookupByLibrary.simpleMessage("Arrives In"),
@@ -49,6 +51,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "bankCurrency": MessageLookupByLibrary.simpleMessage("Bank currency"),
         "bankName": MessageLookupByLibrary.simpleMessage("Bank name"),
         "basket": MessageLookupByLibrary.simpleMessage("Basket"),
+        "basketCreated": MessageLookupByLibrary.simpleMessage("Basket Created"),
+        "basketDeleted": MessageLookupByLibrary.simpleMessage("Basket Deleted"),
+        "basketUpdated": MessageLookupByLibrary.simpleMessage("Basket Updated"),
         "bio": MessageLookupByLibrary.simpleMessage("Bio"),
         "branchAddress": MessageLookupByLibrary.simpleMessage("Branch address"),
         "busy": MessageLookupByLibrary.simpleMessage("Busy"),
@@ -57,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Calories reference"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cardNumber": MessageLookupByLibrary.simpleMessage("Card number"),
+        "change": MessageLookupByLibrary.simpleMessage("Change"),
         "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
         "chefCuisines": MessageLookupByLibrary.simpleMessage("Chef Cuisines"),
         "chefEvents": MessageLookupByLibrary.simpleMessage("Chef events"),
@@ -64,6 +70,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chefs": MessageLookupByLibrary.simpleMessage("Chefs"),
         "clickTheIconToViewCustomerNotes": MessageLookupByLibrary.simpleMessage(
             "Click the icon to view customer notes"),
+        "clientReceived":
+            MessageLookupByLibrary.simpleMessage("Client Received"),
         "closed": MessageLookupByLibrary.simpleMessage("Closed"),
         "confirmDelivery":
             MessageLookupByLibrary.simpleMessage("Confirm Delivery"),
@@ -99,6 +107,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "disclaimer": MessageLookupByLibrary.simpleMessage("Disclaimer"),
         "dishName": MessageLookupByLibrary.simpleMessage("Dish Name"),
+        "doYouWantToContinue":
+            MessageLookupByLibrary.simpleMessage("Do you want to continue?"),
         "documentation": MessageLookupByLibrary.simpleMessage("Documentation"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -169,8 +179,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "opened": MessageLookupByLibrary.simpleMessage("Opened"),
         "orSignUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
         "orderAgain": MessageLookupByLibrary.simpleMessage("Order Again"),
+        "orderCanceled": MessageLookupByLibrary.simpleMessage("Order Canceled"),
         "orderCreatedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Order created successfully"),
+        "orderDeletedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Order Deleted Successfully"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("Order Details"),
         "orderId": MessageLookupByLibrary.simpleMessage("Order Id"),
         "orderReceived": MessageLookupByLibrary.simpleMessage("Order received"),
@@ -233,6 +246,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Save credit card details"),
         "saveOnYourOrder":
             MessageLookupByLibrary.simpleMessage("Save on your order"),
+        "scheduleDate": MessageLookupByLibrary.simpleMessage("Schedule Date"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchForFood":
             MessageLookupByLibrary.simpleMessage("Search for food"),
@@ -257,6 +271,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
         "suggestions": MessageLookupByLibrary.simpleMessage("Suggestions"),
         "swiftCode": MessageLookupByLibrary.simpleMessage("Swift code"),
+        "thankYouForWaiting":
+            MessageLookupByLibrary.simpleMessage("Thank you for waiting"),
         "thankYouForYourReview":
             MessageLookupByLibrary.simpleMessage("Thank you for your review."),
         "theChef": MessageLookupByLibrary.simpleMessage("The chef"),
@@ -286,14 +302,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "userName": MessageLookupByLibrary.simpleMessage("User name"),
         "view": MessageLookupByLibrary.simpleMessage("View"),
         "vouchers": MessageLookupByLibrary.simpleMessage("Vouchers"),
+        "wait": MessageLookupByLibrary.simpleMessage("Wait"),
         "wallet": MessageLookupByLibrary.simpleMessage("Wallet"),
         "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
         "whatYouWishToEatToday":
             MessageLookupByLibrary.simpleMessage("What you wish to eat today?"),
         "writeABio": MessageLookupByLibrary.simpleMessage("Write a Bio"),
-        "youCanNowCreateYourReviewToTheDriverChef":
-            MessageLookupByLibrary.simpleMessage(
-                "You can now create your review to the driver & chef"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes"),
+        "youCanNowCreateYourReview": MessageLookupByLibrary.simpleMessage(
+            "You can now create your review."),
+        "yourOrderSendToSavedLocation": MessageLookupByLibrary.simpleMessage(
+            "Your order send to saved location"),
+        "yourOrderWillBeCancelled": MessageLookupByLibrary.simpleMessage(
+            "Your order will be cancelled"),
         "yourOrders": MessageLookupByLibrary.simpleMessage("Your orders"),
         "yourWallet": MessageLookupByLibrary.simpleMessage("Your wallet"),
         "yumi": MessageLookupByLibrary.simpleMessage("YUMI")

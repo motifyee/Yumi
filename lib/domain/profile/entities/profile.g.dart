@@ -11,7 +11,7 @@ _$ProfileImpl _$$ProfileImplFromJson(Map<String, dynamic> json) =>
       code: json['code'] as String? ?? '',
       branchId: json['branchId'] as String? ?? '',
       guid: json['guid'] as String? ?? '',
-      id: json['id'] as int? ?? 0,
+      id: (json['id'] as num?)?.toInt() ?? 0,
       fullName: json['fullName'] as String? ?? '',
       userName: json['userName'] as String? ?? '',
       bio: json['bio'] as String? ?? '',
@@ -22,7 +22,7 @@ _$ProfileImpl _$$ProfileImplFromJson(Map<String, dynamic> json) =>
       about: json['about'] as String? ?? '',
       pickup: json['pickup_Allowed'] as bool? ?? false,
       pickupOnly: json['pickup_Only'] as bool? ?? false,
-      signupType: json['signupType'] as int? ?? 0,
+      signupType: (json['signupType'] as num?)?.toInt() ?? 0,
       registerDate: json['registerDate'] as String? ?? '',
       userStatus: json['status'] as bool? ?? false,
       country: json['country'] == null

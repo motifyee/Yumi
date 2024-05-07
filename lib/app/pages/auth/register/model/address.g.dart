@@ -9,7 +9,7 @@ part of 'address.dart';
 _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
     _$AddressImpl(
       code: json['code'] as String?,
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       addressDetails: json['address'] as String?,
       addressTitle: json['address_Name'] as String?,
       location: json['location'] as String?,

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/basket/basket_form_bloc.dart';
+import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -37,21 +37,18 @@ class DeliveryOptionDialog extends StatelessWidget {
                 ),
               ],
             ),
-            BlocConsumer<BasketFormBloc, BasketFormState>(
+            BlocConsumer<BasketCubit, BasketState>(
               listener: (context, state) {},
               builder: (context, state) {
-                bool? _option = state.invoice.isDelivery;
+                bool? _option = state.basket.isDelivery;
                 return Row(
                   children: [
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          context.read<BasketFormBloc>().add(
-                                BasketFormUpdateEvent(
-                                    invoice: state.invoice.copyWith(
-                                        isPickup: true, isDelivery: false),
-                                    isPickUpOnly: false),
-                              );
+                          context
+                              .read<BasketCubit>()
+                              .updateDeliverPickUp(isDelivery: false);
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -89,12 +86,8 @@ class DeliveryOptionDialog extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           context
-                              .read<BasketFormBloc>()
-                              .add(BasketFormUpdateEvent(
-                                invoice: state.invoice.copyWith(
-                                    isPickup: false, isDelivery: true),
-                                isPickUpOnly: false,
-                              ));
+                              .read<BasketCubit>()
+                              .updateDeliverPickUp(isDelivery: true);
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -106,11 +99,12 @@ class DeliveryOptionDialog extends StatelessWidget {
                                 width: ThemeSelector.statics.defaultLineGap,
                                 height: ThemeSelector.statics.defaultLineGap,
                                 decoration: BoxDecoration(
-                                    color: _option == true
-                                        ? ThemeSelector.colors.primary
-                                        : ThemeSelector.colors.secondaryFaint,
-                                    borderRadius: BorderRadius.circular(
-                                        ThemeSelector.statics.defaultLineGap)),
+                                  color: _option == true
+                                      ? ThemeSelector.colors.primary
+                                      : ThemeSelector.colors.secondaryFaint,
+                                  borderRadius: BorderRadius.circular(
+                                      ThemeSelector.statics.defaultLineGap),
+                                ),
                               ),
                               SizedBox(width: ThemeSelector.statics.defaultGap),
                               Row(
@@ -149,9 +143,7 @@ class DeliveryOptionDialog extends StatelessWidget {
                 SizedBox(width: ThemeSelector.statics.defaultLineGap),
                 TextButton(
                     onPressed: () {
-                      context
-                          .read<BasketFormBloc>()
-                          .add(BasketFormPostRequestEvent(context: context));
+                      context.read<BasketCubit>().closeBasket();
                     },
                     child: Text(
                       S.of(context).placeOrder,

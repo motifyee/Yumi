@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
@@ -22,6 +23,8 @@ class ProductInCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        print('invoiceDetails.note  **************************************');
+        print(invoiceDetails.note);
         if (invoiceDetails.note != null && invoiceDetails.note != '') {
           showModalBottomSheet(
             context: context,
@@ -113,24 +116,35 @@ class _ProductImage extends StatelessWidget {
   InvoiceDetails invoiceDetails;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-            ThemeSelector.statics.defaultBorderRadiusSmall),
-      ),
-      child: Image.memory(
-        base64Decode(invoiceDetails.image ?? ''),
-        width: ThemeSelector.statics.iconSizeLarge,
-        height: ThemeSelector.statics.iconSizeLarge,
-        fit: BoxFit.fill,
-        errorBuilder: (context, error, stackTrace) => Image.asset(
-          'assets/images/354.jpeg',
-          width: ThemeSelector.statics.iconSizeLarge,
-          height: ThemeSelector.statics.iconSizeLarge,
-          fit: BoxFit.fill,
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(
+                ThemeSelector.statics.defaultBorderRadiusSmall),
+          ),
+          child: Image.memory(
+            base64Decode(invoiceDetails.image ?? ''),
+            width: ThemeSelector.statics.iconSizeLarge,
+            height: ThemeSelector.statics.iconSizeLarge,
+            fit: BoxFit.fill,
+            errorBuilder: (context, error, stackTrace) => Image.asset(
+              'assets/images/354.jpeg',
+              width: ThemeSelector.statics.iconSizeLarge,
+              height: ThemeSelector.statics.iconSizeLarge,
+              fit: BoxFit.fill,
+            ),
+          ),
         ),
-      ),
+        if (invoiceDetails.note == null || invoiceDetails.note != '')
+          Positioned(
+            top: (ThemeSelector.statics.defaultGap / 2) * -1,
+            left: (ThemeSelector.statics.defaultGap / 2) * -1,
+            child: SvgPicture.asset('assets/images/label_yellow.svg'),
+          ),
+      ],
     );
   }
 }

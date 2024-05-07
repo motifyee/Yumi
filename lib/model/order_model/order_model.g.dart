@@ -8,7 +8,7 @@ part of 'order_model.dart';
 
 _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
     _$OrderModelImpl(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       chefID: json['chef_ID'] as String?,
       driverID: json['driver_ID'] as String?,
       employeeNote: json['employeeNote'] as String?,
@@ -21,8 +21,10 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
       totalPrice: (json['totalPrice'] as num?)?.toDouble(),
       invoiceTax: (json['invoiceTax'] as num?)?.toDouble(),
       invoiceDiscount: (json['invoiceDiscount'] as num?)?.toDouble(),
-      bankID: json['bankID'] as int?,
+      bankID: (json['bankID'] as num?)?.toInt(),
       createdDate: json['createdDate'] as String?,
+      updatedDate: json['updatedDate'] as String?,
+      scheduleDate: json['schedule_Date'] as String?,
       clientName: json['clientName'] as String?,
       clientMobile: json['clientMobile'] as String?,
       clientDefaultAddress: json['clientDefaultAddress'] as String?,
@@ -62,6 +64,8 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
       'invoiceDiscount': instance.invoiceDiscount,
       'bankID': instance.bankID,
       'createdDate': instance.createdDate,
+      'updatedDate': instance.updatedDate,
+      'schedule_Date': instance.scheduleDate,
       'clientName': instance.clientName,
       'clientMobile': instance.clientMobile,
       'clientDefaultAddress': instance.clientDefaultAddress,
@@ -83,7 +87,7 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
 
 _$InvoiceDetailsImpl _$$InvoiceDetailsImplFromJson(Map<String, dynamic> json) =>
     _$InvoiceDetailsImpl(
-      productVarintId: json['productVarintId'] as int?,
+      productVarintId: (json['productVarintId'] as num?)?.toInt(),
       quantity: (json['quantity'] as num?)?.toDouble(),
       productVarintPrice: (json['productVarintPrice'] as num?)?.toDouble(),
       totalProductVarintFinalPrice:
@@ -111,7 +115,7 @@ Map<String, dynamic> _$$InvoiceDetailsImplToJson(
 
 _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
     _$ProductImpl(
-      productID: json['productID'] as int?,
+      productID: (json['productID'] as num?)?.toInt(),
       productName: json['productName'] as String?,
       ingredients: (json['ingredients'] as List<dynamic>?)
           ?.map((e) => Ingredients.fromJson(e as Map<String, dynamic>))

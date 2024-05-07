@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/basket/basket_form_bloc.dart';
+import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
@@ -13,7 +13,7 @@ class PaymentSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<BasketFormBloc, BasketFormState>(
+    return BlocConsumer<BasketCubit, BasketState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Hero(
@@ -38,9 +38,9 @@ class PaymentSummaryCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     TextCurrency(
-                      value: state.invoice.invoice!.totalPrice! -
-                          state.invoice.invoice!.invoiceDiscount! +
-                          state.invoice.invoice!.invoiceTax!,
+                      value: state.basket.invoice!.totalPrice -
+                          state.basket.invoice!.invoiceDiscount +
+                          state.basket.invoice!.invoiceTax,
                       fontSize: ThemeSelector.fonts.font_12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -54,7 +54,7 @@ class PaymentSummaryCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     TextCurrency(
-                      value: state.invoice.invoice?.deliveryAreaPrice ?? 0.0,
+                      value: state.basket.invoice?.deliveryAreaPrice ?? 0.0,
                       fontSize: ThemeSelector.fonts.font_12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -68,13 +68,13 @@ class PaymentSummaryCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     TextCurrency(
-                      value: state.invoice.invoice?.finalPrice ?? 0.0,
+                      value: state.basket.invoice?.finalPrice ?? 0.0,
                       fontSize: ThemeSelector.fonts.font_14,
                       fontWeight: FontWeight.w700,
                     ),
                   ],
                 ),
-                if (hideHint != true)
+                if (hideHint != true && false)
                   Text(
                     S.of(context).readMoreAboutFees,
                     style: Theme.of(context).textTheme.headlineMedium,

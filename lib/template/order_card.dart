@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
@@ -17,18 +20,21 @@ import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_currency.dart';
 
 class OrderCard extends StatefulWidget {
-  OrderCard(
-      {super.key,
-      required this.order,
-      required this.orderCardTargetPage,
-      required this.getApiKey,
-      required this.menuTarget});
+  OrderCard({
+    super.key,
+    required this.order,
+    required this.orderCardTargetPage,
+    required this.getApiKey,
+    required this.menuTarget,
+    this.navFun,
+  });
 
   late OrderModel order;
   bool isView = false;
   final OrderCardTargetPage orderCardTargetPage;
   final String getApiKey;
   final MenuTarget menuTarget;
+  final Function()? navFun;
 
   @override
   State<OrderCard> createState() => _OrderCardState();
@@ -62,7 +68,31 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    DateTime? createdDate = DateTime.tryParse(widget.order.createdDate ?? '');
+    DateTime? updatedDate = DateTime.tryParse(widget.order.updatedDate ?? '');
+    DateTime? scheduleDate = DateTime.tryParse(widget.order.scheduleDate ?? '');
+
+    print('aaaaaaa -------------------------------------------');
+    print(widget.orderCardTargetPage);
+    print(widget.menuTarget);
+    print(widget.order.isDriverOrderPendingEnd);
+
+    if (widget.orderCardTargetPage == OrderCardTargetPage.driverAccept) {
+      if (widget.menuTarget == MenuTarget.order &&
+          widget.order.isDriverOrderPendingEnd) {
+        print('asdasd 000000000000000000000');
+        return const SizedBox.shrink();
+      }
+      if (widget.menuTarget == MenuTarget.preOrder &&
+          widget.order.isDriverPreOrderPendingEnd) {
+        return const SizedBox.shrink();
+      }
+
+      /// TODO: worst thing ever X(
+      /// this is for time count
+      Timer.periodic(const Duration(seconds: 1), (timer) {
+        setState(() {});
+      });
+    }
 
     return Stack(
       clipBehavior: Clip.none,
@@ -97,15 +127,16 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               '${S.of(context).orderId}: #${widget.order.id}',
                               style: Theme.of(context).textTheme.headlineMedium,
                             ),
-                            if (createdDate != null)
+                            if (updatedDate != null)
                               Text(
-                                '${createdDate.day}-${createdDate.month}-${createdDate.year} | '
-                                '${createdDate.hour < 10 ? 0 : ''}${createdDate.hour}:${createdDate.minute < 10 ? 0 : ''}${createdDate.minute}',
+                                DateFormat('d-M-yyyy | hh:mm')
+                                    .format(updatedDate),
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelSmall
@@ -113,6 +144,41 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               ),
                           ],
                         ),
+                        if (scheduleDate != null)
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: ThemeSelector.statics.defaultMicroGap),
+                                child: SvgPicture.asset(
+                                  'assets/images/schedule_icon.svg',
+                                  height: 28,
+                                ),
+                              ),
+                              SizedBox(
+                                  width: ThemeSelector.statics.defaultMicroGap),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '${S.of(context).scheduleDate}:',
+                                    style:
+                                        Theme.of(context).textTheme.labelSmall,
+                                  ),
+                                  Text(
+                                    DateFormat('d-M-yyyy | hh:mm')
+                                        .format(scheduleDate),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(fontWeight: FontWeight.w300),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         if (AppTarget.user != AppTargetUser.drivers)
                           Container(
                             padding: EdgeInsets.symmetric(
@@ -130,7 +196,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                 SvgPicture.asset(widget.order.isPickUp == true
                                     ? 'assets/images/pickup_icon.svg'
                                     : 'assets/images/delivery_icon.svg'),
-                                Text(' '),
+                                const Text(' '),
                                 Text(widget.order.isPickUp == true
                                     ? S.of(context).pickup
                                     : S.of(context).delivery)
@@ -360,60 +426,30 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: ThemeSelector.statics.defaultGap),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    if (widget.orderCardTargetPage ==
-                        OrderCardTargetPage.chefReady)
-                      TextButton(
-                        onPressed: () {
-                          String _apiKey = '';
-                          if (widget.menuTarget == MenuTarget.order) {
-                            _apiKey = widget.order.isPickUp == true
-                                ? ApiKeys.orderChefPickUpFinished
-                                : ApiKeys.orderChefDeliveryFinished;
-                          } else {
-                            _apiKey = widget.order.isPickUp == true
-                                ? ApiKeys.preOrderChefPickUpFinished
-                                : ApiKeys.preOrderChefDeliveryFinished;
-                          }
-
-                          context.read<OrderBloc>().add(
-                                OrderEvent.putAction(
-                                  order: widget.order,
-                                  apiKey: ApiKeys.actionApiKeyString(
-                                      apiKey: _apiKey,
-                                      id: '${widget.order.id}'),
-                                  getApiKey: widget.getApiKey,
-                                ),
-                              );
-                        },
-                        child: Text(
-                          S.of(context).finish,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ),
-                    if (widget.orderCardTargetPage ==
-                        OrderCardTargetPage.chefPreparing)
-                      TextButton(
-                        onPressed: widget.order.isPickUp != true &&
-                                widget.order.driverAccept != true
-                            ? null
-                            : () {
-                                String _apiKey = '';
-                                if (widget.menuTarget == MenuTarget.order) {
-                                  _apiKey = widget.order.isPickUp == true
-                                      ? ApiKeys.orderChefPickUpStart
-                                      : ApiKeys.orderChefDeliveryStart;
-                                } else {
-                                  _apiKey = widget.order.isPickUp == true
-                                      ? ApiKeys.preOrderChefPickUpStart
-                                      : ApiKeys.preOrderChefDeliveryStart;
-                                }
+                child: LayoutBuilder(
+                  builder: (context, constraints) => SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: ConstrainedBox(
+                      constraints:
+                          BoxConstraints(minWidth: constraints.maxWidth),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          // chef close order pickup
+                          if (widget.orderCardTargetPage ==
+                                  OrderCardTargetPage.chefReady &&
+                              widget.order.isPickUp == true)
+                            TextButton(
+                              onPressed: () {
+                                String _apiKey =
+                                    widget.menuTarget == MenuTarget.order
+                                        ? ApiKeys.orderChefPickUpDelivered
+                                        : ApiKeys.preOrderChefPickUpDelivered;
 
                                 context.read<OrderBloc>().add(
                                       OrderEvent.putAction(
                                         order: widget.order,
+                                        isFakeBody: false,
                                         apiKey: ApiKeys.actionApiKeyString(
                                             apiKey: _apiKey,
                                             id: '${widget.order.id}'),
@@ -421,195 +457,450 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       ),
                                     );
                               },
-                        child: Row(
-                          children: [
-                            if (widget.order.isPickUp != true &&
-                                widget.order.driverAccept != true)
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        ThemeSelector.statics.defaultMicroGap),
-                                child: SvgPicture.asset(
-                                    'assets/images/waiting.svg'),
+                              child: Text(
+                                S.of(context).clientReceived,
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
-                            Text(
-                              S.of(context).start,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                      color: ThemeSelector.colors.secondary
-                                          .withAlpha(widget.order.isPickUp !=
-                                                      true &&
-                                                  widget.order.driverAccept !=
-                                                      true
-                                              ? 100
-                                              : 255)),
                             ),
-                          ],
-                        ),
-                      ),
-                    if (widget.orderCardTargetPage ==
-                            OrderCardTargetPage.chefReceived &&
-                        widget.menuTarget == MenuTarget.preOrder)
-                      TextButton(
-                        onPressed: () {
-                          String _apiKey = widget.order.isPickUp == true
-                              ? ApiKeys.preOrderChefPickUpAccept
-                              : ApiKeys.preOrderChefDeliveryAccept;
 
-                          context.read<OrderBloc>().add(
-                                OrderEvent.putAction(
-                                  order: widget.order,
-                                  apiKey: ApiKeys.actionApiKeyString(
-                                      apiKey: _apiKey,
-                                      id: '${widget.order.id}'),
-                                  getApiKey: widget.getApiKey,
-                                ),
-                              );
-                        },
-                        child: Text(
-                          S.of(context).accept,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ),
-                    if (widget.orderCardTargetPage ==
-                        OrderCardTargetPage.driverReceived)
-                      TextButton(
-                        onPressed: widget.order.chefFinished != true
-                            ? null
-                            : () {
+                          // chef finish order
+                          if (widget.orderCardTargetPage ==
+                              OrderCardTargetPage.chefPreparing)
+                            TextButton(
+                              onPressed: () {
+                                String _apiKey = '';
+                                if (widget.menuTarget == MenuTarget.order) {
+                                  _apiKey = widget.order.isPickUp == true
+                                      ? ApiKeys.orderChefPickUpFinished
+                                      : ApiKeys.orderChefDeliveryFinished;
+                                } else {
+                                  _apiKey = widget.order.isPickUp == true
+                                      ? ApiKeys.preOrderChefPickUpFinished
+                                      : ApiKeys.preOrderChefDeliveryFinished;
+                                }
+
                                 context.read<OrderBloc>().add(
                                       OrderEvent.putAction(
                                         order: widget.order,
+                                        navFun: widget.navFun,
                                         apiKey: ApiKeys.actionApiKeyString(
-                                            apiKey: widget.menuTarget ==
-                                                    MenuTarget.order
-                                                ? ApiKeys.orderDriverReceived
-                                                : ApiKeys
-                                                    .preOrderDriverReceived,
+                                            apiKey: _apiKey,
                                             id: '${widget.order.id}'),
                                         getApiKey: widget.getApiKey,
                                       ),
                                     );
                               },
-                        child: Row(
-                          children: [
-                            if (widget.order.chefFinished != true)
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        ThemeSelector.statics.defaultMicroGap),
-                                child: SvgPicture.asset(
-                                    'assets/images/waiting.svg'),
+                              child: Text(
+                                S.of(context).finish,
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
-                            Text(
-                              S.of(context).orderReceived,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                      color: ThemeSelector.colors.secondary
-                                          .withAlpha(
-                                              widget.order.chefFinished == true
-                                                  ? 255
-                                                  : 100)),
                             ),
-                          ],
-                        ),
-                      ),
-                    if (widget.orderCardTargetPage ==
-                        OrderCardTargetPage.driverAccept)
-                      TextButton(
-                        onPressed: () {
-                          context.read<OrderBloc>().add(
-                                OrderEvent.putAction(
-                                  order: widget.order,
-                                  apiKey: ApiKeys.actionApiKeyString(
-                                      apiKey:
-                                          widget.menuTarget == MenuTarget.order
-                                              ? ApiKeys.orderDriverAccept
-                                              : ApiKeys.preOrderDriverAccept,
-                                      id: '${widget.order.id}'),
-                                  getApiKey: widget.getApiKey,
-                                ),
-                              );
-                        },
-                        child: Text(
-                          S.of(context).accept,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ),
-                    if (widget.orderCardTargetPage ==
-                        OrderCardTargetPage.customerHistory)
-                      TextButton(
-                        onPressed: () {
-                          context.router
-                              .push(OrderStatusRoute(order: widget.order));
-                        },
-                        child: Text(
-                          S.of(context).orderStatus,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ),
-                    if ((widget.order.invoiceDetails?.length ?? 0) > 1 &&
-                        AppTarget.user != AppTargetUser.drivers)
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            widget.isView = !widget.isView;
-                          });
-                        },
-                        child: Text(
-                          S.of(context).view,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ),
-                    if (AppTarget.user == AppTargetUser.drivers &&
-                        widget.orderCardTargetPage != OrderCardTargetPage.view)
-                      TextButton(
-                        onPressed: () {
-                          showModalBottomSheet(
-                            backgroundColor: Colors.transparent,
-                            isScrollControlled: true,
-                            constraints: BoxConstraints.tightFor(),
-                            context: context,
-                            builder: (context) => SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
+
+                          // chef start order
+                          if (widget.orderCardTargetPage ==
+                              OrderCardTargetPage.chefReceived)
+                            TextButton(
+                              onPressed: widget.order.isPickUp != true &&
+                                      widget.order.driverAccept != true
+                                  ? null
+                                  : () {
+                                      String _apiKey = '';
+                                      if (widget.menuTarget ==
+                                          MenuTarget.order) {
+                                        _apiKey = widget.order.isPickUp == true
+                                            ? ApiKeys.orderChefPickUpStart
+                                            : ApiKeys.orderChefDeliveryStart;
+                                      } else {
+                                        _apiKey = widget.order.isPickUp == true
+                                            ? ApiKeys.preOrderChefPickUpStart
+                                            : ApiKeys.preOrderChefDeliveryStart;
+                                      }
+
+                                      context.read<OrderBloc>().add(
+                                            OrderEvent.putAction(
+                                              order: widget.order,
+                                              navFun: widget.navFun,
+                                              apiKey:
+                                                  ApiKeys.actionApiKeyString(
+                                                      apiKey: _apiKey,
+                                                      id: '${widget.order.id}'),
+                                              getApiKey: widget.getApiKey,
+                                            ),
+                                          );
+                                    },
+                              child: Row(
                                 children: [
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: ThemeSelector
-                                            .statics.defaultBlockGap),
-                                    decoration: BoxDecoration(
-                                        color: ThemeSelector.colors.background,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(ThemeSelector
-                                              .statics.defaultBlockGap),
-                                          topRight: Radius.circular(
-                                              ThemeSelector
-                                                  .statics.defaultBlockGap),
-                                        )),
-                                    child: OrderCard(
-                                      menuTarget: widget.menuTarget,
-                                      getApiKey: widget.getApiKey,
-                                      orderCardTargetPage:
-                                          OrderCardTargetPage.view,
-                                      order: widget.order,
+                                  if (widget.order.isPickUp != true &&
+                                      widget.order.driverAccept != true)
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: ThemeSelector
+                                              .statics.defaultMicroGap),
+                                      child: SvgPicture.asset(
+                                          'assets/images/waiting.svg'),
                                     ),
+                                  Text(
+                                    S.of(context).start,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                            color: ThemeSelector
+                                                .colors.secondary
+                                                .withAlpha(widget.order
+                                                                .isPickUp !=
+                                                            true &&
+                                                        widget.order
+                                                                .driverAccept !=
+                                                            true
+                                                    ? 100
+                                                    : 255)),
                                   ),
                                 ],
                               ),
                             ),
-                          );
-                        },
-                        child: Text(
-                          S.of(context).view,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
+
+                          // chef accept preorder
+                          if (widget.orderCardTargetPage ==
+                                  OrderCardTargetPage.chefPending &&
+                              widget.menuTarget == MenuTarget.preOrder)
+                            TextButton(
+                              onPressed: () {
+                                String _apiKey = widget.order.isPickUp == true
+                                    ? ApiKeys.preOrderChefPickUpAccept
+                                    : ApiKeys.preOrderChefDeliveryAccept;
+
+                                context.read<OrderBloc>().add(
+                                      OrderEvent.putAction(
+                                        order: widget.order,
+                                        navFun: widget.navFun,
+                                        apiKey: ApiKeys.actionApiKeyString(
+                                            apiKey: _apiKey,
+                                            id: '${widget.order.id}'),
+                                        getApiKey: widget.getApiKey,
+                                      ),
+                                    );
+                              },
+                              child: Text(
+                                S.of(context).accept,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+
+                          // driver close order delivery
+                          if (widget.orderCardTargetPage ==
+                                  OrderCardTargetPage.driverReceived &&
+                              widget.order.driverReceived == true)
+                            TextButton(
+                              onPressed: () {
+                                String _apiKey =
+                                    widget.menuTarget == MenuTarget.order
+                                        ? ApiKeys.orderDriverDelivered
+                                        : ApiKeys.preOrderDriverDelivered;
+
+                                context.read<OrderBloc>().add(
+                                      OrderEvent.putAction(
+                                        order: widget.order,
+                                        isFakeBody: false,
+                                        apiKey: ApiKeys.actionApiKeyString(
+                                            apiKey: _apiKey,
+                                            id: '${widget.order.id}'),
+                                        getApiKey: widget.getApiKey,
+                                      ),
+                                    );
+                              },
+                              child: Text(
+                                S.of(context).clientReceived,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+
+                          // driver received
+                          if (widget.orderCardTargetPage ==
+                                  OrderCardTargetPage.driverReceived &&
+                              widget.order.driverReceived != true)
+                            TextButton(
+                              onPressed: widget.order.chefFinished != true
+                                  ? null
+                                  : () {
+                                      context.read<OrderBloc>().add(
+                                            OrderEvent.putAction(
+                                              order: widget.order,
+                                              apiKey: ApiKeys.actionApiKeyString(
+                                                  apiKey: widget.menuTarget ==
+                                                          MenuTarget.order
+                                                      ? ApiKeys
+                                                          .orderDriverReceived
+                                                      : ApiKeys
+                                                          .preOrderDriverReceived,
+                                                  id: '${widget.order.id}'),
+                                              getApiKey: widget.getApiKey,
+                                            ),
+                                          );
+                                    },
+                              child: Row(
+                                children: [
+                                  if (widget.order.chefFinished != true)
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: ThemeSelector
+                                              .statics.defaultMicroGap),
+                                      child: SvgPicture.asset(
+                                          'assets/images/waiting.svg'),
+                                    ),
+                                  Text(
+                                    S.of(context).orderReceived,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                            color: ThemeSelector
+                                                .colors.secondary
+                                                .withAlpha(
+                                                    widget.order.chefFinished ==
+                                                            true
+                                                        ? 255
+                                                        : 100)),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                          // driver accepted
+                          if (widget.orderCardTargetPage ==
+                              OrderCardTargetPage.driverAccept)
+                            Row(
+                              children: [
+                                Text(widget.menuTarget == MenuTarget.order
+                                    ? widget.order.driverOrderPendingCount
+                                    : widget.order.driverPreOrderPendingCount),
+                                TextButton(
+                                  onPressed: () {
+                                    context.read<OrderBloc>().add(
+                                          OrderEvent.putAction(
+                                            order: widget.order,
+                                            apiKey: ApiKeys.actionApiKeyString(
+                                                apiKey: widget.menuTarget ==
+                                                        MenuTarget.order
+                                                    ? ApiKeys.orderDriverAccept
+                                                    : ApiKeys
+                                                        .preOrderDriverAccept,
+                                                id: '${widget.order.id}'),
+                                            getApiKey: widget.getApiKey,
+                                          ),
+                                        );
+                                  },
+                                  child: Text(
+                                    S.of(context).accept,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                          // customer order status
+                          if (widget.orderCardTargetPage ==
+                              OrderCardTargetPage.customerHistory)
+                            TextButton(
+                              onPressed: () {
+                                context.router.push(
+                                    OrderStatusRoute(order: widget.order));
+                              },
+                              child: Text(
+                                S.of(context).orderStatus,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+
+                          // wait & cancel driver
+                          if (widget.orderCardTargetPage ==
+                                  OrderCardTargetPage.customerHistory &&
+                              widget.order.isDriverDelayed &&
+                              widget.menuTarget == MenuTarget.order)
+                            TextButton(
+                              onPressed: () {
+                                OrderService.putActionOrderOrPreOrder(
+                                  apiKeys: ApiKeys.waitDriverOrder,
+                                  orderId: widget.order.id,
+                                ).then((value) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: S.of(context).thankYouForWaiting,
+                                    ),
+                                  ));
+                                }).catchError((err) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: err.response?.data['message'],
+                                    ),
+                                  ));
+                                });
+                              },
+                              child: Text(
+                                S.of(context).wait,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+                          if (widget.orderCardTargetPage ==
+                                  OrderCardTargetPage.customerHistory &&
+                              widget.order.isDriverDelayed &&
+                              widget.menuTarget == MenuTarget.order)
+                            TextButton(
+                              onPressed: () {
+                                OrderService.putActionOrderOrPreOrder(
+                                  apiKeys: ApiKeys.cancelDriverOrder,
+                                  orderId: widget.order.id,
+                                ).then((value) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: S.of(context).orderCanceled,
+                                    ),
+                                  ));
+                                }).catchError((err) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: err.response?.data['message'],
+                                    ),
+                                  ));
+                                });
+                              },
+                              child: Text(
+                                S.of(context).cancel,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+
+                          // wait & cancel chef
+                          if (widget.orderCardTargetPage ==
+                                  OrderCardTargetPage.customerHistory &&
+                              widget.order.isChefDelayed &&
+                              widget.menuTarget == MenuTarget.order)
+                            TextButton(
+                              onPressed: () {
+                                OrderService.putActionOrderOrPreOrder(
+                                  apiKeys: ApiKeys.waitChefOrder,
+                                  orderId: widget.order.id,
+                                ).then((value) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: S.of(context).thankYouForWaiting,
+                                    ),
+                                  ));
+                                }).catchError((err) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: err.response?.data['message'],
+                                    ),
+                                  ));
+                                });
+                              },
+                              child: Text(
+                                S.of(context).wait,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+                          if (widget.orderCardTargetPage ==
+                                  OrderCardTargetPage.customerHistory &&
+                              widget.order.isChefDelayed &&
+                              widget.menuTarget == MenuTarget.order)
+                            TextButton(
+                              onPressed: () {
+                                OrderService.putActionOrderOrPreOrder(
+                                  apiKeys: ApiKeys.cancelChefOrder,
+                                  orderId: widget.order.id,
+                                ).then((value) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: S.of(context).orderCanceled,
+                                    ),
+                                  ));
+                                }).catchError((err) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: err.response?.data['message'],
+                                    ),
+                                  ));
+                                });
+                              },
+                              child: Text(
+                                S.of(context).cancel,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+
+                          if ((widget.order.invoiceDetails?.length ?? 0) > 1 &&
+                              AppTarget.user != AppTargetUser.drivers)
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  widget.isView = !widget.isView;
+                                });
+                              },
+                              child: Text(
+                                S.of(context).view,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+                          if (AppTarget.user == AppTargetUser.drivers &&
+                              widget.orderCardTargetPage !=
+                                  OrderCardTargetPage.view)
+                            TextButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  backgroundColor: Colors.transparent,
+                                  isScrollControlled: true,
+                                  constraints: const BoxConstraints.tightFor(),
+                                  context: context,
+                                  builder: (context) => SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: ThemeSelector
+                                                  .statics.defaultBlockGap),
+                                          decoration: BoxDecoration(
+                                              color: ThemeSelector
+                                                  .colors.background,
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(
+                                                    ThemeSelector.statics
+                                                        .defaultBlockGap),
+                                                topRight: Radius.circular(
+                                                    ThemeSelector.statics
+                                                        .defaultBlockGap),
+                                              )),
+                                          child: OrderCard(
+                                            menuTarget: widget.menuTarget,
+                                            getApiKey: widget.getApiKey,
+                                            orderCardTargetPage:
+                                                OrderCardTargetPage.view,
+                                            order: widget.order,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                S.of(context).view,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+                        ],
                       ),
-                  ],
+                    ),
+                  ),
                 ),
               ),
             ],
