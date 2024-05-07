@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -59,7 +59,10 @@ class _ChefBannerState extends State<ChefBanner> {
                 tag: 'chef_${widget.chef.id}',
                 child: SizedBox(
                   child: Image.memory(
-                    base64Decode(widget.chef.imageProfile ?? ''),
+                    Uri.parse(widget.chef.imageProfile ?? '')
+                            .data
+                            ?.contentAsBytes() ??
+                        Uint8List(0),
                     fit: BoxFit.cover,
                     alignment: Alignment.topCenter,
                     errorBuilder: (context, error, stackTrace) => Image.asset(

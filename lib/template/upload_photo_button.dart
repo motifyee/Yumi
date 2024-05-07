@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -86,7 +86,10 @@ class UploadPhotoButton extends StatelessWidget {
                   size: const Size.fromRadius(120),
                   child: defaultImage != null
                       ? Image.memory(
-                          base64Decode(defaultImage ?? ''),
+                          Uri.parse(defaultImage ?? '')
+                                  .data
+                                  ?.contentAsBytes() ??
+                              Uint8List(0),
                           fit: BoxFit.cover,
                         )
                       : SvgPicture.asset('assets/images/camera.svg'),

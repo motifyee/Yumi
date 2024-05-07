@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
 import 'package:yumi/forms/login_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -32,32 +30,30 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     height: ThemeSelector.statics.defaultBlockGap,
                   ),
-                  Expanded(
-                    child: Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            S.of(context).welcomeBack,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          Text(
-                            S.of(context).signToContinue,
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
-                          SizedBox(
-                            height: ThemeSelector.statics.defaultTitleGap,
-                          ),
-                          LoginForm(
-                            loginFormKey: loginFormKey,
-                          ),
-                          SizedBox(
-                            height: ThemeSelector.statics.defaultBlockGap,
-                          ),
-                          const LoginThirdPart(),
-                        ],
-                      ),
+                  Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          S.of(context).welcomeBack,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        Text(
+                          S.of(context).signToContinue,
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                        SizedBox(
+                          height: ThemeSelector.statics.defaultTitleGap,
+                        ),
+                        LoginForm(
+                          loginFormKey: loginFormKey,
+                        ),
+                        SizedBox(
+                          height: ThemeSelector.statics.defaultBlockGap,
+                        ),
+                        const LoginThirdPart(),
+                      ],
                     ),
                   ),
                   TextButton(

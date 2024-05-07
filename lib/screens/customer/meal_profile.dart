@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
@@ -42,7 +42,8 @@ class MealProfileScreen extends StatelessWidget {
                     Radius.circular(ThemeSelector.statics.defaultLineGap),
               )),
               child: Image.memory(
-                base64Decode(meal.photo ?? ''),
+                Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
+                    Uint8List(0),
                 fit: BoxFit.cover,
                 alignment: Alignment.topCenter,
                 errorBuilder: (context, error, stackTrace) => Image.asset(

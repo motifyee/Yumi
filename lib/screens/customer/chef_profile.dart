@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:auto_route/annotations.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -136,7 +136,10 @@ class ChefProfileScreen extends StatelessWidget {
                                             ThemeSelector.statics
                                                 .defaultBorderRadiusExtraLarge)),
                                     child: Image.memory(
-                                      base64Decode(eventPhotos[index]),
+                                      Uri.parse(eventPhotos[index] ?? '')
+                                              .data
+                                              ?.contentAsBytes() ??
+                                          Uint8List(0),
                                       fit: BoxFit.cover,
                                       errorBuilder:
                                           (context, error, stackTrace) =>

@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:yumi/model/categories_model.dart';
@@ -39,7 +39,8 @@ class CategoriesCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(
                       ThemeSelector.statics.defaultBlockGap)),
               child: Image.memory(
-                base64Decode(category.image ?? ''),
+                Uri.parse(category.image ?? '').data?.contentAsBytes() ??
+                    Uint8List(0),
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => Image.asset(
                   'assets/images/354.jpeg',

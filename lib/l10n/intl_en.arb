@@ -188,7 +188,7 @@
   "hour": "Hour",
   "chefCuisines":"Chef Cuisines",
   "hello": "Hello",
-  "pleaseEnterYourLocationOrAllowAccessToYourLocationToFndRestaurantsNearYou": "Please enter your location or allow access to your location to ﬁnd restaurants near you.",
+  "pleaseEnterYourLocationOrAllowAccessToYourLocationToFindChefsNearYou": "Please enter your location or allow access to your location to ﬁnd chefs near you.",
   "useCurrentLocation": "Use Current Location",
   "searchOrEnterAnAddress": "Search or enter an address",
   "confirmLocation": "Confirm location",

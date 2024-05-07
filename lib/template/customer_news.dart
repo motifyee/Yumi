@@ -52,8 +52,7 @@ class CustomerNews extends StatelessWidget {
                                   'assets/images/location.svg',
                                   fit: BoxFit.fill,
                                 )),
-                            SizedBox(
-                                width: ThemeSelector.statics.defaultMicroGap),
+                            SizedBox(width: ThemeSelector.statics.defaultGap),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
