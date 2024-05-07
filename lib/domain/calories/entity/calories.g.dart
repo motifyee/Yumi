@@ -8,7 +8,7 @@ part of 'calories.dart';
 
 _$CaloriesImpl _$$CaloriesImplFromJson(Map<String, dynamic> json) =>
     _$CaloriesImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       caloriesValue: (json['calories_Value'] as num?)?.toDouble() ?? 0,
     );

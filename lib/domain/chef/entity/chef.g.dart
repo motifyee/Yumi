@@ -29,7 +29,7 @@ _$ChefImpl _$$ChefImplFromJson(Map<String, dynamic> json) => _$ChefImpl(
       imageID: json['image_ID'] as String?,
       imagePassport: json['image_Passport'] as String?,
       email: json['email'] as String?,
-      signupType: json['signupType'] as int?,
+      signupType: (json['signupType'] as num?)?.toInt(),
       createdBy: json['createdBy'] as String?,
       isFavorite: json['isFavorite'] as bool? ?? false,
     );

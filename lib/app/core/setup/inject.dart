@@ -26,7 +26,6 @@ final getIt = sl.get;
 void initGetItBase() {}
 
 Future<void> inject() async {
-
   sl.registerFactory<ProfileRepo>(() => ProfileRemoteRepo(profileSrc: sl()));
   sl.registerFactory<ProfileSrc>(() => ProfileRemoteSrc());
 

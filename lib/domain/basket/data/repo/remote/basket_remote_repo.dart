@@ -1,6 +1,6 @@
 import 'package:dio/src/response.dart';
 import 'package:fpdart/src/task_either.dart';
-import 'package:yumi/app/inject.dart';
+import 'package:yumi/app/core/setup/inject.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/basket/data/repo/basket_repo.dart';
 import 'package:yumi/domain/basket/data/source/basket_source.dart';
@@ -14,7 +14,7 @@ class BasketRemoteRepo implements BasketRepo {
   @override
   TaskEither<Failure, Response> deleteBasket({required Basket basket}) =>
       TaskEither.tryCatch(() => basketSource.deleteBasket(basket: basket),
-          (error, stackTrace) => ApiFailure(error, stackTrace));
+          (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
   TaskEither<Failure, Response> closeBasket(
@@ -22,7 +22,7 @@ class BasketRemoteRepo implements BasketRepo {
       TaskEither.tryCatch(
           () => basketSource.closeBasket(
               basket: basket, paginationHelper: paginationHelper),
-          (error, stackTrace) => ApiFailure(error, stackTrace));
+          (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
   TaskEither<Failure, Basket> createOrderOrPreOrderDelivery(
@@ -30,7 +30,7 @@ class BasketRemoteRepo implements BasketRepo {
       TaskEither.tryCatch(
           () => basketSource.createOrderOrPreOrderDelivery(
               basket: basket, isPreOrder: isPreOrder),
-          (error, stackTrace) => ApiFailure(error, stackTrace));
+          (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
   TaskEither<Failure, Basket> createOrderOrPreOrderPickUp(
@@ -38,14 +38,14 @@ class BasketRemoteRepo implements BasketRepo {
       TaskEither.tryCatch(
           () => basketSource.createOrderOrPreOrderPickUp(
               basket: basket, isPreOrder: isPreOrder),
-          (error, stackTrace) => ApiFailure(error, stackTrace));
+          (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
   TaskEither<Failure, Basket?> getBaskets(
           {Map<String, dynamic>? paginationHelper}) =>
       TaskEither.tryCatch(
           () => basketSource.getBaskets(paginationHelper: paginationHelper),
-          (error, stackTrace) => ApiFailure(error, stackTrace));
+          (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
   TaskEither<Failure, Response> getOrderOrPreOrder(
@@ -53,7 +53,7 @@ class BasketRemoteRepo implements BasketRepo {
       TaskEither.tryCatch(
           () => basketSource.getOrderOrPreOrder(
               apiKeys: apiKeys, paginationHelper: paginationHelper),
-          (error, stackTrace) => ApiFailure(error, stackTrace));
+          (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
   TaskEither<Failure, Response> getOrderOrPreOrderDriverById(
@@ -63,7 +63,7 @@ class BasketRemoteRepo implements BasketRepo {
       TaskEither.tryCatch(
           () => basketSource.getOrderOrPreOrderDriverById(
               apiKeys: apiKeys, id: id, paginationHelper: paginationHelper),
-          (error, stackTrace) => ApiFailure(error, stackTrace));
+          (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
   TaskEither<Failure, Response> putActionOrderOrPreOrder(
@@ -71,10 +71,10 @@ class BasketRemoteRepo implements BasketRepo {
       TaskEither.tryCatch(
           () => basketSource.putActionOrderOrPreOrder(
               apiKeys: apiKeys, paginationHelper: paginationHelper),
-          (error, stackTrace) => ApiFailure(error, stackTrace));
+          (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
   TaskEither<Failure, Basket> updateBasket({required Basket basket}) =>
       TaskEither.tryCatch(() => basketSource.updateBasket(basket: basket),
-          (error, stackTrace) => ApiFailure(error, stackTrace));
+          (error, stackTrace) => ServerFailure(error, stackTrace));
 }

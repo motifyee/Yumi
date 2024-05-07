@@ -9,11 +9,11 @@ part of 'invoice_transaction_model.dart';
 _$InvoiceTransactionModelImpl _$$InvoiceTransactionModelImplFromJson(
         Map<String, dynamic> json) =>
     _$InvoiceTransactionModelImpl(
-      status: json['status'] as int?,
-      paymentType: json['paymentType'] as int?,
+      status: (json['status'] as num?)?.toInt(),
+      paymentType: (json['paymentType'] as num?)?.toInt(),
       treasuryAmountPaid: (json['treasuryAmountPaid'] as num?)?.toDouble(),
-      treasuryId: json['treasuryId'] as int?,
-      transactionType: json['transactionType'] as int?,
+      treasuryId: (json['treasuryId'] as num?)?.toInt(),
+      transactionType: (json['transactionType'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$InvoiceTransactionModelImplToJson(

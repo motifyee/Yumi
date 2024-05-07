@@ -7,18 +7,18 @@ part of 'basket.dart';
 // **************************************************************************
 
 _$BasketImpl _$$BasketImplFromJson(Map<String, dynamic> json) => _$BasketImpl(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       invoice: Invoice.fromJson(json['invoice'] as Map<String, dynamic>),
       invoiceDetails: (json['invoiceDetails'] as List<dynamic>)
           .map((e) => InvoiceDetails.fromJson(e as Map<String, dynamic>))
           .toList(),
-      bankId: json['bankId'] as int?,
-      shippedAddressId: json['shippedAddressId'] as int?,
+      bankId: (json['bankId'] as num?)?.toInt(),
+      shippedAddressId: (json['shippedAddressId'] as num?)?.toInt(),
       isSchedule: json['isSchedule'] as bool? ?? false,
       isPickup: json['is_Pickup'] as bool? ?? true,
       isDelivery: json['is_Delivery'] as bool? ?? false,
       isPreorder: json['is_Preorder'] as bool? ?? false,
-      status: json['status'] as int? ?? 1,
+      status: (json['status'] as num?)?.toInt() ?? 1,
     );
 
 Map<String, dynamic> _$$BasketImplToJson(_$BasketImpl instance) {
@@ -44,7 +44,7 @@ Map<String, dynamic> _$$BasketImplToJson(_$BasketImpl instance) {
 }
 
 _$InvoiceImpl _$$InvoiceImplFromJson(Map json) => _$InvoiceImpl(
-      createdBy: json['createdBy'] as int?,
+      createdBy: (json['createdBy'] as num?)?.toInt(),
       chefID: json['chef_ID'] as String?,
       clientNote: json['clientNote'] as String? ?? '',
       preparationNotes: json['preparationNotes'] as String? ?? '',
@@ -94,13 +94,13 @@ Json? _$JsonConverterToJson<Json, Value>(
 
 _$InvoiceDetailsImpl _$$InvoiceDetailsImplFromJson(Map<String, dynamic> json) =>
     _$InvoiceDetailsImpl(
-      productVarintId: json['productVarintId'] as int?,
+      productVarintId: (json['productVarintId'] as num?)?.toInt(),
       quantity: json['quantity'] == null
           ? "0"
           : const StringToDoubleAsIntStringConverter()
-              .fromJson(json['quantity'] as double),
+              .fromJson((json['quantity'] as num).toDouble()),
       productVarintPrice: (json['productVarintPrice'] as num?)?.toDouble() ?? 0,
-      discountListId: json['discountListId'] as int? ?? 1205,
+      discountListId: (json['discountListId'] as num?)?.toInt() ?? 1205,
       note: json['note'] as String? ?? '',
       meal: json['meal'] == null
           ? null

@@ -15,7 +15,7 @@ _$InitialImpl _$$InitialImplFromJson(Map<String, dynamic> json) =>
       userName: json['userName'] as String? ?? '',
       email: json['email'] as String? ?? '',
       code: json['code'] as String? ?? '',
-      multiAddressID: json['multiAddressID'] as int? ?? 0,
+      multiAddressID: (json['multiAddressID'] as num?)?.toInt() ?? 0,
       accessToken: json['access_Token'] as String? ?? '',
       expiresIn: json['expires_In'] as String? ?? '',
       address: json['address'] as String?,
@@ -23,7 +23,7 @@ _$InitialImpl _$$InitialImplFromJson(Map<String, dynamic> json) =>
       lat: (json['address_Lattitude'] as num?)?.toDouble(),
       long: (json['address_Longitude'] as num?)?.toDouble(),
       location: json['location'] as String? ?? '',
-      status: json['status_Work'] as int?,
+      status: (json['status_Work'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$InitialImplToJson(_$InitialImpl instance) =>
