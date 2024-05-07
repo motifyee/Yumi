@@ -55,11 +55,6 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    if ((widget.order.invoiceDetails?.length ?? 0) < 2 ||
-        AppTarget.user == AppTargetUser.drivers) {
-      widget.isView = true;
-    }
-
     if (widget.orderCardTargetPage == OrderCardTargetPage.view) {
       getOrderForView();
     }
@@ -71,20 +66,21 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
     DateTime? updatedDate = DateTime.tryParse(widget.order.updatedDate ?? '');
     DateTime? scheduleDate = DateTime.tryParse(widget.order.scheduleDate ?? '');
 
-    print('aaaaaaa -------------------------------------------');
-    print(widget.orderCardTargetPage);
-    print(widget.menuTarget);
-    print(widget.order.isDriverOrderPendingEnd);
+    if ((widget.order.invoiceDetails?.length ?? 0) < 2 ||
+        AppTarget.user == AppTargetUser.drivers) {
+      widget.isView = true;
+    }
 
     if (widget.orderCardTargetPage == OrderCardTargetPage.driverAccept) {
       if (widget.menuTarget == MenuTarget.order &&
           widget.order.isDriverOrderPendingEnd) {
-        print('asdasd 000000000000000000000');
-        return const SizedBox.shrink();
+        print('isDriverOrderPendingEnd 000000000000000000000');
+        return const SizedBox(height: 0, width: 0);
       }
       if (widget.menuTarget == MenuTarget.preOrder &&
           widget.order.isDriverPreOrderPendingEnd) {
-        return const SizedBox.shrink();
+        print('isDriverPreOrderPendingEnd 000000000000000000000');
+        return const SizedBox(height: 0, width: 0);
       }
 
       /// TODO: worst thing ever X(
