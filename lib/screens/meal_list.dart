@@ -150,7 +150,6 @@ class _MealList extends StatelessWidget {
                       child: IntrinsicHeight(
                         child: Column(
                           children: [
-                            if (state.meals.isEmpty) Expanded(child: Loading()),
                             for (var meal in state.meals)
                               MealListCard(
                                 meal: meal,
@@ -180,6 +179,8 @@ class _MealList extends StatelessWidget {
                                           ));
                                 },
                               ),
+                            if (state.paginationHelper.isLoading)
+                              Expanded(child: Loading()),
                           ],
                         ),
                       ),
@@ -271,8 +272,6 @@ class _CategoriesList extends StatelessWidget {
                     child: IntrinsicHeight(
                       child: Column(
                         children: [
-                          if (state.categoriesModelList.isEmpty)
-                            Expanded(child: Loading()),
                           for (var category in state.categoriesModelList)
                             GestureDetector(
                               onTap: () {
@@ -346,6 +345,8 @@ class _CategoriesList extends StatelessWidget {
                                 ),
                               ),
                             ),
+                          if (state.paginationHelper.isLoading)
+                            Expanded(child: Loading()),
                         ],
                       ),
                     ),

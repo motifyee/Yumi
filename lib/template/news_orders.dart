@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/model/order_model/order_model.dart';
@@ -23,26 +24,28 @@ class NewsOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PaginationTemplate(
-        scrollDirection: Axis.vertical,
-        loadDate: () {
-          context.read<OrderBloc>().add(OrderEvent.getRequest(apiKey: apiKey));
+      scrollDirection: Axis.vertical,
+      loadDate: () {
+        context.read<OrderBloc>().add(OrderEvent.getRequest(apiKey: apiKey));
+      },
+      child: BlocConsumer<OrderBloc, OrderState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Column(
+            children: [
+              for (var order in state.orders)
+                OrderCard(
+                  order: order,
+                  orderCardTargetPage: orderCardTargetPage,
+                  getApiKey: apiKey,
+                  menuTarget: menuTarget,
+                  navFun: navFun,
+                ),
+              if (state.paginationHelper.isLoading) Loading(),
+            ],
+          );
         },
-        child: BlocConsumer<OrderBloc, OrderState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            return Column(
-              children: [
-                for (var order in state.orders)
-                  OrderCard(
-                    order: order,
-                    orderCardTargetPage: orderCardTargetPage,
-                    getApiKey: apiKey,
-                    menuTarget: menuTarget,
-                    navFun: navFun,
-                  ),
-              ],
-            );
-          },
-        ));
+      ),
+    );
   }
 }
