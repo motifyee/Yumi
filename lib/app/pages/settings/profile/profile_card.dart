@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yumi/global.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
@@ -152,23 +153,26 @@ class UserSettingDetails extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: ThemeSelector.statics.defaultGap),
-                      Row(
-                        children: [
-                          Text(
-                            S.of(context).pickup,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          const Expanded(child: Text('')),
-                          Text(
-                            state.profile.pickup ? 'Allowed' : 'Not Allowed',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: ThemeSelector.colors.secondaryTant),
-                          ),
-                        ],
-                      ),
+                      // pickup allowed
+                      if (G.isChefApp)
+                        Row(
+                          children: [
+                            Text(
+                              S.of(context).pickup,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            const Expanded(child: Text('')),
+                            Text(
+                              state.profile.pickup ? 'Allowed' : 'Not Allowed',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                      color:
+                                          ThemeSelector.colors.secondaryTant),
+                            ),
+                          ],
+                        ),
                       SizedBox(height: ThemeSelector.statics.defaultGap),
                       Row(
                         children: [

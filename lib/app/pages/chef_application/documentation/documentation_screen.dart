@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:yumi/app/core/setup/awesome_notifications.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/extensions/color.dart';
 import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_cubit.dart';
@@ -227,6 +228,7 @@ Widget fileSvg(String hexColor) {
 
 Future<String> _createFileFromString(String data, String? fileName) async {
   var p = await Permission.storage.request();
+  if (p.isDenied) p = await Permission.manageExternalStorage.request();
   if (p.isDenied) return '';
 
   Uint8List bytes = base64.decode(data);
@@ -238,6 +240,9 @@ Future<String> _createFileFromString(String data, String? fileName) async {
 
   File file = File("$path/$fileName0");
   await file.writeAsBytes(bytes);
+
+  NotificationService.showNotification(title: "Download File", body: fileName0);
+
   return file.path;
 }
 

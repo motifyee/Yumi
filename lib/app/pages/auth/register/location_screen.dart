@@ -204,7 +204,7 @@ class LocationScreen extends StatelessWidget {
                     ),
 
                     debounceTime: 800,
-                    countries: const ["uk", "ir"],
+                    countries: const ["uk", "ie"],
                     isLatLngRequired: true,
                     getPlaceDetailWithLatLng: (Prediction prediction) {
                       print("placeDetails${prediction.lng}");

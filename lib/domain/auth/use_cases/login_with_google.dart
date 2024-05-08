@@ -18,11 +18,20 @@ class LoginWithGoogle extends UseCase<String?, NoParams> {
 
     GoogleSignIn googleSignIn = GoogleSignIn(
       scopes: scopes,
+      clientId:
+          "369476238484-l36188lc392abuqs6bv41gbja98fr8ma.apps.googleusercontent.com",
     );
     try {
       var account = await googleSignIn.signIn();
       debugPrint(account.toString());
       debugger();
+      final auth = await account?.authentication;
+
+      // final credential = GoogleAuthProvider.credential(
+      //   accessToken: auth?.accessToken,
+      //   idToken: auth?.idToken,
+      // );
+      // await FirebaseAuth.instance.signInWithCredential(credential);
 
       googleSignIn.disconnect();
       return right(account?.serverAuthCode);

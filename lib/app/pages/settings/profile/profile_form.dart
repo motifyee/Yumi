@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
-import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/chef_application/bloc.dart';
-// import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
@@ -98,12 +96,13 @@ Widget profileFormFields(
         //   onSave: (value) => save(profile0 = profile0.copyWith(address: value)),
         // ),
         // SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-        TextFormFieldTemplate(
-          label: S.of(context).about,
-          borderStyle: TextFormFieldBorderStyle.borderBottom,
-          initialValue: profile.about,
-          onSave: (value) => save(profile0 = profile0.copyWith(about: value)),
-        ),
+        if (!G.isCustomerApp)
+          TextFormFieldTemplate(
+            label: S.of(context).about,
+            borderStyle: TextFormFieldBorderStyle.borderBottom,
+            initialValue: profile.about,
+            onSave: (value) => save(profile0 = profile0.copyWith(about: value)),
+          ),
         SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
         // const Divider(height: 0),
         // FormField<bool>(
