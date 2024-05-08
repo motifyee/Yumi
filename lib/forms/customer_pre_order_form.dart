@@ -98,6 +98,12 @@ class CustomerPreOrderForm extends StatelessWidget {
                                 shadowColor: Colors.transparent,
                                 surfaceTintColor: Colors.transparent,
                                 child: Calendar(
+                                  currentDate: DateTime.now()
+                                    ..add(Duration(days: 1)),
+                                  firstDate: DateTime.now()
+                                    ..add(Duration(days: 1)),
+                                  lastDate: DateTime.now()
+                                    ..add(Duration(days: 8)),
                                   onValueChanged: (value) {
                                     if (value.isNotEmpty) {
                                       context
