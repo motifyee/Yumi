@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/screens/customer/payment_paypal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/delivery_option_dialog.dart';
 import 'package:yumi/template/payment_summary_card.dart';
@@ -15,7 +14,7 @@ import 'package:yumi/template/text_form_field.dart';
 class CheckOutScreen extends StatelessWidget {
   CheckOutScreen({super.key});
 
-  PaymentOption _option = PaymentOption.wallet;
+  PaymentOption _option = PaymentOption.visa;
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +71,7 @@ class CheckOutScreen extends StatelessWidget {
                                   ),
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultGap),
+
                         GestureDetector(
                           onTap: () {
                             _option = PaymentOption.visa;
@@ -161,55 +161,56 @@ class CheckOutScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultGap),
-                        GestureDetector(
-                          onTap: () {
-                            _option = PaymentOption.paypal;
-                            showDialog(
-                              context: context,
-                              builder: (context) => Center(
-                                child: PaymentPaypalScreen(),
-                              ),
-                            );
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    ThemeSelector.statics.defaultInputGap),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: ThemeSelector.statics.defaultLineGap,
-                                  height: ThemeSelector.statics.defaultLineGap,
-                                  decoration: BoxDecoration(
-                                      color: _option == PaymentOption.paypal
-                                          ? ThemeSelector.colors.primary
-                                          : ThemeSelector.colors.secondaryFaint,
-                                      borderRadius: BorderRadius.circular(
-                                          ThemeSelector
-                                              .statics.defaultLineGap)),
-                                ),
-                                SizedBox(
-                                    width: ThemeSelector.statics.defaultGap),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/paypal.svg',
-                                      height: ThemeSelector.fonts.font_12,
-                                    ),
-                                    Text(' '),
-                                    Text(
-                                      S.of(context).paypal,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     _option = PaymentOption.paypal;
+                        //     showDialog(
+                        //       context: context,
+                        //       builder: (context) => Center(
+                        //         child: PaymentPaypalScreen(),
+                        //       ),
+                        //     );
+                        //   },
+                        //   child: Padding(
+                        //     padding: EdgeInsets.symmetric(
+                        //         horizontal:
+                        //             ThemeSelector.statics.defaultInputGap),
+                        //     child: Row(
+                        //       children: [
+                        //         Container(
+                        //           width: ThemeSelector.statics.defaultLineGap,
+                        //           height: ThemeSelector.statics.defaultLineGap,
+                        //           decoration: BoxDecoration(
+                        //               color: _option == PaymentOption.paypal
+                        //                   ? ThemeSelector.colors.primary
+                        //                   : ThemeSelector.colors.secondaryFaint,
+                        //               borderRadius: BorderRadius.circular(
+                        //                   ThemeSelector
+                        //                       .statics.defaultLineGap)),
+                        //         ),
+                        //         SizedBox(
+                        //             width: ThemeSelector.statics.defaultGap),
+                        //         Row(
+                        //           crossAxisAlignment: CrossAxisAlignment.center,
+                        //           children: [
+                        //             SvgPicture.asset(
+                        //               'assets/images/paypal.svg',
+                        //               height: ThemeSelector.fonts.font_12,
+                        //             ),
+                        //             Text(' '),
+                        //             Text(
+                        //               S.of(context).paypal,
+                        //               style: Theme.of(context)
+                        //                   .textTheme
+                        //                   .bodyMedium,
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                     Column(
