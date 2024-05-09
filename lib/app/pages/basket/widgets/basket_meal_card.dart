@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -149,7 +147,10 @@ class BasketMealCard extends StatelessWidget {
                           ThemeSelector.statics.defaultBorderRadius),
                     ),
                     child: Image.memory(
-                      base64Decode(invoiceDetails.meal?.photo ?? ''),
+                      Uri.parse(invoiceDetails.meal?.photo ?? '')
+                              .data
+                              ?.contentAsBytes() ??
+                          Uint8List(0),
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => Image.asset(
                         'assets/images/354.jpeg',

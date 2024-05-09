@@ -221,9 +221,11 @@ class FavoritesScreen extends StatelessWidget {
                                   //         ),
                                   //         child: category.image != null
                                   //             ? Image.memory(
-                                  //                 base64Decode(
-                                  //                   category.image ?? '',
-                                  //                 ),
+                                  // Uri.parse( category.image ?? '')
+                                  //     .data
+                                  //     ?.contentAsBytes() ??
+                                  //     Uint8List(0),
+                                  //
                                   //                 fit: BoxFit.cover,
                                   //                 alignment:
                                   //                     Alignment.topCenter,

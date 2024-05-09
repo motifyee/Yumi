@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/auth/register/model/address.dart';
 import 'package:yumi/bloc/address/address_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
@@ -60,7 +61,7 @@ class CustomerLocationScreen extends StatelessWidget {
             child: Text(
               S
                   .of(context)
-                  .pleaseEnterYourLocationOrAllowAccessToYourLocationToFndRestaurantsNearYou,
+                  .pleaseEnterYourLocationOrAllowAccessToYourLocationToFindChefsNearYou,
               style: Theme.of(context).textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
@@ -82,6 +83,7 @@ class CustomerLocationScreen extends StatelessWidget {
                     },
                     child: Column(
                       children: [
+                        if (state.addressList.isEmpty) Loading(),
                         for (var i = 0; i < state.addressList.length; i++)
                           if (state.addressList[i].isDeleted != true)
                             _LocationCard(address: state.addressList[i]),

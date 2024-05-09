@@ -208,9 +208,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "pickUpOnly": MessageLookupByLibrary.simpleMessage("Pick up only"),
         "pickup": MessageLookupByLibrary.simpleMessage("Pickup"),
         "placeOrder": MessageLookupByLibrary.simpleMessage("Place order"),
-        "pleaseEnterYourLocationOrAllowAccessToYourLocationToFndRestaurantsNearYou":
+        "pleaseEnterYourLocationOrAllowAccessToYourLocationToFindChefsNearYou":
             MessageLookupByLibrary.simpleMessage(
-                "Please enter your location or allow access to your location to ﬁnd restaurants near you."),
+                "Please enter your location or allow access to your location to ﬁnd chefs near you."),
         "pleaseSpecifyTheDayTimeOfDelivery":
             MessageLookupByLibrary.simpleMessage(
                 "Please specify the day & time of delivery"),

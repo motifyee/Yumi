@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -225,9 +225,10 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                                               ),
                                             ),
                                             child: Image.memory(
-                                              base64Decode(
-                                                category.image ?? '',
-                                              ),
+                                              Uri.parse(category.image ?? '')
+                                                      .data
+                                                      ?.contentAsBytes() ??
+                                                  Uint8List(0),
                                               fit: BoxFit.cover,
                                               alignment: Alignment.topCenter,
                                               errorBuilder: (context, error,

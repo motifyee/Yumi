@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -53,7 +52,8 @@ class ChefMealCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(
                         ThemeSelector.statics.defaultMediumGap)),
                 child: Image.memory(
-                  Uint8List.fromList(base64Decode(meal.photo ?? '')),
+                  Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
+                      Uint8List(0),
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Image.asset(
                     'assets/images/354.jpeg',

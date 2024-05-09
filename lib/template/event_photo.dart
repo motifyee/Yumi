@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +84,8 @@ class EventsPhoto extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: Image.memory(
-                      base64Decode(image),
+                      Uri.parse(image ?? '').data?.contentAsBytes() ??
+                          Uint8List(0),
                       height: h,
                       fit: BoxFit.fill,
                     ),

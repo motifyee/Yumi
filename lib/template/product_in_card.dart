@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -126,7 +126,8 @@ class _ProductImage extends StatelessWidget {
                 ThemeSelector.statics.defaultBorderRadiusSmall),
           ),
           child: Image.memory(
-            base64Decode(invoiceDetails.image ?? ''),
+            Uri.parse(invoiceDetails.image ?? '').data?.contentAsBytes() ??
+                Uint8List(0),
             width: ThemeSelector.statics.iconSizeLarge,
             height: ThemeSelector.statics.iconSizeLarge,
             fit: BoxFit.fill,

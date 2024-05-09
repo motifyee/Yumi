@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -53,7 +53,8 @@ class ChefMealBasketCard extends StatelessWidget {
                       : const ColorFilter.mode(
                           Colors.transparent, BlendMode.darken),
                   child: Image.memory(
-                    base64Decode(meal.photo ?? ''),
+                    Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
+                        Uint8List(0),
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) => Image.asset(
                       'assets/images/354.jpeg',

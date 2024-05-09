@@ -21,10 +21,11 @@ class Location extends StatelessWidget {
         BlocConsumer<UserBloc, UserState>(
           listener: (context, state) {},
           builder: (context, state) {
+            print(state.address?.toJson());
             return Container(
               width: MediaQuery.of(context).size.width * .5,
               child: Text(
-                state.address?.location ?? '',
+                state.address?.location ?? state.address?.addressTitle ?? '',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: ThemeSelector.colors.secondaryFaint,
                     ),

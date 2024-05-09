@@ -1940,13 +1940,13 @@ class S {
     );
   }
 
-  /// `Please enter your location or allow access to your location to ﬁnd restaurants near you.`
+  /// `Please enter your location or allow access to your location to ﬁnd chefs near you.`
   String
-      get pleaseEnterYourLocationOrAllowAccessToYourLocationToFndRestaurantsNearYou {
+      get pleaseEnterYourLocationOrAllowAccessToYourLocationToFindChefsNearYou {
     return Intl.message(
-      'Please enter your location or allow access to your location to ﬁnd restaurants near you.',
+      'Please enter your location or allow access to your location to ﬁnd chefs near you.',
       name:
-          'pleaseEnterYourLocationOrAllowAccessToYourLocationToFndRestaurantsNearYou',
+          'pleaseEnterYourLocationOrAllowAccessToYourLocationToFindChefsNearYou',
       desc: '',
       args: [],
     );

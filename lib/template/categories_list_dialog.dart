@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -94,9 +94,10 @@ class CategoriesListDialog extends StatelessWidget {
                                         ThemeSelector.statics.defaultGap),
                                   ),
                                   child: Image.memory(
-                                    base64Decode(
-                                      category.image ?? '',
-                                    ),
+                                    Uri.parse(category.image ?? '')
+                                            .data
+                                            ?.contentAsBytes() ??
+                                        Uint8List(0),
                                     fit: BoxFit.cover,
                                     alignment: Alignment.topCenter,
                                     errorBuilder:
