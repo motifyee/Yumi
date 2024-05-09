@@ -13,33 +13,33 @@
       "name": "chef",
       "request": "launch",
       "type": "dart",
-      "program": "lib/chef.dart"
+      "program": "lib/app/yumi/chef.dart"
     },
     {
       "name": "driver",
       "request": "launch",
       "type": "dart",
-      "program": "lib/driver.dart"
+      "program": "lib/app/yumi/driver.dart"
     },
     {
       "name": "customer",
       "request": "launch",
       "type": "dart",
-      "program": "lib/customer.dart"
+      "program": "lib/app/yumi/customer.dart"
     },
     {
       "name": "driver (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile",
-      "program": "lib/driver.dart"
+      "program": "lib/app/yumi/driver.dart"
     },
     {
       "name": "driver (release mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release",
-      "program": "lib/driver.dart"
+      "program": "lib/app/yumi/driver.dart"
     }
   ]
 }

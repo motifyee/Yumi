@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$NRegState {
   bool get registerationStarted => throw _privateConstructorUsedError;
+  bool get finished => throw _privateConstructorUsedError;
   int get step => throw _privateConstructorUsedError; //
   RegisterationForm? get singupData =>
       throw _privateConstructorUsedError; // step: 0
@@ -48,6 +49,7 @@ abstract class $NRegStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool registerationStarted,
+      bool finished,
       int step,
       RegisterationForm? singupData,
       String? phone,
@@ -81,6 +83,7 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
   @override
   $Res call({
     Object? registerationStarted = null,
+    Object? finished = null,
     Object? step = null,
     Object? singupData = freezed,
     Object? phone = freezed,
@@ -99,6 +102,10 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
       registerationStarted: null == registerationStarted
           ? _value.registerationStarted
           : registerationStarted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      finished: null == finished
+          ? _value.finished
+          : finished // ignore: cast_nullable_to_non_nullable
               as bool,
       step: null == step
           ? _value.step
@@ -194,6 +201,7 @@ abstract class _$$InitialImplCopyWith<$Res>
   @useResult
   $Res call(
       {bool registerationStarted,
+      bool finished,
       int step,
       RegisterationForm? singupData,
       String? phone,
@@ -228,6 +236,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? registerationStarted = null,
+    Object? finished = null,
     Object? step = null,
     Object? singupData = freezed,
     Object? phone = freezed,
@@ -246,6 +255,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       registerationStarted: null == registerationStarted
           ? _value.registerationStarted
           : registerationStarted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      finished: null == finished
+          ? _value.finished
+          : finished // ignore: cast_nullable_to_non_nullable
               as bool,
       step: null == step
           ? _value.step
@@ -308,6 +321,7 @@ class __$$InitialImplCopyWithImpl<$Res>
 class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   const _$InitialImpl(
       {this.registerationStarted = false,
+      this.finished = false,
       this.step = 0,
       this.singupData,
       this.phone,
@@ -326,6 +340,9 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   @override
   @JsonKey()
   final bool registerationStarted;
+  @override
+  @JsonKey()
+  final bool finished;
   @override
   @JsonKey()
   final int step;
@@ -374,7 +391,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'NRegState(registerationStarted: $registerationStarted, step: $step, singupData: $singupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, onboardingProgress: $onboardingProgress, unique: $unique, countDown: $countDown)';
+    return 'NRegState(registerationStarted: $registerationStarted, finished: $finished, step: $step, singupData: $singupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, onboardingProgress: $onboardingProgress, unique: $unique, countDown: $countDown)';
   }
 
   @override
@@ -383,6 +400,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'NRegState'))
       ..add(DiagnosticsProperty('registerationStarted', registerationStarted))
+      ..add(DiagnosticsProperty('finished', finished))
       ..add(DiagnosticsProperty('step', step))
       ..add(DiagnosticsProperty('singupData', singupData))
       ..add(DiagnosticsProperty('phone', phone))
@@ -405,6 +423,8 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
             other is _$InitialImpl &&
             (identical(other.registerationStarted, registerationStarted) ||
                 other.registerationStarted == registerationStarted) &&
+            (identical(other.finished, finished) ||
+                other.finished == finished) &&
             (identical(other.step, step) || other.step == step) &&
             (identical(other.singupData, singupData) ||
                 other.singupData == singupData) &&
@@ -429,6 +449,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   int get hashCode => Object.hash(
       runtimeType,
       registerationStarted,
+      finished,
       step,
       singupData,
       phone,
@@ -453,6 +474,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
 abstract class _Initial extends NRegState {
   const factory _Initial(
       {final bool registerationStarted,
+      final bool finished,
       final int step,
       final RegisterationForm? singupData,
       final String? phone,
@@ -470,6 +492,8 @@ abstract class _Initial extends NRegState {
 
   @override
   bool get registerationStarted;
+  @override
+  bool get finished;
   @override
   int get step;
   @override //

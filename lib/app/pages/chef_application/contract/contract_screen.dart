@@ -69,7 +69,7 @@ class ContractScreen extends StatelessWidget {
                     title: "Contract",
                     desc: "Download the contract to sign it and upload it",
                     data: contractImage, //state.form.contractPhoto,
-                    fileName: 'YUMI-contract.pdf',
+                    fileName: 'YUMI-contract.jpg',
                     uploadAction: (data, _) {
                       var c = context.read<ProfileCubit>();
                       c.updateProfileForm(

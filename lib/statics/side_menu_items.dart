@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
@@ -187,10 +188,12 @@ class _AppMenuList {
           label: S.of(context).setting,
           onPressed: () {
             context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 4));
-            context.router.pop();
+            // context.router.pop();
+            G.pop();
           },
         ),
       ];
+
   static List<AppMenuItem> customerList({required BuildContext context}) => [
         AppMenuItem(
           icon: 'assets/images/notification_menu.svg',
@@ -252,21 +255,16 @@ class _AppMenuList {
           icon: 'assets/images/setting_menu.svg',
           label: S.of(context).setting,
           onPressed: () {
-            context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 4));
-            context.router.pop();
+            // Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(const SettingRoute());
+            // context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 4));
+            // context.router.pop();
+            // G.pop();
           },
         ),
       ];
 
   static List<AppMenuItem> driverList({required BuildContext context}) => [
-        AppMenuItem(
-          icon: 'assets/images/notification_menu.svg',
-          label: S.of(context).notification,
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const ChefApplicationFlowRoute());
-          },
-        ),
         AppMenuItem(
           icon: 'assets/images/notification_menu.svg',
           label: S.of(context).notification,
@@ -320,7 +318,7 @@ class _AppMenuList {
           label: S.of(context).setting,
           onPressed: () {
             context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 4));
-            context.router.pop();
+            G.pop();
           },
         ),
       ];

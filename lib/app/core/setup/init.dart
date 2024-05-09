@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -5,6 +7,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/core/setup/awesome_notifications.dart';
 
 import 'package:yumi/app/core/setup/crashlyticts.dart';
 import 'package:yumi/app/core/setup/inject.dart';
@@ -22,6 +25,8 @@ Future init() async {
   // Bloc.observer = SimpleBlocObserver();
 
   await initCrashlytics();
+
+  await NotificationService.initialize();
 
   Signalr.startConnection();
 

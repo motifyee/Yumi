@@ -61,6 +61,7 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () {
                       // context.router.push(SignUpRoute());
                       context.router.push(const RegisterationRoute());
+                      // context.router.push(const RegisterationRoute());
                     },
                     style: ButtonStyle(
                         backgroundColor:

@@ -11,6 +11,7 @@ import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bank_settings_card.dart';
 
+@RoutePage()
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
 
@@ -26,11 +27,14 @@ class SettingScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const UserSettingDetails(),
-                    BlocConsumer<BankInfoBloc, BankInfoState>(
-                      listener: (context, state) {},
-                      builder: (context, state) =>
-                          BankSettingsCard(bankInfo: state.selectedBank),
-                    ),
+                    if (G.isCustomerApp)
+                      const DeliveryAddresses()
+                    else
+                      BlocConsumer<BankInfoBloc, BankInfoState>(
+                        listener: (context, state) {},
+                        builder: (context, state) =>
+                            BankSettingsCard(bankInfo: state.selectedBank),
+                      ),
                     Column(
                       children: [
                         SizedBox(height: ThemeSelector.statics.defaultBlockGap),
@@ -90,6 +94,54 @@ class SettingScreen extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class DeliveryAddresses extends StatelessWidget {
+  const DeliveryAddresses({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: ThemeSelector.statics.defaultTitleGap,
+        right: ThemeSelector.statics.defaultTitleGap,
+        left: ThemeSelector.statics.defaultTitleGap,
+      ),
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
+        decoration: BoxDecoration(
+          color: ThemeSelector.colors.background,
+          borderRadius: BorderRadius.circular(
+              ThemeSelector.statics.defaultBorderRadiusSmall),
+          boxShadow: [
+            BoxShadow(
+              color: ThemeSelector.colors.secondary.withOpacity(.15),
+              spreadRadius: 0,
+              blurRadius: 5,
+              offset: const Offset(2, 4),
+            )
+          ],
+        ),
+        child: InkWell(
+          onTap: () => {
+            context.router.replaceAll([const CustomerLocationRoute()])
+          },
+          child: Row(
+            children: [
+              const Icon(Icons.location_on_outlined),
+              SizedBox(width: ThemeSelector.statics.defaultGap),
+              const Text(
+                "Delivery Addresses",
+              ),
+              Expanded(child: Container()),
+              const Icon(Icons.chevron_right_outlined),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
