@@ -230,5 +230,6 @@
   "yourOrderWillBeCancelled": "Your order will be cancelled",
   "scheduleDate": "Schedule Date",
   "ok": "OK",
-  "basketExpiredAndWillBeDeleted": "Basket Expired And Will Be Deleted"
+  "basketExpiredAndWillBeDeleted": "Basket Expired And Will Be Deleted",
+  "hygieneCertified": "Hygiene certified"
 }

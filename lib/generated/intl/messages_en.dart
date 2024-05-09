@@ -138,6 +138,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "holderName": MessageLookupByLibrary.simpleMessage("Holder name"),
         "hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "hygiene": MessageLookupByLibrary.simpleMessage("Hygiene"),
+        "hygieneCertified":
+            MessageLookupByLibrary.simpleMessage("Hygiene certified"),
         "iban": MessageLookupByLibrary.simpleMessage("IBan"),
         "ingredients": MessageLookupByLibrary.simpleMessage("Ingredients"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),

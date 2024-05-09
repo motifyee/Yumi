@@ -2371,6 +2371,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Hygiene certified`
+  String get hygieneCertified {
+    return Intl.message(
+      'Hygiene certified',
+      name: 'hygieneCertified',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

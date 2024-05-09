@@ -33,160 +33,167 @@ class _ReviewChefDriverState extends State<ReviewChefDriver> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Form(
-          key: _formController,
-          child: Container(
-            width: MediaQuery.of(context).size.width -
-                ThemeSelector.statics.defaultBlockGap,
-            decoration: BoxDecoration(
-                color: ThemeSelector.colors.background,
-                borderRadius:
-                    BorderRadius.circular(ThemeSelector.statics.defaultGap)),
-            child: Padding(
-              padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BlocConsumer<UserBloc, UserState>(
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      return Text(
-                        '${S.of(context).hi} ${state.user.userName},',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      );
-                    },
-                  ),
-                  Text(S.of(context).youCanNowCreateYourReview,
-                      style: Theme.of(context).textTheme.bodyMedium),
-                  if (!widget.isChefOnly)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
-                        Text(S.of(context).theDriver,
-                            style: Theme.of(context).textTheme.bodyLarge),
-                        Center(
-                          child: RatingBar(
-                            initialRating: widget.reviewDriver.rate,
-                            allowHalfRating: true,
-                            itemSize: ThemeSelector.fonts.font_24,
-                            ratingWidget: RatingWidget(
-                              empty: Icon(Icons.star_border,
-                                  color: ThemeSelector.colors.warning),
-                              full: Icon(Icons.star,
-                                  color: ThemeSelector.colors.warning),
-                              half: Icon(
-                                Icons.star_half,
-                                color: ThemeSelector.colors.warning,
+    return _isLoading
+        ? Center(
+            child: Loading(),
+          )
+        : Material(
+            child: Form(
+              key: _formController,
+              child: Container(
+                width: MediaQuery.of(context).size.width -
+                    ThemeSelector.statics.defaultBlockGap,
+                decoration: BoxDecoration(
+                    color: ThemeSelector.colors.background,
+                    borderRadius: BorderRadius.circular(
+                        ThemeSelector.statics.defaultGap)),
+                child: Padding(
+                  padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BlocConsumer<UserBloc, UserState>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          return Text(
+                            '${S.of(context).hi} ${state.user.userName},',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          );
+                        },
+                      ),
+                      Text(S.of(context).youCanNowCreateYourReview,
+                          style: Theme.of(context).textTheme.bodyMedium),
+                      if (!widget.isChefOnly)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                                height: ThemeSelector.statics.defaultLineGap),
+                            Text(S.of(context).theDriver,
+                                style: Theme.of(context).textTheme.bodyLarge),
+                            Center(
+                              child: RatingBar(
+                                initialRating: widget.reviewDriver.rate,
+                                allowHalfRating: true,
+                                itemSize: ThemeSelector.fonts.font_24,
+                                ratingWidget: RatingWidget(
+                                  empty: Icon(Icons.star_border,
+                                      color: ThemeSelector.colors.warning),
+                                  full: Icon(Icons.star,
+                                      color: ThemeSelector.colors.warning),
+                                  half: Icon(
+                                    Icons.star_half,
+                                    color: ThemeSelector.colors.warning,
+                                  ),
+                                ),
+                                onRatingUpdate: (value) => widget.reviewDriver =
+                                    widget.reviewDriver.copyWith(rate: value),
                               ),
                             ),
-                            onRatingUpdate: (value) => widget.reviewDriver =
-                                widget.reviewDriver.copyWith(rate: value),
-                          ),
-                        ),
-                        Material(
-                          child: TextFormFieldTemplate(
-                            borderStyle: TextFormFieldBorderStyle.borderedRound,
-                            hintText: S.of(context).reviewTheDriver,
-                            onChange: (value) => widget.reviewDriver = widget
-                                .reviewDriver
-                                .copyWith(reviewComment: value ?? ''),
-                          ),
-                        ),
-                      ],
-                    ),
-                  SizedBox(height: ThemeSelector.statics.defaultLineGap),
-                  Text(S.of(context).theChef,
-                      style: Theme.of(context).textTheme.bodyLarge),
-                  Center(
-                    child: RatingBar(
-                      initialRating: widget.reviewChef.rate,
-                      allowHalfRating: true,
-                      itemSize: ThemeSelector.fonts.font_24,
-                      ratingWidget: RatingWidget(
-                        empty: Icon(Icons.star_border,
-                            color: ThemeSelector.colors.warning),
-                        full: Icon(Icons.star,
-                            color: ThemeSelector.colors.warning),
-                        half: Icon(
-                          Icons.star_half,
-                          color: ThemeSelector.colors.warning,
-                        ),
-                      ),
-                      onRatingUpdate: (value) => widget.reviewChef =
-                          widget.reviewChef.copyWith(rate: value),
-                    ),
-                  ),
-                  Material(
-                    child: TextFormFieldTemplate(
-                      borderStyle: TextFormFieldBorderStyle.borderedRound,
-                      hintText: S.of(context).reviewTheChef,
-                      onChange: (value) => widget.reviewChef = widget.reviewChef
-                          .copyWith(reviewComment: value ?? ''),
-                    ),
-                  ),
-                  SizedBox(height: ThemeSelector.statics.defaultLineGap),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          context.router.popForced();
-                        },
-                        child: Text(S.of(context).cancel,
-                            style: Theme.of(context).textTheme.bodyMedium),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          _isLoading = true;
-                          Future.wait([
-                            ReviewService.updateRate(
-                                review: widget.reviewChef,
-                                chefId: widget.reviewChef.buddiesUserId),
-                            if (!widget.isChefOnly)
-                              ReviewService.updateRate(
-                                  review: widget.reviewDriver,
-                                  driverId: widget.reviewDriver.buddiesUserId),
-                          ]).then((value) {
-                            _isLoading = false;
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: SnackBarMassage(
-                                  massage: S.of(context).thankYouForYourReview,
-                                ),
+                            Material(
+                              child: TextFormFieldTemplate(
+                                borderStyle:
+                                    TextFormFieldBorderStyle.borderedRound,
+                                hintText: S.of(context).reviewTheDriver,
+                                onChange: (value) => widget.reviewDriver =
+                                    widget.reviewDriver
+                                        .copyWith(reviewComment: value ?? ''),
                               ),
-                            );
-                            context.router.popForced();
-                          }).catchError((err) {
-                            _isLoading = false;
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: SnackBarMassage(
-                                  massage: err.response?.data['message'],
-                                ),
-                              ),
-                            );
-                          });
-                        },
-                        child: Text(S.of(context).review,
-                            style: Theme.of(context).textTheme.headlineMedium),
+                            ),
+                          ],
+                        ),
+                      SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                      Text(S.of(context).theChef,
+                          style: Theme.of(context).textTheme.bodyLarge),
+                      Center(
+                        child: RatingBar(
+                          initialRating: widget.reviewChef.rate,
+                          allowHalfRating: true,
+                          itemSize: ThemeSelector.fonts.font_24,
+                          ratingWidget: RatingWidget(
+                            empty: Icon(Icons.star_border,
+                                color: ThemeSelector.colors.warning),
+                            full: Icon(Icons.star,
+                                color: ThemeSelector.colors.warning),
+                            half: Icon(
+                              Icons.star_half,
+                              color: ThemeSelector.colors.warning,
+                            ),
+                          ),
+                          onRatingUpdate: (value) => widget.reviewChef =
+                              widget.reviewChef.copyWith(rate: value),
+                        ),
                       ),
+                      TextFormFieldTemplate(
+                        borderStyle: TextFormFieldBorderStyle.borderedRound,
+                        hintText: S.of(context).reviewTheChef,
+                        onChange: (value) => widget.reviewChef = widget
+                            .reviewChef
+                            .copyWith(reviewComment: value ?? ''),
+                      ),
+                      SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              context.router.popForced();
+                            },
+                            child: Text(S.of(context).cancel,
+                                style: Theme.of(context).textTheme.bodyMedium),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              Future.wait([
+                                ReviewService.updateRate(
+                                    review: widget.reviewChef,
+                                    chefId: widget.reviewChef.buddiesUserId),
+                                if (!widget.isChefOnly)
+                                  ReviewService.updateRate(
+                                      review: widget.reviewDriver,
+                                      driverId:
+                                          widget.reviewDriver.buddiesUserId),
+                              ]).then((value) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: SnackBarMassage(
+                                      massage:
+                                          S.of(context).thankYouForYourReview,
+                                    ),
+                                  ),
+                                );
+                                context.router.popForced();
+                              }).catchError((err) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: err.response?.data['message'],
+                                    ),
+                                  ),
+                                );
+                              });
+                            },
+                            child: Text(S.of(context).review,
+                                style:
+                                    Theme.of(context).textTheme.headlineMedium),
+                          ),
+                        ],
+                      )
                     ],
-                  )
-                ],
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-        if (_isLoading)
-          Positioned(
-              child: Center(
-            child: Loading(),
-          ))
-      ],
-    );
+          );
   }
 }

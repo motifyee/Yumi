@@ -18,7 +18,8 @@ class OrderStatusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime? _createdDate = DateTime.tryParse(order.createdDate ?? '');
+    DateTime _updatedDate =
+        DateTime.tryParse(order.updatedDate ?? '') ?? DateTime.now();
     DateTime? _chefStartDate = DateTime.tryParse(order.chefStartDate ?? '');
     DateTime? _chefFinishedDate =
         DateTime.tryParse(order.chefFinishedDate ?? '');
@@ -139,7 +140,7 @@ class OrderStatusScreen extends StatelessWidget {
                               const Text(' '),
                               Text(
                                 DateFormat('d-M-yyyy | hh:mm')
-                                    .format(_createdDate!),
+                                    .format(_updatedDate!),
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ],
@@ -305,9 +306,10 @@ class OrderStatusScreen extends StatelessWidget {
                   onTap: order.clientReceived != true
                       ? null
                       : () {
-                          showDialog(
+                          showAdaptiveDialog(
                             useSafeArea: true,
                             context: context,
+                            useRootNavigator: false,
                             builder: (context) => AlertDialog(
                               scrollable: true,
                               alignment: Alignment.center,
