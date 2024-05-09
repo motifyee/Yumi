@@ -22,13 +22,13 @@ class ChefApplicationFlowScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!context.read<RegCubit>().state.registerationStarted) {
+    final regCubit = context.read<RegCubit>();
+    if (!regCubit.state.registerationStarted && !regCubit.state.finished) {
       context.read<RegCubit>().init();
     }
     context.watch<ProfileCubit>();
     context.watch<RegCubit>();
     context.watch<MealListBloc>();
-    // context.watch<ScheduleBloc>();
     context.watch<ScheduleCubit>();
     context.watch<DocsCubit>();
 

@@ -68,19 +68,19 @@ class LoginThirdPart extends StatelessWidget {
                     width: 20,
                     height: 20,
                   )),
-              const SizedBox(width: 10),
-              TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      minimumSize: const Size(20, 20),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      alignment: Alignment.centerLeft),
-                  child: SvgPicture.asset(
-                    'assets/images/x.svg',
-                    width: 20,
-                    height: 20,
-                  )),
+              // const SizedBox(width: 10),
+              // TextButton(
+              //     onPressed: () {},
+              //     style: TextButton.styleFrom(
+              //         padding: EdgeInsets.zero,
+              //         minimumSize: const Size(20, 20),
+              //         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              //         alignment: Alignment.centerLeft),
+              //     child: SvgPicture.asset(
+              //       'assets/images/x.svg',
+              //       width: 20,
+              //       height: 20,
+              //     )),
               const SizedBox(width: 10),
               TextButton(
                   onPressed: () {},

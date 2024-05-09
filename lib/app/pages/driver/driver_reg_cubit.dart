@@ -35,11 +35,11 @@ const String onboardingProgressKey = 'onboarding_progress';
 
 enum RegStep { signup, addPhone, otp, location, onboarding }
 
-// TODO Handle async errors
 @freezed
 class NRegState with _$NRegState {
   const factory NRegState({
     @Default(false) bool registerationStarted,
+    @Default(false) bool finished,
     @Default(0) int step,
     //
     RegisterationForm? singupData, // step: 0
@@ -143,7 +143,17 @@ class RegCubit extends Cubit<NRegState> {
     pref.remove(onboardingProgressKey);
 
     G.router.replaceAll([HomeRoute()]).then((value) {
-      emit(state.copyWith(registerationStarted: false));
+      emit(state.copyWith(
+        step: 0,
+        phone: null,
+        otp: null,
+        address: const Address(isDefault: true),
+        vehicle: const Vehicle(typeCode: 0),
+        countDown: null,
+        onboardingProgress: 0,
+        registerationStarted: false,
+        finished: true,
+      ));
     });
   }
 
@@ -359,8 +369,8 @@ class RegCubit extends Cubit<NRegState> {
 
     var path = G.router.currentPath;
 
-    if (path == '/registeration/${RegStep.values[step].name}') return;
     if (!state.registerationStarted) return;
+    if (path == '/registeration/${RegStep.values[step].name}') return;
 
     G.router.navigate(RegisterationRoute(children: [getPage(step, otp: otp)]));
 
