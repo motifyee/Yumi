@@ -34,6 +34,7 @@ class Invoice with _$Invoice {
   @JsonSerializable(anyMap: true)
   const factory Invoice({
     int? createdBy,
+    String? createdDate,
     @JsonKey(name: 'chef_ID') String? chefID,
     @Default('') String clientNote,
     @Default('') String preparationNotes,
@@ -49,6 +50,14 @@ class Invoice with _$Invoice {
     DateTime? scheduleDate,
     String? invoiceCode,
   }) = _Invoice;
+
+  const Invoice._();
+
+  bool get isBasketExpired =>
+      DateTime.now()
+          .difference(DateTime.tryParse(createdDate ?? '') ?? DateTime.now())
+          .inHours >
+      24;
 
   factory Invoice.initial() {
     return Invoice(

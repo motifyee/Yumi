@@ -82,9 +82,11 @@ class BasketCubit extends Cubit<BasketState> {
         final Either<Failure, Basket> task2 =
             await CalcBasket().call(CalcBasketParams(basket: r));
         task2.fold((l) => _message(S.current.apiError), (r) {
-          emit(state.copyWith(basket: r));
           G.router.replaceAll([BasketRoute()]);
+          emit(state.copyWith(basket: r));
         });
+      } else {
+        G.router.replaceAll([HomeRoute()]);
       }
     });
   }
@@ -111,7 +113,6 @@ class BasketCubit extends Cubit<BasketState> {
   createBasket({required Basket basket}) async {
     print('createBasket ...');
     _loadingIndicator();
-    emit(state.copyWith());
     final Either<Failure, Basket> task =
         await CalcBasket().call(CalcBasketParams(basket: basket));
     task.fold((l) => null, (r) async {
@@ -136,7 +137,7 @@ class BasketCubit extends Cubit<BasketState> {
       _message(S.current.basketUpdated);
       emit(state.copyWith(basket: r));
     });
-    G.router.popForced();
+    G.router.maybePop();
   }
 
   closeBasket() async {
@@ -154,6 +155,7 @@ class BasketCubit extends Cubit<BasketState> {
 
   void deleteBasket({isLocationChange = false}) async {
     print('deleteBasket ...');
+    if (state.basket.id == null) return;
     _loadingIndicator();
 
     final Either<Failure, Response> task =

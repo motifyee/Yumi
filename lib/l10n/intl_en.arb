@@ -228,5 +228,7 @@
   "change": "Change",
   "yes": "Yes",
   "yourOrderWillBeCancelled": "Your order will be cancelled",
-  "scheduleDate": "Schedule Date"
+  "scheduleDate": "Schedule Date",
+  "ok": "OK",
+  "basketExpiredAndWillBeDeleted": "Basket Expired And Will Be Deleted"
 }

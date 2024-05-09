@@ -2351,6 +2351,26 @@ class S {
       args: [],
     );
   }
+
+  /// `OK`
+  String get ok {
+    return Intl.message(
+      'OK',
+      name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Basket Expired And Will Be Deleted`
+  String get basketExpiredAndWillBeDeleted {
+    return Intl.message(
+      'Basket Expired And Will Be Deleted',
+      name: 'basketExpiredAndWillBeDeleted',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
