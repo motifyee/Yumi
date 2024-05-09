@@ -160,7 +160,10 @@ class BasketCubit extends Cubit<BasketState> {
 
     final Either<Failure, Response> task =
         await DeleteBasket().call(DeleteBasketParam(basket: state.basket));
-    task.fold((l) => _message(S.current.apiError), (r) {
+    task.fold((l) {
+      G.router.replaceAll([HomeRoute()]);
+      _message(S.current.apiError);
+    }, (r) {
       _message(S.current.basketDeleted);
       emit(BasketState.initial());
       if (isLocationChange) {

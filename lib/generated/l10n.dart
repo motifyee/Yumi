@@ -400,31 +400,31 @@ class S {
     );
   }
 
-  /// `This button means that the chef is currently closed`
-  String get thisButtonMeansThatTheChefIsCurrentlyClosed {
+  /// `This button means that you are currently closed`
+  String get thisButtonMeansThatYouAreCurrentlyClosed {
     return Intl.message(
-      'This button means that the chef is currently closed',
-      name: 'thisButtonMeansThatTheChefIsCurrentlyClosed',
+      'This button means that you are currently closed',
+      name: 'thisButtonMeansThatYouAreCurrentlyClosed',
       desc: '',
       args: [],
     );
   }
 
-  /// `This button means that the chef is currently available`
-  String get thisButtonMeansThatTheChefIsCurrentlyAvailable {
+  /// `This button means that you are currently available`
+  String get thisButtonMeansThatYouAreCurrentlyAvailable {
     return Intl.message(
-      'This button means that the chef is currently available',
-      name: 'thisButtonMeansThatTheChefIsCurrentlyAvailable',
+      'This button means that you are currently available',
+      name: 'thisButtonMeansThatYouAreCurrentlyAvailable',
       desc: '',
       args: [],
     );
   }
 
-  /// `This button means that the chef is currently not available`
-  String get thisButtonMeansThatTheChefIsCurrentlyNotAvailable {
+  /// `This button means that you are currently not available`
+  String get thisButtonMeansThatYouAreCurrentlyNotAvailable {
     return Intl.message(
-      'This button means that the chef is currently not available',
-      name: 'thisButtonMeansThatTheChefIsCurrentlyNotAvailable',
+      'This button means that you are currently not available',
+      name: 'thisButtonMeansThatYouAreCurrentlyNotAvailable',
       desc: '',
       args: [],
     );

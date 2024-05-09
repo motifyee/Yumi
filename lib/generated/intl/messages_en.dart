@@ -284,15 +284,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "theDriver": MessageLookupByLibrary.simpleMessage("The driver"),
         "theTotalPriceIncludesTax": MessageLookupByLibrary.simpleMessage(
             "The total price includes tax"),
-        "thisButtonMeansThatTheChefIsCurrentlyAvailable":
+        "thisButtonMeansThatYouAreCurrentlyAvailable":
             MessageLookupByLibrary.simpleMessage(
-                "This button means that the chef is currently available"),
-        "thisButtonMeansThatTheChefIsCurrentlyClosed":
+                "This button means that you are currently available"),
+        "thisButtonMeansThatYouAreCurrentlyClosed":
             MessageLookupByLibrary.simpleMessage(
-                "This button means that the chef is currently closed"),
-        "thisButtonMeansThatTheChefIsCurrentlyNotAvailable":
+                "This button means that you are currently closed"),
+        "thisButtonMeansThatYouAreCurrentlyNotAvailable":
             MessageLookupByLibrary.simpleMessage(
-                "This button means that the chef is currently not available"),
+                "This button means that you are currently not available"),
         "thisSectionYourSavedAddress": MessageLookupByLibrary.simpleMessage(
             "This section your saved address"),
         "time": MessageLookupByLibrary.simpleMessage("Time"),
