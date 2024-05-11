@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +30,8 @@ class RidesScreen extends StatelessWidget {
       Icons.motorcycle,
       Icons.directions_bike
     ];
-    var controller = TextEditingController();
+    // var controller = TextEditingController();
+    String vehicleOtherType = '';
     var node = FocusNode();
 
     var regCubit = G.rd<RegCubit>();
@@ -130,16 +128,25 @@ class RidesScreen extends StatelessWidget {
                             const SizedBox(height: 20),
                             Padding(
                               padding: const EdgeInsets.all(16.0),
-                              child: TextField(
-                                // initialValue:
-                                //     state.otherVehicle == true ? state.vehicleType : '',
-                                controller: controller,
+                              child: TextFormField(
+                                initialValue: state.vehicle.vehicleType ==
+                                        VehicleType.other
+                                    ? state.vehicle.otherType
+                                    : '',
                                 focusNode: node,
                                 enabled: state.vehicle.vehicleType ==
                                     VehicleType.other,
+                                onChanged: (value) {
+                                  vehicleOtherType = value;
+                                },
                                 onTapOutside: (evt) {
+                                  if (vehicleOtherType.length < 3) {
+                                    return G.snackBar(
+                                        "Custom vehicle type must be at least 3 characters long");
+                                  }
+
                                   G.rd<RegCubit>().setVehicleType(state.vehicle
-                                      .copyWithVehicleType(controller.text));
+                                      .copyWithVehicleType(vehicleOtherType));
                                 },
                                 decoration: const InputDecoration(
                                   border: OutlineInputBorder(),

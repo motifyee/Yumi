@@ -30,6 +30,7 @@ class DioClient {
           debugPrint('dio error >>>>>>>>>>>>>>>>>>>>>>>>');
           debugPrint('error code : ${error.response?.statusCode.toString()}');
           debugPrint('error type : ${error.type}');
+          debugPrint('error error : ${error.error}');
           debugPrint('error response: ${error.response.toString()}');
           debugPrint('dio error <<<<<<<<<<<<<<<<<<<<<<<<');
 

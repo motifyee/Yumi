@@ -84,8 +84,7 @@ class EventsPhoto extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: Image.memory(
-                      Uri.parse(image ?? '').data?.contentAsBytes() ??
-                          Uint8List(0),
+                      Uri.parse(image).data?.contentAsBytes() ?? Uint8List(0),
                       height: h,
                       fit: BoxFit.fill,
                     ),
@@ -113,7 +112,8 @@ class EventsPhoto extends StatelessWidget {
 
             final images = await picker.pickMultiImage();
 
-            b64e(XFile fl) async => base64Encode(await fl.readAsBytes());
+            b64e(XFile fl) async =>
+                'data:image/jpeg;base64,${base64Encode(await fl.readAsBytes())}';
             var newPhotos = await Future.wait(images.map((e) => b64e(e)));
 
             if (newPhotos.isEmpty) return;

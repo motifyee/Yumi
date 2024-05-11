@@ -35,6 +35,7 @@ mixin _$Profile {
   String get email => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String get about => throw _privateConstructorUsedError;
+  double get rate => throw _privateConstructorUsedError;
   @JsonKey(name: 'pickup_Allowed')
   bool get pickup => throw _privateConstructorUsedError;
   @JsonKey(name: 'pickup_Only')
@@ -108,6 +109,7 @@ abstract class $ProfileCopyWith<$Res> {
       String email,
       String address,
       String about,
+      double rate,
       @JsonKey(name: 'pickup_Allowed') bool pickup,
       @JsonKey(name: 'pickup_Only') bool pickupOnly,
       int signupType,
@@ -163,6 +165,7 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
     Object? email = null,
     Object? address = null,
     Object? about = null,
+    Object? rate = null,
     Object? pickup = null,
     Object? pickupOnly = null,
     Object? signupType = null,
@@ -241,6 +244,10 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
               as String,
+      rate: null == rate
+          ? _value.rate
+          : rate // ignore: cast_nullable_to_non_nullable
+              as double,
       pickup: null == pickup
           ? _value.pickup
           : pickup // ignore: cast_nullable_to_non_nullable
@@ -363,6 +370,7 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       String email,
       String address,
       String about,
+      double rate,
       @JsonKey(name: 'pickup_Allowed') bool pickup,
       @JsonKey(name: 'pickup_Only') bool pickupOnly,
       int signupType,
@@ -416,6 +424,7 @@ class __$$ProfileImplCopyWithImpl<$Res>
     Object? email = null,
     Object? address = null,
     Object? about = null,
+    Object? rate = null,
     Object? pickup = null,
     Object? pickupOnly = null,
     Object? signupType = null,
@@ -494,6 +503,10 @@ class __$$ProfileImplCopyWithImpl<$Res>
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
               as String,
+      rate: null == rate
+          ? _value.rate
+          : rate // ignore: cast_nullable_to_non_nullable
+              as double,
       pickup: null == pickup
           ? _value.pickup
           : pickup // ignore: cast_nullable_to_non_nullable
@@ -612,6 +625,7 @@ class _$ProfileImpl extends _Profile {
       this.email = '',
       this.address = '',
       this.about = '',
+      this.rate = 0.0,
       @JsonKey(name: 'pickup_Allowed') this.pickup = false,
       @JsonKey(name: 'pickup_Only') this.pickupOnly = false,
       this.signupType = 0,
@@ -684,6 +698,9 @@ class _$ProfileImpl extends _Profile {
   @override
   @JsonKey()
   final String about;
+  @override
+  @JsonKey()
+  final double rate;
   @override
   @JsonKey(name: 'pickup_Allowed')
   final bool pickup;
@@ -767,7 +784,7 @@ class _$ProfileImpl extends _Profile {
 
   @override
   String toString() {
-    return 'Profile(entityStatus: $entityStatus, code: $code, branchId: $branchId, guid: $guid, id: $id, fullName: $fullName, userName: $userName, bio: $bio, profileImage: $profileImage, mobile: $mobile, email: $email, address: $address, about: $about, pickup: $pickup, pickupOnly: $pickupOnly, signupType: $signupType, registerDate: $registerDate, userStatus: $userStatus, country: $country, updatedBy: $updatedBy, eventPhoto0: $eventPhoto0, eventPhoto1: $eventPhoto1, eventPhoto2: $eventPhoto2, eventPhoto3: $eventPhoto3, eventPhoto4: $eventPhoto4, accountApproved: $accountApproved, isHygiene: $isHygiene, hygienePhoto: $hygienePhoto, riskPhoto: $riskPhoto, registerationPhoto: $registerationPhoto, driverLicensePhoto: $driverLicensePhoto, driverLicenseCodePhoto: $driverLicenseCodePhoto, foodDeliveryInsurancePhoto: $foodDeliveryInsurancePhoto, evidenceOfResidencePhoto: $evidenceOfResidencePhoto, passportPhoto: $passportPhoto, nidPhoto: $nidPhoto, contractPhoto: $contractPhoto)';
+    return 'Profile(entityStatus: $entityStatus, code: $code, branchId: $branchId, guid: $guid, id: $id, fullName: $fullName, userName: $userName, bio: $bio, profileImage: $profileImage, mobile: $mobile, email: $email, address: $address, about: $about, rate: $rate, pickup: $pickup, pickupOnly: $pickupOnly, signupType: $signupType, registerDate: $registerDate, userStatus: $userStatus, country: $country, updatedBy: $updatedBy, eventPhoto0: $eventPhoto0, eventPhoto1: $eventPhoto1, eventPhoto2: $eventPhoto2, eventPhoto3: $eventPhoto3, eventPhoto4: $eventPhoto4, accountApproved: $accountApproved, isHygiene: $isHygiene, hygienePhoto: $hygienePhoto, riskPhoto: $riskPhoto, registerationPhoto: $registerationPhoto, driverLicensePhoto: $driverLicensePhoto, driverLicenseCodePhoto: $driverLicenseCodePhoto, foodDeliveryInsurancePhoto: $foodDeliveryInsurancePhoto, evidenceOfResidencePhoto: $evidenceOfResidencePhoto, passportPhoto: $passportPhoto, nidPhoto: $nidPhoto, contractPhoto: $contractPhoto)';
   }
 
   @override
@@ -793,6 +810,7 @@ class _$ProfileImpl extends _Profile {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.about, about) || other.about == about) &&
+            (identical(other.rate, rate) || other.rate == rate) &&
             (identical(other.pickup, pickup) || other.pickup == pickup) &&
             (identical(other.pickupOnly, pickupOnly) ||
                 other.pickupOnly == pickupOnly) &&
@@ -861,6 +879,7 @@ class _$ProfileImpl extends _Profile {
         email,
         address,
         about,
+        rate,
         pickup,
         pickupOnly,
         signupType,
@@ -917,6 +936,7 @@ abstract class _Profile extends Profile {
       final String email,
       final String address,
       final String about,
+      final double rate,
       @JsonKey(name: 'pickup_Allowed') final bool pickup,
       @JsonKey(name: 'pickup_Only') final bool pickupOnly,
       final int signupType,
@@ -977,6 +997,8 @@ abstract class _Profile extends Profile {
   String get address;
   @override
   String get about;
+  @override
+  double get rate;
   @override
   @JsonKey(name: 'pickup_Allowed')
   bool get pickup;

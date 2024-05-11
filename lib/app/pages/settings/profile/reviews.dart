@@ -63,7 +63,7 @@ class ReviewWidget extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                (review.customerName[0] ?? '').toUpperCase(),
+                (review.customerName[0]).toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
                     .displayLarge
@@ -73,27 +73,42 @@ class ReviewWidget extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Expanded(child: Text(review.customerName)),
-          Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: ThemeSelector.statics.defaultGap,
-                vertical: ThemeSelector.statics.defaultGap / 2),
-            decoration: BoxDecoration(
-              color: ThemeSelector.colors.primary,
-              borderRadius: BorderRadius.circular(
-                  ThemeSelector.statics.buttonBorderRadius),
-            ),
-            child: Row(
-              children: [
-                Text(review.rate.toString(),
-                    style: Theme.of(context).textTheme.displaySmall),
-                SizedBox(width: ThemeSelector.statics.defaultGap / 2),
-                SvgPicture.asset(
-                  'assets/images/star.svg',
-                  colorFilter: ColorFilter.mode(
-                      ThemeSelector.colors.onPrimary, BlendMode.srcIn),
-                ),
-              ],
-            ),
+          RatingContainer(rate: review.rate),
+        ],
+      ),
+    );
+  }
+}
+
+class RatingContainer extends StatelessWidget {
+  const RatingContainer({
+    super.key,
+    required this.rate,
+  });
+
+  final double rate;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+          horizontal: ThemeSelector.statics.defaultGap,
+          vertical: ThemeSelector.statics.defaultGap / 2),
+      decoration: BoxDecoration(
+        color: ThemeSelector.colors.primary,
+        borderRadius:
+            BorderRadius.circular(ThemeSelector.statics.buttonBorderRadius),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(rate.toStringAsFixed(1),
+              style: Theme.of(context).textTheme.displaySmall),
+          SizedBox(width: ThemeSelector.statics.defaultGap / 2),
+          SvgPicture.asset(
+            'assets/images/star.svg',
+            colorFilter: ColorFilter.mode(
+                ThemeSelector.colors.onPrimary, BlendMode.srcIn),
           ),
         ],
       ),

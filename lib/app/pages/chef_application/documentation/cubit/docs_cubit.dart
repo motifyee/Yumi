@@ -29,63 +29,42 @@ class DocsCubit extends Cubit<DocsState> {
   DocsCubit() : super(const DocsState());
 
   void init() async {
-    var profileCubit = G.rd<ProfileCubit>();
-    await profileCubit.getProfileForm();
+    emit(state.copyWith(status: Status.loading));
 
-    StreamSubscription<ProfileState>? sub;
-    sub = profileCubit.stream.listen((event) {
-      if (event.form.entityStatus.isLoading) {
-        emit(state.copyWith(status: Status.loading));
-      }
+    final load = await G.rd<ProfileCubit>().getProfileForm();
 
-      if (event.form.entityStatus.isSuccess) {
-        emit(state.copyWith(
-          profile: profileCubit.state.form,
-          status: Status.initSuccess,
-        ));
-        if (sub != null) sub.cancel();
-      }
-
-      if (event.form.entityStatus.isError) {
-        emit(state.copyWith(status: Status.initError));
-        if (sub != null) sub.cancel();
-      }
-    });
+    if (load != null) {
+      emit(state.copyWith(profile: load, status: Status.initSuccess));
+    } else {
+      emit(state.copyWith(status: Status.initError));
+    }
   }
 
   void update(Profile profile, int idx) async {
-    var profileCubit = G.rd<ProfileCubit>();
-    await profileCubit.updateProfileForm(profile);
+    emit(state.copyWith(
+      status: Status.loading,
+      docsStatuses: [...state.docsStatuses]..[idx] = Status.loading,
+    ));
 
-    var regCubit = G.rd<RegCubit>();
+    final update = await G.rd<ProfileCubit>().updateProfileForm(profile);
 
-    StreamSubscription<ProfileState>? sub;
-    sub = profileCubit.stream.listen((event) {
-      if (event.form.entityStatus.isLoading) {
-        emit(state.copyWith(
-          status: Status.loading,
-          docsStatuses: [...state.docsStatuses]..[idx] = Status.loading,
-        ));
-      }
+    if (update != null) {
+      emit(state.copyWith(
+        profile: update,
+        status: Status.success,
+        docsStatuses: [...state.docsStatuses]..[idx] = Status.success,
+      ));
+    } else {
+      emit(state.copyWith(
+        status: Status.error,
+        docsStatuses: [...state.docsStatuses]..[idx] = Status.error,
+      ));
+    }
 
-      if (event.form.entityStatus.isSuccess) {
-        emit(state.copyWith(
-          profile: profileCubit.state.form,
-          status: Status.success,
-          docsStatuses: [...state.docsStatuses]..[idx] = Status.success,
-        ));
-        if (sub != null) sub.cancel();
-        regCubit.refresh();
-      }
+    G.rd<RegCubit>().refresh();
+  }
 
-      if (event.form.entityStatus.isError) {
-        emit(state.copyWith(
-          status: Status.error,
-          docsStatuses: [...state.docsStatuses]..[idx] = Status.error,
-        ));
-        if (sub != null) sub.cancel();
-        regCubit.refresh();
-      }
-    });
+  void reset() {
+    emit(const DocsState());
   }
 }

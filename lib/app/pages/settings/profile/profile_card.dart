@@ -16,7 +16,8 @@ class UserSettingDetails extends StatelessWidget {
     return BlocSelector<ProfileCubit, ProfileState, ProfileState>(
       selector: (state) => state,
       builder: (context, state) {
-        if (!state.profile.entityStatus.hasSuccess) {
+        if (!state.profile.entityStatus.hasSuccess &&
+            !state.profile.entityStatus.hasError) {
           context.read<ProfileCubit>().getProfile();
         }
 

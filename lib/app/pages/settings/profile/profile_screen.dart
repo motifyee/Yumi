@@ -88,12 +88,14 @@ class ProfilePhotoSlice extends Equatable {
   final bool isHygiene;
   final String fullName;
   final EntityStatus entityStatus;
+  final double rate;
 
   const ProfilePhotoSlice({
     required this.photo,
     required this.isHygiene,
     required this.fullName,
     required this.entityStatus,
+    required this.rate,
   });
 
   @override
@@ -111,6 +113,7 @@ class ProfilePicture extends StatelessWidget {
         isHygiene: state.form.isHygiene,
         fullName: state.form.fullName,
         entityStatus: state.form.entityStatus,
+        rate: state.form.rate,
       ),
       builder: (context, state) {
         if (state.photo == null && state.entityStatus.isLoading) {
@@ -129,21 +132,27 @@ class ProfilePicture extends StatelessWidget {
                   fontSize: ThemeSelector.fonts.font_24),
             ),
             SizedBox(height: ThemeSelector.statics.defaultGap),
+            // rating bar
             if (!G.rd<RegCubit>().state.registerationStarted)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('4.5',
-                      style: TextStyle(color: ThemeSelector.colors.secondary)),
-                  Text(' ',
-                      style: TextStyle(color: ThemeSelector.colors.secondary)),
-                  SvgPicture.asset('assets/images/star.svg'),
-                  if (state.isHygiene)
-                    Text(' | ${S.of(context).hygiene}',
-                        style:
-                            TextStyle(color: ThemeSelector.colors.secondary)),
-                ],
+              SizedBox(
+                width: 50,
+                child: RatingContainer(rate: state.rate),
               ),
+
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Text(state.rate.toStringAsFixed(1),
+            //         style: TextStyle(color: ThemeSelector.colors.secondary)),
+            //     Text(' ',
+            //         style: TextStyle(color: ThemeSelector.colors.secondary)),
+            //     SvgPicture.asset('assets/images/star.svg'),
+            //     if (state.isHygiene)
+            //       Text(' | ${S.of(context).hygiene}',
+            //           style:
+            //               TextStyle(color: ThemeSelector.colors.secondary)),
+            //   ],
+            // ),
             SizedBox(height: ThemeSelector.statics.defaultTitleGap),
           ],
         );

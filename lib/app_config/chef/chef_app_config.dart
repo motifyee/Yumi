@@ -43,7 +43,6 @@ class ChefAppConfig implements AppConfig {
     BlocProvider(create: (context) => DocsCubit()),
     BlocProvider(create: (context) => MealListBloc()),
     BlocProvider(create: (context) => RegCubit()),
-    // BlocProvider(create: (context) => ScheduleBloc(scheduleRepo: ScheduleRepo())),
     BlocProvider(create: (context) => ScheduleCubit()),
     BlocProvider(create: (context) => NavigatorBloc()),
     BlocProvider(create: (context) => NavigatorBloc()),

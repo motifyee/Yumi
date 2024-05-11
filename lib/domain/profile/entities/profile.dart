@@ -31,6 +31,7 @@ abstract class Profile with _$Profile {
     @Default('') String email,
     @Default('') String address,
     @Default('') String about,
+    @Default(0.0) double rate,
     @Default(false) @JsonKey(name: 'pickup_Allowed') bool pickup,
     @Default(false) @JsonKey(name: 'pickup_Only') bool pickupOnly,
 
