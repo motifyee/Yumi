@@ -1,4 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 
 class CustomerRoutes extends $AppRouter {
@@ -19,10 +22,14 @@ class CustomerRoutes extends $AppRouter {
         ),
 
         /// routes go here
-        AutoRoute(page: LoginRoute.page, initial: true),
+        AutoRoute(page: LoginRoute.page, keepHistory: false),
         AutoRoute(page: SignUpRoute.page, keepHistory: false),
         AutoRoute(page: ForgetPasswordRoute.page, keepHistory: false),
-        AutoRoute(page: HomeRoute.page),
+        AutoRoute(
+          initial: true,
+          page: HomeRoute.page,
+          guards: [AuthGuard()],
+        ),
         AutoRoute(page: MenuPreOrderRoute.page),
         AutoRoute(page: NotificationRoute.page),
         AutoRoute(page: MyScheduleRoute.page),
@@ -47,4 +54,16 @@ class CustomerRoutes extends $AppRouter {
         AutoRoute(page: CustomerLocationRoute.page),
         AutoRoute(page: MyOrdersRoute.page),
       ];
+}
+
+class AuthGuard extends AutoRouteGuard {
+  @override
+  void onNavigation(NavigationResolver resolver, StackRouter router) {
+    G.cContext.read<UserBloc>().add(UserFromSharedRefEvent(
+          afterFetchSuccess: (p0, p1) => resolver.next(true),
+          context: G.cContext,
+          autoLogin: (p0) => router.push(LoginRoute()),
+          route: "",
+        ));
+  }
 }
