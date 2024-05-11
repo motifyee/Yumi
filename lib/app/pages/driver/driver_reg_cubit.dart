@@ -142,9 +142,11 @@ class RegCubit extends Cubit<NRegState> {
     pref.remove(regStepKey);
     pref.remove(onboardingProgressKey);
 
-    G.rd<ScheduleCubit>().reset();
     G.rd<ProfileCubit>().reset();
-    G.rd<DocsCubit>().reset();
+    if (!G.isCustomerApp) {
+      G.rd<ScheduleCubit>().reset();
+      G.rd<DocsCubit>().reset();
+    }
 
     G.router.replaceAll([HomeRoute()]).then((value) {
       emit(state.copyWith(

@@ -55,8 +55,10 @@ class SettingScreen extends StatelessWidget {
                                   .deleteProfile()
                                   .then((value) {
                                 if (!value.contains("Deleting a Account")) {
-                                  return;
+                                  return G.snackBar("Could not delete account");
                                 }
+
+                                G.snackBar("Deleted account!");
 
                                 context.read<UserBloc>().add(UserResetEvent());
                                 context.router.replaceAll([LoginRoute()]);
