@@ -306,6 +306,8 @@ class RegCubit extends Cubit<NRegState> {
   void saveLocation({
     Function({required Address address})? routeFn,
   }) async {
+    if (state.addressStatus == Status.loading) return;
+    emit(state.copyWith(addressStatus: Status.loading));
     await tryV(
       () => AddressRepo.addAddress(address: state.address),
     ).then((res) {
