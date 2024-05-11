@@ -7,6 +7,9 @@ set "gradle=.\android\app\build.gradle"
 set "output=.\build\app\outputs\flutter-apk"
 mkdir %output%\out
 
+echo preparing: git pull ...
+git pull
+
 echo
 echo building: customer app ...
 
