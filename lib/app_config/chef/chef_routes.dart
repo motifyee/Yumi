@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
+import 'package:yumi/route/auth_guard.dart';
 import 'package:yumi/route/route.gr.dart';
 
 class ChefRoutes extends $AppRouter {
@@ -23,10 +24,14 @@ class ChefRoutes extends $AppRouter {
         ),
 
         /// routes go here
-        AutoRoute(page: LoginRoute.page, initial: true),
+        AutoRoute(page: LoginRoute.page, keepHistory: false),
         AutoRoute(page: SignUpRoute.page, keepHistory: false),
         AutoRoute(page: ForgetPasswordRoute.page, keepHistory: false),
-        AutoRoute(page: HomeRoute.page),
+        AutoRoute(
+          initial: true,
+          page: HomeRoute.page,
+          guards: [AuthGuard()],
+        ),
         AutoRoute(page: MenuPreOrderRoute.page),
         AutoRoute(page: NotificationRoute.page),
         AutoRoute(page: MyScheduleRoute.page),

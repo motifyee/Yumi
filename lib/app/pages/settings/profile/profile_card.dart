@@ -174,24 +174,27 @@ class UserSettingDetails extends StatelessWidget {
                             ),
                           ],
                         ),
-                      SizedBox(height: ThemeSelector.statics.defaultGap),
-                      Row(
-                        children: [
-                          Text(
-                            S.of(context).about,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          const Expanded(child: Text('')),
-                          Text(
-                            state.profile.about,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: ThemeSelector.colors.secondaryTant),
-                          ),
-                        ],
-                      ),
+                      if (!G.isCustomerApp)
+                        SizedBox(height: ThemeSelector.statics.defaultGap),
+                      if (!G.isCustomerApp)
+                        Row(
+                          children: [
+                            Text(
+                              S.of(context).about,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            const Expanded(child: Text('')),
+                            Text(
+                              state.profile.about,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                      color:
+                                          ThemeSelector.colors.secondaryTant),
+                            ),
+                          ],
+                        ),
                     ],
             ),
           ),

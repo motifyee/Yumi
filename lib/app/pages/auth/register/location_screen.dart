@@ -68,18 +68,6 @@ class LocationScreen extends StatelessWidget {
               longitude: coord.longitude,
             ),
           );
-          // regBloc.add(
-          //   RegEvent.updateLocation(
-          //     regBloc.state.address.copyWith(
-          //       // addressDetails: address.country,
-          //       // addresssTitle: address.locality,
-          //       location:
-          //           '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
-          //       latitude: coord.latitude,
-          //       longitude: coord.longitude,
-          //     ),
-          //   ),
-          // );
         },
         onTap: (LatLng latLng, GMapInfo info) async {
           print(await info.controller?.getZoomLevel());
@@ -88,18 +76,6 @@ class LocationScreen extends StatelessWidget {
     return ScreenContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        // appBar: AppBar(
-        //   backgroundColor: Colors.transparent,
-        //   bottomOpacity: 0,
-        //   scrolledUnderElevation: 0,
-        //   iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
-        //   title: Center(
-        //     child: Text(
-        //       "Pick your location",
-        //       style: TextStyle(fontSize: ThemeSelector.fonts.font_16),
-        //     ),
-        //   ),
-        // ),
         body: Stack(
           children: [
             SizedBox(
@@ -134,16 +110,6 @@ class LocationScreen extends StatelessWidget {
                   )).then((placemarks) {
                 var placemark = placemarks[0];
 
-                // context
-                //     .read<RegBloc>()
-                //     .add(RegEvent.updateLocation(
-                // state.address.copyWith(
-                //       location:
-                //           '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
-                //       latitude: loc.latitude,
-                //       longitude: loc.longitude,
-                //     )
-                // ));
                 context.read<RegCubit>().setLocation(
                       state.copyWith(
                         location:
@@ -160,22 +126,13 @@ class LocationScreen extends StatelessWidget {
         () async {
           void getSuggestion(String input) async {
             String kplacesApiKey = "CHANGE THIS WITH YOUR GOOGLE API KEY";
-            String type = '(regions)';
             String baseURL =
                 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
             String request = '$baseURL?input=$input&key=$kplacesApiKey';
 
             var response = await DioClient.simpleDio().get(request);
             debugPrint(response.toString());
-
-            // if (response. == 200) {
-            //   json.decode(response.body)['predictions'];
-            // } else {
-            //   throw Exception('Failed to load predictions');
-            // }
           }
-
-          // getSuggestion('Egypt');
         }();
         return Positioned(
           top: 20,
@@ -185,16 +142,12 @@ class LocationScreen extends StatelessWidget {
             elevation: 5,
             child: SizedBox(
               height: 50,
-              // padding: const EdgeInsets.only(left: 16),
               child: Stack(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   GooglePlaceAutoCompleteTextField(
                     textEditingController: controller,
                     googleAPIKey: "AIzaSyBlhKSqJ_5FgfUS3tnGmjV6hxPocuFBB_Y",
                     // googleAPIKey: "AIzaSyCT36qFZg_DTHBU0fdTWdooUtixPJw3TUA",
-                    // inputDecoration: const InputDecoration(),
                     boxDecoration: const BoxDecoration(
                       // border: Border.all(width: 1, color: Colors.transparent),
                       color: Colors.transparent,
@@ -207,7 +160,7 @@ class LocationScreen extends StatelessWidget {
                     countries: const ["uk", "ie"],
                     isLatLngRequired: true,
                     getPlaceDetailWithLatLng: (Prediction prediction) {
-                      print("placeDetails${prediction.lng}");
+                      debugPrint("placeDetails${prediction.lng}");
 
                       // context.read<RegBloc>().add(
                       //       RegEvent.updateLocation(
@@ -313,11 +266,7 @@ class LocationScreen extends StatelessWidget {
   Widget? addressForm(Address address, BuildContext context) {
     acceptAddress() {
       formKey.currentState!.save();
-
-      // context.read<RegBloc>().add(RegEvent.saveLocation(context));
     }
-
-    // Address address = address;
 
     bool validate() {
       var values = [
@@ -358,10 +307,7 @@ class LocationScreen extends StatelessWidget {
       onAllFieldsSaved: (reg, _) {
         if (!validate()) return;
 
-        // context.read<RegBloc>().add(RegEvent.updateLocation(address));
         context.read<RegCubit>().setLocation(address);
-        // .read<RegBloc>()
-        // .add(RegEvent.saveLocation(context, routeFn: routeFn));
         context.read<RegCubit>().saveLocation(routeFn: routeFn);
       },
     );
@@ -372,8 +318,6 @@ class LocationScreen extends StatelessWidget {
         () => _navToAddress(address.location ?? ''),
       ).then((value) {
         if (value != null) {
-          // context.read<RegBloc>().add(
-          //       RegEvent.updateLocation(
           context.read<RegCubit>().setLocation(
                 address.copyWith(
                   latitude: value.latitude,
@@ -397,7 +341,6 @@ class LocationScreen extends StatelessWidget {
       key: formKey,
       child: Column(
         children: [
-          // Row( children: [ Expanded( child: TextFormFieldTemplate( initialValue: state.address.country, key: UniqueKey(), onSave: (value) { context.read<RegBloc>().add( RegEvent.updateLocation( state.address.copyWith( country: value,),),); }, label: "Country", hintText: "Country",),), // Expanded( child:), ],),
           SizedBox(
             // height: 50,
             child: TextFormFieldTemplate(
