@@ -173,6 +173,10 @@ class MenuTemplate extends StatelessWidget {
                       },
                     ),
                   ),
+                  if (state.paginationHelper.isLoading)
+                    Expanded(
+                      child: Loading(),
+                    ),
                   Expanded(
                     child: PaginationTemplate(
                       scrollDirection: Axis.vertical,
@@ -219,7 +223,7 @@ class MenuTemplate extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (state.meals.isEmpty)
+                  if (state.meals.isEmpty && !state.paginationHelper.isLoading)
                     Expanded(
                       child: Text(
                         S.of(context).empty,

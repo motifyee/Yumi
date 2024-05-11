@@ -4,7 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/forms/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -128,14 +130,30 @@ class MealCard extends StatelessWidget {
                                 Response res = await MealService.deleteMeal(
                                     context: context, mealModel: meal);
 
+                                context
+                                    .read<CategoriesBloc>()
+                                    .add(ResetCategoryEvent());
+
+                                context.read<CategoriesBloc>().add(
+                                    GetCategoriesEvent(
+                                        context: context,
+                                        isPreOrder: meal.isPreOrder == true,
+                                        isAll: false));
                                 context.read<MealListBloc>().add(
                                     MealListResetEvent(
                                         menuTarget: meal.isPreOrder == true
                                             ? MenuTarget.preOrder
                                             : MenuTarget.order));
                                 context.read<MealListBloc>().add(
-                                    MealListUpdateCategoryEvent(
-                                        selectedCategory: 0, context: context));
+                                      MealListUpdateEvent(
+                                        context: context,
+                                        chefId: context
+                                            .read<UserBloc>()
+                                            .state
+                                            .user
+                                            .chefId,
+                                      ),
+                                    );
 
                                 Navigator.of(context).pop();
                                 if (res.data['message'] != null) {
