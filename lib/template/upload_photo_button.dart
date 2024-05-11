@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
@@ -49,9 +50,9 @@ class UploadPhotoButton extends StatelessWidget {
               ? await picker.pickImage(source: ImageSource.gallery)
               : null;
           final images = multi ? await picker.pickMultiImage() : null;
-          // TODO: use mimi package to get file mimi to replace "image/jpeg"
+
           b64e(XFile fl) async =>
-              'data:image/jpeg;base64,${base64Encode(await fl.readAsBytes())}';
+              'data:${lookupMimeType(fl.path)};base64,${base64Encode(await fl.readAsBytes())}';
 
           var blob = image != null ? await b64e(image) : null;
           var blobs = images != null
