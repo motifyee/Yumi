@@ -159,17 +159,27 @@ class LocationScreen extends StatelessWidget {
                     debounceTime: 800,
                     countries: const ["uk", "ie"],
                     isLatLngRequired: true,
-                    getPlaceDetailWithLatLng: (Prediction prediction) {
+                    getPlaceDetailWithLatLng: (Prediction prediction) async {
+                      prediction.matchedSubstrings;
+                      final double lat =
+                          double.tryParse(prediction.lat ?? '') ?? 0;
+                      final double lng =
+                          double.tryParse(prediction.lng ?? '') ?? 0;
+
+                      if (lat == 0 ||
+                          lng == 0 ||
+                          prediction.description == null) {
+                        return G.snackBar("Try to pin an exact location!");
+                      }
+
                       debugPrint("placeDetails${prediction.lng}");
 
-                      // context.read<RegBloc>().add(
-                      //       RegEvent.updateLocation(
                       context.read<RegCubit>().setLocation(
                             state.copyWith(
-                              latitude: double.tryParse(prediction.lat ?? ''),
-                              longitude: double.tryParse(prediction.lng ?? ''),
+                              location: prediction.description!,
+                              latitude: lat,
+                              longitude: lng,
                             ),
-                            // ),
                           );
                     },
                     itemClick: (Prediction prediction) {
