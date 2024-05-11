@@ -60,6 +60,7 @@ mixin _$Chef {
   String? get email => throw _privateConstructorUsedError;
   int? get signupType => throw _privateConstructorUsedError;
   String? get createdBy => throw _privateConstructorUsedError;
+  double? get rate => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -97,6 +98,7 @@ abstract class $ChefCopyWith<$Res> {
       String? email,
       int? signupType,
       String? createdBy,
+      double? rate,
       bool isFavorite});
 }
 
@@ -137,6 +139,7 @@ class _$ChefCopyWithImpl<$Res, $Val extends Chef>
     Object? email = freezed,
     Object? signupType = freezed,
     Object? createdBy = freezed,
+    Object? rate = freezed,
     Object? isFavorite = null,
   }) {
     return _then(_value.copyWith(
@@ -236,6 +239,10 @@ class _$ChefCopyWithImpl<$Res, $Val extends Chef>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as String?,
+      rate: freezed == rate
+          ? _value.rate
+          : rate // ignore: cast_nullable_to_non_nullable
+              as double?,
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -276,6 +283,7 @@ abstract class _$$ChefImplCopyWith<$Res> implements $ChefCopyWith<$Res> {
       String? email,
       int? signupType,
       String? createdBy,
+      double? rate,
       bool isFavorite});
 }
 
@@ -313,6 +321,7 @@ class __$$ChefImplCopyWithImpl<$Res>
     Object? email = freezed,
     Object? signupType = freezed,
     Object? createdBy = freezed,
+    Object? rate = freezed,
     Object? isFavorite = null,
   }) {
     return _then(_$ChefImpl(
@@ -412,6 +421,10 @@ class __$$ChefImplCopyWithImpl<$Res>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as String?,
+      rate: freezed == rate
+          ? _value.rate
+          : rate // ignore: cast_nullable_to_non_nullable
+              as double?,
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -449,6 +462,7 @@ class _$ChefImpl implements _Chef {
       this.email,
       this.signupType,
       this.createdBy,
+      this.rate,
       this.isFavorite = false});
 
   factory _$ChefImpl.fromJson(Map<String, dynamic> json) =>
@@ -519,12 +533,14 @@ class _$ChefImpl implements _Chef {
   @override
   final String? createdBy;
   @override
+  final double? rate;
+  @override
   @JsonKey()
   final bool isFavorite;
 
   @override
   String toString() {
-    return 'Chef(id: $id, firstName: $firstName, lastName: $lastName, mobile: $mobile, code: $code, imageProfile: $imageProfile, imageProfile1: $imageProfile1, imageProfile2: $imageProfile2, imageProfile3: $imageProfile3, imageProfile4: $imageProfile4, imageProfile5: $imageProfile5, accountApproved: $accountApproved, pickupAllowed: $pickupAllowed, pickupOnly: $pickupOnly, isHygiene: $isHygiene, imageHygieneCert: $imageHygieneCert, imageAuthorityReg: $imageAuthorityReg, imageRiskAssessment: $imageRiskAssessment, imageContract: $imageContract, imageID: $imageID, imagePassport: $imagePassport, email: $email, signupType: $signupType, createdBy: $createdBy, isFavorite: $isFavorite)';
+    return 'Chef(id: $id, firstName: $firstName, lastName: $lastName, mobile: $mobile, code: $code, imageProfile: $imageProfile, imageProfile1: $imageProfile1, imageProfile2: $imageProfile2, imageProfile3: $imageProfile3, imageProfile4: $imageProfile4, imageProfile5: $imageProfile5, accountApproved: $accountApproved, pickupAllowed: $pickupAllowed, pickupOnly: $pickupOnly, isHygiene: $isHygiene, imageHygieneCert: $imageHygieneCert, imageAuthorityReg: $imageAuthorityReg, imageRiskAssessment: $imageRiskAssessment, imageContract: $imageContract, imageID: $imageID, imagePassport: $imagePassport, email: $email, signupType: $signupType, createdBy: $createdBy, rate: $rate, isFavorite: $isFavorite)';
   }
 
   @override
@@ -575,6 +591,7 @@ class _$ChefImpl implements _Chef {
                 other.signupType == signupType) &&
             (identical(other.createdBy, createdBy) ||
                 other.createdBy == createdBy) &&
+            (identical(other.rate, rate) || other.rate == rate) &&
             (identical(other.isFavorite, isFavorite) ||
                 other.isFavorite == isFavorite));
   }
@@ -607,6 +624,7 @@ class _$ChefImpl implements _Chef {
         email,
         signupType,
         createdBy,
+        rate,
         isFavorite
       ]);
 
@@ -650,6 +668,7 @@ abstract class _Chef implements Chef {
       final String? email,
       final int? signupType,
       final String? createdBy,
+      final double? rate,
       final bool isFavorite}) = _$ChefImpl;
 
   factory _Chef.fromJson(Map<String, dynamic> json) = _$ChefImpl.fromJson;
@@ -718,6 +737,8 @@ abstract class _Chef implements Chef {
   int? get signupType;
   @override
   String? get createdBy;
+  @override
+  double? get rate;
   @override
   bool get isFavorite;
   @override

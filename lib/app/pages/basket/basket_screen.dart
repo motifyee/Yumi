@@ -5,7 +5,9 @@ import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/basket/widgets/basket_meal_card.dart';
 import 'package:yumi/app/pages/basket/widgets/chef_meals.dart';
 import 'package:yumi/app/pages/basket/widgets/confirm_checkout_basket.dart';
+import 'package:yumi/app/pages/basket/widgets/expired_basket.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -14,6 +16,8 @@ import 'package:yumi/template/payment_summary_card.dart';
 @RoutePage()
 class BasketScreen extends StatelessWidget {
   BasketScreen({super.key});
+
+  bool isBasketDeleting = false;
 
   void openAddFood(
       {required BuildContext context, required BasketState state}) {
@@ -31,11 +35,24 @@ class BasketScreen extends StatelessWidget {
     );
   }
 
+  void checkExpiredBasket(
+      {required BuildContext context, required Basket basket}) {
+    if (basket.invoice.isBasketExpired && !isBasketDeleting) {
+      isBasketDeleting = true;
+      showDialog(
+        context: context,
+        builder: (context) => ExpiredBasket(),
+      ).then((value) {
+        context.read<BasketCubit>().deleteBasket();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<BasketCubit, BasketState>(
-      listener: (context, state) {},
+    return BlocBuilder<BasketCubit, BasketState>(
       builder: (context, state) {
+        checkExpiredBasket(context: context, basket: state.basket);
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,

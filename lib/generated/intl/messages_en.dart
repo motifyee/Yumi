@@ -53,6 +53,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "basket": MessageLookupByLibrary.simpleMessage("Basket"),
         "basketCreated": MessageLookupByLibrary.simpleMessage("Basket Created"),
         "basketDeleted": MessageLookupByLibrary.simpleMessage("Basket Deleted"),
+        "basketExpiredAndWillBeDeleted": MessageLookupByLibrary.simpleMessage(
+            "Basket Expired And Will Be Deleted"),
         "basketUpdated": MessageLookupByLibrary.simpleMessage("Basket Updated"),
         "bio": MessageLookupByLibrary.simpleMessage("Bio"),
         "branchAddress": MessageLookupByLibrary.simpleMessage("Branch address"),
@@ -136,6 +138,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "holderName": MessageLookupByLibrary.simpleMessage("Holder name"),
         "hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "hygiene": MessageLookupByLibrary.simpleMessage("Hygiene"),
+        "hygieneCertified":
+            MessageLookupByLibrary.simpleMessage("Hygiene certified"),
         "iban": MessageLookupByLibrary.simpleMessage("IBan"),
         "ingredients": MessageLookupByLibrary.simpleMessage("Ingredients"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
@@ -173,6 +177,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nutritionalValuePer100g":
             MessageLookupByLibrary.simpleMessage("Nutritional value per 100g"),
         "offers": MessageLookupByLibrary.simpleMessage("Offers"),
+        "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "onTheWay": MessageLookupByLibrary.simpleMessage("On The Way"),
         "onlineChefs": MessageLookupByLibrary.simpleMessage("Online Chefs"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
@@ -279,15 +284,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "theDriver": MessageLookupByLibrary.simpleMessage("The driver"),
         "theTotalPriceIncludesTax": MessageLookupByLibrary.simpleMessage(
             "The total price includes tax"),
-        "thisButtonMeansThatTheChefIsCurrentlyAvailable":
+        "thisButtonMeansThatYouAreCurrentlyAvailable":
             MessageLookupByLibrary.simpleMessage(
-                "This button means that the chef is currently available"),
-        "thisButtonMeansThatTheChefIsCurrentlyClosed":
+                "This button means that you are currently available"),
+        "thisButtonMeansThatYouAreCurrentlyClosed":
             MessageLookupByLibrary.simpleMessage(
-                "This button means that the chef is currently closed"),
-        "thisButtonMeansThatTheChefIsCurrentlyNotAvailable":
+                "This button means that you are currently closed"),
+        "thisButtonMeansThatYouAreCurrentlyNotAvailable":
             MessageLookupByLibrary.simpleMessage(
-                "This button means that the chef is currently not available"),
+                "This button means that you are currently not available"),
         "thisSectionYourSavedAddress": MessageLookupByLibrary.simpleMessage(
             "This section your saved address"),
         "time": MessageLookupByLibrary.simpleMessage("Time"),

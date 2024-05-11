@@ -49,7 +49,7 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
           );
 
           data = res.data['data']
-              .map<Chef>((chef) => Chef.fromJson(chef))
+              .map<Chef>((chef) => Chef.fromJson({...?chef, ...?chef?['chef']}))
               .toList();
         }
 

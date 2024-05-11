@@ -30,14 +30,6 @@ class MealListUpdateCategoryEvent implements MealListEvent {
   });
 }
 
-class MealListUpdateCaloriesEvent implements MealListEvent {
-  String? searchText;
-  BuildContext context;
-
-  MealListUpdateCaloriesEvent(
-      {required this.searchText, required this.context});
-}
-
 class MealListGetFavoriteMealsEvent implements MealListEvent {}
 
 class MealListAddFavoriteMealEvent implements MealListEvent {

@@ -8,7 +8,7 @@ class CaloriesState with _$CaloriesState {
 
   factory CaloriesState.initail() {
     return CaloriesState(
-      paginationHelper: const PaginationHelper<Calories>(data: []),
+      paginationHelper: const PaginationHelper<Calories>(data: <Calories>[]),
     );
   }
 

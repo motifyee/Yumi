@@ -34,9 +34,9 @@
   "view": "View",
   "hi": "Hi",
   "thisSectionYourSavedAddress": "This section your saved address",
-  "thisButtonMeansThatTheChefIsCurrentlyClosed": "This button means that the chef is currently closed",
-  "thisButtonMeansThatTheChefIsCurrentlyAvailable": "This button means that the chef is currently available",
-  "thisButtonMeansThatTheChefIsCurrentlyNotAvailable": "This button means that the chef is currently not available",
+  "thisButtonMeansThatYouAreCurrentlyClosed": "This button means that you are currently closed",
+  "thisButtonMeansThatYouAreCurrentlyAvailable": "This button means that you are currently available",
+  "thisButtonMeansThatYouAreCurrentlyNotAvailable": "This button means that you are currently not available",
   "skip": "Skip",
   "notification": "Notification",
   "mySchedule": "My schedule",
@@ -228,5 +228,8 @@
   "change": "Change",
   "yes": "Yes",
   "yourOrderWillBeCancelled": "Your order will be cancelled",
-  "scheduleDate": "Schedule Date"
+  "scheduleDate": "Schedule Date",
+  "ok": "OK",
+  "basketExpiredAndWillBeDeleted": "Basket Expired And Will Be Deleted",
+  "hygieneCertified": "Hygiene certified"
 }

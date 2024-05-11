@@ -14,7 +14,9 @@ class BasketRemoteSource implements BasketSource {
             apiKey:
                 isPreOrder ? ApiKeys.preOrderDelivery : ApiKeys.orderDelivery),
         data: basket.toJson());
-    return basket.copyWith(id: res.data['invoiceId']);
+    return basket.copyWith(
+        id: res.data['invoiceId'],
+        invoice: basket.invoice.copyWith(createdDate: res.data['createdDate']));
   }
 
   @override
@@ -26,7 +28,9 @@ class BasketRemoteSource implements BasketSource {
         ApiKeys.getApiKeyString(
             apiKey: isPreOrder ? ApiKeys.preOrderPickUp : ApiKeys.orderPickUp),
         data: basket.toJson());
-    return basket.copyWith(id: res.data['invoiceId']);
+    return basket.copyWith(
+        id: res.data['invoiceId'],
+        invoice: basket.invoice.copyWith(createdDate: res.data['createdDate']));
   }
 
   @override

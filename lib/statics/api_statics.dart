@@ -151,7 +151,7 @@ class ApiKeys {
 
   static String waitChefOrder = '/order/wait/chef';
   static String cancelChefOrder = '/order/cancel/chef';
-  static String waitDriverOrder = '/order/wait/driver ';
+  static String waitDriverOrder = '/order/wait/driver';
   static String cancelDriverOrder = '/order/cancel/driver';
 
   static String updateInvoice = '/api/Invoices/UpdateRestaurantInvoice/_/48';

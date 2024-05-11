@@ -8,13 +8,18 @@ class UpdateScheduleInBasket
   @override
   Future<Either<Failure, Basket>> call(
       UpdateScheduleInBasketParams params) async {
-    DateTime scheduleDate =
-        params.date ?? params.basket.invoice.scheduleDate ?? DateTime.now();
+    DateTime scheduleDate = params.date ??
+        params.basket.invoice.scheduleDate ??
+        DateTime.now().add(Duration(days: 1));
     if (params.time != null) {
       scheduleDate = scheduleDate.copyWith(
         hour: int.parse(params.time!.split(":")[0]),
         minute: int.parse(params.time!.split(":")[1]),
       );
+    }
+
+    if ((scheduleDate).difference(DateTime.now()).inHours < 24) {
+      scheduleDate = DateTime.now().add(const Duration(days: 1));
     }
 
     return Right(params.basket.copyWith(

@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/calories/entity/calories.dart';
 import 'package:yumi/domain/calories/use_case/load_calories.dart';

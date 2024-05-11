@@ -31,6 +31,7 @@ class Chef with _$Chef {
     String? email,
     int? signupType,
     String? createdBy,
+    double? rate,
     @Default(false) bool isFavorite,
   }) = _Chef;
 

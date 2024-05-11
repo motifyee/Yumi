@@ -2,22 +2,24 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/pages/settings/profile/profile_form.dart';
+import 'package:yumi/bloc/app_info/app_info_cubit.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/extensions/capitalize_string_extension.dart';
-import 'package:yumi/app/pages/settings/profile/profile_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/statics/side_menu_items.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
 import 'package:yumi/template/menu_button.dart';
-import 'package:yumi/statics/side_menu_items.dart';
 
 class SideBar extends StatelessWidget {
   const SideBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    context.read<AppInfoCubit>().getAppInfo();
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         return Stack(
@@ -151,6 +153,19 @@ class SideBar extends StatelessWidget {
                   Text(
                     S.of(context).yumi.toUpperCase(),
                     style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  BlocBuilder<AppInfoCubit, AppInfoState>(
+                    builder: (context, state) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            '${state.packageInfo?.version}+${state.packageInfo?.buildNumber}v',
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                        ],
+                      );
+                    },
                   ),
                   SizedBox(height: ThemeSelector.statics.defaultGap),
                 ],
