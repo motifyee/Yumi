@@ -59,6 +59,11 @@ class Invoice with _$Invoice {
           .inHours >
       24;
 
+  DateTime get scheduleDateConstraint =>
+      (scheduleDate ?? DateTime.now()).difference(DateTime.now()).inHours < 24
+          ? DateTime.now().add(const Duration(days: 1))
+          : scheduleDate!;
+
   factory Invoice.initial() {
     return Invoice(
         scheduleDate: DateTime.now(),

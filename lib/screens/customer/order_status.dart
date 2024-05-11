@@ -225,13 +225,13 @@ class OrderStatusScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            if (order.driverReceived == true)
+                            if (order.driverReceived == true && false)
                               GestureDetector(
                                 onTap: () {
                                   context.router
                                       .push(const TrackingOrderRoute());
                                 },
-                                child: Container(
+                                child: Container( 
                                   padding: EdgeInsets.symmetric(
                                       horizontal:
                                           ThemeSelector.statics.defaultGap,
@@ -299,11 +299,11 @@ class OrderStatusScreen extends StatelessWidget {
                 ),
               ],
             ),
-            if (!order.isClientReceivedOverDay)
+            if (!order.isClientReceivedOverDay || true)
               Hero(
                 tag: 'ConfirmBasketSeries',
                 child: GestureDetector(
-                  onTap: order.clientReceived != true
+                  onTap: order.clientReceived != true && false
                       ? null
                       : () {
                           showAdaptiveDialog(

@@ -109,17 +109,15 @@ class CustomerPreOrderForm extends StatelessWidget {
                                       context
                                           .read<BasketCubit>()
                                           .updateSchedule(date: value[0]);
-                                      context.router.popForced();
+                                      context.router.maybePop();
                                     }
                                   },
                                 ),
                               ),
                             );
                           },
-                          initialValue: state.basket.invoice.scheduleDate !=
-                                  null
-                              ? '${state.basket.invoice.scheduleDate!.day}/${state.basket.invoice.scheduleDate!.month}/${state.basket.invoice.scheduleDate!.year}'
-                              : '',
+                          initialValue:
+                              '${state.basket.invoice.scheduleDateConstraint.day}/${state.basket.invoice.scheduleDateConstraint.month}/${state.basket.invoice.scheduleDateConstraint.year}',
                           readOnly: true,
                           hintText: S.of(context).deliveryDay,
                           borderStyle: TextFormFieldBorderStyle.borderedRound,
@@ -146,10 +144,8 @@ class CustomerPreOrderForm extends StatelessWidget {
                           textInputType: TextInputType.number,
                           borderStyle: TextFormFieldBorderStyle.borderedRound,
                           validators: requiredValidator,
-                          initialValue: state.basket.invoice.scheduleDate !=
-                                  null
-                              ? '${state.basket.invoice.scheduleDate!.hour}:${state.basket.invoice.scheduleDate!.minute}'
-                              : '',
+                          initialValue:
+                              '${state.basket.invoice.scheduleDateConstraint.hour}:${state.basket.invoice.scheduleDateConstraint.minute}',
                           onSave: (value) {
                             context
                                 .read<BasketCubit>()
