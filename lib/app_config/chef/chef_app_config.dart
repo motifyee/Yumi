@@ -11,6 +11,7 @@ import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_config/app_config.dart';
 import 'package:yumi/app_config/chef/chef_routes.dart';
 import 'package:yumi/app_target.dart';
+import 'package:yumi/bloc/app_info/app_info_cubit.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
@@ -45,7 +46,7 @@ class ChefAppConfig implements AppConfig {
     BlocProvider(create: (context) => RegCubit()),
     BlocProvider(create: (context) => ScheduleCubit()),
     BlocProvider(create: (context) => NavigatorBloc()),
-    BlocProvider(create: (context) => NavigatorBloc()),
+    BlocProvider(create: (context) => AppInfoCubit()),
   ];
   @override
   List<SingleChildWidget> get blocProviders => _providers;
