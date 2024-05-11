@@ -25,9 +25,9 @@ class VehicleService {
         )
         .toJson();
 
-    if (v['Other_Type'] == null) {
-      v['Other_Type'] = '';
-    }
+    // if (v['Other_Type'] == null) {
+    //   v['Other_Type'] = '';
+    // }
 
     final Response res = await DioClient.simpleDio().post(
       '/drivers/vehicle',

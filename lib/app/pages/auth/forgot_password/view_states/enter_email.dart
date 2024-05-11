@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/validators/email_validator.dart';
@@ -42,6 +43,12 @@ class ForgotPwdEnterEmail extends StatelessWidget {
 
               final cubit = context.read<ForgotPwdCubit>();
               await cubit.forgotPassword(emailController.text);
+
+              if (cubit.state.emailFound) {
+                G.snackBar('Check your email for verification code');
+              } else {
+                G.snackBar(cubit.state.error);
+              }
             }),
         const SizedBox(height: 60),
       ],

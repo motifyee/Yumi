@@ -85,8 +85,7 @@ class EventsPhoto extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: Image.memory(
-                      Uri.parse(image ?? '').data?.contentAsBytes() ??
-                          Uint8List(0),
+                      Uri.parse(image).data?.contentAsBytes() ?? Uint8List(0),
                       height: h,
                       fit: BoxFit.fill,
                     ),

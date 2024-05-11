@@ -84,4 +84,8 @@ class ScheduleCubit extends Cubit<ScheduleState> {
     emit(state.copyWith(
         scheduleForm: state.scheduleForm.copyWithScheduleDay(scheduleDay)));
   }
+
+  void reset() {
+    emit(const ScheduleState());
+  }
 }

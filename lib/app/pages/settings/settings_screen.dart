@@ -17,83 +17,94 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProfileCubit, ProfileState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        return Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const UserSettingDetails(),
-                    if (G.isCustomerApp)
-                      const DeliveryAddresses()
-                    else
-                      BlocConsumer<BankInfoBloc, BankInfoState>(
-                        listener: (context, state) {},
-                        builder: (context, state) =>
-                            BankSettingsCard(bankInfo: state.selectedBank),
-                      ),
-                    Column(
-                      children: [
-                        SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        bottomOpacity: 0,
+        scrolledUnderElevation: 0,
+        iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
+      ),
+      body: BlocConsumer<ProfileCubit, ProfileState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const UserSettingDetails(),
+                      if (G.isCustomerApp)
+                        const DeliveryAddresses()
+                      else
+                        BlocConsumer<BankInfoBloc, BankInfoState>(
+                          listener: (context, state) {},
+                          builder: (context, state) =>
+                              BankSettingsCard(bankInfo: state.selectedBank),
+                        ),
+                      Column(
+                        children: [
+                          SizedBox(
+                              height: ThemeSelector.statics.defaultBlockGap),
 
-                        // Delete account button
-                        TextButton(
-                          onPressed: () async {
-                            await G
-                                .rd<ProfileCubit>()
-                                .deleteProfile()
-                                .then((value) {
-                              if (!value.contains("Deleting a Account")) return;
+                          // Delete account button
+                          TextButton(
+                            onPressed: () async {
+                              await G
+                                  .rd<ProfileCubit>()
+                                  .deleteProfile()
+                                  .then((value) {
+                                if (!value.contains("Deleting a Account")) {
+                                  return;
+                                }
 
-                              context.read<UserBloc>().add(UserResetEvent());
-                              context.router.replaceAll([LoginRoute()]);
-                            });
-                          },
-                          child: Container(
-                            width: 175,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 10,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(
-                                  ThemeSelector
-                                      .statics.defaultBorderRadiusLarge)),
-                              color: ThemeSelector.colors.error,
-                            ),
-                            child: SizedBox(
+                                context.read<UserBloc>().add(UserResetEvent());
+                                context.router.replaceAll([LoginRoute()]);
+                              });
+                            },
+                            child: Container(
                               width: 175,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Icon(
-                                    Icons.delete,
-                                    color: ThemeSelector.colors.onSecondary,
-                                  ),
-                                  Text(
-                                    S.of(context).deleteAccount,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall,
-                                  ),
-                                ],
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 10,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(
+                                    ThemeSelector
+                                        .statics.defaultBorderRadiusLarge)),
+                                color: ThemeSelector.colors.error,
+                              ),
+                              child: SizedBox(
+                                width: 175,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Icon(
+                                      Icons.delete,
+                                      color: ThemeSelector.colors.onSecondary,
+                                    ),
+                                    Text(
+                                      S.of(context).deleteAccount,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 }

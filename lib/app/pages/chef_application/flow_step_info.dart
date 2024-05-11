@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/pages/driver/model/vehicle.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
@@ -74,7 +76,9 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
       [
         "approval",
         ["Get Approval", "Then, waiting for approval within 72 hours"],
-        () => showAlertDialog(
+        () async {
+          await context.read<ProfileCubit>().getProfileForm().then((value) {
+            showAlertDialog(
               context: context,
               title: Container(),
               content: Padding(
@@ -85,7 +89,9 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
               ),
               actions: {'Ok': null},
               dismissible: true,
-            ),
+            );
+          });
+        },
         () => state.onboarding.approvalActive,
       ],
       [
@@ -130,7 +136,7 @@ List driverStepsInfo(BuildContext context, NRegState state) => [
                 // if (G.cread<RegCubit>().state.vehicleType?.isEmpty ?? true) {
                 var regCubit = G.rd<RegCubit>();
 
-                if (regCubit.state.vehicle.vehicleName()?.isEmpty ?? true) {
+                if ((regCubit.state.vehicle.vehicleName()?.length ?? 0) < 3) {
                   return addYourVehicleDialog(context, firstTime: false);
                 }
 
@@ -151,6 +157,7 @@ List driverStepsInfo(BuildContext context, NRegState state) => [
                         ),
                       ),
                     );
+
                     G.pop();
                     sheduleDialog(context);
 

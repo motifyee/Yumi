@@ -63,15 +63,15 @@ Widget profileFormFields(
               save(profile0 = profile0.copyWith(fullName: value)),
         ),
         SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-        TextFormFieldTemplate(
-          label: S.of(context).userName,
-          borderStyle: TextFormFieldBorderStyle.borderBottom,
-          initialValue: profile.userName,
-          validators: requiredValidator,
-          onSave: (value) =>
-              save(profile0 = profile0.copyWith(userName: value)),
-        ),
-        SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
+        // TextFormFieldTemplate(
+        //   label: S.of(context).userName,
+        //   borderStyle: TextFormFieldBorderStyle.borderBottom,
+        //   initialValue: profile.userName,
+        //   validators: requiredValidator,
+        //   onSave: (value) =>
+        //       save(profile0 = profile0.copyWith(userName: value)),
+        // ),
+        // SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
         // TextFormFieldTemplate(
         //   label: S.of(context).email,
         //   borderStyle: TextFormFieldBorderStyle.borderBottom,

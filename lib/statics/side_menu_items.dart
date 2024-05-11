@@ -44,30 +44,6 @@ class _AppMenuList {
           },
         ),
         AppMenuItem(
-          icon: 'assets/images/contract_icon.svg',
-          label: S.of(context).contract,
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const ContractRoute());
-          },
-        ),
-        AppMenuItem(
-          icon: 'assets/images/contract_icon.svg',
-          label: "Chef Flow",
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const ChefApplicationFlowRoute());
-          },
-        ),
-        AppMenuItem(
-          icon: 'assets/images/contract_icon.svg',
-          label: "Registeration",
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const RegisterationRoute());
-          },
-        ),
-        AppMenuItem(
           icon: 'assets/images/menus_menu.svg',
           label: S.of(context).menus,
           onPressed: () {
@@ -255,7 +231,7 @@ class _AppMenuList {
           icon: 'assets/images/setting_menu.svg',
           label: S.of(context).setting,
           onPressed: () {
-            // Navigator.of(context, rootNavigator: true).pop();
+            Navigator.of(context, rootNavigator: true).pop();
             context.router.push(const SettingRoute());
             // context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 4));
             // context.router.pop();

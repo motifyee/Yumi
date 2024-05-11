@@ -279,4 +279,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
     );
   }
+
+  void reset() {
+    emit(const ProfileState());
+  }
 }
