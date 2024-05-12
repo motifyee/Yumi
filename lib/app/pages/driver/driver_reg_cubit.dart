@@ -377,10 +377,11 @@ class RegCubit extends Cubit<NRegState> {
 
     var path = G.router.currentPath;
 
+    if (path.contains('/login')) return;
     if (!state.registerationStarted) return;
     if (path == '/registeration/${RegStep.values[step].name}') return;
 
-    G.router.navigate(RegisterationRoute(children: [getPage(step, otp: otp)]));
+    G.router.navigate(RegisterationRoute(children: [getPage(step)]));
 
     // if (path.contains("/registeration")) {
     //   G.router.navigateNamed(RegStep.values[step].name);
@@ -389,17 +390,17 @@ class RegCubit extends Cubit<NRegState> {
     // }
 
     emit(state.copyWith(step: step));
+    await saveStepToCache(step);
+  }
 
+  Future saveStepToCache(int step) async {
     // save step index to shared preferences
     var pref = await SharedPreferences.getInstance();
     pref.setInt(regStepKey, step);
   }
 }
 
-PageRouteInfo getPage(
-  int step, {
-  String? otp,
-}) {
+PageRouteInfo getPage(int step) {
   switch (RegStep.values[step]) {
     case RegStep.signup:
       return SignUpRoute();

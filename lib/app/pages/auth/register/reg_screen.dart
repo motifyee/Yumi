@@ -18,7 +18,7 @@ class RegisterationScreen extends StatelessWidget {
               UserFromSharedRefEvent(
                 context: context,
                 route: null,
-                afterFetchSuccess: (_, __) {
+                afterFetchSuccess: (_, __, user) {
                   if (!c.state.registerationStarted) {
                     c.init();
                   }

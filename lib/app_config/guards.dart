@@ -8,7 +8,14 @@ class AuthGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
     G.cContext.read<UserBloc>().add(UserFromSharedRefEvent(
-          afterFetchSuccess: (p0, p1) => resolver.next(true),
+          afterFetchSuccess: (context, route, user) {
+            if ((user?.mobileVerified ?? false) &&
+                (user?.accountApproved ?? false)) {
+              resolver.next(true);
+            }
+
+            router.push(LoginRoute());
+          },
           context: G.cContext,
           autoLogin: (p0) => router.push(LoginRoute()),
           route: "",

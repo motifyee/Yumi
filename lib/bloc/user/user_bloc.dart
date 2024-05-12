@@ -5,7 +5,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:yumi/app/pages/auth/register/model/address.dart';
+import 'package:yumi/model/login_model.dart';
 import 'package:yumi/model/user/user_model.dart';
+import 'package:yumi/service/model/login_model.dart';
 import 'package:yumi/service/user_status_service.dart';
 import 'package:yumi/statics/local_storage.dart';
 
@@ -51,7 +53,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
                 add(UserUpdateLocationEvent(
                     address: Address.fromJson(userLocation)));
               }
-              event.afterFetchSuccess(event.context, event.route);
+              event.afterFetchSuccess(
+                event.context,
+                event.route,
+                UserModel.fromJson(user),
+              );
             }));
       } else {
         event.autoLogin(event.context);

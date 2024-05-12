@@ -1,53 +1,49 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_model.dart';
+part of 'login_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$InitialImpl _$$InitialImplFromJson(Map<String, dynamic> json) =>
-    _$InitialImpl(
+_$LoginResponseImpl _$$LoginResponseImplFromJson(Map<String, dynamic> json) =>
+    _$LoginResponseImpl(
       chefId: json['chefId'] as String?,
-      driverId: json['driverId'] as String?,
-      customerId: json['customerId'] as String?,
-      message: json['message'] as String? ?? '',
-      userName: json['userName'] as String? ?? '',
-      email: json['email'] as String? ?? '',
-      code: json['code'] as String? ?? '',
-      multiAddressID: (json['multiAddressID'] as num?)?.toInt() ?? 0,
-      accessToken: json['access_Token'] as String? ?? '',
-      expiresIn: json['expires_In'] as String? ?? '',
+      message: json['message'] as String?,
+      userName: json['userName'] as String?,
+      email: json['email'] as String?,
+      accessToken: json['access_Token'] as String?,
+      code: json['code'] as String?,
+      expiresIn: json['expires_In'] as String?,
       address: json['address'] as String?,
       addressName: json['address_Name'] as String?,
-      lat: (json['address_Lattitude'] as num?)?.toDouble(),
-      long: (json['address_Longitude'] as num?)?.toDouble(),
-      location: json['location'] as String? ?? '',
-      status: (json['status_Work'] as num?)?.toInt(),
+      multiAddressID: (json['multiAddressID'] as num?)?.toInt(),
+      location: json['location'] as String?,
+      addressLatitude: (json['address_Latitude'] as num?)?.toDouble(),
+      addressLongitude: (json['address_Longitude'] as num?)?.toDouble(),
+      statusWork: (json['status_Work'] as num?)?.toInt(),
       accountApproved: json['account_Approved'] as bool?,
       accountApprovedDate: json['account_Approved_Date'] as String?,
       mobileVerified: json['mobile_Verified'] as bool?,
       mobileVerifiedDate: json['mobile_Verified_Date'] as String?,
     );
 
-Map<String, dynamic> _$$InitialImplToJson(_$InitialImpl instance) =>
+Map<String, dynamic> _$$LoginResponseImplToJson(_$LoginResponseImpl instance) =>
     <String, dynamic>{
       'chefId': instance.chefId,
-      'driverId': instance.driverId,
-      'customerId': instance.customerId,
       'message': instance.message,
       'userName': instance.userName,
       'email': instance.email,
-      'code': instance.code,
-      'multiAddressID': instance.multiAddressID,
       'access_Token': instance.accessToken,
+      'code': instance.code,
       'expires_In': instance.expiresIn,
       'address': instance.address,
       'address_Name': instance.addressName,
-      'address_Lattitude': instance.lat,
-      'address_Longitude': instance.long,
+      'multiAddressID': instance.multiAddressID,
       'location': instance.location,
-      'status_Work': instance.status,
+      'address_Latitude': instance.addressLatitude,
+      'address_Longitude': instance.addressLongitude,
+      'status_Work': instance.statusWork,
       'account_Approved': instance.accountApproved,
       'account_Approved_Date': instance.accountApprovedDate,
       'mobile_Verified': instance.mobileVerified,
