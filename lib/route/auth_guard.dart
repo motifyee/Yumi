@@ -10,7 +10,7 @@ class AuthGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
     bool authenticated =
-        G.context.read<UserBloc>().state.user.accessToken.isNotEmpty;
+        G.cContext.read<UserBloc>().state.user.accessToken.isNotEmpty;
 
     if (authenticated) {
       resolver.next(true);
