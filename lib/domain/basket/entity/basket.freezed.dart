@@ -413,6 +413,7 @@ Invoice _$InvoiceFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Invoice {
   int? get createdBy => throw _privateConstructorUsedError;
+  String? get createdDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'chef_ID')
   String? get chefID => throw _privateConstructorUsedError;
   String get clientNote => throw _privateConstructorUsedError;
@@ -441,6 +442,7 @@ abstract class $InvoiceCopyWith<$Res> {
   @useResult
   $Res call(
       {int? createdBy,
+      String? createdDate,
       @JsonKey(name: 'chef_ID') String? chefID,
       String clientNote,
       String preparationNotes,
@@ -471,6 +473,7 @@ class _$InvoiceCopyWithImpl<$Res, $Val extends Invoice>
   @override
   $Res call({
     Object? createdBy = freezed,
+    Object? createdDate = freezed,
     Object? chefID = freezed,
     Object? clientNote = null,
     Object? preparationNotes = null,
@@ -489,6 +492,10 @@ class _$InvoiceCopyWithImpl<$Res, $Val extends Invoice>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as int?,
+      createdDate: freezed == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       chefID: freezed == chefID
           ? _value.chefID
           : chefID // ignore: cast_nullable_to_non_nullable
@@ -550,6 +557,7 @@ abstract class _$$InvoiceImplCopyWith<$Res> implements $InvoiceCopyWith<$Res> {
   @useResult
   $Res call(
       {int? createdBy,
+      String? createdDate,
       @JsonKey(name: 'chef_ID') String? chefID,
       String clientNote,
       String preparationNotes,
@@ -578,6 +586,7 @@ class __$$InvoiceImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? createdBy = freezed,
+    Object? createdDate = freezed,
     Object? chefID = freezed,
     Object? clientNote = null,
     Object? preparationNotes = null,
@@ -596,6 +605,10 @@ class __$$InvoiceImplCopyWithImpl<$Res>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as int?,
+      createdDate: freezed == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       chefID: freezed == chefID
           ? _value.chefID
           : chefID // ignore: cast_nullable_to_non_nullable
@@ -651,9 +664,10 @@ class __$$InvoiceImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(anyMap: true)
-class _$InvoiceImpl implements _Invoice {
+class _$InvoiceImpl extends _Invoice {
   const _$InvoiceImpl(
       {this.createdBy,
+      this.createdDate,
       @JsonKey(name: 'chef_ID') this.chefID,
       this.clientNote = '',
       this.preparationNotes = '',
@@ -667,13 +681,16 @@ class _$InvoiceImpl implements _Invoice {
       @JsonKey(name: 'schedule_Date')
       @DateTimeToIso8601StringConverter()
       this.scheduleDate,
-      this.invoiceCode});
+      this.invoiceCode})
+      : super._();
 
   factory _$InvoiceImpl.fromJson(Map<String, dynamic> json) =>
       _$$InvoiceImplFromJson(json);
 
   @override
   final int? createdBy;
+  @override
+  final String? createdDate;
   @override
   @JsonKey(name: 'chef_ID')
   final String? chefID;
@@ -713,7 +730,7 @@ class _$InvoiceImpl implements _Invoice {
 
   @override
   String toString() {
-    return 'Invoice(createdBy: $createdBy, chefID: $chefID, clientNote: $clientNote, preparationNotes: $preparationNotes, employeeNote: $employeeNote, deliveryCostPrice: $deliveryCostPrice, deliveryAreaPrice: $deliveryAreaPrice, invoiceDiscount: $invoiceDiscount, invoiceTax: $invoiceTax, finalPrice: $finalPrice, totalPrice: $totalPrice, scheduleDate: $scheduleDate, invoiceCode: $invoiceCode)';
+    return 'Invoice(createdBy: $createdBy, createdDate: $createdDate, chefID: $chefID, clientNote: $clientNote, preparationNotes: $preparationNotes, employeeNote: $employeeNote, deliveryCostPrice: $deliveryCostPrice, deliveryAreaPrice: $deliveryAreaPrice, invoiceDiscount: $invoiceDiscount, invoiceTax: $invoiceTax, finalPrice: $finalPrice, totalPrice: $totalPrice, scheduleDate: $scheduleDate, invoiceCode: $invoiceCode)';
   }
 
   @override
@@ -723,6 +740,8 @@ class _$InvoiceImpl implements _Invoice {
             other is _$InvoiceImpl &&
             (identical(other.createdBy, createdBy) ||
                 other.createdBy == createdBy) &&
+            (identical(other.createdDate, createdDate) ||
+                other.createdDate == createdDate) &&
             (identical(other.chefID, chefID) || other.chefID == chefID) &&
             (identical(other.clientNote, clientNote) ||
                 other.clientNote == clientNote) &&
@@ -753,6 +772,7 @@ class _$InvoiceImpl implements _Invoice {
   int get hashCode => Object.hash(
       runtimeType,
       createdBy,
+      createdDate,
       chefID,
       clientNote,
       preparationNotes,
@@ -780,9 +800,10 @@ class _$InvoiceImpl implements _Invoice {
   }
 }
 
-abstract class _Invoice implements Invoice {
+abstract class _Invoice extends Invoice {
   const factory _Invoice(
       {final int? createdBy,
+      final String? createdDate,
       @JsonKey(name: 'chef_ID') final String? chefID,
       final String clientNote,
       final String preparationNotes,
@@ -797,11 +818,14 @@ abstract class _Invoice implements Invoice {
       @DateTimeToIso8601StringConverter()
       final DateTime? scheduleDate,
       final String? invoiceCode}) = _$InvoiceImpl;
+  const _Invoice._() : super._();
 
   factory _Invoice.fromJson(Map<String, dynamic> json) = _$InvoiceImpl.fromJson;
 
   @override
   int? get createdBy;
+  @override
+  String? get createdDate;
   @override
   @JsonKey(name: 'chef_ID')
   String? get chefID;

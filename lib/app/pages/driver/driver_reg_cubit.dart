@@ -6,24 +6,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_cubit.dart';
-import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
-import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/app/pages/driver/model/vehicle.dart';
-import 'package:yumi/app/pages/driver/onboarding.dart';
-import 'package:yumi/app/pages/driver/rides_service.dart';
-import 'package:yumi/app/pages/chef_application/flow_step_info.dart';
 import 'package:yumi/app/pages/auth/register/maps/permission.dart';
 import 'package:yumi/app/pages/auth/register/model/address.dart';
 import 'package:yumi/app/pages/auth/register/model/registeration.dart';
 import 'package:yumi/app/pages/auth/register/repository/address_repo.dart';
+import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_cubit.dart';
+import 'package:yumi/app/pages/chef_application/flow_step_info.dart';
+import 'package:yumi/app/pages/driver/model/vehicle.dart';
+import 'package:yumi/app/pages/driver/onboarding.dart';
+import 'package:yumi/app/pages/driver/rides_service.dart';
 import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
+import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/profile/use_cases/get_otp.dart';
-import 'package:yumi/domain/profile/use_cases/update_profile.dart';
 import 'package:yumi/domain/profile/use_cases/verify_otp.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -314,6 +313,8 @@ class RegCubit extends Cubit<NRegState> {
   void saveLocation({
     Function({required Address address})? routeFn,
   }) async {
+    if (state.addressStatus == Status.loading) return;
+    emit(state.copyWith(addressStatus: Status.loading));
     await tryV(
       () => AddressRepo.addAddress(address: state.address),
     ).then((res) {

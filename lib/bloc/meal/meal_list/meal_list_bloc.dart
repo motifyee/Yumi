@@ -124,34 +124,6 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       }
     });
 
-    on<MealListUpdateCaloriesEvent>((event, emit) async {
-      if (state.paginationHelper.pageNumber < state.paginationHelper.lastPage &&
-          !state.paginationHelper.isLoading) {
-        emit(state.copyWith(
-            paginationHelper: state.paginationHelper
-                .copyWith(isLoading: true, pageSize: 100)));
-
-        late dynamic res = [];
-        List<MealModel> data = [];
-
-        // res = await MealService.getMealsCalories(
-        //     context: event.context,
-        //     pagination: {...state.paginationHelper.toJson()});
-
-        data = res['data'].map<MealModel>((value) {
-          return MealModel.fromJson(value);
-        }).toList();
-
-        emit(state.copyWith(
-            meals: data,
-            paginationHelper: state.paginationHelper.copyWith(
-              pageNumber: res['pagination']['page'],
-              lastPage: res['pagination']['pages'],
-              isLoading: false,
-            )));
-      }
-    });
-
     on<MealListUpdateCategoryEvent>((event, emit) {
       if (state.paginationHelper.isLoading) return;
       emit(

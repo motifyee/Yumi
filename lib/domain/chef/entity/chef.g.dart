@@ -31,6 +31,7 @@ _$ChefImpl _$$ChefImplFromJson(Map<String, dynamic> json) => _$ChefImpl(
       email: json['email'] as String?,
       signupType: (json['signupType'] as num?)?.toInt(),
       createdBy: json['createdBy'] as String?,
+      rate: (json['rate'] as num?)?.toDouble(),
       isFavorite: json['isFavorite'] as bool? ?? false,
     );
 
@@ -67,6 +68,7 @@ Map<String, dynamic> _$$ChefImplToJson(_$ChefImpl instance) {
   writeNotNull('email', instance.email);
   writeNotNull('signupType', instance.signupType);
   writeNotNull('createdBy', instance.createdBy);
+  writeNotNull('rate', instance.rate);
   val['isFavorite'] = instance.isFavorite;
   return val;
 }

@@ -9,6 +9,8 @@ import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
+import 'package:yumi/domain/chef/entity/chef.dart';
+import 'package:yumi/forms/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -154,29 +156,44 @@ class _MealList extends StatelessWidget {
                               MealListCard(
                                 meal: meal,
                                 onTap: () {
-                                  context.read<BasketCubit>().createBasket(
-                                      basket: context
-                                          .read<BasketCubit>()
-                                          .state
-                                          .basket
-                                          .copyWith(
-                                            isPreorder: false,
-                                            isSchedule: false,
-                                            isPickupOnly:
-                                                meal.isPickUpOnly ?? false,
-                                            invoiceDetails: [
-                                              InvoiceDetails.fromMeal(
-                                                  meal: meal)
-                                            ],
-                                            invoice: context
-                                                .read<BasketCubit>()
-                                                .state
-                                                .basket
-                                                .invoice
-                                                .copyWith(
-                                                  chefID: meal.chefId,
-                                                ),
-                                          ));
+                                  if (meal.isPreOrder == true) {
+                                    showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      context: context,
+                                      builder: (context) =>
+                                          CustomerPreOrderForm(
+                                        meal: meal,
+                                        chef: Chef(id: meal.chefId),
+                                        isPickUpOnly:
+                                            meal.isPickUpOnly ?? false,
+                                      ),
+                                    );
+                                  } else {
+                                    context.read<BasketCubit>().createBasket(
+                                        basket: context
+                                            .read<BasketCubit>()
+                                            .state
+                                            .basket
+                                            .copyWith(
+                                              isPreorder: false,
+                                              isSchedule: false,
+                                              isPickupOnly:
+                                                  meal.isPickUpOnly ?? false,
+                                              invoiceDetails: [
+                                                InvoiceDetails.fromMeal(
+                                                    meal: meal)
+                                              ],
+                                              invoice: context
+                                                  .read<BasketCubit>()
+                                                  .state
+                                                  .basket
+                                                  .invoice
+                                                  .copyWith(
+                                                    chefID: meal.chefId,
+                                                  ),
+                                            ));
+                                  }
                                 },
                               ),
                             if (state.paginationHelper.isLoading)

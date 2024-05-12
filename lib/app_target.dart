@@ -14,6 +14,7 @@ class AppTarget {
 
   static AppTargetUser user = AppTargetUser.customers;
   static String branch = AppTargetBranches.yumi;
+  static String version = '1.0.9+1';
 }
 
 /// enum                    - appName     -  appId

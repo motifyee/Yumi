@@ -3,9 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class Calendar extends StatelessWidget {
-  Calendar({super.key, this.onValueChanged});
+  Calendar(
+      {super.key,
+      this.onValueChanged,
+      this.currentDate,
+      this.firstDate,
+      this.lastDate});
 
   void Function(List<DateTime?>)? onValueChanged;
+  DateTime? currentDate;
+  DateTime? firstDate;
+  DateTime? lastDate;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +39,9 @@ class Calendar extends StatelessWidget {
           dayTextStyle: Theme.of(context).textTheme.bodyLarge,
           weekdayLabels: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
           weekdayLabelTextStyle: Theme.of(context).textTheme.labelLarge,
+          currentDate: currentDate,
+          firstDate: firstDate,
+          lastDate: lastDate,
           dayBuilder: (
               {required DateTime date,
               BoxDecoration? decoration,

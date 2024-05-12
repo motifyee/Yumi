@@ -319,14 +319,14 @@ class ChefProfileScreen extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
-                                            // Icon(
-                                            //   Icons.star,
-                                            //   color: ThemeSelector.colors.warning,
-                                            //   size: ThemeSelector.fonts.font_12,
-                                            // ),
-
+                                            Icon(
+                                              Icons.star,
+                                              color:
+                                                  ThemeSelector.colors.warning,
+                                              size: ThemeSelector.fonts.font_12,
+                                            ),
                                             Text(
-                                              ' ${state.paginationHelper.total} Reviews ',
+                                              '${chef.rate} ( ${state.paginationHelper.total < 1000 ? state.paginationHelper.total : (state.paginationHelper.total / 1000).toStringAsFixed(1)}${state.paginationHelper.total < 1000 ? '' : 'k'} Reviews )',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .labelSmall

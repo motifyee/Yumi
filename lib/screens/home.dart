@@ -4,8 +4,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
-import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/statics/navigate_option.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -24,10 +22,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (AppTarget.user == AppTargetUser.customers) {
-      context.read<BasketCubit>().getBaskets();
-    }
-
     return BlocConsumer<NavigatorBloc, NavigatesState>(
       listener: (context, state) {
         if (state.selectedIndex != navPageController.page) {

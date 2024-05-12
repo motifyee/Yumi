@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/calories/calories_cubit/calories_cubit.dart';
+import 'package:yumi/domain/calories/entity/calories.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/pagination_template.dart';
@@ -73,7 +74,7 @@ class CaloriesReferenceTemplate extends StatelessWidget {
                 builder: (context, state) {
                   return Column(
                     children: [
-                      for (var calorie in state.paginationHelper.data)
+                      for (Calories calorie in state.paginationHelper.data)
                         Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: ThemeSelector.statics.defaultMicroGap),
@@ -90,14 +91,14 @@ class CaloriesReferenceTemplate extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    calorie.name ?? '',
+                                    calorie.name,
                                     overflow: TextOverflow.ellipsis,
                                     style:
                                         Theme.of(context).textTheme.labelLarge,
                                   ),
                                 ),
                                 Text(
-                                  calorie.caloriesValue ?? '',
+                                  calorie.caloriesValue.toString(),
                                   style: Theme.of(context).textTheme.labelLarge,
                                 ),
                               ],

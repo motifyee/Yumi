@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app_target.dart';
 import 'package:yumi/forms/login_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -36,6 +37,12 @@ class LoginScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        if (AppTarget.user == AppTargetUser.chefs)
+                          SvgPicture.asset(
+                              'assets/images/welocme_chef_icon.svg'),
+                        if (AppTarget.user == AppTargetUser.drivers)
+                          SvgPicture.asset(
+                              'assets/images/welcom_driver_icon.svg'),
                         Text(
                           S.of(context).welcomeBack,
                           style: Theme.of(context).textTheme.titleLarge,

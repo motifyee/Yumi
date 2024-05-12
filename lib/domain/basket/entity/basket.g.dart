@@ -45,6 +45,7 @@ Map<String, dynamic> _$$BasketImplToJson(_$BasketImpl instance) {
 
 _$InvoiceImpl _$$InvoiceImplFromJson(Map json) => _$InvoiceImpl(
       createdBy: (json['createdBy'] as num?)?.toInt(),
+      createdDate: json['createdDate'] as String?,
       chefID: json['chef_ID'] as String?,
       clientNote: json['clientNote'] as String? ?? '',
       preparationNotes: json['preparationNotes'] as String? ?? '',
@@ -64,6 +65,7 @@ _$InvoiceImpl _$$InvoiceImplFromJson(Map json) => _$InvoiceImpl(
 Map<String, dynamic> _$$InvoiceImplToJson(_$InvoiceImpl instance) =>
     <String, dynamic>{
       'createdBy': instance.createdBy,
+      'createdDate': instance.createdDate,
       'chef_ID': instance.chefID,
       'clientNote': instance.clientNote,
       'preparationNotes': instance.preparationNotes,

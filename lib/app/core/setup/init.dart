@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/core/setup/awesome_notifications.dart';
-
 import 'package:yumi/app/core/setup/crashlyticts.dart';
 import 'package:yumi/app/core/setup/inject.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 
 Future init() async {
+  print('app init ......................................................');
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -29,6 +27,8 @@ Future init() async {
   Signalr.startConnection();
 
   await inject();
+  print(
+      'app init ended ......................................................');
 }
 
 // class MyBlocDelegate extends BlocDelegate  {

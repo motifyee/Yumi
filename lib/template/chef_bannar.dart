@@ -47,6 +47,7 @@ class _ChefBannerState extends State<ChefBanner> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
           height: widget.height ?? ThemeSelector.statics.defaultImageHeight,
@@ -115,7 +116,10 @@ class _ChefBannerState extends State<ChefBanner> {
         Padding(
           padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: widget.isShowFav
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.start,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,7 +134,7 @@ class _ChefBannerState extends State<ChefBanner> {
                     children: [
                       RatingBar(
                         ignoreGestures: true,
-                        initialRating: 3.5,
+                        initialRating: widget.chef.rate ?? 0,
                         allowHalfRating: true,
                         itemSize: ThemeSelector.fonts.font_24,
                         ratingWidget: RatingWidget(
@@ -147,8 +151,14 @@ class _ChefBannerState extends State<ChefBanner> {
                       ),
                       Text(' | ',
                           style: Theme.of(context).textTheme.bodyMedium),
-                      Text('Hygiene -',
-                          style: Theme.of(context).textTheme.bodyMedium),
+                      if (widget.chef.isHygiene != true)
+                        Text('${S.of(context).hygiene} -',
+                            style: Theme.of(context).textTheme.bodyMedium),
+                      if (widget.chef.isHygiene == true)
+                        Text(S.of(context).hygieneCertified,
+                            style: Theme.of(context).textTheme.bodyMedium),
+                      if (widget.chef.isHygiene == true)
+                        SvgPicture.asset('assets/images/certified_icon.svg'),
                     ],
                   )
                 ],
@@ -182,10 +192,6 @@ class _ChefBannerState extends State<ChefBanner> {
                           : SvgPicture.asset('assets/images/heart_outline.svg',
                               fit: BoxFit.contain),
                     ),
-                  Text(
-                    '0.2 Km',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
                 ],
               )
             ],
