@@ -112,7 +112,7 @@ class MealModel {
     data['preparation_Time'] = preparationTime;
     data['is_Order'] = isOrder;
     data['is_Pre_Order'] = isPreOrder;
-    data['pickup_Only'] = isPickUpOnly;
+    if (isPickUpOnly != null) data['pickup_Only'] = isPickUpOnly;
     data['portion_Persons'] = portionPersons;
     data['categoriesIds'] = categoriesids;
     if (ingredients != null) {

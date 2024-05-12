@@ -66,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cardNumber": MessageLookupByLibrary.simpleMessage("Card number"),
         "change": MessageLookupByLibrary.simpleMessage("Change"),
         "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
+        "chef": MessageLookupByLibrary.simpleMessage("Chef"),
         "chefCuisines": MessageLookupByLibrary.simpleMessage("Chef Cuisines"),
         "chefEvents": MessageLookupByLibrary.simpleMessage("Chef events"),
         "chefMenu": MessageLookupByLibrary.simpleMessage("Chef Menu"),
@@ -112,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "doYouWantToContinue":
             MessageLookupByLibrary.simpleMessage("Do you want to continue?"),
         "documentation": MessageLookupByLibrary.simpleMessage("Documentation"),
+        "driver": MessageLookupByLibrary.simpleMessage("Driver"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "empty": MessageLookupByLibrary.simpleMessage("Empty"),

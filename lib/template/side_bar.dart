@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/settings/profile/profile_form.dart';
+import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/app_info/app_info_cubit.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
@@ -150,9 +151,29 @@ class SideBar extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text(
-                    S.of(context).yumi.toUpperCase(),
-                    style: Theme.of(context).textTheme.titleSmall,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        S.of(context).yumi.toUpperCase(),
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const Text(' '),
+                      if (AppTarget.user == AppTargetUser.chefs)
+                        SvgPicture.asset(
+                          'assets/images/welocme_chef_icon.svg',
+                          height: ThemeSelector.fonts.font_12,
+                          colorFilter: ColorFilter.mode(
+                              ThemeSelector.colors.primary, BlendMode.srcIn),
+                        ),
+                      if (AppTarget.user == AppTargetUser.drivers)
+                        SvgPicture.asset(
+                          'assets/images/welcom_driver_icon.svg',
+                          height: ThemeSelector.fonts.font_12,
+                          colorFilter: ColorFilter.mode(
+                              ThemeSelector.colors.primary, BlendMode.srcIn),
+                        ),
+                    ],
                   ),
                   BlocBuilder<AppInfoCubit, AppInfoState>(
                     builder: (context, state) {

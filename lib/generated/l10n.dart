@@ -2381,6 +2381,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Chef`
+  String get chef {
+    return Intl.message(
+      'Chef',
+      name: 'chef',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Driver`
+  String get driver {
+    return Intl.message(
+      'Driver',
+      name: 'driver',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

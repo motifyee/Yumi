@@ -231,5 +231,7 @@
   "scheduleDate": "Schedule Date",
   "ok": "OK",
   "basketExpiredAndWillBeDeleted": "Basket Expired And Will Be Deleted",
-  "hygieneCertified": "Hygiene certified"
+  "hygieneCertified": "Hygiene certified",
+  "chef": "Chef",
+  "driver": "Driver"
 }
