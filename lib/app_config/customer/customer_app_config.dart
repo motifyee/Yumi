@@ -7,6 +7,7 @@ import 'package:yumi/app/pages/chef_application/documentation/bloc/icon_bloc.dar
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
+import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/app_config/app_config.dart';
 import 'package:yumi/app_config/customer/customer_routes.dart';
 import 'package:yumi/app_target.dart';
@@ -43,6 +44,7 @@ class CustomerAppConfig implements AppConfig {
     BlocProvider(create: (context) => BasketCubit()),
     BlocProvider(create: (context) => RegCubit()),
     BlocProvider(create: (context) => AppInfoCubit()),
+    BlocProvider(create: (context) => WalletCubit()),
   ];
   @override
   List<SingleChildWidget> get blocProviders => _providers;

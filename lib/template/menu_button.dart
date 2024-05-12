@@ -10,6 +10,7 @@ class MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (menuItem.onRender != null) menuItem.onRender!();
     return TextButton(
       style: TextButton.styleFrom(
           padding: EdgeInsets.zero,

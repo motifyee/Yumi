@@ -64,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Calories reference"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cardNumber": MessageLookupByLibrary.simpleMessage("Card number"),
+        "cards": MessageLookupByLibrary.simpleMessage("Cards"),
         "change": MessageLookupByLibrary.simpleMessage("Change"),
         "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
         "chef": MessageLookupByLibrary.simpleMessage("Chef"),
@@ -320,6 +321,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "youCanNowCreateYourReview": MessageLookupByLibrary.simpleMessage(
             "You can now create your review."),
+        "youHave": MessageLookupByLibrary.simpleMessage("You have"),
         "yourOrderSendToSavedLocation": MessageLookupByLibrary.simpleMessage(
             "Your order send to saved location"),
         "yourOrderWillBeCancelled": MessageLookupByLibrary.simpleMessage(

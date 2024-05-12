@@ -25,7 +25,7 @@ class TransactionsScreen extends StatelessWidget {
             surfaceTintColor: Colors.transparent,
             leading: TextButton(
                 onPressed: () {
-                  context.router.popForced();
+                  context.router.maybePop();
                 },
                 child: Icon(
                   Icons.arrow_back,

@@ -234,5 +234,7 @@
   "hygieneCertified": "Hygiene certified",
   "chef": "Chef",
   "driver": "Driver",
-  "maxImageSize": "image size 640x480"
+  "maxImageSize": "image size 640x480",
+  "youHave": "You have",
+  "cards": "Cards"
 }

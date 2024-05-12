@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -204,8 +205,14 @@ class _AppMenuList {
         AppMenuItem(
           icon: 'assets/images/schedule_menu.svg',
           label: S.of(context).yourWallet,
-          textLabel:
-              TextCurrency(value: 10.0, fontSize: ThemeSelector.fonts.font_14),
+          textLabel: BlocBuilder<WalletCubit, WalletState>(
+            builder: (context, state) {
+              return TextCurrency(
+                  value: state.wallet.money ?? 0,
+                  fontSize: ThemeSelector.fonts.font_14);
+            },
+          ),
+          onRender: () => context.read<WalletCubit>().getWallet(),
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
             context.router.push(CustomerWalletRoute());
@@ -305,10 +312,13 @@ class AppMenuItem {
   String label;
   Widget? textLabel;
   Function() onPressed;
+  Function()? onRender;
 
-  AppMenuItem(
-      {required this.icon,
-      required this.label,
-      required this.onPressed,
-      this.textLabel});
+  AppMenuItem({
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+    this.textLabel,
+    this.onRender,
+  });
 }
