@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/presentation/otp.dart';
 import 'package:yumi/template/confirm_button.dart';
 
@@ -32,10 +33,14 @@ class ForgotPwdEnterOTP extends StatelessWidget {
         const SizedBox(height: 60),
         ConfirmButton(
             label: 'Send',
-            onPressed: () {
+            onPressed: () async {
               if (otp.length < 4) return;
 
-              context.read<ForgotPwdCubit>().verifyOTPCode(otp);
+              final cubit = context.read<ForgotPwdCubit>();
+              await cubit.verifyOTPCode(otp);
+              if (!cubit.state.codeVerified) {
+                G.snackBar("Something went wrong!");
+              }
             }),
         const SizedBox(height: 60),
       ],
