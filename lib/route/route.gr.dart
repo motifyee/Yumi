@@ -27,6 +27,7 @@ import 'package:yumi/app/pages/chef_application/documentation/documentation_scre
 import 'package:yumi/app/pages/notification/notification.dart' as _i21;
 import 'package:yumi/app/pages/schedule/schedule_screen.dart' as _i20;
 import 'package:yumi/app/pages/settings/settings_screen.dart' as _i28;
+import 'package:yumi/app/pages/transactions/transactions.dart' as _i31;
 import 'package:yumi/domain/chef/entity/chef.dart' as _i34;
 import 'package:yumi/model/meal_model.dart' as _i35;
 import 'package:yumi/model/order_model/order_model.dart' as _i37;
@@ -47,7 +48,6 @@ import 'package:yumi/screens/forget_password.dart' as _i13;
 import 'package:yumi/screens/home.dart' as _i14;
 import 'package:yumi/screens/login.dart' as _i16;
 import 'package:yumi/screens/performance_analysis.dart' as _i26;
-import 'package:yumi/screens/transactions.dart' as _i31;
 
 abstract class $AppRouter extends _i32.RootStackRouter {
   $AppRouter({super.navigatorKey});

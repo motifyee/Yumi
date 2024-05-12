@@ -78,6 +78,7 @@ class ApiKeys {
   static String address = '/accounts/address';
   static String userStatus = '/accounts/status';
   static String notifications = '/notifications';
+  static String transactions = '/account/transactions';
 
   static String categories = '/categories';
   static String categoriesForChef = '/meals/categories/chef';

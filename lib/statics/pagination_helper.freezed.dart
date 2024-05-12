@@ -25,6 +25,7 @@ mixin _$PaginationHelper<T> {
   int get pageSize => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false)
   int get lastPage => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false)
   int get total => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false)
   bool get isLoading => throw _privateConstructorUsedError;
@@ -47,7 +48,7 @@ abstract class $PaginationHelperCopyWith<T, $Res> {
       {@JsonKey(toJson: _pageNumberToJson) int pageNumber,
       int pageSize,
       @JsonKey(includeFromJson: false) int lastPage,
-      int total,
+      @JsonKey(includeFromJson: false) int total,
       @JsonKey(includeFromJson: false) bool isLoading,
       @JsonKey(includeToJson: false, includeFromJson: false) List<T> data});
 }
@@ -113,7 +114,7 @@ abstract class _$$PaginationHelperImplCopyWith<T, $Res>
       {@JsonKey(toJson: _pageNumberToJson) int pageNumber,
       int pageSize,
       @JsonKey(includeFromJson: false) int lastPage,
-      int total,
+      @JsonKey(includeFromJson: false) int total,
       @JsonKey(includeFromJson: false) bool isLoading,
       @JsonKey(includeToJson: false, includeFromJson: false) List<T> data});
 }
@@ -172,7 +173,7 @@ class _$PaginationHelperImpl<T> extends _PaginationHelper<T> {
       {@JsonKey(toJson: _pageNumberToJson) this.pageNumber = 0,
       this.pageSize = 20,
       @JsonKey(includeFromJson: false) this.lastPage = 1,
-      this.total = 0,
+      @JsonKey(includeFromJson: false) this.total = 0,
       @JsonKey(includeFromJson: false) this.isLoading = false,
       @JsonKey(includeToJson: false, includeFromJson: false)
       final List<T> data = const []})
@@ -192,7 +193,7 @@ class _$PaginationHelperImpl<T> extends _PaginationHelper<T> {
   @JsonKey(includeFromJson: false)
   final int lastPage;
   @override
-  @JsonKey()
+  @JsonKey(includeFromJson: false)
   final int total;
   @override
   @JsonKey(includeFromJson: false)
@@ -253,7 +254,7 @@ abstract class _PaginationHelper<T> extends PaginationHelper<T> {
       {@JsonKey(toJson: _pageNumberToJson) final int pageNumber,
       final int pageSize,
       @JsonKey(includeFromJson: false) final int lastPage,
-      final int total,
+      @JsonKey(includeFromJson: false) final int total,
       @JsonKey(includeFromJson: false) final bool isLoading,
       @JsonKey(includeToJson: false, includeFromJson: false)
       final List<T> data}) = _$PaginationHelperImpl<T>;
@@ -271,6 +272,7 @@ abstract class _PaginationHelper<T> extends PaginationHelper<T> {
   @JsonKey(includeFromJson: false)
   int get lastPage;
   @override
+  @JsonKey(includeFromJson: false)
   int get total;
   @override
   @JsonKey(includeFromJson: false)
