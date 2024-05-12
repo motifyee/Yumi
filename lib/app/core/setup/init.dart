@@ -9,7 +9,6 @@ import 'package:yumi/app/core/setup/inject.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 
 Future init() async {
-  print('app init ......................................................');
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -27,8 +26,6 @@ Future init() async {
   Signalr.startConnection();
 
   await inject();
-  print(
-      'app init ended ......................................................');
 }
 
 // class MyBlocDelegate extends BlocDelegate  {
