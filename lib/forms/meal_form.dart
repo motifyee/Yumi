@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
@@ -26,33 +27,42 @@ class MealForm extends StatelessWidget {
   final MenuTarget? menuTarget;
   final MealModel? meal;
 
+  fetchMeal({required MealModel meal, required BuildContext context}) async {
+    Response res = await MealService.getMealById(mealId: meal.id!);
+    MealModel _meal = MealModel.fromJson(res.data);
+    context.read<MealFormBloc>().add(MealFormUpdateEvent(
+            mealModel: _meal.copyWith(
+          preparationTime: '25',
+          isOrder: meal.isPreOrder == true ? false : true,
+          isPreOrder: meal.isPreOrder ?? false,
+        )));
+  }
+
   @override
   Widget build(BuildContext context) {
-    context.read<MealFormBloc>().add(
-          MealFormUpdateEvent(
-            mealModel: meal?.copyWith(
+    if (meal != null) {
+      fetchMeal(meal: meal!, context: context);
+    } else {
+      context.read<MealFormBloc>().add(
+            MealFormUpdateEvent(
+              mealModel: MealModel(
+                  code: CodeGenerator.getRandomCode(),
+                  categoriesids: [],
+                  ingredients: [],
+                  isOrder: menuTarget == MenuTarget.order,
+                  isPreOrder: menuTarget == MenuTarget.preOrder,
                   preparationTime: '25',
-                  isOrder: meal?.isPreOrder == true ? false : true,
-                  isPreOrder: meal?.isPreOrder ?? false,
-                ) ??
-                MealModel(
-                    code: CodeGenerator.getRandomCode(),
-                    categoriesids: [],
-                    ingredients: [],
-                    isOrder: menuTarget == MenuTarget.order,
-                    isPreOrder: menuTarget == MenuTarget.preOrder,
-                    preparationTime: '25',
-                    isPickUpOnly: false,
-                    name: '',
-                    id: 0,
-                    caloriesValue: '',
-                    portionPersons: '',
-                    price1: '',
-                    productVariantID: 0,
-                    chefId: ''),
-          ),
-        );
-
+                  isPickUpOnly: false,
+                  name: '',
+                  id: 0,
+                  caloriesValue: '',
+                  portionPersons: '',
+                  price1: '',
+                  productVariantID: 0,
+                  chefId: ''),
+            ),
+          );
+    }
     return Scaffold(
       body: LayoutBuilder(builder: (context, constraint) {
         return Form(

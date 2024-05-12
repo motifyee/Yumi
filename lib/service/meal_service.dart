@@ -109,6 +109,17 @@ class MealService {
     return jsonDecode(res.toString());
   }
 
+  static Future<dynamic> getMealById({required int mealId}) async {
+    final res = await DioClient.simpleDio().get(
+      ApiKeys.actionApiKeyString(
+        id: mealId.toString(),
+        apiKey: ApiKeys.getMealById,
+      ),
+    );
+
+    return res;
+  }
+
   static Future<dynamic> getFavoriteMeals(
       {required Map<String, dynamic>? pagination}) async {
     final res = await DioClient.simpleDio().get(
