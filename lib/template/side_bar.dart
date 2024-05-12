@@ -178,8 +178,12 @@ class SideBar extends StatelessWidget {
                   BlocBuilder<AppInfoCubit, AppInfoState>(
                     builder: (context, state) {
                       return Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Text(
+                            S.of(context).maxImageSize,
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
                           Text(
                             '${state.packageInfo?.version}+${state.packageInfo?.buildNumber}v',
                             style: Theme.of(context).textTheme.labelSmall,

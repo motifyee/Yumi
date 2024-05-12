@@ -44,6 +44,17 @@ class EventsPhoto extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               eventPhotosTitle,
+              if (state.form.eventPhotosCount < 5)
+                Row(
+                  children: [
+                    SizedBox(width: ThemeSelector.statics.defaultLineGap),
+                    SizedBox(width: ThemeSelector.statics.defaultLineGap),
+                    Text(
+                      S.of(context).maxImageSize,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                  ],
+                ),
               SizedBox(height: ThemeSelector.statics.defaultGap * 2),
               Flexible(
                 fit: FlexFit.loose,

@@ -152,6 +152,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "lowerCase": MessageLookupByLibrary.simpleMessage("1 lower case"),
+        "maxImageSize":
+            MessageLookupByLibrary.simpleMessage("image size 640x480"),
         "maximum25Minutes":
             MessageLookupByLibrary.simpleMessage("Maximum 25 minutes"),
         "mealName": MessageLookupByLibrary.simpleMessage("Meal name"),

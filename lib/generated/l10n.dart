@@ -2401,6 +2401,16 @@ class S {
       args: [],
     );
   }
+
+  /// `image size 640x480`
+  String get maxImageSize {
+    return Intl.message(
+      'image size 640x480',
+      name: 'maxImageSize',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

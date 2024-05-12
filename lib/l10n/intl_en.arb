@@ -233,5 +233,6 @@
   "basketExpiredAndWillBeDeleted": "Basket Expired And Will Be Deleted",
   "hygieneCertified": "Hygiene certified",
   "chef": "Chef",
-  "driver": "Driver"
+  "driver": "Driver",
+  "maxImageSize": "image size 640x480"
 }

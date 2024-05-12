@@ -33,6 +33,7 @@ class NewsGuide extends StatelessWidget {
               bottom: 0),
           width: MediaQuery.of(context).size.width,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 padding: EdgeInsets.symmetric(
@@ -43,9 +44,7 @@ class NewsGuide extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
-              SizedBox(height: ThemeSelector.statics.defaultBlockGap),
               Location(),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
               Text(
                 S.of(context).thisSectionYourSavedAddress,
                 textAlign: TextAlign.center,
@@ -53,9 +52,7 @@ class NewsGuide extends StatelessWidget {
                       fontSize: ThemeSelector.fonts.font_16,
                     ),
               ),
-              SizedBox(height: ThemeSelector.statics.defaultTitleGap),
               StatusButton(forGuide: StatusEnum.ready),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
               Text(
                 S.of(context).thisButtonMeansThatYouAreCurrentlyAvailable,
                 textAlign: TextAlign.center,
@@ -63,9 +60,7 @@ class NewsGuide extends StatelessWidget {
                       fontSize: ThemeSelector.fonts.font_16,
                     ),
               ),
-              SizedBox(height: ThemeSelector.statics.defaultTitleGap),
               StatusButton(forGuide: StatusEnum.busy),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
               Text(
                 S.of(context).thisButtonMeansThatYouAreCurrentlyNotAvailable,
                 textAlign: TextAlign.center,
@@ -73,7 +68,6 @@ class NewsGuide extends StatelessWidget {
                       fontSize: ThemeSelector.fonts.font_16,
                     ),
               ),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -88,7 +82,8 @@ class NewsGuide extends StatelessWidget {
                         style: Theme.of(context).textTheme.headlineMedium,
                       )),
                 ],
-              )
+              ),
+              SizedBox(height: ThemeSelector.statics.defaultGap),
             ],
           ),
         ),
