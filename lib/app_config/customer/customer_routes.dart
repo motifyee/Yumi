@@ -1,8 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/global.dart';
-import 'package:yumi/route/auth_guard.dart';
+import 'package:yumi/app_config/guards.dart';
 import 'package:yumi/route/route.gr.dart';
 
 class CustomerRoutes extends $AppRouter {
