@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:dio/dio.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/core/exceptions.dart';
@@ -56,7 +59,7 @@ class ProfileRemoteSrc extends ProfileSrc {
   }
 
   @override
-  Future<String> getOTP() async {
+  Future<String> addMobile() async {
     try {
       final call =
           await DioClient.dio.post<dynamic>('/accounts/mobileverified');
@@ -68,7 +71,7 @@ class ProfileRemoteSrc extends ProfileSrc {
   }
 
   @override
-  Future<String> verifyOTP(String otp) async {
+  Future<String> verifyAddMobileOTP(String otp) async {
     final Response<String> res;
 
     try {
@@ -76,7 +79,7 @@ class ProfileRemoteSrc extends ProfileSrc {
         '/accounts/mobileverified?OTP=$otp',
       );
     } catch (e) {
-      throw ServerException();
+      throw ServerException(e);
     }
 
     if (res.data == null) throw ServerException();
@@ -116,5 +119,31 @@ class ProfileRemoteSrc extends ProfileSrc {
 
     if (res.data?['message'] == null) throw ServerException();
     return res.data['message'] as String;
+  }
+
+  @override
+  Future<String> verifyResetPasswordOTP(
+    String email,
+    String otp,
+    String password,
+  ) async {
+    final Response<String> res;
+
+    try {
+      res = await DioClient.dio.put<String>(
+        '/accounts/password',
+        data: {
+          'OTP': otp,
+          'password': password,
+          'mail': email,
+        },
+      );
+    } catch (e) {
+      throw ServerException(
+          (jsonDecode((e as dynamic).response.data as String))['message']);
+    }
+
+    if (res.data == null) throw ServerException('Something went wrong!');
+    return res.data!;
   }
 }

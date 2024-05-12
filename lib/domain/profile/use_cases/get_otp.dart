@@ -10,5 +10,5 @@ class GetOTP extends UseCase<String, NoParams> {
   GetOTP({ProfileRepo? repo}) : repo = repo ?? getIt<ProfileRepo>();
 
   @override
-  Future<Either<Failure, String>> call(params) => repo.getOTP().run();
+  Future<Either<Failure, String>> call(params) => repo.addMobile().run();
 }
