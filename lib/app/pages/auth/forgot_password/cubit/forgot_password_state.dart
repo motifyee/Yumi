@@ -3,7 +3,7 @@ part of 'forgot_password_cubit.dart';
 enum ForgotPwdWindow {
   enterEmail,
   enterOTP,
-  enterPwd,
+  done,
 }
 
 @freezed

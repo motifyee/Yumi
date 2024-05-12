@@ -11,7 +11,7 @@ class VerifyOTP extends UseCase<String, VerifyOTPParams> {
 
   @override
   Future<Either<Failure, String>> call(params) =>
-      repo.verifyOTP(params.otp).run();
+      repo.verifyAddMobileOTP(params.otp).run();
 }
 
 class VerifyOTPParams extends Params {

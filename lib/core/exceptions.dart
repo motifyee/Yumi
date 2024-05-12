@@ -4,7 +4,11 @@ class NetworkException extends CException {}
 
 // -----------------------------------------------------------------------------
 
-class ServerException extends CException {}
+class ServerException extends CException {
+  final Object? error;
+
+  ServerException([this.error]);
+}
 
 class UserNotFoundException extends ServerException {
   final String id;

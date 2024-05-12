@@ -85,8 +85,9 @@ class ForgotPasswordSheet extends StatelessWidget {
                     return ForgotPwdEnterEmail();
                   case ForgotPwdWindow.enterOTP:
                     return const ForgotPwdEnterOTP();
-                  case ForgotPwdWindow.enterPwd:
-                    return ForgotPwdNewPwd();
+                  case ForgotPwdWindow.done:
+                    G.pop();
+                    return const ForgotPwdEnterOTP();
                 }
               },
             )),

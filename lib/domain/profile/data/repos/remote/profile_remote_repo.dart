@@ -39,14 +39,15 @@ class ProfileRemoteRepo implements ProfileRepo {
       );
 
   @override
-  TaskEither<Failure, String> getOTP() => TaskEither.tryCatch(
-        () => profileSrc.getOTP(),
+  TaskEither<Failure, String> addMobile() => TaskEither.tryCatch(
+        () => profileSrc.addMobile(),
         (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 
   @override
-  TaskEither<Failure, String> verifyOTP(String otp) => TaskEither.tryCatch(
-        () => profileSrc.verifyOTP(otp),
+  TaskEither<Failure, String> verifyAddMobileOTP(String otp) =>
+      TaskEither.tryCatch(
+        () => profileSrc.verifyAddMobileOTP(otp),
         (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 
@@ -60,6 +61,14 @@ class ProfileRemoteRepo implements ProfileRepo {
   TaskEither<Failure, String> resetPassword(String email) =>
       TaskEither.tryCatch(
         () => profileSrc.resetPassword(email),
+        (error, stackTrace) => ServerFailure(error, stackTrace),
+      );
+
+  @override
+  TaskEither<Failure, String> verifyResetPasswordOTP(
+          String email, String otp, String password) =>
+      TaskEither.tryCatch(
+        () => profileSrc.verifyResetPasswordOTP(email, otp, password),
         (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 }

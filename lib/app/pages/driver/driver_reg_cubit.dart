@@ -23,7 +23,7 @@ import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/profile/use_cases/get_otp.dart';
-import 'package:yumi/domain/profile/use_cases/verify_otp.dart';
+import 'package:yumi/domain/profile/use_cases/verify_add_mobile_otp.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/util/util.dart';
