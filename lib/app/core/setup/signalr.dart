@@ -21,7 +21,8 @@ class Signalr {
   static HubConnection? hubConnection;
   static String? connectionId;
   static String? accessToken;
-  static String? hubName;
+  static String baseUrl = originApi;
+  static String? hubName = "chatHub";
   static String? connectionToken;
 
   static void _setupSignalrConnection([bool force = false]) {
@@ -35,7 +36,6 @@ class Signalr {
     final transportLogger = Logger("SignalR transport");
     final hubLogger = Logger("SignalR hub");
 
-    const serverUrl = "$originApi/signalr";
     final httpOptions = HttpConnectionOptions(
       httpClient: WebSupportingHttpClient(
         hubLogger,
@@ -49,7 +49,7 @@ class Signalr {
     );
 
     hubConnection = HubConnectionBuilder()
-        .withUrl(serverUrl, options: httpOptions)
+        .withUrl("$baseUrl/$hubName", options: httpOptions)
         .configureLogging(hubLogger)
         .withAutomaticReconnect(
             retryDelays: [1000, 2000, 4000, 8000, 15000, 30000])
