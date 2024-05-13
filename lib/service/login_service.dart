@@ -12,6 +12,7 @@ class LoginServices {
       final res = await DioClient.simpleDio(context).post(
           ApiKeys.getApiKeyString(apiKey: ApiKeys.login),
           data: jsonEncode(login.toJson()));
+
       return LoginResponse.fromJson(res.data);
     } catch (err) {
       debugPrint(err.toString());

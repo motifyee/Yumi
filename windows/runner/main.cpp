@@ -28,7 +28,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
 
   FlutterWindow window(project);
   Win32Window::Point origin(GetSystemMetrics(SM_CXSCREEN) - 400, 100);
-  Win32Window::Size size(400, 900);
+  Win32Window::Size size(350, 750);
   if (!window.Create(L"yumi", origin, size))
   {
     return EXIT_FAILURE;
