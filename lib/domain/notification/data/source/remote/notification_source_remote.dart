@@ -12,9 +12,18 @@ class NotificationSourceRemote implements NotificationSource {
     Response res = await DioClient.simpleDio()
         .get(ApiKeys.notifications, queryParameters: pagination.toJson());
 
-    List<NotificationS> notification = res.data['data']
-        .map<NotificationS>((json) => NotificationS.fromJson(json))
-        .toList();
+    print(' loadNotifications ............................ ');
+    print(NotificationS.fromJson(res.data['data'][0]).toJson());
+    int testcount = 0;
+
+    List<NotificationS> notification =
+        res.data['data'].map<NotificationS>((json) {
+      print(++testcount);
+      print(NotificationS.fromJson(json));
+      return NotificationS.fromJson(json);
+    }).toList();
+
+    print(notification);
 
     return pagination.copyWith(
       data: [...pagination.data as List<NotificationS>, ...notification]

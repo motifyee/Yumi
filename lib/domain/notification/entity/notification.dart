@@ -12,7 +12,7 @@ class NotificationS with _$NotificationS {
     @NotificationTypeConverter() required NotificationTypeEnum notificationType,
     @DateTimeToIso8601StringConverter() required DateTime date,
     required String description,
-    @JsonKey(name: 'type_ID') required int typeID,
+    @JsonKey(name: 'type_ID') int? typeID,
     @JsonKey(name: 'driver_ID') String? driverID,
     @JsonKey(name: 'chef_ID') String? chefID,
     @JsonKey(name: 'client_ID') String? clientID,
@@ -24,9 +24,11 @@ class NotificationS with _$NotificationS {
 }
 
 enum NotificationTypeEnum {
-  FinishOrder,
+  GeneralNotification,
+  DeliveryOrder,
+  DeliveryPreOrder,
   PickupPreOrder,
   PickupOrder,
-  DeliveryPreOrder,
-  DeliveryOrder,
+  FinishOrder,
+  AccountApproved,
 }

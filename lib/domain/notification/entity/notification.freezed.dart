@@ -28,7 +28,7 @@ mixin _$NotificationS {
   DateTime get date => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'type_ID')
-  int get typeID => throw _privateConstructorUsedError;
+  int? get typeID => throw _privateConstructorUsedError;
   @JsonKey(name: 'driver_ID')
   String? get driverID => throw _privateConstructorUsedError;
   @JsonKey(name: 'chef_ID')
@@ -55,7 +55,7 @@ abstract class $NotificationSCopyWith<$Res> {
       @NotificationTypeConverter() NotificationTypeEnum notificationType,
       @DateTimeToIso8601StringConverter() DateTime date,
       String description,
-      @JsonKey(name: 'type_ID') int typeID,
+      @JsonKey(name: 'type_ID') int? typeID,
       @JsonKey(name: 'driver_ID') String? driverID,
       @JsonKey(name: 'chef_ID') String? chefID,
       @JsonKey(name: 'client_ID') String? clientID,
@@ -79,7 +79,7 @@ class _$NotificationSCopyWithImpl<$Res, $Val extends NotificationS>
     Object? notificationType = null,
     Object? date = null,
     Object? description = null,
-    Object? typeID = null,
+    Object? typeID = freezed,
     Object? driverID = freezed,
     Object? chefID = freezed,
     Object? clientID = freezed,
@@ -102,10 +102,10 @@ class _$NotificationSCopyWithImpl<$Res, $Val extends NotificationS>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      typeID: null == typeID
+      typeID: freezed == typeID
           ? _value.typeID
           : typeID // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       driverID: freezed == driverID
           ? _value.driverID
           : driverID // ignore: cast_nullable_to_non_nullable
@@ -139,7 +139,7 @@ abstract class _$$NotificationSImplCopyWith<$Res>
       @NotificationTypeConverter() NotificationTypeEnum notificationType,
       @DateTimeToIso8601StringConverter() DateTime date,
       String description,
-      @JsonKey(name: 'type_ID') int typeID,
+      @JsonKey(name: 'type_ID') int? typeID,
       @JsonKey(name: 'driver_ID') String? driverID,
       @JsonKey(name: 'chef_ID') String? chefID,
       @JsonKey(name: 'client_ID') String? clientID,
@@ -161,7 +161,7 @@ class __$$NotificationSImplCopyWithImpl<$Res>
     Object? notificationType = null,
     Object? date = null,
     Object? description = null,
-    Object? typeID = null,
+    Object? typeID = freezed,
     Object? driverID = freezed,
     Object? chefID = freezed,
     Object? clientID = freezed,
@@ -184,10 +184,10 @@ class __$$NotificationSImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      typeID: null == typeID
+      typeID: freezed == typeID
           ? _value.typeID
           : typeID // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       driverID: freezed == driverID
           ? _value.driverID
           : driverID // ignore: cast_nullable_to_non_nullable
@@ -216,7 +216,7 @@ class _$NotificationSImpl implements _NotificationS {
       @NotificationTypeConverter() required this.notificationType,
       @DateTimeToIso8601StringConverter() required this.date,
       required this.description,
-      @JsonKey(name: 'type_ID') required this.typeID,
+      @JsonKey(name: 'type_ID') this.typeID,
       @JsonKey(name: 'driver_ID') this.driverID,
       @JsonKey(name: 'chef_ID') this.chefID,
       @JsonKey(name: 'client_ID') this.clientID,
@@ -237,7 +237,7 @@ class _$NotificationSImpl implements _NotificationS {
   final String description;
   @override
   @JsonKey(name: 'type_ID')
-  final int typeID;
+  final int? typeID;
   @override
   @JsonKey(name: 'driver_ID')
   final String? driverID;
@@ -303,7 +303,7 @@ abstract class _NotificationS implements NotificationS {
           required final NotificationTypeEnum notificationType,
           @DateTimeToIso8601StringConverter() required final DateTime date,
           required final String description,
-          @JsonKey(name: 'type_ID') required final int typeID,
+          @JsonKey(name: 'type_ID') final int? typeID,
           @JsonKey(name: 'driver_ID') final String? driverID,
           @JsonKey(name: 'chef_ID') final String? chefID,
           @JsonKey(name: 'client_ID') final String? clientID,
@@ -325,7 +325,7 @@ abstract class _NotificationS implements NotificationS {
   String get description;
   @override
   @JsonKey(name: 'type_ID')
-  int get typeID;
+  int? get typeID;
   @override
   @JsonKey(name: 'driver_ID')
   String? get driverID;

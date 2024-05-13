@@ -14,7 +14,7 @@ _$NotificationSImpl _$$NotificationSImplFromJson(Map<String, dynamic> json) =>
       date: const DateTimeToIso8601StringConverter()
           .fromJson(json['date'] as String),
       description: json['description'] as String,
-      typeID: (json['type_ID'] as num).toInt(),
+      typeID: (json['type_ID'] as num?)?.toInt(),
       driverID: json['driver_ID'] as String?,
       chefID: json['chef_ID'] as String?,
       clientID: json['client_ID'] as String?,

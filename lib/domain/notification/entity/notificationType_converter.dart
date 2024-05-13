@@ -7,7 +7,10 @@ class NotificationTypeConverter
 
   @override
   NotificationTypeEnum fromJson(String json) {
-    return NotificationTypeEnum.values.byName(json);
+    if (NotificationTypeEnum.values.asNameMap().containsKey(json)) {
+      return NotificationTypeEnum.values.byName(json);
+    }
+    return NotificationTypeEnum.GeneralNotification;
   }
 
   @override
