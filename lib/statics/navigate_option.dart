@@ -224,7 +224,9 @@ class _ChefAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        G.context.router.push(const NotificationRoute());
+      },
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -233,28 +235,29 @@ class _ChefAction extends StatelessWidget {
             height: ThemeSelector.statics.iconSizeSmall,
             width: ThemeSelector.statics.iconSizeSmall,
           ),
-          Positioned(
-            bottom: 0,
-            right: -5,
-            child: Container(
-              width: 15,
-              height: 15,
-              padding: const EdgeInsets.all(0),
-              decoration: BoxDecoration(
-                color: ThemeSelector.colors.primary,
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Center(
-                child: Text(
-                  '3',
-                  style: Theme.of(G.context).textTheme.displaySmall?.copyWith(
-                        fontSize: ThemeSelector.fonts.font_9,
-                        fontWeight: FontWeight.w500,
-                      ),
+          if (false)
+            Positioned(
+              bottom: 0,
+              right: -5,
+              child: Container(
+                width: 15,
+                height: 15,
+                padding: const EdgeInsets.all(0),
+                decoration: BoxDecoration(
+                  color: ThemeSelector.colors.primary,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Center(
+                  child: Text(
+                    '3',
+                    style: Theme.of(G.context).textTheme.displaySmall?.copyWith(
+                          fontSize: ThemeSelector.fonts.font_9,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
                 ),
               ),
             ),
-          ),
         ],
       ),
     );
