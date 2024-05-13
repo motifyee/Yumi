@@ -7,12 +7,12 @@ gradle="./android/app/build.gradle"
 output="./build/app/outputs/flutter-apk"
 splash="./assets/splash"
 
-#pubspac="./pubspec.yaml"
-#fullVersion=$(echo | grep -i -e "version: " "$pubspac")
-#buildName=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)
-#buildNumber=$(echo $fullVersion | cut -d "+" -f 2 )
-#((buildNumber++))
-#sed -i -E "s/version: .+/version: ${buildName}+${buildNumber}/" "$pubspac"
+pubspac="./pubspec.yaml"
+fullVersion=$(echo | grep -i -e "version: " "$pubspac")
+buildName=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)
+buildNumber=$(echo $fullVersion | cut -d "+" -f 2 )
+((buildNumber++))
+sed -i -E "s/version: .+/version: ${buildName}+${buildNumber}/" "$pubspac"
 
 mkdir -p "$output/out"
 
