@@ -84,7 +84,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserResetEvent>((event, emit) async {
       await LocalStorage.sharedRef.removeValue(LocalStorage.user);
       await LocalStorage.sharedRef.removeValue(LocalStorage.token);
-      await LocalStorage.sharedRef.removeValue(LocalStorage.newsGuide);
       await LocalStorage.sharedRef.removeValue(LocalStorage.userLocation);
       emit(state.copyWith(
           user: const UserModel(
