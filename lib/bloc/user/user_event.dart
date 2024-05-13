@@ -25,7 +25,7 @@ class UserFromJsonEvent extends UserEvent {
 class UserFromSharedRefEvent extends UserEvent {
   final BuildContext context;
   final String? route;
-  final Function(BuildContext, String?) afterFetchSuccess;
+  final Function(BuildContext, String?, UserModel?) afterFetchSuccess;
   final Function(BuildContext) autoLogin;
 
   UserFromSharedRefEvent({

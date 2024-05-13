@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/auth/use_cases/login_with_google.dart';
 import 'package:yumi/generated/l10n.dart';

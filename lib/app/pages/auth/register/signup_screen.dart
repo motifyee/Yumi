@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:yumi/app/pages/auth/register/signup_form.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/login_thrid_part.dart';
 import 'package:yumi/template/screen_container.dart';
@@ -60,7 +61,8 @@ class SignUpScreen extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {
-                          context.router.pop();
+                          // context.router.pop();
+                          context.router.replace(LoginRoute());
                         },
                         child: RichText(
                           text: TextSpan(

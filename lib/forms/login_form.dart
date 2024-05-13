@@ -16,6 +16,7 @@ import 'package:yumi/global.dart';
 import 'package:yumi/model/login_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/login_service.dart';
+import 'package:yumi/service/model/login_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/snack_bar.dart';
@@ -59,7 +60,7 @@ class LoginForm extends StatelessWidget {
               UserFromSharedRefEvent(
                 context: context,
                 route: null,
-                afterFetchSuccess: (context, _) {
+                afterFetchSuccess: (context, _, user) {
                   if (value.getInt(regStepKey) == null) return;
                   if (G.read<UserBloc>().state.user.accessToken.isEmpty) return;
 
@@ -166,33 +167,44 @@ class LoginForm extends StatelessWidget {
 }
 
 void performLogin(BuildContext context, LoginModel loginForm, [String? route]) {
-  LoginServices.login(login: loginForm, context: context).then((value) async {
-    if (value['access_Token'] != null) {
-      context.read<UserBloc>().add(UserFromJsonEvent(
-            user: value,
-            routeAfterLogin: () => routeAfterLogin(context, ''),
-          ));
-      context
-          .read<UserBloc>()
-          .add(UserUpdateLocationEvent(address: Address.fromJson(value)));
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: SnackBarMassage(
-            massage: value["message"],
-          ),
-        ),
-      );
+  LoginServices.login(login: loginForm, context: context)
+      .then((loginResponse) async {
+    final Map<String, dynamic> json = loginResponse.toJson();
+
+    if ((loginResponse.accessToken ?? '').isEmpty) {
+      return G.snackBar(loginResponse.message ?? "Error!");
     }
-  }).catchError((onError) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: SnackBarMassage(
-          massage: S.of(context).connectionError,
-        ),
-      ),
-    );
-  });
+    LoginResponse;
+    context.read<UserBloc>().add(UserFromJsonEvent(
+          user: json,
+          routeAfterLogin: () async {
+            if (!(loginResponse.mobileVerified ?? false)) {
+              return await context
+                  .read<RegCubit>()
+                  .saveStepToCache(RegStep.addPhone.index)
+                  .then((value) {
+                context.router.push(const RegisterationRoute());
+                context.read<RegCubit>().init();
+              });
+            }
+            if (!(loginResponse.accountApproved ?? false)) {
+              return await context
+                  .read<RegCubit>()
+                  .saveStepToCache(RegStep.onboarding.index)
+                  .then((value) {
+                context.router.push(const RegisterationRoute());
+                context.read<RegCubit>().init();
+              });
+            }
+
+            routeAfterLogin(context, '');
+          },
+        ));
+
+    context
+        .read<UserBloc>()
+        .add(UserUpdateLocationEvent(address: Address.fromJson(json)));
+  }).catchError((onError) => G.snackBar(S.of(context).connectionError));
 }
 
 void routeAfterLogin(BuildContext context, String? route) async {
