@@ -75,18 +75,21 @@ class BasketCubit extends Cubit<BasketState> {
     task.fold((l) => null, (r) => calcBasket(basket: r));
   }
 
-  getBaskets() async {
+  Future<dynamic> getBaskets() async {
     final Either<Failure, Basket?> task = await GetBasket().call(NoParams());
-    task.fold((l) => null, (r) async {
+    return task.fold((l) => null, (r) async {
       if (r != null) {
         final Either<Failure, Basket> task2 =
             await CalcBasket().call(CalcBasketParams(basket: r));
-        task2.fold((l) => _message(S.current.apiError), (r) {
-          G.router.replaceAll([BasketRoute()]);
-          emit(state.copyWith(basket: r));
+        return task2.fold((l) {
+          _message(S.current.apiError);
+          return null;
+        }, (r2) {
+          emit(state.copyWith(basket: r2));
+          return () => G.router.replaceAll([BasketRoute()]);
         });
       } else {
-        G.router.replaceAll([HomeRoute()]);
+        return null;
       }
     });
   }
