@@ -19,6 +19,10 @@ import 'package:yumi/domain/schedule/data/repos/remote/schedule_remote_repo.dart
 import 'package:yumi/domain/schedule/data/repos/schedule_repo.dart';
 import 'package:yumi/domain/schedule/data/sources/remote/schedule_remote_source.dart';
 import 'package:yumi/domain/schedule/data/sources/schedule_sources.dart';
+import 'package:yumi/domain/transactions/data/repo/remote/transaction_repo_remote.dart';
+import 'package:yumi/domain/transactions/data/repo/transaction_repo.dart';
+import 'package:yumi/domain/transactions/data/source/remote/transaction_source_remote.dart';
+import 'package:yumi/domain/transactions/data/source/transaction_source.dart';
 
 final sl = GetIt.I; // sl == Service Locator
 final getIt = sl.get;
@@ -41,4 +45,7 @@ Future<void> inject() async {
 
   sl.registerFactory<NotificationRepo>(() => NotificationRepoRemote());
   sl.registerFactory<NotificationSource>(() => NotificationSourceRemote());
+
+  sl.registerFactory<TransactionRepo>(() => TransactionRepoRemote());
+  sl.registerFactory<TransactionSource>(() => TransactionSourceRemote());
 }

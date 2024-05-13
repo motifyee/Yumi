@@ -9,15 +9,12 @@ part of 'transaction_cubit.dart';
 _$TransactionStateImpl _$$TransactionStateImplFromJson(
         Map<String, dynamic> json) =>
     _$TransactionStateImpl(
-      transaction: (json['transaction'] as List<dynamic>?)
-          ?.map((e) => Transaction.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      loading: json['loading'] as bool?,
+      paginationHelper: PaginationHelper<Transaction>.fromJson(
+          json['paginationHelper'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$TransactionStateImplToJson(
         _$TransactionStateImpl instance) =>
     <String, dynamic>{
-      'transaction': instance.transaction,
-      'loading': instance.loading,
+      'paginationHelper': instance.paginationHelper,
     };

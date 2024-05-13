@@ -20,8 +20,8 @@ TransactionState _$TransactionStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TransactionState {
-  List<Transaction>? get transaction => throw _privateConstructorUsedError;
-  bool? get loading => throw _privateConstructorUsedError;
+  PaginationHelper<Transaction> get paginationHelper =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,9 @@ abstract class $TransactionStateCopyWith<$Res> {
           TransactionState value, $Res Function(TransactionState) then) =
       _$TransactionStateCopyWithImpl<$Res, TransactionState>;
   @useResult
-  $Res call({List<Transaction>? transaction, bool? loading});
+  $Res call({PaginationHelper<Transaction> paginationHelper});
+
+  $PaginationHelperCopyWith<Transaction, $Res> get paginationHelper;
 }
 
 /// @nodoc
@@ -51,19 +53,23 @@ class _$TransactionStateCopyWithImpl<$Res, $Val extends TransactionState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? transaction = freezed,
-    Object? loading = freezed,
+    Object? paginationHelper = null,
   }) {
     return _then(_value.copyWith(
-      transaction: freezed == transaction
-          ? _value.transaction
-          : transaction // ignore: cast_nullable_to_non_nullable
-              as List<Transaction>?,
-      loading: freezed == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      paginationHelper: null == paginationHelper
+          ? _value.paginationHelper
+          : paginationHelper // ignore: cast_nullable_to_non_nullable
+              as PaginationHelper<Transaction>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PaginationHelperCopyWith<Transaction, $Res> get paginationHelper {
+    return $PaginationHelperCopyWith<Transaction, $Res>(_value.paginationHelper,
+        (value) {
+      return _then(_value.copyWith(paginationHelper: value) as $Val);
+    });
   }
 }
 
@@ -75,7 +81,10 @@ abstract class _$$TransactionStateImplCopyWith<$Res>
       __$$TransactionStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Transaction>? transaction, bool? loading});
+  $Res call({PaginationHelper<Transaction> paginationHelper});
+
+  @override
+  $PaginationHelperCopyWith<Transaction, $Res> get paginationHelper;
 }
 
 /// @nodoc
@@ -89,18 +98,13 @@ class __$$TransactionStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? transaction = freezed,
-    Object? loading = freezed,
+    Object? paginationHelper = null,
   }) {
     return _then(_$TransactionStateImpl(
-      transaction: freezed == transaction
-          ? _value._transaction
-          : transaction // ignore: cast_nullable_to_non_nullable
-              as List<Transaction>?,
-      loading: freezed == loading
-          ? _value.loading
-          : loading // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      paginationHelper: null == paginationHelper
+          ? _value.paginationHelper
+          : paginationHelper // ignore: cast_nullable_to_non_nullable
+              as PaginationHelper<Transaction>,
     ));
   }
 }
@@ -108,29 +112,17 @@ class __$$TransactionStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$TransactionStateImpl implements _TransactionState {
-  const _$TransactionStateImpl(
-      {final List<Transaction>? transaction, this.loading})
-      : _transaction = transaction;
+  const _$TransactionStateImpl({required this.paginationHelper});
 
   factory _$TransactionStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$TransactionStateImplFromJson(json);
 
-  final List<Transaction>? _transaction;
   @override
-  List<Transaction>? get transaction {
-    final value = _transaction;
-    if (value == null) return null;
-    if (_transaction is EqualUnmodifiableListView) return _transaction;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  final bool? loading;
+  final PaginationHelper<Transaction> paginationHelper;
 
   @override
   String toString() {
-    return 'TransactionState(transaction: $transaction, loading: $loading)';
+    return 'TransactionState(paginationHelper: $paginationHelper)';
   }
 
   @override
@@ -138,15 +130,13 @@ class _$TransactionStateImpl implements _TransactionState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TransactionStateImpl &&
-            const DeepCollectionEquality()
-                .equals(other._transaction, _transaction) &&
-            (identical(other.loading, loading) || other.loading == loading));
+            (identical(other.paginationHelper, paginationHelper) ||
+                other.paginationHelper == paginationHelper));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_transaction), loading);
+  int get hashCode => Object.hash(runtimeType, paginationHelper);
 
   @JsonKey(ignore: true)
   @override
@@ -165,16 +155,14 @@ class _$TransactionStateImpl implements _TransactionState {
 
 abstract class _TransactionState implements TransactionState {
   const factory _TransactionState(
-      {final List<Transaction>? transaction,
-      final bool? loading}) = _$TransactionStateImpl;
+          {required final PaginationHelper<Transaction> paginationHelper}) =
+      _$TransactionStateImpl;
 
   factory _TransactionState.fromJson(Map<String, dynamic> json) =
       _$TransactionStateImpl.fromJson;
 
   @override
-  List<Transaction>? get transaction;
-  @override
-  bool? get loading;
+  PaginationHelper<Transaction> get paginationHelper;
   @override
   @JsonKey(ignore: true)
   _$$TransactionStateImplCopyWith<_$TransactionStateImpl> get copyWith =>

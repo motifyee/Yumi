@@ -67,7 +67,7 @@ class TransactionsScreen extends StatelessWidget {
                       return Column(
                         children: [
                           for (Transaction transaction
-                              in state.transaction ?? [])
+                              in state.paginationHelper.data)
                             if (transaction.credit != null)
                               Padding(
                                 padding: EdgeInsets.symmetric(
