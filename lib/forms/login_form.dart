@@ -53,7 +53,7 @@ class LoginForm extends StatelessWidget {
       }
     }
 
-    // G.rd<RegCubit>().state
+    // ON LOGIN-BUILD if has cached reg-steps: redirect
     SharedPreferences.getInstance().then((value) {
       if (loginAttempted == false) {
         context.read<UserBloc>().add(
@@ -70,26 +70,25 @@ class LoginForm extends StatelessWidget {
               ),
             );
       }
-
-      // if (!kReleaseMode && loginAttempted == false) {
-      //   loginAttempted = true;
-      //   // skipLogin();
-
-      //   () async {
-      //     await rootBundle.loadString('assets/.autologin').then((data) {
-      //       var dataList = (const LineSplitter()).convert(data);
-      //       context.read<UserBloc>().add(
-      //             UserFromSharedRefEvent(
-      //               context: context,
-      //               route: dataList.length > 2 ? dataList[2] : null,
-      //               afterFetchSuccess: routeAfterLogin,
-      //               autoLogin: skipLogin,
-      //             ),
-      //           );
-      //     });
-      //   }();
-      // }
     });
+    // if (!kReleaseMode && loginAttempted == false) {
+    //   loginAttempted = true;
+    //   // skipLogin();
+
+    //   () async {
+    //     await rootBundle.loadString('assets/.autologin').then((data) {
+    //       var dataList = (const LineSplitter()).convert(data);
+    //       context.read<UserBloc>().add(
+    //             UserFromSharedRefEvent(
+    //               context: context,
+    //               route: dataList.length > 2 ? dataList[2] : null,
+    //               afterFetchSuccess: routeAfterLogin,
+    //               autoLogin: skipLogin,
+    //             ),
+    //           );
+    //     });
+    //   }();
+    // }
 
     return Form(
       key: loginFormKey,
@@ -174,7 +173,8 @@ void performLogin(BuildContext context, LoginModel loginForm, [String? route]) {
     if ((loginResponse.accessToken ?? '').isEmpty) {
       return G.snackBar(loginResponse.message ?? "Error!");
     }
-    LoginResponse;
+
+    // save login data locally
     context.read<UserBloc>().add(UserFromJsonEvent(
           user: json,
           routeAfterLogin: () async {
@@ -187,7 +187,7 @@ void performLogin(BuildContext context, LoginModel loginForm, [String? route]) {
                 context.read<RegCubit>().init();
               });
             }
-            if (!(loginResponse.accountApproved ?? false)) {
+            if (!G.isCustomerApp && !(loginResponse.accountApproved ?? false)) {
               return await context
                   .read<RegCubit>()
                   .saveStepToCache(RegStep.onboarding.index)

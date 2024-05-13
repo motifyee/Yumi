@@ -130,7 +130,7 @@ class RegCubit extends Cubit<NRegState> {
     }
 
     getOnboardingProgress();
-    getVehicle();
+    if (G.isDriverApp) getVehicle();
     // G.read<ScheduleBloc>().add(const ScheduleEvent.init());
     if (!G.isCustomerApp) G.rd<ScheduleCubit>().loadSchedule();
 
