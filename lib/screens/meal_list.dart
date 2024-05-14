@@ -86,19 +86,67 @@ class _MealList extends StatelessWidget {
               S.of(context).dishName,
               style: Theme.of(context).textTheme.labelLarge,
             ),
-            Expanded(
-                child: Container(
-                    child: Text(
-              context
-                      .read<CategoriesBloc>()
-                      .state
-                      .categoriesModelList
-                      .firstWhereOrNull((e) =>
-                          e.id ==
-                          context.read<MealListBloc>().state.selectedCategory)
-                      ?.name ??
-                  '',
-            ))),
+            BlocBuilder<MealListBloc, MealListState>(
+              builder: (context, state) {
+                String category = context
+                        .read<CategoriesBloc>()
+                        .state
+                        .categoriesModelList
+                        .firstWhereOrNull((e) => e.id == state.selectedCategory)
+                        ?.name ??
+                    '';
+                return Expanded(
+                    child: category.isEmpty
+                        ? const SizedBox.shrink()
+                        : Row(
+                            children: [
+                              SizedBox(
+                                  width: ThemeSelector.statics.defaultMicroGap),
+                              GestureDetector(
+                                onTap: () {
+                                  context
+                                      .read<MealListBloc>()
+                                      .add(MealListResetEvent());
+                                  context
+                                      .read<MealListBloc>()
+                                      .add(MealListUpdateCategoryEvent(
+                                        context: context,
+                                        selectedCategory: 0,
+                                      ));
+                                },
+                                child: Container(
+                                    padding: EdgeInsets.all(
+                                        ThemeSelector.statics.defaultMicroGap),
+                                    decoration: BoxDecoration(
+                                        color:
+                                            ThemeSelector.colors.backgroundTant,
+                                        borderRadius: BorderRadius.circular(
+                                            ThemeSelector
+                                                .statics.defaultMicroGap)),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          category,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall,
+                                        ),
+                                        SizedBox(
+                                            width: ThemeSelector
+                                                .statics.defaultMicroGap),
+                                        Text(
+                                          'x',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall,
+                                        ),
+                                      ],
+                                    )),
+                              ),
+                            ],
+                          ));
+              },
+            ),
             GestureDetector(
               onTap: () {
                 favPageController.jumpToPage(0);
