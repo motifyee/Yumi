@@ -7,7 +7,7 @@ import 'package:yumi/statics/api_statics.dart';
 
 class LoginServices {
   static Future<LoginResponse> login(
-      {required LoginModel login, required BuildContext context}) async {
+      {required LoginModel login, BuildContext? context}) async {
     try {
       final res = await DioClient.simpleDio(context).post(
           ApiKeys.getApiKeyString(apiKey: ApiKeys.login),

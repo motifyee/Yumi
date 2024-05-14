@@ -25,7 +25,9 @@ import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/profile/use_cases/get_otp.dart';
 import 'package:yumi/domain/profile/use_cases/verify_add_mobile_otp.dart';
 import 'package:yumi/global.dart';
+import 'package:yumi/model/login_model.dart';
 import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/service/login_service.dart';
 import 'package:yumi/util/util.dart';
 
 part 'driver_reg_cubit.freezed.dart';
@@ -147,6 +149,14 @@ class RegCubit extends Cubit<NRegState> {
       G.rd<ScheduleCubit>().reset();
       G.rd<DocsCubit>().reset();
     }
+
+    await LoginServices.login(
+        login: LoginModel(
+      email: state.singupData?.email ?? '',
+      password: state.singupData?.password ?? '',
+    )).then((json) {
+      G.context.read<UserBloc>().add(UserFromJsonEvent(user: json));
+    });
 
     G.router.replaceAll([HomeRoute()]).then((value) {
       emit(state.copyWith(
