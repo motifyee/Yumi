@@ -125,7 +125,7 @@ class NavigateOptions {
       selectedIcon:
           SvgPicture.asset('assets/images/bell1.svg', fit: BoxFit.fitWidth),
       title: S.current.notification,
-      page: const NotificationScreen(),
+      page: NotificationScreen(isScreen: true),
     ),
     NavigateListItem(
       icon: SvgPicture.asset('assets/images/heart.svg'),
@@ -225,7 +225,7 @@ class _ChefAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        G.context.router.push(const NotificationRoute());
+        G.context.router.push(NotificationRoute(isScreen: false));
       },
       child: Stack(
         clipBehavior: Clip.none,

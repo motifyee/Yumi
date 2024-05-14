@@ -34,7 +34,7 @@ class _AppMenuList {
           label: S.of(context).notification,
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const NotificationRoute());
+            context.router.push(NotificationRoute(isScreen: false));
           },
         ),
         AppMenuItem(
@@ -178,7 +178,7 @@ class _AppMenuList {
           label: S.of(context).notification,
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const NotificationRoute());
+            context.router.push(NotificationRoute(isScreen: false));
           },
         ),
         AppMenuItem(
@@ -258,7 +258,7 @@ class _AppMenuList {
           label: S.of(context).notification,
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const NotificationRoute());
+            context.router.push(NotificationRoute(isScreen: false));
           },
         ),
         AppMenuItem(
