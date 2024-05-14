@@ -10,18 +10,19 @@ class AuthGuard extends AutoRouteGuard {
   void onNavigation(NavigationResolver resolver, StackRouter router) {
     G.cContext.read<UserBloc>().add(UserFromSharedRefEvent(
           afterFetchSuccess: (context, route, user) async {
-            if ((user?.mobileVerified ?? false) &&
-                (G.isCustomerApp || (user?.accountApproved ?? false))) {
-              if (G.isCustomerApp) {
-                final rt = await G.cContext.read<BasketCubit>().getBaskets();
-                if (rt == null) return resolver.next(true);
-                return rt();
-              } else {
-                return resolver.next(true);
-              }
+            if (!(user?.mobileVerified ?? false)) {
+              router.replaceAll([LoginRoute()]);
             }
 
-            // router.push(const RegisterationRoute());
+            if (G.isCustomerApp) {
+              final basket = await G.cContext.read<BasketCubit>().getBaskets();
+
+              if (basket == null) return resolver.next(true);
+              return basket();
+            }
+
+            if ((user?.accountApproved ?? false)) return resolver.next(true);
+
             router.replaceAll([LoginRoute()]);
           },
           context: G.cContext,
