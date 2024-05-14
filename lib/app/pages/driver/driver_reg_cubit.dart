@@ -105,8 +105,8 @@ class RegCubit extends Cubit<NRegState> {
   void _initData() {
     if (G.read<UserBloc>().state.user.accessToken.isEmpty) return;
 
-    if (G.rd<ProfileCubit>().state.form.guid.isEmpty) {
-      G.rd<ProfileCubit>().getProfileForm();
+    if (G.cContext.read<ProfileCubit>().state.form.guid.isEmpty) {
+      G.cContext.read<ProfileCubit>().getProfileForm();
     } else if ((G.read<UserBloc>().state.user.chefId?.isNotEmpty ?? false)) {
       G.read<MealListBloc>().add(
             MealListUpdateEvent(
