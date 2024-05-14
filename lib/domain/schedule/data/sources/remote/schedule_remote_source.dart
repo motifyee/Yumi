@@ -7,7 +7,7 @@ import 'package:yumi/statics/api_statics.dart';
 class ScheduleRemoteSrc implements ScheduleSrc {
   @override
   Future<Schedule> getMySchedule() async {
-    final Response res = await DioClient.simpleDio().get(
+    final Response res = await DioClient.get(
       '/accounts/schedule',
     );
 

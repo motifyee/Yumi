@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -107,14 +108,17 @@ class RegCubit extends Cubit<NRegState> {
 
     if (G.rd<ProfileCubit>().state.form.guid.isEmpty) {
       G.rd<ProfileCubit>().getProfileForm();
-    } else if ((G.read<UserBloc>().state.user.chefId?.isNotEmpty ?? false)) {
-      G.read<MealListBloc>().add(
-            MealListUpdateEvent(
-              context: G.context,
-              chefId: G.read<UserBloc>().state.user.chefId,
-            ),
-          );
+      return;
     }
+
+    if (G.read<UserBloc>().state.user.chefId?.isEmpty ?? true) return;
+
+    G.read<MealListBloc>().add(
+          MealListUpdateEvent(
+            context: G.context,
+            chefId: G.read<UserBloc>().state.user.chefId,
+          ),
+        );
   }
 
   void init() async {
@@ -124,7 +128,7 @@ class RegCubit extends Cubit<NRegState> {
     // read step index from shared preferences
     var pref = await SharedPreferences.getInstance();
     var step = pref.getInt(regStepKey) ?? 0;
-    // step = 0;
+
     if (G.read<UserBloc>().state.user.accessToken.isEmpty) step = 0;
 
     if (!state.registerationStarted) {
@@ -133,7 +137,6 @@ class RegCubit extends Cubit<NRegState> {
 
     getOnboardingProgress();
     if (G.isDriverApp) getVehicle();
-    // G.read<ScheduleBloc>().add(const ScheduleEvent.init());
     if (!G.isCustomerApp) G.rd<ScheduleCubit>().loadSchedule();
 
     if (step > 0) _navigateToIdx(step);
@@ -172,16 +175,6 @@ class RegCubit extends Cubit<NRegState> {
       ));
     });
   }
-
-  // void next() {
-  //   _navigateToIdx(state.step + 1);
-  // }
-  // void previous() {
-  //   _navigateToIdx(state.step - 1);
-  // }
-  // void goto(int step) {
-  //   _navigateToIdx(step);
-  // }
 
   void refresh() {
     onboardingProgress;
@@ -269,15 +262,6 @@ class RegCubit extends Cubit<NRegState> {
     emit(state.copyWith(phone: phone));
 
     (await getOTP()).fold((l) => null, (r) => _navigateToIdx(2, otp: r));
-
-    // update.fold(
-    //   (l) => emit(state.copyWith(status: Status.error)),
-    //   (r) async {
-    //     emit(state.copyWith(phone: phone));
-
-    //     (await getOTP()).fold((l) => null, (r) => _navigateToIdx(2, otp: r));
-    //   },
-    // );
   }
 
   Future<Either<Failure, String>> getOTP() async {
@@ -300,11 +284,6 @@ class RegCubit extends Cubit<NRegState> {
   Future verifyOTP(String otp) async {
     emit(state.copyWith(status: Status.loading));
     final verify = await VerifyOTP().call(VerifyOTPParams(otp));
-
-    // if (!kReleaseMode) {
-    //   stopCountDown();
-    //   _navigateToIdx(3);
-    // }
 
     verify.fold(
       (l) => emit(state.copyWith(status: Status.error)),

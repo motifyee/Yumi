@@ -1,11 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/profile/use_cases/forgot_password.dart';
 import 'package:yumi/domain/profile/use_cases/get_otp.dart';
-import 'package:yumi/domain/profile/use_cases/verify_add_mobile_otp.dart';
 import 'package:yumi/domain/profile/use_cases/verify_reset_pwd_otp.dart';
 import 'package:yumi/global.dart';
 
