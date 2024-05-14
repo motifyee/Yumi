@@ -213,9 +213,13 @@ abstract class $AppRouter extends _i33.RootStackRouter {
       );
     },
     NotificationRoute.name: (routeData) {
+      final args = routeData.argsAs<NotificationRouteArgs>();
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i22.NotificationScreen(),
+        child: _i22.NotificationScreen(
+          key: args.key,
+          isScreen: args.isScreen,
+        ),
       );
     },
     OTPRoute.name: (routeData) {
@@ -766,16 +770,40 @@ class MyScheduleRoute extends _i33.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i22.NotificationScreen]
-class NotificationRoute extends _i33.PageRouteInfo<void> {
-  const NotificationRoute({List<_i33.PageRouteInfo>? children})
-      : super(
+class NotificationRoute extends _i33.PageRouteInfo<NotificationRouteArgs> {
+  NotificationRoute({
+    _i34.Key? key,
+    required bool isScreen,
+    List<_i33.PageRouteInfo>? children,
+  }) : super(
           NotificationRoute.name,
+          args: NotificationRouteArgs(
+            key: key,
+            isScreen: isScreen,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'NotificationRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i33.PageInfo<NotificationRouteArgs> page =
+      _i33.PageInfo<NotificationRouteArgs>(name);
+}
+
+class NotificationRouteArgs {
+  const NotificationRouteArgs({
+    this.key,
+    required this.isScreen,
+  });
+
+  final _i34.Key? key;
+
+  final bool isScreen;
+
+  @override
+  String toString() {
+    return 'NotificationRouteArgs{key: $key, isScreen: $isScreen}';
+  }
 }
 
 /// generated route for
