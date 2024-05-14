@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumi/app/pages/auth/forgot_password/forgot_password_sheet.dart';
@@ -29,26 +26,6 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future skipLogin(BuildContext context) async {
-      return;
-      try {
-        String data = await rootBundle.loadString('assets/.autologin');
-        var dataList = (const LineSplitter()).convert(data);
-
-        if (!context.mounted) return;
-        debugPrint("auto login...");
-
-        performLogin(
-          context,
-          LoginModel(email: dataList[0], password: dataList[1]),
-          dataList.length > 2 ? dataList[2] : null,
-        );
-        // ignore: empty_catches
-      } catch (e) {
-        debugPrint(e.toString());
-      }
-    }
-
     // ON LOGIN-BUILD if has cached reg-steps: redirect
     SharedPreferences.getInstance().then((value) {
       if (loginAttempted == false) {
@@ -62,29 +39,11 @@ class LoginForm extends StatelessWidget {
 
                   G.rd<RegCubit>().init();
                 },
-                autoLogin: skipLogin,
+                autoLogin: (_) {},
               ),
             );
       }
     });
-    // if (!kReleaseMode && loginAttempted == false) {
-    //   loginAttempted = true;
-    //   // skipLogin();
-
-    //   () async {
-    //     await rootBundle.loadString('assets/.autologin').then((data) {
-    //       var dataList = (const LineSplitter()).convert(data);
-    //       context.read<UserBloc>().add(
-    //             UserFromSharedRefEvent(
-    //               context: context,
-    //               route: dataList.length > 2 ? dataList[2] : null,
-    //               afterFetchSuccess: routeAfterLogin,
-    //               autoLogin: skipLogin,
-    //             ),
-    //           );
-    //     });
-    //   }();
-    // }
 
     return Form(
       key: loginFormKey,

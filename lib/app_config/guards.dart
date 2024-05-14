@@ -11,7 +11,7 @@ class AuthGuard extends AutoRouteGuard {
     G.cContext.read<UserBloc>().add(UserFromSharedRefEvent(
           afterFetchSuccess: (context, route, user) async {
             if (!(user?.mobileVerified ?? false)) {
-              router.replaceAll([LoginRoute()]);
+              return router.replaceAll([LoginRoute()]);
             }
 
             if (G.isCustomerApp) {
