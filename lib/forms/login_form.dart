@@ -7,19 +7,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumi/app/pages/auth/forgot_password/forgot_password_sheet.dart';
 import 'package:yumi/app/pages/auth/register/model/address.dart';
-import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
-import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/login_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/login_service.dart';
-import 'package:yumi/service/model/login_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/confirm_button.dart';
-import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/password_validator.dart';
@@ -223,10 +219,6 @@ void routeAfterLogin(BuildContext context, String? route) async {
   } else if (route == "regmap") {
     context.router.replaceAll([LocationRoute()]);
   } else {
-    if (AppTarget.user == AppTargetUser.customers) {
-      G.rd<BasketCubit>().getBaskets();
-    } else {
-      context.router.replaceAll([HomeRoute()]);
-    }
+    context.router.replaceAll([HomeRoute()]);
   }
 }
