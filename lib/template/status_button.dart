@@ -7,24 +7,33 @@ import 'package:yumi/global.dart';
 import 'package:yumi/model/user/user_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
-class StatusButton extends StatelessWidget {
+class StatusButton extends StatefulWidget {
   StatusButton({super.key, this.forGuide});
 
   StatusEnum? forGuide;
 
   @override
-  Widget build(BuildContext context) {
+  State<StatusButton> createState() => _StatusButtonState();
+}
+
+class _StatusButtonState extends State<StatusButton> {
+  @override
+  void initState() {
     if (G.isChefApp) {
       context.read<UserBloc>().add(ChefStatusCheckEvent());
     }
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         StatusEnum status =
             state.user.status == 1 ? StatusEnum.ready : StatusEnum.busy;
-        if (forGuide != null) status = forGuide!;
+        if (widget.forGuide != null) status = widget.forGuide!;
         return TextButton(
-          onPressed: forGuide != null || state.isStatusLocked
+          onPressed: widget.forGuide != null || state.isStatusLocked
               ? null
               : () {
                   if (state.loading) return;

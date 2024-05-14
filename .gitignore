@@ -53,5 +53,5 @@ build
 local.properties
 
 # Ignore splash files
-/android/app/src/main/res/
-ios/Runner/Assets.xcassets/LaunchImage.imageset/
+android/app/src/main/res/*
+ios/Runner/Assets.xcassets/LaunchImage.imageset/*
