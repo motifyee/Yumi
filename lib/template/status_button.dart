@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/model/user/user_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
@@ -13,13 +14,17 @@ class StatusButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (G.isChefApp) {
+      context.read<UserBloc>().add(ChefStatusCheckEvent());
+    }
+
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         StatusEnum status =
             state.user.status == 1 ? StatusEnum.ready : StatusEnum.busy;
         if (forGuide != null) status = forGuide!;
         return TextButton(
-          onPressed: forGuide != null
+          onPressed: forGuide != null || state.isStatusLocked
               ? null
               : () {
                   if (state.loading) return;
