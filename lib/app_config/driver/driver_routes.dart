@@ -24,6 +24,7 @@ class DriverRoutes extends $AppRouter {
         ),
 
         /// routes go here
+        AutoRoute(page: LoadingRoute.page, keepHistory: false),
         AutoRoute(page: LoginRoute.page, keepHistory: false),
         AutoRoute(page: SignUpRoute.page, keepHistory: false),
         AutoRoute(page: ForgetPasswordRoute.page, keepHistory: false),

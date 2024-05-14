@@ -26,7 +26,7 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ON LOGIN-BUILD if has cached reg-steps: redirect
+    // redirect to registeration if has cached reg-steps
     SharedPreferences.getInstance().then((value) {
       if (loginAttempted == false) {
         context.read<UserBloc>().add(
