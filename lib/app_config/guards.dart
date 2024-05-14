@@ -22,7 +22,7 @@ class AuthGuard extends AutoRouteGuard {
           if (userBloc.state.user.accessToken.isEmpty) return;
 
           registeration = true;
-          G.rd<RegCubit>().init();
+          G.cContext.read<RegCubit>().init();
         });
         if (registeration) return;
 

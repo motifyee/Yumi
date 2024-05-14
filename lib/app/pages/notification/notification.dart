@@ -11,28 +11,32 @@ import 'package:yumi/template/pagination_template.dart';
 
 @RoutePage()
 class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({super.key});
+  const NotificationScreen({super.key, required this.isScreen});
+
+  final bool isScreen;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        leading: TextButton(
-            onPressed: () {
-              context.router.popForced();
-            },
-            child: Icon(
-              Icons.arrow_back,
-              color: ThemeSelector.colors.primary,
-            )),
-        title: Text(
-          S.of(context).notification,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        centerTitle: true,
-      ),
+      appBar: isScreen
+          ? null
+          : AppBar(
+              backgroundColor: Colors.transparent,
+              surfaceTintColor: Colors.transparent,
+              leading: TextButton(
+                  onPressed: () {
+                    context.router.popForced();
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: ThemeSelector.colors.primary,
+                  )),
+              title: Text(
+                S.of(context).notification,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              centerTitle: true,
+            ),
       body: Column(
         children: [
           Padding(
