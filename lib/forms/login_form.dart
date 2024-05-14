@@ -4,9 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumi/app/pages/auth/forgot_password/forgot_password_sheet.dart';
 import 'package:yumi/app/pages/auth/register/model/address.dart';
-import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
-import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
@@ -180,10 +178,6 @@ void routeAfterLogin(BuildContext context, String? route) async {
   } else if (route == "regmap") {
     context.router.replaceAll([LocationRoute()]);
   } else {
-    if (AppTarget.user == AppTargetUser.customers) {
-      G.rd<BasketCubit>().getBaskets();
-    } else {
-      context.router.replaceAll([HomeRoute()]);
-    }
+    context.router.replaceAll([HomeRoute()]);
   }
 }

@@ -40,7 +40,7 @@ class UserFromSharedRefEvent extends UserEvent {
 }
 
 class UserStatusUpdateEvent extends UserEvent {
-  StatusEnum? statusEnum;
+  final StatusEnum? statusEnum;
 
   UserStatusUpdateEvent({this.statusEnum});
 
@@ -49,6 +49,11 @@ class UserStatusUpdateEvent extends UserEvent {
 }
 
 class UserResetEvent extends UserEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class ChefStatusCheckEvent extends UserEvent {
   @override
   List<Object?> get props => [];
 }
