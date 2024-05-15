@@ -23,8 +23,6 @@ class ProductInCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('invoiceDetails.note  **************************************');
-        print(invoiceDetails.note);
         if (invoiceDetails.note != null && invoiceDetails.note != '') {
           showModalBottomSheet(
             context: context,

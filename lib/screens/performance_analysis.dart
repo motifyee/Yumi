@@ -7,6 +7,6 @@ class PerformanceAnalysisScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('PerformanceAnalysis');
+    return Scaffold(body: Center(child: Text('PerformanceAnalysis')));
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -106,8 +105,8 @@ class RegCubit extends Cubit<NRegState> {
   void _initData() {
     if (G.read<UserBloc>().state.user.accessToken.isEmpty) return;
 
-    if (G.rd<ProfileCubit>().state.form.guid.isEmpty) {
-      G.rd<ProfileCubit>().getProfileForm();
+    if (G.cContext.read<ProfileCubit>().state.form.guid.isEmpty) {
+      G.cContext.read<ProfileCubit>().getProfileForm();
       return;
     }
 
@@ -137,7 +136,7 @@ class RegCubit extends Cubit<NRegState> {
 
     getOnboardingProgress();
     if (G.isDriverApp) getVehicle();
-    if (!G.isCustomerApp) G.rd<ScheduleCubit>().loadSchedule();
+    if (!G.isCustomerApp) G.cContext.read<ScheduleCubit>().loadSchedule();
 
     if (step > 0) _navigateToIdx(step);
   }

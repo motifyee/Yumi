@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 @RoutePage()
 class ChatScreen extends StatelessWidget {
@@ -7,6 +7,6 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('chat');
+    return Scaffold(body: Center(child: Text('chat')));
   }
 }

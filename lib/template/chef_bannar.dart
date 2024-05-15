@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -34,16 +35,22 @@ class ChefBanner extends StatefulWidget {
 }
 
 class _ChefBannerState extends State<ChefBanner> {
+  bool isLoading = false;
+
   @override
   void initState() {
     if (widget.isShowFav) {
+      isLoading = true;
       ChefService.getIsChefFavorite(chefId: widget.chef.id!)
           .then((value) => setState(() {
                 widget.chef = widget.chef
                     .copyWith(isFavorite: value.data['data'].isNotEmpty);
-              }));
+                isLoading = false;
+              }))
+          .catchError((onError) {
+        isLoading = false;
+      });
     }
-
     super.initState();
   }
 
@@ -183,7 +190,14 @@ class _ChefBannerState extends State<ChefBanner> {
                 ),
                 Column(
                   children: [
-                    if (widget.isShowFav)
+                    if (isLoading)
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ThemeSelector.statics.defaultBlockGap),
+                        child: Loading(
+                            size: ThemeSelector.statics.defaultBlockGap),
+                      ),
+                    if (widget.isShowFav && !isLoading)
                       TextButton(
                         onPressed: () {
                           if (widget.chef.isFavorite != true) {
