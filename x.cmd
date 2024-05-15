@@ -15,20 +15,20 @@ echo building: customer app ...
 
 sed -i -E "s/applicationId .+/applicationId """com.yumi.customers"""/" %gradle%
 sed -i -E "s/android:label=.+/android:label="""YUMI"""/" %manifest%
-CALL flutter build apk -t lib\customer.dart
+CALL flutter build apk -t lib\app\yumi\customer.dart
 mv %output%\app-release.apk %output%\out\customer.apk
 
 echo %output%\customer.apk
 echo building: chef app ...
 sed -i -E "s/applicationId .+/applicationId """com.yumi.chefs"""/" %gradle%
 sed -i -E "s/android:label=.+/android:label="""YUMI" "Chef"""/" %manifest%
-CALL flutter build apk -t lib\chef.dart
+CALL flutter build apk -t lib\app\yumi\chef.dart
 mv %output%\app-release.apk %output%\out\chef.apk
 
 echo building: driver app ...
 sed -i -E "s/applicationId .+/applicationId """com.yumi.drivers"""/" %gradle%
 sed -i -E "s/android:label=.+/android:label="""YUMI" "Driver"""/" %manifest%
-CALL flutter build apk -t lib\driver.dart
+CALL flutter build apk -t lib\app\yumi\driver.dart
 mv %output%\app-release.apk %output%\out\driver.apk
 
 exit 0
