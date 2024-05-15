@@ -5,6 +5,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/reviews/reviews_bloc.dart';
@@ -162,48 +163,53 @@ class ChefProfileScreen extends StatelessWidget {
                         ),
                         BlocProvider(
                           create: (context) => MealListBloc(),
-                          child: BlocConsumer<MealListBloc, MealListState>(
-                            listener: (context, state) {},
-                            builder: (context, state) {
-                              return PaginationTemplate(
-                                loadDate: () {
-                                  context.read<MealListBloc>().add(
-                                      MealListUpdateEvent(
-                                          context: context,
-                                          chefId: chef.id,
-                                          menuTarget: menuTarget));
-                                },
-                                scrollDirection: Axis.horizontal,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        for (var mealIndex = 0;
-                                            mealIndex < state.meals.length;
-                                            mealIndex += 2)
-                                          ChefMealCard(
-                                            meal: state.meals[mealIndex],
-                                            chef: chef,
-                                          )
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        for (var mealIndex = 1;
-                                            mealIndex < state.meals.length;
-                                            mealIndex += 2)
-                                          ChefMealCard(
-                                            meal: state.meals[mealIndex],
-                                            chef: chef,
-                                          )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
+                          child: Builder(builder: (context) {
+                            return BlocConsumer<MealListBloc, MealListState>(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                return PaginationTemplate(
+                                  loadDate: () {
+                                    context.read<MealListBloc>().add(
+                                        MealListUpdateEvent(
+                                            context: context,
+                                            chefId: chef.id,
+                                            menuTarget: menuTarget));
+                                  },
+                                  scrollDirection: Axis.horizontal,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          for (var mealIndex = 0;
+                                              mealIndex < state.meals.length;
+                                              mealIndex += 2)
+                                            ChefMealCard(
+                                              meal: state.meals[mealIndex],
+                                              chef: chef,
+                                            )
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          for (var mealIndex = 1;
+                                              mealIndex < state.meals.length;
+                                              mealIndex += 2)
+                                            ChefMealCard(
+                                              meal: state.meals[mealIndex],
+                                              chef: chef,
+                                            )
+                                        ],
+                                      ),
+                                      if (state.paginationHelper.isLoading)
+                                        Loading(),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          }),
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                         Row(
@@ -238,6 +244,10 @@ class ChefProfileScreen extends StatelessWidget {
                                         for (var category
                                             in state.categoriesModelList)
                                           CategoriesCard(category: category),
+                                        if (state.paginationHelper.isLoading)
+                                          Loading(
+                                              size: ThemeSelector
+                                                  .statics.defaultBlockGap),
                                       ],
                                     );
                                   },
@@ -305,39 +315,46 @@ class ChefProfileScreen extends StatelessWidget {
                                     );
                                 return BlocBuilder<ReviewsBloc, ReviewsState>(
                                   builder: (context, state) {
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          S.of(context).happyCustomer,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelMedium,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Icon(
-                                              Icons.star,
-                                              color:
-                                                  ThemeSelector.colors.warning,
-                                              size: ThemeSelector.fonts.font_12,
-                                            ),
-                                            Text(
-                                              '${chef.rate} ( ${state.paginationHelper.total < 1000 ? state.paginationHelper.total : (state.paginationHelper.total / 1000).toStringAsFixed(1)}${state.paginationHelper.total < 1000 ? '' : 'k'} Reviews )',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelSmall
-                                                  ?.copyWith(
-                                                      fontSize: ThemeSelector
-                                                          .fonts.font_10),
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    );
+                                    return state.paginationHelper.isLoading
+                                        ? Loading(
+                                            size: ThemeSelector
+                                                .statics.defaultBlockGap)
+                                        : Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                S.of(context).happyCustomer,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelMedium,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: ThemeSelector
+                                                        .colors.warning,
+                                                    size: ThemeSelector
+                                                        .fonts.font_12,
+                                                  ),
+                                                  Text(
+                                                    '${chef.rate} ( ${state.paginationHelper.total < 1000 ? state.paginationHelper.total : (state.paginationHelper.total / 1000).toStringAsFixed(1)}${state.paginationHelper.total < 1000 ? '' : 'k'} Reviews )',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelSmall
+                                                        ?.copyWith(
+                                                            fontSize:
+                                                                ThemeSelector
+                                                                    .fonts
+                                                                    .font_10),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          );
                                   },
                                 );
                               }),

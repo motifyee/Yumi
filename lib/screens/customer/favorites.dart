@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
@@ -148,6 +149,8 @@ class FavoritesScreen extends StatelessWidget {
                                           ),
                                         ),
                                       ),
+                                    if (state.paginationHelper.isLoading)
+                                      Loading(),
                                   ],
                                 ),
                               );
@@ -200,7 +203,8 @@ class FavoritesScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-
+                                  if (state.paginationHelper.isLoading)
+                                    Loading(),
                                   // Padding(
                                   //   padding: EdgeInsets.symmetric(
                                   //       horizontal:
