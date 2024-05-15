@@ -251,7 +251,7 @@ class RegCubit extends Cubit<NRegState> {
     _navigateToIdx(1);
   }
 
-  void setPhone(String phone) async {
+  Future<void> setPhone(String phone) async {
     var profile = G.rd<ProfileCubit>().state.form.copyWith(mobile: phone);
     var update = await G.rd<ProfileCubit>().updateProfileForm(profile);
 

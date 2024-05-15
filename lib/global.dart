@@ -46,7 +46,7 @@ class G {
   }
 
   static T rd<T extends Cubit>() {
-    return context.read<T>();
+    return cContext.read<T>();
   }
   // static void add<T extends Bloc<E, S>, E,S>(E event) {
   //   cContext.read<T>().add(event);
