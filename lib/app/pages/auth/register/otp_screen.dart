@@ -2,14 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/core/use_cases.dart';
-import 'package:yumi/domain/profile/use_cases/get_otp.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/presentation/otp.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/screen_container.dart';
 
 @RoutePage()
@@ -129,12 +127,15 @@ class OTPScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 40),
-                    ConfirmButton(
+                    InteractiveButton(
                         label: "Verify & Proceed",
-                        onPressed: () {
+                        onPressed: () async {
                           if (kReleaseMode && otp.length < 4) return;
 
-                          context.read<RegCubit>().verifyOTP(otp).then((value) {
+                          await context
+                              .read<RegCubit>()
+                              .verifyOTP(otp)
+                              .then((value) {
                             if (cubit.state.status.isError) {
                               G.snackBar('Failed verify OTP. Try again!');
                             }

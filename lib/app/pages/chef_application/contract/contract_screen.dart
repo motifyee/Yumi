@@ -56,7 +56,6 @@ class ContractScreen extends StatelessWidget {
                 builder: (context, state) {
                   if (!G.rd<RegCubit>().state.registerationStarted &&
                       state.form.entityStatus.hasSuccess) {
-                    debugger();
                     context.read<ProfileCubit>().getProfileForm();
                   }
                   if (state.form.entityStatus.isLoading) {

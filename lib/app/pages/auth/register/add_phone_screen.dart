@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/confirm_button.dart';
@@ -80,19 +81,16 @@ class AddPhoneScreen extends StatelessWidget {
                               }),
                         ),
                         const SizedBox(height: 40),
-                        ConfirmButton(
+                        InteractiveButton(
                             label: "Get OTP",
-                            onPressed: () {
+                            onPressed: () async {
                               if (kReleaseMode &&
                                   !form.currentState!.validate()) return;
 
                               var value = form.currentState?.fields.first.value
                                   as String;
 
-                              // context
-                              //     .read<RegBloc>()
-                              //     .add(RegEvent.setPhone(value, context));
-                              context.read<RegCubit>().setPhone(value);
+                              await context.read<RegCubit>().setPhone(value);
                             }),
                       ],
                     ),

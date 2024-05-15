@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/forgot_password/forgot_password_sheet.dart';
 import 'package:yumi/app/pages/auth/register/model/address.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
@@ -103,8 +104,11 @@ class LoginForm extends StatelessWidget {
             SizedBox(
               height: ThemeSelector.statics.defaultGap,
             ),
-            ConfirmButton(
+            // ConfirmButton(
+            InteractiveButton(
               label: S.of(context).login,
+              isFixedSize: false,
+              height: 40,
               onPressed: () {
                 if (loginFormKey.currentState!.validate()) {
                   loginFormKey.currentState!.save();
@@ -112,7 +116,7 @@ class LoginForm extends StatelessWidget {
                   performLogin(context, loginForm);
                 }
               },
-            ),
+            )
           ],
         ),
       ),
@@ -120,8 +124,9 @@ class LoginForm extends StatelessWidget {
   }
 }
 
-void performLogin(BuildContext context, LoginModel loginForm, [String? route]) {
-  LoginServices.login(login: loginForm, context: context)
+void performLogin(BuildContext context, LoginModel loginForm,
+    [String? route]) async {
+  return await LoginServices.login(login: loginForm, context: context)
       .then((loginResponse) async {
     final Map<String, dynamic> json = loginResponse.toJson();
 

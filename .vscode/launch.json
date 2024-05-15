@@ -13,7 +13,8 @@
       "name": "chef",
       "request": "launch",
       "type": "dart",
-      "program": "lib/app/yumi/chef.dart"
+      "program": "lib/app/yumi/chef.dart",
+      "internalConsoleOptions": "neverOpen",
     },
     {
       "name": "driver",
