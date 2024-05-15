@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:yumi/app/pages/auth/register/maps/model.dart';
-import 'package:yumi/app/pages/auth/register/maps/permission.dart';
+import 'package:yumi/app/pages/auth/registeration/maps/model.dart';
 
 class GMap extends StatefulWidget {
   final GMapInfo info;

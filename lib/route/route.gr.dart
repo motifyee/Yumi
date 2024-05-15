@@ -12,12 +12,12 @@ import 'package:auto_route/auto_route.dart' as _i33;
 import 'package:flutter/material.dart' as _i34;
 import 'package:yumi/app/components/loading_indicator/loading_page.dart'
     as _i15;
-import 'package:yumi/app/pages/auth/register/add_phone_screen.dart' as _i1;
-import 'package:yumi/app/pages/auth/register/location_screen.dart' as _i16;
-import 'package:yumi/app/pages/auth/register/model/address.dart' as _i37;
-import 'package:yumi/app/pages/auth/register/otp_screen.dart' as _i23;
-import 'package:yumi/app/pages/auth/register/reg_screen.dart' as _i28;
-import 'package:yumi/app/pages/auth/register/signup_screen.dart' as _i30;
+import 'package:yumi/app/pages/auth/registeration/add_phone_screen.dart' as _i1;
+import 'package:yumi/app/pages/auth/registeration/location_screen.dart' as _i16;
+import 'package:yumi/app/pages/auth/registeration/model/address.dart' as _i37;
+import 'package:yumi/app/pages/auth/registeration/otp_screen.dart' as _i23;
+import 'package:yumi/app/pages/auth/registeration/reg_screen.dart' as _i28;
+import 'package:yumi/app/pages/auth/registeration/signup_screen.dart' as _i30;
 import 'package:yumi/app/pages/basket/basket_screen.dart' as _i2;
 import 'package:yumi/app/pages/calories/calories_screen.dart' as _i3;
 import 'package:yumi/app/pages/chef_application/application_flow_screen.dart'

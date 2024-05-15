@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:yumi/app/pages/auth/register/model/registeration.dart';
+import 'package:yumi/app/pages/auth/registeration/model/registeration.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/code_generator.dart';
 

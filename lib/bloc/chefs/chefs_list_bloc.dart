@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/app/pages/auth/register/model/address.dart';
+import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -15,7 +15,7 @@ part 'chefs_list_state.dart';
 class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
   ChefsListBloc()
       : super(ChefsListState(
-            chefs: const [], paginationHelper: PaginationHelper())) {
+            chefs: const [], paginationHelper: const PaginationHelper())) {
     on<GetChefsListEvent>((event, emit) async {
       Address? userLocation = event.context.read<UserBloc>().state.address;
       if (userLocation == null ||
@@ -99,7 +99,7 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
 
     on<ResetChefsListEvent>((event, emit) {
       emit(ChefsListState(
-          chefs: const [], paginationHelper: PaginationHelper()));
+          chefs: const [], paginationHelper: const PaginationHelper()));
     });
   }
 }

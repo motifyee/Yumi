@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
-import 'package:yumi/app/pages/auth/register/model/address.dart';
+import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bankinfo_service.dart';
 import 'package:yumi/statics/api_statics.dart';
 
