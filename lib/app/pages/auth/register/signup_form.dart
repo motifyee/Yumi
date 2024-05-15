@@ -5,6 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
@@ -102,7 +103,7 @@ class SignUpForm extends StatelessWidget {
               isPassword: true,
             ),
             SizedBox(height: ThemeSelector.statics.defaultGap),
-            ConfirmButton(
+            InteractiveButton(
               label: S.of(context).createAccount,
               onPressed: () async {
                 // if (kDebugMode) {
@@ -112,7 +113,8 @@ class SignUpForm extends StatelessWidget {
                 if (signUpFormKey.currentState!.validate()) {
                   signUpFormKey.currentState!.save();
 
-                  SignUpService.signUp(signup: signupForm, context: context)
+                  await SignUpService.signUp(
+                          signup: signupForm, context: context)
                       .then((value) {
                     value = jsonDecode(value.toString());
 
