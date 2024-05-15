@@ -13,10 +13,10 @@ import 'package:yumi/statics/api_statics.dart';
 class ProfileRemoteSrc extends ProfileSrc {
   @override
   Future<Profile> loadProfile(String id) async {
+    if (id.isEmpty) throw GenericException();
+
     final Response res = await DioClient.dio
         .get('${ApiKeys.getApiKeyString(apiKey: ApiKeys.profile)}/$id');
-    // .then((value) => value.data);
-    // .catchError((_) => false);
 
     if (res.statusCode != 200) throw ServerException();
 

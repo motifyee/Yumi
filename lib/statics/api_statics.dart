@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 
@@ -14,12 +15,9 @@ import 'package:yumi/route/route.gr.dart';
 const originApi = 'https://vroot.tarabia.online';
 
 class DioClient {
+  static String get token => G.cContext.read<UserBloc>().state.user.accessToken;
   static Dio get dio => simpleDio();
   static Dio simpleDio([BuildContext? context]) {
-    var token = G.cContext.read<UserBloc>().state.user.accessToken;
-    // final prefs = await SharedPreferences.getInstance();
-    // final token = await prefs.getString('token');
-
     Dio dio = Dio(
       BaseOptions(baseUrl: originApi, headers: {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -54,6 +52,33 @@ class DioClient {
     };
 
     return dio;
+  }
+
+  static Future<Response<T>> get<T>(String url, [skipOnToken = true]) async {
+    if (skipOnToken && token.isEmpty) throw GenericException();
+
+    return await dio.get(url);
+  }
+
+  static Future<Response<T>> post<T>(String url,
+      [dynamic data, skipOnToken = true]) async {
+    if (skipOnToken && token.isEmpty) throw GenericException();
+
+    return await dio.post(url, data: data);
+  }
+
+  static Future<Response<T>> put<T>(String url,
+      [dynamic data, skipOnToken = true]) async {
+    if (skipOnToken && token.isEmpty) throw GenericException();
+
+    return await dio.post(url, data: data);
+  }
+
+  static Future<Response<T>> delete<T>(String url,
+      [dynamic data, skipOnToken = true]) async {
+    if (skipOnToken && token.isEmpty) throw GenericException();
+
+    return await dio.post(url);
   }
 }
 
