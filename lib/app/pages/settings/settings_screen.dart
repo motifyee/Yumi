@@ -1,6 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:yumi/app/components/interactive_button/interactive_button.dart';
+import 'package:yumi/app/components/toast/toast.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/profile_card.dart';
@@ -10,6 +14,8 @@ import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bank_settings_card.dart';
+import 'package:yumi/template/confirm_button.dart';
+import 'package:yumi/template/dialog.dart';
 
 @RoutePage()
 class SettingScreen extends StatelessWidget {
@@ -17,6 +23,9 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fToast = FToast();
+    fToast.init(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -48,53 +57,41 @@ class SettingScreen extends StatelessWidget {
                               height: ThemeSelector.statics.defaultBlockGap),
 
                           // Delete account button
-                          TextButton(
-                            onPressed: () async {
-                              await G
-                                  .rd<ProfileCubit>()
-                                  .deleteProfile()
-                                  .then((value) {
-                                if (!value.contains("Deleting a Account")) {
-                                  return G.snackBar("Could not delete account");
+                          Padding(
+                            padding: const EdgeInsets.all(40),
+                            child: InteractiveButton(
+                              backgroundColor: ThemeSelector.colors.error,
+                              height: 40,
+                              label: S.of(context).deleteAccount,
+                              icon: Icon(Icons.delete,
+                                  color: ThemeSelector.colors.onSecondary),
+                              onPressed: () async {
+                                if (!await confirmDeleteAccount(context)) {
+                                  return;
                                 }
 
-                                G.snackBar("Deleted account!");
+                                await G
+                                    .rd<ProfileCubit>()
+                                    .deleteProfile()
+                                    .then((value) {
+                                  if (!value.contains("Deleting a Account")) {
+                                    return Fluttertoast.showToast(
+                                      msg: "Could not delete account",
+                                    );
+                                  }
 
-                                context.read<UserBloc>().add(UserResetEvent());
-                                context.router.replaceAll([LoginRoute()]);
-                              });
-                            },
-                            child: Container(
-                              width: 175,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(
-                                    ThemeSelector
-                                        .statics.defaultBorderRadiusLarge)),
-                                color: ThemeSelector.colors.error,
-                              ),
-                              child: SizedBox(
-                                width: 175,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Icon(
-                                      Icons.delete,
-                                      color: ThemeSelector.colors.onSecondary,
-                                    ),
-                                    Text(
-                                      S.of(context).deleteAccount,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                                  fToast.showToast(
+                                    child: buildToast("Account Deleted!"),
+                                    gravity: ToastGravity.CENTER,
+                                  );
+
+                                  context
+                                      .read<UserBloc>()
+                                      .add(UserResetEvent());
+
+                                  context.router.replaceAll([LoginRoute()]);
+                                });
+                              },
                             ),
                           ),
                         ],
@@ -109,6 +106,31 @@ class SettingScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<bool> confirmDeleteAccount(context) async {
+  bool confirm = false;
+  await showAlertDialog(
+    context: context,
+    title: const Text("data"),
+    dismissible: true,
+    content: const Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Text(
+        "Are you sure you want to delete your account?",
+      ),
+    ),
+    actions: {
+      "Cancel": null,
+      "Delete": (_) async {
+        confirm = true;
+
+        G.pop();
+      }
+    },
+  );
+
+  return confirm;
 }
 
 class DeliveryAddresses extends StatelessWidget {
