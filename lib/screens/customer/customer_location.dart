@@ -83,10 +83,11 @@ class CustomerLocationScreen extends StatelessWidget {
                     },
                     child: Column(
                       children: [
-                        if (state.addressList.isEmpty) Loading(),
-                        for (var i = 0; i < state.addressList.length; i++)
-                          if (state.addressList[i].isDeleted != true)
-                            _LocationCard(address: state.addressList[i]),
+                        if (state.paginationHelper.isLoading) Loading(),
+                        if (!state.paginationHelper.isLoading)
+                          for (var i = 0; i < state.addressList.length; i++)
+                            if (state.addressList[i].isDeleted != true)
+                              _LocationCard(address: state.addressList[i]),
                       ],
                     ),
                   ),
