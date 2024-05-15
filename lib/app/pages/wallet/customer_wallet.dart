@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -61,59 +62,62 @@ class CustomerWalletScreen extends StatelessWidget {
                   builder: (context, state) {
                     return Column(
                       children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: ThemeSelector.statics.defaultGap,
-                              horizontal: ThemeSelector.statics.defaultGap),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: ThemeSelector.colors.backgroundTant),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultBlockGap,
-                                  vertical:
-                                      ThemeSelector.statics.defaultLineGap),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(S.of(context).youHave,
+                        if (state.isLoading) Loading(),
+                        if (!state.isLoading)
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: ThemeSelector.statics.defaultGap,
+                                horizontal: ThemeSelector.statics.defaultGap),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: ThemeSelector.colors.backgroundTant),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        ThemeSelector.statics.defaultBlockGap,
+                                    vertical:
+                                        ThemeSelector.statics.defaultLineGap),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(S.of(context).youHave,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium),
+                                          TextCurrency(
+                                            value: state.wallet.money ?? 0,
+                                            fontSize:
+                                                ThemeSelector.fonts.font_20,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        context.router.push(PaymentVisaRoute());
+                                      },
+                                      child: Column(
+                                        children: [
+                                          SvgPicture.asset(
+                                              'assets/images/visa_card_icon.svg'),
+                                          Text(
+                                            S.of(context).cards,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyMedium),
-                                        TextCurrency(
-                                          value: state.wallet.money ?? 0,
-                                          fontSize: ThemeSelector.fonts.font_20,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      context.router.push(PaymentVisaRoute());
-                                    },
-                                    child: Column(
-                                      children: [
-                                        SvgPicture.asset(
-                                            'assets/images/visa_card_icon.svg'),
-                                        Text(
-                                          S.of(context).cards,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall,
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
+                                                .labelSmall,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
                       ],
                     );
                   },

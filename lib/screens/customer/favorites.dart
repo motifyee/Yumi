@@ -1,14 +1,13 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/screens/customer/meal_profile.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/chef_bannar.dart';
@@ -121,33 +120,26 @@ class FavoritesScreen extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     for (var chef in state.chefs)
-                                      GestureDetector(
-                                        onTap: () {
-                                          context.router.push(ChefProfileRoute(
-                                              chef: chef,
-                                              menuTarget: MenuTarget.order));
-                                        },
-                                        child: ChefBanner(
-                                          menuTarget: MenuTarget.preOrder,
-                                          chef: chef,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width -
-                                              (ThemeSelector
-                                                      .statics.defaultGap *
-                                                  10),
-                                          height: ThemeSelector
-                                              .statics.defaultImageHeightSmall,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(
-                                                ThemeSelector.statics
-                                                    .defaultBorderRadius),
-                                            topRight: Radius.circular(
-                                                ThemeSelector.statics
-                                                    .defaultBorderRadius),
-                                          ),
+                                      ChefBanner(
+                                        menuTarget: MenuTarget.preOrder,
+                                        chef: chef,
+                                        width: MediaQuery.of(context)
+                                                .size
+                                                .width -
+                                            (ThemeSelector.statics.defaultGap *
+                                                10),
+                                        height: ThemeSelector
+                                            .statics.defaultImageHeightSmall,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(ThemeSelector
+                                              .statics.defaultBorderRadius),
+                                          topRight: Radius.circular(
+                                              ThemeSelector
+                                                  .statics.defaultBorderRadius),
                                         ),
                                       ),
+                                    if (state.paginationHelper.isLoading)
+                                      Loading(),
                                   ],
                                 ),
                               );
@@ -200,7 +192,8 @@ class FavoritesScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-
+                                  if (state.paginationHelper.isLoading)
+                                    Loading(),
                                   // Padding(
                                   //   padding: EdgeInsets.symmetric(
                                   //       horizontal:

@@ -33,30 +33,41 @@ class _StatusButtonState extends State<StatusButton> {
             state.user.status == 1 ? StatusEnum.ready : StatusEnum.busy;
         if (widget.forGuide != null) status = widget.forGuide!;
         return TextButton(
-          onPressed: widget.forGuide != null || state.isStatusLocked
-              ? null
-              : () {
-                  if (state.loading) return;
-                  context.read<UserBloc>().add(UserStatusUpdateEvent());
-                },
+          onPressed:
+              widget.forGuide != null || state.isStatusLocked || state.loading
+                  ? null
+                  : () {
+                      if (state.loading) return;
+                      context.read<UserBloc>().add(UserStatusUpdateEvent());
+                    },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith(
-              (states) => status == StatusEnum.ready
-                  ? ThemeSelector.colors.success
-                  : ThemeSelector.colors.primaryDisabled,
+              (states) => state.loading
+                  ? ThemeSelector.colors.secondaryFaint
+                  : status == StatusEnum.ready
+                      ? ThemeSelector.colors.success
+                      : ThemeSelector.colors.primaryDisabled,
             ),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              status == StatusEnum.ready
-                  ? SvgPicture.asset('assets/images/opened.svg')
-                  : SvgPicture.asset('assets/images/busy.svg'),
+              state.loading
+                  ? SvgPicture.asset(
+                      'assets/images/busy.svg',
+                      colorFilter: ColorFilter.mode(
+                          ThemeSelector.colors.secondaryFaint, BlendMode.srcIn),
+                    )
+                  : status == StatusEnum.ready
+                      ? SvgPicture.asset('assets/images/opened.svg')
+                      : SvgPicture.asset('assets/images/busy.svg'),
               SizedBox(width: ThemeSelector.statics.defaultGap),
               Text(
-                status == StatusEnum.ready
-                    ? S.of(context).opened
-                    : S.of(context).busy,
+                state.loading
+                    ? '...'
+                    : status == StatusEnum.ready
+                        ? S.of(context).opened
+                        : S.of(context).busy,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: status == StatusEnum.ready
                           ? ThemeSelector.colors.onSuccess

@@ -7,6 +7,6 @@ class FinancialViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('FinancialView');
+    return const Scaffold(body: Center(child: Text('FinancialView')));
   }
 }

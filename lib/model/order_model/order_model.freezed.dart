@@ -71,6 +71,7 @@ mixin _$OrderModel {
   bool? get isPickUp => throw _privateConstructorUsedError;
   List<InvoiceDetails>? get invoiceDetails =>
       throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -118,7 +119,8 @@ abstract class $OrderModelCopyWith<$Res> {
       @JsonKey(name: 'client_Received') bool? clientReceived,
       @JsonKey(name: 'client_Received_Date') String? clientReceivedDate,
       @JsonKey(name: 'is_Pickup') bool? isPickUp,
-      List<InvoiceDetails>? invoiceDetails});
+      List<InvoiceDetails>? invoiceDetails,
+      bool isLoading});
 }
 
 /// @nodoc
@@ -168,6 +170,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? clientReceivedDate = freezed,
     Object? isPickUp = freezed,
     Object? invoiceDetails = freezed,
+    Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -306,6 +309,10 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.invoiceDetails
           : invoiceDetails // ignore: cast_nullable_to_non_nullable
               as List<InvoiceDetails>?,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -352,7 +359,8 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       @JsonKey(name: 'client_Received') bool? clientReceived,
       @JsonKey(name: 'client_Received_Date') String? clientReceivedDate,
       @JsonKey(name: 'is_Pickup') bool? isPickUp,
-      List<InvoiceDetails>? invoiceDetails});
+      List<InvoiceDetails>? invoiceDetails,
+      bool isLoading});
 }
 
 /// @nodoc
@@ -400,6 +408,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? clientReceivedDate = freezed,
     Object? isPickUp = freezed,
     Object? invoiceDetails = freezed,
+    Object? isLoading = null,
   }) {
     return _then(_$OrderModelImpl(
       id: freezed == id
@@ -538,6 +547,10 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value._invoiceDetails
           : invoiceDetails // ignore: cast_nullable_to_non_nullable
               as List<InvoiceDetails>?,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -579,7 +592,8 @@ class _$OrderModelImpl extends _OrderModel {
       @JsonKey(name: 'client_Received') this.clientReceived,
       @JsonKey(name: 'client_Received_Date') this.clientReceivedDate,
       @JsonKey(name: 'is_Pickup') this.isPickUp,
-      final List<InvoiceDetails>? invoiceDetails = const []})
+      final List<InvoiceDetails>? invoiceDetails = const [],
+      this.isLoading = false})
       : _invoiceDetails = invoiceDetails,
         super._();
 
@@ -680,8 +694,12 @@ class _$OrderModelImpl extends _OrderModel {
   }
 
   @override
+  @JsonKey()
+  final bool isLoading;
+
+  @override
   String toString() {
-    return 'OrderModel(id: $id, chefID: $chefID, driverID: $driverID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, createdDate: $createdDate, updatedDate: $updatedDate, scheduleDate: $scheduleDate, clientName: $clientName, clientMobile: $clientMobile, clientDefaultAddress: $clientDefaultAddress, driverAccept: $driverAccept, driverAcceptDate: $driverAcceptDate, driverReceived: $driverReceived, driverReceivedDate: $driverReceivedDate, chefAccept: $chefAccept, chefAcceptDate: $chefAcceptDate, chefStart: $chefStart, chefStartDate: $chefStartDate, chefFinished: $chefFinished, chefFinishedDate: $chefFinishedDate, clientReceived: $clientReceived, clientReceivedDate: $clientReceivedDate, isPickUp: $isPickUp, invoiceDetails: $invoiceDetails)';
+    return 'OrderModel(id: $id, chefID: $chefID, driverID: $driverID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, createdDate: $createdDate, updatedDate: $updatedDate, scheduleDate: $scheduleDate, clientName: $clientName, clientMobile: $clientMobile, clientDefaultAddress: $clientDefaultAddress, driverAccept: $driverAccept, driverAcceptDate: $driverAcceptDate, driverReceived: $driverReceived, driverReceivedDate: $driverReceivedDate, chefAccept: $chefAccept, chefAcceptDate: $chefAcceptDate, chefStart: $chefStart, chefStartDate: $chefStartDate, chefFinished: $chefFinished, chefFinishedDate: $chefFinishedDate, clientReceived: $clientReceived, clientReceivedDate: $clientReceivedDate, isPickUp: $isPickUp, invoiceDetails: $invoiceDetails, isLoading: $isLoading)';
   }
 
   @override
@@ -753,7 +771,9 @@ class _$OrderModelImpl extends _OrderModel {
             (identical(other.isPickUp, isPickUp) ||
                 other.isPickUp == isPickUp) &&
             const DeepCollectionEquality()
-                .equals(other._invoiceDetails, _invoiceDetails));
+                .equals(other._invoiceDetails, _invoiceDetails) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
   }
 
   @JsonKey(ignore: true)
@@ -793,7 +813,8 @@ class _$OrderModelImpl extends _OrderModel {
         clientReceived,
         clientReceivedDate,
         isPickUp,
-        const DeepCollectionEquality().hash(_invoiceDetails)
+        const DeepCollectionEquality().hash(_invoiceDetails),
+        isLoading
       ]);
 
   @JsonKey(ignore: true)
@@ -845,7 +866,8 @@ abstract class _OrderModel extends OrderModel {
       @JsonKey(name: 'client_Received') final bool? clientReceived,
       @JsonKey(name: 'client_Received_Date') final String? clientReceivedDate,
       @JsonKey(name: 'is_Pickup') final bool? isPickUp,
-      final List<InvoiceDetails>? invoiceDetails}) = _$OrderModelImpl;
+      final List<InvoiceDetails>? invoiceDetails,
+      final bool isLoading}) = _$OrderModelImpl;
   const _OrderModel._() : super._();
 
   factory _OrderModel.fromJson(Map<String, dynamic> json) =
@@ -935,6 +957,8 @@ abstract class _OrderModel extends OrderModel {
   bool? get isPickUp;
   @override
   List<InvoiceDetails>? get invoiceDetails;
+  @override
+  bool get isLoading;
   @override
   @JsonKey(ignore: true)
   _$$OrderModelImplCopyWith<_$OrderModelImpl> get copyWith =>

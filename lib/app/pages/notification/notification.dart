@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/domain/notification/entity/notification.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -122,6 +123,7 @@ class _NotificationList extends StatelessWidget {
                     ),
                   ),
                 ),
+              if (state.pagination.isLoading) Loading(),
             ],
           );
         },

@@ -83,6 +83,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     });
 
     on<ChefStatusCheckEvent>((event, emit) async {
+      emit(state.copyWith(loading: true));
+
       await OrderService.getOrderOrPreOrder(
               apiKeys: ApiKeys.orderChefPreparing,
               paginationHelper: const PaginationHelper(pageSize: 1).toJson())
@@ -90,6 +92,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         if (value.data['pagination']['total'] > 0) {
           emit(state.copyWith(
               isStatusLocked: true, user: state.user.copyWith(status: 2)));
+        } else {
+          emit(state.copyWith(
+              isStatusLocked: false, user: state.user.copyWith(status: 1)));
         }
       });
 
@@ -100,8 +105,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         if (value.data['pagination']['total'] > 0) {
           emit(state.copyWith(
               isStatusLocked: true, user: state.user.copyWith(status: 2)));
+        } else {
+          emit(state.copyWith(
+              isStatusLocked: false, user: state.user.copyWith(status: 1)));
         }
       });
+      emit(state.copyWith(loading: false));
     });
 
     on<UserResetEvent>((event, emit) async {

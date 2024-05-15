@@ -45,6 +45,7 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => InvoiceDetails.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      isLoading: json['isLoading'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
@@ -83,6 +84,7 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
       'client_Received_Date': instance.clientReceivedDate,
       'is_Pickup': instance.isPickUp,
       'invoiceDetails': instance.invoiceDetails,
+      'isLoading': instance.isLoading,
     };
 
 _$InvoiceDetailsImpl _$$InvoiceDetailsImplFromJson(Map<String, dynamic> json) =>

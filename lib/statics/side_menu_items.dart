@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
@@ -208,9 +209,11 @@ class _AppMenuList {
           label: S.of(context).yourWallet,
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
-              return TextCurrency(
-                  value: state.wallet.money ?? 0,
-                  fontSize: ThemeSelector.fonts.font_14);
+              return state.isLoading
+                  ? Loading(size: ThemeSelector.statics.defaultBlockGap)
+                  : TextCurrency(
+                      value: state.wallet.money ?? 0,
+                      fontSize: ThemeSelector.fonts.font_14);
             },
           ),
           onRender: () {
