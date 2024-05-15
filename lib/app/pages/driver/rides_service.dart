@@ -8,7 +8,7 @@ import 'package:yumi/statics/api_statics.dart';
 class VehicleService {
   static Future<Vehicle?> getVehicle() async {
     try {
-      final Response res = await DioClient.simpleDio().get(
+      final Response res = await DioClient.get(
         '/drivers/vehicle',
       );
       return Vehicle.fromJson(res.data);
