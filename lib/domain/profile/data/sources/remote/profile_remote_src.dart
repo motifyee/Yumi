@@ -30,10 +30,13 @@ class ProfileRemoteSrc extends ProfileSrc {
   Future<String> updateProfile(Profile profile) async {
     final data = profile.toJson();
     final Response<String> res;
+    final id = profile.guid;
+
+    if (id.isEmpty) throw GenericException();
 
     try {
       res = await DioClient.dio.put<String>(
-        '${ApiKeys.getApiKeyString(apiKey: ApiKeys.profile)}?id=${data['guid']}',
+        '${ApiKeys.getApiKeyString(apiKey: ApiKeys.profile)}?id=$id',
         data: data,
       );
     } catch (e) {

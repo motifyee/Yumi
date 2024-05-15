@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/screen_container.dart';
@@ -29,13 +31,6 @@ class AddPhoneScreen extends StatelessWidget {
           child: BlocSelector<RegCubit, NRegState, String>(
             selector: (state) => state.singupData?.fullName ?? "",
             builder: (context, state) {
-              // if (state.status.isInit) {
-              //   context.read<ScheduleBloc>().add(ScheduleEvent.init(context));
-              // }
-              // if (state.status.isLoading) {
-              //   return const Center(child: CircularProgressIndicator());
-              // }
-
               var form = GlobalKey<FormState>();
 
               return Center(
@@ -84,13 +79,28 @@ class AddPhoneScreen extends StatelessWidget {
                         InteractiveButton(
                             label: "Get OTP",
                             onPressed: () async {
-                              if (kReleaseMode &&
-                                  !form.currentState!.validate()) return;
+                              if (!form.currentState!.validate()) return;
 
                               var value = form.currentState?.fields.first.value
                                   as String;
 
-                              await context.read<RegCubit>().setPhone(value);
+                              await () async {
+                                final profileCubit =
+                                    context.read<ProfileCubit>();
+                                if (profileCubit.state.form.guid.isEmpty) {
+                                  await profileCubit.getProfileForm();
+                                }
+                              }()
+                                  .then((_) async {
+                                await context
+                                    .read<RegCubit>()
+                                    .setPhone(value)
+                                    .then((value) {
+                                  if (!value) {
+                                    G.snackBar("Something went wrong!");
+                                  }
+                                });
+                              });
                             }),
                       ],
                     ),
