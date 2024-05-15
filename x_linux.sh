@@ -17,6 +17,7 @@ buildNumber=$(echo $fullVersion | cut -d "+" -f 2 )
 ((buildNumber++))
 sed -i -E "s/version: .+/version: ${buildName}+${buildNumber}/" "$pubspac"
 
+rm -rf "$output/out"
 mkdir -p "$output/out"
 
 echo

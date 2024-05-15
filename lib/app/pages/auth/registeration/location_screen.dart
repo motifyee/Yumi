@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
+import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/maps/google_maps.dart';
@@ -251,8 +252,8 @@ class LocationScreen extends StatelessWidget {
           return state.address;
         },
         // listener: (context, state) { },
-        builder: (context, address) {
-          if (address.latitude == null) return const SizedBox();
+        builder: (context, addressState) {
+          if (addressState.latitude == null) return const SizedBox();
 
           return Positioned(
               bottom: 20,
@@ -263,7 +264,7 @@ class LocationScreen extends StatelessWidget {
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-                  child: addressForm(address, context),
+                  child: addressForm(addressState, context),
                 ),
               ));
         },
@@ -273,11 +274,8 @@ class LocationScreen extends StatelessWidget {
 
   var inputKey1 = UniqueKey();
   var inputKey2 = UniqueKey();
-  Widget? addressForm(Address address, BuildContext context) {
-    acceptAddress() {
-      formKey.currentState!.save();
-    }
-
+  Widget? addressForm(Address addressState, BuildContext context) {
+    Address address = addressState.copyWith();
     bool validate() {
       var values = [
         [
@@ -312,15 +310,6 @@ class LocationScreen extends StatelessWidget {
       return false;
     }
 
-    var save = onFormFieldsSaved<Address>(
-      formKey,
-      onAllFieldsSaved: (reg, _) {
-        if (!validate()) return;
-
-        context.read<RegCubit>().setLocation(address);
-        context.read<RegCubit>().saveLocation(routeFn: routeFn);
-      },
-    );
     moveCameraToManualAddress() async {
       formKey.currentState!.save();
 
@@ -333,7 +322,6 @@ class LocationScreen extends StatelessWidget {
                   latitude: value.latitude,
                   longitude: value.longitude,
                 ),
-                // ),
               );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -358,14 +346,7 @@ class LocationScreen extends StatelessWidget {
               key: inputKey1,
               floatingLabelBehavior: FloatingLabelBehavior.auto,
               onSave: (value) {
-                save(address = address.copyWith(addressTitle: value));
-                // context.read<RegBloc>().add(
-                //       RegEvent.updateLocation(
-                //         state.address.copyWith(
-                //           addresssTitle: value,
-                //         ),
-                //       ),
-                //     );
+                address = address.copyWith(addressTitle: value);
               },
               validators: (val) => (val?.length ?? 0) < 3
                   ? 'Minimum 3 characters required'
@@ -380,14 +361,7 @@ class LocationScreen extends StatelessWidget {
             key: inputKey2,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             onSave: (value) {
-              save(address = address.copyWith(addressDetails: value));
-              // context.read<RegBloc>().add(
-              //       RegEvent.updateLocation(
-              //         state.address.copyWith(
-              //           addressDetails: value,
-              //         ),
-              //       ),
-              //     );
+              address = address.copyWith(addressDetails: value);
             },
             validators: (val) =>
                 (val?.length ?? 0) < 8 ? 'Minimum 8 characters required' : null,
@@ -407,9 +381,15 @@ class LocationScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          ConfirmButton(
+          InteractiveButton(
             label: 'Ok',
-            onPressed: acceptAddress,
+            onPressed: () async {
+              formKey.currentState!.save();
+              if (!validate()) return;
+
+              context.read<RegCubit>().setLocation(address);
+              await context.read<RegCubit>().saveLocation(routeFn: routeFn);
+            },
           ),
         ],
       ),
