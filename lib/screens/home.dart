@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         if (!isInit) {
           isInit = true;
-          Timer(Duration(milliseconds: 100), () {
+          Timer(const Duration(milliseconds: 100), () {
             navPageController.jumpToPage(state.selectedIndex);
           });
         }
@@ -84,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                     topLeft: Radius.circular(
                         ThemeSelector.statics.defaultBorderRadius),
                   )),
-              child: NavigationBottomBar(),
+              child: const NavigationBottomBar(),
             ),
             body: PageView(
               controller: navPageController,
@@ -98,7 +98,7 @@ class HomeScreen extends StatelessWidget {
             drawer: Drawer(
               backgroundColor: ThemeSelector.colors.background,
               surfaceTintColor: Colors.transparent,
-              child: SideBar(),
+              child: const SideBar(),
             ),
           ),
         );

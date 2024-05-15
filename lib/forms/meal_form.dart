@@ -29,9 +29,9 @@ class MealForm extends StatelessWidget {
 
   fetchMeal({required MealModel meal, required BuildContext context}) async {
     Response res = await MealService.getMealById(mealId: meal.id!);
-    MealModel _meal = MealModel.fromJson(res.data);
+    MealModel meal0 = MealModel.fromJson(res.data);
     context.read<MealFormBloc>().add(MealFormUpdateEvent(
-            mealModel: _meal.copyWith(
+            mealModel: meal0.copyWith(
           preparationTime: '25',
           isOrder: meal.isPreOrder == true ? false : true,
           isPreOrder: meal.isPreOrder ?? false,

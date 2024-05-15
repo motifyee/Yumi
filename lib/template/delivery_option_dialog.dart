@@ -7,7 +7,7 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class DeliveryOptionDialog extends StatelessWidget {
-  DeliveryOptionDialog({super.key});
+  const DeliveryOptionDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class DeliveryOptionDialog extends StatelessWidget {
             BlocConsumer<BasketCubit, BasketState>(
               listener: (context, state) {},
               builder: (context, state) {
-                bool? _option = state.basket.isDelivery;
+                bool? option = state.basket.isDelivery;
                 return Row(
                   children: [
                     Expanded(
@@ -60,7 +60,7 @@ class DeliveryOptionDialog extends StatelessWidget {
                                 width: ThemeSelector.statics.defaultLineGap,
                                 height: ThemeSelector.statics.defaultLineGap,
                                 decoration: BoxDecoration(
-                                    color: _option != true
+                                    color: option != true
                                         ? ThemeSelector.colors.primary
                                         : ThemeSelector.colors.secondaryFaint,
                                     borderRadius: BorderRadius.circular(
@@ -99,7 +99,7 @@ class DeliveryOptionDialog extends StatelessWidget {
                                 width: ThemeSelector.statics.defaultLineGap,
                                 height: ThemeSelector.statics.defaultLineGap,
                                 decoration: BoxDecoration(
-                                  color: _option == true
+                                  color: option == true
                                       ? ThemeSelector.colors.primary
                                       : ThemeSelector.colors.secondaryFaint,
                                   borderRadius: BorderRadius.circular(

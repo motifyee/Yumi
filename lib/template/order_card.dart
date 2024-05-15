@@ -437,7 +437,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               widget.order.isPickUp == true)
                             TextButton(
                               onPressed: () {
-                                String _apiKey =
+                                String apiKey =
                                     widget.menuTarget == MenuTarget.order
                                         ? ApiKeys.orderChefPickUpDelivered
                                         : ApiKeys.preOrderChefPickUpDelivered;
@@ -447,7 +447,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                         order: widget.order,
                                         isFakeBody: false,
                                         apiKey: ApiKeys.actionApiKeyString(
-                                            apiKey: _apiKey,
+                                            apiKey: apiKey,
                                             id: '${widget.order.id}'),
                                         getApiKey: widget.getApiKey,
                                       ),
@@ -464,13 +464,13 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               OrderCardTargetPage.chefPreparing)
                             TextButton(
                               onPressed: () {
-                                String _apiKey = '';
+                                String apiKey = '';
                                 if (widget.menuTarget == MenuTarget.order) {
-                                  _apiKey = widget.order.isPickUp == true
+                                  apiKey = widget.order.isPickUp == true
                                       ? ApiKeys.orderChefPickUpFinished
                                       : ApiKeys.orderChefDeliveryFinished;
                                 } else {
-                                  _apiKey = widget.order.isPickUp == true
+                                  apiKey = widget.order.isPickUp == true
                                       ? ApiKeys.preOrderChefPickUpFinished
                                       : ApiKeys.preOrderChefDeliveryFinished;
                                 }
@@ -480,7 +480,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                         order: widget.order,
                                         navFun: widget.navFun,
                                         apiKey: ApiKeys.actionApiKeyString(
-                                            apiKey: _apiKey,
+                                            apiKey: apiKey,
                                             id: '${widget.order.id}'),
                                         getApiKey: widget.getApiKey,
                                       ),
@@ -500,14 +500,14 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       widget.order.driverAccept != true
                                   ? null
                                   : () {
-                                      String _apiKey = '';
+                                      String apiKey = '';
                                       if (widget.menuTarget ==
                                           MenuTarget.order) {
-                                        _apiKey = widget.order.isPickUp == true
+                                        apiKey = widget.order.isPickUp == true
                                             ? ApiKeys.orderChefPickUpStart
                                             : ApiKeys.orderChefDeliveryStart;
                                       } else {
-                                        _apiKey = widget.order.isPickUp == true
+                                        apiKey = widget.order.isPickUp == true
                                             ? ApiKeys.preOrderChefPickUpStart
                                             : ApiKeys.preOrderChefDeliveryStart;
                                       }
@@ -518,7 +518,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                               navFun: widget.navFun,
                                               apiKey:
                                                   ApiKeys.actionApiKeyString(
-                                                      apiKey: _apiKey,
+                                                      apiKey: apiKey,
                                                       id: '${widget.order.id}'),
                                               getApiKey: widget.getApiKey,
                                             ),
@@ -562,7 +562,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               widget.menuTarget == MenuTarget.preOrder)
                             TextButton(
                               onPressed: () {
-                                String _apiKey = widget.order.isPickUp == true
+                                String apiKey = widget.order.isPickUp == true
                                     ? ApiKeys.preOrderChefPickUpAccept
                                     : ApiKeys.preOrderChefDeliveryAccept;
 
@@ -571,7 +571,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                         order: widget.order,
                                         navFun: widget.navFun,
                                         apiKey: ApiKeys.actionApiKeyString(
-                                            apiKey: _apiKey,
+                                            apiKey: apiKey,
                                             id: '${widget.order.id}'),
                                         getApiKey: widget.getApiKey,
                                       ),
@@ -589,7 +589,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               widget.order.driverReceived == true)
                             TextButton(
                               onPressed: () {
-                                String _apiKey =
+                                String apiKey =
                                     widget.menuTarget == MenuTarget.order
                                         ? ApiKeys.orderDriverDelivered
                                         : ApiKeys.preOrderDriverDelivered;
@@ -599,7 +599,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                         order: widget.order,
                                         isFakeBody: false,
                                         apiKey: ApiKeys.actionApiKeyString(
-                                            apiKey: _apiKey,
+                                            apiKey: apiKey,
                                             id: '${widget.order.id}'),
                                         getApiKey: widget.getApiKey,
                                       ),

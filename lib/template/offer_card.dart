@@ -22,7 +22,7 @@ class _OfferCardState extends State<OfferCard> {
       rightPosition = -100;
       duration = Duration.zero;
     });
-    Timer(Duration(milliseconds: 100), () {
+    Timer(const Duration(milliseconds: 100), () {
       setState(() {
         rightPosition = 0;
         duration = ThemeSelector.statics.slowAnimationDuration;

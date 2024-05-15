@@ -17,7 +17,7 @@ class AppInfoState with _$AppInfoState {
 }
 
 class AppInfoCubit extends Cubit<AppInfoState> {
-  AppInfoCubit() : super(AppInfoState());
+  AppInfoCubit() : super(const AppInfoState());
 
   getAppInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();

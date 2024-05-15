@@ -38,7 +38,7 @@ class CategoriesListDialog extends StatelessWidget {
               child: Row(
                 children: [
                   SvgPicture.asset('assets/images/categories_list.svg'),
-                  Text(' '),
+                  const Text(' '),
                   Text(
                     S.of(context).cuisines,
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(

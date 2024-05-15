@@ -10,7 +10,7 @@ class UpdateScheduleInBasket
       UpdateScheduleInBasketParams params) async {
     DateTime scheduleDate = params.date ??
         params.basket.invoice.scheduleDate ??
-        DateTime.now().add(Duration(days: 1));
+        DateTime.now().add(const Duration(days: 1));
     if (params.time != null) {
       scheduleDate = scheduleDate.copyWith(
         hour: int.parse(params.time!.split(":")[0]),

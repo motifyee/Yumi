@@ -50,7 +50,7 @@ class _OfferCarouselState extends State<OfferCarousel> {
 
   @override
   void initState() {
-    timer = Timer.periodic(Duration(seconds: 8), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 8), (timer) {
       setState(() {
         if (widget.index == widget.items.length - 1) {
           widget.index = 0;

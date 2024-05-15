@@ -1,6 +1,5 @@
 import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/domain/profile/entities/review.dart';
-import 'package:yumi/domain/profile/use_cases/verify_add_mobile_otp.dart';
 
 abstract class ProfileSrc {
   Future<Profile> loadProfile(String id);

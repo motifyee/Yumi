@@ -36,7 +36,7 @@ class MyOrdersScreen extends StatelessWidget {
 }
 
 class _MyOrderTemplate extends StatefulWidget {
-  _MyOrderTemplate({super.key, this.isHistory = false});
+  _MyOrderTemplate({this.isHistory = false});
 
   bool isHistory;
 

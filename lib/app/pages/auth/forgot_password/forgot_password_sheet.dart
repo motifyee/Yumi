@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
 import 'package:yumi/app/pages/auth/forgot_password/view_states/enter_email.dart';
-import 'package:yumi/app/pages/auth/forgot_password/view_states/enter_new_pwd.dart';
 import 'package:yumi/app/pages/auth/forgot_password/view_states/enter_otp.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';

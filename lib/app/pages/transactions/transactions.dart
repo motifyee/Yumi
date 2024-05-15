@@ -46,7 +46,7 @@ class TransactionsScreen extends StatelessWidget {
                   children: [
                     SvgPicture.asset(
                         'assets/images/transaction_wallet_icon.svg'),
-                    Text('  '),
+                    const Text('  '),
                     Text(
                       S.of(context).transactions,
                       style: Theme.of(context).textTheme.labelLarge,

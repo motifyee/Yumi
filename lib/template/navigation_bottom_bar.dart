@@ -8,7 +8,7 @@ import 'package:yumi/statics/navigate_option.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class NavigationBottomBar extends StatelessWidget {
-  NavigationBottomBar({super.key});
+  const NavigationBottomBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class NavigationBottomBar extends StatelessWidget {
               duration: ThemeSelector.statics.animationDuration,
               top: 0,
               left: selectedPageIndicator * state.selectedIndex,
-              child: Container(
+              child: SizedBox(
                 width: selectedPageIndicator,
                 child: Stack(
                   clipBehavior: Clip.none,

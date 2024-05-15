@@ -13,8 +13,8 @@ import 'package:yumi/template/status_button.dart';
 class NewsScreen extends StatelessWidget {
   NewsScreen({super.key});
 
-  PageController _controller = PageController(initialPage: 1);
-  MenuTarget _menuTarget = MenuTarget.order;
+  final PageController _controller = PageController(initialPage: 1);
+  final MenuTarget _menuTarget = MenuTarget.order;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class NewsScreen extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 isScrollControlled: true,
                 builder: (BuildContext context) {
-                  return NewsGuide();
+                  return const NewsGuide();
                 });
           });
         }
@@ -40,7 +40,7 @@ class NewsScreen extends StatelessWidget {
       create: (context) => NewsBloc(),
       child: Column(
         children: [
-          Location(),
+          const Location(),
           SizedBox(height: ThemeSelector.statics.defaultGap),
           StatusButton(),
           SizedBox(

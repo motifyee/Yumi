@@ -147,7 +147,7 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
     on<BasketFormCalcEvent>((event, emit) {
       double totalPrice = double.parse(state.basket.invoiceDetails
           .fold(0.0,
-              (p, e) => p + (e.productVarintPrice! * int.parse(e.quantity!)))
+              (p, e) => p + (e.productVarintPrice * int.parse(e.quantity)))
           .toStringAsFixed(2));
 
       double invoiceTax = double.parse(

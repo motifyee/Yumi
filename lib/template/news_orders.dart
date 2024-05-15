@@ -8,7 +8,7 @@ import 'package:yumi/template/order_card.dart';
 import 'package:yumi/template/pagination_template.dart';
 
 class NewsOrders extends StatelessWidget {
-  NewsOrders({
+  const NewsOrders({
     super.key,
     required this.menuTarget,
     required this.apiKey,

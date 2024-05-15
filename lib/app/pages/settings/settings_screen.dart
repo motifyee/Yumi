@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
@@ -14,7 +13,6 @@ import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bank_settings_card.dart';
-import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/dialog.dart';
 
 @RoutePage()
@@ -112,10 +110,10 @@ Future<bool> confirmDeleteAccount(context) async {
   bool confirm = false;
   await showAlertDialog(
     context: context,
-    title: const Text("data"),
+    title: const Text("confirm"),
     dismissible: true,
     content: const Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(20),
       child: Text(
         "Are you sure you want to delete your account?",
       ),

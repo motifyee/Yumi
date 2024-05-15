@@ -16,7 +16,7 @@ class TransactionState with _$TransactionState {
       _TransactionState;
 
   factory TransactionState.initial() {
-    return TransactionState(paginationHelper: PaginationHelper(data: []));
+    return TransactionState(paginationHelper: const PaginationHelper(data: []));
   }
 
   factory TransactionState.fromJson(Map<String, dynamic> json) =>

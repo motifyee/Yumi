@@ -41,7 +41,7 @@ class BasketScreen extends StatelessWidget {
       isBasketDeleting = true;
       showDialog(
         context: context,
-        builder: (context) => ExpiredBasket(),
+        builder: (context) => const ExpiredBasket(),
       ).then((value) {
         context.read<BasketCubit>().deleteBasket();
       });
@@ -144,7 +144,7 @@ class BasketScreen extends StatelessWidget {
                                       showDialog(
                                           context: context,
                                           builder: (context) =>
-                                              ConfirmCheckOutBasket());
+                                              const ConfirmCheckOutBasket());
                                     },
                               child: Container(
                                 width: ThemeSelector.statics.defaultGapXXXL,

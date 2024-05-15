@@ -97,7 +97,7 @@ class ChefOrder extends StatelessWidget {
         ),
         Expanded(
           child: PageView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             controller: controller,
             children: [
               BlocProvider(

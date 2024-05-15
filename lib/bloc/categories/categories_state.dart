@@ -14,10 +14,10 @@ class CategoriesState extends Equatable {
       {List<CategoriesModel>? categoriesModelListed,
       PaginationHelper? paginationHelper}) {
     return CategoriesState(
-        categoriesModelList: categoriesModelListed ?? this.categoriesModelList,
+        categoriesModelList: categoriesModelListed ?? categoriesModelList,
         categoriesModelListLength: categoriesModelListed != null
             ? categoriesModelListed.length
-            : this.categoriesModelListLength,
+            : categoriesModelListLength,
         paginationHelper: paginationHelper ?? this.paginationHelper);
   }
 

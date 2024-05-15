@@ -55,22 +55,22 @@ class _SharedRef {
 
     var res;
     if (key.valueType == _ValueType.int) {
-      res = await prefs.getInt(key.name);
+      res = prefs.getInt(key.name);
     }
     if (key.valueType == _ValueType.double) {
-      res = await prefs.getDouble(key.name);
+      res = prefs.getDouble(key.name);
     }
     if (key.valueType == _ValueType.string) {
-      res = await prefs.getString(key.name);
+      res = prefs.getString(key.name);
     }
     if (key.valueType == _ValueType.bool) {
-      res = await prefs.getBool(key.name);
+      res = prefs.getBool(key.name);
     }
     if (key.valueType == _ValueType.list) {
-      res = await prefs.getStringList(key.name);
+      res = prefs.getStringList(key.name);
     }
     if (key.valueType == _ValueType.json) {
-      res = await prefs.getString(key.name);
+      res = prefs.getString(key.name);
       if (res != null) res = jsonDecode(res);
     }
     return res;

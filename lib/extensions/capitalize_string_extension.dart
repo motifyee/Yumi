@@ -1,7 +1,7 @@
 extension StringExtension on String {
   String capitalize() {
-    return this.isEmpty
+    return isEmpty
         ? ''
-        : "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
+        : "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 }

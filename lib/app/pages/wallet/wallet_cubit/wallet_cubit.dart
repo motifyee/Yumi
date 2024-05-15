@@ -12,7 +12,7 @@ class WalletState with _$WalletState {
   const factory WalletState({required Wallet wallet}) = _WalletState;
 
   factory WalletState.initial() {
-    return WalletState(wallet: Wallet());
+    return const WalletState(wallet: Wallet());
   }
 
   factory WalletState.fromJson(Map<String, dynamic> json) =>

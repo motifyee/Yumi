@@ -10,7 +10,7 @@ class IngredientFormBloc
     extends Bloc<IngredientFormEvent, IngredientFormState> {
   IngredientFormBloc()
       : super(IngredientFormState(
-            ingredientsModelList: [], ingredientsModelLength: 0)) {
+            ingredientsModelList: const [], ingredientsModelLength: 0)) {
     on<IngredientFormAddEvent>((event, emit) {
       List<IngredientsModel> data = state.ingredientsModelList;
       data.add(event.ingredientsModel.copyWith());

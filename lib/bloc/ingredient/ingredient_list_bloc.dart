@@ -9,7 +9,7 @@ part 'ingredient_list_state.dart';
 
 class IngredientListBloc
     extends Bloc<IngredientListEvent, IngredientListState> {
-  IngredientListBloc() : super(IngredientListState(ingredients: [])) {
+  IngredientListBloc() : super(IngredientListState(ingredients: const [])) {
     on<IngredientListUpdateEvent>((event, emit) async {
       final res =
           await IngredientService.getIngredients(context: event.context);

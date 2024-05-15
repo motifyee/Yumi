@@ -69,7 +69,7 @@ class MealModel {
       portionPersons: portionPersons ?? this.portionPersons,
       categoriesids: categoriesids ?? this.categoriesids,
       ingredients: ingredients ?? this.ingredients,
-      isFavoritProduct: isFavorite ?? this.isFavoritProduct,
+      isFavoritProduct: isFavorite ?? isFavoritProduct,
     );
   }
 

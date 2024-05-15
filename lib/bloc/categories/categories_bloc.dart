@@ -14,9 +14,9 @@ part 'categories_state.dart';
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   CategoriesBloc()
       : super(CategoriesState(
-            categoriesModelList: [],
+            categoriesModelList: const [],
             categoriesModelListLength: 0,
-            paginationHelper: PaginationHelper())) {
+            paginationHelper: const PaginationHelper())) {
     on<GetCategoriesEvent>((event, emit) async {
       if (state.paginationHelper.pageNumber < state.paginationHelper.lastPage &&
           !state.paginationHelper.isLoading) {
@@ -75,9 +75,9 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
 
     on<ResetCategoryEvent>((event, emit) {
       emit(CategoriesState(
-        categoriesModelList: [],
+        categoriesModelList: const [],
         categoriesModelListLength: 0,
-        paginationHelper: PaginationHelper(),
+        paginationHelper: const PaginationHelper(),
       ));
     });
   }

@@ -120,11 +120,9 @@ abstract class $AppRouter extends _i33.RootStackRouter {
       );
     },
     CustomerWalletRoute.name: (routeData) {
-      final args = routeData.argsAs<CustomerWalletRouteArgs>(
-          orElse: () => const CustomerWalletRouteArgs());
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i10.CustomerWalletScreen(key: args.key),
+        child: const _i10.CustomerWalletScreen(),
       );
     },
     DocumentationRoute.name: (routeData) {
@@ -245,11 +243,9 @@ abstract class $AppRouter extends _i33.RootStackRouter {
       );
     },
     PaymentVisaRoute.name: (routeData) {
-      final args = routeData.argsAs<PaymentVisaRouteArgs>(
-          orElse: () => const PaymentVisaRouteArgs());
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i26.PaymentVisaScreen(key: args.key),
+        child: const _i26.PaymentVisaScreen(),
       );
     },
     PerformanceAnalysisRoute.name: (routeData) {
@@ -480,31 +476,16 @@ class CustomerLocationRoute extends _i33.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.CustomerWalletScreen]
-class CustomerWalletRoute extends _i33.PageRouteInfo<CustomerWalletRouteArgs> {
-  CustomerWalletRoute({
-    _i34.Key? key,
-    List<_i33.PageRouteInfo>? children,
-  }) : super(
+class CustomerWalletRoute extends _i33.PageRouteInfo<void> {
+  const CustomerWalletRoute({List<_i33.PageRouteInfo>? children})
+      : super(
           CustomerWalletRoute.name,
-          args: CustomerWalletRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'CustomerWalletRoute';
 
-  static const _i33.PageInfo<CustomerWalletRouteArgs> page =
-      _i33.PageInfo<CustomerWalletRouteArgs>(name);
-}
-
-class CustomerWalletRouteArgs {
-  const CustomerWalletRouteArgs({this.key});
-
-  final _i34.Key? key;
-
-  @override
-  String toString() {
-    return 'CustomerWalletRouteArgs{key: $key}';
-  }
+  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
 }
 
 /// generated route for
@@ -874,31 +855,16 @@ class PaymentPaypalRoute extends _i33.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i26.PaymentVisaScreen]
-class PaymentVisaRoute extends _i33.PageRouteInfo<PaymentVisaRouteArgs> {
-  PaymentVisaRoute({
-    _i34.Key? key,
-    List<_i33.PageRouteInfo>? children,
-  }) : super(
+class PaymentVisaRoute extends _i33.PageRouteInfo<void> {
+  const PaymentVisaRoute({List<_i33.PageRouteInfo>? children})
+      : super(
           PaymentVisaRoute.name,
-          args: PaymentVisaRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'PaymentVisaRoute';
 
-  static const _i33.PageInfo<PaymentVisaRouteArgs> page =
-      _i33.PageInfo<PaymentVisaRouteArgs>(name);
-}
-
-class PaymentVisaRouteArgs {
-  const PaymentVisaRouteArgs({this.key});
-
-  final _i34.Key? key;
-
-  @override
-  String toString() {
-    return 'PaymentVisaRouteArgs{key: $key}';
-  }
+  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
 }
 
 /// generated route for

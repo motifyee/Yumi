@@ -125,7 +125,7 @@ class NavigateOptions {
       selectedIcon:
           SvgPicture.asset('assets/images/bell1.svg', fit: BoxFit.fitWidth),
       title: S.current.notification,
-      page: NotificationScreen(isScreen: true),
+      page: const NotificationScreen(isScreen: true),
     ),
     NavigateListItem(
       icon: SvgPicture.asset('assets/images/heart.svg'),
@@ -201,7 +201,7 @@ class NavigateListItem {
 }
 
 class _CustomerAction extends StatelessWidget {
-  const _CustomerAction({super.key});
+  const _CustomerAction();
 
   @override
   Widget build(BuildContext context) {
@@ -219,7 +219,7 @@ class _CustomerAction extends StatelessWidget {
 }
 
 class _ChefAction extends StatelessWidget {
-  const _ChefAction({super.key});
+  const _ChefAction();
 
   @override
   Widget build(BuildContext context) {

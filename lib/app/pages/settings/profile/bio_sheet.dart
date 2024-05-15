@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
-import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
 // import 'package:yumi/app/pages/settings/profile/bloc/profile_bloc.dart';
 import 'package:yumi/app/pages/settings/profile/profile_screen.dart';

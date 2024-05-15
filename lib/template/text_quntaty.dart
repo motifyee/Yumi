@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class TextQuantity extends StatelessWidget {
-  TextQuantity({super.key, required this.value, this.fontSize});
+  const TextQuantity({super.key, required this.value, this.fontSize});
 
   final double value;
   final double? fontSize;

@@ -104,7 +104,7 @@ class CheckOutScreen extends StatelessWidget {
                                       'assets/images/add_visa_card.svg',
                                       height: ThemeSelector.fonts.font_12,
                                     ),
-                                    Text(' '),
+                                    const Text(' '),
                                     Text(
                                       S.of(context).debitCreditCard,
                                       style: Theme.of(context)
@@ -148,7 +148,7 @@ class CheckOutScreen extends StatelessWidget {
                                       'assets/images/schedule_menu.svg',
                                       height: ThemeSelector.fonts.font_12,
                                     ),
-                                    Text(' '),
+                                    const Text(' '),
                                     Text(
                                       S.of(context).wallet,
                                       style: Theme.of(context)
@@ -282,7 +282,7 @@ class CheckOutScreen extends StatelessWidget {
                                         showDialog(
                                             context: context,
                                             builder: (context) =>
-                                                DeliveryOptionDialog());
+                                                const DeliveryOptionDialog());
                                       }
                                     },
                                     child: Container(

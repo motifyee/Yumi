@@ -58,7 +58,7 @@ class FavoritesScreen extends StatelessWidget {
                           favPageController.jumpToPage(0);
                           context
                               .read<NewsBloc>()
-                              .add(NewsEvent(selectedList: 0));
+                              .add(const NewsEvent(selectedList: 0));
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -79,7 +79,7 @@ class FavoritesScreen extends StatelessWidget {
                           favPageController.jumpToPage(1);
                           context
                               .read<NewsBloc>()
-                              .add(NewsEvent(selectedList: 1));
+                              .add(const NewsEvent(selectedList: 1));
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -101,7 +101,7 @@ class FavoritesScreen extends StatelessWidget {
                   Expanded(
                     child: PageView(
                       controller: favPageController,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       children: [
                         PaginationTemplate(
                           scrollDirection: Axis.vertical,

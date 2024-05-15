@@ -18,7 +18,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       : super(MealListState(
           meals: const [],
           selectedCategory: 0,
-          paginationHelper: PaginationHelper(),
+          paginationHelper: const PaginationHelper(),
           menuTarget: MenuTarget.order,
         )) {
     on<MealListUpdateEvent>((event, emit) async {
@@ -130,7 +130,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         state.copyWith(
           meals: [],
           selectedCategory: event.selectedCategory,
-          paginationHelper: PaginationHelper(),
+          paginationHelper: const PaginationHelper(),
         ),
       );
 
@@ -144,7 +144,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       emit(MealListState(
         meals: const [],
         selectedCategory: event.categoryId ?? 0,
-        paginationHelper: PaginationHelper(),
+        paginationHelper: const PaginationHelper(),
         menuTarget: event.menuTarget ?? state.menuTarget,
       ));
     });

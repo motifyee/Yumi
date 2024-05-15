@@ -64,7 +64,7 @@ class Calendar extends StatelessWidget {
           },
         ),
         onValueChanged: onValueChanged,
-        value: [],
+        value: const [],
       ),
     );
   }

@@ -14,7 +14,7 @@ class PaymentPaypalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Container(
+      child: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * .55,
         child: Column(
@@ -39,7 +39,7 @@ class PaymentPaypalScreen extends StatelessWidget {
                         fontSize: ThemeSelector.fonts.font_16,
                       ),
                 ),
-                TextButton(
+                const TextButton(
                     onPressed: null,
                     child: Icon(
                       Icons.arrow_back,
@@ -74,7 +74,7 @@ class PaymentPaypalScreen extends StatelessWidget {
                                 isPassword: true,
                               ),
                             ),
-                            Flexible(flex: 1, child: Text(' ')),
+                            const Flexible(flex: 1, child: Text(' ')),
                           ],
                         ),
                       ],

@@ -13,7 +13,7 @@ import 'package:yumi/template/chef_meal_basket_card.dart';
 import 'package:yumi/template/pagination_template.dart';
 
 class ChefMealsScreen extends StatefulWidget {
-  ChefMealsScreen(
+  const ChefMealsScreen(
       {super.key,
       required this.menuTarget,
       required this.chefId,
@@ -53,7 +53,7 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Padding(
-                padding: EdgeInsets.only(bottom: 6),
+                padding: const EdgeInsets.only(bottom: 6),
                 child: SvgPicture.asset(
                   'assets/images/chef_meals_list_icon.svg',
                   height: ThemeSelector.statics.defaultInputGap,
@@ -121,7 +121,7 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
               return Expanded(
                 child: PageView(
                   controller: favPageController,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [
                     PaginationTemplate(
                       scrollDirection: Axis.vertical,

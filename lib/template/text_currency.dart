@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class TextCurrency extends StatelessWidget {
-  TextCurrency(
+  const TextCurrency(
       {super.key,
       required this.value,
       this.fontSize,

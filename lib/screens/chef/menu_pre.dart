@@ -40,7 +40,7 @@ class MenuPreOrderScreen extends StatelessWidget {
                 ..add(MealListResetEvent(menuTarget: MenuTarget.preOrder))),
           BlocProvider(create: (context) => CategoriesBloc()),
         ],
-        child: MenuTemplate(
+        child: const MenuTemplate(
           menuTarget: MenuTarget.preOrder,
         ),
       ),

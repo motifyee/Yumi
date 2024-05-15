@@ -59,7 +59,7 @@ class IngredientsForm extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height * .9),
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height * .5,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -196,7 +196,7 @@ class IngredientsForm extends StatelessWidget {
                             IngredientListState>(
                           listener: (context, state) {},
                           builder: (context, state) {
-                            List<IngredientsModel> _selectFromList =
+                            List<IngredientsModel> selectFromList =
                                 filteredList(
                                     list: state.ingredients,
                                     selected: context
@@ -210,13 +210,13 @@ class IngredientsForm extends StatelessWidget {
                               objectValidators: requiredObjectValidator,
                               dropdownSelection: true,
                               dropdownSelectionTargetLabel: 'name',
-                              dropdownSelectionList: _selectFromList,
+                              dropdownSelectionList: selectFromList,
                               initialValue: ingredientsModel.id != null
                                   ? state.ingredients.firstWhere(
                                       (e) => e.id == ingredientsModel.id)
                                   : (state.ingredients.isNotEmpty
-                                      ? _selectFromList.isNotEmpty
-                                          ? _selectFromList[0]
+                                      ? selectFromList.isNotEmpty
+                                          ? selectFromList[0]
                                           : null
                                       : null),
                               onChange: (value) {},

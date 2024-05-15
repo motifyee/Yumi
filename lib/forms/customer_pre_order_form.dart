@@ -51,7 +51,7 @@ class CustomerPreOrderForm extends StatelessWidget {
               maxHeight: MediaQuery.of(context).size.height * .9),
           child: Form(
             key: preOrderForm,
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height * .5,
               child: Column(
                 children: [
@@ -99,11 +99,11 @@ class CustomerPreOrderForm extends StatelessWidget {
                                 surfaceTintColor: Colors.transparent,
                                 child: Calendar(
                                   currentDate:
-                                      DateTime.now().add(Duration(days: 1)),
+                                      DateTime.now().add(const Duration(days: 1)),
                                   firstDate:
-                                      DateTime.now().add(Duration(days: 1)),
+                                      DateTime.now().add(const Duration(days: 1)),
                                   lastDate:
-                                      DateTime.now().add(Duration(days: 7)),
+                                      DateTime.now().add(const Duration(days: 7)),
                                   onValueChanged: (value) {
                                     if (value.isNotEmpty) {
                                       context

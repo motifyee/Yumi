@@ -7,8 +7,8 @@ import 'package:yumi/template/chef_order.dart';
 class PreOrderScreen extends StatelessWidget {
   PreOrderScreen({super.key});
 
-  PageController _controller = PageController(initialPage: 1);
-  MenuTarget _menuTarget = MenuTarget.preOrder;
+  final PageController _controller = PageController(initialPage: 1);
+  final MenuTarget _menuTarget = MenuTarget.preOrder;
 
   @override
   Widget build(BuildContext context) {

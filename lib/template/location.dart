@@ -22,7 +22,7 @@ class Location extends StatelessWidget {
           listener: (context, state) {},
           builder: (context, state) {
             print(state.address?.toJson());
-            return Container(
+            return SizedBox(
               width: MediaQuery.of(context).size.width * .5,
               child: Text(
                 state.address?.location ?? state.address?.addressTitle ?? '',

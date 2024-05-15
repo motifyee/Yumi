@@ -45,7 +45,7 @@ class NotificationScreen extends StatelessWidget {
             child: Row(
               children: [
                 SvgPicture.asset('assets/images/notification.svg'),
-                Text('  '),
+                const Text('  '),
                 Text(
                   S.of(context).notification,
                   style: Theme.of(context).textTheme.labelLarge,
@@ -56,7 +56,7 @@ class NotificationScreen extends StatelessWidget {
           SizedBox(height: ThemeSelector.statics.defaultGap),
           BlocProvider(
             create: (context) => NotificationCubit(),
-            child: Expanded(
+            child: const Expanded(
               child: _NotificationList(),
             ),
           ),
@@ -67,7 +67,7 @@ class NotificationScreen extends StatelessWidget {
 }
 
 class _NotificationList extends StatelessWidget {
-  const _NotificationList({super.key});
+  const _NotificationList();
 
   @override
   Widget build(BuildContext context) {

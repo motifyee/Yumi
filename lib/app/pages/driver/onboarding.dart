@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';

@@ -60,7 +60,7 @@ class MealListScreen extends StatelessWidget {
 
 class _MealList extends StatelessWidget {
   const _MealList(
-      {super.key, required this.favPageController, required this.menuTarget});
+      {required this.favPageController, required this.menuTarget});
 
   final PageController favPageController;
   final MenuTarget menuTarget;
@@ -263,7 +263,7 @@ class _MealList extends StatelessWidget {
 
 class _CategoriesList extends StatelessWidget {
   const _CategoriesList(
-      {super.key, required this.favPageController, required this.menuTarget});
+      {required this.favPageController, required this.menuTarget});
 
   final PageController favPageController;
   final MenuTarget menuTarget;

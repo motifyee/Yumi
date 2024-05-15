@@ -6,7 +6,7 @@ import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class MealListCard extends StatelessWidget {
-  MealListCard({
+  const MealListCard({
     super.key,
     required this.meal,
     this.onTap,

@@ -72,7 +72,7 @@ class ConfirmCheckOutBasket extends StatelessWidget {
                       context.router.popForced();
                       showDialog(
                           context: context,
-                          builder: (context) => ConfirmChangeLocationBasket());
+                          builder: (context) => const ConfirmChangeLocationBasket());
                     },
                     child: Text(
                       S.of(context).change,

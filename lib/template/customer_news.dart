@@ -38,7 +38,7 @@ class CustomerNews extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        context.router.replaceAll([CustomerLocationRoute()]);
+                        context.router.replaceAll([const CustomerLocationRoute()]);
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(
@@ -290,7 +290,7 @@ class CustomerNews extends StatelessWidget {
                                       'assets/images/profile1.svg'),
                                 ),
                               ),
-                              Text(' '),
+                              const Text(' '),
                               Text(
                                 menuTarget == MenuTarget.preOrder
                                     ? S.of(context).chefs

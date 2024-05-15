@@ -17,7 +17,7 @@ class CaloriesReferenceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CaloriesCubit(),
-      child: CaloriesReferenceTemplate(),
+      child: const CaloriesReferenceTemplate(),
     );
   }
 }

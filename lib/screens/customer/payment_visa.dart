@@ -12,7 +12,7 @@ import 'package:yumi/validators/expiry_date_input_formatter.dart';
 
 @RoutePage()
 class PaymentVisaScreen extends StatelessWidget {
-  PaymentVisaScreen({super.key});
+  const PaymentVisaScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +123,7 @@ class PaymentVisaScreen extends StatelessWidget {
                       S.of(context).securePaymentWithSSLEncryptionInfo,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
-                    Expanded(child: Text('')),
+                    const Expanded(child: Text('')),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

@@ -29,7 +29,7 @@ class BasketMealCard extends StatelessWidget {
             BoxShadow(
                 color: ThemeSelector.colors.shadow.withOpacity(.05),
                 blurRadius: 2,
-                offset: Offset(0, 3))
+                offset: const Offset(0, 3))
           ],
         ),
         child: Padding(
@@ -65,7 +65,7 @@ class BasketMealCard extends StatelessWidget {
                             TextButton(
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero,
-                                  minimumSize: Size(30, 30),
+                                  minimumSize: const Size(30, 30),
                                   tapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
                                 ),
@@ -114,7 +114,7 @@ class BasketMealCard extends StatelessWidget {
                             TextButton(
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero,
-                                  minimumSize: Size(30, 30),
+                                  minimumSize: const Size(30, 30),
                                   tapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
                                 ),

@@ -11,7 +11,7 @@ import 'package:yumi/template/text_currency.dart';
 
 @RoutePage()
 class CustomerWalletScreen extends StatelessWidget {
-  CustomerWalletScreen({super.key});
+  const CustomerWalletScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class CustomerWalletScreen extends StatelessWidget {
               child: Row(
                 children: [
                   SvgPicture.asset('assets/images/schedule_menu.svg'),
-                  Text('  '),
+                  const Text('  '),
                   Text(
                     S.of(context).yourWallet,
                     style: Theme.of(context).textTheme.labelLarge,

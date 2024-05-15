@@ -18,12 +18,12 @@ class OrderStatusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime _updatedDate =
+    DateTime updatedDate =
         DateTime.tryParse(order.updatedDate ?? '') ?? DateTime.now();
-    DateTime? _chefStartDate = DateTime.tryParse(order.chefStartDate ?? '');
-    DateTime? _chefFinishedDate =
+    DateTime? chefStartDate = DateTime.tryParse(order.chefStartDate ?? '');
+    DateTime? chefFinishedDate =
         DateTime.tryParse(order.chefFinishedDate ?? '');
-    DateTime? _driverReceivedDate =
+    DateTime? driverReceivedDate =
         DateTime.tryParse(order.driverReceivedDate ?? '');
 
     return Scaffold(
@@ -140,7 +140,7 @@ class OrderStatusScreen extends StatelessWidget {
                               const Text(' '),
                               Text(
                                 DateFormat('d-M-yyyy | hh:mm')
-                                    .format(_updatedDate!),
+                                    .format(updatedDate),
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ],
@@ -178,7 +178,7 @@ class OrderStatusScreen extends StatelessWidget {
                               Text(
                                 order.chefStart == true
                                     ? DateFormat('d-M-yyyy | hh:mm')
-                                        .format(_chefStartDate!)
+                                        .format(chefStartDate!)
                                     : '--:--',
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
@@ -218,7 +218,7 @@ class OrderStatusScreen extends StatelessWidget {
                                 Text(
                                   order.driverReceived == true
                                       ? DateFormat('d-M-yyyy | hh:mm')
-                                          .format(_driverReceivedDate!)
+                                          .format(driverReceivedDate!)
                                       : '--:--',
                                   style:
                                       Theme.of(context).textTheme.labelMedium,
@@ -285,7 +285,7 @@ class OrderStatusScreen extends StatelessWidget {
                                 Text(
                                   order.chefFinished == true
                                       ? DateFormat('d-M-yyyy | hh:mm')
-                                          .format(_chefFinishedDate!)
+                                          .format(chefFinishedDate!)
                                       : '--:--',
                                   style:
                                       Theme.of(context).textTheme.labelMedium,
@@ -373,8 +373,9 @@ class DrawDottedVerticalLine extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     for (double i = -height; i < height; i = i + 5) {
       // 15 is space between dots
-      if (i % 3 == 0)
+      if (i % 3 == 0) {
         canvas.drawLine(Offset(0.0, i), Offset(0.0, i + 5), _paint);
+      }
     }
   }
 
