@@ -13,6 +13,7 @@ class ConfirmButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => {if (onPressed != null) onPressed!()},
+      splashColor: ThemeSelector.colors.secondary,
       borderRadius:
           BorderRadius.circular(ThemeSelector.statics.buttonBorderRadius),
       child: Container(
@@ -22,16 +23,15 @@ class ConfirmButton extends StatelessWidget {
         width: ThemeSelector.statics.buttonWidth,
         decoration: BoxDecoration(
           color: enabled
-              ? ThemeSelector.colors.primary
-              : ThemeSelector.colors.secondary,
+              ? ThemeSelector.colors.primary.withOpacity(.95)
+              : ThemeSelector.colors.secondary.withOpacity(.95),
           borderRadius:
               BorderRadius.circular(ThemeSelector.statics.buttonBorderRadius),
         ),
         child: Center(
-          child: Text(
-            label,
-            style: Theme.of(context).textTheme.displayLarge,
-          ),
+          child: Text(label, style: Theme.of(context).textTheme.displayLarge
+              // ?.copyWith(color: Colors.red),
+              ),
         ),
       ),
     );
