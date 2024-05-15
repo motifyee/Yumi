@@ -26,6 +26,7 @@ mixin _$UserModel {
   String get message => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  String? get password => throw _privateConstructorUsedError;
   String get code => throw _privateConstructorUsedError;
   int get multiAddressID =>
       throw _privateConstructorUsedError; // @Default('') String bio,
@@ -70,6 +71,7 @@ abstract class $UserModelCopyWith<$Res> {
       String message,
       String userName,
       String email,
+      String? password,
       String code,
       int multiAddressID,
       @JsonKey(name: 'access_Token') String accessToken,
@@ -105,6 +107,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? message = null,
     Object? userName = null,
     Object? email = null,
+    Object? password = freezed,
     Object? code = null,
     Object? multiAddressID = null,
     Object? accessToken = null,
@@ -145,6 +148,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      password: freezed == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String?,
       code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -220,6 +227,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       String message,
       String userName,
       String email,
+      String? password,
       String code,
       int multiAddressID,
       @JsonKey(name: 'access_Token') String accessToken,
@@ -253,6 +261,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? message = null,
     Object? userName = null,
     Object? email = null,
+    Object? password = freezed,
     Object? code = null,
     Object? multiAddressID = null,
     Object? accessToken = null,
@@ -293,6 +302,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      password: freezed == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String?,
       code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -363,6 +376,7 @@ class _$InitialImpl extends _Initial {
       this.message = '',
       this.userName = '',
       this.email = '',
+      this.password,
       this.code = '',
       this.multiAddressID = 0,
       @JsonKey(name: 'access_Token') this.accessToken = '',
@@ -397,6 +411,8 @@ class _$InitialImpl extends _Initial {
   @override
   @JsonKey()
   final String email;
+  @override
+  final String? password;
   @override
   @JsonKey()
   final String code;
@@ -442,7 +458,7 @@ class _$InitialImpl extends _Initial {
 
   @override
   String toString() {
-    return 'UserModel(chefId: $chefId, driverId: $driverId, customerId: $customerId, message: $message, userName: $userName, email: $email, code: $code, multiAddressID: $multiAddressID, accessToken: $accessToken, expiresIn: $expiresIn, address: $address, addressName: $addressName, lat: $lat, long: $long, location: $location, status: $status, accountApproved: $accountApproved, accountApprovedDate: $accountApprovedDate, mobileVerified: $mobileVerified, mobileVerifiedDate: $mobileVerifiedDate)';
+    return 'UserModel(chefId: $chefId, driverId: $driverId, customerId: $customerId, message: $message, userName: $userName, email: $email, password: $password, code: $code, multiAddressID: $multiAddressID, accessToken: $accessToken, expiresIn: $expiresIn, address: $address, addressName: $addressName, lat: $lat, long: $long, location: $location, status: $status, accountApproved: $accountApproved, accountApprovedDate: $accountApprovedDate, mobileVerified: $mobileVerified, mobileVerifiedDate: $mobileVerifiedDate)';
   }
 
   @override
@@ -459,6 +475,8 @@ class _$InitialImpl extends _Initial {
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.multiAddressID, multiAddressID) ||
                 other.multiAddressID == multiAddressID) &&
@@ -494,6 +512,7 @@ class _$InitialImpl extends _Initial {
         message,
         userName,
         email,
+        password,
         code,
         multiAddressID,
         accessToken,
@@ -532,6 +551,7 @@ abstract class _Initial extends UserModel {
       final String message,
       final String userName,
       final String email,
+      final String? password,
       final String code,
       final int multiAddressID,
       @JsonKey(name: 'access_Token') final String accessToken,
@@ -563,6 +583,8 @@ abstract class _Initial extends UserModel {
   String get userName;
   @override
   String get email;
+  @override
+  String? get password;
   @override
   String get code;
   @override

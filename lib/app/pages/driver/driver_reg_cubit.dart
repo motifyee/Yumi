@@ -156,8 +156,8 @@ class RegCubit extends Cubit<NRegState> {
         login: LoginModel(
       email: state.singupData?.email ?? '',
       password: state.singupData?.password ?? '',
-    )).then((loginResponse) {
-      G.read<UserBloc>().add(UserFromJsonEvent(user: loginResponse.toJson()));
+    )).then((user) {
+      G.read<UserBloc>().add(UserFromJsonEvent(user: user.toJson()));
     });
 
     G.router.replaceAll([HomeRoute()]).then((value) {

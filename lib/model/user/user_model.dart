@@ -14,6 +14,7 @@ class UserModel with _$UserModel {
     @Default('') String message,
     @Default('') String userName,
     @Default('') String email,
+    String? password,
     @Default('') String code,
     @Default(0) int multiAddressID,
     // @Default('') String bio,

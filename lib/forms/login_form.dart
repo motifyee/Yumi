@@ -126,18 +126,19 @@ class LoginForm extends StatelessWidget {
 void performLogin(BuildContext context, LoginModel loginForm,
     [String? route]) async {
   return await LoginServices.login(login: loginForm, context: context)
-      .then((loginResponse) async {
-    final Map<String, dynamic> json = loginResponse.toJson();
+      .then((user) async {
+    final Map<String, dynamic> json =
+        user.copyWith(password: loginForm.password).toJson();
 
-    if ((loginResponse.accessToken ?? '').isEmpty) {
-      return G.snackBar(loginResponse.message ?? "Error!");
+    if ((user.accessToken).isEmpty) {
+      return G.snackBar(user.message);
     }
 
     // save login data locally
     context.read<UserBloc>().add(UserFromJsonEvent(
           user: json,
           routeAfterLogin: () async {
-            if (!(loginResponse.mobileVerified ?? false)) {
+            if (!(user.mobileVerified ?? false)) {
               return await context
                   .read<RegCubit>()
                   .saveStepToCache(RegStep.addPhone.index)
@@ -146,7 +147,7 @@ void performLogin(BuildContext context, LoginModel loginForm,
                 context.read<RegCubit>().init();
               });
             }
-            if (!G.isCustomerApp && !(loginResponse.accountApproved ?? false)) {
+            if (!G.isCustomerApp && !(user.accountApproved ?? false)) {
               return await context
                   .read<RegCubit>()
                   .saveStepToCache(RegStep.onboarding.index)

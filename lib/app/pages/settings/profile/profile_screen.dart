@@ -38,7 +38,7 @@ Widget profileImagePicker(
       onPressed: (image) async {
         if (image == null) return;
 
-        G.rd<ProfileCubit>().updateProfilePhoto(image);
+        await G.rd<ProfileCubit>().updateProfilePhoto(image);
       },
     ),
   );
