@@ -38,8 +38,9 @@ class OrderModel with _$OrderModel {
     @JsonKey(name: 'chef_Finished_Date') String? chefFinishedDate,
     @JsonKey(name: 'client_Received') bool? clientReceived,
     @JsonKey(name: 'client_Received_Date') String? clientReceivedDate,
-    @JsonKey(name: 'is_Pickup') final bool? isPickUp,
+    @JsonKey(name: 'is_Pickup') bool? isPickUp,
     @Default([]) List<InvoiceDetails>? invoiceDetails,
+    @Default(false) bool isLoading,
   }) = _OrderModel;
 
   const OrderModel._();

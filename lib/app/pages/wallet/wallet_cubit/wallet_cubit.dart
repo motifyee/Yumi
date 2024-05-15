@@ -9,10 +9,11 @@ part 'wallet_cubit.g.dart';
 
 @freezed
 class WalletState with _$WalletState {
-  const factory WalletState({required Wallet wallet}) = _WalletState;
+  const factory WalletState({required Wallet wallet, required bool isLoading}) =
+      _WalletState;
 
   factory WalletState.initial() {
-    return WalletState(wallet: Wallet());
+    return const WalletState(wallet: Wallet(), isLoading: false);
   }
 
   factory WalletState.fromJson(Map<String, dynamic> json) =>
@@ -23,7 +24,9 @@ class WalletCubit extends Cubit<WalletState> {
   WalletCubit() : super(WalletState.initial());
 
   getWallet() async {
+    if (state.isLoading) return;
+    emit(state.copyWith(isLoading: true));
     Response res = await WalletService.getWallet();
-    emit(state.copyWith(wallet: Wallet.fromJson(res.data)));
+    emit(state.copyWith(wallet: Wallet.fromJson(res.data), isLoading: false));
   }
 }

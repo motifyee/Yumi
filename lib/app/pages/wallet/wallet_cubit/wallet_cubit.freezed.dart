@@ -21,6 +21,7 @@ WalletState _$WalletStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$WalletState {
   Wallet get wallet => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $WalletStateCopyWith<$Res> {
           WalletState value, $Res Function(WalletState) then) =
       _$WalletStateCopyWithImpl<$Res, WalletState>;
   @useResult
-  $Res call({Wallet wallet});
+  $Res call({Wallet wallet, bool isLoading});
 
   $WalletCopyWith<$Res> get wallet;
 }
@@ -53,12 +54,17 @@ class _$WalletStateCopyWithImpl<$Res, $Val extends WalletState>
   @override
   $Res call({
     Object? wallet = null,
+    Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
       wallet: null == wallet
           ? _value.wallet
           : wallet // ignore: cast_nullable_to_non_nullable
               as Wallet,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -79,7 +85,7 @@ abstract class _$$WalletStateImplCopyWith<$Res>
       __$$WalletStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Wallet wallet});
+  $Res call({Wallet wallet, bool isLoading});
 
   @override
   $WalletCopyWith<$Res> get wallet;
@@ -97,12 +103,17 @@ class __$$WalletStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? wallet = null,
+    Object? isLoading = null,
   }) {
     return _then(_$WalletStateImpl(
       wallet: null == wallet
           ? _value.wallet
           : wallet // ignore: cast_nullable_to_non_nullable
               as Wallet,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -110,17 +121,19 @@ class __$$WalletStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$WalletStateImpl implements _WalletState {
-  const _$WalletStateImpl({required this.wallet});
+  const _$WalletStateImpl({required this.wallet, required this.isLoading});
 
   factory _$WalletStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$WalletStateImplFromJson(json);
 
   @override
   final Wallet wallet;
+  @override
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'WalletState(wallet: $wallet)';
+    return 'WalletState(wallet: $wallet, isLoading: $isLoading)';
   }
 
   @override
@@ -128,12 +141,14 @@ class _$WalletStateImpl implements _WalletState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WalletStateImpl &&
-            (identical(other.wallet, wallet) || other.wallet == wallet));
+            (identical(other.wallet, wallet) || other.wallet == wallet) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, wallet);
+  int get hashCode => Object.hash(runtimeType, wallet, isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -150,14 +165,17 @@ class _$WalletStateImpl implements _WalletState {
 }
 
 abstract class _WalletState implements WalletState {
-  const factory _WalletState({required final Wallet wallet}) =
-      _$WalletStateImpl;
+  const factory _WalletState(
+      {required final Wallet wallet,
+      required final bool isLoading}) = _$WalletStateImpl;
 
   factory _WalletState.fromJson(Map<String, dynamic> json) =
       _$WalletStateImpl.fromJson;
 
   @override
   Wallet get wallet;
+  @override
+  bool get isLoading;
   @override
   @JsonKey(ignore: true)
   _$$WalletStateImplCopyWith<_$WalletStateImpl> get copyWith =>

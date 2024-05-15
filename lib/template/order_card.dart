@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -74,12 +75,10 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
     if (widget.orderCardTargetPage == OrderCardTargetPage.driverAccept) {
       if (widget.menuTarget == MenuTarget.order &&
           widget.order.isDriverOrderPendingEnd) {
-        print('isDriverOrderPendingEnd 000000000000000000000');
         return const SizedBox(height: 0, width: 0);
       }
       if (widget.menuTarget == MenuTarget.preOrder &&
           widget.order.isDriverPreOrderPendingEnd) {
-        print('isDriverPreOrderPendingEnd 000000000000000000000');
         return const SizedBox(height: 0, width: 0);
       }
 
@@ -924,6 +923,18 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
             ),
           ),
         ),
+        if (widget.order.isLoading)
+          Positioned(
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                decoration: BoxDecoration(color: ThemeSelector.colors.shadow),
+                child: Center(
+                  child: Loading(),
+                ),
+              )),
       ],
     );
   }

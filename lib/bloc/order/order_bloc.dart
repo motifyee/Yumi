@@ -65,6 +65,13 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   _putAction(
       {required _putActionEvent event,
       required Emitter<OrderState> emit}) async {
+    List<OrderModel> orders = List.from(state.orders);
+    orders[orders.indexWhere((e) => e.id == event.order.id)] =
+        orders[orders.indexWhere((e) => e.id == event.order.id)]
+            .copyWith(isLoading: true);
+
+    emit(state.copyWith(orders: orders));
+
     Response res = await OrderService.putActionOrderOrPreOrder(
         apiKeys: event.apiKey,
         orderId: event.order.id,
