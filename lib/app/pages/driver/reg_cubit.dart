@@ -143,12 +143,6 @@ class RegCubit extends Cubit<NRegState> {
     pref.remove(regStepKey);
     pref.remove(onboardingProgressKey);
 
-    G.rd<ProfileCubit>().reset();
-    if (!G.isCustomerApp) {
-      G.rd<ScheduleCubit>().reset();
-      G.rd<DocsCubit>().reset();
-    }
-
     await LoginServices.login(
         login: LoginModel(
       email: state.singupData?.email ?? '',
@@ -169,6 +163,12 @@ class RegCubit extends Cubit<NRegState> {
         registerationStarted: false,
         finished: true,
       ));
+
+      G.rd<ProfileCubit>().reset();
+      if (!G.isCustomerApp) {
+        G.rd<ScheduleCubit>().reset();
+        G.rd<DocsCubit>().reset();
+      }
     });
   }
 

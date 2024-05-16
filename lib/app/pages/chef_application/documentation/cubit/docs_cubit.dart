@@ -11,7 +11,6 @@ part 'docs_cubit.freezed.dart';
 @freezed
 class DocsState with _$DocsState {
   const factory DocsState({
-    @Default(Profile()) Profile profile,
     @Default(Status.init) Status status,
     @Default('') String message,
     @Default([null, null, null, null, null]) List<Status?> docsStatuses,
@@ -20,7 +19,7 @@ class DocsState with _$DocsState {
   const DocsState._();
 
   bool get isUploading => docsStatuses.any((e) => e?.isLoading ?? false);
-  bool get finished => profile.documentaionDone;
+  bool get finished => G.rd<ProfileCubit>().state.form.documentaionDone;
 }
 
 class DocsCubit extends Cubit<DocsState> {
@@ -29,11 +28,17 @@ class DocsCubit extends Cubit<DocsState> {
   void init() async {
     emit(state.copyWith(status: Status.loading));
 
-    final profile = await G.rd<ProfileCubit>().getProfileForm();
+    final profileCubit = G.rd<ProfileCubit>();
+    final profile = switch (profileCubit.state.form.guid.isEmpty) {
+      true => await profileCubit.getProfileForm(),
+      false => profileCubit.state.form,
+    };
 
-    if (profile == null) return emit(state.copyWith(status: Status.initError));
+    if (profile == null || profile.guid.isEmpty) {
+      return emit(state.copyWith(status: Status.initError));
+    }
 
-    emit(state.copyWith(profile: profile, status: Status.initSuccess));
+    emit(state.copyWith(status: Status.initSuccess));
   }
 
   void update(Profile profile, int idx) async {
@@ -46,7 +51,6 @@ class DocsCubit extends Cubit<DocsState> {
 
     if (update != null) {
       emit(state.copyWith(
-        profile: update,
         status: Status.success,
         docsStatuses: [...state.docsStatuses]..[idx] = Status.success,
       ));

@@ -46,7 +46,7 @@ _$ProfileImpl _$$ProfileImplFromJson(Map<String, dynamic> json) =>
           json['image_Food_Delivery_Insurance'] as String?,
       evidenceOfResidencePhoto: json['image_Evidence_Of_Residence'] as String?,
       passportPhoto: json['image_Passport'] as String?,
-      nidPhoto: json['image_Id'] as String?,
+      nidPhoto: json['image_ID'] as String?,
       contractPhoto: json['image_Contract'] as String?,
     );
 
@@ -87,6 +87,6 @@ Map<String, dynamic> _$$ProfileImplToJson(_$ProfileImpl instance) =>
       'image_Food_Delivery_Insurance': instance.foodDeliveryInsurancePhoto,
       'image_Evidence_Of_Residence': instance.evidenceOfResidencePhoto,
       'image_Passport': instance.passportPhoto,
-      'image_Id': instance.nidPhoto,
+      'image_ID': instance.nidPhoto,
       'image_Contract': instance.contractPhoto,
     };

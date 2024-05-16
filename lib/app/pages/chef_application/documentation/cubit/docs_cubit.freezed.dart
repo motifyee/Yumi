@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DocsState {
-  Profile get profile => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   List<Status?> get docsStatuses => throw _privateConstructorUsedError;
@@ -31,13 +30,7 @@ abstract class $DocsStateCopyWith<$Res> {
   factory $DocsStateCopyWith(DocsState value, $Res Function(DocsState) then) =
       _$DocsStateCopyWithImpl<$Res, DocsState>;
   @useResult
-  $Res call(
-      {Profile profile,
-      Status status,
-      String message,
-      List<Status?> docsStatuses});
-
-  $ProfileCopyWith<$Res> get profile;
+  $Res call({Status status, String message, List<Status?> docsStatuses});
 }
 
 /// @nodoc
@@ -53,16 +46,11 @@ class _$DocsStateCopyWithImpl<$Res, $Val extends DocsState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? profile = null,
     Object? status = null,
     Object? message = null,
     Object? docsStatuses = null,
   }) {
     return _then(_value.copyWith(
-      profile: null == profile
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
-              as Profile,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -77,14 +65,6 @@ class _$DocsStateCopyWithImpl<$Res, $Val extends DocsState>
               as List<Status?>,
     ) as $Val);
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ProfileCopyWith<$Res> get profile {
-    return $ProfileCopyWith<$Res>(_value.profile, (value) {
-      return _then(_value.copyWith(profile: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -94,14 +74,7 @@ abstract class _$$InitImplCopyWith<$Res> implements $DocsStateCopyWith<$Res> {
       __$$InitImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {Profile profile,
-      Status status,
-      String message,
-      List<Status?> docsStatuses});
-
-  @override
-  $ProfileCopyWith<$Res> get profile;
+  $Res call({Status status, String message, List<Status?> docsStatuses});
 }
 
 /// @nodoc
@@ -114,16 +87,11 @@ class __$$InitImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? profile = null,
     Object? status = null,
     Object? message = null,
     Object? docsStatuses = null,
   }) {
     return _then(_$InitImpl(
-      profile: null == profile
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
-              as Profile,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -144,16 +112,12 @@ class __$$InitImplCopyWithImpl<$Res>
 
 class _$InitImpl extends _Init {
   const _$InitImpl(
-      {this.profile = const Profile(),
-      this.status = Status.init,
+      {this.status = Status.init,
       this.message = '',
       final List<Status?> docsStatuses = const [null, null, null, null, null]})
       : _docsStatuses = docsStatuses,
         super._();
 
-  @override
-  @JsonKey()
-  final Profile profile;
   @override
   @JsonKey()
   final Status status;
@@ -171,7 +135,7 @@ class _$InitImpl extends _Init {
 
   @override
   String toString() {
-    return 'DocsState(profile: $profile, status: $status, message: $message, docsStatuses: $docsStatuses)';
+    return 'DocsState(status: $status, message: $message, docsStatuses: $docsStatuses)';
   }
 
   @override
@@ -179,7 +143,6 @@ class _$InitImpl extends _Init {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitImpl &&
-            (identical(other.profile, profile) || other.profile == profile) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.message, message) || other.message == message) &&
             const DeepCollectionEquality()
@@ -187,7 +150,7 @@ class _$InitImpl extends _Init {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, profile, status, message,
+  int get hashCode => Object.hash(runtimeType, status, message,
       const DeepCollectionEquality().hash(_docsStatuses));
 
   @JsonKey(ignore: true)
@@ -199,14 +162,11 @@ class _$InitImpl extends _Init {
 
 abstract class _Init extends DocsState {
   const factory _Init(
-      {final Profile profile,
-      final Status status,
+      {final Status status,
       final String message,
       final List<Status?> docsStatuses}) = _$InitImpl;
   const _Init._() : super._();
 
-  @override
-  Profile get profile;
   @override
   Status get status;
   @override

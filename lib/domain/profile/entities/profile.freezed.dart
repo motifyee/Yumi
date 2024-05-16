@@ -79,7 +79,7 @@ mixin _$Profile {
       throw _privateConstructorUsedError; //common
   @JsonKey(name: 'image_Passport')
   String? get passportPhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_Id')
+  @JsonKey(name: 'image_ID')
   String? get nidPhoto => throw _privateConstructorUsedError; //
   @JsonKey(name: 'image_Contract')
   String? get contractPhoto => throw _privateConstructorUsedError;
@@ -135,7 +135,7 @@ abstract class $ProfileCopyWith<$Res> {
       @JsonKey(name: 'image_Evidence_Of_Residence')
       String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') String? passportPhoto,
-      @JsonKey(name: 'image_Id') String? nidPhoto,
+      @JsonKey(name: 'image_ID') String? nidPhoto,
       @JsonKey(name: 'image_Contract') String? contractPhoto});
 }
 
@@ -396,7 +396,7 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       @JsonKey(name: 'image_Evidence_Of_Residence')
       String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') String? passportPhoto,
-      @JsonKey(name: 'image_Id') String? nidPhoto,
+      @JsonKey(name: 'image_ID') String? nidPhoto,
       @JsonKey(name: 'image_Contract') String? contractPhoto});
 }
 
@@ -650,7 +650,7 @@ class _$ProfileImpl extends _Profile {
       @JsonKey(name: 'image_Evidence_Of_Residence')
       this.evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') this.passportPhoto,
-      @JsonKey(name: 'image_Id') this.nidPhoto,
+      @JsonKey(name: 'image_ID') this.nidPhoto,
       @JsonKey(name: 'image_Contract') this.contractPhoto})
       : super._();
 
@@ -775,7 +775,7 @@ class _$ProfileImpl extends _Profile {
   @JsonKey(name: 'image_Passport')
   final String? passportPhoto;
   @override
-  @JsonKey(name: 'image_Id')
+  @JsonKey(name: 'image_ID')
   final String? nidPhoto;
 //
   @override
@@ -962,7 +962,7 @@ abstract class _Profile extends Profile {
       @JsonKey(name: 'image_Evidence_Of_Residence')
       final String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') final String? passportPhoto,
-      @JsonKey(name: 'image_Id') final String? nidPhoto,
+      @JsonKey(name: 'image_ID') final String? nidPhoto,
       @JsonKey(name: 'image_Contract')
       final String? contractPhoto}) = _$ProfileImpl;
   const _Profile._() : super._();
@@ -1064,7 +1064,7 @@ abstract class _Profile extends Profile {
   @JsonKey(name: 'image_Passport')
   String? get passportPhoto;
   @override
-  @JsonKey(name: 'image_Id')
+  @JsonKey(name: 'image_ID')
   String? get nidPhoto;
   @override //
   @JsonKey(name: 'image_Contract')

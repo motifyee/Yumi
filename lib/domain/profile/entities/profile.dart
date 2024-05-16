@@ -67,7 +67,7 @@ abstract class Profile with _$Profile {
     String? evidenceOfResidencePhoto,
     //common
     @JsonKey(name: 'image_Passport') String? passportPhoto,
-    @JsonKey(name: 'image_Id') String? nidPhoto,
+    @JsonKey(name: 'image_ID') String? nidPhoto,
 
     //
     @JsonKey(name: 'image_Contract') String? contractPhoto,

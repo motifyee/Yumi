@@ -10,7 +10,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yumi/app/core/setup/awesome_notifications.dart';
+import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/extensions/color.dart';
 import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_info.dart';
@@ -61,7 +63,9 @@ class DocumentationScreen extends StatelessWidget {
               const SizedBox(),
               BlocBuilder<DocsCubit, DocsState>(
                 builder: (context, state) {
-                  if (state.profile.guid.isEmpty) {
+                  final profile = G.rd<ProfileCubit>().state.form;
+
+                  if (profile.guid.isEmpty) {
                     context.read<DocsCubit>().init();
                   }
 
@@ -69,7 +73,7 @@ class DocumentationScreen extends StatelessWidget {
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )
-                      : documentWidgets(context, state);
+                      : documentWidgets(context, state, profile);
                 },
               ),
             ],
@@ -81,7 +85,8 @@ class DocumentationScreen extends StatelessWidget {
 
   List get data => G.isChefApp ? chefDocsInfo : driverDocsInfo;
 
-  Widget documentWidgets(BuildContext context, DocsState state) {
+  Widget documentWidgets(
+      BuildContext context, DocsState state, Profile profile) {
     Future<String?> Function()? preAction(dynamic e) {
       if (e['targets'] == null) return null;
 
@@ -140,7 +145,7 @@ class DocumentationScreen extends StatelessWidget {
             data: () {
               if (e['getdata'] == null) return null;
 
-              var res = e['getdata'](state.profile);
+              var res = e['getdata'](profile);
               return res;
             }(),
             desc: e['desc'],
@@ -149,12 +154,12 @@ class DocumentationScreen extends StatelessWidget {
             preAction: preAction(e),
             uploadAction: (String image, String? target) {
               if (target == null) {
-                G.rd<DocsCubit>().update(e['update'](state.profile, image), 0);
+                G.rd<DocsCubit>().update(e['update'](profile, image), 0);
               } else {
                 var updater = (e['targets'] as List)
                     .firstWhereOrNull((e) => e['option'] == target)['update'];
 
-                G.rd<DocsCubit>().update(updater(state.profile, image), 0);
+                G.rd<DocsCubit>().update(updater(profile, image), 0);
               }
 
               // if(data[0]['targets'] != null)
