@@ -4,7 +4,7 @@ import 'package:nested/nested.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/chef_application/bloc.dart';
 import 'package:yumi/app/pages/chef_application/documentation/bloc/icon_bloc.dart';
-import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
+import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';

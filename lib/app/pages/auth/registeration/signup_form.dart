@@ -5,7 +5,7 @@ import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
+import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/model/registeration.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/auth/registeration/repository/signup_service.dart';

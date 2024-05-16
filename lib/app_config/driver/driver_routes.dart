@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:yumi/app/pages/driver/driver_reg_cubit.dart';
+import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app_config/guards.dart';
 import 'package:yumi/route/route.gr.dart';
 

@@ -30,7 +30,7 @@ import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/login_service.dart';
 import 'package:yumi/util/util.dart';
 
-part 'driver_reg_cubit.freezed.dart';
+part 'reg_cubit.freezed.dart';
 
 const String regStepKey = 'reg_step';
 const String onboardingProgressKey = 'onboarding_progress';
@@ -38,7 +38,7 @@ const String onboardingProgressKey = 'onboarding_progress';
 enum RegStep { signup, addPhone, otp, location, onboarding }
 
 @freezed
-class NRegState with _$NRegState {
+abstract class NRegState with _$NRegState {
   const factory NRegState({
     @Default(false) bool registerationStarted,
     @Default(false) bool finished,
