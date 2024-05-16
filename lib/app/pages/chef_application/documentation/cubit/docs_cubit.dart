@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
@@ -30,13 +29,11 @@ class DocsCubit extends Cubit<DocsState> {
   void init() async {
     emit(state.copyWith(status: Status.loading));
 
-    final load = await G.rd<ProfileCubit>().getProfileForm();
+    final profile = await G.rd<ProfileCubit>().getProfileForm();
 
-    if (load != null) {
-      emit(state.copyWith(profile: load, status: Status.initSuccess));
-    } else {
-      emit(state.copyWith(status: Status.initError));
-    }
+    if (profile == null) return emit(state.copyWith(status: Status.initError));
+
+    emit(state.copyWith(profile: profile, status: Status.initSuccess));
   }
 
   void update(Profile profile, int idx) async {

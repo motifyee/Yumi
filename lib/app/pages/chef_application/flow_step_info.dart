@@ -26,6 +26,7 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
               builder: (context) => const EditBioSheet(),
             ),
         () => true,
+        () => G.rd<RegCubit>().state.onboarding.profileSheetDone,
       ],
       [
         "menu",
@@ -59,6 +60,7 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
           );
         },
         () => state.onboarding.mealsActive,
+        () => G.rd<RegCubit>().state.onboarding.mealsDone,
       ],
       [
         "documentation",
@@ -71,6 +73,8 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
               insetPadding: 0,
             ),
         () => state.onboarding.docsActive,
+
+        () => G.rd<RegCubit>().state.onboarding.docsDone,
       ],
       [
         "approval",
@@ -92,6 +96,7 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
           });
         },
         () => state.onboarding.approvalActive,
+        () => G.rd<RegCubit>().state.onboarding.approvalDone,
       ],
       [
         "contract",
@@ -113,6 +118,7 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
                   },
                 }),
         () => state.onboarding.contractActive,
+        () => G.rd<RegCubit>().state.onboarding.contractDone,
       ],
     ];
 
@@ -169,6 +175,7 @@ List driverStepsInfo(BuildContext context, NRegState state) => [
           );
         },
         () => state.onboarding.ridesActive,
+        () => G.rd<RegCubit>().state.onboarding.ridesDone,
       ],
       chefStepsInfo(context, state)[2],
       chefStepsInfo(context, state)[3],

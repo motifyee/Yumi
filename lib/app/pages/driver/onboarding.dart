@@ -1,4 +1,3 @@
-
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
@@ -43,16 +42,16 @@ class Onboarding {
   }
 
   bool get stepTwoDone {
-    if (approvalDone) return true;
+    // if (approvalDone) return true;
 
-    if (G.yumiApp.config.appTargetUser == AppTargetUser.drivers) {
-      return ridesDone;
-    }
+    if (G.isDriverApp) return ridesDone;
+
     return mealsDone;
   }
 
-  bool get docsActive => _onboardingProgress > 1 || stepTwoDone;
-  bool get docsDone => docsActive && G.rd<DocsCubit>().state.finished;
+  bool get docsActive => approvalDone || _onboardingProgress > 1 || stepTwoDone;
+  bool get docsDone =>
+      docsActive && G.rd<ProfileCubit>().state.form.documentaionDone;
 
   bool get approvalActive =>
       _onboardingProgress > 2 || approvalDone || docsDone;

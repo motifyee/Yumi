@@ -186,7 +186,7 @@ Function(bool alignRight) tileChildrenFn(info) {
       SizedBox(
         // height: vs,
         child: SvgPicture.asset(
-          "assets/images/flow/${info[0]}.svg",
+          "assets/images/flow/${info[0] + (info[4]() ? "-done" : "")}.svg",
         ),
       ),
       Flexible(
