@@ -68,8 +68,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       if (state.loading || state.isStatusLocked) return;
       emit(state.copyWith(loading: true));
 
-      int status = state.user.status == 1 ? 2 : 1;
-      if (event.statusEnum == StatusEnum.ready) status = 1;
+      int status = state.user.status == 1 ? 0 : 1;
+      if (event.statusEnum == StatusEnum.offline) status = 0;
+      if (event.statusEnum == StatusEnum.online) status = 1;
       if (event.statusEnum == StatusEnum.busy) status = 2;
       try {
         await UserStatusService.updateStatus(status: status);

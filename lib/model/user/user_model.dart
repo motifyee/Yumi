@@ -40,4 +40,4 @@ class UserModel with _$UserModel {
       _$UserModelFromJson(json);
 }
 
-enum StatusEnum { ready, busy }
+enum StatusEnum { offline, online, busy }

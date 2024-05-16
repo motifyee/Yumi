@@ -182,6 +182,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nutritionalValuePer100g":
             MessageLookupByLibrary.simpleMessage("Nutritional value per 100g"),
         "offers": MessageLookupByLibrary.simpleMessage("Offers"),
+        "offline": MessageLookupByLibrary.simpleMessage("Offline"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "onTheWay": MessageLookupByLibrary.simpleMessage("On The Way"),
         "onlineChefs": MessageLookupByLibrary.simpleMessage("Online Chefs"),
