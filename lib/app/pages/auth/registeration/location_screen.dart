@@ -52,7 +52,6 @@ class LocationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var regBloc = context.read<RegBloc>();
     var regBloc = context.read<RegCubit>();
 
     mapInfo = GMapInfo(
@@ -99,8 +98,12 @@ class LocationScreen extends StatelessWidget {
           debugPrint('clicks');
           geo(() async {
             await Geolocator.getCurrentPosition().then((loc) async {
-              mapInfo.controller?.animateCamera(CameraUpdate.newLatLngZoom(
-                  LatLng(loc.latitude, loc.longitude), 11));
+              mapInfo.animateCamera(
+                LatLng(loc.latitude, loc.longitude),
+                zoom: 11,
+              );
+              // mapInfo.controller?.animateCamera(CameraUpdate.newLatLngZoom(
+              //     LatLng(loc.latitude, loc.longitude), 11));
 
               await tryV(() => placemarkFromCoordinates(
                     loc.latitude,
@@ -158,11 +161,12 @@ class LocationScreen extends StatelessWidget {
                     countries: const ["uk", "ie"],
                     isLatLngRequired: true,
                     getPlaceDetailWithLatLng: (Prediction prediction) async {
-                      prediction.matchedSubstrings;
                       final double lat =
                           double.tryParse(prediction.lat ?? '') ?? 0;
                       final double lng =
                           double.tryParse(prediction.lng ?? '') ?? 0;
+
+                      mapInfo.animateCamera(LatLng(lat, lng), zoom: 11);
 
                       if (lat == 0 ||
                           lng == 0 ||

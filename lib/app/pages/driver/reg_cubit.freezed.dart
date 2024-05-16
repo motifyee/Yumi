@@ -29,11 +29,8 @@ mixin _$NRegState {
   Status get status => throw _privateConstructorUsedError;
   String get addressMessage => throw _privateConstructorUsedError;
   Status get addressStatus => throw _privateConstructorUsedError; //
-// bool? otherVehicle,
-// String? vehicleType,
   Vehicle get vehicle => throw _privateConstructorUsedError; //
-  int get onboardingProgress =>
-      throw _privateConstructorUsedError; // timeStamp forces comparison of the same state to fail
+  int get onboardingProgress => throw _privateConstructorUsedError;
   Unique? get unique => throw _privateConstructorUsedError;
   int? get countDown => throw _privateConstructorUsedError;
 
@@ -374,8 +371,6 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   @JsonKey()
   final Status addressStatus;
 //
-// bool? otherVehicle,
-// String? vehicleType,
   @override
   @JsonKey()
   final Vehicle vehicle;
@@ -383,7 +378,6 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   @override
   @JsonKey()
   final int onboardingProgress;
-// timeStamp forces comparison of the same state to fail
   @override
   final Unique? unique;
   @override
@@ -514,12 +508,10 @@ abstract class _Initial extends NRegState {
   @override
   Status get addressStatus;
   @override //
-// bool? otherVehicle,
-// String? vehicleType,
   Vehicle get vehicle;
   @override //
   int get onboardingProgress;
-  @override // timeStamp forces comparison of the same state to fail
+  @override
   Unique? get unique;
   @override
   int? get countDown;

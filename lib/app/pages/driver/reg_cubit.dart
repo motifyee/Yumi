@@ -54,12 +54,9 @@ abstract class NRegState with _$NRegState {
     @Default('') String addressMessage,
     @Default(Status.init) Status addressStatus,
     //
-    // bool? otherVehicle,
-    // String? vehicleType,
     @Default(Vehicle(typeCode: 0)) Vehicle vehicle,
     //
     @Default(0) int onboardingProgress,
-    // timeStamp forces comparison of the same state to fail
     Unique? unique,
     int? countDown,
   }) = _Initial;
