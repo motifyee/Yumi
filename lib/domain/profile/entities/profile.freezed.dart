@@ -62,26 +62,26 @@ mixin _$Profile {
   @JsonKey(name: 'is_Hygiene')
   bool get isHygiene => throw _privateConstructorUsedError; // Documents
 // chef
-  @JsonKey(name: 'Image_Hygiene_Cert')
+  @JsonKey(name: 'image_Hygiene_Cert')
   String? get hygienePhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Image_Risk_Assessment')
+  @JsonKey(name: 'image_Risk_Assessment')
   String? get riskPhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Image_Authority_Reg')
+  @JsonKey(name: 'image_Authority_Reg')
   String? get registerationPhoto => throw _privateConstructorUsedError; //driver
   @JsonKey(name: 'image_Driver_License')
   String? get driverLicensePhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Image_Driver_License_Code')
+  @JsonKey(name: 'image_Driver_License_Code')
   String? get driverLicenseCodePhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Image_Food_Delivery_Insurance')
+  @JsonKey(name: 'image_Food_Delivery_Insurance')
   String? get foodDeliveryInsurancePhoto => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Image_Evidence_Of_Residence')
+  @JsonKey(name: 'image_Evidence_Of_Residence')
   String? get evidenceOfResidencePhoto =>
       throw _privateConstructorUsedError; //common
   @JsonKey(name: 'image_Passport')
   String? get passportPhoto => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_Id')
   String? get nidPhoto => throw _privateConstructorUsedError; //
-  @JsonKey(name: 'Image_Contract')
+  @JsonKey(name: 'image_Contract')
   String? get contractPhoto => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -124,19 +124,19 @@ abstract class $ProfileCopyWith<$Res> {
       @JsonKey(name: 'image_Profile_5') String? eventPhoto4,
       @JsonKey(name: 'account_Approved') bool accountApproved,
       @JsonKey(name: 'is_Hygiene') bool isHygiene,
-      @JsonKey(name: 'Image_Hygiene_Cert') String? hygienePhoto,
-      @JsonKey(name: 'Image_Risk_Assessment') String? riskPhoto,
-      @JsonKey(name: 'Image_Authority_Reg') String? registerationPhoto,
+      @JsonKey(name: 'image_Hygiene_Cert') String? hygienePhoto,
+      @JsonKey(name: 'image_Risk_Assessment') String? riskPhoto,
+      @JsonKey(name: 'image_Authority_Reg') String? registerationPhoto,
       @JsonKey(name: 'image_Driver_License') String? driverLicensePhoto,
-      @JsonKey(name: 'Image_Driver_License_Code')
+      @JsonKey(name: 'image_Driver_License_Code')
       String? driverLicenseCodePhoto,
-      @JsonKey(name: 'Image_Food_Delivery_Insurance')
+      @JsonKey(name: 'image_Food_Delivery_Insurance')
       String? foodDeliveryInsurancePhoto,
-      @JsonKey(name: 'Image_Evidence_Of_Residence')
+      @JsonKey(name: 'image_Evidence_Of_Residence')
       String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') String? passportPhoto,
       @JsonKey(name: 'image_Id') String? nidPhoto,
-      @JsonKey(name: 'Image_Contract') String? contractPhoto});
+      @JsonKey(name: 'image_Contract') String? contractPhoto});
 }
 
 /// @nodoc
@@ -385,19 +385,19 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       @JsonKey(name: 'image_Profile_5') String? eventPhoto4,
       @JsonKey(name: 'account_Approved') bool accountApproved,
       @JsonKey(name: 'is_Hygiene') bool isHygiene,
-      @JsonKey(name: 'Image_Hygiene_Cert') String? hygienePhoto,
-      @JsonKey(name: 'Image_Risk_Assessment') String? riskPhoto,
-      @JsonKey(name: 'Image_Authority_Reg') String? registerationPhoto,
+      @JsonKey(name: 'image_Hygiene_Cert') String? hygienePhoto,
+      @JsonKey(name: 'image_Risk_Assessment') String? riskPhoto,
+      @JsonKey(name: 'image_Authority_Reg') String? registerationPhoto,
       @JsonKey(name: 'image_Driver_License') String? driverLicensePhoto,
-      @JsonKey(name: 'Image_Driver_License_Code')
+      @JsonKey(name: 'image_Driver_License_Code')
       String? driverLicenseCodePhoto,
-      @JsonKey(name: 'Image_Food_Delivery_Insurance')
+      @JsonKey(name: 'image_Food_Delivery_Insurance')
       String? foodDeliveryInsurancePhoto,
-      @JsonKey(name: 'Image_Evidence_Of_Residence')
+      @JsonKey(name: 'image_Evidence_Of_Residence')
       String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') String? passportPhoto,
       @JsonKey(name: 'image_Id') String? nidPhoto,
-      @JsonKey(name: 'Image_Contract') String? contractPhoto});
+      @JsonKey(name: 'image_Contract') String? contractPhoto});
 }
 
 /// @nodoc
@@ -640,18 +640,18 @@ class _$ProfileImpl extends _Profile {
       @JsonKey(name: 'image_Profile_5') this.eventPhoto4,
       @JsonKey(name: 'account_Approved') this.accountApproved = false,
       @JsonKey(name: 'is_Hygiene') this.isHygiene = false,
-      @JsonKey(name: 'Image_Hygiene_Cert') this.hygienePhoto,
-      @JsonKey(name: 'Image_Risk_Assessment') this.riskPhoto,
-      @JsonKey(name: 'Image_Authority_Reg') this.registerationPhoto,
+      @JsonKey(name: 'image_Hygiene_Cert') this.hygienePhoto,
+      @JsonKey(name: 'image_Risk_Assessment') this.riskPhoto,
+      @JsonKey(name: 'image_Authority_Reg') this.registerationPhoto,
       @JsonKey(name: 'image_Driver_License') this.driverLicensePhoto,
-      @JsonKey(name: 'Image_Driver_License_Code') this.driverLicenseCodePhoto,
-      @JsonKey(name: 'Image_Food_Delivery_Insurance')
+      @JsonKey(name: 'image_Driver_License_Code') this.driverLicenseCodePhoto,
+      @JsonKey(name: 'image_Food_Delivery_Insurance')
       this.foodDeliveryInsurancePhoto,
-      @JsonKey(name: 'Image_Evidence_Of_Residence')
+      @JsonKey(name: 'image_Evidence_Of_Residence')
       this.evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') this.passportPhoto,
       @JsonKey(name: 'image_Id') this.nidPhoto,
-      @JsonKey(name: 'Image_Contract') this.contractPhoto})
+      @JsonKey(name: 'image_Contract') this.contractPhoto})
       : super._();
 
   factory _$ProfileImpl.fromJson(Map<String, dynamic> json) =>
@@ -749,26 +749,26 @@ class _$ProfileImpl extends _Profile {
 // Documents
 // chef
   @override
-  @JsonKey(name: 'Image_Hygiene_Cert')
+  @JsonKey(name: 'image_Hygiene_Cert')
   final String? hygienePhoto;
   @override
-  @JsonKey(name: 'Image_Risk_Assessment')
+  @JsonKey(name: 'image_Risk_Assessment')
   final String? riskPhoto;
   @override
-  @JsonKey(name: 'Image_Authority_Reg')
+  @JsonKey(name: 'image_Authority_Reg')
   final String? registerationPhoto;
 //driver
   @override
   @JsonKey(name: 'image_Driver_License')
   final String? driverLicensePhoto;
   @override
-  @JsonKey(name: 'Image_Driver_License_Code')
+  @JsonKey(name: 'image_Driver_License_Code')
   final String? driverLicenseCodePhoto;
   @override
-  @JsonKey(name: 'Image_Food_Delivery_Insurance')
+  @JsonKey(name: 'image_Food_Delivery_Insurance')
   final String? foodDeliveryInsurancePhoto;
   @override
-  @JsonKey(name: 'Image_Evidence_Of_Residence')
+  @JsonKey(name: 'image_Evidence_Of_Residence')
   final String? evidenceOfResidencePhoto;
 //common
   @override
@@ -779,7 +779,7 @@ class _$ProfileImpl extends _Profile {
   final String? nidPhoto;
 //
   @override
-  @JsonKey(name: 'Image_Contract')
+  @JsonKey(name: 'image_Contract')
   final String? contractPhoto;
 
   @override
@@ -951,19 +951,19 @@ abstract class _Profile extends Profile {
       @JsonKey(name: 'image_Profile_5') final String? eventPhoto4,
       @JsonKey(name: 'account_Approved') final bool accountApproved,
       @JsonKey(name: 'is_Hygiene') final bool isHygiene,
-      @JsonKey(name: 'Image_Hygiene_Cert') final String? hygienePhoto,
-      @JsonKey(name: 'Image_Risk_Assessment') final String? riskPhoto,
-      @JsonKey(name: 'Image_Authority_Reg') final String? registerationPhoto,
+      @JsonKey(name: 'image_Hygiene_Cert') final String? hygienePhoto,
+      @JsonKey(name: 'image_Risk_Assessment') final String? riskPhoto,
+      @JsonKey(name: 'image_Authority_Reg') final String? registerationPhoto,
       @JsonKey(name: 'image_Driver_License') final String? driverLicensePhoto,
-      @JsonKey(name: 'Image_Driver_License_Code')
+      @JsonKey(name: 'image_Driver_License_Code')
       final String? driverLicenseCodePhoto,
-      @JsonKey(name: 'Image_Food_Delivery_Insurance')
+      @JsonKey(name: 'image_Food_Delivery_Insurance')
       final String? foodDeliveryInsurancePhoto,
-      @JsonKey(name: 'Image_Evidence_Of_Residence')
+      @JsonKey(name: 'image_Evidence_Of_Residence')
       final String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') final String? passportPhoto,
       @JsonKey(name: 'image_Id') final String? nidPhoto,
-      @JsonKey(name: 'Image_Contract')
+      @JsonKey(name: 'image_Contract')
       final String? contractPhoto}) = _$ProfileImpl;
   const _Profile._() : super._();
 
@@ -1040,25 +1040,25 @@ abstract class _Profile extends Profile {
   bool get isHygiene;
   @override // Documents
 // chef
-  @JsonKey(name: 'Image_Hygiene_Cert')
+  @JsonKey(name: 'image_Hygiene_Cert')
   String? get hygienePhoto;
   @override
-  @JsonKey(name: 'Image_Risk_Assessment')
+  @JsonKey(name: 'image_Risk_Assessment')
   String? get riskPhoto;
   @override
-  @JsonKey(name: 'Image_Authority_Reg')
+  @JsonKey(name: 'image_Authority_Reg')
   String? get registerationPhoto;
   @override //driver
   @JsonKey(name: 'image_Driver_License')
   String? get driverLicensePhoto;
   @override
-  @JsonKey(name: 'Image_Driver_License_Code')
+  @JsonKey(name: 'image_Driver_License_Code')
   String? get driverLicenseCodePhoto;
   @override
-  @JsonKey(name: 'Image_Food_Delivery_Insurance')
+  @JsonKey(name: 'image_Food_Delivery_Insurance')
   String? get foodDeliveryInsurancePhoto;
   @override
-  @JsonKey(name: 'Image_Evidence_Of_Residence')
+  @JsonKey(name: 'image_Evidence_Of_Residence')
   String? get evidenceOfResidencePhoto;
   @override //common
   @JsonKey(name: 'image_Passport')
@@ -1067,7 +1067,7 @@ abstract class _Profile extends Profile {
   @JsonKey(name: 'image_Id')
   String? get nidPhoto;
   @override //
-  @JsonKey(name: 'Image_Contract')
+  @JsonKey(name: 'image_Contract')
   String? get contractPhoto;
   @override
   @JsonKey(ignore: true)

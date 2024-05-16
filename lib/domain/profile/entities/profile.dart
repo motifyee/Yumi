@@ -55,22 +55,22 @@ abstract class Profile with _$Profile {
 
     // Documents
     // chef
-    @JsonKey(name: 'Image_Hygiene_Cert') String? hygienePhoto,
-    @JsonKey(name: 'Image_Risk_Assessment') String? riskPhoto,
-    @JsonKey(name: 'Image_Authority_Reg') String? registerationPhoto,
+    @JsonKey(name: 'image_Hygiene_Cert') String? hygienePhoto,
+    @JsonKey(name: 'image_Risk_Assessment') String? riskPhoto,
+    @JsonKey(name: 'image_Authority_Reg') String? registerationPhoto,
     //driver
     @JsonKey(name: 'image_Driver_License') String? driverLicensePhoto,
-    @JsonKey(name: 'Image_Driver_License_Code') String? driverLicenseCodePhoto,
-    @JsonKey(name: 'Image_Food_Delivery_Insurance')
+    @JsonKey(name: 'image_Driver_License_Code') String? driverLicenseCodePhoto,
+    @JsonKey(name: 'image_Food_Delivery_Insurance')
     String? foodDeliveryInsurancePhoto,
-    @JsonKey(name: 'Image_Evidence_Of_Residence')
+    @JsonKey(name: 'image_Evidence_Of_Residence')
     String? evidenceOfResidencePhoto,
     //common
     @JsonKey(name: 'image_Passport') String? passportPhoto,
     @JsonKey(name: 'image_Id') String? nidPhoto,
 
     //
-    @JsonKey(name: 'Image_Contract') String? contractPhoto,
+    @JsonKey(name: 'image_Contract') String? contractPhoto,
   }) = _Profile;
 
   const Profile._();

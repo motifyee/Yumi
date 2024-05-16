@@ -67,27 +67,12 @@ class ProfileCubit extends Cubit<ProfileState> {
         return null;
       },
       (r) {
-        final profile = r.copyWith(
-          hygienePhoto: state.form.hygienePhoto,
-          riskPhoto: state.form.riskPhoto,
-          registerationPhoto: state.form.registerationPhoto,
-          //
-          driverLicensePhoto: state.form.driverLicensePhoto,
-          driverLicenseCodePhoto: state.form.driverLicenseCodePhoto,
-          foodDeliveryInsurancePhoto: state.form.foodDeliveryInsurancePhoto,
-          //
-          passportPhoto: state.form.passportPhoto,
-          nidPhoto: state.form.nidPhoto,
-          //
-          contractPhoto: state.form.contractPhoto,
-        );
-
         emit(state.copyWith(
-            form: profile.copyWith(
+            form: r.copyWith(
                 entityStatus:
                     state.form.entityStatus.copyWith(status: Status.success))));
 
-        return profile;
+        return r;
       },
     );
   }
