@@ -63,11 +63,12 @@ class OrderModel with _$OrderModel {
       chefFinished == true &&
       clientReceived != true;
 
+  // TODO : should be 2 min
   bool get isDriverOrderPendingEnd =>
       DateTime.now()
           .difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-          .inSeconds >
-      120;
+          .inMinutes >
+      (24 * 60);
 
   bool get isDriverPreOrderPendingEnd =>
       DateTime.now()
