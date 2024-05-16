@@ -236,5 +236,6 @@
   "driver": "Driver",
   "maxImageSize": "image size 640x480",
   "youHave": "You have",
-  "cards": "Cards"
+  "cards": "Cards",
+  "offline": "Offline"
 }

@@ -52,7 +52,7 @@ class NewsGuide extends StatelessWidget {
                       fontSize: ThemeSelector.fonts.font_16,
                     ),
               ),
-              StatusButton(forGuide: StatusEnum.ready),
+              StatusButton(forGuide: StatusEnum.online),
               Text(
                 S.of(context).thisButtonMeansThatYouAreCurrentlyAvailable,
                 textAlign: TextAlign.center,

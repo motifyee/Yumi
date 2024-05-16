@@ -149,7 +149,7 @@ class ChefOrder extends StatelessWidget {
                     controller.jumpToPage(1);
                     if (context.read<UserBloc>().state.user.status == 2) {
                       context.read<UserBloc>().add(
-                          UserStatusUpdateEvent(statusEnum: StatusEnum.ready));
+                          UserStatusUpdateEvent(statusEnum: StatusEnum.online));
                     }
                   },
                 ),

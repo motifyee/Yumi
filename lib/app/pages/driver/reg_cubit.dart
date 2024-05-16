@@ -133,7 +133,7 @@ class RegCubit extends Cubit<NRegState> {
 
     getOnboardingProgress();
     if (G.isDriverApp) getVehicle();
-    if (!G.isCustomerApp) G.cContext.read<ScheduleCubit>().loadSchedule();
+    if (!G.isCustomerApp) G.rd<ScheduleCubit>().loadSchedule();
 
     if (step > 0) _navigateToIdx(step);
   }
@@ -143,10 +143,11 @@ class RegCubit extends Cubit<NRegState> {
     pref.remove(regStepKey);
     pref.remove(onboardingProgressKey);
 
+    final user = G.read<UserBloc>().state.user;
     await LoginServices.login(
         login: LoginModel(
-      email: state.singupData?.email ?? '',
-      password: state.singupData?.password ?? '',
+      email: state.singupData?.email ?? user.email,
+      password: state.singupData?.password ?? user.password ?? '',
     )).then((user) {
       G.read<UserBloc>().add(UserFromJsonEvent(user: user.toJson()));
     });

@@ -3,48 +3,42 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/global.dart';
 import 'package:yumi/model/user/user_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
-class StatusButton extends StatefulWidget {
+class StatusButton extends StatelessWidget {
   StatusButton({super.key, this.forGuide});
-
   StatusEnum? forGuide;
-
-  @override
-  State<StatusButton> createState() => _StatusButtonState();
-}
-
-class _StatusButtonState extends State<StatusButton> {
-  @override
-  void initState() {
-    if (G.isChefApp) {
-      context.read<UserBloc>().add(ChefStatusCheckEvent());
-    }
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
-        StatusEnum status =
-            state.user.status == 1 ? StatusEnum.ready : StatusEnum.busy;
-        if (widget.forGuide != null) status = widget.forGuide!;
+        StatusEnum status = StatusEnum.online;
+        switch (state.user.status) {
+          case 0:
+            status = StatusEnum.offline;
+            break;
+          case 1:
+            status = StatusEnum.online;
+            break;
+          case 2:
+            status = StatusEnum.busy;
+            break;
+        }
+        if (forGuide != null) status = forGuide!;
         return TextButton(
-          onPressed:
-              widget.forGuide != null || state.isStatusLocked || state.loading
-                  ? null
-                  : () {
-                      if (state.loading) return;
-                      context.read<UserBloc>().add(UserStatusUpdateEvent());
-                    },
+          onPressed: forGuide != null || state.isStatusLocked || state.loading
+              ? null
+              : () {
+                  if (state.loading) return;
+                  context.read<UserBloc>().add(UserStatusUpdateEvent());
+                },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith(
               (states) => state.loading
                   ? ThemeSelector.colors.secondaryFaint
-                  : status == StatusEnum.ready
+                  : status == StatusEnum.online
                       ? ThemeSelector.colors.success
                       : ThemeSelector.colors.primaryDisabled,
             ),
@@ -58,18 +52,20 @@ class _StatusButtonState extends State<StatusButton> {
                       colorFilter: ColorFilter.mode(
                           ThemeSelector.colors.secondaryFaint, BlendMode.srcIn),
                     )
-                  : status == StatusEnum.ready
+                  : status == StatusEnum.online
                       ? SvgPicture.asset('assets/images/opened.svg')
                       : SvgPicture.asset('assets/images/busy.svg'),
               SizedBox(width: ThemeSelector.statics.defaultGap),
               Text(
                 state.loading
                     ? '...'
-                    : status == StatusEnum.ready
+                    : status == StatusEnum.online
                         ? S.of(context).opened
-                        : S.of(context).busy,
+                        : status == StatusEnum.busy
+                            ? S.of(context).busy
+                            : S.of(context).offline,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: status == StatusEnum.ready
+                      color: status == StatusEnum.online
                           ? ThemeSelector.colors.onSuccess
                           : ThemeSelector.colors.onPrimary,
                     ),
