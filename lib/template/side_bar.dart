@@ -114,6 +114,7 @@ class SideBar extends StatelessWidget {
                           context: context,
                           title: Container(),
                           content: const ProfileForm(),
+                          actions: {'Cancel': null},
                           actionWidgets: [const ProfileFormSubmitButton()]);
                     },
                     child: Center(

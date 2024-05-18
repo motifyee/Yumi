@@ -156,7 +156,7 @@ class RegCubit extends Cubit<NRegState> {
       G.read<UserBloc>().add(UserFromJsonEvent(user: user.toJson()));
     });
 
-    G.router.replaceAll([HomeRoute()]).then((value) {
+    await G.router.replaceAll([HomeRoute()]).then((value) {
       emit(state.copyWith(
         step: 0,
         phone: null,
@@ -173,6 +173,9 @@ class RegCubit extends Cubit<NRegState> {
       if (!G.isCustomerApp) {
         G.rd<ScheduleCubit>().reset();
         G.rd<DocsCubit>().reset();
+      }
+      if (G.isChefApp) {
+        G.read<MealListBloc>().add(MealListResetBlocEvent());
       }
     });
   }

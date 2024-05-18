@@ -210,5 +210,14 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         ));
       }
     });
+
+    on<MealListResetBlocEvent>((event, emit) {
+      emit(MealListState(
+        meals: const [],
+        selectedCategory: 0,
+        paginationHelper: const PaginationHelper(),
+        menuTarget: MenuTarget.order,
+      ));
+    });
   }
 }

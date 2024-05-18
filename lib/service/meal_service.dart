@@ -78,6 +78,8 @@ class MealService {
       required Map<String, dynamic>? queryParameters,
       String? chefId,
       bool? isPreorder = false}) async {
+    if (chefId?.isEmpty ?? true) return Future.value([]);
+
     final res = await DioClient.simpleDio(context).get(
       ApiKeys.getApiKeyString(apiKey: ApiKeys.getMealByChef),
       queryParameters: {

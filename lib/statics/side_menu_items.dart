@@ -309,6 +309,14 @@ class _AppMenuList {
           },
         ),
         AppMenuItem(
+          icon: 'assets/images/schedule_menu.svg',
+          label: S.of(context).mySchedule,
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(const MyScheduleRoute());
+          },
+        ),
+        AppMenuItem(
           icon: 'assets/images/documentation_menu.svg',
           label: S.of(context).documentation,
           onPressed: () {

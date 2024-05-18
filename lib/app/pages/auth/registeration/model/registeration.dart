@@ -25,7 +25,7 @@ class RegisterationForm with _$RegisterationForm {
         'email': email,
         'access_Token': token,
         'code': code,
-        // 'password': password,
+        'password': password,
       };
 
   factory RegisterationForm.fromJson(Map<String, dynamic> json) =>
