@@ -201,6 +201,17 @@ class _LocationCard extends StatelessWidget {
         ),
         child: Row(
           children: [
+            InkWell(
+              onTap: () {},
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: ThemeSelector.statics.defaultGap),
+                child: SvgPicture.asset(
+                  'assets/images/location_indecator.svg',
+                  height: ThemeSelector.fonts.font_12,
+                ),
+              ),
+            ),
             Expanded(
               child: GestureDetector(
                 onTap: address.isDefault == true
@@ -222,11 +233,6 @@ class _LocationCard extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          SvgPicture.asset(
-                            'assets/images/location_indecator.svg',
-                            height: ThemeSelector.fonts.font_12,
-                          ),
-                          const Text('  '),
                           Expanded(
                             child: Text(
                               address.addressTitle ?? '',
