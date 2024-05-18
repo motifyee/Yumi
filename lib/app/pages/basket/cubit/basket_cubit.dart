@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loading_indicator/loading_indicator.dart';
+import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
@@ -189,11 +189,11 @@ class BasketCubit extends Cubit<BasketState> {
 void _loadingIndicator() => showDialog(
     context: G.context,
     builder: (context) => Center(
-          child: SizedBox(
-              width: ThemeSelector.statics.defaultGapExtraExtreme,
-              height: ThemeSelector.statics.defaultGapExtraExtreme,
-              child: const LoadingIndicator(indicatorType: Indicator.pacman)),
-        ));
+            child: SizedBox(
+          width: ThemeSelector.statics.defaultGapExtraExtreme,
+          height: ThemeSelector.statics.defaultGapExtraExtreme,
+          child: Loading(),
+        )));
 
 void _message(String message) {
   G.context.router.maybePop();

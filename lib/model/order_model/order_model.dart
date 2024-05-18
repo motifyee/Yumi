@@ -97,11 +97,11 @@ class OrderModel with _$OrderModel {
       ].join(' ');
 
   bool get isClientReceivedOverDay =>
-      DateTime.now()
+      (DateTime.now()
               .difference(
                   DateTime.tryParse(clientReceivedDate ?? '') ?? DateTime.now())
-              .inHours >
-          24 &&
+              .inHours <
+          24) &&
       clientReceived == true;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>

@@ -299,11 +299,11 @@ class OrderStatusScreen extends StatelessWidget {
                 ),
               ],
             ),
-            if (!order.isClientReceivedOverDay || true)
+            if (order.isClientReceivedOverDay)
               Hero(
                 tag: 'ConfirmBasketSeries',
                 child: GestureDetector(
-                  onTap: order.clientReceived != true && false
+                  onTap: order.clientReceived != true
                       ? null
                       : () {
                           showAdaptiveDialog(
