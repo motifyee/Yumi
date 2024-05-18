@@ -108,11 +108,11 @@ class LoginForm extends StatelessWidget {
               label: S.of(context).login,
               // isFixedSize: false,
               height: 40,
-              onPressed: () {
+              onPressed: () async {
                 if (loginFormKey.currentState!.validate()) {
                   loginFormKey.currentState!.save();
 
-                  performLogin(context, loginForm);
+                  await performLogin(context, loginForm);
                 }
               },
             )
@@ -123,7 +123,7 @@ class LoginForm extends StatelessWidget {
   }
 }
 
-void performLogin(BuildContext context, LoginModel loginForm,
+Future performLogin(BuildContext context, LoginModel loginForm,
     [String? route]) async {
   return await LoginServices.login(login: loginForm, context: context)
       .then((user) async {
