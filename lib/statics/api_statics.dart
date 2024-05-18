@@ -17,10 +17,10 @@ String defaultOriginApi = 'https://vroot.tarabia.online';
 String originApi = '';
 
 class DioClient {
-  static void getOriginApi() {
-    LocalStorage.sharedRef
-        .getValue(LocalStorage.domainName)
-        .then((value) => originApi = value ?? defaultOriginApi);
+  static Future<void> getOriginApi() async {
+    final value =
+        await LocalStorage.sharedRef.getValue(LocalStorage.domainName);
+    originApi = value ?? defaultOriginApi;
   }
 
   static void setOriginApi(String value) {

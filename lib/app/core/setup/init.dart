@@ -28,7 +28,7 @@ Future init() async {
   await inject();
 
   // to work with custom domains
-  DioClient.getOriginApi();
+  await DioClient.getOriginApi();
 }
 
 // class MyBlocDelegate extends BlocDelegate  {
