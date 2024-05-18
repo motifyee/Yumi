@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +85,7 @@ class BasketCubit extends Cubit<BasketState> {
           await CalcBasket().call(CalcBasketParams(basket: r));
 
       return task2.fold((l) {
-        _message(S.current.apiError);
+        _message((l.error as DioException).response?.data['message']);
 
         return null;
       }, (r2) {
@@ -123,7 +124,9 @@ class BasketCubit extends Cubit<BasketState> {
       final Either<Failure, Basket> task2 = await CreateBasket()
           .call(CreateBasketParams(basket: r, isPreOrder: basket.isPreorder));
 
-      task2.fold((l) => _message(S.current.apiError), (r) {
+      task2.fold(
+          (l) => _message((l.error as DioException).response?.data['message']),
+          (r) {
         _message(S.current.basketCreated);
         emit(state.copyWith(basket: r));
         G.router.replaceAll([BasketRoute()]);
@@ -137,7 +140,9 @@ class BasketCubit extends Cubit<BasketState> {
     final Either<Failure, Basket> task =
         await UpdateBasket().call(UpdateBasketParams(basket: basket));
 
-    task.fold((l) => _message(S.current.apiError), (r) {
+    task.fold(
+        (l) => _message((l.error as DioException).response?.data['message']),
+        (r) {
       _message(S.current.basketUpdated);
       emit(state.copyWith(basket: r));
     });
@@ -150,7 +155,9 @@ class BasketCubit extends Cubit<BasketState> {
 
     final Either<Failure, Response> task =
         await CloseBasket().call(CloseBasketParams(basket: state.basket));
-    task.fold((l) => _message(S.current.apiError), (r) {
+    task.fold(
+        (l) => _message((l.error as DioException).response?.data['message']),
+        (r) {
       _message(S.current.OrderCreated);
       emit(BasketState.initial());
       G.router.replaceAll([HomeRoute()]);
@@ -166,7 +173,7 @@ class BasketCubit extends Cubit<BasketState> {
         await DeleteBasket().call(DeleteBasketParam(basket: state.basket));
     task.fold((l) {
       G.router.replaceAll([HomeRoute()]);
-      _message(S.current.apiError);
+      _message((l.error as DioException).response?.data['message']);
     }, (r) {
       _message(S.current.basketDeleted);
       emit(BasketState.initial());
@@ -189,6 +196,7 @@ void _loadingIndicator() => showDialog(
         ));
 
 void _message(String message) {
+  G.context.router.maybePop();
   ScaffoldMessenger.of(G.context).showSnackBar(
     SnackBar(
       content: SnackBarMassage(

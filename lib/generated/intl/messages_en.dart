@@ -242,6 +242,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Profile Setting"),
         "profileSettings":
             MessageLookupByLibrary.simpleMessage("Profile Settings"),
+        "rateOrder": MessageLookupByLibrary.simpleMessage("Rate Order"),
         "readMoreAboutFees":
             MessageLookupByLibrary.simpleMessage("Read more about fees"),
         "ready": MessageLookupByLibrary.simpleMessage("Ready"),

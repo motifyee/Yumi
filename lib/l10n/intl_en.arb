@@ -240,5 +240,6 @@
   "offline": "Offline",
   "currentDomain": "Current Domain",
   "domain": "Domain",
-  "reset": "Reset"
+  "reset": "Reset",
+  "rateOrder": "Rate Order"
 }

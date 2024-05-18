@@ -1,13 +1,18 @@
 import 'package:equatable/equatable.dart';
 
-sealed class Failure {}
+sealed class Failure {
+  Object? error;
+  StackTrace? stackTrace;
+}
 
 // -----------------------------------------------------------------------------
 
 class NetworkFailure extends Failure with EquatableMixin {
   NetworkFailure(this.error, this.stackTrace);
 
+  @override
   final Object? error;
+  @override
   final StackTrace? stackTrace;
 
   @override
@@ -19,7 +24,9 @@ class NetworkFailure extends Failure with EquatableMixin {
 class ServerFailure extends Failure with EquatableMixin {
   ServerFailure(this.error, this.stackTrace);
 
+  @override
   final Object? error;
+  @override
   final StackTrace? stackTrace;
 
   @override
@@ -31,7 +38,9 @@ class ServerFailure extends Failure with EquatableMixin {
 class GenericFailure extends Failure with EquatableMixin {
   GenericFailure(this.error, this.stackTrace);
 
+  @override
   final Object? error;
+  @override
   final StackTrace? stackTrace;
 
   @override
@@ -43,7 +52,9 @@ class GenericFailure extends Failure with EquatableMixin {
 class CacheFailure extends Failure with EquatableMixin {
   CacheFailure(this.error, this.stackTrace);
 
+  @override
   final Object? error;
+  @override
   final StackTrace? stackTrace;
 
   @override
@@ -55,7 +66,9 @@ class CacheFailure extends Failure with EquatableMixin {
 class SignalrFailure extends Failure with EquatableMixin {
   SignalrFailure(this.error, this.stackTrace);
 
+  @override
   final Object? error;
+  @override
   final StackTrace? stackTrace;
 
   @override

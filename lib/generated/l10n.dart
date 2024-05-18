@@ -2471,6 +2471,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Rate Order`
+  String get rateOrder {
+    return Intl.message(
+      'Rate Order',
+      name: 'rateOrder',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

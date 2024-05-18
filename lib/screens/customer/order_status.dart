@@ -231,7 +231,7 @@ class OrderStatusScreen extends StatelessWidget {
                                   context.router
                                       .push(const TrackingOrderRoute());
                                 },
-                                child: Container( 
+                                child: Container(
                                   padding: EdgeInsets.symmetric(
                                       horizontal:
                                           ThemeSelector.statics.defaultGap,
@@ -342,9 +342,7 @@ class OrderStatusScreen extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        order.isPickUp == true
-                            ? S.of(context).confirmPickUp
-                            : S.of(context).confirmDelivery,
+                        S.of(context).rateOrder,
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
                     ),
