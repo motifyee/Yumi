@@ -133,6 +133,10 @@ class RegCubit extends Cubit<NRegState> {
 
     getOnboardingProgress();
     if (G.isDriverApp) getVehicle();
+    if (G.isChefApp) {
+      G.read<MealListBloc>().add(
+          MealListUpdateEvent(chefId: G.read<UserBloc>().state.user.chefId));
+    }
     if (!G.isCustomerApp) G.rd<ScheduleCubit>().loadSchedule();
 
     if (step > 0) _navigateToIdx(step);

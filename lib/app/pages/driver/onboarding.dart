@@ -21,7 +21,7 @@ class Onboarding {
     if (!mealsActive) return false;
     if (G.read<MealListBloc>().state.meals.isEmpty) return false;
     // if (!G.read<ScheduleBloc>().state.schedule.hasScheduledDays) return false;
-    if (!G.rd<ScheduleCubit>().state.schedule.hasScheduledDays) return false;
+    if (!G.rd<ScheduleCubit>().state.schedule.validSchedule) return false;
 
     return true;
   }

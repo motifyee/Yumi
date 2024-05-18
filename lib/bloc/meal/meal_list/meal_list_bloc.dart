@@ -37,7 +37,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
           if (event.chefId == null) {
             if (state.selectedCategory == 0) {
               res = await MealService.getMeals(
-                context: event.context,
+                context: event.context ?? G.cContext,
                 lat: G.context.read<UserBloc>().state.address?.latitude,
                 long: G.context.read<UserBloc>().state.address?.longitude,
                 isPreorder: event.menuTarget != null
@@ -55,7 +55,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
               }).toList();
             } else {
               res = await MealService.getMealsByCategory(
-                context: event.context,
+                context: event.context ?? G.cContext,
                 categoryId: state.selectedCategory,
                 lat: G.context.read<UserBloc>().state.address?.latitude,
                 long: G.context.read<UserBloc>().state.address?.longitude,
@@ -77,7 +77,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
           if (event.chefId != null) {
             if (state.selectedCategory == 0) {
               res = await MealService.getMealsByChef(
-                context: event.context,
+                context: event.context ?? G.cContext,
                 chefId: event.chefId,
                 isPreorder: event.menuTarget != null
                     ? event.menuTarget == MenuTarget.preOrder
@@ -94,7 +94,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
               }).toList();
             } else {
               res = await MealService.getMealsByChefByCategory(
-                context: event.context,
+                context: event.context ?? G.cContext,
                 chefId: event.chefId,
                 categoryId: state.selectedCategory,
                 isPreorder: event.menuTarget != null
