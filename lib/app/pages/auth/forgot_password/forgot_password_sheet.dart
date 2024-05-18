@@ -79,15 +79,21 @@ class ForgotPasswordSheet extends StatelessWidget {
                     ForgotPwdWindow>(
               selector: (state) => state.window,
               builder: (context, state) {
-                switch (state) {
-                  case ForgotPwdWindow.enterEmail:
-                    return ForgotPwdEnterEmail();
-                  case ForgotPwdWindow.enterOTP:
-                    return const ForgotPwdEnterOTP();
-                  case ForgotPwdWindow.done:
-                    G.pop();
-                    return const ForgotPwdEnterOTP();
+                final fgCubit = context.read<ForgotPwdCubit>();
+
+                if (state == ForgotPwdWindow.enterEmail &&
+                    fgCubit.state.email.isEmpty) {
+                  context.read<ForgotPwdCubit>().init();
                 }
+
+                return switch (state) {
+                  ForgotPwdWindow.enterEmail => ForgotPwdEnterEmail(),
+                  ForgotPwdWindow.enterOTP => const ForgotPwdEnterOTP(),
+                  ForgotPwdWindow.done => () {
+                      G.pop();
+                      return const ForgotPwdEnterOTP();
+                    }(),
+                };
               },
             )),
           ),

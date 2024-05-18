@@ -28,7 +28,9 @@ mixin _$ForgotPasswordState {
   bool get codeVerified => throw _privateConstructorUsedError;
   String get newPassword => throw _privateConstructorUsedError;
   bool get passwordUpdated => throw _privateConstructorUsedError; //
-  ForgotPwdWindow get window => throw _privateConstructorUsedError;
+  ForgotPwdWindow get window => throw _privateConstructorUsedError; //
+  int? get initialCountDownTime => throw _privateConstructorUsedError;
+  int? get countDown => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ForgotPasswordStateCopyWith<ForgotPasswordState> get copyWith =>
@@ -53,7 +55,9 @@ abstract class $ForgotPasswordStateCopyWith<$Res> {
       bool codeVerified,
       String newPassword,
       bool passwordUpdated,
-      ForgotPwdWindow window});
+      ForgotPwdWindow window,
+      int? initialCountDownTime,
+      int? countDown});
 }
 
 /// @nodoc
@@ -81,6 +85,8 @@ class _$ForgotPasswordStateCopyWithImpl<$Res, $Val extends ForgotPasswordState>
     Object? newPassword = null,
     Object? passwordUpdated = null,
     Object? window = null,
+    Object? initialCountDownTime = freezed,
+    Object? countDown = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -131,6 +137,14 @@ class _$ForgotPasswordStateCopyWithImpl<$Res, $Val extends ForgotPasswordState>
           ? _value.window
           : window // ignore: cast_nullable_to_non_nullable
               as ForgotPwdWindow,
+      initialCountDownTime: freezed == initialCountDownTime
+          ? _value.initialCountDownTime
+          : initialCountDownTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      countDown: freezed == countDown
+          ? _value.countDown
+          : countDown // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -155,7 +169,9 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool codeVerified,
       String newPassword,
       bool passwordUpdated,
-      ForgotPwdWindow window});
+      ForgotPwdWindow window,
+      int? initialCountDownTime,
+      int? countDown});
 }
 
 /// @nodoc
@@ -181,6 +197,8 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? newPassword = null,
     Object? passwordUpdated = null,
     Object? window = null,
+    Object? initialCountDownTime = freezed,
+    Object? countDown = freezed,
   }) {
     return _then(_$InitialImpl(
       isLoading: null == isLoading
@@ -231,6 +249,14 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.window
           : window // ignore: cast_nullable_to_non_nullable
               as ForgotPwdWindow,
+      initialCountDownTime: freezed == initialCountDownTime
+          ? _value.initialCountDownTime
+          : initialCountDownTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      countDown: freezed == countDown
+          ? _value.countDown
+          : countDown // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -250,7 +276,9 @@ class _$InitialImpl extends Initial {
       this.codeVerified = false,
       this.newPassword = '',
       this.passwordUpdated = false,
-      this.window = ForgotPwdWindow.enterEmail})
+      this.window = ForgotPwdWindow.enterEmail,
+      this.initialCountDownTime,
+      this.countDown})
       : super._();
 
   @override
@@ -292,10 +320,15 @@ class _$InitialImpl extends Initial {
   @override
   @JsonKey()
   final ForgotPwdWindow window;
+//
+  @override
+  final int? initialCountDownTime;
+  @override
+  final int? countDown;
 
   @override
   String toString() {
-    return 'ForgotPasswordState(isLoading: $isLoading, email: $email, error: $error, success: $success, emailSent: $emailSent, emailFound: $emailFound, otpCode: $otpCode, codeSent: $codeSent, codeVerified: $codeVerified, newPassword: $newPassword, passwordUpdated: $passwordUpdated, window: $window)';
+    return 'ForgotPasswordState(isLoading: $isLoading, email: $email, error: $error, success: $success, emailSent: $emailSent, emailFound: $emailFound, otpCode: $otpCode, codeSent: $codeSent, codeVerified: $codeVerified, newPassword: $newPassword, passwordUpdated: $passwordUpdated, window: $window, initialCountDownTime: $initialCountDownTime, countDown: $countDown)';
   }
 
   @override
@@ -321,7 +354,11 @@ class _$InitialImpl extends Initial {
                 other.newPassword == newPassword) &&
             (identical(other.passwordUpdated, passwordUpdated) ||
                 other.passwordUpdated == passwordUpdated) &&
-            (identical(other.window, window) || other.window == window));
+            (identical(other.window, window) || other.window == window) &&
+            (identical(other.initialCountDownTime, initialCountDownTime) ||
+                other.initialCountDownTime == initialCountDownTime) &&
+            (identical(other.countDown, countDown) ||
+                other.countDown == countDown));
   }
 
   @override
@@ -338,7 +375,9 @@ class _$InitialImpl extends Initial {
       codeVerified,
       newPassword,
       passwordUpdated,
-      window);
+      window,
+      initialCountDownTime,
+      countDown);
 
   @JsonKey(ignore: true)
   @override
@@ -360,7 +399,9 @@ abstract class Initial extends ForgotPasswordState {
       final bool codeVerified,
       final String newPassword,
       final bool passwordUpdated,
-      final ForgotPwdWindow window}) = _$InitialImpl;
+      final ForgotPwdWindow window,
+      final int? initialCountDownTime,
+      final int? countDown}) = _$InitialImpl;
   const Initial._() : super._();
 
   @override
@@ -387,6 +428,10 @@ abstract class Initial extends ForgotPasswordState {
   bool get passwordUpdated;
   @override //
   ForgotPwdWindow get window;
+  @override //
+  int? get initialCountDownTime;
+  @override
+  int? get countDown;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
