@@ -223,7 +223,7 @@ class _AppMenuList {
           },
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(CustomerWalletRoute());
+            context.router.push(const CustomerWalletRoute());
           },
         ),
         AppMenuItem(
@@ -262,6 +262,14 @@ class _AppMenuList {
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
             context.router.push(NotificationRoute(isScreen: false));
+          },
+        ),
+        AppMenuItem(
+          icon: 'assets/images/schedule_menu.svg',
+          label: S.of(context).mySchedule,
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(const MyScheduleRoute());
           },
         ),
         AppMenuItem(
