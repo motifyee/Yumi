@@ -5,26 +5,25 @@ class UserState extends Equatable {
   final UserModel user;
   final Address? address;
   final bool loading;
-  final bool isStatusLocked;
 
-  const UserState(
-      {required this.user,
-      this.address,
-      this.loading = false,
-      this.isStatusLocked = false});
+  const UserState({
+    required this.user,
+    this.address,
+    this.loading = false,
+  });
 
-  UserState copyWith(
-      {UserModel? user,
-      Address? address,
-      bool? loading,
-      bool? isStatusLocked}) {
+  UserState copyWith({
+    UserModel? user,
+    Address? address,
+    bool? loading,
+  }) {
     return UserState(
-        user: user ?? this.user,
-        address: address ?? this.address,
-        loading: loading ?? this.loading,
-        isStatusLocked: isStatusLocked ?? this.isStatusLocked);
+      user: user ?? this.user,
+      address: address ?? this.address,
+      loading: loading ?? this.loading,
+    );
   }
 
   @override
-  List<Object?> get props => [user, address, loading, isStatusLocked];
+  List<Object?> get props => [user, address, loading];
 }

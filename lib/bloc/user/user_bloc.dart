@@ -4,11 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/model/user/user_model.dart';
-import 'package:yumi/service/order_service.dart';
 import 'package:yumi/service/user_status_service.dart';
-import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/local_storage.dart';
-import 'package:yumi/statics/pagination_helper.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';
@@ -65,7 +62,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     });
 
     on<UserStatusUpdateEvent>((event, emit) async {
-      if (state.loading || state.isStatusLocked) return;
+      if (state.loading) return;
       emit(state.copyWith(loading: true));
 
       int status = state.user.status == 1 ? 0 : 1;
@@ -75,43 +72,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       try {
         await UserStatusService.updateStatus(status: status);
         emit(state.copyWith(
-            loading: false,
-            user: state.user.copyWith(status: status),
-            isStatusLocked: false));
+          loading: false,
+          user: state.user.copyWith(status: status),
+        ));
       } catch (err) {
-        emit(state.copyWith(loading: false, isStatusLocked: false));
+        emit(state.copyWith(
+          loading: false,
+        ));
       }
-    });
-
-    on<ChefStatusCheckEvent>((event, emit) async {
-      emit(state.copyWith(loading: true));
-
-      await OrderService.getOrderOrPreOrder(
-              apiKeys: ApiKeys.orderChefPreparing,
-              paginationHelper: const PaginationHelper(pageSize: 1).toJson())
-          .then((value) {
-        if (value.data['pagination']['total'] > 0) {
-          emit(state.copyWith(
-              isStatusLocked: true, user: state.user.copyWith(status: 2)));
-        } else {
-          emit(state.copyWith(
-              isStatusLocked: false, user: state.user.copyWith(status: 1)));
-        }
-      });
-
-      await OrderService.getOrderOrPreOrder(
-              apiKeys: ApiKeys.orderChefReceived,
-              paginationHelper: const PaginationHelper(pageSize: 1).toJson())
-          .then((value) {
-        if (value.data['pagination']['total'] > 0) {
-          emit(state.copyWith(
-              isStatusLocked: true, user: state.user.copyWith(status: 2)));
-        } else {
-          emit(state.copyWith(
-              isStatusLocked: false, user: state.user.copyWith(status: 1)));
-        }
-      });
-      emit(state.copyWith(loading: false));
     });
 
     on<UserResetEvent>((event, emit) async {

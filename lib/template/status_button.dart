@@ -28,7 +28,7 @@ class StatusButton extends StatelessWidget {
         }
         if (forGuide != null) status = forGuide!;
         return TextButton(
-          onPressed: forGuide != null || state.isStatusLocked || state.loading
+          onPressed: forGuide != null || state.loading
               ? null
               : () {
                   if (state.loading) return;
