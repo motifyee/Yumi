@@ -43,3 +43,7 @@ class MealListRemoveFavoriteMealEvent implements MealListEvent {
 
   MealListRemoveFavoriteMealEvent({required this.meal});
 }
+
+class MealListResetBlocEvent implements MealListEvent {
+  MealListResetBlocEvent();
+}
