@@ -13,6 +13,7 @@ import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/delivery_option_dialog.dart';
 import 'package:yumi/template/payment_summary_card.dart';
 
 @RoutePage()
@@ -145,10 +146,17 @@ class BasketScreen extends StatelessWidget {
                               onTap: state.basket.invoiceDetails.isEmpty
                                   ? null
                                   : () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              const ConfirmCheckOutBasket());
+                                      if (state.basket.isPickupOnly) {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                const ConfirmCheckOutBasket());
+                                      } else {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                const DeliveryOptionDialog());
+                                      }
                                     },
                               child: Container(
                                 width: ThemeSelector.statics.defaultGapXXXL,
