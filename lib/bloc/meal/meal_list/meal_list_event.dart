@@ -11,11 +11,11 @@ class MealListResetEvent implements MealListEvent {
 }
 
 class MealListUpdateEvent implements MealListEvent {
-  BuildContext context;
+  BuildContext? context;
   String? chefId;
   MenuTarget? menuTarget;
 
-  MealListUpdateEvent({required this.context, this.chefId, this.menuTarget});
+  MealListUpdateEvent({this.context, this.chefId, this.menuTarget});
 }
 
 class MealListUpdateCategoryEvent implements MealListEvent {

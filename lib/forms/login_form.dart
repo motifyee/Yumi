@@ -106,7 +106,7 @@ class LoginForm extends StatelessWidget {
             // ConfirmButton(
             InteractiveButton(
               label: S.of(context).login,
-              isFixedSize: false,
+              // isFixedSize: false,
               height: 40,
               onPressed: () {
                 if (loginFormKey.currentState!.validate()) {
