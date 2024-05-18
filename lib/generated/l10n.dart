@@ -2441,6 +2441,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Current Domain`
+  String get currentDomain {
+    return Intl.message(
+      'Current Domain',
+      name: 'currentDomain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Domain`
+  String get domain {
+    return Intl.message(
+      'Domain',
+      name: 'domain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset`
+  String get reset {
+    return Intl.message(
+      'Reset',
+      name: 'reset',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rate Order`
+  String get rateOrder {
+    return Intl.message(
+      'Rate Order',
+      name: 'rateOrder',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

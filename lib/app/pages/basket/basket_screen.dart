@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +13,7 @@ import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/delivery_option_dialog.dart';
 import 'package:yumi/template/payment_summary_card.dart';
 
 @RoutePage()
@@ -38,12 +41,14 @@ class BasketScreen extends StatelessWidget {
   void checkExpiredBasket(
       {required BuildContext context, required Basket basket}) {
     if (basket.invoice.isBasketExpired && !isBasketDeleting) {
-      isBasketDeleting = true;
-      showDialog(
-        context: context,
-        builder: (context) => const ExpiredBasket(),
-      ).then((value) {
-        context.read<BasketCubit>().deleteBasket();
+      Timer(Duration(milliseconds: 300), () {
+        isBasketDeleting = true;
+        showDialog(
+          context: context,
+          builder: (context) => const ExpiredBasket(),
+        ).then((value) {
+          context.read<BasketCubit>().deleteBasket();
+        });
       });
     }
   }
@@ -141,10 +146,17 @@ class BasketScreen extends StatelessWidget {
                               onTap: state.basket.invoiceDetails.isEmpty
                                   ? null
                                   : () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              const ConfirmCheckOutBasket());
+                                      if (state.basket.isPickupOnly) {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                const ConfirmCheckOutBasket());
+                                      } else {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                const DeliveryOptionDialog());
+                                      }
                                     },
                               child: Container(
                                 width: ThemeSelector.statics.defaultGapXXXL,

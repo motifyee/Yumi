@@ -52,8 +52,3 @@ class UserResetEvent extends UserEvent {
   @override
   List<Object?> get props => [];
 }
-
-class ChefStatusCheckEvent extends UserEvent {
-  @override
-  List<Object?> get props => [];
-}

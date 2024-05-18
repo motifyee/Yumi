@@ -21,6 +21,11 @@ class LocalStorage {
     name: 'news_guide',
     valueType: _ValueType.bool,
   );
+
+  static _SharedRefKeys domainName = _SharedRefKeys(
+    name: 'domain_name',
+    valueType: _ValueType.string,
+  );
 }
 
 class _SharedRef {

@@ -15,7 +15,7 @@ class NewsGuide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
+      height: 550,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -55,6 +55,14 @@ class NewsGuide extends StatelessWidget {
               StatusButton(forGuide: StatusEnum.online),
               Text(
                 S.of(context).thisButtonMeansThatYouAreCurrentlyAvailable,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontSize: ThemeSelector.fonts.font_16,
+                    ),
+              ),
+              StatusButton(forGuide: StatusEnum.offline),
+              Text(
+                S.of(context).thisButtonMeansThatYouAreCurrentlyClosed,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontSize: ThemeSelector.fonts.font_16,

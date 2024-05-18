@@ -11,13 +11,13 @@
 import 'package:auto_route/auto_route.dart' as _i33;
 import 'package:flutter/material.dart' as _i34;
 import 'package:yumi/app/components/loading_indicator/loading_page.dart'
-    as _i15;
+    as _i14;
 import 'package:yumi/app/pages/auth/registeration/add_phone_screen.dart' as _i1;
-import 'package:yumi/app/pages/auth/registeration/location_screen.dart' as _i16;
+import 'package:yumi/app/pages/auth/registeration/location_screen.dart' as _i15;
 import 'package:yumi/app/pages/auth/registeration/model/address.dart' as _i37;
-import 'package:yumi/app/pages/auth/registeration/otp_screen.dart' as _i23;
-import 'package:yumi/app/pages/auth/registeration/reg_screen.dart' as _i28;
-import 'package:yumi/app/pages/auth/registeration/signup_screen.dart' as _i30;
+import 'package:yumi/app/pages/auth/registeration/otp_screen.dart' as _i22;
+import 'package:yumi/app/pages/auth/registeration/reg_screen.dart' as _i27;
+import 'package:yumi/app/pages/auth/registeration/signup_screen.dart' as _i29;
 import 'package:yumi/app/pages/basket/basket_screen.dart' as _i2;
 import 'package:yumi/app/pages/calories/calories_screen.dart' as _i3;
 import 'package:yumi/app/pages/chef_application/application_flow_screen.dart'
@@ -25,31 +25,31 @@ import 'package:yumi/app/pages/chef_application/application_flow_screen.dart'
 import 'package:yumi/app/pages/chef_application/contract/contract_screen.dart'
     as _i8;
 import 'package:yumi/app/pages/chef_application/documentation/documentation_screen.dart'
-    as _i11;
-import 'package:yumi/app/pages/notification/notification.dart' as _i22;
-import 'package:yumi/app/pages/schedule/schedule_screen.dart' as _i21;
-import 'package:yumi/app/pages/settings/settings_screen.dart' as _i29;
-import 'package:yumi/app/pages/transactions/transactions.dart' as _i32;
-import 'package:yumi/app/pages/wallet/customer_wallet.dart' as _i10;
+    as _i10;
+import 'package:yumi/app/pages/notification/notification.dart' as _i21;
+import 'package:yumi/app/pages/schedule/schedule_screen.dart' as _i20;
+import 'package:yumi/app/pages/settings/settings_screen.dart' as _i28;
+import 'package:yumi/app/pages/transactions/transactions.dart' as _i31;
+import 'package:yumi/app/pages/wallet/wallet_screen.dart' as _i32;
 import 'package:yumi/domain/chef/entity/chef.dart' as _i35;
 import 'package:yumi/model/meal_model.dart' as _i36;
 import 'package:yumi/model/order_model/order_model.dart' as _i38;
 import 'package:yumi/screens/chat.dart' as _i4;
-import 'package:yumi/screens/chef/menu_pre.dart' as _i19;
+import 'package:yumi/screens/chef/menu_pre.dart' as _i18;
 import 'package:yumi/screens/customer/checkout.dart' as _i5;
 import 'package:yumi/screens/customer/chef_profile.dart' as _i7;
 import 'package:yumi/screens/customer/customer_location.dart' as _i9;
-import 'package:yumi/screens/customer/meal_profile.dart' as _i18;
-import 'package:yumi/screens/customer/my_order.dart' as _i20;
-import 'package:yumi/screens/customer/order_status.dart' as _i24;
-import 'package:yumi/screens/customer/payment_paypal.dart' as _i25;
-import 'package:yumi/screens/customer/payment_visa.dart' as _i26;
-import 'package:yumi/screens/customer/tracking_order.dart' as _i31;
-import 'package:yumi/screens/financial_view.dart' as _i12;
-import 'package:yumi/screens/forget_password.dart' as _i13;
-import 'package:yumi/screens/home.dart' as _i14;
-import 'package:yumi/screens/login.dart' as _i17;
-import 'package:yumi/screens/performance_analysis.dart' as _i27;
+import 'package:yumi/screens/customer/meal_profile.dart' as _i17;
+import 'package:yumi/screens/customer/my_order.dart' as _i19;
+import 'package:yumi/screens/customer/order_status.dart' as _i23;
+import 'package:yumi/screens/customer/payment_paypal.dart' as _i24;
+import 'package:yumi/screens/customer/payment_visa.dart' as _i25;
+import 'package:yumi/screens/customer/tracking_order.dart' as _i30;
+import 'package:yumi/screens/financial_view.dart' as _i11;
+import 'package:yumi/screens/forget_password.dart' as _i12;
+import 'package:yumi/screens/home.dart' as _i13;
+import 'package:yumi/screens/login.dart' as _i16;
+import 'package:yumi/screens/performance_analysis.dart' as _i26;
 
 abstract class $AppRouter extends _i33.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -119,28 +119,22 @@ abstract class $AppRouter extends _i33.RootStackRouter {
         child: const _i9.CustomerLocationScreen(),
       );
     },
-    CustomerWalletRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i10.CustomerWalletScreen(),
-      );
-    },
     DocumentationRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i11.DocumentationScreen(),
+        child: const _i10.DocumentationScreen(),
       );
     },
     FinancialViewRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i12.FinancialViewScreen(),
+        child: const _i11.FinancialViewScreen(),
       );
     },
     ForgetPasswordRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i13.ForgetPasswordScreen(),
+        child: const _i12.ForgetPasswordScreen(),
       );
     },
     HomeRoute.name: (routeData) {
@@ -148,13 +142,13 @@ abstract class $AppRouter extends _i33.RootStackRouter {
           routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i14.HomeScreen(key: args.key),
+        child: _i13.HomeScreen(key: args.key),
       );
     },
     LoadingRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i15.LoadingPage(),
+        child: const _i14.LoadingPage(),
       );
     },
     LocationRoute.name: (routeData) {
@@ -162,7 +156,7 @@ abstract class $AppRouter extends _i33.RootStackRouter {
           orElse: () => const LocationRouteArgs());
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i16.LocationScreen(
+        child: _i15.LocationScreen(
           key: args.key,
           routeFn: args.routeFn,
         ),
@@ -173,14 +167,14 @@ abstract class $AppRouter extends _i33.RootStackRouter {
           orElse: () => const LoginRouteArgs());
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i17.LoginScreen(key: args.key),
+        child: _i16.LoginScreen(key: args.key),
       );
     },
     MealProfileRoute.name: (routeData) {
       final args = routeData.argsAs<MealProfileRouteArgs>();
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i18.MealProfileScreen(
+        child: _i17.MealProfileScreen(
           key: args.key,
           meal: args.meal,
           chef: args.chef,
@@ -190,7 +184,7 @@ abstract class $AppRouter extends _i33.RootStackRouter {
     MenuPreOrderRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i19.MenuPreOrderScreen(),
+        child: const _i18.MenuPreOrderScreen(),
       );
     },
     MyOrdersRoute.name: (routeData) {
@@ -198,7 +192,7 @@ abstract class $AppRouter extends _i33.RootStackRouter {
           orElse: () => const MyOrdersRouteArgs());
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i20.MyOrdersScreen(
+        child: _i19.MyOrdersScreen(
           key: args.key,
           isHistory: args.isHistory,
         ),
@@ -207,14 +201,14 @@ abstract class $AppRouter extends _i33.RootStackRouter {
     MyScheduleRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i21.MyScheduleScreen(),
+        child: const _i20.MyScheduleScreen(),
       );
     },
     NotificationRoute.name: (routeData) {
       final args = routeData.argsAs<NotificationRouteArgs>();
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i22.NotificationScreen(
+        child: _i21.NotificationScreen(
           key: args.key,
           isScreen: args.isScreen,
         ),
@@ -223,14 +217,14 @@ abstract class $AppRouter extends _i33.RootStackRouter {
     OTPRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i23.OTPScreen(),
+        child: const _i22.OTPScreen(),
       );
     },
     OrderStatusRoute.name: (routeData) {
       final args = routeData.argsAs<OrderStatusRouteArgs>();
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i24.OrderStatusScreen(
+        child: _i23.OrderStatusScreen(
           key: args.key,
           order: args.order,
         ),
@@ -239,31 +233,31 @@ abstract class $AppRouter extends _i33.RootStackRouter {
     PaymentPaypalRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i25.PaymentPaypalScreen(),
+        child: const _i24.PaymentPaypalScreen(),
       );
     },
     PaymentVisaRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i26.PaymentVisaScreen(),
+        child: const _i25.PaymentVisaScreen(),
       );
     },
     PerformanceAnalysisRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i27.PerformanceAnalysisScreen(),
+        child: const _i26.PerformanceAnalysisScreen(),
       );
     },
     RegisterationRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i28.RegisterationScreen(),
+        child: const _i27.RegisterationScreen(),
       );
     },
     SettingRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i29.SettingScreen(),
+        child: const _i28.SettingScreen(),
       );
     },
     SignUpRoute.name: (routeData) {
@@ -271,19 +265,25 @@ abstract class $AppRouter extends _i33.RootStackRouter {
           orElse: () => const SignUpRouteArgs());
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i30.SignUpScreen(key: args.key),
+        child: _i29.SignUpScreen(key: args.key),
       );
     },
     TrackingOrderRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i31.TrackingOrderScreen(),
+        child: const _i30.TrackingOrderScreen(),
       );
     },
     TransactionsRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i32.TransactionsScreen(),
+        child: const _i31.TransactionsScreen(),
+      );
+    },
+    WalletRoute.name: (routeData) {
+      return _i33.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i32.WalletScreen(),
       );
     },
   };
@@ -475,21 +475,7 @@ class CustomerLocationRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.CustomerWalletScreen]
-class CustomerWalletRoute extends _i33.PageRouteInfo<void> {
-  const CustomerWalletRoute({List<_i33.PageRouteInfo>? children})
-      : super(
-          CustomerWalletRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'CustomerWalletRoute';
-
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i11.DocumentationScreen]
+/// [_i10.DocumentationScreen]
 class DocumentationRoute extends _i33.PageRouteInfo<void> {
   const DocumentationRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -503,7 +489,7 @@ class DocumentationRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i12.FinancialViewScreen]
+/// [_i11.FinancialViewScreen]
 class FinancialViewRoute extends _i33.PageRouteInfo<void> {
   const FinancialViewRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -517,7 +503,7 @@ class FinancialViewRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.ForgetPasswordScreen]
+/// [_i12.ForgetPasswordScreen]
 class ForgetPasswordRoute extends _i33.PageRouteInfo<void> {
   const ForgetPasswordRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -531,7 +517,7 @@ class ForgetPasswordRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.HomeScreen]
+/// [_i13.HomeScreen]
 class HomeRoute extends _i33.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
     _i34.Key? key,
@@ -560,7 +546,7 @@ class HomeRouteArgs {
 }
 
 /// generated route for
-/// [_i15.LoadingPage]
+/// [_i14.LoadingPage]
 class LoadingRoute extends _i33.PageRouteInfo<void> {
   const LoadingRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -574,7 +560,7 @@ class LoadingRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.LocationScreen]
+/// [_i15.LocationScreen]
 class LocationRoute extends _i33.PageRouteInfo<LocationRouteArgs> {
   LocationRoute({
     _i34.Key? key,
@@ -612,7 +598,7 @@ class LocationRouteArgs {
 }
 
 /// generated route for
-/// [_i17.LoginScreen]
+/// [_i16.LoginScreen]
 class LoginRoute extends _i33.PageRouteInfo<LoginRouteArgs> {
   LoginRoute({
     _i34.Key? key,
@@ -641,7 +627,7 @@ class LoginRouteArgs {
 }
 
 /// generated route for
-/// [_i18.MealProfileScreen]
+/// [_i17.MealProfileScreen]
 class MealProfileRoute extends _i33.PageRouteInfo<MealProfileRouteArgs> {
   MealProfileRoute({
     _i34.Key? key,
@@ -684,7 +670,7 @@ class MealProfileRouteArgs {
 }
 
 /// generated route for
-/// [_i19.MenuPreOrderScreen]
+/// [_i18.MenuPreOrderScreen]
 class MenuPreOrderRoute extends _i33.PageRouteInfo<void> {
   const MenuPreOrderRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -698,7 +684,7 @@ class MenuPreOrderRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i20.MyOrdersScreen]
+/// [_i19.MyOrdersScreen]
 class MyOrdersRoute extends _i33.PageRouteInfo<MyOrdersRouteArgs> {
   MyOrdersRoute({
     _i34.Key? key,
@@ -736,7 +722,7 @@ class MyOrdersRouteArgs {
 }
 
 /// generated route for
-/// [_i21.MyScheduleScreen]
+/// [_i20.MyScheduleScreen]
 class MyScheduleRoute extends _i33.PageRouteInfo<void> {
   const MyScheduleRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -750,7 +736,7 @@ class MyScheduleRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i22.NotificationScreen]
+/// [_i21.NotificationScreen]
 class NotificationRoute extends _i33.PageRouteInfo<NotificationRouteArgs> {
   NotificationRoute({
     _i34.Key? key,
@@ -788,7 +774,7 @@ class NotificationRouteArgs {
 }
 
 /// generated route for
-/// [_i23.OTPScreen]
+/// [_i22.OTPScreen]
 class OTPRoute extends _i33.PageRouteInfo<void> {
   const OTPRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -802,7 +788,7 @@ class OTPRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i24.OrderStatusScreen]
+/// [_i23.OrderStatusScreen]
 class OrderStatusRoute extends _i33.PageRouteInfo<OrderStatusRouteArgs> {
   OrderStatusRoute({
     _i34.Key? key,
@@ -840,7 +826,7 @@ class OrderStatusRouteArgs {
 }
 
 /// generated route for
-/// [_i25.PaymentPaypalScreen]
+/// [_i24.PaymentPaypalScreen]
 class PaymentPaypalRoute extends _i33.PageRouteInfo<void> {
   const PaymentPaypalRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -854,7 +840,7 @@ class PaymentPaypalRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i26.PaymentVisaScreen]
+/// [_i25.PaymentVisaScreen]
 class PaymentVisaRoute extends _i33.PageRouteInfo<void> {
   const PaymentVisaRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -868,7 +854,7 @@ class PaymentVisaRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i27.PerformanceAnalysisScreen]
+/// [_i26.PerformanceAnalysisScreen]
 class PerformanceAnalysisRoute extends _i33.PageRouteInfo<void> {
   const PerformanceAnalysisRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -882,7 +868,7 @@ class PerformanceAnalysisRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i28.RegisterationScreen]
+/// [_i27.RegisterationScreen]
 class RegisterationRoute extends _i33.PageRouteInfo<void> {
   const RegisterationRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -896,7 +882,7 @@ class RegisterationRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i29.SettingScreen]
+/// [_i28.SettingScreen]
 class SettingRoute extends _i33.PageRouteInfo<void> {
   const SettingRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -910,7 +896,7 @@ class SettingRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i30.SignUpScreen]
+/// [_i29.SignUpScreen]
 class SignUpRoute extends _i33.PageRouteInfo<SignUpRouteArgs> {
   SignUpRoute({
     _i34.Key? key,
@@ -939,7 +925,7 @@ class SignUpRouteArgs {
 }
 
 /// generated route for
-/// [_i31.TrackingOrderScreen]
+/// [_i30.TrackingOrderScreen]
 class TrackingOrderRoute extends _i33.PageRouteInfo<void> {
   const TrackingOrderRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -953,7 +939,7 @@ class TrackingOrderRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i32.TransactionsScreen]
+/// [_i31.TransactionsScreen]
 class TransactionsRoute extends _i33.PageRouteInfo<void> {
   const TransactionsRoute({List<_i33.PageRouteInfo>? children})
       : super(
@@ -962,6 +948,20 @@ class TransactionsRoute extends _i33.PageRouteInfo<void> {
         );
 
   static const String name = 'TransactionsRoute';
+
+  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i32.WalletScreen]
+class WalletRoute extends _i33.PageRouteInfo<void> {
+  const WalletRoute({List<_i33.PageRouteInfo>? children})
+      : super(
+          WalletRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'WalletRoute';
 
   static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
 }

@@ -6,6 +6,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:yumi/app/core/setup/awesome_notifications.dart';
 import 'package:yumi/app/core/setup/crashlyticts.dart';
 import 'package:yumi/app/core/setup/inject.dart';
+import 'package:yumi/statics/api_statics.dart';
 
 Future init() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,9 @@ Future init() async {
   // Signalr.startConnection();
 
   await inject();
+
+  // to work with custom domains
+  await DioClient.getOriginApi();
 }
 
 // class MyBlocDelegate extends BlocDelegate  {

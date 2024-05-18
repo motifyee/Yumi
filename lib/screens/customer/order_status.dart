@@ -25,6 +25,8 @@ class OrderStatusScreen extends StatelessWidget {
         DateTime.tryParse(order.chefFinishedDate ?? '');
     DateTime? driverReceivedDate =
         DateTime.tryParse(order.driverReceivedDate ?? '');
+    DateTime? clientReceivedDate =
+        DateTime.tryParse(order.clientReceivedDate ?? '');
 
     return Scaffold(
       appBar: AppBar(
@@ -111,6 +113,34 @@ class OrderStatusScreen extends StatelessWidget {
                       color: ThemeSelector.colors.primary
                           .withAlpha(order.driverReceived == true ? 255 : 100),
                     ),
+                    Container(
+                      height: 75,
+                      width: 5,
+                      clipBehavior: Clip.hardEdge,
+                      decoration: const BoxDecoration(),
+                      child: Center(
+                        child: CustomPaint(
+                          painter: DrawDottedVerticalLine(
+                              height: 200,
+                              color: ThemeSelector.colors.primary.withAlpha(
+                                  order.driverReceived == true ? 255 : 100)),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 21,
+                      height: 21,
+                      padding: EdgeInsets.all(5),
+                      margin: EdgeInsets.symmetric(vertical: 3),
+                      decoration: BoxDecoration(
+                        color: ThemeSelector.colors.primary.withAlpha(
+                            order.clientReceived == true ? 255 : 100),
+                        borderRadius: BorderRadius.circular(
+                            ThemeSelector.statics.defaultBlockGap),
+                      ),
+                      child: SvgPicture.asset(
+                          'assets/images/client_received_icon.svg'),
+                    ),
                   ],
                 ),
                 SizedBox(width: ThemeSelector.statics.defaultInputGap),
@@ -148,7 +178,7 @@ class OrderStatusScreen extends StatelessWidget {
                         ],
                       ),
                       Container(
-                        height: 60,
+                        height: 70,
                         width: 5,
                         clipBehavior: Clip.hardEdge,
                         decoration: const BoxDecoration(),
@@ -187,7 +217,7 @@ class OrderStatusScreen extends StatelessWidget {
                         ],
                       ),
                       Container(
-                        height: 60,
+                        height: 65,
                         width: 5,
                         clipBehavior: Clip.hardEdge,
                         decoration: const BoxDecoration(),
@@ -231,7 +261,7 @@ class OrderStatusScreen extends StatelessWidget {
                                   context.router
                                       .push(const TrackingOrderRoute());
                                 },
-                                child: Container( 
+                                child: Container(
                                   padding: EdgeInsets.symmetric(
                                       horizontal:
                                           ThemeSelector.statics.defaultGap,
@@ -294,16 +324,55 @@ class OrderStatusScreen extends StatelessWidget {
                             ),
                           ],
                         ),
+                      Container(
+                        height: 65,
+                        width: 5,
+                        clipBehavior: Clip.hardEdge,
+                        decoration: const BoxDecoration(),
+                        child: Center(
+                          child: Container(),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(S.of(context).clientReceived,
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.access_time,
+                                color: ThemeSelector.colors.primary,
+                                size: ThemeSelector.fonts.font_14,
+                              ),
+                              const Text(' '),
+                              Text(
+                                order.clientReceived == true
+                                    ? DateFormat('d-M-yyyy | hh:mm')
+                                        .format(clientReceivedDate!)
+                                    : '--:--',
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
               ],
             ),
-            if (!order.isClientReceivedOverDay || true)
+            if (order.isClientReceivedOverDay)
               Hero(
                 tag: 'ConfirmBasketSeries',
                 child: GestureDetector(
-                  onTap: order.clientReceived != true && false
+                  onTap: order.clientReceived != true
                       ? null
                       : () {
                           showAdaptiveDialog(
@@ -342,9 +411,7 @@ class OrderStatusScreen extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        order.isPickUp == true
-                            ? S.of(context).confirmPickUp
-                            : S.of(context).confirmDelivery,
+                        S.of(context).rateOrder,
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
                     ),

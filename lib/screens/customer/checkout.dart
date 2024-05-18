@@ -7,7 +7,6 @@ import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/delivery_option_dialog.dart';
 import 'package:yumi/template/payment_summary_card.dart';
 import 'package:yumi/template/text_form_field.dart';
 
@@ -274,16 +273,7 @@ class CheckOutScreen extends StatelessWidget {
                                 builder: (context, state) {
                                   return GestureDetector(
                                     onTap: () {
-                                      if (state.basket.isPickupOnly) {
-                                        context
-                                            .read<BasketCubit>()
-                                            .closeBasket();
-                                      } else {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) =>
-                                                const DeliveryOptionDialog());
-                                      }
+                                      context.read<BasketCubit>().closeBasket();
                                     },
                                     child: Container(
                                       width:

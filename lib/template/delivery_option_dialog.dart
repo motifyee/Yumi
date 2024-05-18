@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
+import 'package:yumi/app/pages/basket/widgets/confirm_checkout_basket.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -143,7 +144,10 @@ class DeliveryOptionDialog extends StatelessWidget {
                 SizedBox(width: ThemeSelector.statics.defaultLineGap),
                 TextButton(
                     onPressed: () {
-                      context.read<BasketCubit>().closeBasket();
+                      context.router.maybePop();
+                      showDialog(
+                          context: context,
+                          builder: (context) => const ConfirmCheckOutBasket());
                     },
                     child: Text(
                       S.of(context).placeOrder,

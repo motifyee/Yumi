@@ -11,8 +11,8 @@ import 'package:yumi/template/pagination_template.dart';
 import 'package:yumi/template/text_currency.dart';
 
 @RoutePage()
-class CustomerWalletScreen extends StatelessWidget {
-  const CustomerWalletScreen({super.key});
+class WalletScreen extends StatelessWidget {
+  const WalletScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
