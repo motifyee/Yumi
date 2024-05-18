@@ -123,6 +123,28 @@ class _AppMenuList {
           },
         ),
         AppMenuItem(
+          icon: 'assets/images/schedule_menu.svg',
+          label: S.of(context).yourWallet,
+          textLabel: BlocBuilder<WalletCubit, WalletState>(
+            builder: (context, state) {
+              return state.isLoading
+                  ? Loading(size: ThemeSelector.statics.defaultBlockGap)
+                  : TextCurrency(
+                      value: state.wallet.money ?? 0,
+                      fontSize: ThemeSelector.fonts.font_14);
+            },
+          ),
+          onRender: () {
+            if (context.read<UserBloc>().state.user.accessToken.isNotEmpty) {
+              context.read<WalletCubit>().getWallet();
+            }
+          },
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(WalletRoute());
+          },
+        ),
+        AppMenuItem(
           icon: 'assets/images/documentation_menu.svg',
           label: S.of(context).documentation,
           onPressed: () {
@@ -223,7 +245,7 @@ class _AppMenuList {
           },
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(CustomerWalletRoute());
+            context.router.push(WalletRoute());
           },
         ),
         AppMenuItem(
@@ -262,6 +284,28 @@ class _AppMenuList {
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
             context.router.push(NotificationRoute(isScreen: false));
+          },
+        ),
+        AppMenuItem(
+          icon: 'assets/images/schedule_menu.svg',
+          label: S.of(context).yourWallet,
+          textLabel: BlocBuilder<WalletCubit, WalletState>(
+            builder: (context, state) {
+              return state.isLoading
+                  ? Loading(size: ThemeSelector.statics.defaultBlockGap)
+                  : TextCurrency(
+                      value: state.wallet.money ?? 0,
+                      fontSize: ThemeSelector.fonts.font_14);
+            },
+          ),
+          onRender: () {
+            if (context.read<UserBloc>().state.user.accessToken.isNotEmpty) {
+              context.read<WalletCubit>().getWallet();
+            }
+          },
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            context.router.push(WalletRoute());
           },
         ),
         AppMenuItem(

@@ -8,6 +8,7 @@ import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
+import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/app_config/app_config.dart';
 import 'package:yumi/app_config/driver/driver_routes.dart';
 import 'package:yumi/app_target.dart';
@@ -47,6 +48,7 @@ class DriverAppConfig implements AppConfig {
     BlocProvider(create: (context) => ScheduleCubit()),
     BlocProvider(create: (context) => NavigatorBloc()),
     BlocProvider(create: (context) => AppInfoCubit()),
+    BlocProvider(create: (context) => WalletCubit()),
   ];
   @override
   List<SingleChildWidget> get blocProviders => _providers;
