@@ -20,7 +20,7 @@ class NewsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isShown = false;
     LocalStorage.sharedRef.getValue(LocalStorage.newsGuide).then((res) {
-      if (res != true || true) {
+      if (res != true) {
         if (!isShown) {
           isShown = true;
           SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
