@@ -10,11 +10,25 @@ import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/statics/local_storage.dart';
 
 // const originApi = 'https://10.99.77.247:5012';
-const originApi = 'https://vroot.tarabia.online';
+String defaultOriginApi = 'https://vroot.tarabia.online';
+String originApi = '';
 
 class DioClient {
+  static void getOriginApi() {
+    LocalStorage.sharedRef
+        .getValue(LocalStorage.domainName)
+        .then((value) => originApi = value ?? defaultOriginApi);
+  }
+
+  static void setOriginApi(String value) {
+    if (value.isEmpty) return;
+    LocalStorage.sharedRef.setValue(LocalStorage.domainName, value);
+    originApi = value;
+  }
+
   static String get token => G.cContext.read<UserBloc>().state.user.accessToken;
   static Dio get dio => simpleDio();
   static Dio simpleDio([BuildContext? context]) {
@@ -26,6 +40,7 @@ class DioClient {
     )..interceptors.add(InterceptorsWrapper(
         onError: (error, handler) {
           debugPrint('dio error >>>>>>>>>>>>>>>>>>>>>>>>');
+          debugPrint('error code : ${error.response?.realUri}');
           debugPrint('error code : ${error.response?.statusCode.toString()}');
           debugPrint('error type : ${error.type}');
           debugPrint('error error : ${error.error}');

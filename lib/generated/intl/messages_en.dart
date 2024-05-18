@@ -97,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cuisine": MessageLookupByLibrary.simpleMessage("Cuisine"),
         "cuisines": MessageLookupByLibrary.simpleMessage("Cuisines"),
         "currency": MessageLookupByLibrary.simpleMessage("\$"),
+        "currentDomain": MessageLookupByLibrary.simpleMessage("Current Domain"),
         "day": MessageLookupByLibrary.simpleMessage("Day"),
         "debitCreditCard":
             MessageLookupByLibrary.simpleMessage("Debit/Credit Card"),
@@ -114,6 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "doYouWantToContinue":
             MessageLookupByLibrary.simpleMessage("Do you want to continue?"),
         "documentation": MessageLookupByLibrary.simpleMessage("Documentation"),
+        "domain": MessageLookupByLibrary.simpleMessage("Domain"),
         "driver": MessageLookupByLibrary.simpleMessage("Driver"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -246,6 +248,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "received": MessageLookupByLibrary.simpleMessage("Received"),
         "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
+        "reset": MessageLookupByLibrary.simpleMessage("Reset"),
         "review": MessageLookupByLibrary.simpleMessage("Review"),
         "reviewTheChef":
             MessageLookupByLibrary.simpleMessage("Review the chef"),

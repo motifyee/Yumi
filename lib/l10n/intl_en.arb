@@ -237,5 +237,8 @@
   "maxImageSize": "image size 640x480",
   "youHave": "You have",
   "cards": "Cards",
-  "offline": "Offline"
+  "offline": "Offline",
+  "currentDomain": "Current Domain",
+  "domain": "Domain",
+  "reset": "Reset"
 }

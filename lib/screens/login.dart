@@ -6,6 +6,7 @@ import 'package:yumi/forms/login_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/custom_domain.dart';
 import 'package:yumi/template/login_thrid_part.dart';
 import 'package:yumi/template/screen_container.dart';
 
@@ -29,6 +30,12 @@ class LoginScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomDomain(),
+                    ],
+                  ),
                   SizedBox(
                     height: ThemeSelector.statics.defaultBlockGap,
                   ),

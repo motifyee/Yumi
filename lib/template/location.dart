@@ -21,7 +21,6 @@ class Location extends StatelessWidget {
         BlocConsumer<UserBloc, UserState>(
           listener: (context, state) {},
           builder: (context, state) {
-            print(state.address?.toJson());
             return SizedBox(
               width: MediaQuery.of(context).size.width * .5,
               child: Text(
