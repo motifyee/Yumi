@@ -199,7 +199,10 @@ class MenuTemplate extends StatelessWidget {
                                   for (var mealIndex = 0;
                                       mealIndex < state.meals.length;
                                       mealIndex += 2)
-                                    MealCard(meal: state.meals[mealIndex])
+                                    MealCard(
+                                      meal: state.meals[mealIndex],
+                                      menuTarget: menuTarget,
+                                    )
                                 ],
                               ),
                               Column(
@@ -210,7 +213,10 @@ class MenuTemplate extends StatelessWidget {
                                   for (var mealIndex = 1;
                                       mealIndex < state.meals.length;
                                       mealIndex += 2)
-                                    MealCard(meal: state.meals[mealIndex])
+                                    MealCard(
+                                      meal: state.meals[mealIndex],
+                                      menuTarget: menuTarget,
+                                    )
                                 ],
                               ),
                             ],

@@ -19,9 +19,10 @@ import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_currency.dart';
 
 class MealCard extends StatelessWidget {
-  MealCard({super.key, required this.meal});
+  MealCard({super.key, required this.meal, required this.menuTarget});
 
   MealModel meal;
+  MenuTarget menuTarget;
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +105,7 @@ class MealCard extends StatelessWidget {
                         builder: (context) => DialogContainer(
                               child: MealForm(
                                 meal: meal,
+                                menuTarget: menuTarget,
                               ),
                             ));
                   },

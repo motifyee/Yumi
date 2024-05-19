@@ -22,7 +22,7 @@ class UserModel with _$UserModel {
     @JsonKey(name: 'expires_In') @Default('') String expiresIn,
     String? address,
     @JsonKey(name: 'address_Name') String? addressName,
-    @JsonKey(name: 'address_Lattitude') double? lat,
+    @JsonKey(name: 'address_Latitude') double? lat,
     @JsonKey(name: 'address_Longitude') double? long,
     @Default('') String location,
     @JsonKey(name: 'status_Work') int? status,

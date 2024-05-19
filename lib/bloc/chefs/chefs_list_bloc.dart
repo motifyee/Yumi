@@ -18,6 +18,8 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
             chefs: const [], paginationHelper: const PaginationHelper())) {
     on<GetChefsListEvent>((event, emit) async {
       Address? userLocation = event.context.read<UserBloc>().state.address;
+      print('userLocation?.toJson() --------------------------');
+      print(userLocation?.toJson());
       if (userLocation == null ||
           userLocation.latitude == null ||
           userLocation.longitude == null) {
