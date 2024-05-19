@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:logging/logging.dart';
 import 'package:signalr_netcore/json_hub_protocol.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/statics/api_statics.dart';
-import 'package:logging/logging.dart';
 
 enum Signals {
   sendmessage,
@@ -22,7 +22,7 @@ class Signalr {
   static String? connectionId;
   static String? accessToken;
   static String baseUrl = originApi;
-  static String? hubName = "chatHub";
+  static String? hubName = "yumiHub";
   static String? connectionToken;
 
   static void _setupSignalrConnection([bool force = false]) {
@@ -45,6 +45,7 @@ class Signalr {
       logger: transportLogger,
       logMessageContent: true,
       transport: HttpTransportType.WebSockets,
+      requestTimeout: 30000,
       // accessTokenFactory: () async => await accessToken(),
     );
 
@@ -64,6 +65,11 @@ class Signalr {
       "ReceiveMessage",
       (messages) => debugPrint("Messages: $messages"),
     );
+
+    hubConnection!.on('updatechefstatus', (arguments) {
+      print('signalR updatechefstatus .....................');
+      print(arguments);
+    });
   }
 
   static void ensureInitialized() {

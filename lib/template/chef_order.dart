@@ -21,8 +21,9 @@ class ChefOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
-
+    context
+        .read<NewsBloc>()
+        .add(NewsEvent(selectedList: menuTarget == MenuTarget.order ? 1 : 0));
     return Column(
       children: [
         BlocBuilder<NewsBloc, NewsState>(
@@ -145,8 +146,8 @@ class ChefOrder extends StatelessWidget {
                   navFun: () {
                     context
                         .read<NewsBloc>()
-                        .add(const NewsEvent(selectedList: 1));
-                    controller.jumpToPage(1);
+                        .add(const NewsEvent(selectedList: 3));
+                    controller.jumpToPage(3);
                     if (context.read<UserBloc>().state.user.status == 2) {
                       context.read<UserBloc>().add(
                           UserStatusUpdateEvent(statusEnum: StatusEnum.online));
@@ -162,6 +163,12 @@ class ChefOrder extends StatelessWidget {
                       ? ApiKeys.orderChefReady
                       : ApiKeys.preOrderChefReady,
                   orderCardTargetPage: OrderCardTargetPage.chefReady,
+                  navFun: () {
+                    context
+                        .read<NewsBloc>()
+                        .add(const NewsEvent(selectedList: 1));
+                    controller.jumpToPage(1);
+                  },
                 ),
               ),
               BlocProvider(

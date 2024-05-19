@@ -12,6 +12,9 @@ Future init() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+  // to work with custom domains
+  await DioClient.getOriginApi();
+
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   WakelockPlus.enable();
@@ -26,9 +29,6 @@ Future init() async {
   // Signalr.startConnection();
 
   await inject();
-
-  // to work with custom domains
-  await DioClient.getOriginApi();
 }
 
 // class MyBlocDelegate extends BlocDelegate  {
