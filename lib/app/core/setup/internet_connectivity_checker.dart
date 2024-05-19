@@ -7,7 +7,7 @@ class InternetChecker {
   final InternetConnectionChecker internetConnectionChecker =
       InternetConnectionChecker.createInstance(
     checkTimeout: const Duration(seconds: 2),
-    checkInterval: const Duration(seconds: 2),
+    checkInterval: const Duration(seconds: 5),
     // addresses: [],
   );
 
