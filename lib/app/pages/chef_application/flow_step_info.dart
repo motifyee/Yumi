@@ -19,12 +19,15 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
       [
         "profile",
         ["Profile", "First, you should complete your profile"],
-        () => showModalBottomSheet(
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              context: context,
-              builder: (context) => const EditBioSheet(),
-            ),
+        () {
+          if (G.rd<RegCubit>().state.onboarding.approvalDone) return;
+          showModalBottomSheet(
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            context: context,
+            builder: (context) => const EditBioSheet(),
+          );
+        },
         () => true,
         () => G.rd<RegCubit>().state.onboarding.profileSheetDone,
       ],
@@ -32,7 +35,8 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
         "menu",
         ["Your Menu", "Secondly, add your meals on menu and schedule it"],
         () {
-          // G.read<ScheduleBloc>().add(const ScheduleEvent.init());
+          if (G.rd<RegCubit>().state.onboarding.approvalDone) return;
+
           G.rd<ScheduleCubit>().loadSchedule();
 
           showAlertDialog(
@@ -66,12 +70,16 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
         "documentation",
         ["Documentation", "Third, attach your documents"],
         // () => G.router.push(const DocumentationRoute()),
-        () => showAlertDialog(
-              context: context,
-              content: const DocumentationScreen(),
-              actions: {'Ok': null},
-              insetPadding: 0,
-            ),
+        () {
+          if (G.rd<RegCubit>().state.onboarding.approvalDone) return;
+
+          showAlertDialog(
+            context: context,
+            content: const DocumentationScreen(),
+            actions: {'Ok': null},
+            insetPadding: 0,
+          );
+        },
         () => state.onboarding.docsActive,
 
         () => G.rd<RegCubit>().state.onboarding.docsDone,
@@ -131,7 +139,8 @@ List driverStepsInfo(BuildContext context, NRegState state) => [
           "Secondly, add your vechile type and schedule your working days"
         ],
         () {
-          // G.read<ScheduleBloc>().add(const ScheduleEvent.init());
+          if (G.rd<RegCubit>().state.onboarding.approvalDone) return;
+
           G.rd<ScheduleCubit>().loadSchedule();
           showAlertDialog(
             context: context,

@@ -94,7 +94,7 @@ class ChefApplicationFlowScreen extends StatelessWidget {
                     onLongPress: () {
                       if (kDebugMode) G.rd<RegCubit>().finish();
                     },
-                    child: const Text("Next"),
+                    child: const Text('Next'),
                   ),
                 ),
               ],
