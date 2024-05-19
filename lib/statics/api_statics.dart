@@ -32,6 +32,8 @@ class DioClient {
   static String get token => G.cContext.read<UserBloc>().state.user.accessToken;
   static Dio get dio => simpleDio();
   static Dio simpleDio([BuildContext? context]) {
+    G.listenInternetChecker();
+
     Dio dio = Dio(
       BaseOptions(baseUrl: originApi, headers: {
         'Content-Type': 'application/json; charset=UTF-8',
