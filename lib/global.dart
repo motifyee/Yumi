@@ -54,14 +54,14 @@ class G {
   static void listenConnectivity() {
     getIt<Connection>().listen(
       onConnected: () {
-        if (!_isConnected) showConnectivitySnackBar(true);
-        _isConnected = true;
+        if (!isOnline) showConnectivitySnackBar(true);
+        isOnline = true;
 
         listenInternetChecker();
       },
       onDisconnected: () {
-        if (_isConnected) showConnectivitySnackBar(false);
-        _isConnected = false;
+        if (isOnline) showConnectivitySnackBar(false);
+        isOnline = false;
       },
     );
   }
@@ -69,13 +69,13 @@ class G {
   static void listenInternetChecker() {
     getIt<InternetChecker>().listen(
       onConnected: () {
-        if (!_isConnected) showConnectivitySnackBar(true);
-        _isConnected = true;
+        if (!isOnline) showConnectivitySnackBar(true);
+        isOnline = true;
         getIt<InternetChecker>().dispose();
       },
       onDisconnected: () {
-        if (_isConnected) showConnectivitySnackBar(false);
-        _isConnected = false;
+        if (isOnline) showConnectivitySnackBar(false);
+        isOnline = false;
       },
     );
   }
@@ -85,7 +85,7 @@ class G {
     sl<InternetChecker>().dispose();
   }
 
-  static bool _isConnected = true;
+  static bool isOnline = true;
   static void showConnectivitySnackBar(bool isConnected) {
     hideSnackbar();
 
