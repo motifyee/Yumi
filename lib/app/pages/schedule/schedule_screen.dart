@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/components/child_data_notifier/child_data_notifier.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/domain/schedule/entities/schedule.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
@@ -287,9 +288,43 @@ class MyScheduleScreen extends StatelessWidget {
                     context: context,
                     initialTime:
                         (start ? day.start : day.end) ?? TimeOfDay.now(),
+
                     helpText: 'Pick ${start ? "Start" : "End"} Time',
+                    // cancelText: '',
+                    // confirmText: '',
+                    initialEntryMode: TimePickerEntryMode.dialOnly,
+                    builder: (context, child) {
+                      return MediaQuery(
+                        data: MediaQuery.of(context).copyWith(
+                          alwaysUse24HourFormat: false,
+                        ),
+                        child: ChildDataNotifier(
+                          builder: (context, data, notifier) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.red, width: 5)),
+                              child: Center(
+                                child: TextButton(
+                                  onPressed: () => G.pop(),
+                                  child: child ??
+                                      Icon(
+                                        Icons.warning,
+                                        size: 32,
+                                        color: Colors.yellow.shade800,
+                                      ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    barrierDismissible: false,
+                    useRootNavigator: true,
                   ).then((tod) {
                     if (tod == null) return;
+
                     HapticFeedback.lightImpact();
 
                     context.read<ScheduleCubit>().saveScheduleDay(

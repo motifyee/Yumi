@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:yumi/app/core/setup/connection.dart';
+import 'package:yumi/app/core/setup/internet_connectivity_checker.dart';
 import 'package:yumi/domain/basket/data/repo/basket_repo.dart';
 import 'package:yumi/domain/basket/data/repo/remote/basket_remote_repo.dart';
 import 'package:yumi/domain/basket/data/source/basket_source.dart';
@@ -48,4 +50,8 @@ Future<void> inject() async {
 
   sl.registerFactory<TransactionRepo>(() => TransactionRepoRemote());
   sl.registerFactory<TransactionSource>(() => TransactionSourceRemote());
+
+  // Utils
+  sl.registerLazySingleton<InternetChecker>(() => InternetChecker());
+  sl.registerLazySingleton<Connection>(() => Connection());
 }
