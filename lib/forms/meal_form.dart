@@ -131,6 +131,7 @@ class MealForm extends StatelessWidget {
                             SizedBox(
                                 height: ThemeSelector.statics.defaultLineGap),
                             TextFormFieldTemplate(
+                              key: Key('ingredients_meal_form'),
                               label: S.of(context).ingredients,
                               labelIcon: 'assets/images/ingredient.svg',
                               borderStyle:

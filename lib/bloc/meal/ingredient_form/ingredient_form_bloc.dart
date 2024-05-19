@@ -12,17 +12,19 @@ class IngredientFormBloc
       : super(IngredientFormState(
             ingredientsModelList: const [], ingredientsModelLength: 0)) {
     on<IngredientFormAddEvent>((event, emit) {
-      List<IngredientsModel> data = state.ingredientsModelList;
+      List<IngredientsModel> data = List.from(state.ingredientsModelList);
       data.add(event.ingredientsModel.copyWith());
       emit(state.copyWith(ingredientsModel: data));
     });
+
     on<IngredientFormRemoveEvent>((event, emit) {
-      List<IngredientsModel> data = state.ingredientsModelList;
+      List<IngredientsModel> data = List.from(state.ingredientsModelList);
       data.removeWhere((e) => e.id == event.ingredientsModel.id);
       emit(state.copyWith(ingredientsModel: data));
     });
+
     on<IngredientFormUpdateEvent>((event, emit) {
-      emit(state.copyWith(ingredientsModel: event.ingredientsModel));
+      emit(state.copyWith(ingredientsModel: List.from(event.ingredientsModel)));
     });
   }
 }
