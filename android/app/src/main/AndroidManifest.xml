@@ -1,11 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
   <application
-<<<<<<< HEAD
     android:label='YUMI Driver'
-=======
-    android:label='YUMI Chef'
->>>>>>> origin/master
     android:name="${applicationName}"
     android:icon="@mipmap/ic_launcher">
 
