@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/template/confirm_button.dart';
@@ -34,7 +35,7 @@ class ForgotPwdEnterEmail extends StatelessWidget {
               context.read<ForgotPwdCubit>().emailChanged(value),
         ),
         const SizedBox(height: 60),
-        ConfirmButton(
+        InteractiveButton(
             label: 'Send',
             onPressed: () async {
               final txt = emailController.text;

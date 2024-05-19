@@ -25,6 +25,9 @@ class ForgotPasswordState with _$ForgotPasswordState {
     @Default(false) bool passwordUpdated,
     //
     @Default(ForgotPwdWindow.enterEmail) ForgotPwdWindow window,
+    //
+    int? initialCountDownTime,
+    int? countDown,
   }) = Initial;
 
   const ForgotPasswordState._();

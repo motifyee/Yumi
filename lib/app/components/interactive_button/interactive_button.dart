@@ -9,13 +9,14 @@ class InteractiveButton extends StatefulWidget {
   // text
   final String label;
   final String? loadingLabel;
+  final ButtonType buttonType;
   // actions
   final bool? enabled;
   final Function()? onPressed;
   final Function()? afterAnimation;
   // colors
   final Color? backgroundColor;
-  final Color? foregroundColor;
+  final Color foregroundColor;
   // final Color? enabledColor;
   // final Color? disabledColor;
   // final Color? loadingColor;
@@ -34,11 +35,12 @@ class InteractiveButton extends StatefulWidget {
     this.isFixedSize = true,
     this.label = '',
     this.loadingLabel,
+    this.buttonType = ButtonType.filled,
     this.enabled,
     this.onPressed,
     this.afterAnimation,
     this.backgroundColor,
-    this.foregroundColor,
+    this.foregroundColor = Colors.white,
     // this.enabledColor,
     // this.disabledColor,
     // this.loadingColor,
@@ -85,6 +87,7 @@ class _InteractiveButtonState extends State<InteractiveButton> {
                 backgroundColor: widget.backgroundColor,
                 foregroundColor: widget.foregroundColor,
                 isLoading: widget.isFixedSize && isLoading,
+                buttonType: widget.buttonType,
                 onPressed: () async {
                   if (state != ButtonState.init) return;
 
@@ -108,6 +111,8 @@ class _InteractiveButtonState extends State<InteractiveButton> {
   }
 }
 
+enum ButtonType { outline, filled, text }
+
 Widget buildButton({
   required String label,
   String? loadingLabel,
@@ -117,7 +122,7 @@ Widget buildButton({
   Color? foregroundColor,
   bool isLoading = false,
   double size = 40,
-  bool isOutlined = false,
+  ButtonType buttonType = ButtonType.filled,
   required VoidCallback? onPressed,
 }) {
   var indicator = Container(
@@ -125,9 +130,9 @@ Widget buildButton({
     width: size,
     padding: const EdgeInsets.all(10),
     child: loadingWidget ??
-        const CircularProgressIndicator(
+        CircularProgressIndicator(
           strokeWidth: 2,
-          color: Colors.white,
+          color: foregroundColor,
         ),
   );
 
@@ -140,35 +145,39 @@ Widget buildButton({
         if (isLoading || icon != null) const SizedBox(width: 20),
         Text(
           isLoading ? loadingLabel ?? 'Please Wait...' : label,
-          style: const TextStyle(
-            letterSpacing: 1.5,
-            fontWeight: FontWeight.w600,
-          ),
+          style: TextStyle(
+              letterSpacing: 1.5,
+              fontWeight: FontWeight.w600,
+              color: foregroundColor),
         ),
       ],
     ),
   );
 
-  if (isOutlined) {
-    return OutlinedButton(
-      onPressed: onPressed,
-      style: OutlinedButton.styleFrom(
-        shape: const StadiumBorder(),
+  return switch (buttonType) {
+    ButtonType.outline => OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+          shape: const StadiumBorder(),
+        ),
+        child: buttonContent,
       ),
-      child: buttonContent,
-    );
-  }
-
-  return ElevatedButton(
-    onPressed: onPressed,
-    style: ElevatedButton.styleFrom(
-      backgroundColor: backgroundColor ?? ThemeSelector.colors.primary,
-      foregroundColor: foregroundColor ?? ThemeSelector.colors.onPrimary,
-      shape: const StadiumBorder(),
-    ),
-    child: buttonContent,
-  );
+    ButtonType.filled => ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor ?? ThemeSelector.colors.primary,
+          foregroundColor: foregroundColor ?? ThemeSelector.colors.onPrimary,
+          shape: const StadiumBorder(),
+        ),
+        child: buttonContent,
+      ),
+    ButtonType.text => TextButton(onPressed: onPressed, child: buttonContent),
+  };
 }
+
+// if (isOutlined) { return ; }
+
+// return ;
 
 Widget buildSmallButton(
   bool isDone, {

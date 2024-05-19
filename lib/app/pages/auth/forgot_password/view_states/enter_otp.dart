@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/presentation/otp.dart';
+import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/validators/confirm_password_validator.dart';
@@ -26,8 +28,37 @@ class ForgotPwdEnterOTP extends StatelessWidget {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         Text(
-          'Enter the 4 digits code that you received on your email.',
+          'Enter code sent to your email.',
           style: Theme.of(context).textTheme.labelSmall,
+        ),
+        BlocSelector<ForgotPwdCubit, ForgotPasswordState, int?>(
+          selector: (state) => state.countDown,
+          builder: (context, countDown) => SizedBox(
+            width: (countDown ?? 0) > 0 ? 50 : 175,
+            child: InteractiveButton(
+              label: (countDown ?? 0) > 0 ? countDown.toString() : "Resend OTP",
+              buttonType: ButtonType.text,
+              foregroundColor: Theme.of(context).colorScheme.primary,
+              onPressed: () async {
+                if ((countDown ?? 0) > 0) return;
+                await cubit.forgotPassword();
+              },
+            ),
+          )
+          // return TextButton(
+          //   onPressed: () {
+          //     if ((countDown ?? 0) > 0) return;
+          //   },
+          //   child: Text(
+          //     (countDown ?? 0) > 0 ? countDown.toString() : "Resend OTP",
+          //     style: TextStyle(
+          //       fontSize: ThemeSelector.fonts.font_12,
+          //       fontWeight: FontWeight.normal,
+          //       color: ThemeSelector.colors.primary,
+          //     ),
+          //   ),
+          // );
+          ,
         ),
         const SizedBox(height: 20),
         Center(
@@ -74,7 +105,7 @@ class ForgotPwdEnterOTP extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 30),
-        ConfirmButton(
+        InteractiveButton(
             label: 'Send',
             onPressed: () async {
               if (otp.length < 4) return G.snackBar("Invalid OTP!");

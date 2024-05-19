@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumi/app_config/yumi_app.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/template/snack_bar.dart';
@@ -30,6 +31,8 @@ class G {
 
   static StackRouter get router => yumiApp.config.appRouter;
   static BuildContext get context => router.navigatorKey.currentContext!;
+
+  static Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
   static void pop({bool rootNavigator = true}) {
     Navigator.of(context, rootNavigator: rootNavigator).pop();
