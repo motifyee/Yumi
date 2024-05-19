@@ -13,7 +13,7 @@ import 'package:yumi/template/status_button.dart';
 class NewsScreen extends StatelessWidget {
   NewsScreen({super.key});
 
-  final PageController _controller = PageController(initialPage: 1);
+  PageController _controller = PageController(initialPage: 1);
   final MenuTarget _menuTarget = MenuTarget.order;
 
   @override

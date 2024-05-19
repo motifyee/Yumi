@@ -7,14 +7,14 @@ import 'package:yumi/template/chef_order.dart';
 class PreOrderScreen extends StatelessWidget {
   PreOrderScreen({super.key});
 
-  final PageController _controller = PageController(initialPage: 1);
-  final MenuTarget _menuTarget = MenuTarget.preOrder;
+  final PageController controller = PageController(initialPage: 0);
+  final MenuTarget menuTarget = MenuTarget.preOrder;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => NewsBloc(),
-      child: ChefOrder(controller: _controller, menuTarget: _menuTarget),
+      child: ChefOrder(controller: controller, menuTarget: menuTarget),
     );
   }
 }

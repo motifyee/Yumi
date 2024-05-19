@@ -445,6 +445,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       OrderEvent.putAction(
                                         order: widget.order,
                                         isFakeBody: false,
+                                        navFun: widget.navFun,
                                         apiKey: ApiKeys.actionApiKeyString(
                                             apiKey: apiKey,
                                             id: '${widget.order.id}'),
@@ -597,6 +598,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       OrderEvent.putAction(
                                         order: widget.order,
                                         isFakeBody: false,
+                                        navFun: widget.navFun,
                                         apiKey: ApiKeys.actionApiKeyString(
                                             apiKey: apiKey,
                                             id: '${widget.order.id}'),
@@ -621,6 +623,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       context.read<OrderBloc>().add(
                                             OrderEvent.putAction(
                                               order: widget.order,
+                                              navFun: widget.navFun,
                                               apiKey: ApiKeys.actionApiKeyString(
                                                   apiKey: widget.menuTarget ==
                                                           MenuTarget.order
@@ -674,6 +677,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                     context.read<OrderBloc>().add(
                                           OrderEvent.putAction(
                                             order: widget.order,
+                                            navFun: widget.navFun,
                                             apiKey: ApiKeys.actionApiKeyString(
                                                 apiKey: widget.menuTarget ==
                                                         MenuTarget.order
