@@ -18,7 +18,7 @@ class IngredientsForm extends StatelessWidget {
   IngredientsForm({super.key, required this.ingredientFormKey});
 
   final GlobalKey<FormState> ingredientFormKey;
-  IngredientsModel ingredientsModel = IngredientsModel();
+  final IngredientsModel ingredientsModel = IngredientsModel();
 
   @override
   Widget build(BuildContext context) {
@@ -212,13 +212,9 @@ class IngredientsForm extends StatelessWidget {
                               dropdownSelectionTargetLabel: 'name',
                               dropdownSelectionList: selectFromList,
                               initialValue: ingredientsModel.id != null
-                                  ? state.ingredients.firstWhere(
+                                  ? selectFromList.firstWhere(
                                       (e) => e.id == ingredientsModel.id)
-                                  : (state.ingredients.isNotEmpty
-                                      ? selectFromList.isNotEmpty
-                                          ? selectFromList[0]
-                                          : null
-                                      : null),
+                                  : selectFromList.firstOrNull,
                               onChange: (value) {},
                               onSave: (value) {
                                 ingredientsModel.id = value.id;
@@ -253,9 +249,10 @@ class IngredientsForm extends StatelessWidget {
 
                             context.read<IngredientFormBloc>().add(
                                 IngredientFormAddEvent(
-                                    ingredientsModel: ingredientsModel));
+                                    ingredientsModel: IngredientsModel.fromJson(
+                                        ingredientsModel.toJson())));
 
-                            ingredientsModel = IngredientsModel();
+                            ingredientsModel.reset();
                             ingredientFormKey.currentState!.reset();
                           }
                         },

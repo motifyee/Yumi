@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 class MealModel {
   int? id;
   int? productVariantID;
@@ -122,7 +124,7 @@ class MealModel {
   }
 }
 
-class IngredientsModel {
+class IngredientsModel extends Equatable {
   String? id;
   String? code;
   String? name;
@@ -146,6 +148,13 @@ class IngredientsModel {
     return data;
   }
 
+  reset() {
+    id = null;
+    code = null;
+    name = null;
+    portionGrams = null;
+  }
+
   IngredientsModel copyWith(
       {String? id, String? code, String? name, double? portionGrams}) {
     return IngredientsModel(
@@ -155,6 +164,10 @@ class IngredientsModel {
       portionGrams: portionGrams ?? this.portionGrams,
     );
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, code, name, portionGrams];
 }
 
 enum MenuTarget { order, preOrder }

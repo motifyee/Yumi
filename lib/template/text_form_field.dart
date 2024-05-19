@@ -222,15 +222,16 @@ class _TextFormFieldTemplateState extends State<TextFormFieldTemplate> {
 
     return widget.dropdownSelection
         ? DropdownButtonFormField(
+            key: widget.key,
             isExpanded: true,
             validator: widget.objectValidators,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            value: widget.initialValue,
             icon: Icon(
               Icons.arrow_drop_up,
               color: ThemeSelector.colors.secondaryFaint,
             ),
             style: Theme.of(context).textTheme.bodyMedium,
+            value: widget.initialValue,
             items: widget.dropdownSelectionList
                     ?.map(
                       (e) => DropdownMenuItem(

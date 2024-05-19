@@ -37,7 +37,7 @@ mixin _$UserModel {
   String? get address => throw _privateConstructorUsedError;
   @JsonKey(name: 'address_Name')
   String? get addressName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'address_Lattitude')
+  @JsonKey(name: 'address_Latitude')
   double? get lat => throw _privateConstructorUsedError;
   @JsonKey(name: 'address_Longitude')
   double? get long => throw _privateConstructorUsedError;
@@ -78,7 +78,7 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(name: 'expires_In') String expiresIn,
       String? address,
       @JsonKey(name: 'address_Name') String? addressName,
-      @JsonKey(name: 'address_Lattitude') double? lat,
+      @JsonKey(name: 'address_Latitude') double? lat,
       @JsonKey(name: 'address_Longitude') double? long,
       String location,
       @JsonKey(name: 'status_Work') int? status,
@@ -234,7 +234,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       @JsonKey(name: 'expires_In') String expiresIn,
       String? address,
       @JsonKey(name: 'address_Name') String? addressName,
-      @JsonKey(name: 'address_Lattitude') double? lat,
+      @JsonKey(name: 'address_Latitude') double? lat,
       @JsonKey(name: 'address_Longitude') double? long,
       String location,
       @JsonKey(name: 'status_Work') int? status,
@@ -383,7 +383,7 @@ class _$InitialImpl extends _Initial {
       @JsonKey(name: 'expires_In') this.expiresIn = '',
       this.address,
       @JsonKey(name: 'address_Name') this.addressName,
-      @JsonKey(name: 'address_Lattitude') this.lat,
+      @JsonKey(name: 'address_Latitude') this.lat,
       @JsonKey(name: 'address_Longitude') this.long,
       this.location = '',
       @JsonKey(name: 'status_Work') this.status,
@@ -432,7 +432,7 @@ class _$InitialImpl extends _Initial {
   @JsonKey(name: 'address_Name')
   final String? addressName;
   @override
-  @JsonKey(name: 'address_Lattitude')
+  @JsonKey(name: 'address_Latitude')
   final double? lat;
   @override
   @JsonKey(name: 'address_Longitude')
@@ -558,7 +558,7 @@ abstract class _Initial extends UserModel {
       @JsonKey(name: 'expires_In') final String expiresIn,
       final String? address,
       @JsonKey(name: 'address_Name') final String? addressName,
-      @JsonKey(name: 'address_Lattitude') final double? lat,
+      @JsonKey(name: 'address_Latitude') final double? lat,
       @JsonKey(name: 'address_Longitude') final double? long,
       final String location,
       @JsonKey(name: 'status_Work') final int? status,
@@ -601,7 +601,7 @@ abstract class _Initial extends UserModel {
   @JsonKey(name: 'address_Name')
   String? get addressName;
   @override
-  @JsonKey(name: 'address_Lattitude')
+  @JsonKey(name: 'address_Latitude')
   double? get lat;
   @override
   @JsonKey(name: 'address_Longitude')
