@@ -19,9 +19,14 @@ extension StringX on String {
 }
 
 extension TimeOfDayX on TimeOfDay {
-  get toStringD =>
-      '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
-  String get toStringF {
+  String get toPaddedString {
+    final hr = hour.toString();
+    final min = minute.toString();
+
+    return '${hr.padLeft((hour < 0) ? 3 : 2, '0')}:${min.padLeft(2, '0')}';
+  }
+
+  String get toFormattedString {
     var d = DateTime.now().setHourMinute(hour, minute);
 
     return d.toString().replaceAll(' ', 'T').split('.')[0];
@@ -37,9 +42,20 @@ extension TimeOfDayX on TimeOfDay {
     var hr = d1.difference(d2).inHours;
     return TimeOfDay(
       hour: hr,
-      minute: d1.difference(d2).inMinutes - hr * 60,
+      minute: (d1.difference(d2).inMinutes - hr * 60).abs(),
     );
   }
+
+  int minutesDifference(TimeOfDay? other) {
+    if (other == null) return hour * 60 + minute;
+
+    return (hour * 60 + minute) - (other.hour * 60 + other.minute);
+  }
+
+  bool operator >(TimeOfDay other) => minutesDifference(other) > 0;
+  bool operator <(TimeOfDay other) => minutesDifference(other) < 0;
+  bool operator >=(TimeOfDay other) => minutesDifference(other) >= 0;
+  bool operator <=(TimeOfDay other) => minutesDifference(other) <= 0;
 }
 
 extension DateTimeX on DateTime {
