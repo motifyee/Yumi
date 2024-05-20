@@ -155,19 +155,6 @@ class _ChefBannerState extends State<ChefBanner> {
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ),
-                      if (widget.chef.pickupOnly == true)
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: ThemeSelector.statics.defaultGap),
-                          decoration: BoxDecoration(
-                              color: ThemeSelector.colors.primary,
-                              borderRadius: BorderRadius.circular(ThemeSelector
-                                  .statics.defaultBorderRadiusLarge)),
-                          child: Text(
-                            S.of(context).pickUpOnly,
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ),
                     ],
                   ),
                 ),
@@ -350,8 +337,8 @@ class DeliveryPickUpIcons extends StatelessWidget {
                     children: [
                       const SizedBox(width: 5),
                       SvgPicture.asset(isPickUpOnly
-                          ? 'assets/images/checked_icon.svg'
-                          : 'assets/images/closed_icon.svg'),
+                          ? 'assets/images/closed_icon.svg'
+                          : 'assets/images/checked_icon.svg'),
                     ],
                   ),
               ],
@@ -368,8 +355,8 @@ class DeliveryPickUpIcons extends StatelessWidget {
                 children: [
                   const SizedBox(height: 3),
                   SvgPicture.asset(isPickUpOnly
-                      ? 'assets/images/checked_icon.svg'
-                      : 'assets/images/closed_icon.svg'),
+                      ? 'assets/images/closed_icon.svg'
+                      : 'assets/images/checked_icon.svg'),
                 ],
               ),
           ],
