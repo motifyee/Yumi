@@ -28,37 +28,44 @@ class MyScheduleScreen extends StatelessWidget {
       }
     });
 
-    return ScreenContainer(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: G.rd<RegCubit>().state.registerationStarted
-            ? null
-            : AppBar(
-                backgroundColor: Colors.transparent,
-                bottomOpacity: 0,
-                scrolledUnderElevation: 0,
-                iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
-              ),
-        body: BlocBuilder<ScheduleCubit, ScheduleState>(
-          builder: (context, state) {
-            if (state.status.isInit) {
-              context.read<ScheduleCubit>().loadSchedule();
-            }
-            if (state.status.isLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
-
-            return Column(
-              children: [
-                Expanded(child: SingleChildScrollView(child: _cards(state))),
-                Container(
-                  // color: Colors.green,
-                  padding: const EdgeInsets.all(16.0),
-                  child: _saveButton(context),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (_) {
+        context.read<ScheduleCubit>().reset();
+        // context.read<ScheduleCubit>().loadSchedule();
+      },
+      child: ScreenContainer(
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: G.rd<RegCubit>().state.registerationStarted
+              ? null
+              : AppBar(
+                  backgroundColor: Colors.transparent,
+                  bottomOpacity: 0,
+                  scrolledUnderElevation: 0,
+                  iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
                 ),
-              ],
-            );
-          },
+          body: BlocBuilder<ScheduleCubit, ScheduleState>(
+            builder: (context, state) {
+              if (state.status.isInit) {
+                context.read<ScheduleCubit>().loadSchedule();
+              }
+              if (state.status.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              return Column(
+                children: [
+                  Expanded(child: SingleChildScrollView(child: _cards(state))),
+                  Container(
+                    // color: Colors.green,
+                    padding: const EdgeInsets.all(16.0),
+                    child: _saveButton(context),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
