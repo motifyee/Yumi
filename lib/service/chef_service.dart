@@ -36,7 +36,7 @@ class ChefService {
     required String chefId,
     Map<String, dynamic>? queryParameters,
   }) async {
-    final Response res = await DioClient.simpleDio().get(ApiKeys.favoriteChefs,
+    final Response res = await DioClient.simpleDio().get(ApiKeys.favoriteChef,
         queryParameters: {...?queryParameters, 'chefId': chefId});
 
     return res;

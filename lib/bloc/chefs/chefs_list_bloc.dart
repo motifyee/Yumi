@@ -18,8 +18,7 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
             chefs: const [], paginationHelper: const PaginationHelper())) {
     on<GetChefsListEvent>((event, emit) async {
       Address? userLocation = event.context.read<UserBloc>().state.address;
-      print('userLocation?.toJson() --------------------------');
-      print(userLocation?.toJson());
+
       if (userLocation == null ||
           userLocation.latitude == null ||
           userLocation.longitude == null) {
@@ -70,8 +69,10 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
       final Response res =
           await ChefService.getIsChefFavorite(chefId: event.chef.id!);
       if (res.statusCode == 200) {
-        List<Chef> chefs = state.chefs;
-        // ..firstWhere((e) => e.id == event.chef.id).isFavorite = true;
+        List<Chef> chefs = List.from(state.chefs);
+        chefs[chefs.indexWhere((e) => e.id == event.chef.id)] =
+            chefs[chefs.indexWhere((e) => e.id == event.chef.id)]
+                .copyWith(isFavorite: res.data['isChefFavorit']);
 
         emit(state.copyWith(chefs: chefs));
       }

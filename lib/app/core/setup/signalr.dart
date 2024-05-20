@@ -70,6 +70,11 @@ class Signalr {
       print('signalR updatechefstatus .....................');
       print(arguments);
     });
+
+    hubConnection!.on('cusotmertransaction', (arguments) {
+      print('signalR cusotmertransaction .....................');
+      print(arguments);
+    });
   }
 
   static void ensureInitialized() {

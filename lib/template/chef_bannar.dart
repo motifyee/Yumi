@@ -44,7 +44,7 @@ class _ChefBannerState extends State<ChefBanner> {
       ChefService.getIsChefFavorite(chefId: widget.chef.id!)
           .then((value) => setState(() {
                 widget.chef = widget.chef
-                    .copyWith(isFavorite: value.data['data'].isNotEmpty);
+                    .copyWith(isFavorite: value.data['isChefFavorit']);
                 isLoading = false;
               }))
           .catchError((onError) {
