@@ -161,70 +161,91 @@ class _ChefBannerState extends State<ChefBanner> {
               ),
             ]),
           ),
-          Padding(
+          Container(
+            width: widget.width,
             padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          [widget.chef.firstName, widget.chef.lastName]
-                              .join(' '),
-                          overflow: TextOverflow.ellipsis,
-                          style:
-                              Theme.of(context).textTheme.labelLarge?.copyWith(
-                                    fontSize: ThemeSelector.fonts.font_16,
-                                  ),
-                        ),
-                        if (widget.isShowFav)
-                          DeliveryPickUpIcons(
-                            isPickUpOnly: widget.chef.pickupOnly ?? false,
-                            isShowFav: widget.isShowFav,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            [widget.chef.firstName, widget.chef.lastName]
+                                .join(' '),
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
+                                  fontSize: ThemeSelector.fonts.font_16,
+                                ),
                           ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        RatingBar(
-                          ignoreGestures: true,
-                          initialRating: widget.chef.rate ?? 0,
-                          allowHalfRating: true,
-                          itemSize: ThemeSelector.fonts.font_24,
-                          ratingWidget: RatingWidget(
-                            empty: Icon(Icons.star_border,
-                                color: ThemeSelector.colors.warning),
-                            full: Icon(Icons.star,
-                                color: ThemeSelector.colors.warning),
-                            half: Icon(
-                              Icons.star_half,
-                              color: ThemeSelector.colors.warning,
+                          if (widget.isShowFav)
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: ThemeSelector.statics.defaultGap),
+                              child: DeliveryPickUpIcons(
+                                isPickUpOnly: widget.chef.pickupOnly ?? false,
+                                isShowFav: widget.isShowFav,
+                              ),
                             ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          RatingBar(
+                            ignoreGestures: true,
+                            initialRating: widget.chef.rate ?? 0,
+                            allowHalfRating: true,
+                            itemSize: ThemeSelector.fonts.font_18,
+                            ratingWidget: RatingWidget(
+                              empty: Icon(Icons.star_border,
+                                  color: ThemeSelector.colors.warning),
+                              full: Icon(Icons.star,
+                                  color: ThemeSelector.colors.warning),
+                              half: Icon(
+                                Icons.star_half,
+                                color: ThemeSelector.colors.warning,
+                              ),
+                            ),
+                            onRatingUpdate: (value) {},
                           ),
-                          onRatingUpdate: (value) {},
-                        ),
-                        Text(' | ',
-                            style: Theme.of(context).textTheme.bodyMedium),
-                        if (widget.chef.isHygiene != true)
-                          Text('${S.of(context).hygiene} -',
-                              style: Theme.of(context).textTheme.bodyMedium),
-                        if (widget.chef.isHygiene == true)
-                          Text(S.of(context).hygieneCertified,
-                              style: Theme.of(context).textTheme.bodyMedium),
-                        if (widget.chef.isHygiene == true)
-                          SvgPicture.asset('assets/images/certified_icon.svg'),
-                      ],
-                    )
-                  ],
+                          Text(' | ',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                      fontSize: ThemeSelector.fonts.font_9)),
+                          if (widget.chef.isHygiene != true)
+                            Text('${S.of(context).hygiene} -',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        fontSize: ThemeSelector.fonts.font_9)),
+                          if (widget.chef.isHygiene == true)
+                            Text(S.of(context).hygieneCertified,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        fontSize: ThemeSelector.fonts.font_9)),
+                          if (widget.chef.isHygiene == true)
+                            SvgPicture.asset(
+                                'assets/images/certified_icon.svg'),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
                 if (!widget.isShowFav)
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultMicroGap),
+                  Transform.scale(
+                    scale: 1.6,
                     child: DeliveryPickUpIcons(
                       isPickUpOnly: widget.chef.pickupOnly ?? false,
                       isShowFav: widget.isShowFav,

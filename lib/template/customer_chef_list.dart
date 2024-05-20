@@ -53,79 +53,81 @@ class CustomerChefList extends StatelessWidget {
                               fontSize: ThemeSelector.fonts.font_16,
                             ),
                       ),
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            ActionButton(
-                              label: S.of(context).online,
-                              isActive: state.selectedList == 0,
-                              icon: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        ThemeSelector.statics.defaultMicroGap),
-                                child: SvgPicture.asset(
-                                    'assets/images/online_chef_icon.svg'),
+                      if (menuTarget == MenuTarget.order)
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ActionButton(
+                                label: S.of(context).online,
+                                isActive: state.selectedList == 0,
+                                icon: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: ThemeSelector
+                                          .statics.defaultMicroGap),
+                                  child: SvgPicture.asset(
+                                      'assets/images/online_chef_icon.svg'),
+                                ),
+                                onPressed: () {
+                                  context
+                                      .read<NewsBloc>()
+                                      .add(const NewsEvent(selectedList: 0));
+                                  controller.jumpToPage(0);
+                                },
+                                activeColor: ThemeSelector.colors.success,
+                                notActiveColor: ThemeSelector.colors.background,
+                                activeTextColor: ThemeSelector.colors.onSuccess,
+                                notActiveTextColor:
+                                    ThemeSelector.colors.secondary,
                               ),
-                              onPressed: () {
-                                context
-                                    .read<NewsBloc>()
-                                    .add(const NewsEvent(selectedList: 0));
-                                controller.jumpToPage(0);
-                              },
-                              activeColor: ThemeSelector.colors.success,
-                              notActiveColor: ThemeSelector.colors.background,
-                              activeTextColor: ThemeSelector.colors.onSuccess,
-                              notActiveTextColor:
-                                  ThemeSelector.colors.secondary,
-                            ),
-                            ActionButton(
-                              label: S.of(context).busy,
-                              isActive: state.selectedList == 1,
-                              icon: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        ThemeSelector.statics.defaultMicroGap),
-                                child: SvgPicture.asset(
-                                    'assets/images/busy_chef_icon.svg'),
+                              ActionButton(
+                                label: S.of(context).busy,
+                                isActive: state.selectedList == 1,
+                                icon: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: ThemeSelector
+                                          .statics.defaultMicroGap),
+                                  child: SvgPicture.asset(
+                                      'assets/images/busy_chef_icon.svg'),
+                                ),
+                                onPressed: () {
+                                  context
+                                      .read<NewsBloc>()
+                                      .add(const NewsEvent(selectedList: 1));
+                                  controller.jumpToPage(1);
+                                },
+                                activeColor: ThemeSelector.colors.primary,
+                                notActiveColor: ThemeSelector.colors.background,
+                                activeTextColor: ThemeSelector.colors.onPrimary,
+                                notActiveTextColor:
+                                    ThemeSelector.colors.secondary,
                               ),
-                              onPressed: () {
-                                context
-                                    .read<NewsBloc>()
-                                    .add(const NewsEvent(selectedList: 1));
-                                controller.jumpToPage(1);
-                              },
-                              activeColor: ThemeSelector.colors.primary,
-                              notActiveColor: ThemeSelector.colors.background,
-                              activeTextColor: ThemeSelector.colors.onPrimary,
-                              notActiveTextColor:
-                                  ThemeSelector.colors.secondary,
-                            ),
-                            ActionButton(
-                              label: S.of(context).offline,
-                              isActive: state.selectedList == 2,
-                              icon: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        ThemeSelector.statics.defaultMicroGap),
-                                child: SvgPicture.asset(
-                                    'assets/images/offline_chef_icon.svg'),
+                              ActionButton(
+                                label: S.of(context).offline,
+                                isActive: state.selectedList == 2,
+                                icon: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: ThemeSelector
+                                          .statics.defaultMicroGap),
+                                  child: SvgPicture.asset(
+                                      'assets/images/offline_chef_icon.svg'),
+                                ),
+                                onPressed: () {
+                                  context
+                                      .read<NewsBloc>()
+                                      .add(const NewsEvent(selectedList: 2));
+                                  controller.jumpToPage(2);
+                                },
+                                activeColor: ThemeSelector.colors.secondaryTant,
+                                notActiveColor: ThemeSelector.colors.background,
+                                activeTextColor:
+                                    ThemeSelector.colors.onSecondary,
+                                notActiveTextColor:
+                                    ThemeSelector.colors.secondary,
                               ),
-                              onPressed: () {
-                                context
-                                    .read<NewsBloc>()
-                                    .add(const NewsEvent(selectedList: 2));
-                                controller.jumpToPage(2);
-                              },
-                              activeColor: ThemeSelector.colors.secondaryTant,
-                              notActiveColor: ThemeSelector.colors.background,
-                              activeTextColor: ThemeSelector.colors.onSecondary,
-                              notActiveTextColor:
-                                  ThemeSelector.colors.secondary,
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
                     ],
                   );
                 },
@@ -133,228 +135,91 @@ class CustomerChefList extends StatelessWidget {
             ),
             SizedBox(
               height: 190,
-              child: PageView(
-                controller: controller,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  BlocProvider(
-                    create: (context) => ChefsListBloc(),
-                    child: BlocBuilder<UserBloc, UserState>(
-                      builder: (context, state) {
-                        return state.address != null
-                            ? PaginationTemplate(
-                                scrollDirection: Axis.horizontal,
-                                loadDate: () {
-                                  context.read<ChefsListBloc>().add(
-                                      GetChefsListEvent(
-                                          context: context,
-                                          status: 1,
-                                          menuTarget: menuTarget));
-                                },
-                                child:
-                                    BlocConsumer<ChefsListBloc, ChefsListState>(
-                                  listener: (context, state) {},
-                                  builder: (context, state) {
-                                    return Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              ThemeSelector.statics.defaultGap),
-                                      child: Row(
-                                        children: [
-                                          for (var chef in state.chefs)
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: ThemeSelector
-                                                      .statics.defaultGap),
-                                              child: ChefBanner(
-                                                menuTarget: menuTarget,
-                                                chef: chef,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width -
-                                                    (ThemeSelector.statics
-                                                            .defaultGap *
-                                                        10),
-                                                height: ThemeSelector.statics
-                                                    .defaultImageHeightSmall,
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(
-                                                      ThemeSelector.statics
-                                                          .defaultBorderRadius),
-                                                  topRight: Radius.circular(
-                                                      ThemeSelector.statics
-                                                          .defaultBorderRadius),
-                                                ),
-                                              ),
-                                            ),
-                                          if (state.paginationHelper.isLoading)
-                                            Loading(),
-                                          if (state.chefs.isEmpty)
-                                            SizedBox(
-                                              height: ThemeSelector.statics
-                                                      .defaultImageHeightSmall +
-                                                  ThemeSelector
-                                                      .statics.defaultMediumGap,
-                                            ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )
-                            : const Center(
-                                child: Text('Please Select Location'),
-                              );
-                      },
+              child: menuTarget == MenuTarget.preOrder
+                  ? _ChefListStatus(menuTarget: menuTarget)
+                  : PageView(
+                      controller: controller,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        _ChefListStatus(menuTarget: menuTarget, status: 1),
+                        _ChefListStatus(menuTarget: menuTarget, status: 2),
+                        _ChefListStatus(menuTarget: menuTarget, status: 0),
+                      ],
                     ),
-                  ),
-                  BlocProvider(
-                    create: (context) => ChefsListBloc(),
-                    child: BlocBuilder<UserBloc, UserState>(
-                      builder: (context, state) {
-                        return state.address != null
-                            ? PaginationTemplate(
-                                scrollDirection: Axis.horizontal,
-                                loadDate: () {
-                                  context.read<ChefsListBloc>().add(
-                                      GetChefsListEvent(
-                                          context: context,
-                                          status: 2,
-                                          menuTarget: menuTarget));
-                                },
-                                child:
-                                    BlocConsumer<ChefsListBloc, ChefsListState>(
-                                  listener: (context, state) {},
-                                  builder: (context, state) {
-                                    return Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              ThemeSelector.statics.defaultGap),
-                                      child: Row(
-                                        children: [
-                                          for (var chef in state.chefs)
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: ThemeSelector
-                                                      .statics.defaultGap),
-                                              child: ChefBanner(
-                                                menuTarget: menuTarget,
-                                                chef: chef,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width -
-                                                    (ThemeSelector.statics
-                                                            .defaultGap *
-                                                        10),
-                                                height: ThemeSelector.statics
-                                                    .defaultImageHeightSmall,
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(
-                                                      ThemeSelector.statics
-                                                          .defaultBorderRadius),
-                                                  topRight: Radius.circular(
-                                                      ThemeSelector.statics
-                                                          .defaultBorderRadius),
-                                                ),
-                                              ),
-                                            ),
-                                          if (state.paginationHelper.isLoading)
-                                            Loading(),
-                                          if (state.chefs.isEmpty)
-                                            SizedBox(
-                                              height: ThemeSelector.statics
-                                                      .defaultImageHeightSmall +
-                                                  ThemeSelector
-                                                      .statics.defaultMediumGap,
-                                            ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )
-                            : const Center(
-                                child: Text('Please Select Location'),
-                              );
-                      },
-                    ),
-                  ),
-                  BlocProvider(
-                    create: (context) => ChefsListBloc(),
-                    child: BlocBuilder<UserBloc, UserState>(
-                      builder: (context, state) {
-                        return state.address != null
-                            ? PaginationTemplate(
-                                scrollDirection: Axis.horizontal,
-                                loadDate: () {
-                                  context.read<ChefsListBloc>().add(
-                                      GetChefsListEvent(
-                                          context: context,
-                                          status: 0,
-                                          menuTarget: menuTarget));
-                                },
-                                child:
-                                    BlocConsumer<ChefsListBloc, ChefsListState>(
-                                  listener: (context, state) {},
-                                  builder: (context, state) {
-                                    return Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              ThemeSelector.statics.defaultGap),
-                                      child: Row(
-                                        children: [
-                                          for (var chef in state.chefs)
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: ThemeSelector
-                                                      .statics.defaultGap),
-                                              child: ChefBanner(
-                                                menuTarget: menuTarget,
-                                                chef: chef,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width -
-                                                    (ThemeSelector.statics
-                                                            .defaultGap *
-                                                        10),
-                                                height: ThemeSelector.statics
-                                                    .defaultImageHeightSmall,
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(
-                                                      ThemeSelector.statics
-                                                          .defaultBorderRadius),
-                                                  topRight: Radius.circular(
-                                                      ThemeSelector.statics
-                                                          .defaultBorderRadius),
-                                                ),
-                                              ),
-                                            ),
-                                          if (state.paginationHelper.isLoading)
-                                            Loading(),
-                                          if (state.chefs.isEmpty)
-                                            SizedBox(
-                                              height: ThemeSelector.statics
-                                                      .defaultImageHeightSmall +
-                                                  ThemeSelector
-                                                      .statics.defaultMediumGap,
-                                            ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )
-                            : const Center(
-                                child: Text('Please Select Location'),
-                              );
-                      },
-                    ),
-                  ),
-                ],
-              ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ChefListStatus extends StatelessWidget {
+  _ChefListStatus({required this.menuTarget, this.status});
+
+  final MenuTarget menuTarget;
+  final int? status;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ChefsListBloc(),
+      child: BlocBuilder<UserBloc, UserState>(
+        builder: (context, state) {
+          return state.address != null
+              ? PaginationTemplate(
+                  scrollDirection: Axis.horizontal,
+                  loadDate: () {
+                    context.read<ChefsListBloc>().add(GetChefsListEvent(
+                        context: context,
+                        status: status,
+                        menuTarget: menuTarget));
+                  },
+                  child: BlocConsumer<ChefsListBloc, ChefsListState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ThemeSelector.statics.defaultGap),
+                        child: Row(
+                          children: [
+                            for (var chef in state.chefs)
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        ThemeSelector.statics.defaultGap),
+                                child: ChefBanner(
+                                  menuTarget: menuTarget,
+                                  chef: chef,
+                                  width: MediaQuery.of(context).size.width -
+                                      (ThemeSelector.statics.defaultGap * 10),
+                                  height: ThemeSelector
+                                      .statics.defaultImageHeightSmall,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(ThemeSelector
+                                        .statics.defaultBorderRadius),
+                                    topRight: Radius.circular(ThemeSelector
+                                        .statics.defaultBorderRadius),
+                                  ),
+                                ),
+                              ),
+                            if (state.paginationHelper.isLoading) Loading(),
+                            if (state.chefs.isEmpty)
+                              SizedBox(
+                                height: ThemeSelector
+                                        .statics.defaultImageHeightSmall +
+                                    ThemeSelector.statics.defaultMediumGap,
+                              ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                )
+              : const Center(
+                  child: Text('Please Select Location'),
+                );
+        },
       ),
     );
   }
