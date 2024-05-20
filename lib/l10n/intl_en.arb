@@ -241,5 +241,6 @@
   "currentDomain": "Current Domain",
   "domain": "Domain",
   "reset": "Reset",
-  "rateOrder": "Rate Order"
+  "rateOrder": "Rate Order",
+  "online": "Online"
 }

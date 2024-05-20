@@ -9,6 +9,7 @@ class ChefService {
     required bool isPreOrder,
     required double latitude,
     required double longitude,
+    int? status,
     Map<String, dynamic>? queryParameters,
   }) async {
     final Response res = await DioClient.simpleDio(context).get(
@@ -16,9 +17,10 @@ class ChefService {
             apiKey: isPreOrder ? ApiKeys.chefsPreOrder : ApiKeys.chefsOrder),
         queryParameters: {
           ...?queryParameters,
+          'status_Work': isPreOrder ? null : status,
           'latitude': latitude,
           'longitude': longitude
-        });
+        }..removeWhere((key, value) => value == null));
 
     return res;
   }

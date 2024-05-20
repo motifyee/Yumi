@@ -46,6 +46,7 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
             isPreOrder: event.menuTarget == MenuTarget.preOrder,
             latitude: userLocation.latitude!,
             longitude: userLocation.longitude!,
+            status: event.status,
             queryParameters: state.paginationHelper.toJson(),
           );
 

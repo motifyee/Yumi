@@ -187,6 +187,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "offline": MessageLookupByLibrary.simpleMessage("Offline"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "onTheWay": MessageLookupByLibrary.simpleMessage("On The Way"),
+        "online": MessageLookupByLibrary.simpleMessage("Online"),
         "onlineChefs": MessageLookupByLibrary.simpleMessage("Online Chefs"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "opened": MessageLookupByLibrary.simpleMessage("Opened"),

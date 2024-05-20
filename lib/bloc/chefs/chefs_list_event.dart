@@ -7,11 +7,13 @@ class GetChefsListEvent implements ChefsListEvent {
   final BuildContext context;
   final MenuTarget menuTarget;
   final bool isFavorite;
+  int? status;
 
   GetChefsListEvent(
       {required this.context,
       required this.menuTarget,
-      this.isFavorite = false});
+      this.isFavorite = false,
+      this.status});
 }
 
 class GetChefIsFavoriteEvent implements ChefsListEvent {
