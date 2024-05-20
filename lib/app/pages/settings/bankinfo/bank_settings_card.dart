@@ -114,6 +114,23 @@ class BankInfoFields extends StatelessWidget {
             ],
           ),
           SizedBox(height: ThemeSelector.statics.defaultGap),
+          Row(
+            children: [
+              Text(
+                S.of(context).accountName,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const Expanded(child: Text('')),
+              Text(
+                bankInfo.accountName,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+              ),
+            ],
+          ),
+          SizedBox(height: ThemeSelector.statics.defaultGap),
           // accuountNumber
           Row(
             children: [
