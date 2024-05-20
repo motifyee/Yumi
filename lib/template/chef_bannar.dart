@@ -20,6 +20,7 @@ class ChefBanner extends StatefulWidget {
     required this.menuTarget,
     this.height,
     this.isShowFav = false,
+    this.isRequestStatus = false,
     this.isProfileClick = true,
   });
 
@@ -29,6 +30,7 @@ class ChefBanner extends StatefulWidget {
   final double? height;
   final MenuTarget menuTarget;
   final bool isShowFav;
+  final bool isRequestStatus;
   final bool isProfileClick;
   @override
   State<ChefBanner> createState() => _ChefBannerState();
@@ -51,6 +53,14 @@ class _ChefBannerState extends State<ChefBanner> {
         isLoading = false;
       });
     }
+    if (widget.isRequestStatus) {
+      ChefService.getChefStatus(accountId: widget.chef.id!)
+          .then((value) => setState(() {
+                widget.chef =
+                    widget.chef.copyWith(status: value.data['statusWork']);
+              }));
+    }
+
     super.initState();
   }
 
@@ -106,7 +116,20 @@ class _ChefBannerState extends State<ChefBanner> {
                   padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
                   child: Row(
                     children: [
-                      if (widget.menuTarget == MenuTarget.order)
+                      if (widget.chef.status == 0)
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ThemeSelector.statics.defaultGap),
+                          decoration: BoxDecoration(
+                              color: ThemeSelector.colors.primaryDisabled,
+                              borderRadius: BorderRadius.circular(ThemeSelector
+                                  .statics.defaultBorderRadiusLarge)),
+                          child: Text(
+                            S.of(context).offline,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
+                      if (widget.chef.status == 1)
                         Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: ThemeSelector.statics.defaultGap),
@@ -116,6 +139,19 @@ class _ChefBannerState extends State<ChefBanner> {
                                   .statics.defaultBorderRadiusLarge)),
                           child: Text(
                             S.of(context).open,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
+                      if (widget.chef.status == 2)
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ThemeSelector.statics.defaultGap),
+                          decoration: BoxDecoration(
+                              color: ThemeSelector.colors.primaryDisabled,
+                              borderRadius: BorderRadius.circular(ThemeSelector
+                                  .statics.defaultBorderRadiusLarge)),
+                          child: Text(
+                            S.of(context).busy,
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ),
@@ -142,18 +178,28 @@ class _ChefBannerState extends State<ChefBanner> {
             padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
             child: Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: widget.isShowFav
-                  ? MainAxisAlignment.spaceBetween
-                  : MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      [widget.chef.firstName, widget.chef.lastName].join(' '),
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            fontSize: ThemeSelector.fonts.font_16,
+                    Row(
+                      children: [
+                        Text(
+                          [widget.chef.firstName, widget.chef.lastName]
+                              .join(' '),
+                          overflow: TextOverflow.ellipsis,
+                          style:
+                              Theme.of(context).textTheme.labelLarge?.copyWith(
+                                    fontSize: ThemeSelector.fonts.font_16,
+                                  ),
+                        ),
+                        if (widget.isShowFav)
+                          DeliveryPickUpIcons(
+                            isPickUpOnly: widget.chef.pickupOnly ?? false,
+                            isShowFav: widget.isShowFav,
                           ),
+                      ],
                     ),
                     Row(
                       children: [
@@ -188,50 +234,147 @@ class _ChefBannerState extends State<ChefBanner> {
                     )
                   ],
                 ),
-                Column(
-                  children: [
-                    if (isLoading)
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ThemeSelector.statics.defaultBlockGap),
-                        child: Loading(
-                            size: ThemeSelector.statics.defaultBlockGap),
-                      ),
-                    if (widget.isShowFav && !isLoading)
-                      TextButton(
-                        onPressed: () {
-                          if (widget.chef.isFavorite != true) {
-                            ChefService.addFavoriteChef(chefId: widget.chef.id!)
-                                .then((value) => setState(() {
-                                      widget.chef = widget.chef
-                                          .copyWith(isFavorite: true);
-                                    }));
-                          } else {
-                            ChefService.removeFavoriteChef(
-                                    chefId: widget.chef.id!)
-                                .then((value) => setState(() {
-                                      widget.chef = widget.chef
-                                          .copyWith(isFavorite: false);
-                                    }));
-                          }
-                        },
-                        child: widget.chef.isFavorite
-                            ? SvgPicture.asset('assets/images/heart.svg',
-                                colorFilter: ColorFilter.mode(
-                                    ThemeSelector.colors.primary,
-                                    BlendMode.srcIn),
-                                fit: BoxFit.contain)
-                            : SvgPicture.asset(
-                                'assets/images/heart_outline.svg',
-                                fit: BoxFit.contain),
-                      ),
-                  ],
-                )
+                if (!widget.isShowFav)
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ThemeSelector.statics.defaultMicroGap),
+                    child: DeliveryPickUpIcons(
+                      isPickUpOnly: widget.chef.pickupOnly ?? false,
+                      isShowFav: widget.isShowFav,
+                    ),
+                  ),
+                if (widget.isShowFav)
+                  Column(
+                    children: [
+                      if (isLoading)
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  ThemeSelector.statics.defaultBlockGap),
+                          child: Loading(
+                              size: ThemeSelector.statics.defaultBlockGap),
+                        ),
+                      if (!isLoading)
+                        TextButton(
+                          onPressed: () {
+                            if (widget.chef.isFavorite != true) {
+                              ChefService.addFavoriteChef(
+                                      chefId: widget.chef.id!)
+                                  .then((value) => setState(() {
+                                        widget.chef = widget.chef
+                                            .copyWith(isFavorite: true);
+                                      }));
+                            } else {
+                              ChefService.removeFavoriteChef(
+                                      chefId: widget.chef.id!)
+                                  .then((value) => setState(() {
+                                        widget.chef = widget.chef
+                                            .copyWith(isFavorite: false);
+                                      }));
+                            }
+                          },
+                          child: widget.chef.isFavorite
+                              ? SvgPicture.asset('assets/images/heart.svg',
+                                  colorFilter: ColorFilter.mode(
+                                      ThemeSelector.colors.primary,
+                                      BlendMode.srcIn),
+                                  fit: BoxFit.contain)
+                              : SvgPicture.asset(
+                                  'assets/images/heart_outline.svg',
+                                  fit: BoxFit.contain),
+                        ),
+                    ],
+                  )
               ],
             ),
           )
         ],
       ),
+    );
+  }
+}
+
+class DeliveryPickUpIcons extends StatelessWidget {
+  const DeliveryPickUpIcons(
+      {super.key, required this.isShowFav, required this.isPickUpOnly});
+
+  final bool isShowFav;
+  final bool isPickUpOnly;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Column(
+          crossAxisAlignment:
+              isShowFav ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                SvgPicture.asset('assets/images/can_pickUp_icon.svg'),
+                if (isShowFav)
+                  Row(
+                    children: [
+                      const SizedBox(width: 3),
+                      SvgPicture.asset('assets/images/checked_icon.svg'),
+                    ],
+                  ),
+              ],
+            ),
+            Text(
+              S.of(context).pickup,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontSize: ThemeSelector.fonts.font_5),
+            ),
+            if (!isShowFav)
+              Row(
+                children: [
+                  const SizedBox(height: 5),
+                  SvgPicture.asset('assets/images/checked_icon.svg'),
+                ],
+              ),
+          ],
+        ),
+        SizedBox(width: ThemeSelector.statics.defaultMicroGap),
+        Column(
+          crossAxisAlignment:
+              isShowFav ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                SvgPicture.asset('assets/images/can_delivery_icon.svg'),
+                if (isShowFav)
+                  Row(
+                    children: [
+                      const SizedBox(width: 5),
+                      SvgPicture.asset(isPickUpOnly
+                          ? 'assets/images/checked_icon.svg'
+                          : 'assets/images/closed_icon.svg'),
+                    ],
+                  ),
+              ],
+            ),
+            Text(
+              S.of(context).delivery,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontSize: ThemeSelector.fonts.font_5),
+            ),
+            if (!isShowFav)
+              Row(
+                children: [
+                  const SizedBox(height: 3),
+                  SvgPicture.asset(isPickUpOnly
+                      ? 'assets/images/checked_icon.svg'
+                      : 'assets/images/closed_icon.svg'),
+                ],
+              ),
+          ],
+        ),
+      ],
     );
   }
 }

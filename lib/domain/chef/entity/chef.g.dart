@@ -28,6 +28,7 @@ _$ChefImpl _$$ChefImplFromJson(Map<String, dynamic> json) => _$ChefImpl(
       imageContract: json['image_Contract'] as String?,
       imageID: json['image_ID'] as String?,
       imagePassport: json['image_Passport'] as String?,
+      status: (json['status'] as num?)?.toInt(),
       email: json['email'] as String?,
       signupType: (json['signupType'] as num?)?.toInt(),
       createdBy: json['createdBy'] as String?,
@@ -65,6 +66,7 @@ Map<String, dynamic> _$$ChefImplToJson(_$ChefImpl instance) {
   writeNotNull('image_Contract', instance.imageContract);
   writeNotNull('image_ID', instance.imageID);
   writeNotNull('image_Passport', instance.imagePassport);
+  writeNotNull('status', instance.status);
   writeNotNull('email', instance.email);
   writeNotNull('signupType', instance.signupType);
   writeNotNull('createdBy', instance.createdBy);

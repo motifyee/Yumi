@@ -61,6 +61,7 @@ class ChefProfileScreen extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     isShowFav: true,
                     isProfileClick: false,
+                    isRequestStatus: true,
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(
                           ThemeSelector.statics.defaultBorderRadiusLarge),

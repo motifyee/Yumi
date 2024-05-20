@@ -28,6 +28,7 @@ class Chef with _$Chef {
     @JsonKey(name: 'image_Contract') String? imageContract,
     @JsonKey(name: 'image_ID') String? imageID,
     @JsonKey(name: 'image_Passport') String? imagePassport,
+    int? status,
     String? email,
     int? signupType,
     String? createdBy,
