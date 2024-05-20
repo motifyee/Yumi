@@ -57,6 +57,7 @@ mixin _$Chef {
   String? get imageID => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_Passport')
   String? get imagePassport => throw _privateConstructorUsedError;
+  int? get status => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   int? get signupType => throw _privateConstructorUsedError;
   String? get createdBy => throw _privateConstructorUsedError;
@@ -95,6 +96,7 @@ abstract class $ChefCopyWith<$Res> {
       @JsonKey(name: 'image_Contract') String? imageContract,
       @JsonKey(name: 'image_ID') String? imageID,
       @JsonKey(name: 'image_Passport') String? imagePassport,
+      int? status,
       String? email,
       int? signupType,
       String? createdBy,
@@ -136,6 +138,7 @@ class _$ChefCopyWithImpl<$Res, $Val extends Chef>
     Object? imageContract = freezed,
     Object? imageID = freezed,
     Object? imagePassport = freezed,
+    Object? status = freezed,
     Object? email = freezed,
     Object? signupType = freezed,
     Object? createdBy = freezed,
@@ -227,6 +230,10 @@ class _$ChefCopyWithImpl<$Res, $Val extends Chef>
           ? _value.imagePassport
           : imagePassport // ignore: cast_nullable_to_non_nullable
               as String?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -280,6 +287,7 @@ abstract class _$$ChefImplCopyWith<$Res> implements $ChefCopyWith<$Res> {
       @JsonKey(name: 'image_Contract') String? imageContract,
       @JsonKey(name: 'image_ID') String? imageID,
       @JsonKey(name: 'image_Passport') String? imagePassport,
+      int? status,
       String? email,
       int? signupType,
       String? createdBy,
@@ -318,6 +326,7 @@ class __$$ChefImplCopyWithImpl<$Res>
     Object? imageContract = freezed,
     Object? imageID = freezed,
     Object? imagePassport = freezed,
+    Object? status = freezed,
     Object? email = freezed,
     Object? signupType = freezed,
     Object? createdBy = freezed,
@@ -409,6 +418,10 @@ class __$$ChefImplCopyWithImpl<$Res>
           ? _value.imagePassport
           : imagePassport // ignore: cast_nullable_to_non_nullable
               as String?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -459,6 +472,7 @@ class _$ChefImpl implements _Chef {
       @JsonKey(name: 'image_Contract') this.imageContract,
       @JsonKey(name: 'image_ID') this.imageID,
       @JsonKey(name: 'image_Passport') this.imagePassport,
+      this.status,
       this.email,
       this.signupType,
       this.createdBy,
@@ -527,6 +541,8 @@ class _$ChefImpl implements _Chef {
   @JsonKey(name: 'image_Passport')
   final String? imagePassport;
   @override
+  final int? status;
+  @override
   final String? email;
   @override
   final int? signupType;
@@ -540,7 +556,7 @@ class _$ChefImpl implements _Chef {
 
   @override
   String toString() {
-    return 'Chef(id: $id, firstName: $firstName, lastName: $lastName, mobile: $mobile, code: $code, imageProfile: $imageProfile, imageProfile1: $imageProfile1, imageProfile2: $imageProfile2, imageProfile3: $imageProfile3, imageProfile4: $imageProfile4, imageProfile5: $imageProfile5, accountApproved: $accountApproved, pickupAllowed: $pickupAllowed, pickupOnly: $pickupOnly, isHygiene: $isHygiene, imageHygieneCert: $imageHygieneCert, imageAuthorityReg: $imageAuthorityReg, imageRiskAssessment: $imageRiskAssessment, imageContract: $imageContract, imageID: $imageID, imagePassport: $imagePassport, email: $email, signupType: $signupType, createdBy: $createdBy, rate: $rate, isFavorite: $isFavorite)';
+    return 'Chef(id: $id, firstName: $firstName, lastName: $lastName, mobile: $mobile, code: $code, imageProfile: $imageProfile, imageProfile1: $imageProfile1, imageProfile2: $imageProfile2, imageProfile3: $imageProfile3, imageProfile4: $imageProfile4, imageProfile5: $imageProfile5, accountApproved: $accountApproved, pickupAllowed: $pickupAllowed, pickupOnly: $pickupOnly, isHygiene: $isHygiene, imageHygieneCert: $imageHygieneCert, imageAuthorityReg: $imageAuthorityReg, imageRiskAssessment: $imageRiskAssessment, imageContract: $imageContract, imageID: $imageID, imagePassport: $imagePassport, status: $status, email: $email, signupType: $signupType, createdBy: $createdBy, rate: $rate, isFavorite: $isFavorite)';
   }
 
   @override
@@ -586,6 +602,7 @@ class _$ChefImpl implements _Chef {
             (identical(other.imageID, imageID) || other.imageID == imageID) &&
             (identical(other.imagePassport, imagePassport) ||
                 other.imagePassport == imagePassport) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.signupType, signupType) ||
                 other.signupType == signupType) &&
@@ -621,6 +638,7 @@ class _$ChefImpl implements _Chef {
         imageContract,
         imageID,
         imagePassport,
+        status,
         email,
         signupType,
         createdBy,
@@ -665,6 +683,7 @@ abstract class _Chef implements Chef {
       @JsonKey(name: 'image_Contract') final String? imageContract,
       @JsonKey(name: 'image_ID') final String? imageID,
       @JsonKey(name: 'image_Passport') final String? imagePassport,
+      final int? status,
       final String? email,
       final int? signupType,
       final String? createdBy,
@@ -731,6 +750,8 @@ abstract class _Chef implements Chef {
   @override
   @JsonKey(name: 'image_Passport')
   String? get imagePassport;
+  @override
+  int? get status;
   @override
   String? get email;
   @override

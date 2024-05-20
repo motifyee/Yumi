@@ -57,6 +57,7 @@ class _ThemeStatics {
 }
 
 class _ThemeFontSize {
+  double font_5 = 5;
   double font_9 = 9;
   double font_10 = 10;
   double font_12 = 12;

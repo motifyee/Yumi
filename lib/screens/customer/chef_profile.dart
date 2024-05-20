@@ -61,6 +61,7 @@ class ChefProfileScreen extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     isShowFav: true,
                     isProfileClick: false,
+                    isRequestStatus: true,
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(
                           ThemeSelector.statics.defaultBorderRadiusLarge),
@@ -342,7 +343,7 @@ class ChefProfileScreen extends StatelessWidget {
                                                         .fonts.font_12,
                                                   ),
                                                   Text(
-                                                    '${chef.rate} ( ${state.paginationHelper.total < 1000 ? state.paginationHelper.total : (state.paginationHelper.total / 1000).toStringAsFixed(1)}${state.paginationHelper.total < 1000 ? '' : 'k'} Reviews )',
+                                                    '${chef.rate ?? '0'} ( ${state.paginationHelper.total < 1000 ? state.paginationHelper.total : (state.paginationHelper.total / 1000).toStringAsFixed(1)}${state.paginationHelper.total < 1000 ? '' : 'k'} Reviews )',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .labelSmall
