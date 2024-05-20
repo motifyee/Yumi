@@ -73,13 +73,15 @@ class SettingScreen extends StatelessWidget {
                                     .deleteProfile()
                                     .then((value) {
                                   if (!value.contains("Deleting a Account")) {
-                                    return Fluttertoast.showToast(
-                                      msg: "Could not delete account",
+                                    G.showToast(
+                                      "Could not delete account",
+                                      context: context,
                                     );
                                   }
 
-                                  fToast.showToast(
-                                    child: buildToast("Account Deleted!"),
+                                  G.showToast(
+                                    "Account Deleted!",
+                                    context: context,
                                     gravity: ToastGravity.CENTER,
                                   );
 
