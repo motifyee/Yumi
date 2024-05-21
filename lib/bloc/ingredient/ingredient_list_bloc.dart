@@ -11,6 +11,8 @@ class IngredientListBloc
     extends Bloc<IngredientListEvent, IngredientListState> {
   IngredientListBloc() : super(IngredientListState(ingredients: const [])) {
     on<IngredientListUpdateEvent>((event, emit) async {
+      emit(state.copyWith(loading: true));
+
       final res =
           await IngredientService.getIngredients(context: event.context);
 
@@ -18,7 +20,7 @@ class IngredientListBloc
           .map<IngredientsModel>((value) => IngredientsModel.fromJson(value))
           .toList();
 
-      emit(state.copyWith(ingredients: data));
+      emit(state.copyWith(ingredients: data, loading: false));
     });
   }
 }

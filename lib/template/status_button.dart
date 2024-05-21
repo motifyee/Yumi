@@ -40,7 +40,9 @@ class StatusButton extends StatelessWidget {
                   ? ThemeSelector.colors.secondaryFaint
                   : status == StatusEnum.online
                       ? ThemeSelector.colors.success
-                      : ThemeSelector.colors.primaryDisabled,
+                      : status == StatusEnum.busy
+                          ? ThemeSelector.colors.primaryDisabled
+                          : ThemeSelector.colors.secondaryTant,
             ),
           ),
           child: Row(
@@ -54,7 +56,14 @@ class StatusButton extends StatelessWidget {
                     )
                   : status == StatusEnum.online
                       ? SvgPicture.asset('assets/images/opened.svg')
-                      : SvgPicture.asset('assets/images/busy.svg'),
+                      : SvgPicture.asset(
+                          'assets/images/busy.svg',
+                          colorFilter: ColorFilter.mode(
+                              status == StatusEnum.busy
+                                  ? ThemeSelector.colors.primaryDisabled
+                                  : ThemeSelector.colors.secondaryTant,
+                              BlendMode.srcIn),
+                        ),
               SizedBox(width: ThemeSelector.statics.defaultGap),
               Text(
                 state.loading
