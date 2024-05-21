@@ -204,6 +204,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     return _updateMapper(update);
   }
 
+  void toggleDeliveryAvailable() {
+    emit(state.copyWith.form(pickupOnly: !state.form.pickupOnly));
+  }
+
   Future<List<Review>> getReviews() async {
     emit(state.copyWith(
         reviewsStatus: state.reviewsStatus.copyWith(status: Status.loading)));

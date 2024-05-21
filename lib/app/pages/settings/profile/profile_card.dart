@@ -6,6 +6,7 @@ import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/profile_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/chef_bannar.dart';
 import 'package:yumi/template/dialog.dart';
 
 class UserSettingDetails extends StatelessWidget {
@@ -153,27 +154,6 @@ class UserSettingDetails extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: ThemeSelector.statics.defaultGap),
-                      // pickup allowed
-                      if (G.isChefApp)
-                        Row(
-                          children: [
-                            Text(
-                              S.of(context).pickup,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            const Expanded(child: Text('')),
-                            Text(
-                              state.profile.pickup ? 'Allowed' : 'Not Allowed',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                      color:
-                                          ThemeSelector.colors.secondaryTant),
-                            ),
-                          ],
-                        ),
                       if (!G.isCustomerApp)
                         SizedBox(height: ThemeSelector.statics.defaultGap),
                       if (!G.isCustomerApp)
@@ -192,6 +172,26 @@ class UserSettingDetails extends StatelessWidget {
                                   ?.copyWith(
                                       color:
                                           ThemeSelector.colors.secondaryTant),
+                            ),
+                          ],
+                        ),
+                      SizedBox(height: ThemeSelector.statics.defaultGap),
+                      // pickup allowed
+                      if (G.isChefApp)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SizedBox(
+                              height: 60,
+                              child: SvgPicture.asset(
+                                  'assets/images/pickup-available.svg'),
+                              // DeliveryIcon(isChecked: true, showFav: false),
+                            ),
+                            SizedBox(
+                              height: 60,
+                              child: SvgPicture.asset(
+                                  'assets/images/delivery-${state.profile.pickupOnly ? 'not-' : ''}available.svg'),
+                              // DeliveryIcon(isChecked: true, showFav: false),
                             ),
                           ],
                         ),

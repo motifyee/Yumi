@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
-import 'package:yumi/app/pages/chef_application/bloc.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
@@ -85,6 +86,10 @@ Widget profileFormFields(
           label: S.of(context).mobile,
           borderStyle: TextFormFieldBorderStyle.borderBottom,
           initialValue: profile.mobile,
+          textInputType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly,
+          ],
           onSave: (value) => save(profile0 = profile0.copyWith(mobile: value)),
         ),
         SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
@@ -116,15 +121,27 @@ Widget profileFormFields(
         //   ),
         // ),
         if (G.isChefApp)
-          FormField<bool>(
-            initialValue: profile.pickupOnly,
-            onSaved: (value) =>
-                save(profile0 = profile0.copyWith(pickupOnly: value ?? false)),
-            builder: (fieldState) => CheckboxListTile(
-              value: fieldState.value,
-              onChanged: (bool? value) => fieldState.didChange(value),
-              title: const Text('Pickup Only'),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                height: 60,
+                child: SvgPicture.asset('assets/images/pickup-available.svg'),
+              ),
+              SizedBox(
+                height: 60,
+                child: InkWell(
+                  onTap: () {
+                    context.read<ProfileCubit>().toggleDeliveryAvailable();
+                    profile0 = profile0.copyWith(
+                      pickup: state.form.pickupOnly,
+                    );
+                  },
+                  child: SvgPicture.asset(
+                      'assets/images/delivery-${state.form.pickupOnly ? 'not-' : ''}available.svg'),
+                ),
+              ),
+            ],
           ),
       ],
     ),
@@ -138,14 +155,7 @@ class ProfileForm extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<ProfileCubit>().getProfileForm();
 
-    return BlocConsumer<ProfileCubit, ProfileState>(
-      listener: (context, state) {
-        if (!state.form.entityStatus.isError &&
-            !state.form.entityStatus.isSuccess) return;
-
-        if (!state.form.entityStatus.isSuccess) return;
-        context.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
-      },
+    return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         final profileFormCubit = context.read<ProfileCubit>();
 
@@ -187,10 +197,13 @@ class ProfileForm extends StatelessWidget {
                                       if (value != null) {
                                         Navigator.of(context).pop();
                                       }
-                                      G.snackBar(state.form.entityStatus
-                                          .messageOrMapStatus(
-                                              success: "Success!",
-                                              error: "Error!"));
+                                      G.snackBar(
+                                        state.form.entityStatus
+                                            .messageOrMapStatus(
+                                          success: "Success!",
+                                          error: "Error!",
+                                        ),
+                                      );
                                     });
                                   },
                                 ),
