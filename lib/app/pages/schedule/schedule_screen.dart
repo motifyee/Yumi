@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/components/child_data_notifier/child_data_notifier.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/domain/schedule/entities/schedule.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
@@ -248,6 +250,9 @@ class MyScheduleScreen extends StatelessWidget {
   }
 
   Widget _body(ScheduleDay day) {
+    final activeTime = day.activeTime?.toPaddedString;
+    final timeDiff = (activeTime?.contains('-') ?? true) ? "00:00" : activeTime;
+
     return Builder(builder: (context) {
       return Column(
         children: [
@@ -260,7 +265,7 @@ class MyScheduleScreen extends StatelessWidget {
             children: [
               const SizedBox(width: 10),
               Text(
-                day.activeTime?.toStringD ?? "00:00",
+                timeDiff ?? "00:00",
                 style: TextStyle(
                     color: day.active ?? false
                         ? ThemeSelector.colors.secondaryTant
@@ -297,49 +302,77 @@ class MyScheduleScreen extends StatelessWidget {
                         (start ? day.start : day.end) ?? TimeOfDay.now(),
 
                     helpText: 'Pick ${start ? "Start" : "End"} Time',
-                    // cancelText: '',
-                    // confirmText: '',
                     initialEntryMode: TimePickerEntryMode.dialOnly,
-                    builder: (context, child) {
-                      return MediaQuery(
-                        data: MediaQuery.of(context).copyWith(
-                          alwaysUse24HourFormat: false,
-                        ),
-                        child: ChildDataNotifier(
-                          builder: (context, data, notifier) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: Colors.red, width: 5)),
-                              child: Center(
-                                child: TextButton(
-                                  onPressed: () => G.pop(),
-                                  child: child ??
-                                      Icon(
-                                        Icons.warning,
-                                        size: 32,
-                                        color: Colors.yellow.shade800,
-                                      ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    },
+                    // builder: (context, child) {
+                    //   return MediaQuery(
+                    //     data: MediaQuery.of(context).copyWith(
+                    //       alwaysUse24HourFormat: false,
+                    //     ),
+                    //     child: ChildDataNotifier(
+                    //       builder: (context, data, notifier) {
+                    //         return Container(
+                    //           decoration: BoxDecoration(
+                    //             border: Border.all(color: Colors.red, width: 5),
+                    //           ),
+                    //           child: Center(
+                    //             child: TextButton(
+                    //               onPressed: () => G.pop(),
+                    //               child: child ??
+                    //                   Icon(
+                    //                     Icons.warning,
+                    //                     size: 32,
+                    //                     color: Colors.yellow.shade800,
+                    //                   ),
+                    //             ),
+                    //           ),
+                    //         );
+                    //       },
+                    //     ),
+                    //   );
+                    // },
                     barrierDismissible: false,
                     useRootNavigator: true,
                   ).then((tod) {
+                    final cubit = context.read<ScheduleCubit>();
                     if (tod == null) return;
 
+                    // ---------------------------------------------------------
+                    // Check if end time is after start time with two hours
+                    // ---------------------------------------------------------
+                    final saved = cubit.state.scheduleForm.scheduleDays
+                        .firstWhereOrNull((e) => e.name == day.name);
+
+                    //// TODO: change [api & Schedule.scheduleDay()] to set unset days to null
+                    if (start && saved?.end != null) {
+                      if (saved?.end?.hour == 0 && saved?.end?.minute == 0) {
+                      } else if ((saved?.end?.minutesDifference(tod) ?? 0) <
+                          2 * 60) {
+                        G.hideSnackbar();
+                        G.snackBar(
+                          "Start time must be at least 2 hours before end time",
+                        );
+                      }
+                    }
+
+                    if (!start) {
+                      if (tod.minutesDifference(saved?.start) < 2 * 60) {
+                        G.hideSnackbar();
+                        return G.snackBar(
+                          "End time must be at least 2 hours after start time",
+                        );
+                      }
+                    }
+                    // ---------------------------------------------------------
+
+                    G.hideSnackbar();
                     HapticFeedback.lightImpact();
 
-                    context.read<ScheduleCubit>().saveScheduleDay(
-                          day.copyWith(
-                            start: start ? tod : day.start,
-                            end: start ? day.end : tod,
-                          ),
-                        );
+                    cubit.saveScheduleDay(
+                      day.copyWith(
+                        start: start ? tod : day.start,
+                        end: start ? day.end : tod,
+                      ),
+                    );
                   });
                 }
               : null,
@@ -469,4 +502,10 @@ void sheduleDialog(BuildContext context) {
     },
     insetPadding: 0,
   );
+}
+
+double textScaleFactor(BuildContext context, {double maxTextScaleFactor = 2}) {
+  final width = MediaQuery.of(context).size.width;
+  double val = (width / 1400) * maxTextScaleFactor;
+  return max(1, min(val, maxTextScaleFactor));
 }

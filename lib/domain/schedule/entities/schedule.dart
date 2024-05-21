@@ -93,8 +93,8 @@ class Schedule with _$Schedule {
     if (day.isEmpty) return this;
 
     json['${day}_Active'] = scheduleDay.active;
-    json['${day}_Start'] = scheduleDay.start?.toStringF;
-    json['${day}_End'] = scheduleDay.end?.toStringF;
+    json['${day}_Start'] = scheduleDay.start?.toFormattedString;
+    json['${day}_End'] = scheduleDay.end?.toFormattedString;
 
     return Schedule.fromJson(json);
   }

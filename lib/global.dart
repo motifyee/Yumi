@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yumi/app/components/toast/toast.dart';
 import 'package:yumi/app/core/setup/connection.dart';
 import 'package:yumi/app/core/setup/inject.dart';
 import 'package:yumi/app/core/setup/internet_connectivity_checker.dart';
@@ -102,6 +104,7 @@ class G {
       ),
     ));
   }
+
   // ###########################################################################
   // Snackbar
 
@@ -117,6 +120,42 @@ class G {
 
   static void clearSnackbars() {
     scaffold.clearSnackBars();
+  }
+
+  // ###########################################################################
+  // Toast
+
+  static final _fToast = FToast();
+  static bool _toastInit = false;
+  static void initToast(BuildContext context) {
+    if (_toastInit) return;
+    _fToast.init(context);
+    _toastInit = true;
+  }
+
+  static void showToast(
+    String msg, {
+    BuildContext? context,
+    Widget Function(String msg) toastBuilder = buildToast,
+    bool isDismissable = false,
+    bool ignorePointer = false,
+    ToastGravity gravity = ToastGravity.BOTTOM,
+    Duration toastDuration = const Duration(seconds: 2),
+    Duration fadeDuration = const Duration(milliseconds: 350),
+    Widget Function(BuildContext context, Widget? child)?
+        positionedToastBuilder,
+  }) {
+    initToast(context ?? cContext);
+
+    _fToast.showToast(
+      child: toastBuilder(msg),
+      isDismissable: isDismissable,
+      ignorePointer: ignorePointer,
+      gravity: gravity,
+      toastDuration: toastDuration,
+      fadeDuration: fadeDuration,
+      positionedToastBuilder: positionedToastBuilder,
+    );
   }
 
   // ###########################################################################
