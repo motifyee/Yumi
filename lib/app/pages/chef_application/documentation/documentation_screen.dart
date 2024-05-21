@@ -4,23 +4,24 @@ import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:yumi/app/core/setup/awesome_notifications.dart';
+import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_cubit.dart';
+import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_info.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/extensions/color.dart';
-import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_cubit.dart';
-import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_info.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/screen_container.dart';
-import 'package:collection/collection.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 @RoutePage()
 class DocumentationScreen extends StatelessWidget {
@@ -315,7 +316,9 @@ Widget documentWidget({
                 await imagePicker.pickImage(source: ImageSource.gallery);
             if (image == null) return;
 
-            var encoded = base64Encode(await image.readAsBytes());
+            var encoded =
+                'data:${lookupMimeType(image.path)};base64,${base64Encode(await image.readAsBytes())}';
+
             uploadAction(encoded, target);
 
             // G.rd<RegCubit>().refresh();
@@ -326,8 +329,8 @@ Widget documentWidget({
         final image = await imagePicker.pickImage(source: ImageSource.gallery);
         if (image == null) return;
 
-        var encoded = base64Encode(await image.readAsBytes());
-
+        var encoded =
+            'data:${lookupMimeType(image.path)};base64,${base64Encode(await image.readAsBytes())}';
         uploadAction(encoded, null);
         // G.rd<RegCubit>().refresh();
       },
