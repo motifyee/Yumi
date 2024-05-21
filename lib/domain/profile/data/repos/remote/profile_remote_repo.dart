@@ -71,4 +71,10 @@ class ProfileRemoteRepo implements ProfileRepo {
         () => profileSrc.verifyResetPasswordOTP(email, otp, password),
         (error, stackTrace) => ServerFailure(error, stackTrace),
       );
+
+  @override
+  TaskEither<Failure, String> verifyEmail(String email) => TaskEither.tryCatch(
+        () => profileSrc.verifyEmail(email),
+        (error, stackTrace) => ServerFailure(error, stackTrace),
+      );
 }

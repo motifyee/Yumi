@@ -6,7 +6,6 @@ import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/profile_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/chef_bannar.dart';
 import 'package:yumi/template/dialog.dart';
 
 class UserSettingDetails extends StatelessWidget {
@@ -185,13 +184,11 @@ class UserSettingDetails extends StatelessWidget {
                               height: 60,
                               child: SvgPicture.asset(
                                   'assets/images/pickup-available.svg'),
-                              // DeliveryIcon(isChecked: true, showFav: false),
                             ),
                             SizedBox(
                               height: 60,
                               child: SvgPicture.asset(
                                   'assets/images/delivery-${state.profile.pickupOnly ? 'not-' : ''}available.svg'),
-                              // DeliveryIcon(isChecked: true, showFav: false),
                             ),
                           ],
                         ),

@@ -16,4 +16,5 @@ abstract class ProfileRepo {
     String otp,
     String password,
   );
+  TaskEither<Failure, String> verifyEmail(String email);
 }
