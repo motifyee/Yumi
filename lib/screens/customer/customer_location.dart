@@ -21,8 +21,11 @@ class CustomerLocationScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: MediaQuery.of(context).size.width,
+              maxHeight: MediaQuery.of(context).size.height * .3,
+            ),
             child: Image.asset('assets/images/customer_location.png',
                 fit: BoxFit.fitWidth),
           ),
@@ -66,6 +69,7 @@ class CustomerLocationScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
+          SizedBox(height: ThemeSelector.statics.defaultGap),
           Expanded(
               child: BlocProvider(
             create: (context) => AddressBloc(),
