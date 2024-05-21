@@ -274,16 +274,18 @@ class IngredientsForm extends StatelessWidget {
                           )),
                       TextButton(
                           onPressed: () {
-                            context.read<MealFormBloc>().add(
-                                MealFormUpdateEvent(
-                                    mealModel: context
-                                        .read<MealFormBloc>()
-                                        .state
-                                        .mealModel
-                                        .copyWith(
-                                            ingredients:
-                                                state.ingredientsModelList)));
-                            context.router.popForced();
+                            if (state.ingredientsModelList.isNotEmpty) {
+                              context.read<MealFormBloc>().add(
+                                  MealFormUpdateEvent(
+                                      mealModel: context
+                                          .read<MealFormBloc>()
+                                          .state
+                                          .mealModel
+                                          .copyWith(
+                                              ingredients:
+                                                  state.ingredientsModelList)));
+                              context.router.popForced();
+                            }
                           },
                           child: Text(
                             S.of(context).save,
