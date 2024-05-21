@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yumi/app/core/setup/init.dart';
 import 'package:yumi/app_config/customer/customer_app_config.dart';
+import 'package:yumi/app_config/customer/customer_signalr.dart';
 import 'package:yumi/app_config/yumi_app.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/global.dart';
@@ -8,6 +9,9 @@ import 'package:yumi/statics/theme_statics.dart';
 
 Future main() async {
   await init();
+
+  /// initial listen to customer messages from signal r
+  CustomerSignalR.initial();
 
   AppTarget.user = AppTargetUser.customers;
 

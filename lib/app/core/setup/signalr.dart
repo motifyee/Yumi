@@ -1,19 +1,18 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:logging/logging.dart';
 import 'package:signalr_netcore/json_hub_protocol.dart';
 import 'package:signalr_netcore/signalr_client.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/core/failures.dart';
-import 'package:yumi/global.dart';
 import 'package:yumi/statics/api_statics.dart';
 
 enum Signals {
   sendmessage,
   receivemessage,
+  updatechefstatus,
+  cusotmertransaction,
   start,
   stop,
 }
@@ -68,26 +67,6 @@ class Signalr {
       "ReceiveMessage",
       (messages) => debugPrint("Messages: $messages"),
     );
-
-    hubConnection!.on('updatechefstatus', (arguments) {
-      int index = arguments?.indexWhere((dynamic e) =>
-              G.context.read<UserBloc>().state.user.id == e['chef_ID']) ??
-          -1;
-      if (index > -1) {
-        G.context.read<UserBloc>().add(UserFromJsonEvent(
-            user: G.context
-                .read<UserBloc>()
-                .state
-                .user
-                .copyWith(status: (arguments![index] as dynamic)['status_Work'])
-                .toJson()));
-      }
-    });
-
-    hubConnection!.on('cusotmertransaction', (arguments) {
-      print('signalR cusotmertransaction .....................');
-      print(arguments);
-    });
   }
 
   static void ensureInitialized() {
