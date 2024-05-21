@@ -9,7 +9,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/domain/schedule/entities/schedule.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
-import 'package:yumi/app/pages/chef_application/bloc.dart';
 import 'package:yumi/domain/schedule/entities/extensions.dart';
 import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
 import 'package:yumi/global.dart';
@@ -23,18 +22,10 @@ class MyScheduleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 1)).then((value) {
-      if (context.read<ChefFlowBloc>().state.started &&
-          !G.rd<ScheduleCubit>().state.schedule.hasScheduledDays) {
-        // addYourScheduleDialog(context);
-      }
-    });
-
     return PopScope(
-      canPop: false,
-      onPopInvoked: (_) {
+      canPop: true,
+      onPopInvoked: (value) {
         context.read<ScheduleCubit>().reset();
-        // context.read<ScheduleCubit>().loadSchedule();
       },
       child: ScreenContainer(
         child: Scaffold(
@@ -494,10 +485,7 @@ void sheduleDialog(BuildContext context) {
 
         G.rd<RegCubit>().refresh();
 
-        // Navigator.of(context, rootNavigator: true).pop();
         G.pop();
-        // G.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
-        // G.cread<RegCubit>().goto(2);
       },
     },
     insetPadding: 0,

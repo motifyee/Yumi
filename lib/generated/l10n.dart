@@ -160,10 +160,10 @@ class S {
     );
   }
 
-  /// `Password must be 8 characters contains:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # $ & * ~ ).`
+  /// `Password must contain:\n at least 8 characters,\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # $ & * ~ ).`
   String get passwordMustBe {
     return Intl.message(
-      'Password must be 8 characters contains:\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # \$ & * ~ ).',
+      'Password must contain:\n at least 8 characters,\n 1 upper case,\n 1 lower case,\n 1 number,\n 1 special character ( ! @ # \$ & * ~ ).',
       name: 'passwordMustBe',
       desc: '',
       args: [],

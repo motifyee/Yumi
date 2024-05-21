@@ -54,13 +54,9 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
                 return sheduleDialog(context);
 
                 // Navigator.of(context, rootNavigator: true).pop();
-                // G.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
               },
             },
             insetPadding: 0,
-            // onDismissed: () {
-            //   context.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 2));
-            // },
           );
         },
         () => state.onboarding.mealsActive,
