@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:yumi/app/components/interactive_button/interactive_button_style.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 enum ButtonState { init, loading, done, success, error }
@@ -25,6 +27,7 @@ class InteractiveButton extends StatefulWidget {
   // final Color? loadingTextColor;
   // shape
   final double height;
+  final InteractiveButtonStyle? style;
   // final double? borderRadius;
   // final Widget? shapeWidget;
   final Widget? icon;
@@ -48,6 +51,7 @@ class InteractiveButton extends StatefulWidget {
     // this.disabledTextColor,
     // this.loadingTextColor,
     this.height = 30,
+    this.style,
     // this.borderRadius,
     // this.shapeWidget,
     this.icon,
@@ -120,6 +124,7 @@ Widget buildButton({
   Widget? loadingWidget,
   Color? backgroundColor,
   Color? foregroundColor,
+  InteractiveButtonStyle? style,
   bool isLoading = false,
   double size = 40,
   ButtonType buttonType = ButtonType.filled,
@@ -155,24 +160,84 @@ Widget buildButton({
   );
 
   return switch (buttonType) {
-    ButtonType.outline => OutlinedButton(
-        onPressed: onPressed,
-        style: OutlinedButton.styleFrom(
-          shape: const StadiumBorder(),
-        ),
-        child: buttonContent,
-      ),
-    ButtonType.filled => ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor ?? ThemeSelector.colors.primary,
-          foregroundColor: foregroundColor ?? ThemeSelector.colors.onPrimary,
-          shape: const StadiumBorder(),
-        ),
-        child: buttonContent,
-      ),
-    ButtonType.text => TextButton(onPressed: onPressed, child: buttonContent),
+    ButtonType.outline => () {
+        final buttonStyle = (style ?? const InteractiveButtonStyle())
+            .copyWith(shape: style?.shape ?? const StadiumBorder());
+
+        return OutlinedButton(
+          onPressed: onPressed,
+          style: _copyStyle(buttonStyle),
+          child: buttonContent,
+        );
+      }(),
+    ButtonType.filled => () {
+        final buttonStyle = (style ?? const InteractiveButtonStyle()).copyWith(
+          backgroundColor:
+              style?.backgroundColor ?? ThemeSelector.colors.primary,
+          foregroundColor:
+              style?.foregroundColor ?? ThemeSelector.colors.onPrimary,
+          shape: style?.shape ?? const StadiumBorder(),
+        );
+
+        return ElevatedButton(
+          onPressed: onPressed,
+          style: _copyStyle(buttonStyle),
+          child: buttonContent,
+        );
+      }(),
+    ButtonType.text => () {
+        return TextButton(
+          onPressed: onPressed,
+          style: _copyStyle(style),
+          child: buttonContent,
+        );
+      }(),
   };
+}
+
+ButtonStyle _copyStyle(InteractiveButtonStyle? style) {
+  return ElevatedButton.styleFrom(
+    foregroundColor: style?.foregroundColor,
+    backgroundColor: style?.backgroundColor,
+    shape: style?.shape,
+    //
+    disabledForegroundColor: style?.disabledForegroundColor,
+    disabledBackgroundColor: style?.disabledBackgroundColor,
+    shadowColor: style?.shadowColor,
+    surfaceTintColor: style?.surfaceTintColor,
+    elevation: style?.elevation,
+    textStyle: style?.textStyle,
+    padding: style?.padding,
+    minimumSize: style?.minimumSize,
+    fixedSize: style?.fixedSize,
+    maximumSize: style?.maximumSize,
+    side: style?.side,
+    enabledMouseCursor: style?.enabledMouseCursor,
+    disabledMouseCursor: style?.disabledMouseCursor,
+    visualDensity: style?.visualDensity,
+    tapTargetSize: style?.tapTargetSize,
+    animationDuration: style?.animationDuration,
+    enableFeedback: style?.enableFeedback,
+    alignment: style?.alignment,
+    splashFactory: style?.splashFactory,
+  );
+}
+
+@immutable
+class ElevatedButtonDefaultColor extends MaterialStateProperty<Color?>
+    with Diagnosticable {
+  ElevatedButtonDefaultColor(this.color, this.disabled);
+
+  final Color? color;
+  final Color? disabled;
+
+  @override
+  Color? resolve(Set<MaterialState> states) {
+    if (states.contains(MaterialState.disabled)) {
+      return disabled;
+    }
+    return color;
+  }
 }
 
 // if (isOutlined) { return ; }

@@ -9,6 +9,7 @@ import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/model/registeration.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/auth/registeration/repository/signup_service.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/statics/code_generator.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
@@ -25,15 +26,16 @@ class SignUpForm extends StatelessWidget {
   final TextEditingController? passwordController;
 
   RegisterationForm signupForm = RegisterationForm(
-      code: CodeGenerator.getRandomCode(),
-      fullName: '',
-      userName: '',
-      mobile: '',
-      signupType: '2',
-      countryID: '3',
-      email: '',
-      password: '',
-      branchId: AppTarget.branch);
+    code: CodeGenerator.getRandomCode(),
+    fullName: '',
+    userName: '',
+    // mobile: '',
+    signupType: '2',
+    countryID: '3',
+    email: '',
+    password: '',
+    branchId: AppTarget.branch,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -62,13 +64,56 @@ class SignUpForm extends StatelessWidget {
               validators: requiredValidator,
             ),
             SizedBox(height: ThemeSelector.statics.formFieldGap),
-            TextFormFieldTemplate(
-              key: key,
-              label: S.of(context).email,
-              onSave: (value) {
-                signupForm = signupForm.copyWith(email: value);
-              },
-              validators: emailValidator,
+            Stack(
+              children: [
+                TextFormFieldTemplate(
+                  key: key,
+                  label: S.of(context).email,
+                  onSave: (value) {
+                    signupForm = signupForm.copyWith(email: value);
+                  },
+                  validators: emailValidator,
+                  suffixText: 'VerifyVeri',
+                ),
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  // bottom: 0,
+                  child: Container(
+                    height: 48,
+                    width: 96,
+                    padding: const EdgeInsets.all(10),
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      // color: Theme.of(context).primaryColor.withOpacity(.7),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(25),
+                        bottomRight: Radius.circular(25),
+                      ),
+                    ),
+                    child: InteractiveButton(
+                      height: 48,
+                      label: 'Verify',
+                      onPressed: () async {
+                        if (!emailStructure(signupForm.email)) {
+                          return G.snackBar("Please enter valid email");
+                        }
+
+                        final sent = await context
+                            .read<RegCubit>()
+                            .getEmailOTP(signupForm.email!);
+
+                        if (sent) {
+                          G.snackBar("Verification code sent");
+                        } else {
+                          return G.snackBar(
+                              "Check your email, Verification code not sent");
+                        }
+                      },
+                    ),
+                  ),
+                )
+              ],
             ),
             SizedBox(height: ThemeSelector.statics.formFieldGap),
             TextFormFieldTemplate(
@@ -98,8 +143,9 @@ class SignUpForm extends StatelessWidget {
             InteractiveButton(
               label: S.of(context).createAccount,
               onPressed: () async {
-                // if (kDebugMode) {
-                // return context.read<RegCubit>().setAccount(signupForm);
+                final cubit = context.read<RegCubit>();
+                // if (cubit.state.verifiedEmail != signupForm.email) {
+                //   return G.snackBar("Please verify your email");
                 // }
 
                 if (signUpFormKey.currentState!.validate()) {
@@ -124,7 +170,7 @@ class SignUpForm extends StatelessWidget {
                           routeAfterLogin: () =>
                               context.read<ProfileCubit>().getProfileForm()));
 
-                      return context.read<RegCubit>().setAccount(signupForm);
+                      return cubit.setAccount(signupForm);
                     }
 
                     ScaffoldMessenger.of(context).showSnackBar(

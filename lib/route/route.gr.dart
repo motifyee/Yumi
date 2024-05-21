@@ -15,9 +15,10 @@ import 'package:yumi/app/components/loading_indicator/loading_page.dart'
 import 'package:yumi/app/pages/auth/registeration/add_phone_screen.dart' as _i1;
 import 'package:yumi/app/pages/auth/registeration/location_screen.dart' as _i15;
 import 'package:yumi/app/pages/auth/registeration/model/address.dart' as _i37;
-import 'package:yumi/app/pages/auth/registeration/otp_screen.dart' as _i22;
 import 'package:yumi/app/pages/auth/registeration/reg_screen.dart' as _i27;
 import 'package:yumi/app/pages/auth/registeration/signup_screen.dart' as _i29;
+import 'package:yumi/app/pages/auth/registeration/verify_add_phone_otp_screen.dart'
+    as _i22;
 import 'package:yumi/app/pages/basket/basket_screen.dart' as _i2;
 import 'package:yumi/app/pages/calories/calories_screen.dart' as _i3;
 import 'package:yumi/app/pages/chef_application/application_flow_screen.dart'

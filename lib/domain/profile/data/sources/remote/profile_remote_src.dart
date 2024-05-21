@@ -148,4 +148,21 @@ class ProfileRemoteSrc extends ProfileSrc {
     if (res.data == null) throw ServerException('Something went wrong!');
     return res.data!;
   }
+
+  @override
+  Future<String> verifyEmail(String email) async {
+    final Response<String> res;
+
+    try {
+      res = await DioClient.dio.post<String>(
+        '/accounts/emailverified?email=$email',
+      );
+    } catch (e) {
+      throw ServerException(
+          (jsonDecode((e as dynamic).response.data as String))['message']);
+    }
+
+    if (res.data == null) throw ServerException('Something went wrong!');
+    return res.data!;
+  }
 }

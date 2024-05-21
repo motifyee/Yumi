@@ -14,4 +14,5 @@ abstract class ProfileSrc {
     String otp,
     String password,
   );
+  Future<String> verifyEmail(String email);
 }

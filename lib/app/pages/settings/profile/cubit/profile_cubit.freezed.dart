@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ProfileState {
   Profile get profile => throw _privateConstructorUsedError;
   Profile get form => throw _privateConstructorUsedError;
-  bool get deliveryAvailable => throw _privateConstructorUsedError;
   List<Review> get reviews => throw _privateConstructorUsedError;
   EntityStatus get reviewsStatus => throw _privateConstructorUsedError;
 
@@ -36,7 +35,6 @@ abstract class $ProfileStateCopyWith<$Res> {
   $Res call(
       {Profile profile,
       Profile form,
-      bool deliveryAvailable,
       List<Review> reviews,
       EntityStatus reviewsStatus});
 
@@ -59,7 +57,6 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
   $Res call({
     Object? profile = null,
     Object? form = null,
-    Object? deliveryAvailable = null,
     Object? reviews = null,
     Object? reviewsStatus = null,
   }) {
@@ -72,10 +69,6 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
           ? _value.form
           : form // ignore: cast_nullable_to_non_nullable
               as Profile,
-      deliveryAvailable: null == deliveryAvailable
-          ? _value.deliveryAvailable
-          : deliveryAvailable // ignore: cast_nullable_to_non_nullable
-              as bool,
       reviews: null == reviews
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -115,7 +108,6 @@ abstract class _$$ProfileStateImplCopyWith<$Res>
   $Res call(
       {Profile profile,
       Profile form,
-      bool deliveryAvailable,
       List<Review> reviews,
       EntityStatus reviewsStatus});
 
@@ -138,7 +130,6 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
   $Res call({
     Object? profile = null,
     Object? form = null,
-    Object? deliveryAvailable = null,
     Object? reviews = null,
     Object? reviewsStatus = null,
   }) {
@@ -151,10 +142,6 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
           ? _value.form
           : form // ignore: cast_nullable_to_non_nullable
               as Profile,
-      deliveryAvailable: null == deliveryAvailable
-          ? _value.deliveryAvailable
-          : deliveryAvailable // ignore: cast_nullable_to_non_nullable
-              as bool,
       reviews: null == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -173,7 +160,6 @@ class _$ProfileStateImpl implements _ProfileState {
   const _$ProfileStateImpl(
       {this.profile = const Profile(),
       this.form = const Profile(),
-      this.deliveryAvailable = false,
       final List<Review> reviews = const [],
       this.reviewsStatus = const EntityStatus(status: Status.idle)})
       : _reviews = reviews;
@@ -184,9 +170,6 @@ class _$ProfileStateImpl implements _ProfileState {
   @override
   @JsonKey()
   final Profile form;
-  @override
-  @JsonKey()
-  final bool deliveryAvailable;
   final List<Review> _reviews;
   @override
   @JsonKey()
@@ -202,7 +185,7 @@ class _$ProfileStateImpl implements _ProfileState {
 
   @override
   String toString() {
-    return 'ProfileState(profile: $profile, form: $form, deliveryAvailable: $deliveryAvailable, reviews: $reviews, reviewsStatus: $reviewsStatus)';
+    return 'ProfileState(profile: $profile, form: $form, reviews: $reviews, reviewsStatus: $reviewsStatus)';
   }
 
   @override
@@ -212,15 +195,13 @@ class _$ProfileStateImpl implements _ProfileState {
             other is _$ProfileStateImpl &&
             (identical(other.profile, profile) || other.profile == profile) &&
             (identical(other.form, form) || other.form == form) &&
-            (identical(other.deliveryAvailable, deliveryAvailable) ||
-                other.deliveryAvailable == deliveryAvailable) &&
             const DeepCollectionEquality().equals(other._reviews, _reviews) &&
             (identical(other.reviewsStatus, reviewsStatus) ||
                 other.reviewsStatus == reviewsStatus));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, profile, form, deliveryAvailable,
+  int get hashCode => Object.hash(runtimeType, profile, form,
       const DeepCollectionEquality().hash(_reviews), reviewsStatus);
 
   @JsonKey(ignore: true)
@@ -234,7 +215,6 @@ abstract class _ProfileState implements ProfileState {
   const factory _ProfileState(
       {final Profile profile,
       final Profile form,
-      final bool deliveryAvailable,
       final List<Review> reviews,
       final EntityStatus reviewsStatus}) = _$ProfileStateImpl;
 
@@ -242,8 +222,6 @@ abstract class _ProfileState implements ProfileState {
   Profile get profile;
   @override
   Profile get form;
-  @override
-  bool get deliveryAvailable;
   @override
   List<Review> get reviews;
   @override

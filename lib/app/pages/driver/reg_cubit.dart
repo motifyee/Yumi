@@ -24,6 +24,7 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/profile/use_cases/get_otp.dart';
 import 'package:yumi/domain/profile/use_cases/verify_add_mobile_otp.dart';
+import 'package:yumi/domain/profile/use_cases/verify_email.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/login_model.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -44,6 +45,8 @@ abstract class NRegState with _$NRegState {
     @Default(false) bool finished,
     @Default(0) int step,
     //
+    String? verifiedEmail,
+    @Default(Status.init) Status verifiedEmailStatus,
     RegisterationForm? singupData, // step: 0
     String? phone, // step: 1
     String? otp, // step: 2
@@ -254,10 +257,13 @@ class RegCubit extends Cubit<NRegState> {
     emit(state.copyWith(countDown: null));
   }
 
-  void setAccount(RegisterationForm signupData) {
+  bool setAccount(RegisterationForm signupData) {
     // TODO keep in storage
+    // if (signupData.email != state.verifiedEmail) return false;
+
     emit(state.copyWith(singupData: signupData));
     _navigateToIdx(1);
+    return true;
   }
 
   Future<bool> setPhone(String phone) async {
@@ -307,6 +313,26 @@ class RegCubit extends Cubit<NRegState> {
         _navigateToIdx(3);
       },
     );
+  }
+
+  Future<bool> getEmailOTP(String email) async {
+    emit(state.copyWith(verifiedEmailStatus: Status.loading));
+    final verify = await VerifyEmail().call(VerifyEmailParams(email));
+
+    return verify.fold(
+      (l) {
+        emit(state.copyWith(verifiedEmailStatus: Status.error));
+        return false;
+      },
+      (r) {
+        emit(state.copyWith(verifiedEmailStatus: Status.success));
+        return true;
+      },
+    );
+  }
+
+  void verifyEmailOTP(String email) {
+    emit(state.copyWith(verifiedEmail: email));
   }
 
   void setLocation(Address address) {
