@@ -313,75 +313,105 @@ class DeliveryPickUpIcons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Column(
-          crossAxisAlignment:
-              isShowFav ? CrossAxisAlignment.start : CrossAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                SvgPicture.asset('assets/images/can_pickUp_icon.svg'),
-                if (isShowFav)
-                  Row(
-                    children: [
-                      const SizedBox(width: 3),
-                      SvgPicture.asset('assets/images/checked_icon.svg'),
-                    ],
-                  ),
-              ],
-            ),
-            Text(
-              S.of(context).pickup,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(fontSize: ThemeSelector.fonts.font_5),
-            ),
-            if (!isShowFav)
-              Row(
-                children: [
-                  const SizedBox(height: 5),
-                  SvgPicture.asset('assets/images/checked_icon.svg'),
-                ],
-              ),
-          ],
-        ),
+        PickupIcon(showFav: isShowFav),
         SizedBox(width: ThemeSelector.statics.defaultMicroGap),
-        Column(
-          crossAxisAlignment:
-              isShowFav ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+        DeliveryIcon(showFav: isShowFav, isChecked: isPickUpOnly),
+      ],
+    );
+  }
+}
+
+class DeliveryIcon extends StatelessWidget {
+  const DeliveryIcon({
+    super.key,
+    required this.showFav,
+    required this.isChecked,
+  });
+
+  final bool showFav;
+  final bool isChecked;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment:
+          showFav ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      children: [
+        Row(
           children: [
-            Row(
-              children: [
-                SvgPicture.asset('assets/images/can_delivery_icon.svg'),
-                if (isShowFav)
-                  Row(
-                    children: [
-                      const SizedBox(width: 5),
-                      SvgPicture.asset(isPickUpOnly
-                          ? 'assets/images/closed_icon.svg'
-                          : 'assets/images/checked_icon.svg'),
-                    ],
-                  ),
-              ],
-            ),
-            Text(
-              S.of(context).delivery,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(fontSize: ThemeSelector.fonts.font_5),
-            ),
-            if (!isShowFav)
+            SvgPicture.asset('assets/images/can_delivery_icon.svg'),
+            if (showFav)
               Row(
                 children: [
-                  const SizedBox(height: 3),
-                  SvgPicture.asset(isPickUpOnly
+                  const SizedBox(width: 5),
+                  SvgPicture.asset(isChecked
                       ? 'assets/images/closed_icon.svg'
                       : 'assets/images/checked_icon.svg'),
                 ],
               ),
           ],
         ),
+        Text(
+          S.of(context).delivery,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(fontSize: ThemeSelector.fonts.font_5),
+        ),
+        if (!showFav)
+          Row(
+            children: [
+              const SizedBox(height: 3),
+              SvgPicture.asset(isChecked
+                  ? 'assets/images/closed_icon.svg'
+                  : 'assets/images/checked_icon.svg'),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
+class PickupIcon extends StatelessWidget {
+  const PickupIcon({
+    super.key,
+    required this.showFav,
+  });
+
+  final bool showFav;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment:
+          showFav ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      children: [
+        Row(
+          children: [
+            SvgPicture.asset('assets/images/can_pickUp_icon.svg'),
+            if (showFav)
+              Row(
+                children: [
+                  const SizedBox(width: 3),
+                  SvgPicture.asset('assets/images/checked_icon.svg'),
+                ],
+              ),
+          ],
+        ),
+        Text(
+          S.of(context).pickup,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(fontSize: ThemeSelector.fonts.font_5),
+        ),
+        if (!showFav)
+          Row(
+            children: [
+              const SizedBox(height: 5),
+              SvgPicture.asset('assets/images/checked_icon.svg'),
+            ],
+          ),
       ],
     );
   }
