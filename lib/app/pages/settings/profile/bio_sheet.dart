@@ -58,8 +58,6 @@ class EditBioSheet extends StatelessWidget {
                         var state = G.rd<ProfileCubit>().state;
                         if (!state.form.profileSheetDone) return;
 
-                        // G.read<ChefFlowBloc>().add(ChefFlowEventNext(idx: 1));
-
                         Navigator.of(context).pop();
                         G.rd<RegCubit>().refresh();
 
