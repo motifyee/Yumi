@@ -42,6 +42,8 @@ class OrderCard extends StatefulWidget {
 }
 
 class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
+  Timer? timer;
+
   getOrderForView() {
     OrderService.getOrderOrPreOrderDriverById(
             apiKeys: ApiKeys.orderDriverAvailableById,
@@ -60,6 +62,13 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
       getOrderForView();
     }
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (timer != null) timer!.cancel();
+
+    super.dispose();
   }
 
   @override
@@ -84,7 +93,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
 
       /// TODO: worst thing ever X(
       /// this is for time count
-      Timer.periodic(const Duration(seconds: 1), (timer) {
+      timer = Timer.periodic(const Duration(seconds: 1), (timer) {
         setState(() {});
       });
     }
