@@ -38,11 +38,6 @@ class BasketRemoteRepo implements BasketRepo {
       TaskEither.tryCatch(
           () => basketSource.createOrderOrPreOrderPickUp(
               basket: basket, isPreOrder: isPreOrder), (error, stackTrace) {
-        print('createOrderOrPreOrderPickUp ...............................');
-        print(error.runtimeType);
-        print(error);
-        print(stackTrace.runtimeType);
-        print(stackTrace);
         return ServerFailure(error, stackTrace);
       });
 

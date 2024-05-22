@@ -14,6 +14,8 @@ enum Signals {
   updatechefstatus,
   updatedriverstatus,
   cusotmertransaction,
+  neworderreceived,
+  notification,
   start,
   stop,
 }

@@ -65,9 +65,7 @@ class Invoice with _$Invoice {
           : scheduleDate!;
 
   factory Invoice.initial() {
-    return Invoice(
-        scheduleDate: DateTime.now(),
-        invoiceCode: CodeGenerator.getRandomCode());
+    return Invoice(invoiceCode: CodeGenerator.getRandomCode());
   }
 
   factory Invoice.fromJson(Map<String, dynamic> json) =>
