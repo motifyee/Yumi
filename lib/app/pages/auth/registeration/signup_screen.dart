@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/auth/registeration/signup_form.dart';
+import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -63,6 +65,7 @@ class SignUpScreen extends StatelessWidget {
                         onPressed: () {
                           // context.router.pop();
                           context.router.replace(LoginRoute());
+                          context.read<RegCubit>().reset();
                         },
                         child: RichText(
                           text: TextSpan(
