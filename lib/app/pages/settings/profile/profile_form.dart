@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/components/interactive_button/interactive_button.dart';
+import 'package:yumi/app/components/interactive_button/interactive_button_style.dart';
+import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -82,15 +87,101 @@ Widget profileFormFields(
         //   // onSave: (value) => save(profile0 = profile0.copyWith(email: value)),
         // ),
         // SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-        TextFormFieldTemplate(
-          label: S.of(context).mobile,
-          borderStyle: TextFormFieldBorderStyle.borderBottom,
-          initialValue: profile.mobile,
-          textInputType: TextInputType.number,
-          inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.digitsOnly,
+        Stack(
+          children: [
+            TextFormFieldTemplate(
+              label: S.of(context).mobile,
+              borderStyle: TextFormFieldBorderStyle.borderBottom,
+              initialValue: profile.mobile,
+              textInputType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              onSave: (value) =>
+                  save(profile0 = profile0.copyWith(mobile: value)),
+              onChange: (value) => profile0 = profile0.copyWith(mobile: value),
+            ),
+            Positioned(
+              right: 0,
+              top: 0,
+              // bottom: 0,
+              child: Container(
+                height: 48,
+                width: 96,
+                padding: const EdgeInsets.all(10),
+                alignment: Alignment.center,
+                decoration: const BoxDecoration(
+                  // color: Theme.of(context).primaryColor.withOpacity(.7),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(25),
+                    bottomRight: Radius.circular(25),
+                  ),
+                ),
+                child: BlocBuilder<ProfileCubit, ProfileState>(
+                  builder: (context, state) {
+                    final profileCubit = context.read<ProfileCubit>();
+                    return InteractiveButton(
+                      height: 48,
+                      label: 'Verify',
+                      loadingLabel: '',
+                      // style: InteractiveButtonStyle(
+                      //   backgroundColor: (state.verifiedEmail ?? 'x') ==
+                      //           (signupForm.email ?? 'y')
+                      //       ? Colors.grey
+                      //       : null,
+                      // ),
+                      onPressed: () async {
+                        await profileCubit
+                            .setMobile(profile0.mobile)
+                            .then((otp) {
+                          if (otp == null) {
+                            return G.snackBar('Something went wrong');
+                          }
+
+                          showModalBottomSheet(
+                            context: context,
+                            // isScrollControlled: true,
+                            // backgroundColor: Colors.transparent,
+                            builder: (context) => Container(),
+                          );
+                        });
+
+                        // if (state.verifiedEmail == signupForm.email) {
+                        //   return G.snackBar(
+                        //     "${state.verifiedEmail} is already verified",
+                        //   );
+                        // }
+
+                        // if (!emailStructure(signupForm.email)) {
+                        //   return G.snackBar("Please enter a valid email");
+                        // }
+
+                        // await reg.getEmailOTP(signupForm.email!).then(
+                        //   (sent) {
+                        //     if (!sent) {
+                        //       return G.snackBar(
+                        //         "Please enter a valid email, nothing sent!",
+                        //       );
+                        //     }
+
+                        //     G.snackBar("Verification code sent");
+
+                        //     showModalBottomSheet(
+                        //       context: context,
+                        //       isScrollControlled: true,
+                        //       backgroundColor: Colors.transparent,
+                        //       builder: (context) =>
+                        //           const VerifyRegisterEmailOtpSheetProvider(),
+                        //     );
+                        //   },
+                        // );
+                      },
+                    );
+                  },
+                ),
+              ),
+            )
           ],
-          onSave: (value) => save(profile0 = profile0.copyWith(mobile: value)),
         ),
         SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
         // TextFormFieldTemplate(
