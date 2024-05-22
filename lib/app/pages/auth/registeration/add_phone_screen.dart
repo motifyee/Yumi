@@ -92,7 +92,7 @@ class AddPhoneScreen extends StatelessWidget {
                                   .then((_) async {
                                 await context
                                     .read<RegCubit>()
-                                    .setPhone(value)
+                                    .setMobile(value)
                                     .then((value) {
                                   if (!value) {
                                     G.snackBar("Something went wrong!");

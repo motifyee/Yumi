@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button_style.dart';
-import 'package:yumi/app/pages/auth/registeration/verify_register_email_otp_sheet.dart';
+import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
@@ -136,7 +136,7 @@ class SignUpForm extends StatelessWidget {
                                   isScrollControlled: true,
                                   backgroundColor: Colors.transparent,
                                   builder: (context) =>
-                                      const VerifyRegisterEmailOtpSheetProvider(),
+                                      const VerifyOtpSheetProvider(),
                                 );
                               },
                             );

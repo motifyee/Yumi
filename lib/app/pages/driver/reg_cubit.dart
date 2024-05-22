@@ -269,7 +269,7 @@ class RegCubit extends Cubit<NRegState> {
     return true;
   }
 
-  Future<bool> setPhone(String phone) async {
+  Future<bool> setMobile(String phone) async {
     var profile = G.rd<ProfileCubit>().state.form.copyWith(mobile: phone);
     var update = await G.rd<ProfileCubit>().updateProfileForm(profile);
 
@@ -281,15 +281,15 @@ class RegCubit extends Cubit<NRegState> {
 
     emit(state.copyWith(phone: phone));
 
-    return (await getOTP()).fold((l) => false, (r) {
+    return (await getMobileOTP()).fold((l) => false, (r) {
       _navigateToIdx(2, otp: r);
       return true;
     });
   }
 
-  Future<Either<Failure, String>> getOTP() async {
+  Future<Either<Failure, String>> getMobileOTP() async {
     emit(state.copyWith(status: Status.loading));
-    final getOTP = await GetOTP().call(NoParams());
+    final getOTP = await GetMobileOTP().call(NoParams());
 
     getOTP.fold(
       (l) {
@@ -304,9 +304,9 @@ class RegCubit extends Cubit<NRegState> {
     return getOTP;
   }
 
-  Future verifyOTP(String otp) async {
+  Future verifyMobileOTP(String otp) async {
     emit(state.copyWith(status: Status.loading));
-    final verify = await VerifyOTP().call(VerifyOTPParams(otp));
+    final verify = await VerifyMobileOTP().call(VerifyOTPParams(otp));
 
     verify.fold(
       (l) => emit(state.copyWith(status: Status.error)),

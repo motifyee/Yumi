@@ -80,7 +80,7 @@ class OTPScreen extends StatelessWidget {
                       builder: (_, state) {
                         if (!cubit.state.status.isLoading &&
                             (state?.length ?? 0) < 4) {
-                          cubit.getOTP();
+                          cubit.getMobileOTP();
                         }
 
                         if (state != null) otp = state;
@@ -109,7 +109,7 @@ class OTPScreen extends StatelessWidget {
                               onPressed: () {
                                 if ((countDown ?? 0) > 0) return;
 
-                                cubit.getOTP();
+                                cubit.getMobileOTP();
                               },
                               child: Text(
                                 (countDown ?? 0) > 0
@@ -134,7 +134,7 @@ class OTPScreen extends StatelessWidget {
 
                           await context
                               .read<RegCubit>()
-                              .verifyOTP(otp)
+                              .verifyMobileOTP(otp)
                               .then((value) {
                             if (cubit.state.status.isError) {
                               G.snackBar('Failed verify OTP. Try again!');

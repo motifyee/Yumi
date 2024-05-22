@@ -10,11 +10,14 @@ import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/domain/profile/entities/review.dart';
 import 'package:yumi/domain/profile/use_cases/delete_photo.dart';
 import 'package:yumi/domain/profile/use_cases/delete_profile.dart';
+import 'package:yumi/domain/profile/use_cases/get_otp.dart';
 import 'package:yumi/domain/profile/use_cases/load_profile.dart';
 import 'package:yumi/domain/profile/use_cases/load_reviews.dart';
 import 'package:yumi/domain/profile/use_cases/update_profile.dart';
 import 'package:yumi/domain/profile/use_cases/update_profile_photo.dart';
 import 'package:yumi/domain/profile/use_cases/upload_photos.dart';
+import 'package:yumi/domain/profile/use_cases/verify_add_mobile_otp.dart';
+import 'package:yumi/global.dart';
 
 part 'profile_state.dart';
 part 'profile_cubit.freezed.dart';
@@ -264,6 +267,76 @@ class ProfileCubit extends Cubit<ProfileState> {
           ),
         );
         return r;
+      },
+    );
+  }
+
+  Future<String?> setMobile(String mobile) async {
+    var profile = G.rd<ProfileCubit>().state.form.copyWith(mobile: mobile);
+    var update = await G.rd<ProfileCubit>().updateProfileForm(profile);
+
+    if (update == null) {
+      emit(state.copyWith.form(
+        entityStatus: const EntityStatus(status: Status.error),
+      ));
+      return null;
+    }
+
+    emit(state.copyWith.form(mobile: mobile));
+
+    return (await getMobileOTP()).fold(
+      (l) => null,
+      (r) => r,
+    );
+  }
+
+  Future<Either<Failure, String>> getMobileOTP() async {
+    emit(state.copyWith.form(
+      entityStatus: const EntityStatus(status: Status.loading),
+    ));
+    final getOTP = await GetMobileOTP().call(NoParams());
+
+    return getOTP.fold(
+      (l) {
+        emit(state.copyWith.form(
+          entityStatus: const EntityStatus(status: Status.error),
+        ));
+
+        return left(l);
+      },
+      (r) {
+        emit(
+          state.copyWith(
+            mobileOTP: r,
+            form: state.form.copyWith(
+              entityStatus: const EntityStatus(status: Status.success),
+            ),
+          ),
+        );
+
+        return right(r);
+      },
+    );
+  }
+
+  Future<bool> verifyMobileOTP(String otp) async {
+    emit(state.copyWith.form(
+      entityStatus: const EntityStatus(status: Status.loading),
+    ));
+    final verify = await VerifyMobileOTP().call(VerifyOTPParams(otp));
+
+    return verify.fold(
+      (l) {
+        emit(state.copyWith.form(
+          entityStatus: const EntityStatus(status: Status.error),
+        ));
+        return false;
+      },
+      (r) {
+        emit(state.copyWith.form(
+          entityStatus: const EntityStatus(status: Status.success),
+        ));
+        return true;
       },
     );
   }

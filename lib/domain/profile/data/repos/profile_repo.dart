@@ -7,7 +7,7 @@ abstract class ProfileRepo {
   TaskEither<Failure, Profile> loadProfile(String id);
   TaskEither<Failure, Profile> updateProfile(Profile profile);
   TaskEither<Failure, String> deleteProfile();
-  TaskEither<Failure, String> addMobile();
+  TaskEither<Failure, String> getMobileOTP();
   TaskEither<Failure, String> verifyAddMobileOTP(String otp);
   TaskEither<Failure, List<Review>> getReviews();
   TaskEither<Failure, String> resetPassword(String email);

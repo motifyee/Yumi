@@ -5,7 +5,7 @@ abstract class ProfileSrc {
   Future<Profile> loadProfile(String id);
   Future<String> updateProfile(Profile profile);
   Future<String> deleteProfile();
-  Future<String> addMobile();
+  Future<String> getMobileOTP();
   Future<String> verifyAddMobileOTP(String otp);
   Future<List<Review>> getReviews();
   Future<String> resetPassword(String email);

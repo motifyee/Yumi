@@ -39,8 +39,8 @@ class ProfileRemoteRepo implements ProfileRepo {
       );
 
   @override
-  TaskEither<Failure, String> addMobile() => TaskEither.tryCatch(
-        () => profileSrc.addMobile(),
+  TaskEither<Failure, String> getMobileOTP() => TaskEither.tryCatch(
+        () => profileSrc.getMobileOTP(),
         (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 
