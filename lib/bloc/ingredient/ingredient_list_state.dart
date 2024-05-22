@@ -3,13 +3,17 @@ part of 'ingredient_list_bloc.dart';
 @immutable
 class IngredientListState extends Equatable {
   List<IngredientsModel> ingredients;
+  bool loading;
 
-  IngredientListState({required this.ingredients});
+  IngredientListState({required this.ingredients, this.loading = false});
 
-  IngredientListState copyWith({required List<IngredientsModel> ingredients}) {
-    return IngredientListState(ingredients: ingredients);
+  IngredientListState copyWith(
+      {List<IngredientsModel>? ingredients, bool? loading}) {
+    return IngredientListState(
+        ingredients: ingredients ?? this.ingredients,
+        loading: loading ?? this.loading);
   }
 
   @override
-  List<Object?> get props => [ingredients];
+  List<Object?> get props => [ingredients, loading];
 }

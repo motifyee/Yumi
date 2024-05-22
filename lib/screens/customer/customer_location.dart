@@ -21,8 +21,11 @@ class CustomerLocationScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: MediaQuery.of(context).size.width,
+              maxHeight: MediaQuery.of(context).size.height * .3,
+            ),
             child: Image.asset('assets/images/customer_location.png',
                 fit: BoxFit.fitWidth),
           ),
@@ -66,6 +69,7 @@ class CustomerLocationScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
+          SizedBox(height: ThemeSelector.statics.defaultGap),
           Expanded(
               child: BlocProvider(
             create: (context) => AddressBloc(),
@@ -188,88 +192,115 @@ class _LocationCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: ThemeSelector.statics.defaultMicroGap,
           vertical: ThemeSelector.statics.defaultMicroGap),
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: ThemeSelector.statics.defaultGap,
-        ),
-        height: ThemeSelector.statics.defaultTitleGapLarge,
-        decoration: BoxDecoration(
-          color: ThemeSelector.colors.primary
-              .withAlpha(address.isDefault == true ? 255 : 100),
-          borderRadius: BorderRadius.circular(
-              ThemeSelector.statics.defaultBorderRadiusMedium),
-        ),
-        child: Row(
-          children: [
-            InkWell(
-              onTap: () {},
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ThemeSelector.statics.defaultGap),
-                child: SvgPicture.asset(
-                  'assets/images/location_indecator.svg',
-                  height: ThemeSelector.fonts.font_12,
-                ),
-              ),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: ThemeSelector.statics.defaultGap,
             ),
-            Expanded(
-              child: GestureDetector(
-                onTap: address.isDefault == true
-                    ? null
-                    : () {
-                        context.read<AddressBloc>().add(
-                              AddressEvent.editAddressEvent(
-                                context: context,
-                                address: address.copyWith(isDefault: true),
-                              ),
-                            );
-                      },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: ThemeSelector.statics.defaultGap,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
+            height: ThemeSelector.statics.defaultTitleGapLarge,
+            decoration: BoxDecoration(
+              color: ThemeSelector.colors.primary
+                  .withAlpha(address.isDefault == true ? 255 : 100),
+              borderRadius: BorderRadius.circular(
+                  ThemeSelector.statics.defaultBorderRadiusMedium),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: address.isDefault == true
+                        ? null
+                        : () {
+                            context.read<AddressBloc>().add(
+                                  AddressEvent.editAddressEvent(
+                                    context: context,
+                                    address: address.copyWith(isDefault: true),
+                                  ),
+                                );
+                          },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: ThemeSelector.statics.defaultGap,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Expanded(
-                            child: Text(
-                              address.addressTitle ?? '',
-                              style: Theme.of(context).textTheme.displaySmall,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        ThemeSelector.statics.defaultGap),
+                                child: SvgPicture.asset(
+                                  'assets/images/location_indecator.svg',
+                                  height: ThemeSelector.fonts.font_12,
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  address.addressTitle ?? '',
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
+                if (address.isDefault != true)
+                  InkWell(
+                    onTap: () {
+                      context.read<AddressBloc>().add(
+                            AddressEvent.deleteAddressEvent(
+                              context: context,
+                              address: address,
+                            ),
+                          );
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: ThemeSelector.statics.defaultGap,
+                          vertical: ThemeSelector.statics.defaultGap),
+                      child: Icon(
+                        Icons.delete,
+                        color: ThemeSelector.colors.onPrimary,
+                        size: ThemeSelector.fonts.font_16,
+                      ),
+                    ),
+                  )
+              ],
+            ),
+          ),
+          if (address.isDefault == true)
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: ThemeSelector.statics.defaultGap),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+                    child: SvgPicture.asset(
+                      'assets/images/location_indecator.svg',
+                      height: ThemeSelector.fonts.font_12,
+                      colorFilter: ColorFilter.mode(
+                          ThemeSelector.colors.secondary, BlendMode.srcIn),
+                    ),
+                  ),
+                  Expanded(
+                      child: Text(
+                    address.location ?? '',
+                    softWrap: true,
+                  )),
+                ],
               ),
             ),
-            if (address.isDefault != true)
-              InkWell(
-                onTap: () {
-                  context.read<AddressBloc>().add(
-                        AddressEvent.deleteAddressEvent(
-                          context: context,
-                          address: address,
-                        ),
-                      );
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultGap,
-                      vertical: ThemeSelector.statics.defaultGap),
-                  child: Icon(
-                    Icons.delete,
-                    color: ThemeSelector.colors.onPrimary,
-                    size: ThemeSelector.fonts.font_16,
-                  ),
-                ),
-              )
-          ],
-        ),
+        ],
       ),
     );
   }
