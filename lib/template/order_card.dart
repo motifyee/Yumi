@@ -89,6 +89,11 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
       });
     }
 
+    if (widget.orderCardTargetPage == OrderCardTargetPage.chefPending &&
+        widget.menuTarget == MenuTarget.preOrder) {
+      if (widget.order.isOver3H) return const SizedBox(height: 0, width: 0);
+    }
+
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -699,8 +704,11 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
 
                           // customer order status
-                          if (widget.orderCardTargetPage ==
-                              OrderCardTargetPage.customerHistory)
+                          if ([
+                            OrderCardTargetPage.customerHistory,
+                            OrderCardTargetPage.customerOrders,
+                            OrderCardTargetPage.customerPreOrders
+                          ].contains(widget.orderCardTargetPage))
                             TextButton(
                               onPressed: () {
                                 context.router.push(
@@ -708,6 +716,39 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               },
                               child: Text(
                                 S.of(context).orderStatus,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+
+                          /// TODO: change api for preorder cancel
+                          // customer cancel pre order
+                          if (widget.orderCardTargetPage ==
+                                  OrderCardTargetPage.customerPreOrders &&
+                              widget.order.isOver12H &&
+                              false)
+                            TextButton(
+                              onPressed: () {
+                                OrderService.putActionOrderOrPreOrder(
+                                  apiKeys: ApiKeys.cancelChefOrder,
+                                  orderId: widget.order.id,
+                                ).then((value) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: S.of(context).orderCanceled,
+                                    ),
+                                  ));
+                                }).catchError((err) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SnackBarMassage(
+                                      massage: err.response?.data['message'],
+                                    ),
+                                  ));
+                                });
+                              },
+                              child: Text(
+                                S.of(context).cancel,
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ),

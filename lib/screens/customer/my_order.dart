@@ -104,7 +104,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 child: NewsOrders(
                   menuTarget: MenuTarget.order,
                   apiKey: ApiKeys.orderCustomerActive,
-                  orderCardTargetPage: OrderCardTargetPage.customerHistory,
+                  orderCardTargetPage: OrderCardTargetPage.customerOrders,
                 ),
               ),
               BlocProvider(
@@ -120,7 +120,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 child: NewsOrders(
                   menuTarget: MenuTarget.preOrder,
                   apiKey: ApiKeys.preOrderCustomerActive,
-                  orderCardTargetPage: OrderCardTargetPage.customerHistory,
+                  orderCardTargetPage: OrderCardTargetPage.customerPreOrders,
                 ),
               ),
               BlocProvider(

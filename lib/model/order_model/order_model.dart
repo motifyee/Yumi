@@ -104,6 +104,16 @@ class OrderModel with _$OrderModel {
           24) &&
       clientReceived == true;
 
+  bool get isOver12H => (DateTime.now()
+          .difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
+          .inHours >=
+      12);
+
+  bool get isOver3H => (DateTime.now()
+          .difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
+          .inHours >=
+      3);
+
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
 }
@@ -150,7 +160,10 @@ class Ingredients with _$Ingredients {
 }
 
 enum OrderCardTargetPage {
+  customerOrders,
+  customerPreOrders,
   customerHistory,
+
   driverAccept,
   driverReceived,
   driverHistory,
