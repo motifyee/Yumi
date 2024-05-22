@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
 import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
@@ -187,90 +188,85 @@ class IngredientsForm extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: ThemeSelector.statics.defaultGap),
-                  if (filteredList(
-                          list: context
-                              .read<IngredientListBloc>()
-                              .state
-                              .ingredients,
+                  BlocBuilder<IngredientListBloc, IngredientListState>(
+                    builder: (context, state) {
+                      List<IngredientsModel> selectFromList = filteredList(
+                          list: state.ingredients,
                           selected: context
                               .read<IngredientFormBloc>()
                               .state
-                              .ingredientsModelList)
-                      .isNotEmpty)
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Flexible(
-                          flex: 2,
-                          child: BlocConsumer<IngredientListBloc,
-                              IngredientListState>(
-                            listener: (context, state) {},
-                            builder: (context, state) {
-                              List<IngredientsModel> selectFromList =
-                                  filteredList(
-                                      list: state.ingredients,
-                                      selected: context
-                                          .read<IngredientFormBloc>()
-                                          .state
-                                          .ingredientsModelList);
+                              .ingredientsModelList);
+                      return selectFromList.isEmpty
+                          ? state.loading
+                              ? Loading(size: ThemeSelector.fonts.font_38)
+                              : SizedBox.shrink()
+                          : Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  flex: 2,
+                                  child: TextFormFieldTemplate(
+                                    borderStyle:
+                                        TextFormFieldBorderStyle.borderedRound,
+                                    objectValidators: requiredObjectValidator,
+                                    dropdownSelection: true,
+                                    dropdownSelectionTargetLabel: 'name',
+                                    dropdownSelectionList: selectFromList,
+                                    initialValue: ingredientsModel.id != null
+                                        ? selectFromList.firstWhere(
+                                            (e) => e.id == ingredientsModel.id)
+                                        : selectFromList.firstOrNull,
+                                    onChange: (value) {},
+                                    onSave: (value) {
+                                      ingredientsModel.id = value.id;
+                                      ingredientsModel.name = value.name;
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                    width: ThemeSelector.statics.defaultGap),
+                                Flexible(
+                                  flex: 1,
+                                  child: TextFormFieldTemplate(
+                                    textInputType: TextInputType.number,
+                                    borderStyle:
+                                        TextFormFieldBorderStyle.borderedRound,
+                                    validators: requiredValidator,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp(r'^(\d+)?\.?\d{0,2}'))
+                                    ],
+                                    initialValue: ingredientsModel.portionGrams,
+                                    onSave: (value) {
+                                      ingredientsModel.portionGrams =
+                                          double.tryParse(value);
+                                    },
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    if (ingredientFormKey.currentState!
+                                        .validate()) {
+                                      ingredientFormKey.currentState!.save();
 
-                              return TextFormFieldTemplate(
-                                borderStyle:
-                                    TextFormFieldBorderStyle.borderedRound,
-                                objectValidators: requiredObjectValidator,
-                                dropdownSelection: true,
-                                dropdownSelectionTargetLabel: 'name',
-                                dropdownSelectionList: selectFromList,
-                                initialValue: ingredientsModel.id != null
-                                    ? selectFromList.firstWhere(
-                                        (e) => e.id == ingredientsModel.id)
-                                    : selectFromList.firstOrNull,
-                                onChange: (value) {},
-                                onSave: (value) {
-                                  ingredientsModel.id = value.id;
-                                  ingredientsModel.name = value.name;
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                        SizedBox(width: ThemeSelector.statics.defaultGap),
-                        Flexible(
-                          flex: 1,
-                          child: TextFormFieldTemplate(
-                            textInputType: TextInputType.number,
-                            borderStyle: TextFormFieldBorderStyle.borderedRound,
-                            validators: requiredValidator,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'^(\d+)?\.?\d{0,2}'))
-                            ],
-                            initialValue: ingredientsModel.portionGrams,
-                            onSave: (value) {
-                              ingredientsModel.portionGrams =
-                                  double.tryParse(value);
-                            },
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            if (ingredientFormKey.currentState!.validate()) {
-                              ingredientFormKey.currentState!.save();
+                                      context.read<IngredientFormBloc>().add(
+                                          IngredientFormAddEvent(
+                                              ingredientsModel:
+                                                  IngredientsModel.fromJson(
+                                                      ingredientsModel
+                                                          .toJson())));
 
-                              context.read<IngredientFormBloc>().add(
-                                  IngredientFormAddEvent(
-                                      ingredientsModel:
-                                          IngredientsModel.fromJson(
-                                              ingredientsModel.toJson())));
-
-                              ingredientsModel.reset();
-                              ingredientFormKey.currentState!.reset();
-                            }
-                          },
-                          child: SvgPicture.asset('assets/images/plus.svg'),
-                        ),
-                      ],
-                    ),
+                                      ingredientsModel.reset();
+                                      ingredientFormKey.currentState!.reset();
+                                    }
+                                  },
+                                  child: SvgPicture.asset(
+                                      'assets/images/plus.svg'),
+                                ),
+                              ],
+                            );
+                    },
+                  ),
                   SizedBox(height: ThemeSelector.statics.defaultGap),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
