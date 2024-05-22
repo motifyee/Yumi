@@ -71,6 +71,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       if (event.statusEnum == StatusEnum.busy) status = 2;
       try {
         await UserStatusService.updateStatus(status: status);
+
+        await LocalStorage.sharedRef
+            .setValue(LocalStorage.user, state.user.copyWith(status: status));
         emit(state.copyWith(
           loading: false,
           user: state.user.copyWith(status: status),

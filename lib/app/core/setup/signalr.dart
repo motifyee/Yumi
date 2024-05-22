@@ -12,6 +12,7 @@ enum Signals {
   sendmessage,
   receivemessage,
   updatechefstatus,
+  updatedriverstatus,
   cusotmertransaction,
   start,
   stop,
