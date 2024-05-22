@@ -19,8 +19,10 @@ mixin _$NRegState {
   bool get registerationStarted => throw _privateConstructorUsedError;
   bool get finished => throw _privateConstructorUsedError;
   int get step => throw _privateConstructorUsedError; //
+  String? get email => throw _privateConstructorUsedError;
   String? get verifiedEmail => throw _privateConstructorUsedError;
-  Status get verifiedEmailStatus => throw _privateConstructorUsedError;
+  String? get emailOTP => throw _privateConstructorUsedError;
+  Status get verifiedEmailStatus => throw _privateConstructorUsedError; //
   RegisterationForm? get singupData =>
       throw _privateConstructorUsedError; // step: 0
   String? get phone => throw _privateConstructorUsedError; // step: 1
@@ -50,7 +52,9 @@ abstract class $NRegStateCopyWith<$Res> {
       {bool registerationStarted,
       bool finished,
       int step,
+      String? email,
       String? verifiedEmail,
+      String? emailOTP,
       Status verifiedEmailStatus,
       RegisterationForm? singupData,
       String? phone,
@@ -86,7 +90,9 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
     Object? registerationStarted = null,
     Object? finished = null,
     Object? step = null,
+    Object? email = freezed,
     Object? verifiedEmail = freezed,
+    Object? emailOTP = freezed,
     Object? verifiedEmailStatus = null,
     Object? singupData = freezed,
     Object? phone = freezed,
@@ -114,9 +120,17 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
           ? _value.step
           : step // ignore: cast_nullable_to_non_nullable
               as int,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
       verifiedEmail: freezed == verifiedEmail
           ? _value.verifiedEmail
           : verifiedEmail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      emailOTP: freezed == emailOTP
+          ? _value.emailOTP
+          : emailOTP // ignore: cast_nullable_to_non_nullable
               as String?,
       verifiedEmailStatus: null == verifiedEmailStatus
           ? _value.verifiedEmailStatus
@@ -214,7 +228,9 @@ abstract class _$$InitialImplCopyWith<$Res>
       {bool registerationStarted,
       bool finished,
       int step,
+      String? email,
       String? verifiedEmail,
+      String? emailOTP,
       Status verifiedEmailStatus,
       RegisterationForm? singupData,
       String? phone,
@@ -251,7 +267,9 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? registerationStarted = null,
     Object? finished = null,
     Object? step = null,
+    Object? email = freezed,
     Object? verifiedEmail = freezed,
+    Object? emailOTP = freezed,
     Object? verifiedEmailStatus = null,
     Object? singupData = freezed,
     Object? phone = freezed,
@@ -279,9 +297,17 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.step
           : step // ignore: cast_nullable_to_non_nullable
               as int,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
       verifiedEmail: freezed == verifiedEmail
           ? _value.verifiedEmail
           : verifiedEmail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      emailOTP: freezed == emailOTP
+          ? _value.emailOTP
+          : emailOTP // ignore: cast_nullable_to_non_nullable
               as String?,
       verifiedEmailStatus: null == verifiedEmailStatus
           ? _value.verifiedEmailStatus
@@ -346,7 +372,9 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       {this.registerationStarted = false,
       this.finished = false,
       this.step = 0,
+      this.email,
       this.verifiedEmail,
+      this.emailOTP,
       this.verifiedEmailStatus = Status.init,
       this.singupData,
       this.phone,
@@ -373,10 +401,15 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   final int step;
 //
   @override
+  final String? email;
+  @override
   final String? verifiedEmail;
+  @override
+  final String? emailOTP;
   @override
   @JsonKey()
   final Status verifiedEmailStatus;
+//
   @override
   final RegisterationForm? singupData;
 // step: 0
@@ -418,7 +451,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'NRegState(registerationStarted: $registerationStarted, finished: $finished, step: $step, verifiedEmail: $verifiedEmail, verifiedEmailStatus: $verifiedEmailStatus, singupData: $singupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, onboardingProgress: $onboardingProgress, unique: $unique, countDown: $countDown)';
+    return 'NRegState(registerationStarted: $registerationStarted, finished: $finished, step: $step, email: $email, verifiedEmail: $verifiedEmail, emailOTP: $emailOTP, verifiedEmailStatus: $verifiedEmailStatus, singupData: $singupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, onboardingProgress: $onboardingProgress, unique: $unique, countDown: $countDown)';
   }
 
   @override
@@ -429,7 +462,9 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('registerationStarted', registerationStarted))
       ..add(DiagnosticsProperty('finished', finished))
       ..add(DiagnosticsProperty('step', step))
+      ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('verifiedEmail', verifiedEmail))
+      ..add(DiagnosticsProperty('emailOTP', emailOTP))
       ..add(DiagnosticsProperty('verifiedEmailStatus', verifiedEmailStatus))
       ..add(DiagnosticsProperty('singupData', singupData))
       ..add(DiagnosticsProperty('phone', phone))
@@ -455,8 +490,11 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
             (identical(other.finished, finished) ||
                 other.finished == finished) &&
             (identical(other.step, step) || other.step == step) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.verifiedEmail, verifiedEmail) ||
                 other.verifiedEmail == verifiedEmail) &&
+            (identical(other.emailOTP, emailOTP) ||
+                other.emailOTP == emailOTP) &&
             (identical(other.verifiedEmailStatus, verifiedEmailStatus) ||
                 other.verifiedEmailStatus == verifiedEmailStatus) &&
             (identical(other.singupData, singupData) ||
@@ -479,25 +517,28 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      registerationStarted,
-      finished,
-      step,
-      verifiedEmail,
-      verifiedEmailStatus,
-      singupData,
-      phone,
-      otp,
-      address,
-      message,
-      status,
-      addressMessage,
-      addressStatus,
-      vehicle,
-      onboardingProgress,
-      unique,
-      countDown);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        registerationStarted,
+        finished,
+        step,
+        email,
+        verifiedEmail,
+        emailOTP,
+        verifiedEmailStatus,
+        singupData,
+        phone,
+        otp,
+        address,
+        message,
+        status,
+        addressMessage,
+        addressStatus,
+        vehicle,
+        onboardingProgress,
+        unique,
+        countDown
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -511,7 +552,9 @@ abstract class _Initial extends NRegState {
       {final bool registerationStarted,
       final bool finished,
       final int step,
+      final String? email,
       final String? verifiedEmail,
+      final String? emailOTP,
       final Status verifiedEmailStatus,
       final RegisterationForm? singupData,
       final String? phone,
@@ -534,10 +577,14 @@ abstract class _Initial extends NRegState {
   @override
   int get step;
   @override //
+  String? get email;
+  @override
   String? get verifiedEmail;
   @override
-  Status get verifiedEmailStatus;
+  String? get emailOTP;
   @override
+  Status get verifiedEmailStatus;
+  @override //
   RegisterationForm? get singupData;
   @override // step: 0
   String? get phone;
