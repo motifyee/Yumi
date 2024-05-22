@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
 import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
@@ -215,25 +214,23 @@ class IngredientsForm extends StatelessWidget {
                                           .state
                                           .ingredientsModelList);
 
-                              return state.loading
-                                  ? Loading(size: ThemeSelector.fonts.font_38)
-                                  : TextFormFieldTemplate(
-                                      borderStyle: TextFormFieldBorderStyle
-                                          .borderedRound,
-                                      objectValidators: requiredObjectValidator,
-                                      dropdownSelection: true,
-                                      dropdownSelectionTargetLabel: 'name',
-                                      dropdownSelectionList: selectFromList,
-                                      initialValue: ingredientsModel.id != null
-                                          ? selectFromList.firstWhere((e) =>
-                                              e.id == ingredientsModel.id)
-                                          : selectFromList.firstOrNull,
-                                      onChange: (value) {},
-                                      onSave: (value) {
-                                        ingredientsModel.id = value.id;
-                                        ingredientsModel.name = value.name;
-                                      },
-                                    );
+                              return TextFormFieldTemplate(
+                                borderStyle:
+                                    TextFormFieldBorderStyle.borderedRound,
+                                objectValidators: requiredObjectValidator,
+                                dropdownSelection: true,
+                                dropdownSelectionTargetLabel: 'name',
+                                dropdownSelectionList: selectFromList,
+                                initialValue: ingredientsModel.id != null
+                                    ? selectFromList.firstWhere(
+                                        (e) => e.id == ingredientsModel.id)
+                                    : selectFromList.firstOrNull,
+                                onChange: (value) {},
+                                onSave: (value) {
+                                  ingredientsModel.id = value.id;
+                                  ingredientsModel.name = value.name;
+                                },
+                              );
                             },
                           ),
                         ),
