@@ -151,10 +151,10 @@ class ProfileRemoteSrc extends ProfileSrc {
 
   @override
   Future<String> verifyEmail(String email) async {
-    final Response<String> res;
+    final Response res;
 
     try {
-      res = await DioClient.dio.post<String>(
+      res = await DioClient.dio.post(
         '/accounts/emailverified?email=$email',
       );
     } catch (e) {
@@ -163,6 +163,6 @@ class ProfileRemoteSrc extends ProfileSrc {
     }
 
     if (res.data == null) throw ServerException('Something went wrong!');
-    return res.data!;
+    return res.data!['otp'];
   }
 }

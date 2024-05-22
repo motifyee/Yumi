@@ -45,8 +45,11 @@ abstract class NRegState with _$NRegState {
     @Default(false) bool finished,
     @Default(0) int step,
     //
+    String? email,
     String? verifiedEmail,
+    String? emailOTP,
     @Default(Status.init) Status verifiedEmailStatus,
+    //
     RegisterationForm? singupData, // step: 0
     String? phone, // step: 1
     String? otp, // step: 2
@@ -259,7 +262,7 @@ class RegCubit extends Cubit<NRegState> {
 
   bool setAccount(RegisterationForm signupData) {
     // TODO keep in storage
-    // if (signupData.email != state.verifiedEmail) return false;
+    if (signupData.email != state.verifiedEmail) return false;
 
     emit(state.copyWith(singupData: signupData));
     _navigateToIdx(1);
@@ -325,14 +328,23 @@ class RegCubit extends Cubit<NRegState> {
         return false;
       },
       (r) {
-        emit(state.copyWith(verifiedEmailStatus: Status.success));
+        emit(
+          state.copyWith(
+            emailOTP: r,
+            email: email,
+            verifiedEmailStatus: Status.success,
+          ),
+        );
         return true;
       },
     );
   }
 
-  void verifyEmailOTP(String email) {
-    emit(state.copyWith(verifiedEmail: email));
+  bool verifyEmailOTP(String otp) {
+    if (otp != state.emailOTP) return false;
+
+    emit(state.copyWith(verifiedEmail: state.email));
+    return true;
   }
 
   void setLocation(Address address) {
@@ -426,6 +438,10 @@ class RegCubit extends Cubit<NRegState> {
     // save step index to shared preferences
     var pref = await SharedPreferences.getInstance();
     pref.setInt(regStepKey, step);
+  }
+
+  void reset() {
+    emit(const NRegState());
   }
 }
 

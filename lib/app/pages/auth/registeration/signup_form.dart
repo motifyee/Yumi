@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
+import 'package:yumi/app/components/interactive_button/interactive_button_style.dart';
+import 'package:yumi/app/pages/auth/registeration/verify_register_email_otp_sheet.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
@@ -39,6 +41,8 @@ class SignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final reg = context.read<RegCubit>();
+
     return Form(
       key: signUpFormKey,
       child: Padding(
@@ -72,8 +76,11 @@ class SignUpForm extends StatelessWidget {
                   onSave: (value) {
                     signupForm = signupForm.copyWith(email: value);
                   },
+                  onChange: (value) {
+                    signupForm = signupForm.copyWith(email: value);
+                  },
                   validators: emailValidator,
-                  suffixText: 'VerifyVeri',
+                  suffixText: '                    ',
                 ),
                 Positioned(
                   right: 0,
@@ -91,24 +98,50 @@ class SignUpForm extends StatelessWidget {
                         bottomRight: Radius.circular(25),
                       ),
                     ),
-                    child: InteractiveButton(
-                      height: 48,
-                      label: 'Verify',
-                      onPressed: () async {
-                        if (!emailStructure(signupForm.email)) {
-                          return G.snackBar("Please enter valid email");
-                        }
+                    child: BlocBuilder<RegCubit, NRegState>(
+                      builder: (context, state) {
+                        return InteractiveButton(
+                          height: 48,
+                          label: 'Verify',
+                          loadingLabel: '',
+                          style: InteractiveButtonStyle(
+                            backgroundColor: (state.verifiedEmail ?? 'x') ==
+                                    (signupForm.email ?? 'y')
+                                ? Colors.grey
+                                : null,
+                          ),
+                          onPressed: () async {
+                            if (state.verifiedEmail == signupForm.email) {
+                              return G.snackBar(
+                                "${state.verifiedEmail} is already verified",
+                              );
+                            }
 
-                        final sent = await context
-                            .read<RegCubit>()
-                            .getEmailOTP(signupForm.email!);
+                            if (!emailStructure(signupForm.email)) {
+                              return G.snackBar("Please enter a valid email");
+                            }
 
-                        if (sent) {
-                          G.snackBar("Verification code sent");
-                        } else {
-                          return G.snackBar(
-                              "Check your email, Verification code not sent");
-                        }
+                            await reg.getEmailOTP(signupForm.email!).then(
+                              (sent) {
+                                if (!sent) {
+                                  return G.snackBar(
+                                    "Please enter a valid email, nothing sent!",
+                                  );
+                                }
+
+                                G.snackBar("Verification code sent");
+
+                                showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (context) =>
+                                      const VerifyRegisterEmailOtpSheetProvider(),
+                                );
+                              },
+                            );
+                          },
+                        );
                       },
                     ),
                   ),
@@ -144,9 +177,11 @@ class SignUpForm extends StatelessWidget {
               label: S.of(context).createAccount,
               onPressed: () async {
                 final cubit = context.read<RegCubit>();
-                // if (cubit.state.verifiedEmail != signupForm.email) {
-                //   return G.snackBar("Please verify your email");
-                // }
+                if (cubit.state.verifiedEmail != signupForm.email ||
+                    signupForm.email == null ||
+                    signupForm.email!.isEmpty) {
+                  return G.snackBar("Please verify your email");
+                }
 
                 if (signUpFormKey.currentState!.validate()) {
                   signUpFormKey.currentState!.save();
