@@ -75,7 +75,10 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
     recur();
   }
 
-  void stopCountDown() => emit(state.copyWith(countDown: null));
+  void stopCountDown() {
+    _unique = unique();
+    emit(state.copyWith(countDown: null));
+  }
 
   Future<void> forgotPassword([String? email]) async {
     final email0 = email ?? state.email;

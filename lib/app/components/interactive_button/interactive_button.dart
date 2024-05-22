@@ -90,6 +90,7 @@ class _InteractiveButtonState extends State<InteractiveButton> {
                 loadingWidget: widget.loadingWidget,
                 backgroundColor: widget.backgroundColor,
                 foregroundColor: widget.foregroundColor,
+                style: widget.style,
                 isLoading: widget.isFixedSize && isLoading,
                 buttonType: widget.buttonType,
                 onPressed: () async {
@@ -147,7 +148,9 @@ Widget buildButton({
       children: [
         if (isLoading) indicator,
         if (!isLoading && icon != null) icon,
-        if (isLoading || icon != null) const SizedBox(width: 20),
+        if ((isLoading && (loadingLabel?.isNotEmpty ?? false)) ||
+            (icon != null && label.isNotEmpty))
+          const SizedBox(width: 20),
         Text(
           isLoading ? loadingLabel ?? 'Please Wait...' : label,
           style: TextStyle(
