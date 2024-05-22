@@ -31,7 +31,7 @@ class Signalr {
   static void _setupSignalrConnection([bool force = false]) {
     if (!force && hubConnection != null) return;
 
-    Logger.root.level = Level.ALL;
+    Logger.root.level = Level.OFF;
     Logger.root.onRecord.listen((LogRecord rec) {
       debugPrint('${rec.level.name}: ${rec.time}: ${rec.message}');
     });
@@ -63,11 +63,6 @@ class Signalr {
     hubConnection!.onclose(onclose);
     hubConnection!.onreconnecting(onreconnecting);
     hubConnection!.onreconnected(onreconnected);
-
-    hubConnection!.on(
-      "ReceiveMessage",
-      (messages) => debugPrint("Messages: $messages"),
-    );
   }
 
   static void ensureInitialized() {
