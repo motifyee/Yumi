@@ -61,7 +61,7 @@ class ProfileRemoteSrc extends ProfileSrc {
   }
 
   @override
-  Future<String> addMobile() async {
+  Future<String> getMobileOTP() async {
     try {
       final call =
           await DioClient.dio.post<dynamic>('/accounts/mobileverified');

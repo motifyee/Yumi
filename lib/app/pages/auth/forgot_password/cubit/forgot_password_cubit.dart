@@ -113,7 +113,7 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
     );
 
     if (state.isEmailValid) {
-      final otp = await GetOTP().call(NoParams());
+      final otp = await GetMobileOTP().call(NoParams());
 
       otp.fold(
         (l) => null,
