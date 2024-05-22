@@ -2,9 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
-import 'package:yumi/domain/profile/use_cases/forgot_password.dart';
+import 'package:yumi/domain/profile/use_cases/reset_pwd_by_email.dart';
 import 'package:yumi/domain/profile/use_cases/get_otp.dart';
-import 'package:yumi/domain/profile/use_cases/verify_reset_pwd_otp.dart';
+import 'package:yumi/domain/profile/use_cases/reset_pwd_by_mobile.dart';
+import 'package:yumi/domain/profile/use_cases/verify_reset_pwd_by_email_otp.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/util/util.dart';
 
@@ -80,12 +81,13 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
     emit(state.copyWith(countDown: null));
   }
 
-  Future<void> forgotPassword([String? email]) async {
+  Future<void> resetPasswordByEmail([String? email]) async {
     final email0 = email ?? state.email;
 
     emit(state.copyWith(isLoading: true, email: email0));
 
-    final forgot = await ForgotPassword().call(ForgotPasswordParams(email0));
+    final forgot =
+        await ResetPasswordByEmail().call(ResetPasswordByEmailParams(email0));
 
     forgot.fold(
       (l) => emit(state.copyWith(
@@ -124,11 +126,90 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
     }
   }
 
-  Future<void> verifyResetPasswordOTPCode(String otp, String password) async {
+  Future<void> verifyResetPasswordByEmailOTPCode(
+      String otp, String password) async {
     emit(state.copyWith(isLoading: true));
 
-    final verify = await VerifyResetPasswordOTP()
-        .call(VerifyResetPasswordOTPParams(state.email, otp, password));
+    final verify = await VerifyResetPasswordByEmailOTP()
+        .call(VerifyResetPasswordOTPByEmailParams(state.email, otp, password));
+    Failure;
+    verify.fold(
+      (l) => emit(state.copyWith(
+        codeSent: true,
+        codeVerified: false,
+        isLoading: false,
+        otpCode: otp,
+        newPassword: password,
+        error: switch (l) {
+          ServerFailure() => (l.error as dynamic).error as String,
+          NetworkFailure() => 'Can\'t connect to server',
+          _ => 'Something went wrong',
+        },
+      )),
+      (r) {
+        emit(state.copyWith(
+          codeSent: true,
+          codeVerified: true,
+          isLoading: false,
+          window: ForgotPwdWindow.done,
+        ));
+
+        stopCountDown();
+      },
+    );
+  }
+
+  Future<void> resetPasswordByMobile([String? mobile]) async {
+    final mobile0 = mobile ?? state.email;
+
+    emit(state.copyWith(isLoading: true, email: mobile0));
+
+    final forgot = await ResetPasswordByMobile()
+        .call(ResetPasswordByMobileParams(mobile0));
+
+    forgot.fold(
+      (l) => emit(state.copyWith(
+        error: 'Can\'t reset password, check your mobile number!',
+        isLoading: false,
+        emailFound: false,
+      )),
+      (r) async {
+        final initialCountDown = DateTime.now().millisecondsSinceEpoch;
+
+        final prefs = await G.prefs;
+        prefs.setString(forgotPwdEmailKey, mobile0);
+        prefs.setInt(forgotPwdTimeKey, initialCountDown);
+
+        emit(state.copyWith(
+          isLoading: false,
+          email: mobile0,
+          initialCountDownTime: initialCountDown,
+          countDown: null,
+          emailFound: true,
+        ));
+
+        startCountDown();
+      },
+    );
+
+    if (state.isEmailValid) {
+      final otp = await GetMobileOTP().call(NoParams());
+
+      otp.fold(
+        (l) => null,
+        (r) => emit(state.copyWith(otpCode: r)),
+      );
+
+      emit(state.copyWith(window: ForgotPwdWindow.enterOTP));
+    }
+  }
+
+  Future<void> verifyResetPasswordByMobileOTPCode(
+      String otp, String password) async {
+    emit(state.copyWith(isLoading: true));
+
+    final verify = await VerifyResetPasswordByEmailOTP()
+        .call(VerifyResetPasswordOTPByEmailParams(state.email, otp, password));
     Failure;
     verify.fold(
       (l) => emit(state.copyWith(

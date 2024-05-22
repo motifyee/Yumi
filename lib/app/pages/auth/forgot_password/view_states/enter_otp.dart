@@ -41,7 +41,7 @@ class ForgotPwdEnterOTP extends StatelessWidget {
               foregroundColor: Theme.of(context).colorScheme.primary,
               onPressed: () async {
                 if ((countDown ?? 0) > 0) return;
-                await cubit.forgotPassword();
+                await cubit.resetPasswordByEmail();
               },
             ),
           )
@@ -111,7 +111,7 @@ class ForgotPwdEnterOTP extends StatelessWidget {
               if (otp.length < 4) return G.snackBar("Invalid OTP!");
               if (!form.currentState!.validate()) return;
 
-              await cubit.verifyResetPasswordOTPCode(
+              await cubit.verifyResetPasswordByEmailOTPCode(
                 otp,
                 passwordController.text,
               );

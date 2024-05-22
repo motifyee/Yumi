@@ -8,9 +8,15 @@ abstract class ProfileSrc {
   Future<String> getMobileOTP();
   Future<String> verifyAddMobileOTP(String otp);
   Future<List<Review>> getReviews();
-  Future<String> resetPassword(String email);
-  Future<String> verifyResetPasswordOTP(
+  Future<String> resetPasswordByEmail(String email);
+  Future<String> resetPasswordByMobile(String mobile);
+  Future<String> verifyResetPasswordByEmailOTP(
     String email,
+    String otp,
+    String password,
+  );
+  Future<String> verifyResetPasswordByMobileOTP(
+    String mobile,
     String otp,
     String password,
   );

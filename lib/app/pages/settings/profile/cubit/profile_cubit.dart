@@ -307,7 +307,6 @@ class ProfileCubit extends Cubit<ProfileState> {
       (r) {
         emit(
           state.copyWith(
-            mobileOTP: r,
             form: state.form.copyWith(
               entityStatus: const EntityStatus(status: Status.success),
             ),

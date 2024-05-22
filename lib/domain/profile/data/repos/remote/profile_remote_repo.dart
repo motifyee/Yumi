@@ -58,17 +58,32 @@ class ProfileRemoteRepo implements ProfileRepo {
       );
 
   @override
-  TaskEither<Failure, String> resetPassword(String email) =>
+  TaskEither<Failure, String> resetPasswordByEmail(String email) =>
       TaskEither.tryCatch(
-        () => profileSrc.resetPassword(email),
+        () => profileSrc.resetPasswordByEmail(email),
         (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 
   @override
-  TaskEither<Failure, String> verifyResetPasswordOTP(
+  TaskEither<Failure, String> resetPasswordByMobile(String mobile) =>
+      TaskEither.tryCatch(
+        () => profileSrc.resetPasswordByMobile(mobile),
+        (error, stackTrace) => ServerFailure(error, stackTrace),
+      );
+
+  @override
+  TaskEither<Failure, String> verifyResetPasswordByEmailOTP(
           String email, String otp, String password) =>
       TaskEither.tryCatch(
-        () => profileSrc.verifyResetPasswordOTP(email, otp, password),
+        () => profileSrc.verifyResetPasswordByEmailOTP(email, otp, password),
+        (error, stackTrace) => ServerFailure(error, stackTrace),
+      );
+
+  @override
+  TaskEither<Failure, String> verifyResetPasswordByMobileOTP(
+          String mobile, String otp, String password) =>
+      TaskEither.tryCatch(
+        () => profileSrc.verifyResetPasswordByMobileOTP(mobile, otp, password),
         (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 

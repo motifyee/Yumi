@@ -108,7 +108,7 @@ class ProfileRemoteSrc extends ProfileSrc {
   }
 
   @override
-  Future<String> resetPassword(String email) async {
+  Future<String> resetPasswordByEmail(String email) async {
     final Response res;
 
     try {
@@ -124,7 +124,23 @@ class ProfileRemoteSrc extends ProfileSrc {
   }
 
   @override
-  Future<String> verifyResetPasswordOTP(
+  Future<String> resetPasswordByMobile(String mobile) async {
+    final Response res;
+
+    try {
+      res = await DioClient.dio.post(
+        '/accounts/password/mobile?mobile=$mobile',
+      );
+    } catch (e) {
+      throw ServerException();
+    }
+
+    if (res.data?['message'] == null) throw ServerException();
+    return res.data['message'] as String;
+  }
+
+  @override
+  Future<String> verifyResetPasswordByEmailOTP(
     String email,
     String otp,
     String password,
@@ -138,6 +154,32 @@ class ProfileRemoteSrc extends ProfileSrc {
           'OTP': otp,
           'password': password,
           'mail': email,
+        },
+      );
+    } catch (e) {
+      throw ServerException(
+          (jsonDecode((e as dynamic).response.data as String))['message']);
+    }
+
+    if (res.data == null) throw ServerException('Something went wrong!');
+    return res.data!;
+  }
+
+  @override
+  Future<String> verifyResetPasswordByMobileOTP(
+    String mobile,
+    String otp,
+    String password,
+  ) async {
+    final Response<String> res;
+
+    try {
+      res = await DioClient.dio.put<String>(
+        '/accounts/password/mobile',
+        data: {
+          'OTP': otp,
+          'password': password,
+          'mobile': mobile,
         },
       );
     } catch (e) {

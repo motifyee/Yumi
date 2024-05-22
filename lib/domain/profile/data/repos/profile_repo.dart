@@ -10,9 +10,15 @@ abstract class ProfileRepo {
   TaskEither<Failure, String> getMobileOTP();
   TaskEither<Failure, String> verifyAddMobileOTP(String otp);
   TaskEither<Failure, List<Review>> getReviews();
-  TaskEither<Failure, String> resetPassword(String email);
-  TaskEither<Failure, String> verifyResetPasswordOTP(
+  TaskEither<Failure, String> resetPasswordByEmail(String email);
+  TaskEither<Failure, String> resetPasswordByMobile(String mobile);
+  TaskEither<Failure, String> verifyResetPasswordByEmailOTP(
     String email,
+    String otp,
+    String password,
+  );
+  TaskEither<Failure, String> verifyResetPasswordByMobileOTP(
+    String mobile,
     String otp,
     String password,
   );
