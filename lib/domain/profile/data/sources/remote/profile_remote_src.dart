@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/profile/data/sources/profile_source.dart';
@@ -28,22 +30,21 @@ class ProfileRemoteSrc extends ProfileSrc {
   @override
   Future<String> updateProfile(Profile profile) async {
     final data = profile.toJson();
-    final Response<String> res;
+    final String? res;
     final id = profile.guid;
 
     if (id.isEmpty) throw GenericException();
-
     try {
-      res = await DioClient.dio.put<String>(
-        '${ApiKeys.getApiKeyString(apiKey: ApiKeys.profile)}?id=$id',
-        data: data,
-      );
+      res = (await DioClient.dio.put<dynamic>(
+              '${ApiKeys.getApiKeyString(apiKey: ApiKeys.profile)}?id=$id',
+              data: data))
+          .data;
     } catch (e) {
-      throw ServerException();
+      throw ServerException(e);
     }
 
-    if (res.data == null) throw ServerException();
-    return res.data!;
+    if (res == null) throw ServerException();
+    return res;
   }
 
   @override
@@ -132,7 +133,7 @@ class ProfileRemoteSrc extends ProfileSrc {
         '/accounts/password/mobile?mobile=$mobile',
       );
     } catch (e) {
-      throw ServerException();
+      throw ServerException(e);
     }
 
     if (res.data?['message'] == null) throw ServerException();
@@ -171,10 +172,10 @@ class ProfileRemoteSrc extends ProfileSrc {
     String otp,
     String password,
   ) async {
-    final Response<String> res;
+    final Response<dynamic> res;
 
     try {
-      res = await DioClient.dio.put<String>(
+      res = await DioClient.dio.put<dynamic>(
         '/accounts/password/mobile',
         data: {
           'OTP': otp,
@@ -183,8 +184,7 @@ class ProfileRemoteSrc extends ProfileSrc {
         },
       );
     } catch (e) {
-      throw ServerException(
-          (jsonDecode((e as dynamic).response.data as String))['message']);
+      throw ServerException(e);
     }
 
     if (res.data == null) throw ServerException('Something went wrong!');
@@ -200,8 +200,7 @@ class ProfileRemoteSrc extends ProfileSrc {
         '/accounts/emailverified?email=$email',
       );
     } catch (e) {
-      throw ServerException(
-          (jsonDecode((e as dynamic).response.data as String))['message']);
+      throw ServerException(e);
     }
 
     if (res.data == null) throw ServerException('Something went wrong!');

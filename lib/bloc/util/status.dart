@@ -18,7 +18,7 @@ class EntityStatus extends Equatable {
     this.statusHistory = const [],
   });
 
-  messageOrMapStatus({
+  String messageOrMapStatus({
     bool message = true,
     String? init,
     String? initSuccess,
@@ -31,7 +31,7 @@ class EntityStatus extends Equatable {
     String? formReset,
     String? selected,
   }) {
-    if (message && this.message.isNotEmpty) return message;
+    if (message && this.message.isNotEmpty) return this.message;
 
     return switch (status) {
       Status.initSuccess => initSuccess ?? 'Initialising Success',

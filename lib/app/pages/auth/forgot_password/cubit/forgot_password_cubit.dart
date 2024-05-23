@@ -6,6 +6,7 @@ import 'package:yumi/domain/profile/use_cases/reset_pwd_by_email.dart';
 import 'package:yumi/domain/profile/use_cases/get_otp.dart';
 import 'package:yumi/domain/profile/use_cases/reset_pwd_by_mobile.dart';
 import 'package:yumi/domain/profile/use_cases/verify_reset_pwd_by_email_otp.dart';
+import 'package:yumi/domain/profile/use_cases/verify_reset_pwd_by_mobile_otp.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/util/util.dart';
 
@@ -60,6 +61,7 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
         ),
       );
     }
+
     void recur() => Future.delayed(const Duration(seconds: 1), () {
           if (state.countDown == null) return; // has been stopped
           if (lUnique != _unique) return; // has been restarted
@@ -76,9 +78,13 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
     recur();
   }
 
-  void stopCountDown() {
+  void stopCountDown() async {
     _unique = unique();
     emit(state.copyWith(countDown: null));
+
+    final prefs = await G.prefs;
+    prefs.remove(forgotPwdTimeKey);
+    prefs.remove(forgotPwdEmailKey);
   }
 
   Future<void> resetPasswordByEmail([String? email]) async {
@@ -208,8 +214,8 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
       String otp, String password) async {
     emit(state.copyWith(isLoading: true));
 
-    final verify = await VerifyResetPasswordByEmailOTP()
-        .call(VerifyResetPasswordOTPByEmailParams(state.email, otp, password));
+    final verify = await VerifyResetPasswordByMobileOTP()
+        .call(VerifyResetPasswordOTPByMobileParams(state.email, otp, password));
     Failure;
     verify.fold(
       (l) => emit(state.copyWith(
@@ -219,7 +225,8 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
         otpCode: otp,
         newPassword: password,
         error: switch (l) {
-          ServerFailure() => (l.error as dynamic).error as String,
+          ServerFailure() => l.error.toString(),
+          // (l.error as dynamic).response.data['message'] as String,
           NetworkFailure() => 'Can\'t connect to server',
           _ => 'Something went wrong',
         },

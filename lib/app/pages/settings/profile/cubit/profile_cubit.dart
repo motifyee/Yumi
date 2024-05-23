@@ -111,6 +111,7 @@ class ProfileCubit extends Cubit<ProfileState> {
             form: (profile0).copyWith(
               entityStatus: state.form.entityStatus.copyWith(
                 status: Status.success,
+                message: 'Profile updated successfully.',
               ),
             ),
             profile:

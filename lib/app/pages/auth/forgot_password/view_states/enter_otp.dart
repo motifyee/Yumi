@@ -8,6 +8,7 @@ import 'package:yumi/presentation/otp.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/confirm_button.dart';
 import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/util/util.dart';
 import 'package:yumi/validators/confirm_password_validator.dart';
 import 'package:yumi/validators/password_validator.dart';
 
@@ -41,24 +42,15 @@ class ForgotPwdEnterOTP extends StatelessWidget {
               foregroundColor: Theme.of(context).colorScheme.primary,
               onPressed: () async {
                 if ((countDown ?? 0) > 0) return;
-                await cubit.resetPasswordByEmail();
+                final entry = cubit.state.email;
+                if (isNumeric(entry)) {
+                  await cubit.resetPasswordByMobile();
+                } else {
+                  await cubit.resetPasswordByEmail();
+                }
               },
             ),
-          )
-          // return TextButton(
-          //   onPressed: () {
-          //     if ((countDown ?? 0) > 0) return;
-          //   },
-          //   child: Text(
-          //     (countDown ?? 0) > 0 ? countDown.toString() : "Resend OTP",
-          //     style: TextStyle(
-          //       fontSize: ThemeSelector.fonts.font_12,
-          //       fontWeight: FontWeight.normal,
-          //       color: ThemeSelector.colors.primary,
-          //     ),
-          //   ),
-          // );
-          ,
+          ),
         ),
         const SizedBox(height: 20),
         Center(
@@ -111,10 +103,19 @@ class ForgotPwdEnterOTP extends StatelessWidget {
               if (otp.length < 4) return G.snackBar("Invalid OTP!");
               if (!form.currentState!.validate()) return;
 
-              await cubit.verifyResetPasswordByEmailOTPCode(
-                otp,
-                passwordController.text,
-              );
+              final entry = cubit.state.email;
+
+              if (isNumeric(entry)) {
+                await cubit.verifyResetPasswordByMobileOTPCode(
+                  otp,
+                  passwordController.text,
+                );
+              } else {
+                await cubit.verifyResetPasswordByEmailOTPCode(
+                  otp,
+                  passwordController.text,
+                );
+              }
 
               if (cubit.state.codeVerified) {
                 return G.snackBar("Password reset successfully!");

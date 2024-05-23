@@ -138,12 +138,12 @@ Widget profileFormFields(
                             return G.snackBar('Something went wrong');
                           }
 
-                          showModalBottomSheet(
-                            context: context,
-                            // isScrollControlled: true,
-                            // backgroundColor: Colors.transparent,
-                            builder: (context) => Container(),
-                          );
+                          // showModalBottomSheet(
+                          //   context: context,
+                          //   // isScrollControlled: true,
+                          //   // backgroundColor: Colors.transparent,
+                          //   builder: (context) => Container(),
+                          // );
                         });
 
                         // if (state.verifiedEmail == signupForm.email) {
@@ -289,11 +289,15 @@ class ProfileForm extends StatelessWidget {
                                         Navigator.of(context).pop();
                                       }
                                       G.snackBar(
-                                        state.form.entityStatus
+                                        context
+                                            .read<ProfileCubit>()
+                                            .state
+                                            .form
+                                            .entityStatus
                                             .messageOrMapStatus(
-                                          success: "Success!",
-                                          error: "Error!",
-                                        ),
+                                              success: "Success!",
+                                              error: "Error!",
+                                            ),
                                       );
                                     });
                                   },

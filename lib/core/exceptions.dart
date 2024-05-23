@@ -5,9 +5,17 @@ class NetworkException extends CException {}
 // -----------------------------------------------------------------------------
 
 class ServerException extends CException {
-  final Object? error;
+  final dynamic error;
 
   ServerException([this.error]);
+  @override
+  String toString() {
+    try {
+      return error.response.data['message'];
+    } catch (e) {
+      return error.toString();
+    }
+  }
 }
 
 class UserNotFoundException extends ServerException {

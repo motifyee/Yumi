@@ -13,7 +13,8 @@ class VerifyResetPasswordByMobileOTP
 
   @override
   Future<Either<Failure, String>> call(params) => repo
-      .verifyResetPasswordByEmailOTP(params.mobile, params.otp, params.password)
+      .verifyResetPasswordByMobileOTP(
+          params.mobile, params.otp, params.password)
       .run();
 }
 
