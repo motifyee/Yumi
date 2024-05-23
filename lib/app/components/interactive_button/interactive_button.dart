@@ -15,6 +15,8 @@ class InteractiveButton extends StatefulWidget {
   // actions
   final bool? enabled;
   final Function()? onPressed;
+  final Function()? onLongPress;
+  final void Function(bool)? onHover;
   final Function()? afterAnimation;
   // colors
   final Color? backgroundColor;
@@ -41,6 +43,8 @@ class InteractiveButton extends StatefulWidget {
     this.buttonType = ButtonType.filled,
     this.enabled,
     this.onPressed,
+    this.onLongPress,
+    this.onHover,
     this.afterAnimation,
     this.backgroundColor,
     this.foregroundColor = Colors.white,
@@ -111,6 +115,25 @@ class _InteractiveButtonState extends State<InteractiveButton> {
                   setState(() => state = ButtonState.init);
                   if (widget.afterAnimation != null) widget.afterAnimation!();
                 },
+                onLongPress: () async {
+                  if (state != ButtonState.init) return;
+
+                  setState(() => state = ButtonState.loading);
+                  // await Future.delayed(const Duration(seconds: 2));
+                  await widget.onLongPress!();
+
+                  if (!mounted) return;
+                  setState(() => state = ButtonState.done);
+
+                  if (!widget.isFixedSize) {
+                    await Future.delayed(const Duration(seconds: 2));
+                  }
+
+                  if (!mounted) return;
+                  setState(() => state = ButtonState.init);
+                  if (widget.afterAnimation != null) widget.afterAnimation!();
+                },
+                onHover: widget.onHover,
               )
             : buildSmallButton(isDone, size: widget.height),
       ),
@@ -132,6 +155,8 @@ Widget buildButton({
   double size = 40,
   ButtonType buttonType = ButtonType.filled,
   required VoidCallback? onPressed,
+  required VoidCallback? onLongPress,
+  required void Function(bool)? onHover,
 }) {
   var indicator = Container(
     height: size,
@@ -171,6 +196,8 @@ Widget buildButton({
 
         return OutlinedButton(
           onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
           style: _copyStyle(buttonStyle),
           child: buttonContent,
         );
@@ -186,6 +213,8 @@ Widget buildButton({
 
         return ElevatedButton(
           onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
           style: _copyStyle(buttonStyle),
           child: buttonContent,
         );
@@ -193,6 +222,8 @@ Widget buildButton({
     ButtonType.text => () {
         return TextButton(
           onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
           style: _copyStyle(style),
           child: buttonContent,
         );
