@@ -83,6 +83,8 @@ mixin _$Profile {
   String? get nidPhoto => throw _privateConstructorUsedError; //
   @JsonKey(name: 'image_Contract')
   String? get contractPhoto => throw _privateConstructorUsedError;
+  @JsonKey(name: 'contract_Approved')
+  bool? get contractApproved => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -136,7 +138,8 @@ abstract class $ProfileCopyWith<$Res> {
       String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') String? passportPhoto,
       @JsonKey(name: 'image_ID') String? nidPhoto,
-      @JsonKey(name: 'image_Contract') String? contractPhoto});
+      @JsonKey(name: 'image_Contract') String? contractPhoto,
+      @JsonKey(name: 'contract_Approved') bool? contractApproved});
 }
 
 /// @nodoc
@@ -190,6 +193,7 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
     Object? passportPhoto = freezed,
     Object? nidPhoto = freezed,
     Object? contractPhoto = freezed,
+    Object? contractApproved = freezed,
   }) {
     return _then(_value.copyWith(
       entityStatus: null == entityStatus
@@ -344,6 +348,10 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
           ? _value.contractPhoto
           : contractPhoto // ignore: cast_nullable_to_non_nullable
               as String?,
+      contractApproved: freezed == contractApproved
+          ? _value.contractApproved
+          : contractApproved // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -397,7 +405,8 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') String? passportPhoto,
       @JsonKey(name: 'image_ID') String? nidPhoto,
-      @JsonKey(name: 'image_Contract') String? contractPhoto});
+      @JsonKey(name: 'image_Contract') String? contractPhoto,
+      @JsonKey(name: 'contract_Approved') bool? contractApproved});
 }
 
 /// @nodoc
@@ -449,6 +458,7 @@ class __$$ProfileImplCopyWithImpl<$Res>
     Object? passportPhoto = freezed,
     Object? nidPhoto = freezed,
     Object? contractPhoto = freezed,
+    Object? contractApproved = freezed,
   }) {
     return _then(_$ProfileImpl(
       entityStatus: null == entityStatus
@@ -603,6 +613,10 @@ class __$$ProfileImplCopyWithImpl<$Res>
           ? _value.contractPhoto
           : contractPhoto // ignore: cast_nullable_to_non_nullable
               as String?,
+      contractApproved: freezed == contractApproved
+          ? _value.contractApproved
+          : contractApproved // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -651,7 +665,8 @@ class _$ProfileImpl extends _Profile {
       this.evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') this.passportPhoto,
       @JsonKey(name: 'image_ID') this.nidPhoto,
-      @JsonKey(name: 'image_Contract') this.contractPhoto})
+      @JsonKey(name: 'image_Contract') this.contractPhoto,
+      @JsonKey(name: 'contract_Approved') this.contractApproved})
       : super._();
 
   factory _$ProfileImpl.fromJson(Map<String, dynamic> json) =>
@@ -781,10 +796,13 @@ class _$ProfileImpl extends _Profile {
   @override
   @JsonKey(name: 'image_Contract')
   final String? contractPhoto;
+  @override
+  @JsonKey(name: 'contract_Approved')
+  final bool? contractApproved;
 
   @override
   String toString() {
-    return 'Profile(entityStatus: $entityStatus, code: $code, branchId: $branchId, guid: $guid, id: $id, fullName: $fullName, userName: $userName, bio: $bio, profileImage: $profileImage, mobile: $mobile, email: $email, address: $address, about: $about, rate: $rate, pickup: $pickup, pickupOnly: $pickupOnly, signupType: $signupType, registerDate: $registerDate, userStatus: $userStatus, country: $country, updatedBy: $updatedBy, eventPhoto0: $eventPhoto0, eventPhoto1: $eventPhoto1, eventPhoto2: $eventPhoto2, eventPhoto3: $eventPhoto3, eventPhoto4: $eventPhoto4, accountApproved: $accountApproved, isHygiene: $isHygiene, hygienePhoto: $hygienePhoto, riskPhoto: $riskPhoto, registerationPhoto: $registerationPhoto, driverLicensePhoto: $driverLicensePhoto, driverLicenseCodePhoto: $driverLicenseCodePhoto, foodDeliveryInsurancePhoto: $foodDeliveryInsurancePhoto, evidenceOfResidencePhoto: $evidenceOfResidencePhoto, passportPhoto: $passportPhoto, nidPhoto: $nidPhoto, contractPhoto: $contractPhoto)';
+    return 'Profile(entityStatus: $entityStatus, code: $code, branchId: $branchId, guid: $guid, id: $id, fullName: $fullName, userName: $userName, bio: $bio, profileImage: $profileImage, mobile: $mobile, email: $email, address: $address, about: $about, rate: $rate, pickup: $pickup, pickupOnly: $pickupOnly, signupType: $signupType, registerDate: $registerDate, userStatus: $userStatus, country: $country, updatedBy: $updatedBy, eventPhoto0: $eventPhoto0, eventPhoto1: $eventPhoto1, eventPhoto2: $eventPhoto2, eventPhoto3: $eventPhoto3, eventPhoto4: $eventPhoto4, accountApproved: $accountApproved, isHygiene: $isHygiene, hygienePhoto: $hygienePhoto, riskPhoto: $riskPhoto, registerationPhoto: $registerationPhoto, driverLicensePhoto: $driverLicensePhoto, driverLicenseCodePhoto: $driverLicenseCodePhoto, foodDeliveryInsurancePhoto: $foodDeliveryInsurancePhoto, evidenceOfResidencePhoto: $evidenceOfResidencePhoto, passportPhoto: $passportPhoto, nidPhoto: $nidPhoto, contractPhoto: $contractPhoto, contractApproved: $contractApproved)';
   }
 
   @override
@@ -859,7 +877,9 @@ class _$ProfileImpl extends _Profile {
             (identical(other.nidPhoto, nidPhoto) ||
                 other.nidPhoto == nidPhoto) &&
             (identical(other.contractPhoto, contractPhoto) ||
-                other.contractPhoto == contractPhoto));
+                other.contractPhoto == contractPhoto) &&
+            (identical(other.contractApproved, contractApproved) ||
+                other.contractApproved == contractApproved));
   }
 
   @JsonKey(ignore: true)
@@ -903,7 +923,8 @@ class _$ProfileImpl extends _Profile {
         evidenceOfResidencePhoto,
         passportPhoto,
         nidPhoto,
-        contractPhoto
+        contractPhoto,
+        contractApproved
       ]);
 
   @JsonKey(ignore: true)
@@ -963,8 +984,9 @@ abstract class _Profile extends Profile {
       final String? evidenceOfResidencePhoto,
       @JsonKey(name: 'image_Passport') final String? passportPhoto,
       @JsonKey(name: 'image_ID') final String? nidPhoto,
-      @JsonKey(name: 'image_Contract')
-      final String? contractPhoto}) = _$ProfileImpl;
+      @JsonKey(name: 'image_Contract') final String? contractPhoto,
+      @JsonKey(name: 'contract_Approved')
+      final bool? contractApproved}) = _$ProfileImpl;
   const _Profile._() : super._();
 
   factory _Profile.fromJson(Map<String, dynamic> json) = _$ProfileImpl.fromJson;
@@ -1069,6 +1091,9 @@ abstract class _Profile extends Profile {
   @override //
   @JsonKey(name: 'image_Contract')
   String? get contractPhoto;
+  @override
+  @JsonKey(name: 'contract_Approved')
+  bool? get contractApproved;
   @override
   @JsonKey(ignore: true)
   _$$ProfileImplCopyWith<_$ProfileImpl> get copyWith =>

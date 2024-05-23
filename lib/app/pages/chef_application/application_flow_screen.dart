@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
@@ -60,28 +62,22 @@ class ChefApplicationFlowScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 75),
+            const SizedBox(height: 10),
             Expanded(
               child: Container(
                 margin:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                 // padding: const EdgeInsets.all(10),
+                // height: 350,
                 // decoration: BoxDecoration(border: Border.all()),
                 child: Center(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      maxWidth: 800,
-                      minHeight: 520,
-                      minWidth: 400,
-                    ),
-                    child: BlocBuilder<RegCubit, NRegState>(
-                      builder: (context, state) => stepStack(context, state),
-                    ),
+                  child: BlocBuilder<RegCubit, NRegState>(
+                    builder: (context, state) => stepStack(context, state),
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 35),
+            const SizedBox(height: 10),
             Row(
               children: [
                 const Expanded(child: SizedBox()),
@@ -111,12 +107,12 @@ Widget stepStack(BuildContext context, NRegState state) {
       ? chefStepsInfo(context, state)
       : driverStepsInfo(context, state);
 
-  var tileChildrenBuilders = stepsInfo.map(tileChildrenFn).toList();
+  var tileChildrenBuilders = stepsInfo.map(buildTileChildren).toList();
 
   Function(int, num, num, {bool alignRight}) tileBuilderFn(
       BoxConstraints constraints) {
-    var hs = constraints.maxWidth / 4.9;
-    var vs = constraints.maxHeight / 5;
+    var hs = constraints.maxWidth / 6;
+    var vs = constraints.maxHeight / 6;
 
     return (int i, num x, num y, {bool alignRight = false}) {
       var items = tileChildrenBuilders[i](alignRight);
@@ -169,18 +165,19 @@ Widget stepStack(BuildContext context, NRegState state) {
               painter: CurvePainter(),
             ),
           ),
-          step(0, 0, 0.25),
-          step(1, 1, 1.25),
-          step(2, 2.83, 2.25, alignRight: true),
-          step(3, 3.83, 3.25, alignRight: true),
-          step(4, 4.83, 4.25, alignRight: true),
+          step(0, 0, 0.15),
+          step(1, 1, 1.15),
+          step(2, 2.8, 2.15, alignRight: true),
+          step(3, 3.8, 3.15, alignRight: true),
+          step(4, 4.8, 4.15, alignRight: true),
+          step(5, 5.8, 5.15, alignRight: true),
         ],
       );
     },
   );
 }
 
-Function(bool alignRight) tileChildrenFn(info) {
+Function(bool alignRight) buildTileChildren(info) {
   return (bool alignRight) {
     var tileChildren = [
       SizedBox(
@@ -197,14 +194,19 @@ Function(bool alignRight) tileChildrenFn(info) {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              info[1][0],
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            FittedBox(
+              child: Text(
+                info[1][0],
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 info[1][1],
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 8),
                 // overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -213,19 +215,21 @@ Function(bool alignRight) tileChildrenFn(info) {
       )
     ];
 
+    // var foregroundDecoration = info[3]()
+    //     ? null
+    //     : const BoxDecoration(
+    //         color: Colors.grey,
+    //         backgroundBlendMode: BlendMode.saturation,
+    //       );
+
     return Container(
-        // padding: EdgeInsets.only(
-        //     left: 4.0,
-        //     right: 4.0,
-        //     top: alignRight ? 8 : 0,
-        //     bottom: alignRight ? 0 : 12),
-        // alignment: alignRight ? Alignment.centerRight : Alignment.centerLeft,
-        child: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment:
-                alignRight ? MainAxisAlignment.end : MainAxisAlignment.start,
-            children:
-                alignRight ? tileChildren.reversed.toList() : tileChildren));
+      // foregroundDecoration: foregroundDecoration,
+      child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment:
+              alignRight ? MainAxisAlignment.end : MainAxisAlignment.start,
+          children: alignRight ? tileChildren.reversed.toList() : tileChildren),
+    );
   };
 }

@@ -104,10 +104,7 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
       ],
       [
         "contract",
-        [
-          "Get Contract",
-          "Finally, download the contract to sign and upload it"
-        ],
+        ["Get Contract", "Fourth, download the contract to sign and upload it"],
         // () => G.router.push(const ContractRoute()),
         () => showAlertDialog(
                 context: context,
@@ -123,6 +120,28 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
                 }),
         () => state.onboarding.contractActive,
         () => G.rd<RegCubit>().state.onboarding.contractDone,
+      ],
+      [
+        "approval",
+        ["Contract Approval", "Finally, waiting for approval within 72 hours"],
+        // () => G.router.push(const ContractRoute()),
+        () async =>
+            await context.read<ProfileCubit>().getProfileForm().then((value) {
+              showAlertDialog(
+                context: context,
+                title: Container(),
+                content: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(!state.onboarding.contractApprovalDone
+                      ? "Waiting for approval within 72 hours..."
+                      : "Your Contract has been approved"),
+                ),
+                actions: {'Ok': null},
+                dismissible: true,
+              );
+            }),
+        () => state.onboarding.contractApprovalActive,
+        () => G.rd<RegCubit>().state.onboarding.contractApprovalDone,
       ],
     ];
 
@@ -185,4 +204,5 @@ List driverStepsInfo(BuildContext context, NRegState state) => [
       chefStepsInfo(context, state)[2],
       chefStepsInfo(context, state)[3],
       chefStepsInfo(context, state)[4],
+      chefStepsInfo(context, state)[5],
     ];

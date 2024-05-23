@@ -53,8 +53,8 @@ class CurvePainter extends CustomPainter {
     paint.style = PaintingStyle.stroke; // Change this to fill
     paint.strokeWidth = 1.0;
 
-    hs = size.width / 4.8;
-    vs = size.height / 5;
+    hs = size.width / 6;
+    vs = size.height / 6;
     rad = 10.0;
 
     var path = Path();
@@ -76,7 +76,13 @@ class CurvePainter extends CustomPainter {
     path.quadraticBezierTo(hs, vs, hs, vs);
     path.lineTo(hs, vs);
     path.quadraticBezierTo(hs, vs, hs, vs);
+    // vsSettings.value += vsSettings.base / 3;
+    path.lineTo(hs, vs);
+    path.quadraticBezierTo(hs, vs, hs, vs);
+    path.lineTo(hs, vs);
+    path.quadraticBezierTo(hs, vs, hs, vs);
     vsSettings.value += vsSettings.base / 3;
+    // vsSettings.value += vsSettings.base / 3;
     path.lineTo(hs, vs);
 
     canvas.drawPath(path, paint);

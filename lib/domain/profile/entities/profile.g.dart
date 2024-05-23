@@ -48,6 +48,7 @@ _$ProfileImpl _$$ProfileImplFromJson(Map<String, dynamic> json) =>
       passportPhoto: json['image_Passport'] as String?,
       nidPhoto: json['image_ID'] as String?,
       contractPhoto: json['image_Contract'] as String?,
+      contractApproved: json['contract_Approved'] as bool?,
     );
 
 Map<String, dynamic> _$$ProfileImplToJson(_$ProfileImpl instance) =>
@@ -89,4 +90,5 @@ Map<String, dynamic> _$$ProfileImplToJson(_$ProfileImpl instance) =>
       'image_Passport': instance.passportPhoto,
       'image_ID': instance.nidPhoto,
       'image_Contract': instance.contractPhoto,
+      'contract_Approved': instance.contractApproved,
     };

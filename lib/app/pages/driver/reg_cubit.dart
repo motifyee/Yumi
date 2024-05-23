@@ -262,7 +262,6 @@ class RegCubit extends Cubit<NRegState> {
 
   bool setAccount(RegisterationForm signupData) {
     // TODO keep in storage
-    if (signupData.email != state.verifiedEmail) return false;
 
     emit(state.copyWith(singupData: signupData));
     _navigateToIdx(1);

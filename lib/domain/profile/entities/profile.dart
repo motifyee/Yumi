@@ -71,6 +71,7 @@ abstract class Profile with _$Profile {
 
     //
     @JsonKey(name: 'image_Contract') String? contractPhoto,
+    @JsonKey(name: 'contract_Approved') bool? contractApproved,
   }) = _Profile;
 
   const Profile._();

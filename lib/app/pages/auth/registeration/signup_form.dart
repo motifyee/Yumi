@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
@@ -175,9 +176,45 @@ class SignUpForm extends StatelessWidget {
             SizedBox(height: ThemeSelector.statics.defaultGap),
             InteractiveButton(
               label: S.of(context).createAccount,
+              onLongPress: () async {
+                if (kReleaseMode) return;
+                if (signUpFormKey.currentState!.validate()) {
+                  signUpFormKey.currentState!.save();
+
+                  await SignUpService.signUp(
+                          signup: signupForm, context: context)
+                      .then((value) {
+                    value = jsonDecode(value.toString());
+
+                    if (value["message"].contains('Created')) {
+                      var idReg = RegExp(r"Created with id:\s*(.*)");
+                      // var tokenReg = RegExp(r"Token\s*=\s*(.*)[\s|,]*");
+                      var chefId =
+                          idReg.firstMatch(value["message"])!.group(1)!;
+
+                      var userMap =
+                          signupForm.toUserMap(chefId, value['token']);
+
+                      context.read<UserBloc>().add(UserFromJsonEvent(
+                          user: userMap,
+                          routeAfterLogin: () =>
+                              context.read<ProfileCubit>().getProfileForm()));
+
+                      return reg.setAccount(signupForm);
+                    }
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: SnackBarMassage(
+                          massage: value["message"],
+                        ),
+                      ),
+                    );
+                  }).catchError((err) {});
+                }
+              },
               onPressed: () async {
-                final cubit = context.read<RegCubit>();
-                if (cubit.state.verifiedEmail != signupForm.email ||
+                if (reg.state.verifiedEmail != signupForm.email ||
                     signupForm.email == null ||
                     signupForm.email!.isEmpty) {
                   return G.snackBar("Please verify your email");
@@ -205,7 +242,7 @@ class SignUpForm extends StatelessWidget {
                           routeAfterLogin: () =>
                               context.read<ProfileCubit>().getProfileForm()));
 
-                      return cubit.setAccount(signupForm);
+                      return reg.setAccount(signupForm);
                     }
 
                     ScaffoldMessenger.of(context).showSnackBar(

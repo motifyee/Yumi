@@ -62,6 +62,14 @@ class Onboarding {
   bool get contractDone =>
       (contractActive && G.rd<ProfileCubit>().state.form.contractPhoto != null);
 
+  bool get contractApprovalActive =>
+      _onboardingProgress > 4 || contractApprovalDone || contractDone;
+  bool get contractApprovalDone {
+    Profile profile = G.rd<ProfileCubit>().state.form;
+
+    return profile.contractApproved ?? false;
+  }
+
   int get _onboardingProgress => G.rd<RegCubit>().state.onboardingProgress;
   int get onboardingProgress {
     int progress = 0;
@@ -86,6 +94,7 @@ class Onboarding {
       return progress;
     }
     if (contractDone) progress += 1;
+    if (contractApprovalDone) progress += 1;
 
     return progress;
   }
