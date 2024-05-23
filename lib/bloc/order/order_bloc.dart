@@ -1,10 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/service/order_service.dart';
 import 'package:yumi/statics/pagination_helper.dart';
+import 'package:yumi/template/snack_bar.dart';
 
 part 'order_bloc.freezed.dart';
 part 'order_event.dart';
@@ -81,6 +84,19 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       add(const OrderEvent.reset());
       add(OrderEvent.getRequest(apiKey: event.getApiKey));
       if (event.navFun != null) event.navFun!();
+    } else {
+      ScaffoldMessenger.of(G.context).showSnackBar(SnackBar(
+        content: SnackBarMassage(
+          massage: res.data['message'],
+        ),
+      ));
+      List<OrderModel> newOrders = List.from(state.orders);
+      newOrders[newOrders.indexWhere((e) => e.id == event.order.id)] =
+          newOrders[newOrders.indexWhere((e) => e.id == event.order.id)]
+              .copyWith(isLoading: false);
+      print('updated -------------------------------');
+      add(OrderEvent.update(
+          orders: newOrders, paginationHelper: state.paginationHelper));
     }
   }
 }

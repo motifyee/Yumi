@@ -348,42 +348,11 @@ class MealForm extends StatelessWidget {
                                         Theme.of(context).textTheme.bodyMedium,
                                   ),
                                 ),
-                                TextButton(
-                                  onPressed: () async {
-                                    if (mealForm.currentState!.validate() &&
-                                        state.mealModel.categoriesids!
-                                            .isNotEmpty &&
-                                        state.mealModel.photo != null) {
-                                      mealForm.currentState!.save();
-
-                                      late dynamic res;
-                                      if (meal != null) {
-                                        res = await MealService.updateMeal(
-                                            context: context,
-                                            mealModel: state.mealModel);
-                                      } else {
-                                        res = await MealService.createMeal(
-                                            context: context,
-                                            mealModel: state.mealModel);
-                                      }
-
-                                      Navigator.of(context).pop();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: SnackBarMassage(
-                                            massage: res.toString(),
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  child: Text(
-                                    S.of(context).save,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium,
-                                  ),
+                                _SaveBTN(
+                                  menuTarget: menuTarget,
+                                  state: state,
+                                  meal: meal,
+                                  mealForm: mealForm,
                                 ),
                               ],
                             ),
@@ -398,6 +367,71 @@ class MealForm extends StatelessWidget {
           ),
         );
       }),
+    );
+  }
+}
+
+class _SaveBTN extends StatefulWidget {
+  _SaveBTN(
+      {required this.mealForm,
+      required this.menuTarget,
+      required this.meal,
+      required this.state});
+  final GlobalKey<FormState> mealForm;
+
+  final MenuTarget? menuTarget;
+  final MealModel? meal;
+  final MealFormState state;
+
+  bool loading = false;
+  @override
+  State<_SaveBTN> createState() => _SaveBTNState();
+}
+
+class _SaveBTNState extends State<_SaveBTN> {
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () async {
+        if (widget.loading) return;
+        if (widget.mealForm.currentState!.validate() &&
+            widget.state.mealModel.categoriesids!.isNotEmpty &&
+            widget.state.mealModel.photo != null) {
+          widget.mealForm.currentState!.save();
+
+          setState(() {
+            widget.loading = true;
+          });
+
+          late dynamic res;
+          if (widget.meal != null) {
+            res = await MealService.updateMeal(
+                context: context, mealModel: widget.state.mealModel);
+          } else {
+            res = await MealService.createMeal(
+                context: context, mealModel: widget.state.mealModel);
+          }
+
+          setState(() {
+            widget.loading = false;
+          });
+
+          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: SnackBarMassage(
+                massage: res.toString(),
+              ),
+            ),
+          );
+        }
+      },
+      child: widget.loading
+          ? Loading(size: ThemeSelector.fonts.font_24)
+          : Text(
+              S.of(context).save,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
     );
   }
 }
