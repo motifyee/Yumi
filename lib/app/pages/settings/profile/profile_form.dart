@@ -90,8 +90,7 @@ Widget profileFormFields(
             TextFormFieldTemplate(
               label: S.of(context).mobile,
               borderStyle: TextFormFieldBorderStyle.borderBottom,
-              initialValue: profile.mobile
-                  .replaceFirst(RegExp(r'^' + kUKCountryCode), ''),
+              initialValue: profile.mobile,
               textInputType: TextInputType.number,
               validators: mobileValidator,
               inputFormatters: <TextInputFormatter>[

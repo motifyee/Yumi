@@ -47,6 +47,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       (r) {
         emit(state.copyWith(
             profile: r.copyWith(
+                mobile: r.mobile.replaceAll(RegExp(r'^' + kUKCountryCode), ''),
                 entityStatus: state.profile.entityStatus
                     .copyWith(status: Status.success))));
 
@@ -72,9 +73,11 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
       (r) {
         emit(state.copyWith(
-            form: r.copyWith(
-                entityStatus:
-                    state.form.entityStatus.copyWith(status: Status.success))));
+          form: r.copyWith(
+              mobile: r.mobile.replaceAll(RegExp(r'^' + kUKCountryCode), ''),
+              entityStatus:
+                  state.form.entityStatus.copyWith(status: Status.success)),
+        ));
 
         return r;
       },
