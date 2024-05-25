@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
-import 'package:yumi/app/components/interactive_button/interactive_button_style.dart';
-import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
+import 'package:yumi/app/core/util/constants.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -15,6 +12,7 @@ import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 final GlobalKey<FormState> profileForm = GlobalKey<FormState>();
@@ -92,11 +90,14 @@ Widget profileFormFields(
             TextFormFieldTemplate(
               label: S.of(context).mobile,
               borderStyle: TextFormFieldBorderStyle.borderBottom,
-              initialValue: profile.mobile,
+              initialValue: profile.mobile
+                  .replaceFirst(RegExp(r'^' + kUKCountryCode), ''),
               textInputType: TextInputType.number,
+              validators: mobileValidator,
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.digitsOnly,
               ],
+              prefixText: '+44 ',
               onSave: (value) =>
                   save(profile0 = profile0.copyWith(mobile: value)),
               onChange: (value) => profile0 = profile0.copyWith(mobile: value),

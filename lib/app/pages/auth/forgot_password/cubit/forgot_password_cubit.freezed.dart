@@ -33,15 +33,15 @@ mixin _$ForgotPasswordState {
   int? get countDown => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ForgotPasswordStateCopyWith<ForgotPasswordState> get copyWith =>
+  $ForgotPasswordStateCopyWith<ForgotPwdState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ForgotPasswordStateCopyWith<$Res> {
   factory $ForgotPasswordStateCopyWith(
-          ForgotPasswordState value, $Res Function(ForgotPasswordState) then) =
-      _$ForgotPasswordStateCopyWithImpl<$Res, ForgotPasswordState>;
+          ForgotPwdState value, $Res Function(ForgotPwdState) then) =
+      _$ForgotPasswordStateCopyWithImpl<$Res, ForgotPwdState>;
   @useResult
   $Res call(
       {bool isLoading,
@@ -61,7 +61,7 @@ abstract class $ForgotPasswordStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ForgotPasswordStateCopyWithImpl<$Res, $Val extends ForgotPasswordState>
+class _$ForgotPasswordStateCopyWithImpl<$Res, $Val extends ForgotPwdState>
     implements $ForgotPasswordStateCopyWith<$Res> {
   _$ForgotPasswordStateCopyWithImpl(this._value, this._then);
 
@@ -386,7 +386,7 @@ class _$InitialImpl extends Initial {
       __$$InitialImplCopyWithImpl<_$InitialImpl>(this, _$identity);
 }
 
-abstract class Initial extends ForgotPasswordState {
+abstract class Initial extends ForgotPwdState {
   const factory Initial(
       {final bool isLoading,
       final String email,

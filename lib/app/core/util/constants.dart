@@ -1,0 +1,1 @@
+const kUKCountryCode = '44';

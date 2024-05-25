@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/app/core/util/constants.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
@@ -83,6 +84,8 @@ class ProfileCubit extends Cubit<ProfileState> {
   // returns the updated profile or null if failed
   Future<Profile?> updateProfileForm([Profile? profile]) async {
     var profile0 = profile ?? state.form;
+    profile0 =
+        profile0.copyWith(mobile: '$kUKCountryCode${profile0.mobile.trim()}');
 
     emit(state.copyWith.form(
         entityStatus:

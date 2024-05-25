@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
+import 'package:yumi/app/core/util/string.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -15,6 +16,7 @@ class ForgotPwdEnterEmail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final email = context.read<ForgotPwdCubit>().state.email;
     return Column(
       children: [
         const SizedBox(height: 40),
@@ -27,6 +29,8 @@ class ForgotPwdEnterEmail extends StatelessWidget {
           style: Theme.of(context).textTheme.labelSmall,
         ),
         const SizedBox(height: 60),
+        // BlocBuilder<ForgotPwdCubit, ForgotPwdState>(
+        // builder: (context, state) {
         Form(
           key: form,
           child: TextFormFieldTemplate(
@@ -35,28 +39,31 @@ class ForgotPwdEnterEmail extends StatelessWidget {
             validators: emailOrMobileValidator,
             autoHint: const [AutofillHints.password],
             controller: inputController,
+            // prefixText: isNumeric(state.email) ? '+$kUKCountryCode ' : null,
             onChange: (value) =>
                 context.read<ForgotPwdCubit>().emailChanged(value),
           ),
         ),
+        // },
+        // ),
         const SizedBox(height: 60),
         InteractiveButton(
             label: 'Send',
             onPressed: () async {
-              final txt = inputController.text;
+              final txt = context.read<ForgotPwdCubit>().state.email.trim();
               if (!form.currentState!.validate()) return;
 
               final cubit = context.read<ForgotPwdCubit>();
               if (isNumeric(txt)) {
-                await cubit.resetPasswordByMobile(txt.trim());
+                await cubit.resetPasswordByMobile();
               } else {
-                await cubit.resetPasswordByEmail(txt.trim());
+                await cubit.resetPasswordByEmail(txt);
               }
 
               if (cubit.state.emailFound) {
                 G.snackBar('Check your email for verification code');
               } else {
-                G.snackBar(cubit.state.error);
+                G.snackBar(cubit.state.error.onEmpty("Something went wrong!"));
               }
             }),
         const SizedBox(height: 60),

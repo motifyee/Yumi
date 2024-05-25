@@ -75,7 +75,7 @@ class ForgotPasswordSheet extends StatelessWidget {
               // bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
             child: SingleChildScrollView(
-                child: BlocSelector<ForgotPwdCubit, ForgotPasswordState,
+                child: BlocSelector<ForgotPwdCubit, ForgotPwdState,
                     ForgotPwdWindow>(
               selector: (state) => state.window,
               builder: (context, state) {

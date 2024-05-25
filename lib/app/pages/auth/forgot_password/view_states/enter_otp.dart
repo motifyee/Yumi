@@ -32,7 +32,7 @@ class ForgotPwdEnterOTP extends StatelessWidget {
           'Enter code sent to your email.',
           style: Theme.of(context).textTheme.labelSmall,
         ),
-        BlocSelector<ForgotPwdCubit, ForgotPasswordState, int?>(
+        BlocSelector<ForgotPwdCubit, ForgotPwdState, int?>(
           selector: (state) => state.countDown,
           builder: (context, countDown) => SizedBox(
             width: (countDown ?? 0) > 0 ? 50 : 175,

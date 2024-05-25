@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/app/core/util/constants.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/profile/use_cases/reset_pwd_by_email.dart';
@@ -16,8 +17,8 @@ part 'forgot_password_cubit.freezed.dart';
 const forgotPwdEmailKey = 'forgot_pwd_email';
 const forgotPwdTimeKey = 'forgot_pwd_time';
 
-class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
-  ForgotPwdCubit() : super(const ForgotPasswordState());
+class ForgotPwdCubit extends Cubit<ForgotPwdState> {
+  ForgotPwdCubit() : super(const ForgotPwdState());
 
   void emailChanged(String email) {
     emit(state.copyWith(email: email));
@@ -101,12 +102,13 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
         isLoading: false,
         emailFound: false,
       )),
-      (r) async {
+      (r) {
         final initialCountDown = DateTime.now().millisecondsSinceEpoch;
 
-        final prefs = await G.prefs;
-        prefs.setString(forgotPwdEmailKey, email0);
-        prefs.setInt(forgotPwdTimeKey, initialCountDown);
+        G.prefs.then((prefs) async {
+          await prefs.setString(forgotPwdEmailKey, email0);
+          await prefs.setInt(forgotPwdTimeKey, initialCountDown);
+        });
 
         emit(state.copyWith(
           isLoading: false,
@@ -114,23 +116,14 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
           initialCountDownTime: initialCountDown,
           countDown: null,
           emailFound: true,
+          window: ForgotPwdWindow.enterOTP,
         ));
 
         startCountDown();
       },
     );
-
-    if (state.isEmailValid) {
-      final otp = await GetMobileOTP().call(NoParams());
-
-      otp.fold(
-        (l) => null,
-        (r) => emit(state.copyWith(otpCode: r)),
-      );
-
-      emit(state.copyWith(window: ForgotPwdWindow.enterOTP));
-    }
   }
+  // if (state.isEmailValid) { }
 
   Future<void> verifyResetPasswordByEmailOTPCode(
       String otp, String password) async {
@@ -171,7 +164,7 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
     emit(state.copyWith(isLoading: true, email: mobile0));
 
     final forgot = await ResetPasswordByMobile()
-        .call(ResetPasswordByMobileParams(mobile0));
+        .call(ResetPasswordByMobileParams('$kUKCountryCode$mobile0'));
 
     forgot.fold(
       (l) => emit(state.copyWith(
@@ -179,12 +172,13 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
         isLoading: false,
         emailFound: false,
       )),
-      (r) async {
+      (r) {
         final initialCountDown = DateTime.now().millisecondsSinceEpoch;
 
-        final prefs = await G.prefs;
-        prefs.setString(forgotPwdEmailKey, mobile0);
-        prefs.setInt(forgotPwdTimeKey, initialCountDown);
+        G.prefs.then((prefs) async {
+          await prefs.setString(forgotPwdEmailKey, mobile0);
+          await prefs.setInt(forgotPwdTimeKey, initialCountDown);
+        });
 
         emit(state.copyWith(
           isLoading: false,
@@ -192,22 +186,14 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
           initialCountDownTime: initialCountDown,
           countDown: null,
           emailFound: true,
+          window: ForgotPwdWindow.enterOTP,
         ));
 
         startCountDown();
       },
     );
 
-    if (state.isEmailValid) {
-      final otp = await GetMobileOTP().call(NoParams());
-
-      otp.fold(
-        (l) => null,
-        (r) => emit(state.copyWith(otpCode: r)),
-      );
-
-      emit(state.copyWith(window: ForgotPwdWindow.enterOTP));
-    }
+    // if (state.isEmailValid) { }
   }
 
   Future<void> verifyResetPasswordByMobileOTPCode(
@@ -215,7 +201,11 @@ class ForgotPwdCubit extends Cubit<ForgotPasswordState> {
     emit(state.copyWith(isLoading: true));
 
     final verify = await VerifyResetPasswordByMobileOTP()
-        .call(VerifyResetPasswordOTPByMobileParams(state.email, otp, password));
+        .call(VerifyResetPasswordOTPByMobileParams(
+      '$kUKCountryCode${state.email}',
+      otp,
+      password,
+    ));
     Failure;
     verify.fold(
       (l) => emit(state.copyWith(

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
+import 'package:yumi/app/core/util/constants.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/screen_container.dart';
 import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/validators/email_validator.dart';
 
 @RoutePage()
 class AddPhoneScreen extends StatelessWidget {
@@ -61,17 +63,14 @@ class AddPhoneScreen extends StatelessWidget {
                         Form(
                           key: form,
                           child: TextFormFieldTemplate(
-                              label: "Enter Mobile Number",
-                              prefixText: '+44 ',
-                              textInputType: TextInputType.number,
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
-                              validators: (value) {
-                                return (value?.length ?? 0) == 11
-                                    ? null
-                                    : "Invalid phone number";
-                              }),
+                            label: "Enter Mobile Number",
+                            prefixText: '+$kUKCountryCode ',
+                            textInputType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            validators: mobileValidator,
+                          ),
                         ),
                         const SizedBox(height: 40),
                         InteractiveButton(
@@ -92,7 +91,7 @@ class AddPhoneScreen extends StatelessWidget {
                                   .then((_) async {
                                 await context
                                     .read<RegCubit>()
-                                    .setMobile(value)
+                                    .setMobile('$kUKCountryCode$value')
                                     .then((value) {
                                   if (!value) {
                                     G.snackBar("Something went wrong!");

@@ -7,10 +7,10 @@ enum ForgotPwdWindow {
 }
 
 @freezed
-class ForgotPasswordState with _$ForgotPasswordState {
+class ForgotPwdState with _$ForgotPasswordState {
   // const factory ForgotPasswordState.initial() = _Initial;
 
-  const factory ForgotPasswordState({
+  const factory ForgotPwdState({
     @Default(false) bool isLoading,
     @Default('') String email,
     @Default('') String error,
@@ -30,7 +30,7 @@ class ForgotPasswordState with _$ForgotPasswordState {
     int? countDown,
   }) = Initial;
 
-  const ForgotPasswordState._();
+  const ForgotPwdState._();
 
   bool get isEmailValid => email.isNotEmpty && emailFound;
 
