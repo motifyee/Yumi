@@ -20,6 +20,7 @@ mixin _$NRegState {
   bool get finished => throw _privateConstructorUsedError;
   int get step => throw _privateConstructorUsedError; //
   String? get email => throw _privateConstructorUsedError;
+  String? get willVerifyEmail => throw _privateConstructorUsedError;
   String? get verifiedEmail => throw _privateConstructorUsedError;
   String? get emailOTP => throw _privateConstructorUsedError;
   Status get verifiedEmailStatus => throw _privateConstructorUsedError; //
@@ -53,6 +54,7 @@ abstract class $NRegStateCopyWith<$Res> {
       bool finished,
       int step,
       String? email,
+      String? willVerifyEmail,
       String? verifiedEmail,
       String? emailOTP,
       Status verifiedEmailStatus,
@@ -91,6 +93,7 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
     Object? finished = null,
     Object? step = null,
     Object? email = freezed,
+    Object? willVerifyEmail = freezed,
     Object? verifiedEmail = freezed,
     Object? emailOTP = freezed,
     Object? verifiedEmailStatus = null,
@@ -123,6 +126,10 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      willVerifyEmail: freezed == willVerifyEmail
+          ? _value.willVerifyEmail
+          : willVerifyEmail // ignore: cast_nullable_to_non_nullable
               as String?,
       verifiedEmail: freezed == verifiedEmail
           ? _value.verifiedEmail
@@ -229,6 +236,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool finished,
       int step,
       String? email,
+      String? willVerifyEmail,
       String? verifiedEmail,
       String? emailOTP,
       Status verifiedEmailStatus,
@@ -268,6 +276,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? finished = null,
     Object? step = null,
     Object? email = freezed,
+    Object? willVerifyEmail = freezed,
     Object? verifiedEmail = freezed,
     Object? emailOTP = freezed,
     Object? verifiedEmailStatus = null,
@@ -300,6 +309,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      willVerifyEmail: freezed == willVerifyEmail
+          ? _value.willVerifyEmail
+          : willVerifyEmail // ignore: cast_nullable_to_non_nullable
               as String?,
       verifiedEmail: freezed == verifiedEmail
           ? _value.verifiedEmail
@@ -373,6 +386,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       this.finished = false,
       this.step = 0,
       this.email,
+      this.willVerifyEmail,
       this.verifiedEmail,
       this.emailOTP,
       this.verifiedEmailStatus = Status.init,
@@ -402,6 +416,8 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
 //
   @override
   final String? email;
+  @override
+  final String? willVerifyEmail;
   @override
   final String? verifiedEmail;
   @override
@@ -451,7 +467,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'NRegState(registerationStarted: $registerationStarted, finished: $finished, step: $step, email: $email, verifiedEmail: $verifiedEmail, emailOTP: $emailOTP, verifiedEmailStatus: $verifiedEmailStatus, singupData: $singupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, onboardingProgress: $onboardingProgress, unique: $unique, countDown: $countDown)';
+    return 'NRegState(registerationStarted: $registerationStarted, finished: $finished, step: $step, email: $email, willVerifyEmail: $willVerifyEmail, verifiedEmail: $verifiedEmail, emailOTP: $emailOTP, verifiedEmailStatus: $verifiedEmailStatus, singupData: $singupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, onboardingProgress: $onboardingProgress, unique: $unique, countDown: $countDown)';
   }
 
   @override
@@ -463,6 +479,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('finished', finished))
       ..add(DiagnosticsProperty('step', step))
       ..add(DiagnosticsProperty('email', email))
+      ..add(DiagnosticsProperty('willVerifyEmail', willVerifyEmail))
       ..add(DiagnosticsProperty('verifiedEmail', verifiedEmail))
       ..add(DiagnosticsProperty('emailOTP', emailOTP))
       ..add(DiagnosticsProperty('verifiedEmailStatus', verifiedEmailStatus))
@@ -491,6 +508,8 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
                 other.finished == finished) &&
             (identical(other.step, step) || other.step == step) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.willVerifyEmail, willVerifyEmail) ||
+                other.willVerifyEmail == willVerifyEmail) &&
             (identical(other.verifiedEmail, verifiedEmail) ||
                 other.verifiedEmail == verifiedEmail) &&
             (identical(other.emailOTP, emailOTP) ||
@@ -523,6 +542,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
         finished,
         step,
         email,
+        willVerifyEmail,
         verifiedEmail,
         emailOTP,
         verifiedEmailStatus,
@@ -553,6 +573,7 @@ abstract class _Initial extends NRegState {
       final bool finished,
       final int step,
       final String? email,
+      final String? willVerifyEmail,
       final String? verifiedEmail,
       final String? emailOTP,
       final Status verifiedEmailStatus,
@@ -578,6 +599,8 @@ abstract class _Initial extends NRegState {
   int get step;
   @override //
   String? get email;
+  @override
+  String? get willVerifyEmail;
   @override
   String? get verifiedEmail;
   @override

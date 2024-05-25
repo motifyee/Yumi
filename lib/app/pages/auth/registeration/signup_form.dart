@@ -78,6 +78,7 @@ class SignUpForm extends StatelessWidget {
                     signupForm = signupForm.copyWith(email: value);
                   },
                   onChange: (value) {
+                    reg.setWillVerifyEmail(value);
                     signupForm = signupForm.copyWith(email: value);
                   },
                   validators: emailValidator,
@@ -107,22 +108,25 @@ class SignUpForm extends StatelessWidget {
                           loadingLabel: '',
                           style: InteractiveButtonStyle(
                             backgroundColor: (state.verifiedEmail ?? 'x') ==
-                                    (signupForm.email ?? 'y')
+                                    (state.willVerifyEmail ?? 'y')
                                 ? Colors.grey
                                 : null,
                           ),
                           onPressed: () async {
-                            if (state.verifiedEmail == signupForm.email) {
+                            if (reg.state.verifiedEmail ==
+                                reg.state.willVerifyEmail) {
                               return G.snackBar(
                                 "${state.verifiedEmail} is already verified",
                               );
                             }
 
-                            if (!emailStructure(signupForm.email)) {
+                            if (!emailStructure(reg.state.willVerifyEmail)) {
                               return G.snackBar("Please enter a valid email");
                             }
 
-                            await reg.getEmailOTP(signupForm.email!).then(
+                            await reg
+                                .getEmailOTP(reg.state.willVerifyEmail!)
+                                .then(
                               (sent) {
                                 if (!sent) {
                                   return G.snackBar(
@@ -178,82 +182,75 @@ class SignUpForm extends StatelessWidget {
               label: S.of(context).createAccount,
               onLongPress: () async {
                 if (kReleaseMode) return;
-                if (signUpFormKey.currentState!.validate()) {
-                  signUpFormKey.currentState!.save();
+                if (!signUpFormKey.currentState!.validate()) return;
 
-                  await SignUpService.signUp(
-                          signup: signupForm, context: context)
-                      .then((value) {
-                    value = jsonDecode(value.toString());
+                signUpFormKey.currentState!.save();
 
-                    if (value["message"].contains('Created')) {
-                      var idReg = RegExp(r"Created with id:\s*(.*)");
-                      // var tokenReg = RegExp(r"Token\s*=\s*(.*)[\s|,]*");
-                      var chefId =
-                          idReg.firstMatch(value["message"])!.group(1)!;
+                await SignUpService.signUp(signup: signupForm, context: context)
+                    .then((value) {
+                  value = jsonDecode(value.toString());
 
-                      var userMap =
-                          signupForm.toUserMap(chefId, value['token']);
+                  if (value["message"].contains('Created')) {
+                    var idReg = RegExp(r"Created with id:\s*(.*)");
+                    // var tokenReg = RegExp(r"Token\s*=\s*(.*)[\s|,]*");
+                    var chefId = idReg.firstMatch(value["message"])!.group(1)!;
 
-                      context.read<UserBloc>().add(UserFromJsonEvent(
-                          user: userMap,
-                          routeAfterLogin: () =>
-                              context.read<ProfileCubit>().getProfileForm()));
+                    var userMap = signupForm.toUserMap(chefId, value['token']);
 
-                      return reg.setAccount(signupForm);
-                    }
+                    context.read<UserBloc>().add(UserFromJsonEvent(
+                        user: userMap,
+                        routeAfterLogin: () =>
+                            context.read<ProfileCubit>().getProfileForm()));
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: SnackBarMassage(
-                          massage: value["message"],
-                        ),
+                    return reg.setAccount(signupForm);
+                  }
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: SnackBarMassage(
+                        massage: value["message"],
                       ),
-                    );
-                  }).catchError((err) {});
-                }
+                    ),
+                  );
+                }).catchError((err) {});
               },
               onPressed: () async {
-                if (reg.state.verifiedEmail != signupForm.email ||
-                    signupForm.email == null ||
-                    signupForm.email!.isEmpty) {
+                if (reg.state.verifiedEmail != reg.state.willVerifyEmail ||
+                    reg.state.willVerifyEmail == null ||
+                    reg.state.willVerifyEmail!.isEmpty) {
                   return G.snackBar("Please verify your email");
                 }
 
-                if (signUpFormKey.currentState!.validate()) {
-                  signUpFormKey.currentState!.save();
+                if (!signUpFormKey.currentState!.validate()) return;
+                signUpFormKey.currentState!.save();
 
-                  await SignUpService.signUp(
-                          signup: signupForm, context: context)
-                      .then((value) {
-                    value = jsonDecode(value.toString());
+                await SignUpService.signUp(signup: signupForm, context: context)
+                    .then((value) {
+                  value = jsonDecode(value.toString());
 
-                    if (value["message"].contains('Created')) {
-                      var idReg = RegExp(r"Created with id:\s*(.*)");
-                      // var tokenReg = RegExp(r"Token\s*=\s*(.*)[\s|,]*");
-                      var chefId =
-                          idReg.firstMatch(value["message"])!.group(1)!;
+                  if (value["message"].contains('Created')) {
+                    var idReg = RegExp(r"Created with id:\s*(.*)");
+                    // var tokenReg = RegExp(r"Token\s*=\s*(.*)[\s|,]*");
+                    var chefId = idReg.firstMatch(value["message"])!.group(1)!;
 
-                      var userMap =
-                          signupForm.toUserMap(chefId, value['token']);
+                    var userMap = signupForm.toUserMap(chefId, value['token']);
 
-                      context.read<UserBloc>().add(UserFromJsonEvent(
-                          user: userMap,
-                          routeAfterLogin: () =>
-                              context.read<ProfileCubit>().getProfileForm()));
+                    context.read<UserBloc>().add(UserFromJsonEvent(
+                        user: userMap,
+                        routeAfterLogin: () =>
+                            context.read<ProfileCubit>().getProfileForm()));
 
-                      return reg.setAccount(signupForm);
-                    }
+                    return reg.setAccount(signupForm);
+                  }
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: SnackBarMassage(
-                          massage: value["message"],
-                        ),
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: SnackBarMassage(
+                        massage: value["message"],
                       ),
-                    );
-                  }).catchError((err) {});
-                }
+                    ),
+                  );
+                }).catchError((err) {});
               },
             ),
           ],

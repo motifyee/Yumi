@@ -46,6 +46,7 @@ abstract class NRegState with _$NRegState {
     @Default(0) int step,
     //
     String? email,
+    String? willVerifyEmail,
     String? verifiedEmail,
     String? emailOTP,
     @Default(Status.init) Status verifiedEmailStatus,
@@ -100,6 +101,12 @@ class RegCubit extends Cubit<NRegState> {
 
 // -----------------------------------------------------------------------------
 // Navigation
+
+  void setWillVerifyEmail(String email) {
+    emit(state.copyWith(willVerifyEmail: email));
+  }
+
+// -----------------------------------------------------------------------------
 
   void setLoading([bool loading = true]) {
     emit(state.copyWith(status: loading ? Status.loading : Status.idle));

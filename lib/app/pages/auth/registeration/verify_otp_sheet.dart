@@ -36,105 +36,119 @@ class VerifyOtpSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String otp = '';
-    final counter = context.read<CountDownCubit>();
-    if (counter.state.countDown == null) counter.startCountDown();
+    // final counter = context.read<CountDownCubit>();
+    // if (counter.state.countDown == null) counter.startCountDown();
 
-    return PopScope(
-      canPop: true,
-      onPopInvoked: (didPop) => (didPop) ? counter.stopCountDown() : null,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          padding: EdgeInsets.only(
-            top: ThemeSelector.statics.iconSizeSmall,
+    // return PopScope(
+    // canPop: true,
+    // onPopInvoked: (didPop) => (didPop) ? counter.stopCountDown() : null,
+    // child: Padding(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        padding: EdgeInsets.only(
+          top: ThemeSelector.statics.iconSizeSmall,
+        ),
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(
+                ThemeSelector.statics.defaultBorderRadiusExtraLarge),
+            topLeft: Radius.circular(
+                ThemeSelector.statics.defaultBorderRadiusExtraLarge),
           ),
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(
-                  ThemeSelector.statics.defaultBorderRadiusExtraLarge),
-              topLeft: Radius.circular(
-                  ThemeSelector.statics.defaultBorderRadiusExtraLarge),
+          gradient: screenGradient,
+        ),
+        width: MediaQuery.of(context).size.width,
+        constraints:
+            BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .7),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              bottomOpacity: 0,
+              scrolledUnderElevation: 0,
+              // iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
+              leading: IconButton(
+                icon:
+                    Icon(Icons.arrow_back, color: ThemeSelector.colors.primary),
+                onPressed: () {
+                  // return G.pop(rootNavigator: false);
+                },
+              )),
+          body: Padding(
+            padding: EdgeInsets.only(
+              left: ThemeSelector.statics.defaultBlockGap,
+              right: ThemeSelector.statics.defaultBlockGap,
+              top: ThemeSelector.statics.defaultGapExtreme,
             ),
-            gradient: screenGradient,
-          ),
-          width: MediaQuery.of(context).size.width,
-          constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * .7),
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Padding(
-              padding: EdgeInsets.only(
-                left: ThemeSelector.statics.defaultBlockGap,
-                right: ThemeSelector.statics.defaultBlockGap,
-                top: ThemeSelector.statics.defaultGapExtreme,
-              ),
-              child: SingleChildScrollView(
-                child: BlocBuilder<RegCubit, NRegState>(
-                  builder: (context, state) {
-                    return Column(
-                      children: [
-                        Text(
-                          'Enter 4 digits code',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        Text(
-                          'Enter code sent to your email.',
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                        BlocBuilder<CountDownCubit, CountDownState>(
-                          builder: (context, state) => SizedBox(
-                            width: (state.countDown ?? 0) > 0 ? 50 : 175,
-                            child: InteractiveButton(
-                              label: (state.countDown ?? 0) > 0
-                                  ? state.countDown.toString()
-                                  : "Resend OTP",
-                              buttonType: ButtonType.text,
-                              foregroundColor:
-                                  Theme.of(context).colorScheme.primary,
-                              onPressed: () async {
-                                if ((counter.state.countDown ?? 0) > 0) return;
+            child: SingleChildScrollView(
+              // child: BlocBuilder<RegCubit, NRegState>(
+              //   builder: (context, state) {
+              // return
+              child: Column(
+                children: [
+                  Text(
+                    'Enter 4 digits code',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  Text(
+                    'Enter code sent to your email.',
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                  BlocBuilder<CountDownCubit, CountDownState>(
+                    builder: (context, state) => SizedBox(
+                      width: (state.countDown ?? 0) > 0 ? 50 : 175,
+                      child: InteractiveButton(
+                        label: (state.countDown ?? 0) > 0
+                            ? state.countDown.toString()
+                            : "Resend OTP",
+                        buttonType: ButtonType.text,
+                        foregroundColor: Theme.of(context).colorScheme.primary,
+                        onPressed: () async {
+                          final counter = context.read<CountDownCubit>();
+                          if ((counter.state.countDown ?? 0) > 0) return;
 
-                                switch (type) {
-                                  case OTPType.email:
-                                    return sendEmailOTP(context);
+                          switch (type) {
+                            case OTPType.email:
+                              return sendEmailOTP(context);
 
-                                  case OTPType.mobile:
-                                    return sendMobileOTP(context);
-                                }
-                              },
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        Center(
-                          child: SizedBox(
-                            width: 200,
-                            child: OTP(onInput: (value, _, __) => otp = value),
-                          ),
-                        ),
-                        const SizedBox(height: 30),
-                        InteractiveButton(
-                            label: 'Send',
-                            onPressed: () async {
-                              switch (type) {
-                                case OTPType.email:
-                                  return verifyEmailOTP(context, otp);
+                            case OTPType.mobile:
+                              return sendMobileOTP(context);
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: SizedBox(
+                      width: 200,
+                      child: OTP(onInput: (value, _, __) => otp = value),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  InteractiveButton(
+                      label: 'Send',
+                      onPressed: () async {
+                        switch (type) {
+                          case OTPType.email:
+                            return verifyEmailOTP(context, otp);
 
-                                case OTPType.mobile:
-                                  return verifyEmailOTP(context, otp);
-                              }
-                            }),
-                        const SizedBox(height: 60),
-                      ],
-                    );
-                  },
-                ),
+                          case OTPType.mobile:
+                            return verifyEmailOTP(context, otp);
+                        }
+                      }),
+                  const SizedBox(height: 60),
+                ],
+                // );
+                // },
               ),
             ),
           ),
         ),
       ),
+      // ),
     );
   }
 }
