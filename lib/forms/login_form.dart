@@ -131,6 +131,7 @@ Future performLogin(BuildContext context, LoginModel loginForm,
         user.copyWith(password: loginForm.password).toJson();
 
     if ((user.accessToken).isEmpty) {
+      if (user.message.isEmpty) return G.snackBar("Login Failed!");
       return G.snackBar(user.message);
     }
 
@@ -147,7 +148,9 @@ Future performLogin(BuildContext context, LoginModel loginForm,
                 context.read<RegCubit>().init();
               });
             }
-            if (!G.isCustomerApp && !(user.accountApproved ?? false)) {
+            if (!G.isCustomerApp &&
+                (!(user.accountApproved ?? false) ||
+                    !(user.contractApproved ?? false))) {
               return await context
                   .read<RegCubit>()
                   .saveStepToCache(RegStep.onboarding.index)

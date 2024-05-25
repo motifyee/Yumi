@@ -39,7 +39,8 @@ class AuthGuard extends AutoRouteGuard {
           return basket();
         }
 
-        if ((user?.accountApproved ?? false)) return resolver.next(true);
+        if ((user?.accountApproved ?? false) &&
+            (user?.accountApproved ?? false)) return resolver.next(true);
 
         router.replaceAll([LoginRoute()]);
       },

@@ -46,6 +46,8 @@ mixin _$UserModel {
   int? get status => throw _privateConstructorUsedError;
   @JsonKey(name: 'account_Approved')
   bool? get accountApproved => throw _privateConstructorUsedError;
+  @JsonKey(name: 'contract_Approved')
+  bool? get contractApproved => throw _privateConstructorUsedError;
   @JsonKey(name: 'account_Approved_Date')
   String? get accountApprovedDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'mobile_Verified')
@@ -83,6 +85,7 @@ abstract class $UserModelCopyWith<$Res> {
       String location,
       @JsonKey(name: 'status_Work') int? status,
       @JsonKey(name: 'account_Approved') bool? accountApproved,
+      @JsonKey(name: 'contract_Approved') bool? contractApproved,
       @JsonKey(name: 'account_Approved_Date') String? accountApprovedDate,
       @JsonKey(name: 'mobile_Verified') bool? mobileVerified,
       @JsonKey(name: 'mobile_Verified_Date') String? mobileVerifiedDate});
@@ -119,6 +122,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? location = null,
     Object? status = freezed,
     Object? accountApproved = freezed,
+    Object? contractApproved = freezed,
     Object? accountApprovedDate = freezed,
     Object? mobileVerified = freezed,
     Object? mobileVerifiedDate = freezed,
@@ -196,6 +200,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.accountApproved
           : accountApproved // ignore: cast_nullable_to_non_nullable
               as bool?,
+      contractApproved: freezed == contractApproved
+          ? _value.contractApproved
+          : contractApproved // ignore: cast_nullable_to_non_nullable
+              as bool?,
       accountApprovedDate: freezed == accountApprovedDate
           ? _value.accountApprovedDate
           : accountApprovedDate // ignore: cast_nullable_to_non_nullable
@@ -239,6 +247,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       String location,
       @JsonKey(name: 'status_Work') int? status,
       @JsonKey(name: 'account_Approved') bool? accountApproved,
+      @JsonKey(name: 'contract_Approved') bool? contractApproved,
       @JsonKey(name: 'account_Approved_Date') String? accountApprovedDate,
       @JsonKey(name: 'mobile_Verified') bool? mobileVerified,
       @JsonKey(name: 'mobile_Verified_Date') String? mobileVerifiedDate});
@@ -273,6 +282,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? location = null,
     Object? status = freezed,
     Object? accountApproved = freezed,
+    Object? contractApproved = freezed,
     Object? accountApprovedDate = freezed,
     Object? mobileVerified = freezed,
     Object? mobileVerifiedDate = freezed,
@@ -350,6 +360,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.accountApproved
           : accountApproved // ignore: cast_nullable_to_non_nullable
               as bool?,
+      contractApproved: freezed == contractApproved
+          ? _value.contractApproved
+          : contractApproved // ignore: cast_nullable_to_non_nullable
+              as bool?,
       accountApprovedDate: freezed == accountApprovedDate
           ? _value.accountApprovedDate
           : accountApprovedDate // ignore: cast_nullable_to_non_nullable
@@ -388,6 +402,7 @@ class _$InitialImpl extends _Initial {
       this.location = '',
       @JsonKey(name: 'status_Work') this.status,
       @JsonKey(name: 'account_Approved') this.accountApproved,
+      @JsonKey(name: 'contract_Approved') this.contractApproved,
       @JsonKey(name: 'account_Approved_Date') this.accountApprovedDate,
       @JsonKey(name: 'mobile_Verified') this.mobileVerified,
       @JsonKey(name: 'mobile_Verified_Date') this.mobileVerifiedDate})
@@ -447,6 +462,9 @@ class _$InitialImpl extends _Initial {
   @JsonKey(name: 'account_Approved')
   final bool? accountApproved;
   @override
+  @JsonKey(name: 'contract_Approved')
+  final bool? contractApproved;
+  @override
   @JsonKey(name: 'account_Approved_Date')
   final String? accountApprovedDate;
   @override
@@ -458,7 +476,7 @@ class _$InitialImpl extends _Initial {
 
   @override
   String toString() {
-    return 'UserModel(chefId: $chefId, driverId: $driverId, customerId: $customerId, message: $message, userName: $userName, email: $email, password: $password, code: $code, multiAddressID: $multiAddressID, accessToken: $accessToken, expiresIn: $expiresIn, address: $address, addressName: $addressName, lat: $lat, long: $long, location: $location, status: $status, accountApproved: $accountApproved, accountApprovedDate: $accountApprovedDate, mobileVerified: $mobileVerified, mobileVerifiedDate: $mobileVerifiedDate)';
+    return 'UserModel(chefId: $chefId, driverId: $driverId, customerId: $customerId, message: $message, userName: $userName, email: $email, password: $password, code: $code, multiAddressID: $multiAddressID, accessToken: $accessToken, expiresIn: $expiresIn, address: $address, addressName: $addressName, lat: $lat, long: $long, location: $location, status: $status, accountApproved: $accountApproved, contractApproved: $contractApproved, accountApprovedDate: $accountApprovedDate, mobileVerified: $mobileVerified, mobileVerifiedDate: $mobileVerifiedDate)';
   }
 
   @override
@@ -494,6 +512,8 @@ class _$InitialImpl extends _Initial {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.accountApproved, accountApproved) ||
                 other.accountApproved == accountApproved) &&
+            (identical(other.contractApproved, contractApproved) ||
+                other.contractApproved == contractApproved) &&
             (identical(other.accountApprovedDate, accountApprovedDate) ||
                 other.accountApprovedDate == accountApprovedDate) &&
             (identical(other.mobileVerified, mobileVerified) ||
@@ -524,6 +544,7 @@ class _$InitialImpl extends _Initial {
         location,
         status,
         accountApproved,
+        contractApproved,
         accountApprovedDate,
         mobileVerified,
         mobileVerifiedDate
@@ -563,6 +584,7 @@ abstract class _Initial extends UserModel {
       final String location,
       @JsonKey(name: 'status_Work') final int? status,
       @JsonKey(name: 'account_Approved') final bool? accountApproved,
+      @JsonKey(name: 'contract_Approved') final bool? contractApproved,
       @JsonKey(name: 'account_Approved_Date') final String? accountApprovedDate,
       @JsonKey(name: 'mobile_Verified') final bool? mobileVerified,
       @JsonKey(name: 'mobile_Verified_Date')
@@ -614,6 +636,9 @@ abstract class _Initial extends UserModel {
   @override
   @JsonKey(name: 'account_Approved')
   bool? get accountApproved;
+  @override
+  @JsonKey(name: 'contract_Approved')
+  bool? get contractApproved;
   @override
   @JsonKey(name: 'account_Approved_Date')
   String? get accountApprovedDate;

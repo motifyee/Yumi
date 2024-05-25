@@ -27,6 +27,7 @@ class UserModel with _$UserModel {
     @Default('') String location,
     @JsonKey(name: 'status_Work') int? status,
     @JsonKey(name: 'account_Approved') bool? accountApproved,
+    @JsonKey(name: 'contract_Approved') bool? contractApproved,
     @JsonKey(name: 'account_Approved_Date') String? accountApprovedDate,
     @JsonKey(name: 'mobile_Verified') bool? mobileVerified,
     @JsonKey(name: 'mobile_Verified_Date') String? mobileVerifiedDate,
