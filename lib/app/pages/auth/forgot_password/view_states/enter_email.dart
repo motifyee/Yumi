@@ -39,7 +39,7 @@ class ForgotPwdEnterEmail extends StatelessWidget {
             validators: emailOrMobileValidator,
             autoHint: const [AutofillHints.password],
             controller: inputController,
-            // prefixText: isNumeric(state.email) ? '+$kUKCountryCode ' : null,
+            // prefixText: isNumeric(state.email) ? '+kUKCountryCode ' : null,
             onChange: (value) =>
                 context.read<ForgotPwdCubit>().emailChanged(value),
           ),

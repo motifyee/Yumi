@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yumi/app/core/util/string.dart';
 import 'package:yumi/app/pages/auth/registeration/maps/permission.dart';
 import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/app/pages/auth/registeration/model/registeration.dart';
@@ -278,21 +279,28 @@ class RegCubit extends Cubit<NRegState> {
     return true;
   }
 
-  Future<bool> setMobile(String phone) async {
+  Future<String?> setMobile(String phone) async {
     var profile = G.rd<ProfileCubit>().state.form.copyWith(mobile: phone);
     var update = await G.rd<ProfileCubit>().updateProfileForm(profile);
 
     // final update = await UpdateProfile().call(UpdateProfileParam(profile));
     if (update == null) {
       emit(state.copyWith(status: Status.error));
-      return false;
+      return G
+          .rd<ProfileCubit>()
+          .state
+          .form
+          .entityStatus
+          .message
+          .onEmpty('The mobile number is already used.');
     }
 
     emit(state.copyWith(phone: phone));
 
-    return (await getMobileOTP()).fold((l) => false, (r) {
+    return (await getMobileOTP())
+        .fold((l) => 'Something went wrong. try again.', (r) {
       _navigateToIdx(2, otp: r);
-      return true;
+      return null;
     });
   }
 

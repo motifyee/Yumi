@@ -97,7 +97,7 @@ Widget profileFormFields(
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.digitsOnly,
               ],
-              prefixText: '+44 ',
+              prefixText: '+$kUKCountryCode ',
               onSave: (value) =>
                   save(profile0 = profile0.copyWith(mobile: value)),
               onChange: (value) => profile0 = profile0.copyWith(mobile: value),

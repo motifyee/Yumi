@@ -91,11 +91,9 @@ class AddPhoneScreen extends StatelessWidget {
                                   .then((_) async {
                                 await context
                                     .read<RegCubit>()
-                                    .setMobile('$kUKCountryCode$value')
+                                    .setMobile(value)
                                     .then((value) {
-                                  if (!value) {
-                                    G.snackBar("Something went wrong!");
-                                  }
+                                  if (value != null) G.snackBar(value);
                                 });
                               });
                             }),
