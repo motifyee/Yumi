@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
@@ -9,14 +7,14 @@ import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/util/util.dart';
 import 'package:yumi/validators/email_validator.dart';
 
+final GlobalKey<FormState> form = GlobalKey<FormState>();
+
 class ForgotPwdEnterEmail extends StatelessWidget {
   ForgotPwdEnterEmail({super.key});
   final TextEditingController inputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> form = GlobalKey<FormState>();
-
     return Column(
       children: [
         const SizedBox(height: 40),

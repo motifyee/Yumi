@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+final List<GlobalKey> keys = [0, 1, 2, 3].map((e) => GlobalKey()).toList();
+
 class OTP extends StatelessWidget {
   final void Function(String input, String otp, int idx)? onInput;
   final void Function(Object?)? onSaved;
@@ -67,6 +69,7 @@ class OTP extends StatelessWidget {
           return KeyEventResult.ignored;
         },
         child: TextFormField(
+          key: keys[idx],
           focusNode: fieldNode,
           controller: ctrl,
           onChanged: (value) {
