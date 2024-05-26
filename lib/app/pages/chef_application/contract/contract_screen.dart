@@ -48,7 +48,10 @@ class ContractScreen extends StatelessWidget {
               ),
               const SizedBox(height: 80),
               Center(
-                  child: SvgPicture.asset("assets/images/chef_contract.svg")),
+                child: G.isChefApp
+                    ? SvgPicture.asset("assets/images/chef_contract.svg")
+                    : SvgPicture.asset("assets/images/driver_contract.svg"),
+              ),
               const SizedBox(height: 60),
               BlocBuilder<ProfileCubit, ProfileState>(
                 builder: (context, state) {
