@@ -16,7 +16,6 @@ import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/screen_container.dart';
 import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
 import 'maps/extenstions.dart';
@@ -70,21 +69,16 @@ class LocationScreen extends StatelessWidget {
           print(await info.controller?.getZoomLevel());
         });
 
-    return ScreenContainer(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Stack(
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: GMap(info: mapInfo),
-            ),
-            locationBar(),
-            addressCard(),
-          ],
+    return Stack(
+      children: [
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: GMap(info: mapInfo),
         ),
-      ),
+        locationBar(),
+        addressCard(),
+      ],
     );
   }
 
@@ -136,7 +130,7 @@ class LocationScreen extends StatelessWidget {
           }
         }();
         return Positioned(
-          top: 20,
+          top: 50,
           left: 20,
           right: 20,
           child: Card(

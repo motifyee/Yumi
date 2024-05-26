@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/profile/data/sources/profile_source.dart';

@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
-// import 'package:yumi/features/registeration/bloc/bloc.dart';
+import 'package:yumi/global.dart';
+import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/template/dialog.dart';
 
 @RoutePage()
 class RegisterationScreen extends StatelessWidget {
@@ -11,38 +14,68 @@ class RegisterationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        var c = context.read<RegCubit>();
-        context.read<UserBloc>().add(
-              UserFromSharedRefEvent(
-                context: context,
-                route: null,
-                afterFetchSuccess: (_, __, user) {
-                  if (!c.state.registerationStarted) {
-                    c.init();
-                  }
-                },
-                autoLogin: (p0) {
-                  if (!c.state.registerationStarted) {
-                    c.init();
-                  }
-                },
-              ),
-            );
-
-        return const AutoRouter();
-        // return Scaffold(
-        //   body: Container(
-        //     padding: const EdgeInsets.all(10),
-        //     child: const Card(
-        //       shape: RoundedRectangleBorder(
-        //           borderRadius: BorderRadius.all(Radius.circular(20))),
-        //       child: AutoRouter(),
-        //     ),
-        //   ),
-        // );
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        // if (!didPop) return;
+        askToLogout(context);
       },
+      child: Builder(
+        builder: (context) {
+          var c = context.read<RegCubit>();
+          context.read<UserBloc>().add(
+                UserFromSharedRefEvent(
+                  context: context,
+                  route: null,
+                  afterFetchSuccess: (_, __, user) {
+                    if (!c.state.registerationStarted) {
+                      c.init();
+                    }
+                  },
+                  autoLogin: (p0) {
+                    if (!c.state.registerationStarted) {
+                      c.init();
+                    }
+                  },
+                ),
+              );
+
+          return Stack(
+            children: [
+              const Positioned.fill(
+                child: AutoRouter(),
+              ),
+              Positioned(
+                right: 0,
+                top: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  child: IconButton(
+                    onPressed: () => askToLogout(context),
+                    icon: SvgPicture.asset('assets/images/logout_menu.svg'),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
+}
+
+Future<void> askToLogout(BuildContext context) async {
+  await showAlertDialog(
+    context: context,
+    title: const Text('Logout'),
+    content: const Padding(
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Text('Are you sure you want to logout?'),
+    ),
+    actions: {
+      'Cancel': null,
+      'Ok': (ctx) => G.rd<RegCubit>().finish(false),
+    },
+    insetPadding: 0,
+  );
 }

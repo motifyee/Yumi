@@ -22,12 +22,6 @@ class OTPScreen extends StatelessWidget {
     return ScreenContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          bottomOpacity: 0,
-          scrolledUnderElevation: 0,
-          iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
-        ),
         body: SingleChildScrollView(
           child: Center(
             child: ConstrainedBox(
