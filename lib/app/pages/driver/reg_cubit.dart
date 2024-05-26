@@ -160,44 +160,27 @@ class RegCubit extends Cubit<NRegState> {
     if (step > 0) _navigateToIdx(step);
   }
 
-  void finish() async {
+  void finish([bool login = true]) async {
     var pref = await SharedPreferences.getInstance();
     pref.remove(regStepKey);
     pref.remove(onboardingProgressKey);
 
     final user = G.read<UserBloc>().state.user;
-    await LoginServices.login(
-        login: LoginModel(
-      email: state.singupData?.email ?? user.email,
-      password: state.singupData?.password ?? user.password ?? '',
-    )).then((user) {
-      G.read<UserBloc>().add(UserFromJsonEvent(user: user.toJson()));
+    if (login && user.email.isNotEmpty && (user.password ?? '').isNotEmpty) {
+      await LoginServices.login(
+          login: LoginModel(
+        email: state.singupData?.email ?? user.email,
+        password: state.singupData?.password ?? user.password ?? '',
+      )).then((user) {
+        G.read<UserBloc>().add(UserFromJsonEvent(user: user.toJson()));
 
-      G.context.read<UserBloc>().add(
-          UserUpdateLocationEvent(address: Address.fromJson(user.toJson())));
-    });
+        G.context.read<UserBloc>().add(
+            UserUpdateLocationEvent(address: Address.fromJson(user.toJson())));
+      });
+    }
 
     await G.router.replaceAll([HomeRoute()]).then((value) {
-      emit(state.copyWith(
-        step: 0,
-        phone: null,
-        otp: null,
-        address: const Address(isDefault: true),
-        vehicle: const Vehicle(typeCode: 0),
-        countDown: null,
-        onboardingProgress: 0,
-        registerationStarted: false,
-        finished: true,
-      ));
-
-      G.rd<ProfileCubit>().reset();
-      if (!G.isCustomerApp) {
-        G.rd<ScheduleCubit>().reset();
-        G.rd<DocsCubit>().reset();
-      }
-      if (G.isChefApp) {
-        G.read<MealListBloc>().add(MealListResetBlocEvent());
-      }
+      reset();
     });
   }
 
@@ -459,6 +442,15 @@ class RegCubit extends Cubit<NRegState> {
 
   void reset() {
     emit(const NRegState());
+
+    G.rd<ProfileCubit>().reset();
+    if (!G.isCustomerApp) {
+      G.rd<ScheduleCubit>().reset();
+      G.rd<DocsCubit>().reset();
+    }
+    if (G.isChefApp) {
+      G.read<MealListBloc>().add(MealListResetBlocEvent());
+    }
   }
 }
 
