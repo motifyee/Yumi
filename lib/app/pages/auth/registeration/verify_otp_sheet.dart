@@ -35,7 +35,6 @@ class VerifyOtpSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String otp = '';
     // final counter = context.read<CountDownCubit>();
     // if (counter.state.countDown == null) counter.startCountDown();
 
@@ -86,69 +85,83 @@ class VerifyOtpSheet extends StatelessWidget {
               // child: BlocBuilder<RegCubit, NRegState>(
               //   builder: (context, state) {
               // return
-              child: Column(
-                children: [
-                  Text(
-                    'Enter 4 digits code',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  Text(
-                    'Enter code sent to your email.',
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
-                  BlocBuilder<CountDownCubit, CountDownState>(
-                    builder: (context, state) => SizedBox(
-                      width: (state.countDown ?? 0) > 0 ? 50 : 175,
-                      child: InteractiveButton(
-                        label: (state.countDown ?? 0) > 0
-                            ? state.countDown.toString()
-                            : "Resend OTP",
-                        buttonType: ButtonType.text,
-                        foregroundColor: Theme.of(context).colorScheme.primary,
-                        onPressed: () async {
-                          final counter = context.read<CountDownCubit>();
-                          if ((counter.state.countDown ?? 0) > 0) return;
-
-                          switch (type) {
-                            case OTPType.email:
-                              return sendEmailOTP(context);
-
-                            case OTPType.mobile:
-                              return sendMobileOTP(context);
-                          }
-                        },
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Center(
-                    child: SizedBox(
-                      width: 200,
-                      child: OTP(onInput: (value, _, __) => otp = value),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  InteractiveButton(
-                      label: 'Send',
-                      onPressed: () async {
-                        switch (type) {
-                          case OTPType.email:
-                            return verifyEmailOTP(context, otp);
-
-                          case OTPType.mobile:
-                            return verifyEmailOTP(context, otp);
-                        }
-                      }),
-                  const SizedBox(height: 60),
-                ],
-                // );
-                // },
-              ),
+              child: VerifyOTPSheetContent(type: type),
             ),
           ),
         ),
       ),
       // ),
+    );
+  }
+}
+
+class VerifyOTPSheetContent extends StatelessWidget {
+  final OTPType type;
+  const VerifyOTPSheetContent({super.key, required this.type});
+
+  @override
+  Widget build(BuildContext context) {
+    String otp = '';
+
+    return Column(
+      children: [
+        Text(
+          'Enter 4 digits code',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        Text(
+          'Enter code sent to your email.',
+          style: Theme.of(context).textTheme.labelSmall,
+        ),
+        // counter
+        BlocBuilder<CountDownCubit, CountDownState>(
+          builder: (context, state) => SizedBox(
+            width: (state.countDown ?? 0) > 0 ? 50 : 175,
+            child: InteractiveButton(
+              label: (state.countDown ?? 0) > 0
+                  ? state.countDown.toString()
+                  : "Resend OTP",
+              buttonType: ButtonType.text,
+              foregroundColor: Theme.of(context).colorScheme.primary,
+              onPressed: () async {
+                final counter = context.read<CountDownCubit>();
+                if ((counter.state.countDown ?? 0) > 0) return;
+
+                switch (type) {
+                  case OTPType.email:
+                    return sendEmailOTP(context);
+
+                  case OTPType.mobile:
+                    return sendMobileOTP(context);
+                }
+              },
+            ),
+          ),
+        ),
+        const SizedBox(height: 20),
+        Center(
+          child: SizedBox(
+            width: 200,
+            child: OTP(onInput: (value, _, __) => otp = value),
+          ),
+        ),
+        const SizedBox(height: 30),
+        InteractiveButton(
+          label: 'Send',
+          onPressed: () async {
+            switch (type) {
+              case OTPType.email:
+                return verifyEmailOTP(context, otp);
+
+              case OTPType.mobile:
+                return verifyEmailOTP(context, otp);
+            }
+          },
+        ),
+        const SizedBox(height: 60),
+      ],
+      // );
+      // },
     );
   }
 }
