@@ -102,7 +102,7 @@ class _InteractiveButtonState extends State<InteractiveButton> {
 
                   setState(() => state = ButtonState.loading);
                   // await Future.delayed(const Duration(seconds: 2));
-                  await widget.onPressed!();
+                  if (widget.onPressed != null) await widget.onPressed!();
 
                   if (!mounted) return;
                   setState(() => state = ButtonState.done);
@@ -120,7 +120,7 @@ class _InteractiveButtonState extends State<InteractiveButton> {
 
                   setState(() => state = ButtonState.loading);
                   // await Future.delayed(const Duration(seconds: 2));
-                  await widget.onLongPress!();
+                  if (widget.onLongPress != null) await widget.onLongPress!();
 
                   if (!mounted) return;
                   setState(() => state = ButtonState.done);
