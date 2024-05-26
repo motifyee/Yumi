@@ -18,6 +18,7 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<NotificationCubit>().resetNotification();
     return Scaffold(
       appBar: isScreen
           ? null
@@ -55,11 +56,8 @@ class NotificationScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: ThemeSelector.statics.defaultGap),
-          BlocProvider(
-            create: (context) => NotificationCubit(),
-            child: const Expanded(
-              child: _NotificationList(),
-            ),
+          const Expanded(
+            child: _NotificationList(),
           ),
         ],
       ),

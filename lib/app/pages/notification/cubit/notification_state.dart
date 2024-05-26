@@ -3,13 +3,14 @@ part of 'notification_cubit.dart';
 @freezed
 class NotificationState with _$NotificationState {
   const factory NotificationState(
-          {required PaginationHelper<NotificationS> pagination}) =
-      _NotificationState;
+      {required PaginationHelper<NotificationS> pagination,
+      required bool isNewNotification}) = _NotificationState;
 
   factory NotificationState.initial() {
-    return NotificationState(
-        pagination:
-            const PaginationHelper<NotificationS>(data: <NotificationS>[]));
+    return const NotificationState(
+      pagination: PaginationHelper<NotificationS>(data: <NotificationS>[]),
+      isNewNotification: false,
+    );
   }
 
   factory NotificationState.fromJson(Map<String, dynamic> json) =>

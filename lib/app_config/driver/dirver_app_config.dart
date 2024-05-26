@@ -4,6 +4,7 @@ import 'package:nested/nested.dart';
 import 'package:yumi/app/pages/chef_application/documentation/bloc/icon_bloc.dart';
 import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
+import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
@@ -47,6 +48,7 @@ class DriverAppConfig implements AppConfig {
     BlocProvider(create: (context) => NavigatorBloc()),
     BlocProvider(create: (context) => AppInfoCubit()),
     BlocProvider(create: (context) => WalletCubit()),
+    BlocProvider(create: (context) => NotificationCubit()),
   ];
   @override
   List<SingleChildWidget> get blocProviders => _providers;

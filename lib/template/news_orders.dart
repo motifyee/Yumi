@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/model/order_model/order_model.dart';
@@ -14,12 +15,16 @@ class NewsOrders extends StatelessWidget {
     required this.apiKey,
     required this.orderCardTargetPage,
     this.navFun,
+    this.signalRFun,
+    this.signalRListener,
   });
 
   final MenuTarget menuTarget;
   final String apiKey;
   final OrderCardTargetPage orderCardTargetPage;
   final Function()? navFun;
+  final bool Function(dynamic)? signalRFun;
+  final List<Signals>? signalRListener;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +33,8 @@ class NewsOrders extends StatelessWidget {
       loadDate: () {
         context.read<OrderBloc>().add(OrderEvent.getRequest(apiKey: apiKey));
       },
+      signalRFun: signalRFun,
+      signalRListener: signalRListener,
       child: BlocConsumer<OrderBloc, OrderState>(
         listener: (context, state) {},
         builder: (context, state) {

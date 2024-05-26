@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
@@ -107,6 +108,17 @@ class ChefOrder extends StatelessWidget {
                   menuTarget: menuTarget,
                   apiKey: ApiKeys.preOrderChefReceived,
                   orderCardTargetPage: OrderCardTargetPage.chefPending,
+                  signalRListener: const [
+                    Signals.neworderreceived,
+                    Signals.driveraccept
+                  ],
+                  signalRFun: (p0) {
+                    print('new order from chef app .......................');
+                    print(p0);
+                    if (p0.runtimeType != List) return false;
+                    return p0.any((e) =>
+                        e['chef_ID'] == context.read<UserBloc>().state.user.id);
+                  },
                   navFun: () {
                     context
                         .read<NewsBloc>()
@@ -123,6 +135,12 @@ class ChefOrder extends StatelessWidget {
                       ? ApiKeys.orderChefReceived
                       : ApiKeys.preOrderChefAccepted,
                   orderCardTargetPage: OrderCardTargetPage.chefReceived,
+                  signalRListener: const [Signals.driveraccept],
+                  signalRFun: (p0) {
+                    if (p0.runtimeType != List) return false;
+                    return p0.any((e) =>
+                        e['chef_ID'] == context.read<UserBloc>().state.user.id);
+                  },
                   navFun: () {
                     context
                         .read<NewsBloc>()
@@ -143,6 +161,15 @@ class ChefOrder extends StatelessWidget {
                       ? ApiKeys.orderChefPreparing
                       : ApiKeys.preOrderChefPreparing,
                   orderCardTargetPage: OrderCardTargetPage.chefPreparing,
+                  signalRListener: const [
+                    Signals.chefstart,
+                    Signals.clientcancel
+                  ],
+                  signalRFun: (p0) {
+                    if (p0.runtimeType != List) return false;
+                    return p0.any((e) =>
+                        e['chef_ID'] == context.read<UserBloc>().state.user.id);
+                  },
                   navFun: () {
                     context
                         .read<NewsBloc>()
@@ -163,6 +190,12 @@ class ChefOrder extends StatelessWidget {
                       ? ApiKeys.orderChefReady
                       : ApiKeys.preOrderChefReady,
                   orderCardTargetPage: OrderCardTargetPage.chefReady,
+                  signalRListener: const [Signals.cheffinished],
+                  signalRFun: (p0) {
+                    if (p0.runtimeType != List) return false;
+                    return p0.any((e) =>
+                        e['chef_ID'] == context.read<UserBloc>().state.user.id);
+                  },
                   navFun: () {
                     context
                         .read<NewsBloc>()
@@ -179,6 +212,15 @@ class ChefOrder extends StatelessWidget {
                       ? ApiKeys.orderChefClosed
                       : ApiKeys.preOrderChefClosed,
                   orderCardTargetPage: OrderCardTargetPage.chefHistory,
+                  signalRListener: const [
+                    Signals.clientreceived,
+                    Signals.driverreceived
+                  ],
+                  signalRFun: (p0) {
+                    if (p0.runtimeType != List) return false;
+                    return p0.any((e) =>
+                        e['chef_ID'] == context.read<UserBloc>().state.user.id);
+                  },
                 ),
               ),
             ],

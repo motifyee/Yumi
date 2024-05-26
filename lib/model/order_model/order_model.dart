@@ -114,6 +114,23 @@ class OrderModel with _$OrderModel {
           .inHours >=
       3);
 
+  String get isOver3HCount => [
+        if ((3 -
+                DateTime.now()
+                    .difference(
+                        DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
+                    .inHours) >
+            0)
+          '${3 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours}h ',
+        if ((3 -
+                DateTime.now()
+                    .difference(
+                        DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
+                    .inHours) ==
+            0)
+          '${(3 * 60) - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes}m'
+      ].join(' ');
+
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
 }

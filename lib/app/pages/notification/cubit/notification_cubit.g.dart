@@ -11,10 +11,12 @@ _$NotificationStateImpl _$$NotificationStateImplFromJson(
     _$NotificationStateImpl(
       pagination: PaginationHelper<NotificationS>.fromJson(
           json['pagination'] as Map<String, dynamic>),
+      isNewNotification: json['isNewNotification'] as bool,
     );
 
 Map<String, dynamic> _$$NotificationStateImplToJson(
         _$NotificationStateImpl instance) =>
     <String, dynamic>{
       'pagination': instance.pagination,
+      'isNewNotification': instance.isNewNotification,
     };
