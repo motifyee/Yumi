@@ -9,6 +9,7 @@ abstract class CountDownState with _$CountDownState {
   const factory CountDownState({
     Unique? unique,
     int? countDown,
+    @Default('') String value,
   }) = _Initial;
 
   factory CountDownState.initial() => const CountDownState();
@@ -49,5 +50,9 @@ class CountDownCubit extends Cubit<CountDownState> {
   void stopCountDown() {
     _unique = unique();
     emit(state.copyWith(countDown: null));
+  }
+
+  void setValue(String value) {
+    emit(state.copyWith(value: value));
   }
 }

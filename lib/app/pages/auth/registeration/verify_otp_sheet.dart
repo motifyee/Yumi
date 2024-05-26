@@ -101,7 +101,7 @@ class VerifyOTPSheetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String otp = '';
+    final counter = context.read<CountDownCubit>();
 
     return Column(
       children: [
@@ -124,7 +124,6 @@ class VerifyOTPSheetContent extends StatelessWidget {
               buttonType: ButtonType.text,
               foregroundColor: Theme.of(context).colorScheme.primary,
               onPressed: () async {
-                final counter = context.read<CountDownCubit>();
                 if ((counter.state.countDown ?? 0) > 0) return;
 
                 switch (type) {
@@ -142,7 +141,9 @@ class VerifyOTPSheetContent extends StatelessWidget {
         Center(
           child: SizedBox(
             width: 200,
-            child: OTP(onInput: (value, _, __) => otp = value),
+            child: OTP(onInput: (value, _, __) {
+              counter.setValue(value);
+            }),
           ),
         ),
         const SizedBox(height: 30),
@@ -151,10 +152,10 @@ class VerifyOTPSheetContent extends StatelessWidget {
           onPressed: () async {
             switch (type) {
               case OTPType.email:
-                return verifyEmailOTP(context, otp);
+                return verifyEmailOTP(context, counter.state.value);
 
               case OTPType.mobile:
-                return verifyEmailOTP(context, otp);
+                return verifyEmailOTP(context, counter.state.value);
             }
           },
         ),

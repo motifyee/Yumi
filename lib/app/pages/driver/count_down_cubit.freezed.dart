@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CountDownState {
   Unique? get unique => throw _privateConstructorUsedError;
   int? get countDown => throw _privateConstructorUsedError;
+  String get value => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CountDownStateCopyWith<CountDownState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $CountDownStateCopyWith<$Res> {
           CountDownState value, $Res Function(CountDownState) then) =
       _$CountDownStateCopyWithImpl<$Res, CountDownState>;
   @useResult
-  $Res call({Unique? unique, int? countDown});
+  $Res call({Unique? unique, int? countDown, String value});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$CountDownStateCopyWithImpl<$Res, $Val extends CountDownState>
   $Res call({
     Object? unique = freezed,
     Object? countDown = freezed,
+    Object? value = null,
   }) {
     return _then(_value.copyWith(
       unique: freezed == unique
@@ -58,6 +60,10 @@ class _$CountDownStateCopyWithImpl<$Res, $Val extends CountDownState>
           ? _value.countDown
           : countDown // ignore: cast_nullable_to_non_nullable
               as int?,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -70,7 +76,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Unique? unique, int? countDown});
+  $Res call({Unique? unique, int? countDown, String value});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? unique = freezed,
     Object? countDown = freezed,
+    Object? value = null,
   }) {
     return _then(_$InitialImpl(
       unique: freezed == unique
@@ -96,6 +103,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.countDown
           : countDown // ignore: cast_nullable_to_non_nullable
               as int?,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -103,16 +114,20 @@ class __$$InitialImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$InitialImpl extends _Initial {
-  const _$InitialImpl({this.unique, this.countDown}) : super._();
+  const _$InitialImpl({this.unique, this.countDown, this.value = ''})
+      : super._();
 
   @override
   final Unique? unique;
   @override
   final int? countDown;
+  @override
+  @JsonKey()
+  final String value;
 
   @override
   String toString() {
-    return 'CountDownState(unique: $unique, countDown: $countDown)';
+    return 'CountDownState(unique: $unique, countDown: $countDown, value: $value)';
   }
 
   @override
@@ -122,11 +137,12 @@ class _$InitialImpl extends _Initial {
             other is _$InitialImpl &&
             (identical(other.unique, unique) || other.unique == unique) &&
             (identical(other.countDown, countDown) ||
-                other.countDown == countDown));
+                other.countDown == countDown) &&
+            (identical(other.value, value) || other.value == value));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, unique, countDown);
+  int get hashCode => Object.hash(runtimeType, unique, countDown, value);
 
   @JsonKey(ignore: true)
   @override
@@ -136,14 +152,18 @@ class _$InitialImpl extends _Initial {
 }
 
 abstract class _Initial extends CountDownState {
-  const factory _Initial({final Unique? unique, final int? countDown}) =
-      _$InitialImpl;
+  const factory _Initial(
+      {final Unique? unique,
+      final int? countDown,
+      final String value}) = _$InitialImpl;
   const _Initial._() : super._();
 
   @override
   Unique? get unique;
   @override
   int? get countDown;
+  @override
+  String get value;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
