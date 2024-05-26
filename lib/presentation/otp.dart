@@ -90,7 +90,9 @@ class _OTPState extends State<OTP> {
           if (ctrl.text.isEmpty && value.logicalKey.keyLabel == 'Backspace') {
             var i = idx > 0 ? idx - 1 : idx;
             fieldNodes[i].requestFocus();
-            selectField(i);
+            Future.delayed(const Duration(milliseconds: 100)).then(
+              (_) => selectField(i),
+            );
             return KeyEventResult.handled;
           }
           return KeyEventResult.ignored;

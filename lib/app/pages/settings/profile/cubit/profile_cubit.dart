@@ -20,8 +20,8 @@ import 'package:yumi/domain/profile/use_cases/upload_photos.dart';
 import 'package:yumi/domain/profile/use_cases/verify_add_mobile_otp.dart';
 import 'package:yumi/global.dart';
 
-part 'profile_state.dart';
 part 'profile_cubit.freezed.dart';
+part 'profile_state.dart';
 
 const String generalError = 'Something went wrong, please try again later.';
 
@@ -114,7 +114,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       (r) {
         emit(
           state.copyWith(
-            form: (profile0).copyWith(
+            form: r.copyWith(
+              mobile: r.mobile.replaceAll(RegExp(r'^' + kUKCountryCode), ''),
               entityStatus: state.form.entityStatus.copyWith(
                 status: Status.success,
                 message: 'Profile updated successfully.',
