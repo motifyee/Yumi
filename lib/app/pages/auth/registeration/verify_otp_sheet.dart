@@ -155,7 +155,7 @@ class VerifyOTPSheetContent extends StatelessWidget {
                 return verifyEmailOTP(context, counter.state.value);
 
               case OTPType.mobile:
-                return verifyEmailOTP(context, counter.state.value);
+                return verifyMobileOTP(context, counter.state.value);
             }
           },
         ),
@@ -213,7 +213,7 @@ void verifyMobileOTP(BuildContext context, String otp) async {
   await profileCubit.verifyMobileOTP(otp).then((value) {
     if (!value) return G.snackBar("Wrong OTP!");
 
-    G.snackBar("Your email was verified successfully");
+    G.snackBar("Your mobile was verified successfully");
     counter.stopCountDown(); // not to emit after close
     Navigator.of(context).pop();
   });

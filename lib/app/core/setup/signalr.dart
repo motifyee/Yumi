@@ -33,7 +33,7 @@ class Signalr {
   static void _setupSignalrConnection([bool force = false]) {
     if (!force && hubConnection != null) return;
 
-    Logger.root.level = Level.FINEST;
+    Logger.root.level = Level.OFF;
     Logger.root.onRecord.listen((LogRecord rec) {
       debugPrint('${rec.level.name}: ${rec.time}: ${rec.message}');
     });

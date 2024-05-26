@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/core/util/constants.dart';
+import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -138,12 +139,14 @@ Widget profileFormFields(
                             return G.snackBar('Something went wrong');
                           }
 
-                          // showModalBottomSheet(
-                          //   context: context,
-                          //   // isScrollControlled: true,
-                          //   // backgroundColor: Colors.transparent,
-                          //   builder: (context) => Container(),
-                          // );
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            context: G.context,
+                            builder: (context) => const VerifyOtpSheetProvider(
+                              type: OTPType.mobile,
+                            ),
+                          );
                         });
 
                         // if (state.verifiedEmail == signupForm.email) {
