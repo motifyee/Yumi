@@ -16,30 +16,39 @@ import 'package:yumi/template/menu_template.dart';
 import 'package:yumi/template/snack_bar.dart';
 
 List chefStepsInfo(BuildContext context, NRegState state) => [
+      // profile
       [
         "profile",
         ["Profile", "First, you should complete your profile"],
-        () {
+        () async {
           if (G.rd<RegCubit>().state.onboarding.approvalDone) return;
-          showModalBottomSheet(
+
+          G.rd<RegCubit>().setLoading();
+
+          await showModalBottomSheet(
             isScrollControlled: true,
             backgroundColor: Colors.transparent,
             context: context,
             builder: (context) => const EditBioSheet(),
           );
+
+          G.rd<RegCubit>().setLoading(false);
         },
         () => true,
         () => G.rd<RegCubit>().state.onboarding.profileSheetDone,
       ],
+      // your menu
       [
         "menu",
         ["Your Menu", "Secondly, add your meals on menu and schedule it"],
-        () {
+        () async {
           if (G.rd<RegCubit>().state.onboarding.approvalDone) return;
 
           G.rd<ScheduleCubit>().loadSchedule();
 
-          showAlertDialog(
+          G.rd<RegCubit>().setLoading();
+
+          await showAlertDialog(
             context: context,
             // title: Container(),
             content: const MenuTemplate(
@@ -58,34 +67,47 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
             },
             insetPadding: 0,
           );
+
+          G.rd<RegCubit>().setLoading(false);
         },
         () => state.onboarding.mealsActive,
         () => G.rd<RegCubit>().state.onboarding.mealsDone,
       ],
+      // documentation
       [
         "documentation",
         ["Documentation", "Third, attach your documents"],
         // () => G.router.push(const DocumentationRoute()),
-        () {
+        () async {
           if (G.rd<RegCubit>().state.onboarding.approvalDone) return;
 
-          showAlertDialog(
+          G.rd<RegCubit>().setLoading();
+
+          await showAlertDialog(
             context: context,
             content: const DocumentationScreen(),
             actions: {'Ok': null},
             insetPadding: 0,
           );
+
+          G.rd<RegCubit>().setLoading(false);
         },
         () => state.onboarding.docsActive,
 
         () => G.rd<RegCubit>().state.onboarding.docsDone,
       ],
+      // get approval
       [
         "approval",
         ["Get Approval", "Then, waiting for approval within 72 hours"],
         () async {
-          await context.read<ProfileCubit>().getProfileForm().then((value) {
-            showAlertDialog(
+          G.rd<RegCubit>().setLoading();
+
+          await context
+              .read<ProfileCubit>()
+              .getProfileForm()
+              .then((value) async {
+            await showAlertDialog(
               context: context,
               title: Container(),
               content: Padding(
@@ -97,49 +119,64 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
               actions: {'Ok': null},
               dismissible: true,
             );
+
+            G.rd<RegCubit>().setLoading(false);
           });
         },
         () => state.onboarding.approvalActive,
         () => G.rd<RegCubit>().state.onboarding.approvalDone,
       ],
+      // get contract
       [
         "contract",
         ["Get Contract", "Fourth, download the contract to sign and upload it"],
         // () => G.router.push(const ContractRoute()),
-        () => showAlertDialog(
-                context: context,
-                content: const ContractScreen(),
-                insetPadding: 0,
-                actions: {
-                  'Ok': (ctx) {
-                    var photo = G.rd<ProfileCubit>().state.form.contractPhoto;
-                    if (photo?.isEmpty ?? true) return;
+        () async {
+          G.rd<RegCubit>().setLoading();
 
-                    G.pop();
-                  },
-                }),
+          await showAlertDialog(
+              context: context,
+              content: const ContractScreen(),
+              insetPadding: 0,
+              actions: {
+                'Ok': (ctx) {
+                  var photo = G.rd<ProfileCubit>().state.form.contractPhoto;
+                  if (photo?.isEmpty ?? true) return;
+
+                  G.pop();
+                },
+              });
+
+          G.rd<RegCubit>().setLoading(false);
+        },
         () => state.onboarding.contractActive,
         () => G.rd<RegCubit>().state.onboarding.contractDone,
       ],
+      // contract approval
       [
         "approval",
         ["Contract Approval", "Finally, waiting for approval within 72 hours"],
         // () => G.router.push(const ContractRoute()),
-        () async =>
-            await context.read<ProfileCubit>().getProfileForm().then((value) {
-              showAlertDialog(
-                context: context,
-                title: Container(),
-                content: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(!state.onboarding.contractApprovalDone
-                      ? "Waiting for approval within 72 hours..."
-                      : "Your Contract has been approved"),
-                ),
-                actions: {'Ok': null},
-                dismissible: true,
-              );
-            }),
+        () async {
+          G.rd<RegCubit>().setLoading();
+
+          await context.read<ProfileCubit>().getProfileForm().then((value) {
+            showAlertDialog(
+              context: context,
+              title: Container(),
+              content: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(!state.onboarding.contractApprovalDone
+                    ? "Waiting for approval within 72 hours..."
+                    : "Your Contract has been approved"),
+              ),
+              actions: {'Ok': null},
+              dismissible: true,
+            );
+          });
+
+          G.rd<RegCubit>().setLoading(false);
+        },
         () => state.onboarding.contractApprovalActive,
         () => G.rd<RegCubit>().state.onboarding.contractApprovalDone,
       ],
@@ -147,17 +184,20 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
 
 List driverStepsInfo(BuildContext context, NRegState state) => [
       chefStepsInfo(context, state)[0],
+      // rides
       [
         "rides",
         [
           "Your Rides",
           "Secondly, add your vechile type and schedule your working days"
         ],
-        () {
+        () async {
           if (G.rd<RegCubit>().state.onboarding.approvalDone) return;
 
+          G.rd<RegCubit>().setLoading();
+
           G.rd<ScheduleCubit>().loadSchedule();
-          showAlertDialog(
+          await showAlertDialog(
             context: context,
             content: const RidesScreen(),
             actions: {
@@ -197,6 +237,8 @@ List driverStepsInfo(BuildContext context, NRegState state) => [
             },
             insetPadding: 0,
           );
+
+          G.rd<RegCubit>().setLoading(false);
         },
         () => state.onboarding.ridesActive,
         () => G.rd<RegCubit>().state.onboarding.ridesDone,

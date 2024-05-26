@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
@@ -11,6 +9,7 @@ import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/chef_application/flow_step_info.dart';
 import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
+import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/template/screen_container.dart';
 
@@ -171,6 +170,26 @@ Widget stepStack(BuildContext context, NRegState state) {
           step(3, 3.8, 3.15, alignRight: true),
           step(4, 4.8, 4.15, alignRight: true),
           step(5, 5.8, 5.15, alignRight: true),
+          if (state.status.isLoading)
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.white.withOpacity(.4),
+                      Colors.white.withOpacity(.2),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+                child: const SizedBox(
+                  child: Center(
+                    child: CircularProgressIndicator(color: Colors.amber),
+                  ),
+                ),
+              ),
+            ),
         ],
       );
     },
