@@ -3,13 +3,13 @@ import 'package:flutter/services.dart';
 
 final List<GlobalKey> keys = [0, 1, 2, 3].map((e) => GlobalKey()).toList();
 
-class OTP extends StatelessWidget {
+class OTP extends StatefulWidget {
   final void Function(String input, String otp, int idx)? onInput;
   final void Function(Object?)? onSaved;
   final void Function(String)? onLastFilled;
   final String? initialOTP;
 
-  OTP({
+  const OTP({
     super.key,
     this.onInput,
     this.onSaved,
@@ -17,20 +17,35 @@ class OTP extends StatelessWidget {
     this.initialOTP,
   });
 
+  @override
+  State<OTP> createState() => _OTPState();
+}
+
+class _OTPState extends State<OTP> {
   final List<FocusNode> fieldNodes =
       [0, 1, 2, 3].map((e) => FocusNode()).toList();
+
   final List<TextEditingController> controllers =
       [0, 1, 2, 3].map((e) => TextEditingController()).toList();
 
   int get focused => fieldNodes.indexWhere((element) => element.hasFocus);
 
+  List<String> otp = [0, 1, 2, 3].map((e) => '').toList();
+
+  @override
+  void initState() {
+    super.initState();
+
+    final init = widget.initialOTP?.padRight(4, '0');
+    setState(() {
+      otp = init?.split('') ?? List.filled(4, "");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final init = initialOTP?.padRight(4, '0');
-    List<String> otp = init?.split('') ?? List.filled(4, "");
-
     return FormField(
-        onSaved: onSaved,
+        onSaved: widget.onSaved,
         builder: (state) {
           return Form(
             child: Row(
@@ -51,11 +66,22 @@ class OTP extends StatelessWidget {
     var ctrl = controllers[idx];
     ctrl.text = otp[idx].length == 1 ? otp[idx] : '';
 
+    void selectField(int idx) {
+      controllers[idx].value = controllers[idx].value.copyWith(
+              selection: TextSelection(
+            baseOffset: 0,
+            extentOffset: controllers[idx].text.length,
+          ));
+    }
+
     return SizedBox(
       height: 68,
       width: 34,
       child: Focus(
         skipTraversal: true,
+        onFocusChange: (isFocused) {
+          if (isFocused) selectField(idx);
+        },
         onKeyEvent: (node, value) {
           // print('${value.logicalKey.keyLabel} == ${value.character} @$idx\n');
           if (!fieldNode.hasFocus) return KeyEventResult.ignored;
@@ -64,6 +90,7 @@ class OTP extends StatelessWidget {
           if (ctrl.text.isEmpty && value.logicalKey.keyLabel == 'Backspace') {
             var i = idx > 0 ? idx - 1 : idx;
             fieldNodes[i].requestFocus();
+            selectField(i);
             return KeyEventResult.handled;
           }
           return KeyEventResult.ignored;
@@ -75,7 +102,7 @@ class OTP extends StatelessWidget {
           decoration: const InputDecoration(),
           style: Theme.of(context).textTheme.headlineLarge,
           textAlign: TextAlign.center,
-          maxLength: 1,
+          // maxLength: 1,
           autofocus: true,
           autocorrect: false,
           enableSuggestions: false,
@@ -89,7 +116,9 @@ class OTP extends StatelessWidget {
           ],
           onChanged: (value) {
             if (value.isEmpty && value == otp[idx]) return;
-            otp[idx] = value;
+            setState(() {
+              otp[idx] = value;
+            });
             // FocusScope.of(context).nextFocus();
             var i = idx < 3 ? idx + 1 : idx;
             if (value.isNotEmpty && i != idx) {
@@ -99,24 +128,19 @@ class OTP extends StatelessWidget {
                       baseOffset: 0, extentOffset: controllers[i].text.length));
             }
 
-            if (onLastFilled != null &&
+            if (widget.onLastFilled != null &&
                 i == idx &&
                 value.isNotEmpty &&
                 otp.every((e) => e.isNotEmpty)) {
-              onLastFilled!(otp.join());
+              widget.onLastFilled!(otp.join());
             }
 
-            if (onInput != null) {
-              onInput!(otp.where((e) => e.isNotEmpty).join(), value, idx);
+            if (widget.onInput != null) {
+              widget.onInput!(
+                  otp.where((e) => e.isNotEmpty).join(), value, idx);
             }
           },
-          onTap: () {
-            ctrl.value = ctrl.value.copyWith(
-                selection: TextSelection(
-              baseOffset: 0,
-              extentOffset: ctrl.text.length,
-            ));
-          },
+          onTap: () => selectField(idx),
         ),
       ),
     );
