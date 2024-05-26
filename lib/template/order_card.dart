@@ -576,9 +576,19 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       ),
                                     );
                               },
-                              child: Text(
-                                S.of(context).accept,
-                                style: Theme.of(context).textTheme.bodyMedium,
+                              child: Row(
+                                children: [
+                                  TimerCount(
+                                    menuTarget: widget.menuTarget,
+                                    order: widget.order,
+                                    isOver3hCount: true,
+                                  ),
+                                  Text(
+                                    S.of(context).accept,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ],
                               ),
                             ),
 
@@ -980,10 +990,14 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
 }
 
 class TimerCount extends StatefulWidget {
-  TimerCount({super.key, required this.menuTarget, required this.order});
-  final order;
+  TimerCount(
+      {super.key,
+      required this.menuTarget,
+      required this.order,
+      this.isOver3hCount = false});
+  final OrderModel order;
   final MenuTarget menuTarget;
-
+  final bool isOver3hCount;
   late Timer timer;
 
   @override
@@ -1009,8 +1023,13 @@ class _TimerCountState extends State<TimerCount> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(widget.menuTarget == MenuTarget.order
-        ? widget.order.driverOrderPendingCount
-        : widget.order.driverPreOrderPendingCount);
+    return Text(
+      widget.isOver3hCount
+          ? widget.order.isOver3HCount
+          : widget.menuTarget == MenuTarget.order
+              ? widget.order.driverOrderPendingCount
+              : widget.order.driverPreOrderPendingCount,
+      style: Theme.of(context).textTheme.bodyMedium,
+    );
   }
 }
