@@ -72,6 +72,21 @@ class OTP extends StatelessWidget {
           key: keys[idx],
           focusNode: fieldNode,
           controller: ctrl,
+          decoration: const InputDecoration(),
+          style: Theme.of(context).textTheme.headlineLarge,
+          textAlign: TextAlign.center,
+          maxLength: 1,
+          autofocus: true,
+          autocorrect: false,
+          enableSuggestions: false,
+          textInputAction: TextInputAction.next,
+          maxLines: 1,
+          maxLengthEnforcement: MaxLengthEnforcement.enforced,
+          keyboardType: TextInputType.number,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(1),
+            FilteringTextInputFormatter.digitsOnly,
+          ],
           onChanged: (value) {
             if (value.isEmpty && value == otp[idx]) return;
             otp[idx] = value;
@@ -92,23 +107,16 @@ class OTP extends StatelessWidget {
             }
 
             if (onInput != null) {
-              onInput!(otp.where((e) => e != null).join(), value, idx);
+              onInput!(otp.where((e) => e.isNotEmpty).join(), value, idx);
             }
           },
-          onTap: () => ctrl.value = ctrl.value.copyWith(
-              selection: TextSelection(
-            baseOffset: 0,
-            extentOffset: ctrl.text.length,
-          )),
-          decoration: const InputDecoration(),
-          keyboardType: TextInputType.number,
-          style: Theme.of(context).textTheme.headlineLarge,
-          // .copyWith(color: focusNode.hasFocus ? Colors.red : Colors.black),
-          textAlign: TextAlign.center,
-          inputFormatters: [
-            LengthLimitingTextInputFormatter(1),
-            FilteringTextInputFormatter.digitsOnly,
-          ],
+          onTap: () {
+            ctrl.value = ctrl.value.copyWith(
+                selection: TextSelection(
+              baseOffset: 0,
+              extentOffset: ctrl.text.length,
+            ));
+          },
         ),
       ),
     );
