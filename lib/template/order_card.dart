@@ -42,8 +42,6 @@ class OrderCard extends StatefulWidget {
 }
 
 class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
-  Timer? timer;
-
   getOrderForView() {
     OrderService.getOrderOrPreOrderDriverById(
             apiKeys: ApiKeys.orderDriverAvailableById,
@@ -65,13 +63,6 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
   }
 
   @override
-  void dispose() {
-    if (timer != null) timer!.cancel();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     DateTime? updatedDate = DateTime.tryParse(widget.order.updatedDate ?? '');
     DateTime? scheduleDate = DateTime.tryParse(widget.order.scheduleDate ?? '');
@@ -90,12 +81,6 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
           widget.order.isDriverPreOrderPendingEnd) {
         return const SizedBox(height: 0, width: 0);
       }
-
-      /// TODO: worst thing ever X(
-      /// this is for time count
-      timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-        setState(() {});
-      });
     }
 
     if (widget.orderCardTargetPage == OrderCardTargetPage.chefPending &&
@@ -683,9 +668,9 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               OrderCardTargetPage.driverAccept)
                             Row(
                               children: [
-                                Text(widget.menuTarget == MenuTarget.order
-                                    ? widget.order.driverOrderPendingCount
-                                    : widget.order.driverPreOrderPendingCount),
+                                TimerCount(
+                                    menuTarget: widget.menuTarget,
+                                    order: widget.order),
                                 TextButton(
                                   onPressed: () {
                                     context.read<OrderBloc>().add(
@@ -991,5 +976,41 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
               )),
       ],
     );
+  }
+}
+
+class TimerCount extends StatefulWidget {
+  TimerCount({super.key, required this.menuTarget, required this.order});
+  final order;
+  final MenuTarget menuTarget;
+
+  late Timer timer;
+
+  @override
+  State<TimerCount> createState() => _TimerCountState();
+}
+
+class _TimerCountState extends State<TimerCount> {
+  @override
+  void initState() {
+    /// TODO: worst thing ever X(
+    /// this is for time count
+    widget.timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(widget.menuTarget == MenuTarget.order
+        ? widget.order.driverOrderPendingCount
+        : widget.order.driverPreOrderPendingCount);
   }
 }
