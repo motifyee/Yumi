@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/service/order_service.dart';
@@ -45,7 +46,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
       add(
         OrderEvent.update(
-          orders: data,
+          orders: [...state.orders, ...data].unique(),
           paginationHelper: state.paginationHelper.copyWith(
             pageNumber: res.data['pagination']['page'],
             lastPage: res.data['pagination']['pages'],
