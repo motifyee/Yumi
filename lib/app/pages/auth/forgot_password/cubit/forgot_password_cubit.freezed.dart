@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$ForgotPasswordState {
+mixin _$ForgotPwdState {
   bool get isLoading => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
@@ -33,15 +33,15 @@ mixin _$ForgotPasswordState {
   int? get countDown => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ForgotPasswordStateCopyWith<ForgotPwdState> get copyWith =>
+  $ForgotPwdStateCopyWith<ForgotPwdState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ForgotPasswordStateCopyWith<$Res> {
-  factory $ForgotPasswordStateCopyWith(
+abstract class $ForgotPwdStateCopyWith<$Res> {
+  factory $ForgotPwdStateCopyWith(
           ForgotPwdState value, $Res Function(ForgotPwdState) then) =
-      _$ForgotPasswordStateCopyWithImpl<$Res, ForgotPwdState>;
+      _$ForgotPwdStateCopyWithImpl<$Res, ForgotPwdState>;
   @useResult
   $Res call(
       {bool isLoading,
@@ -61,9 +61,9 @@ abstract class $ForgotPasswordStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ForgotPasswordStateCopyWithImpl<$Res, $Val extends ForgotPwdState>
-    implements $ForgotPasswordStateCopyWith<$Res> {
-  _$ForgotPasswordStateCopyWithImpl(this._value, this._then);
+class _$ForgotPwdStateCopyWithImpl<$Res, $Val extends ForgotPwdState>
+    implements $ForgotPwdStateCopyWith<$Res> {
+  _$ForgotPwdStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -151,7 +151,7 @@ class _$ForgotPasswordStateCopyWithImpl<$Res, $Val extends ForgotPwdState>
 
 /// @nodoc
 abstract class _$$InitialImplCopyWith<$Res>
-    implements $ForgotPasswordStateCopyWith<$Res> {
+    implements $ForgotPwdStateCopyWith<$Res> {
   factory _$$InitialImplCopyWith(
           _$InitialImpl value, $Res Function(_$InitialImpl) then) =
       __$$InitialImplCopyWithImpl<$Res>;
@@ -176,7 +176,7 @@ abstract class _$$InitialImplCopyWith<$Res>
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$ForgotPasswordStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$ForgotPwdStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -328,7 +328,7 @@ class _$InitialImpl extends Initial {
 
   @override
   String toString() {
-    return 'ForgotPasswordState(isLoading: $isLoading, email: $email, error: $error, success: $success, emailSent: $emailSent, emailFound: $emailFound, otpCode: $otpCode, codeSent: $codeSent, codeVerified: $codeVerified, newPassword: $newPassword, passwordUpdated: $passwordUpdated, window: $window, initialCountDownTime: $initialCountDownTime, countDown: $countDown)';
+    return 'ForgotPwdState(isLoading: $isLoading, email: $email, error: $error, success: $success, emailSent: $emailSent, emailFound: $emailFound, otpCode: $otpCode, codeSent: $codeSent, codeVerified: $codeVerified, newPassword: $newPassword, passwordUpdated: $passwordUpdated, window: $window, initialCountDownTime: $initialCountDownTime, countDown: $countDown)';
   }
 
   @override

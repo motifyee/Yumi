@@ -7,7 +7,7 @@ enum ForgotPwdWindow {
 }
 
 @freezed
-class ForgotPwdState with _$ForgotPasswordState {
+class ForgotPwdState with _$ForgotPwdState {
   // const factory ForgotPasswordState.initial() = _Initial;
 
   const factory ForgotPwdState({

@@ -470,7 +470,7 @@ class _$InteractiveButtonStyleImpl implements _InteractiveButtonStyle {
                 other.elevation == elevation) &&
             (identical(other.textStyle, textStyle) ||
                 other.textStyle == textStyle) &&
-            const DeepCollectionEquality().equals(other.padding, padding) &&
+            (identical(other.padding, padding) || other.padding == padding) &&
             (identical(other.minimumSize, minimumSize) ||
                 other.minimumSize == minimumSize) &&
             (identical(other.fixedSize, fixedSize) ||
@@ -491,7 +491,8 @@ class _$InteractiveButtonStyleImpl implements _InteractiveButtonStyle {
                 other.animationDuration == animationDuration) &&
             (identical(other.enableFeedback, enableFeedback) ||
                 other.enableFeedback == enableFeedback) &&
-            const DeepCollectionEquality().equals(other.alignment, alignment) &&
+            (identical(other.alignment, alignment) ||
+                other.alignment == alignment) &&
             (identical(other.splashFactory, splashFactory) ||
                 other.splashFactory == splashFactory));
   }
@@ -507,7 +508,7 @@ class _$InteractiveButtonStyleImpl implements _InteractiveButtonStyle {
         surfaceTintColor,
         elevation,
         textStyle,
-        const DeepCollectionEquality().hash(padding),
+        padding,
         minimumSize,
         fixedSize,
         maximumSize,
@@ -519,7 +520,7 @@ class _$InteractiveButtonStyleImpl implements _InteractiveButtonStyle {
         tapTargetSize,
         animationDuration,
         enableFeedback,
-        const DeepCollectionEquality().hash(alignment),
+        alignment,
         splashFactory
       ]);
 
