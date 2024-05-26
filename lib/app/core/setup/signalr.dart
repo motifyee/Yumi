@@ -21,6 +21,8 @@ enum Signals {
   cheffinished,
   driverreceived,
   clientreceived,
+  clientcancel,
+  clientwait,
   notification,
   start,
   stop,
@@ -39,7 +41,7 @@ class Signalr {
   static void _setupSignalrConnection([bool force = false]) {
     if (!force && hubConnection != null) return;
 
-    Logger.root.level = Level.OFF;
+    Logger.root.level = Level.FINEST;
     Logger.root.onRecord.listen((LogRecord rec) {
       debugPrint('${rec.level.name}: ${rec.time}: ${rec.message}');
     });

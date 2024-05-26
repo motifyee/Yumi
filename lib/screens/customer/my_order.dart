@@ -1,7 +1,9 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/model/order_model/order_model.dart';
@@ -105,6 +107,20 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   menuTarget: MenuTarget.order,
                   apiKey: ApiKeys.orderCustomerActive,
                   orderCardTargetPage: OrderCardTargetPage.customerOrders,
+                  signalRListener: const [
+                    Signals.driveraccept,
+                    Signals.chefaccept,
+                    Signals.chefstart,
+                    Signals.cheffinished,
+                    Signals.driverreceived,
+                    Signals.clientreceived,
+                  ],
+                  signalRFun: (p0) {
+                    if (p0.runtimeType != List) return false;
+                    return p0.any((e) =>
+                        e['buddiesId'] ==
+                        context.read<UserBloc>().state.user.id);
+                  },
                 ),
               ),
               BlocProvider(
@@ -113,6 +129,15 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   menuTarget: MenuTarget.order,
                   apiKey: ApiKeys.orderCustomerClosed,
                   orderCardTargetPage: OrderCardTargetPage.customerHistory,
+                  signalRListener: const [
+                    Signals.clientreceived,
+                  ],
+                  signalRFun: (p0) {
+                    if (p0.runtimeType != List) return false;
+                    return p0.any((e) =>
+                        e['buddiesId'] ==
+                        context.read<UserBloc>().state.user.id);
+                  },
                 ),
               ),
               BlocProvider(
@@ -121,6 +146,20 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   menuTarget: MenuTarget.preOrder,
                   apiKey: ApiKeys.preOrderCustomerActive,
                   orderCardTargetPage: OrderCardTargetPage.customerPreOrders,
+                  signalRListener: const [
+                    Signals.driveraccept,
+                    Signals.chefaccept,
+                    Signals.chefstart,
+                    Signals.cheffinished,
+                    Signals.driverreceived,
+                    Signals.clientreceived,
+                  ],
+                  signalRFun: (p0) {
+                    if (p0.runtimeType != List) return false;
+                    return p0.any((e) =>
+                        e['buddiesId'] ==
+                        context.read<UserBloc>().state.user.id);
+                  },
                 ),
               ),
               BlocProvider(
@@ -129,6 +168,15 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   menuTarget: MenuTarget.preOrder,
                   apiKey: ApiKeys.preOrderCustomerClosed,
                   orderCardTargetPage: OrderCardTargetPage.customerHistory,
+                  signalRListener: const [
+                    Signals.clientreceived,
+                  ],
+                  signalRFun: (p0) {
+                    if (p0.runtimeType != List) return false;
+                    return p0.any((e) =>
+                        e['buddiesId'] ==
+                        context.read<UserBloc>().state.user.id);
+                  },
                 ),
               ),
             ],

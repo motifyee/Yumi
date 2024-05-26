@@ -108,7 +108,10 @@ class ChefOrder extends StatelessWidget {
                   menuTarget: menuTarget,
                   apiKey: ApiKeys.preOrderChefReceived,
                   orderCardTargetPage: OrderCardTargetPage.chefPending,
-                  signalRListener: const [Signals.neworderreceived],
+                  signalRListener: const [
+                    Signals.neworderreceived,
+                    Signals.driveraccept
+                  ],
                   signalRFun: (p0) {
                     if (p0.runtimeType != List) return false;
                     return p0.any((e) =>
@@ -156,7 +159,10 @@ class ChefOrder extends StatelessWidget {
                       ? ApiKeys.orderChefPreparing
                       : ApiKeys.preOrderChefPreparing,
                   orderCardTargetPage: OrderCardTargetPage.chefPreparing,
-                  signalRListener: const [Signals.chefstart],
+                  signalRListener: const [
+                    Signals.chefstart,
+                    Signals.clientcancel
+                  ],
                   signalRFun: (p0) {
                     if (p0.runtimeType != List) return false;
                     return p0.any((e) =>

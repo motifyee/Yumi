@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/model/order_model/order_model.dart';
@@ -94,6 +96,14 @@ class DriverOrderScreen extends StatelessWidget {
                         ? ApiKeys.orderDriverAvailable
                         : ApiKeys.preOrderDriverAvailable,
                     orderCardTargetPage: OrderCardTargetPage.driverAccept,
+                    signalRListener: const [Signals.neworderreceived],
+                    signalRFun: (p0) {
+                      if (p0.runtimeType != List) return false;
+                      // return p0.any((e) =>
+                      //     e['driver_ID'] ==
+                      //     context.read<UserBloc>().state.user.id);
+                      return true;
+                    },
                   ),
                 ),
                 BlocProvider(
@@ -104,6 +114,18 @@ class DriverOrderScreen extends StatelessWidget {
                         ? ApiKeys.orderDriverActive
                         : ApiKeys.preOrderDriverActive,
                     orderCardTargetPage: OrderCardTargetPage.driverReceived,
+                    signalRListener: const [
+                      Signals.chefstart,
+                      Signals.cheffinished,
+                      Signals.driverreceived,
+                      Signals.clientreceived,
+                    ],
+                    signalRFun: (p0) {
+                      if (p0.runtimeType != List) return false;
+                      return p0.any((e) =>
+                          e['driver_ID'] ==
+                          context.read<UserBloc>().state.user.id);
+                    },
                   ),
                 ),
               ],
