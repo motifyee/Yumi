@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_info.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
@@ -86,7 +88,34 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
           await showAlertDialog(
             context: context,
             content: const DocumentationScreen(),
-            actions: {'Ok': null},
+            actions: {
+              'Ok': (context) {
+                final List<DocInfo> docsInfo =
+                    G.isChefApp ? chefDocsInfo : driverDocsInfo;
+
+                final List<String> notUploadedDocs = docsInfo
+                    .filter((t) =>
+                        t.getdata(G.rd<ProfileCubit>().state.form) == null)
+                    .map((e) => e.title as String)
+                    .toList();
+
+                if (notUploadedDocs.isEmpty) return G.pop();
+
+                showAlertDialog(
+                  context: context,
+                  actions: {'Ok': null},
+                  content: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 16.0,
+                    ),
+                    child: Text(
+                      'You have not uploaded the following documents: \n\n${notUploadedDocs.join('\n')}',
+                    ),
+                  ),
+                );
+              }
+            },
             insetPadding: 0,
           );
 

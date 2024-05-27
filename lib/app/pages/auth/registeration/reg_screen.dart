@@ -22,19 +22,19 @@ class RegisterationScreen extends StatelessWidget {
       },
       child: Builder(
         builder: (context) {
-          var c = context.read<RegCubit>();
+          var regCubit = context.read<RegCubit>();
           context.read<UserBloc>().add(
                 UserFromSharedRefEvent(
                   context: context,
                   route: null,
                   afterFetchSuccess: (_, __, user) {
-                    if (!c.state.registerationStarted) {
-                      c.init();
+                    if (!regCubit.state.registerationStarted) {
+                      regCubit.init();
                     }
                   },
                   autoLogin: (p0) {
-                    if (!c.state.registerationStarted) {
-                      c.init();
+                    if (!regCubit.state.registerationStarted) {
+                      regCubit.init();
                     }
                   },
                 ),

@@ -46,7 +46,6 @@ class ChefApplicationFlowScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
-                      // decoration: BoxDecoration(border: Border.all()),
                       height: 250,
                       alignment: Alignment.topLeft,
                       child: Image(
@@ -66,9 +65,6 @@ class ChefApplicationFlowScreen extends StatelessWidget {
               child: Container(
                 margin:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                // padding: const EdgeInsets.all(10),
-                // height: 350,
-                // decoration: BoxDecoration(border: Border.all()),
                 child: Center(
                   child: BlocBuilder<RegCubit, NRegState>(
                     builder: (context, state) => stepStack(context, state),

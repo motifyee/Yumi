@@ -32,12 +32,6 @@ class DocumentationScreen extends StatelessWidget {
     return ScreenContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          bottomOpacity: 0,
-          scrolledUnderElevation: 0,
-          iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
-        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -84,12 +78,12 @@ class DocumentationScreen extends StatelessWidget {
     );
   }
 
-  List get data => G.isChefApp ? chefDocsInfo : driverDocsInfo;
+  List<DocInfo> get data => G.isChefApp ? chefDocsInfo : driverDocsInfo;
 
   Widget documentWidgets(
       BuildContext context, DocsState state, Profile profile) {
-    Future<String?> Function()? preAction(dynamic e) {
-      if (e['targets'] == null) return null;
+    Future<String?> Function()? preAction(DocInfo e) {
+      if (e.targets == null) return null;
 
       return () => showDialog(
             context: context,
@@ -113,19 +107,21 @@ class DocumentationScreen extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      children: (e['targets'] as List)
+                      children: e.targets!
                           .map((e) => TextButton(
                                 onPressed: () =>
-                                    Navigator.pop(context, e['option']),
+                                    Navigator.pop(context, e.option),
                                 child: Container(
                                   width: double.infinity,
                                   alignment: Alignment.center,
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 20),
-                                  child: Text(e['option'],
-                                      style: TextStyle(
-                                        color: ThemeSelector.colors.primary,
-                                      )),
+                                  child: Text(
+                                    e.option,
+                                    style: TextStyle(
+                                      color: ThemeSelector.colors.primary,
+                                    ),
+                                  ),
                                 ),
                               ))
                           .toList(),
@@ -140,33 +136,31 @@ class DocumentationScreen extends StatelessWidget {
     var children = data
         .mapIndexed(
           (i, e) => documentWidget(
-            hexBg: e['color'],
+            context: context,
+            hexBg: e.color,
             positionedIdx: i,
-            title: e['title'],
+            title: e.title,
             data: () {
-              if (e['getdata'] == null) return null;
-
-              var res = e['getdata'](profile);
+              var res = e.getdata(profile);
               return res;
             }(),
-            desc: e['desc'],
+            desc: e.desc,
             loading: state.docsStatuses[i]?.isLoading ?? false,
             enabled: !state.isUploading,
             preAction: preAction(e),
             uploadAction: (String image, String? target) {
-              if (target == null) {
-                G.rd<DocsCubit>().update(e['update'](profile, image), 0);
-              } else {
-                var updater = (e['targets'] as List)
-                    .firstWhereOrNull((e) => e['option'] == target)['update'];
-
-                G.rd<DocsCubit>().update(updater(profile, image), 0);
+              if (e.update != null) {
+                return G.rd<DocsCubit>().update(e.update!(profile, image), 0);
               }
 
-              // if(data[0]['targets'] != null)
-              // context.read<DocsBloc>().add(UploadHygieneEvent(value));
+              var updater = e.targets!
+                  .firstWhereOrNull((e) => e.option == target)
+                  ?.update;
+
+              if (updater == null) return;
+
+              G.rd<DocsCubit>().update(updater(profile, image), 0);
             },
-            // targets: data[0]['targets'],
           ),
         )
         .toList();
@@ -253,6 +247,7 @@ Future<String> _createFileFromString(String data, String? fileName) async {
 }
 
 Widget documentWidget({
+  BuildContext? context,
   String? hexBg,
   int? positionedIdx,
   String? title,
@@ -321,7 +316,10 @@ Widget documentWidget({
 
             uploadAction(encoded, target);
 
-            // G.rd<RegCubit>().refresh();
+            if (context?.mounted ?? false) {
+              // ignore: use_build_context_synchronously
+              G.showToast("Uploaded $title", context: context);
+            }
           });
         }
 
@@ -332,7 +330,11 @@ Widget documentWidget({
         var encoded =
             'data:${lookupMimeType(image.path)};base64,${base64Encode(await image.readAsBytes())}';
         uploadAction(encoded, null);
-        // G.rd<RegCubit>().refresh();
+
+        if (context?.mounted ?? false) {
+          // ignore: use_build_context_synchronously
+          G.showToast("Uploaded $title", context: context);
+        }
       },
       child: const Text("Upload"),
     ),
