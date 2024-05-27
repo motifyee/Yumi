@@ -98,7 +98,7 @@ class WalletScreen extends StatelessWidget {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        context.router.push(PaymentVisaRoute());
+                                        context.router.push(const PaymentVisaRoute());
                                       },
                                       child: Column(
                                         children: [

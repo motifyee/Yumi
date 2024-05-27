@@ -260,7 +260,7 @@ ButtonStyle _copyStyle(InteractiveButtonStyle? style) {
 }
 
 @immutable
-class ElevatedButtonDefaultColor extends MaterialStateProperty<Color?>
+class ElevatedButtonDefaultColor extends WidgetStateProperty<Color?>
     with Diagnosticable {
   ElevatedButtonDefaultColor(this.color, this.disabled);
 
@@ -268,8 +268,8 @@ class ElevatedButtonDefaultColor extends MaterialStateProperty<Color?>
   final Color? disabled;
 
   @override
-  Color? resolve(Set<MaterialState> states) {
-    if (states.contains(MaterialState.disabled)) {
+  Color? resolve(Set<WidgetState> states) {
+    if (states.contains(WidgetState.disabled)) {
       return disabled;
     }
     return color;

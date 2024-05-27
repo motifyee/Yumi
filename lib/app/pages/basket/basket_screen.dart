@@ -41,7 +41,7 @@ class BasketScreen extends StatelessWidget {
   void checkExpiredBasket(
       {required BuildContext context, required Basket basket}) {
     if (basket.invoice.isBasketExpired && !isBasketDeleting) {
-      Timer(Duration(milliseconds: 300), () {
+      Timer(const Duration(milliseconds: 300), () {
         isBasketDeleting = true;
         showDialog(
           context: context,

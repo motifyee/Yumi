@@ -75,7 +75,7 @@ class CheckOutScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             _option = PaymentOption.visa;
-                            context.router.push(PaymentVisaRoute());
+                            context.router.push(const PaymentVisaRoute());
                           },
                           child: Padding(
                             padding: EdgeInsets.symmetric(

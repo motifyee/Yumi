@@ -157,7 +157,7 @@ class _AppMenuList {
           },
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(WalletRoute());
+            context.router.push(const WalletRoute());
           },
         ),
         AppMenuItem(
@@ -276,7 +276,7 @@ class _AppMenuList {
           },
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(WalletRoute());
+            context.router.push(const WalletRoute());
           },
         ),
         AppMenuItem(
@@ -351,7 +351,7 @@ class _AppMenuList {
           },
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(WalletRoute());
+            context.router.push(const WalletRoute());
           },
         ),
         AppMenuItem(

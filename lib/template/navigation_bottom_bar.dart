@@ -59,7 +59,7 @@ class NavigationBottomBar extends StatelessWidget {
               surfaceTintColor: Colors.transparent,
               shadowColor: Colors.transparent,
               indicatorColor: Colors.transparent,
-              overlayColor: MaterialStateProperty.resolveWith(
+              overlayColor: WidgetStateProperty.resolveWith(
                 (states) => Colors.transparent,
               ),
               animationDuration: ThemeSelector.statics.animationDuration,

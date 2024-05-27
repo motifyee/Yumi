@@ -13,8 +13,6 @@ ThemeData defaultTheme = ThemeData(
     onSecondary: ThemeSelector.colors.onSecondary,
     error: ThemeSelector.colors.primary,
     onError: ThemeSelector.colors.onPrimary,
-    background: ThemeSelector.colors.background,
-    onBackground: ThemeSelector.colors.primary,
     surface: ThemeSelector.colors.onPrimary,
     onSurface: ThemeSelector.colors.secondary,
     inverseSurface: ThemeSelector.colors.primary,
@@ -106,12 +104,12 @@ final timePickerTheme = TimePickerThemeData(
     borderRadius: BorderRadius.all(Radius.circular(8)),
     side: BorderSide(color: Colors.orange, width: 4),
   ),
-  hourMinuteColor: MaterialStateColor.resolveWith((states) =>
-      states.contains(MaterialState.selected)
+  hourMinuteColor: WidgetStateColor.resolveWith((states) =>
+      states.contains(WidgetState.selected)
           ? Colors.orange
           : Colors.blueGrey.shade800),
-  hourMinuteTextColor: MaterialStateColor.resolveWith((states) =>
-      states.contains(MaterialState.selected) ? Colors.white : Colors.orange),
+  hourMinuteTextColor: WidgetStateColor.resolveWith((states) =>
+      states.contains(WidgetState.selected) ? Colors.white : Colors.orange),
   dialHandColor: Colors.blueGrey.shade700,
   dialBackgroundColor: Colors.blueGrey.shade800,
   hourMinuteTextStyle:
@@ -124,7 +122,7 @@ final timePickerTheme = TimePickerThemeData(
     border: InputBorder.none,
     contentPadding: EdgeInsets.all(0),
   ),
-  dialTextColor: MaterialStateColor.resolveWith((states) =>
-      states.contains(MaterialState.selected) ? Colors.orange : Colors.white),
+  dialTextColor: WidgetStateColor.resolveWith((states) =>
+      states.contains(WidgetState.selected) ? Colors.orange : Colors.white),
   entryModeIconColor: Colors.orange,
 );

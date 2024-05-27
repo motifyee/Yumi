@@ -199,7 +199,7 @@ class IngredientsForm extends StatelessWidget {
                       return selectFromList.isEmpty
                           ? state.loading
                               ? Loading(size: ThemeSelector.fonts.font_38)
-                              : SizedBox.shrink()
+                              : const SizedBox.shrink()
                           : Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
