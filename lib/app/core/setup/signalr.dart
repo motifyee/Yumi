@@ -66,8 +66,15 @@ class Signalr {
     hubConnection = HubConnectionBuilder()
         .withUrl("$baseUrl/$hubName", options: httpOptions)
         .configureLogging(hubLogger)
-        .withAutomaticReconnect(
-            retryDelays: [1000, 2000, 4000, 8000, 15000, 30000])
+        .withAutomaticReconnect(retryDelays: [
+          0,
+          1000,
+          2000,
+          4000,
+          8000,
+          15000,
+          30000,
+        ])
         .withHubProtocol(JsonHubProtocol())
         .build();
 
@@ -154,7 +161,8 @@ class HttpOverrideCertificateVerificationInDev extends HttpOverrides {
 }
 
 void onclose({Exception? error}) {
-  debugPrint("SignalR closed");
+  debugPrint("SignalR closed ");
+  debugPrint(error.toString() ?? ' ');
 }
 
 void onreconnecting({Exception? error}) {
