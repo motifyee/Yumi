@@ -14,7 +14,7 @@ onFormFieldsSaved<T>(
   bool onSaveCalled = false;
   setControlsCount() {
     // !MOD: depends on a framework MOD[001]
-    fields = formKey.currentState?.fields;
+    fields = null; //formKey.currentState?.fields;
     controlsCount = (enabledOnly
             ? fields?.where((e) => e.widget.enabled).length
             : fields?.length) ??
