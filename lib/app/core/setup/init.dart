@@ -6,8 +6,6 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:yumi/app/core/setup/awesome_notifications.dart';
 import 'package:yumi/app/core/setup/crashlyticts.dart';
 import 'package:yumi/app/core/setup/inject.dart';
-import 'package:yumi/app/core/setup/signalr.dart';
-import 'package:yumi/app/core/signal_r.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/api_statics.dart';
 
@@ -28,8 +26,6 @@ Future init() async {
   await initCrashlytics();
 
   await NotificationService.initialize();
-
-  Signalr.startConnection().then((value) => GlobalSignalR.initial());
 
   await inject();
 

@@ -40,6 +40,7 @@ class Signalr {
 
   static void _setupSignalrConnection([bool force = false]) {
     if (!force && hubConnection != null) return;
+    if (accessToken == null) return;
 
     Logger.root.level = Level.FINEST;
     Logger.root.onRecord.listen((LogRecord rec) {
@@ -59,7 +60,7 @@ class Signalr {
       logMessageContent: true,
       transport: HttpTransportType.WebSockets,
       requestTimeout: 30000,
-      // accessTokenFactory: () async => await accessToken(),
+      accessTokenFactory: () async => accessToken!,
     );
 
     hubConnection = HubConnectionBuilder()
