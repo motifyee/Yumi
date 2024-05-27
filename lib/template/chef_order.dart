@@ -113,11 +113,13 @@ class ChefOrder extends StatelessWidget {
                     Signals.driveraccept
                   ],
                   signalRFun: (p0) {
-                    print('new order from chef app .......................');
-                    print(p0);
                     if (p0.runtimeType != List) return false;
-                    return p0.any((e) =>
+                    bool isUpdate = p0.any((e) =>
                         e['chef_ID'] == context.read<UserBloc>().state.user.id);
+                    if (isUpdate) {
+                      context.read<OrderBloc>().add(const OrderEvent.reset());
+                    }
+                    return isUpdate;
                   },
                   navFun: () {
                     context
@@ -138,8 +140,12 @@ class ChefOrder extends StatelessWidget {
                   signalRListener: const [Signals.driveraccept],
                   signalRFun: (p0) {
                     if (p0.runtimeType != List) return false;
-                    return p0.any((e) =>
+                    bool isUpdate = p0.any((e) =>
                         e['chef_ID'] == context.read<UserBloc>().state.user.id);
+                    if (isUpdate) {
+                      context.read<OrderBloc>().add(const OrderEvent.reset());
+                    }
+                    return isUpdate;
                   },
                   navFun: () {
                     context
@@ -167,8 +173,12 @@ class ChefOrder extends StatelessWidget {
                   ],
                   signalRFun: (p0) {
                     if (p0.runtimeType != List) return false;
-                    return p0.any((e) =>
+                    bool isUpdate = p0.any((e) =>
                         e['chef_ID'] == context.read<UserBloc>().state.user.id);
+                    if (isUpdate) {
+                      context.read<OrderBloc>().add(const OrderEvent.reset());
+                    }
+                    return isUpdate;
                   },
                   navFun: () {
                     context
@@ -193,8 +203,12 @@ class ChefOrder extends StatelessWidget {
                   signalRListener: const [Signals.cheffinished],
                   signalRFun: (p0) {
                     if (p0.runtimeType != List) return false;
-                    return p0.any((e) =>
+                    bool isUpdate = p0.any((e) =>
                         e['chef_ID'] == context.read<UserBloc>().state.user.id);
+                    if (isUpdate) {
+                      context.read<OrderBloc>().add(const OrderEvent.reset());
+                    }
+                    return isUpdate;
                   },
                   navFun: () {
                     context
@@ -218,8 +232,12 @@ class ChefOrder extends StatelessWidget {
                   ],
                   signalRFun: (p0) {
                     if (p0.runtimeType != List) return false;
-                    return p0.any((e) =>
+                    bool isUpdate = p0.any((e) =>
                         e['chef_ID'] == context.read<UserBloc>().state.user.id);
+                    if (isUpdate) {
+                      context.read<OrderBloc>().add(const OrderEvent.reset());
+                    }
+                    return isUpdate;
                   },
                 ),
               ),
