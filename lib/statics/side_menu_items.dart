@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
@@ -37,6 +38,21 @@ class _AppMenuList {
             Navigator.of(context, rootNavigator: true).pop();
             context.router.push(NotificationRoute(isScreen: false));
           },
+          textLabel: BlocBuilder<NotificationCubit, NotificationState>(
+            builder: (context, state) {
+              return Container(
+                width: ThemeSelector.statics.defaultInputGap,
+                height: ThemeSelector.statics.defaultInputGap,
+                decoration: BoxDecoration(
+                    color: state.isNewNotification
+                        ? ThemeSelector.colors.primary
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(
+                      ThemeSelector.statics.defaultInputGap,
+                    )),
+              );
+            },
+          ),
         ),
         AppMenuItem(
           icon: 'assets/images/schedule_menu.svg',
@@ -203,6 +219,21 @@ class _AppMenuList {
             Navigator.of(context, rootNavigator: true).pop();
             context.router.push(NotificationRoute(isScreen: false));
           },
+          textLabel: BlocBuilder<NotificationCubit, NotificationState>(
+            builder: (context, state) {
+              return Container(
+                width: ThemeSelector.statics.defaultInputGap,
+                height: ThemeSelector.statics.defaultInputGap,
+                decoration: BoxDecoration(
+                    color: state.isNewNotification
+                        ? ThemeSelector.colors.primary
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(
+                      ThemeSelector.statics.defaultInputGap,
+                    )),
+              );
+            },
+          ),
         ),
         AppMenuItem(
           icon: 'assets/images/schedule_menu.svg',
@@ -285,6 +316,21 @@ class _AppMenuList {
             Navigator.of(context, rootNavigator: true).pop();
             context.router.push(NotificationRoute(isScreen: false));
           },
+          textLabel: BlocBuilder<NotificationCubit, NotificationState>(
+            builder: (context, state) {
+              return Container(
+                width: ThemeSelector.statics.defaultInputGap,
+                height: ThemeSelector.statics.defaultInputGap,
+                decoration: BoxDecoration(
+                    color: state.isNewNotification
+                        ? ThemeSelector.colors.primary
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(
+                      ThemeSelector.statics.defaultInputGap,
+                    )),
+              );
+            },
+          ),
         ),
         AppMenuItem(
           icon: 'assets/images/schedule_menu.svg',

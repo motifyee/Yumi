@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/notification/notification.dart';
 import 'package:yumi/app/pages/settings/profile/profile_screen.dart';
 import 'package:yumi/app/pages/settings/settings_screen.dart';
@@ -121,7 +123,32 @@ class NavigateOptions {
       page: const CustomerMenuScreen(),
     ),
     NavigateListItem(
-      icon: SvgPicture.asset('assets/images/bell.svg'),
+      icon: BlocBuilder<NotificationCubit, NotificationState>(
+        builder: (context, state) {
+          return Stack(clipBehavior: Clip.none, children: [
+            SvgPicture.asset('assets/images/bell.svg'),
+            Positioned(
+              bottom: 0,
+              right: -5,
+              child: BlocBuilder<NotificationCubit, NotificationState>(
+                builder: (context, state) {
+                  return Container(
+                    width: ThemeSelector.statics.defaultInputGap,
+                    height: ThemeSelector.statics.defaultInputGap,
+                    decoration: BoxDecoration(
+                        color: state.isNewNotification
+                            ? ThemeSelector.colors.primary
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(
+                          ThemeSelector.statics.defaultInputGap,
+                        )),
+                  );
+                },
+              ),
+            )
+          ]);
+        },
+      ),
       selectedIcon:
           SvgPicture.asset('assets/images/bell1.svg', fit: BoxFit.fitWidth),
       title: S.current.notification,
@@ -227,38 +254,33 @@ class _ChefAction extends StatelessWidget {
       onPressed: () {
         G.context.router.push(NotificationRoute(isScreen: false));
       },
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          SvgPicture.asset(
-            'assets/images/notification.svg',
-            height: ThemeSelector.statics.iconSizeSmall,
-            width: ThemeSelector.statics.iconSizeSmall,
-          ),
-          if (false)
-            Positioned(
-              bottom: 0,
-              right: -5,
-              child: Container(
-                width: 15,
-                height: 15,
-                padding: const EdgeInsets.all(0),
-                decoration: BoxDecoration(
-                  color: ThemeSelector.colors.primary,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Center(
-                  child: Text(
-                    '3',
-                    style: Theme.of(G.context).textTheme.displaySmall?.copyWith(
-                          fontSize: ThemeSelector.fonts.font_9,
-                          fontWeight: FontWeight.w500,
-                        ),
+      child: BlocBuilder<NotificationCubit, NotificationState>(
+        builder: (context, state) {
+          return Stack(
+            clipBehavior: Clip.none,
+            children: [
+              SvgPicture.asset(
+                'assets/images/notification.svg',
+                height: ThemeSelector.statics.iconSizeSmall,
+                width: ThemeSelector.statics.iconSizeSmall,
+              ),
+              if (state.isNewNotification)
+                Positioned(
+                  bottom: 0,
+                  right: -5,
+                  child: Container(
+                    width: ThemeSelector.statics.defaultInputGap,
+                    height: ThemeSelector.statics.defaultInputGap,
+                    padding: const EdgeInsets.all(0),
+                    decoration: BoxDecoration(
+                      color: ThemeSelector.colors.primary,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
                   ),
                 ),
-              ),
-            ),
-        ],
+            ],
+          );
+        },
       ),
     );
   }
