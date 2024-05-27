@@ -74,9 +74,6 @@ class Signalr {
           8000,
           15000,
           30000,
-          40000,
-          50000,
-          60000,
         ])
         .withHubProtocol(JsonHubProtocol())
         .build();
