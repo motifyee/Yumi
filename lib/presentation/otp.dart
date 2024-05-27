@@ -5,7 +5,7 @@ final List<GlobalKey> keys = [0, 1, 2, 3].map((e) => GlobalKey()).toList();
 
 class OTP extends StatefulWidget {
   final void Function(String input, String otp, int idx)? onInput;
-  final void Function(Object?)? onSaved;
+  final void Function(String?)? onSaved;
   final void Function(String)? onLastFilled;
   final String? initialOTP;
 
@@ -44,21 +44,15 @@ class _OTPState extends State<OTP> {
 
   @override
   Widget build(BuildContext context) {
-    return FormField(
-        onSaved: widget.onSaved,
-        builder: (state) {
-          return Form(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _input(0, otp, context),
-                _input(1, otp, context),
-                _input(2, otp, context),
-                _input(3, otp, context),
-              ],
-            ),
-          );
-        });
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _input(0, otp, context),
+        _input(1, otp, context),
+        _input(2, otp, context),
+        _input(3, otp, context),
+      ],
+    );
   }
 
   SizedBox _input(int idx, List<String> otp, BuildContext context) {
