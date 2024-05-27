@@ -60,7 +60,7 @@ class Signalr {
       logMessageContent: true,
       transport: HttpTransportType.WebSockets,
       requestTimeout: 30000,
-      accessTokenFactory: () async => accessToken!,
+      accessTokenFactory: () => Future.value(accessToken!),
     );
 
     hubConnection = HubConnectionBuilder()
