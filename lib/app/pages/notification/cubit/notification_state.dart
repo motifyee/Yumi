@@ -8,8 +8,7 @@ class NotificationState with _$NotificationState {
 
   factory NotificationState.initial() {
     return NotificationState(
-      pagination:
-          const PaginationHelper<NotificationS>(data: <NotificationS>[]),
+      pagination: PaginationHelper<NotificationS>(data: <NotificationS>[]),
       isNewNotification: false,
     );
   }

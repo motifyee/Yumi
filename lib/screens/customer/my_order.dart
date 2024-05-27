@@ -117,9 +117,13 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   ],
                   signalRFun: (p0) {
                     if (p0.runtimeType != List) return false;
-                    return p0.any((e) =>
+                    bool isUpdate = p0.any((e) =>
                         e['buddiesId'] ==
                         context.read<UserBloc>().state.user.id);
+                    if (isUpdate) {
+                      context.read<OrderBloc>().add(const OrderEvent.reset());
+                    }
+                    return isUpdate;
                   },
                 ),
               ),
@@ -134,9 +138,13 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   ],
                   signalRFun: (p0) {
                     if (p0.runtimeType != List) return false;
-                    return p0.any((e) =>
+                    bool isUpdate = p0.any((e) =>
                         e['buddiesId'] ==
                         context.read<UserBloc>().state.user.id);
+                    if (isUpdate) {
+                      context.read<OrderBloc>().add(const OrderEvent.reset());
+                    }
+                    return isUpdate;
                   },
                 ),
               ),
@@ -156,9 +164,13 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   ],
                   signalRFun: (p0) {
                     if (p0.runtimeType != List) return false;
-                    return p0.any((e) =>
+                    bool isUpdate = p0.any((e) =>
                         e['buddiesId'] ==
                         context.read<UserBloc>().state.user.id);
+                    if (isUpdate) {
+                      context.read<OrderBloc>().add(const OrderEvent.reset());
+                    }
+                    return isUpdate;
                   },
                 ),
               ),
@@ -173,9 +185,13 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   ],
                   signalRFun: (p0) {
                     if (p0.runtimeType != List) return false;
-                    return p0.any((e) =>
+                    bool isUpdate = p0.any((e) =>
                         e['buddiesId'] ==
                         context.read<UserBloc>().state.user.id);
+                    if (isUpdate) {
+                      context.read<OrderBloc>().add(const OrderEvent.reset());
+                    }
+                    return isUpdate;
                   },
                 ),
               ),

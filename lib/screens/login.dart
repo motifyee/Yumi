@@ -76,12 +76,11 @@ class LoginScreen extends StatelessWidget {
                       context.router.push(const RegisterationRoute());
                     },
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.resolveWith<Color>(
+                        backgroundColor: WidgetStateProperty.resolveWith<Color>(
                           (states) => Colors.transparent,
                         ),
                         splashFactory: NoSplash.splashFactory,
-                        padding: MaterialStateProperty.resolveWith(
+                        padding: WidgetStateProperty.resolveWith(
                             (states) => EdgeInsets.zero)),
                     child: Stack(
                       children: [

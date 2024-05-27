@@ -2,7 +2,12 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:yumi/app/core/setup/signalr.dart';
+import 'package:yumi/app/core/signal_r.dart';
 import 'package:yumi/app/pages/auth/registeration/model/address.dart';
+import 'package:yumi/app_config/chef/chef_signalr.dart';
+import 'package:yumi/app_config/customer/customer_signalr.dart';
+import 'package:yumi/app_config/driver/driver_signalr.dart';
 import 'package:yumi/model/user/user_model.dart';
 import 'package:yumi/service/user_status_service.dart';
 import 'package:yumi/statics/local_storage.dart';
@@ -31,7 +36,26 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     on<UserFromJsonEvent>((event, emit) async {
       await LocalStorage.sharedRef.setValue(LocalStorage.user, event.user);
-      emit(state.copyWith(user: UserModel.fromJson(event.user)));
+      UserModel user = UserModel.fromJson(event.user);
+
+      /// must init Signalr with access token
+      Signalr.accessToken = user.accessToken;
+
+      Signalr.startConnection().then((value) {
+        /// initial listen to global messages from signal r
+        GlobalSignalR.initial();
+
+        /// initial listen to chef messages from signal r
+        ChefSignalR.initial();
+
+        /// initial listen to customer messages from signal r
+        CustomerSignalR.initial();
+
+        /// initial listen to driver messages from signal r
+        DriverSignalR.initial();
+      });
+
+      emit(state.copyWith(user: user));
       if (event.routeAfterLogin != null) event.routeAfterLogin!();
     });
 
@@ -89,6 +113,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       await LocalStorage.sharedRef.removeValue(LocalStorage.user);
       await LocalStorage.sharedRef.removeValue(LocalStorage.token);
       await LocalStorage.sharedRef.removeValue(LocalStorage.userLocation);
+      Signalr.stopConnection();
       emit(state.copyWith(
           user: const UserModel(
         accessToken: '',
