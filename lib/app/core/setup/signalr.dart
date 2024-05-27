@@ -106,9 +106,10 @@ class Signalr {
   }
 
   static void stopConnection() async {
-    if (hubConnection == null) return;
+    if (hubConnection == null ||
+        hubConnection!.state != HubConnectionState.Connected) return;
 
-    await hubConnection!.invoke("Stop");
+    // await hubConnection!.invoke("Stop");
     await hubConnection!.stop();
 
     hubConnection = null;

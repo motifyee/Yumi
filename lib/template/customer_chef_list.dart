@@ -155,7 +155,7 @@ class CustomerChefList extends StatelessWidget {
 }
 
 class _ChefListStatus extends StatelessWidget {
-  _ChefListStatus({required this.menuTarget, this.status});
+  const _ChefListStatus({required this.menuTarget, this.status});
 
   final MenuTarget menuTarget;
   final int? status;

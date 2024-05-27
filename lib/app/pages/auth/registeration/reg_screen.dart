@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/template/dialog.dart';
 
 @RoutePage()

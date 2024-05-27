@@ -18,6 +18,9 @@ class AddPhoneScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final form = GlobalKey<FormState>();
+    final ctrl = TextEditingController();
+
     return ScreenContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -25,8 +28,6 @@ class AddPhoneScreen extends StatelessWidget {
           child: BlocSelector<RegCubit, NRegState, String>(
             selector: (state) => state.singupData?.fullName ?? "",
             builder: (context, state) {
-              var form = GlobalKey<FormState>();
-
               return Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 450),
@@ -64,6 +65,7 @@ class AddPhoneScreen extends StatelessWidget {
                               FilteringTextInputFormatter.digitsOnly,
                             ],
                             validators: mobileValidator,
+                            controller: ctrl,
                           ),
                         ),
                         const SizedBox(height: 40),
@@ -72,8 +74,7 @@ class AddPhoneScreen extends StatelessWidget {
                             onPressed: () async {
                               if (!form.currentState!.validate()) return;
 
-                              var value = form.currentState?.fields.first.value
-                                  as String;
+                              var value = ctrl.text.trim();
 
                               await () async {
                                 final profileCubit =

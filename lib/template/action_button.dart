@@ -27,12 +27,12 @@ class ActionButton extends StatelessWidget {
     return TextButton(
         onPressed: onPressed,
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith(
+          backgroundColor: WidgetStateProperty.resolveWith(
             (states) => isActive
                 ? activeColor ?? ThemeSelector.colors.primary
                 : notActiveColor ?? ThemeSelector.colors.secondaryFaint,
           ),
-          shape: MaterialStateProperty.resolveWith(
+          shape: WidgetStateProperty.resolveWith(
             (states) => RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(ThemeSelector.statics.defaultBorderRadius),

@@ -130,8 +130,8 @@ class OrderStatusScreen extends StatelessWidget {
                     Container(
                       width: 21,
                       height: 21,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.symmetric(vertical: 3),
+                      padding: const EdgeInsets.all(5),
+                      margin: const EdgeInsets.symmetric(vertical: 3),
                       decoration: BoxDecoration(
                         color: ThemeSelector.colors.primary.withAlpha(
                             order.clientReceived == true ? 255 : 100),

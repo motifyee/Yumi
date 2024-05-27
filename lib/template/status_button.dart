@@ -35,7 +35,7 @@ class StatusButton extends StatelessWidget {
                   context.read<UserBloc>().add(UserStatusUpdateEvent());
                 },
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith(
+            backgroundColor: WidgetStateProperty.resolveWith(
               (states) => state.loading
                   ? ThemeSelector.colors.secondaryFaint
                   : status == StatusEnum.online
