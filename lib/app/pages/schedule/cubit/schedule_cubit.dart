@@ -33,7 +33,7 @@ class ScheduleCubit extends Cubit<ScheduleState> {
       : repo = repo ?? getIt<ScheduleRepo>(),
         super(const ScheduleState());
 
-  void loadSchedule() async {
+  Future<void> loadSchedule() async {
     emit(state.copyWith(status: Status.loading));
 
     final task = await LoadSchedule(repo).call(NoParams());

@@ -113,27 +113,10 @@ class RegCubit extends Cubit<NRegState> {
     emit(state.copyWith(status: loading ? Status.loading : Status.idle));
   }
 
-  void _initData() {
-    if (G.read<UserBloc>().state.user.accessToken.isEmpty) return;
-
-    if (G.cContext.read<ProfileCubit>().state.form.guid.isEmpty) {
-      G.cContext.read<ProfileCubit>().getProfileForm();
-      return;
-    }
-
-    if (G.read<UserBloc>().state.user.chefId?.isEmpty ?? true) return;
-
-    G.read<MealListBloc>().add(
-          MealListUpdateEvent(
-            context: G.context,
-            chefId: G.read<UserBloc>().state.user.chefId,
-          ),
-        );
-  }
-
   void init() async {
-    // finish();
-    _initData();
+    setLoading();
+
+    //return finish();
 
     // read step index from shared preferences
     var pref = await SharedPreferences.getInstance();
@@ -145,8 +128,11 @@ class RegCubit extends Cubit<NRegState> {
       emit(state.copyWith(registerationStarted: true));
     }
 
-    getOnboardingProgress();
-    if (G.isDriverApp) getVehicle();
+    if (step > 0) _navigateToIdx(step);
+
+    await getOnboardingProgress();
+    await G.rd<ProfileCubit>().getProfileForm();
+    if (G.isDriverApp) await getVehicle();
     if (G.isChefApp) {
       G.read<MealListBloc>().add(MealListResetBlocEvent());
       G.read<MealListBloc>().add(
@@ -154,10 +140,10 @@ class RegCubit extends Cubit<NRegState> {
     }
     if (!G.isCustomerApp) {
       G.rd<ScheduleCubit>().reset();
-      G.rd<ScheduleCubit>().loadSchedule();
+      await G.rd<ScheduleCubit>().loadSchedule();
     }
 
-    if (step > 0) _navigateToIdx(step);
+    setLoading(false);
   }
 
   void finish([bool login = true]) async {
@@ -213,7 +199,7 @@ class RegCubit extends Cubit<NRegState> {
     emit(state.copyWith(onboardingProgress: idx));
   }
 
-  void getOnboardingProgress() async {
+  Future<void> getOnboardingProgress() async {
     var pref = await SharedPreferences.getInstance();
     var idx = pref.getInt(onboardingProgressKey) ?? 0;
     emit(state.copyWith(onboardingProgress: idx));
@@ -383,7 +369,7 @@ class RegCubit extends Cubit<NRegState> {
   //   emit(state.copyWith(otherVehicle: otherVehicle));
   // }
 
-  void getVehicle() async {
+  Future<void> getVehicle() async {
     var vehicle = await VehicleService.getVehicle();
     if (vehicle == null) return;
     emit(state.copyWith(vehicle: vehicle));
