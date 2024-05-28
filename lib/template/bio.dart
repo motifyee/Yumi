@@ -131,7 +131,7 @@ class BioForm extends StatelessWidget {
                 final p = await profileCubit
                     .updateProfileForm(state.form.copyWith(bio: value));
 
-                fieldState.didChange(p?.bio);
+                if (fieldState.mounted) fieldState.didChange(p?.bio);
               },
             ),
           ),

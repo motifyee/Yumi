@@ -139,28 +139,23 @@ Future performLogin(BuildContext context, LoginModel loginForm,
     context.read<UserBloc>().add(UserFromJsonEvent(
           user: json,
           routeAfterLogin: () async {
+            var idx = -1;
             if (!(user.mobileVerified ?? false)) {
-              return await context
-                  .read<RegCubit>()
-                  .saveStepToCache(RegStep.addPhone.index)
-                  .then((value) {
-                context.router.push(const RegisterationRoute());
-                context.read<RegCubit>().init();
-              });
-            }
-            if (!G.isCustomerApp &&
+              idx = RegStep.addPhone.index;
+            } else if (user.address?.isEmpty ?? true) {
+              idx = RegStep.location.index;
+            } else if (!G.isCustomerApp &&
                 (!(user.accountApproved ?? false) ||
                     !(user.contractApproved ?? false))) {
-              return await context
-                  .read<RegCubit>()
-                  .saveStepToCache(RegStep.onboarding.index)
-                  .then((value) {
-                context.router.push(const RegisterationRoute());
-                context.read<RegCubit>().init();
-              });
+              idx = RegStep.onboarding.index;
             }
 
-            routeAfterLogin(context, '');
+            if (idx == -1) return G.router.replaceAll([HomeRoute()]);
+
+            await context.read<RegCubit>().saveStepToCache(idx).then((value) {
+              context.router.push(const RegisterationRoute());
+              context.read<RegCubit>().init();
+            });
           },
         ));
 
@@ -168,24 +163,4 @@ Future performLogin(BuildContext context, LoginModel loginForm,
         .read<UserBloc>()
         .add(UserUpdateLocationEvent(address: Address.fromJson(json)));
   }).catchError((onError) => G.snackBar(S.of(context).connectionError));
-}
-
-void routeAfterLogin(BuildContext context, String? route) async {
-  if (!context.mounted) return;
-
-  if (route == "flow") {
-    context.router.replaceAll([const ChefApplicationFlowRoute()]);
-  } else if (route == "schedule") {
-    context.router.replaceAll([const MyScheduleRoute()]);
-  } else if (route == "phone") {
-    context.router.replaceAll([const AddPhoneRoute()]);
-  } else if (route == "location") {
-    context.router.replaceAll([LocationRoute()]);
-  } else if (route == "otp") {
-    context.router.replaceAll([const OTPRoute()]);
-  } else if (route == "regmap") {
-    context.router.replaceAll([LocationRoute()]);
-  } else {
-    context.router.replaceAll([HomeRoute()]);
-  }
 }
