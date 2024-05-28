@@ -93,8 +93,9 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
                 final List<DocInfo> docsInfo =
                     G.isChefApp ? chefDocsInfo : driverDocsInfo;
 
-                final List<String> notUploadedDocs = docsInfo
+                final List<String?> notUploadedDocs = docsInfo
                     .filter((t) =>
+                        t.title != null &&
                         t.getdata(G.rd<ProfileCubit>().state.form) == null)
                     .map((e) => e.title as String)
                     .toList();

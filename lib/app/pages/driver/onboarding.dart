@@ -12,13 +12,15 @@ class Onboarding {
     return profile.profileSheetDone;
   }
 
+  // ---------------------------------------------------------------------------
+
   // chefs only
   bool get mealsActive =>
       _onboardingProgress > 0 || approvalDone || profileSheetDone;
   bool get mealsDone {
     if (!mealsActive) return false;
     if (G.read<MealListBloc>().state.meals.isEmpty) return false;
-    // if (!G.read<ScheduleBloc>().state.schedule.hasScheduledDays) return false;
+
     if (!G.rd<ScheduleCubit>().state.schedule.validSchedule) return false;
 
     return true;
@@ -29,23 +31,23 @@ class Onboarding {
       _onboardingProgress > 0 || approvalDone || profileSheetDone;
   bool get ridesDone {
     if (!ridesActive) return false;
-    // if (G.cread<RegCubit>().state.vehicleType == null) return false;
+
     if (G.rd<RegCubit>().state.vehicle.vehicleName()?.isEmpty ?? false) {
       return false;
     }
-    // if (!G.read<ScheduleBloc>().state.schedule.validSchedule) return false;
+
     if (!G.rd<ScheduleCubit>().state.schedule.validSchedule) return false;
 
     return true;
   }
 
   bool get stepTwoDone {
-    // if (approvalDone) return true;
-
     if (G.isDriverApp) return ridesDone;
 
     return mealsDone;
   }
+
+  // ---------------------------------------------------------------------------
 
   bool get docsActive => approvalDone || _onboardingProgress > 1 || stepTwoDone;
   bool get docsDone =>
@@ -53,8 +55,11 @@ class Onboarding {
 
   bool get approvalActive =>
       _onboardingProgress > 2 || approvalDone || docsDone;
-  // bool get approvalDone => true;
+
   bool get approvalDone => G.rd<ProfileCubit>().state.form.accountApproved;
+  // approvalActive &&
+
+  // ---------------------------------------------------------------------------
 
   bool get contractActive => approvalDone;
   bool get contractDone =>
@@ -65,10 +70,12 @@ class Onboarding {
   bool get contractApprovalDone {
     Profile profile = G.rd<ProfileCubit>().state.form;
 
-    return profile.contractApproved ?? false;
+    return contractDone && (profile.contractApproved ?? false);
   }
 
-  int get _onboardingProgress => G.rd<RegCubit>().state.onboardingProgress;
+  // ---------------------------------------------------------------------------
+
+  int get _onboardingProgress => 0; //G.rd<RegCubit>().state.onboardingProgress;
   int get onboardingProgress {
     int progress = 0;
 
