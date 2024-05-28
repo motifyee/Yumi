@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/dialog.dart';
-import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/validators/required_validator.dart';
 
@@ -16,54 +16,73 @@ class Bio extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-    return BlocSelector<ProfileCubit, ProfileState, String>(
-      selector: (state) => state.form.bio,
-      builder: (context, state) {
-        return Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: ThemeSelector.statics.defaultTitleGap),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  SvgPicture.asset('assets/images/bio.svg'),
-                  SizedBox(width: ThemeSelector.statics.defaultLineGap),
-                  Text(
-                    S.of(context).bio,
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                  Expanded(child: Container()),
-                  IconButton(
-                    icon: SvgPicture.asset('assets/images/pin.svg'),
-                    onPressed: () {
-                      showAlertDialog(
-                        context: context,
-                        title: Container(),
-                        content: BioForm(state, formKey),
-                        actions: {'Cancel': null},
-                        actionWidgets: [BioFormSubmitButton(formKey)],
-                      );
-                    },
-                  )
-                ],
-              ),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
-              Container(
-                constraints: BoxConstraints(
-                    minHeight: ThemeSelector.statics.defaultGapExtreme),
-                child: Center(
-                  child: Text(
-                    state.isNotEmpty ? state : S.of(context).writeABio,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: ThemeSelector.fonts.font_10,
-                        ),
+    return FormField<String>(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      initialValue: G.rd<ProfileCubit>().state.form.bio,
+      validator: (value) =>
+          value == null || value.trim().isEmpty ? S.of(context).required : null,
+      builder: (fieldState) => BlocSelector<ProfileCubit, ProfileState, String>(
+        selector: (profileState) => profileState.form.bio,
+        builder: (context, state) {
+          return Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: ThemeSelector.statics.defaultTitleGap),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    SvgPicture.asset('assets/images/bio.svg'),
+                    SizedBox(width: ThemeSelector.statics.defaultLineGap),
+                    Text(
+                      S.of(context).bio,
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    Expanded(child: Container()),
+                    IconButton(
+                      icon: SvgPicture.asset('assets/images/pin.svg'),
+                      onPressed: () {
+                        showAlertDialog(
+                          context: context,
+                          title: Container(),
+                          content: BioForm(state, formKey, fieldState),
+                          actions: {
+                            'Cancel': (_) => G.pop(),
+                            'Save': (_) {
+                              if (formKey.currentState!.validate()) {
+                                return formKey.currentState?.save();
+                              }
+
+                              G.snackBar(S.of(context).invalidInput);
+                            }
+                          },
+                        );
+                      },
+                    )
+                  ],
+                ),
+                SizedBox(height: ThemeSelector.statics.formFieldGap),
+                Container(
+                  constraints: BoxConstraints(
+                      minHeight: ThemeSelector.statics.defaultBlockGap),
+                  child: Center(
+                    child: Text(
+                      state.isNotEmpty ? state : S.of(context).writeABio,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontSize: ThemeSelector.fonts.font_10,
+                          ),
+                    ),
                   ),
                 ),
-              )
-            ],
-          ),
-        );
-      },
+                if (fieldState.hasError)
+                  Text(
+                    fieldState.errorText ?? '',
+                    style: const TextStyle(color: Colors.red),
+                  ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -71,8 +90,9 @@ class Bio extends StatelessWidget {
 class BioForm extends StatelessWidget {
   final String bio;
   final GlobalKey<FormState> formKey;
+  final FormFieldState<String> fieldState;
 
-  const BioForm(this.bio, this.formKey, {super.key});
+  const BioForm(this.bio, this.formKey, this.fieldState, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -107,8 +127,11 @@ class BioForm extends StatelessWidget {
               maxLines: 5,
               hintText: S.of(context).writeABio,
               validators: requiredValidator,
-              onSave: (value) {
-                profileCubit.updateProfileForm(state.form.copyWith(bio: value));
+              onSave: (value) async {
+                final p = await profileCubit
+                    .updateProfileForm(state.form.copyWith(bio: value));
+
+                fieldState.didChange(p?.bio);
               },
             ),
           ),
@@ -129,16 +152,7 @@ class BioFormSubmitButton extends StatelessWidget {
       builder: (context) {
         return TextButton(
           child: Text(S.of(context).save),
-          onPressed: () async {
-            if (!formKey.currentState!.validate()) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: SnackBarMassage(massage: S.of(context).invalidInput),
-              ));
-
-              return;
-            }
-            formKey.currentState?.save();
-          },
+          onPressed: () async {},
         );
       },
     );

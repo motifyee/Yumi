@@ -9,7 +9,8 @@ import 'package:yumi/template/bio.dart';
 import 'package:yumi/template/event_photo.dart';
 
 class EditBioSheet extends StatelessWidget {
-  const EditBioSheet({super.key});
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  EditBioSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,35 +43,40 @@ class EditBioSheet extends StatelessWidget {
             BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .9),
         child: SizedBox(
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const ProfilePicture(),
-                const Bio(),
-                if (G.isChefApp) const SizedBox(height: 40),
-                if (G.isChefApp) const EventsPhoto(),
-                const SizedBox(height: 20),
-                BlocSelector<ProfileCubit, ProfileState, bool>(
-                  selector: (state) => state.form.profileSheetDone,
-                  builder: (context, profileSheetDone) {
-                    return TextButton(
-                      onPressed: () {
-                        var state = G.rd<ProfileCubit>().state;
-                        if (!state.form.profileSheetDone) return;
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  const ProfilePicture(),
+                  const Bio(),
+                  if (G.isChefApp) const SizedBox(height: 40),
+                  if (G.isChefApp) const EventsPhoto(),
+                  const SizedBox(height: 20),
+                  BlocSelector<ProfileCubit, ProfileState, bool>(
+                    selector: (state) => state.form.profileSheetDone,
+                    builder: (context, profileSheetDone) {
+                      return TextButton(
+                        onPressed: () {
+                          if (!formKey.currentState!.validate()) return;
 
-                        Navigator.of(context).pop();
-                        G.rd<RegCubit>().refresh();
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: profileSheetDone
-                            ? ThemeSelector.colors.primary
-                            : ThemeSelector.colors.secondary,
-                      ),
-                      child: const Text('Ok'),
-                    );
-                  },
-                ),
-                const SizedBox(height: 20),
-              ],
+                          var state = G.rd<ProfileCubit>().state;
+                          if (!state.form.profileSheetDone) return;
+
+                          Navigator.of(context).pop();
+                          G.rd<RegCubit>().refresh();
+                        },
+                        style: TextButton.styleFrom(
+                          foregroundColor: profileSheetDone
+                              ? ThemeSelector.colors.primary
+                              : ThemeSelector.colors.secondary,
+                        ),
+                        child: const Text('Ok'),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
             // },
           ),

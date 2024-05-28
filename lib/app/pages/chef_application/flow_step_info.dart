@@ -31,7 +31,7 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
             isScrollControlled: true,
             backgroundColor: Colors.transparent,
             context: context,
-            builder: (context) => const EditBioSheet(),
+            builder: (context) => EditBioSheet(),
           );
 
           G.rd<RegCubit>().setLoading(false);

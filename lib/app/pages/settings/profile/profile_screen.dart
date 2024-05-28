@@ -13,18 +13,17 @@ import 'package:yumi/template/event_photo.dart';
 import 'package:yumi/template/upload_photo_button.dart';
 
 Widget profileImagePicker(
-    BuildContext context, String? profileImage, bool loading) {
+  BuildContext context,
+  String? profileImage,
+  bool loading,
+  FormFieldState<String> fieldState,
+) {
   if (loading) return Loading();
 
   return Container(
-    width: ThemeSelector.statics.defaultBorderRadiusExtreme * 1.3,
-    height: ThemeSelector.statics.defaultBorderRadiusExtreme * 1.3,
-    // padding: EdgeInsets.all(ThemeSelector.statics.defaultBlockGap),
+    // width: ThemeSelector.statics.defaultBorderRadiusExtreme * 1.3,
+    // height: ThemeSelector.statics.defaultBorderRadiusExtreme * 1.3,
     decoration: BoxDecoration(
-      // border: Border.all(
-      //   color: ThemeSelector.colors.secondary,
-      //   width: 2,
-      // ),
       color: ThemeSelector.colors.onSecondary,
       borderRadius: BorderRadius.circular(
         ThemeSelector.statics.defaultBorderRadiusExtreme,
@@ -38,7 +37,8 @@ Widget profileImagePicker(
       onPressed: (image) async {
         if (image == null) return;
 
-        await G.rd<ProfileCubit>().updateProfilePhoto(image);
+        final p = await G.rd<ProfileCubit>().updateProfilePhoto(image);
+        fieldState.didChange(p.profileImage);
       },
     ),
   );
@@ -105,56 +105,59 @@ class ProfilePicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<ProfileCubit, ProfileState, ProfilePhotoSlice>(
-      selector: (state) => ProfilePhotoSlice(
-        photo: state.form.profileImage,
-        isHygiene: state.form.isHygiene,
-        fullName: state.form.fullName,
-        entityStatus: state.form.entityStatus,
-        rate: state.form.rate,
-      ),
-      builder: (context, state) {
-        if (state.photo == null && state.entityStatus.isLoading) {
-          return Loading();
-        }
+    return FormField<String>(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      initialValue: G.rd<ProfileCubit>().state.form.profileImage,
+      validator: (value) => value == null || value.trim().isEmpty
+          ? 'Please select a profile photo'
+          : null,
+      builder: (fieldState) =>
+          BlocSelector<ProfileCubit, ProfileState, ProfilePhotoSlice>(
+        selector: (state) => ProfilePhotoSlice(
+          photo: state.form.profileImage,
+          isHygiene: state.form.isHygiene,
+          fullName: state.form.fullName,
+          entityStatus: state.form.entityStatus,
+          rate: state.form.rate,
+        ),
+        builder: (context, profileState) {
+          if (profileState.photo == null &&
+              profileState.entityStatus.isLoading) {
+            return Loading();
+          }
 
-        return Column(
-          children: [
-            profileImagePicker(
-                context, state.photo, state.entityStatus.isLoading),
-            SizedBox(height: ThemeSelector.statics.defaultGap),
-            Text(
-              state.fullName,
-              style: TextStyle(
-                  color: ThemeSelector.colors.primary,
-                  fontSize: ThemeSelector.fonts.font_24),
-            ),
-            SizedBox(height: ThemeSelector.statics.defaultGap),
-            // rating bar
-            if (!G.rd<RegCubit>().state.registerationStarted)
-              SizedBox(
-                width: 50,
-                child: RatingContainer(rate: state.rate),
+          return Column(
+            children: [
+              profileImagePicker(
+                context,
+                profileState.photo,
+                profileState.entityStatus.isLoading,
+                fieldState,
               ),
-
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Text(state.rate.toStringAsFixed(1),
-            //         style: TextStyle(color: ThemeSelector.colors.secondary)),
-            //     Text(' ',
-            //         style: TextStyle(color: ThemeSelector.colors.secondary)),
-            //     SvgPicture.asset('assets/images/star.svg'),
-            //     if (state.isHygiene)
-            //       Text(' | ${S.of(context).hygiene}',
-            //           style:
-            //               TextStyle(color: ThemeSelector.colors.secondary)),
-            //   ],
-            // ),
-            SizedBox(height: ThemeSelector.statics.defaultTitleGap),
-          ],
-        );
-      },
+              SizedBox(height: ThemeSelector.statics.defaultGap),
+              if (fieldState.hasError)
+                Text(
+                  fieldState.errorText ?? "",
+                  style: const TextStyle(color: Colors.red),
+                ),
+              Text(
+                profileState.fullName,
+                style: TextStyle(
+                    color: ThemeSelector.colors.primary,
+                    fontSize: ThemeSelector.fonts.font_24),
+              ),
+              SizedBox(height: ThemeSelector.statics.defaultGap),
+              // rating bar
+              if (!G.rd<RegCubit>().state.registerationStarted)
+                SizedBox(
+                  width: 50,
+                  child: RatingContainer(rate: profileState.rate),
+                ),
+              SizedBox(height: ThemeSelector.statics.defaultTitleGap),
+            ],
+          );
+        },
+      ),
     );
   }
 }

@@ -18,66 +18,77 @@ class EventsPhoto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProfileCubit, ProfileState>(
-      listener: (ctx, state) {
-        // if (state.status.isSaved) {
-        // ctx.read<ProfileCubit>().updateProfileForm(state.profile);
-        // ProfileUpdateEvent(context: context, profile: state.profile));
-        // }
-      },
-      builder: (ctx, state) {
-        var eventPhotosTitle = Row(
-          children: [
-            SvgPicture.asset('assets/images/camera_dark.svg'),
-            SizedBox(width: ThemeSelector.statics.defaultLineGap),
-            Text(
-              S.of(ctx).eventsPhoto,
-              style: Theme.of(ctx).textTheme.labelLarge,
-            ),
-          ],
-        );
-
-        return Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: ThemeSelector.statics.defaultTitleGap),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+    return FormField<List<String?>>(
+      validator: (value) =>
+          value == null || value.isEmpty ? "Upload at least one photo" : null,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      initialValue: G.rd<ProfileCubit>().state.form.eventPhotos,
+      builder: (fieldState) => BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (ctx, state) {
+          var eventPhotosTitle = Row(
             children: [
-              eventPhotosTitle,
-              if (state.form.eventPhotosCount < 5)
-                Row(
-                  children: [
-                    SizedBox(width: ThemeSelector.statics.defaultLineGap),
-                    SizedBox(width: ThemeSelector.statics.defaultLineGap),
-                    Text(
-                      S.of(context).maxImageSize,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  ],
-                ),
-              SizedBox(height: ThemeSelector.statics.defaultGap * 2),
-              Flexible(
-                fit: FlexFit.loose,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
+              SvgPicture.asset('assets/images/camera_dark.svg'),
+              SizedBox(width: ThemeSelector.statics.defaultLineGap),
+              Text(
+                S.of(ctx).eventsPhoto,
+                style: Theme.of(ctx).textTheme.labelLarge,
+              ),
+            ],
+          );
+
+          return Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: ThemeSelector.statics.defaultTitleGap),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                eventPhotosTitle,
+                if (state.form.eventPhotosCount < 5)
+                  Row(
                     children: [
-                      if (state.form.eventPhotosCount < 5)
-                        _photoCard(ctx, state),
-                      ...state.form.eventPhotos
-                          .map((e) => _photoCard(ctx, state, e)),
+                      SizedBox(width: ThemeSelector.statics.defaultLineGap),
+                      SizedBox(width: ThemeSelector.statics.defaultLineGap),
+                      Text(
+                        S.of(context).maxImageSize,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
                     ],
                   ),
+                SizedBox(height: ThemeSelector.statics.defaultGap * 2),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        if (state.form.eventPhotosCount < 5)
+                          _photoCard(fieldState, state),
+                        ...state.form.eventPhotos
+                            .map((e) => _photoCard(fieldState, state, e)),
+                      ],
+                    ),
+                  ),
                 ),
-              )
-            ],
-          ),
-        );
-      },
+                if (fieldState.hasError)
+                  SizedBox(height: ThemeSelector.statics.defaultGap),
+                if (fieldState.hasError)
+                  Text(
+                    fieldState.errorText ?? '',
+                    style: const TextStyle(color: Colors.red),
+                  ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
-  Card _photoCard(BuildContext ctx, ProfileState state, [String? image]) {
+  Card _photoCard(
+    FormFieldState<List<String?>> fieldState,
+    ProfileState state, [
+    String? image,
+  ]) {
     var w = 120.0;
     var h = 200.0;
     return Card(
@@ -103,20 +114,23 @@ class EventsPhoto extends StatelessWidget {
                   ),
                 ),
               ),
-              _deleteButton(ctx, image)
+              _deleteButton(fieldState, image)
             ] else if (state.form.entityStatus.isLoading)
               const Center(
                 child: CircularProgressIndicator(),
               )
             else
-              _addButton(ctx, state),
+              _addButton(fieldState, state),
           ],
         ),
       ),
     );
   }
 
-  Widget _addButton(BuildContext ctx, ProfileState state) {
+  Widget _addButton(
+    FormFieldState<List<String?>> fieldState,
+    ProfileState state,
+  ) {
     return Center(
       child: IconButton(
           onPressed: () async {
@@ -137,16 +151,16 @@ class EventsPhoto extends StatelessWidget {
 
             var allowed = 5 - state.form.eventPhotos.length;
 
-            if (!ctx.mounted) return;
-
             if (photos.length <= 5) {
-              await ctx.read<ProfileCubit>().uploadFormPhotos(photos);
-              ctx.read<ProfileCubit>().getProfileForm();
-              return;
+              final p = await G.rd<ProfileCubit>().uploadFormPhotos(photos);
+              G.rd<ProfileCubit>().getProfileForm();
+
+              return fieldState.didChange(p.eventPhotos);
             }
 
             showAlertDialog(
-              context: ctx,
+              // ignore: use_build_context_synchronously
+              context: G.context,
               content: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Text(
@@ -157,7 +171,8 @@ class EventsPhoto extends StatelessWidget {
               actions: {
                 if (allowed > 0) 'Cancel': (ctx) => ctx.router.popForced(),
                 'Ok': (ctx) {
-                  ctx.read<ProfileCubit>().uploadFormPhotos(photos);
+                  final p = G.rd<ProfileCubit>().uploadFormPhotos(photos);
+                  fieldState.didChange(photos);
                   ctx.router.popForced();
                 },
               },
@@ -167,23 +182,28 @@ class EventsPhoto extends StatelessWidget {
     );
   }
 
-  Widget _deleteButton(BuildContext ctx, String? image) {
+  Widget _deleteButton(
+    FormFieldState<List<String?>> fieldState,
+    String? image,
+  ) {
     return Positioned(
       right: 0,
       bottom: 0,
       child: InkWell(
         onTap: () {
           showAlertDialog(
-              context: ctx,
+              context: G.context,
               content: const Padding(
                 padding: EdgeInsets.all(12),
                 child: Text("Are you sure you want ot delete selected image"),
               ),
               actions: {
                 'Cancel': null,
-                'Ok': (ctx) {
+                'Ok': (ctx) async {
                   G.pop();
-                  ctx.read<ProfileCubit>().deleteFormPhoto(photo: image!);
+                  final p =
+                      await G.rd<ProfileCubit>().deleteFormPhoto(photo: image!);
+                  fieldState.didChange(p.eventPhotos);
                 }
               });
         },
