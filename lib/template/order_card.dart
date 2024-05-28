@@ -749,7 +749,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               ),
                             ),
 
-                          // driver accepted
+                          // driver accept
                           if (widget.orderCardTargetPage ==
                               OrderCardTargetPage.driverAccept)
                             Padding(
