@@ -8,6 +8,8 @@ import 'package:yumi/global.dart';
 class NotificationSignalR {
   static listen() {
     Signalr.on(Signals.notification, (p0) {
+      print(' signalr notification ......................................');
+      print(p0);
       if (p0.any((e) =>
           e['chef_ID'] == G.context.read<UserBloc>().state.user.id ||
           e['driver_ID'] == G.context.read<UserBloc>().state.user.id ||

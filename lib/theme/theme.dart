@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
+ColorScheme colorScheme = ColorScheme(
+  brightness: Brightness.light,
+  primary: ThemeSelector.colors.primary,
+  onPrimary: ThemeSelector.colors.onPrimary,
+  secondary: ThemeSelector.colors.secondary,
+  onSecondary: ThemeSelector.colors.onSecondary,
+  error: ThemeSelector.colors.primary,
+  onError: ThemeSelector.colors.onPrimary,
+  surface: ThemeSelector.colors.onPrimary,
+  onSurface: ThemeSelector.colors.secondary,
+  inverseSurface: ThemeSelector.colors.primary,
+);
+
 ThemeData defaultTheme = ThemeData(
   brightness: Brightness.light,
   fontFamily: 'Inter',
   useMaterial3: true,
-  colorScheme: ColorScheme(
-    brightness: Brightness.light,
-    primary: ThemeSelector.colors.primary,
-    onPrimary: ThemeSelector.colors.onPrimary,
-    secondary: ThemeSelector.colors.secondary,
-    onSecondary: ThemeSelector.colors.onSecondary,
-    error: ThemeSelector.colors.primary,
-    onError: ThemeSelector.colors.onPrimary,
-    surface: ThemeSelector.colors.onPrimary,
-    onSurface: ThemeSelector.colors.secondary,
-    inverseSurface: ThemeSelector.colors.primary,
-  ),
+  colorScheme: colorScheme,
   textTheme: TextTheme(
     titleLarge: TextStyle(
       color: ThemeSelector.colors.primary,
@@ -84,6 +86,12 @@ ThemeData defaultTheme = ThemeData(
     ),
   ),
   timePickerTheme: timePickerTheme,
+  buttonTheme: ButtonThemeData(
+    buttonColor: ThemeSelector.colors.secondaryFaint,
+    minWidth: 0,
+    colorScheme: colorScheme,
+    shape: CircleBorder(eccentricity: .1),
+  ),
 );
 
 // https://developer.school/snippets/flutter/how-to-customise-the-timepicker-widget

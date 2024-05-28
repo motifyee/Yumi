@@ -76,19 +76,20 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
     emit(state.copyWith(orders: orders));
 
-    Response res = await OrderService.putActionOrderOrPreOrder(
-        apiKeys: event.apiKey,
-        orderId: event.order.id,
-        isFakeBody: event.isFakeBody);
-
-    if (res.statusCode == 200) {
-      add(const OrderEvent.reset());
-      add(OrderEvent.getRequest(apiKey: event.getApiKey));
-      if (event.navFun != null) event.navFun!();
-    } else {
+    OrderService.putActionOrderOrPreOrder(
+            apiKeys: event.apiKey,
+            orderId: event.order.id,
+            isFakeBody: event.isFakeBody)
+        .then((onValue) {
+      if (onValue.statusCode == 200) {
+        add(const OrderEvent.reset());
+        add(OrderEvent.getRequest(apiKey: event.getApiKey));
+        if (event.navFun != null) event.navFun!();
+      }
+    }).catchError((error) {
       ScaffoldMessenger.of(G.context).showSnackBar(SnackBar(
         content: SnackBarMassage(
-          massage: res.data['message'],
+          massage: (error as DioException).response?.data['message'],
         ),
       ));
       List<OrderModel> newOrders = List.from(state.orders);
@@ -98,6 +99,6 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       print('updated -------------------------------');
       add(OrderEvent.update(
           orders: newOrders, paginationHelper: state.paginationHelper));
-    }
+    });
   }
 }
