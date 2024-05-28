@@ -73,7 +73,10 @@ Future<void> askToLogout(BuildContext context) async {
     ),
     actions: {
       'Cancel': null,
-      'Ok': (ctx) => G.rd<RegCubit>().finish(false),
+      'Ok': (ctx) {
+        G.read<UserBloc>().add(UserResetEvent());
+        G.rd<RegCubit>().finish(false);
+      },
     },
     insetPadding: 0,
   );
