@@ -105,7 +105,6 @@ Widget profileFormFields(
             Positioned(
               right: 0,
               top: 0,
-              // bottom: 0,
               child: Container(
                 height: 48,
                 width: 96,
@@ -148,36 +147,6 @@ Widget profileFormFields(
                             ),
                           );
                         });
-
-                        // if (state.verifiedEmail == signupForm.email) {
-                        //   return G.snackBar(
-                        //     "${state.verifiedEmail} is already verified",
-                        //   );
-                        // }
-
-                        // if (!emailStructure(signupForm.email)) {
-                        //   return G.snackBar("Please enter a valid email");
-                        // }
-
-                        // await reg.getEmailOTP(signupForm.email!).then(
-                        //   (sent) {
-                        //     if (!sent) {
-                        //       return G.snackBar(
-                        //         "Please enter a valid email, nothing sent!",
-                        //       );
-                        //     }
-
-                        //     G.snackBar("Verification code sent");
-
-                        //     showModalBottomSheet(
-                        //       context: context,
-                        //       isScrollControlled: true,
-                        //       backgroundColor: Colors.transparent,
-                        //       builder: (context) =>
-                        //           const VerifyRegisterEmailOtpSheetProvider(),
-                        //     );
-                        //   },
-                        // );
                       },
                     );
                   },
