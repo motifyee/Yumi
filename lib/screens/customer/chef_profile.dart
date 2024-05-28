@@ -388,27 +388,8 @@ class ChefProfileScreen extends StatelessWidget {
                                           ReviewsState>(
                                         listener: (context, state) {},
                                         builder: (context, state) {
-                                          return RatingBar(
-                                            initialRating: state.reviews
-                                                    .firstOrNull?.rate ??
-                                                0,
-                                            allowHalfRating: true,
-                                            itemSize:
-                                                ThemeSelector.fonts.font_24,
-                                            ratingWidget: RatingWidget(
-                                              empty: Icon(Icons.star_border,
-                                                  color: ThemeSelector
-                                                      .colors.warning),
-                                              full: Icon(Icons.star,
-                                                  color: ThemeSelector
-                                                      .colors.warning),
-                                              half: Icon(
-                                                Icons.star_half,
-                                                color: ThemeSelector
-                                                    .colors.warning,
-                                              ),
-                                            ),
-                                            onRatingUpdate: (value) {
+                                          return GestureDetector(
+                                            onTap: () {
                                               showDialog(
                                                 useSafeArea: true,
                                                 context: context,
@@ -428,7 +409,11 @@ class ChefProfileScreen extends StatelessWidget {
                                                             .copyWith(
                                                       buddiesUserId:
                                                           chef.id ?? '',
-                                                      rate: value,
+                                                      rate: state
+                                                              .reviews
+                                                              .firstOrNull
+                                                              ?.rate ??
+                                                          0,
                                                       code: CodeGenerator
                                                           .getRandomCode(),
                                                       id: state
@@ -446,8 +431,41 @@ class ChefProfileScreen extends StatelessWidget {
                                                         const ReviewModel(),
                                                   ),
                                                 ),
-                                              );
+                                              ).then((onValue) {
+                                                context.read<ReviewsBloc>().add(
+                                                    const ReviewsEvent
+                                                        .resetReviews());
+
+                                                context.read<ReviewsBloc>().add(
+                                                      ReviewsEvent.getAll(
+                                                          chefID: chef.id!,
+                                                          isMyReviews: true),
+                                                    );
+                                              });
                                             },
+                                            child: RatingBar(
+                                              initialRating: state.reviews
+                                                      .firstOrNull?.rate ??
+                                                  0,
+                                              allowHalfRating: true,
+                                              ignoreGestures: true,
+                                              itemSize:
+                                                  ThemeSelector.fonts.font_24,
+                                              ratingWidget: RatingWidget(
+                                                empty: Icon(Icons.star_border,
+                                                    color: ThemeSelector
+                                                        .colors.warning),
+                                                full: Icon(Icons.star,
+                                                    color: ThemeSelector
+                                                        .colors.warning),
+                                                half: Icon(
+                                                  Icons.star_half,
+                                                  color: ThemeSelector
+                                                      .colors.warning,
+                                                ),
+                                              ),
+                                              onRatingUpdate: (value) {},
+                                            ),
                                           );
                                         },
                                       );
