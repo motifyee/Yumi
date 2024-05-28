@@ -107,7 +107,24 @@ class MealCard extends StatelessWidget {
                                 meal: meal,
                                 menuTarget: menuTarget,
                               ),
-                            ));
+                            )).then((onValue) {
+                      context.read<CategoriesBloc>().add(ResetCategoryEvent());
+
+                      context.read<CategoriesBloc>().add(GetCategoriesEvent(
+                          context: context,
+                          isPreOrder: menuTarget == MenuTarget.preOrder,
+                          isAll: false));
+                      context
+                          .read<MealListBloc>()
+                          .add(MealListResetEvent(menuTarget: menuTarget));
+                      context.read<MealListBloc>().add(
+                            MealListUpdateEvent(
+                              context: context,
+                              chefId:
+                                  context.read<UserBloc>().state.user.chefId,
+                            ),
+                          );
+                    });
                   },
                   child: Row(
                     children: [
