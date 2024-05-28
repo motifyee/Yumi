@@ -34,7 +34,8 @@ mixin _$NRegState {
   Status get status => throw _privateConstructorUsedError;
   String get addressMessage => throw _privateConstructorUsedError;
   Status get addressStatus => throw _privateConstructorUsedError; //
-  Vehicle get vehicle => throw _privateConstructorUsedError; //
+  Vehicle get vehicle => throw _privateConstructorUsedError;
+  Status get ridesStatus => throw _privateConstructorUsedError; //
   int get onboardingProgress => throw _privateConstructorUsedError;
   Unique? get unique => throw _privateConstructorUsedError;
   int? get countDown => throw _privateConstructorUsedError;
@@ -67,6 +68,7 @@ abstract class $NRegStateCopyWith<$Res> {
       String addressMessage,
       Status addressStatus,
       Vehicle vehicle,
+      Status ridesStatus,
       int onboardingProgress,
       Unique? unique,
       int? countDown});
@@ -106,6 +108,7 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
     Object? addressMessage = null,
     Object? addressStatus = null,
     Object? vehicle = null,
+    Object? ridesStatus = null,
     Object? onboardingProgress = null,
     Object? unique = freezed,
     Object? countDown = freezed,
@@ -179,6 +182,10 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
           ? _value.vehicle
           : vehicle // ignore: cast_nullable_to_non_nullable
               as Vehicle,
+      ridesStatus: null == ridesStatus
+          ? _value.ridesStatus
+          : ridesStatus // ignore: cast_nullable_to_non_nullable
+              as Status,
       onboardingProgress: null == onboardingProgress
           ? _value.onboardingProgress
           : onboardingProgress // ignore: cast_nullable_to_non_nullable
@@ -249,6 +256,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       String addressMessage,
       Status addressStatus,
       Vehicle vehicle,
+      Status ridesStatus,
       int onboardingProgress,
       Unique? unique,
       int? countDown});
@@ -289,6 +297,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? addressMessage = null,
     Object? addressStatus = null,
     Object? vehicle = null,
+    Object? ridesStatus = null,
     Object? onboardingProgress = null,
     Object? unique = freezed,
     Object? countDown = freezed,
@@ -362,6 +371,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.vehicle
           : vehicle // ignore: cast_nullable_to_non_nullable
               as Vehicle,
+      ridesStatus: null == ridesStatus
+          ? _value.ridesStatus
+          : ridesStatus // ignore: cast_nullable_to_non_nullable
+              as Status,
       onboardingProgress: null == onboardingProgress
           ? _value.onboardingProgress
           : onboardingProgress // ignore: cast_nullable_to_non_nullable
@@ -399,6 +412,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       this.addressMessage = '',
       this.addressStatus = Status.init,
       this.vehicle = const Vehicle(typeCode: 0),
+      this.ridesStatus = Status.init,
       this.onboardingProgress = 0,
       this.unique,
       this.countDown})
@@ -456,6 +470,9 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   @override
   @JsonKey()
   final Vehicle vehicle;
+  @override
+  @JsonKey()
+  final Status ridesStatus;
 //
   @override
   @JsonKey()
@@ -467,7 +484,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'NRegState(registerationStarted: $registerationStarted, finished: $finished, step: $step, email: $email, willVerifyEmail: $willVerifyEmail, verifiedEmail: $verifiedEmail, emailOTP: $emailOTP, verifiedEmailStatus: $verifiedEmailStatus, singupData: $singupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, onboardingProgress: $onboardingProgress, unique: $unique, countDown: $countDown)';
+    return 'NRegState(registerationStarted: $registerationStarted, finished: $finished, step: $step, email: $email, willVerifyEmail: $willVerifyEmail, verifiedEmail: $verifiedEmail, emailOTP: $emailOTP, verifiedEmailStatus: $verifiedEmailStatus, singupData: $singupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, ridesStatus: $ridesStatus, onboardingProgress: $onboardingProgress, unique: $unique, countDown: $countDown)';
   }
 
   @override
@@ -492,6 +509,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('addressMessage', addressMessage))
       ..add(DiagnosticsProperty('addressStatus', addressStatus))
       ..add(DiagnosticsProperty('vehicle', vehicle))
+      ..add(DiagnosticsProperty('ridesStatus', ridesStatus))
       ..add(DiagnosticsProperty('onboardingProgress', onboardingProgress))
       ..add(DiagnosticsProperty('unique', unique))
       ..add(DiagnosticsProperty('countDown', countDown));
@@ -528,6 +546,8 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
             (identical(other.addressStatus, addressStatus) ||
                 other.addressStatus == addressStatus) &&
             (identical(other.vehicle, vehicle) || other.vehicle == vehicle) &&
+            (identical(other.ridesStatus, ridesStatus) ||
+                other.ridesStatus == ridesStatus) &&
             (identical(other.onboardingProgress, onboardingProgress) ||
                 other.onboardingProgress == onboardingProgress) &&
             (identical(other.unique, unique) || other.unique == unique) &&
@@ -555,6 +575,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
         addressMessage,
         addressStatus,
         vehicle,
+        ridesStatus,
         onboardingProgress,
         unique,
         countDown
@@ -586,6 +607,7 @@ abstract class _Initial extends NRegState {
       final String addressMessage,
       final Status addressStatus,
       final Vehicle vehicle,
+      final Status ridesStatus,
       final int onboardingProgress,
       final Unique? unique,
       final int? countDown}) = _$InitialImpl;
@@ -626,6 +648,8 @@ abstract class _Initial extends NRegState {
   Status get addressStatus;
   @override //
   Vehicle get vehicle;
+  @override
+  Status get ridesStatus;
   @override //
   int get onboardingProgress;
   @override

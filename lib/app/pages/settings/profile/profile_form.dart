@@ -253,6 +253,7 @@ class ProfileForm extends StatelessWidget {
                                 profile,
                                 onFormFieldsSaved<Profile>(
                                   profileForm,
+                                  fallbackCount: G.isCustomerApp ? 2 : 3,
                                   onAllFieldsSaved: (profile, _) async {
                                     await profileFormCubit
                                         .updateProfileForm(profile)

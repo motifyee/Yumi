@@ -216,6 +216,7 @@ class BankInfoForm extends StatelessWidget {
                           bankInfo,
                           onFormFieldsSaved<BankInfo>(
                             bankInfoKey,
+                            fallbackCount: 7,
                             onAllFieldsSaved: (info, fields) => context
                                 .read<BankInfoBloc>()
                                 .add(BankInfoFormSavedEvent(info)),
