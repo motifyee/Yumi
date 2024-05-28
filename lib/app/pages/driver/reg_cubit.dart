@@ -63,6 +63,7 @@ abstract class NRegState with _$NRegState {
     @Default(Status.init) Status addressStatus,
     //
     @Default(Vehicle(typeCode: 0)) Vehicle vehicle,
+    @Default(Status.init) Status ridesStatus,
     //
     @Default(0) int onboardingProgress,
     Unique? unique,
@@ -74,9 +75,9 @@ abstract class NRegState with _$NRegState {
   Future<bool> get canAddVehicle async {
     var regCub = G.rd<RegCubit>();
 
-    regCub.setLoading();
+    regCub.setRidesLoading();
     var vehicle = await VehicleService.getVehicle();
-    regCub.setLoading(false);
+    regCub.setRidesLoading();
 
     if (vehicle == null) return true;
 
@@ -111,6 +112,10 @@ class RegCubit extends Cubit<NRegState> {
 
   void setLoading([bool loading = true]) {
     emit(state.copyWith(status: loading ? Status.loading : Status.idle));
+  }
+
+  void setRidesLoading([bool loading = true]) {
+    emit(state.copyWith(ridesStatus: loading ? Status.loading : Status.idle));
   }
 
   void init() async {
@@ -166,7 +171,7 @@ class RegCubit extends Cubit<NRegState> {
     }
 
     await G.router.replaceAll([HomeRoute()]).then((value) {
-      reset();
+      reset(finished: true);
     });
   }
 
@@ -383,7 +388,8 @@ class RegCubit extends Cubit<NRegState> {
         .catchError((_) {
       emit(
         state.copyWith(
-            status: Status.error, message: 'could\'nt update your vehicle!'),
+            ridesStatus: Status.error,
+            message: 'could\'nt update your vehicle!'),
       );
 
       throw 'could\'nt update your vehicle!';
@@ -426,8 +432,8 @@ class RegCubit extends Cubit<NRegState> {
     pref.setInt(regStepKey, step);
   }
 
-  void reset() {
-    emit(const NRegState());
+  void reset({bool finished = false}) {
+    emit(NRegState(finished: finished));
 
     G.rd<ProfileCubit>().reset();
     if (!G.isCustomerApp) {
