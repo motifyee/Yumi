@@ -28,22 +28,24 @@ class DriverOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isShown = false;
-    LocalStorage.sharedRef.getValue(LocalStorage.newsGuide).then((res) {
-      if (res != true) {
-        if (!isShown) {
-          isShown = true;
-          SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-            showModalBottomSheet(
-                context: context,
-                backgroundColor: Colors.transparent,
-                isScrollControlled: true,
-                builder: (BuildContext context) {
-                  return const NewsGuide();
-                });
-          });
+    if (menuTarget == MenuTarget.order) {
+      LocalStorage.sharedRef.getValue(LocalStorage.newsGuide).then((res) {
+        if (res != true) {
+          if (!isShown) {
+            isShown = true;
+            SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+              showModalBottomSheet(
+                  context: context,
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return const NewsGuide();
+                  });
+            });
+          }
         }
-      }
-    });
+      });
+    }
 
     return BlocProvider(
       create: (context) => NewsBloc(),
@@ -51,7 +53,7 @@ class DriverOrderScreen extends StatelessWidget {
         children: [
           const Location(),
           SizedBox(height: ThemeSelector.statics.defaultGap),
-          StatusButton(),
+          if (menuTarget == MenuTarget.order) StatusButton(),
           BlocBuilder<SignalRCubit, SignalRState>(
             builder: (context, states) {
               return BlocBuilder<NewsBloc, NewsState>(
