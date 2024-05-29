@@ -62,7 +62,8 @@ class ProductInCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            invoiceDetails.product?.productName ?? '',
+                            (invoiceDetails.product?.productName ?? '')
+                                .replaceAll('[SoftDeleted]', ''),
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           Text(
