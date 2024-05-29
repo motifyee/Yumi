@@ -77,7 +77,7 @@ abstract class NRegState with _$NRegState {
 
     regCub.setRidesLoading();
     var vehicle = await VehicleService.getVehicle();
-    regCub.setRidesLoading();
+    regCub.setRidesLoading(false);
 
     if (vehicle == null) return true;
 
