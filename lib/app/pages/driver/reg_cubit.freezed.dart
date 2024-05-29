@@ -16,9 +16,13 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$NRegState {
+  bool get partialFlow => throw _privateConstructorUsedError;
   bool get registerationStarted => throw _privateConstructorUsedError;
   bool get finished => throw _privateConstructorUsedError;
-  int get step => throw _privateConstructorUsedError; //
+  int get step => throw _privateConstructorUsedError;
+  int get lastStep =>
+      throw _privateConstructorUsedError; // applies to partial flow
+//
   String? get email => throw _privateConstructorUsedError;
   String? get willVerifyEmail => throw _privateConstructorUsedError;
   String? get verifiedEmail => throw _privateConstructorUsedError;
@@ -51,9 +55,11 @@ abstract class $NRegStateCopyWith<$Res> {
       _$NRegStateCopyWithImpl<$Res, NRegState>;
   @useResult
   $Res call(
-      {bool registerationStarted,
+      {bool partialFlow,
+      bool registerationStarted,
       bool finished,
       int step,
+      int lastStep,
       String? email,
       String? willVerifyEmail,
       String? verifiedEmail,
@@ -91,9 +97,11 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? partialFlow = null,
     Object? registerationStarted = null,
     Object? finished = null,
     Object? step = null,
+    Object? lastStep = null,
     Object? email = freezed,
     Object? willVerifyEmail = freezed,
     Object? verifiedEmail = freezed,
@@ -114,6 +122,10 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
     Object? countDown = freezed,
   }) {
     return _then(_value.copyWith(
+      partialFlow: null == partialFlow
+          ? _value.partialFlow
+          : partialFlow // ignore: cast_nullable_to_non_nullable
+              as bool,
       registerationStarted: null == registerationStarted
           ? _value.registerationStarted
           : registerationStarted // ignore: cast_nullable_to_non_nullable
@@ -125,6 +137,10 @@ class _$NRegStateCopyWithImpl<$Res, $Val extends NRegState>
       step: null == step
           ? _value.step
           : step // ignore: cast_nullable_to_non_nullable
+              as int,
+      lastStep: null == lastStep
+          ? _value.lastStep
+          : lastStep // ignore: cast_nullable_to_non_nullable
               as int,
       email: freezed == email
           ? _value.email
@@ -239,9 +255,11 @@ abstract class _$$InitialImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool registerationStarted,
+      {bool partialFlow,
+      bool registerationStarted,
       bool finished,
       int step,
+      int lastStep,
       String? email,
       String? willVerifyEmail,
       String? verifiedEmail,
@@ -280,9 +298,11 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? partialFlow = null,
     Object? registerationStarted = null,
     Object? finished = null,
     Object? step = null,
+    Object? lastStep = null,
     Object? email = freezed,
     Object? willVerifyEmail = freezed,
     Object? verifiedEmail = freezed,
@@ -303,6 +323,10 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? countDown = freezed,
   }) {
     return _then(_$InitialImpl(
+      partialFlow: null == partialFlow
+          ? _value.partialFlow
+          : partialFlow // ignore: cast_nullable_to_non_nullable
+              as bool,
       registerationStarted: null == registerationStarted
           ? _value.registerationStarted
           : registerationStarted // ignore: cast_nullable_to_non_nullable
@@ -314,6 +338,10 @@ class __$$InitialImplCopyWithImpl<$Res>
       step: null == step
           ? _value.step
           : step // ignore: cast_nullable_to_non_nullable
+              as int,
+      lastStep: null == lastStep
+          ? _value.lastStep
+          : lastStep // ignore: cast_nullable_to_non_nullable
               as int,
       email: freezed == email
           ? _value.email
@@ -395,9 +423,11 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   const _$InitialImpl(
-      {this.registerationStarted = false,
+      {this.partialFlow = false,
+      this.registerationStarted = false,
       this.finished = false,
       this.step = 0,
+      this.lastStep = -1,
       this.email,
       this.willVerifyEmail,
       this.verifiedEmail,
@@ -420,6 +450,9 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
 
   @override
   @JsonKey()
+  final bool partialFlow;
+  @override
+  @JsonKey()
   final bool registerationStarted;
   @override
   @JsonKey()
@@ -427,6 +460,10 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   @override
   @JsonKey()
   final int step;
+  @override
+  @JsonKey()
+  final int lastStep;
+// applies to partial flow
 //
   @override
   final String? email;
@@ -484,7 +521,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'NRegState(registerationStarted: $registerationStarted, finished: $finished, step: $step, email: $email, willVerifyEmail: $willVerifyEmail, verifiedEmail: $verifiedEmail, emailOTP: $emailOTP, verifiedEmailStatus: $verifiedEmailStatus, singupData: $singupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, ridesStatus: $ridesStatus, onboardingProgress: $onboardingProgress, unique: $unique, countDown: $countDown)';
+    return 'NRegState(partialFlow: $partialFlow, registerationStarted: $registerationStarted, finished: $finished, step: $step, lastStep: $lastStep, email: $email, willVerifyEmail: $willVerifyEmail, verifiedEmail: $verifiedEmail, emailOTP: $emailOTP, verifiedEmailStatus: $verifiedEmailStatus, singupData: $singupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, ridesStatus: $ridesStatus, onboardingProgress: $onboardingProgress, unique: $unique, countDown: $countDown)';
   }
 
   @override
@@ -492,9 +529,11 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'NRegState'))
+      ..add(DiagnosticsProperty('partialFlow', partialFlow))
       ..add(DiagnosticsProperty('registerationStarted', registerationStarted))
       ..add(DiagnosticsProperty('finished', finished))
       ..add(DiagnosticsProperty('step', step))
+      ..add(DiagnosticsProperty('lastStep', lastStep))
       ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('willVerifyEmail', willVerifyEmail))
       ..add(DiagnosticsProperty('verifiedEmail', verifiedEmail))
@@ -520,11 +559,15 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
+            (identical(other.partialFlow, partialFlow) ||
+                other.partialFlow == partialFlow) &&
             (identical(other.registerationStarted, registerationStarted) ||
                 other.registerationStarted == registerationStarted) &&
             (identical(other.finished, finished) ||
                 other.finished == finished) &&
             (identical(other.step, step) || other.step == step) &&
+            (identical(other.lastStep, lastStep) ||
+                other.lastStep == lastStep) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.willVerifyEmail, willVerifyEmail) ||
                 other.willVerifyEmail == willVerifyEmail) &&
@@ -558,9 +601,11 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
+        partialFlow,
         registerationStarted,
         finished,
         step,
+        lastStep,
         email,
         willVerifyEmail,
         verifiedEmail,
@@ -590,9 +635,11 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
 
 abstract class _Initial extends NRegState {
   const factory _Initial(
-      {final bool registerationStarted,
+      {final bool partialFlow,
+      final bool registerationStarted,
       final bool finished,
       final int step,
+      final int lastStep,
       final String? email,
       final String? willVerifyEmail,
       final String? verifiedEmail,
@@ -614,12 +661,17 @@ abstract class _Initial extends NRegState {
   const _Initial._() : super._();
 
   @override
+  bool get partialFlow;
+  @override
   bool get registerationStarted;
   @override
   bool get finished;
   @override
   int get step;
-  @override //
+  @override
+  int get lastStep;
+  @override // applies to partial flow
+//
   String? get email;
   @override
   String? get willVerifyEmail;

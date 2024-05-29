@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,20 +10,16 @@ import 'package:yumi/route/route.gr.dart';
 class AuthGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
+    final regCubit = G.rd<RegCubit>();
     final userBloc = G.cContext.read<UserBloc>();
 
     userBloc.add(UserFromSharedRefEvent(
       afterFetchSuccess: (context, route, user) async {
         // redirect to registeration if has cached reg-steps
-        final registering = await SharedPreferences.getInstance().then((value) {
-          if (value.getInt(regStepKey) == null) return false;
-          if (userBloc.state.user.accessToken.isEmpty) return false;
-
-          G.cContext.read<RegCubit>().init();
-          return true;
-        });
-
-        if (registering) return;
+        if (await regCubit.hasActiveRegisteration() &&
+            userBloc.state.user.accessToken.isNotEmpty) {
+          return regCubit.init();
+        }
 
         if (!(user?.mobileVerified ?? false)) {
           return router.replaceAll([LoginRoute()]);

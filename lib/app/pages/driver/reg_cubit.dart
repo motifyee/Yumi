@@ -35,6 +35,7 @@ import 'package:yumi/util/util.dart';
 part 'reg_cubit.freezed.dart';
 
 const String regStepKey = 'reg_step';
+const String partialFlowKey = 'partial_flow';
 const String onboardingProgressKey = 'onboarding_progress';
 
 enum RegStep { signup, addPhone, otp, location, onboarding }
@@ -42,9 +43,14 @@ enum RegStep { signup, addPhone, otp, location, onboarding }
 @freezed
 abstract class NRegState with _$NRegState {
   const factory NRegState({
+    @Default(false)
+    // stops automatic flow at [lastStep]
+    // allows using single components/pages from the registration flow extenally
+    bool partialFlow,
     @Default(false) bool registerationStarted,
     @Default(false) bool finished,
     @Default(0) int step,
+    @Default(-1) int lastStep, // applies to partial flow
     //
     String? email,
     String? willVerifyEmail,
@@ -118,7 +124,15 @@ class RegCubit extends Cubit<NRegState> {
     emit(state.copyWith(ridesStatus: loading ? Status.loading : Status.idle));
   }
 
-  void init() async {
+  Future<bool> hasActiveRegisteration() async {
+    return await G.prefs.then((prefs) {
+      if ((prefs.getBool(partialFlowKey) ?? false)) return false;
+
+      return prefs.getInt(regStepKey) != null;
+    });
+  }
+
+  void init({bool partialFlow = false, int lastStep = -1}) async {
     setLoading();
 
     //return finish();
@@ -130,7 +144,11 @@ class RegCubit extends Cubit<NRegState> {
     if (G.read<UserBloc>().state.user.accessToken.isEmpty) step = 0;
 
     if (!state.registerationStarted) {
-      emit(state.copyWith(registerationStarted: true));
+      emit(state.copyWith(
+        registerationStarted: true,
+        partialFlow: partialFlow,
+        lastStep: lastStep,
+      ));
     }
 
     if (step > 0) _navigateToIdx(step);
@@ -304,6 +322,8 @@ class RegCubit extends Cubit<NRegState> {
       (r) {
         emit(state.copyWith(status: Status.success));
         stopCountDown();
+
+        if (state.lastStep == RegStep.addPhone.index) return G.pop();
         _navigateToIdx(3);
       },
     );
@@ -416,12 +436,6 @@ class RegCubit extends Cubit<NRegState> {
 
     G.router.navigate(RegisterationRoute(children: [getPage(step)]));
 
-    // if (path.contains("/registeration")) {
-    //   G.router.navigateNamed(RegStep.values[step].name);
-    // } else {
-    //   G.router.replaceNamed('/registeration/${RegStep.values[step].name}');
-    // }
-
     emit(state.copyWith(step: step));
     await saveStepToCache(step);
   }
@@ -430,6 +444,7 @@ class RegCubit extends Cubit<NRegState> {
     // save step index to shared preferences
     var pref = await SharedPreferences.getInstance();
     pref.setInt(regStepKey, step);
+    pref.setBool(partialFlowKey, state.partialFlow);
   }
 
   void reset({bool finished = false}) {

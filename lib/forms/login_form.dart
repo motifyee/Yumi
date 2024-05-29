@@ -22,28 +22,26 @@ class LoginForm extends StatelessWidget {
 
   final LoginModel loginForm = LoginModel(email: '', password: '');
   final GlobalKey<FormState> loginFormKey;
-  static bool loginAttempted = false;
 
   @override
   Widget build(BuildContext context) {
     // redirect to registeration if has cached reg-steps
-    SharedPreferences.getInstance().then((value) {
-      if (loginAttempted == false) {
-        context.read<UserBloc>().add(
-              UserFromSharedRefEvent(
-                context: context,
-                route: null,
-                afterFetchSuccess: (context, _, user) {
-                  if (value.getInt(regStepKey) == null) return;
-                  if (G.read<UserBloc>().state.user.accessToken.isEmpty) return;
+    final regCubit = G.rd<RegCubit>();
+    final userBloc = G.cContext.read<UserBloc>();
 
-                  G.rd<RegCubit>().init();
-                },
-                autoLogin: (_) {},
-              ),
-            );
-      }
-    });
+    userBloc.add(
+      UserFromSharedRefEvent(
+        context: context,
+        route: null,
+        afterFetchSuccess: (context, _, user) async {
+          if (await regCubit.hasActiveRegisteration() &&
+              userBloc.state.user.accessToken.isNotEmpty) {
+            regCubit.init();
+          }
+        },
+        autoLogin: (_) {},
+      ),
+    );
 
     return Form(
       key: loginFormKey,

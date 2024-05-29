@@ -13,15 +13,15 @@ class RegisterationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final regCubit = context.read<RegCubit>();
+
     return PopScope(
-      canPop: false,
+      canPop: regCubit.state.partialFlow ? true : false,
       onPopInvoked: (didPop) {
-        // if (!didPop) return;
-        askToLogout(context);
+        if (!regCubit.state.partialFlow) askToLogout(context);
       },
       child: Builder(
         builder: (context) {
-          var regCubit = context.read<RegCubit>();
           context.read<UserBloc>().add(
                 UserFromSharedRefEvent(
                   context: context,
@@ -38,6 +38,8 @@ class RegisterationScreen extends StatelessWidget {
                   },
                 ),
               );
+
+          if (regCubit.state.partialFlow) return const AutoRouter();
 
           return Stack(
             children: [
