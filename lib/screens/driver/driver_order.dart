@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
@@ -27,22 +28,24 @@ class DriverOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isShown = false;
-    LocalStorage.sharedRef.getValue(LocalStorage.newsGuide).then((res) {
-      if (res != true) {
-        if (!isShown) {
-          isShown = true;
-          SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-            showModalBottomSheet(
-                context: context,
-                backgroundColor: Colors.transparent,
-                isScrollControlled: true,
-                builder: (BuildContext context) {
-                  return const NewsGuide();
-                });
-          });
+    if (menuTarget == MenuTarget.order) {
+      LocalStorage.sharedRef.getValue(LocalStorage.newsGuide).then((res) {
+        if (res != true) {
+          if (!isShown) {
+            isShown = true;
+            SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+              showModalBottomSheet(
+                  context: context,
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return const NewsGuide();
+                  });
+            });
+          }
         }
-      }
-    });
+      });
+    }
 
     return BlocProvider(
       create: (context) => NewsBloc(),
@@ -50,36 +53,45 @@ class DriverOrderScreen extends StatelessWidget {
         children: [
           const Location(),
           SizedBox(height: ThemeSelector.statics.defaultGap),
-          StatusButton(),
-          BlocBuilder<NewsBloc, NewsState>(
-            builder: (context, state) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ActionButton(
-                    key: key,
-                    label: S.of(context).available,
-                    isActive: state.selectedList == 0,
-                    onPressed: () {
-                      context
-                          .read<NewsBloc>()
-                          .add(const NewsEvent(selectedList: 0));
-                      _controller.jumpToPage(0);
-                    },
-                  ),
-                  SizedBox(width: ThemeSelector.statics.defaultBlockGap),
-                  ActionButton(
-                    key: key,
-                    label: S.of(context).active,
-                    isActive: state.selectedList == 1,
-                    onPressed: () {
-                      context
-                          .read<NewsBloc>()
-                          .add(const NewsEvent(selectedList: 1));
-                      _controller.jumpToPage(1);
-                    },
-                  ),
-                ],
+          if (menuTarget == MenuTarget.order) StatusButton(),
+          BlocBuilder<SignalRCubit, SignalRState>(
+            builder: (context, states) {
+              return BlocBuilder<NewsBloc, NewsState>(
+                builder: (context, state) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ActionButton(
+                        key: key,
+                        label: S.of(context).available,
+                        isActive: state.selectedList == 0,
+                        isNotificationIconShow: states.isSignalTriggered(
+                            signal: [Signals.neworderreceived],
+                            isPreOrder: menuTarget == MenuTarget.preOrder),
+                        onPressed: () {
+                          context
+                              .read<NewsBloc>()
+                              .add(const NewsEvent(selectedList: 0));
+                          _controller.jumpToPage(0);
+                          context.read<SignalRCubit>().removeSignals(
+                              signal: [Signals.neworderreceived]);
+                        },
+                      ),
+                      SizedBox(width: ThemeSelector.statics.defaultBlockGap),
+                      ActionButton(
+                        key: key,
+                        label: S.of(context).active,
+                        isActive: state.selectedList == 1,
+                        onPressed: () {
+                          context
+                              .read<NewsBloc>()
+                              .add(const NewsEvent(selectedList: 1));
+                          _controller.jumpToPage(1);
+                        },
+                      ),
+                    ],
+                  );
+                },
               );
             },
           ),
@@ -90,43 +102,49 @@ class DriverOrderScreen extends StatelessWidget {
               children: [
                 BlocProvider(
                   create: (context) => OrderBloc(),
-                  child: NewsOrders(
-                    menuTarget: menuTarget,
-                    apiKey: menuTarget == MenuTarget.order
-                        ? ApiKeys.orderDriverAvailable
-                        : ApiKeys.preOrderDriverAvailable,
-                    orderCardTargetPage: OrderCardTargetPage.driverAccept,
-                    signalRListener: const [Signals.neworderreceived],
-                    signalRFun: (p0) {
-                      context.read<OrderBloc>().add(const OrderEvent.reset());
-                      return true;
-                    },
-                  ),
+                  child: Builder(builder: (context) {
+                    return NewsOrders(
+                      menuTarget: menuTarget,
+                      apiKey: menuTarget == MenuTarget.order
+                          ? ApiKeys.orderDriverAvailable
+                          : ApiKeys.preOrderDriverAvailable,
+                      orderCardTargetPage: OrderCardTargetPage.driverAccept,
+                      signalRListener: const [Signals.neworderreceived],
+                      signalRFun: (p0) {
+                        context.read<OrderBloc>().add(const OrderEvent.reset());
+                        return true;
+                      },
+                    );
+                  }),
                 ),
                 BlocProvider(
                   create: (context) => OrderBloc(),
-                  child: NewsOrders(
-                    menuTarget: menuTarget,
-                    apiKey: menuTarget == MenuTarget.order
-                        ? ApiKeys.orderDriverActive
-                        : ApiKeys.preOrderDriverActive,
-                    orderCardTargetPage: OrderCardTargetPage.driverReceived,
-                    signalRListener: const [
-                      Signals.chefstart,
-                      Signals.cheffinished,
-                      Signals.driverreceived,
-                      Signals.clientreceived,
-                    ],
-                    signalRFun: (p0) {
-                      bool isUpdate = p0.any((e) =>
-                          e['driver_ID'] ==
-                          context.read<UserBloc>().state.user.id);
-                      if (isUpdate) {
-                        context.read<OrderBloc>().add(const OrderEvent.reset());
-                      }
-                      return isUpdate;
-                    },
-                  ),
+                  child: Builder(builder: (context) {
+                    return NewsOrders(
+                      menuTarget: menuTarget,
+                      apiKey: menuTarget == MenuTarget.order
+                          ? ApiKeys.orderDriverActive
+                          : ApiKeys.preOrderDriverActive,
+                      orderCardTargetPage: OrderCardTargetPage.driverReceived,
+                      signalRListener: const [
+                        Signals.chefstart,
+                        Signals.cheffinished,
+                        Signals.driverreceived,
+                        Signals.clientreceived,
+                      ],
+                      signalRFun: (p0) {
+                        bool isUpdate = p0.any((e) =>
+                            e['driver_ID'] ==
+                            context.read<UserBloc>().state.user.id);
+                        if (isUpdate) {
+                          context
+                              .read<OrderBloc>()
+                              .add(const OrderEvent.reset());
+                        }
+                        return isUpdate;
+                      },
+                    );
+                  }),
                 ),
               ],
             ),

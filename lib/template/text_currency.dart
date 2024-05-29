@@ -27,7 +27,7 @@ class TextCurrency extends StatelessWidget {
               ),
         ),
         Text(
-          '\$',
+          '£',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w300,
                 fontSize: (fontSize ?? ThemeSelector.fonts.font_16) * .75,
