@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
+import 'package:yumi/app/pages/auth/registeration/reg_screen.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/maps/google_maps.dart';
@@ -69,16 +70,26 @@ class LocationScreen extends StatelessWidget {
           print(await info.controller?.getZoomLevel());
         });
 
-    return Stack(
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: GMap(info: mapInfo),
+    final regCubit = context.read<RegCubit>();
+
+    return PopScope(
+      canPop: regCubit.state.partialFlow ? true : false,
+      onPopInvoked: (didPop) {
+        if (!regCubit.state.partialFlow) askToLogout(context);
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: GMap(info: mapInfo),
+            ),
+            locationBar(),
+            addressCard(),
+          ],
         ),
-        locationBar(),
-        addressCard(),
-      ],
+      ),
     );
   }
 

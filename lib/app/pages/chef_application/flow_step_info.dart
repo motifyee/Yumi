@@ -23,7 +23,10 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
         "profile",
         ["Profile", "First, you should complete your profile"],
         () async {
-          if (G.rd<RegCubit>().state.onboarding.approvalDone) return;
+          final regCubit = G.rd<RegCubit>();
+
+          if (regCubit.state.onboarding.profileSheetDone &&
+              regCubit.state.onboarding.approvalDone) return;
 
           G.rd<RegCubit>().setLoading();
 
@@ -44,7 +47,10 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
         "menu",
         ["Your Menu", "Secondly, add your meals on menu and schedule it"],
         () async {
-          if (G.rd<RegCubit>().state.onboarding.approvalDone) return;
+          final regCubit = G.rd<RegCubit>();
+
+          if (regCubit.state.onboarding.stepTwoDone &&
+              regCubit.state.onboarding.approvalDone) return;
 
           G.rd<ScheduleCubit>().loadSchedule();
 
@@ -81,7 +87,10 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
         ["Documentation", "Third, attach your documents"],
         // () => G.router.push(const DocumentationRoute()),
         () async {
-          if (G.rd<RegCubit>().state.onboarding.approvalDone) return;
+          final regCubit = G.rd<RegCubit>();
+
+          if (regCubit.state.onboarding.docsDone &&
+              regCubit.state.onboarding.approvalDone) return;
 
           G.rd<RegCubit>().setLoading();
 
@@ -93,8 +102,9 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
                 final List<DocInfo> docsInfo =
                     G.isChefApp ? chefDocsInfo : driverDocsInfo;
 
-                final List<String> notUploadedDocs = docsInfo
+                final List<String?> notUploadedDocs = docsInfo
                     .filter((t) =>
+                        t.title != null &&
                         t.getdata(G.rd<ProfileCubit>().state.form) == null)
                     .map((e) => e.title as String)
                     .toList();
@@ -161,6 +171,11 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
         ["Get Contract", "Fourth, download the contract to sign and upload it"],
         // () => G.router.push(const ContractRoute()),
         () async {
+          final regCubit = G.rd<RegCubit>();
+
+          if (regCubit.state.onboarding.contractDone &&
+              regCubit.state.onboarding.contractApprovalDone) return;
+
           G.rd<RegCubit>().setLoading();
 
           await showAlertDialog(
@@ -221,7 +236,10 @@ List driverStepsInfo(BuildContext context, NRegState state) => [
           "Secondly, add your vechile type and schedule your working days"
         ],
         () async {
-          if (G.rd<RegCubit>().state.onboarding.approvalDone) return;
+          final regCubit = G.rd<RegCubit>();
+
+          if (regCubit.state.onboarding.stepTwoDone &&
+              regCubit.state.onboarding.approvalDone) return;
 
           G.rd<RegCubit>().setLoading();
 

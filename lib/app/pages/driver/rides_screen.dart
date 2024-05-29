@@ -76,7 +76,7 @@ class RidesScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 40),
-                  state.status.isLoading
+                  state.ridesStatus.isLoading
                       ? const CircularProgressIndicator()
                       : Column(
                           children: [

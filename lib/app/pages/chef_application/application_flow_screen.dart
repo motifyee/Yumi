@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/pages/auth/registeration/reg_screen.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
@@ -33,64 +34,70 @@ class ChefApplicationFlowScreen extends StatelessWidget {
     context.watch<ScheduleCubit>();
     context.watch<DocsCubit>();
 
-    return ScreenContainer(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 250,
-                      alignment: Alignment.topLeft,
-                      child: Image(
-                        image: G.isChefApp
-                            ? const AssetImage('assets/images/vegies.png')
-                            : const AssetImage(
-                                'assets/images/flow/driver-flow.png'),
+    return PopScope(
+      canPop: regCubit.state.partialFlow ? true : false,
+      onPopInvoked: (didPop) {
+        if (!regCubit.state.partialFlow) askToLogout(context);
+      },
+      child: ScreenContainer(
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 250,
+                        alignment: Alignment.topLeft,
+                        child: Image(
+                          image: G.isChefApp
+                              ? const AssetImage('assets/images/vegies.png')
+                              : const AssetImage(
+                                  'assets/images/flow/driver-flow.png'),
+                        ),
                       ),
                     ),
+                    if (G.isChefApp) Expanded(child: Container()),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Expanded(
+                child: Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  child: Center(
+                    child: BlocBuilder<RegCubit, NRegState>(
+                      builder: (context, state) => stepStack(context, state),
+                    ),
                   ),
-                  if (G.isChefApp) Expanded(child: Container()),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  const Expanded(child: SizedBox()),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(
+                      onPressed: () {
+                        G.rd<RegCubit>().nextButtonPressed();
+                      },
+                      onLongPress: () {
+                        if (kDebugMode) G.rd<RegCubit>().finish();
+                      },
+                      child: const Text('Next'),
+                    ),
+                  ),
                 ],
-              ),
-            ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                child: Center(
-                  child: BlocBuilder<RegCubit, NRegState>(
-                    builder: (context, state) => stepStack(context, state),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                const Expanded(child: SizedBox()),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextButton(
-                    onPressed: () {
-                      G.rd<RegCubit>().nextButtonPressed();
-                    },
-                    onLongPress: () {
-                      if (kDebugMode) G.rd<RegCubit>().finish();
-                    },
-                    child: const Text('Next'),
-                  ),
-                ),
-              ],
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

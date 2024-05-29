@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,52 +15,48 @@ class RegisterationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (didPop) {
-        // if (!didPop) return;
-        askToLogout(context);
-      },
-      child: Builder(
-        builder: (context) {
-          var regCubit = context.read<RegCubit>();
-          context.read<UserBloc>().add(
-                UserFromSharedRefEvent(
-                  context: context,
-                  route: null,
-                  afterFetchSuccess: (_, __, user) {
-                    if (!regCubit.state.registerationStarted) {
-                      regCubit.init();
-                    }
-                  },
-                  autoLogin: (p0) {
-                    if (!regCubit.state.registerationStarted) {
-                      regCubit.init();
-                    }
-                  },
-                ),
-              );
+    final regCubit = context.read<RegCubit>();
 
-          return Stack(
-            children: [
-              const Positioned.fill(
-                child: AutoRouter(),
+    return Builder(
+      builder: (context) {
+        context.read<UserBloc>().add(
+              UserFromSharedRefEvent(
+                context: context,
+                route: null,
+                afterFetchSuccess: (_, __, user) {
+                  if (!regCubit.state.registerationStarted) {
+                    regCubit.init();
+                  }
+                },
+                autoLogin: (p0) {
+                  if (!regCubit.state.registerationStarted) {
+                    regCubit.init();
+                  }
+                },
               ),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  child: IconButton(
-                    onPressed: () => askToLogout(context),
-                    icon: SvgPicture.asset('assets/images/logout_menu.svg'),
-                  ),
+            );
+
+        if (regCubit.state.partialFlow) return const AutoRouter();
+
+        return Stack(
+          children: [
+            const Positioned.fill(
+              child: AutoRouter(),
+            ),
+            Positioned(
+              right: 0,
+              top: 0,
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                child: IconButton(
+                  onPressed: () => askToLogout(context),
+                  icon: SvgPicture.asset('assets/images/logout_menu.svg'),
                 ),
               ),
-            ],
-          );
-        },
-      ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -73,7 +71,10 @@ Future<void> askToLogout(BuildContext context) async {
     ),
     actions: {
       'Cancel': null,
-      'Ok': (ctx) => G.rd<RegCubit>().finish(false),
+      'Ok': (ctx) {
+        G.read<UserBloc>().add(UserResetEvent());
+        G.rd<RegCubit>().finish(false);
+      },
     },
     insetPadding: 0,
   );
