@@ -85,7 +85,11 @@ class OTPScreen extends StatelessWidget {
 
                           if (state != null) otp = state;
 
+                          // to force call initState() of OTP widget if the otp changed
+                          final forceRebuildKey = GlobalKey();
+
                           return OTP(
+                              key: forceRebuildKey,
                               initialOTP: state,
                               onInput: (value, _, __) => otp = value);
                         },

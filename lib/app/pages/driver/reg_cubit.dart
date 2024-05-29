@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -151,7 +152,7 @@ class RegCubit extends Cubit<NRegState> {
       ));
     }
 
-    if (step > 0) _navigateToIdx(step);
+    if (step >= 0) _navigateToIdx(step);
 
     await getOnboardingProgress();
     await G.rd<ProfileCubit>().getProfileForm();
@@ -431,7 +432,7 @@ class RegCubit extends Cubit<NRegState> {
 
     var path = G.router.currentPath;
 
-    if (path.contains('/login')) return;
+    // if (path.contains('/login')) return;
     if (!state.registerationStarted) return;
     if (path == '/registeration/${RegStep.values[step].name}') return;
 

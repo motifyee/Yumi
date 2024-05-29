@@ -16,7 +16,12 @@ enum OTPType {
 
 class VerifyOtpSheetProvider extends StatelessWidget {
   final OTPType type;
-  const VerifyOtpSheetProvider({this.type = OTPType.email, super.key});
+  final String otp;
+  const VerifyOtpSheetProvider({
+    this.type = OTPType.email,
+    required this.otp,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +29,7 @@ class VerifyOtpSheetProvider extends StatelessWidget {
       create: (context) => CountDownCubit(),
       child: VerifyOtpSheet(
         type: type,
+        otp: otp,
       ),
     );
   }
@@ -31,12 +37,17 @@ class VerifyOtpSheetProvider extends StatelessWidget {
 
 class VerifyOtpSheet extends StatelessWidget {
   final OTPType type;
-  const VerifyOtpSheet({required this.type, super.key});
+  final String otp;
+  const VerifyOtpSheet({
+    required this.type,
+    required this.otp,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // final counter = context.read<CountDownCubit>();
-    // if (counter.state.countDown == null) counter.startCountDown();
+    final counter = context.read<CountDownCubit>();
+    if (counter.state.countDown == null) counter.startCountDown();
 
     // return PopScope(
     // canPop: true,
@@ -85,7 +96,7 @@ class VerifyOtpSheet extends StatelessWidget {
               // child: BlocBuilder<RegCubit, NRegState>(
               //   builder: (context, state) {
               // return
-              child: VerifyOTPSheetContent(type: type),
+              child: VerifyOTPSheetContent(type: type, otp: otp),
             ),
           ),
         ),
@@ -97,11 +108,17 @@ class VerifyOtpSheet extends StatelessWidget {
 
 class VerifyOTPSheetContent extends StatelessWidget {
   final OTPType type;
-  const VerifyOTPSheetContent({super.key, required this.type});
+  final String otp;
+  const VerifyOTPSheetContent({
+    super.key,
+    required this.type,
+    required this.otp,
+  });
 
   @override
   Widget build(BuildContext context) {
     final counter = context.read<CountDownCubit>();
+    if (otp.length == 4) counter.setValue(otp);
 
     return Column(
       children: [
@@ -141,9 +158,12 @@ class VerifyOTPSheetContent extends StatelessWidget {
         Center(
           child: SizedBox(
             width: 200,
-            child: OTP(onInput: (value, _, __) {
-              counter.setValue(value);
-            }),
+            child: OTP(
+              initialOTP: otp,
+              onInput: (value, _, __) {
+                counter.setValue(value);
+              },
+            ),
           ),
         ),
         const SizedBox(height: 30),

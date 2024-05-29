@@ -140,8 +140,9 @@ class SignUpForm extends StatelessWidget {
                                   context: context,
                                   isScrollControlled: true,
                                   backgroundColor: Colors.transparent,
-                                  builder: (context) =>
-                                      const VerifyOtpSheetProvider(),
+                                  builder: (context) => VerifyOtpSheetProvider(
+                                    otp: G.rd<RegCubit>().state.emailOTP ?? '',
+                                  ),
                                 );
                               },
                             );
