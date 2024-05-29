@@ -69,16 +69,18 @@ class LocationScreen extends StatelessWidget {
           print(await info.controller?.getZoomLevel());
         });
 
-    return Stack(
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: GMap(info: mapInfo),
-        ),
-        locationBar(),
-        addressCard(),
-      ],
+    return Scaffold(
+      body: Stack(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: GMap(info: mapInfo),
+          ),
+          locationBar(),
+          addressCard(),
+        ],
+      ),
     );
   }
 
