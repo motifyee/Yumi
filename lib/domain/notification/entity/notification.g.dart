@@ -11,8 +11,8 @@ _$NotificationSImpl _$$NotificationSImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       notificationType: const NotificationTypeConverter()
           .fromJson(json['notificationType'] as String),
-      date: const DateTimeToIso8601StringConverter()
-          .fromJson(json['date'] as String),
+      createDate: const DateTimeToIso8601StringConverter()
+          .fromJson(json['createDate'] as String),
       description: json['description'] as String,
       typeID: (json['type_ID'] as num?)?.toInt(),
       driverID: json['driver_ID'] as String?,
@@ -26,7 +26,8 @@ Map<String, dynamic> _$$NotificationSImplToJson(_$NotificationSImpl instance) =>
       'id': instance.id,
       'notificationType':
           const NotificationTypeConverter().toJson(instance.notificationType),
-      'date': const DateTimeToIso8601StringConverter().toJson(instance.date),
+      'createDate':
+          const DateTimeToIso8601StringConverter().toJson(instance.createDate),
       'description': instance.description,
       'type_ID': instance.typeID,
       'driver_ID': instance.driverID,

@@ -601,36 +601,38 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               padding: EdgeInsets.symmetric(
                                   horizontal:
                                       ThemeSelector.statics.defaultMicroGap),
-                              child: TextButton(
-                                onPressed: () {
-                                  String apiKey = widget.order.isPickUp == true
-                                      ? ApiKeys.preOrderChefPickUpAccept
-                                      : ApiKeys.preOrderChefDeliveryAccept;
+                              child: Row(
+                                children: [
+                                  TimerCount(
+                                    menuTarget: widget.menuTarget,
+                                    order: widget.order,
+                                    isOver3hCount: true,
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      String apiKey = widget.order.isPickUp ==
+                                              true
+                                          ? ApiKeys.preOrderChefPickUpAccept
+                                          : ApiKeys.preOrderChefDeliveryAccept;
 
-                                  context.read<OrderBloc>().add(
-                                        OrderEvent.putAction(
-                                          order: widget.order,
-                                          navFun: widget.navFun,
-                                          apiKey: ApiKeys.actionApiKeyString(
-                                              apiKey: apiKey,
-                                              id: '${widget.order.id}'),
-                                          getApiKey: widget.getApiKey,
-                                        ),
-                                      );
-                                },
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) => ThemeSelector.colors.success,
-                                )),
-                                child: Row(
-                                  children: [
-                                    TimerCount(
-                                      menuTarget: widget.menuTarget,
-                                      order: widget.order,
-                                      isOver3hCount: true,
-                                    ),
-                                    Text(
+                                      context.read<OrderBloc>().add(
+                                            OrderEvent.putAction(
+                                              order: widget.order,
+                                              navFun: widget.navFun,
+                                              apiKey:
+                                                  ApiKeys.actionApiKeyString(
+                                                      apiKey: apiKey,
+                                                      id: '${widget.order.id}'),
+                                              getApiKey: widget.getApiKey,
+                                            ),
+                                          );
+                                    },
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            WidgetStateColor.resolveWith(
+                                      (states) => ThemeSelector.colors.success,
+                                    )),
+                                    child: Text(
                                       S.of(context).accept,
                                       style: Theme.of(context)
                                           .textTheme
@@ -639,8 +641,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                               color: ThemeSelector
                                                   .colors.onSuccess),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
 
@@ -1213,13 +1215,17 @@ class _TimerCountState extends State<TimerCount> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      widget.isOver3hCount
-          ? widget.order.isOver3HCount
-          : widget.menuTarget == MenuTarget.order
-              ? widget.order.driverOrderPendingCount
-              : widget.order.driverPreOrderPendingCount,
-      style: Theme.of(context).textTheme.bodyMedium,
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: ThemeSelector.statics.defaultMicroGap),
+      child: Text(
+        widget.isOver3hCount
+            ? widget.order.isOver3HCount
+            : widget.menuTarget == MenuTarget.order
+                ? widget.order.driverOrderPendingCount
+                : widget.order.driverPreOrderPendingCount,
+        style: Theme.of(context).textTheme.bodyMedium,
+      ),
     );
   }
 }

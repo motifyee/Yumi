@@ -9,9 +9,10 @@ class NewNotification
   @override
   Future<Either<Failure, PaginationHelper<NotificationS>>> call(
       NewNotificationParams params) async {
-    return Right(params.paginationHelper.copyWith(
-            data: [params.notificationS, ...params.paginationHelper.data])
-        as PaginationHelper<NotificationS>);
+    return Right(params.paginationHelper.copyWith(data: <NotificationS>[
+      params.notificationS,
+      ...params.paginationHelper.data,
+    ]) as PaginationHelper<NotificationS>);
   }
 }
 

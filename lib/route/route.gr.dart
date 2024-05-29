@@ -27,7 +27,7 @@ import 'package:yumi/app/pages/chef_application/contract/contract_screen.dart'
     as _i8;
 import 'package:yumi/app/pages/chef_application/documentation/documentation_screen.dart'
     as _i10;
-import 'package:yumi/app/pages/notification/notification.dart' as _i21;
+import 'package:yumi/app/pages/notification/notification_screen.dart' as _i21;
 import 'package:yumi/app/pages/schedule/schedule_screen.dart' as _i20;
 import 'package:yumi/app/pages/settings/settings_screen.dart' as _i28;
 import 'package:yumi/app/pages/transactions/transactions.dart' as _i31;

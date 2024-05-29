@@ -121,12 +121,12 @@ class OrderModel with _$OrderModel {
                         DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
                     .inHours) >
             0)
-          '${3 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours}h ',
+          '${3 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours}h',
         if ((3 -
                 DateTime.now()
                     .difference(
                         DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-                    .inHours) ==
+                    .inHours) <=
             0)
           '${(3 * 60) - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes}m'
       ].join(' ');

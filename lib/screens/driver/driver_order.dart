@@ -98,7 +98,6 @@ class DriverOrderScreen extends StatelessWidget {
                     orderCardTargetPage: OrderCardTargetPage.driverAccept,
                     signalRListener: const [Signals.neworderreceived],
                     signalRFun: (p0) {
-                      if (p0.runtimeType != List) return false;
                       context.read<OrderBloc>().add(const OrderEvent.reset());
                       return true;
                     },
@@ -119,7 +118,6 @@ class DriverOrderScreen extends StatelessWidget {
                       Signals.clientreceived,
                     ],
                     signalRFun: (p0) {
-                      if (p0.runtimeType != List) return false;
                       bool isUpdate = p0.any((e) =>
                           e['driver_ID'] ==
                           context.read<UserBloc>().state.user.id);

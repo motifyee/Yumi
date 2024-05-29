@@ -31,8 +31,10 @@ class NotificationCubit extends Cubit<NotificationState> {
     Either<Failure, PaginationHelper<NotificationS>> task =
         await NewNotification().call(NewNotificationParams(
             notificationS: notificationS, paginationHelper: state.pagination));
-    task.fold((l) => null,
-        (r) => emit(state.copyWith(pagination: r, isNewNotification: true)));
+    task.fold((l) => null, (r) {
+      print(r.runtimeType);
+      emit(state.copyWith(pagination: r, isNewNotification: true));
+    });
   }
 
   resetNotification() {
