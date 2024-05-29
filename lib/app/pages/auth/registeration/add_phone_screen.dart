@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/core/util/constants.dart';
+import 'package:yumi/app/pages/auth/registeration/reg_screen.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/global.dart';
@@ -20,84 +21,91 @@ class AddPhoneScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final form = GlobalKey<FormState>();
     final ctrl = TextEditingController();
+    final regCubit = context.read<RegCubit>();
 
-    return ScreenContainer(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: BlocSelector<RegCubit, NRegState, String>(
-            selector: (state) => state.singupData?.fullName ?? "",
-            builder: (context, state) {
-              return Center(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 450),
-                  child: Padding(
-                    padding: const EdgeInsets.all(36.0),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          "assets/images/registeration/add_phone.png",
-                        ),
-                        const SizedBox(height: 60),
-                        Text(
-                          "Hi ${state.split(" ").first},",
-                          style: TextStyle(
-                            fontSize: ThemeSelector.fonts.font_24,
-                            fontWeight: FontWeight.bold,
-                            color: ThemeSelector.colors.primary,
+    return PopScope(
+      canPop: regCubit.state.partialFlow ? true : false,
+      onPopInvoked: (didPop) {
+        if (!regCubit.state.partialFlow) askToLogout(context);
+      },
+      child: ScreenContainer(
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SingleChildScrollView(
+            child: BlocSelector<RegCubit, NRegState, String>(
+              selector: (state) => state.singupData?.fullName ?? "",
+              builder: (context, state) {
+                return Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 450),
+                    child: Padding(
+                      padding: const EdgeInsets.all(36.0),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            "assets/images/registeration/add_phone.png",
                           ),
-                        ),
-                        Text(
-                          "Enter your phone number",
-                          style: TextStyle(
-                            fontSize: ThemeSelector.fonts.font_10,
-                            color: ThemeSelector.colors.secondaryTant,
+                          const SizedBox(height: 60),
+                          Text(
+                            "Hi ${state.split(" ").first},",
+                            style: TextStyle(
+                              fontSize: ThemeSelector.fonts.font_24,
+                              fontWeight: FontWeight.bold,
+                              color: ThemeSelector.colors.primary,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 40),
-                        Form(
-                          key: form,
-                          child: TextFormFieldTemplate(
-                            label: "Enter Mobile Number",
-                            prefixText: '+$kUKCountryCode ',
-                            textInputType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            validators: mobileValidator,
-                            controller: ctrl,
+                          Text(
+                            "Enter your phone number",
+                            style: TextStyle(
+                              fontSize: ThemeSelector.fonts.font_10,
+                              color: ThemeSelector.colors.secondaryTant,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 40),
-                        InteractiveButton(
-                            label: "Get OTP",
-                            onPressed: () async {
-                              if (!form.currentState!.validate()) return;
+                          const SizedBox(height: 40),
+                          Form(
+                            key: form,
+                            child: TextFormFieldTemplate(
+                              label: "Enter Mobile Number",
+                              prefixText: '+$kUKCountryCode ',
+                              textInputType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              validators: mobileValidator,
+                              controller: ctrl,
+                            ),
+                          ),
+                          const SizedBox(height: 40),
+                          InteractiveButton(
+                              label: "Get OTP",
+                              onPressed: () async {
+                                if (!form.currentState!.validate()) return;
 
-                              var value = ctrl.text.trim();
+                                var value = ctrl.text.trim();
 
-                              await () async {
-                                final profileCubit =
-                                    context.read<ProfileCubit>();
-                                if (profileCubit.state.form.guid.isEmpty) {
-                                  await profileCubit.getProfileForm();
-                                }
-                              }()
-                                  .then((_) async {
-                                await context
-                                    .read<RegCubit>()
-                                    .setMobile(value)
-                                    .then((value) {
-                                  if (value != null) G.snackBar(value);
+                                await () async {
+                                  final profileCubit =
+                                      context.read<ProfileCubit>();
+                                  if (profileCubit.state.form.guid.isEmpty) {
+                                    await profileCubit.getProfileForm();
+                                  }
+                                }()
+                                    .then((_) async {
+                                  await context
+                                      .read<RegCubit>()
+                                      .setMobile(value)
+                                      .then((value) {
+                                    if (value != null) G.snackBar(value);
+                                  });
                                 });
-                              });
-                            }),
-                      ],
+                              }),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
       ),

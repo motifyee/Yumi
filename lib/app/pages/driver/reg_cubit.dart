@@ -172,6 +172,7 @@ class RegCubit extends Cubit<NRegState> {
   void finish([bool login = true]) async {
     var pref = await SharedPreferences.getInstance();
     pref.remove(regStepKey);
+    pref.remove(partialFlowKey);
     pref.remove(onboardingProgressKey);
 
     final user = G.read<UserBloc>().state.user;
