@@ -100,43 +100,49 @@ class DriverOrderScreen extends StatelessWidget {
               children: [
                 BlocProvider(
                   create: (context) => OrderBloc(),
-                  child: NewsOrders(
-                    menuTarget: menuTarget,
-                    apiKey: menuTarget == MenuTarget.order
-                        ? ApiKeys.orderDriverAvailable
-                        : ApiKeys.preOrderDriverAvailable,
-                    orderCardTargetPage: OrderCardTargetPage.driverAccept,
-                    signalRListener: const [Signals.neworderreceived],
-                    signalRFun: (p0) {
-                      context.read<OrderBloc>().add(const OrderEvent.reset());
-                      return true;
-                    },
-                  ),
+                  child: Builder(builder: (context) {
+                    return NewsOrders(
+                      menuTarget: menuTarget,
+                      apiKey: menuTarget == MenuTarget.order
+                          ? ApiKeys.orderDriverAvailable
+                          : ApiKeys.preOrderDriverAvailable,
+                      orderCardTargetPage: OrderCardTargetPage.driverAccept,
+                      signalRListener: const [Signals.neworderreceived],
+                      signalRFun: (p0) {
+                        context.read<OrderBloc>().add(const OrderEvent.reset());
+                        return true;
+                      },
+                    );
+                  }),
                 ),
                 BlocProvider(
                   create: (context) => OrderBloc(),
-                  child: NewsOrders(
-                    menuTarget: menuTarget,
-                    apiKey: menuTarget == MenuTarget.order
-                        ? ApiKeys.orderDriverActive
-                        : ApiKeys.preOrderDriverActive,
-                    orderCardTargetPage: OrderCardTargetPage.driverReceived,
-                    signalRListener: const [
-                      Signals.chefstart,
-                      Signals.cheffinished,
-                      Signals.driverreceived,
-                      Signals.clientreceived,
-                    ],
-                    signalRFun: (p0) {
-                      bool isUpdate = p0.any((e) =>
-                          e['driver_ID'] ==
-                          context.read<UserBloc>().state.user.id);
-                      if (isUpdate) {
-                        context.read<OrderBloc>().add(const OrderEvent.reset());
-                      }
-                      return isUpdate;
-                    },
-                  ),
+                  child: Builder(builder: (context) {
+                    return NewsOrders(
+                      menuTarget: menuTarget,
+                      apiKey: menuTarget == MenuTarget.order
+                          ? ApiKeys.orderDriverActive
+                          : ApiKeys.preOrderDriverActive,
+                      orderCardTargetPage: OrderCardTargetPage.driverReceived,
+                      signalRListener: const [
+                        Signals.chefstart,
+                        Signals.cheffinished,
+                        Signals.driverreceived,
+                        Signals.clientreceived,
+                      ],
+                      signalRFun: (p0) {
+                        bool isUpdate = p0.any((e) =>
+                            e['driver_ID'] ==
+                            context.read<UserBloc>().state.user.id);
+                        if (isUpdate) {
+                          context
+                              .read<OrderBloc>()
+                              .add(const OrderEvent.reset());
+                        }
+                        return isUpdate;
+                      },
+                    );
+                  }),
                 ),
               ],
             ),

@@ -12,7 +12,8 @@ class GeneralListenerSignalr {
         if (p0.any((e) =>
                 e['chef_ID'] == G.context.read<UserBloc>().state.user.id ||
                 e['driver_ID'] == G.context.read<UserBloc>().state.user.id ||
-                e['client_ID'] == G.context.read<UserBloc>().state.user.id) ||
+                e['client_ID'] == G.context.read<UserBloc>().state.user.id ||
+                e['buddiesId'] == G.context.read<UserBloc>().state.user.id) ||
             (signal == Signals.neworderreceived && G.isDriverApp)) {
           G.context
               .read<SignalRCubit>()
