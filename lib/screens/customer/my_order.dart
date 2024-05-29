@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
+import 'package:yumi/template/action_button.dart';
 import 'package:yumi/template/news_orders.dart';
 
 @RoutePage()
@@ -62,39 +64,71 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            SizedBox(width: ThemeSelector.statics.defaultGap),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _controller.jumpToPage(widget.isHistory ? 1 : 0);
-                  _index = widget.isHistory ? 1 : 0;
-                });
-              },
-              child: Text(
-                S.of(context).myOrders,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: ThemeSelector.colors.primary
-                        .withAlpha((_index == 0 || _index == 1) ? 255 : 150)),
-              ),
-            ),
-            SizedBox(width: ThemeSelector.statics.defaultGap),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _controller.jumpToPage(widget.isHistory ? 3 : 2);
-                  _index = widget.isHistory ? 3 : 2;
-                });
-              },
-              child: Text(
-                S.of(context).myPreOrder,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: ThemeSelector.colors.primary
-                        .withAlpha((_index == 2 || _index == 3) ? 255 : 150)),
-              ),
-            ),
-          ],
+        BlocBuilder<SignalRCubit, SignalRState>(
+          builder: (context, state) {
+            return Row(
+              children: [
+                SizedBox(width: ThemeSelector.statics.defaultGap),
+                ActionButton(
+                  onPressed: () {
+                    setState(() {
+                      _controller.jumpToPage(widget.isHistory ? 1 : 0);
+                      _index = widget.isHistory ? 1 : 0;
+                    });
+                    context.read<SignalRCubit>().removeSignals(signal: [
+                      Signals.neworderreceived,
+                      Signals.chefaccept,
+                      Signals.driveraccept,
+                      Signals.chefstart,
+                      Signals.cheffinished,
+                      Signals.driverreceived,
+                      Signals.clientreceived,
+                    ]);
+                  },
+                  label: S.of(context).myOrders,
+                  isActive: _index == 0 || _index == 1,
+                  isNotificationIconShow: state.isSignalTriggered(signal: [
+                    Signals.neworderreceived,
+                    Signals.chefaccept,
+                    Signals.driveraccept,
+                    Signals.chefstart,
+                    Signals.cheffinished,
+                    Signals.driverreceived,
+                    Signals.clientreceived,
+                  ], isPreOrder: false),
+                ),
+                SizedBox(width: ThemeSelector.statics.defaultGap),
+                ActionButton(
+                  onPressed: () {
+                    setState(() {
+                      _controller.jumpToPage(widget.isHistory ? 3 : 2);
+                      _index = widget.isHistory ? 3 : 2;
+                    });
+                    context.read<SignalRCubit>().removeSignals(signal: [
+                      Signals.neworderreceived,
+                      Signals.chefaccept,
+                      Signals.driveraccept,
+                      Signals.chefstart,
+                      Signals.cheffinished,
+                      Signals.driverreceived,
+                      Signals.clientreceived,
+                    ]);
+                  },
+                  label: S.of(context).myOrders,
+                  isActive: _index == 2 || _index == 3,
+                  isNotificationIconShow: state.isSignalTriggered(signal: [
+                    Signals.neworderreceived,
+                    Signals.chefaccept,
+                    Signals.driveraccept,
+                    Signals.chefstart,
+                    Signals.cheffinished,
+                    Signals.driverreceived,
+                    Signals.clientreceived,
+                  ], isPreOrder: true),
+                ),
+              ],
+            );
+          },
         ),
         Expanded(
           child: PageView(

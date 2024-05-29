@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nested/nested.dart';
+import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/chef_application/documentation/bloc/icon_bloc.dart';
 import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
@@ -49,6 +50,7 @@ class DriverAppConfig implements AppConfig {
     BlocProvider(create: (context) => AppInfoCubit()),
     BlocProvider(create: (context) => WalletCubit()),
     BlocProvider(create: (context) => NotificationCubit()),
+    BlocProvider(create: (context) => SignalRCubit()),
   ];
   @override
   List<SingleChildWidget> get blocProviders => _providers;

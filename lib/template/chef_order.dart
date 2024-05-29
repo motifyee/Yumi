@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
@@ -27,73 +28,88 @@ class ChefOrder extends StatelessWidget {
         .add(NewsEvent(selectedList: menuTarget == MenuTarget.order ? 1 : 0));
     return Column(
       children: [
-        BlocBuilder<NewsBloc, NewsState>(
-          builder: (context, state) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                if (menuTarget == MenuTarget.preOrder)
-                  ActionButton(
-                    key: key,
-                    label: S.of(context).pending,
-                    isActive: state.selectedList == 0,
-                    onPressed: () {
-                      context
-                          .read<NewsBloc>()
-                          .add(const NewsEvent(selectedList: 0));
-                      controller.jumpToPage(0);
-                    },
-                  ),
-                ActionButton(
-                  key: key,
-                  label: S.of(context).received,
-                  isActive: state.selectedList == 1,
-                  onPressed: () {
-                    context
-                        .read<NewsBloc>()
-                        .add(const NewsEvent(selectedList: 1));
-                    controller.jumpToPage(1);
-                  },
-                ),
-                ActionButton(
-                  key: key,
-                  label: S.of(context).preparing,
-                  isActive: state.selectedList == 2,
-                  onPressed: () {
-                    context
-                        .read<NewsBloc>()
-                        .add(const NewsEvent(selectedList: 2));
-                    controller.jumpToPage(2);
-                  },
-                ),
-                ActionButton(
-                  key: key,
-                  label: S.of(context).ready,
-                  isActive: state.selectedList == 3,
-                  onPressed: () {
-                    context
-                        .read<NewsBloc>()
-                        .add(const NewsEvent(selectedList: 3));
-                    controller.jumpToPage(3);
-                  },
-                ),
-                GestureDetector(
-                  onTap: () {
-                    context
-                        .read<NewsBloc>()
-                        .add(const NewsEvent(selectedList: 4));
-                    controller.jumpToPage(4);
-                  },
-                  child: SvgPicture.asset(
-                    'assets/images/history.svg',
-                    colorFilter: ColorFilter.mode(
-                        state.selectedList == 4
-                            ? ThemeSelector.colors.primary
-                            : ThemeSelector.colors.secondary,
-                        BlendMode.srcIn),
-                  ),
-                ),
-              ],
+        BlocBuilder<SignalRCubit, SignalRState>(
+          builder: (context, states) {
+            return BlocBuilder<NewsBloc, NewsState>(
+              builder: (context, state) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    if (menuTarget == MenuTarget.preOrder)
+                      ActionButton(
+                        key: key,
+                        label: S.of(context).pending,
+                        isActive: state.selectedList == 0,
+                        isNotificationIconShow: states.isSignalTriggered(
+                            signal: [Signals.neworderreceived],
+                            isPreOrder: menuTarget == MenuTarget.preOrder),
+                        onPressed: () {
+                          context
+                              .read<NewsBloc>()
+                              .add(const NewsEvent(selectedList: 0));
+                          controller.jumpToPage(0);
+                          context.read<SignalRCubit>().removeSignals(
+                              signal: [Signals.neworderreceived]);
+                        },
+                      ),
+                    ActionButton(
+                      key: key,
+                      label: S.of(context).received,
+                      isActive: state.selectedList == 1,
+                      isNotificationIconShow: states.isSignalTriggered(
+                          signal: [Signals.driveraccept],
+                          isPreOrder: menuTarget == MenuTarget.preOrder),
+                      onPressed: () {
+                        context
+                            .read<NewsBloc>()
+                            .add(const NewsEvent(selectedList: 1));
+                        controller.jumpToPage(1);
+                        context
+                            .read<SignalRCubit>()
+                            .removeSignals(signal: [Signals.driveraccept]);
+                      },
+                    ),
+                    ActionButton(
+                      key: key,
+                      label: S.of(context).preparing,
+                      isActive: state.selectedList == 2,
+                      onPressed: () {
+                        context
+                            .read<NewsBloc>()
+                            .add(const NewsEvent(selectedList: 2));
+                        controller.jumpToPage(2);
+                      },
+                    ),
+                    ActionButton(
+                      key: key,
+                      label: S.of(context).ready,
+                      isActive: state.selectedList == 3,
+                      onPressed: () {
+                        context
+                            .read<NewsBloc>()
+                            .add(const NewsEvent(selectedList: 3));
+                        controller.jumpToPage(3);
+                      },
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        context
+                            .read<NewsBloc>()
+                            .add(const NewsEvent(selectedList: 4));
+                        controller.jumpToPage(4);
+                      },
+                      child: SvgPicture.asset(
+                        'assets/images/history.svg',
+                        colorFilter: ColorFilter.mode(
+                            state.selectedList == 4
+                                ? ThemeSelector.colors.primary
+                                : ThemeSelector.colors.secondary,
+                            BlendMode.srcIn),
+                      ),
+                    ),
+                  ],
+                );
+              },
             );
           },
         ),
