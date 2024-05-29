@@ -10,7 +10,7 @@ class NotificationS with _$NotificationS {
   const factory NotificationS({
     required String id,
     @NotificationTypeConverter() required NotificationTypeEnum notificationType,
-    @DateTimeToIso8601StringConverter() required DateTime date,
+    @DateTimeToIso8601StringConverter() required DateTime createDate,
     required String description,
     @JsonKey(name: 'type_ID') int? typeID,
     @JsonKey(name: 'driver_ID') String? driverID,

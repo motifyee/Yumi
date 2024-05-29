@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
-import 'package:yumi/app/pages/notification/notification.dart';
+import 'package:yumi/app/pages/notification/notification_screen.dart';
 import 'package:yumi/app/pages/settings/profile/profile_screen.dart';
 import 'package:yumi/app/pages/settings/settings_screen.dart';
 import 'package:yumi/app_target.dart';

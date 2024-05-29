@@ -111,7 +111,7 @@ class _NotificationList extends StatelessWidget {
                                       .headlineMedium),
                               Text(
                                   DateFormat('d-M-yyyy | hh:mm')
-                                      .format(notification.date),
+                                      .format(notification.createDate),
                                   style:
                                       Theme.of(context).textTheme.labelSmall),
                             ],

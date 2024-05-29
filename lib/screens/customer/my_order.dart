@@ -116,7 +116,6 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                     Signals.clientreceived,
                   ],
                   signalRFun: (p0) {
-                    if (p0.runtimeType != List) return false;
                     bool isUpdate = p0.any((e) =>
                         e['buddiesId'] ==
                         context.read<UserBloc>().state.user.id);
@@ -137,7 +136,6 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                     Signals.clientreceived,
                   ],
                   signalRFun: (p0) {
-                    if (p0.runtimeType != List) return false;
                     bool isUpdate = p0.any((e) =>
                         e['buddiesId'] ==
                         context.read<UserBloc>().state.user.id);
@@ -163,7 +161,6 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                     Signals.clientreceived,
                   ],
                   signalRFun: (p0) {
-                    if (p0.runtimeType != List) return false;
                     bool isUpdate = p0.any((e) =>
                         e['buddiesId'] ==
                         context.read<UserBloc>().state.user.id);
@@ -184,7 +181,6 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                     Signals.clientreceived,
                   ],
                   signalRFun: (p0) {
-                    if (p0.runtimeType != List) return false;
                     bool isUpdate = p0.any((e) =>
                         e['buddiesId'] ==
                         context.read<UserBloc>().state.user.id);

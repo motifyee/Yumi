@@ -104,33 +104,32 @@ class ChefOrder extends StatelessWidget {
             children: [
               BlocProvider(
                 create: (context) => OrderBloc(),
-                child: NewsOrders(
-                  menuTarget: menuTarget,
-                  apiKey: ApiKeys.preOrderChefReceived,
-                  orderCardTargetPage: OrderCardTargetPage.chefPending,
-                  signalRListener: const [
-                    Signals.neworderreceived,
-                    Signals.driveraccept
-                  ],
-                  signalRFun: (p0) {
-                    print(
-                        'signalRFun preorder neworderreceived || driveraccept .........................');
-                    print(p0);
-                    if (p0.runtimeType != List) return false;
-                    bool isUpdate = p0.any((e) =>
-                        e['chef_ID'] == context.read<UserBloc>().state.user.id);
-                    if (isUpdate) {
-                      context.read<OrderBloc>().add(const OrderEvent.reset());
-                    }
-                    return isUpdate;
-                  },
-                  navFun: () {
-                    context
-                        .read<NewsBloc>()
-                        .add(const NewsEvent(selectedList: 1));
-                    controller.jumpToPage(1);
-                  },
-                ),
+                child: Builder(builder: (context) {
+                  return NewsOrders(
+                    menuTarget: menuTarget,
+                    apiKey: ApiKeys.preOrderChefReceived,
+                    orderCardTargetPage: OrderCardTargetPage.chefPending,
+                    signalRListener: const [
+                      Signals.neworderreceived,
+                      Signals.driveraccept
+                    ],
+                    signalRFun: (p0) {
+                      bool isUpdate = p0.any((e) =>
+                          e['chef_ID'] ==
+                          context.read<UserBloc>().state.user.id);
+                      if (isUpdate) {
+                        context.read<OrderBloc>().add(const OrderEvent.reset());
+                      }
+                      return isUpdate;
+                    },
+                    navFun: () {
+                      context
+                          .read<NewsBloc>()
+                          .add(const NewsEvent(selectedList: 1));
+                      controller.jumpToPage(1);
+                    },
+                  );
+                }),
               ),
               BlocProvider(
                 create: (context) => OrderBloc(),
@@ -142,7 +141,6 @@ class ChefOrder extends StatelessWidget {
                   orderCardTargetPage: OrderCardTargetPage.chefReceived,
                   signalRListener: const [Signals.driveraccept],
                   signalRFun: (p0) {
-                    if (p0.runtimeType != List) return false;
                     bool isUpdate = p0.any((e) =>
                         e['chef_ID'] == context.read<UserBloc>().state.user.id);
                     if (isUpdate) {
@@ -175,7 +173,6 @@ class ChefOrder extends StatelessWidget {
                     Signals.clientcancel
                   ],
                   signalRFun: (p0) {
-                    if (p0.runtimeType != List) return false;
                     bool isUpdate = p0.any((e) =>
                         e['chef_ID'] == context.read<UserBloc>().state.user.id);
                     if (isUpdate) {
@@ -205,7 +202,6 @@ class ChefOrder extends StatelessWidget {
                   orderCardTargetPage: OrderCardTargetPage.chefReady,
                   signalRListener: const [Signals.cheffinished],
                   signalRFun: (p0) {
-                    if (p0.runtimeType != List) return false;
                     bool isUpdate = p0.any((e) =>
                         e['chef_ID'] == context.read<UserBloc>().state.user.id);
                     if (isUpdate) {
@@ -234,7 +230,6 @@ class ChefOrder extends StatelessWidget {
                     Signals.driverreceived
                   ],
                   signalRFun: (p0) {
-                    if (p0.runtimeType != List) return false;
                     bool isUpdate = p0.any((e) =>
                         e['chef_ID'] == context.read<UserBloc>().state.user.id);
                     if (isUpdate) {
