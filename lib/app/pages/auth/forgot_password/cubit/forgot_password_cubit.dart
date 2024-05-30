@@ -44,6 +44,10 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
     startCountDown();
   }
 
+  void setVerificationType(ForgotPwdVerificationType type) {
+    emit(state.copyWith(verificationType: type));
+  }
+
   Unique? _unique;
   void startCountDown([int countDown = 60]) {
     final lUnique = unique();

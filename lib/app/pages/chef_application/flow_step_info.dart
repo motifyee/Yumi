@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_info.dart';
+import 'package:yumi/app/pages/chef_application/documentation/docs_info.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
@@ -104,9 +104,8 @@ List chefStepsInfo(BuildContext context, NRegState state) => [
 
                 final List<String?> notUploadedDocs = docsInfo
                     .filter((t) =>
-                        t.title != null &&
                         t.getdata(G.rd<ProfileCubit>().state.form) == null)
-                    .map((e) => e.title as String)
+                    .map((e) => e.title)
                     .toList();
 
                 if (notUploadedDocs.isEmpty) return G.pop();

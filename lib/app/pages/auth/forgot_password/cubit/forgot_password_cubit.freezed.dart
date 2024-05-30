@@ -16,6 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ForgotPwdState {
+  ForgotPwdVerificationType get verificationType =>
+      throw _privateConstructorUsedError; //
   bool get isLoading => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
@@ -44,7 +46,8 @@ abstract class $ForgotPwdStateCopyWith<$Res> {
       _$ForgotPwdStateCopyWithImpl<$Res, ForgotPwdState>;
   @useResult
   $Res call(
-      {bool isLoading,
+      {ForgotPwdVerificationType verificationType,
+      bool isLoading,
       String email,
       String error,
       bool success,
@@ -73,6 +76,7 @@ class _$ForgotPwdStateCopyWithImpl<$Res, $Val extends ForgotPwdState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? verificationType = null,
     Object? isLoading = null,
     Object? email = null,
     Object? error = null,
@@ -89,6 +93,10 @@ class _$ForgotPwdStateCopyWithImpl<$Res, $Val extends ForgotPwdState>
     Object? countDown = freezed,
   }) {
     return _then(_value.copyWith(
+      verificationType: null == verificationType
+          ? _value.verificationType
+          : verificationType // ignore: cast_nullable_to_non_nullable
+              as ForgotPwdVerificationType,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -158,7 +166,8 @@ abstract class _$$InitialImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool isLoading,
+      {ForgotPwdVerificationType verificationType,
+      bool isLoading,
       String email,
       String error,
       bool success,
@@ -185,6 +194,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? verificationType = null,
     Object? isLoading = null,
     Object? email = null,
     Object? error = null,
@@ -201,6 +211,10 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? countDown = freezed,
   }) {
     return _then(_$InitialImpl(
+      verificationType: null == verificationType
+          ? _value.verificationType
+          : verificationType // ignore: cast_nullable_to_non_nullable
+              as ForgotPwdVerificationType,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -265,7 +279,8 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl extends Initial {
   const _$InitialImpl(
-      {this.isLoading = false,
+      {this.verificationType = ForgotPwdVerificationType.email,
+      this.isLoading = false,
       this.email = '',
       this.error = '',
       this.success = false,
@@ -281,6 +296,10 @@ class _$InitialImpl extends Initial {
       this.countDown})
       : super._();
 
+  @override
+  @JsonKey()
+  final ForgotPwdVerificationType verificationType;
+//
   @override
   @JsonKey()
   final bool isLoading;
@@ -328,7 +347,7 @@ class _$InitialImpl extends Initial {
 
   @override
   String toString() {
-    return 'ForgotPwdState(isLoading: $isLoading, email: $email, error: $error, success: $success, emailSent: $emailSent, emailFound: $emailFound, otpCode: $otpCode, codeSent: $codeSent, codeVerified: $codeVerified, newPassword: $newPassword, passwordUpdated: $passwordUpdated, window: $window, initialCountDownTime: $initialCountDownTime, countDown: $countDown)';
+    return 'ForgotPwdState(verificationType: $verificationType, isLoading: $isLoading, email: $email, error: $error, success: $success, emailSent: $emailSent, emailFound: $emailFound, otpCode: $otpCode, codeSent: $codeSent, codeVerified: $codeVerified, newPassword: $newPassword, passwordUpdated: $passwordUpdated, window: $window, initialCountDownTime: $initialCountDownTime, countDown: $countDown)';
   }
 
   @override
@@ -336,6 +355,8 @@ class _$InitialImpl extends Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
+            (identical(other.verificationType, verificationType) ||
+                other.verificationType == verificationType) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.email, email) || other.email == email) &&
@@ -364,6 +385,7 @@ class _$InitialImpl extends Initial {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      verificationType,
       isLoading,
       email,
       error,
@@ -388,7 +410,8 @@ class _$InitialImpl extends Initial {
 
 abstract class Initial extends ForgotPwdState {
   const factory Initial(
-      {final bool isLoading,
+      {final ForgotPwdVerificationType verificationType,
+      final bool isLoading,
       final String email,
       final String error,
       final bool success,
@@ -405,6 +428,8 @@ abstract class Initial extends ForgotPwdState {
   const Initial._() : super._();
 
   @override
+  ForgotPwdVerificationType get verificationType;
+  @override //
   bool get isLoading;
   @override
   String get email;
