@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/forms/login_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/custom_domain.dart';
 import 'package:yumi/template/login_thrid_part.dart';
@@ -73,7 +74,8 @@ class LoginScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      context.router.push(const RegisterationRoute());
+                      // context.router.push(const RegisterationRoute());
+                      G.rd<RegCubit>().init();
                     },
                     style: ButtonStyle(
                         backgroundColor: WidgetStateProperty.resolveWith<Color>(
