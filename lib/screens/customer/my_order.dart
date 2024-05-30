@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/model/order_model/order_model.dart';
@@ -66,16 +65,6 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
       children: [
         BlocBuilder<SignalRCubit, SignalRState>(
           builder: (context, state) {
-            print('SignalRCubit ................................');
-            print(state.isSignalTriggered(signal: [
-              Signals.neworderreceived,
-              Signals.chefaccept,
-              Signals.driveraccept,
-              Signals.chefstart,
-              Signals.cheffinished,
-              Signals.driverreceived,
-              Signals.clientreceived,
-            ], isPreOrder: true));
             return Row(
               children: [
                 SizedBox(width: ThemeSelector.statics.defaultGap),
@@ -147,30 +136,19 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
             children: [
               BlocProvider(
                 create: (context) => OrderBloc(),
-                child: Builder(builder: (context) {
-                  return NewsOrders(
-                    menuTarget: MenuTarget.order,
-                    apiKey: ApiKeys.orderCustomerActive,
-                    orderCardTargetPage: OrderCardTargetPage.customerOrders,
-                    signalRListener: const [
-                      Signals.driveraccept,
-                      Signals.chefaccept,
-                      Signals.chefstart,
-                      Signals.cheffinished,
-                      Signals.driverreceived,
-                      Signals.clientreceived,
-                    ],
-                    signalRFun: (p0) {
-                      bool isUpdate = p0.any((e) =>
-                          e['buddiesId'] ==
-                          context.read<UserBloc>().state.user.id);
-                      if (isUpdate) {
-                        context.read<OrderBloc>().add(const OrderEvent.reset());
-                      }
-                      return isUpdate;
-                    },
-                  );
-                }),
+                child: NewsOrders(
+                  menuTarget: MenuTarget.order,
+                  apiKey: ApiKeys.orderCustomerActive,
+                  orderCardTargetPage: OrderCardTargetPage.customerOrders,
+                  signals: const [
+                    Signals.driveraccept,
+                    Signals.chefaccept,
+                    Signals.chefstart,
+                    Signals.cheffinished,
+                    Signals.driverreceived,
+                    Signals.clientreceived,
+                  ],
+                ),
               ),
               BlocProvider(
                 create: (context) => OrderBloc(),
@@ -178,46 +156,24 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   menuTarget: MenuTarget.order,
                   apiKey: ApiKeys.orderCustomerClosed,
                   orderCardTargetPage: OrderCardTargetPage.customerHistory,
-                  signalRListener: const [
-                    Signals.clientreceived,
-                  ],
-                  signalRFun: (p0) {
-                    bool isUpdate = p0.any((e) =>
-                        e['buddiesId'] ==
-                        context.read<UserBloc>().state.user.id);
-                    if (isUpdate) {
-                      context.read<OrderBloc>().add(const OrderEvent.reset());
-                    }
-                    return isUpdate;
-                  },
+                  signals: const [Signals.clientreceived],
                 ),
               ),
               BlocProvider(
                 create: (context) => OrderBloc(),
-                child: Builder(builder: (context) {
-                  return NewsOrders(
-                    menuTarget: MenuTarget.preOrder,
-                    apiKey: ApiKeys.preOrderCustomerActive,
-                    orderCardTargetPage: OrderCardTargetPage.customerPreOrders,
-                    signalRListener: const [
-                      Signals.driveraccept,
-                      Signals.chefaccept,
-                      Signals.chefstart,
-                      Signals.cheffinished,
-                      Signals.driverreceived,
-                      Signals.clientreceived,
-                    ],
-                    signalRFun: (p0) {
-                      bool isUpdate = p0.any((e) =>
-                          e['buddiesId'] ==
-                          context.read<UserBloc>().state.user.id);
-                      if (isUpdate) {
-                        context.read<OrderBloc>().add(const OrderEvent.reset());
-                      }
-                      return isUpdate;
-                    },
-                  );
-                }),
+                child: NewsOrders(
+                  menuTarget: MenuTarget.preOrder,
+                  apiKey: ApiKeys.preOrderCustomerActive,
+                  orderCardTargetPage: OrderCardTargetPage.customerPreOrders,
+                  signals: const [
+                    Signals.driveraccept,
+                    Signals.chefaccept,
+                    Signals.chefstart,
+                    Signals.cheffinished,
+                    Signals.driverreceived,
+                    Signals.clientreceived,
+                  ],
+                ),
               ),
               BlocProvider(
                 create: (context) => OrderBloc(),
@@ -225,18 +181,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   menuTarget: MenuTarget.preOrder,
                   apiKey: ApiKeys.preOrderCustomerClosed,
                   orderCardTargetPage: OrderCardTargetPage.customerHistory,
-                  signalRListener: const [
-                    Signals.clientreceived,
-                  ],
-                  signalRFun: (p0) {
-                    bool isUpdate = p0.any((e) =>
-                        e['buddiesId'] ==
-                        context.read<UserBloc>().state.user.id);
-                    if (isUpdate) {
-                      context.read<OrderBloc>().add(const OrderEvent.reset());
-                    }
-                    return isUpdate;
-                  },
+                  signals: const [Signals.clientreceived],
                 ),
               ),
             ],

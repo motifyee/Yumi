@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:yumi/app/core/setup/signalr.dart';
 
 class PaginationTemplate extends StatefulWidget {
   PaginationTemplate({
@@ -8,16 +7,12 @@ class PaginationTemplate extends StatefulWidget {
     required this.child,
     required this.loadDate,
     this.controller,
-    this.signalRListener,
-    this.signalRFun,
   });
 
   Axis scrollDirection;
   Widget child;
   Function loadDate;
   ScrollController? controller;
-  List<Signals>? signalRListener;
-  bool Function(dynamic message)? signalRFun;
 
   @override
   State<PaginationTemplate> createState() => _PaginationTemplateState();
@@ -32,38 +27,18 @@ class _PaginationTemplateState extends State<PaginationTemplate> {
     }
   }
 
-  void _signalRListener() {
-    for (var i = 0; i < widget.signalRListener!.length; i++) {
-      Signalr.on<Signals>(widget.signalRListener![i], (p0) {
-        bool isReset = false;
-        if (widget.signalRFun != null) isReset = widget.signalRFun!(p0);
-        if (isReset) {
-          widget.loadDate();
-        }
-      });
-    }
-  }
-
-  void _signalRRemove() {
-    for (var i = 0; i < widget.signalRListener!.length; i++) {
-      Signalr.off(widget.signalRListener![i]);
-    }
-  }
-
   @override
   void initState() {
     super.initState();
     _controller = (widget.controller ?? ScrollController())
       ..addListener(_scrollListener);
     widget.loadDate();
-    if (widget.signalRListener != null) _signalRListener();
   }
 
   @override
   void dispose() {
     _controller.removeListener(_scrollListener);
     _controller.dispose();
-    if (widget.signalRListener != null) _signalRRemove();
     super.dispose();
   }
 

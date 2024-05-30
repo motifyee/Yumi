@@ -7,8 +7,23 @@ import 'package:yumi/global.dart';
 
 class GeneralListenerSignalr {
   static listen() {
-    for (var signal in Signals.values) {
+    List<Signals> list = [
+      Signals.neworderreceived,
+      Signals.chefaccept,
+      Signals.driveraccept,
+      Signals.chefstart,
+      Signals.cheffinished,
+      Signals.driverreceived,
+      Signals.clientreceived,
+      Signals.clientcancel,
+      Signals.clientwait,
+    ];
+
+    for (var signal in list) {
       Signalr.on(signal, (p0) {
+        print('GeneralListenerSignalr ..................................');
+        print(signal.name);
+        print(p0);
         if (p0.any((e) =>
                 e['chef_ID'] == G.context.read<UserBloc>().state.user.id ||
                 e['driver_ID'] == G.context.read<UserBloc>().state.user.id ||

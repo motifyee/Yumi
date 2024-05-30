@@ -56,17 +56,19 @@ class ChefOrder extends StatelessWidget {
                       key: key,
                       label: S.of(context).received,
                       isActive: state.selectedList == 1,
-                      isNotificationIconShow: states.isSignalTriggered(
-                          signal: [Signals.driveraccept],
-                          isPreOrder: menuTarget == MenuTarget.preOrder),
+                      isNotificationIconShow: states.isSignalTriggered(signal: [
+                        Signals.neworderreceived,
+                        Signals.driveraccept
+                      ], isPreOrder: menuTarget == MenuTarget.preOrder),
                       onPressed: () {
                         context
                             .read<NewsBloc>()
                             .add(const NewsEvent(selectedList: 1));
                         controller.jumpToPage(1);
-                        context
-                            .read<SignalRCubit>()
-                            .removeSignals(signal: [Signals.driveraccept]);
+                        context.read<SignalRCubit>().removeSignals(signal: [
+                          Signals.driveraccept,
+                          Signals.neworderreceived,
+                        ]);
                       },
                     ),
                     ActionButton(
@@ -120,32 +122,21 @@ class ChefOrder extends StatelessWidget {
             children: [
               BlocProvider(
                 create: (context) => OrderBloc(),
-                child: Builder(builder: (context) {
-                  return NewsOrders(
-                    menuTarget: menuTarget,
-                    apiKey: ApiKeys.preOrderChefReceived,
-                    orderCardTargetPage: OrderCardTargetPage.chefPending,
-                    signalRListener: const [
-                      Signals.neworderreceived,
-                      Signals.driveraccept
-                    ],
-                    signalRFun: (p0) {
-                      bool isUpdate = p0.any((e) =>
-                          e['chef_ID'] ==
-                          context.read<UserBloc>().state.user.id);
-                      if (isUpdate) {
-                        context.read<OrderBloc>().add(const OrderEvent.reset());
-                      }
-                      return isUpdate;
-                    },
-                    navFun: () {
-                      context
-                          .read<NewsBloc>()
-                          .add(const NewsEvent(selectedList: 1));
-                      controller.jumpToPage(1);
-                    },
-                  );
-                }),
+                child: NewsOrders(
+                  menuTarget: menuTarget,
+                  apiKey: ApiKeys.preOrderChefReceived,
+                  orderCardTargetPage: OrderCardTargetPage.chefPending,
+                  signals: const [
+                    Signals.neworderreceived,
+                    Signals.driveraccept
+                  ],
+                  navFun: () {
+                    context
+                        .read<NewsBloc>()
+                        .add(const NewsEvent(selectedList: 1));
+                    controller.jumpToPage(1);
+                  },
+                ),
               ),
               BlocProvider(
                 create: (context) => OrderBloc(),
@@ -155,15 +146,10 @@ class ChefOrder extends StatelessWidget {
                       ? ApiKeys.orderChefReceived
                       : ApiKeys.preOrderChefAccepted,
                   orderCardTargetPage: OrderCardTargetPage.chefReceived,
-                  signalRListener: const [Signals.driveraccept],
-                  signalRFun: (p0) {
-                    bool isUpdate = p0.any((e) =>
-                        e['chef_ID'] == context.read<UserBloc>().state.user.id);
-                    if (isUpdate) {
-                      context.read<OrderBloc>().add(const OrderEvent.reset());
-                    }
-                    return isUpdate;
-                  },
+                  signals: const [
+                    Signals.driveraccept,
+                    Signals.neworderreceived,
+                  ],
                   navFun: () {
                     context
                         .read<NewsBloc>()
@@ -184,18 +170,7 @@ class ChefOrder extends StatelessWidget {
                       ? ApiKeys.orderChefPreparing
                       : ApiKeys.preOrderChefPreparing,
                   orderCardTargetPage: OrderCardTargetPage.chefPreparing,
-                  signalRListener: const [
-                    Signals.chefstart,
-                    Signals.clientcancel
-                  ],
-                  signalRFun: (p0) {
-                    bool isUpdate = p0.any((e) =>
-                        e['chef_ID'] == context.read<UserBloc>().state.user.id);
-                    if (isUpdate) {
-                      context.read<OrderBloc>().add(const OrderEvent.reset());
-                    }
-                    return isUpdate;
-                  },
+                  signals: const [Signals.chefstart, Signals.clientcancel],
                   navFun: () {
                     context
                         .read<NewsBloc>()
@@ -216,15 +191,7 @@ class ChefOrder extends StatelessWidget {
                       ? ApiKeys.orderChefReady
                       : ApiKeys.preOrderChefReady,
                   orderCardTargetPage: OrderCardTargetPage.chefReady,
-                  signalRListener: const [Signals.cheffinished],
-                  signalRFun: (p0) {
-                    bool isUpdate = p0.any((e) =>
-                        e['chef_ID'] == context.read<UserBloc>().state.user.id);
-                    if (isUpdate) {
-                      context.read<OrderBloc>().add(const OrderEvent.reset());
-                    }
-                    return isUpdate;
-                  },
+                  signals: const [Signals.cheffinished],
                   navFun: () {
                     context
                         .read<NewsBloc>()
@@ -241,18 +208,10 @@ class ChefOrder extends StatelessWidget {
                       ? ApiKeys.orderChefClosed
                       : ApiKeys.preOrderChefClosed,
                   orderCardTargetPage: OrderCardTargetPage.chefHistory,
-                  signalRListener: const [
+                  signals: const [
                     Signals.clientreceived,
                     Signals.driverreceived
                   ],
-                  signalRFun: (p0) {
-                    bool isUpdate = p0.any((e) =>
-                        e['chef_ID'] == context.read<UserBloc>().state.user.id);
-                    if (isUpdate) {
-                      context.read<OrderBloc>().add(const OrderEvent.reset());
-                    }
-                    return isUpdate;
-                  },
                 ),
               ),
             ],
