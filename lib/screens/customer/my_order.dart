@@ -113,7 +113,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                       Signals.clientreceived,
                     ]);
                   },
-                  label: S.of(context).myOrders,
+                  label: S.of(context).myPreOrder,
                   isActive: _index == 2 || _index == 3,
                   isNotificationIconShow: state.isSignalTriggered(signal: [
                     Signals.neworderreceived,
