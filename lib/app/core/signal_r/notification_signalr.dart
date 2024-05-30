@@ -9,7 +9,6 @@ class NotificationSignalR {
   static listen() {
     Signalr.on(Signals.notification, (p0) {
       print(' signalr notification ......................................');
-      print(p0);
 
       try {
         print(NotificationS.fromJson(p0[0]));
