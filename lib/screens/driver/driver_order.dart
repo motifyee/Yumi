@@ -81,11 +81,24 @@ class DriverOrderScreen extends StatelessWidget {
                         key: key,
                         label: S.of(context).active,
                         isActive: state.selectedList == 1,
+                        isNotificationIconShow:
+                            states.isSignalTriggered(signal: [
+                          Signals.chefstart,
+                          Signals.cheffinished,
+                          Signals.driverreceived,
+                          Signals.clientreceived,
+                        ], isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
                           context
                               .read<NewsBloc>()
                               .add(const NewsEvent(selectedList: 1));
                           _controller.jumpToPage(1);
+                          context.read<SignalRCubit>().removeSignals(signal: [
+                            Signals.chefstart,
+                            Signals.cheffinished,
+                            Signals.driverreceived,
+                            Signals.clientreceived,
+                          ]);
                         },
                       ),
                     ],

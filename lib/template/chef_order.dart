@@ -57,8 +57,9 @@ class ChefOrder extends StatelessWidget {
                       label: S.of(context).received,
                       isActive: state.selectedList == 1,
                       isNotificationIconShow: states.isSignalTriggered(signal: [
-                        Signals.neworderreceived,
-                        Signals.driveraccept
+                        Signals.driveraccept,
+                        if (menuTarget == MenuTarget.order)
+                          Signals.neworderreceived,
                       ], isPreOrder: menuTarget == MenuTarget.preOrder),
                       onPressed: () {
                         context
@@ -67,7 +68,8 @@ class ChefOrder extends StatelessWidget {
                         controller.jumpToPage(1);
                         context.read<SignalRCubit>().removeSignals(signal: [
                           Signals.driveraccept,
-                          Signals.neworderreceived,
+                          if (menuTarget == MenuTarget.order)
+                            Signals.neworderreceived,
                         ]);
                       },
                     ),
@@ -146,9 +148,10 @@ class ChefOrder extends StatelessWidget {
                       ? ApiKeys.orderChefReceived
                       : ApiKeys.preOrderChefAccepted,
                   orderCardTargetPage: OrderCardTargetPage.chefReceived,
-                  signals: const [
+                  signals: [
                     Signals.driveraccept,
-                    Signals.neworderreceived,
+                    if (menuTarget == MenuTarget.order)
+                      Signals.neworderreceived,
                   ],
                   navFun: () {
                     context
