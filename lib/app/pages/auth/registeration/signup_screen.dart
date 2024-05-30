@@ -72,8 +72,8 @@ class SignUpScreen extends StatelessWidget {
                         TextButton(
                           onPressed: () {
                             // context.router.pop();
-                            context.router.replace(LoginRoute());
                             context.read<RegCubit>().reset();
+                            context.router.replace(LoginRoute());
                           },
                           child: RichText(
                             text: TextSpan(

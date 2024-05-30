@@ -129,7 +129,7 @@ class RegCubit extends Cubit<NRegState> {
     return await G.prefs.then((prefs) {
       if ((prefs.getBool(partialFlowKey) ?? false)) return false;
 
-      return prefs.getInt(regStepKey) != null;
+      return prefs.getInt(regStepKey) != null && prefs.getInt(regStepKey) != 0;
     });
   }
 
@@ -426,7 +426,7 @@ class RegCubit extends Cubit<NRegState> {
   }) async {
     if (step > 4) step = 4;
     if (step < 0) step = 0;
-
+    debugger();
     if (!Platform.isAndroid && !Platform.isIOS && step == 3) step = 4;
     if (G.isCustomerApp && step == 4) return finish();
 
