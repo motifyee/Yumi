@@ -426,7 +426,6 @@ class RegCubit extends Cubit<NRegState> {
   }) async {
     if (step > 4) step = 4;
     if (step < 0) step = 0;
-    debugger();
     if (!Platform.isAndroid && !Platform.isIOS && step == 3) step = 4;
     if (G.isCustomerApp && step == 4) return finish();
 

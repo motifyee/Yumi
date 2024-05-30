@@ -14,7 +14,7 @@ import 'package:mime/mime.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:yumi/app/core/setup/awesome_notifications.dart';
 import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_cubit.dart';
-import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_info.dart';
+import 'package:yumi/app/pages/chef_application/documentation/docs_info.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
@@ -140,6 +140,7 @@ class DocumentationScreen extends StatelessWidget {
             hexBg: e.color,
             positionedIdx: i,
             title: e.title,
+            showTitle: e.showTitle,
             data: () {
               var res = e.getdata(profile);
               return res;
@@ -251,6 +252,7 @@ Widget documentWidget({
   String? hexBg,
   int? positionedIdx,
   String? title,
+  bool? showTitle,
   String? desc,
   String? data,
   String? fileName,
@@ -266,7 +268,11 @@ Widget documentWidget({
     padding: const EdgeInsets.only(left: 30),
     margin: const EdgeInsets.all(0),
     child: Text(
-      title ?? "",
+      title == null
+          ? ''
+          : (showTitle ?? true)
+              ? title
+              : '',
       style: TextStyle(
         fontSize: 14,
         color: ThemeSelector.colors.secondary,

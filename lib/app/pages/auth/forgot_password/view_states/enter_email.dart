@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/core/util/string.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
@@ -16,33 +17,68 @@ class ForgotPwdEnterEmail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final email = context.read<ForgotPwdCubit>().state.email;
+    final email = context.read<ForgotPwdCubit>().state;
     return Column(
       children: [
         const SizedBox(height: 40),
         Text(
-          'Enter your email address',
+          'Forgot Your Password',
           style: Theme.of(context).textTheme.titleLarge,
         ),
         Text(
-          'We\'ll send verification code that will sign you into the app',
+          'We\'ll send you a verification code that will sign you into the app',
           style: Theme.of(context).textTheme.labelSmall,
         ),
-        const SizedBox(height: 60),
+        const SizedBox(height: 30),
         // BlocBuilder<ForgotPwdCubit, ForgotPwdState>(
         // builder: (context, state) {
-        Form(
-          key: form,
-          child: TextFormFieldTemplate(
-            initialValue: context.read<ForgotPwdCubit>().state.email,
-            label: 'Email / Mobile Number',
-            validators: emailOrMobileValidator,
-            autoHint: const [AutofillHints.password],
-            controller: inputController,
-            // prefixText: isNumeric(state.email) ? '+kUKCountryCode ' : null,
-            onChange: (value) =>
-                context.read<ForgotPwdCubit>().emailChanged(value),
-          ),
+        BlocSelector<ForgotPwdCubit, ForgotPwdState, ForgotPwdVerificationType>(
+          selector: (state) => state.verificationType,
+          builder: (context, verificationType) {
+            return Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      onTap: () => context
+                          .read<ForgotPwdCubit>()
+                          .setVerificationType(ForgotPwdVerificationType.email),
+                      child: SvgPicture.asset(
+                          'assets/images/email_msg${verificationType == ForgotPwdVerificationType.email ? '' : '_inactive'}.svg'),
+                    ),
+                    InkWell(
+                      onTap: () => context
+                          .read<ForgotPwdCubit>()
+                          .setVerificationType(
+                              ForgotPwdVerificationType.mobile),
+                      child: SvgPicture.asset(
+                          'assets/images/mobile_msg${verificationType == ForgotPwdVerificationType.mobile ? '' : '_inactive'}.svg'),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 30),
+                Form(
+                  key: form,
+                  child: TextFormFieldTemplate(
+                    initialValue: context.read<ForgotPwdCubit>().state.email,
+                    label: verificationType == ForgotPwdVerificationType.email
+                        ? 'Email'
+                        : 'Mobile Number',
+                    validators:
+                        verificationType == ForgotPwdVerificationType.email
+                            ? emailValidator
+                            : mobileValidator,
+                    autoHint: const [AutofillHints.password],
+                    controller: inputController,
+                    // prefixText: isNumeric(state.email) ? '+kUKCountryCode ' : null,
+                    onChange: (value) =>
+                        context.read<ForgotPwdCubit>().emailChanged(value),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
         // },
         // ),

@@ -67,6 +67,8 @@ final List<DocInfo> driverDocsInfo = [
   ),
   chefDocsInfo[3],
   DocInfo(
+    title: 'Evidence of Residence',
+    showTitle: false,
     color: '#687C8E',
     desc:
         'For normal and electric bikes, you will only need to provide us with ID/Passport copy '
@@ -86,7 +88,8 @@ class Target {
 
 class DocInfo {
   final String color;
-  final String? title;
+  final String title;
+  final bool? showTitle;
   final String? desc;
   final List<Target>? targets;
   final Profile Function(Profile, String)? update;
@@ -94,7 +97,8 @@ class DocInfo {
 
   DocInfo({
     required this.color,
-    this.title,
+    required this.title,
+    this.showTitle,
     this.desc,
     this.targets,
     this.update,

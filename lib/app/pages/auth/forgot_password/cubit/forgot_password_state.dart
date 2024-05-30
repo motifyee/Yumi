@@ -6,11 +6,16 @@ enum ForgotPwdWindow {
   done,
 }
 
+enum ForgotPwdVerificationType { email, mobile }
+
 @freezed
 class ForgotPwdState with _$ForgotPwdState {
   // const factory ForgotPasswordState.initial() = _Initial;
 
   const factory ForgotPwdState({
+    @Default(ForgotPwdVerificationType.email)
+    ForgotPwdVerificationType verificationType,
+    //
     @Default(false) bool isLoading,
     @Default('') String email,
     @Default('') String error,
