@@ -225,6 +225,11 @@ class CustomerPreOrderForm extends StatelessWidget {
                                   isPreorder: true,
                                   isSchedule: true,
                                   isPickupOnly: chef.pickupOnly == true,
+                                  shippedAddressId: context
+                                      .read<UserBloc>()
+                                      .state
+                                      .address
+                                      ?.id,
                                   invoice: Invoice.initial().copyWith(
                                       chefID: chef.id,
                                       scheduleDate: state.basket.invoice

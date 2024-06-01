@@ -8,6 +8,7 @@ import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/forms/customer_pre_order_form.dart';
@@ -59,8 +60,7 @@ class MealListScreen extends StatelessWidget {
 }
 
 class _MealList extends StatelessWidget {
-  const _MealList(
-      {required this.favPageController, required this.menuTarget});
+  const _MealList({required this.favPageController, required this.menuTarget});
 
   final PageController favPageController;
   final MenuTarget menuTarget;
@@ -226,6 +226,11 @@ class _MealList extends StatelessWidget {
                                             .copyWith(
                                               isPreorder: false,
                                               isSchedule: false,
+                                              shippedAddressId: context
+                                                  .read<UserBloc>()
+                                                  .state
+                                                  .address
+                                                  ?.id,
                                               isPickupOnly:
                                                   meal.isPickUpOnly ?? false,
                                               invoiceDetails: [
