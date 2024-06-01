@@ -19,6 +19,7 @@ import 'package:yumi/app/pages/driver/onboarding.dart';
 import 'package:yumi/app/pages/driver/rides_service.dart';
 import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
+import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/bloc/util/status.dart';
@@ -31,6 +32,7 @@ import 'package:yumi/global.dart';
 import 'package:yumi/model/login_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/login_service.dart';
+import 'package:yumi/statics/code_generator.dart';
 import 'package:yumi/util/util.dart';
 
 part 'reg_cubit.freezed.dart';
@@ -59,7 +61,7 @@ abstract class NRegState with _$NRegState {
     String? emailOTP,
     @Default(Status.init) Status verifiedEmailStatus,
     //
-    RegisterationForm? singupData, // step: 0
+    @Default(RegisterationForm()) RegisterationForm signupData, // step: 0
     String? phone, // step: 1
     String? otp, // step: 2
     @Default(Address(isDefault: true)) Address address, // step: 3
@@ -145,11 +147,24 @@ class RegCubit extends Cubit<NRegState> {
     if (G.read<UserBloc>().state.user.accessToken.isEmpty) step = 0;
 
     if (!state.registerationStarted) {
-      emit(state.copyWith(
-        registerationStarted: true,
-        partialFlow: partialFlow,
-        lastStep: lastStep,
-      ));
+      emit(
+        state.copyWith(
+          registerationStarted: true,
+          partialFlow: partialFlow,
+          lastStep: lastStep,
+          signupData: RegisterationForm(
+            code: CodeGenerator.getRandomCode(),
+            fullName: '',
+            userName: '',
+            // mobile: '',
+            signupType: '2',
+            countryID: '3',
+            email: '',
+            password: '',
+            branchId: AppTarget.branch,
+          ),
+        ),
+      );
     }
 
     if (step >= 0) _navigateToIdx(step);
@@ -180,8 +195,8 @@ class RegCubit extends Cubit<NRegState> {
     if (login && user.email.isNotEmpty && (user.password ?? '').isNotEmpty) {
       await LoginServices.login(
           login: LoginModel(
-        email: state.singupData?.email ?? user.email,
-        password: state.singupData?.password ?? user.password ?? '',
+        email: state.signupData.email ?? user.email,
+        password: state.signupData.password ?? user.password ?? '',
       )).then((user) {
         G.read<UserBloc>().add(UserFromJsonEvent(user: user.toJson()));
 
@@ -265,11 +280,11 @@ class RegCubit extends Cubit<NRegState> {
     emit(state.copyWith(countDown: null));
   }
 
-  bool setAccount(RegisterationForm signupData) {
+  bool setAccount(RegisterationForm signupData, [bool navigateToNext = false]) {
     // TODO keep in storage
 
-    emit(state.copyWith(singupData: signupData));
-    _navigateToIdx(1);
+    emit(state.copyWith(signupData: signupData));
+    if (navigateToNext) _navigateToIdx(1);
     return true;
   }
 

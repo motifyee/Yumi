@@ -15,7 +15,6 @@ import 'package:yumi/template/screen_container.dart';
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
 
-  final signUpFormKey = GlobalKey<FormState>();
   final passwordController = TextEditingController();
   final regCubit = G.rd<RegCubit>();
 
@@ -59,7 +58,6 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         SignUpForm(
                           key: key,
-                          signUpFormKey: signUpFormKey,
                           passwordController: passwordController,
                         ),
                         SizedBox(
