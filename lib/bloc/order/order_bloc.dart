@@ -3,9 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/service/order_service.dart';
 import 'package:yumi/statics/pagination_helper.dart';
 import 'package:yumi/template/snack_bar.dart';
@@ -40,9 +40,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
           apiKeys: event.apiKey,
           paginationHelper: state.paginationHelper.toJson());
 
-      List<OrderModel> data = res.data['data']
-          .map<OrderModel>((e) => OrderModel.fromJson(e))
-          .toList();
+      List<Order> data =
+          res.data['data'].map<Order>((e) => Order.fromJson(e)).toList();
 
       add(
         OrderEvent.update(
@@ -69,7 +68,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   _putAction(
       {required _putActionEvent event,
       required Emitter<OrderState> emit}) async {
-    List<OrderModel> orders = List.from(state.orders);
+    List<Order> orders = List.from(state.orders);
     orders[orders.indexWhere((e) => e.id == event.order.id)] =
         orders[orders.indexWhere((e) => e.id == event.order.id)]
             .copyWith(isLoading: true);
@@ -92,11 +91,10 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
           massage: (error as DioException).response?.data['message'],
         ),
       ));
-      List<OrderModel> newOrders = List.from(state.orders);
+      List<Order> newOrders = List.from(state.orders);
       newOrders[newOrders.indexWhere((e) => e.id == event.order.id)] =
           newOrders[newOrders.indexWhere((e) => e.id == event.order.id)]
               .copyWith(isLoading: false);
-      print('updated -------------------------------');
       add(OrderEvent.update(
           orders: newOrders, paginationHelper: state.paginationHelper));
     });

@@ -6,6 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/notification/notification_screen.dart';
+import 'package:yumi/app/pages/order/chef/news.dart';
+import 'package:yumi/app/pages/order/chef/pre_order.dart';
+import 'package:yumi/app/pages/order/customer/customer_order.dart';
+import 'package:yumi/app/pages/order/driver/driver_order.dart';
 import 'package:yumi/app/pages/settings/profile/profile_screen.dart';
 import 'package:yumi/app/pages/settings/settings_screen.dart';
 import 'package:yumi/app_target.dart';
@@ -14,14 +18,10 @@ import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/screens/chef/menu.dart';
-import 'package:yumi/screens/chef/news.dart';
-import 'package:yumi/screens/chef/pre_order.dart';
 import 'package:yumi/screens/customer/customer_menu_pre.dart';
 import 'package:yumi/screens/customer/cutomer_menu.dart';
 import 'package:yumi/screens/customer/favorites.dart';
-import 'package:yumi/screens/customer/my_order.dart';
 import 'package:yumi/screens/driver/chef_history.dart';
-import 'package:yumi/screens/driver/driver_order.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class NavigateOptions {

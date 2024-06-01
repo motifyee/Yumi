@@ -120,8 +120,7 @@ abstract class _$$updateEventImplCopyWith<$Res> {
           _$updateEventImpl value, $Res Function(_$updateEventImpl) then) =
       __$$updateEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call(
-      {List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper});
+  $Res call({List<Order> orders, PaginationHelper<dynamic> paginationHelper});
 
   $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper;
 }
@@ -144,7 +143,7 @@ class __$$updateEventImplCopyWithImpl<$Res>
       orders: null == orders
           ? _value._orders
           : orders // ignore: cast_nullable_to_non_nullable
-              as List<OrderModel>,
+              as List<Order>,
       paginationHelper: null == paginationHelper
           ? _value.paginationHelper
           : paginationHelper // ignore: cast_nullable_to_non_nullable
@@ -166,12 +165,12 @@ class __$$updateEventImplCopyWithImpl<$Res>
 
 class _$updateEventImpl implements _updateEvent {
   const _$updateEventImpl(
-      {required final List<OrderModel> orders, required this.paginationHelper})
+      {required final List<Order> orders, required this.paginationHelper})
       : _orders = orders;
 
-  final List<OrderModel> _orders;
+  final List<Order> _orders;
   @override
-  List<OrderModel> get orders {
+  List<Order> get orders {
     if (_orders is EqualUnmodifiableListView) return _orders;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_orders);
@@ -230,11 +229,11 @@ class _$updateEventImpl implements _updateEvent {
 
 abstract class _updateEvent implements OrderEvent {
   const factory _updateEvent(
-          {required final List<OrderModel> orders,
+          {required final List<Order> orders,
           required final PaginationHelper<dynamic> paginationHelper}) =
       _$updateEventImpl;
 
-  List<OrderModel> get orders;
+  List<Order> get orders;
   PaginationHelper<dynamic> get paginationHelper;
   @JsonKey(ignore: true)
   _$$updateEventImplCopyWith<_$updateEventImpl> get copyWith =>
@@ -343,13 +342,13 @@ abstract class _$$putActionEventImplCopyWith<$Res> {
       __$$putActionEventImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {OrderModel order,
+      {Order order,
       String apiKey,
       String getApiKey,
       bool isFakeBody,
       dynamic Function()? navFun});
 
-  $OrderModelCopyWith<$Res> get order;
+  $OrderCopyWith<$Res> get order;
 }
 
 /// @nodoc
@@ -373,7 +372,7 @@ class __$$putActionEventImplCopyWithImpl<$Res>
       order: null == order
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
-              as OrderModel,
+              as Order,
       apiKey: null == apiKey
           ? _value.apiKey
           : apiKey // ignore: cast_nullable_to_non_nullable
@@ -395,8 +394,8 @@ class __$$putActionEventImplCopyWithImpl<$Res>
 
   @override
   @pragma('vm:prefer-inline')
-  $OrderModelCopyWith<$Res> get order {
-    return $OrderModelCopyWith<$Res>(_value.order, (value) {
+  $OrderCopyWith<$Res> get order {
+    return $OrderCopyWith<$Res>(_value.order, (value) {
       return _then(_value.copyWith(order: value));
     });
   }
@@ -413,7 +412,7 @@ class _$putActionEventImpl implements _putActionEvent {
       this.navFun});
 
   @override
-  final OrderModel order;
+  final Order order;
   @override
   final String apiKey;
   @override
@@ -479,13 +478,13 @@ class _$putActionEventImpl implements _putActionEvent {
 
 abstract class _putActionEvent implements OrderEvent {
   const factory _putActionEvent(
-      {required final OrderModel order,
+      {required final Order order,
       required final String apiKey,
       required final String getApiKey,
       final bool isFakeBody,
       final dynamic Function()? navFun}) = _$putActionEventImpl;
 
-  OrderModel get order;
+  Order get order;
   String get apiKey;
   String get getApiKey;
   bool get isFakeBody;
@@ -497,7 +496,7 @@ abstract class _putActionEvent implements OrderEvent {
 
 /// @nodoc
 mixin _$OrderState {
-  List<OrderModel> get orders => throw _privateConstructorUsedError;
+  List<Order> get orders => throw _privateConstructorUsedError;
   PaginationHelper<dynamic> get paginationHelper =>
       throw _privateConstructorUsedError;
 
@@ -512,8 +511,7 @@ abstract class $OrderStateCopyWith<$Res> {
           OrderState value, $Res Function(OrderState) then) =
       _$OrderStateCopyWithImpl<$Res, OrderState>;
   @useResult
-  $Res call(
-      {List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper});
+  $Res call({List<Order> orders, PaginationHelper<dynamic> paginationHelper});
 
   $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper;
 }
@@ -538,7 +536,7 @@ class _$OrderStateCopyWithImpl<$Res, $Val extends OrderState>
       orders: null == orders
           ? _value.orders
           : orders // ignore: cast_nullable_to_non_nullable
-              as List<OrderModel>,
+              as List<Order>,
       paginationHelper: null == paginationHelper
           ? _value.paginationHelper
           : paginationHelper // ignore: cast_nullable_to_non_nullable
@@ -564,8 +562,7 @@ abstract class _$$OrderStateImplCopyWith<$Res>
       __$$OrderStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<OrderModel> orders, PaginationHelper<dynamic> paginationHelper});
+  $Res call({List<Order> orders, PaginationHelper<dynamic> paginationHelper});
 
   @override
   $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper;
@@ -589,7 +586,7 @@ class __$$OrderStateImplCopyWithImpl<$Res>
       orders: null == orders
           ? _value._orders
           : orders // ignore: cast_nullable_to_non_nullable
-              as List<OrderModel>,
+              as List<Order>,
       paginationHelper: null == paginationHelper
           ? _value.paginationHelper
           : paginationHelper // ignore: cast_nullable_to_non_nullable
@@ -602,12 +599,12 @@ class __$$OrderStateImplCopyWithImpl<$Res>
 
 class _$OrderStateImpl implements _OrderState {
   const _$OrderStateImpl(
-      {required final List<OrderModel> orders, required this.paginationHelper})
+      {required final List<Order> orders, required this.paginationHelper})
       : _orders = orders;
 
-  final List<OrderModel> _orders;
+  final List<Order> _orders;
   @override
-  List<OrderModel> get orders {
+  List<Order> get orders {
     if (_orders is EqualUnmodifiableListView) return _orders;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_orders);
@@ -644,12 +641,12 @@ class _$OrderStateImpl implements _OrderState {
 
 abstract class _OrderState implements OrderState {
   const factory _OrderState(
-          {required final List<OrderModel> orders,
+          {required final List<Order> orders,
           required final PaginationHelper<dynamic> paginationHelper}) =
       _$OrderStateImpl;
 
   @override
-  List<OrderModel> get orders;
+  List<Order> get orders;
   @override
   PaginationHelper<dynamic> get paginationHelper;
   @override

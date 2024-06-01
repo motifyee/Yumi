@@ -4,8 +4,8 @@ import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
+import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/template/order_card.dart';
 import 'package:yumi/template/pagination_template.dart';
 
@@ -29,12 +29,8 @@ class NewsOrders extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SignalRCubit, SignalRState>(
       buildWhen: (previous, current) {
-        print(current.signals);
-
         if (current.isSignalTriggered(
             signal: signals, isPreOrder: menuTarget == MenuTarget.preOrder)) {
-          print(
-              '  isSignalTriggered  true --------------00000000---------------');
           context.read<OrderBloc>().add(const OrderEvent.reset());
           context.read<OrderBloc>().add(OrderEvent.getRequest(apiKey: apiKey));
           return true;
@@ -43,7 +39,7 @@ class NewsOrders extends StatelessWidget {
       },
       builder: (context, state) {
         context.read<SignalRCubit>().removeSignals(signal: signals);
-        print(' re rendered ........33.33.3.3.3.3.3 ');
+
         return PaginationTemplate(
           scrollDirection: Axis.vertical,
           loadDate: () {

@@ -9,9 +9,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
+import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/model/order_model/order_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/order_service.dart';
 import 'package:yumi/statics/api_statics.dart';
@@ -30,7 +30,7 @@ class OrderCard extends StatefulWidget {
     this.navFun,
   });
 
-  late OrderModel order;
+  late Order order;
   bool isView = false;
   final OrderCardTargetPage orderCardTargetPage;
   final String getApiKey;
@@ -49,7 +49,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
         .then((value) {
       setState(() {
         widget.order = widget.order.copyWith(
-            invoiceDetails: OrderModel.fromJson(value.data).invoiceDetails);
+            invoiceDetails: Order.fromJson(value.data).invoiceDetails);
       });
     });
   }
@@ -1187,7 +1187,7 @@ class TimerCount extends StatefulWidget {
       required this.menuTarget,
       required this.order,
       this.isOver3hCount = false});
-  final OrderModel order;
+  final Order order;
   final MenuTarget menuTarget;
   final bool isOver3hCount;
   late Timer timer;

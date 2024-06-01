@@ -28,21 +28,21 @@ import 'package:yumi/app/pages/chef_application/contract/contract_screen.dart'
 import 'package:yumi/app/pages/chef_application/documentation/documentation_screen.dart'
     as _i10;
 import 'package:yumi/app/pages/notification/notification_screen.dart' as _i21;
+import 'package:yumi/app/pages/order/customer/customer_order.dart' as _i19;
+import 'package:yumi/app/pages/order/widgets/order_status.dart' as _i23;
 import 'package:yumi/app/pages/schedule/schedule_screen.dart' as _i20;
 import 'package:yumi/app/pages/settings/settings_screen.dart' as _i28;
 import 'package:yumi/app/pages/transactions/transactions.dart' as _i31;
 import 'package:yumi/app/pages/wallet/wallet_screen.dart' as _i32;
 import 'package:yumi/domain/chef/entity/chef.dart' as _i35;
+import 'package:yumi/domain/order/entity/order.dart' as _i38;
 import 'package:yumi/model/meal_model.dart' as _i36;
-import 'package:yumi/model/order_model/order_model.dart' as _i38;
 import 'package:yumi/screens/chat.dart' as _i4;
 import 'package:yumi/screens/chef/menu_pre.dart' as _i18;
 import 'package:yumi/screens/customer/checkout.dart' as _i5;
 import 'package:yumi/screens/customer/chef_profile.dart' as _i7;
 import 'package:yumi/screens/customer/customer_location.dart' as _i9;
 import 'package:yumi/screens/customer/meal_profile.dart' as _i17;
-import 'package:yumi/screens/customer/my_order.dart' as _i19;
-import 'package:yumi/screens/customer/order_status.dart' as _i23;
 import 'package:yumi/screens/customer/payment_paypal.dart' as _i24;
 import 'package:yumi/screens/customer/payment_visa.dart' as _i25;
 import 'package:yumi/screens/customer/tracking_order.dart' as _i30;
@@ -793,7 +793,7 @@ class OTPRoute extends _i33.PageRouteInfo<void> {
 class OrderStatusRoute extends _i33.PageRouteInfo<OrderStatusRouteArgs> {
   OrderStatusRoute({
     _i34.Key? key,
-    required _i38.OrderModel order,
+    required _i38.Order order,
     List<_i33.PageRouteInfo>? children,
   }) : super(
           OrderStatusRoute.name,
@@ -818,7 +818,7 @@ class OrderStatusRouteArgs {
 
   final _i34.Key? key;
 
-  final _i38.OrderModel order;
+  final _i38.Order order;
 
   @override
   String toString() {

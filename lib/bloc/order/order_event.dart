@@ -5,14 +5,14 @@ class OrderEvent with _$OrderEvent {
   const factory OrderEvent.reset() = _resetEvent;
 
   const factory OrderEvent.update(
-      {required List<OrderModel> orders,
+      {required List<Order> orders,
       required PaginationHelper paginationHelper}) = _updateEvent;
 
   const factory OrderEvent.getRequest({required String apiKey}) =
       _getRequestEvent;
 
   const factory OrderEvent.putAction({
-    required OrderModel order,
+    required Order order,
     required String apiKey,
     required String getApiKey,
     @Default(true) bool isFakeBody,

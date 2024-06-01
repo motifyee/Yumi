@@ -26,8 +26,6 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        'isNotificationIconShow : ${isNotificationIconShow} ----------------------');
     return Stack(
       children: [
         TextButton(

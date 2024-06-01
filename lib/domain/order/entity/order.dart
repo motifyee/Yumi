@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'order_model.freezed.dart';
-part 'order_model.g.dart';
+part 'order.freezed.dart';
+part 'order.g.dart';
 
 @freezed
-class OrderModel with _$OrderModel {
-  const factory OrderModel({
+class Order with _$Order {
+  const factory Order({
     int? id,
     @JsonKey(name: 'chef_ID') String? chefID,
     @JsonKey(name: 'driver_ID') String? driverID,
@@ -41,9 +41,9 @@ class OrderModel with _$OrderModel {
     @JsonKey(name: 'is_Pickup') bool? isPickUp,
     @Default([]) List<InvoiceDetails>? invoiceDetails,
     @Default(false) bool isLoading,
-  }) = _OrderModel;
+  }) = _Order;
 
-  const OrderModel._();
+  const Order._();
 
   bool get isChefDelayed =>
       DateTime.now()
@@ -131,8 +131,7 @@ class OrderModel with _$OrderModel {
           '${(3 * 60) - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes}m'
       ].join(' ');
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) =>
-      _$OrderModelFromJson(json);
+  factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
 }
 
 @freezed

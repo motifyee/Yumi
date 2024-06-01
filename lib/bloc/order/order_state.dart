@@ -3,7 +3,7 @@ part of 'order_bloc.dart';
 @freezed
 class OrderState with _$OrderState {
   const factory OrderState({
-    required List<OrderModel> orders,
+    required List<Order> orders,
     required PaginationHelper paginationHelper,
   }) = _OrderState;
 
