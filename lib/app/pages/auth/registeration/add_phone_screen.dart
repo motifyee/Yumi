@@ -33,7 +33,7 @@ class AddPhoneScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
             child: BlocSelector<RegCubit, NRegState, String>(
-              selector: (state) => state.singupData?.fullName ?? "",
+              selector: (state) => state.signupData.fullName ?? "",
               builder: (context, state) {
                 return Center(
                   child: ConstrainedBox(

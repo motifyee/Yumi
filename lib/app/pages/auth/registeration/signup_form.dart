@@ -6,14 +6,11 @@ import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button_style.dart';
 import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
-import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
-import 'package:yumi/app/pages/auth/registeration/model/registeration.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/auth/registeration/repository/signup_service.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/code_generator.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -23,22 +20,10 @@ import 'package:yumi/validators/password_validator.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 class SignUpForm extends StatelessWidget {
-  SignUpForm({super.key, required this.signUpFormKey, this.passwordController});
+  SignUpForm({super.key, this.passwordController});
 
-  final GlobalKey<FormState> signUpFormKey;
+  final signUpFormKey = GlobalKey<FormState>();
   final TextEditingController? passwordController;
-
-  RegisterationForm signupForm = RegisterationForm(
-    code: CodeGenerator.getRandomCode(),
-    fullName: '',
-    userName: '',
-    // mobile: '',
-    signupType: '2',
-    countryID: '3',
-    email: '',
-    password: '',
-    branchId: AppTarget.branch,
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +41,7 @@ class SignUpForm extends StatelessWidget {
               key: key,
               label: S.of(context).fullName,
               onSave: (value) {
-                signupForm = signupForm.copyWith(fullName: value);
+                reg.setAccount(reg.state.signupData.copyWith(fullName: value));
               },
               validators: requiredValidator,
             ),
@@ -66,7 +51,7 @@ class SignUpForm extends StatelessWidget {
               key: key,
               label: S.of(context).userName,
               onSave: (value) {
-                signupForm = signupForm.copyWith(userName: value);
+                reg.setAccount(reg.state.signupData.copyWith(userName: value));
               },
               validators: requiredValidator,
             ),
@@ -78,16 +63,46 @@ class SignUpForm extends StatelessWidget {
                   key: key,
                   label: S.of(context).email,
                   onSave: (value) {
-                    signupForm = signupForm.copyWith(email: value);
+                    reg.setAccount(reg.state.signupData.copyWith(email: value));
                   },
                   onChange: (value) {
                     reg.setWillVerifyEmail(value);
-                    signupForm = signupForm.copyWith(email: value);
                   },
                   validators: emailValidator,
                   suffixText: '                    ',
                 ),
-                _emailVerificationButton()
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    height: 48,
+                    width: 96,
+                    padding: const EdgeInsets.all(10),
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(25),
+                        bottomRight: Radius.circular(25),
+                      ),
+                    ),
+                    child: BlocBuilder<RegCubit, NRegState>(
+                      builder: (context, state) {
+                        return InteractiveButton(
+                          height: 48,
+                          label: 'Verify',
+                          loadingLabel: '',
+                          style: InteractiveButtonStyle(
+                            backgroundColor: (state.verifiedEmail ?? 'x') ==
+                                    (state.willVerifyEmail ?? 'y')
+                                ? Colors.grey
+                                : null,
+                          ),
+                          onPressed: _verifyEmailOtp,
+                        );
+                      },
+                    ),
+                  ),
+                )
               ],
             ),
             SizedBox(height: ThemeSelector.statics.formFieldGap),
@@ -96,7 +111,7 @@ class SignUpForm extends StatelessWidget {
               key: key,
               label: S.of(context).password,
               onSave: (value) {
-                signupForm = signupForm.copyWith(password: value);
+                reg.setAccount(reg.state.signupData.copyWith(password: value));
               },
               validators: passwordValidator,
               isPassword: true,
@@ -107,9 +122,6 @@ class SignUpForm extends StatelessWidget {
             TextFormFieldTemplate(
               key: key,
               label: S.of(context).confirmPassword,
-              onSave: (value) {
-                signupForm = signupForm.copyWith(password: value);
-              },
               validators: (value) {
                 return confirmPasswordValidator(
                     value: value, comparedValue: passwordController?.text);
@@ -126,7 +138,8 @@ class SignUpForm extends StatelessWidget {
 
                 signUpFormKey.currentState!.save();
 
-                await SignUpService.signUp(signup: signupForm, context: context)
+                await SignUpService.signUp(
+                        signup: reg.state.signupData, context: context)
                     .then((value) {
                   value = jsonDecode(value.toString());
 
@@ -135,14 +148,15 @@ class SignUpForm extends StatelessWidget {
                     // var tokenReg = RegExp(r"Token\s*=\s*(.*)[\s|,]*");
                     var chefId = idReg.firstMatch(value["message"])!.group(1)!;
 
-                    var userMap = signupForm.toUserMap(chefId, value['token']);
+                    var userMap =
+                        reg.state.signupData.toUserMap(chefId, value['token']);
 
                     context.read<UserBloc>().add(UserFromJsonEvent(
                         user: userMap,
                         routeAfterLogin: () =>
                             context.read<ProfileCubit>().getProfileForm()));
 
-                    return reg.setAccount(signupForm);
+                    return reg.setAccount(reg.state.signupData);
                   }
 
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -154,51 +168,16 @@ class SignUpForm extends StatelessWidget {
                   );
                 }).catchError((err) {});
               },
-              onPressed: () => signUp(signupForm, signUpFormKey),
+              onPressed: () => _signUp(signUpFormKey),
             ),
           ],
         ),
       ),
     );
   }
-
-  Positioned _emailVerificationButton() {
-    return Positioned(
-      right: 0,
-      top: 0,
-      child: Container(
-        height: 48,
-        width: 96,
-        padding: const EdgeInsets.all(10),
-        alignment: Alignment.center,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(25),
-            bottomRight: Radius.circular(25),
-          ),
-        ),
-        child: BlocBuilder<RegCubit, NRegState>(
-          builder: (context, state) {
-            return InteractiveButton(
-              height: 48,
-              label: 'Verify',
-              loadingLabel: '',
-              style: InteractiveButtonStyle(
-                backgroundColor: (state.verifiedEmail ?? 'x') ==
-                        (state.willVerifyEmail ?? 'y')
-                    ? Colors.grey
-                    : null,
-              ),
-              onPressed: verifyOtp,
-            );
-          },
-        ),
-      ),
-    );
-  }
 }
 
-Future<void> verifyOtp() async {
+Future<void> _verifyEmailOtp() async {
   final reg = G.rd<RegCubit>();
 
   if ((reg.state.verifiedEmail ?? '').isNotEmpty &&
@@ -234,8 +213,7 @@ Future<void> verifyOtp() async {
   );
 }
 
-Future<void> signUp(
-    RegisterationForm signupForm, GlobalKey<FormState> signUpFormKey) async {
+Future<void> _signUp(GlobalKey<FormState> signUpFormKey) async {
   final reg = G.rd<RegCubit>();
 
   if (!signUpFormKey.currentState!.validate()) return;
@@ -248,7 +226,7 @@ Future<void> signUp(
 
   signUpFormKey.currentState!.save();
 
-  await SignUpService.signUp(signup: signupForm, context: G.context)
+  await SignUpService.signUp(signup: reg.state.signupData, context: G.context)
       .then((value) {
     value = jsonDecode(value.toString());
 
@@ -257,13 +235,13 @@ Future<void> signUp(
 
       var chefId = idReg.firstMatch(value["message"])!.group(1)!;
 
-      var userMap = signupForm.toUserMap(chefId, value['token']);
+      var userMap = reg.state.signupData.toUserMap(chefId, value['token']);
 
       G.read<UserBloc>().add(UserFromJsonEvent(
           user: userMap,
           routeAfterLogin: () => G.rd<ProfileCubit>().getProfileForm()));
 
-      return reg.setAccount(signupForm);
+      return reg.setAccount(reg.state.signupData, true);
     }
 
     G.snackBar(value["message"]);
