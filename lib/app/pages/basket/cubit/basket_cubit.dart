@@ -187,6 +187,7 @@ class BasketCubit extends Cubit<BasketState> {
 }
 
 void _loadingIndicator() => showDialog(
+    barrierDismissible: false,
     context: G.context,
     builder: (context) => Center(
             child: SizedBox(
