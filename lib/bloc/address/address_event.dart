@@ -5,7 +5,7 @@ class AddressEvent with _$AddressEvent {
   const factory AddressEvent.updateAddressListEvent(
       {required List<Address> address}) = _updateAddressListEvent;
   const factory AddressEvent.getAddressListEvent(
-      {required BuildContext context}) = _getAddressListEvent;
+      {required BuildContext context, String? id}) = _getAddressListEvent;
   const factory AddressEvent.resetAddressListEvent() = _resetAddressListEvent;
   const factory AddressEvent.deleteAddressEvent(
       {required BuildContext context,

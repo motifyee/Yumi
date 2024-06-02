@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
-import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/service/address_service.dart';
 import 'package:yumi/statics/pagination_helper.dart';
@@ -49,16 +49,19 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     );
   }
 
-  _getAddressList(
-      {required _getAddressListEvent event,
-      required Emitter<AddressState> emit}) async {
+  _getAddressList({
+    required _getAddressListEvent event,
+    required Emitter<AddressState> emit,
+  }) async {
     if (state.paginationHelper.pageNumber < state.paginationHelper.lastPage &&
         !state.paginationHelper.isLoading) {
       emit(state.copyWith(
           paginationHelper: state.paginationHelper.copyWith(isLoading: true)));
 
       dynamic res = await AddressService.getAddresses(
-          context: event.context, pagination: state.paginationHelper.toJson());
+          context: event.context,
+          pagination: {...state.paginationHelper.toJson(), 'id': event.id}
+            ..removeWhere((e, v) => v == null));
 
       List<Address> data = [];
       data = res.map<Address>((value) {

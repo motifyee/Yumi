@@ -242,5 +242,7 @@
 	"domain": "Domain",
 	"reset": "Reset",
 	"rateOrder": "Rate Order",
-	"online": "Online"
+	"online": "Online",
+	"chefAddress": "Chef Address",
+	"customer": "Customer"
 }

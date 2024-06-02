@@ -306,6 +306,9 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                     ),
                                   ],
                                 ),
+                                SizedBox(
+                                    height:
+                                        ThemeSelector.statics.defaultMicroGap),
                                 if (widget.order.driverReceived == true &&
                                     false)
                                   GestureDetector(
@@ -378,6 +381,50 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                     ),
                                   ],
                                 ),
+                                SizedBox(
+                                    height:
+                                        ThemeSelector.statics.defaultMicroGap),
+                                if (widget.order.chefFinished == true)
+                                  GestureDetector(
+                                    onTap: () {
+                                      context.router
+                                          .push(ChefCustomerAddressRoute(
+                                        name: '',
+                                        mobile: '',
+                                        id: widget.order.chefID ?? '',
+                                        isChef: true,
+                                      ));
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              ThemeSelector.statics.defaultGap,
+                                          vertical: ThemeSelector
+                                              .statics.defaultMicroGap),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            ThemeSelector.statics
+                                                .defaultBorderRadiusMedium),
+                                        color: ThemeSelector.colors.primary,
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            S.of(context).chefAddress,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displaySmall,
+                                          ),
+                                          SizedBox(
+                                              width: ThemeSelector
+                                                  .statics.defaultMicroGap),
+                                          SvgPicture.asset(
+                                              'assets/images/dot.svg')
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                               ],
                             ),
                           Container(

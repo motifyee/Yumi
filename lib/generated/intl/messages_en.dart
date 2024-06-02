@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change": MessageLookupByLibrary.simpleMessage("Change"),
         "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
         "chef": MessageLookupByLibrary.simpleMessage("Chef"),
+        "chefAddress": MessageLookupByLibrary.simpleMessage("Chef Address"),
         "chefCuisines": MessageLookupByLibrary.simpleMessage("Chef Cuisines"),
         "chefEvents": MessageLookupByLibrary.simpleMessage("Chef events"),
         "chefMenu": MessageLookupByLibrary.simpleMessage("Chef Menu"),
@@ -98,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cuisines": MessageLookupByLibrary.simpleMessage("Cuisines"),
         "currency": MessageLookupByLibrary.simpleMessage("\$"),
         "currentDomain": MessageLookupByLibrary.simpleMessage("Current Domain"),
+        "customer": MessageLookupByLibrary.simpleMessage("Customer"),
         "day": MessageLookupByLibrary.simpleMessage("Day"),
         "debitCreditCard":
             MessageLookupByLibrary.simpleMessage("Debit/Credit Card"),

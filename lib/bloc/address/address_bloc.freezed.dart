@@ -170,7 +170,7 @@ abstract class _$$getAddressListEventImplCopyWith<$Res> {
           $Res Function(_$getAddressListEventImpl) then) =
       __$$getAddressListEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({BuildContext context});
+  $Res call({BuildContext context, String? id});
 }
 
 /// @nodoc
@@ -185,12 +185,17 @@ class __$$getAddressListEventImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? context = null,
+    Object? id = freezed,
   }) {
     return _then(_$getAddressListEventImpl(
       context: null == context
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
               as BuildContext,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -198,14 +203,16 @@ class __$$getAddressListEventImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$getAddressListEventImpl implements _getAddressListEvent {
-  const _$getAddressListEventImpl({required this.context});
+  const _$getAddressListEventImpl({required this.context, this.id});
 
   @override
   final BuildContext context;
+  @override
+  final String? id;
 
   @override
   String toString() {
-    return 'AddressEvent.getAddressListEvent(context: $context)';
+    return 'AddressEvent.getAddressListEvent(context: $context, id: $id)';
   }
 
   @override
@@ -213,11 +220,12 @@ class _$getAddressListEventImpl implements _getAddressListEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$getAddressListEventImpl &&
-            (identical(other.context, context) || other.context == context));
+            (identical(other.context, context) || other.context == context) &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, context);
+  int get hashCode => Object.hash(runtimeType, context, id);
 
   @JsonKey(ignore: true)
   @override
@@ -254,10 +262,12 @@ class _$getAddressListEventImpl implements _getAddressListEvent {
 }
 
 abstract class _getAddressListEvent implements AddressEvent {
-  const factory _getAddressListEvent({required final BuildContext context}) =
-      _$getAddressListEventImpl;
+  const factory _getAddressListEvent(
+      {required final BuildContext context,
+      final String? id}) = _$getAddressListEventImpl;
 
   BuildContext get context;
+  String? get id;
   @JsonKey(ignore: true)
   _$$getAddressListEventImplCopyWith<_$getAddressListEventImpl> get copyWith =>
       throw _privateConstructorUsedError;

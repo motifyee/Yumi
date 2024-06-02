@@ -2491,6 +2491,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Chef Address`
+  String get chefAddress {
+    return Intl.message(
+      'Chef Address',
+      name: 'chefAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customer`
+  String get customer {
+    return Intl.message(
+      'Customer',
+      name: 'customer',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

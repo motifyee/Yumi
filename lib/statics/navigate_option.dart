@@ -191,8 +191,8 @@ class NavigateOptions {
                       index == i ? Alignment.topCenter : Alignment.center,
                   child: index == i
                       ? SizedBox(
-                          width: min(23, navWidth - 45),
-                          height: min(23, navWidth - 45),
+                          width: min(23, max(23, navWidth - 45)),
+                          height: min(23, max(23, navWidth - 45)),
                           child: e.selectedIcon,
                         )
                       : e.icon,
