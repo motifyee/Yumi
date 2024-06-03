@@ -2,7 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/auth/registeration/reg_screen.dart';
-import 'package:yumi/app/pages/auth/registeration/signup_form.dart';
+import 'package:yumi/app/pages/auth/registeration/signup/cubit/signup_cubit.dart';
+import 'package:yumi/app/pages/auth/registeration/signup/signup_form.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
@@ -13,7 +14,19 @@ import 'package:yumi/template/screen_container.dart';
 
 @RoutePage()
 class SignUpScreen extends StatelessWidget {
-  SignUpScreen({super.key});
+  const SignUpScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => SignupCubit(),
+      child: SignupScreenContent(),
+    );
+  }
+}
+
+class SignupScreenContent extends StatelessWidget {
+  SignupScreenContent({super.key});
 
   final passwordController = TextEditingController();
   final signUpFormKey = GlobalKey<FormState>();

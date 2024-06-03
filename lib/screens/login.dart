@@ -75,8 +75,8 @@ class LoginScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      context.router.push(const RegisterationRoute());
-                      // G.rd<RegCubit>().init();
+                      // context.router.push(const RegisterationRoute());
+                      G.rd<RegCubit>().init();
                     },
                     style: ButtonStyle(
                         backgroundColor: WidgetStateProperty.resolveWith<Color>(

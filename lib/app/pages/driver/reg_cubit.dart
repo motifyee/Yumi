@@ -11,8 +11,10 @@ import 'package:yumi/app/pages/auth/registeration/maps/permission.dart';
 import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/app/pages/auth/registeration/model/registeration.dart';
 import 'package:yumi/app/pages/auth/registeration/repository/address_repo.dart';
+import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
 import 'package:yumi/app/pages/chef_application/documentation/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/chef_application/flow_step_info.dart';
+import 'package:yumi/app/pages/driver/count_down/cubit/count_down_cubit.dart';
 import 'package:yumi/app/pages/driver/model/vehicle.dart';
 import 'package:yumi/app/pages/driver/onboarding.dart';
 import 'package:yumi/app/pages/driver/rides_service.dart';
@@ -130,7 +132,7 @@ class RegCubit extends Cubit<NRegState> {
     return await G.prefs.then((prefs) {
       if ((prefs.getBool(partialFlowKey) ?? false)) return false;
 
-      return prefs.getInt(regStepKey) != null && prefs.getInt(regStepKey) != 0;
+      return prefs.getInt(regStepKey) != null;
     });
   }
 
@@ -185,12 +187,8 @@ class RegCubit extends Cubit<NRegState> {
   }
 
   void finish([bool login = true]) async {
-    var pref = await SharedPreferences.getInstance();
-    pref.remove(regStepKey);
-    pref.remove(partialFlowKey);
-    pref.remove(onboardingProgressKey);
-
     final user = G.read<UserBloc>().state.user;
+
     if (login && user.email.isNotEmpty && (user.password ?? '').isNotEmpty) {
       await LoginServices.login(
           login: LoginModel(
@@ -378,20 +376,20 @@ class RegCubit extends Cubit<NRegState> {
     emit(state.copyWith(address: address));
   }
 
-  Future saveLocation({
+  Future<void> saveLocation({
     Function({required Address address})? routeFn,
   }) async {
     if (state.addressStatus == Status.loading) return;
     emit(state.copyWith(addressStatus: Status.loading));
     await tryV(
       () => AddressRepo.addAddress(address: state.address),
-    ).then((res) {
+    ).then((res) async {
       if (res == null) {
         emit(state.copyWith(addressStatus: Status.success));
 
         if (routeFn != null) return routeFn(address: state.address);
         if (G.isCustomerApp) return finish();
-        return _navigateToIdx(4);
+        return await _navigateToIdx(4);
       }
 
       emit(state.copyWith(
@@ -434,7 +432,7 @@ class RegCubit extends Cubit<NRegState> {
 
   // navigate to corresponding page based on step index
   // TODO should only be called from within widgets
-  void _navigateToIdx(
+  Future<void> _navigateToIdx(
     int step, {
     String? otp,
   }) async {
@@ -449,7 +447,19 @@ class RegCubit extends Cubit<NRegState> {
     if (!state.registerationStarted) return;
     if (path == '/registeration/${RegStep.values[step].name}') return;
 
-    G.router.navigate(RegisterationRoute(children: [getPage(step)]));
+    await G.router.navigate(RegisterationRoute(children: [getPage(step)]));
+    final storageKey = VerifyOtpSheet.storageKey(OTPType.email);
+    if (step == 0) {
+      // if (await hasActiveCountDown(storageKey: storageKey)) {
+      final email = await counterStoredValue(storageKey: storageKey);
+
+      emit(
+        state.copyWith(
+          willVerifyEmail: email,
+        ),
+      );
+      // }
+    }
 
     emit(state.copyWith(step: step));
     await saveStepToCache(step);
@@ -462,8 +472,14 @@ class RegCubit extends Cubit<NRegState> {
     pref.setBool(partialFlowKey, state.partialFlow);
   }
 
-  void reset({bool finished = false}) {
+  Future<void> reset({bool finished = false}) async {
     emit(NRegState(finished: finished));
+
+    await G.prefs.then((prefs) async {
+      await prefs.remove(regStepKey);
+      await prefs.remove(partialFlowKey);
+      await prefs.remove(onboardingProgressKey);
+    });
 
     G.rd<ProfileCubit>().reset();
     if (!G.isCustomerApp) {

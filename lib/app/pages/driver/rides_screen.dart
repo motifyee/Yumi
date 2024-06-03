@@ -186,7 +186,7 @@ void addYourVehicleDialog(BuildContext context, {bool firstTime = true}) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(child: SvgPicture.asset('assets/images/flow/add-menu.svg')),
+          Center(child: SvgPicture.asset('assets/images/flow/motorcycle.svg')),
           const SizedBox(height: 8),
           Text(
             '         Now',

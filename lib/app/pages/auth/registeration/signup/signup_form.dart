@@ -6,7 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button_style.dart';
 import 'package:yumi/app/pages/auth/registeration/repository/signup_service.dart';
+import 'package:yumi/app/pages/auth/registeration/signup/cubit/signup_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
+import 'package:yumi/app/pages/driver/count_down/cubit/count_down_cubit.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
@@ -21,17 +23,30 @@ import 'package:yumi/validators/password_validator.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 class SignUpForm extends StatelessWidget {
-  SignUpForm({super.key, required this.signUpFormKey, this.passwordController});
-
-  final GlobalKey<FormState> signUpFormKey;
   final TextEditingController? passwordController;
+  final GlobalKey<FormState> signUpFormKey;
+
+  const SignUpForm(
+      {super.key, required this.signUpFormKey, this.passwordController});
 
   @override
   Widget build(BuildContext context) {
+    final signupCubit = context.read<SignupCubit>();
+
     final reg = context.read<RegCubit>();
+    () async {
+      final storageKey = VerifyOtpSheet.storageKey(OTPType.email);
+
+      if (!signupCubit.state.sheetIsActive &&
+          await hasActiveCountDown(storageKey: storageKey)) {
+        // return signupCubit.showSheet(() => showOTPSheet(context));
+        signupCubit.setSheetIsActive(true);
+        await showOTPSheet();
+        signupCubit.setSheetIsActive(false);
+      }
+    }();
 
     return Form(
-      key: signUpFormKey,
       child: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: ThemeSelector.statics.formFieldInlineGap),
@@ -63,6 +78,8 @@ class SignUpForm extends StatelessWidget {
                 TextFormFieldTemplate(
                   key: key,
                   label: S.of(context).email,
+                  // set on reload in cubit _navigateToIdx,
+                  initialValue: reg.state.willVerifyEmail,
                   onSave: (value) {
                     reg.setAccount(reg.state.signupData.copyWith(email: value));
                   },
@@ -98,7 +115,10 @@ class SignUpForm extends StatelessWidget {
                                 ? Colors.grey
                                 : null,
                           ),
-                          onPressed: _verifyEmailOtp,
+                          onPressed: () => _verifyEmailOtp(
+                            context,
+                            signupCubit,
+                          ),
                         );
                       },
                     ),
@@ -135,9 +155,9 @@ class SignUpForm extends StatelessWidget {
               label: S.of(context).createAccount,
               onLongPress: () async {
                 if (kReleaseMode) return;
-                if (!signUpFormKey.currentState!.validate()) return;
+                if (!Form.of(context).validate()) return;
 
-                signUpFormKey.currentState!.save();
+                Form.of(context).save();
 
                 await SignUpService.signUp(
                         signup: reg.state.signupData, context: context)
@@ -169,7 +189,7 @@ class SignUpForm extends StatelessWidget {
                   );
                 }).catchError((err) {});
               },
-              onPressed: () => _signUp(signUpFormKey),
+              onPressed: () => _signUp(context),
             ),
           ],
         ),
@@ -178,7 +198,20 @@ class SignUpForm extends StatelessWidget {
   }
 }
 
-Future<void> _verifyEmailOtp() async {
+// PersistentBottomSheetController
+Future<void> showOTPSheet() => showModalBottomSheet(
+      context: G.context, // context mush have a scaffold
+      isScrollControlled: true,
+      enableDrag: true,
+      sheetAnimationStyle: AnimationStyle(curve: Curves.bounceIn),
+      backgroundColor: Colors.transparent,
+      builder: (context) => VerifyOtpSheetProvider(
+        value: G.rd<RegCubit>().state.willVerifyEmail!,
+      ),
+    );
+
+Future<void> _verifyEmailOtp(
+    BuildContext context, SignupCubit signupCubit) async {
   final reg = G.rd<RegCubit>();
 
   if ((reg.state.verifiedEmail ?? '').isNotEmpty &&
@@ -192,8 +225,21 @@ Future<void> _verifyEmailOtp() async {
     return G.snackBar("Please enter a valid email");
   }
 
+  final storageKey = VerifyOtpSheet.storageKey(OTPType.email);
+
+  if (await hasActiveCountDown(storageKey: storageKey)) {
+    if (await counterStoredValue(storageKey: storageKey) ==
+        reg.state.willVerifyEmail) {
+      signupCubit.setSheetIsActive(true);
+
+      return showOTPSheet().then((_) => signupCubit.setSheetIsActive(false));
+    }
+
+    if (context.mounted) context.read<CountDownCubit>().stopCountDown();
+  }
+
   await reg.getEmailOTP(reg.state.willVerifyEmail!).then(
-    (sent) {
+    (sent) async {
       if (!sent) {
         return G.snackBar(
           "Please enter a valid email, nothing sent!",
@@ -202,22 +248,19 @@ Future<void> _verifyEmailOtp() async {
 
       G.snackBar("Verification code sent");
 
-      showModalBottomSheet(
-        context: G.context,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        builder: (context) => VerifyOtpSheetProvider(
-          otp: G.rd<RegCubit>().state.emailOTP ?? '',
-        ),
+      // signupCubit.showSheet(() => showOTPSheet());
+      signupCubit.setSheetIsActive(true);
+      showOTPSheet().then(
+        (_) => signupCubit.setSheetIsActive(false),
       );
     },
   );
 }
 
-Future<void> _signUp(GlobalKey<FormState> signUpFormKey) async {
+Future<void> _signUp(BuildContext context) async {
   final reg = G.rd<RegCubit>();
 
-  if (!signUpFormKey.currentState!.validate()) return;
+  if (Form.of(context).validate()) return;
 
   if (reg.state.verifiedEmail != reg.state.willVerifyEmail ||
       reg.state.willVerifyEmail == null ||
@@ -225,7 +268,7 @@ Future<void> _signUp(GlobalKey<FormState> signUpFormKey) async {
     return G.snackBar("Please verify your email");
   }
 
-  signUpFormKey.currentState!.save();
+  Form.of(context).save();
 
   await SignUpService.signUp(signup: reg.state.signupData, context: G.context)
       .then((value) {
