@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
@@ -165,6 +166,10 @@ class MealForm extends StatelessWidget {
                               textInputType: TextInputType.number,
                               initialValue: state.mealModel.caloriesValue,
                               validators: requiredValidator,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^(\d+)?\.?\d{0,2}'))
+                              ],
                               onChange: (value) {
                                 context.read<MealFormBloc>().add(
                                     MealFormUpdateEvent(
@@ -202,6 +207,10 @@ class MealForm extends StatelessWidget {
                                   TextFormFieldBorderStyle.borderBottom,
                               initialValue: state.mealModel.price1,
                               validators: requiredValidator,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^(\d+)?\.?\d{0,2}'))
+                              ],
                               onChange: (value) {
                                 context.read<MealFormBloc>().add(
                                     MealFormUpdateEvent(
@@ -221,6 +230,10 @@ class MealForm extends StatelessWidget {
                               initialValue: state.mealModel.portionPersons,
                               textInputType: TextInputType.number,
                               validators: requiredValidator,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^(\d+)?\.?\d{0,2}'))
+                              ],
                               onChange: (value) {
                                 context.read<MealFormBloc>().add(
                                     MealFormUpdateEvent(
