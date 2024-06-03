@@ -28,6 +28,7 @@ echo
 echo "building: customer app ..."
 
 cp "$splash/customer.png" "$splash/logo_splash.png"
+cp "$splash/customer_x.png" "$splash/logo_splash_x.png"
 dart run flutter_native_splash:create
 
 flutter pub get
@@ -43,6 +44,7 @@ mv "$output/app-release.apk" "$output/out/customer.apk"
 echo "building: chef app ..."
 
 cp "$splash/chef.png" "$splash/logo_splash.png"
+cp "$splash/chef_x.png" "$splash/logo_splash_x.png"
 dart run flutter_native_splash:create
 
 flutter pub get
@@ -58,6 +60,7 @@ mv "$output/app-release.apk" "$output/out/chef.apk"
 echo "building: driver app ..."
 
 cp "$splash/driver.png" "$splash/logo_splash.png"
+cp "$splash/driver_x.png" "$splash/logo_splash_x.png"
 dart run flutter_native_splash:create
 
 flutter pub get
@@ -71,5 +74,6 @@ mv "$output/app-release.apk" "$output/out/driver.apk"
 # Reset splash (to prevent git changes)
 
 cp "$splash/customer.png" "$splash/logo_splash.png"
+cp "$splash/customer_x.png" "$splash/logo_splash_x.png"
 dart run flutter_native_splash:create
 flutter pub get
