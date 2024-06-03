@@ -1218,13 +1218,18 @@ class _TimerCountState extends State<TimerCount> {
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: ThemeSelector.statics.defaultMicroGap),
-      child: Text(
-        widget.isOver3hCount
-            ? widget.order.isOver3HCount
-            : widget.menuTarget == MenuTarget.order
-                ? widget.order.driverOrderPendingCount
-                : widget.order.driverPreOrderPendingCount,
-        style: Theme.of(context).textTheme.bodyMedium,
+      child: Column(
+        children: [
+          SvgPicture.asset('assets/images/stop_watch_icon.svg'),
+          Text(
+            widget.isOver3hCount
+                ? widget.order.isOver3HCount
+                : widget.menuTarget == MenuTarget.order
+                    ? widget.order.driverOrderPendingCount
+                    : widget.order.driverPreOrderPendingCount,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ],
       ),
     );
   }
