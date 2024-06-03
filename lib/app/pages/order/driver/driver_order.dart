@@ -5,6 +5,7 @@ import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -112,16 +113,35 @@ class DriverOrderScreen extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               controller: _controller,
               children: [
-                BlocProvider(
-                  create: (context) => OrderBloc(),
-                  child: NewsOrders(
-                    menuTarget: menuTarget,
-                    apiKey: menuTarget == MenuTarget.order
-                        ? ApiKeys.orderDriverAvailable
-                        : ApiKeys.preOrderDriverAvailable,
-                    orderCardTargetPage: OrderCardTargetPage.driverAccept,
-                    signals: const [Signals.neworderreceived],
-                  ),
+                BlocBuilder<UserBloc, UserState>(
+                  builder: (context, state) {
+                    return state.user.status == 0
+                        ? Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(
+                                  ThemeSelector.statics.defaultMediumGap),
+                              child: Text(
+                                S
+                                    .of(context)
+                                    .toReceiveOrdersChangYourStatusToOnline,
+                                softWrap: true,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          )
+                        : BlocProvider(
+                            create: (context) => OrderBloc(),
+                            child: NewsOrders(
+                              menuTarget: menuTarget,
+                              apiKey: menuTarget == MenuTarget.order
+                                  ? ApiKeys.orderDriverAvailable
+                                  : ApiKeys.preOrderDriverAvailable,
+                              orderCardTargetPage:
+                                  OrderCardTargetPage.driverAccept,
+                              signals: const [Signals.neworderreceived],
+                            ),
+                          );
+                  },
                 ),
                 BlocProvider(
                   create: (context) => OrderBloc(),

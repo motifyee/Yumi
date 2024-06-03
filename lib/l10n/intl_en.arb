@@ -244,5 +244,6 @@
 	"rateOrder": "Rate Order",
 	"online": "Online",
 	"chefAddress": "Chef Address",
-	"customer": "Customer"
+	"customer": "Customer",
+	"toReceiveOrdersChangYourStatusToOnline": "To receive orders chang your status to online"
 }

@@ -309,6 +309,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "thisSectionYourSavedAddress": MessageLookupByLibrary.simpleMessage(
             "This section your saved address"),
         "time": MessageLookupByLibrary.simpleMessage("Time"),
+        "toReceiveOrdersChangYourStatusToOnline":
+            MessageLookupByLibrary.simpleMessage(
+                "To receive orders chang your status to online"),
         "total": MessageLookupByLibrary.simpleMessage("Total"),
         "totalAmount": MessageLookupByLibrary.simpleMessage("Total amount"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),

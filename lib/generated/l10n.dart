@@ -2511,6 +2511,16 @@ class S {
       args: [],
     );
   }
+
+  /// `To receive orders chang your status to online`
+  String get toReceiveOrdersChangYourStatusToOnline {
+    return Intl.message(
+      'To receive orders chang your status to online',
+      name: 'toReceiveOrdersChangYourStatusToOnline',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
