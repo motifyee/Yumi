@@ -40,19 +40,24 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
           apiKeys: event.apiKey,
           paginationHelper: state.paginationHelper.toJson());
 
-      List<Order> data =
-          res.data['data'].map<Order>((e) => Order.fromJson(e)).toList();
-
-      add(
-        OrderEvent.update(
-          orders: [...state.orders, ...data].unique(),
-          paginationHelper: state.paginationHelper.copyWith(
-            pageNumber: res.data['pagination']['page'],
-            lastPage: res.data['pagination']['pages'],
-            isLoading: false,
+      if (res.statusCode == 200) {
+        List<Order> data =
+            res.data['data'].map<Order>((e) => Order.fromJson(e)).toList();
+        add(
+          OrderEvent.update(
+            orders: [...state.orders, ...data].unique(),
+            paginationHelper: state.paginationHelper.copyWith(
+              pageNumber: res.data['pagination']['page'],
+              lastPage: res.data['pagination']['pages'],
+              isLoading: false,
+            ),
           ),
-        ),
-      );
+        );
+      } else {
+        emit(state.copyWith(
+            paginationHelper:
+                state.paginationHelper.copyWith(isLoading: false)));
+      }
     }
   }
 

@@ -1,15 +1,16 @@
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button_style.dart';
+import 'package:yumi/app/pages/auth/registeration/repository/signup_service.dart';
 import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
+import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
-import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/auth/registeration/repository/signup_service.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
@@ -20,9 +21,9 @@ import 'package:yumi/validators/password_validator.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 class SignUpForm extends StatelessWidget {
-  SignUpForm({super.key, this.passwordController});
+  SignUpForm({super.key, required this.signUpFormKey, this.passwordController});
 
-  final signUpFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> signUpFormKey;
   final TextEditingController? passwordController;
 
   @override

@@ -16,6 +16,7 @@ class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
 
   final passwordController = TextEditingController();
+  final signUpFormKey = GlobalKey<FormState>();
   final regCubit = G.rd<RegCubit>();
 
   @override
@@ -58,6 +59,7 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         SignUpForm(
                           key: key,
+                          signUpFormKey: signUpFormKey,
                           passwordController: passwordController,
                         ),
                         SizedBox(
