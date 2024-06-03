@@ -18,7 +18,14 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CountDownState {
   Unique? get unique => throw _privateConstructorUsedError;
   int? get countDown => throw _privateConstructorUsedError;
+  int? get timeout => throw _privateConstructorUsedError;
+  int? get initialTime => throw _privateConstructorUsedError;
+  String get storageKey => throw _privateConstructorUsedError;
   String get value => throw _privateConstructorUsedError;
+  void Function(CountDownState)? get onTimeout =>
+      throw _privateConstructorUsedError;
+  void Function(CountDownState)? get onTick =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CountDownStateCopyWith<CountDownState> get copyWith =>
@@ -31,7 +38,15 @@ abstract class $CountDownStateCopyWith<$Res> {
           CountDownState value, $Res Function(CountDownState) then) =
       _$CountDownStateCopyWithImpl<$Res, CountDownState>;
   @useResult
-  $Res call({Unique? unique, int? countDown, String value});
+  $Res call(
+      {Unique? unique,
+      int? countDown,
+      int? timeout,
+      int? initialTime,
+      String storageKey,
+      String value,
+      void Function(CountDownState)? onTimeout,
+      void Function(CountDownState)? onTick});
 }
 
 /// @nodoc
@@ -49,7 +64,12 @@ class _$CountDownStateCopyWithImpl<$Res, $Val extends CountDownState>
   $Res call({
     Object? unique = freezed,
     Object? countDown = freezed,
+    Object? timeout = freezed,
+    Object? initialTime = freezed,
+    Object? storageKey = null,
     Object? value = null,
+    Object? onTimeout = freezed,
+    Object? onTick = freezed,
   }) {
     return _then(_value.copyWith(
       unique: freezed == unique
@@ -60,10 +80,30 @@ class _$CountDownStateCopyWithImpl<$Res, $Val extends CountDownState>
           ? _value.countDown
           : countDown // ignore: cast_nullable_to_non_nullable
               as int?,
+      timeout: freezed == timeout
+          ? _value.timeout
+          : timeout // ignore: cast_nullable_to_non_nullable
+              as int?,
+      initialTime: freezed == initialTime
+          ? _value.initialTime
+          : initialTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      storageKey: null == storageKey
+          ? _value.storageKey
+          : storageKey // ignore: cast_nullable_to_non_nullable
+              as String,
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
+      onTimeout: freezed == onTimeout
+          ? _value.onTimeout
+          : onTimeout // ignore: cast_nullable_to_non_nullable
+              as void Function(CountDownState)?,
+      onTick: freezed == onTick
+          ? _value.onTick
+          : onTick // ignore: cast_nullable_to_non_nullable
+              as void Function(CountDownState)?,
     ) as $Val);
   }
 }
@@ -76,7 +116,15 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Unique? unique, int? countDown, String value});
+  $Res call(
+      {Unique? unique,
+      int? countDown,
+      int? timeout,
+      int? initialTime,
+      String storageKey,
+      String value,
+      void Function(CountDownState)? onTimeout,
+      void Function(CountDownState)? onTick});
 }
 
 /// @nodoc
@@ -92,7 +140,12 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? unique = freezed,
     Object? countDown = freezed,
+    Object? timeout = freezed,
+    Object? initialTime = freezed,
+    Object? storageKey = null,
     Object? value = null,
+    Object? onTimeout = freezed,
+    Object? onTick = freezed,
   }) {
     return _then(_$InitialImpl(
       unique: freezed == unique
@@ -103,10 +156,30 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.countDown
           : countDown // ignore: cast_nullable_to_non_nullable
               as int?,
+      timeout: freezed == timeout
+          ? _value.timeout
+          : timeout // ignore: cast_nullable_to_non_nullable
+              as int?,
+      initialTime: freezed == initialTime
+          ? _value.initialTime
+          : initialTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      storageKey: null == storageKey
+          ? _value.storageKey
+          : storageKey // ignore: cast_nullable_to_non_nullable
+              as String,
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
+      onTimeout: freezed == onTimeout
+          ? _value.onTimeout
+          : onTimeout // ignore: cast_nullable_to_non_nullable
+              as void Function(CountDownState)?,
+      onTick: freezed == onTick
+          ? _value.onTick
+          : onTick // ignore: cast_nullable_to_non_nullable
+              as void Function(CountDownState)?,
     ));
   }
 }
@@ -114,7 +187,15 @@ class __$$InitialImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$InitialImpl extends _Initial {
-  const _$InitialImpl({this.unique, this.countDown, this.value = ''})
+  const _$InitialImpl(
+      {this.unique,
+      this.countDown,
+      this.timeout,
+      this.initialTime,
+      this.storageKey = '',
+      this.value = '',
+      this.onTimeout,
+      this.onTick})
       : super._();
 
   @override
@@ -122,12 +203,23 @@ class _$InitialImpl extends _Initial {
   @override
   final int? countDown;
   @override
+  final int? timeout;
+  @override
+  final int? initialTime;
+  @override
+  @JsonKey()
+  final String storageKey;
+  @override
   @JsonKey()
   final String value;
+  @override
+  final void Function(CountDownState)? onTimeout;
+  @override
+  final void Function(CountDownState)? onTick;
 
   @override
   String toString() {
-    return 'CountDownState(unique: $unique, countDown: $countDown, value: $value)';
+    return 'CountDownState(unique: $unique, countDown: $countDown, timeout: $timeout, initialTime: $initialTime, storageKey: $storageKey, value: $value, onTimeout: $onTimeout, onTick: $onTick)';
   }
 
   @override
@@ -138,11 +230,20 @@ class _$InitialImpl extends _Initial {
             (identical(other.unique, unique) || other.unique == unique) &&
             (identical(other.countDown, countDown) ||
                 other.countDown == countDown) &&
-            (identical(other.value, value) || other.value == value));
+            (identical(other.timeout, timeout) || other.timeout == timeout) &&
+            (identical(other.initialTime, initialTime) ||
+                other.initialTime == initialTime) &&
+            (identical(other.storageKey, storageKey) ||
+                other.storageKey == storageKey) &&
+            (identical(other.value, value) || other.value == value) &&
+            (identical(other.onTimeout, onTimeout) ||
+                other.onTimeout == onTimeout) &&
+            (identical(other.onTick, onTick) || other.onTick == onTick));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, unique, countDown, value);
+  int get hashCode => Object.hash(runtimeType, unique, countDown, timeout,
+      initialTime, storageKey, value, onTimeout, onTick);
 
   @JsonKey(ignore: true)
   @override
@@ -155,7 +256,12 @@ abstract class _Initial extends CountDownState {
   const factory _Initial(
       {final Unique? unique,
       final int? countDown,
-      final String value}) = _$InitialImpl;
+      final int? timeout,
+      final int? initialTime,
+      final String storageKey,
+      final String value,
+      final void Function(CountDownState)? onTimeout,
+      final void Function(CountDownState)? onTick}) = _$InitialImpl;
   const _Initial._() : super._();
 
   @override
@@ -163,7 +269,17 @@ abstract class _Initial extends CountDownState {
   @override
   int? get countDown;
   @override
+  int? get timeout;
+  @override
+  int? get initialTime;
+  @override
+  String get storageKey;
+  @override
   String get value;
+  @override
+  void Function(CountDownState)? get onTimeout;
+  @override
+  void Function(CountDownState)? get onTick;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

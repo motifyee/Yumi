@@ -41,6 +41,7 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
       initialCountDownTime: time,
       window: ForgotPwdWindow.enterOTP,
     ));
+
     startCountDown();
   }
 
@@ -57,6 +58,7 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
 
       final d = DateTime.now().millisecondsSinceEpoch -
           (state.initialCountDownTime ?? 0);
+      if (d >= 1000 * 60) return emit(state.copyWith(countDown: null));
 
       emit(
         state.copyWith(
@@ -66,7 +68,9 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
     }
 
     void recur() => Future.delayed(const Duration(seconds: 1), () {
-          if (state.countDown == null) return; // has been stopped
+          if (isClosed) return;
+
+          if (state.countDown == null) return; // has been stopped || timed out
           if (lUnique != _unique) return; // has been restarted
 
           if ((state.countDown ?? 0) <= 0) {

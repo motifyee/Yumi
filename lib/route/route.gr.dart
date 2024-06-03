@@ -16,7 +16,8 @@ import 'package:yumi/app/pages/auth/registeration/add_phone_screen.dart' as _i1;
 import 'package:yumi/app/pages/auth/registeration/location_screen.dart' as _i15;
 import 'package:yumi/app/pages/auth/registeration/model/address.dart' as _i37;
 import 'package:yumi/app/pages/auth/registeration/reg_screen.dart' as _i27;
-import 'package:yumi/app/pages/auth/registeration/signup_screen.dart' as _i29;
+import 'package:yumi/app/pages/auth/registeration/signup/signup_screen.dart'
+    as _i29;
 import 'package:yumi/app/pages/auth/registeration/verify_add_phone_otp_screen.dart'
     as _i22;
 import 'package:yumi/app/pages/basket/basket_screen.dart' as _i2;
@@ -262,11 +263,9 @@ abstract class $AppRouter extends _i33.RootStackRouter {
       );
     },
     SignUpRoute.name: (routeData) {
-      final args = routeData.argsAs<SignUpRouteArgs>(
-          orElse: () => const SignUpRouteArgs());
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i29.SignUpScreen(key: args.key),
+        child: const _i29.SignUpScreen(),
       );
     },
     TrackingOrderRoute.name: (routeData) {
@@ -898,31 +897,16 @@ class SettingRoute extends _i33.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i29.SignUpScreen]
-class SignUpRoute extends _i33.PageRouteInfo<SignUpRouteArgs> {
-  SignUpRoute({
-    _i34.Key? key,
-    List<_i33.PageRouteInfo>? children,
-  }) : super(
+class SignUpRoute extends _i33.PageRouteInfo<void> {
+  const SignUpRoute({List<_i33.PageRouteInfo>? children})
+      : super(
           SignUpRoute.name,
-          args: SignUpRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SignUpRoute';
 
-  static const _i33.PageInfo<SignUpRouteArgs> page =
-      _i33.PageInfo<SignUpRouteArgs>(name);
-}
-
-class SignUpRouteArgs {
-  const SignUpRouteArgs({this.key});
-
-  final _i34.Key? key;
-
-  @override
-  String toString() {
-    return 'SignUpRouteArgs{key: $key}';
-  }
+  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
 }
 
 /// generated route for

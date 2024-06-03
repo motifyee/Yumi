@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
-import 'package:yumi/app/pages/driver/count_down_cubit.dart';
+import 'package:yumi/app/pages/driver/count_down/cubit/count_down_cubit.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/global.dart';
@@ -16,10 +17,12 @@ enum OTPType {
 
 class VerifyOtpSheetProvider extends StatelessWidget {
   final OTPType type;
-  final String otp;
+  final String value;
+  final String? otp;
   const VerifyOtpSheetProvider({
     this.type = OTPType.email,
-    required this.otp,
+    required this.value,
+    this.otp,
     super.key,
   });
 
@@ -29,6 +32,7 @@ class VerifyOtpSheetProvider extends StatelessWidget {
       create: (context) => CountDownCubit(),
       child: VerifyOtpSheet(
         type: type,
+        value: value,
         otp: otp,
       ),
     );
@@ -37,22 +41,29 @@ class VerifyOtpSheetProvider extends StatelessWidget {
 
 class VerifyOtpSheet extends StatelessWidget {
   final OTPType type;
-  final String otp;
+  final String value;
+  final String? otp;
   const VerifyOtpSheet({
     required this.type,
-    required this.otp,
+    required this.value,
+    this.otp,
     super.key,
   });
+
+  static String storageKeyBase = 'verify_otp_sheet';
+  static storageKey(OTPType type) => '$storageKeyBase-${type.name}';
 
   @override
   Widget build(BuildContext context) {
     final counter = context.read<CountDownCubit>();
-    if (counter.state.countDown == null) counter.startCountDown();
 
-    // return PopScope(
-    // canPop: true,
-    // onPopInvoked: (didPop) => (didPop) ? counter.stopCountDown() : null,
-    // child: Padding(
+    () async {
+      if (counter.state.countDown != null) return;
+      await counter.init(storageKey: storageKey(type));
+
+      if (!counter.state.isRunning) await counter.startCountDown(value: value);
+    }();
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -93,32 +104,28 @@ class VerifyOtpSheet extends StatelessWidget {
               top: ThemeSelector.statics.defaultGapExtreme,
             ),
             child: SingleChildScrollView(
-              // child: BlocBuilder<RegCubit, NRegState>(
-              //   builder: (context, state) {
-              // return
               child: VerifyOTPSheetContent(type: type, otp: otp),
             ),
           ),
         ),
       ),
-      // ),
     );
   }
 }
 
 class VerifyOTPSheetContent extends StatelessWidget {
   final OTPType type;
-  final String otp;
+  final String? otp;
   const VerifyOTPSheetContent({
     super.key,
     required this.type,
-    required this.otp,
+    this.otp,
   });
 
   @override
   Widget build(BuildContext context) {
     final counter = context.read<CountDownCubit>();
-    if (otp.length == 4) counter.setValue(otp);
+    if (otp?.length == 4) counter.setValue(otp ?? '');
 
     return Column(
       children: [
@@ -131,13 +138,12 @@ class VerifyOTPSheetContent extends StatelessWidget {
           style: Theme.of(context).textTheme.labelSmall,
         ),
         // counter
-        BlocBuilder<CountDownCubit, CountDownState>(
-          builder: (context, state) => SizedBox(
-            width: (state.countDown ?? 0) > 0 ? 50 : 175,
+        BlocSelector<CountDownCubit, CountDownState, int?>(
+          selector: (state) => state.countDown,
+          builder: (context, countDown) => SizedBox(
+            width: (countDown ?? 0) > 0 ? 50 : 175,
             child: InteractiveButton(
-              label: (state.countDown ?? 0) > 0
-                  ? state.countDown.toString()
-                  : "Resend OTP",
+              label: (countDown ?? 0) > 0 ? countDown.toString() : "Resend OTP",
               buttonType: ButtonType.text,
               foregroundColor: Theme.of(context).colorScheme.primary,
               onPressed: () async {
@@ -161,7 +167,7 @@ class VerifyOTPSheetContent extends StatelessWidget {
             child: OTP(
               initialOTP: otp,
               onInput: (value, _, __) {
-                counter.setValue(value);
+                // counter.setValue(value);
               },
             ),
           ),
@@ -192,7 +198,7 @@ void sendEmailOTP(BuildContext context) async {
   final counter = context.read<CountDownCubit>();
 
   await reg.getEmailOTP(reg.state.email!).then((value) {
-    counter.startCountDown();
+    counter.restart();
   });
 }
 
@@ -218,7 +224,7 @@ void sendMobileOTP(BuildContext context) async {
   final counter = context.read<CountDownCubit>();
 
   await profileCubit.getMobileOTP().then((value) {
-    counter.startCountDown();
+    counter.restart();
   });
 }
 

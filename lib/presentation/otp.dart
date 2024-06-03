@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-final List<GlobalKey> keys = [0, 1, 2, 3].map((e) => GlobalKey()).toList();
-
 class OTP extends StatefulWidget {
   final void Function(String input, String otp, int idx)? onInput;
   final void Function(String?)? onSaved;
@@ -27,6 +25,8 @@ class _OTPState extends State<OTP> {
 
   final List<TextEditingController> controllers =
       [0, 1, 2, 3].map((e) => TextEditingController()).toList();
+
+  final List<GlobalKey> keys = [0, 1, 2, 3].map((e) => GlobalKey()).toList();
 
   int get focused => fieldNodes.indexWhere((element) => element.hasFocus);
 
