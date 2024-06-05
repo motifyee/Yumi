@@ -302,8 +302,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           SizedBox(height: ThemeSelector.statics.defaultGap),
-                          TextButton(
-                            onPressed: () {
+                          InkWell(
+                            onTap: () {
                               context.router.push(ChefCustomerAddressRoute(
                                 id: '',
                                 isChef: false,
@@ -337,8 +337,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               ],
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
+                          InkWell(
+                            onTap: () {
                               context.router.push(ChefCustomerAddressRoute(
                                 id: widget.order.chefID ?? '',
                                 isChef: true,
@@ -356,7 +356,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                 SizedBox(
                                     width:
                                         ThemeSelector.statics.defaultMicroGap),
-                                Text( 
+                                Text(
                                   widget.order.chefName ?? '',
                                   style: Theme.of(context).textTheme.labelLarge,
                                 ),
