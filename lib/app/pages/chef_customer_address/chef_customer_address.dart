@@ -34,15 +34,8 @@ class ChefCustomerAddressScreen extends StatelessWidget {
 
         return BlocBuilder<AddressBloc, AddressState>(
           builder: (context, state) {
-            print('ChefCustomerAddressScreen ..............................');
-            print(state.addressList);
-            print(address);
-            if (address == null) {
-              address = state.addressList
-                  .firstWhereOrNull((e) => e.isDefault == true);
-
-              print(address);
-            }
+            address ??=
+                state.addressList.firstWhereOrNull((e) => e.isDefault == true);
             return Stack(
               children: [
                 if (address != null)
@@ -52,84 +45,90 @@ class ChefCustomerAddressScreen extends StatelessWidget {
                     target: address,
                   ),
                 if (address == null)
-                  Container(
-                    child: Center(
-                      child: Loading(),
-                    ),
+                  Center(
+                    child: Loading(),
                   ),
-                Positioned(
-                  left: ThemeSelector.statics.defaultTitleGap,
-                  right: ThemeSelector.statics.defaultTitleGap,
-                  bottom: ThemeSelector.statics.defaultMediumGap,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultTitleGap,
-                      vertical: ThemeSelector.statics.defaultBlockGap,
-                    ),
-                    decoration: BoxDecoration(
-                      color: ThemeSelector.colors.background,
-                      borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.defaultInputGap),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              isChef
-                                  ? S.of(context).chef
-                                  : S.of(context).customer,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            Text(": ",
-                                style: Theme.of(context).textTheme.bodyMedium),
-                            Text(address?.name ?? address?.userName ?? '',
-                                style: Theme.of(context).textTheme.bodyMedium),
-                          ],
-                        ),
-                        SizedBox(height: ThemeSelector.statics.defaultInputGap),
-                        Row(
-                          children: [
-                            Text(
-                              S.of(context).mobile,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            Text(": ",
-                                style: Theme.of(context).textTheme.bodyMedium),
-                            Text(address?.mobile ?? '',
-                                style: Theme.of(context).textTheme.bodyMedium),
-                          ],
-                        ),
-                        SizedBox(height: ThemeSelector.statics.defaultInputGap),
-                        Text(
-                          address?.location ?? address?.addressTitle ?? '',
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        SizedBox(height: ThemeSelector.statics.defaultInputGap),
-                        TextButton(
-                            style: ButtonStyle(
-                              minimumSize: WidgetStateProperty.resolveWith(
-                                (states) => Size(double.maxFinite,
-                                    ThemeSelector.statics.defaultTitleGap),
+                if (address != null)
+                  Positioned(
+                    left: ThemeSelector.statics.defaultTitleGap,
+                    right: ThemeSelector.statics.defaultTitleGap,
+                    bottom: ThemeSelector.statics.defaultMediumGap,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: ThemeSelector.statics.defaultTitleGap,
+                        vertical: ThemeSelector.statics.defaultBlockGap,
+                      ),
+                      decoration: BoxDecoration(
+                        color: ThemeSelector.colors.background,
+                        borderRadius: BorderRadius.circular(
+                            ThemeSelector.statics.defaultInputGap),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                isChef
+                                    ? S.of(context).chef
+                                    : S.of(context).customer,
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
-                              backgroundColor: WidgetStateColor.resolveWith(
-                                  (s) => ThemeSelector.colors.primary),
-                            ),
-                            onPressed: address?.latitude == null ||
-                                    address?.longitude == null
-                                ? null
-                                : () {
-                                    MapUtils.openMap(address!.latitude!,
-                                        address!.longitude!);
-                                  },
-                            child: Text(
-                              S.of(context).continue0,
-                              style: Theme.of(context).textTheme.displaySmall,
-                            )),
-                      ],
+                              Text(": ",
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
+                              Text(address?.name ?? address?.userName ?? '',
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
+                            ],
+                          ),
+                          SizedBox(
+                              height: ThemeSelector.statics.defaultInputGap),
+                          Row(
+                            children: [
+                              Text(
+                                S.of(context).mobile,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                              Text(": ",
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
+                              Text(address?.mobile ?? '',
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
+                            ],
+                          ),
+                          SizedBox(
+                              height: ThemeSelector.statics.defaultInputGap),
+                          Text(
+                            address?.location ?? address?.addressTitle ?? '',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          SizedBox(
+                              height: ThemeSelector.statics.defaultInputGap),
+                          TextButton(
+                              style: ButtonStyle(
+                                minimumSize: WidgetStateProperty.resolveWith(
+                                  (states) => Size(double.maxFinite,
+                                      ThemeSelector.statics.defaultTitleGap),
+                                ),
+                                backgroundColor: WidgetStateColor.resolveWith(
+                                    (s) => ThemeSelector.colors.primary),
+                              ),
+                              onPressed: address?.latitude == null ||
+                                      address?.longitude == null
+                                  ? null
+                                  : () {
+                                      MapUtils.openMap(address!.latitude!,
+                                          address!.longitude!);
+                                    },
+                              child: Text(
+                                S.of(context).continue0,
+                                style: Theme.of(context).textTheme.displaySmall,
+                              )),
+                        ],
+                      ),
                     ),
                   ),
-                ),
               ],
             );
           },
