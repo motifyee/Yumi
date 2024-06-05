@@ -14,15 +14,9 @@ import 'package:yumi/util/map_util.dart';
 @RoutePage()
 class ChefCustomerAddressScreen extends StatelessWidget {
   ChefCustomerAddressScreen(
-      {super.key,
-      this.isChef = true,
-      required this.name,
-      required this.mobile,
-      required this.id});
+      {super.key, this.isChef = true, required this.id, this.address});
 
   final bool isChef;
-  final String name;
-  final String mobile;
   final String id;
 
   Address? address;
@@ -46,6 +40,7 @@ class ChefCustomerAddressScreen extends StatelessWidget {
             if (address == null) {
               address = state.addressList
                   .firstWhereOrNull((e) => e.isDefault == true);
+
               print(address);
             }
             return Stack(
@@ -88,7 +83,7 @@ class ChefCustomerAddressScreen extends StatelessWidget {
                             ),
                             Text(": ",
                                 style: Theme.of(context).textTheme.bodyMedium),
-                            Text(name,
+                            Text(address?.name ?? address?.userName ?? '',
                                 style: Theme.of(context).textTheme.bodyMedium),
                           ],
                         ),
@@ -101,7 +96,7 @@ class ChefCustomerAddressScreen extends StatelessWidget {
                             ),
                             Text(": ",
                                 style: Theme.of(context).textTheme.bodyMedium),
-                            Text(mobile,
+                            Text(address?.mobile ?? '',
                                 style: Theme.of(context).textTheme.bodyMedium),
                           ],
                         ),

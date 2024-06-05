@@ -14,7 +14,7 @@ import 'package:yumi/app/components/loading_indicator/loading_page.dart'
     as _i15;
 import 'package:yumi/app/pages/auth/registeration/add_phone_screen.dart' as _i1;
 import 'package:yumi/app/pages/auth/registeration/location_screen.dart' as _i16;
-import 'package:yumi/app/pages/auth/registeration/model/address.dart' as _i38;
+import 'package:yumi/app/pages/auth/registeration/model/address.dart' as _i36;
 import 'package:yumi/app/pages/auth/registeration/reg_screen.dart' as _i28;
 import 'package:yumi/app/pages/auth/registeration/signup/signup_screen.dart'
     as _i30;
@@ -37,9 +37,9 @@ import 'package:yumi/app/pages/schedule/schedule_screen.dart' as _i21;
 import 'package:yumi/app/pages/settings/settings_screen.dart' as _i29;
 import 'package:yumi/app/pages/transactions/transactions.dart' as _i32;
 import 'package:yumi/app/pages/wallet/wallet_screen.dart' as _i33;
-import 'package:yumi/domain/chef/entity/chef.dart' as _i36;
+import 'package:yumi/domain/chef/entity/chef.dart' as _i37;
 import 'package:yumi/domain/order/entity/order.dart' as _i39;
-import 'package:yumi/model/meal_model.dart' as _i37;
+import 'package:yumi/model/meal_model.dart' as _i38;
 import 'package:yumi/screens/chat.dart' as _i4;
 import 'package:yumi/screens/chef/menu_pre.dart' as _i19;
 import 'package:yumi/screens/customer/checkout.dart' as _i5;
@@ -107,9 +107,8 @@ abstract class $AppRouter extends _i34.RootStackRouter {
         child: _i7.ChefCustomerAddressScreen(
           key: args.key,
           isChef: args.isChef,
-          name: args.name,
-          mobile: args.mobile,
           id: args.id,
+          address: args.address,
         ),
       );
     },
@@ -425,18 +424,16 @@ class ChefCustomerAddressRoute
   ChefCustomerAddressRoute({
     _i35.Key? key,
     bool isChef = true,
-    required String name,
-    required String mobile,
     required String id,
+    _i36.Address? address,
     List<_i34.PageRouteInfo>? children,
   }) : super(
           ChefCustomerAddressRoute.name,
           args: ChefCustomerAddressRouteArgs(
             key: key,
             isChef: isChef,
-            name: name,
-            mobile: mobile,
             id: id,
+            address: address,
           ),
           initialChildren: children,
         );
@@ -451,24 +448,21 @@ class ChefCustomerAddressRouteArgs {
   const ChefCustomerAddressRouteArgs({
     this.key,
     this.isChef = true,
-    required this.name,
-    required this.mobile,
     required this.id,
+    this.address,
   });
 
   final _i35.Key? key;
 
   final bool isChef;
 
-  final String name;
-
-  final String mobile;
-
   final String id;
+
+  final _i36.Address? address;
 
   @override
   String toString() {
-    return 'ChefCustomerAddressRouteArgs{key: $key, isChef: $isChef, name: $name, mobile: $mobile, id: $id}';
+    return 'ChefCustomerAddressRouteArgs{key: $key, isChef: $isChef, id: $id, address: $address}';
   }
 }
 
@@ -477,8 +471,8 @@ class ChefCustomerAddressRouteArgs {
 class ChefProfileRoute extends _i34.PageRouteInfo<ChefProfileRouteArgs> {
   ChefProfileRoute({
     _i35.Key? key,
-    required _i36.Chef chef,
-    required _i37.MenuTarget menuTarget,
+    required _i37.Chef chef,
+    required _i38.MenuTarget menuTarget,
     List<_i34.PageRouteInfo>? children,
   }) : super(
           ChefProfileRoute.name,
@@ -505,9 +499,9 @@ class ChefProfileRouteArgs {
 
   final _i35.Key? key;
 
-  final _i36.Chef chef;
+  final _i37.Chef chef;
 
-  final _i37.MenuTarget menuTarget;
+  final _i38.MenuTarget menuTarget;
 
   @override
   String toString() {
@@ -633,7 +627,7 @@ class LoadingRoute extends _i34.PageRouteInfo<void> {
 class LocationRoute extends _i34.PageRouteInfo<LocationRouteArgs> {
   LocationRoute({
     _i35.Key? key,
-    dynamic Function({_i38.Address address})? routeFn,
+    dynamic Function({_i36.Address address})? routeFn,
     List<_i34.PageRouteInfo>? children,
   }) : super(
           LocationRoute.name,
@@ -658,7 +652,7 @@ class LocationRouteArgs {
 
   final _i35.Key? key;
 
-  final dynamic Function({_i38.Address address})? routeFn;
+  final dynamic Function({_i36.Address address})? routeFn;
 
   @override
   String toString() {
@@ -700,8 +694,8 @@ class LoginRouteArgs {
 class MealProfileRoute extends _i34.PageRouteInfo<MealProfileRouteArgs> {
   MealProfileRoute({
     _i35.Key? key,
-    required _i37.MealModel meal,
-    required _i36.Chef chef,
+    required _i38.MealModel meal,
+    required _i37.Chef chef,
     List<_i34.PageRouteInfo>? children,
   }) : super(
           MealProfileRoute.name,
@@ -728,9 +722,9 @@ class MealProfileRouteArgs {
 
   final _i35.Key? key;
 
-  final _i37.MealModel meal;
+  final _i38.MealModel meal;
 
-  final _i36.Chef chef;
+  final _i37.Chef chef;
 
   @override
   String toString() {

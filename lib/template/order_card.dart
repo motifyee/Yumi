@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/domain/order/entity/order.dart';
@@ -292,34 +293,92 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                         ],
                       ),
                     SizedBox(height: ThemeSelector.statics.defaultGap),
-                    if (widget.order.invoiceDetails!.isEmpty &&
-                        [
+                    if ([
+                      OrderCardTargetPage.driverAccept,
+                      OrderCardTargetPage.driverReceived,
+                      OrderCardTargetPage.driverHistory,
+                    ].contains(widget.orderCardTargetPage))
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SizedBox(height: ThemeSelector.statics.defaultGap),
+                          TextButton(
+                            onPressed: () {
+                              context.router.push(ChefCustomerAddressRoute(
+                                id: '',
+                                isChef: false,
+                                address: Address(
+                                  longitude: widget.order.addressLongitude,
+                                  latitude: widget.order.addressLatitude,
+                                  location: widget.order.location,
+                                  name: widget.order.clientName ?? '',
+                                  mobile: widget.order.clientMobile ?? '',
+                                ),
+                              ));
+                            },
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                    'assets/images/customer_icon.svg'),
+                                SizedBox(
+                                    width:
+                                        ThemeSelector.statics.defaultMicroGap),
+                                Text(
+                                  widget.order.clientName ?? '',
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                ),
+                                Expanded(child: SizedBox.shrink()),
+                                Text(
+                                  S.of(context).view,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
+                                )
+                              ],
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              context.router.push(ChefCustomerAddressRoute(
+                                id: widget.order.chefID ?? '',
+                                isChef: true,
+                              ));
+                            },
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/welocme_chef_icon.svg',
+                                  height: 15,
+                                  colorFilter: ColorFilter.mode(
+                                      ThemeSelector.colors.primary,
+                                      BlendMode.srcIn),
+                                ),
+                                SizedBox(
+                                    width:
+                                        ThemeSelector.statics.defaultMicroGap),
+                                Text( 
+                                  widget.order.chefName ?? '',
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                ),
+                                Expanded(child: SizedBox.shrink()),
+                                Text(
+                                  S.of(context).view,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: ThemeSelector.statics.defaultGap),
+                        ],
+                      ),
+                    if (widget.order.invoiceDetails!.isNotEmpty &&
+                        ![
                           OrderCardTargetPage.driverAccept,
                           OrderCardTargetPage.driverReceived,
                           OrderCardTargetPage.driverHistory,
                         ].contains(widget.orderCardTargetPage))
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                  height: ThemeSelector.statics.defaultGap),
-                              Text(
-                                widget.order.clientName ?? '',
-                                style: Theme.of(context).textTheme.labelLarge,
-                              ),
-                              Text(
-                                widget.order.clientDefaultAddress ?? '',
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                              SizedBox(
-                                  height: ThemeSelector.statics.defaultGap),
-                            ],
-                          ),
-                        ],
-                      ),
-                    if (widget.order.invoiceDetails!.isNotEmpty)
                       LayoutBuilder(
                         builder: (context, constraints) => AnimatedSize(
                           duration: ThemeSelector.statics.animationDuration,

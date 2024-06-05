@@ -58,13 +58,14 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
       emit(state.copyWith(
           paginationHelper: state.paginationHelper.copyWith(isLoading: true)));
 
-      dynamic res = await AddressService.getAddresses(
+      Response res = await AddressService.getAddresses(
           context: event.context,
           pagination: {...state.paginationHelper.toJson(), 'id': event.id}
             ..removeWhere((e, v) => v == null));
+      print(res.data);
 
       List<Address> data = [];
-      data = res.map<Address>((value) {
+      data = res.data.map<Address>((value) {
         return Address.fromJson(value);
       }).toList();
 

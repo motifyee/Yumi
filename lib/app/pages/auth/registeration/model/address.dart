@@ -9,6 +9,9 @@ part 'address.g.dart';
 class Address with _$Address {
   const factory Address({
     String? code,
+    String? name,
+    String? userName,
+    String? mobile,
     @JsonKey(name: 'id') int? id,
     // String? userId,
     @JsonKey(name: 'address') String? addressDetails,

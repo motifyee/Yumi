@@ -13,7 +13,7 @@ _$OrderImpl _$$OrderImplFromJson(Map<String, dynamic> json) => _$OrderImpl(
       employeeNote: json['employeeNote'] as String?,
       clientNote: json['clientNote'] as String?,
       preparationNote: json['preparationNote'] as String?,
-      shippedAddressId: json['shippedAddressId'] as String?,
+      shippedAddressId: (json['shippedAddressId'] as num?)?.toInt(),
       deliveryAreaPrice: (json['deliveryAreaPrice'] as num?)?.toDouble(),
       deliveryCostPrice: (json['deliveryCostPrice'] as num?)?.toDouble(),
       finalPrice: (json['finalPrice'] as num?)?.toDouble(),
@@ -24,6 +24,7 @@ _$OrderImpl _$$OrderImplFromJson(Map<String, dynamic> json) => _$OrderImpl(
       createdDate: json['createdDate'] as String?,
       updatedDate: json['updatedDate'] as String?,
       scheduleDate: json['schedule_Date'] as String?,
+      chefName: json['chefName'] as String?,
       clientName: json['clientName'] as String?,
       clientMobile: json['clientMobile'] as String?,
       clientDefaultAddress: json['clientDefaultAddress'] as String?,
@@ -40,6 +41,9 @@ _$OrderImpl _$$OrderImplFromJson(Map<String, dynamic> json) => _$OrderImpl(
       clientReceived: json['client_Received'] as bool?,
       clientReceivedDate: json['client_Received_Date'] as String?,
       isPickUp: json['is_Pickup'] as bool?,
+      addressLatitude: (json['address_Latitude'] as num?)?.toDouble(),
+      addressLongitude: (json['address_Longitude'] as num?)?.toDouble(),
+      location: json['location'] as String?,
       invoiceDetails: (json['invoiceDetails'] as List<dynamic>?)
               ?.map((e) => InvoiceDetails.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -66,6 +70,7 @@ Map<String, dynamic> _$$OrderImplToJson(_$OrderImpl instance) =>
       'createdDate': instance.createdDate,
       'updatedDate': instance.updatedDate,
       'schedule_Date': instance.scheduleDate,
+      'chefName': instance.chefName,
       'clientName': instance.clientName,
       'clientMobile': instance.clientMobile,
       'clientDefaultAddress': instance.clientDefaultAddress,
@@ -82,6 +87,9 @@ Map<String, dynamic> _$$OrderImplToJson(_$OrderImpl instance) =>
       'client_Received': instance.clientReceived,
       'client_Received_Date': instance.clientReceivedDate,
       'is_Pickup': instance.isPickUp,
+      'address_Latitude': instance.addressLatitude,
+      'address_Longitude': instance.addressLongitude,
+      'location': instance.location,
       'invoiceDetails': instance.invoiceDetails,
       'isLoading': instance.isLoading,
     };

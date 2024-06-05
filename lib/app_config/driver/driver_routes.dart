@@ -54,5 +54,6 @@ class DriverRoutes extends $AppRouter {
         AutoRoute(page: WalletRoute.page),
         AutoRoute(page: MealProfileRoute.page),
         AutoRoute(page: CustomerLocationRoute.page),
+        AutoRoute(page: ChefCustomerAddressRoute.page),
       ];
 }

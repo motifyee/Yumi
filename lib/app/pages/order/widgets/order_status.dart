@@ -389,8 +389,6 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                     onTap: () {
                                       context.router
                                           .push(ChefCustomerAddressRoute(
-                                        name: '',
-                                        mobile: '',
                                         id: widget.order.chefID ?? '',
                                         isChef: true,
                                       ));

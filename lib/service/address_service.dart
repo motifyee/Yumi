@@ -10,7 +10,7 @@ class AddressService {
       Map<String, dynamic>? queryParameters}) async {
     final Response res = await DioClient.simpleDio(context).get(ApiKeys.address,
         queryParameters: {...pagination, ...?queryParameters});
-    return res.data;
+    return res;
   }
 
   static Future<dynamic> updateAddresses({

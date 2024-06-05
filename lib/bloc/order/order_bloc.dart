@@ -39,6 +39,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       Response res = await OrderService.getOrderOrPreOrder(
           apiKeys: event.apiKey,
           paginationHelper: state.paginationHelper.toJson());
+      print(res.data);
 
       if (res.statusCode == 200) {
         List<Order> data =

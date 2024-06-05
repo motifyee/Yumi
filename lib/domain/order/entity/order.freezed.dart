@@ -28,7 +28,7 @@ mixin _$Order {
   String? get employeeNote => throw _privateConstructorUsedError;
   String? get clientNote => throw _privateConstructorUsedError;
   String? get preparationNote => throw _privateConstructorUsedError;
-  String? get shippedAddressId => throw _privateConstructorUsedError;
+  int? get shippedAddressId => throw _privateConstructorUsedError;
   double? get deliveryAreaPrice => throw _privateConstructorUsedError;
   double? get deliveryCostPrice => throw _privateConstructorUsedError;
   double? get finalPrice => throw _privateConstructorUsedError;
@@ -40,6 +40,7 @@ mixin _$Order {
   String? get updatedDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'schedule_Date')
   String? get scheduleDate => throw _privateConstructorUsedError;
+  String? get chefName => throw _privateConstructorUsedError;
   String? get clientName => throw _privateConstructorUsedError;
   String? get clientMobile => throw _privateConstructorUsedError;
   String? get clientDefaultAddress => throw _privateConstructorUsedError;
@@ -69,6 +70,11 @@ mixin _$Order {
   String? get clientReceivedDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_Pickup')
   bool? get isPickUp => throw _privateConstructorUsedError;
+  @JsonKey(name: 'address_Latitude')
+  double? get addressLatitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'address_Longitude')
+  double? get addressLongitude => throw _privateConstructorUsedError;
+  String? get location => throw _privateConstructorUsedError;
   List<InvoiceDetails>? get invoiceDetails =>
       throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
@@ -90,7 +96,7 @@ abstract class $OrderCopyWith<$Res> {
       String? employeeNote,
       String? clientNote,
       String? preparationNote,
-      String? shippedAddressId,
+      int? shippedAddressId,
       double? deliveryAreaPrice,
       double? deliveryCostPrice,
       double? finalPrice,
@@ -101,6 +107,7 @@ abstract class $OrderCopyWith<$Res> {
       String? createdDate,
       String? updatedDate,
       @JsonKey(name: 'schedule_Date') String? scheduleDate,
+      String? chefName,
       String? clientName,
       String? clientMobile,
       String? clientDefaultAddress,
@@ -117,6 +124,9 @@ abstract class $OrderCopyWith<$Res> {
       @JsonKey(name: 'client_Received') bool? clientReceived,
       @JsonKey(name: 'client_Received_Date') String? clientReceivedDate,
       @JsonKey(name: 'is_Pickup') bool? isPickUp,
+      @JsonKey(name: 'address_Latitude') double? addressLatitude,
+      @JsonKey(name: 'address_Longitude') double? addressLongitude,
+      String? location,
       List<InvoiceDetails>? invoiceDetails,
       bool isLoading});
 }
@@ -151,6 +161,7 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
     Object? createdDate = freezed,
     Object? updatedDate = freezed,
     Object? scheduleDate = freezed,
+    Object? chefName = freezed,
     Object? clientName = freezed,
     Object? clientMobile = freezed,
     Object? clientDefaultAddress = freezed,
@@ -167,6 +178,9 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
     Object? clientReceived = freezed,
     Object? clientReceivedDate = freezed,
     Object? isPickUp = freezed,
+    Object? addressLatitude = freezed,
+    Object? addressLongitude = freezed,
+    Object? location = freezed,
     Object? invoiceDetails = freezed,
     Object? isLoading = null,
   }) {
@@ -198,7 +212,7 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
       shippedAddressId: freezed == shippedAddressId
           ? _value.shippedAddressId
           : shippedAddressId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       deliveryAreaPrice: freezed == deliveryAreaPrice
           ? _value.deliveryAreaPrice
           : deliveryAreaPrice // ignore: cast_nullable_to_non_nullable
@@ -238,6 +252,10 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
       scheduleDate: freezed == scheduleDate
           ? _value.scheduleDate
           : scheduleDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      chefName: freezed == chefName
+          ? _value.chefName
+          : chefName // ignore: cast_nullable_to_non_nullable
               as String?,
       clientName: freezed == clientName
           ? _value.clientName
@@ -303,6 +321,18 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
           ? _value.isPickUp
           : isPickUp // ignore: cast_nullable_to_non_nullable
               as bool?,
+      addressLatitude: freezed == addressLatitude
+          ? _value.addressLatitude
+          : addressLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      addressLongitude: freezed == addressLongitude
+          ? _value.addressLongitude
+          : addressLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String?,
       invoiceDetails: freezed == invoiceDetails
           ? _value.invoiceDetails
           : invoiceDetails // ignore: cast_nullable_to_non_nullable
@@ -329,7 +359,7 @@ abstract class _$$OrderImplCopyWith<$Res> implements $OrderCopyWith<$Res> {
       String? employeeNote,
       String? clientNote,
       String? preparationNote,
-      String? shippedAddressId,
+      int? shippedAddressId,
       double? deliveryAreaPrice,
       double? deliveryCostPrice,
       double? finalPrice,
@@ -340,6 +370,7 @@ abstract class _$$OrderImplCopyWith<$Res> implements $OrderCopyWith<$Res> {
       String? createdDate,
       String? updatedDate,
       @JsonKey(name: 'schedule_Date') String? scheduleDate,
+      String? chefName,
       String? clientName,
       String? clientMobile,
       String? clientDefaultAddress,
@@ -356,6 +387,9 @@ abstract class _$$OrderImplCopyWith<$Res> implements $OrderCopyWith<$Res> {
       @JsonKey(name: 'client_Received') bool? clientReceived,
       @JsonKey(name: 'client_Received_Date') String? clientReceivedDate,
       @JsonKey(name: 'is_Pickup') bool? isPickUp,
+      @JsonKey(name: 'address_Latitude') double? addressLatitude,
+      @JsonKey(name: 'address_Longitude') double? addressLongitude,
+      String? location,
       List<InvoiceDetails>? invoiceDetails,
       bool isLoading});
 }
@@ -388,6 +422,7 @@ class __$$OrderImplCopyWithImpl<$Res>
     Object? createdDate = freezed,
     Object? updatedDate = freezed,
     Object? scheduleDate = freezed,
+    Object? chefName = freezed,
     Object? clientName = freezed,
     Object? clientMobile = freezed,
     Object? clientDefaultAddress = freezed,
@@ -404,6 +439,9 @@ class __$$OrderImplCopyWithImpl<$Res>
     Object? clientReceived = freezed,
     Object? clientReceivedDate = freezed,
     Object? isPickUp = freezed,
+    Object? addressLatitude = freezed,
+    Object? addressLongitude = freezed,
+    Object? location = freezed,
     Object? invoiceDetails = freezed,
     Object? isLoading = null,
   }) {
@@ -435,7 +473,7 @@ class __$$OrderImplCopyWithImpl<$Res>
       shippedAddressId: freezed == shippedAddressId
           ? _value.shippedAddressId
           : shippedAddressId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       deliveryAreaPrice: freezed == deliveryAreaPrice
           ? _value.deliveryAreaPrice
           : deliveryAreaPrice // ignore: cast_nullable_to_non_nullable
@@ -475,6 +513,10 @@ class __$$OrderImplCopyWithImpl<$Res>
       scheduleDate: freezed == scheduleDate
           ? _value.scheduleDate
           : scheduleDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      chefName: freezed == chefName
+          ? _value.chefName
+          : chefName // ignore: cast_nullable_to_non_nullable
               as String?,
       clientName: freezed == clientName
           ? _value.clientName
@@ -540,6 +582,18 @@ class __$$OrderImplCopyWithImpl<$Res>
           ? _value.isPickUp
           : isPickUp // ignore: cast_nullable_to_non_nullable
               as bool?,
+      addressLatitude: freezed == addressLatitude
+          ? _value.addressLatitude
+          : addressLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      addressLongitude: freezed == addressLongitude
+          ? _value.addressLongitude
+          : addressLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String?,
       invoiceDetails: freezed == invoiceDetails
           ? _value._invoiceDetails
           : invoiceDetails // ignore: cast_nullable_to_non_nullable
@@ -573,6 +627,7 @@ class _$OrderImpl extends _Order {
       this.createdDate,
       this.updatedDate,
       @JsonKey(name: 'schedule_Date') this.scheduleDate,
+      this.chefName,
       this.clientName,
       this.clientMobile,
       this.clientDefaultAddress,
@@ -589,6 +644,9 @@ class _$OrderImpl extends _Order {
       @JsonKey(name: 'client_Received') this.clientReceived,
       @JsonKey(name: 'client_Received_Date') this.clientReceivedDate,
       @JsonKey(name: 'is_Pickup') this.isPickUp,
+      @JsonKey(name: 'address_Latitude') this.addressLatitude,
+      @JsonKey(name: 'address_Longitude') this.addressLongitude,
+      this.location,
       final List<InvoiceDetails>? invoiceDetails = const [],
       this.isLoading = false})
       : _invoiceDetails = invoiceDetails,
@@ -612,7 +670,7 @@ class _$OrderImpl extends _Order {
   @override
   final String? preparationNote;
   @override
-  final String? shippedAddressId;
+  final int? shippedAddressId;
   @override
   final double? deliveryAreaPrice;
   @override
@@ -634,6 +692,8 @@ class _$OrderImpl extends _Order {
   @override
   @JsonKey(name: 'schedule_Date')
   final String? scheduleDate;
+  @override
+  final String? chefName;
   @override
   final String? clientName;
   @override
@@ -679,6 +739,14 @@ class _$OrderImpl extends _Order {
   @override
   @JsonKey(name: 'is_Pickup')
   final bool? isPickUp;
+  @override
+  @JsonKey(name: 'address_Latitude')
+  final double? addressLatitude;
+  @override
+  @JsonKey(name: 'address_Longitude')
+  final double? addressLongitude;
+  @override
+  final String? location;
   final List<InvoiceDetails>? _invoiceDetails;
   @override
   @JsonKey()
@@ -696,7 +764,7 @@ class _$OrderImpl extends _Order {
 
   @override
   String toString() {
-    return 'Order(id: $id, chefID: $chefID, driverID: $driverID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, createdDate: $createdDate, updatedDate: $updatedDate, scheduleDate: $scheduleDate, clientName: $clientName, clientMobile: $clientMobile, clientDefaultAddress: $clientDefaultAddress, driverAccept: $driverAccept, driverAcceptDate: $driverAcceptDate, driverReceived: $driverReceived, driverReceivedDate: $driverReceivedDate, chefAccept: $chefAccept, chefAcceptDate: $chefAcceptDate, chefStart: $chefStart, chefStartDate: $chefStartDate, chefFinished: $chefFinished, chefFinishedDate: $chefFinishedDate, clientReceived: $clientReceived, clientReceivedDate: $clientReceivedDate, isPickUp: $isPickUp, invoiceDetails: $invoiceDetails, isLoading: $isLoading)';
+    return 'Order(id: $id, chefID: $chefID, driverID: $driverID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, createdDate: $createdDate, updatedDate: $updatedDate, scheduleDate: $scheduleDate, chefName: $chefName, clientName: $clientName, clientMobile: $clientMobile, clientDefaultAddress: $clientDefaultAddress, driverAccept: $driverAccept, driverAcceptDate: $driverAcceptDate, driverReceived: $driverReceived, driverReceivedDate: $driverReceivedDate, chefAccept: $chefAccept, chefAcceptDate: $chefAcceptDate, chefStart: $chefStart, chefStartDate: $chefStartDate, chefFinished: $chefFinished, chefFinishedDate: $chefFinishedDate, clientReceived: $clientReceived, clientReceivedDate: $clientReceivedDate, isPickUp: $isPickUp, addressLatitude: $addressLatitude, addressLongitude: $addressLongitude, location: $location, invoiceDetails: $invoiceDetails, isLoading: $isLoading)';
   }
 
   @override
@@ -735,6 +803,8 @@ class _$OrderImpl extends _Order {
                 other.updatedDate == updatedDate) &&
             (identical(other.scheduleDate, scheduleDate) ||
                 other.scheduleDate == scheduleDate) &&
+            (identical(other.chefName, chefName) ||
+                other.chefName == chefName) &&
             (identical(other.clientName, clientName) ||
                 other.clientName == clientName) &&
             (identical(other.clientMobile, clientMobile) ||
@@ -767,6 +837,12 @@ class _$OrderImpl extends _Order {
                 other.clientReceivedDate == clientReceivedDate) &&
             (identical(other.isPickUp, isPickUp) ||
                 other.isPickUp == isPickUp) &&
+            (identical(other.addressLatitude, addressLatitude) ||
+                other.addressLatitude == addressLatitude) &&
+            (identical(other.addressLongitude, addressLongitude) ||
+                other.addressLongitude == addressLongitude) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
             const DeepCollectionEquality()
                 .equals(other._invoiceDetails, _invoiceDetails) &&
             (identical(other.isLoading, isLoading) ||
@@ -794,6 +870,7 @@ class _$OrderImpl extends _Order {
         createdDate,
         updatedDate,
         scheduleDate,
+        chefName,
         clientName,
         clientMobile,
         clientDefaultAddress,
@@ -810,6 +887,9 @@ class _$OrderImpl extends _Order {
         clientReceived,
         clientReceivedDate,
         isPickUp,
+        addressLatitude,
+        addressLongitude,
+        location,
         const DeepCollectionEquality().hash(_invoiceDetails),
         isLoading
       ]);
@@ -836,7 +916,7 @@ abstract class _Order extends Order {
       final String? employeeNote,
       final String? clientNote,
       final String? preparationNote,
-      final String? shippedAddressId,
+      final int? shippedAddressId,
       final double? deliveryAreaPrice,
       final double? deliveryCostPrice,
       final double? finalPrice,
@@ -847,6 +927,7 @@ abstract class _Order extends Order {
       final String? createdDate,
       final String? updatedDate,
       @JsonKey(name: 'schedule_Date') final String? scheduleDate,
+      final String? chefName,
       final String? clientName,
       final String? clientMobile,
       final String? clientDefaultAddress,
@@ -863,6 +944,9 @@ abstract class _Order extends Order {
       @JsonKey(name: 'client_Received') final bool? clientReceived,
       @JsonKey(name: 'client_Received_Date') final String? clientReceivedDate,
       @JsonKey(name: 'is_Pickup') final bool? isPickUp,
+      @JsonKey(name: 'address_Latitude') final double? addressLatitude,
+      @JsonKey(name: 'address_Longitude') final double? addressLongitude,
+      final String? location,
       final List<InvoiceDetails>? invoiceDetails,
       final bool isLoading}) = _$OrderImpl;
   const _Order._() : super._();
@@ -884,7 +968,7 @@ abstract class _Order extends Order {
   @override
   String? get preparationNote;
   @override
-  String? get shippedAddressId;
+  int? get shippedAddressId;
   @override
   double? get deliveryAreaPrice;
   @override
@@ -906,6 +990,8 @@ abstract class _Order extends Order {
   @override
   @JsonKey(name: 'schedule_Date')
   String? get scheduleDate;
+  @override
+  String? get chefName;
   @override
   String? get clientName;
   @override
@@ -951,6 +1037,14 @@ abstract class _Order extends Order {
   @override
   @JsonKey(name: 'is_Pickup')
   bool? get isPickUp;
+  @override
+  @JsonKey(name: 'address_Latitude')
+  double? get addressLatitude;
+  @override
+  @JsonKey(name: 'address_Longitude')
+  double? get addressLongitude;
+  @override
+  String? get location;
   @override
   List<InvoiceDetails>? get invoiceDetails;
   @override

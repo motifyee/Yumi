@@ -21,6 +21,9 @@ Address _$AddressFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Address {
   String? get code => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get userName => throw _privateConstructorUsedError;
+  String? get mobile => throw _privateConstructorUsedError;
   @JsonKey(name: 'id')
   int? get id => throw _privateConstructorUsedError; // String? userId,
   @JsonKey(name: 'address')
@@ -48,6 +51,9 @@ abstract class $AddressCopyWith<$Res> {
   @useResult
   $Res call(
       {String? code,
+      String? name,
+      String? userName,
+      String? mobile,
       @JsonKey(name: 'id') int? id,
       @JsonKey(name: 'address') String? addressDetails,
       @JsonKey(name: 'address_Name') String? addressTitle,
@@ -72,6 +78,9 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
   @override
   $Res call({
     Object? code = freezed,
+    Object? name = freezed,
+    Object? userName = freezed,
+    Object? mobile = freezed,
     Object? id = freezed,
     Object? addressDetails = freezed,
     Object? addressTitle = freezed,
@@ -85,6 +94,18 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
       code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mobile: freezed == mobile
+          ? _value.mobile
+          : mobile // ignore: cast_nullable_to_non_nullable
               as String?,
       id: freezed == id
           ? _value.id
@@ -131,6 +152,9 @@ abstract class _$$AddressImplCopyWith<$Res> implements $AddressCopyWith<$Res> {
   @useResult
   $Res call(
       {String? code,
+      String? name,
+      String? userName,
+      String? mobile,
       @JsonKey(name: 'id') int? id,
       @JsonKey(name: 'address') String? addressDetails,
       @JsonKey(name: 'address_Name') String? addressTitle,
@@ -153,6 +177,9 @@ class __$$AddressImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? code = freezed,
+    Object? name = freezed,
+    Object? userName = freezed,
+    Object? mobile = freezed,
     Object? id = freezed,
     Object? addressDetails = freezed,
     Object? addressTitle = freezed,
@@ -166,6 +193,18 @@ class __$$AddressImplCopyWithImpl<$Res>
       code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mobile: freezed == mobile
+          ? _value.mobile
+          : mobile // ignore: cast_nullable_to_non_nullable
               as String?,
       id: freezed == id
           ? _value.id
@@ -208,6 +247,9 @@ class __$$AddressImplCopyWithImpl<$Res>
 class _$AddressImpl extends _Address {
   const _$AddressImpl(
       {this.code,
+      this.name,
+      this.userName,
+      this.mobile,
       @JsonKey(name: 'id') this.id,
       @JsonKey(name: 'address') this.addressDetails,
       @JsonKey(name: 'address_Name') this.addressTitle,
@@ -223,6 +265,12 @@ class _$AddressImpl extends _Address {
 
   @override
   final String? code;
+  @override
+  final String? name;
+  @override
+  final String? userName;
+  @override
+  final String? mobile;
   @override
   @JsonKey(name: 'id')
   final int? id;
@@ -251,7 +299,7 @@ class _$AddressImpl extends _Address {
 
   @override
   String toString() {
-    return 'Address(code: $code, id: $id, addressDetails: $addressDetails, addressTitle: $addressTitle, location: $location, latitude: $latitude, longitude: $longitude, isDefault: $isDefault, isDeleted: $isDeleted)';
+    return 'Address(code: $code, name: $name, userName: $userName, mobile: $mobile, id: $id, addressDetails: $addressDetails, addressTitle: $addressTitle, location: $location, latitude: $latitude, longitude: $longitude, isDefault: $isDefault, isDeleted: $isDeleted)';
   }
 
   @override
@@ -260,6 +308,10 @@ class _$AddressImpl extends _Address {
         (other.runtimeType == runtimeType &&
             other is _$AddressImpl &&
             (identical(other.code, code) || other.code == code) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
+            (identical(other.mobile, mobile) || other.mobile == mobile) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.addressDetails, addressDetails) ||
                 other.addressDetails == addressDetails) &&
@@ -279,8 +331,20 @@ class _$AddressImpl extends _Address {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, code, id, addressDetails,
-      addressTitle, location, latitude, longitude, isDefault, isDeleted);
+  int get hashCode => Object.hash(
+      runtimeType,
+      code,
+      name,
+      userName,
+      mobile,
+      id,
+      addressDetails,
+      addressTitle,
+      location,
+      latitude,
+      longitude,
+      isDefault,
+      isDeleted);
 
   @JsonKey(ignore: true)
   @override
@@ -299,6 +363,9 @@ class _$AddressImpl extends _Address {
 abstract class _Address extends Address {
   const factory _Address(
       {final String? code,
+      final String? name,
+      final String? userName,
+      final String? mobile,
       @JsonKey(name: 'id') final int? id,
       @JsonKey(name: 'address') final String? addressDetails,
       @JsonKey(name: 'address_Name') final String? addressTitle,
@@ -313,6 +380,12 @@ abstract class _Address extends Address {
 
   @override
   String? get code;
+  @override
+  String? get name;
+  @override
+  String? get userName;
+  @override
+  String? get mobile;
   @override
   @JsonKey(name: 'id')
   int? get id;
