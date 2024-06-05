@@ -38,9 +38,10 @@ class ProfileCubit extends Cubit<ProfileState> {
 
     return profile.fold(
       (l) {
-        emit(state.copyWith.profile(
-            entityStatus:
-                state.profile.entityStatus.copyWith(status: Status.error)));
+        emit(state.copyWith(
+            profile: state.profile.copyWith(
+                entityStatus: state.profile.entityStatus
+                    .copyWith(status: Status.error))));
 
         return null;
       },
