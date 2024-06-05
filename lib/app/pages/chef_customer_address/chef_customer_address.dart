@@ -76,7 +76,7 @@ class ChefCustomerAddressScreen extends StatelessWidget {
                               Text(": ",
                                   style:
                                       Theme.of(context).textTheme.bodyMedium),
-                              Text(address?.name ?? address?.userName ?? '',
+                              Text(address?.userName ?? address?.name ?? '',
                                   style:
                                       Theme.of(context).textTheme.bodyMedium),
                             ],
