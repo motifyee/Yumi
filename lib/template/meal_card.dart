@@ -146,44 +146,47 @@ class MealCard extends StatelessWidget {
                         context: context,
                         builder: (ctx) => DeleteDialogTemplate(
                               actions: () async {
-                                Response res = await MealService.deleteMeal(
-                                    context: context, mealModel: meal);
+                                await MealService.deleteMeal(
+                                        context: context, mealModel: meal)
+                                    .then((res) {
+                                  context
+                                      .read<CategoriesBloc>()
+                                      .add(ResetCategoryEvent());
 
-                                context
-                                    .read<CategoriesBloc>()
-                                    .add(ResetCategoryEvent());
+                                  context.read<CategoriesBloc>().add(
+                                      GetCategoriesEvent(
+                                          context: context,
+                                          isPreOrder: meal.isPreOrder == true,
+                                          isAll: false));
+                                  context.read<MealListBloc>().add(
+                                      MealListResetEvent(
+                                          menuTarget: meal.isPreOrder == true
+                                              ? MenuTarget.preOrder
+                                              : MenuTarget.order));
+                                  context.read<MealListBloc>().add(
+                                        MealListUpdateEvent(
+                                          context: context,
+                                          chefId: context
+                                              .read<UserBloc>()
+                                              .state
+                                              .user
+                                              .chefId,
+                                        ),
+                                      );
 
-                                context.read<CategoriesBloc>().add(
-                                    GetCategoriesEvent(
-                                        context: context,
-                                        isPreOrder: meal.isPreOrder == true,
-                                        isAll: false));
-                                context.read<MealListBloc>().add(
-                                    MealListResetEvent(
-                                        menuTarget: meal.isPreOrder == true
-                                            ? MenuTarget.preOrder
-                                            : MenuTarget.order));
-                                context.read<MealListBloc>().add(
-                                      MealListUpdateEvent(
-                                        context: context,
-                                        chefId: context
-                                            .read<UserBloc>()
-                                            .state
-                                            .user
-                                            .chefId,
-                                      ),
-                                    );
-
-                                Navigator.of(context).pop();
-                                if (res.data['message'] != null) {
+                                  Navigator.of(context).pop();
+                                }).catchError((err) {
+                                  Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: SnackBarMassage(
-                                        massage: res.data['message'],
+                                        massage: (err as DioException)
+                                            .response
+                                            ?.data['message'],
                                       ),
                                     ),
                                   );
-                                }
+                                });
                               },
                               title: S.of(context).deleteMeal,
                               content: S.of(context).areYouSureToDeleteAMeal,
