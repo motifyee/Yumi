@@ -53,8 +53,9 @@ class LocationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('LocationScreen .........................');
     var regBloc = context.read<RegCubit>();
-
+    print('LocationScreen  regBloc.........................');
     mapInfo = GMapInfo(
         setMarkerOnLongPress: true,
         onAddressLongPress: (placemark, coord, info) {
@@ -70,9 +71,9 @@ class LocationScreen extends StatelessWidget {
         onTap: (LatLng latLng, GMapInfo info) async {
           print(await info.controller?.getZoomLevel());
         });
-
+    print('LocationScreen  mapInfo.........................');
     final regCubit = context.read<RegCubit>();
-
+    print('LocationScreen regCubit.........................');
     return PopScope(
       canPop: regCubit.state.partialFlow ? true : false,
       onPopInvoked: (didPop) {

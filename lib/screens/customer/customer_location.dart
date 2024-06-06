@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:yumi/app/pages/auth/registeration/location_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/bloc/address/address_bloc.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
@@ -123,14 +124,13 @@ class CustomerLocationScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  context.router.push(
-                    LocationRoute(routeFn: ({Address? address}) {
-                      context
-                          .read<UserBloc>()
-                          .add(UserUpdateLocationEvent(address: address!));
-                      context.router.replaceAll([HomeRoute()]);
-                    }),
-                  );
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          LocationScreen(routeFn: ({Address? address}) {
+                            context.read<UserBloc>().add(
+                                UserUpdateLocationEvent(address: address!));
+                            context.router.replaceAll([HomeRoute()]);
+                          })));
                 },
                 child: Container(
                   width: ThemeSelector.statics.buttonWidth,

@@ -53,5 +53,6 @@ class CustomerRoutes extends $AppRouter {
         AutoRoute(page: CustomerLocationRoute.page),
         AutoRoute(page: MyOrdersRoute.page),
         AutoRoute(page: ChefCustomerAddressRoute.page),
+        AutoRoute(path: '/customer_location', page: LocationRoute.page),
       ];
 }

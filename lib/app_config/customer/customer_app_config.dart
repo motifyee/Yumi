@@ -42,7 +42,6 @@ class CustomerAppConfig implements AppConfig {
     BlocProvider(create: (context) => IngredientListBloc()),
     BlocProvider(create: (context) => IngredientFormBloc()),
     BlocProvider(create: (context) => BasketCubit()),
-    BlocProvider(create: (context) => RegCubit()),
     BlocProvider(create: (context) => AppInfoCubit()),
     BlocProvider(create: (context) => WalletCubit()),
     BlocProvider(create: (context) => NotificationCubit()),
