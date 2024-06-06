@@ -190,6 +190,7 @@ class RegCubit extends Cubit<NRegState> {
     final user = G.read<UserBloc>().state.user;
 
     if (login && user.email.isNotEmpty && (user.password ?? '').isNotEmpty) {
+      print(user.toJson());
       await LoginServices.login(
           login: LoginModel(
         email: state.signupData.email ?? user.email,

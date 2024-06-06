@@ -40,7 +40,7 @@ class _OTPState extends State<OTP> {
 
     final init = widget.initialOTP?.padRight(4, '');
     setState(() {
-      otp = List.filled(4, "");
+      otp = init?.split('') ?? List.filled(4, "");
     });
   }
 

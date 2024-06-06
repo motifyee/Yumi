@@ -12,8 +12,8 @@ import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/local_storage.dart';
 
-// const originApi = 'https://10.99.77.247:5012';
-String defaultOriginApi = 'https://vroot.tarabia.online';
+const defaultOriginApi = 'https://10.99.77.247:5012';
+// const defaultOriginApi = 'https://vroot.tarabia.online';
 String originApi = '';
 
 class DioClient {
