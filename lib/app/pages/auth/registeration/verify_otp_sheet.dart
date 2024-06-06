@@ -56,6 +56,8 @@ class VerifyOtpSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final counter = context.read<CountDownCubit>();
 
+    print(otp);
+
     () async {
       if (counter.state.countDown != null) return;
       await counter.init(storageKey: storageKey(type));

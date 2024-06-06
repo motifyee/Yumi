@@ -82,7 +82,7 @@ class SignUpForm extends StatelessWidget {
                     key: key,
                     label: S.of(context).email,
                     // set on reload in cubit _navigateToIdx,
-                    initialValue: reg.state.willVerifyEmail,
+                    initialValue: reg.state.email,
                     onSave: (value) {
                       reg.setAccount(
                           reg.state.signupData.copyWith(email: value));
