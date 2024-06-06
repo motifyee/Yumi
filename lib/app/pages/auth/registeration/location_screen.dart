@@ -8,17 +8,18 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
-import 'package:yumi/app/pages/auth/registeration/reg_screen.dart';
-import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/maps/google_maps.dart';
 import 'package:yumi/app/pages/auth/registeration/maps/permission.dart';
 import 'package:yumi/app/pages/auth/registeration/model/address.dart';
+import 'package:yumi/app/pages/auth/registeration/reg_screen.dart';
+import 'package:yumi/app/pages/driver/reg_cubit.dart';
+import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
+
 import 'maps/extenstions.dart';
 import 'maps/model.dart';
 

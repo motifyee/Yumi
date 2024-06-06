@@ -27,6 +27,9 @@ class VerifyOtpSheetProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('VerifyOtpSheetProvider ...........................');
+    print(otp);
+
     return BlocProvider<CountDownCubit>(
       create: (context) => CountDownCubit(),
       child: VerifyOtpSheet(
