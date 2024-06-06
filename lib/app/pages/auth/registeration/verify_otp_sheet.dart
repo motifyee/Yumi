@@ -124,7 +124,7 @@ class VerifyOTPSheetContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final counter = context.read<CountDownCubit>();
-    if (otp?.length == 4) counter.setValue(otp ?? '');
+    // if (otp?.length == 4) counter.setValue(otp ?? '');
 
     return Column(
       children: [
@@ -213,7 +213,7 @@ void verifyEmailOTP(BuildContext context, String otp) {
   print('verifyEmailOTP ...............................');
   print(reg.state.emailOTP);
   print(otp);
-  if (otp.length < 4) {
+  if (otp.replaceAll(' ', '').length < 4) {
     return G.snackBar("Invalid OTP!");
   }
 
