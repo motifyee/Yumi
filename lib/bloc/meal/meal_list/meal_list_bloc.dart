@@ -120,7 +120,12 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
                 lastPage: res['pagination']['pages'],
                 isLoading: false,
               )));
-        } catch (e) {}
+        } catch (e) {
+          emit(state.copyWith(
+              paginationHelper: state.paginationHelper.copyWith(
+            isLoading: false,
+          )));
+        }
       }
     });
 

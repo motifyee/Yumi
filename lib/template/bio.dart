@@ -16,15 +16,16 @@ class Bio extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-    return FormField<String>(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      initialValue: G.rd<ProfileCubit>().state.form.bio,
-      validator: (value) =>
-          value == null || value.trim().isEmpty ? S.of(context).required : null,
-      builder: (fieldState) => BlocSelector<ProfileCubit, ProfileState, String>(
-        selector: (profileState) => profileState.form.bio,
-        builder: (context, state) {
-          return Padding(
+    return BlocSelector<ProfileCubit, ProfileState, String>(
+      selector: (profileState) => profileState.form.bio,
+      builder: (context, state) {
+        return FormField<String>(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          initialValue: G.rd<ProfileCubit>().state.form.bio,
+          validator: (value) => value == null || value.trim().isEmpty
+              ? S.of(context).required
+              : null,
+          builder: (fieldState) => Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: ThemeSelector.statics.defaultTitleGap),
             child: Column(
@@ -80,9 +81,9 @@ class Bio extends StatelessWidget {
                   ),
               ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
