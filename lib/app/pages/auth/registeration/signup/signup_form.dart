@@ -213,7 +213,7 @@ Future<void> showOTPSheet() => showModalBottomSheet(
       sheetAnimationStyle: AnimationStyle(curve: Curves.bounceIn),
       backgroundColor: Colors.transparent,
       builder: (context) => VerifyOtpSheetProvider(
-        value: G.rd<RegCubit>().state.willVerifyEmail!,
+        value: '',
         otp: G.rd<RegCubit>().state.emailOTP,
       ),
     );

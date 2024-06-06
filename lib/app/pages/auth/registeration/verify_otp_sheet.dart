@@ -56,8 +56,6 @@ class VerifyOtpSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final counter = context.read<CountDownCubit>();
 
-    print(otp);
-
     () async {
       if (counter.state.countDown != null) return;
       await counter.init(storageKey: storageKey(type));
@@ -210,9 +208,6 @@ void sendEmailOTP(BuildContext context) async {
 void verifyEmailOTP(BuildContext context, String otp) {
   final reg = context.read<RegCubit>();
   final counter = context.read<CountDownCubit>();
-  print('verifyEmailOTP ...............................');
-  print(reg.state.emailOTP);
-  print(otp);
   if (otp.replaceAll(' ', '').length < 4) {
     return G.snackBar("Invalid OTP!");
   }
