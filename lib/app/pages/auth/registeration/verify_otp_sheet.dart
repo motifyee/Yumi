@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/driver/count_down/cubit/count_down_cubit.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
@@ -101,11 +100,9 @@ class VerifyOtpSheet extends StatelessWidget {
             padding: EdgeInsets.only(
               left: ThemeSelector.statics.defaultBlockGap,
               right: ThemeSelector.statics.defaultBlockGap,
-              top: ThemeSelector.statics.defaultGapExtreme,
+              // top: ThemeSelector.statics.defaultGapExtreme,
             ),
-            child: SingleChildScrollView(
-              child: VerifyOTPSheetContent(type: type, otp: otp),
-            ),
+            child: VerifyOTPSheetContent(type: type, otp: otp),
           ),
         ),
       ),
@@ -129,50 +126,57 @@ class VerifyOTPSheetContent extends StatelessWidget {
 
     return Column(
       children: [
-        Text(
-          'Enter 4 digits code',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        Text(
-          'Enter code sent to your email.',
-          style: Theme.of(context).textTheme.labelSmall,
-        ),
-        // counter
-        BlocSelector<CountDownCubit, CountDownState, int?>(
-          selector: (state) => state.countDown,
-          builder: (context, countDown) => SizedBox(
-            width: (countDown ?? 0) > 0 ? 50 : 175,
-            child: InteractiveButton(
-              label: (countDown ?? 0) > 0 ? countDown.toString() : "Resend OTP",
-              buttonType: ButtonType.text,
-              foregroundColor: Theme.of(context).colorScheme.primary,
-              onPressed: () async {
-                if ((counter.state.countDown ?? 0) > 0) return;
-
-                switch (type) {
-                  case OTPType.email:
-                    return sendEmailOTP(context);
-
-                  case OTPType.mobile:
-                    return sendMobileOTP(context);
-                }
-              },
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              'Enter 4 digits code',
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-          ),
+            Text(
+              'Enter code sent to your email.',
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            // counter
+            BlocSelector<CountDownCubit, CountDownState, int?>(
+              selector: (state) => state.countDown,
+              builder: (context, countDown) => SizedBox(
+                width: (countDown ?? 0) > 0 ? 50 : 175,
+                child: InteractiveButton(
+                  label: (countDown ?? 0) > 0
+                      ? countDown.toString()
+                      : "Resend OTP",
+                  buttonType: ButtonType.text,
+                  foregroundColor: Theme.of(context).colorScheme.primary,
+                  onPressed: () async {
+                    if ((counter.state.countDown ?? 0) > 0) return;
+
+                    switch (type) {
+                      case OTPType.email:
+                        return sendEmailOTP(context);
+
+                      case OTPType.mobile:
+                        return sendMobileOTP(context);
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 20),
-        Center(
+        Padding(
+          padding:
+              EdgeInsets.symmetric(vertical: ThemeSelector.statics.defaultGap),
           child: SizedBox(
             width: 200,
             child: OTP(
-              initialOTP: otp,
+              initialOTP: '',
               onInput: (value, _, __) {
                 // counter.setValue(value);
               },
             ),
           ),
         ),
-        const SizedBox(height: 30),
         InteractiveButton(
           label: 'Send',
           onPressed: () async {
@@ -185,7 +189,6 @@ class VerifyOTPSheetContent extends StatelessWidget {
             }
           },
         ),
-        const SizedBox(height: 60),
       ],
       // );
       // },
