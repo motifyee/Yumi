@@ -210,7 +210,9 @@ void sendEmailOTP(BuildContext context) async {
 void verifyEmailOTP(BuildContext context, String otp) {
   final reg = context.read<RegCubit>();
   final counter = context.read<CountDownCubit>();
-
+  print('verifyEmailOTP ...............................');
+  print(reg.state.emailOTP);
+  print(otp);
   if (otp.length < 4) {
     return G.snackBar("Invalid OTP!");
   }

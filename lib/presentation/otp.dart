@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/pages/driver/count_down/cubit/count_down_cubit.dart';
 
 class OTP extends StatefulWidget {
   final void Function(String input, String otp, int idx)? onInput;
@@ -114,6 +116,7 @@ class _OTPState extends State<OTP> {
             if (value.isEmpty && value == otp[idx]) return;
             setState(() {
               otp[idx] = value;
+              context.read<CountDownCubit>().setValue(otp.join(''));
             });
             // FocusScope.of(context).nextFocus();
             var i = idx < 3 ? idx + 1 : idx;
