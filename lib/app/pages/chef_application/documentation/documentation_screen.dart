@@ -280,6 +280,7 @@ Widget documentWidget({
       ),
     ),
   );
+
   var desription = Container(
     width: double.infinity,
     alignment: Alignment.topLeft,
@@ -383,8 +384,8 @@ Widget documentWidget({
         Column(
           children: [
             // if (title != null)
-            SizedBox(height: (title == null ? 50 : 60)),
-            if (title != null) titleWdg,
+            SizedBox(height: (title == null || showTitle == false ? 50 : 55)),
+            if (title != null && showTitle != false) titleWdg,
             const SizedBox(height: 5),
             desription,
           ],
@@ -393,8 +394,8 @@ Widget documentWidget({
       //
       // Buttons
       Positioned(
-        right: 22,
-        bottom: 15,
+        right: 16,
+        bottom: 5,
         child: filter(SizedBox(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
