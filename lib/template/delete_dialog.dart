@@ -1,19 +1,30 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
-class DeleteDialogTemplate extends StatelessWidget {
-  DeleteDialogTemplate(
-      {super.key,
-      required this.actions,
-      required this.title,
-      required this.content});
+class DeleteDialogTemplate extends StatefulWidget {
+  DeleteDialogTemplate({
+    super.key,
+    required this.actions,
+    required this.title,
+    required this.content,
+  });
 
-  Function() actions;
+  Future<bool> Function() actions;
   String title;
   String content;
+
+  @override
+  State<DeleteDialogTemplate> createState() => _DeleteDialogTemplateState();
+}
+
+class _DeleteDialogTemplateState extends State<DeleteDialogTemplate> {
+  bool isDeletingLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +41,39 @@ class DeleteDialogTemplate extends StatelessWidget {
             height: ThemeSelector.fonts.font_12,
           ),
           const Text(' '),
-          Text(title),
+          Text(widget.title),
         ],
       ),
-      content: Text(content),
+      content: Text(widget.content),
       actions: [
         TextButton(
             onPressed: () {
-              context.router.pop();
+              context.router.maybePop();
             },
             child: Text(S.of(context).cancel)),
-        TextButton(onPressed: actions, child: Text(S.of(context).delete)),
+        TextButton(
+            onPressed: () async {
+              if (isDeletingLoading) return;
+              setState(() {
+                isDeletingLoading = true;
+              });
+              await widget
+                  .actions()
+                  .then((v) => setState(() {
+                        isDeletingLoading = false;
+                      }))
+                  .catchError((e) => setState(() {
+                        isDeletingLoading = false;
+                      }));
+            },
+            child: isDeletingLoading
+                ? SizedBox(
+                    width: ThemeSelector.statics.defaultTitleGapLarge,
+                    child: Loading(
+                      size: ThemeSelector.statics.defaultBlockGap,
+                    ),
+                  )
+                : Text(S.of(context).delete)),
       ],
     );
   }

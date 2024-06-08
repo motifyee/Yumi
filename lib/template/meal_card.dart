@@ -23,6 +23,7 @@ class MealCard extends StatelessWidget {
 
   MealModel meal;
   MenuTarget menuTarget;
+  bool isDeleting = false;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +147,10 @@ class MealCard extends StatelessWidget {
                         context: context,
                         builder: (ctx) => DeleteDialogTemplate(
                               actions: () async {
-                                await MealService.deleteMeal(
+                                if (isDeleting) return true;
+                                isDeleting = true;
+
+                                return await MealService.deleteMeal(
                                         context: context, mealModel: meal)
                                     .then((res) {
                                   context
@@ -173,10 +177,9 @@ class MealCard extends StatelessWidget {
                                               .chefId,
                                         ),
                                       );
-
                                   Navigator.of(context).pop();
+                                  return true;
                                 }).catchError((err) {
-                                  Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: SnackBarMassage(
@@ -186,6 +189,7 @@ class MealCard extends StatelessWidget {
                                       ),
                                     ),
                                   );
+                                  return true;
                                 });
                               },
                               title: S.of(context).deleteMeal,
