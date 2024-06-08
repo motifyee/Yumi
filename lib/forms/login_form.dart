@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/forgot_password/forgot_password_sheet.dart';
 import 'package:yumi/app/pages/auth/registeration/model/address.dart';
@@ -156,6 +155,9 @@ Future performLogin(BuildContext context, LoginModel loginForm,
             });
           },
         ));
+
+    print('login user .................................');
+    print(json);
 
     context
         .read<UserBloc>()

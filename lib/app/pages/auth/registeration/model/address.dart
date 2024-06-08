@@ -12,7 +12,8 @@ class Address with _$Address {
     String? name,
     String? userName,
     String? mobile,
-    @JsonKey(name: 'id') int? id,
+    @JsonKey(name: 'id') int? addressId,
+    @JsonKey(name: 'multiAddressID') int? multiAddressID,
     // String? userId,
     @JsonKey(name: 'address') String? addressDetails,
     @JsonKey(name: 'address_Name') String? addressTitle,
@@ -25,6 +26,8 @@ class Address with _$Address {
   }) = _Address;
 
   const Address._();
+
+  int? get id => addressId ?? multiAddressID;
 
   // String get fullAddress => "${street ?? ''}, ${city ?? ''}, ${country ?? ''}";
 

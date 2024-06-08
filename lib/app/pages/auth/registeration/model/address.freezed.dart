@@ -25,7 +25,10 @@ mixin _$Address {
   String? get userName => throw _privateConstructorUsedError;
   String? get mobile => throw _privateConstructorUsedError;
   @JsonKey(name: 'id')
-  int? get id => throw _privateConstructorUsedError; // String? userId,
+  int? get addressId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'multiAddressID')
+  int? get multiAddressID =>
+      throw _privateConstructorUsedError; // String? userId,
   @JsonKey(name: 'address')
   String? get addressDetails => throw _privateConstructorUsedError;
   @JsonKey(name: 'address_Name')
@@ -54,7 +57,8 @@ abstract class $AddressCopyWith<$Res> {
       String? name,
       String? userName,
       String? mobile,
-      @JsonKey(name: 'id') int? id,
+      @JsonKey(name: 'id') int? addressId,
+      @JsonKey(name: 'multiAddressID') int? multiAddressID,
       @JsonKey(name: 'address') String? addressDetails,
       @JsonKey(name: 'address_Name') String? addressTitle,
       @JsonKey(name: 'location') String? location,
@@ -81,7 +85,8 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
     Object? name = freezed,
     Object? userName = freezed,
     Object? mobile = freezed,
-    Object? id = freezed,
+    Object? addressId = freezed,
+    Object? multiAddressID = freezed,
     Object? addressDetails = freezed,
     Object? addressTitle = freezed,
     Object? location = freezed,
@@ -107,9 +112,13 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
           ? _value.mobile
           : mobile // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      addressId: freezed == addressId
+          ? _value.addressId
+          : addressId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      multiAddressID: freezed == multiAddressID
+          ? _value.multiAddressID
+          : multiAddressID // ignore: cast_nullable_to_non_nullable
               as int?,
       addressDetails: freezed == addressDetails
           ? _value.addressDetails
@@ -155,7 +164,8 @@ abstract class _$$AddressImplCopyWith<$Res> implements $AddressCopyWith<$Res> {
       String? name,
       String? userName,
       String? mobile,
-      @JsonKey(name: 'id') int? id,
+      @JsonKey(name: 'id') int? addressId,
+      @JsonKey(name: 'multiAddressID') int? multiAddressID,
       @JsonKey(name: 'address') String? addressDetails,
       @JsonKey(name: 'address_Name') String? addressTitle,
       @JsonKey(name: 'location') String? location,
@@ -180,7 +190,8 @@ class __$$AddressImplCopyWithImpl<$Res>
     Object? name = freezed,
     Object? userName = freezed,
     Object? mobile = freezed,
-    Object? id = freezed,
+    Object? addressId = freezed,
+    Object? multiAddressID = freezed,
     Object? addressDetails = freezed,
     Object? addressTitle = freezed,
     Object? location = freezed,
@@ -206,9 +217,13 @@ class __$$AddressImplCopyWithImpl<$Res>
           ? _value.mobile
           : mobile // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      addressId: freezed == addressId
+          ? _value.addressId
+          : addressId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      multiAddressID: freezed == multiAddressID
+          ? _value.multiAddressID
+          : multiAddressID // ignore: cast_nullable_to_non_nullable
               as int?,
       addressDetails: freezed == addressDetails
           ? _value.addressDetails
@@ -250,7 +265,8 @@ class _$AddressImpl extends _Address {
       this.name,
       this.userName,
       this.mobile,
-      @JsonKey(name: 'id') this.id,
+      @JsonKey(name: 'id') this.addressId,
+      @JsonKey(name: 'multiAddressID') this.multiAddressID,
       @JsonKey(name: 'address') this.addressDetails,
       @JsonKey(name: 'address_Name') this.addressTitle,
       @JsonKey(name: 'location') this.location,
@@ -273,7 +289,10 @@ class _$AddressImpl extends _Address {
   final String? mobile;
   @override
   @JsonKey(name: 'id')
-  final int? id;
+  final int? addressId;
+  @override
+  @JsonKey(name: 'multiAddressID')
+  final int? multiAddressID;
 // String? userId,
   @override
   @JsonKey(name: 'address')
@@ -299,7 +318,7 @@ class _$AddressImpl extends _Address {
 
   @override
   String toString() {
-    return 'Address(code: $code, name: $name, userName: $userName, mobile: $mobile, id: $id, addressDetails: $addressDetails, addressTitle: $addressTitle, location: $location, latitude: $latitude, longitude: $longitude, isDefault: $isDefault, isDeleted: $isDeleted)';
+    return 'Address(code: $code, name: $name, userName: $userName, mobile: $mobile, addressId: $addressId, multiAddressID: $multiAddressID, addressDetails: $addressDetails, addressTitle: $addressTitle, location: $location, latitude: $latitude, longitude: $longitude, isDefault: $isDefault, isDeleted: $isDeleted)';
   }
 
   @override
@@ -312,7 +331,10 @@ class _$AddressImpl extends _Address {
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
             (identical(other.mobile, mobile) || other.mobile == mobile) &&
-            (identical(other.id, id) || other.id == id) &&
+            (identical(other.addressId, addressId) ||
+                other.addressId == addressId) &&
+            (identical(other.multiAddressID, multiAddressID) ||
+                other.multiAddressID == multiAddressID) &&
             (identical(other.addressDetails, addressDetails) ||
                 other.addressDetails == addressDetails) &&
             (identical(other.addressTitle, addressTitle) ||
@@ -337,7 +359,8 @@ class _$AddressImpl extends _Address {
       name,
       userName,
       mobile,
-      id,
+      addressId,
+      multiAddressID,
       addressDetails,
       addressTitle,
       location,
@@ -366,7 +389,8 @@ abstract class _Address extends Address {
       final String? name,
       final String? userName,
       final String? mobile,
-      @JsonKey(name: 'id') final int? id,
+      @JsonKey(name: 'id') final int? addressId,
+      @JsonKey(name: 'multiAddressID') final int? multiAddressID,
       @JsonKey(name: 'address') final String? addressDetails,
       @JsonKey(name: 'address_Name') final String? addressTitle,
       @JsonKey(name: 'location') final String? location,
@@ -388,7 +412,10 @@ abstract class _Address extends Address {
   String? get mobile;
   @override
   @JsonKey(name: 'id')
-  int? get id;
+  int? get addressId;
+  @override
+  @JsonKey(name: 'multiAddressID')
+  int? get multiAddressID;
   @override // String? userId,
   @JsonKey(name: 'address')
   String? get addressDetails;
