@@ -299,78 +299,94 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                       OrderCardTargetPage.driverHistory,
                     ].contains(widget.orderCardTargetPage))
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          SizedBox(height: ThemeSelector.statics.defaultGap),
-                          InkWell(
-                            onTap: () {
-                              context.router.push(ChefCustomerAddressRoute(
-                                id: '',
-                                isChef: false,
-                                address: Address(
-                                  longitude: widget.order.addressLongitude,
-                                  latitude: widget.order.addressLatitude,
-                                  location: widget.order.location,
-                                  name: widget.order.clientName ?? '',
-                                  mobile: widget.order.clientMobile ?? '',
+                          Row(
+                            children: [
+                              Flexible(
+                                flex: 1,
+                                child: TextButton(
+                                  onPressed: () {
+                                    context.router
+                                        .push(ChefCustomerAddressRoute(
+                                      id: '',
+                                      isChef: false,
+                                      address: Address(
+                                        longitude:
+                                            widget.order.addressLongitude,
+                                        latitude: widget.order.addressLatitude,
+                                        location: widget.order.location,
+                                        name: widget.order.clientName ?? '',
+                                        mobile: widget.order.clientMobile ?? '',
+                                      ),
+                                    ));
+                                  },
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                          'assets/images/customer_icon.svg'),
+                                      SizedBox(
+                                          width: ThemeSelector
+                                              .statics.defaultMicroGap),
+                                      Text(
+                                        widget.order.clientName ?? '',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge,
+                                      ),
+                                      Expanded(child: SizedBox.shrink()),
+                                      Text(
+                                        S.of(context).view,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ));
-                            },
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(
-                                    'assets/images/customer_icon.svg'),
-                                SizedBox(
-                                    width:
-                                        ThemeSelector.statics.defaultMicroGap),
-                                Text(
-                                  widget.order.clientName ?? '',
-                                  style: Theme.of(context).textTheme.labelLarge,
+                              ),
+                              Flexible(
+                                flex: 1,
+                                child: TextButton(
+                                  onPressed: () {
+                                    context.router
+                                        .push(ChefCustomerAddressRoute(
+                                      id: widget.order.chefID ?? '',
+                                      isChef: true,
+                                    ));
+                                  },
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/welocme_chef_icon.svg',
+                                        height: 15,
+                                        colorFilter: ColorFilter.mode(
+                                            ThemeSelector.colors.primary,
+                                            BlendMode.srcIn),
+                                      ),
+                                      SizedBox(
+                                          width: ThemeSelector
+                                              .statics.defaultMicroGap),
+                                      Text(
+                                        widget.order.chefName ?? '',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge,
+                                      ),
+                                      Expanded(child: SizedBox.shrink()),
+                                      Text(
+                                        S.of(context).view,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                Expanded(child: SizedBox.shrink()),
-                                Text(
-                                  S.of(context).view,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium,
-                                )
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                  height: ThemeSelector.statics.defaultGap),
+                            ],
                           ),
-                          InkWell(
-                            onTap: () {
-                              context.router.push(ChefCustomerAddressRoute(
-                                id: widget.order.chefID ?? '',
-                                isChef: true,
-                              ));
-                            },
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/images/welocme_chef_icon.svg',
-                                  height: 15,
-                                  colorFilter: ColorFilter.mode(
-                                      ThemeSelector.colors.primary,
-                                      BlendMode.srcIn),
-                                ),
-                                SizedBox(
-                                    width:
-                                        ThemeSelector.statics.defaultMicroGap),
-                                Text(
-                                  widget.order.chefName ?? '',
-                                  style: Theme.of(context).textTheme.labelLarge,
-                                ),
-                                Expanded(child: SizedBox.shrink()),
-                                Text(
-                                  S.of(context).view,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium,
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: ThemeSelector.statics.defaultGap),
                         ],
                       ),
                     if (widget.order.invoiceDetails!.isNotEmpty &&
