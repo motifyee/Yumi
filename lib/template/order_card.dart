@@ -327,13 +327,15 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       SizedBox(
                                           width: ThemeSelector
                                               .statics.defaultMicroGap),
-                                      Text(
-                                        widget.order.clientName ?? '',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge,
+                                      Expanded(
+                                        child: Text(
+                                          widget.order.clientName ?? '',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge,
+                                        ),
                                       ),
-                                      Expanded(child: SizedBox.shrink()),
                                       Text(
                                         S.of(context).view,
                                         style: Theme.of(context)
@@ -366,13 +368,15 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       SizedBox(
                                           width: ThemeSelector
                                               .statics.defaultMicroGap),
-                                      Text(
-                                        widget.order.chefName ?? '',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge,
+                                      Expanded(
+                                        child: Text(
+                                          widget.order.chefName ?? '',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge,
+                                        ),
                                       ),
-                                      Expanded(child: SizedBox.shrink()),
                                       Text(
                                         S.of(context).view,
                                         style: Theme.of(context)
