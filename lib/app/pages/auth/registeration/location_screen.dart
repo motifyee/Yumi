@@ -29,13 +29,14 @@ class LocationScreen extends StatelessWidget {
 
   late GMapInfo mapInfo;
   var selectedAddr = const Address();
+  final bool isBack;
 
   Function({required Address address})? routeFn;
 
   // onAddressTap: (address) => print(address)
   // onMapCreated: (c) => controller = c,
 
-  LocationScreen({super.key, this.routeFn});
+  LocationScreen({super.key, this.routeFn, this.isBack = false});
 
   Future<Location?> _navToAddress(String address) async {
     List<Location>? locations = await tryV(() => locationFromAddress(address));
@@ -53,9 +54,7 @@ class LocationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('LocationScreen .........................');
     var regBloc = context.read<RegCubit>();
-    print('LocationScreen  regBloc.........................');
     mapInfo = GMapInfo(
         setMarkerOnLongPress: true,
         onAddressLongPress: (placemark, coord, info) {
@@ -71,13 +70,11 @@ class LocationScreen extends StatelessWidget {
         onTap: (LatLng latLng, GMapInfo info) async {
           print(await info.controller?.getZoomLevel());
         });
-    print('LocationScreen  mapInfo.........................');
     final regCubit = context.read<RegCubit>();
-    print('LocationScreen regCubit.........................');
     return PopScope(
-      canPop: regCubit.state.partialFlow ? true : false,
+      canPop: regCubit.state.partialFlow || isBack ? true : false,
       onPopInvoked: (didPop) {
-        if (!regCubit.state.partialFlow) askToLogout(context);
+        if (!regCubit.state.partialFlow) askToLogout(context, isBack: isBack);
       },
       child: Scaffold(
         body: Stack(

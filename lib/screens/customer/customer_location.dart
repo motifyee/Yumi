@@ -125,12 +125,14 @@ class CustomerLocationScreen extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          LocationScreen(routeFn: ({Address? address}) {
-                            context.read<UserBloc>().add(
-                                UserUpdateLocationEvent(address: address!));
-                            context.router.replaceAll([HomeRoute()]);
-                          })));
+                      builder: (context) => LocationScreen(
+                            routeFn: ({Address? address}) {
+                              context.read<UserBloc>().add(
+                                  UserUpdateLocationEvent(address: address!));
+                              context.router.replaceAll([HomeRoute()]);
+                            },
+                            isBack: true,
+                          )));
                 },
                 child: Container(
                   width: ThemeSelector.statics.buttonWidth,

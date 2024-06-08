@@ -175,6 +175,7 @@ abstract class $AppRouter extends _i34.RootStackRouter {
         child: _i16.LocationScreen(
           key: args.key,
           routeFn: args.routeFn,
+          isBack: args.isBack,
         ),
       );
     },
@@ -628,12 +629,14 @@ class LocationRoute extends _i34.PageRouteInfo<LocationRouteArgs> {
   LocationRoute({
     _i35.Key? key,
     dynamic Function({_i36.Address address})? routeFn,
+    bool isBack = false,
     List<_i34.PageRouteInfo>? children,
   }) : super(
           LocationRoute.name,
           args: LocationRouteArgs(
             key: key,
             routeFn: routeFn,
+            isBack: isBack,
           ),
           initialChildren: children,
         );
@@ -648,15 +651,18 @@ class LocationRouteArgs {
   const LocationRouteArgs({
     this.key,
     this.routeFn,
+    this.isBack = false,
   });
 
   final _i35.Key? key;
 
   final dynamic Function({_i36.Address address})? routeFn;
 
+  final bool isBack;
+
   @override
   String toString() {
-    return 'LocationRouteArgs{key: $key, routeFn: $routeFn}';
+    return 'LocationRouteArgs{key: $key, routeFn: $routeFn, isBack: $isBack}';
   }
 }
 

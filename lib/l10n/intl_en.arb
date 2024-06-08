@@ -245,5 +245,9 @@
 	"online": "Online",
 	"chefAddress": "Chef Address",
 	"customer": "Customer",
-	"toReceiveOrdersChangYourStatusToOnline": "To receive orders chang your status to online"
+	"toReceiveOrdersChangYourStatusToOnline": "To receive orders chang your status to online",
+	"areYouSureYouWantToLogout": "Are you sure you want to logout?",
+	"areYouSureYouWantToLeave": "Are you sure you want to leave?",
+	"logout": "Logout",
+	"leave": "Leave"
 }

@@ -45,6 +45,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "apiError": MessageLookupByLibrary.simpleMessage("Api Error"),
         "areYouSureToDeleteAMeal": MessageLookupByLibrary.simpleMessage(
             "Are you sure to delete a meal?"),
+        "areYouSureYouWantToLeave": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to leave?"),
+        "areYouSureYouWantToLogout": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to logout?"),
         "arrivesIn": MessageLookupByLibrary.simpleMessage("Arrives In"),
         "available": MessageLookupByLibrary.simpleMessage("Available"),
         "bankAccount": MessageLookupByLibrary.simpleMessage("Bank Account"),
@@ -154,8 +158,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "invoice": MessageLookupByLibrary.simpleMessage("Invoice"),
         "km": MessageLookupByLibrary.simpleMessage("Km"),
         "lastName": MessageLookupByLibrary.simpleMessage("Last name"),
+        "leave": MessageLookupByLibrary.simpleMessage("Leave"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "lowerCase": MessageLookupByLibrary.simpleMessage("1 lower case"),
         "maxImageSize":
             MessageLookupByLibrary.simpleMessage("image size 640x480"),
