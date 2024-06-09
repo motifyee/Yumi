@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button_style.dart';
@@ -14,6 +15,7 @@ import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
+import 'package:yumi/statics/regex.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -57,6 +59,10 @@ class SignUpForm extends StatelessWidget {
               TextFormFieldTemplate(
                 key: key,
                 label: S.of(context).fullName,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                      CustomRegex.lettersBlankOnly)
+                ],
                 onSave: (value) {
                   reg.setAccount(
                       reg.state.signupData.copyWith(fullName: value));
@@ -73,6 +79,10 @@ class SignUpForm extends StatelessWidget {
                       reg.state.signupData.copyWith(userName: value));
                 },
                 validators: requiredValidator,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                      CustomRegex.lettersNumbersOnly)
+                ],
               ),
               SizedBox(height: ThemeSelector.statics.formFieldGap),
               // email

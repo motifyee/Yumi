@@ -12,6 +12,7 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/service/meal_service.dart';
 import 'package:yumi/statics/code_generator.dart';
+import 'package:yumi/statics/regex.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/pagination_template.dart';
 import 'package:yumi/template/snack_bar.dart';
@@ -122,6 +123,10 @@ class MealForm extends StatelessWidget {
                                   TextFormFieldBorderStyle.borderBottom,
                               initialValue: state.mealModel.name,
                               validators: requiredValidator,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    CustomRegex.lettersNumbersBlankOnly)
+                              ],
                               onChange: (value) {
                                 context.read<MealFormBloc>().add(
                                     MealFormUpdateEvent(
@@ -168,7 +173,7 @@ class MealForm extends StatelessWidget {
                               validators: requiredValidator,
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
-                                    RegExp(r'^(\d+)?\.?\d{0,2}'))
+                                    CustomRegex.numberWith2DecimalOnly)
                               ],
                               onChange: (value) {
                                 context.read<MealFormBloc>().add(
@@ -209,7 +214,7 @@ class MealForm extends StatelessWidget {
                               validators: requiredValidator,
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
-                                    RegExp(r'^(\d+)?\.?\d{0,2}'))
+                                    CustomRegex.numberWith2DecimalOnly)
                               ],
                               onChange: (value) {
                                 context.read<MealFormBloc>().add(
@@ -232,7 +237,7 @@ class MealForm extends StatelessWidget {
                               validators: requiredValidator,
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
-                                    RegExp(r'^(\d+)?\.?\d{0,2}'))
+                                    CustomRegex.numberOnly)
                               ],
                               onChange: (value) {
                                 context.read<MealFormBloc>().add(

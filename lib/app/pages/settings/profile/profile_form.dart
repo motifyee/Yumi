@@ -5,14 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/core/util/constants.dart';
-import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
+import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/statics/regex.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -67,6 +67,9 @@ Widget profileFormFields(
           borderStyle: TextFormFieldBorderStyle.borderBottom,
           initialValue: profile.fullName,
           validators: requiredValidator,
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(CustomRegex.lettersBlankOnly)
+          ],
           onSave: (value) =>
               save(profile0 = profile0.copyWith(fullName: value)),
         ),

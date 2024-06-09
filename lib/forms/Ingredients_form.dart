@@ -11,6 +11,7 @@ import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
 import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/statics/regex.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_form_field.dart';
 import 'package:yumi/validators/required_validator.dart';
@@ -234,7 +235,7 @@ class IngredientsForm extends StatelessWidget {
                                     validators: requiredValidator,
                                     inputFormatters: [
                                       FilteringTextInputFormatter.allow(
-                                          RegExp(r'^(\d+)?\.?\d{0,2}'))
+                                          CustomRegex.numberWith2DecimalOnly)
                                     ],
                                     initialValue: ingredientsModel.portionGrams,
                                     onSave: (value) {

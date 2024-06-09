@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
@@ -7,6 +8,7 @@ import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/review_model/review_model.dart';
 import 'package:yumi/service/review_service.dart';
+import 'package:yumi/statics/regex.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -96,6 +98,10 @@ class _ReviewChefDriverState extends State<ReviewChefDriver> {
                                 borderStyle:
                                     TextFormFieldBorderStyle.borderedRound,
                                 hintText: S.of(context).reviewTheDriver,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      CustomRegex.lettersNumbersBlankOnly)
+                                ],
                                 onChange: (value) => widget.reviewDriver =
                                     widget.reviewDriver
                                         .copyWith(reviewComment: value ?? ''),
@@ -128,6 +134,10 @@ class _ReviewChefDriverState extends State<ReviewChefDriver> {
                       TextFormFieldTemplate(
                         borderStyle: TextFormFieldBorderStyle.borderedRound,
                         hintText: S.of(context).reviewTheChef,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              CustomRegex.lettersNumbersBlankOnly)
+                        ],
                         onChange: (value) => widget.reviewChef = widget
                             .reviewChef
                             .copyWith(reviewComment: value ?? ''),

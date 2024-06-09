@@ -1,12 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/app/pages/settings/bankinfo/bankinfo_service.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
+import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/forms/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/settings/bankinfo/bankinfo_service.dart';
 import 'package:yumi/model/bankinfo_model.dart';
+import 'package:yumi/statics/regex.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
@@ -112,42 +114,69 @@ Widget formData(BankInfo bankInfo, Function save) {
           bankInfo0.bankName,
           requiredValidator,
           (value) => save(bankInfo0 = bankInfo0.copyWith(bankName: value)),
+          TextInputType.text,
+          <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(
+                CustomRegex.lettersNumbersBlankOnly)
+          ],
         ],
         [
           S.of(ctx).accountName,
           bankInfo0.accountName,
           requiredValidator,
           (value) => save(bankInfo0 = bankInfo0.copyWith(accountName: value)),
+          TextInputType.text,
+          <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(CustomRegex.lettersBlankOnly)
+          ],
         ],
         [
           S.of(ctx).accountNumber,
           bankInfo0.accountNumber,
           requiredValidator,
           (value) => save(bankInfo0 = bankInfo0.copyWith(accountNumber: value)),
+          TextInputType.number,
+          <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(CustomRegex.numberOnly)
+          ],
         ],
         [
           S.of(ctx).bankCurrency,
           bankInfo0.currency,
           requiredValidator,
           (value) => save(bankInfo0 = bankInfo0.copyWith(currency: value)),
+          TextInputType.text,
+          <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(CustomRegex.lettersOnly)
+          ],
         ],
         [
           S.of(ctx).iban,
           bankInfo0.iban,
           null,
           (value) => save(bankInfo0 = bankInfo0.copyWith(iban: value)),
+          TextInputType.text,
+          <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(CustomRegex.lettersNumbersOnly)
+          ],
         ],
         [
           S.of(ctx).swiftCode,
           bankInfo0.swiftCode,
           null,
           (value) => save(bankInfo0 = bankInfo0.copyWith(swiftCode: value)),
+          TextInputType.text,
+          <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(CustomRegex.lettersNumbersOnly)
+          ],
         ],
         [
           S.of(ctx).branchAddress,
           bankInfo0.branchAddress,
           null,
           (value) => save(bankInfo0 = bankInfo0.copyWith(branchAddress: value)),
+          TextInputType.text,
+          <TextInputFormatter>[]
         ],
       ];
 
@@ -162,6 +191,8 @@ Widget formData(BankInfo bankInfo, Function save) {
                         ? null
                         : (field[2] as String? Function(String?)),
                     onSave: field[3] as Function(dynamic),
+                    inputFormatters: field[5],
+                    textInputType: field[4],
                   ),
                   // gap
                   SizedBox(
