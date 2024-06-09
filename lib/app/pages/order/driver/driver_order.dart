@@ -115,7 +115,7 @@ class DriverOrderScreen extends StatelessWidget {
               children: [
                 BlocBuilder<UserBloc, UserState>(
                   builder: (context, state) {
-                    return state.user.status == 0 &&
+                    return state.user.status != 1 &&
                             menuTarget == MenuTarget.order
                         ? Center(
                             child: Padding(
