@@ -27,9 +27,6 @@ class VerifyOtpSheetProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('VerifyOtpSheetProvider ...........................');
-    print(otp);
-
     return BlocProvider<CountDownCubit>(
       create: (context) => CountDownCubit(),
       child: VerifyOtpSheet(
@@ -173,6 +170,7 @@ class VerifyOTPSheetContent extends StatelessWidget {
           child: SizedBox(
             width: 200,
             child: OTP(
+              initialOTP: otp,
               onInput: (value, _, __) {
                 counter.setValue(value);
               },
