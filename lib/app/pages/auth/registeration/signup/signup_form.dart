@@ -92,7 +92,7 @@ class SignUpForm extends StatelessWidget {
                     key: key,
                     label: S.of(context).email,
                     // set on reload in cubit _navigateToIdx,
-                    initialValue: reg.state.email,
+                    initialValue: reg.state.willVerifyEmail,
                     onSave: (value) {
                       reg.setAccount(
                           reg.state.signupData.copyWith(email: value));
@@ -168,43 +168,7 @@ class SignUpForm extends StatelessWidget {
               // Create Account Button
               InteractiveButton(
                 label: S.of(context).createAccount,
-                onLongPress: () async {
-                  if (kReleaseMode) return;
-                  if (!Form.of(context).validate()) return;
-
-                  Form.of(context).save();
-
-                  await SignUpService.signUp(
-                          signup: reg.state.signupData, context: context)
-                      .then((value) {
-                    value = jsonDecode(value.toString());
-
-                    if (value["message"].contains('Created')) {
-                      var idReg = RegExp(r"Created with id:\s*(.*)");
-                      // var tokenReg = RegExp(r"Token\s*=\s*(.*)[\s|,]*");
-                      var chefId =
-                          idReg.firstMatch(value["message"])!.group(1)!;
-
-                      var userMap = reg.state.signupData
-                          .toUserMap(chefId, value['token']);
-
-                      context.read<UserBloc>().add(UserFromJsonEvent(
-                          user: userMap,
-                          routeAfterLogin: () =>
-                              context.read<ProfileCubit>().getProfileForm()));
-
-                      return reg.setAccount(reg.state.signupData);
-                    }
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: SnackBarMassage(
-                          massage: value["message"],
-                        ),
-                      ),
-                    );
-                  }).catchError((err) {});
-                },
+                onLongPress: () => _signUp(context, true),
                 onPressed: () => _signUp(context),
               ),
             ],
@@ -275,14 +239,20 @@ Future<void> _verifyEmailOtp(
   );
 }
 
-Future<void> _signUp(BuildContext context) async {
+Future<void> _signUp(
+  BuildContext context, [
+  bool skipEmailVerification = false,
+]) async {
+  if (skipEmailVerification && kReleaseMode) return;
+
   final reg = G.rd<RegCubit>();
 
   if (!Form.of(context).validate()) return;
 
-  if (reg.state.verifiedEmail != reg.state.willVerifyEmail ||
-      reg.state.willVerifyEmail == null ||
-      reg.state.willVerifyEmail!.isEmpty) {
+  if (!skipEmailVerification &&
+      (reg.state.verifiedEmail != reg.state.willVerifyEmail ||
+          reg.state.willVerifyEmail == null ||
+          reg.state.willVerifyEmail!.isEmpty)) {
     return G.snackBar("Please verify your email");
   }
 
