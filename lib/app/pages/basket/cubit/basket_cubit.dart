@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:yumi/bloc/user/user_bloc.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
@@ -151,10 +152,22 @@ class BasketCubit extends Cubit<BasketState> {
 
   closeBasket() async {
     print('closeBasket ...');
+
+    Basket basket = state.basket;
+
+    if (state.basket.shippedAddressId == null && !state.basket.isPickup) {
+      if (G.context.read<UserBloc>().state.address?.id == null) {
+        return _message(S.current.pleaseSelectLocation);
+      }
+
+      basket = state.basket.copyWith(
+          shippedAddressId: G.context.read<UserBloc>().state.address?.id);
+    }
+
     _loadingIndicator();
 
     final Either<Failure, Response> task =
-        await CloseBasket().call(CloseBasketParams(basket: state.basket));
+        await CloseBasket().call(CloseBasketParams(basket: basket));
     task.fold(
         (l) => _message((l.error as DioException).response?.data['message']),
         (r) {

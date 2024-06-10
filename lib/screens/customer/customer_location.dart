@@ -18,166 +18,171 @@ class CustomerLocationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          ConstrainedBox(
-            constraints: BoxConstraints(
-              minWidth: MediaQuery.of(context).size.width,
-              maxHeight: MediaQuery.of(context).size.height * .3,
-            ),
-            child: Image.asset('assets/images/customer_location.png',
-                fit: BoxFit.fitWidth),
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(S.of(context).hello,
-                  style: Theme.of(context).textTheme.titleLarge),
-              const Text(' '),
-              Text(context.read<UserBloc>().state.user.userName,
-                  style: Theme.of(context).textTheme.titleLarge),
-              Text(',', style: Theme.of(context).textTheme.titleLarge)
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * .35,
-                height: ThemeSelector.statics.defaultMicroGap,
-                decoration:
-                    BoxDecoration(color: ThemeSelector.colors.secondary),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) => context.router.replaceAll([HomeRoute()]),
+      child: Scaffold(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                minWidth: MediaQuery.of(context).size.width,
+                maxHeight: MediaQuery.of(context).size.height * .3,
               ),
-              SizedBox(width: ThemeSelector.statics.defaultMicroGap),
-              Container(
-                width: ThemeSelector.statics.defaultMicroGap,
-                height: ThemeSelector.statics.defaultMicroGap,
-                decoration: BoxDecoration(color: ThemeSelector.colors.primary),
-              ),
-            ],
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * .75,
-            child: Text(
-              S
-                  .of(context)
-                  .pleaseEnterYourLocationOrAllowAccessToYourLocationToFindChefsNearYou,
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.center,
+              child: Image.asset('assets/images/customer_location.png',
+                  fit: BoxFit.fitWidth),
             ),
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultGap),
-          Expanded(
-              child: BlocProvider(
-            create: (context) => AddressBloc(),
-            child: BlocConsumer<AddressBloc, AddressState>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultMediumGap),
-                  child: PaginationTemplate(
-                    scrollDirection: Axis.vertical,
-                    loadDate: () {
-                      context.read<AddressBloc>().add(
-                          AddressEvent.getAddressListEvent(context: context));
-                    },
-                    child: Column(
+            SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(S.of(context).hello,
+                    style: Theme.of(context).textTheme.titleLarge),
+                const Text(' '),
+                Text(context.read<UserBloc>().state.user.userName,
+                    style: Theme.of(context).textTheme.titleLarge),
+                Text(',', style: Theme.of(context).textTheme.titleLarge)
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * .35,
+                  height: ThemeSelector.statics.defaultMicroGap,
+                  decoration:
+                      BoxDecoration(color: ThemeSelector.colors.secondary),
+                ),
+                SizedBox(width: ThemeSelector.statics.defaultMicroGap),
+                Container(
+                  width: ThemeSelector.statics.defaultMicroGap,
+                  height: ThemeSelector.statics.defaultMicroGap,
+                  decoration:
+                      BoxDecoration(color: ThemeSelector.colors.primary),
+                ),
+              ],
+            ),
+            SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * .75,
+              child: Text(
+                S
+                    .of(context)
+                    .pleaseEnterYourLocationOrAllowAccessToYourLocationToFindChefsNearYou,
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(height: ThemeSelector.statics.defaultGap),
+            Expanded(
+                child: BlocProvider(
+              create: (context) => AddressBloc(),
+              child: BlocConsumer<AddressBloc, AddressState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ThemeSelector.statics.defaultMediumGap),
+                    child: PaginationTemplate(
+                      scrollDirection: Axis.vertical,
+                      loadDate: () {
+                        context.read<AddressBloc>().add(
+                            AddressEvent.getAddressListEvent(context: context));
+                      },
+                      child: Column(
+                        children: [
+                          if (state.paginationHelper.isLoading) Loading(),
+                          if (!state.paginationHelper.isLoading)
+                            for (var i = 0; i < state.addressList.length; i++)
+                              if (state.addressList[i].isDeleted != true)
+                                _LocationCard(address: state.addressList[i]),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )),
+            Column(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    context.router.replaceAll([HomeRoute()]);
+                  },
+                  child: Container(
+                    width: ThemeSelector.statics.buttonWidth,
+                    height: ThemeSelector.statics.defaultTitleGapLarge,
+                    padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+                    decoration: BoxDecoration(
+                        color: ThemeSelector.colors.primary,
+                        borderRadius: BorderRadius.circular(
+                            ThemeSelector.statics.buttonBorderRadius)),
+                    child: Center(
+                      child: Text(
+                        S.of(context).confirmLocation,
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => LocationScreen(
+                              routeFn: ({Address? address}) {
+                                context.read<UserBloc>().add(
+                                    UserUpdateLocationEvent(address: address!));
+                                context.router.replaceAll([HomeRoute()]);
+                              },
+                              isBack: true,
+                            )));
+                  },
+                  child: Container(
+                    width: ThemeSelector.statics.buttonWidth,
+                    height: ThemeSelector.statics.defaultTitleGapLarge,
+                    padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: ThemeSelector.colors.secondary, width: 1),
+                      borderRadius: BorderRadius.circular(
+                          ThemeSelector.statics.buttonBorderRadius),
+                    ),
+                    child: Row(
                       children: [
-                        if (state.paginationHelper.isLoading) Loading(),
-                        if (!state.paginationHelper.isLoading)
-                          for (var i = 0; i < state.addressList.length; i++)
-                            if (state.addressList[i].isDeleted != true)
-                              _LocationCard(address: state.addressList[i]),
+                        Container(
+                          width: 27,
+                          height: 27,
+                          padding:
+                              EdgeInsets.all(ThemeSelector.statics.defaultGap),
+                          decoration: BoxDecoration(
+                            color: ThemeSelector.colors.secondary,
+                            borderRadius: BorderRadius.circular(27),
+                          ),
+                          child: SvgPicture.asset('assets/images/location.svg',
+                              fit: BoxFit.fill),
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              S.of(context).searchOrEnterAnAddress,
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 27,
+                          height: 27,
+                        ),
                       ],
                     ),
                   ),
-                );
-              },
+                ),
+              ],
             ),
-          )),
-          Column(
-            children: [
-              TextButton(
-                onPressed: () {
-                  context.router.replaceAll([HomeRoute()]);
-                },
-                child: Container(
-                  width: ThemeSelector.statics.buttonWidth,
-                  height: ThemeSelector.statics.defaultTitleGapLarge,
-                  padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
-                  decoration: BoxDecoration(
-                      color: ThemeSelector.colors.primary,
-                      borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.buttonBorderRadius)),
-                  child: Center(
-                    child: Text(
-                      S.of(context).confirmLocation,
-                      style: Theme.of(context).textTheme.displaySmall,
-                    ),
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => LocationScreen(
-                            routeFn: ({Address? address}) {
-                              context.read<UserBloc>().add(
-                                  UserUpdateLocationEvent(address: address!));
-                              context.router.replaceAll([HomeRoute()]);
-                            },
-                            isBack: true,
-                          )));
-                },
-                child: Container(
-                  width: ThemeSelector.statics.buttonWidth,
-                  height: ThemeSelector.statics.defaultTitleGapLarge,
-                  padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: ThemeSelector.colors.secondary, width: 1),
-                    borderRadius: BorderRadius.circular(
-                        ThemeSelector.statics.buttonBorderRadius),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 27,
-                        height: 27,
-                        padding:
-                            EdgeInsets.all(ThemeSelector.statics.defaultGap),
-                        decoration: BoxDecoration(
-                          color: ThemeSelector.colors.secondary,
-                          borderRadius: BorderRadius.circular(27),
-                        ),
-                        child: SvgPicture.asset('assets/images/location.svg',
-                            fit: BoxFit.fill),
-                      ),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                            S.of(context).searchOrEnterAnAddress,
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 27,
-                        height: 27,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-        ],
+            SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+          ],
+        ),
       ),
     );
   }

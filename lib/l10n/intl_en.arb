@@ -249,5 +249,6 @@
 	"areYouSureYouWantToLogout": "Are you sure you want to logout?",
 	"areYouSureYouWantToLeave": "Are you sure you want to leave?",
 	"logout": "Logout",
-	"leave": "Leave"
+	"leave": "Leave",
+	"pleaseSelectLocation" : "Please Select Location"
 }

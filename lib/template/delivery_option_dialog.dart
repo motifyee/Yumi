@@ -45,16 +45,15 @@ class DeliveryOptionDialog extends StatelessWidget {
                 return Row(
                   children: [
                     Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          context
-                              .read<BasketCubit>()
-                              .updateDeliverPickUp(isDelivery: false);
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  ThemeSelector.statics.defaultInputGap),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ThemeSelector.statics.defaultGap),
+                        child: TextButton(
+                          onPressed: () {
+                            context
+                                .read<BasketCubit>()
+                                .updateDeliverPickUp(isDelivery: false);
+                          },
                           child: Row(
                             children: [
                               Container(
@@ -84,16 +83,15 @@ class DeliveryOptionDialog extends StatelessWidget {
                       ),
                     ),
                     Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          context
-                              .read<BasketCubit>()
-                              .updateDeliverPickUp(isDelivery: true);
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  ThemeSelector.statics.defaultInputGap),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ThemeSelector.statics.defaultGap),
+                        child: TextButton(
+                          onPressed: () {
+                            context
+                                .read<BasketCubit>()
+                                .updateDeliverPickUp(isDelivery: true);
+                          },
                           child: Row(
                             children: [
                               Container(
