@@ -139,7 +139,10 @@ class DriverOrderScreen extends StatelessWidget {
                                   : ApiKeys.preOrderDriverAvailable,
                               orderCardTargetPage:
                                   OrderCardTargetPage.driverAccept,
-                              signals: const [Signals.neworderreceived],
+                              signals: const [
+                                Signals.neworderreceived,
+                                Signals.driveraccept
+                              ],
                             ),
                           );
                   },
