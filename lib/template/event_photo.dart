@@ -155,6 +155,7 @@ class EventsPhoto extends StatelessWidget {
               final p = await G.rd<ProfileCubit>().uploadFormPhotos(photos);
               G.rd<ProfileCubit>().getProfileForm();
 
+              if (!fieldState.mounted) return;
               return fieldState.didChange(p.eventPhotos);
             }
 

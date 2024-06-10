@@ -174,7 +174,7 @@ class VerifyOTPSheetContent extends StatelessWidget {
             width: 200,
             child: OTP(
               onInput: (value, _, __) {
-                // counter.setValue(value);
+                counter.setValue(value);
               },
             ),
           ),
