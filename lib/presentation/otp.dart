@@ -116,7 +116,7 @@ class _OTPState extends State<OTP> {
             if (value.isEmpty && value == otp[idx]) return;
             setState(() {
               otp[idx] = value;
-              context.read<CountDownCubit>().setValue(otp.join(''));
+              // context.read<CountDownCubit>().setValue(otp.join(''));
             });
             // FocusScope.of(context).nextFocus();
             var i = idx < 3 ? idx + 1 : idx;

@@ -282,6 +282,8 @@ class LocationScreen extends StatelessWidget {
   Widget? addressForm(Address addressState, BuildContext context) {
     Address address = addressState.copyWith();
     bool validate() {
+      if (!(formKey.currentState?.validate() ?? false)) return false;
+
       var values = [
         [
           address.location?.isEmpty ?? true,
