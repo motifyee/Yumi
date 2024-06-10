@@ -5,6 +5,7 @@ import 'package:yumi/service/chef_service.dart';
 
 class AfterReconnectSignalr {
   static reconnectedCall() async {
+    print('AfterReconnectSignalr request  .............');
     if (G.isCustomerApp) return;
     await ChefService.getChefStatus(
             accountId: G.context.read<UserBloc>().state.user.id)
