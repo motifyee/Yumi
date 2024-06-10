@@ -5,6 +5,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:logging/logging.dart';
 import 'package:signalr_netcore/json_hub_protocol.dart';
 import 'package:signalr_netcore/signalr_client.dart';
+import 'package:yumi/app/core/signal_r/after_reconnect_signalr.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/statics/api_statics.dart';
 
@@ -171,6 +172,7 @@ void onreconnecting({Exception? error}) {
 
 void onreconnected({String? connectionId}) {
   debugPrint("SignalR re-connected");
+  AfterReconnectSignalr.reconnectedCall();
 }
 
 void onstarted(_) {
