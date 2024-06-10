@@ -233,6 +233,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseEnterYourLocationOrAllowAccessToYourLocationToFindChefsNearYou":
             MessageLookupByLibrary.simpleMessage(
                 "Please enter your location or allow access to your location to ﬁnd chefs near you."),
+        "pleaseSelectLocation":
+            MessageLookupByLibrary.simpleMessage("Please Select Location"),
         "pleaseSpecifyTheDayTimeOfDelivery":
             MessageLookupByLibrary.simpleMessage(
                 "Please specify the day & time of delivery"),
