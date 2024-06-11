@@ -6,7 +6,7 @@ import 'package:dio/io.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/global.dart';
@@ -53,7 +53,6 @@ class DioClient {
 
           if (error.response?.statusCode == 401) {
             G.rd<UserCubit>().reset();
-            // G.context.read<xUserBloc>().add(UserResetEvent());
             G.context.router.replaceAll([LoginRoute()]);
           }
           handler.next(error);

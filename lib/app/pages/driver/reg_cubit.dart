@@ -22,7 +22,7 @@ import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
@@ -199,11 +199,8 @@ class RegCubit extends Cubit<NRegState> {
         password: state.signupData.password ?? user.password ?? '',
       )).then((user) {
         G.rd<UserCubit>().saveUser(user.toJson());
-        // G.read<xUserBloc>().add(SavexUserFromJsonEvent(user: user.toJson()));
 
         G.rd<UserCubit>().saveLocation(Address.fromJson(user.toJson()));
-        // G.context.read<xUserBloc>().add(
-        //     UserUpdateLocationEvent(address: Address.fromJson(user.toJson())));
       });
     }
 

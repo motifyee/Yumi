@@ -6,7 +6,7 @@ import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/auth/registeration/location_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/bloc/address/address_bloc.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
@@ -134,8 +134,7 @@ class CustomerLocationScreen extends StatelessWidget {
                         builder: (context) => LocationScreen(
                               routeFn: ({Address? address}) {
                                 G.rd<UserCubit>().saveLocation(address!);
-                                // context.read<xUserBloc>().add(
-                                //     UserUpdateLocationEvent(address: address!));
+
                                 context.router.replaceAll([HomeRoute()]);
                               },
                               isBack: true,

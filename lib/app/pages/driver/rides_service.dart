@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/app/pages/driver/model/vehicle.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bankinfo_service.dart';
 import 'package:yumi/global.dart';

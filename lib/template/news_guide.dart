@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/user/user_model.dart';
+import 'package:yumi/domain/user/entity/user.dart';
 import 'package:yumi/statics/local_storage.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/location.dart';
@@ -53,7 +53,7 @@ class NewsGuide extends StatelessWidget {
                       fontSize: ThemeSelector.fonts.font_16,
                     ),
               ),
-              StatusButton(forGuide: StatusEnum.online),
+              StatusButton(forGuide: UserStatus.online),
               Text(
                 S.of(context).thisButtonMeansThatYouAreCurrentlyAvailable,
                 textAlign: TextAlign.center,
@@ -61,7 +61,7 @@ class NewsGuide extends StatelessWidget {
                       fontSize: ThemeSelector.fonts.font_16,
                     ),
               ),
-              StatusButton(forGuide: StatusEnum.offline),
+              StatusButton(forGuide: UserStatus.offline),
               Text(
                 S.of(context).thisButtonMeansThatYouAreCurrentlyClosed,
                 textAlign: TextAlign.center,
@@ -69,7 +69,7 @@ class NewsGuide extends StatelessWidget {
                       fontSize: ThemeSelector.fonts.font_16,
                     ),
               ),
-              StatusButton(forGuide: StatusEnum.busy),
+              StatusButton(forGuide: UserStatus.busy),
               Text(
                 S.of(context).thisButtonMeansThatYouAreCurrentlyNotAvailable,
                 textAlign: TextAlign.center,

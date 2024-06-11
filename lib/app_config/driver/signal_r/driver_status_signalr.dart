@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/global.dart';
 
@@ -18,14 +18,6 @@ class DriverStatusSignalR {
           userCubit.state.user.copyWith(status: status).toJson();
 
       userCubit.saveUser(userWithStatus((p0![index] as dynamic)['statusWork']));
-
-      //   G.context.read<xUserBloc>().add(SavexUserFromJsonEvent(
-      //       user: G.context
-      //           .read<xUserBloc>()
-      //           .state
-      //           .user
-      //           .copyWith(status: (p0![index] as dynamic)['status_Work'])
-      //           .toJson()));
     });
   }
 }

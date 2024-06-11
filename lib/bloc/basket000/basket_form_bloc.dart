@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/extensions/date_time_extension.dart';
 import 'package:yumi/generated/l10n.dart';

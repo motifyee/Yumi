@@ -1,4 +1,4 @@
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/service/chef_service.dart';
 
@@ -13,13 +13,5 @@ class AfterReconnectSignalr {
     await ChefService.getChefStatus(accountId: userCubit.state.user.id).then(
       (value) => userCubit.saveUser(userWithStatus(value.data['statusWork'])),
     );
-
-    // .then((value) => G.context.read<xUserBloc>().add(UserFromJsonEvent(
-    //     user: G.context
-    //         .read<xUserBloc>()
-    //         .state
-    //         .user
-    //         .copyWith(status: value.data['statusWork'])
-    //         .toJson())));
   }
 }

@@ -13,7 +13,7 @@ import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
 import 'package:yumi/app/pages/driver/count_down/cubit/count_down_cubit.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
@@ -286,10 +286,6 @@ Future<void> _signUp(
           .rd<UserCubit>()
           .saveUser(userMap)
           .then((_) => G.rd<ProfileCubit>().getProfileForm());
-
-      // G.read<xUserBloc>().add(UserFromJsonEvent(
-      //     user: userMap,
-      //     routeAfterLogin: () => ));
 
       return reg.setAccount(reg.state.signupData, true);
     }

@@ -5,7 +5,7 @@ import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/forgot_password/forgot_password_sheet.dart';
 import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
@@ -156,33 +156,10 @@ Future performLogin(BuildContext context, LoginModel loginForm,
         context.read<RegCubit>().init();
       });
     });
-    // context.read<xUserBloc>().add(SavexUserFromJsonEvent(
-    // user: json,
-    //   routeAfterLogin: () async {
-    //     var idx = -1;
-    //     if (!(user.mobileVerified ?? false)) {
-    //       idx = RegStep.addPhone.index;
-    //     } else if (user.address?.isEmpty ?? true) {
-    //       idx = RegStep.location.index;
-    //     } else if (!G.isCustomerApp &&
-    //         (!(user.accountApproved ?? false) ||
-    //             !(user.contractApproved ?? false))) {
-    //       idx = RegStep.onboarding.index;
-    //     }
-
-    //     if (idx == -1) return G.router.replaceAll([HomeRoute()]);
-
-    //     await context.read<RegCubit>().saveStepToCache(idx).then((value) {
-    //       context.router.push(const RegisterationRoute());
-    //       context.read<RegCubit>().init();
-    //     });
-    //   },
-    // ));
 
     print('login user .................................');
     print(json);
 
     context.read<UserCubit>().saveLocation(Address.fromJson(json));
-    // .add(UserUpdateLocationEvent(address: Address.fromJson(json)));
   }).catchError((onError) => G.snackBar(S.of(context).connectionError));
 }

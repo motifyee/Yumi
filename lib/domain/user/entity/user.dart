@@ -2,12 +2,12 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'user_model.freezed.dart';
-part 'user_model.g.dart';
+part 'user.freezed.dart';
+part 'user.g.dart';
 
 @freezed
-class UserModel with _$UserModel {
-  const factory UserModel({
+class User with _$User {
+  const factory User({
     String? chefId,
     String? driverId,
     String? customerId,
@@ -33,12 +33,11 @@ class UserModel with _$UserModel {
     @JsonKey(name: 'mobile_Verified_Date') String? mobileVerifiedDate,
   }) = _Initial;
 
-  const UserModel._();
+  const User._();
 
   String get id => chefId ?? driverId ?? customerId ?? '';
 
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }
 
-enum StatusEnum { offline, online, busy }
+enum UserStatus { offline, online, busy }

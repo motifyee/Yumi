@@ -14,7 +14,7 @@ import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
 import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.dart';

@@ -6,7 +6,7 @@ import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/profile_card.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';

@@ -7,7 +7,7 @@ import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/app_config/chef/chef_signalr.dart';
 import 'package:yumi/app_config/customer/customer_signalr.dart';
 import 'package:yumi/app_config/driver/driver_signalr.dart';
-import 'package:yumi/model/user/user_model.dart';
+import 'package:yumi/domain/user/entity/user.dart';
 import 'package:yumi/service/user_status_service.dart';
 import 'package:yumi/statics/local_storage.dart';
 
@@ -25,7 +25,7 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> saveUser(dynamic userData) async {
     await LocalStorage.sharedRef.setValue(LocalStorage.user, userData);
-    UserModel user = UserModel.fromJson(userData);
+    User user = User.fromJson(userData);
 
     /// must init Signalr with access token
     Signalr.accessToken = user.accessToken;
@@ -47,7 +47,7 @@ class UserCubit extends Cubit<UserState> {
     emit(state.copyWith(user: user));
   }
 
-  Future<UserModel?> loadUser() async {
+  Future<User?> loadUser() async {
     Map<String, dynamic>? user =
         await LocalStorage.sharedRef.getValue(LocalStorage.user);
     Map<String, dynamic>? userLocation =
@@ -59,20 +59,20 @@ class UserCubit extends Cubit<UserState> {
       saveUser(user);
 
       if (userLocation != null) saveLocation(Address.fromJson(userLocation));
-      return UserModel.fromJson(user);
+      return User.fromJson(user);
     }
 
     return null;
   }
 
-  updateStatus([StatusEnum? userStatus]) async {
+  updateStatus([UserStatus? userStatus]) async {
     if (state.loading) return;
     emit(state.copyWith(loading: true));
 
     int status = state.user.status == 1 ? 0 : 1;
-    if (userStatus == StatusEnum.offline) status = 0;
-    if (userStatus == StatusEnum.online) status = 1;
-    if (userStatus == StatusEnum.busy) status = 2;
+    if (userStatus == UserStatus.offline) status = 0;
+    if (userStatus == UserStatus.online) status = 1;
+    if (userStatus == UserStatus.busy) status = 2;
     try {
       await UserStatusService.updateStatus(status: status);
 

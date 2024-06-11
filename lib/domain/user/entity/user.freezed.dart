@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user_model.dart';
+part of 'user.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-UserModel _$UserModelFromJson(Map<String, dynamic> json) {
+User _$UserFromJson(Map<String, dynamic> json) {
   return _Initial.fromJson(json);
 }
 
 /// @nodoc
-mixin _$UserModel {
+mixin _$User {
   String? get chefId => throw _privateConstructorUsedError;
   String? get driverId => throw _privateConstructorUsedError;
   String? get customerId => throw _privateConstructorUsedError;
@@ -57,14 +57,13 @@ mixin _$UserModel {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserModelCopyWith<UserModel> get copyWith =>
-      throw _privateConstructorUsedError;
+  $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserModelCopyWith<$Res> {
-  factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
-      _$UserModelCopyWithImpl<$Res, UserModel>;
+abstract class $UserCopyWith<$Res> {
+  factory $UserCopyWith(User value, $Res Function(User) then) =
+      _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
       {String? chefId,
@@ -92,9 +91,9 @@ abstract class $UserModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
-    implements $UserModelCopyWith<$Res> {
-  _$UserModelCopyWithImpl(this._value, this._then);
+class _$UserCopyWithImpl<$Res, $Val extends User>
+    implements $UserCopyWith<$Res> {
+  _$UserCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -221,8 +220,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
 }
 
 /// @nodoc
-abstract class _$$InitialImplCopyWith<$Res>
-    implements $UserModelCopyWith<$Res> {
+abstract class _$$InitialImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$$InitialImplCopyWith(
           _$InitialImpl value, $Res Function(_$InitialImpl) then) =
       __$$InitialImplCopyWithImpl<$Res>;
@@ -255,7 +253,7 @@ abstract class _$$InitialImplCopyWith<$Res>
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$UserModelCopyWithImpl<$Res, _$InitialImpl>
+    extends _$UserCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -476,7 +474,7 @@ class _$InitialImpl extends _Initial {
 
   @override
   String toString() {
-    return 'UserModel(chefId: $chefId, driverId: $driverId, customerId: $customerId, message: $message, userName: $userName, email: $email, password: $password, code: $code, multiAddressID: $multiAddressID, accessToken: $accessToken, expiresIn: $expiresIn, address: $address, addressName: $addressName, lat: $lat, long: $long, location: $location, status: $status, accountApproved: $accountApproved, contractApproved: $contractApproved, accountApprovedDate: $accountApprovedDate, mobileVerified: $mobileVerified, mobileVerifiedDate: $mobileVerifiedDate)';
+    return 'User(chefId: $chefId, driverId: $driverId, customerId: $customerId, message: $message, userName: $userName, email: $email, password: $password, code: $code, multiAddressID: $multiAddressID, accessToken: $accessToken, expiresIn: $expiresIn, address: $address, addressName: $addressName, lat: $lat, long: $long, location: $location, status: $status, accountApproved: $accountApproved, contractApproved: $contractApproved, accountApprovedDate: $accountApprovedDate, mobileVerified: $mobileVerified, mobileVerifiedDate: $mobileVerifiedDate)';
   }
 
   @override
@@ -564,7 +562,7 @@ class _$InitialImpl extends _Initial {
   }
 }
 
-abstract class _Initial extends UserModel {
+abstract class _Initial extends User {
   const factory _Initial(
       {final String? chefId,
       final String? driverId,

@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserState {
-  UserModel get user => throw _privateConstructorUsedError;
+  User get user => throw _privateConstructorUsedError;
   Address? get address => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
 
@@ -30,9 +30,9 @@ abstract class $UserStateCopyWith<$Res> {
   factory $UserStateCopyWith(UserState value, $Res Function(UserState) then) =
       _$UserStateCopyWithImpl<$Res, UserState>;
   @useResult
-  $Res call({UserModel user, Address? address, bool loading});
+  $Res call({User user, Address? address, bool loading});
 
-  $UserModelCopyWith<$Res> get user;
+  $UserCopyWith<$Res> get user;
   $AddressCopyWith<$Res>? get address;
 }
 
@@ -57,7 +57,7 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+              as User,
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -71,8 +71,8 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
 
   @override
   @pragma('vm:prefer-inline')
-  $UserModelCopyWith<$Res> get user {
-    return $UserModelCopyWith<$Res>(_value.user, (value) {
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
       return _then(_value.copyWith(user: value) as $Val);
     });
   }
@@ -98,10 +98,10 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({UserModel user, Address? address, bool loading});
+  $Res call({User user, Address? address, bool loading});
 
   @override
-  $UserModelCopyWith<$Res> get user;
+  $UserCopyWith<$Res> get user;
   @override
   $AddressCopyWith<$Res>? get address;
 }
@@ -125,7 +125,7 @@ class __$$InitialImplCopyWithImpl<$Res>
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+              as User,
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -142,11 +142,11 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
-      {this.user = const UserModel(), this.address, this.loading = false});
+      {this.user = const User(), this.address, this.loading = false});
 
   @override
   @JsonKey()
-  final UserModel user;
+  final User user;
   @override
   final Address? address;
   @override
@@ -180,12 +180,12 @@ class _$InitialImpl implements _Initial {
 
 abstract class _Initial implements UserState {
   const factory _Initial(
-      {final UserModel user,
+      {final User user,
       final Address? address,
       final bool loading}) = _$InitialImpl;
 
   @override
-  UserModel get user;
+  User get user;
   @override
   Address? get address;
   @override

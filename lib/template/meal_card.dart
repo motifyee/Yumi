@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/forms/meal_form.dart';

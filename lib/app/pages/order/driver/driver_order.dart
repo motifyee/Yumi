@@ -5,7 +5,7 @@ import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';

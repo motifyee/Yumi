@@ -5,13 +5,13 @@ import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/model/user/user_model.dart';
+import 'package:yumi/domain/user/entity/user.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/action_button.dart';
@@ -161,9 +161,7 @@ class ChefOrder extends StatelessWidget {
                         .add(const NewsEvent(selectedList: 2));
                     controller.jumpToPage(2);
                     if (context.read<UserCubit>().state.user.status == 1) {
-                      G.rd<UserCubit>().updateStatus(StatusEnum.busy);
-                      // context.read<xUserBloc>().add(
-                      //     UserStatusUpdateEvent(statusEnum: StatusEnum.busy));
+                      G.rd<UserCubit>().updateStatus(UserStatus.busy);
                     }
                   },
                 ),
@@ -183,9 +181,7 @@ class ChefOrder extends StatelessWidget {
                         .add(const NewsEvent(selectedList: 3));
                     controller.jumpToPage(3);
                     if (context.read<UserCubit>().state.user.status == 2) {
-                      G.rd<UserCubit>().updateStatus(StatusEnum.online);
-                      // context.read<xUserBloc>().add(
-                      //     UserStatusUpdateEvent(statusEnum: StatusEnum.online));
+                      G.rd<UserCubit>().updateStatus(UserStatus.online);
                     }
                   },
                 ),

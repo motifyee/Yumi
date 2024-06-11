@@ -8,7 +8,7 @@ import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';

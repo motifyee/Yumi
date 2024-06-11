@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
-import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/domain/notification/entity/notification.dart';
 import 'package:yumi/global.dart';
 
