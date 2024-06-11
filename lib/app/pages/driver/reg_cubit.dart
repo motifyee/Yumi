@@ -171,16 +171,19 @@ class RegCubit extends Cubit<NRegState> {
     if (step >= 0) _navigateToIdx(step);
 
     await getOnboardingProgress();
-    await G.rd<ProfileCubit>().getProfileForm();
-    if (G.isDriverApp) await getVehicle();
-    if (G.isChefApp) {
-      G.read<MealListBloc>().add(MealListResetBlocEvent());
-      G.read<MealListBloc>().add(
-          MealListUpdateEvent(chefId: G.rd<UserCubit>().state.user.chefId));
-    }
-    if (!G.isCustomerApp) {
-      G.rd<ScheduleCubit>().reset();
-      await G.rd<ScheduleCubit>().loadSchedule();
+
+    if (step > 0) {
+      await G.rd<ProfileCubit>().getProfileForm();
+      if (G.isDriverApp) await getVehicle();
+      if (G.isChefApp) {
+        G.read<MealListBloc>().add(MealListResetBlocEvent());
+        G.read<MealListBloc>().add(
+            MealListUpdateEvent(chefId: G.rd<UserCubit>().state.user.chefId));
+      }
+      if (!G.isCustomerApp) {
+        G.rd<ScheduleCubit>().reset();
+        await G.rd<ScheduleCubit>().loadSchedule();
+      }
     }
 
     setLoading(false);
