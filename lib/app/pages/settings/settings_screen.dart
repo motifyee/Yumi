@@ -6,7 +6,8 @@ import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/profile_card.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -84,9 +85,7 @@ class SettingScreen extends StatelessWidget {
                                     gravity: ToastGravity.CENTER,
                                   );
 
-                                  context
-                                      .read<UserBloc>()
-                                      .add(UserResetEvent());
+                                  context.read<UserCubit>().reset();
 
                                   context.router.replaceAll([LoginRoute()]);
                                 });

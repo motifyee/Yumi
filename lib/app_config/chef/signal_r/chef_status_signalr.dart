@@ -1,23 +1,31 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/global.dart';
 
 class ChefStatusSignalR {
   static listen() {
     Signalr.on(Signals.updatechefstatus, (p0) {
       int index = p0?.indexWhere((dynamic e) =>
-              G.context.read<UserBloc>().state.user.id == e['chef_ID']) ??
+              G.context.read<UserCubit>().state.user.id == e['chef_ID']) ??
           -1;
-      if (index > -1) {
-        G.context.read<UserBloc>().add(UserFromJsonEvent(
-            user: G.context
-                .read<UserBloc>()
-                .state
-                .user
-                .copyWith(status: (p0![index] as dynamic)['status_Work'])
-                .toJson()));
-      }
+
+      if (index <= -1) return;
+
+      final userCubit = G.rd<UserCubit>();
+      dynamic userWithStatus(int status) =>
+          userCubit.state.user.copyWith(status: status).toJson();
+
+      userCubit.saveUser(userWithStatus((p0![index] as dynamic)['statusWork']));
+
+      // G.context.read<xUserBloc>().add(SavexUserFromJsonEvent(
+      //     user: G.context
+      //         .read<xUserBloc>()
+      //         .state
+      //         .user
+      //         .copyWith(status: (p0![index] as dynamic)['status_Work'])
+      //         .toJson()));
     });
   }
 }

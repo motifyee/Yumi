@@ -1,23 +1,23 @@
 part of 'user_bloc.dart';
 
 @immutable
-class UserState extends Equatable {
+class xUserState extends Equatable {
   final UserModel user;
   final Address? address;
   final bool loading;
 
-  const UserState({
+  const xUserState({
     required this.user,
     this.address,
     this.loading = false,
   });
 
-  UserState copyWith({
+  xUserState copyWith({
     UserModel? user,
     Address? address,
     bool? loading,
   }) {
-    return UserState(
+    return xUserState(
       user: user ?? this.user,
       address: address ?? this.address,
       loading: loading ?? this.loading,

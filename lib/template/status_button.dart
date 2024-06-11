@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/user/user_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -12,7 +13,7 @@ class StatusButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserBloc, UserState>(
+    return BlocBuilder<UserCubit, UserState>(
       builder: (context, state) {
         StatusEnum status = StatusEnum.online;
         switch (state.user.status) {
@@ -32,7 +33,8 @@ class StatusButton extends StatelessWidget {
               ? null
               : () {
                   if (state.loading) return;
-                  context.read<UserBloc>().add(UserStatusUpdateEvent());
+                  context.read<UserCubit>().updateStatus();
+                  // context.read<xUserBloc>().add(UserStatusUpdateEvent());
                 },
           style: ButtonStyle(
             backgroundColor: WidgetStateProperty.resolveWith(

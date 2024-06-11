@@ -21,7 +21,7 @@ import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
 import 'package:yumi/bloc/meal/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
 
 class DriverAppConfig implements AppConfig {
   @override
@@ -32,7 +32,7 @@ class DriverAppConfig implements AppConfig {
   RootStackRouter get appRouter => _appRouter;
 
   final List<SingleChildWidget> _providers = [
-    BlocProvider(create: (context) => UserBloc()),
+    BlocProvider(create: (context) => UserCubit()),
     BlocProvider(create: (context) => BankInfoBloc()),
     BlocProvider(create: (context) => CategoriesBloc()),
     BlocProvider(create: (context) => MealFormBloc()),

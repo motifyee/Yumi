@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/statics/theme_statics.dart';
 
 class Location extends StatelessWidget {
@@ -18,7 +19,7 @@ class Location extends StatelessWidget {
           height: ThemeSelector.statics.iconSizeSmall,
         ),
         SizedBox(width: ThemeSelector.statics.defaultGap),
-        BlocConsumer<UserBloc, UserState>(
+        BlocConsumer<UserCubit, UserState>(
           listener: (context, state) {},
           builder: (context, state) {
             return SizedBox(

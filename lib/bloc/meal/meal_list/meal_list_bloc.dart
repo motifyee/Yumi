@@ -3,7 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -38,8 +39,8 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
             if (state.selectedCategory == 0) {
               res = await MealService.getMeals(
                 context: event.context ?? G.cContext,
-                lat: G.context.read<UserBloc>().state.address?.latitude,
-                long: G.context.read<UserBloc>().state.address?.longitude,
+                lat: G.context.read<UserCubit>().state.address?.latitude,
+                long: G.context.read<UserCubit>().state.address?.longitude,
                 isPreorder: event.menuTarget != null
                     ? event.menuTarget == MenuTarget.preOrder
                     : state.menuTarget == MenuTarget.preOrder,
@@ -57,8 +58,8 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
               res = await MealService.getMealsByCategory(
                 context: event.context ?? G.cContext,
                 categoryId: state.selectedCategory,
-                lat: G.context.read<UserBloc>().state.address?.latitude,
-                long: G.context.read<UserBloc>().state.address?.longitude,
+                lat: G.context.read<UserCubit>().state.address?.latitude,
+                long: G.context.read<UserCubit>().state.address?.longitude,
                 isPreorder: event.menuTarget != null
                     ? event.menuTarget == MenuTarget.preOrder
                     : state.menuTarget == MenuTarget.preOrder,

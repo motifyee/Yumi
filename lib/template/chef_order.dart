@@ -5,9 +5,11 @@ import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/model/user/user_model.dart';
 import 'package:yumi/statics/api_statics.dart';
@@ -158,9 +160,10 @@ class ChefOrder extends StatelessWidget {
                         .read<NewsBloc>()
                         .add(const NewsEvent(selectedList: 2));
                     controller.jumpToPage(2);
-                    if (context.read<UserBloc>().state.user.status == 1) {
-                      context.read<UserBloc>().add(
-                          UserStatusUpdateEvent(statusEnum: StatusEnum.busy));
+                    if (context.read<UserCubit>().state.user.status == 1) {
+                      G.rd<UserCubit>().updateStatus(StatusEnum.busy);
+                      // context.read<xUserBloc>().add(
+                      //     UserStatusUpdateEvent(statusEnum: StatusEnum.busy));
                     }
                   },
                 ),
@@ -179,9 +182,10 @@ class ChefOrder extends StatelessWidget {
                         .read<NewsBloc>()
                         .add(const NewsEvent(selectedList: 3));
                     controller.jumpToPage(3);
-                    if (context.read<UserBloc>().state.user.status == 2) {
-                      context.read<UserBloc>().add(
-                          UserStatusUpdateEvent(statusEnum: StatusEnum.online));
+                    if (context.read<UserCubit>().state.user.status == 2) {
+                      G.rd<UserCubit>().updateStatus(StatusEnum.online);
+                      // context.read<xUserBloc>().add(
+                      //     UserStatusUpdateEvent(statusEnum: StatusEnum.online));
                     }
                   },
                 ),

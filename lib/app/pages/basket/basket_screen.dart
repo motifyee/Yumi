@@ -8,7 +8,8 @@ import 'package:yumi/app/pages/basket/widgets/basket_meal_card.dart';
 import 'package:yumi/app/pages/basket/widgets/chef_meals.dart';
 import 'package:yumi/app/pages/basket/widgets/confirm_checkout_basket.dart';
 import 'package:yumi/app/pages/basket/widgets/expired_basket.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -82,7 +83,7 @@ class BasketScreen extends StatelessWidget {
                       ),
                 ),
                 Text(
-                  context.read<UserBloc>().state.address?.addressTitle ?? '',
+                  context.read<UserCubit>().state.address?.addressTitle ?? '',
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],

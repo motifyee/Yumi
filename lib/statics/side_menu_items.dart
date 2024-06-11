@@ -6,7 +6,8 @@ import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -151,7 +152,7 @@ class _AppMenuList {
             },
           ),
           onRender: () {
-            if (context.read<UserBloc>().state.user.accessToken.isNotEmpty) {
+            if (context.read<UserCubit>().state.user.accessToken.isNotEmpty) {
               context.read<WalletCubit>().getWallet();
             }
           },
@@ -270,7 +271,7 @@ class _AppMenuList {
             },
           ),
           onRender: () {
-            if (context.read<UserBloc>().state.user.accessToken.isNotEmpty) {
+            if (context.read<UserCubit>().state.user.accessToken.isNotEmpty) {
               context.read<WalletCubit>().getWallet();
             }
           },
@@ -345,7 +346,7 @@ class _AppMenuList {
             },
           ),
           onRender: () {
-            if (context.read<UserBloc>().state.user.accessToken.isNotEmpty) {
+            if (context.read<UserCubit>().state.user.accessToken.isNotEmpty) {
               context.read<WalletCubit>().getWallet();
             }
           },

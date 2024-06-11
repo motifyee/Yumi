@@ -6,7 +6,8 @@ import 'package:dio/io.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -29,7 +30,8 @@ class DioClient {
     originApi = value;
   }
 
-  static String get token => G.cContext.read<UserBloc>().state.user.accessToken;
+  static String get token =>
+      G.cContext.read<UserCubit>().state.user.accessToken;
   static Dio get dio => simpleDio();
   static Dio simpleDio([BuildContext? context]) {
     G.listenInternetChecker();
@@ -50,7 +52,8 @@ class DioClient {
           debugPrint('dio error <<<<<<<<<<<<<<<<<<<<<<<<');
 
           if (error.response?.statusCode == 401) {
-            G.context.read<UserBloc>().add(UserResetEvent());
+            G.rd<UserCubit>().reset();
+            // G.context.read<xUserBloc>().add(UserResetEvent());
             G.context.router.replaceAll([LoginRoute()]);
           }
           handler.next(error);

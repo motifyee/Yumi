@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/template/dialog.dart';
@@ -18,22 +19,24 @@ class RegisterationScreen extends StatelessWidget {
 
     return Builder(
       builder: (context) {
-        context.read<UserBloc>().add(
-              UserFromSharedRefEvent(
-                context: context,
-                route: null,
-                afterFetchSuccess: (_, __, user) {
-                  if (!regCubit.state.registerationStarted) {
-                    regCubit.init();
-                  }
-                },
-                autoLogin: (p0) {
-                  if (!regCubit.state.registerationStarted) {
-                    regCubit.init();
-                  }
-                },
-              ),
-            );
+        G.rd<UserCubit>().loadUser().then((_) {
+          if (!regCubit.state.registerationStarted) {
+            regCubit.init();
+          }
+        });
+
+        // context.read<xUserBloc>().add(
+        //       UserFromSharedRefEvent(
+        //         context: context,
+        //         route: null,
+        //         afterFetchSuccess: (_, __, user) {},
+        //         autoLogin: (p0) {
+        //           if (!regCubit.state.registerationStarted) {
+        //             regCubit.init();
+        //           }
+        //         },
+        //       ),
+        //     );
 
         if (regCubit.state.partialFlow) return const AutoRouter();
 
@@ -66,12 +69,12 @@ Future<void> askToLogout(BuildContext context, {bool isBack = false}) async {
     return;
   }
 
-  bool isLoggedIn = context.read<UserBloc>().state.user.accessToken.isNotEmpty;
+  bool isLoggedIn = context.read<UserCubit>().state.user.accessToken.isNotEmpty;
   await showAlertDialog(
     context: context,
     title: Text(isLoggedIn ? S.of(context).logout : S.of(context).leave),
     content: Padding(
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Text(isLoggedIn
           ? S.of(context).areYouSureYouWantToLogout
           : S.of(context).areYouSureYouWantToLeave),
@@ -79,7 +82,7 @@ Future<void> askToLogout(BuildContext context, {bool isBack = false}) async {
     actions: {
       'Cancel': null,
       'Ok': (ctx) {
-        G.read<UserBloc>().add(UserResetEvent());
+        G.rd<UserCubit>().reset();
         G.rd<RegCubit>().finish(false);
       },
     },

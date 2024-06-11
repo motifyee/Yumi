@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/user/user_model.dart';
 import 'package:yumi/statics/local_storage.dart';
@@ -40,7 +41,7 @@ class NewsGuide extends StatelessWidget {
                     horizontal: ThemeSelector.statics.defaultGap),
                 width: MediaQuery.of(context).size.width,
                 child: Text(
-                  '${S.of(context).hi} ${context.read<UserBloc>().state.user.userName},',
+                  '${S.of(context).hi} ${context.read<UserCubit>().state.user.userName},',
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),

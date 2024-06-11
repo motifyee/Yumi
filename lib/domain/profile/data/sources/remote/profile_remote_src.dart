@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/profile/data/sources/profile_source.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
@@ -22,7 +23,7 @@ class ProfileRemoteSrc extends ProfileSrc {
 
     return Profile.fromJson(res.data).copyWith(
       updatedBy: '366',
-      email: G.read<UserBloc>().state.user.email,
+      email: G.rd<UserCubit>().state.user.email,
     );
   }
 

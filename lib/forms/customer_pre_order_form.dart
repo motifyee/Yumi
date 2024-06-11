@@ -2,7 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -61,7 +62,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        'Hi ${context.read<UserBloc>().state.user.userName}',
+                        'Hi ${context.read<UserCubit>().state.user.userName}',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
@@ -226,7 +227,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                                   isSchedule: true,
                                   isPickupOnly: chef.pickupOnly == true,
                                   shippedAddressId: context
-                                      .read<UserBloc>()
+                                      .read<UserCubit>()
                                       .state
                                       .address
                                       ?.id,

@@ -5,7 +5,8 @@ import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/bloc/order/order_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -113,7 +114,7 @@ class DriverOrderScreen extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               controller: _controller,
               children: [
-                BlocBuilder<UserBloc, UserState>(
+                BlocBuilder<UserCubit, UserState>(
                   builder: (context, state) {
                     return state.user.status != 1 &&
                             menuTarget == MenuTarget.order

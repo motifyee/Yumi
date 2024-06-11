@@ -5,7 +5,8 @@ import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/forms/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
@@ -66,7 +67,7 @@ class MenuTemplate extends StatelessWidget {
                                         context: context,
                                         selectedCategory: 0,
                                         chefId: context
-                                            .read<UserBloc>()
+                                            .read<UserCubit>()
                                             .state
                                             .user
                                             .chefId,
@@ -113,7 +114,7 @@ class MenuTemplate extends StatelessWidget {
                                             context: context,
                                             selectedCategory: category.id,
                                             chefId: context
-                                                .read<UserBloc>()
+                                                .read<UserCubit>()
                                                 .state
                                                 .user
                                                 .chefId));
@@ -185,7 +186,7 @@ class MenuTemplate extends StatelessWidget {
                               MealListUpdateEvent(
                                 context: context,
                                 chefId:
-                                    context.read<UserBloc>().state.user.chefId,
+                                    context.read<UserCubit>().state.user.chefId,
                               ),
                             );
                       },
@@ -271,7 +272,7 @@ class MenuTemplate extends StatelessWidget {
                   context.read<MealListBloc>().add(
                         MealListUpdateEvent(
                           context: context,
-                          chefId: context.read<UserBloc>().state.user.chefId,
+                          chefId: context.read<UserCubit>().state.user.chefId,
                         ),
                       );
                 });

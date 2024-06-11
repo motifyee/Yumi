@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
 import 'package:yumi/app/pages/driver/model/vehicle.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bankinfo_service.dart';
 import 'package:yumi/global.dart';
@@ -38,7 +38,7 @@ class VehicleService {
   }
 
   static Future<dynamic> updateVehicle(Vehicle vehicle) async {
-    String id = G.read<UserBloc>().state.user.id;
+    String id = G.rd<UserCubit>().state.user.id;
     var v = vehicle.toJson();
     // code: getRandomString(15),
 

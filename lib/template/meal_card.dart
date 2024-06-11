@@ -6,7 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/forms/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -122,7 +123,7 @@ class MealCard extends StatelessWidget {
                             MealListUpdateEvent(
                               context: context,
                               chefId:
-                                  context.read<UserBloc>().state.user.chefId,
+                                  context.read<UserCubit>().state.user.chefId,
                             ),
                           );
                     });
@@ -171,7 +172,7 @@ class MealCard extends StatelessWidget {
                                         MealListUpdateEvent(
                                           context: context,
                                           chefId: context
-                                              .read<UserBloc>()
+                                              .read<UserCubit>()
                                               .state
                                               .user
                                               .chefId,

@@ -6,8 +6,10 @@ import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/auth/registeration/location_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/bloc/address/address_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/pagination_template.dart';
@@ -40,7 +42,7 @@ class CustomerLocationScreen extends StatelessWidget {
                 Text(S.of(context).hello,
                     style: Theme.of(context).textTheme.titleLarge),
                 const Text(' '),
-                Text(context.read<UserBloc>().state.user.userName,
+                Text(context.read<UserCubit>().state.user.userName,
                     style: Theme.of(context).textTheme.titleLarge),
                 Text(',', style: Theme.of(context).textTheme.titleLarge)
               ],
@@ -131,8 +133,9 @@ class CustomerLocationScreen extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => LocationScreen(
                               routeFn: ({Address? address}) {
-                                context.read<UserBloc>().add(
-                                    UserUpdateLocationEvent(address: address!));
+                                G.rd<UserCubit>().saveLocation(address!);
+                                // context.read<xUserBloc>().add(
+                                //     UserUpdateLocationEvent(address: address!));
                                 context.router.replaceAll([HomeRoute()]);
                               },
                               isBack: true,

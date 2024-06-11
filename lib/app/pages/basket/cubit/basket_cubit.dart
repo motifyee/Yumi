@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
@@ -156,12 +157,12 @@ class BasketCubit extends Cubit<BasketState> {
     Basket basket = state.basket;
 
     if (state.basket.shippedAddressId == null && !state.basket.isPickup) {
-      if (G.context.read<UserBloc>().state.address?.id == null) {
+      if (G.context.read<UserCubit>().state.address?.id == null) {
         return _message(S.current.pleaseSelectLocation);
       }
 
       basket = state.basket.copyWith(
-          shippedAddressId: G.context.read<UserBloc>().state.address?.id);
+          shippedAddressId: G.context.read<UserCubit>().state.address?.id);
     }
 
     _loadingIndicator();

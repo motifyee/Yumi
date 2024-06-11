@@ -15,9 +15,14 @@ import 'package:yumi/statics/local_storage.dart';
 part 'user_event.dart';
 part 'user_state.dart';
 
-class UserBloc extends Bloc<UserEvent, UserState> {
-  UserBloc()
-      : super(const UserState(
+/// UserUpdateLocationEvent  ==> to prefs & state
+/// UserFromJsonEvent        ==> to prefs & state & Signalr & callback
+/// UserFromSharedRefEvent   ==> from prefs & fromJson(callback1, updateLocation) & callback2
+/// UserStatusUpdateEvent    ==>
+/// UserResetEvent           ==> reset: prefs & state
+class xUserBloc extends Bloc<xUserEvent, xUserState> {
+  xUserBloc()
+      : super(const xUserState(
             user: UserModel(
           accessToken: '',
           chefId: '',
@@ -34,7 +39,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(state.copyWith(address: event.address));
     });
 
-    on<UserFromJsonEvent>((event, emit) async {
+    on<SavexUserFromJsonEvent>((event, emit) async {
       await LocalStorage.sharedRef.setValue(LocalStorage.user, event.user);
       UserModel user = UserModel.fromJson(event.user);
 
@@ -59,14 +64,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       if (event.routeAfterLogin != null) event.routeAfterLogin!();
     });
 
-    on<UserFromSharedRefEvent>((event, emit) async {
+    on<LoadxUserFromSharedRefEvent>((event, emit) async {
       Map<String, dynamic>? user =
           await LocalStorage.sharedRef.getValue(LocalStorage.user);
       Map<String, dynamic>? userLocation =
           await LocalStorage.sharedRef.getValue(LocalStorage.userLocation);
 
       if (user != null) {
-        add(UserFromJsonEvent(
+        add(SavexUserFromJsonEvent(
             user: user,
             routeAfterLogin: () {
               if (userLocation != null) {

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/app/pages/auth/registeration/model/address.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/service/address_service.dart';
@@ -34,8 +35,9 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     List<Address> address =
         [...event.address, ...state.addressList].unique((x) => x.id);
 
-    G.builderKey.currentContext?.read<UserBloc>().add(UserUpdateLocationEvent(
-        address: address.firstWhere((e) => e.isDefault == true)));
+    G
+        .rd<UserCubit>()
+        .saveLocation(address.firstWhere((e) => e.isDefault == true));
 
     emit(
       state.copyWith(

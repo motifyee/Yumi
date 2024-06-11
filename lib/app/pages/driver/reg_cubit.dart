@@ -22,7 +22,7 @@ import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
@@ -145,7 +145,7 @@ class RegCubit extends Cubit<NRegState> {
     var pref = await SharedPreferences.getInstance();
     var step = pref.getInt(regStepKey) ?? 0;
 
-    if (G.read<UserBloc>().state.user.accessToken.isEmpty) step = 0;
+    if (G.rd<UserCubit>().state.user.accessToken.isEmpty) step = 0;
 
     if (!state.registerationStarted) {
       emit(
@@ -176,7 +176,7 @@ class RegCubit extends Cubit<NRegState> {
     if (G.isChefApp) {
       G.read<MealListBloc>().add(MealListResetBlocEvent());
       G.read<MealListBloc>().add(
-          MealListUpdateEvent(chefId: G.read<UserBloc>().state.user.chefId));
+          MealListUpdateEvent(chefId: G.rd<UserCubit>().state.user.chefId));
     }
     if (!G.isCustomerApp) {
       G.rd<ScheduleCubit>().reset();
@@ -187,7 +187,7 @@ class RegCubit extends Cubit<NRegState> {
   }
 
   void finish([bool login = true]) async {
-    final user = G.read<UserBloc>().state.user;
+    final user = G.rd<UserCubit>().state.user;
 
     if (login && user.email.isNotEmpty && (user.password ?? '').isNotEmpty) {
       await LoginServices.login(
@@ -195,10 +195,12 @@ class RegCubit extends Cubit<NRegState> {
         email: state.signupData.email ?? user.email,
         password: state.signupData.password ?? user.password ?? '',
       )).then((user) {
-        G.read<UserBloc>().add(UserFromJsonEvent(user: user.toJson()));
+        G.rd<UserCubit>().saveUser(user.toJson());
+        // G.read<xUserBloc>().add(SavexUserFromJsonEvent(user: user.toJson()));
 
-        G.context.read<UserBloc>().add(
-            UserUpdateLocationEvent(address: Address.fromJson(user.toJson())));
+        G.rd<UserCubit>().saveLocation(Address.fromJson(user.toJson()));
+        // G.context.read<xUserBloc>().add(
+        //     UserUpdateLocationEvent(address: Address.fromJson(user.toJson())));
       });
     }
 
@@ -495,7 +497,7 @@ class RegCubit extends Cubit<NRegState> {
 PageRouteInfo getPage(int step) {
   switch (RegStep.values[step]) {
     case RegStep.signup:
-      return SignUpRoute();
+      return const SignUpRoute();
     case RegStep.addPhone:
       return const AddPhoneRoute();
     case RegStep.otp:

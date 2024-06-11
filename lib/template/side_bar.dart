@@ -6,7 +6,8 @@ import 'package:yumi/app/pages/settings/profile/profile_form.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/app_info/app_info_cubit.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -21,7 +22,7 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<AppInfoCubit>().getAppInfo();
-    return BlocBuilder<UserBloc, UserState>(
+    return BlocBuilder<UserCubit, UserState>(
       builder: (context, state) {
         return Stack(
           children: [
@@ -131,7 +132,8 @@ class SideBar extends StatelessWidget {
                           const SizedBox(height: 40),
                           TextButton(
                             onPressed: () {
-                              context.read<UserBloc>().add(UserResetEvent());
+                              context.read<UserCubit>().reset();
+                              // context.read<xUserBloc>().add(UserResetEvent());
                               context.router.replaceAll([LoginRoute()]);
                             },
                             child: Row(

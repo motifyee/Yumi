@@ -13,7 +13,8 @@ import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
 import 'package:yumi/app/pages/driver/count_down/cubit/count_down_cubit.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
 import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/regex.dart';
@@ -281,9 +282,14 @@ Future<void> _signUp(
 
       var userMap = reg.state.signupData.toUserMap(chefId, value['token']);
 
-      G.read<UserBloc>().add(UserFromJsonEvent(
-          user: userMap,
-          routeAfterLogin: () => G.rd<ProfileCubit>().getProfileForm()));
+      G
+          .rd<UserCubit>()
+          .saveUser(userMap)
+          .then((_) => G.rd<ProfileCubit>().getProfileForm());
+
+      // G.read<xUserBloc>().add(UserFromJsonEvent(
+      //     user: userMap,
+      //     routeAfterLogin: () => ));
 
       return reg.setAccount(reg.state.signupData, true);
     }

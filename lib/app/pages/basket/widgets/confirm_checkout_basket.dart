@@ -2,7 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/widgets/confirm_change_location_basket.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
+
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -32,7 +33,7 @@ class ConfirmCheckOutBasket extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                       horizontal: ThemeSelector.statics.defaultBlockGap),
                   child: Text(
-                    '${S.of(context).hi} ${context.read<UserBloc>().state.user.userName}',
+                    '${S.of(context).hi} ${context.read<UserCubit>().state.user.userName}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
@@ -52,7 +53,7 @@ class ConfirmCheckOutBasket extends StatelessWidget {
                               style: Theme.of(context).textTheme.bodyMedium),
                           TextSpan(
                               text:
-                                  ' "${context.read<UserBloc>().state.address?.addressTitle}", \n',
+                                  ' "${context.read<UserCubit>().state.address?.addressTitle}", \n',
                               style: Theme.of(context).textTheme.labelMedium),
                           TextSpan(
                               text: S.of(context).doYouWantToContinue,
@@ -72,7 +73,8 @@ class ConfirmCheckOutBasket extends StatelessWidget {
                       context.router.popForced();
                       showDialog(
                           context: context,
-                          builder: (context) => const ConfirmChangeLocationBasket());
+                          builder: (context) =>
+                              const ConfirmChangeLocationBasket());
                     },
                     child: Text(
                       S.of(context).change,

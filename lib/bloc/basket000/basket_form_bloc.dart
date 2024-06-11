@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/user/user_bloc.dart';
+import 'package:yumi/bloc/user/cubit/user_cubit.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/extensions/date_time_extension.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -146,8 +146,8 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
     /// done
     on<BasketFormCalcEvent>((event, emit) {
       double totalPrice = double.parse(state.basket.invoiceDetails
-          .fold(0.0,
-              (p, e) => p + (e.productVarintPrice * int.parse(e.quantity)))
+          .fold(
+              0.0, (p, e) => p + (e.productVarintPrice * int.parse(e.quantity)))
           .toStringAsFixed(2));
 
       double invoiceTax = double.parse(
@@ -183,7 +183,7 @@ class BasketFormBloc extends Bloc<BasketFormEvent, BasketFormState> {
       emit(state.copyWith(
           basket: state.basket.copyWith(
               shippedAddressId:
-                  event.context.read<UserBloc>().state.user.multiAddressID)));
+                  event.context.read<UserCubit>().state.user.multiAddressID)));
 
       late Response res;
       if (event.isDone == true) {
