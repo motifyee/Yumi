@@ -7,7 +7,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumi/app/core/util/string.dart';
-import 'package:yumi/app/pages/auth/registeration/maps/permission.dart';
+import 'package:yumi/app/pages/auth/registeration/google_map/geo_location_permission.dart';
 import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/app/pages/auth/registeration/model/registeration.dart';
 import 'package:yumi/app/pages/auth/registeration/repository/address_repo.dart';

@@ -7,9 +7,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
+import 'package:yumi/app/components/google_map/util/google_map_info.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
-import 'package:yumi/app/pages/auth/registeration/maps/google_maps.dart';
-import 'package:yumi/app/pages/auth/registeration/maps/permission.dart';
+import 'package:yumi/app/components/google_map/google_map_widget.dart';
+import 'package:yumi/app/pages/auth/registeration/google_map/geo_location_permission.dart';
 import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/app/pages/auth/registeration/reg_screen.dart';
 import 'package:yumi/app/pages/driver/reg_cubit.dart';
@@ -20,8 +21,7 @@ import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/snack_bar.dart';
 import 'package:yumi/template/text_form_field.dart';
 
-import 'maps/extenstions.dart';
-import 'maps/model.dart';
+import '../../../components/google_map/util/extenstions.dart';
 
 @RoutePage()
 class LocationScreen extends StatelessWidget {
