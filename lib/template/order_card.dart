@@ -465,6 +465,20 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                         ],
                       ),
                     Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            S.of(context).invoiceTax,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ),
+                        TextCurrency(
+                          value: widget.order.invoiceTax ?? 0.0,
+                          fontSize: ThemeSelector.fonts.font_14,
+                        ),
+                      ],
+                    ),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(

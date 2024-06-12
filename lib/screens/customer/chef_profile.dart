@@ -390,6 +390,7 @@ class ChefProfileScreen extends StatelessWidget {
                                         builder: (context, state) {
                                           return GestureDetector(
                                             onTap: () {
+                                              return;
                                               showDialog(
                                                 useSafeArea: true,
                                                 context: context,
