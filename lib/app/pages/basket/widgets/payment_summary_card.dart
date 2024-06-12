@@ -76,7 +76,7 @@ class PaymentSummaryCard extends StatelessWidget {
                 ),
                 if (hideHint != true)
                   Text(
-                    S.of(context).readMoreAboutFees,
+                    S.of(context).theTotalPriceIncludesTax,
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
               ],
