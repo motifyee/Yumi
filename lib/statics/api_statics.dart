@@ -34,8 +34,6 @@ class DioClient {
       G.cContext.read<UserCubit>().state.user.accessToken;
   static Dio get dio => simpleDio();
   static Dio simpleDio([BuildContext? context]) {
-    G.listenInternetChecker();
-
     Dio dio = Dio(
       BaseOptions(baseUrl: originApi, headers: {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -43,6 +41,8 @@ class DioClient {
       }),
     )..interceptors.add(InterceptorsWrapper(
         onError: (error, handler) {
+          G.listenInternetChecker();
+
           debugPrint('dio error >>>>>>>>>>>>>>>>>>>>>>>>');
           debugPrint('error code : ${error.response?.realUri}');
           debugPrint('error code : ${error.response?.statusCode.toString()}');

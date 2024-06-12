@@ -2,7 +2,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yumi/app/components/google_map/util/extenstions.dart';
-import 'package:yumi/app/pages/auth/registeration/google_map/geo_location_permission.dart';
+import 'package:yumi/app/components/google_map/util/geo_location_permission.dart';
 
 class GMapInfo {
   GoogleMapController? controller;
