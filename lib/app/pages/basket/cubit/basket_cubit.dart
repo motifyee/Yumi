@@ -5,8 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
-
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
@@ -22,6 +20,7 @@ import 'package:yumi/domain/basket/use_case/update_delivery_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_meal_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_pickUp_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_schedule_basket.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -75,7 +74,10 @@ class BasketCubit extends Cubit<BasketState> {
     final Either<Failure, Basket> task = await RemoveMealFromBasket().call(
         RemoveMealFromBasketParams(
             basket: state.basket, invoiceDetails: invoiceDetails));
-    task.fold((l) => null, (r) => calcBasket(basket: r));
+    task.fold((l) => null, (r) {
+      if (r.invoiceDetails.isEmpty) return deleteBasket();
+      calcBasket(basket: r);
+    });
   }
 
   Future<dynamic> getBaskets() async {

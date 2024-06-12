@@ -6,9 +6,8 @@ import 'package:dio/io.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
-
 import 'package:yumi/core/exceptions.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/local_storage.dart';
@@ -48,6 +47,7 @@ class DioClient {
           debugPrint('error code : ${error.response?.statusCode.toString()}');
           debugPrint('error type : ${error.type}');
           debugPrint('error error : ${error.error}');
+          debugPrint('error message : ${error.response?.data['message']}');
           debugPrint('error response: ${error.response.toString()}');
           debugPrint('dio error <<<<<<<<<<<<<<<<<<<<<<<<');
 
