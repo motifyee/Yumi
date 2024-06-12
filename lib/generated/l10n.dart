@@ -2571,6 +2571,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Invoice Tax`
+  String get invoiceTax {
+    return Intl.message(
+      'Invoice Tax',
+      name: 'invoiceTax',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

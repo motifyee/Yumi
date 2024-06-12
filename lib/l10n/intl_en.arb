@@ -250,5 +250,6 @@
 	"areYouSureYouWantToLeave": "Are you sure you want to leave?",
 	"logout": "Logout",
 	"leave": "Leave",
-	"pleaseSelectLocation" : "Please Select Location"
+	"pleaseSelectLocation" : "Please Select Location",
+	"invoiceTax": "Invoice Tax"
 }

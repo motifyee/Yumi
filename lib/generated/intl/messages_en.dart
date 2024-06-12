@@ -156,6 +156,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidInput": MessageLookupByLibrary.simpleMessage("Invalid input"),
         "invoice": MessageLookupByLibrary.simpleMessage("Invoice"),
+        "invoiceTax": MessageLookupByLibrary.simpleMessage("Invoice Tax"),
         "km": MessageLookupByLibrary.simpleMessage("Km"),
         "lastName": MessageLookupByLibrary.simpleMessage("Last name"),
         "leave": MessageLookupByLibrary.simpleMessage("Leave"),

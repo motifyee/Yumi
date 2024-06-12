@@ -50,6 +50,20 @@ class PaymentSummaryCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
+                      S.of(context).invoiceTax,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    TextCurrency(
+                      value: state.basket.invoice.invoiceTax,
+                      fontSize: ThemeSelector.fonts.font_12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
                       S.of(context).deliveryFee,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
