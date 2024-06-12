@@ -21,6 +21,9 @@ import 'package:yumi/app/pages/auth/registeration/signup/signup_screen.dart'
 import 'package:yumi/app/pages/auth/registeration/verify_add_phone_otp_screen.dart'
     as _i23;
 import 'package:yumi/app/pages/basket/basket_screen.dart' as _i2;
+import 'package:yumi/app/pages/basket/checkout.dart' as _i5;
+import 'package:yumi/app/pages/basket/widgets/payment_paypal.dart' as _i25;
+import 'package:yumi/app/pages/basket/widgets/payment_visa.dart' as _i26;
 import 'package:yumi/app/pages/calories/calories_screen.dart' as _i3;
 import 'package:yumi/app/pages/chef_application/application_flow_screen.dart'
     as _i6;
@@ -42,12 +45,9 @@ import 'package:yumi/domain/order/entity/order.dart' as _i39;
 import 'package:yumi/model/meal_model.dart' as _i38;
 import 'package:yumi/screens/chat.dart' as _i4;
 import 'package:yumi/screens/chef/menu_pre.dart' as _i19;
-import 'package:yumi/screens/customer/checkout.dart' as _i5;
 import 'package:yumi/screens/customer/chef_profile.dart' as _i8;
 import 'package:yumi/screens/customer/customer_location.dart' as _i10;
 import 'package:yumi/screens/customer/meal_profile.dart' as _i18;
-import 'package:yumi/screens/customer/payment_paypal.dart' as _i25;
-import 'package:yumi/screens/customer/payment_visa.dart' as _i26;
 import 'package:yumi/screens/customer/tracking_order.dart' as _i31;
 import 'package:yumi/screens/financial_view.dart' as _i12;
 import 'package:yumi/screens/forget_password.dart' as _i13;

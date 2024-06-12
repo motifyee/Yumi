@@ -2,8 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/bloc/categories/categories_bloc.dart';
+import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
-
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -121,15 +122,25 @@ class CustomerNews extends StatelessWidget {
                         left: -ThemeSelector.statics.defaultLineGap,
                         child: GestureDetector(
                           onTap: () {
+                            context.read<MealListBloc>().add(
+                                MealListResetEvent(menuTarget: menuTarget));
+                            context
+                                .read<CategoriesBloc>()
+                                .add(ResetCategoryEvent());
                             showModalBottomSheet(
                               context: context,
                               isScrollControlled: true,
                               isDismissible: true,
                               constraints: BoxConstraints(
-                                  maxHeight:
-                                      MediaQuery.of(context).size.height * .8),
-                              builder: (context) =>
-                                  MealListScreen(menuTarget: menuTarget),
+                                maxHeight:
+                                    MediaQuery.of(context).size.height * .8,
+                                minHeight:
+                                    MediaQuery.of(context).size.height * .7,
+                              ),
+                              builder: (context) => MealListScreen(
+                                menuTarget: menuTarget,
+                                isResetOnInit: false,
+                              ),
                               backgroundColor: Colors.transparent,
                             );
                           },

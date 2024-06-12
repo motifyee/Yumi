@@ -8,10 +8,9 @@ import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
 import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
-
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/forms/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
@@ -20,18 +19,25 @@ import 'package:yumi/template/meal_list_card.dart';
 import 'package:yumi/template/pagination_template.dart';
 
 class MealListScreen extends StatelessWidget {
-  MealListScreen({super.key, required this.menuTarget, this.categoryId});
+  MealListScreen(
+      {super.key,
+      required this.menuTarget,
+      this.categoryId,
+      this.isResetOnInit = true});
 
   final PageController favPageController = PageController(initialPage: 0);
 
   final MenuTarget menuTarget;
   final int? categoryId;
+  final bool isResetOnInit;
 
   @override
   Widget build(BuildContext context) {
-    context.read<MealListBloc>().add(
-        MealListResetEvent(menuTarget: menuTarget, categoryId: categoryId));
-    context.read<CategoriesBloc>().add(ResetCategoryEvent());
+    if (isResetOnInit) {
+      context.read<MealListBloc>().add(
+          MealListResetEvent(menuTarget: menuTarget, categoryId: categoryId));
+      context.read<CategoriesBloc>().add(ResetCategoryEvent());
+    }
     return Container(
       decoration: BoxDecoration(
           color: ThemeSelector.colors.background,
