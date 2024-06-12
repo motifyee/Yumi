@@ -3,10 +3,10 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/app/core/setup/signalr.dart';
 import 'package:yumi/app/core/signal_r.dart';
-import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/app_config/chef/chef_signalr.dart';
 import 'package:yumi/app_config/customer/customer_signalr.dart';
 import 'package:yumi/app_config/driver/driver_signalr.dart';
+import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/domain/user/entity/user.dart';
 import 'package:yumi/service/user_status_service.dart';
 import 'package:yumi/statics/local_storage.dart';
@@ -56,7 +56,7 @@ class UserCubit extends Cubit<UserState> {
     FlutterNativeSplash.remove();
 
     if (user != null) {
-      saveUser(user);
+      await saveUser(user);
 
       if (userLocation != null) saveLocation(Address.fromJson(userLocation));
       return User.fromJson(user);
