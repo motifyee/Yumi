@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:fpdart/fpdart.dart';
@@ -48,7 +49,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       (r) {
         emit(state.copyWith(
             profile: r.copyWith(
-                mobile: r.mobile.replaceAll(RegExp(r'^' + kUKCountryCode), ''),
+                mobile: _removeUKCountryCode(r.mobile),
                 entityStatus: state.profile.entityStatus
                     .copyWith(status: Status.success))));
 
@@ -75,7 +76,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       (r) {
         emit(state.copyWith(
           form: r.copyWith(
-              mobile: r.mobile.replaceAll(RegExp(r'^' + kUKCountryCode), ''),
+              mobile: _removeUKCountryCode(r.mobile),
               entityStatus:
                   state.form.entityStatus.copyWith(status: Status.success)),
         ));
@@ -85,11 +86,18 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
   }
 
+  String _addUKCountryCode(String mobile) {
+    return '$kUKCountryCode${mobile.trim()}';
+  }
+
+  String _removeUKCountryCode(String mobile) {
+    return mobile.replaceAll(RegExp(r'^' + kUKCountryCode), '');
+  }
+
   // returns the updated profile or null if failed
   Future<Profile?> updateProfileForm([Profile? profile]) async {
     var profile0 = profile ?? state.form;
-    profile0 =
-        profile0.copyWith(mobile: '$kUKCountryCode${profile0.mobile.trim()}');
+    profile0 = profile0.copyWith(mobile: _addUKCountryCode(profile0.mobile));
 
     emit(state.copyWith.form(
         entityStatus:
@@ -116,7 +124,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         emit(
           state.copyWith(
             form: r.copyWith(
-              mobile: r.mobile.replaceAll(RegExp(r'^' + kUKCountryCode), ''),
+              mobile: _removeUKCountryCode(r.mobile),
               entityStatus: state.form.entityStatus.copyWith(
                 status: Status.success,
                 message: 'Profile updated successfully.',
@@ -138,7 +146,7 @@ class ProfileCubit extends Cubit<ProfileState> {
             state.form.entityStatus.copyWith(status: Status.loading)));
 
     final profile = await UploadProfilePhotos().call(UploadProfilePhotosParam(
-      state.form,
+      state.form.copyWith(mobile: _addUKCountryCode(state.form.mobile)),
       photos,
     ));
 
@@ -151,6 +159,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     }, (r) {
       emit(state.copyWith(
           form: r.copyWith(
+              mobile: _removeUKCountryCode(r.mobile),
               entityStatus:
                   state.form.entityStatus.copyWith(status: Status.success))));
 
@@ -164,7 +173,7 @@ class ProfileCubit extends Cubit<ProfileState> {
             state.form.entityStatus.copyWith(status: Status.loading)));
 
     final profile = await UpdateProfilePhoto().call(UpdateProfilePhotoParam(
-      state.form,
+      state.form.copyWith(mobile: _addUKCountryCode(state.form.mobile)),
       photo,
     ));
 
@@ -177,6 +186,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     }, (r) {
       emit(state.copyWith(
           form: r.copyWith(
+              mobile: _removeUKCountryCode(r.mobile),
               entityStatus:
                   state.form.entityStatus.copyWith(status: Status.success))));
 
@@ -190,7 +200,7 @@ class ProfileCubit extends Cubit<ProfileState> {
             state.form.entityStatus.copyWith(status: Status.loading)));
 
     final update = await DeleteProfilePhoto().call(DeleteProfilePhotoParam(
-      state.form,
+      state.form.copyWith(mobile: _addUKCountryCode(state.form.mobile)),
       photo,
     ));
 
@@ -203,6 +213,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     }, (r) {
       emit(state.copyWith(
           form: r.copyWith(
+              mobile: _removeUKCountryCode(r.mobile),
               entityStatus:
                   state.form.entityStatus.copyWith(status: Status.success))));
 
