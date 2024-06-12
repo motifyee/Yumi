@@ -1,8 +1,8 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:yumi/app/pages/auth/registeration/maps/permission.dart';
-import 'extenstions.dart';
+import 'package:yumi/app/components/google_map/util/extenstions.dart';
+import 'package:yumi/app/components/google_map/util/geo_location_permission.dart';
 
 class GMapInfo {
   GoogleMapController? controller;
@@ -36,7 +36,7 @@ class GMapInfo {
     return tryV<Position>(() => Geolocator.getCurrentPosition());
   }
 
-  animateCamera(
+  Future<void> animateCamera(
     LatLng? latLng, {
     bool retainZoomLevel = false,
     double zoom = 11,
@@ -48,15 +48,15 @@ class GMapInfo {
       zoom0 = await tryV(() => controller?.getZoomLevel() ?? zoom);
     }
 
-    controller?.animateCamera(CameraUpdate.newCameraPosition(
+    await controller?.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(target: latLng, zoom: zoom0)));
   }
 
-  animateToCurrentPosition() async {
-    animateCamera((await currentPosition)?.toLatLng());
+  Future<void> animateToCurrentPosition() async {
+    await animateCamera((await currentPosition)?.toLatLng());
   }
 
-  myLocationMarker(LatLng position) {
+  Marker locationMarker(LatLng position) {
     return Marker(
         markerId: const MarkerId(
           'MyLocation',

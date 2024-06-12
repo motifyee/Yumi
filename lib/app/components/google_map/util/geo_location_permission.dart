@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:yumi/template/dialog.dart';
 
-Future<bool> checkGEOService([
+Future<bool> checkGeoService([
   bool prompt = true,
   BuildContext? context,
 ]) async {
@@ -80,9 +80,9 @@ Future<bool> checkGeoPermission([
   });
 }
 
-Future<bool> checkGEOLocation(
+Future<bool> checkGeoLocation(
     [bool prompt = true, BuildContext? context]) async {
-  return await checkGEOService(prompt, context).then(
+  return await checkGeoService(prompt, context).then(
     (serviceEnabled) async {
       return !serviceEnabled
           ? false
@@ -97,7 +97,7 @@ Future<T?> geo<T>(
   bool prompt = true,
   BuildContext? context,
 ]) async {
-  if (!await checkGEOLocation(prompt, context)) {
+  if (!await checkGeoLocation(prompt, context)) {
     // if (context != null) {
     //   ScaffoldMessenger.of(context).showSnackBar(
     //     const SnackBar(

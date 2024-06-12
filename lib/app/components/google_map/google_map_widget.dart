@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:yumi/app/pages/auth/registeration/maps/model.dart';
+import 'package:yumi/app/components/google_map/util/google_map_info.dart';
 
 class GMap extends StatefulWidget {
   final GMapInfo info;
@@ -35,7 +35,7 @@ class _MapState extends State<GMap> {
 
     if (widget.info.setMarkerOnTap) {
       setState(() {
-        widget._markers.add(widget.info.myLocationMarker(coordinate));
+        widget._markers.add(widget.info.locationMarker(coordinate));
       });
     }
 
@@ -65,7 +65,7 @@ class _MapState extends State<GMap> {
 
     if (widget.info.setMarkerOnLongPress) {
       setState(() {
-        widget._markers.add(widget.info.myLocationMarker(coordinate));
+        widget._markers.add(widget.info.locationMarker(coordinate));
       });
     }
 
