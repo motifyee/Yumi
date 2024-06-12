@@ -12,26 +12,23 @@ class CalcBasket extends UseCase<Basket, CalcBasketParams> {
       deliveryCostPrice: params.basket.isPickup == true ? 0 : 4.5,
     ));
 
-    double totalPrice = double.parse(params.basket.invoiceDetails
-        .fold(0.0, (p, e) => p + (e.productVarintPrice * int.parse(e.quantity)))
-        .toStringAsFixed(2));
+    double totalPrice = params.basket.invoiceDetails.fold(
+        0.0, (p, e) => p + (e.productVarintPrice * int.parse(e.quantity)));
 
-    double invoiceTax = double.parse(
-        (((totalPrice - params.basket.invoice.invoiceDiscount) * .3) * .25)
-            .toStringAsFixed(2));
+    double invoiceTax =
+        ((totalPrice - params.basket.invoice.invoiceDiscount) * .3) * .25;
 
-    double finalPrice = double.parse((totalPrice -
-            params.basket.invoice.invoiceDiscount +
-            invoiceTax +
-            params.basket.invoice.deliveryAreaPrice)
-        .toStringAsFixed(2));
+    double finalPrice = totalPrice -
+        params.basket.invoice.invoiceDiscount +
+        invoiceTax +
+        params.basket.invoice.deliveryAreaPrice;
 
     return Right(
       params.basket.copyWith(
         invoice: params.basket.invoice.copyWith(
-          totalPrice: totalPrice,
-          invoiceTax: invoiceTax,
-          finalPrice: finalPrice,
+          totalPrice: double.parse(totalPrice.toStringAsFixed(2)),
+          invoiceTax: double.parse(invoiceTax.toStringAsFixed(2)),
+          finalPrice: double.parse(finalPrice.toStringAsFixed(2)),
         ),
       ),
     );
