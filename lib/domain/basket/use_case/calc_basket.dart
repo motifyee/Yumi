@@ -18,6 +18,11 @@ class CalcBasket extends UseCase<Basket, CalcBasketParams> {
     double invoiceTax =
         ((totalPrice - params.basket.invoice.invoiceDiscount) * .3) * .25;
 
+    print('CalcBasket ...................');
+    print(totalPrice);
+    print(params.basket.invoice.invoiceDiscount);
+    print(invoiceTax);
+
     double finalPrice = totalPrice -
         params.basket.invoice.invoiceDiscount +
         invoiceTax +
