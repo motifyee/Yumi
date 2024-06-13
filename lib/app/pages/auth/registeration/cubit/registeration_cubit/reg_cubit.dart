@@ -340,7 +340,7 @@ class RegCubit extends Cubit<RegState> {
         emit(state.copyWith(addressStatus: Status.success));
 
         if (routeFn != null) return routeFn(address: state.address);
-        if (G.isCustomerApp) return finish();
+        if (G.isCustomerApp) return finish(true);
         return await _navigateToIdx(4);
       }
 
@@ -405,7 +405,7 @@ class RegCubit extends Cubit<RegState> {
       var idx = onboardingProgress;
       if (idx < stepsInfo.length) return stepsInfo[idx][2]();
 
-      finish();
+      finish(true);
     });
   }
 
@@ -454,7 +454,7 @@ class RegCubit extends Cubit<RegState> {
     if (step > 4) step = 4;
     if (step < 0) step = 0;
     if (!Platform.isAndroid && !Platform.isIOS && step == 3) step = 4;
-    if (G.isCustomerApp && step == 4) return finish();
+    if (G.isCustomerApp && step == 4) return finish(true);
 
     var path = G.router.currentPath;
 
