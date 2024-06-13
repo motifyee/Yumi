@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/app/core/setup/signalr.dart';
-import 'package:yumi/app/core/signal_r.dart';
+import 'package:yumi/core/setup/signalr.dart';
+import 'package:yumi/core/signal_r.dart';
 import 'package:yumi/app_config/chef/chef_signalr.dart';
 import 'package:yumi/app_config/customer/customer_signalr.dart';
 import 'package:yumi/app_config/driver/driver_signalr.dart';
@@ -28,6 +28,7 @@ class UserCubit extends Cubit<UserState> {
     User user = User.fromJson(userData);
 
     /// must init Signalr with access token
+    // TODO remove to relevant logic block
     Signalr.accessToken = user.accessToken;
 
     Signalr.startConnection().then((value) {
@@ -94,6 +95,7 @@ class UserCubit extends Cubit<UserState> {
     await LocalStorage.sharedRef.removeValue(LocalStorage.token);
     await LocalStorage.sharedRef.removeValue(LocalStorage.userLocation);
 
+    // TODO remove to relevant logic block
     Signalr.stopConnection();
 
     emit(const UserState());

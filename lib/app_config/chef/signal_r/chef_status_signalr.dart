@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/app/core/setup/signalr.dart';
+import 'package:yumi/core/setup/signalr.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/global.dart';

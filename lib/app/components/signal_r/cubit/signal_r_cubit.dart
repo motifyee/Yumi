@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/app/core/setup/signalr.dart';
+import 'package:yumi/core/setup/signalr.dart';
 import 'package:yumi/domain/signal_r/entity/signal_r.dart';
 
 part 'signal_r_cubit.freezed.dart';

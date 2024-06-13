@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:yumi/app/pages/auth/registeration/model/address.dart';
+import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/statics/api_statics.dart';
 
 class AddressService {

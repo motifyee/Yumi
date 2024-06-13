@@ -29,7 +29,6 @@ class AppRouter extends $AppRouter {
         /// routes go here
         AutoRoute(page: LoginRoute.page, initial: true),
         AutoRoute(page: SignUpRoute.page, keepHistory: false),
-        AutoRoute(page: ForgetPasswordRoute.page, keepHistory: false),
 
         AutoRoute(page: HomeRoute.page, guards: [AuthGuard()]),
         AutoRoute(page: MenuPreOrderRoute.page, guards: [AuthGuard()]),

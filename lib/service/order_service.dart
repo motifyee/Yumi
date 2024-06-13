@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
@@ -61,6 +63,7 @@ class OrderService {
 
   static Future<Response> getBaskets(
       {Map<String, dynamic>? paginationHelper}) async {
+    debugger();
     Response res = await DioClient.simpleDio().get(ApiKeys.order,
         queryParameters: {...?paginationHelper}
           ..removeWhere((key, value) => value == null));

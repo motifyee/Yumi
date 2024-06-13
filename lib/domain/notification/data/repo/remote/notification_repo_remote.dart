@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/app/core/setup/inject.dart';
+import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/notification/data/repo/notification_repo.dart';
 import 'package:yumi/domain/notification/data/source/notification_source.dart';

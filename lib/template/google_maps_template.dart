@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:yumi/app/pages/auth/registeration/model/address.dart';
+import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/statics/geo_location.dart';
 
 //TODO: must config google maps and geolocation for ios ...

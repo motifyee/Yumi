@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nested/nested.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
-import 'package:yumi/app/pages/chef_application/documentation/bloc/icon_bloc.dart';
-import 'package:yumi/app/pages/driver/reg_cubit.dart';
+import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
-import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
+import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/app_config/app_config.dart';
 import 'package:yumi/app_config/customer/customer_routes.dart';
@@ -38,7 +37,6 @@ class CustomerAppConfig implements AppConfig {
     BlocProvider(create: (context) => CategoriesBloc()),
     BlocProvider(create: (context) => MealFormBloc()),
     BlocProvider(create: (context) => MealListBloc()),
-    BlocProvider(create: (context) => SVGBloc()),
     BlocProvider(create: (context) => IngredientListBloc()),
     BlocProvider(create: (context) => IngredientFormBloc()),
     BlocProvider(create: (context) => BasketCubit()),

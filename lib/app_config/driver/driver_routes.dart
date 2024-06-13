@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:yumi/app/pages/driver/reg_cubit.dart';
+import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app_config/guards.dart';
 import 'package:yumi/route/route.gr.dart';
 
@@ -27,7 +27,6 @@ class DriverRoutes extends $AppRouter {
         AutoRoute(page: LoadingRoute.page, keepHistory: false),
         AutoRoute(page: LoginRoute.page, keepHistory: false),
         AutoRoute(page: SignUpRoute.page, keepHistory: false),
-        AutoRoute(page: ForgetPasswordRoute.page, keepHistory: false),
         AutoRoute(
           initial: true,
           page: HomeRoute.page,

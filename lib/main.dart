@@ -5,10 +5,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:nested/nested.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
-import 'package:yumi/app/pages/chef_application/documentation/bloc/icon_bloc.dart';
-import 'package:yumi/app/pages/schedule/cubit/schedule_cubit.dart';
+import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
-import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
+import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/meal/form/meal_form_bloc.dart';
@@ -70,7 +69,6 @@ class MyApp extends StatelessWidget {
       BlocProvider(create: (context) => ProfileCubit()),
       BlocProvider(create: (context) => BankInfoBloc()),
       BlocProvider(create: (context) => MealFormBloc()),
-      BlocProvider(create: (context) => SVGBloc()),
       BlocProvider(create: (context) => IngredientListBloc()),
       BlocProvider(create: (context) => IngredientFormBloc()),
       BlocProvider(create: (context) => ChefsListBloc()),

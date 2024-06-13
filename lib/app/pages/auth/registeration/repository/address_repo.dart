@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
-import 'package:yumi/app/pages/auth/registeration/model/address.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bankinfo_service.dart';
+import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/statics/api_statics.dart';
 
 class AddressRepo {
