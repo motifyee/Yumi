@@ -462,7 +462,7 @@ class RegCubit extends Cubit<RegState> {
     if (!state.registerationStarted) return;
     if (path == '/registeration/${RegStep.values[step].name}') return;
 
-    await G.router.navigate(RegisterationRoute(children: [getPage(step)]));
+    await G.router.navigate(RegisterationRoute(children: [_getPage(step)]));
     final storageKey = VerifyOtpSheet.storageKey(OTPType.email);
     if (step == 0) {
       // if (await hasActiveCountDown(storageKey: storageKey)) {
@@ -507,17 +507,10 @@ class RegCubit extends Cubit<RegState> {
   }
 }
 
-PageRouteInfo getPage(int step) {
-  switch (RegStep.values[step]) {
-    case RegStep.signup:
-      return const SignUpRoute();
-    case RegStep.addPhone:
-      return const AddPhoneRoute();
-    case RegStep.otp:
-      return const OTPRoute();
-    case RegStep.location:
-      return LocationRoute();
-    case RegStep.onboarding:
-      return const ChefApplicationFlowRoute();
-  }
-}
+PageRouteInfo _getPage(int step) => switch (RegStep.values[step]) {
+      RegStep.signup => const SignUpRoute(),
+      RegStep.addPhone => const AddPhoneRoute(),
+      RegStep.otp => const OTPRoute(),
+      RegStep.location => LocationRoute(),
+      RegStep.onboarding => const ChefApplicationFlowRoute(),
+    };
