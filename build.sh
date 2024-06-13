@@ -10,6 +10,8 @@ splash="./assets/splash"
 ################################################################################
 # Versioning
 
+echo "Versioning ..."
+
 pubspac="./pubspec.yaml"
 fullVersion=$(echo | grep -i -e "version: " "$pubspac")
 buildName=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)
