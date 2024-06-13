@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
+import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';

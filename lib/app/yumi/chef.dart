@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yumi/app/core/setup/init.dart';
+import 'package:yumi/core/setup/init.dart';
 import 'package:yumi/app_config/chef/chef_app_config.dart';
 import 'package:yumi/app_config/yumi_app.dart';
 import 'package:yumi/app_target.dart';

@@ -10,7 +10,7 @@ import 'package:yumi/app/pages/order/chef/news.dart';
 import 'package:yumi/app/pages/order/chef/pre_order.dart';
 import 'package:yumi/app/pages/order/customer/customer_order.dart';
 import 'package:yumi/app/pages/order/driver/driver_order.dart';
-import 'package:yumi/app/pages/settings/profile/profile_screen.dart';
+import 'package:yumi/app/pages/profile/profile_screen.dart';
 import 'package:yumi/app/pages/settings/settings_screen.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/generated/l10n.dart';

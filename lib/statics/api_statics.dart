@@ -29,8 +29,7 @@ class DioClient {
     originApi = value;
   }
 
-  static String get token =>
-      G.cContext.read<UserCubit>().state.user.accessToken;
+  static String get token => G.rd<UserCubit>().state.user.accessToken;
   static Dio get dio => simpleDio();
   static Dio simpleDio([BuildContext? context]) {
     Dio dio = Dio(

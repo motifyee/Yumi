@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/app/core/util/constants.dart';
+import 'package:yumi/core/util/constants.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/profile/use_cases/reset_pwd_by_email.dart';
 import 'package:yumi/domain/profile/use_cases/reset_pwd_by_mobile.dart';

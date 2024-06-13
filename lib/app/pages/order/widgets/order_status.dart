@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
-import 'package:yumi/app/core/setup/signalr.dart';
+import 'package:yumi/core/setup/signalr.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/review_model/review_model.dart';

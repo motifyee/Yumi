@@ -1,4 +1,4 @@
-import 'package:yumi/app/core/setup/signalr.dart';
+import 'package:yumi/core/setup/signalr.dart';
 
 class CustomerTransactionSignalR {
   static listen() {

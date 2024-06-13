@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
-import 'package:yumi/app/pages/driver/count_down/cubit/count_down_cubit.dart';
-import 'package:yumi/app/pages/driver/reg_cubit.dart';
-import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
+import 'package:yumi/app/pages/auth/registeration/cubit/count_down_cubit/count_down_cubit.dart';
+import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
+import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/presentation/otp.dart';
+import 'package:yumi/app/components/otp/otp.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/screen_container.dart';
 

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/app/core/setup/signalr.dart';
+import 'package:yumi/core/setup/signalr.dart';
 
 part 'signal_r.freezed.dart';
 part 'signal_r.g.dart';

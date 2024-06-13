@@ -4,15 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
-import 'package:yumi/app/pages/settings/profile/cubit/profile_cubit.dart';
-import 'package:yumi/app/pages/settings/profile/profile_card.dart';
+import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
+import 'package:yumi/app/pages/settings/components/profile/profile_card.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/pages/settings/bankinfo/bank_settings_card.dart';
+import 'package:yumi/app/pages/settings/components/bankinfo/bank_settings_card.dart';
 import 'package:yumi/template/dialog.dart';
 
 @RoutePage()

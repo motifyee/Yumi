@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/app/core/setup/inject.dart';
+import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/core/failures.dart';
