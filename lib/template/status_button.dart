@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
-
-import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/domain/user/entity/user.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class StatusButton extends StatelessWidget {
@@ -13,6 +12,8 @@ class StatusButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<UserCubit>().getStatus();
+
     return BlocBuilder<UserCubit, UserState>(
       builder: (context, state) {
         UserStatus status = UserStatus.online;

@@ -1,18 +1,19 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/core/setup/signalr.dart';
-import 'package:yumi/core/signal_r.dart';
 import 'package:yumi/app/yumi/config/chef/chef_signalr.dart';
 import 'package:yumi/app/yumi/config/customer/customer_signalr.dart';
 import 'package:yumi/app/yumi/config/driver/driver_signalr.dart';
+import 'package:yumi/core/setup/signalr.dart';
+import 'package:yumi/core/signal_r.dart';
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/domain/user/entity/user.dart';
+import 'package:yumi/service/chef_service.dart';
 import 'package:yumi/service/user_status_service.dart';
 import 'package:yumi/statics/local_storage.dart';
 
-part 'user_state.dart';
 part 'user_cubit.freezed.dart';
+part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit() : super(const UserState());
@@ -88,6 +89,15 @@ class UserCubit extends Cubit<UserState> {
         loading: false,
       ));
     }
+  }
+
+  getStatus() async {
+    dynamic userWithStatus(int status) =>
+        state.user.copyWith(status: status).toJson();
+
+    await ChefService.getChefStatus(accountId: state.user.id).then(
+      (value) => saveUser(userWithStatus(value.data['statusWork'])),
+    );
   }
 
   reset() async {
