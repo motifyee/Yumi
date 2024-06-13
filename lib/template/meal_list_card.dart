@@ -1,9 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
@@ -144,26 +142,15 @@ class MealListCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextButton(
-                          onPressed: () {
-                            if (meal.isFavoritProduct == true) {
-                              context.read<MealListBloc>().add(
-                                  MealListRemoveFavoriteMealEvent(meal: meal));
-                            } else {
-                              context.read<MealListBloc>().add(
-                                  MealListAddFavoriteMealEvent(meal: meal));
-                            }
-                          },
-                          child: SvgPicture.asset(
-                            meal.isFavoritProduct == true
-                                ? 'assets/images/heart.svg'
-                                : 'assets/images/heart_outline.svg',
-                            colorFilter: ColorFilter.mode(
-                                isDisabled
-                                    ? ThemeSelector.colors.secondary
-                                    : ThemeSelector.colors.primary,
-                                BlendMode.srcIn),
-                          ),
+                        SvgPicture.asset(
+                          meal.isFavoritProduct == true
+                              ? 'assets/images/heart.svg'
+                              : 'assets/images/heart_outline.svg',
+                          colorFilter: ColorFilter.mode(
+                              isDisabled
+                                  ? ThemeSelector.colors.secondary
+                                  : ThemeSelector.colors.primary,
+                              BlendMode.srcIn),
                         ),
                       ],
                     ),
