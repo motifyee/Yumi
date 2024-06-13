@@ -76,7 +76,7 @@ class Onboarding {
   // ---------------------------------------------------------------------------
 
   int get _onboardingProgress => 0; //G.rd<RegCubit>().state.onboardingProgress;
-  int get onboardingProgress {
+  int get calcOnboardingProgress {
     int progress = 0;
 
     if (profileSheetDone) {
@@ -105,10 +105,10 @@ class Onboarding {
   }
 
   bool get onboardingComplete {
-    return onboardingProgress == 5;
+    return calcOnboardingProgress == 5;
   }
 
   bool get onboardingRequired {
-    return onboardingProgress < 5;
+    return calcOnboardingProgress < 5;
   }
 }

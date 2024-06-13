@@ -75,7 +75,7 @@ abstract class RegState with _$RegState {
     @Default(Vehicle(typeCode: 0)) Vehicle vehicle,
     @Default(Status.init) Status ridesStatus,
     //
-    @Default(0) int onboardingProgress,
+    @Default(0) int storedOnboardingProgress,
     Unique? unique,
     int? countDown,
   }) = _Initial;
@@ -112,20 +112,9 @@ class RegCubit extends Cubit<RegState> {
   RegCubit() : super(RegState.initial());
 
 // -----------------------------------------------------------------------------
-// Navigation
-
-  void setWillVerifyEmail(String email) {
-    emit(state.copyWith(willVerifyEmail: email));
-  }
-
-// -----------------------------------------------------------------------------
 
   void setLoading([bool loading = true]) {
     emit(state.copyWith(status: loading ? Status.loading : Status.idle));
-  }
-
-  void setRidesLoading([bool loading = true]) {
-    emit(state.copyWith(ridesStatus: loading ? Status.loading : Status.idle));
   }
 
   Future<bool> hasActiveRegisteration() async {
@@ -170,7 +159,7 @@ class RegCubit extends Cubit<RegState> {
 
     if (step >= 0) _navigateToIdx(step);
 
-    await getOnboardingProgress();
+    await loadOnboardingProgress();
 
     if (step > 0) {
       await G.rd<ProfileCubit>().getProfileForm();
@@ -209,58 +198,6 @@ class RegCubit extends Cubit<RegState> {
     });
   }
 
-  void refresh() {
-    onboardingProgress;
-    if (state.registerationStarted) {
-      getOnboardingProgress();
-      emit(state.copyWith(unique: unique()));
-    }
-  }
-
-  int get onboardingProgress {
-    var p = state.onboarding.onboardingProgress;
-    var sp = state.onboardingProgress;
-    if (p > sp) {
-      setOnboardingProgress(p);
-      return p;
-    }
-    setOnboardingProgress(sp);
-    return sp;
-  }
-
-  void setOnboardingProgress(int idx) {
-    // if (idx <= onboardingProgress) return;
-
-    // save step index to shared preferences
-    SharedPreferences.getInstance()
-        .then((value) => value.setInt(onboardingProgressKey, idx));
-
-    emit(state.copyWith(onboardingProgress: idx));
-  }
-
-  Future<void> getOnboardingProgress() async {
-    var pref = await SharedPreferences.getInstance();
-    var idx = pref.getInt(onboardingProgressKey) ?? 0;
-    emit(state.copyWith(onboardingProgress: idx));
-  }
-
-  void nextButtonPressed() async {
-    var context = G.context;
-    setLoading();
-
-    await context.read<ProfileCubit>().getProfileForm().then((value) {
-      setLoading(false);
-
-      var stepsInfo = G.isChefApp
-          ? chefOnboardingSteps(context, state)
-          : driverOnboardingSteps(context, state);
-
-      var idx = onboardingProgress;
-      if (idx < stepsInfo.length) return stepsInfo[idx][2]();
-
-      finish();
-    });
-  }
 // -----------------------------------------------------------------------------
 // Actions
 
@@ -279,6 +216,9 @@ class RegCubit extends Cubit<RegState> {
     emit(state.copyWith(countDown: null));
   }
 
+// -----------------------------------------------------------------------------
+// Account
+
   bool setAccount(SignupData signupData, [bool navigateToNext = false]) {
     // TODO keep in storage
 
@@ -286,6 +226,42 @@ class RegCubit extends Cubit<RegState> {
     if (navigateToNext) _navigateToIdx(1);
     return true;
   }
+
+  void setWillVerifyEmail(String email) {
+    emit(state.copyWith(willVerifyEmail: email));
+  }
+
+  Future<bool> getEmailOTP(String email) async {
+    emit(state.copyWith(verifiedEmailStatus: Status.loading));
+    final verify = await VerifyEmail().call(VerifyEmailParams(email));
+
+    return verify.fold(
+      (l) {
+        emit(state.copyWith(verifiedEmailStatus: Status.error));
+        return false;
+      },
+      (r) {
+        emit(
+          state.copyWith(
+            emailOTP: r,
+            email: email,
+            verifiedEmailStatus: Status.success,
+          ),
+        );
+        return true;
+      },
+    );
+  }
+
+  bool verifyEmailOTP(String otp) {
+    if (otp != state.emailOTP) return false;
+
+    emit(state.copyWith(verifiedEmail: state.email));
+    return true;
+  }
+
+// -----------------------------------------------------------------------------
+// Mobile
 
   Future<String?> setMobile(String phone) async {
     var profile = G.rd<ProfileCubit>().state.form.copyWith(mobile: phone);
@@ -345,34 +321,8 @@ class RegCubit extends Cubit<RegState> {
     );
   }
 
-  Future<bool> getEmailOTP(String email) async {
-    emit(state.copyWith(verifiedEmailStatus: Status.loading));
-    final verify = await VerifyEmail().call(VerifyEmailParams(email));
-
-    return verify.fold(
-      (l) {
-        emit(state.copyWith(verifiedEmailStatus: Status.error));
-        return false;
-      },
-      (r) {
-        emit(
-          state.copyWith(
-            emailOTP: r,
-            email: email,
-            verifiedEmailStatus: Status.success,
-          ),
-        );
-        return true;
-      },
-    );
-  }
-
-  bool verifyEmailOTP(String otp) {
-    if (otp != state.emailOTP) return false;
-
-    emit(state.copyWith(verifiedEmail: state.email));
-    return true;
-  }
+// -----------------------------------------------------------------------------
+// Location
 
   void setLocation(Address address) {
     emit(state.copyWith(address: address));
@@ -402,13 +352,65 @@ class RegCubit extends Cubit<RegState> {
     });
   }
 
-  void setVehicleType(Vehicle vehicle) {
-    emit(state.copyWith(vehicle: vehicle));
+// -----------------------------------------------------------------------------
+// Onboarding
+
+  void refresh() {
+    onboardingProgress;
+    if (state.registerationStarted) {
+      loadOnboardingProgress();
+      emit(state.copyWith(unique: unique()));
+    }
   }
 
-  // void setOtherVehicle(bool otherVehicle) {
-  //   emit(state.copyWith(otherVehicle: otherVehicle));
-  // }
+  int get onboardingProgress {
+    var p = state.onboarding.calcOnboardingProgress; // calculated steps
+    var sp = state.storedOnboardingProgress; // emitted from shared_prefrences
+
+    if (p > sp) {
+      setOnboardingProgress(p);
+      return p;
+    }
+    setOnboardingProgress(sp);
+    return sp;
+  }
+
+  void setOnboardingProgress(int idx) {
+    // if (idx <= onboardingProgress) return;
+
+    // save step index to shared preferences
+    SharedPreferences.getInstance()
+        .then((value) => value.setInt(onboardingProgressKey, idx));
+
+    emit(state.copyWith(storedOnboardingProgress: idx));
+  }
+
+  Future<void> loadOnboardingProgress() async {
+    var pref = await SharedPreferences.getInstance();
+    var idx = pref.getInt(onboardingProgressKey) ?? 0;
+    emit(state.copyWith(storedOnboardingProgress: idx));
+  }
+
+  void nextButtonPressed() async {
+    var context = G.context;
+    setLoading();
+
+    await context.read<ProfileCubit>().getProfileForm().then((value) {
+      setLoading(false);
+
+      var stepsInfo = G.isChefApp
+          ? chefOnboardingSteps(context, state)
+          : driverOnboardingSteps(context, state);
+
+      var idx = onboardingProgress;
+      if (idx < stepsInfo.length) return stepsInfo[idx][2]();
+
+      finish();
+    });
+  }
+
+// -----------------------------------------------------------------------------
+// Vehicle
 
   Future<void> getVehicle() async {
     var vehicle = await VehicleService.getVehicle();
@@ -431,6 +433,17 @@ class RegCubit extends Cubit<RegState> {
       throw 'could\'nt update your vehicle!';
     });
   }
+
+  void setVehicleType(Vehicle vehicle) {
+    emit(state.copyWith(vehicle: vehicle));
+  }
+
+  void setRidesLoading([bool loading = true]) {
+    emit(state.copyWith(ridesStatus: loading ? Status.loading : Status.idle));
+  }
+
+// -----------------------------------------------------------------------------
+// Navigation
 
   // navigate to corresponding page based on step index
   // TODO should only be called from within widgets

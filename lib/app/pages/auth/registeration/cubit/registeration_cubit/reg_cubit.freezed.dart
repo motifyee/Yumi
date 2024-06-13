@@ -39,7 +39,7 @@ mixin _$RegState {
   Status get addressStatus => throw _privateConstructorUsedError; //
   Vehicle get vehicle => throw _privateConstructorUsedError;
   Status get ridesStatus => throw _privateConstructorUsedError; //
-  int get onboardingProgress => throw _privateConstructorUsedError;
+  int get storedOnboardingProgress => throw _privateConstructorUsedError;
   Unique? get unique => throw _privateConstructorUsedError;
   int? get countDown => throw _privateConstructorUsedError;
 
@@ -74,7 +74,7 @@ abstract class $RegStateCopyWith<$Res> {
       Status addressStatus,
       Vehicle vehicle,
       Status ridesStatus,
-      int onboardingProgress,
+      int storedOnboardingProgress,
       Unique? unique,
       int? countDown});
 
@@ -116,7 +116,7 @@ class _$RegStateCopyWithImpl<$Res, $Val extends RegState>
     Object? addressStatus = null,
     Object? vehicle = null,
     Object? ridesStatus = null,
-    Object? onboardingProgress = null,
+    Object? storedOnboardingProgress = null,
     Object? unique = freezed,
     Object? countDown = freezed,
   }) {
@@ -201,9 +201,9 @@ class _$RegStateCopyWithImpl<$Res, $Val extends RegState>
           ? _value.ridesStatus
           : ridesStatus // ignore: cast_nullable_to_non_nullable
               as Status,
-      onboardingProgress: null == onboardingProgress
-          ? _value.onboardingProgress
-          : onboardingProgress // ignore: cast_nullable_to_non_nullable
+      storedOnboardingProgress: null == storedOnboardingProgress
+          ? _value.storedOnboardingProgress
+          : storedOnboardingProgress // ignore: cast_nullable_to_non_nullable
               as int,
       unique: freezed == unique
           ? _value.unique
@@ -269,7 +269,7 @@ abstract class _$$InitialImplCopyWith<$Res> implements $RegStateCopyWith<$Res> {
       Status addressStatus,
       Vehicle vehicle,
       Status ridesStatus,
-      int onboardingProgress,
+      int storedOnboardingProgress,
       Unique? unique,
       int? countDown});
 
@@ -312,7 +312,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? addressStatus = null,
     Object? vehicle = null,
     Object? ridesStatus = null,
-    Object? onboardingProgress = null,
+    Object? storedOnboardingProgress = null,
     Object? unique = freezed,
     Object? countDown = freezed,
   }) {
@@ -397,9 +397,9 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.ridesStatus
           : ridesStatus // ignore: cast_nullable_to_non_nullable
               as Status,
-      onboardingProgress: null == onboardingProgress
-          ? _value.onboardingProgress
-          : onboardingProgress // ignore: cast_nullable_to_non_nullable
+      storedOnboardingProgress: null == storedOnboardingProgress
+          ? _value.storedOnboardingProgress
+          : storedOnboardingProgress // ignore: cast_nullable_to_non_nullable
               as int,
       unique: freezed == unique
           ? _value.unique
@@ -437,7 +437,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       this.addressStatus = Status.init,
       this.vehicle = const Vehicle(typeCode: 0),
       this.ridesStatus = Status.init,
-      this.onboardingProgress = 0,
+      this.storedOnboardingProgress = 0,
       this.unique,
       this.countDown})
       : super._();
@@ -508,7 +508,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
 //
   @override
   @JsonKey()
-  final int onboardingProgress;
+  final int storedOnboardingProgress;
   @override
   final Unique? unique;
   @override
@@ -516,7 +516,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegState(partialFlow: $partialFlow, registerationStarted: $registerationStarted, finished: $finished, step: $step, lastStep: $lastStep, email: $email, willVerifyEmail: $willVerifyEmail, verifiedEmail: $verifiedEmail, emailOTP: $emailOTP, verifiedEmailStatus: $verifiedEmailStatus, signupData: $signupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, ridesStatus: $ridesStatus, onboardingProgress: $onboardingProgress, unique: $unique, countDown: $countDown)';
+    return 'RegState(partialFlow: $partialFlow, registerationStarted: $registerationStarted, finished: $finished, step: $step, lastStep: $lastStep, email: $email, willVerifyEmail: $willVerifyEmail, verifiedEmail: $verifiedEmail, emailOTP: $emailOTP, verifiedEmailStatus: $verifiedEmailStatus, signupData: $signupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, ridesStatus: $ridesStatus, storedOnboardingProgress: $storedOnboardingProgress, unique: $unique, countDown: $countDown)';
   }
 
   @override
@@ -544,7 +544,8 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('addressStatus', addressStatus))
       ..add(DiagnosticsProperty('vehicle', vehicle))
       ..add(DiagnosticsProperty('ridesStatus', ridesStatus))
-      ..add(DiagnosticsProperty('onboardingProgress', onboardingProgress))
+      ..add(DiagnosticsProperty(
+          'storedOnboardingProgress', storedOnboardingProgress))
       ..add(DiagnosticsProperty('unique', unique))
       ..add(DiagnosticsProperty('countDown', countDown));
   }
@@ -586,8 +587,9 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
             (identical(other.vehicle, vehicle) || other.vehicle == vehicle) &&
             (identical(other.ridesStatus, ridesStatus) ||
                 other.ridesStatus == ridesStatus) &&
-            (identical(other.onboardingProgress, onboardingProgress) ||
-                other.onboardingProgress == onboardingProgress) &&
+            (identical(
+                    other.storedOnboardingProgress, storedOnboardingProgress) ||
+                other.storedOnboardingProgress == storedOnboardingProgress) &&
             (identical(other.unique, unique) || other.unique == unique) &&
             (identical(other.countDown, countDown) ||
                 other.countDown == countDown));
@@ -616,7 +618,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
         addressStatus,
         vehicle,
         ridesStatus,
-        onboardingProgress,
+        storedOnboardingProgress,
         unique,
         countDown
       ]);
@@ -650,7 +652,7 @@ abstract class _Initial extends RegState {
       final Status addressStatus,
       final Vehicle vehicle,
       final Status ridesStatus,
-      final int onboardingProgress,
+      final int storedOnboardingProgress,
       final Unique? unique,
       final int? countDown}) = _$InitialImpl;
   const _Initial._() : super._();
@@ -698,7 +700,7 @@ abstract class _Initial extends RegState {
   @override
   Status get ridesStatus;
   @override //
-  int get onboardingProgress;
+  int get storedOnboardingProgress;
   @override
   Unique? get unique;
   @override
