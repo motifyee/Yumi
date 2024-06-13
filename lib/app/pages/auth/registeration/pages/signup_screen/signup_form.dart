@@ -232,7 +232,7 @@ Future<void> _verifyEmailOtp(
     }
 
     try {
-      if (context.mounted) context.read<CountDownCubit>().stopCountDown();
+      if (context.mounted) context.read<CountDownCubit>().stop();
     } catch (e) {}
   }
 

@@ -7,7 +7,7 @@ import 'package:yumi/app/components/toast/toast.dart';
 import 'package:yumi/core/setup/connection.dart';
 import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/core/setup/internet_connectivity_checker.dart';
-import 'package:yumi/app_config/yumi_app.dart';
+import 'package:yumi/app/yumi/config/yumi_app.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/template/snack_bar.dart';
 

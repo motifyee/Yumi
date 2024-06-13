@@ -34,7 +34,7 @@ import 'package:yumi/model/login_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/login_service.dart';
 import 'package:yumi/statics/code_generator.dart';
-import 'package:yumi/util/util.dart';
+import 'package:yumi/core/util/util.dart';
 
 part 'reg_cubit.freezed.dart';
 

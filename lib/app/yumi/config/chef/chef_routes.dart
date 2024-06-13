@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:yumi/app_config/guards.dart';
+import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
+import 'package:yumi/app/yumi/config/guards.dart';
 import 'package:yumi/route/route.gr.dart';
 
-class CustomerRoutes extends $AppRouter {
-  CustomerRoutes();
+class ChefRoutes extends $AppRouter {
+  ChefRoutes();
 
   @override
   List<AutoRoute> get routes => [
@@ -11,11 +12,14 @@ class CustomerRoutes extends $AppRouter {
           path: '/registeration',
           page: RegisterationRoute.page,
           children: [
-            RedirectRoute(path: '', redirectTo: 'signup'),
-            AutoRoute(path: 'signup', page: SignUpRoute.page),
-            AutoRoute(path: 'addPhone', page: AddPhoneRoute.page),
-            AutoRoute(path: 'otp', page: OTPRoute.page),
-            AutoRoute(path: 'location', page: LocationRoute.page),
+            RedirectRoute(path: '', redirectTo: RegStep.signup.name),
+            AutoRoute(path: RegStep.signup.name, page: SignUpRoute.page),
+            AutoRoute(path: RegStep.addPhone.name, page: AddPhoneRoute.page),
+            AutoRoute(path: RegStep.otp.name, page: OTPRoute.page),
+            AutoRoute(path: RegStep.location.name, page: LocationRoute.page),
+            AutoRoute(
+                path: RegStep.onboarding.name,
+                page: ChefApplicationFlowRoute.page),
           ],
         ),
 
@@ -40,7 +44,6 @@ class CustomerRoutes extends $AppRouter {
         AutoRoute(page: FinancialViewRoute.page),
         AutoRoute(page: ChatRoute.page),
         AutoRoute(page: TransactionsRoute.page),
-        AutoRoute(page: SettingRoute.page),
         AutoRoute(page: ChefProfileRoute.page),
         AutoRoute(page: BasketRoute.page),
         AutoRoute(page: CheckOutRoute.page),
@@ -50,8 +53,5 @@ class CustomerRoutes extends $AppRouter {
         AutoRoute(page: WalletRoute.page),
         AutoRoute(page: MealProfileRoute.page),
         AutoRoute(page: CustomerLocationRoute.page),
-        AutoRoute(page: MyOrdersRoute.page),
-        AutoRoute(page: ChefCustomerAddressRoute.page),
-        AutoRoute(path: '/customer_location', page: LocationRoute.page),
       ];
 }

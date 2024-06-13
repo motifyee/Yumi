@@ -7,7 +7,7 @@ import 'package:yumi/domain/profile/use_cases/reset_pwd_by_mobile.dart';
 import 'package:yumi/domain/profile/use_cases/verify_reset_pwd_by_email_otp.dart';
 import 'package:yumi/domain/profile/use_cases/verify_reset_pwd_by_mobile_otp.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/util/util.dart';
+import 'package:yumi/core/util/util.dart';
 
 part 'forgot_password_state.dart';
 part 'forgot_password_cubit.freezed.dart';

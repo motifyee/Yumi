@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yumi/core/setup/init.dart';
-import 'package:yumi/app_config/driver/dirver_app_config.dart';
-import 'package:yumi/app_config/yumi_app.dart';
+import 'package:yumi/app/yumi/config/driver/dirver_app_config.dart';
+import 'package:yumi/app/yumi/config/yumi_app.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';

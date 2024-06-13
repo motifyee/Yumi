@@ -2,7 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:yumi/app_config/app_config.dart';
+import 'package:yumi/app/yumi/config/app_config.dart';
+
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/theme/theme.dart';
 

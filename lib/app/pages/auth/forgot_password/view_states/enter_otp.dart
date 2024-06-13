@@ -6,7 +6,7 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/app/components/otp/otp.dart';
 import 'package:yumi/template/text_form_field.dart';
-import 'package:yumi/util/util.dart';
+import 'package:yumi/core/util/util.dart';
 import 'package:yumi/validators/confirm_password_validator.dart';
 import 'package:yumi/validators/password_validator.dart';
 

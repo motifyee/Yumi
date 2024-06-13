@@ -60,7 +60,7 @@ class VerifyOtpSheet extends StatelessWidget {
       if (counter.state.countDown != null) return;
       await counter.init(storageKey: storageKey(type));
 
-      if (!counter.state.isRunning) await counter.startCountDown(value: value);
+      if (!counter.state.isRunning) await counter.start(value: value);
     }();
 
     return Padding(
@@ -217,7 +217,7 @@ void verifyEmailOTP(BuildContext context, String otp) {
   }
 
   G.snackBar("Your email was verified successfully");
-  counter.stopCountDown(); // not to emit after close
+  counter.stop(); // not to emit after close
   Navigator.of(context).pop();
 }
 
@@ -242,7 +242,7 @@ void verifyMobileOTP(BuildContext context, String otp) async {
     if (!value) return G.snackBar("Wrong OTP!");
 
     G.snackBar("Your mobile was verified successfully");
-    counter.stopCountDown(); // not to emit after close
+    counter.stop(); // not to emit after close
     Navigator.of(context).pop();
   });
 }

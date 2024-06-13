@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/util/util.dart';
+import 'package:yumi/core/util/util.dart';
 
 part 'count_down_cubit.freezed.dart';
 
@@ -64,11 +64,11 @@ class CountDownCubit extends Cubit<CountDownState> {
       initialTime: initialTime,
     ));
 
-    await startCountDown(value: value);
+    await start(value: value);
   }
 
   Unique? _unique;
-  Future<void> startCountDown({
+  Future<void> start({
     required String value,
     int timeout = 60,
   }) async {
@@ -116,11 +116,11 @@ class CountDownCubit extends Cubit<CountDownState> {
   }
 
   Future<void> restart() async {
-    stopCountDown();
-    await startCountDown(value: state.value, timeout: state.timeout ?? 60);
+    stop();
+    await start(value: state.value, timeout: state.timeout ?? 60);
   }
 
-  void stopCountDown() async {
+  void stop() async {
     _unique = unique();
     emit(state.copyWith(countDown: null, initialTime: null));
 

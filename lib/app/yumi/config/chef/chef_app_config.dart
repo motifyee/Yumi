@@ -9,8 +9,8 @@ import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/sc
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
-import 'package:yumi/app_config/app_config.dart';
-import 'package:yumi/app_config/chef/chef_routes.dart';
+import 'package:yumi/app/yumi/config/app_config.dart';
+import 'package:yumi/app/yumi/config/chef/chef_routes.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/app_info/app_info_cubit.dart';
 import 'package:yumi/bloc/categories/categories_bloc.dart';
