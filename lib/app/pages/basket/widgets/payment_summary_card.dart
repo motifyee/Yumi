@@ -39,8 +39,7 @@ class PaymentSummaryCard extends StatelessWidget {
                     ),
                     TextCurrency(
                       value: state.basket.invoice.totalPrice -
-                          state.basket.invoice.invoiceDiscount +
-                          state.basket.invoice.invoiceTax,
+                          state.basket.invoice.invoiceDiscount,
                       fontSize: ThemeSelector.fonts.font_12,
                       fontWeight: FontWeight.w500,
                     ),
