@@ -2,6 +2,7 @@ import 'package:fpdart/src/either.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
+import 'package:yumi/extensions/double_fixed.dart';
 
 class CalcBasket extends UseCase<Basket, CalcBasketParams> {
   @override
@@ -22,6 +23,8 @@ class CalcBasket extends UseCase<Basket, CalcBasketParams> {
     print(totalPrice);
     print(params.basket.invoice.invoiceDiscount);
     print(invoiceTax);
+    print(invoiceTax.toFixed(2));
+    print(double.parse(invoiceTax.toStringAsFixed(2)));
 
     double finalPrice = totalPrice -
         params.basket.invoice.invoiceDiscount +
@@ -31,9 +34,9 @@ class CalcBasket extends UseCase<Basket, CalcBasketParams> {
     return Right(
       params.basket.copyWith(
         invoice: params.basket.invoice.copyWith(
-          totalPrice: double.parse(totalPrice.toStringAsFixed(2)),
-          invoiceTax: double.parse(invoiceTax.toStringAsFixed(2)),
-          finalPrice: double.parse(finalPrice.toStringAsFixed(2)),
+          totalPrice: totalPrice.toFixed(2),
+          invoiceTax: invoiceTax.toFixed(2),
+          finalPrice: finalPrice.toFixed(2),
         ),
       ),
     );
@@ -46,6 +49,5 @@ class CalcBasketParams extends Params {
   CalcBasketParams({required this.basket});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [basket];
 }
