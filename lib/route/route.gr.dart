@@ -48,15 +48,15 @@ import 'package:yumi/domain/address/entity/address.dart' as _i35;
 import 'package:yumi/domain/chef/entity/chef.dart' as _i36;
 import 'package:yumi/domain/order/entity/order.dart' as _i38;
 import 'package:yumi/model/meal_model.dart' as _i37;
-import 'package:yumi/screens/chat.dart' as _i4;
-import 'package:yumi/screens/chef/menu_pre.dart' as _i18;
-import 'package:yumi/screens/customer/chef_profile.dart' as _i8;
-import 'package:yumi/screens/customer/customer_location.dart' as _i10;
-import 'package:yumi/screens/customer/meal_profile.dart' as _i17;
-import 'package:yumi/screens/customer/tracking_order.dart' as _i30;
-import 'package:yumi/screens/financial_view.dart' as _i12;
-import 'package:yumi/screens/home.dart' as _i13;
-import 'package:yumi/screens/performance_analysis.dart' as _i26;
+import 'package:yumi/app/pages/chat/chat.dart' as _i4;
+import 'package:yumi/app/pages/menu/chef/menu_pre.dart' as _i18;
+import 'package:yumi/app/pages/chef_profile/chef_profile.dart' as _i8;
+import 'package:yumi/app/pages/customer_location/customer_location.dart' as _i10;
+import 'package:yumi/app/pages/meal_profile/meal_profile.dart' as _i17;
+import 'package:yumi/app/pages/basket/widgets/tracking_order.dart' as _i30;
+import 'package:yumi/app/pages/financial_view/financial_view.dart' as _i12;
+import 'package:yumi/app/pages/home/home.dart' as _i13;
+import 'package:yumi/app/pages/performance_analysis/performance_analysis.dart' as _i26;
 
 abstract class $AppRouter extends _i33.RootStackRouter {
   $AppRouter({super.navigatorKey});

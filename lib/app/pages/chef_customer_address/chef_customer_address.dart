@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/bloc/address/address_bloc.dart';
+import 'package:yumi/app/pages/customer_location/cubit/address/address_bloc.dart';
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';

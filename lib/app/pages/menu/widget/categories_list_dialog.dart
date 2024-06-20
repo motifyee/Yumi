@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/bloc/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/screens/meal_list.dart';
+import 'package:yumi/app/pages/menu/widget/meal_list.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/pagination_template.dart';
 

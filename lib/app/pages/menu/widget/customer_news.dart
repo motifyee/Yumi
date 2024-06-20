@@ -2,17 +2,17 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/categories/categories_bloc.dart';
-import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/screens/meal_list.dart';
+import 'package:yumi/app/pages/menu/widget/meal_list.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/categories_list_dialog.dart';
-import 'package:yumi/template/customer_chef_list.dart';
-import 'package:yumi/template/offer_carousel.dart';
+import 'package:yumi/app/pages/menu/widget/categories_list_dialog.dart';
+import 'package:yumi/app/pages/menu/widget/customer_chef_list.dart';
+import 'package:yumi/app/pages/menu/widget/offer_carousel.dart';
 import 'package:yumi/template/text_form_field.dart';
 
 class CustomerNews extends StatelessWidget {
