@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/docs_info.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
-import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/rides_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/contract_screen/contract_screen.dart';
@@ -14,7 +14,7 @@ import 'package:yumi/app/pages/auth/registeration/pages/bio_sheet/bio_sheet.dart
 import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/template/dialog.dart';
-import 'package:yumi/template/menu_template.dart';
+import 'package:yumi/app/pages/menu/widget/menu_template.dart';
 import 'package:yumi/template/snack_bar.dart';
 
 List chefOnboardingSteps(BuildContext context, RegState state) => [

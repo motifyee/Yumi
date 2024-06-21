@@ -7,7 +7,7 @@ import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/screens/customer/chef_profile.dart';
+import 'package:yumi/app/pages/chef_profile/chef_profile.dart';
 import 'package:yumi/service/chef_service.dart';
 import 'package:yumi/statics/theme_statics.dart';
 

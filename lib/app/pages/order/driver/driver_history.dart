@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/pages/order/cubit/order/order_bloc.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
-import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/action_button.dart';
-import 'package:yumi/template/news_orders.dart';
-
-import '../../model/meal_model.dart';
+import 'package:yumi/app/pages/order/widgets/news_orders.dart';
 
 class DriverHistoryScreen extends StatelessWidget {
   DriverHistoryScreen({super.key});

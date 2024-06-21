@@ -81,6 +81,7 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   Future<dynamic> getBaskets() async {
+    print('getBaskets ...');
     final Either<Failure, Basket?> task = await GetBasket().call(NoParams());
     return task.fold((l) => null, (r) async {
       if (r == null) return null;

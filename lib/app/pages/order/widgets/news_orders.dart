@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
+import 'package:yumi/app/pages/order/cubit/order/order_bloc.dart';
 import 'package:yumi/core/setup/signalr.dart';
-import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/template/order_card.dart';
+import 'package:yumi/app/pages/order/widgets/order_card.dart';
 import 'package:yumi/template/pagination_template.dart';
 
 class NewsOrders extends StatelessWidget {

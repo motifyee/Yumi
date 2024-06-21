@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/pages/menu/chef/menu.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/notification/notification_screen.dart';
 import 'package:yumi/app/pages/order/chef/news.dart';
@@ -17,11 +18,10 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/model/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/screens/chef/menu.dart';
-import 'package:yumi/screens/customer/customer_menu_pre.dart';
-import 'package:yumi/screens/customer/cutomer_menu.dart';
-import 'package:yumi/screens/customer/favorites.dart';
-import 'package:yumi/screens/driver/chef_history.dart';
+import 'package:yumi/app/pages/menu/customer/customer_menu_pre.dart';
+import 'package:yumi/app/pages/menu/customer/cutomer_menu.dart';
+import 'package:yumi/app/pages/menu/customer/favorites.dart';
+import 'package:yumi/app/pages/order/driver/driver_history.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class NavigateOptions {

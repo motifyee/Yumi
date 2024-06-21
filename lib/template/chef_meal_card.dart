@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/screens/customer/meal_profile.dart';
+import 'package:yumi/app/pages/meal_profile/meal_profile.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/template/text_currency.dart';
 

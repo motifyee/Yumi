@@ -7,6 +7,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumi/app/components/google_map/util/geo_location_permission.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/core/util/string.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/onboarding_screen/onboarding_steps.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/signup_screen/entity/signup_data.dart';
@@ -20,7 +21,6 @@ import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/rides_servi
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
-import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';

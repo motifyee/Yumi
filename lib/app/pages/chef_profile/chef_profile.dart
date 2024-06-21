@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/bloc/categories/categories_bloc.dart';
-import 'package:yumi/bloc/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/bloc/reviews/reviews_bloc.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -256,53 +256,7 @@ class ChefProfileScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            // if (menuTarget == MenuTarget.preOrder)
-                            //   TextButton(
-                            //     onPressed: () {
-                            //       showModalBottomSheet(
-                            //         isScrollControlled: true,
-                            //         backgroundColor: Colors.transparent,
-                            //         context: context,
-                            //         builder: (context) => CustomerPreOrderForm(
-                            //           chef: chef,
-                            //           isPickUpOnly: chef.pickupOnly ?? false, meal: null,
-                            //         ),
-                            //       );
-                            //     },
-                            //     child: Row(
-                            //       children: [
-                            //         Text(
-                            //           S.of(context).addPreOrder,
-                            //           style: Theme.of(context)
-                            //               .textTheme
-                            //               .labelMedium
-                            //               ?.copyWith(
-                            //                   fontSize:
-                            //                       ThemeSelector.fonts.font_10),
-                            //         ),
-                            //         const Text(' '),
-                            //         Container(
-                            //           width:
-                            //               ThemeSelector.statics.defaultLineGap,
-                            //           height:
-                            //               ThemeSelector.statics.defaultLineGap,
-                            //           decoration: BoxDecoration(
-                            //             color: ThemeSelector.colors.primary,
-                            //             borderRadius: BorderRadius.circular(
-                            //                 ThemeSelector
-                            //                     .statics.defaultLineGap),
-                            //           ),
-                            //           child: Center(
-                            //             child: Icon(
-                            //               Icons.add,
-                            //               color: ThemeSelector.colors.onPrimary,
-                            //               size: ThemeSelector.fonts.font_12,
-                            //             ),
-                            //           ),
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
+
                           ],
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultBlockGap),

@@ -7,8 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:yumi/app/pages/order/cubit/order/order_bloc.dart';
 import 'package:yumi/app_target.dart';
-import 'package:yumi/bloc/order/order_bloc.dart';
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -1012,6 +1012,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
+
                           if (widget.orderCardTargetPage ==
                                   OrderCardTargetPage.customerHistory &&
                               widget.order.isDriverDelayed &&
@@ -1101,6 +1102,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
+
                           if (widget.orderCardTargetPage ==
                                   OrderCardTargetPage.customerHistory &&
                               widget.order.isChefDelayed &&
@@ -1167,6 +1169,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
+
                           if (AppTarget.user == AppTargetUser.drivers &&
                               widget.orderCardTargetPage !=
                                   OrderCardTargetPage.view)

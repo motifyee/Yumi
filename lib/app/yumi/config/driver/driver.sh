@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ../../../
+cd ../../../../../
 
 manifest="./android/app/src/main/AndroidManifest.xml"
 gradle="./android/app/build.gradle"

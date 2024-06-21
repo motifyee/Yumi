@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/offer_card.dart';
+import 'package:yumi/app/pages/menu/widget/offer_card.dart';
 
 class OfferCarousel extends StatefulWidget {
   OfferCarousel({super.key});
