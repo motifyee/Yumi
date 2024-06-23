@@ -16,7 +16,7 @@ class OrderState with _$OrderState {
   }) = _OrderState;
 
   factory OrderState.initial() {
-    return const OrderState(pagination: Pagination<Order>(data: []));
+    return OrderState(pagination: const Pagination<Order>(data: []));
   }
 
   factory OrderState.fromJson(Map<String, dynamic> json) =>
