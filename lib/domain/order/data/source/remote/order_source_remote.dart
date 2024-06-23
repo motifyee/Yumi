@@ -5,28 +5,28 @@ import 'package:yumi/domain/order/data/source/order_source.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/pager.dart';
+import 'package:yumi/statics/pagination.dart';
 
 class OrderSourceRemote extends OrderSource {
   @override
-  Future<Pager<Order>> getOrders({
+  Future<Pagination<Order>> getOrders({
     required String apiKeys,
-    required Pager<Order> pager,
+    required Pagination<Order> pagination,
   }) async {
     Response res = await DioClient.simpleDio().get(
       apiKeys,
-      queryParameters: {...pager.toJson()},
+      queryParameters: {...pagination.toJson()},
     );
 
     List<Order> data =
         res.data['data'].map<Order>((e) => Order.fromJson(e)).toList();
 
-    return pager.copyWith(
-      data: <Order>[...pager.data, ...data].unique((e) => e.id),
+    return pagination.copyWith(
+      data: <Order>[...pagination.data, ...data].unique((e) => e.id),
       isLoading: false,
       pageNumber: res.data['pagination']['page'],
       lastPage: res.data['pagination']['pages'],
-    ) as Pager<Order>;
+    ) as Pagination<Order>;
   }
 
   @override
@@ -34,12 +34,12 @@ class OrderSourceRemote extends OrderSource {
     required String apiKeys,
     int? orderId,
     bool isFakeBody = true,
-    required Pager<Order> pager,
+    required Pagination<Order> pagination,
   }) async {
     Response res = await DioClient.simpleDio().put(
       apiKeys,
       data: isFakeBody ? {'driver_ID': null} : null,
-      queryParameters: {...pager.toJson(), 'orderId': orderId}
+      queryParameters: {...pagination.toJson(), 'orderId': orderId}
         ..removeWhere((key, value) => value == null),
     );
 

@@ -1,7 +1,7 @@
 import 'package:yumi/domain/notification/entity/notification.dart';
-import 'package:yumi/statics/pager.dart';
+import 'package:yumi/statics/pagination.dart';
 
 abstract class NotificationSource {
-  Future<Pager<NotificationS>> loadNotifications(
-      {required Pager<NotificationS> pagination});
+  Future<Pagination<NotificationS>> loadNotifications(
+      {required Pagination<NotificationS> pagination});
 }

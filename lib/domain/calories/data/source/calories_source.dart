@@ -1,6 +1,7 @@
 import 'package:yumi/domain/calories/entity/calories.dart';
-import 'package:yumi/statics/pager.dart';
+import 'package:yumi/statics/pagination.dart';
 
 abstract class CaloriesSource {
-  Future<Pager<Calories>> loadCalories({required Pager<Calories> pager});
+  Future<Pagination<Calories>> loadCalories(
+      {required Pagination<Calories> pagination});
 }

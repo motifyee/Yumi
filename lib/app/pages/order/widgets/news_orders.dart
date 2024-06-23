@@ -60,7 +60,7 @@ class NewsOrders extends StatelessWidget {
                       menuTarget: menuTarget,
                       navFun: navFun,
                     ),
-                  if (state.pager.isLoading) Loading(),
+                  if (state.pagination.isLoading) Loading(),
                 ],
               );
             },

@@ -4,12 +4,12 @@ part of 'reviews_bloc.dart';
 class ReviewsState with _$ReviewsState {
   const factory ReviewsState({
     @Default([]) List<ReviewModel> reviews,
-    @Default(Pager(
+    @Default(Pagination(
       pageSize: 20,
       pageNumber: 0,
       lastPage: 1,
       isLoading: false,
     ))
-    Pager pager,
+    Pagination pagination,
   }) = _ReviewsState;
 }

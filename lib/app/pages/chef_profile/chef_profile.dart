@@ -201,7 +201,7 @@ class ChefProfileScreen extends StatelessWidget {
                                             )
                                         ],
                                       ),
-                                      if (state.pager.isLoading) Loading(),
+                                      if (state.pagination.isLoading) Loading(),
                                     ],
                                   ),
                                 );
@@ -242,7 +242,7 @@ class ChefProfileScreen extends StatelessWidget {
                                         for (var category
                                             in state.categoriesModelList)
                                           CategoriesCard(category: category),
-                                        if (state.pager.isLoading)
+                                        if (state.pagination.isLoading)
                                           Loading(
                                               size: ThemeSelector
                                                   .statics.defaultBlockGap),
@@ -266,7 +266,7 @@ class ChefProfileScreen extends StatelessWidget {
                                     .getReviews(chefID: chef.id!);
                                 return BlocBuilder<ReviewsCubit, ReviewsState>(
                                   builder: (context, state) {
-                                    return state.pager.isLoading
+                                    return state.pagination.isLoading
                                         ? Loading(
                                             size: ThemeSelector
                                                 .statics.defaultBlockGap)
@@ -292,7 +292,7 @@ class ChefProfileScreen extends StatelessWidget {
                                                         .fonts.font_12,
                                                   ),
                                                   Text(
-                                                    '${chef.rate ?? '0'} ( ${state.pager.total < 1000 ? state.pager.total : (state.pager.total / 1000).toStringAsFixed(1)}${state.pager.total < 1000 ? '' : 'k'} Reviews )',
+                                                    '${chef.rate ?? '0'} ( ${state.pagination.total < 1000 ? state.pagination.total : (state.pagination.total / 1000).toStringAsFixed(1)}${state.pagination.total < 1000 ? '' : 'k'} Reviews )',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .labelSmall
@@ -393,7 +393,7 @@ class ChefProfileScreen extends StatelessWidget {
                                               ThemeSelector.statics.defaultGap),
                                           child: ReviewCard(review: review),
                                         ),
-                                      if (state.pager.isLoading) Loading(),
+                                      if (state.pagination.isLoading) Loading(),
                                     ],
                                   ),
                                 );

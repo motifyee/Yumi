@@ -256,7 +256,7 @@ class _MealList extends StatelessWidget {
                                   }
                                 },
                               ),
-                            if (state.pager.isLoading)
+                            if (state.pagination.isLoading)
                               Expanded(child: Loading()),
                           ],
                         ),
@@ -422,7 +422,8 @@ class _CategoriesList extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          if (state.pager.isLoading) Expanded(child: Loading()),
+                          if (state.pagination.isLoading)
+                            Expanded(child: Loading()),
                         ],
                       ),
                     ),

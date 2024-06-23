@@ -120,7 +120,7 @@ class CategoriesListDialog extends StatelessWidget {
                             ),
                           ),
                         ),
-                      if (state.pager.isLoading) Loading(),
+                      if (state.pagination.isLoading) Loading(),
                     ],
                   ),
                 );

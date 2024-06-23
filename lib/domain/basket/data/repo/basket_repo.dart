@@ -17,20 +17,20 @@ abstract class BasketRepo {
   });
 
   TaskEither<Failure, Response> getOrderOrPreOrder(
-      {required String apiKeys, Map<String, dynamic>? pager});
+      {required String apiKeys, Map<String, dynamic>? pagination});
 
   TaskEither<Failure, Response> getOrderOrPreOrderDriverById(
       {required String apiKeys,
       required String id,
-      Map<String, dynamic>? pager});
+      Map<String, dynamic>? pagination});
 
   TaskEither<Failure, Response> putActionOrderOrPreOrder(
-      {required String apiKeys, Map<String, dynamic>? pager});
+      {required String apiKeys, Map<String, dynamic>? pagination});
 
-  TaskEither<Failure, Basket?> getBaskets({Map<String, dynamic>? pager});
+  TaskEither<Failure, Basket?> getBaskets({Map<String, dynamic>? pagination});
 
   TaskEither<Failure, Response> closeBasket(
-      {required Basket basket, Map<String, dynamic>? pager});
+      {required Basket basket, Map<String, dynamic>? pagination});
 
   TaskEither<Failure, Basket> updateBasket({required Basket basket});
 }

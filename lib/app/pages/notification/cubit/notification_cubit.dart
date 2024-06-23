@@ -5,7 +5,7 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/notification/entity/notification.dart';
 import 'package:yumi/domain/notification/use_case/load_notification.dart';
 import 'package:yumi/domain/notification/use_case/new_notification.dart';
-import 'package:yumi/statics/pager.dart';
+import 'package:yumi/statics/pagination.dart';
 
 part 'notification_cubit.freezed.dart';
 part 'notification_cubit.g.dart';
@@ -18,8 +18,8 @@ class NotificationCubit extends Cubit<NotificationState> {
     if (state.pagination.isLoading) return;
     emit(state.copyWith(
         pagination: state.pagination.copyWith(isLoading: true)
-            as Pager<NotificationS>));
-    Either<Failure, Pager<NotificationS>> task = await LoadNotification()
+            as Pagination<NotificationS>));
+    Either<Failure, Pagination<NotificationS>> task = await LoadNotification()
         .call(LoadNotificationParams(pagination: state.pagination));
 
     task.fold((l) => null,
@@ -27,9 +27,9 @@ class NotificationCubit extends Cubit<NotificationState> {
   }
 
   newNotification(NotificationS notificationS) async {
-    Either<Failure, Pager<NotificationS>> task = await NewNotification().call(
-        NewNotificationParams(
-            notificationS: notificationS, pager: state.pagination));
+    Either<Failure, Pagination<NotificationS>> task = await NewNotification()
+        .call(NewNotificationParams(
+            notificationS: notificationS, pagination: state.pagination));
     task.fold((l) => null,
         (r) => emit(state.copyWith(pagination: r, isNewNotification: true)));
   }

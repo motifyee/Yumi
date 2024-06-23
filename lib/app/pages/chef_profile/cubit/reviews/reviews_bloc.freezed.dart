@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ReviewsState {
   List<ReviewModel> get reviews => throw _privateConstructorUsedError;
-  Pager<dynamic> get pager => throw _privateConstructorUsedError;
+  Pagination<dynamic> get pagination => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ReviewsStateCopyWith<ReviewsState> get copyWith =>
@@ -30,9 +30,9 @@ abstract class $ReviewsStateCopyWith<$Res> {
           ReviewsState value, $Res Function(ReviewsState) then) =
       _$ReviewsStateCopyWithImpl<$Res, ReviewsState>;
   @useResult
-  $Res call({List<ReviewModel> reviews, Pager<dynamic> pager});
+  $Res call({List<ReviewModel> reviews, Pagination<dynamic> pagination});
 
-  $PagerCopyWith<dynamic, $Res> get pager;
+  $PaginationCopyWith<dynamic, $Res> get pagination;
 }
 
 /// @nodoc
@@ -49,25 +49,25 @@ class _$ReviewsStateCopyWithImpl<$Res, $Val extends ReviewsState>
   @override
   $Res call({
     Object? reviews = null,
-    Object? pager = null,
+    Object? pagination = null,
   }) {
     return _then(_value.copyWith(
       reviews: null == reviews
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as List<ReviewModel>,
-      pager: null == pager
-          ? _value.pager
-          : pager // ignore: cast_nullable_to_non_nullable
-              as Pager<dynamic>,
+      pagination: null == pagination
+          ? _value.pagination
+          : pagination // ignore: cast_nullable_to_non_nullable
+              as Pagination<dynamic>,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PagerCopyWith<dynamic, $Res> get pager {
-    return $PagerCopyWith<dynamic, $Res>(_value.pager, (value) {
-      return _then(_value.copyWith(pager: value) as $Val);
+  $PaginationCopyWith<dynamic, $Res> get pagination {
+    return $PaginationCopyWith<dynamic, $Res>(_value.pagination, (value) {
+      return _then(_value.copyWith(pagination: value) as $Val);
     });
   }
 }
@@ -80,10 +80,10 @@ abstract class _$$ReviewsStateImplCopyWith<$Res>
       __$$ReviewsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<ReviewModel> reviews, Pager<dynamic> pager});
+  $Res call({List<ReviewModel> reviews, Pagination<dynamic> pagination});
 
   @override
-  $PagerCopyWith<dynamic, $Res> get pager;
+  $PaginationCopyWith<dynamic, $Res> get pagination;
 }
 
 /// @nodoc
@@ -98,17 +98,17 @@ class __$$ReviewsStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? reviews = null,
-    Object? pager = null,
+    Object? pagination = null,
   }) {
     return _then(_$ReviewsStateImpl(
       reviews: null == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as List<ReviewModel>,
-      pager: null == pager
-          ? _value.pager
-          : pager // ignore: cast_nullable_to_non_nullable
-              as Pager<dynamic>,
+      pagination: null == pagination
+          ? _value.pagination
+          : pagination // ignore: cast_nullable_to_non_nullable
+              as Pagination<dynamic>,
     ));
   }
 }
@@ -118,7 +118,7 @@ class __$$ReviewsStateImplCopyWithImpl<$Res>
 class _$ReviewsStateImpl implements _ReviewsState {
   const _$ReviewsStateImpl(
       {final List<ReviewModel> reviews = const [],
-      this.pager = const Pager(
+      this.pagination = const Pagination(
           pageSize: 20, pageNumber: 0, lastPage: 1, isLoading: false)})
       : _reviews = reviews;
 
@@ -133,11 +133,11 @@ class _$ReviewsStateImpl implements _ReviewsState {
 
   @override
   @JsonKey()
-  final Pager<dynamic> pager;
+  final Pagination<dynamic> pagination;
 
   @override
   String toString() {
-    return 'ReviewsState(reviews: $reviews, pager: $pager)';
+    return 'ReviewsState(reviews: $reviews, pagination: $pagination)';
   }
 
   @override
@@ -146,12 +146,13 @@ class _$ReviewsStateImpl implements _ReviewsState {
         (other.runtimeType == runtimeType &&
             other is _$ReviewsStateImpl &&
             const DeepCollectionEquality().equals(other._reviews, _reviews) &&
-            (identical(other.pager, pager) || other.pager == pager));
+            (identical(other.pagination, pagination) ||
+                other.pagination == pagination));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_reviews), pager);
+      runtimeType, const DeepCollectionEquality().hash(_reviews), pagination);
 
   @JsonKey(ignore: true)
   @override
@@ -163,12 +164,12 @@ class _$ReviewsStateImpl implements _ReviewsState {
 abstract class _ReviewsState implements ReviewsState {
   const factory _ReviewsState(
       {final List<ReviewModel> reviews,
-      final Pager<dynamic> pager}) = _$ReviewsStateImpl;
+      final Pagination<dynamic> pagination}) = _$ReviewsStateImpl;
 
   @override
   List<ReviewModel> get reviews;
   @override
-  Pager<dynamic> get pager;
+  Pagination<dynamic> get pagination;
   @override
   @JsonKey(ignore: true)
   _$$ReviewsStateImplCopyWith<_$ReviewsStateImpl> get copyWith =>

@@ -2,12 +2,12 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'pager.freezed.dart';
-part 'pager.g.dart';
+part 'pagination.freezed.dart';
+part 'pagination.g.dart';
 
 @freezed
-class Pager<T> with _$Pager {
-  const factory Pager({
+class Pagination<T> with _$Pagination {
+  const factory Pagination({
     @Default(0) @JsonKey(toJson: _pageNumberToJson) int pageNumber,
     @Default(20) int pageSize,
     @Default(1) @JsonKey(includeFromJson: false) int lastPage,
@@ -16,13 +16,14 @@ class Pager<T> with _$Pager {
     @Default([])
     @JsonKey(includeToJson: false, includeFromJson: false)
     List<T> data,
-  }) = _Pager;
+  }) = _Pagination;
 
-  const Pager._();
+  const Pagination._();
 
   bool get canRequest => pageNumber != lastPage && !isLoading;
 
-  factory Pager.fromJson(Map<String, dynamic> json) => _$PagerFromJson(json);
+  factory Pagination.fromJson(Map<String, dynamic> json) =>
+      _$PaginationFromJson(json);
 }
 
 int _pageNumberToJson(int value) {

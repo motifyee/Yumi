@@ -161,7 +161,7 @@ class MenuTemplate extends StatelessWidget {
                                 ),
                               SizedBox(
                                 width: ThemeSelector.statics.defaultBlockGap,
-                                child: state.pager.isLoading
+                                child: state.pagination.isLoading
                                     ? Loading(
                                         size: ThemeSelector
                                             .statics.defaultBlockGap,
@@ -174,7 +174,7 @@ class MenuTemplate extends StatelessWidget {
                       },
                     ),
                   ),
-                  if (state.pager.isLoading)
+                  if (state.pagination.isLoading)
                     Expanded(
                       child: Loading(),
                     ),
@@ -230,7 +230,7 @@ class MenuTemplate extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (state.meals.isEmpty && !state.pager.isLoading)
+                  if (state.meals.isEmpty && !state.pagination.isLoading)
                     Expanded(
                       child: Text(
                         S.of(context).empty,

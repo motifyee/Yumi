@@ -120,9 +120,9 @@ abstract class _$$updateEventImplCopyWith<$Res> {
           _$updateEventImpl value, $Res Function(_$updateEventImpl) then) =
       __$$updateEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Order> orders, Pager<dynamic> pager});
+  $Res call({List<Order> orders, Pagination<dynamic> pagination});
 
-  $PagerCopyWith<dynamic, $Res> get pager;
+  $PaginationCopyWith<dynamic, $Res> get pagination;
 }
 
 /// @nodoc
@@ -137,25 +137,25 @@ class __$$updateEventImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? orders = null,
-    Object? pager = null,
+    Object? pagination = null,
   }) {
     return _then(_$updateEventImpl(
       orders: null == orders
           ? _value._orders
           : orders // ignore: cast_nullable_to_non_nullable
               as List<Order>,
-      pager: null == pager
-          ? _value.pager
-          : pager // ignore: cast_nullable_to_non_nullable
-              as Pager<dynamic>,
+      pagination: null == pagination
+          ? _value.pagination
+          : pagination // ignore: cast_nullable_to_non_nullable
+              as Pagination<dynamic>,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PagerCopyWith<dynamic, $Res> get pager {
-    return $PagerCopyWith<dynamic, $Res>(_value.pager, (value) {
-      return _then(_value.copyWith(pager: value));
+  $PaginationCopyWith<dynamic, $Res> get pagination {
+    return $PaginationCopyWith<dynamic, $Res>(_value.pagination, (value) {
+      return _then(_value.copyWith(pagination: value));
     });
   }
 }
@@ -164,7 +164,7 @@ class __$$updateEventImplCopyWithImpl<$Res>
 
 class _$updateEventImpl implements _updateEvent {
   const _$updateEventImpl(
-      {required final List<Order> orders, required this.pager})
+      {required final List<Order> orders, required this.pagination})
       : _orders = orders;
 
   final List<Order> _orders;
@@ -176,11 +176,11 @@ class _$updateEventImpl implements _updateEvent {
   }
 
   @override
-  final Pager<dynamic> pager;
+  final Pagination<dynamic> pagination;
 
   @override
   String toString() {
-    return 'OrderEvent.update(orders: $orders, pager: $pager)';
+    return 'OrderEvent.update(orders: $orders, pagination: $pagination)';
   }
 
   @override
@@ -189,12 +189,13 @@ class _$updateEventImpl implements _updateEvent {
         (other.runtimeType == runtimeType &&
             other is _$updateEventImpl &&
             const DeepCollectionEquality().equals(other._orders, _orders) &&
-            (identical(other.pager, pager) || other.pager == pager));
+            (identical(other.pagination, pagination) ||
+                other.pagination == pagination));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_orders), pager);
+      runtimeType, const DeepCollectionEquality().hash(_orders), pagination);
 
   @JsonKey(ignore: true)
   @override
@@ -228,10 +229,10 @@ class _$updateEventImpl implements _updateEvent {
 abstract class _updateEvent implements OrderEvent {
   const factory _updateEvent(
       {required final List<Order> orders,
-      required final Pager<dynamic> pager}) = _$updateEventImpl;
+      required final Pagination<dynamic> pagination}) = _$updateEventImpl;
 
   List<Order> get orders;
-  Pager<dynamic> get pager;
+  Pagination<dynamic> get pagination;
   @JsonKey(ignore: true)
   _$$updateEventImplCopyWith<_$updateEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -494,7 +495,7 @@ abstract class _putActionEvent implements OrderEvent {
 /// @nodoc
 mixin _$OrderState {
   List<Order> get orders => throw _privateConstructorUsedError;
-  Pager<dynamic> get pager => throw _privateConstructorUsedError;
+  Pagination<dynamic> get pagination => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OrderStateCopyWith<OrderState> get copyWith =>
@@ -507,9 +508,9 @@ abstract class $OrderStateCopyWith<$Res> {
           OrderState value, $Res Function(OrderState) then) =
       _$OrderStateCopyWithImpl<$Res, OrderState>;
   @useResult
-  $Res call({List<Order> orders, Pager<dynamic> pager});
+  $Res call({List<Order> orders, Pagination<dynamic> pagination});
 
-  $PagerCopyWith<dynamic, $Res> get pager;
+  $PaginationCopyWith<dynamic, $Res> get pagination;
 }
 
 /// @nodoc
@@ -526,25 +527,25 @@ class _$OrderStateCopyWithImpl<$Res, $Val extends OrderState>
   @override
   $Res call({
     Object? orders = null,
-    Object? pager = null,
+    Object? pagination = null,
   }) {
     return _then(_value.copyWith(
       orders: null == orders
           ? _value.orders
           : orders // ignore: cast_nullable_to_non_nullable
               as List<Order>,
-      pager: null == pager
-          ? _value.pager
-          : pager // ignore: cast_nullable_to_non_nullable
-              as Pager<dynamic>,
+      pagination: null == pagination
+          ? _value.pagination
+          : pagination // ignore: cast_nullable_to_non_nullable
+              as Pagination<dynamic>,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PagerCopyWith<dynamic, $Res> get pager {
-    return $PagerCopyWith<dynamic, $Res>(_value.pager, (value) {
-      return _then(_value.copyWith(pager: value) as $Val);
+  $PaginationCopyWith<dynamic, $Res> get pagination {
+    return $PaginationCopyWith<dynamic, $Res>(_value.pagination, (value) {
+      return _then(_value.copyWith(pagination: value) as $Val);
     });
   }
 }
@@ -557,10 +558,10 @@ abstract class _$$XOrderStateImplCopyWith<$Res>
       __$$XOrderStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Order> orders, Pager<dynamic> pager});
+  $Res call({List<Order> orders, Pagination<dynamic> pagination});
 
   @override
-  $PagerCopyWith<dynamic, $Res> get pager;
+  $PaginationCopyWith<dynamic, $Res> get pagination;
 }
 
 /// @nodoc
@@ -575,17 +576,17 @@ class __$$XOrderStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? orders = null,
-    Object? pager = null,
+    Object? pagination = null,
   }) {
     return _then(_$XOrderStateImpl(
       orders: null == orders
           ? _value._orders
           : orders // ignore: cast_nullable_to_non_nullable
               as List<Order>,
-      pager: null == pager
-          ? _value.pager
-          : pager // ignore: cast_nullable_to_non_nullable
-              as Pager<dynamic>,
+      pagination: null == pagination
+          ? _value.pagination
+          : pagination // ignore: cast_nullable_to_non_nullable
+              as Pagination<dynamic>,
     ));
   }
 }
@@ -594,7 +595,7 @@ class __$$XOrderStateImplCopyWithImpl<$Res>
 
 class _$XOrderStateImpl implements _XOrderState {
   const _$XOrderStateImpl(
-      {required final List<Order> orders, required this.pager})
+      {required final List<Order> orders, required this.pagination})
       : _orders = orders;
 
   final List<Order> _orders;
@@ -606,11 +607,11 @@ class _$XOrderStateImpl implements _XOrderState {
   }
 
   @override
-  final Pager<dynamic> pager;
+  final Pagination<dynamic> pagination;
 
   @override
   String toString() {
-    return 'OrderState(orders: $orders, pager: $pager)';
+    return 'OrderState(orders: $orders, pagination: $pagination)';
   }
 
   @override
@@ -619,12 +620,13 @@ class _$XOrderStateImpl implements _XOrderState {
         (other.runtimeType == runtimeType &&
             other is _$XOrderStateImpl &&
             const DeepCollectionEquality().equals(other._orders, _orders) &&
-            (identical(other.pager, pager) || other.pager == pager));
+            (identical(other.pagination, pagination) ||
+                other.pagination == pagination));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_orders), pager);
+      runtimeType, const DeepCollectionEquality().hash(_orders), pagination);
 
   @JsonKey(ignore: true)
   @override
@@ -636,12 +638,12 @@ class _$XOrderStateImpl implements _XOrderState {
 abstract class _XOrderState implements OrderState {
   const factory _XOrderState(
       {required final List<Order> orders,
-      required final Pager<dynamic> pager}) = _$XOrderStateImpl;
+      required final Pagination<dynamic> pagination}) = _$XOrderStateImpl;
 
   @override
   List<Order> get orders;
   @override
-  Pager<dynamic> get pager;
+  Pagination<dynamic> get pagination;
   @override
   @JsonKey(ignore: true)
   _$$XOrderStateImplCopyWith<_$XOrderStateImpl> get copyWith =>

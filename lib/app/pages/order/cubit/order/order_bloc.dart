@@ -6,7 +6,7 @@ import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/service/order_service.dart';
-import 'package:yumi/statics/pager.dart';
+import 'package:yumi/statics/pagination.dart';
 
 part 'order_bloc.freezed.dart';
 part 'order_event.dart';
@@ -30,17 +30,17 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     required _getRequestEvent event,
     required Emitter<OrderState> emit,
   }) async {
-    if (state.pager.pageNumber < state.pager.lastPage &&
-        !state.pager.isLoading) {
+    if (state.pagination.pageNumber < state.pagination.lastPage &&
+        !state.pagination.isLoading) {
       emit(
         state.copyWith(
-          pager: state.pager.copyWith(isLoading: true),
+          pagination: state.pagination.copyWith(isLoading: true),
         ),
       );
 
       Response res = await OrderService.getOrderOrPreOrder(
         apiKeys: event.apiKey,
-        pager: state.pager.toJson(),
+        pagination: state.pagination.toJson(),
       );
 
       if (res.statusCode == 200) {
@@ -53,7 +53,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         add(
           OrderEvent.update(
             orders: [...state.orders, ...data].unique(),
-            pager: state.pager.copyWith(
+            pagination: state.pagination.copyWith(
               pageNumber: res.data['pagination']['page'],
               lastPage: res.data['pagination']['pages'],
               isLoading: false,
@@ -63,7 +63,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       } else {
         emit(
           state.copyWith(
-            pager: state.pager.copyWith(isLoading: false),
+            pagination: state.pagination.copyWith(isLoading: false),
           ),
         );
       }
@@ -74,7 +74,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     emit(
       state.copyWith(
         orders: event.orders,
-        pager: event.pager,
+        pagination: event.pagination,
       ),
     );
   }
@@ -110,7 +110,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
       add(OrderEvent.update(
         orders: newOrders,
-        pager: state.pager,
+        pagination: state.pagination,
       ));
     });
   }

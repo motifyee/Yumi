@@ -332,7 +332,8 @@ class MealForm extends StatelessWidget {
                                               SizedBox(
                                                 width: ThemeSelector
                                                     .statics.defaultTitleGap,
-                                                child: state.pager.isLoading
+                                                child: state
+                                                        .pagination.isLoading
                                                     ? Loading(
                                                         size: ThemeSelector
                                                             .statics

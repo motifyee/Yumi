@@ -75,7 +75,7 @@ class CaloriesReferenceTemplate extends StatelessWidget {
                 builder: (context, state) {
                   return Column(
                     children: [
-                      for (Calories calorie in state.pager.data)
+                      for (Calories calorie in state.pagination.data)
                         Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: ThemeSelector.statics.defaultMicroGap),
@@ -106,7 +106,7 @@ class CaloriesReferenceTemplate extends StatelessWidget {
                             ),
                           ),
                         ),
-                      if (state.pager.isLoading) Loading(),
+                      if (state.pagination.isLoading) Loading(),
                     ],
                   );
                 },

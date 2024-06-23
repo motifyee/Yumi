@@ -94,8 +94,8 @@ class CustomerLocationScreen extends StatelessWidget {
                       },
                       child: Column(
                         children: [
-                          if (state.pager.isLoading) Loading(),
-                          if (!state.pager.isLoading)
+                          if (state.pagination.isLoading) Loading(),
+                          if (!state.pagination.isLoading)
                             for (var i = 0; i < state.addressList.length; i++)
                               if (state.addressList[i].isDeleted != true)
                                 _LocationCard(address: state.addressList[i]),

@@ -4,19 +4,19 @@ part of 'chefs_list_bloc.dart';
 class ChefsListState extends Equatable {
   List<Chef> chefs;
   int chefsUpdated;
-  Pager pager;
+  Pagination pagination;
 
   ChefsListState({
     required this.chefs,
-    required this.pager,
+    required this.pagination,
     this.chefsUpdated = 0,
   });
 
-  ChefsListState copyWith({List<Chef>? chefs, Pager? pager}) {
+  ChefsListState copyWith({List<Chef>? chefs, Pagination? pagination}) {
     return ChefsListState(
         chefs: chefs ?? this.chefs,
         chefsUpdated: chefsUpdated + 1,
-        pager: pager ?? this.pager);
+        pagination: pagination ?? this.pagination);
   }
 
   @override

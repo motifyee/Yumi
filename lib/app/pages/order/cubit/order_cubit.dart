@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/domain/order/use_case/get_orders.dart';
-import 'package:yumi/statics/pager.dart';
+import 'package:yumi/statics/pagination.dart';
 
 part 'order_cubit.freezed.dart';
 part 'order_cubit.g.dart';
@@ -12,11 +12,11 @@ part 'order_cubit.g.dart';
 @freezed
 class OrderState with _$OrderState {
   const factory OrderState({
-    required Pager<Order> pager,
+    required Pagination<Order> pagination,
   }) = _OrderState;
 
   factory OrderState.initial() {
-    return const OrderState(pager: Pager<Order>(data: []));
+    return const OrderState(pagination: Pagination<Order>(data: []));
   }
 
   factory OrderState.fromJson(Map<String, dynamic> json) =>
@@ -29,16 +29,18 @@ class OrderCubit extends Cubit<OrderState> {
   resetOrders() => emit(OrderState.initial());
 
   getOrders({required String apiKeys}) async {
-    if (state.pager.canRequest) {
+    if (state.pagination.canRequest) {
       emit(state.copyWith(
-          pager: state.pager.copyWith(isLoading: true) as Pager<Order>));
+          pagination:
+              state.pagination.copyWith(isLoading: true) as Pagination<Order>));
 
-      final fpdart.Either<Failure, Pager<Order>> task = await GetOrders()
-          .call(GetOrdersParams(pager: state.pager, apiKeys: apiKeys));
+      final fpdart.Either<Failure, Pagination<Order>> task = await GetOrders()
+          .call(
+              GetOrdersParams(pagination: state.pagination, apiKeys: apiKeys));
 
       task.fold(
         (l) => null,
-        (r) => emit(state.copyWith(pager: r)),
+        (r) => emit(state.copyWith(pagination: r)),
       );
     }
   }

@@ -5,7 +5,7 @@ import 'package:yumi/domain/order/data/repo/order_repo.dart';
 import 'package:yumi/domain/order/data/source/order_source.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/pager.dart';
+import 'package:yumi/statics/pagination.dart';
 
 class OrderRepoRemote extends OrderRepo {
   final OrderSource orderSource;
@@ -14,10 +14,10 @@ class OrderRepoRemote extends OrderRepo {
       : orderSource = orderSource ?? getIt<OrderSource>();
 
   @override
-  TaskEither<Failure, Pager<Order>> getOrders(
-      {required String apiKeys, required Pager<Order> pager}) {
+  TaskEither<Failure, Pagination<Order>> getOrders(
+      {required String apiKeys, required Pagination<Order> pagination}) {
     return TaskEither.tryCatch(
-      () => orderSource.getOrders(apiKeys: apiKeys, pager: pager),
+      () => orderSource.getOrders(apiKeys: apiKeys, pagination: pagination),
       (error, stackTrace) {
         return ServerFailure(error, stackTrace);
       },

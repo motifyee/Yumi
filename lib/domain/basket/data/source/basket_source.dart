@@ -12,15 +12,15 @@ abstract class BasketSource {
     required bool isPreOrder,
   });
   Future<Response> getOrderOrPreOrder(
-      {required String apiKeys, Map<String, dynamic>? pager});
+      {required String apiKeys, Map<String, dynamic>? pagination});
   Future<Response> getOrderOrPreOrderDriverById(
       {required String apiKeys,
       required String id,
-      Map<String, dynamic>? pager});
+      Map<String, dynamic>? pagination});
   Future<Response> putActionOrderOrPreOrder(
-      {required String apiKeys, Map<String, dynamic>? pager});
-  Future<Basket?> getBaskets({Map<String, dynamic>? pager});
+      {required String apiKeys, Map<String, dynamic>? pagination});
+  Future<Basket?> getBaskets({Map<String, dynamic>? pagination});
   Future<Response> closeBasket(
-      {required Basket basket, Map<String, dynamic>? pager});
+      {required Basket basket, Map<String, dynamic>? pagination});
   Future<Basket> updateBasket({required Basket basket});
 }

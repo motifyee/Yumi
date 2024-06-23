@@ -138,7 +138,7 @@ class FavoritesScreen extends StatelessWidget {
                                                   .statics.defaultBorderRadius),
                                         ),
                                       ),
-                                    if (state.pager.isLoading) Loading(),
+                                    if (state.pagination.isLoading) Loading(),
                                   ],
                                 ),
                               );
@@ -191,7 +191,7 @@ class FavoritesScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                  if (state.pager.isLoading) Loading(),
+                                  if (state.pagination.isLoading) Loading(),
                                   // Padding(
                                   //   padding: EdgeInsets.symmetric(
                                   //       horizontal:

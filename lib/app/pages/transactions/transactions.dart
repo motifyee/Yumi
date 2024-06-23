@@ -68,7 +68,7 @@ class TransactionsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return Column(
                         children: [
-                          for (Transaction transaction in state.pager.data)
+                          for (Transaction transaction in state.pagination.data)
                             if (transaction.credit != null)
                               Padding(
                                 padding: EdgeInsets.symmetric(
@@ -118,7 +118,7 @@ class TransactionsScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                          if (state.pager.isLoading) Loading(),
+                          if (state.pagination.isLoading) Loading(),
                         ],
                       );
                     },
