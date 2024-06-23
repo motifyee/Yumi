@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
-import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -23,7 +23,7 @@ class FavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ChefsListBloc()),
+        BlocProvider(create: (context) => ChefsCubit()),
         BlocProvider(create: (context) => NewsBloc()),
         BlocProvider(create: (context) => MealListBloc()),
       ],
@@ -104,13 +104,9 @@ class FavoritesScreen extends StatelessWidget {
                       children: [
                         PaginationTemplate(
                           scrollDirection: Axis.vertical,
-                          loadDate: () {
-                            context.read<ChefsListBloc>().add(GetChefsListEvent(
-                                context: context,
-                                menuTarget: MenuTarget.order,
-                                isFavorite: true));
-                          },
-                          child: BlocConsumer<ChefsListBloc, ChefsListState>(
+                          loadDate: () =>
+                              context.read<ChefsCubit>().getFavouriteChefs(),
+                          child: BlocConsumer<ChefsCubit, ChefsState>(
                             listener: (context, state) {},
                             builder: (context, state) {
                               return Padding(
@@ -119,7 +115,7 @@ class FavoritesScreen extends StatelessWidget {
                                         ThemeSelector.statics.defaultGap),
                                 child: Column(
                                   children: [
-                                    for (var chef in state.chefs)
+                                    for (var chef in state.chefsPage.data)
                                       ChefBanner(
                                         menuTarget: MenuTarget.preOrder,
                                         chef: chef,
@@ -138,7 +134,7 @@ class FavoritesScreen extends StatelessWidget {
                                                   .statics.defaultBorderRadius),
                                         ),
                                       ),
-                                    if (state.pagination.isLoading) Loading(),
+                                    if (state.chefsPage.isLoading) Loading(),
                                   ],
                                 ),
                               );

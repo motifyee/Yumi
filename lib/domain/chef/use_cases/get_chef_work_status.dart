@@ -3,7 +3,7 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
-import 'package:yumi/domain/chef/entity/chef.dart';
+import 'package:yumi/domain/chef/entity/chef_work_status.dart';
 
 class GetChefWorkStatus
     extends UseCase<ChefWorkStatus, GetChefWorkStatusParam> {

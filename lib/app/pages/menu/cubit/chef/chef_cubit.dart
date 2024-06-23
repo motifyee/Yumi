@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
+import 'package:yumi/domain/chef/entity/chef_work_status.dart';
 import 'package:yumi/domain/chef/use_cases/add_favourite_chef.dart';
 import 'package:yumi/domain/chef/use_cases/get_chefs.dart';
 import 'package:yumi/domain/chef/use_cases/get_favourite_chefs.dart';
@@ -19,63 +20,56 @@ class ChefsCubit extends Cubit<ChefsState> {
 
   Future<void> getChefs({
     required bool isPreOrder,
-    required double latitude,
-    required double longitude,
-    required ChefWorkStatus status,
-    required Pagination pagination,
+    ChefWorkStatus? status,
   }) async {
     Address? userLocation = G.rd<UserCubit>().state.address;
+    if (userLocation?.latitude == null) return;
+    if (userLocation?.longitude == null) return;
 
-    if (userLocation?.latitude == null || userLocation?.longitude == null) {
-      return;
-    }
-
-    if (!state.chefs.canRequest) return;
-    emit(state.copyWith.chefs(isLoading: true));
+    if (!state.chefsPage.canRequest) return;
+    emit(state.copyWith.chefsPage(isLoading: true));
 
     final params = GetChefsParam(
-      isPreOrder: isPreOrder,
-      latitude: latitude,
-      longitude: longitude,
       status: status,
-      pagination: pagination,
+      isPreOrder: isPreOrder,
+      pagination: state.chefsPage,
+      latitude: userLocation!.latitude!,
+      longitude: userLocation.longitude!,
     );
     final chefs = await GetChefs().call(params);
 
     chefs.fold(
-      (l) => emit(state.copyWith.chefs(isLoading: false)),
+      (l) => emit(state.copyWith.chefsPage(isLoading: false)),
       (r) => emit(
         state.copyWith(
-          chefs: r.copyWith(
-            data: [...r.data, ...state.chefs.data],
+          chefsPage: r.copyWith(
+            data: [...r.data, ...state.chefsPage.data],
           ) as Pagination<Chef>,
         ),
       ),
     );
   }
 
-  Future<void> getFavouriteChefs({
-    required Pagination pagination,
-  }) async {
+  Future<void> getFavouriteChefs() async {
     Address? userLocation = G.rd<UserCubit>().state.address;
 
     if (userLocation?.latitude == null || userLocation?.longitude == null) {
       return;
     }
 
-    if (!state.chefs.canRequest) return;
+    if (!state.chefsPage.canRequest) return;
 
-    emit(state.copyWith.chefs(isLoading: true));
+    emit(state.copyWith.chefsPage(isLoading: true));
 
-    final params = GetFavouriteChefsParam(pagination);
+    final params = GetFavouriteChefsParam(state.chefsPage);
     final favouriteChefs = await GetFavouriteChefs().call(params);
 
     favouriteChefs.fold(
-      (l) => emit(state.copyWith.chefs(isLoading: false)),
+      (l) => emit(state.copyWith.chefsPage(isLoading: false)),
       (r) => emit(
         state.copyWith(
-          chefs: r.copyWith(
-            data: [...r.data, ...state.chefs.data],
+          chefsPage: r.copyWith(
+            data: [...r.data, ...state.chefsPage.data],
           ) as Pagination<Chef>,
         ),
       ),
@@ -93,11 +87,11 @@ class ChefsCubit extends Cubit<ChefsState> {
     return isFavourite.fold(
       (l) => null,
       (r) {
-        final chefs = List<Chef>.from(state.chefs.data);
+        final chefs = List<Chef>.from(state.chefsPage.data);
         final chefIdx = chefs.indexWhere((c) => c.id == chef.id);
         chefs[chefIdx] = chef.copyWith(isFavorite: r);
 
-        emit(state.copyWith.chefs(data: chefs));
+        emit(state.copyWith.chefsPage(data: chefs));
 
         return r;
       },
@@ -115,11 +109,11 @@ class ChefsCubit extends Cubit<ChefsState> {
     return favouriteChef.fold(
       (l) => false,
       (r) {
-        final chefs = List<Chef>.from(state.chefs.data);
+        final chefs = List<Chef>.from(state.chefsPage.data);
         final chefIdx = chefs.indexWhere((c) => c.id == chef.id);
         chefs[chefIdx] = chef.copyWith(isFavorite: r);
 
-        emit(state.copyWith.chefs(data: chefs));
+        emit(state.copyWith.chefsPage(data: chefs));
 
         return r;
       },
@@ -137,11 +131,11 @@ class ChefsCubit extends Cubit<ChefsState> {
     return favouriteChef.fold(
       (l) => false,
       (r) {
-        final chefs = List<Chef>.from(state.chefs.data);
+        final chefs = List<Chef>.from(state.chefsPage.data);
         final chefIdx = chefs.indexWhere((c) => c.id == chef.id);
         chefs[chefIdx] = chef.copyWith(isFavorite: r);
 
-        emit(state.copyWith.chefs(data: chefs));
+        emit(state.copyWith.chefsPage(data: chefs));
 
         return r;
       },
@@ -152,4 +146,3 @@ class ChefsCubit extends Cubit<ChefsState> {
     emit(ChefsState());
   }
 }
-// }

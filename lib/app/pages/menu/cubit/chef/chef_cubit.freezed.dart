@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ChefsState {
-  Pagination<Chef> get chefs => throw _privateConstructorUsedError;
+  Pagination<Chef> get chefsPage => throw _privateConstructorUsedError;
   int get chefsUpdated => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,9 +30,9 @@ abstract class $ChefsStateCopyWith<$Res> {
           ChefsState value, $Res Function(ChefsState) then) =
       _$ChefsStateCopyWithImpl<$Res, ChefsState>;
   @useResult
-  $Res call({Pagination<Chef> chefs, int chefsUpdated});
+  $Res call({Pagination<Chef> chefsPage, int chefsUpdated});
 
-  $PaginationCopyWith<Chef, $Res> get chefs;
+  $PaginationCopyWith<Chef, $Res> get chefsPage;
 }
 
 /// @nodoc
@@ -48,13 +48,13 @@ class _$ChefsStateCopyWithImpl<$Res, $Val extends ChefsState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? chefs = null,
+    Object? chefsPage = null,
     Object? chefsUpdated = null,
   }) {
     return _then(_value.copyWith(
-      chefs: null == chefs
-          ? _value.chefs
-          : chefs // ignore: cast_nullable_to_non_nullable
+      chefsPage: null == chefsPage
+          ? _value.chefsPage
+          : chefsPage // ignore: cast_nullable_to_non_nullable
               as Pagination<Chef>,
       chefsUpdated: null == chefsUpdated
           ? _value.chefsUpdated
@@ -65,9 +65,9 @@ class _$ChefsStateCopyWithImpl<$Res, $Val extends ChefsState>
 
   @override
   @pragma('vm:prefer-inline')
-  $PaginationCopyWith<Chef, $Res> get chefs {
-    return $PaginationCopyWith<Chef, $Res>(_value.chefs, (value) {
-      return _then(_value.copyWith(chefs: value) as $Val);
+  $PaginationCopyWith<Chef, $Res> get chefsPage {
+    return $PaginationCopyWith<Chef, $Res>(_value.chefsPage, (value) {
+      return _then(_value.copyWith(chefsPage: value) as $Val);
     });
   }
 }
@@ -80,10 +80,10 @@ abstract class _$$ChefsStateImplCopyWith<$Res>
       __$$ChefsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Pagination<Chef> chefs, int chefsUpdated});
+  $Res call({Pagination<Chef> chefsPage, int chefsUpdated});
 
   @override
-  $PaginationCopyWith<Chef, $Res> get chefs;
+  $PaginationCopyWith<Chef, $Res> get chefsPage;
 }
 
 /// @nodoc
@@ -97,13 +97,13 @@ class __$$ChefsStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? chefs = null,
+    Object? chefsPage = null,
     Object? chefsUpdated = null,
   }) {
     return _then(_$ChefsStateImpl(
-      chefs: null == chefs
-          ? _value.chefs
-          : chefs // ignore: cast_nullable_to_non_nullable
+      chefsPage: null == chefsPage
+          ? _value.chefsPage
+          : chefsPage // ignore: cast_nullable_to_non_nullable
               as Pagination<Chef>,
       chefsUpdated: null == chefsUpdated
           ? _value.chefsUpdated
@@ -117,18 +117,18 @@ class __$$ChefsStateImplCopyWithImpl<$Res>
 
 class _$ChefsStateImpl implements _ChefsState {
   _$ChefsStateImpl(
-      {this.chefs = const Pagination<Chef>(), this.chefsUpdated = 0});
+      {this.chefsPage = const Pagination<Chef>(), this.chefsUpdated = 0});
 
   @override
   @JsonKey()
-  final Pagination<Chef> chefs;
+  final Pagination<Chef> chefsPage;
   @override
   @JsonKey()
   final int chefsUpdated;
 
   @override
   String toString() {
-    return 'ChefsState(chefs: $chefs, chefsUpdated: $chefsUpdated)';
+    return 'ChefsState(chefsPage: $chefsPage, chefsUpdated: $chefsUpdated)';
   }
 
   @override
@@ -136,13 +136,14 @@ class _$ChefsStateImpl implements _ChefsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChefsStateImpl &&
-            (identical(other.chefs, chefs) || other.chefs == chefs) &&
+            (identical(other.chefsPage, chefsPage) ||
+                other.chefsPage == chefsPage) &&
             (identical(other.chefsUpdated, chefsUpdated) ||
                 other.chefsUpdated == chefsUpdated));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, chefs, chefsUpdated);
+  int get hashCode => Object.hash(runtimeType, chefsPage, chefsUpdated);
 
   @JsonKey(ignore: true)
   @override
@@ -152,11 +153,12 @@ class _$ChefsStateImpl implements _ChefsState {
 }
 
 abstract class _ChefsState implements ChefsState {
-  factory _ChefsState({final Pagination<Chef> chefs, final int chefsUpdated}) =
-      _$ChefsStateImpl;
+  factory _ChefsState(
+      {final Pagination<Chef> chefsPage,
+      final int chefsUpdated}) = _$ChefsStateImpl;
 
   @override
-  Pagination<Chef> get chefs;
+  Pagination<Chef> get chefsPage;
   @override
   int get chefsUpdated;
   @override
