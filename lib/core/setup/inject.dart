@@ -9,6 +9,10 @@ import 'package:yumi/domain/calories/data/repo/calories_repo.dart';
 import 'package:yumi/domain/calories/data/repo/remote/calories_repo_remote.dart';
 import 'package:yumi/domain/calories/data/source/calories_source.dart';
 import 'package:yumi/domain/calories/data/source/remote/calories_source_remote.dart';
+import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
+import 'package:yumi/domain/chef/data/respositories/remote/chef_remote_repo.dart';
+import 'package:yumi/domain/chef/data/sources/profile_source.dart';
+import 'package:yumi/domain/chef/data/sources/remote/chef_remote_src.dart';
 import 'package:yumi/domain/notification/data/repo/notification_repo.dart';
 import 'package:yumi/domain/notification/data/repo/remote/notification_repo_remote.dart';
 import 'package:yumi/domain/notification/data/source/notification_source.dart';
@@ -32,24 +36,27 @@ final getIt = sl.get;
 void initGetItBase() {}
 
 Future<void> inject() async {
-  sl.registerFactory<ProfileRepo>(() => ProfileRemoteRepo(profileSrc: sl()));
   sl.registerFactory<ProfileSrc>(() => ProfileRemoteSrc());
+  sl.registerFactory<ProfileRepo>(() => ProfileRemoteRepo(profileSrc: sl()));
 
-  sl.registerFactory<ScheduleRepo>(() => ScheduleRemoteRepo());
   sl.registerFactory<ScheduleSrc>(() => ScheduleRemoteSrc());
+  sl.registerFactory<ScheduleRepo>(() => ScheduleRemoteRepo());
 
+  sl.registerFactory<CaloriesSource>(() => CaloriesSourceRemote());
   sl.registerFactory<CaloriesRepo>(
       () => CaloriesRepoRemote(caloriesSource: sl()));
-  sl.registerFactory<CaloriesSource>(() => CaloriesSourceRemote());
 
-  sl.registerFactory<BasketRepo>(() => BasketRemoteRepo());
   sl.registerFactory<BasketSource>(() => BasketRemoteSource());
+  sl.registerFactory<BasketRepo>(() => BasketRemoteRepo());
 
-  sl.registerFactory<NotificationRepo>(() => NotificationRepoRemote());
   sl.registerFactory<NotificationSource>(() => NotificationSourceRemote());
+  sl.registerFactory<NotificationRepo>(() => NotificationRepoRemote());
 
-  sl.registerFactory<TransactionRepo>(() => TransactionRepoRemote());
   sl.registerFactory<TransactionSource>(() => TransactionSourceRemote());
+  sl.registerFactory<TransactionRepo>(() => TransactionRepoRemote());
+
+  sl.registerFactory<ChefSrc>(() => ChefRemoteSrc());
+  sl.registerFactory<ChefRepo>(() => ChefRemoteRepo(chefSrc: sl()));
 
   // Utils
   sl.registerLazySingleton<InternetChecker>(() => InternetChecker());

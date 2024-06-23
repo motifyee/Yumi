@@ -6,6 +6,8 @@ abstract class ChefSrc {
     required bool isPreOrder,
     required double latitude,
     required double longitude,
+    required ChefWorkStatus status,
+    required Pagination pagination,
   });
   Future<ChefWorkStatus> getChefWorkStatus(String chefId);
   Future<bool> isFavouriteChef(String chefId);

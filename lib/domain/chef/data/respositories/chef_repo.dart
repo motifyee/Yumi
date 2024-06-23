@@ -8,6 +8,8 @@ abstract class ChefRepo {
     required bool isPreOrder,
     required double latitude,
     required double longitude,
+    required ChefWorkStatus status,
+    required Pagination pagination,
   });
   TaskEither<Failure, ChefWorkStatus> getChefWorkStatus(String chefId);
   TaskEither<Failure, bool> isFavouriteChef(String chefId);
