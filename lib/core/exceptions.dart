@@ -33,3 +33,7 @@ class CacheUserFoundException implements CacheException {}
 // -----------------------------------------------------------------------------
 
 class GenericException implements CException {}
+
+// -----------------------------------------------------------------------------
+
+class SignalRException implements CException {}
