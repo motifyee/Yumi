@@ -6,7 +6,7 @@ import 'package:yumi/app/pages/settings/components/profile/profile_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/dialog.dart';
+import 'package:yumi/app/components/dialog.dart';
 
 class UserSettingDetails extends StatelessWidget {
   const UserSettingDetails({super.key});

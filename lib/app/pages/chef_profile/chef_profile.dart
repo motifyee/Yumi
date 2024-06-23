@@ -8,19 +8,16 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
-import 'package:yumi/bloc/reviews/reviews_bloc.dart';
+import 'package:yumi/app/pages/chef_profile/cubit/reviews/reviews_bloc.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/meal_model.dart';
-import 'package:yumi/model/review_model/review_model.dart';
-import 'package:yumi/statics/code_generator.dart';
+import 'package:yumi/app/pages/menu/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/category_card.dart';
-import 'package:yumi/template/chef_bannar.dart';
-import 'package:yumi/template/chef_meal_card.dart';
-import 'package:yumi/template/pagination_template.dart';
-import 'package:yumi/template/review_card.dart';
-import 'package:yumi/template/review_chef_delivery.dart';
+import 'package:yumi/app/pages/chef_profile/components/category_card.dart';
+import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';
+import 'package:yumi/app/pages/chef_profile/components/chef_meal_card.dart';
+import 'package:yumi/app/components/pagination_template.dart';
+import 'package:yumi/app/pages/chef_profile/components/review_card.dart';
 
 @RoutePage()
 class ChefProfileScreen extends StatelessWidget {
@@ -204,8 +201,7 @@ class ChefProfileScreen extends StatelessWidget {
                                             )
                                         ],
                                       ),
-                                      if (state.paginationHelper.isLoading)
-                                        Loading(),
+                                      if (state.pager.isLoading) Loading(),
                                     ],
                                   ),
                                 );
@@ -246,7 +242,7 @@ class ChefProfileScreen extends StatelessWidget {
                                         for (var category
                                             in state.categoriesModelList)
                                           CategoriesCard(category: category),
-                                        if (state.paginationHelper.isLoading)
+                                        if (state.pager.isLoading)
                                           Loading(
                                               size: ThemeSelector
                                                   .statics.defaultBlockGap),
@@ -256,7 +252,6 @@ class ChefProfileScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultBlockGap),
@@ -264,14 +259,14 @@ class ChefProfileScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             BlocProvider(
-                              create: (context) => ReviewsBloc(),
+                              create: (context) => ReviewsCubit(),
                               child: Builder(builder: (context) {
-                                context.read<ReviewsBloc>().add(
-                                      ReviewsEvent.getAll(chefID: chef.id!),
-                                    );
-                                return BlocBuilder<ReviewsBloc, ReviewsState>(
+                                context
+                                    .read<ReviewsCubit>()
+                                    .getReviews(chefID: chef.id!);
+                                return BlocBuilder<ReviewsCubit, ReviewsState>(
                                   builder: (context, state) {
-                                    return state.paginationHelper.isLoading
+                                    return state.pager.isLoading
                                         ? Loading(
                                             size: ThemeSelector
                                                 .statics.defaultBlockGap)
@@ -297,7 +292,7 @@ class ChefProfileScreen extends StatelessWidget {
                                                         .fonts.font_12,
                                                   ),
                                                   Text(
-                                                    '${chef.rate ?? '0'} ( ${state.paginationHelper.total < 1000 ? state.paginationHelper.total : (state.paginationHelper.total / 1000).toStringAsFixed(1)}${state.paginationHelper.total < 1000 ? '' : 'k'} Reviews )',
+                                                    '${chef.rate ?? '0'} ( ${state.pager.total < 1000 ? state.pager.total : (state.pager.total / 1000).toStringAsFixed(1)}${state.pager.total < 1000 ? '' : 'k'} Reviews )',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .labelSmall
@@ -329,75 +324,20 @@ class ChefProfileScreen extends StatelessWidget {
                                       ),
                                 ),
                                 BlocProvider(
-                                  create: (context) => ReviewsBloc(),
+                                  create: (context) => ReviewsCubit(),
                                   child: Builder(
                                     builder: (context) {
-                                      context.read<ReviewsBloc>().add(
-                                            ReviewsEvent.getAll(
-                                                chefID: chef.id!,
-                                                isMyReviews: true),
+                                      context.read<ReviewsCubit>().getReviews(
+                                            chefID: chef.id!,
+                                            isMyReviews: true,
                                           );
 
-                                      return BlocConsumer<ReviewsBloc,
+                                      return BlocConsumer<ReviewsCubit,
                                           ReviewsState>(
                                         listener: (context, state) {},
                                         builder: (context, state) {
                                           return GestureDetector(
-                                            onTap: () {
-                                              return;
-                                              showDialog(
-                                                useSafeArea: true,
-                                                context: context,
-                                                builder: (context) =>
-                                                    AlertDialog(
-                                                  scrollable: true,
-                                                  alignment: Alignment.center,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  surfaceTintColor:
-                                                      Colors.transparent,
-                                                  insetPadding: EdgeInsets.zero,
-                                                  content: ReviewChefDriver(
-                                                    isChefOnly: true,
-                                                    reviewChef:
-                                                        const ReviewModel()
-                                                            .copyWith(
-                                                      buddiesUserId:
-                                                          chef.id ?? '',
-                                                      rate: state
-                                                              .reviews
-                                                              .firstOrNull
-                                                              ?.rate ??
-                                                          0,
-                                                      code: CodeGenerator
-                                                          .getRandomCode(),
-                                                      id: state
-                                                              .reviews
-                                                              .firstOrNull
-                                                              ?.id ??
-                                                          '',
-                                                      reviewComment: state
-                                                              .reviews
-                                                              .firstOrNull
-                                                              ?.reviewComment ??
-                                                          '',
-                                                    ),
-                                                    reviewDriver:
-                                                        const ReviewModel(),
-                                                  ),
-                                                ),
-                                              ).then((onValue) {
-                                                context.read<ReviewsBloc>().add(
-                                                    const ReviewsEvent
-                                                        .resetReviews());
-
-                                                context.read<ReviewsBloc>().add(
-                                                      ReviewsEvent.getAll(
-                                                          chefID: chef.id!,
-                                                          isMyReviews: true),
-                                                    );
-                                              });
-                                            },
+                                            onTap: () {},
                                             child: RatingBar(
                                               initialRating: state.reviews
                                                       .firstOrNull?.rate ??
@@ -433,15 +373,16 @@ class ChefProfileScreen extends StatelessWidget {
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                         BlocProvider(
-                          create: (context) => ReviewsBloc(),
+                          create: (context) => ReviewsCubit(),
                           child: Builder(builder: (context) {
-                            return BlocConsumer<ReviewsBloc, ReviewsState>(
+                            return BlocConsumer<ReviewsCubit, ReviewsState>(
                               listener: (context, state) {},
                               builder: (context, state) {
                                 return PaginationTemplate(
                                   loadDate: () {
-                                    context.read<ReviewsBloc>().add(
-                                        ReviewsEvent.getAll(chefID: chef.id!));
+                                    context
+                                        .read<ReviewsCubit>()
+                                        .getReviews(chefID: chef.id!);
                                   },
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
@@ -452,8 +393,7 @@ class ChefProfileScreen extends StatelessWidget {
                                               ThemeSelector.statics.defaultGap),
                                           child: ReviewCard(review: review),
                                         ),
-                                      if (state.paginationHelper.isLoading)
-                                        Loading(),
+                                      if (state.pager.isLoading) Loading(),
                                     ],
                                   ),
                                 );

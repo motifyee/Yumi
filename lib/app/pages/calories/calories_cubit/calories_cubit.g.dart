@@ -8,11 +8,10 @@ part of 'calories_cubit.dart';
 
 _$CaloriesStateImpl _$$CaloriesStateImplFromJson(Map<String, dynamic> json) =>
     _$CaloriesStateImpl(
-      paginationHelper: PaginationHelper<Calories>.fromJson(
-          json['paginationHelper'] as Map<String, dynamic>),
+      pager: Pager<Calories>.fromJson(json['pager'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$CaloriesStateImplToJson(_$CaloriesStateImpl instance) =>
     <String, dynamic>{
-      'paginationHelper': instance.paginationHelper,
+      'pager': instance.pager,
     };

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:yumi/template/dialog.dart';
+import 'package:yumi/app/components/dialog.dart';
 
 Future<bool> checkGeoService([
   bool prompt = true,

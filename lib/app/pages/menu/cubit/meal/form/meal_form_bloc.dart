@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal_model.dart';
 
 part 'meal_form_event.dart';
 part 'meal_form_state.dart';

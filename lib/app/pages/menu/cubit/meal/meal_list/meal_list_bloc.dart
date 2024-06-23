@@ -7,9 +7,9 @@ import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal_model.dart';
 import 'package:yumi/service/meal_service.dart';
-import 'package:yumi/statics/pagination_helper.dart';
+import 'package:yumi/statics/pager.dart';
 
 part 'meal_list_event.dart';
 part 'meal_list_state.dart';
@@ -19,16 +19,14 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       : super(MealListState(
           meals: const [],
           selectedCategory: 0,
-          paginationHelper: const PaginationHelper(),
+          pager: const Pager(),
           menuTarget: MenuTarget.order,
         )) {
     on<MealListUpdateEvent>((event, emit) async {
-      if (state.paginationHelper.pageNumber < state.paginationHelper.lastPage &&
-          !state.paginationHelper.isLoading) {
+      if (state.pager.pageNumber < state.pager.lastPage &&
+          !state.pager.isLoading) {
         emit(
-          state.copyWith(
-              paginationHelper:
-                  state.paginationHelper.copyWith(isLoading: true)),
+          state.copyWith(pager: state.pager.copyWith(isLoading: true)),
         );
 
         late dynamic res = [];
@@ -44,7 +42,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
                 isPreorder: event.menuTarget != null
                     ? event.menuTarget == MenuTarget.preOrder
                     : state.menuTarget == MenuTarget.preOrder,
-                queryParameters: {...state.paginationHelper.toJson()},
+                queryParameters: {...state.pager.toJson()},
               );
 
               data = res['data'].map<MealModel>((value) {
@@ -63,7 +61,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
                 isPreorder: event.menuTarget != null
                     ? event.menuTarget == MenuTarget.preOrder
                     : state.menuTarget == MenuTarget.preOrder,
-                pagination: {...state.paginationHelper.toJson()},
+                pagination: {...state.pager.toJson()},
               );
 
               data = res['data'].map<MealModel>((value) {
@@ -83,7 +81,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
                 isPreorder: event.menuTarget != null
                     ? event.menuTarget == MenuTarget.preOrder
                     : state.menuTarget == MenuTarget.preOrder,
-                queryParameters: {...state.paginationHelper.toJson()},
+                queryParameters: {...state.pager.toJson()},
               );
 
               data = res['data'].map<MealModel>((value) {
@@ -101,7 +99,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
                 isPreorder: event.menuTarget != null
                     ? event.menuTarget == MenuTarget.preOrder
                     : state.menuTarget == MenuTarget.preOrder,
-                pagination: {...state.paginationHelper.toJson()},
+                pagination: {...state.pager.toJson()},
               );
 
               data = res['data'].map<MealModel>((value) {
@@ -116,14 +114,14 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
 
           emit(state.copyWith(
               meals: [...state.meals, ...data],
-              paginationHelper: state.paginationHelper.copyWith(
+              pager: state.pager.copyWith(
                 pageNumber: res['pagination']['page'],
                 lastPage: res['pagination']['pages'],
                 isLoading: false,
               )));
         } catch (e) {
           emit(state.copyWith(
-              paginationHelper: state.paginationHelper.copyWith(
+              pager: state.pager.copyWith(
             isLoading: false,
           )));
         }
@@ -131,12 +129,12 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
     });
 
     on<MealListUpdateCategoryEvent>((event, emit) {
-      if (state.paginationHelper.isLoading) return;
+      if (state.pager.isLoading) return;
       emit(
         state.copyWith(
           meals: [],
           selectedCategory: event.selectedCategory,
-          paginationHelper: const PaginationHelper(),
+          pager: const Pager(),
         ),
       );
 
@@ -150,22 +148,20 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       emit(MealListState(
         meals: const [],
         selectedCategory: event.categoryId ?? 0,
-        paginationHelper: const PaginationHelper(),
+        pager: const Pager(),
         menuTarget: event.menuTarget ?? state.menuTarget,
       ));
     });
 
     on<MealListGetFavoriteMealsEvent>((event, emit) async {
-      if (state.paginationHelper.pageNumber < state.paginationHelper.lastPage &&
-          !state.paginationHelper.isLoading) {
+      if (state.pager.pageNumber < state.pager.lastPage &&
+          !state.pager.isLoading) {
         emit(
-          state.copyWith(
-              paginationHelper:
-                  state.paginationHelper.copyWith(isLoading: true)),
+          state.copyWith(pager: state.pager.copyWith(isLoading: true)),
         );
 
         Response res = await MealService.getFavoriteMeals(
-            pagination: {...state.paginationHelper.toJson()});
+            pagination: {...state.pager.toJson()});
 
         List<MealModel> data = res.data['data'].map<MealModel>((value) {
           return MealModel.fromJson({
@@ -177,7 +173,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
 
         emit(state.copyWith(
             meals: [...state.meals, ...data],
-            paginationHelper: state.paginationHelper.copyWith(
+            pager: state.pager.copyWith(
               pageNumber: res.data['pagination']['page'],
               lastPage: res.data['pagination']['pages'],
               isLoading: false,
@@ -221,7 +217,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       emit(MealListState(
         meals: const [],
         selectedCategory: 0,
-        paginationHelper: const PaginationHelper(),
+        pager: const Pager(),
         menuTarget: MenuTarget.order,
       ));
     });

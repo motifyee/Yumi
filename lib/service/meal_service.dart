@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/code_generator.dart';
 

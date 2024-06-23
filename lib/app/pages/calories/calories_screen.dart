@@ -7,8 +7,8 @@ import 'package:yumi/app/pages/calories/calories_cubit/calories_cubit.dart';
 import 'package:yumi/domain/calories/entity/calories.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/pagination_template.dart';
-import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/app/components/pagination_template.dart';
+import 'package:yumi/app/components/text_form_field.dart';
 
 @RoutePage()
 class CaloriesReferenceScreen extends StatelessWidget {
@@ -75,7 +75,7 @@ class CaloriesReferenceTemplate extends StatelessWidget {
                 builder: (context, state) {
                   return Column(
                     children: [
-                      for (Calories calorie in state.paginationHelper.data)
+                      for (Calories calorie in state.pager.data)
                         Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: ThemeSelector.statics.defaultMicroGap),
@@ -106,7 +106,7 @@ class CaloriesReferenceTemplate extends StatelessWidget {
                             ),
                           ),
                         ),
-                      if (state.paginationHelper.isLoading) Loading(),
+                      if (state.pager.isLoading) Loading(),
                     ],
                   );
                 },

@@ -4,30 +4,30 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/order/data/repo/order_repo.dart';
 import 'package:yumi/domain/order/entity/order.dart';
-import 'package:yumi/statics/pagination_helper.dart';
+import 'package:yumi/statics/pager.dart';
 
-class GetOrders extends UseCase<PaginationHelper<Order>, GetOrdersParams> {
+class GetOrders extends UseCase<Pager<Order>, GetOrdersParams> {
   final OrderRepo orderRepo;
 
   GetOrders({OrderRepo? orderRepo})
       : orderRepo = orderRepo ?? getIt<OrderRepo>();
 
   @override
-  Future<Either<Failure, PaginationHelper<Order>>> call(
-          GetOrdersParams params) =>
+  Future<Either<Failure, Pager<Order>>> call(GetOrdersParams params) =>
       orderRepo
           .getOrders(
-              apiKeys: params.apiKeys,
-              paginationHelper: params.paginationHelper)
+            apiKeys: params.apiKeys,
+            pager: params.pager,
+          )
           .run();
 }
 
 class GetOrdersParams extends Params {
-  final PaginationHelper<Order> paginationHelper;
+  final Pager<Order> pager;
   final String apiKeys;
 
-  GetOrdersParams({required this.paginationHelper, required this.apiKeys});
+  GetOrdersParams({required this.pager, required this.apiKeys});
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [pager, apiKeys];
 }

@@ -13,8 +13,8 @@ import 'package:yumi/domain/schedule/entities/extensions.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/dialog.dart';
-import 'package:yumi/template/screen_container.dart';
+import 'package:yumi/app/components/dialog.dart';
+import 'package:yumi/app/components/screen_container.dart';
 
 @RoutePage()
 class MyScheduleScreen extends StatelessWidget {

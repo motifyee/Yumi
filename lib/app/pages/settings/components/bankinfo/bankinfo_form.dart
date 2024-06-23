@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bankinfo_service.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
+import 'package:yumi/app/pages/settings/components/bankinfo/entities/bankinfo_model.dart';
 import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/forms/util/form_submit.dart';
+import 'package:yumi/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/bankinfo_model.dart';
 import 'package:yumi/statics/regex.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/snack_bar.dart';
-import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/app/components/snack_bar.dart';
+import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 final GlobalKey<FormState> bankInfoKey = GlobalKey<FormState>();

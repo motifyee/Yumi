@@ -1,14 +1,13 @@
 import 'package:yumi/domain/order/entity/order.dart';
-import 'package:yumi/statics/pagination_helper.dart';
+import 'package:yumi/statics/pager.dart';
 
 abstract class OrderSource {
-  Future<PaginationHelper<Order>> getOrders(
-      {required String apiKeys,
-      required PaginationHelper<Order> paginationHelper});
+  Future<Pager<Order>> getOrders(
+      {required String apiKeys, required Pager<Order> pager});
 
   Future<bool> putOrders(
       {required String apiKeys,
       int? orderId,
       bool isFakeBody = true,
-      required PaginationHelper<Order> paginationHelper});
+      required Pager<Order> pager});
 }

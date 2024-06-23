@@ -37,7 +37,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: CaloriesReferenceRoute.page, guards: [AuthGuard()]),
         AutoRoute(page: DocumentationRoute.page, guards: [AuthGuard()]),
         AutoRoute(page: ContractRoute.page, guards: [AuthGuard()]),
-        AutoRoute(page: ChefApplicationFlowRoute.page, guards: [AuthGuard()]),
+        AutoRoute(page: OnboardingRoute.page, guards: [AuthGuard()]),
 
         AutoRoute(page: PerformanceAnalysisRoute.page, guards: [AuthGuard()]),
         AutoRoute(page: FinancialViewRoute.page, guards: [AuthGuard()]),

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/text_currency.dart';
+import 'package:yumi/app/components/text_currency.dart';
 
 class PaymentSummaryCard extends StatelessWidget {
   PaymentSummaryCard({super.key, this.hideTitle, this.hideHint});

@@ -8,7 +8,7 @@ import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/app/components/text_form_field.dart';
 
 @RoutePage()
 class CheckOutScreen extends StatelessWidget {

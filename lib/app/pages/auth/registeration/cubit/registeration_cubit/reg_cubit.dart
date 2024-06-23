@@ -30,7 +30,7 @@ import 'package:yumi/domain/profile/use_cases/get_otp.dart';
 import 'package:yumi/domain/profile/use_cases/verify_add_mobile_otp.dart';
 import 'package:yumi/domain/profile/use_cases/verify_email.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/model/login_model.dart';
+import 'package:yumi/app/pages/auth/login/login_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/login_service.dart';
 import 'package:yumi/statics/code_generator.dart';
@@ -42,7 +42,24 @@ const String regStepKey = 'reg_step';
 const String partialFlowKey = 'partial_flow';
 const String onboardingProgressKey = 'onboarding_progress';
 
-enum RegStep { signup, addPhone, otp, location, onboarding }
+enum RegStep {
+  // signup
+  signup,
+  addPhone,
+  otp,
+  location,
+  onboarding,
+
+  // onboarding
+  bio,
+  meals,
+  rides,
+  schedule,
+  docs,
+  accountApproval,
+  contract,
+  contractApproval,
+}
 
 @freezed
 abstract class RegState with _$RegState {
@@ -53,7 +70,7 @@ abstract class RegState with _$RegState {
     bool partialFlow,
     @Default(false) bool registerationStarted,
     @Default(false) bool finished,
-    @Default(0) int step,
+    @Default(-1) int step,
     @Default(-1) int lastStep, // applies to partial flow
     //
     String? email,
@@ -157,7 +174,7 @@ class RegCubit extends Cubit<RegState> {
       );
     }
 
-    if (step >= 0) _navigateToIdx(step);
+    if (step >= 0) navigateToIdx(step);
 
     await loadOnboardingProgress();
 
@@ -223,7 +240,7 @@ class RegCubit extends Cubit<RegState> {
     // TODO keep in storage
 
     emit(state.copyWith(signupData: signupData));
-    if (navigateToNext) _navigateToIdx(1);
+    if (navigateToNext) navigateToIdx(1);
     return true;
   }
 
@@ -283,7 +300,7 @@ class RegCubit extends Cubit<RegState> {
 
     return (await getMobileOTP())
         .fold((l) => 'Something went wrong. try again.', (r) {
-      _navigateToIdx(2, otp: r);
+      navigateToIdx(2);
       return null;
     });
   }
@@ -316,7 +333,7 @@ class RegCubit extends Cubit<RegState> {
         stopCountDown();
 
         if (state.lastStep == RegStep.addPhone.index) return G.pop();
-        _navigateToIdx(3);
+        navigateToIdx(3);
       },
     );
   }
@@ -341,7 +358,7 @@ class RegCubit extends Cubit<RegState> {
 
         if (routeFn != null) return routeFn(address: state.address);
         if (G.isCustomerApp) return finish(true);
-        return await _navigateToIdx(4);
+        return await navigateToIdx(4);
       }
 
       emit(state.copyWith(
@@ -447,10 +464,7 @@ class RegCubit extends Cubit<RegState> {
 
   // navigate to corresponding page based on step index
   // TODO should only be called from within widgets
-  Future<void> _navigateToIdx(
-    int step, {
-    String? otp,
-  }) async {
+  Future<void> navigateToIdx(int step) async {
     if (step > 4) step = 4;
     if (step < 0) step = 0;
     if (!Platform.isAndroid && !Platform.isIOS && step == 3) step = 4;
@@ -512,5 +526,6 @@ PageRouteInfo _getPage(int step) => switch (RegStep.values[step]) {
       RegStep.addPhone => const AddPhoneRoute(),
       RegStep.otp => const OTPRoute(),
       RegStep.location => LocationRoute(),
-      RegStep.onboarding => const ChefApplicationFlowRoute(),
+      // RegStep.onboarding => const OnboardingRoute(),
+      _ => const OnboardingRoute(),
     };

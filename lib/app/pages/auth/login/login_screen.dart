@@ -8,9 +8,9 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/custom_domain.dart';
+import 'package:yumi/app/pages/auth/login/custom_domain.dart';
 import 'package:yumi/app/pages/auth/login/login_thrid_part.dart';
-import 'package:yumi/template/screen_container.dart';
+import 'package:yumi/app/components/screen_container.dart';
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {
@@ -69,7 +69,7 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: ThemeSelector.statics.defaultBlockGap,
                         ),
-                        const LoginThirdPart(),
+                        const SocialLogin(),
                       ],
                     ),
                   ),

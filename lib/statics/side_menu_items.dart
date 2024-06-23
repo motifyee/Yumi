@@ -12,9 +12,9 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/dialog.dart';
-import 'package:yumi/template/menu_button.dart';
-import 'package:yumi/template/text_currency.dart';
+import 'package:yumi/app/components/dialog.dart';
+import 'package:yumi/app/pages/home/menu_button.dart';
+import 'package:yumi/app/components/text_currency.dart';
 
 class AppMenuList {
   static List<AppMenuItem> appList(BuildContext context) {

@@ -18,8 +18,8 @@ import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/snack_bar.dart';
-import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/app/components/snack_bar.dart';
+import 'package:yumi/app/components/text_form_field.dart';
 
 import '../../../../../components/google_map/util/extenstions.dart';
 
@@ -27,8 +27,8 @@ import '../../../../../components/google_map/util/extenstions.dart';
 class LocationScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
 
-  late GMapInfo mapInfo;
-  var selectedAddr = const Address();
+  late final GMapInfo mapInfo;
+  // var selectedAddr = const Address();
   final bool isBack;
 
   Function({required Address address})? routeFn;
@@ -46,20 +46,18 @@ class LocationScreen extends StatelessWidget {
     var loc = locations[0];
 
     mapInfo.animateCamera(loc.toLatLng(), retainZoomLevel: true);
-    // mapInfo.controller?.animateCamera(
-    //     CameraUpdate.newLatLngZoom(LatLng(loc.latitude, loc.longitude), zoom));
 
     return loc;
   }
 
   @override
   Widget build(BuildContext context) {
-    var regBloc = context.read<RegCubit>();
+    var regCubit = context.read<RegCubit>();
     mapInfo = GMapInfo(
         setMarkerOnLongPress: true,
         onAddressLongPress: (placemark, coord, info) {
-          regBloc.setLocation(
-            regBloc.state.address.copyWith(
+          regCubit.setLocation(
+            regCubit.state.address.copyWith(
               location:
                   '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
               latitude: coord.latitude,
@@ -68,9 +66,8 @@ class LocationScreen extends StatelessWidget {
           );
         },
         onTap: (LatLng latLng, GMapInfo info) async {
-          print(await info.controller?.getZoomLevel());
+          debugPrint((await info.controller?.getZoomLevel()).toString());
         });
-    final regCubit = context.read<RegCubit>();
     return PopScope(
       canPop: regCubit.state.partialFlow || isBack ? true : false,
       onPopInvoked: (didPop) {
@@ -92,7 +89,7 @@ class LocationScreen extends StatelessWidget {
     );
   }
 
-  TextEditingController controller = TextEditingController();
+  final TextEditingController controller = TextEditingController();
 
   Widget locationBar() {
     return BlocSelector<RegCubit, RegState, Address>(
@@ -277,8 +274,8 @@ class LocationScreen extends StatelessWidget {
     );
   }
 
-  var inputKey1 = UniqueKey();
-  var inputKey2 = UniqueKey();
+  final inputKey1 = UniqueKey();
+  final inputKey2 = UniqueKey();
   Widget? addressForm(Address addressState, BuildContext context) {
     Address address = addressState.copyWith();
     bool validate() {
@@ -317,7 +314,7 @@ class LocationScreen extends StatelessWidget {
       return false;
     }
 
-    moveCameraToManualAddress() async {
+    void moveCameraToManualAddress() async {
       formKey.currentState!.save();
 
       await tryV(

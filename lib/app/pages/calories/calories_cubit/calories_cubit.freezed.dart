@@ -20,8 +20,7 @@ CaloriesState _$CaloriesStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CaloriesState {
-  PaginationHelper<Calories> get paginationHelper =>
-      throw _privateConstructorUsedError;
+  Pager<Calories> get pager => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,9 +34,9 @@ abstract class $CaloriesStateCopyWith<$Res> {
           CaloriesState value, $Res Function(CaloriesState) then) =
       _$CaloriesStateCopyWithImpl<$Res, CaloriesState>;
   @useResult
-  $Res call({PaginationHelper<Calories> paginationHelper});
+  $Res call({Pager<Calories> pager});
 
-  $PaginationHelperCopyWith<Calories, $Res> get paginationHelper;
+  $PagerCopyWith<Calories, $Res> get pager;
 }
 
 /// @nodoc
@@ -53,22 +52,21 @@ class _$CaloriesStateCopyWithImpl<$Res, $Val extends CaloriesState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? paginationHelper = null,
+    Object? pager = null,
   }) {
     return _then(_value.copyWith(
-      paginationHelper: null == paginationHelper
-          ? _value.paginationHelper
-          : paginationHelper // ignore: cast_nullable_to_non_nullable
-              as PaginationHelper<Calories>,
+      pager: null == pager
+          ? _value.pager
+          : pager // ignore: cast_nullable_to_non_nullable
+              as Pager<Calories>,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PaginationHelperCopyWith<Calories, $Res> get paginationHelper {
-    return $PaginationHelperCopyWith<Calories, $Res>(_value.paginationHelper,
-        (value) {
-      return _then(_value.copyWith(paginationHelper: value) as $Val);
+  $PagerCopyWith<Calories, $Res> get pager {
+    return $PagerCopyWith<Calories, $Res>(_value.pager, (value) {
+      return _then(_value.copyWith(pager: value) as $Val);
     });
   }
 }
@@ -81,10 +79,10 @@ abstract class _$$CaloriesStateImplCopyWith<$Res>
       __$$CaloriesStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({PaginationHelper<Calories> paginationHelper});
+  $Res call({Pager<Calories> pager});
 
   @override
-  $PaginationHelperCopyWith<Calories, $Res> get paginationHelper;
+  $PagerCopyWith<Calories, $Res> get pager;
 }
 
 /// @nodoc
@@ -98,13 +96,13 @@ class __$$CaloriesStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? paginationHelper = null,
+    Object? pager = null,
   }) {
     return _then(_$CaloriesStateImpl(
-      paginationHelper: null == paginationHelper
-          ? _value.paginationHelper
-          : paginationHelper // ignore: cast_nullable_to_non_nullable
-              as PaginationHelper<Calories>,
+      pager: null == pager
+          ? _value.pager
+          : pager // ignore: cast_nullable_to_non_nullable
+              as Pager<Calories>,
     ));
   }
 }
@@ -112,17 +110,17 @@ class __$$CaloriesStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CaloriesStateImpl implements _CaloriesState {
-  const _$CaloriesStateImpl({required this.paginationHelper});
+  const _$CaloriesStateImpl({required this.pager});
 
   factory _$CaloriesStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$CaloriesStateImplFromJson(json);
 
   @override
-  final PaginationHelper<Calories> paginationHelper;
+  final Pager<Calories> pager;
 
   @override
   String toString() {
-    return 'CaloriesState(paginationHelper: $paginationHelper)';
+    return 'CaloriesState(pager: $pager)';
   }
 
   @override
@@ -130,13 +128,12 @@ class _$CaloriesStateImpl implements _CaloriesState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CaloriesStateImpl &&
-            (identical(other.paginationHelper, paginationHelper) ||
-                other.paginationHelper == paginationHelper));
+            (identical(other.pager, pager) || other.pager == pager));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, paginationHelper);
+  int get hashCode => Object.hash(runtimeType, pager);
 
   @JsonKey(ignore: true)
   @override
@@ -153,15 +150,14 @@ class _$CaloriesStateImpl implements _CaloriesState {
 }
 
 abstract class _CaloriesState implements CaloriesState {
-  const factory _CaloriesState(
-          {required final PaginationHelper<Calories> paginationHelper}) =
+  const factory _CaloriesState({required final Pager<Calories> pager}) =
       _$CaloriesStateImpl;
 
   factory _CaloriesState.fromJson(Map<String, dynamic> json) =
       _$CaloriesStateImpl.fromJson;
 
   @override
-  PaginationHelper<Calories> get paginationHelper;
+  Pager<Calories> get pager;
   @override
   @JsonKey(ignore: true)
   _$$CaloriesStateImplCopyWith<_$CaloriesStateImpl> get copyWith =>

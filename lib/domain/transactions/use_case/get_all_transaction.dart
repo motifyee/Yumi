@@ -4,31 +4,29 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/transactions/data/repo/transaction_repo.dart';
 import 'package:yumi/domain/transactions/entity/transaction.dart';
-import 'package:yumi/statics/pagination_helper.dart';
+import 'package:yumi/statics/pager.dart';
 
 class GetAllTransaction
-    extends UseCase<PaginationHelper<Transaction>, GetAllTransactionParams> {
+    extends UseCase<Pager<Transaction>, GetAllTransactionParams> {
   final TransactionRepo transactionRepo;
 
   GetAllTransaction({TransactionRepo? transactionRepo})
       : transactionRepo = transactionRepo ?? getIt<TransactionRepo>();
 
   @override
-  Future<Either<Failure, PaginationHelper<Transaction>>> call(
+  Future<Either<Failure, Pager<Transaction>>> call(
           GetAllTransactionParams params) =>
       transactionRepo
-          .getAllTransaction(
-              paginationHelper: params.paginationHelper, userId: params.userId)
+          .getAllTransaction(pager: params.pager, userId: params.userId)
           .run();
 }
 
 class GetAllTransactionParams extends Params {
-  final PaginationHelper<Transaction> paginationHelper;
+  final Pager<Transaction> pager;
   final String userId;
 
-  GetAllTransactionParams(
-      {required this.paginationHelper, required this.userId});
+  GetAllTransactionParams({required this.pager, required this.userId});
 
   @override
-  List<Object?> get props => [paginationHelper, userId];
+  List<Object?> get props => [pager, userId];
 }

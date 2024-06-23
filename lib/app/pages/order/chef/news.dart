@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
-import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal_model.dart';
 import 'package:yumi/statics/local_storage.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/order/widgets/chef_order.dart';
-import 'package:yumi/template/location.dart';
-import 'package:yumi/template/news_guide.dart';
-import 'package:yumi/template/status_button.dart';
+import 'package:yumi/app/pages/order/widgets/location.dart';
+import 'package:yumi/app/pages/order/widgets/news_guide.dart';
+import 'package:yumi/app/pages/order/widgets/status_button.dart';
 
 class NewsScreen extends StatelessWidget {
   NewsScreen({super.key});

@@ -18,8 +18,7 @@ class DriverRoutes extends $AppRouter {
             AutoRoute(path: RegStep.otp.name, page: OTPRoute.page),
             AutoRoute(path: RegStep.location.name, page: LocationRoute.page),
             AutoRoute(
-                path: RegStep.onboarding.name,
-                page: ChefApplicationFlowRoute.page),
+                path: RegStep.onboarding.name, page: OnboardingRoute.page),
           ],
         ),
 
@@ -38,7 +37,7 @@ class DriverRoutes extends $AppRouter {
         AutoRoute(page: CaloriesReferenceRoute.page),
         AutoRoute(page: DocumentationRoute.page),
         AutoRoute(page: ContractRoute.page),
-        AutoRoute(page: ChefApplicationFlowRoute.page),
+        AutoRoute(page: OnboardingRoute.page),
 
         AutoRoute(page: PerformanceAnalysisRoute.page),
         AutoRoute(page: FinancialViewRoute.page),

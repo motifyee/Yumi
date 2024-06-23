@@ -20,8 +20,7 @@ NotificationState _$NotificationStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$NotificationState {
-  PaginationHelper<NotificationS> get pagination =>
-      throw _privateConstructorUsedError;
+  Pager<NotificationS> get pagination => throw _privateConstructorUsedError;
   bool get isNewNotification => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,10 +35,9 @@ abstract class $NotificationStateCopyWith<$Res> {
           NotificationState value, $Res Function(NotificationState) then) =
       _$NotificationStateCopyWithImpl<$Res, NotificationState>;
   @useResult
-  $Res call(
-      {PaginationHelper<NotificationS> pagination, bool isNewNotification});
+  $Res call({Pager<NotificationS> pagination, bool isNewNotification});
 
-  $PaginationHelperCopyWith<NotificationS, $Res> get pagination;
+  $PagerCopyWith<NotificationS, $Res> get pagination;
 }
 
 /// @nodoc
@@ -62,7 +60,7 @@ class _$NotificationStateCopyWithImpl<$Res, $Val extends NotificationState>
       pagination: null == pagination
           ? _value.pagination
           : pagination // ignore: cast_nullable_to_non_nullable
-              as PaginationHelper<NotificationS>,
+              as Pager<NotificationS>,
       isNewNotification: null == isNewNotification
           ? _value.isNewNotification
           : isNewNotification // ignore: cast_nullable_to_non_nullable
@@ -72,9 +70,8 @@ class _$NotificationStateCopyWithImpl<$Res, $Val extends NotificationState>
 
   @override
   @pragma('vm:prefer-inline')
-  $PaginationHelperCopyWith<NotificationS, $Res> get pagination {
-    return $PaginationHelperCopyWith<NotificationS, $Res>(_value.pagination,
-        (value) {
+  $PagerCopyWith<NotificationS, $Res> get pagination {
+    return $PagerCopyWith<NotificationS, $Res>(_value.pagination, (value) {
       return _then(_value.copyWith(pagination: value) as $Val);
     });
   }
@@ -88,11 +85,10 @@ abstract class _$$NotificationStateImplCopyWith<$Res>
       __$$NotificationStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {PaginationHelper<NotificationS> pagination, bool isNewNotification});
+  $Res call({Pager<NotificationS> pagination, bool isNewNotification});
 
   @override
-  $PaginationHelperCopyWith<NotificationS, $Res> get pagination;
+  $PagerCopyWith<NotificationS, $Res> get pagination;
 }
 
 /// @nodoc
@@ -113,7 +109,7 @@ class __$$NotificationStateImplCopyWithImpl<$Res>
       pagination: null == pagination
           ? _value.pagination
           : pagination // ignore: cast_nullable_to_non_nullable
-              as PaginationHelper<NotificationS>,
+              as Pager<NotificationS>,
       isNewNotification: null == isNewNotification
           ? _value.isNewNotification
           : isNewNotification // ignore: cast_nullable_to_non_nullable
@@ -132,7 +128,7 @@ class _$NotificationStateImpl implements _NotificationState {
       _$$NotificationStateImplFromJson(json);
 
   @override
-  final PaginationHelper<NotificationS> pagination;
+  final Pager<NotificationS> pagination;
   @override
   final bool isNewNotification;
 
@@ -173,14 +169,14 @@ class _$NotificationStateImpl implements _NotificationState {
 
 abstract class _NotificationState implements NotificationState {
   const factory _NotificationState(
-      {required final PaginationHelper<NotificationS> pagination,
+      {required final Pager<NotificationS> pagination,
       required final bool isNewNotification}) = _$NotificationStateImpl;
 
   factory _NotificationState.fromJson(Map<String, dynamic> json) =
       _$NotificationStateImpl.fromJson;
 
   @override
-  PaginationHelper<NotificationS> get pagination;
+  Pager<NotificationS> get pagination;
   @override
   bool get isNewNotification;
   @override

@@ -7,8 +7,8 @@ import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/pagination_template.dart';
-import 'package:yumi/template/text_currency.dart';
+import 'package:yumi/app/components/pagination_template.dart';
+import 'package:yumi/app/components/text_currency.dart';
 
 @RoutePage()
 class WalletScreen extends StatelessWidget {
@@ -98,7 +98,8 @@ class WalletScreen extends StatelessWidget {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        context.router.push(const PaymentVisaRoute());
+                                        context.router
+                                            .push(const PaymentVisaRoute());
                                       },
                                       child: Column(
                                         children: [

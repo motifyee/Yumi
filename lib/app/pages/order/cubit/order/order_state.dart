@@ -4,13 +4,13 @@ part of 'order_bloc.dart';
 class OrderState with _$OrderState {
   const factory OrderState({
     required List<Order> orders,
-    required PaginationHelper paginationHelper,
-  }) = _OrderState;
+    required Pager pager,
+  }) = _XOrderState;
 
   factory OrderState.Initial() {
-    return OrderState(
+    return const OrderState(
         orders: [],
-        paginationHelper: PaginationHelper(
+        pager: Pager(
           pageSize: 20,
           pageNumber: 0,
           lastPage: 1,

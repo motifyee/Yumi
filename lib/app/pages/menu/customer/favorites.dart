@@ -7,12 +7,12 @@ import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal_model.dart';
 import 'package:yumi/app/pages/meal_profile/meal_profile.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/chef_bannar.dart';
-import 'package:yumi/template/chef_meal_basket_card.dart';
-import 'package:yumi/template/pagination_template.dart';
+import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';
+import 'package:yumi/app/pages/menu/widgets/chef_meal_basket_card.dart';
+import 'package:yumi/app/components/pagination_template.dart';
 
 class FavoritesScreen extends StatelessWidget {
   FavoritesScreen({super.key});
@@ -138,8 +138,7 @@ class FavoritesScreen extends StatelessWidget {
                                                   .statics.defaultBorderRadius),
                                         ),
                                       ),
-                                    if (state.paginationHelper.isLoading)
-                                      Loading(),
+                                    if (state.pager.isLoading) Loading(),
                                   ],
                                 ),
                               );
@@ -192,8 +191,7 @@ class FavoritesScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                  if (state.paginationHelper.isLoading)
-                                    Loading(),
+                                  if (state.pager.isLoading) Loading(),
                                   // Padding(
                                   //   padding: EdgeInsets.symmetric(
                                   //       horizontal:

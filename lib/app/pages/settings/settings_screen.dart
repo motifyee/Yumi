@@ -13,7 +13,7 @@ import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/settings/components/bankinfo/bank_settings_card.dart';
-import 'package:yumi/template/dialog.dart';
+import 'package:yumi/app/components/dialog.dart';
 
 @RoutePage()
 class SettingScreen extends StatelessWidget {

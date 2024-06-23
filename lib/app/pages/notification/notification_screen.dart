@@ -8,7 +8,7 @@ import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/domain/notification/entity/notification.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/pagination_template.dart';
+import 'package:yumi/app/components/pagination_template.dart';
 
 @RoutePage()
 class NotificationScreen extends StatelessWidget {

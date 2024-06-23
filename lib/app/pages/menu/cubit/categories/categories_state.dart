@@ -3,25 +3,24 @@ part of 'categories_bloc.dart';
 class CategoriesState extends Equatable {
   List<CategoriesModel> categoriesModelList;
   int categoriesModelListLength;
-  PaginationHelper paginationHelper;
+  Pager pager;
 
   CategoriesState(
       {required this.categoriesModelList,
       required this.categoriesModelListLength,
-      required this.paginationHelper});
+      required this.pager});
 
   CategoriesState copyWith(
-      {List<CategoriesModel>? categoriesModelListed,
-      PaginationHelper? paginationHelper}) {
+      {List<CategoriesModel>? categoriesModelListed, Pager? pager}) {
     return CategoriesState(
         categoriesModelList: categoriesModelListed ?? categoriesModelList,
         categoriesModelListLength: categoriesModelListed != null
             ? categoriesModelListed.length
             : categoriesModelListLength,
-        paginationHelper: paginationHelper ?? this.paginationHelper);
+        pager: pager ?? this.pager);
   }
 
   @override
   List<Object?> get props =>
-      [categoriesModelList, categoriesModelListLength, paginationHelper];
+      [categoriesModelList, categoriesModelListLength, pager];
 }

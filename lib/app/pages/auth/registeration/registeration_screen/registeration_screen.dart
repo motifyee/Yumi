@@ -7,7 +7,7 @@ import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/template/dialog.dart';
+import 'package:yumi/app/components/dialog.dart';
 
 @RoutePage()
 class RegisterationScreen extends StatelessWidget {

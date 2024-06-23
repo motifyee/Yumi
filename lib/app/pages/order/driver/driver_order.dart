@@ -9,15 +9,15 @@ import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/local_storage.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/action_button.dart';
-import 'package:yumi/template/location.dart';
-import 'package:yumi/template/news_guide.dart';
+import 'package:yumi/app/pages/order/widgets/action_button.dart';
+import 'package:yumi/app/pages/order/widgets/location.dart';
+import 'package:yumi/app/pages/order/widgets/news_guide.dart';
 import 'package:yumi/app/pages/order/widgets/news_orders.dart';
-import 'package:yumi/template/status_button.dart';
+import 'package:yumi/app/pages/order/widgets/status_button.dart';
 
 class DriverOrderScreen extends StatelessWidget {
   DriverOrderScreen({super.key, required this.menuTarget});

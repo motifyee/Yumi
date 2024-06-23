@@ -3,19 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
+import 'package:yumi/app/pages/auth/registeration/pages/registeration_step.dart';
 import 'package:yumi/core/util/constants.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/screen_container.dart';
-import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/app/components/screen_container.dart';
+import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/email_validator.dart';
 
 @RoutePage()
 class AddPhoneScreen extends StatelessWidget {
   const AddPhoneScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const RegisterationPage(
+      step: RegStep.addPhone,
+      nextStep: RegStep.otp,
+      page: AddPhoneContent(),
+    );
+  }
+}
+
+class AddPhoneContent extends StatelessWidget {
+  const AddPhoneContent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -77,28 +91,9 @@ class AddPhoneScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 40),
                           InteractiveButton(
-                              label: "Get OTP",
-                              onPressed: () async {
-                                if (!form.currentState!.validate()) return;
-
-                                var value = ctrl.text.trim();
-
-                                await () async {
-                                  final profileCubit =
-                                      context.read<ProfileCubit>();
-                                  if (profileCubit.state.form.guid.isEmpty) {
-                                    await profileCubit.getProfileForm();
-                                  }
-                                }()
-                                    .then((_) async {
-                                  await context
-                                      .read<RegCubit>()
-                                      .setMobile(value)
-                                      .then((value) {
-                                    if (value != null) G.snackBar(value);
-                                  });
-                                });
-                              }),
+                            label: "Get OTP",
+                            onPressed: () => _getOtp(context, form, ctrl),
+                          ),
                         ],
                       ),
                     ),
@@ -111,4 +106,28 @@ class AddPhoneScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> _getOtp(
+  BuildContext context,
+  GlobalKey<FormState> form,
+  TextEditingController ctrl,
+) async {
+  if (!form.currentState!.validate()) return;
+
+  var value = ctrl.text.trim();
+
+  await () async {
+    final profileCubit = context.read<ProfileCubit>();
+    if (profileCubit.state.form.guid.isEmpty) {
+      await profileCubit.getProfileForm();
+    }
+  }()
+      .then((_) async {
+    await context.read<RegCubit>().setMobile(value).then((value) {
+      if (value == null) return RegisterationPage.of(context)?.next();
+
+      G.snackBar(value);
+    });
+  });
 }

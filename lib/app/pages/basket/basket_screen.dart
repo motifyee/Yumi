@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/basket/widgets/basket_meal_card.dart';
-import 'package:yumi/app/pages/menu/widget/chef_meals.dart';
+import 'package:yumi/app/pages/menu/widgets/chef_meals.dart';
 import 'package:yumi/app/pages/basket/widgets/confirm_checkout_basket.dart';
 import 'package:yumi/app/pages/basket/widgets/expired_basket.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/delivery_option_dialog.dart';
+import 'package:yumi/app/pages/basket/delivery_option_dialog.dart';
 
 @RoutePage()
 class BasketScreen extends StatelessWidget {

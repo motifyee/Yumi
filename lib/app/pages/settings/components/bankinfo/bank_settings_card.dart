@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/pages/settings/components/bankinfo/entities/bankinfo_model.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/settings/components/bankinfo/bankinfo_form.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/bankinfo_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/dialog.dart';
+import 'package:yumi/app/components/dialog.dart';
 
 class BankSettingsCard extends StatelessWidget {
   final BankInfo bankInfo;

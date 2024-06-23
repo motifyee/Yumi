@@ -6,8 +6,8 @@ import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/debouncer.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/text_currency.dart';
-import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/app/components/text_currency.dart';
+import 'package:yumi/app/components/text_form_field.dart';
 
 class BasketMealCard extends StatelessWidget {
   BasketMealCard(

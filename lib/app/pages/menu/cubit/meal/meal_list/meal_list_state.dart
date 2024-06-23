@@ -4,7 +4,7 @@ part of 'meal_list_bloc.dart';
 class MealListState extends Equatable {
   List<MealModel> meals;
   int selectedCategory;
-  PaginationHelper paginationHelper;
+  Pager pager;
   MenuTarget menuTarget;
   int mealsLength;
   int changesCounter;
@@ -14,7 +14,7 @@ class MealListState extends Equatable {
   MealListState({
     required this.meals,
     required this.selectedCategory,
-    required this.paginationHelper,
+    required this.pager,
     required this.menuTarget,
     this.status = Status.init,
     this.mealsLength = 0,
@@ -24,13 +24,13 @@ class MealListState extends Equatable {
   MealListState copyWith({
     List<MealModel>? meals,
     int? selectedCategory,
-    PaginationHelper? paginationHelper,
+    Pager? pager,
     Status? status,
   }) {
     return MealListState(
       meals: meals ?? this.meals,
       selectedCategory: selectedCategory ?? this.selectedCategory,
-      paginationHelper: paginationHelper ?? this.paginationHelper,
+      pager: pager ?? this.pager,
       menuTarget: menuTarget,
       status: status ?? this.status,
       mealsLength: meals?.length ?? 0,
@@ -39,12 +39,6 @@ class MealListState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        meals,
-        selectedCategory,
-        paginationHelper,
-        menuTarget,
-        mealsLength,
-        changesCounter
-      ];
+  List<Object?> get props =>
+      [meals, selectedCategory, pager, menuTarget, mealsLength, changesCounter];
 }

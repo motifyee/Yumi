@@ -21,7 +21,7 @@ import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/extensions/color.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/screen_container.dart';
+import 'package:yumi/app/components/screen_container.dart';
 
 @RoutePage()
 class DocumentationScreen extends StatelessWidget {

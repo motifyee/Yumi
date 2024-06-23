@@ -1,14 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/service/order_service.dart';
-import 'package:yumi/statics/pagination_helper.dart';
-import 'package:yumi/template/snack_bar.dart';
+import 'package:yumi/statics/pager.dart';
 
 part 'order_bloc.freezed.dart';
 part 'order_event.dart';
@@ -28,26 +26,34 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     });
   }
 
-  _getRequest(
-      {required _getRequestEvent event,
-      required Emitter<OrderState> emit}) async {
-    if (state.paginationHelper.pageNumber < state.paginationHelper.lastPage &&
-        !state.paginationHelper.isLoading) {
-      emit(state.copyWith(
-          paginationHelper: state.paginationHelper.copyWith(isLoading: true)));
+  _getRequest({
+    required _getRequestEvent event,
+    required Emitter<OrderState> emit,
+  }) async {
+    if (state.pager.pageNumber < state.pager.lastPage &&
+        !state.pager.isLoading) {
+      emit(
+        state.copyWith(
+          pager: state.pager.copyWith(isLoading: true),
+        ),
+      );
 
       Response res = await OrderService.getOrderOrPreOrder(
-          apiKeys: event.apiKey,
-          paginationHelper: state.paginationHelper.toJson());
-      print(res.data);
+        apiKeys: event.apiKey,
+        pager: state.pager.toJson(),
+      );
 
       if (res.statusCode == 200) {
-        List<Order> data =
-            res.data['data'].map<Order>((e) => Order.fromJson(e)).toList();
+        List<Order> data = res.data['data']
+            .map<Order>(
+              (e) => Order.fromJson(e),
+            )
+            .toList();
+
         add(
           OrderEvent.update(
             orders: [...state.orders, ...data].unique(),
-            paginationHelper: state.paginationHelper.copyWith(
+            pager: state.pager.copyWith(
               pageNumber: res.data['pagination']['page'],
               lastPage: res.data['pagination']['pages'],
               isLoading: false,
@@ -55,9 +61,11 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
           ),
         );
       } else {
-        emit(state.copyWith(
-            paginationHelper:
-                state.paginationHelper.copyWith(isLoading: false)));
+        emit(
+          state.copyWith(
+            pager: state.pager.copyWith(isLoading: false),
+          ),
+        );
       }
     }
   }
@@ -66,43 +74,44 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     emit(
       state.copyWith(
         orders: event.orders,
-        paginationHelper: event.paginationHelper,
+        pager: event.pager,
       ),
     );
   }
 
-  _putAction(
-      {required _putActionEvent event,
-      required Emitter<OrderState> emit}) async {
+  _putAction({
+    required _putActionEvent event,
+    required Emitter<OrderState> emit,
+  }) async {
     List<Order> orders = List.from(state.orders);
-    orders[orders.indexWhere((e) => e.id == event.order.id)] =
-        orders[orders.indexWhere((e) => e.id == event.order.id)]
-            .copyWith(isLoading: true);
+
+    final idx = orders.indexWhere((e) => e.id == event.order.id);
+    orders[idx] = orders[idx].copyWith(isLoading: true);
 
     emit(state.copyWith(orders: orders));
 
     OrderService.putActionOrderOrPreOrder(
-            apiKeys: event.apiKey,
-            orderId: event.order.id,
-            isFakeBody: event.isFakeBody)
-        .then((onValue) {
+      apiKeys: event.apiKey,
+      orderId: event.order.id,
+      isFakeBody: event.isFakeBody,
+    ).then((onValue) {
       if (onValue.statusCode == 200) {
         add(const OrderEvent.reset());
         add(OrderEvent.getRequest(apiKey: event.getApiKey));
         if (event.navFun != null) event.navFun!();
       }
     }).catchError((error) {
-      ScaffoldMessenger.of(G.context).showSnackBar(SnackBar(
-        content: SnackBarMassage(
-          massage: (error as DioException).response?.data['message'],
-        ),
-      ));
+      G.snackBar((error as DioException).response?.data['message']);
+
       List<Order> newOrders = List.from(state.orders);
-      newOrders[newOrders.indexWhere((e) => e.id == event.order.id)] =
-          newOrders[newOrders.indexWhere((e) => e.id == event.order.id)]
-              .copyWith(isLoading: false);
+
+      final idx = newOrders.indexWhere((e) => e.id == event.order.id);
+      newOrders[idx] = newOrders[idx].copyWith(isLoading: false);
+
       add(OrderEvent.update(
-          orders: newOrders, paginationHelper: state.paginationHelper));
+        orders: newOrders,
+        pager: state.pager,
+      ));
     });
   }
 }

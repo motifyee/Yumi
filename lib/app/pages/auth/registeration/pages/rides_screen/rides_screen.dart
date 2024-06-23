@@ -9,9 +9,9 @@ import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/rides_servi
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/dialog.dart';
-import 'package:yumi/template/screen_container.dart';
-import 'package:yumi/template/snack_bar.dart';
+import 'package:yumi/app/components/dialog.dart';
+import 'package:yumi/app/components/screen_container.dart';
+import 'package:yumi/app/components/snack_bar.dart';
 
 class RidesScreen extends StatelessWidget {
   const RidesScreen({super.key});

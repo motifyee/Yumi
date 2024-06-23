@@ -35,9 +35,9 @@ class BasketRemoteSource implements BasketSource {
 
   @override
   Future<Response> getOrderOrPreOrder(
-      {required String apiKeys, Map<String, dynamic>? paginationHelper}) async {
-    Response res = await DioClient.simpleDio()
-        .get(apiKeys, queryParameters: {...?paginationHelper});
+      {required String apiKeys, Map<String, dynamic>? pager}) async {
+    Response res =
+        await DioClient.simpleDio().get(apiKeys, queryParameters: {...?pager});
     return res;
   }
 
@@ -45,24 +45,24 @@ class BasketRemoteSource implements BasketSource {
   Future<Response> getOrderOrPreOrderDriverById(
       {required String apiKeys,
       required String id,
-      Map<String, dynamic>? paginationHelper}) async {
+      Map<String, dynamic>? pager}) async {
     Response res = await DioClient.simpleDio()
-        .get('$apiKeys$id', queryParameters: {...?paginationHelper});
+        .get('$apiKeys$id', queryParameters: {...?pager});
     return res;
   }
 
   @override
   Future<Response> putActionOrderOrPreOrder(
-      {required String apiKeys, Map<String, dynamic>? paginationHelper}) async {
-    Response res = await DioClient.simpleDio().put(apiKeys,
-        data: {'driver_ID': null}, queryParameters: {...?paginationHelper});
+      {required String apiKeys, Map<String, dynamic>? pager}) async {
+    Response res = await DioClient.simpleDio()
+        .put(apiKeys, data: {'driver_ID': null}, queryParameters: {...?pager});
     return res;
   }
 
   @override
-  Future<Basket?> getBaskets({Map<String, dynamic>? paginationHelper}) async {
+  Future<Basket?> getBaskets({Map<String, dynamic>? pager}) async {
     Response res = await DioClient.simpleDio().get(ApiKeys.order,
-        queryParameters: {...?paginationHelper}
+        queryParameters: {...?pager}
           ..removeWhere((key, value) => value == null));
 
     if (res.data['data'].isEmpty) return null;
@@ -90,9 +90,9 @@ class BasketRemoteSource implements BasketSource {
 
   @override
   Future<Response> closeBasket(
-      {required Basket basket, Map<String, dynamic>? paginationHelper}) async {
+      {required Basket basket, Map<String, dynamic>? pager}) async {
     Response res = await DioClient.simpleDio().post(ApiKeys.order,
-        queryParameters: {...?paginationHelper, 'orderId': basket.id}
+        queryParameters: {...?pager, 'orderId': basket.id}
           ..removeWhere((key, value) => value == null));
 
     return res;
