@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/chef/data/sources/chef_src.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
+import 'package:yumi/domain/chef/entity/chef_work_status.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/code_generator.dart';
 import 'package:yumi/statics/pagination.dart';
@@ -46,9 +47,9 @@ class ChefRemoteSrc implements ChefSrc {
   @override
   Future<Pagination<Chef>> getChefs({
     required bool isPreOrder,
+    required ChefWorkStatus? workStatus,
     required double latitude,
     required double longitude,
-    required ChefWorkStatus status,
     required Pagination pagination,
   }) async {
     try {
@@ -58,7 +59,9 @@ class ChefRemoteSrc implements ChefSrc {
           ),
           queryParameters: {
             ...pagination.toJson(),
-            'status_Work': isPreOrder ? null : status.index,
+            'status_Work': isPreOrder
+                ? null
+                : workStatus?.index ?? ChefWorkStatus.open.index,
             'latitude': latitude,
             'longitude': longitude
           }..removeWhere((key, value) => value == null));

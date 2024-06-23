@@ -1,4 +1,5 @@
 import 'package:yumi/domain/chef/entity/chef.dart';
+import 'package:yumi/domain/chef/entity/chef_work_status.dart';
 import 'package:yumi/statics/pagination.dart';
 
 abstract class ChefSrc {
@@ -6,7 +7,7 @@ abstract class ChefSrc {
     required bool isPreOrder,
     required double latitude,
     required double longitude,
-    required ChefWorkStatus status,
+    required ChefWorkStatus? workStatus,
     required Pagination pagination,
   });
   Future<ChefWorkStatus> getChefWorkStatus(String chefId);

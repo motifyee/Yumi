@@ -4,6 +4,7 @@ import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
 import 'package:yumi/domain/chef/data/sources/chef_src.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
+import 'package:yumi/domain/chef/entity/chef_work_status.dart';
 import 'package:yumi/statics/pagination.dart';
 
 class ChefRemoteRepo implements ChefRepo {
@@ -30,7 +31,7 @@ class ChefRemoteRepo implements ChefRepo {
     required bool isPreOrder,
     required double latitude,
     required double longitude,
-    required ChefWorkStatus status,
+    required ChefWorkStatus? workStatus,
     required Pagination pagination,
   }) =>
       TaskEither.tryCatch(
@@ -38,7 +39,7 @@ class ChefRemoteRepo implements ChefRepo {
             isPreOrder: isPreOrder,
             latitude: latitude,
             longitude: longitude,
-            status: status,
+            workStatus: workStatus,
             pagination: pagination),
         (error, stackTrace) => FailureX.fromException(error, stackTrace),
       );
