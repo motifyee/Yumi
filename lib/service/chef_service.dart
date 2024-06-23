@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:yumi/statics/api_statics.dart';
@@ -28,8 +30,10 @@ class ChefService {
   static Future<dynamic> getFavoriteChefs({
     Map<String, dynamic>? queryParameters,
   }) async {
-    final Response res = await DioClient.simpleDio()
-        .get(ApiKeys.favoriteChefs, queryParameters: {...?queryParameters});
+    final Response res = await DioClient.simpleDio().get(
+      ApiKeys.favoriteChefs,
+      queryParameters: {...?queryParameters},
+    );
 
     return res;
   }
@@ -38,8 +42,10 @@ class ChefService {
     required String chefId,
     Map<String, dynamic>? queryParameters,
   }) async {
-    final Response res = await DioClient.simpleDio().get(ApiKeys.favoriteChef,
-        queryParameters: {...?queryParameters, 'chefId': chefId});
+    final Response res = await DioClient.simpleDio().get(
+      ApiKeys.favoriteChef,
+      queryParameters: {...?queryParameters, 'chefId': chefId},
+    );
 
     return res;
   }
@@ -48,8 +54,10 @@ class ChefService {
     required String accountId,
     Map<String, dynamic>? queryParameters,
   }) async {
-    final Response res = await DioClient.simpleDio().get(ApiKeys.chefStatus,
-        queryParameters: {...?queryParameters, 'accountId': accountId});
+    final Response res = await DioClient.simpleDio().get(
+      ApiKeys.chefStatus,
+      queryParameters: {...?queryParameters, 'accountId': accountId},
+    );
 
     return res;
   }
@@ -58,9 +66,11 @@ class ChefService {
     required String chefId,
     Map<String, dynamic>? queryParameters,
   }) async {
-    final Response res = await DioClient.simpleDio().post(ApiKeys.favoriteChefs,
-        data: {'code': CodeGenerator.getRandomCode(codeLength: 15)},
-        queryParameters: {...?queryParameters, 'chefId': chefId});
+    final Response res = await DioClient.simpleDio().post(
+      ApiKeys.favoriteChefs,
+      data: {'code': CodeGenerator.getRandomCode(codeLength: 15)},
+      queryParameters: {...?queryParameters, 'chefId': chefId},
+    );
 
     return res;
   }
@@ -70,8 +80,9 @@ class ChefService {
     Map<String, dynamic>? queryParameters,
   }) async {
     final Response res = await DioClient.simpleDio().delete(
-        ApiKeys.favoriteChefs,
-        queryParameters: {...?queryParameters, 'chefId': chefId});
+      ApiKeys.favoriteChefs,
+      queryParameters: {...?queryParameters, 'chefId': chefId},
+    );
 
     return res;
   }

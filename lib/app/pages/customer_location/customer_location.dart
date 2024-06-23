@@ -12,7 +12,7 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/pagination_template.dart';
+import 'package:yumi/app/components/pagination_template.dart';
 
 @RoutePage()
 class CustomerLocationScreen extends StatelessWidget {
@@ -94,8 +94,8 @@ class CustomerLocationScreen extends StatelessWidget {
                       },
                       child: Column(
                         children: [
-                          if (state.paginationHelper.isLoading) Loading(),
-                          if (!state.paginationHelper.isLoading)
+                          if (state.pagination.isLoading) Loading(),
+                          if (!state.pagination.isLoading)
                             for (var i = 0; i < state.addressList.length; i++)
                               if (state.addressList[i].isDeleted != true)
                                 _LocationCard(address: state.addressList[i]),

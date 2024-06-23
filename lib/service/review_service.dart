@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:yumi/model/review_model/review_model.dart';
+import 'package:yumi/domain/profile/entities/review_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 
 class ReviewService {

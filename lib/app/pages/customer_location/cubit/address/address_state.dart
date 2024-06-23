@@ -4,13 +4,13 @@ part of 'address_bloc.dart';
 class AddressState with _$AddressState {
   factory AddressState({
     required List<Address> addressList,
-    required PaginationHelper paginationHelper,
+    required Pagination pagination,
   }) = _AddressState;
 
   factory AddressState.initial() {
     return AddressState(
       addressList: [],
-      paginationHelper: PaginationHelper(
+      pagination: Pagination(
         isLoading: false,
         lastPage: 1,
         pageNumber: 0,

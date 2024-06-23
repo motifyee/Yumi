@@ -5,7 +5,7 @@ import 'package:yumi/app/pages/auth/forgot_password/view_states/enter_email.dart
 import 'package:yumi/app/pages/auth/forgot_password/view_states/enter_otp.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/screen_container.dart';
+import 'package:yumi/app/components/screen_container.dart';
 
 class ForgotPasswordSheetProvider extends StatelessWidget {
   const ForgotPasswordSheetProvider({super.key});

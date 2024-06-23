@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/transactions/entity/transaction.dart';
 import 'package:yumi/domain/transactions/use_case/get_all_transaction.dart';
-import 'package:yumi/statics/pagination_helper.dart';
+import 'package:yumi/statics/pagination.dart';
 
 part 'transaction_cubit.freezed.dart';
 part 'transaction_cubit.g.dart';
@@ -12,11 +12,10 @@ part 'transaction_cubit.g.dart';
 @freezed
 class TransactionState with _$TransactionState {
   const factory TransactionState(
-          {required PaginationHelper<Transaction> paginationHelper}) =
-      _TransactionState;
+      {required Pagination<Transaction> pagination}) = _TransactionState;
 
   factory TransactionState.initial() {
-    return TransactionState(paginationHelper: const PaginationHelper(data: []));
+    return TransactionState(pagination: const Pagination(data: []));
   }
 
   factory TransactionState.fromJson(Map<String, dynamic> json) =>
@@ -27,15 +26,15 @@ class TransactionCubit extends Cubit<TransactionState> {
   TransactionCubit() : super(TransactionState.initial());
 
   getAllTransactions({required String userId}) async {
-    if (state.paginationHelper.canRequest) {
+    if (state.pagination.canRequest) {
       emit(state.copyWith(
-          paginationHelper: state.paginationHelper.copyWith(isLoading: true)
-              as PaginationHelper<Transaction>));
+          pagination: state.pagination.copyWith(isLoading: true)
+              as Pagination<Transaction>));
 
-      final Either<Failure, PaginationHelper<Transaction>> task =
+      final Either<Failure, Pagination<Transaction>> task =
           await GetAllTransaction().call(GetAllTransactionParams(
-              paginationHelper: state.paginationHelper, userId: userId));
-      task.fold((l) => null, (r) => emit(state.copyWith(paginationHelper: r)));
+              pagination: state.pagination, userId: userId));
+      task.fold((l) => null, (r) => emit(state.copyWith(pagination: r)));
     }
   }
 }

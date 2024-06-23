@@ -420,7 +420,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       {this.partialFlow = false,
       this.registerationStarted = false,
       this.finished = false,
-      this.step = 0,
+      this.step = -1,
       this.lastStep = -1,
       this.email,
       this.willVerifyEmail,

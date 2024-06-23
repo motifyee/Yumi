@@ -12,13 +12,13 @@ import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cub
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/template/screen_container.dart';
+import 'package:yumi/app/components/screen_container.dart';
 
 part "onboarding_curve.dart";
 
 @RoutePage()
-class ChefApplicationFlowScreen extends StatelessWidget {
-  const ChefApplicationFlowScreen({super.key});
+class OnboardingScreen extends StatelessWidget {
+  const OnboardingScreen({super.key});
 // double deviceWidth = MediaQuery.of(context).size.width;
 // double deviceHeight = MediaQuery.of(context).size.height;
 

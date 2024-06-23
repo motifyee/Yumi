@@ -18,10 +18,10 @@ class BasketRemoteRepo implements BasketRepo {
 
   @override
   TaskEither<Failure, Response> closeBasket(
-          {required Basket basket, Map<String, dynamic>? paginationHelper}) =>
+          {required Basket basket, Map<String, dynamic>? pagination}) =>
       TaskEither.tryCatch(
-          () => basketSource.closeBasket(
-              basket: basket, paginationHelper: paginationHelper),
+          () =>
+              basketSource.closeBasket(basket: basket, pagination: pagination),
           (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
@@ -42,36 +42,34 @@ class BasketRemoteRepo implements BasketRepo {
       });
 
   @override
-  TaskEither<Failure, Basket?> getBaskets(
-          {Map<String, dynamic>? paginationHelper}) =>
-      TaskEither.tryCatch(
-          () => basketSource.getBaskets(paginationHelper: paginationHelper),
+  TaskEither<Failure, Basket?> getBaskets({Map<String, dynamic>? pagination}) =>
+      TaskEither.tryCatch(() => basketSource.getBaskets(pagination: pagination),
           (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
   TaskEither<Failure, Response> getOrderOrPreOrder(
-          {required String apiKeys, Map<String, dynamic>? paginationHelper}) =>
+          {required String apiKeys, Map<String, dynamic>? pagination}) =>
       TaskEither.tryCatch(
           () => basketSource.getOrderOrPreOrder(
-              apiKeys: apiKeys, paginationHelper: paginationHelper),
+              apiKeys: apiKeys, pagination: pagination),
           (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
   TaskEither<Failure, Response> getOrderOrPreOrderDriverById(
           {required String apiKeys,
           required String id,
-          Map<String, dynamic>? paginationHelper}) =>
+          Map<String, dynamic>? pagination}) =>
       TaskEither.tryCatch(
           () => basketSource.getOrderOrPreOrderDriverById(
-              apiKeys: apiKeys, id: id, paginationHelper: paginationHelper),
+              apiKeys: apiKeys, id: id, pagination: pagination),
           (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
   TaskEither<Failure, Response> putActionOrderOrPreOrder(
-          {required String apiKeys, Map<String, dynamic>? paginationHelper}) =>
+          {required String apiKeys, Map<String, dynamic>? pagination}) =>
       TaskEither.tryCatch(
           () => basketSource.putActionOrderOrPreOrder(
-              apiKeys: apiKeys, paginationHelper: paginationHelper),
+              apiKeys: apiKeys, pagination: pagination),
           (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override

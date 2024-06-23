@@ -9,8 +9,8 @@ import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/domain/transactions/entity/transaction.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/pagination_template.dart';
-import 'package:yumi/template/text_currency.dart';
+import 'package:yumi/app/components/pagination_template.dart';
+import 'package:yumi/app/components/text_currency.dart';
 
 @RoutePage()
 class TransactionsScreen extends StatelessWidget {
@@ -68,8 +68,7 @@ class TransactionsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return Column(
                         children: [
-                          for (Transaction transaction
-                              in state.paginationHelper.data)
+                          for (Transaction transaction in state.pagination.data)
                             if (transaction.credit != null)
                               Padding(
                                 padding: EdgeInsets.symmetric(
@@ -119,7 +118,7 @@ class TransactionsScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                          if (state.paginationHelper.isLoading) Loading(),
+                          if (state.pagination.isLoading) Loading(),
                         ],
                       );
                     },

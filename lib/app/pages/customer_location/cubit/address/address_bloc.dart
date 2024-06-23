@@ -9,7 +9,7 @@ import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/service/address_service.dart';
-import 'package:yumi/statics/pagination_helper.dart';
+import 'package:yumi/statics/pagination.dart';
 
 part 'address_bloc.freezed.dart';
 part 'address_event.dart';
@@ -42,7 +42,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     emit(
       state.copyWith(
         addressList: address,
-        paginationHelper: state.paginationHelper.copyWith(
+        pagination: state.pagination.copyWith(
           pageNumber: 1,
           lastPage: 1,
           isLoading: false,
@@ -55,14 +55,14 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     required _getAddressListEvent event,
     required Emitter<AddressState> emit,
   }) async {
-    if (state.paginationHelper.pageNumber < state.paginationHelper.lastPage &&
-        !state.paginationHelper.isLoading) {
+    if (state.pagination.pageNumber < state.pagination.lastPage &&
+        !state.pagination.isLoading) {
       emit(state.copyWith(
-          paginationHelper: state.paginationHelper.copyWith(isLoading: true)));
+          pagination: state.pagination.copyWith(isLoading: true)));
 
       Response res = await AddressService.getAddresses(
           context: event.context,
-          pagination: {...state.paginationHelper.toJson(), 'id': event.id}
+          pagination: {...state.pagination.toJson(), 'id': event.id}
             ..removeWhere((e, v) => v == null));
       print(res.data);
 
@@ -78,8 +78,8 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
   _editAddress(
       {required _editAddressEvent event,
       required Emitter<AddressState> emit}) async {
-    emit(state.copyWith(
-        paginationHelper: state.paginationHelper.copyWith(isLoading: true)));
+    emit(
+        state.copyWith(pagination: state.pagination.copyWith(isLoading: true)));
 
     Response res = await AddressService.updateAddresses(
         context: event.context, address: event.address);
@@ -98,8 +98,8 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
   _deleteAddress(
       {required _deleteAddressEvent event,
       required Emitter<AddressState> emit}) async {
-    emit(state.copyWith(
-        paginationHelper: state.paginationHelper.copyWith(isLoading: true)));
+    emit(
+        state.copyWith(pagination: state.pagination.copyWith(isLoading: true)));
 
     Response res = await AddressService.deleteAddresses(
       context: event.context,

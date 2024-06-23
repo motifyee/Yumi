@@ -3,7 +3,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/model/country_model.dart';
+import 'package:yumi/domain/profile/entities/country_model.dart';
 
 part 'profile.freezed.dart';
 part 'profile.g.dart';

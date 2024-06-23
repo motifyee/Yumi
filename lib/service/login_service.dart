@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:yumi/model/login_model.dart';
+import 'package:yumi/app/pages/auth/login/login_model.dart';
 import 'package:yumi/domain/user/entity/user.dart';
 import 'package:yumi/statics/api_statics.dart';
 

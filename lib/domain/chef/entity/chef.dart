@@ -3,6 +3,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'chef.freezed.dart';
 part 'chef.g.dart';
 
+enum ChefWorkStatus {
+  offline,
+  open,
+  busy,
+}
+
 @freezed
 class Chef with _$Chef {
   @JsonSerializable(includeIfNull: false)

@@ -7,9 +7,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/statics/navigate_option.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/navigation_bottom_bar.dart';
-import 'package:yumi/template/screen_container.dart';
-import 'package:yumi/template/side_bar.dart';
+import 'package:yumi/app/pages/home/navigation_bottom_bar.dart';
+import 'package:yumi/app/components/screen_container.dart';
+import 'package:yumi/app/pages/home/side_bar.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {

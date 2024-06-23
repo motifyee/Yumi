@@ -5,9 +5,9 @@ import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:yumi/core/setup/signalr.dart';
 import 'package:yumi/domain/order/entity/order.dart';
-import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal_model.dart';
 import 'package:yumi/app/pages/order/widgets/order_card.dart';
-import 'package:yumi/template/pagination_template.dart';
+import 'package:yumi/app/components/pagination_template.dart';
 
 class NewsOrders extends StatelessWidget {
   NewsOrders({
@@ -59,7 +59,7 @@ class NewsOrders extends StatelessWidget {
                       menuTarget: menuTarget,
                       navFun: navFun,
                     ),
-                  if (state.paginationHelper.isLoading) Loading(),
+                  if (state.pagination.isLoading) Loading(),
                 ],
               );
             },

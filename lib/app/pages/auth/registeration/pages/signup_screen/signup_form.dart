@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button_style.dart';
 import 'package:yumi/app/components/stateful_wrapper/stateful_wrapper.dart';
+import 'package:yumi/app/pages/auth/registeration/pages/registeration_step.dart';
 import 'package:yumi/app/pages/auth/registeration/repository/signup_service.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/signup_screen/cubit/signup_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
@@ -19,7 +20,7 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/regex.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/confirm_password_validator.dart';
 import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/password_validator.dart';
@@ -256,16 +257,14 @@ Future<void> _signUp(
   BuildContext context, [
   bool skipEmailVerification = false,
 ]) async {
-  if (skipEmailVerification && kReleaseMode) return;
-
   final reg = G.rd<RegCubit>();
 
   if (!Form.of(context).validate()) return;
 
-  if (!skipEmailVerification &&
-      (reg.state.verifiedEmail != reg.state.willVerifyEmail ||
-          reg.state.willVerifyEmail == null ||
-          reg.state.willVerifyEmail!.isEmpty)) {
+  if (kDebugMode && skipEmailVerification) {
+  } else if ((reg.state.verifiedEmail != reg.state.willVerifyEmail ||
+      reg.state.willVerifyEmail == null ||
+      reg.state.willVerifyEmail!.isEmpty)) {
     return G.snackBar("Please verify your email");
   }
 
@@ -287,7 +286,8 @@ Future<void> _signUp(
           .saveUser(userMap)
           .then((_) => G.rd<ProfileCubit>().getProfileForm());
 
-      return reg.setAccount(reg.state.signupData, true);
+      return RegisterationPage.of(context)?.next();
+      // return reg.setAccount(reg.state.signupData, true);
     }
 
     G.snackBar(value["message"]);

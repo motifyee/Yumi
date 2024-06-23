@@ -2,27 +2,27 @@ import 'package:fpdart/src/either.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/notification/entity/notification.dart';
-import 'package:yumi/statics/pagination_helper.dart';
+import 'package:yumi/statics/pagination.dart';
 
 class NewNotification
-    extends UseCase<PaginationHelper<NotificationS>, NewNotificationParams> {
+    extends UseCase<Pagination<NotificationS>, NewNotificationParams> {
   @override
-  Future<Either<Failure, PaginationHelper<NotificationS>>> call(
+  Future<Either<Failure, Pagination<NotificationS>>> call(
       NewNotificationParams params) async {
-    return Right(params.paginationHelper.copyWith(data: <NotificationS>[
+    return Right(params.pagination.copyWith(data: <NotificationS>[
       params.notificationS,
-      ...params.paginationHelper.data,
-    ]) as PaginationHelper<NotificationS>);
+      ...params.pagination.data,
+    ]) as Pagination<NotificationS>);
   }
 }
 
 class NewNotificationParams extends Params {
   final NotificationS notificationS;
-  final PaginationHelper<NotificationS> paginationHelper;
+  final Pagination<NotificationS> pagination;
 
   NewNotificationParams(
-      {required this.notificationS, required this.paginationHelper});
+      {required this.notificationS, required this.pagination});
 
   @override
-  List<Object?> get props => [notificationS, paginationHelper];
+  List<Object?> get props => [notificationS, pagination];
 }

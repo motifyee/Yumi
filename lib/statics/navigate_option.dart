@@ -16,7 +16,7 @@ import 'package:yumi/app/pages/settings/settings_screen.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/app/pages/menu/customer/customer_menu_pre.dart';
 import 'package:yumi/app/pages/menu/customer/cutomer_menu.dart';

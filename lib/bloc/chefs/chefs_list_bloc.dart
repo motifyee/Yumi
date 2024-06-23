@@ -6,17 +6,16 @@ import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/domain/chef/entity/chef.dart';
-import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal_model.dart';
 import 'package:yumi/service/chef_service.dart';
-import 'package:yumi/statics/pagination_helper.dart';
+import 'package:yumi/statics/pagination.dart';
 
 part 'chefs_list_event.dart';
 part 'chefs_list_state.dart';
 
 class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
   ChefsListBloc()
-      : super(ChefsListState(
-            chefs: const [], paginationHelper: const PaginationHelper())) {
+      : super(ChefsListState(chefs: const [], pagination: const Pagination())) {
     on<GetChefsListEvent>((event, emit) async {
       Address? userLocation = event.context.read<UserCubit>().state.address;
 
@@ -24,17 +23,16 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
         return;
       }
 
-      if (state.paginationHelper.pageNumber < state.paginationHelper.lastPage &&
-          !state.paginationHelper.isLoading) {
+      if (state.pagination.pageNumber < state.pagination.lastPage &&
+          !state.pagination.isLoading) {
         emit(state.copyWith(
-            paginationHelper:
-                state.paginationHelper.copyWith(isLoading: true)));
+            pagination: state.pagination.copyWith(isLoading: true)));
 
         late Response res;
         List<Chef> data = [];
         if (event.isFavorite) {
           res = await ChefService.getFavoriteChefs(
-            queryParameters: state.paginationHelper.toJson(),
+            queryParameters: state.pagination.toJson(),
           );
           data = res.data['data']
               .map<Chef>((chef) => Chef.fromJson({...chef, ...chef['chef']}))
@@ -46,7 +44,7 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
             latitude: userLocation!.latitude!,
             longitude: userLocation.longitude!,
             status: event.status,
-            queryParameters: state.paginationHelper.toJson(),
+            queryParameters: state.pagination.toJson(),
           );
 
           data = res.data['data']
@@ -56,7 +54,7 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
 
         emit(state.copyWith(
           chefs: [...state.chefs, ...data],
-          paginationHelper: state.paginationHelper.copyWith(
+          pagination: state.pagination.copyWith(
             pageNumber: res.data['pagination']['page'],
             lastPage: res.data['pagination']['pages'],
             isLoading: false,
@@ -101,8 +99,7 @@ class ChefsListBloc extends Bloc<ChefsListEvent, ChefsListState> {
     });
 
     on<ResetChefsListEvent>((event, emit) {
-      emit(ChefsListState(
-          chefs: const [], paginationHelper: const PaginationHelper()));
+      emit(ChefsListState(chefs: const [], pagination: const Pagination()));
     });
   }
 }

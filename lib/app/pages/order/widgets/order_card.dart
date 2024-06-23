@@ -13,14 +13,14 @@ import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal_model.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/order_service.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/product_in_card.dart';
-import 'package:yumi/template/snack_bar.dart';
-import 'package:yumi/template/text_currency.dart';
+import 'package:yumi/app/pages/order/widgets/product_in_card.dart';
+import 'package:yumi/app/components/snack_bar.dart';
+import 'package:yumi/app/components/text_currency.dart';
 
 class OrderCard extends StatefulWidget {
   OrderCard({

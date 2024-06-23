@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/google_maps_template.dart';
-import 'package:yumi/template/snack_bar.dart';
+import 'package:yumi/app/components/google_maps_template.dart';
+import 'package:yumi/app/components/snack_bar.dart';
 
 @RoutePage()
 class TrackingOrderScreen extends StatelessWidget {

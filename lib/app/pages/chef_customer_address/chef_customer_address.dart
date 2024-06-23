@@ -8,7 +8,7 @@ import 'package:yumi/app/pages/customer_location/cubit/address/address_bloc.dart
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/google_maps_template.dart';
+import 'package:yumi/app/components/google_maps_template.dart';
 import 'package:yumi/util/map_util.dart';
 
 @RoutePage()

@@ -9,7 +9,7 @@ import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/doc
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/screen_container.dart';
+import 'package:yumi/app/components/screen_container.dart';
 
 @RoutePage()
 class ContractScreen extends StatelessWidget {

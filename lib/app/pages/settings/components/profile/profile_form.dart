@@ -8,14 +8,14 @@ import 'package:yumi/core/util/constants.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
-import 'package:yumi/forms/util/form_submit.dart';
+import 'package:yumi/util/form_submit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/regex.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/snack_bar.dart';
-import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/app/components/snack_bar.dart';
+import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/required_validator.dart';
 

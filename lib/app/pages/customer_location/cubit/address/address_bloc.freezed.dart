@@ -583,8 +583,7 @@ abstract class _editAddressEvent implements AddressEvent {
 /// @nodoc
 mixin _$AddressState {
   List<Address> get addressList => throw _privateConstructorUsedError;
-  PaginationHelper<dynamic> get paginationHelper =>
-      throw _privateConstructorUsedError;
+  Pagination<dynamic> get pagination => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AddressStateCopyWith<AddressState> get copyWith =>
@@ -597,10 +596,9 @@ abstract class $AddressStateCopyWith<$Res> {
           AddressState value, $Res Function(AddressState) then) =
       _$AddressStateCopyWithImpl<$Res, AddressState>;
   @useResult
-  $Res call(
-      {List<Address> addressList, PaginationHelper<dynamic> paginationHelper});
+  $Res call({List<Address> addressList, Pagination<dynamic> pagination});
 
-  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper;
+  $PaginationCopyWith<dynamic, $Res> get pagination;
 }
 
 /// @nodoc
@@ -617,26 +615,25 @@ class _$AddressStateCopyWithImpl<$Res, $Val extends AddressState>
   @override
   $Res call({
     Object? addressList = null,
-    Object? paginationHelper = null,
+    Object? pagination = null,
   }) {
     return _then(_value.copyWith(
       addressList: null == addressList
           ? _value.addressList
           : addressList // ignore: cast_nullable_to_non_nullable
               as List<Address>,
-      paginationHelper: null == paginationHelper
-          ? _value.paginationHelper
-          : paginationHelper // ignore: cast_nullable_to_non_nullable
-              as PaginationHelper<dynamic>,
+      pagination: null == pagination
+          ? _value.pagination
+          : pagination // ignore: cast_nullable_to_non_nullable
+              as Pagination<dynamic>,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper {
-    return $PaginationHelperCopyWith<dynamic, $Res>(_value.paginationHelper,
-        (value) {
-      return _then(_value.copyWith(paginationHelper: value) as $Val);
+  $PaginationCopyWith<dynamic, $Res> get pagination {
+    return $PaginationCopyWith<dynamic, $Res>(_value.pagination, (value) {
+      return _then(_value.copyWith(pagination: value) as $Val);
     });
   }
 }
@@ -649,11 +646,10 @@ abstract class _$$AddressStateImplCopyWith<$Res>
       __$$AddressStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<Address> addressList, PaginationHelper<dynamic> paginationHelper});
+  $Res call({List<Address> addressList, Pagination<dynamic> pagination});
 
   @override
-  $PaginationHelperCopyWith<dynamic, $Res> get paginationHelper;
+  $PaginationCopyWith<dynamic, $Res> get pagination;
 }
 
 /// @nodoc
@@ -668,17 +664,17 @@ class __$$AddressStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? addressList = null,
-    Object? paginationHelper = null,
+    Object? pagination = null,
   }) {
     return _then(_$AddressStateImpl(
       addressList: null == addressList
           ? _value._addressList
           : addressList // ignore: cast_nullable_to_non_nullable
               as List<Address>,
-      paginationHelper: null == paginationHelper
-          ? _value.paginationHelper
-          : paginationHelper // ignore: cast_nullable_to_non_nullable
-              as PaginationHelper<dynamic>,
+      pagination: null == pagination
+          ? _value.pagination
+          : pagination // ignore: cast_nullable_to_non_nullable
+              as Pagination<dynamic>,
     ));
   }
 }
@@ -687,8 +683,7 @@ class __$$AddressStateImplCopyWithImpl<$Res>
 
 class _$AddressStateImpl implements _AddressState {
   _$AddressStateImpl(
-      {required final List<Address> addressList,
-      required this.paginationHelper})
+      {required final List<Address> addressList, required this.pagination})
       : _addressList = addressList;
 
   final List<Address> _addressList;
@@ -700,11 +695,11 @@ class _$AddressStateImpl implements _AddressState {
   }
 
   @override
-  final PaginationHelper<dynamic> paginationHelper;
+  final Pagination<dynamic> pagination;
 
   @override
   String toString() {
-    return 'AddressState(addressList: $addressList, paginationHelper: $paginationHelper)';
+    return 'AddressState(addressList: $addressList, pagination: $pagination)';
   }
 
   @override
@@ -714,13 +709,13 @@ class _$AddressStateImpl implements _AddressState {
             other is _$AddressStateImpl &&
             const DeepCollectionEquality()
                 .equals(other._addressList, _addressList) &&
-            (identical(other.paginationHelper, paginationHelper) ||
-                other.paginationHelper == paginationHelper));
+            (identical(other.pagination, pagination) ||
+                other.pagination == pagination));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_addressList), paginationHelper);
+      const DeepCollectionEquality().hash(_addressList), pagination);
 
   @JsonKey(ignore: true)
   @override
@@ -731,14 +726,13 @@ class _$AddressStateImpl implements _AddressState {
 
 abstract class _AddressState implements AddressState {
   factory _AddressState(
-          {required final List<Address> addressList,
-          required final PaginationHelper<dynamic> paginationHelper}) =
-      _$AddressStateImpl;
+      {required final List<Address> addressList,
+      required final Pagination<dynamic> pagination}) = _$AddressStateImpl;
 
   @override
   List<Address> get addressList;
   @override
-  PaginationHelper<dynamic> get paginationHelper;
+  Pagination<dynamic> get pagination;
   @override
   @JsonKey(ignore: true)
   _$$AddressStateImplCopyWith<_$AddressStateImpl> get copyWith =>

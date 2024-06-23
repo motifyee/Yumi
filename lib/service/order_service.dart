@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
-import 'package:yumi/model/invoice_transaction_model/invoice_transaction_model.dart';
+import 'package:yumi/domain/order/entity/invoice_transaction_model.dart';
 import 'package:yumi/statics/api_statics.dart';
 
 class OrderService {
@@ -32,19 +32,22 @@ class OrderService {
     return res;
   }
 
-  static Future<Response> getOrderOrPreOrder(
-      {required String apiKeys, Map<String, dynamic>? paginationHelper}) async {
+  static Future<Response> getOrderOrPreOrder({
+    required String apiKeys,
+    Map<String, dynamic>? pagination,
+  }) async {
     Response res = await DioClient.simpleDio()
-        .get(apiKeys, queryParameters: {...?paginationHelper});
+        .get(apiKeys, queryParameters: {...?pagination});
+
     return res;
   }
 
   static Future<Response> getOrderOrPreOrderDriverById(
       {required String apiKeys,
       required String id,
-      Map<String, dynamic>? paginationHelper}) async {
+      Map<String, dynamic>? pagination}) async {
     Response res = await DioClient.simpleDio()
-        .get('$apiKeys$id', queryParameters: {...?paginationHelper});
+        .get('$apiKeys$id', queryParameters: {...?pagination});
     return res;
   }
 
@@ -52,20 +55,19 @@ class OrderService {
       {required String apiKeys,
       int? orderId,
       bool isFakeBody = true,
-      Map<String, dynamic>? paginationHelper}) async {
+      Map<String, dynamic>? pagination}) async {
     Response res = await DioClient.simpleDio().put(apiKeys,
         data: isFakeBody ? {'driver_ID': null} : null,
-        queryParameters: {...?paginationHelper, 'orderId': orderId}
+        queryParameters: {...?pagination, 'orderId': orderId}
           ..removeWhere((key, value) => value == null));
 
     return res;
   }
 
-  static Future<Response> getBaskets(
-      {Map<String, dynamic>? paginationHelper}) async {
+  static Future<Response> getBaskets({Map<String, dynamic>? pagination}) async {
     debugger();
     Response res = await DioClient.simpleDio().get(ApiKeys.order,
-        queryParameters: {...?paginationHelper}
+        queryParameters: {...?pagination}
           ..removeWhere((key, value) => value == null));
     return res;
   }
@@ -73,10 +75,10 @@ class OrderService {
   static Future<Response> closeInvoice(
       {required Basket basket,
       required InvoiceTransactionModel invoiceTransaction,
-      Map<String, dynamic>? paginationHelper}) async {
+      Map<String, dynamic>? pagination}) async {
     Response res = await DioClient.simpleDio().post(ApiKeys.order,
         data: invoiceTransaction.toJson(),
-        queryParameters: {...?paginationHelper, 'orderId': basket.id}
+        queryParameters: {...?pagination, 'orderId': basket.id}
           ..removeWhere((key, value) => value == null));
     return res;
   }
@@ -91,9 +93,9 @@ class OrderService {
   }
 
   static Future<Response> deleteInvoice(
-      {required Basket invoice, Map<String, dynamic>? paginationHelper}) async {
+      {required Basket invoice, Map<String, dynamic>? pagination}) async {
     Response res = await DioClient.simpleDio().delete(ApiKeys.order,
-        queryParameters: {...?paginationHelper, 'orderId': invoice.id}
+        queryParameters: {...?pagination, 'orderId': invoice.id}
           ..removeWhere((key, value) => value == null));
     return res;
   }

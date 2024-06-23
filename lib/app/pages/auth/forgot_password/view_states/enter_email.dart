@@ -5,7 +5,7 @@ import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/core/util/string.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/core/util/util.dart';
 import 'package:yumi/validators/email_validator.dart';
 

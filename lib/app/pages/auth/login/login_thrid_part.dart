@@ -5,8 +5,8 @@ import 'package:yumi/domain/auth/use_cases/login_with_google.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
-class LoginThirdPart extends StatelessWidget {
-  const LoginThirdPart({super.key});
+class SocialLogin extends StatelessWidget {
+  const SocialLogin({super.key});
 
   @override
   Widget build(BuildContext context) {

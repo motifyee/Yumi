@@ -9,7 +9,7 @@ import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/core/setup/internet_connectivity_checker.dart';
 import 'package:yumi/app/yumi/config/yumi_app.dart';
 import 'package:yumi/app_target.dart';
-import 'package:yumi/template/snack_bar.dart';
+import 'package:yumi/app/components/snack_bar.dart';
 
 class G {
   // static const String API_KEY = "";

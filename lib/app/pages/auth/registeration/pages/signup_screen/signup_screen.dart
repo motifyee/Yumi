@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/pages/auth/registeration/pages/registeration_step.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/signup_screen/cubit/signup_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/signup_screen/signup_form.dart';
@@ -10,7 +11,7 @@ import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/auth/login/login_thrid_part.dart';
-import 'package:yumi/template/screen_container.dart';
+import 'package:yumi/app/components/screen_container.dart';
 
 @RoutePage()
 class SignUpScreen extends StatelessWidget {
@@ -20,7 +21,11 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SignupCubit(),
-      child: SignupScreenContent(),
+      child: RegisterationPage(
+        step: RegStep.signup,
+        nextStep: RegStep.addPhone,
+        page: SignupScreenContent(),
+      ),
     );
   }
 }
@@ -78,7 +83,7 @@ class SignupScreenContent extends StatelessWidget {
                         SizedBox(
                           height: ThemeSelector.statics.defaultBlockGap,
                         ),
-                        const LoginThirdPart(),
+                        const SocialLogin(),
                         SizedBox(
                           height: ThemeSelector.statics.defaultBlockGap,
                         ),

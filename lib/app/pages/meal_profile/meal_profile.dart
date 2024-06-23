@@ -12,11 +12,11 @@ import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/extensions/capitalize_string_extension.dart';
-import 'package:yumi/forms/customer_pre_order_form.dart';
+import 'package:yumi/app/pages/menu/widgets/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/model/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal_model.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/text_currency.dart';
+import 'package:yumi/app/components/text_currency.dart';
 
 @RoutePage()
 class MealProfileScreen extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/calories/entity/calories.dart';
 import 'package:yumi/domain/calories/use_case/load_calories.dart';
-import 'package:yumi/statics/pagination_helper.dart';
+import 'package:yumi/statics/pagination.dart';
 
 part 'calories_cubit.freezed.dart';
 part 'calories_cubit.g.dart';
@@ -14,15 +14,14 @@ class CaloriesCubit extends Cubit<CaloriesState> {
   CaloriesCubit() : super(CaloriesState.initail());
 
   loadCalories() async {
-    if (state.paginationHelper.canRequest) {
+    if (state.pagination.canRequest) {
       emit(state.copyWith(
-          paginationHelper: state.paginationHelper.copyWith(isLoading: true)
-              as PaginationHelper<Calories>));
+          pagination: state.pagination.copyWith(isLoading: true)
+              as Pagination<Calories>));
 
-      final Either<Failure, PaginationHelper<Calories>> task =
-          await LoadCalories().call(
-              LoadCaloriesParams(paginationHelper: state.paginationHelper));
-      task.fold((l) => null, (r) => emit(state.copyWith(paginationHelper: r)));
+      final Either<Failure, Pagination<Calories>> task = await LoadCalories()
+          .call(LoadCaloriesParams(pagination: state.pagination));
+      task.fold((l) => null, (r) => emit(state.copyWith(pagination: r)));
     }
   }
 }

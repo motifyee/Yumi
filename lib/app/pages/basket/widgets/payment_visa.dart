@@ -5,8 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/custom_switch.dart';
-import 'package:yumi/template/text_form_field.dart';
+import 'package:yumi/app/pages/basket/widgets/custom_switch.dart';
+import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/card_number_input_formatter.dart';
 import 'package:yumi/validators/expiry_date_input_formatter.dart';
 

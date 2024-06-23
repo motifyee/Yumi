@@ -7,7 +7,7 @@ import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/app/components/otp/otp.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/screen_container.dart';
+import 'package:yumi/app/components/screen_container.dart';
 
 enum OTPType {
   email,

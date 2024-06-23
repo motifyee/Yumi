@@ -8,9 +8,9 @@ import 'package:yumi/app/pages/profile/components/my_reviews.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/template/bio.dart';
-import 'package:yumi/template/event_photo.dart';
-import 'package:yumi/template/upload_photo_button.dart';
+import 'package:yumi/app/pages/profile/components/bio.dart';
+import 'package:yumi/app/pages/profile/components/event_photo.dart';
+import 'package:yumi/app/pages/profile/components/upload_photo_button.dart';
 
 Widget profileImagePicker(
   BuildContext context,
