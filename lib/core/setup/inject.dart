@@ -13,6 +13,10 @@ import 'package:yumi/domain/notification/data/repo/notification_repo.dart';
 import 'package:yumi/domain/notification/data/repo/remote/notification_repo_remote.dart';
 import 'package:yumi/domain/notification/data/source/notification_source.dart';
 import 'package:yumi/domain/notification/data/source/remote/notification_source_remote.dart';
+import 'package:yumi/domain/order/data/repo/order_repo.dart';
+import 'package:yumi/domain/order/data/repo/remote/order_repo_remote.dart';
+import 'package:yumi/domain/order/data/source/order_source.dart';
+import 'package:yumi/domain/order/data/source/remote/order_source_remote.dart';
 import 'package:yumi/domain/profile/data/repos/profile_repo.dart';
 import 'package:yumi/domain/profile/data/repos/remote/profile_remote_repo.dart';
 import 'package:yumi/domain/profile/data/sources/profile_source.dart';
@@ -50,6 +54,9 @@ Future<void> inject() async {
 
   sl.registerFactory<TransactionRepo>(() => TransactionRepoRemote());
   sl.registerFactory<TransactionSource>(() => TransactionSourceRemote());
+
+  sl.registerFactory<OrderRepo>(() => OrderRepoRemote());
+  sl.registerFactory<OrderSource>(() => OrderSourceRemote());
 
   // Utils
   sl.registerLazySingleton<InternetChecker>(() => InternetChecker());

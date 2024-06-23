@@ -10,5 +10,5 @@ abstract class OrderSource {
       {required String apiKeys,
       int? orderId,
       bool isFakeBody = true,
-      required PaginationHelper<Order> paginationHelper});
+       });
 }

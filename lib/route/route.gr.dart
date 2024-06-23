@@ -35,12 +35,23 @@ import 'package:yumi/app/pages/basket/basket_screen.dart' as _i2;
 import 'package:yumi/app/pages/basket/checkout.dart' as _i5;
 import 'package:yumi/app/pages/basket/widgets/payment_paypal.dart' as _i24;
 import 'package:yumi/app/pages/basket/widgets/payment_visa.dart' as _i25;
+import 'package:yumi/app/pages/basket/widgets/tracking_order.dart' as _i30;
 import 'package:yumi/app/pages/calories/calories_screen.dart' as _i3;
+import 'package:yumi/app/pages/chat/chat.dart' as _i4;
 import 'package:yumi/app/pages/chef_customer_address/chef_customer_address.dart'
     as _i7;
+import 'package:yumi/app/pages/chef_profile/chef_profile.dart' as _i8;
+import 'package:yumi/app/pages/customer_location/customer_location.dart'
+    as _i10;
+import 'package:yumi/app/pages/financial_view/financial_view.dart' as _i12;
+import 'package:yumi/app/pages/home/home.dart' as _i13;
+import 'package:yumi/app/pages/meal_profile/meal_profile.dart' as _i17;
+import 'package:yumi/app/pages/menu/chef/menu_pre.dart' as _i18;
 import 'package:yumi/app/pages/notification/notification_screen.dart' as _i21;
 import 'package:yumi/app/pages/order/customer/customer_order.dart' as _i19;
 import 'package:yumi/app/pages/order/widgets/order_status.dart' as _i23;
+import 'package:yumi/app/pages/performance_analysis/performance_analysis.dart'
+    as _i26;
 import 'package:yumi/app/pages/settings/settings_screen.dart' as _i28;
 import 'package:yumi/app/pages/transactions/transactions.dart' as _i31;
 import 'package:yumi/app/pages/wallet/wallet_screen.dart' as _i32;
@@ -48,15 +59,6 @@ import 'package:yumi/domain/address/entity/address.dart' as _i35;
 import 'package:yumi/domain/chef/entity/chef.dart' as _i36;
 import 'package:yumi/domain/order/entity/order.dart' as _i38;
 import 'package:yumi/model/meal_model.dart' as _i37;
-import 'package:yumi/app/pages/chat/chat.dart' as _i4;
-import 'package:yumi/app/pages/menu/chef/menu_pre.dart' as _i18;
-import 'package:yumi/app/pages/chef_profile/chef_profile.dart' as _i8;
-import 'package:yumi/app/pages/customer_location/customer_location.dart' as _i10;
-import 'package:yumi/app/pages/meal_profile/meal_profile.dart' as _i17;
-import 'package:yumi/app/pages/basket/widgets/tracking_order.dart' as _i30;
-import 'package:yumi/app/pages/financial_view/financial_view.dart' as _i12;
-import 'package:yumi/app/pages/home/home.dart' as _i13;
-import 'package:yumi/app/pages/performance_analysis/performance_analysis.dart' as _i26;
 
 abstract class $AppRouter extends _i33.RootStackRouter {
   $AppRouter({super.navigatorKey});

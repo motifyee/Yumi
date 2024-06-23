@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
-import 'package:yumi/app/pages/order/cubit/order/order_bloc.dart';
+import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:yumi/core/setup/signalr.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
@@ -125,7 +125,7 @@ class ChefOrder extends StatelessWidget {
             controller: controller,
             children: [
               BlocProvider(
-                create: (context) => OrderBloc(),
+                create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: menuTarget,
                   apiKey: ApiKeys.preOrderChefReceived,
@@ -143,7 +143,7 @@ class ChefOrder extends StatelessWidget {
                 ),
               ),
               BlocProvider(
-                create: (context) => OrderBloc(),
+                create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: menuTarget,
                   apiKey: menuTarget == MenuTarget.order
@@ -167,7 +167,7 @@ class ChefOrder extends StatelessWidget {
                 ),
               ),
               BlocProvider(
-                create: (context) => OrderBloc(),
+                create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: menuTarget,
                   apiKey: menuTarget == MenuTarget.order
@@ -187,7 +187,7 @@ class ChefOrder extends StatelessWidget {
                 ),
               ),
               BlocProvider(
-                create: (context) => OrderBloc(),
+                create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: menuTarget,
                   apiKey: menuTarget == MenuTarget.order
@@ -204,7 +204,7 @@ class ChefOrder extends StatelessWidget {
                 ),
               ),
               BlocProvider(
-                create: (context) => OrderBloc(),
+                create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: menuTarget,
                   apiKey: menuTarget == MenuTarget.order

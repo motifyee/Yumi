@@ -26,14 +26,14 @@ class OrderSourceRemote extends OrderSource {
   }
 
   @override
-  Future<bool> putOrders(
-      {required String apiKeys,
-      int? orderId,
-      bool isFakeBody = true,
-      required PaginationHelper<Order> paginationHelper}) async {
+  Future<bool> putOrders({
+    required String apiKeys,
+    int? orderId,
+    bool isFakeBody = true,
+  }) async {
     Response res = await DioClient.simpleDio().put(apiKeys,
         data: isFakeBody ? {'driver_ID': null} : null,
-        queryParameters: {...paginationHelper.toJson(), 'orderId': orderId}
+        queryParameters: {'orderId': orderId}
           ..removeWhere((key, value) => value == null));
 
     return res.statusCode == 200;

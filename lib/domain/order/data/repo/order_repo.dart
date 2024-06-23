@@ -7,4 +7,13 @@ abstract class OrderRepo {
   TaskEither<Failure, PaginationHelper<Order>> getOrders(
       {required String apiKeys,
       required PaginationHelper<Order> paginationHelper});
+
+  TaskEither<Failure, bool> putAction(
+      {
+        required Order order,
+        required String apiKey,
+
+   bool isFakeBody = true,
+
+         });
 }

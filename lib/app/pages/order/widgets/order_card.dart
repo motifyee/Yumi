@@ -7,7 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/app/pages/order/cubit/order/order_bloc.dart';
+import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
+import 'package:yumi/app/pages/order/widgets/order_action_button.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/domain/order/entity/order.dart';
@@ -526,371 +527,70 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           if (widget.orderCardTargetPage ==
                                   OrderCardTargetPage.chefReady &&
                               widget.order.isPickUp == true)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
-                              child: TextButton(
-                                onPressed: () {
-                                  String apiKey =
-                                      widget.menuTarget == MenuTarget.order
-                                          ? ApiKeys.orderChefPickUpDelivered
-                                          : ApiKeys.preOrderChefPickUpDelivered;
-
-                                  context.read<OrderBloc>().add(
-                                        OrderEvent.putAction(
-                                          order: widget.order,
-                                          isFakeBody: false,
-                                          navFun: widget.navFun,
-                                          apiKey: ApiKeys.actionApiKeyString(
-                                              apiKey: apiKey,
-                                              id: '${widget.order.id}'),
-                                          getApiKey: widget.getApiKey,
-                                        ),
-                                      );
-                                },
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) => ThemeSelector.colors.success,
-                                )),
-                                child: Text(
-                                  S.of(context).clientReceived,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                          color:
-                                              ThemeSelector.colors.onSuccess),
-                                ),
-                              ),
-                            ),
+                            PutActionButton(
+                                config: OrderPutActions.chefCloseOrderPickup(
+                                    widget: widget)),
 
                           // chef finish order
                           if (widget.orderCardTargetPage ==
                               OrderCardTargetPage.chefPreparing)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
-                              child: TextButton(
-                                onPressed: () {
-                                  String apiKey = '';
-                                  if (widget.menuTarget == MenuTarget.order) {
-                                    apiKey = widget.order.isPickUp == true
-                                        ? ApiKeys.orderChefPickUpFinished
-                                        : ApiKeys.orderChefDeliveryFinished;
-                                  } else {
-                                    apiKey = widget.order.isPickUp == true
-                                        ? ApiKeys.preOrderChefPickUpFinished
-                                        : ApiKeys.preOrderChefDeliveryFinished;
-                                  }
-
-                                  context.read<OrderBloc>().add(
-                                        OrderEvent.putAction(
-                                          order: widget.order,
-                                          navFun: widget.navFun,
-                                          apiKey: ApiKeys.actionApiKeyString(
-                                              apiKey: apiKey,
-                                              id: '${widget.order.id}'),
-                                          getApiKey: widget.getApiKey,
-                                        ),
-                                      );
-                                },
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) => ThemeSelector.colors.success,
-                                )),
-                                child: Text(
-                                  S.of(context).finish,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                          color:
-                                              ThemeSelector.colors.onSuccess),
-                                ),
-                              ),
-                            ),
+                            PutActionButton(
+                                config: OrderPutActions.chefFinishOrder(
+                                    widget: widget)),
 
                           // chef start order
                           if (widget.orderCardTargetPage ==
                               OrderCardTargetPage.chefReceived)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
-                              child: TextButton(
-                                onPressed: widget.order.isPickUp != true &&
-                                        widget.order.driverAccept != true
-                                    ? null
-                                    : () {
-                                        String apiKey = '';
-                                        if (widget.menuTarget ==
-                                            MenuTarget.order) {
-                                          apiKey = widget.order.isPickUp == true
-                                              ? ApiKeys.orderChefPickUpStart
-                                              : ApiKeys.orderChefDeliveryStart;
-                                        } else {
-                                          apiKey = widget.order.isPickUp == true
-                                              ? ApiKeys.preOrderChefPickUpStart
-                                              : ApiKeys
-                                                  .preOrderChefDeliveryStart;
-                                        }
-
-                                        context.read<OrderBloc>().add(
-                                              OrderEvent.putAction(
-                                                order: widget.order,
-                                                navFun: widget.navFun,
-                                                apiKey:
-                                                    ApiKeys.actionApiKeyString(
-                                                        apiKey: apiKey,
-                                                        id: '${widget.order.id}'),
-                                                getApiKey: widget.getApiKey,
-                                              ),
-                                            );
-                                      },
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) => ThemeSelector.colors.primary
-                                      .withAlpha(widget.order.isPickUp !=
-                                                  true &&
-                                              widget.order.driverAccept != true
-                                          ? 100
-                                          : 255),
-                                )),
-                                child: Row(
-                                  children: [
-                                    if (widget.order.isPickUp != true &&
-                                        widget.order.driverAccept != true)
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: ThemeSelector
-                                                .statics.defaultMicroGap),
-                                        child: SvgPicture.asset(
-                                            'assets/images/waiting.svg'),
-                                      ),
-                                    Text(
-                                      S.of(context).start,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(
-                                              color: ThemeSelector
-                                                  .colors.onPrimary),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            PutActionButton(
+                                config: OrderPutActions.chefStartOrder(
+                                    widget: widget)),
 
                           // chef accept preorder
                           if (widget.orderCardTargetPage ==
                                   OrderCardTargetPage.chefPending &&
                               widget.menuTarget == MenuTarget.preOrder)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
-                              child: Row(
-                                children: [
-                                  TimerCount(
-                                    menuTarget: widget.menuTarget,
-                                    order: widget.order,
-                                    isOver3hCount: true,
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      String apiKey = widget.order.isPickUp ==
-                                              true
-                                          ? ApiKeys.preOrderChefPickUpAccept
-                                          : ApiKeys.preOrderChefDeliveryAccept;
-
-                                      context.read<OrderBloc>().add(
-                                            OrderEvent.putAction(
-                                              order: widget.order,
-                                              navFun: widget.navFun,
-                                              apiKey:
-                                                  ApiKeys.actionApiKeyString(
-                                                      apiKey: apiKey,
-                                                      id: '${widget.order.id}'),
-                                              getApiKey: widget.getApiKey,
-                                            ),
-                                          );
-                                    },
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            WidgetStateColor.resolveWith(
-                                      (states) => ThemeSelector.colors.success,
-                                    )),
-                                    child: Text(
-                                      S.of(context).accept,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(
-                                              color: ThemeSelector
-                                                  .colors.onSuccess),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            Row(
+                              children: [
+                                TimerCount(
+                                  menuTarget: widget.menuTarget,
+                                  order: widget.order,
+                                  isOver3hCount: true,
+                                ),
+                                PutActionButton(
+                                    config: OrderPutActions.chefAcceptPreorder(
+                                        widget: widget)),
+                              ],
                             ),
 
                           // driver close order delivery
                           if (widget.orderCardTargetPage ==
                                   OrderCardTargetPage.driverReceived &&
                               widget.order.driverReceived == true)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
-                              child: TextButton(
-                                onPressed: () {
-                                  String apiKey =
-                                      widget.menuTarget == MenuTarget.order
-                                          ? ApiKeys.orderDriverDelivered
-                                          : ApiKeys.preOrderDriverDelivered;
-
-                                  context.read<OrderBloc>().add(
-                                        OrderEvent.putAction(
-                                          order: widget.order,
-                                          isFakeBody: false,
-                                          navFun: widget.navFun,
-                                          apiKey: ApiKeys.actionApiKeyString(
-                                              apiKey: apiKey,
-                                              id: '${widget.order.id}'),
-                                          getApiKey: widget.getApiKey,
-                                        ),
-                                      );
-                                },
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) => ThemeSelector.colors.success,
-                                )),
-                                child: Text(
-                                  S.of(context).clientReceived,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                          color:
-                                              ThemeSelector.colors.onSuccess),
-                                ),
-                              ),
-                            ),
+                            PutActionButton(
+                                config:
+                                    OrderPutActions.driverCloseOrderDelivery(
+                                        widget: widget)),
 
                           // driver received
                           if (widget.orderCardTargetPage ==
                                   OrderCardTargetPage.driverReceived &&
                               widget.order.driverReceived != true)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
-                              child: TextButton(
-                                onPressed: widget.order.chefFinished != true
-                                    ? null
-                                    : () {
-                                        context.read<OrderBloc>().add(
-                                              OrderEvent.putAction(
-                                                order: widget.order,
-                                                navFun: widget.navFun,
-                                                apiKey: ApiKeys.actionApiKeyString(
-                                                    apiKey: widget.menuTarget ==
-                                                            MenuTarget.order
-                                                        ? ApiKeys
-                                                            .orderDriverReceived
-                                                        : ApiKeys
-                                                            .preOrderDriverReceived,
-                                                    id: '${widget.order.id}'),
-                                                getApiKey: widget.getApiKey,
-                                              ),
-                                            );
-                                      },
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) => ThemeSelector.colors.primary
-                                      .withAlpha(
-                                          widget.order.chefFinished == true
-                                              ? 255
-                                              : 100),
-                                )),
-                                child: Row(
-                                  children: [
-                                    if (widget.order.chefFinished != true)
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: ThemeSelector
-                                                .statics.defaultMicroGap),
-                                        child: SvgPicture.asset(
-                                            'assets/images/waiting.svg'),
-                                      ),
-                                    Text(
-                                      S.of(context).orderReceived,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(
-                                              color: ThemeSelector
-                                                  .colors.onPrimary),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            PutActionButton(
+                                config: OrderPutActions.driverReceived(
+                                    widget: widget)),
 
                           // driver accept
                           if (widget.orderCardTargetPage ==
                               OrderCardTargetPage.driverAccept)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
-                              child: Row(
-                                children: [
-                                  TimerCount(
-                                      menuTarget: widget.menuTarget,
-                                      order: widget.order),
-                                  TextButton(
-                                    onPressed: () {
-                                      context.read<OrderBloc>().add(
-                                            OrderEvent.putAction(
-                                              order: widget.order,
-                                              navFun: widget.navFun,
-                                              apiKey: ApiKeys.actionApiKeyString(
-                                                  apiKey: widget.menuTarget ==
-                                                          MenuTarget.order
-                                                      ? ApiKeys
-                                                          .orderDriverAccept
-                                                      : ApiKeys
-                                                          .preOrderDriverAccept,
-                                                  id: '${widget.order.id}'),
-                                              getApiKey: widget.getApiKey,
-                                            ),
-                                          );
-                                    },
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            WidgetStateColor.resolveWith(
-                                      (states) => ThemeSelector.colors.success,
-                                    )),
-                                    child: Text(
-                                      S.of(context).accept,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(
-                                              color: ThemeSelector
-                                                  .colors.onSuccess),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            Row(
+                              children: [
+                                TimerCount(
+                                    menuTarget: widget.menuTarget,
+                                    order: widget.order),
+                                PutActionButton(
+                                    config: OrderPutActions.driverAccept(
+                                        widget: widget)),
+                              ],
                             ),
 
                           // customer order status
@@ -899,27 +599,9 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             OrderCardTargetPage.customerOrders,
                             OrderCardTargetPage.customerPreOrders
                           ].contains(widget.orderCardTargetPage))
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
-                              child: TextButton(
-                                onPressed: () {
-                                  context.router.push(
-                                      OrderStatusRoute(order: widget.order));
-                                },
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) =>
-                                      ThemeSelector.colors.backgroundTant,
-                                )),
-                                child: Text(
-                                  S.of(context).orderStatus,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              ),
-                            ),
+                            PutActionButton(
+                                config: OrderPutActions.customerOrderStatus(
+                                    widget: widget)),
 
                           /// TODO: change api for preorder cancel
                           // customer cancel pre order
@@ -970,89 +652,15 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                   OrderCardTargetPage.customerHistory &&
                               widget.order.isDriverDelayed &&
                               widget.menuTarget == MenuTarget.order)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
-                              child: TextButton(
-                                onPressed: () {
-                                  OrderService.putActionOrderOrPreOrder(
-                                    apiKeys: ApiKeys.waitDriverOrder,
-                                    orderId: widget.order.id,
-                                  ).then((value) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: SnackBarMassage(
-                                        massage:
-                                            S.of(context).thankYouForWaiting,
-                                      ),
-                                    ));
-                                  }).catchError((err) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: SnackBarMassage(
-                                        massage: err.response?.data['message'],
-                                      ),
-                                    ));
-                                  });
-                                },
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) => ThemeSelector.colors.success,
-                                )),
-                                child: Text(
-                                  S.of(context).wait,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                          color:
-                                              ThemeSelector.colors.onSuccess),
-                                ),
-                              ),
-                            ),
-
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.customerHistory &&
-                              widget.order.isDriverDelayed &&
-                              widget.menuTarget == MenuTarget.order)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
-                              child: TextButton(
-                                onPressed: () {
-                                  OrderService.putActionOrderOrPreOrder(
-                                    apiKeys: ApiKeys.cancelDriverOrder,
-                                    orderId: widget.order.id,
-                                  ).then((value) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: SnackBarMassage(
-                                        massage: S.of(context).orderCanceled,
-                                      ),
-                                    ));
-                                  }).catchError((err) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: SnackBarMassage(
-                                        massage: err.response?.data['message'],
-                                      ),
-                                    ));
-                                  });
-                                },
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) =>
-                                      ThemeSelector.colors.backgroundTant,
-                                )),
-                                child: Text(
-                                  S.of(context).cancel,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              ),
+                            Row(
+                              children: [
+                                PutActionButton(
+                                    config: OrderPutActions.waitDriver(
+                                        widget: widget)),
+                                PutActionButton(
+                                    config: OrderPutActions.cancelDriver(
+                                        widget: widget)),
+                              ],
                             ),
 
                           // wait & cancel chef
@@ -1060,89 +668,15 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                   OrderCardTargetPage.customerHistory &&
                               widget.order.isChefDelayed &&
                               widget.menuTarget == MenuTarget.order)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
-                              child: TextButton(
-                                onPressed: () {
-                                  OrderService.putActionOrderOrPreOrder(
-                                    apiKeys: ApiKeys.waitChefOrder,
-                                    orderId: widget.order.id,
-                                  ).then((value) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: SnackBarMassage(
-                                        massage:
-                                            S.of(context).thankYouForWaiting,
-                                      ),
-                                    ));
-                                  }).catchError((err) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: SnackBarMassage(
-                                        massage: err.response?.data['message'],
-                                      ),
-                                    ));
-                                  });
-                                },
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) => ThemeSelector.colors.success,
-                                )),
-                                child: Text(
-                                  S.of(context).wait,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                          color:
-                                              ThemeSelector.colors.onSuccess),
-                                ),
-                              ),
-                            ),
-
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.customerHistory &&
-                              widget.order.isChefDelayed &&
-                              widget.menuTarget == MenuTarget.order)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
-                              child: TextButton(
-                                onPressed: () {
-                                  OrderService.putActionOrderOrPreOrder(
-                                    apiKeys: ApiKeys.cancelChefOrder,
-                                    orderId: widget.order.id,
-                                  ).then((value) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: SnackBarMassage(
-                                        massage: S.of(context).orderCanceled,
-                                      ),
-                                    ));
-                                  }).catchError((err) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: SnackBarMassage(
-                                        massage: err.response?.data['message'],
-                                      ),
-                                    ));
-                                  });
-                                },
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) =>
-                                      ThemeSelector.colors.backgroundTant,
-                                )),
-                                child: Text(
-                                  S.of(context).cancel,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              ),
+                            Row(
+                              children: [
+                                PutActionButton(
+                                    config: OrderPutActions.waitChef(
+                                        widget: widget)),
+                                PutActionButton(
+                                    config: OrderPutActions.cancelChef(
+                                        widget: widget)),
+                              ],
                             ),
 
                           if ((widget.order.invoiceDetails?.length ?? 0) > 1 &&
