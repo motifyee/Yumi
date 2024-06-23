@@ -11,7 +11,7 @@ import 'package:yumi/domain/calories/data/source/calories_source.dart';
 import 'package:yumi/domain/calories/data/source/remote/calories_source_remote.dart';
 import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
 import 'package:yumi/domain/chef/data/respositories/remote/chef_remote_repo.dart';
-import 'package:yumi/domain/chef/data/sources/profile_source.dart';
+import 'package:yumi/domain/chef/data/sources/chef_src.dart';
 import 'package:yumi/domain/chef/data/sources/remote/chef_remote_src.dart';
 import 'package:yumi/domain/notification/data/repo/notification_repo.dart';
 import 'package:yumi/domain/notification/data/repo/remote/notification_repo_remote.dart';
