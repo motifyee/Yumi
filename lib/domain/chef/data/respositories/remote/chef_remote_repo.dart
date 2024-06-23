@@ -2,7 +2,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
-import 'package:yumi/domain/chef/data/sources/profile_source.dart';
+import 'package:yumi/domain/chef/data/sources/chef_src.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/statics/pagination.dart';
 

@@ -4,7 +4,7 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/order/data/repo/order_repo.dart';
 import 'package:yumi/domain/order/data/source/order_source.dart';
 import 'package:yumi/domain/order/entity/order.dart';
-import 'package:yumi/statics/pagination_helper.dart';
+import 'package:yumi/statics/pagination.dart';
 
 class OrderRepoRemote extends OrderRepo {
   final OrderSource orderSource;
@@ -13,21 +13,28 @@ class OrderRepoRemote extends OrderRepo {
       : orderSource = orderSource ?? getIt<OrderSource>();
 
   @override
-  TaskEither<Failure, PaginationHelper<Order>> getOrders(
-      {required String apiKeys,
-      required PaginationHelper<Order> paginationHelper}) {
+  TaskEither<Failure, Pagination<Order>> getOrders(
+      {required String apiKeys, required Pagination<Order> pagination}) {
     return TaskEither.tryCatch(
-      () => orderSource.getOrders(
-          apiKeys: apiKeys, paginationHelper: paginationHelper),
+      () => orderSource.getOrders(apiKeys: apiKeys, pagination: pagination),
       (error, stackTrace) {
-       return ServerFailure(error, stackTrace);
+        return ServerFailure(error, stackTrace);
       },
     );
   }
 
   @override
-  TaskEither<Failure, bool> putAction({required Order order, required String apiKey, bool isFakeBody = true,   }) {
-    return TaskEither.tryCatch(()=> orderSource.putOrders(apiKeys: apiKey,isFakeBody: isFakeBody ,orderId: order.id,  ), (error, stackTrace) => ServerFailure(error, stackTrace));
+  TaskEither<Failure, bool> putAction({
+    required Order order,
+    required String apiKey,
+    bool isFakeBody = true,
+  }) {
+    return TaskEither.tryCatch(
+        () => orderSource.putOrders(
+              apiKeys: apiKey,
+              isFakeBody: isFakeBody,
+              orderId: order.id,
+            ),
+        (error, stackTrace) => ServerFailure(error, stackTrace));
   }
-
 }

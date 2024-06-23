@@ -7,7 +7,7 @@ import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/domain/order/use_case/get_orders.dart';
 import 'package:yumi/domain/order/use_case/put_action_orders.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/pagination_helper.dart';
+import 'package:yumi/statics/pagination.dart';
 
 part 'order_cubit.freezed.dart';
 part 'order_cubit.g.dart';
@@ -15,13 +15,12 @@ part 'order_cubit.g.dart';
 @freezed
 class OrderState with _$OrderState {
   const factory OrderState({
-    required PaginationHelper<Order> paginationHelper,
+    required Pagination<Order> pagination,
   }) = _OrderState;
 
   factory OrderState.initial({bool loading = false}) {
     return OrderState(
-        paginationHelper:
-            PaginationHelper<Order>(data: [], isLoading: loading));
+        pagination: Pagination<Order>(data: [], isLoading: loading));
   }
 
   factory OrderState.fromJson(Map<String, dynamic> json) =>
@@ -35,18 +34,18 @@ class OrderCubit extends Cubit<OrderState> {
       emit(OrderState.initial(loading: loading));
 
   getOrders({required String apiKeys}) async {
-    if (state.paginationHelper.canRequest) {
+    if (state.pagination.canRequest) {
       emit(state.copyWith(
-          paginationHelper: state.paginationHelper.copyWith(isLoading: true)
-              as PaginationHelper<Order>));
+          pagination:
+              state.pagination.copyWith(isLoading: true) as Pagination<Order>));
 
-      final fpdart.Either<Failure, PaginationHelper<Order>> task =
-          await GetOrders().call(GetOrdersParams(
-              paginationHelper: state.paginationHelper, apiKeys: apiKeys));
+      final fpdart.Either<Failure, Pagination<Order>> task = await GetOrders()
+          .call(
+              GetOrdersParams(pagination: state.pagination, apiKeys: apiKeys));
 
       task.fold(
         (l) => null,
-        (r) => emit(state.copyWith(paginationHelper: r)),
+        (r) => emit(state.copyWith(pagination: r)),
       );
     }
   }
@@ -59,14 +58,14 @@ class OrderCubit extends Cubit<OrderState> {
     Function()? navFun,
     String? customMessage,
   }) async {
-    List<Order> orders = List.from(state.paginationHelper.data);
+    List<Order> orders = List.from(state.pagination.data);
     orders[orders.indexWhere((e) => e.id == order.id)] =
         orders[orders.indexWhere((e) => e.id == order.id)]
             .copyWith(isLoading: true);
 
     emit(state.copyWith(
-        paginationHelper: state.paginationHelper.copyWith(data: orders)
-            as PaginationHelper<Order>));
+        pagination:
+            state.pagination.copyWith(data: orders) as Pagination<Order>));
 
     final fpdart.Either<Failure, bool> task = await PutActionOrders().call(
         PutActionOrdersParams(
@@ -75,14 +74,14 @@ class OrderCubit extends Cubit<OrderState> {
     task.fold(
       (l) {
         G.snackBar((l.error as DioException).response?.data['message']);
-        List<Order> orders = List.from(state.paginationHelper.data);
+        List<Order> orders = List.from(state.pagination.data);
         orders[orders.indexWhere((e) => e.id == order.id)] =
             orders[orders.indexWhere((e) => e.id == order.id)]
                 .copyWith(isLoading: false);
 
         emit(state.copyWith(
-            paginationHelper: state.paginationHelper.copyWith(data: orders)
-                as PaginationHelper<Order>));
+            pagination:
+                state.pagination.copyWith(data: orders) as Pagination<Order>));
       },
       (r) {
         resetOrders();

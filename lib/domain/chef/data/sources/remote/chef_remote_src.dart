@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:yumi/core/exceptions.dart';
-import 'package:yumi/domain/chef/data/sources/profile_source.dart';
+import 'package:yumi/domain/chef/data/sources/chef_src.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/code_generator.dart';

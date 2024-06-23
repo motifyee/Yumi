@@ -31,8 +31,9 @@ class NewsOrders extends StatelessWidget {
       buildWhen: (previous, current) {
         if (current.isSignalTriggered(
             signal: signals, isPreOrder: menuTarget == MenuTarget.preOrder)) {
-          context.read<OrderCubit>().resetOrders(loading: context.read<OrderCubit>().state.paginationHelper.isLoading)  ;
-          context.read<OrderCubit>().getOrders(apiKeys: apiKey) ;
+          context.read<OrderCubit>().resetOrders(
+              loading: context.read<OrderCubit>().state.pagination.isLoading);
+          context.read<OrderCubit>().getOrders(apiKeys: apiKey);
           return true;
         }
         return false;
@@ -43,15 +44,14 @@ class NewsOrders extends StatelessWidget {
         return PaginationTemplate(
           scrollDirection: Axis.vertical,
           loadDate: () {
-            context
-                .read<OrderCubit>(). getOrders(apiKeys: apiKey);
+            context.read<OrderCubit>().getOrders(apiKeys: apiKey);
           },
           child: BlocConsumer<OrderCubit, OrderState>(
             listener: (context, state) {},
             builder: (context, state) {
               return Column(
                 children: [
-                  for (Order order in state.paginationHelper.data)
+                  for (Order order in state.pagination.data)
                     OrderCard(
                       order: order,
                       orderCardTargetPage: orderCardTargetPage,

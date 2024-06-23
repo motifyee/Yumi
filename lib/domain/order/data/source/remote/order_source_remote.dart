@@ -5,24 +5,23 @@ import 'package:yumi/domain/order/data/source/order_source.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/pagination_helper.dart';
+import 'package:yumi/statics/pagination.dart';
 
 class OrderSourceRemote extends OrderSource {
-  Future<PaginationHelper<Order>> getOrders(
-      {required String apiKeys,
-      required PaginationHelper<Order> paginationHelper}) async {
+  Future<Pagination<Order>> getOrders(
+      {required String apiKeys, required Pagination<Order> pagination}) async {
     Response res = await DioClient.simpleDio()
-        .get(apiKeys, queryParameters: {...paginationHelper.toJson()});
+        .get(apiKeys, queryParameters: {...pagination.toJson()});
 
     List<Order> data =
         res.data['data'].map<Order>((e) => Order.fromJson(e)).toList();
 
-    return paginationHelper.copyWith(
-      data: <Order>[...paginationHelper.data, ...data].unique((e) => e.id),
+    return pagination.copyWith(
+      data: <Order>[...pagination.data, ...data].unique((e) => e.id),
       isLoading: false,
       pageNumber: res.data['pagination']['page'],
       lastPage: res.data['pagination']['pages'],
-    ) as PaginationHelper<Order>;
+    ) as Pagination<Order>;
   }
 
   @override
