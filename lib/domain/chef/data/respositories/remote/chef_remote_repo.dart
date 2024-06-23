@@ -2,7 +2,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
-import 'package:yumi/domain/chef/data/sources/profile_source.dart';
+import 'package:yumi/domain/chef/data/sources/chef_src.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/statics/pagination.dart';
 
@@ -26,7 +26,7 @@ class ChefRemoteRepo implements ChefRepo {
       );
 
   @override
-  TaskEither<Failure, List<Chef>> getChefs({
+  TaskEither<Failure, Pagination<Chef>> getChefs({
     required bool isPreOrder,
     required double latitude,
     required double longitude,
@@ -44,7 +44,8 @@ class ChefRemoteRepo implements ChefRepo {
       );
 
   @override
-  TaskEither<Failure, List<Chef>> getFavouriteChefs(Pagination pagination) =>
+  TaskEither<Failure, Pagination<Chef>> getFavouriteChefs(
+          Pagination pagination) =>
       TaskEither.tryCatch(
         () => chefSrc.getFavouriteChefs(pagination),
         (error, stackTrace) => FailureX.fromException(error, stackTrace),
