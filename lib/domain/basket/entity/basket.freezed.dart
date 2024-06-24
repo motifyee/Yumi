@@ -872,7 +872,7 @@ mixin _$InvoiceDetails {
   int get discountListId => throw _privateConstructorUsedError;
   String get note => throw _privateConstructorUsedError;
   @JsonKey(includeToJson: false)
-  MealModel? get meal => throw _privateConstructorUsedError;
+  Meal? get meal => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -892,7 +892,9 @@ abstract class $InvoiceDetailsCopyWith<$Res> {
       double productVarintPrice,
       int discountListId,
       String note,
-      @JsonKey(includeToJson: false) MealModel? meal});
+      @JsonKey(includeToJson: false) Meal? meal});
+
+  $MealCopyWith<$Res>? get meal;
 }
 
 /// @nodoc
@@ -939,8 +941,20 @@ class _$InvoiceDetailsCopyWithImpl<$Res, $Val extends InvoiceDetails>
       meal: freezed == meal
           ? _value.meal
           : meal // ignore: cast_nullable_to_non_nullable
-              as MealModel?,
+              as Meal?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MealCopyWith<$Res>? get meal {
+    if (_value.meal == null) {
+      return null;
+    }
+
+    return $MealCopyWith<$Res>(_value.meal!, (value) {
+      return _then(_value.copyWith(meal: value) as $Val);
+    });
   }
 }
 
@@ -958,7 +972,10 @@ abstract class _$$InvoiceDetailsImplCopyWith<$Res>
       double productVarintPrice,
       int discountListId,
       String note,
-      @JsonKey(includeToJson: false) MealModel? meal});
+      @JsonKey(includeToJson: false) Meal? meal});
+
+  @override
+  $MealCopyWith<$Res>? get meal;
 }
 
 /// @nodoc
@@ -1003,7 +1020,7 @@ class __$$InvoiceDetailsImplCopyWithImpl<$Res>
       meal: freezed == meal
           ? _value.meal
           : meal // ignore: cast_nullable_to_non_nullable
-              as MealModel?,
+              as Meal?,
     ));
   }
 }
@@ -1039,7 +1056,7 @@ class _$InvoiceDetailsImpl implements _InvoiceDetails {
   final String note;
   @override
   @JsonKey(includeToJson: false)
-  final MealModel? meal;
+  final Meal? meal;
 
   @override
   String toString() {
@@ -1085,13 +1102,12 @@ class _$InvoiceDetailsImpl implements _InvoiceDetails {
 
 abstract class _InvoiceDetails implements InvoiceDetails {
   const factory _InvoiceDetails(
-          {final int? productVarintId,
-          @StringToDoubleAsIntStringConverter() final String quantity,
-          final double productVarintPrice,
-          final int discountListId,
-          final String note,
-          @JsonKey(includeToJson: false) final MealModel? meal}) =
-      _$InvoiceDetailsImpl;
+      {final int? productVarintId,
+      @StringToDoubleAsIntStringConverter() final String quantity,
+      final double productVarintPrice,
+      final int discountListId,
+      final String note,
+      @JsonKey(includeToJson: false) final Meal? meal}) = _$InvoiceDetailsImpl;
 
   factory _InvoiceDetails.fromJson(Map<String, dynamic> json) =
       _$InvoiceDetailsImpl.fromJson;
@@ -1109,7 +1125,7 @@ abstract class _InvoiceDetails implements InvoiceDetails {
   String get note;
   @override
   @JsonKey(includeToJson: false)
-  MealModel? get meal;
+  Meal? get meal;
   @override
   @JsonKey(ignore: true)
   _$$InvoiceDetailsImplCopyWith<_$InvoiceDetailsImpl> get copyWith =>

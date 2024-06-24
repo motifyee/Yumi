@@ -11,7 +11,7 @@ import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/service/meal_service.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/menu/widgets/delete_dialog.dart';
@@ -22,7 +22,7 @@ import 'package:yumi/app/components/text_currency.dart';
 class MealCard extends StatelessWidget {
   MealCard({super.key, required this.meal, required this.menuTarget});
 
-  MealModel meal;
+  Meal meal;
   MenuTarget menuTarget;
   bool isDeleting = false;
 
@@ -89,7 +89,7 @@ class MealCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextCurrency(
-                      value: double.tryParse(meal.price1 ?? '0') ?? 0.0,
+                      value: meal.price1 ?? 0,
                       fontSize: ThemeSelector.fonts.font_18,
                     ),
                   ],

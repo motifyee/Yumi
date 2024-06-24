@@ -12,7 +12,7 @@ import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/basket/delivery_option_dialog.dart';
 

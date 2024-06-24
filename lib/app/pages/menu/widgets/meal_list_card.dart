@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class MealListCard extends StatelessWidget {
@@ -13,7 +13,7 @@ class MealListCard extends StatelessWidget {
     this.isDisabled = false,
   });
 
-  final MealModel meal;
+  final Meal meal;
   final Function()? onTap;
   final bool isDisabled;
 

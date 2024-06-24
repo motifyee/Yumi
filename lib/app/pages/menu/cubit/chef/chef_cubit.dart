@@ -38,6 +38,8 @@ class ChefsCubit extends Cubit<ChefsState> {
     );
     final chefs = await GetChefs().call(params);
 
+    if (isClosed) return;
+
     chefs.fold(
       (l) => emit(state.copyWith.chefsPage(isLoading: false)),
       (r) => emit(
@@ -63,6 +65,8 @@ class ChefsCubit extends Cubit<ChefsState> {
 
     final params = GetFavouriteChefsParam(state.chefsPage);
     final favouriteChefs = await GetFavouriteChefs().call(params);
+
+    if (isClosed) return;
 
     favouriteChefs.fold(
       (l) => emit(state.copyWith.chefsPage(isLoading: false)),
@@ -91,6 +95,8 @@ class ChefsCubit extends Cubit<ChefsState> {
         final chefIdx = chefs.indexWhere((c) => c.id == chef.id);
         chefs[chefIdx] = chef.copyWith(isFavorite: r);
 
+        if (isClosed) return r;
+
         emit(state.copyWith.chefsPage(data: chefs));
 
         return r;
@@ -112,6 +118,8 @@ class ChefsCubit extends Cubit<ChefsState> {
         final chefs = List<Chef>.from(state.chefsPage.data);
         final chefIdx = chefs.indexWhere((c) => c.id == chef.id);
         chefs[chefIdx] = chef.copyWith(isFavorite: r);
+
+        if (isClosed) return r;
 
         emit(state.copyWith.chefsPage(data: chefs));
 
@@ -135,6 +143,8 @@ class ChefsCubit extends Cubit<ChefsState> {
         final chefIdx = chefs.indexWhere((c) => c.id == chef.id);
         chefs[chefIdx] = chef.copyWith(isFavorite: r);
 
+        if (isClosed) return r;
+
         emit(state.copyWith.chefsPage(data: chefs));
 
         return r;
@@ -143,6 +153,6 @@ class ChefsCubit extends Cubit<ChefsState> {
   }
 
   Future<void> reset() async {
-    emit(ChefsState());
+    if (!isClosed) emit(ChefsState());
   }
 }

@@ -7,7 +7,7 @@ import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/service/meal_service.dart';
 import 'package:yumi/statics/pagination.dart';
 
@@ -31,7 +31,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         );
 
         late dynamic res = [];
-        List<MealModel> data = [];
+        List<Meal> data = [];
 
         try {
           if (event.chefId == null) {
@@ -46,8 +46,8 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
                 queryParameters: {...state.pagination.toJson()},
               );
 
-              data = res['data'].map<MealModel>((value) {
-                return MealModel.fromJson({
+              data = res['data'].map<Meal>((value) {
+                return Meal.fromJson({
                   ...?value,
                   ...?value['meal'],
                   ...?value['product'],
@@ -65,8 +65,8 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
                 pagination: {...state.pagination.toJson()},
               );
 
-              data = res['data'].map<MealModel>((value) {
-                return MealModel.fromJson({
+              data = res['data'].map<Meal>((value) {
+                return Meal.fromJson({
                   ...?value,
                   ...?value['meal'],
                   ...?value['product'],
@@ -85,8 +85,8 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
                 queryParameters: {...state.pagination.toJson()},
               );
 
-              data = res['data'].map<MealModel>((value) {
-                return MealModel.fromJson({
+              data = res['data'].map<Meal>((value) {
+                return Meal.fromJson({
                   ...?value,
                   ...?value['meal'],
                   ...?value['product'],
@@ -103,8 +103,8 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
                 pagination: {...state.pagination.toJson()},
               );
 
-              data = res['data'].map<MealModel>((value) {
-                return MealModel.fromJson({
+              data = res['data'].map<Meal>((value) {
+                return Meal.fromJson({
                   ...?value,
                   ...?value['meal'],
                   ...?value['product'],
@@ -165,8 +165,8 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         Response res = await MealService.getFavoriteMeals(
             pagination: {...state.pagination.toJson()});
 
-        List<MealModel> data = res.data['data'].map<MealModel>((value) {
-          return MealModel.fromJson({
+        List<Meal> data = res.data['data'].map<Meal>((value) {
+          return Meal.fromJson({
             ...value,
             'id': value['productId'],
             'isFavoritProduct': true,
@@ -186,12 +186,12 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
     on<MealListAddFavoriteMealEvent>((event, emit) async {
       Response res = await MealService.addMealToFavorite(meal: event.meal);
       if (res.statusCode == 200) {
-        List<MealModel> meals = List.from(state.meals);
+        List<Meal> meals = List.from(state.meals);
         if (meals.indexWhere((e) => e.id == event.meal.id) > -1) {
-          meals[meals.indexWhere((e) => e.id == event.meal.id)]
-              .isFavoritProduct = true;
+          final idx = meals.indexWhere((e) => e.id == event.meal.id);
+          meals[idx] = meals[idx].copyWith(isFavoritProduct: true);
         } else {
-          meals.add(event.meal.copyWith(isFavorite: true));
+          meals.add(event.meal.copyWith(isFavoritProduct: true));
         }
         emit(state.copyWith(
           meals: meals,
@@ -202,12 +202,12 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
     on<MealListRemoveFavoriteMealEvent>((event, emit) async {
       Response res = await MealService.removeMealToFavorite(meal: event.meal);
       if (res.statusCode == 200) {
-        List<MealModel> meals = List.from(state.meals);
+        List<Meal> meals = List.from(state.meals);
         if (meals.indexWhere((e) => e.id == event.meal.id) > -1) {
-          meals[meals.indexWhere((e) => e.id == event.meal.id)]
-              .isFavoritProduct = false;
+          final idx = meals.indexWhere((e) => e.id == event.meal.id);
+          meals[idx] = meals[idx].copyWith(isFavoritProduct: true);
         } else {
-          meals.add(event.meal.copyWith(isFavorite: false));
+          meals.add(event.meal.copyWith(isFavoritProduct: false));
         }
         emit(state.copyWith(
           meals: meals,

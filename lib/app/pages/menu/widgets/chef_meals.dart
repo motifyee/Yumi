@@ -7,7 +7,7 @@ import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/menu/widgets/chef_meal_basket_card.dart';
 import 'package:yumi/app/components/pagination_template.dart';

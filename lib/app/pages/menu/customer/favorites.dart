@@ -7,7 +7,7 @@ import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/app/pages/meal_profile/meal_profile.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';

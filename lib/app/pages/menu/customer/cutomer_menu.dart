@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/app/pages/menu/widgets/customer_news.dart';
 
 class CustomerMenuScreen extends StatelessWidget {

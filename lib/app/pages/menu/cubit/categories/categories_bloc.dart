@@ -5,7 +5,7 @@ import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/global.dart';
-import 'package:yumi/app/pages/menu/categories_model.dart';
+import 'package:yumi/domain/categories/entity/category.dart';
 import 'package:yumi/service/categories_service.dart';
 import 'package:yumi/statics/pagination.dart';
 
@@ -57,9 +57,9 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
           }
         }
 
-        List<CategoriesModel> data = [];
-        data = res['data'].map<CategoriesModel>((value) {
-          return CategoriesModel.fromJson(value);
+        List<Category> data = [];
+        data = res['data'].map<Category>((value) {
+          return Category.fromJson(value);
         }).toList();
 
         emit(state.copyWith(

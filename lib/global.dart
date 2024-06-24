@@ -21,6 +21,7 @@ class G {
   // static get currentContext => navigatorKey.currentContext;
   // static ScaffoldState get scaffold => Scaffold.of(currentContext);
   static YumiApp get yumiApp => YumiApp.of(cContext);
+  static AppTargetUser get appTarget => yumiApp.config.appTargetUser;
   static bool get isChefApp =>
       yumiApp.config.appTargetUser == AppTargetUser.chefs;
   static bool get isDriverApp =>

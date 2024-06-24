@@ -23,7 +23,7 @@ import 'package:yumi/domain/basket/use_case/update_schedule_basket.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/snack_bar.dart';
@@ -47,7 +47,7 @@ class BasketCubit extends Cubit<BasketState> {
     task.fold((l) => null, (r) => emit(state.copyWith(basket: r)));
   }
 
-  addMeal({required MealModel meal}) async {
+  addMeal({required Meal meal}) async {
     print('addMeal ...');
     final Either<Failure, Basket> task = await AddMealToBasket()
         .call(AddMealToBasketParams(meal: meal, basket: state.basket));

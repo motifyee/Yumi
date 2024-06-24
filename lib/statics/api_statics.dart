@@ -125,8 +125,8 @@ class ApiKeys {
   static String wallet = '/account/balance';
 
   static String categories = '/categories';
-  static String categoriesForChef = '/meals/categories/chef';
   static String categoriesForCustomer = '/meals/categories';
+  static String categoriesForChef = '/meals/categories/chef';
   static String categoriesForCustomerByChefId = '/meals/categories/chef';
   static String ingredient = '/Product/Ingredients';
 

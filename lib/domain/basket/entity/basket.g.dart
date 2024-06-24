@@ -106,7 +106,7 @@ _$InvoiceDetailsImpl _$$InvoiceDetailsImplFromJson(Map<String, dynamic> json) =>
       note: json['note'] as String? ?? '',
       meal: json['meal'] == null
           ? null
-          : MealModel.fromJson(json['meal'] as Map<String, dynamic>),
+          : Meal.fromJson(json['meal'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$InvoiceDetailsImplToJson(

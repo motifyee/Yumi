@@ -13,7 +13,7 @@ import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/app/pages/menu/widgets/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_list_card.dart';
 import 'package:yumi/app/components/pagination_template.dart';

@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_list.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/pagination_template.dart';

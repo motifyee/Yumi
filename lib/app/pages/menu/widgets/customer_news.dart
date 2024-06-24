@@ -6,7 +6,7 @@ import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_list.dart';
 import 'package:yumi/statics/theme_statics.dart';

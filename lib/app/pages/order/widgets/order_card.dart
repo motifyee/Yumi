@@ -12,7 +12,7 @@ import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/order_service.dart';
 import 'package:yumi/statics/api_statics.dart';

@@ -8,9 +8,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/form/meal_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/ingredient_form/ingredient_form_bloc.dart';
+import 'package:yumi/app/pages/menu/ingredient.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
 import 'package:yumi/statics/regex.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/text_form_field.dart';
@@ -20,7 +20,7 @@ class IngredientsForm extends StatelessWidget {
   IngredientsForm({super.key, required this.ingredientFormKey});
 
   final GlobalKey<FormState> ingredientFormKey;
-  final IngredientsModel ingredientsModel = IngredientsModel();
+  Ingredient ingredient = const Ingredient();
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +28,9 @@ class IngredientsForm extends StatelessWidget {
         .read<IngredientListBloc>()
         .add(IngredientListUpdateEvent(context: context));
 
-    List<IngredientsModel> filteredList({
-      required List<IngredientsModel> list,
-      required List<IngredientsModel> selected,
+    List<Ingredient> filteredList({
+      required List<Ingredient> list,
+      required List<Ingredient> selected,
     }) {
       return list.where((element) {
         return !selected.any((e) => e.id == element.id);
@@ -191,7 +191,7 @@ class IngredientsForm extends StatelessWidget {
                   SizedBox(height: ThemeSelector.statics.defaultGap),
                   BlocBuilder<IngredientListBloc, IngredientListState>(
                     builder: (context, state) {
-                      List<IngredientsModel> selectFromList = filteredList(
+                      List<Ingredient> selectFromList = filteredList(
                           list: state.ingredients,
                           selected: context
                               .read<IngredientFormBloc>()
@@ -213,14 +213,16 @@ class IngredientsForm extends StatelessWidget {
                                     dropdownSelection: true,
                                     dropdownSelectionTargetLabel: 'name',
                                     dropdownSelectionList: selectFromList,
-                                    initialValue: ingredientsModel.id != null
+                                    initialValue: ingredient.id != null
                                         ? selectFromList.firstWhere(
-                                            (e) => e.id == ingredientsModel.id)
+                                            (e) => e.id == ingredient.id)
                                         : selectFromList.firstOrNull,
                                     onChange: (value) {},
                                     onSave: (value) {
-                                      ingredientsModel.id = value.id;
-                                      ingredientsModel.name = value.name;
+                                      ingredient = ingredient.copyWith(
+                                        id: value.id,
+                                        name: value.name,
+                                      );
                                     },
                                   ),
                                 ),
@@ -237,10 +239,11 @@ class IngredientsForm extends StatelessWidget {
                                       FilteringTextInputFormatter.allow(
                                           CustomRegex.numberWith2DecimalOnly)
                                     ],
-                                    initialValue: ingredientsModel.portionGrams,
+                                    initialValue: ingredient.portionGrams,
                                     onSave: (value) {
-                                      ingredientsModel.portionGrams =
-                                          double.tryParse(value);
+                                      ingredient = ingredient.copyWith(
+                                        portionGrams: double.tryParse(value),
+                                      );
                                     },
                                   ),
                                 ),
@@ -253,11 +256,10 @@ class IngredientsForm extends StatelessWidget {
                                       context.read<IngredientFormBloc>().add(
                                           IngredientFormAddEvent(
                                               ingredientsModel:
-                                                  IngredientsModel.fromJson(
-                                                      ingredientsModel
-                                                          .toJson())));
+                                                  Ingredient.fromJson(
+                                                      ingredient.toJson())));
 
-                                      ingredientsModel.reset();
+                                      ingredient = const Ingredient();
                                       ingredientFormKey.currentState!.reset();
                                     }
                                   },

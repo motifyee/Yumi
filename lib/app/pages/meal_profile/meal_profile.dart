@@ -14,7 +14,7 @@ import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/app/pages/menu/widgets/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/text_currency.dart';
 
@@ -22,7 +22,7 @@ import 'package:yumi/app/components/text_currency.dart';
 class MealProfileScreen extends StatelessWidget {
   MealProfileScreen({super.key, required this.meal, required this.chef});
 
-  MealModel meal;
+  Meal meal;
   Chef chef;
 
   @override
@@ -69,7 +69,7 @@ class MealProfileScreen extends StatelessWidget {
                         children: [
                           BlocBuilder<MealListBloc, MealListState>(
                             builder: (context, state) {
-                              MealModel meal = state.meals.firstWhereOrNull(
+                              Meal meal = state.meals.firstWhereOrNull(
                                       (e) => e.id == this.meal.id) ??
                                   this.meal;
                               return TextButton(
@@ -130,7 +130,7 @@ class MealProfileScreen extends StatelessWidget {
                                   height:
                                       ThemeSelector.statics.defaultElevation),
                               Text(
-                                meal.portionPersons ?? '',
+                                meal.portionPersons?.toString() ?? '',
                                 style: Theme.of(context).textTheme.labelMedium,
                               )
                             ],
@@ -169,7 +169,7 @@ class MealProfileScreen extends StatelessWidget {
                           ),
                         ),
                         TextCurrency(
-                          value: double.parse(meal.price1 ?? '0'),
+                          value: meal.price1 ?? 0,
                           fontSize: ThemeSelector.fonts.font_24,
                         )
                       ],
@@ -206,7 +206,7 @@ class MealProfileScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          meal.caloriesValue ?? '',
+                          meal.caloriesValue?.toString() ?? "",
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium

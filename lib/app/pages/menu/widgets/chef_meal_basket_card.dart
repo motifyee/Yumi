@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/text_currency.dart';
 
@@ -14,7 +14,7 @@ class ChefMealBasketCard extends StatelessWidget {
     this.isDisabled = false,
   });
 
-  final MealModel meal;
+  final Meal meal;
   final Function()? onTap;
   final bool isDisabled;
 
@@ -106,7 +106,7 @@ class ChefMealBasketCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextCurrency(
-                          value: double.parse(meal.price1 ?? '0'),
+                          value: meal.price1 ?? 0,
                           fontSize: ThemeSelector.fonts.font_14,
                         ),
                       ],

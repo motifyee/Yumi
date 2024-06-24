@@ -4,7 +4,7 @@ part of 'meal_form_bloc.dart';
 abstract class MealFormEvent {}
 
 class MealFormUpdateEvent implements MealFormEvent {
-  MealModel mealModel;
+  Meal mealModel;
 
   MealFormUpdateEvent({required this.mealModel});
 }

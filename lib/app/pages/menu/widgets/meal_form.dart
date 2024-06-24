@@ -7,9 +7,9 @@ import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/form/meal_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/ingredient_form/ingredient_form_bloc.dart';
-import 'package:yumi/app/pages/menu/widgets/Ingredients_form.dart';
+import 'package:yumi/app/pages/menu/widgets/ingredients_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/service/meal_service.dart';
 import 'package:yumi/statics/code_generator.dart';
 import 'package:yumi/statics/regex.dart';
@@ -27,14 +27,14 @@ class MealForm extends StatelessWidget {
   final GlobalKey<FormState> ingredientForm = GlobalKey<FormState>();
 
   final MenuTarget? menuTarget;
-  final MealModel? meal;
+  final Meal? meal;
 
-  fetchMeal({required MealModel meal, required BuildContext context}) async {
+  fetchMeal({required Meal meal, required BuildContext context}) async {
     Response res = await MealService.getMealById(mealId: meal.id!);
-    MealModel meal0 = MealModel.fromJson(res.data);
+    Meal meal0 = Meal.fromJson(res.data);
     context.read<MealFormBloc>().add(MealFormUpdateEvent(
             mealModel: meal0.copyWith(
-          preparationTime: '25',
+          preparationTime: 25,
           isOrder: meal.isPreOrder == true ? false : true,
           isPreOrder: meal.isPreOrder ?? false,
         )));
@@ -47,21 +47,22 @@ class MealForm extends StatelessWidget {
     } else {
       context.read<MealFormBloc>().add(
             MealFormUpdateEvent(
-              mealModel: MealModel(
-                  code: CodeGenerator.getRandomCode(),
-                  categoriesids: [],
-                  ingredients: [],
-                  isOrder: menuTarget == MenuTarget.order,
-                  isPreOrder: menuTarget == MenuTarget.preOrder,
-                  preparationTime: '25',
-                  isPickUpOnly: false,
-                  name: '',
-                  id: 0,
-                  caloriesValue: '',
-                  portionPersons: '',
-                  price1: '',
-                  productVariantID: 0,
-                  chefId: ''),
+              mealModel: Meal(
+                code: CodeGenerator.getRandomCode(),
+                categoryIds: [],
+                ingredients: [],
+                isOrder: menuTarget == MenuTarget.order,
+                isPreOrder: menuTarget == MenuTarget.preOrder,
+                preparationTime: 25,
+                isPickUpOnly: false,
+                name: '',
+                id: 0,
+                caloriesValue: 0,
+                portionPersons: 0,
+                price1: 0,
+                productVariantID: 0,
+                chefId: '',
+              ),
             ),
           );
     }
@@ -291,7 +292,7 @@ class MealForm extends StatelessWidget {
                                                           Checkbox(
                                                             value: state
                                                                     .mealModel
-                                                                    .categoriesids
+                                                                    .categoryIds
                                                                     ?.contains(
                                                                         category
                                                                             .id) ??
@@ -300,7 +301,7 @@ class MealForm extends StatelessWidget {
                                                                 (bool? value) {
                                                               var listCat = state
                                                                       .mealModel
-                                                                      .categoriesids ??
+                                                                      .categoryIds ??
                                                                   [];
 
                                                               if (value ==
@@ -319,7 +320,7 @@ class MealForm extends StatelessWidget {
                                                                   mealModel: state
                                                                       .mealModel
                                                                       .copyWith(
-                                                                          categoriesids:
+                                                                          categoryIds:
                                                                               listCat)));
                                                             },
                                                           ),
@@ -346,7 +347,7 @@ class MealForm extends StatelessWidget {
                                 },
                               ),
                             ),
-                            if (state.mealModel.categoriesids?.isEmpty ?? true)
+                            if (state.mealModel.categoryIds?.isEmpty ?? true)
                               Text(
                                 S.of(context).required,
                                 style: Theme.of(context).textTheme.titleSmall,
@@ -398,7 +399,7 @@ class _SaveBTN extends StatefulWidget {
   final GlobalKey<FormState> mealForm;
 
   final MenuTarget? menuTarget;
-  final MealModel? meal;
+  final Meal? meal;
   final MealFormState state;
 
   bool loading = false;
@@ -413,7 +414,7 @@ class _SaveBTNState extends State<_SaveBTN> {
       onPressed: () async {
         if (widget.loading) return;
         if (widget.mealForm.currentState!.validate() &&
-            widget.state.mealModel.categoriesids!.isNotEmpty &&
+            widget.state.mealModel.categoryIds!.isNotEmpty &&
             widget.state.mealModel.photo != null) {
           widget.mealForm.currentState!.save();
 
