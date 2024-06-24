@@ -2581,6 +2581,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Calculation Error`
+  String get calculationError {
+    return Intl.message(
+      'Calculation Error',
+      name: 'calculationError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

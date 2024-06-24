@@ -33,6 +33,10 @@ import 'package:yumi/domain/transactions/data/repo/remote/transaction_repo_remot
 import 'package:yumi/domain/transactions/data/repo/transaction_repo.dart';
 import 'package:yumi/domain/transactions/data/source/remote/transaction_source_remote.dart';
 import 'package:yumi/domain/transactions/data/source/transaction_source.dart';
+import 'package:yumi/domain/wallet/data/repo/remote/wallet_repo_remote.dart';
+import 'package:yumi/domain/wallet/data/repo/wallet_repo.dart';
+import 'package:yumi/domain/wallet/data/source/remote/wallet_source_remote.dart';
+import 'package:yumi/domain/wallet/data/source/wallet_source.dart';
 
 final sl = GetIt.I; // sl == Service Locator
 final getIt = sl.get;
@@ -64,6 +68,9 @@ Future<void> inject() async {
 
   sl.registerFactory<OrderRepo>(() => OrderRepoRemote());
   sl.registerFactory<OrderSource>(() => OrderSourceRemote());
+
+  sl.registerFactory<WalletRepo>(() => WalletRepoRemote());
+  sl.registerFactory<WalletSource>(() => WalletSourceRemote());
 
   // Utils
   sl.registerLazySingleton<InternetChecker>(() => InternetChecker());

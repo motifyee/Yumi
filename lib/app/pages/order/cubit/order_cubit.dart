@@ -44,7 +44,7 @@ class OrderCubit extends Cubit<OrderState> {
               GetOrdersParams(pagination: state.pagination, apiKeys: apiKeys));
 
       task.fold(
-        (l) => null,
+        (l) => G.snackBar((l.error as DioException).response?.data['message']),
         (r) => emit(state.copyWith(pagination: r)),
       );
     }

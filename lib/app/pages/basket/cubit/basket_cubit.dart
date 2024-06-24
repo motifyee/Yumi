@@ -109,15 +109,17 @@ class BasketCubit extends Cubit<BasketState> {
             .call(UpdateDeliveryBasketParams(basket: state.basket))
         : await UpdatePickUpBasket()
             .call(UpdatePickUpBasketParams(basket: state.basket));
-    task.fold((l) => null, (r) => calcBasket(basket: r));
+    task.fold(
+        (l) => _message((l.error as DioException).response?.data['message']),
+        (r) => calcBasket(basket: r));
   }
 
   calcBasket({required Basket basket, bool isUpdateBasket = true}) async {
     print('calcBasket ...');
     final Either<Failure, Basket> task =
         await CalcBasket().call(CalcBasketParams(basket: basket));
-    task.fold(
-        (l) => null, (r) => isUpdateBasket ? updateBasket(basket: r) : null);
+    task.fold((l) => _message(S.current.calculationError),
+        (r) => isUpdateBasket ? updateBasket(basket: r) : null);
   }
 
   createBasket({required Basket basket}) async {

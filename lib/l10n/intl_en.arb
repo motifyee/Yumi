@@ -251,5 +251,6 @@
 	"logout": "Logout",
 	"leave": "Leave",
 	"pleaseSelectLocation" : "Please Select Location",
-	"invoiceTax": "Invoice Tax"
+	"invoiceTax": "Invoice Tax",
+	"calculationError": "Calculation Error"
 }

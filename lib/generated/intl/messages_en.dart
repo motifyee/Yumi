@@ -63,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "bio": MessageLookupByLibrary.simpleMessage("Bio"),
         "branchAddress": MessageLookupByLibrary.simpleMessage("Branch address"),
         "busy": MessageLookupByLibrary.simpleMessage("Busy"),
+        "calculationError":
+            MessageLookupByLibrary.simpleMessage("Calculation Error"),
         "calories": MessageLookupByLibrary.simpleMessage("Calories"),
         "caloriesReference":
             MessageLookupByLibrary.simpleMessage("Calories reference"),
