@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/onboarding_screen/onboarding_steps.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
-import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
@@ -55,10 +55,7 @@ class OnboardingScreen extends StatelessWidget {
                         height: 250,
                         alignment: Alignment.topLeft,
                         child: Image(
-                          image: G.isChefApp
-                              ? const AssetImage('assets/images/vegies.png')
-                              : const AssetImage(
-                                  'assets/images/flow/driver-flow.png'),
+                          image: G.isChefApp ? const AssetImage('assets/images/vegies.png') : const AssetImage('assets/images/flow/driver-flow.png'),
                         ),
                       ),
                     ),
@@ -69,8 +66,7 @@ class OnboardingScreen extends StatelessWidget {
               const SizedBox(height: 10),
               Expanded(
                 child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   child: Center(
                     child: BlocBuilder<RegCubit, RegState>(
                       builder: (context, state) => stepStack(context, state),
@@ -105,14 +101,11 @@ class OnboardingScreen extends StatelessWidget {
 }
 
 Widget stepStack(BuildContext context, RegState state) {
-  var stepsInfo = G.isChefApp
-      ? chefOnboardingSteps(context, state)
-      : driverOnboardingSteps(context, state);
+  var stepsInfo = G.isChefApp ? chefOnboardingSteps(context, state) : driverOnboardingSteps(context, state);
 
   var tileChildrenBuilders = stepsInfo.map(buildTileChildren).toList();
 
-  Function(int, num, num, {bool alignRight}) tileBuilderFn(
-      BoxConstraints constraints) {
+  Function(int, num, num, {bool alignRight}) tileBuilderFn(BoxConstraints constraints) {
     var hs = constraints.maxWidth / 6;
     var vs = constraints.maxHeight / 6;
 
@@ -211,24 +204,21 @@ Function(bool alignRight) buildTileChildren(info) {
       Flexible(
         fit: FlexFit.loose,
         child: Column(
-          crossAxisAlignment:
-              alignRight ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          crossAxisAlignment: alignRight ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             FittedBox(
               child: Text(
                 info[1][0],
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 info[1][1],
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 8),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 8),
                 // overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -246,12 +236,7 @@ Function(bool alignRight) buildTileChildren(info) {
 
     return Container(
       // foregroundDecoration: foregroundDecoration,
-      child: Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment:
-              alignRight ? MainAxisAlignment.end : MainAxisAlignment.start,
-          children: alignRight ? tileChildren.reversed.toList() : tileChildren),
+      child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: alignRight ? MainAxisAlignment.end : MainAxisAlignment.start, children: alignRight ? tileChildren.reversed.toList() : tileChildren),
     );
   };
 }

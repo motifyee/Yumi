@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/domain/basket/entity/basket.dart';
@@ -38,14 +38,11 @@ class MealProfileScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                bottomLeft:
-                    Radius.circular(ThemeSelector.statics.defaultLineGap),
-                bottomRight:
-                    Radius.circular(ThemeSelector.statics.defaultLineGap),
+                bottomLeft: Radius.circular(ThemeSelector.statics.defaultLineGap),
+                bottomRight: Radius.circular(ThemeSelector.statics.defaultLineGap),
               )),
               child: Image.memory(
-                Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
-                    Uint8List(0),
+                Uri.parse(meal.photo ?? '').data?.contentAsBytes() ?? Uint8List(0),
                 fit: BoxFit.cover,
                 alignment: Alignment.topCenter,
                 errorBuilder: (context, error, stackTrace) => Image.asset(
@@ -57,40 +54,28 @@ class MealProfileScreen extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ThemeSelector.statics.defaultBlockGap),
+                padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultBlockGap),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: ThemeSelector.statics.defaultGap),
+                      padding: EdgeInsets.symmetric(vertical: ThemeSelector.statics.defaultGap),
                       child: Row(
                         children: [
                           BlocBuilder<MealListBloc, MealListState>(
                             builder: (context, state) {
-                              MealModel meal = state.meals.firstWhereOrNull(
-                                      (e) => e.id == this.meal.id) ??
-                                  this.meal;
+                              MealModel meal = state.meals.firstWhereOrNull((e) => e.id == this.meal.id) ?? this.meal;
                               return TextButton(
                                 onPressed: () {
                                   if (meal.isFavoritProduct == true) {
-                                    context.read<MealListBloc>().add(
-                                        MealListRemoveFavoriteMealEvent(
-                                            meal: meal));
+                                    context.read<MealListBloc>().add(MealListRemoveFavoriteMealEvent(meal: meal));
                                   } else {
-                                    context.read<MealListBloc>().add(
-                                        MealListAddFavoriteMealEvent(
-                                            meal: meal));
+                                    context.read<MealListBloc>().add(MealListAddFavoriteMealEvent(meal: meal));
                                   }
                                 },
                                 child: SvgPicture.asset(
-                                  meal.isFavoritProduct == true
-                                      ? 'assets/images/heart.svg'
-                                      : 'assets/images/heart_outline.svg',
-                                  colorFilter: ColorFilter.mode(
-                                      ThemeSelector.colors.primary,
-                                      BlendMode.srcIn),
+                                  meal.isFavoritProduct == true ? 'assets/images/heart.svg' : 'assets/images/heart_outline.svg',
+                                  colorFilter: ColorFilter.mode(ThemeSelector.colors.primary, BlendMode.srcIn),
                                 ),
                               );
                             },
@@ -101,14 +86,9 @@ class MealProfileScreen extends StatelessWidget {
                             children: [
                               Text(
                                 S.of(context).shippingFee,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
+                                style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
                               ),
-                              SizedBox(
-                                  height:
-                                      ThemeSelector.statics.defaultElevation),
+                              SizedBox(height: ThemeSelector.statics.defaultElevation),
                               TextCurrency(
                                 value: 4.5,
                                 fontSize: ThemeSelector.fonts.font_12,
@@ -121,14 +101,9 @@ class MealProfileScreen extends StatelessWidget {
                             children: [
                               Text(
                                 S.of(context).portion,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
+                                style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
                               ),
-                              SizedBox(
-                                  height:
-                                      ThemeSelector.statics.defaultElevation),
+                              SizedBox(height: ThemeSelector.statics.defaultElevation),
                               Text(
                                 meal.portionPersons ?? '',
                                 style: Theme.of(context).textTheme.labelMedium,
@@ -147,17 +122,11 @@ class MealProfileScreen extends StatelessWidget {
                             children: [
                               Text(
                                 meal.name?.capitalize() ?? '',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(
-                                        fontSize: ThemeSelector.fonts.font_24),
+                                style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: ThemeSelector.fonts.font_24),
                               ),
                               if (meal.ingredients != null)
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: ThemeSelector
-                                          .statics.defaultInputGap),
+                                  padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultInputGap),
                                   child: Text(
                                     meal.ingredients!
                                         .map((e) => '${e.portionGrams} '
@@ -199,19 +168,14 @@ class MealProfileScreen extends StatelessWidget {
                     //   ),
                     // ),
                     SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-                    Text(S.of(context).nutritionalValuePer100g,
-                        style: Theme.of(context).textTheme.labelLarge),
+                    Text(S.of(context).nutritionalValuePer100g, style: Theme.of(context).textTheme.labelLarge),
                     SizedBox(height: ThemeSelector.statics.defaultGap),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
                           meal.caloriesValue ?? '',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(
-                                  color: ThemeSelector.colors.secondaryTant),
+                          style: Theme.of(context).textTheme.labelMedium?.copyWith(color: ThemeSelector.colors.secondaryTant),
                         ),
                       ],
                     ),
@@ -234,39 +198,21 @@ class MealProfileScreen extends StatelessWidget {
                     );
                   } else {
                     context.read<BasketCubit>().createBasket(
-                        basket: context
-                            .read<BasketCubit>()
-                            .state
-                            .basket
-                            .copyWith(
+                        basket: context.read<BasketCubit>().state.basket.copyWith(
                               isPreorder: false,
                               isSchedule: false,
                               isPickupOnly: chef.pickupOnly == true,
-                              shippedAddressId:
-                                  context.read<UserCubit>().state.address?.id,
-                              invoiceDetails: [
-                                InvoiceDetails.fromMeal(meal: meal)
-                              ],
-                              invoice: context
-                                  .read<BasketCubit>()
-                                  .state
-                                  .basket
-                                  .invoice
-                                  .copyWith(
+                              shippedAddressId: context.read<UserCubit>().state.address?.id,
+                              invoiceDetails: [InvoiceDetails.fromMeal(meal: meal)],
+                              invoice: context.read<BasketCubit>().state.basket.invoice.copyWith(
                                     chefID: meal.chefId,
                                   ),
                             ));
                   }
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultBlockGap,
-                      vertical: ThemeSelector.statics.defaultMicroGap),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.defaultInputGap),
-                      border: Border.all(
-                          color: ThemeSelector.colors.primary, width: 1)),
+                  padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultBlockGap, vertical: ThemeSelector.statics.defaultMicroGap),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultInputGap), border: Border.all(color: ThemeSelector.colors.primary, width: 1)),
                   child: Text(
                     S.of(context).add,
                     style: Theme.of(context).textTheme.titleSmall,

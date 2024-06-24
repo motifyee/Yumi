@@ -1,4 +1,4 @@
-import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
@@ -15,8 +15,7 @@ class Onboarding {
   // ---------------------------------------------------------------------------
 
   // chefs only
-  bool get mealsActive =>
-      _onboardingProgress > 0 || approvalDone || profileSheetDone;
+  bool get mealsActive => _onboardingProgress > 0 || approvalDone || profileSheetDone;
   bool get mealsDone {
     if (!mealsActive) return false;
     if (G.read<MealListBloc>().state.meals.isEmpty) return false;
@@ -27,8 +26,7 @@ class Onboarding {
   }
 
   // drivers only
-  bool get ridesActive =>
-      _onboardingProgress > 0 || approvalDone || profileSheetDone;
+  bool get ridesActive => _onboardingProgress > 0 || approvalDone || profileSheetDone;
   bool get ridesDone {
     if (!ridesActive) return false;
 
@@ -50,11 +48,9 @@ class Onboarding {
   // ---------------------------------------------------------------------------
 
   bool get docsActive => approvalDone || _onboardingProgress > 1 || stepTwoDone;
-  bool get docsDone =>
-      docsActive && G.rd<ProfileCubit>().state.form.documentaionDone;
+  bool get docsDone => docsActive && G.rd<ProfileCubit>().state.form.documentaionDone;
 
-  bool get approvalActive =>
-      _onboardingProgress > 2 || approvalDone || docsDone;
+  bool get approvalActive => _onboardingProgress > 2 || approvalDone || docsDone;
 
   bool get approvalDone => G.rd<ProfileCubit>().state.form.accountApproved;
   // approvalActive &&
@@ -62,11 +58,9 @@ class Onboarding {
   // ---------------------------------------------------------------------------
 
   bool get contractActive => approvalDone;
-  bool get contractDone =>
-      (contractActive && G.rd<ProfileCubit>().state.form.contractPhoto != null);
+  bool get contractDone => (contractActive && G.rd<ProfileCubit>().state.form.contractPhoto != null);
 
-  bool get contractApprovalActive =>
-      _onboardingProgress > 4 || contractApprovalDone || contractDone;
+  bool get contractApprovalActive => _onboardingProgress > 4 || contractApprovalDone || contractDone;
   bool get contractApprovalDone {
     Profile profile = G.rd<ProfileCubit>().state.form;
 

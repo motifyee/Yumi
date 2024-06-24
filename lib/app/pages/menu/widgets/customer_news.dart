@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
-import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/menu/meal_model.dart';
@@ -24,8 +24,7 @@ class CustomerNews extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) =>
-            SingleChildScrollView(
+        builder: (BuildContext context, BoxConstraints constraints) => SingleChildScrollView(
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: constraints.maxHeight),
             child: IntrinsicHeight(
@@ -35,12 +34,10 @@ class CustomerNews extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      context.router
-                          .replaceAll([const CustomerLocationRoute()]);
+                      context.router.replaceAll([const CustomerLocationRoute()]);
                     },
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ThemeSelector.statics.defaultBlockGap),
+                      padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultBlockGap),
                       child: Row(
                         children: [
                           SizedBox(
@@ -59,8 +56,7 @@ class CustomerNews extends StatelessWidget {
                                 builder: (context, state) {
                                   return RichText(
                                       text: TextSpan(
-                                    style:
-                                        Theme.of(context).textTheme.labelMedium,
+                                    style: Theme.of(context).textTheme.labelMedium,
                                     children: [
                                       TextSpan(
                                         text: S.of(context).hi,
@@ -70,11 +66,7 @@ class CustomerNews extends StatelessWidget {
                                       ),
                                       TextSpan(
                                         text: state.user.userName,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.w700),
+                                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w700),
                                       ),
                                     ],
                                   ));
@@ -91,20 +83,17 @@ class CustomerNews extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultInputGap),
+                    padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultInputGap),
                     child: TextFormFieldTemplate(
                       borderStyle: TextFormFieldBorderStyle.borderedRound,
                       hintText: S.of(context).searchForFood,
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(
-                            ThemeSelector.statics.defaultInputGap),
+                        padding: EdgeInsets.all(ThemeSelector.statics.defaultInputGap),
                         child: SvgPicture.asset('assets/images/search.svg'),
                       ),
                       suffixIcon: GestureDetector(
                         child: Padding(
-                          padding: EdgeInsets.all(
-                              ThemeSelector.statics.defaultInputGap),
+                          padding: EdgeInsets.all(ThemeSelector.statics.defaultInputGap),
                           child: SvgPicture.asset('assets/images/config.svg'),
                         ),
                       ),
@@ -122,20 +111,15 @@ class CustomerNews extends StatelessWidget {
                         left: -ThemeSelector.statics.defaultLineGap,
                         child: GestureDetector(
                           onTap: () {
-                            context.read<MealListBloc>().add(
-                                MealListResetEvent(menuTarget: menuTarget));
-                            context
-                                .read<CategoriesBloc>()
-                                .add(ResetCategoryEvent());
+                            context.read<MealListBloc>().add(MealListResetEvent(menuTarget: menuTarget));
+                            context.read<CategoriesBloc>().add(ResetCategoryEvent());
                             showModalBottomSheet(
                               context: context,
                               isScrollControlled: true,
                               isDismissible: true,
                               constraints: BoxConstraints(
-                                maxHeight:
-                                    MediaQuery.of(context).size.height * .8,
-                                minHeight:
-                                    MediaQuery.of(context).size.height * .7,
+                                maxHeight: MediaQuery.of(context).size.height * .8,
+                                minHeight: MediaQuery.of(context).size.height * .7,
                               ),
                               builder: (context) => MealListScreen(
                                 menuTarget: menuTarget,
@@ -146,125 +130,70 @@ class CustomerNews extends StatelessWidget {
                           },
                           child: Container(
                             height: ThemeSelector.statics.defaultTitleGap,
-                            width: (MediaQuery.of(context).size.width / 4) +
-                                (ThemeSelector.statics.defaultLineGap * 1.5),
+                            width: (MediaQuery.of(context).size.width / 4) + (ThemeSelector.statics.defaultLineGap * 1.5),
                             decoration: BoxDecoration(
                                 color: ThemeSelector.colors.backgroundTant,
-                                borderRadius: BorderRadius.circular(
-                                    ThemeSelector
-                                        .statics.defaultBorderRadiusMedium),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: ThemeSelector.colors.shadow
-                                          .withOpacity(.1),
-                                      blurRadius: 4)
-                                ]),
+                                borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusMedium),
+                                boxShadow: [BoxShadow(color: ThemeSelector.colors.shadow.withOpacity(.1), blurRadius: 4)]),
                             child: Center(
                                 child: Text(
                               S.of(context).dishName,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                      fontSize: ThemeSelector.fonts.font_9),
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: ThemeSelector.fonts.font_9),
                             )),
                           ),
                         ),
                       ),
                       Positioned(
-                        left: (MediaQuery.of(context).size.width / 4) -
-                            ThemeSelector.statics.defaultLineGap,
+                        left: (MediaQuery.of(context).size.width / 4) - ThemeSelector.statics.defaultLineGap,
                         child: GestureDetector(
                           onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) => CategoriesListDialog(
-                                    menuTarget: menuTarget));
+                            showDialog(context: context, builder: (context) => CategoriesListDialog(menuTarget: menuTarget));
                           },
                           child: Container(
                             height: ThemeSelector.statics.defaultTitleGap,
-                            width: (MediaQuery.of(context).size.width / 4) +
-                                (ThemeSelector.statics.defaultLineGap),
+                            width: (MediaQuery.of(context).size.width / 4) + (ThemeSelector.statics.defaultLineGap),
                             decoration: BoxDecoration(
                               color: ThemeSelector.colors.backgroundTant,
-                              borderRadius: BorderRadius.circular(
-                                  ThemeSelector.statics.defaultBorderRadius),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: ThemeSelector.colors.shadow
-                                        .withOpacity(.1),
-                                    blurRadius: 4)
-                              ],
+                              borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius),
+                              boxShadow: [BoxShadow(color: ThemeSelector.colors.shadow.withOpacity(.1), blurRadius: 4)],
                             ),
                             child: Center(
                               child: Text(
                                 S.of(context).cuisines,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.copyWith(
-                                        fontSize: ThemeSelector.fonts.font_9),
+                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: ThemeSelector.fonts.font_9),
                               ),
                             ),
                           ),
                         ),
                       ),
                       Positioned(
-                        left: ((MediaQuery.of(context).size.width / 4) * 2) -
-                            ThemeSelector.statics.defaultLineGap,
+                        left: ((MediaQuery.of(context).size.width / 4) * 2) - ThemeSelector.statics.defaultLineGap,
                         child: GestureDetector(
                           child: Container(
                             height: ThemeSelector.statics.defaultTitleGap,
-                            width: (MediaQuery.of(context).size.width / 4) +
-                                (ThemeSelector.statics.defaultLineGap),
+                            width: (MediaQuery.of(context).size.width / 4) + (ThemeSelector.statics.defaultLineGap),
                             decoration: BoxDecoration(
-                                color: ThemeSelector.colors.backgroundTant,
-                                borderRadius: BorderRadius.circular(
-                                    ThemeSelector.statics.defaultBorderRadius),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: ThemeSelector.colors.shadow
-                                          .withOpacity(.1),
-                                      blurRadius: 4)
-                                ]),
+                                color: ThemeSelector.colors.backgroundTant, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius), boxShadow: [BoxShadow(color: ThemeSelector.colors.shadow.withOpacity(.1), blurRadius: 4)]),
                             child: Center(
                                 child: Text(
                               S.of(context).recentSearch,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                      fontSize: ThemeSelector.fonts.font_9),
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: ThemeSelector.fonts.font_9),
                             )),
                           ),
                         ),
                       ),
                       Positioned(
-                        left: ((MediaQuery.of(context).size.width / 4) * 3) -
-                            ThemeSelector.statics.defaultLineGap,
+                        left: ((MediaQuery.of(context).size.width / 4) * 3) - ThemeSelector.statics.defaultLineGap,
                         child: GestureDetector(
                           child: Container(
                             height: ThemeSelector.statics.defaultTitleGap,
-                            width: (MediaQuery.of(context).size.width / 4) +
-                                (ThemeSelector.statics.defaultLineGap),
+                            width: (MediaQuery.of(context).size.width / 4) + (ThemeSelector.statics.defaultLineGap),
                             decoration: BoxDecoration(
-                                color: ThemeSelector.colors.backgroundTant,
-                                borderRadius: BorderRadius.circular(
-                                    ThemeSelector.statics.defaultBorderRadius),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: ThemeSelector.colors.shadow
-                                          .withOpacity(.1),
-                                      blurRadius: 4)
-                                ]),
+                                color: ThemeSelector.colors.backgroundTant, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius), boxShadow: [BoxShadow(color: ThemeSelector.colors.shadow.withOpacity(.1), blurRadius: 4)]),
                             child: Center(
                                 child: Text(
                               S.of(context).suggestions,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                      fontSize: ThemeSelector.fonts.font_9),
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: ThemeSelector.fonts.font_9),
                             )),
                           ),
                         ),
@@ -283,10 +212,7 @@ class CustomerNews extends StatelessWidget {
                           horizontal: ThemeSelector.statics.defaultBlockGap,
                           vertical: ThemeSelector.statics.defaultMicroGap,
                         ),
-                        decoration: BoxDecoration(
-                            color: ThemeSelector.colors.backgroundTant,
-                            borderRadius: BorderRadius.circular(ThemeSelector
-                                .statics.defaultBorderRadiusExtraLarge)),
+                        decoration: BoxDecoration(color: ThemeSelector.colors.backgroundTant, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusExtraLarge)),
                         child: Column(
                           children: [
                             Text(
