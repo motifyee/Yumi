@@ -5,9 +5,9 @@ abstract class OrderSource {
   Future<Pagination<Order>> getOrders(
       {required String apiKeys, required Pagination<Order> pagination});
 
-  Future<bool> putOrders(
-      {required String apiKeys,
-      int? orderId,
-      bool isFakeBody = true,
-      required Pagination<Order> pagination});
+  Future<bool> putOrders({
+    required String apiKeys,
+    int? orderId,
+    bool isFakeBody = true,
+  });
 }

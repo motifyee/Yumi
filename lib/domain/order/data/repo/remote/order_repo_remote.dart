@@ -4,7 +4,6 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/order/data/repo/order_repo.dart';
 import 'package:yumi/domain/order/data/source/order_source.dart';
 import 'package:yumi/domain/order/entity/order.dart';
-import 'package:yumi/global.dart';
 import 'package:yumi/statics/pagination.dart';
 
 class OrderRepoRemote extends OrderRepo {
@@ -22,5 +21,20 @@ class OrderRepoRemote extends OrderRepo {
         return ServerFailure(error, stackTrace);
       },
     );
+  }
+
+  @override
+  TaskEither<Failure, bool> putAction({
+    required Order order,
+    required String apiKey,
+    bool isFakeBody = true,
+  }) {
+    return TaskEither.tryCatch(
+        () => orderSource.putOrders(
+              apiKeys: apiKey,
+              isFakeBody: isFakeBody,
+              orderId: order.id,
+            ),
+        (error, stackTrace) => ServerFailure(error, stackTrace));
   }
 }

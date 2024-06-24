@@ -2,7 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
-import 'package:yumi/app/pages/order/cubit/order/order_bloc.dart';
+import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:yumi/core/setup/signalr.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -135,7 +135,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
             controller: _controller,
             children: [
               BlocProvider(
-                create: (context) => OrderBloc(),
+                create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: MenuTarget.order,
                   apiKey: ApiKeys.orderCustomerActive,
@@ -151,7 +151,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 ),
               ),
               BlocProvider(
-                create: (context) => OrderBloc(),
+                create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: MenuTarget.order,
                   apiKey: ApiKeys.orderCustomerClosed,
@@ -160,7 +160,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 ),
               ),
               BlocProvider(
-                create: (context) => OrderBloc(),
+                create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: MenuTarget.preOrder,
                   apiKey: ApiKeys.preOrderCustomerActive,
@@ -176,7 +176,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 ),
               ),
               BlocProvider(
-                create: (context) => OrderBloc(),
+                create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: MenuTarget.preOrder,
                   apiKey: ApiKeys.preOrderCustomerClosed,

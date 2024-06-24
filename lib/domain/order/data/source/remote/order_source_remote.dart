@@ -8,15 +8,10 @@ import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/pagination.dart';
 
 class OrderSourceRemote extends OrderSource {
-  @override
-  Future<Pagination<Order>> getOrders({
-    required String apiKeys,
-    required Pagination<Order> pagination,
-  }) async {
-    Response res = await DioClient.simpleDio().get(
-      apiKeys,
-      queryParameters: {...pagination.toJson()},
-    );
+  Future<Pagination<Order>> getOrders(
+      {required String apiKeys, required Pagination<Order> pagination}) async {
+    Response res = await DioClient.simpleDio()
+        .get(apiKeys, queryParameters: {...pagination.toJson()});
 
     List<Order> data =
         res.data['data'].map<Order>((e) => Order.fromJson(e)).toList();
@@ -34,14 +29,11 @@ class OrderSourceRemote extends OrderSource {
     required String apiKeys,
     int? orderId,
     bool isFakeBody = true,
-    required Pagination<Order> pagination,
   }) async {
-    Response res = await DioClient.simpleDio().put(
-      apiKeys,
-      data: isFakeBody ? {'driver_ID': null} : null,
-      queryParameters: {...pagination.toJson(), 'orderId': orderId}
-        ..removeWhere((key, value) => value == null),
-    );
+    Response res = await DioClient.simpleDio().put(apiKeys,
+        data: isFakeBody ? {'driver_ID': null} : null,
+        queryParameters: {'orderId': orderId}
+          ..removeWhere((key, value) => value == null));
 
     return res.statusCode == 200;
   }

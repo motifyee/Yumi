@@ -17,6 +17,10 @@ import 'package:yumi/domain/notification/data/repo/notification_repo.dart';
 import 'package:yumi/domain/notification/data/repo/remote/notification_repo_remote.dart';
 import 'package:yumi/domain/notification/data/source/notification_source.dart';
 import 'package:yumi/domain/notification/data/source/remote/notification_source_remote.dart';
+import 'package:yumi/domain/order/data/repo/order_repo.dart';
+import 'package:yumi/domain/order/data/repo/remote/order_repo_remote.dart';
+import 'package:yumi/domain/order/data/source/order_source.dart';
+import 'package:yumi/domain/order/data/source/remote/order_source_remote.dart';
 import 'package:yumi/domain/profile/data/repos/profile_repo.dart';
 import 'package:yumi/domain/profile/data/repos/remote/profile_remote_repo.dart';
 import 'package:yumi/domain/profile/data/sources/profile_source.dart';
@@ -29,6 +33,10 @@ import 'package:yumi/domain/transactions/data/repo/remote/transaction_repo_remot
 import 'package:yumi/domain/transactions/data/repo/transaction_repo.dart';
 import 'package:yumi/domain/transactions/data/source/remote/transaction_source_remote.dart';
 import 'package:yumi/domain/transactions/data/source/transaction_source.dart';
+import 'package:yumi/domain/wallet/data/repo/remote/wallet_repo_remote.dart';
+import 'package:yumi/domain/wallet/data/repo/wallet_repo.dart';
+import 'package:yumi/domain/wallet/data/source/remote/wallet_source_remote.dart';
+import 'package:yumi/domain/wallet/data/source/wallet_source.dart';
 
 final sl = GetIt.I; // sl == Service Locator
 final getIt = sl.get;
@@ -57,6 +65,12 @@ Future<void> inject() async {
 
   sl.registerFactory<ChefSrc>(() => ChefRemoteSrc());
   sl.registerFactory<ChefRepo>(() => ChefRemoteRepo(chefSrc: sl()));
+
+  sl.registerFactory<OrderRepo>(() => OrderRepoRemote());
+  sl.registerFactory<OrderSource>(() => OrderSourceRemote());
+
+  sl.registerFactory<WalletRepo>(() => WalletRepoRemote());
+  sl.registerFactory<WalletSource>(() => WalletSourceRemote());
 
   // Utils
   sl.registerLazySingleton<InternetChecker>(() => InternetChecker());

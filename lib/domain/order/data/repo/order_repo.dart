@@ -6,4 +6,10 @@ import 'package:yumi/statics/pagination.dart';
 abstract class OrderRepo {
   TaskEither<Failure, Pagination<Order>> getOrders(
       {required String apiKeys, required Pagination<Order> pagination});
+
+  TaskEither<Failure, bool> putAction({
+    required Order order,
+    required String apiKey,
+    bool isFakeBody = true,
+  });
 }
