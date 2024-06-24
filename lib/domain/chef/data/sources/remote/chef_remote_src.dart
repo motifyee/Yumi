@@ -44,7 +44,7 @@ class ChefRemoteSrc implements ChefSrc {
   }
 
   @override
-  Future<List<Chef>> getChefs({
+  Future<Pagination<Chef>> getChefs({
     required bool isPreOrder,
     required double latitude,
     required double longitude,
@@ -63,25 +63,40 @@ class ChefRemoteSrc implements ChefSrc {
             'longitude': longitude
           }..removeWhere((key, value) => value == null));
 
-      return (res.data['data'] as List<dynamic>)
+      final chefs = (res.data['data'] as List<dynamic>)
           .map((e) => Chef.fromJson({...e, ...e['chef']}))
           .toList();
+
+      return Pagination(
+        data: chefs,
+        total: res.data['total'],
+        pageNumber: res.data['pagination']['page'],
+        lastPage: res.data['pagination']['pages'],
+      );
     } catch (e) {
       throw ServerException(e);
     }
   }
 
   @override
-  Future<List<Chef>> getFavouriteChefs(Pagination pagination) async {
+  Future<Pagination<Chef>> getFavouriteChefs(Pagination pagination) async {
     try {
       final res = await DioClient.simpleDio().get(
         ApiKeys.favoriteChefs,
         queryParameters: {...pagination.toJson()},
       );
 
-      return (res.data['data'] as List<dynamic>)
+      final chefs = (res.data['data'] as List<dynamic>)
           .map<Chef>((e) => Chef.fromJson({...e, ...e['chef']}))
           .toList();
+
+      return Pagination(
+        data: chefs,
+        isLoading: false,
+        pageNumber: res.data['pagination']['page'],
+        lastPage: res.data['pagination']['pages'],
+        total: res.data['count'],
+      );
     } catch (e) {
       throw ServerException(e);
     }

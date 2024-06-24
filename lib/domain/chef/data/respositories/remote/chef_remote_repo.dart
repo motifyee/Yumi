@@ -26,7 +26,7 @@ class ChefRemoteRepo implements ChefRepo {
       );
 
   @override
-  TaskEither<Failure, List<Chef>> getChefs({
+  TaskEither<Failure, Pagination<Chef>> getChefs({
     required bool isPreOrder,
     required double latitude,
     required double longitude,
@@ -44,7 +44,8 @@ class ChefRemoteRepo implements ChefRepo {
       );
 
   @override
-  TaskEither<Failure, List<Chef>> getFavouriteChefs(Pagination pagination) =>
+  TaskEither<Failure, Pagination<Chef>> getFavouriteChefs(
+          Pagination pagination) =>
       TaskEither.tryCatch(
         () => chefSrc.getFavouriteChefs(pagination),
         (error, stackTrace) => FailureX.fromException(error, stackTrace),
