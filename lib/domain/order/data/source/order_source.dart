@@ -3,7 +3,7 @@ import 'package:yumi/statics/pagination.dart';
 
 abstract class OrderSource {
   Future<Pagination<Order>> getOrders(
-      {required String apiKeys, required Pagination<Order> pagination});
+      {required String apiKeys, required Pagination<Order> ordersPage});
 
   Future<bool> putOrders({
     required String apiKeys,

@@ -14,9 +14,9 @@ class OrderRepoRemote extends OrderRepo {
 
   @override
   TaskEither<Failure, Pagination<Order>> getOrders(
-      {required String apiKeys, required Pagination<Order> pagination}) {
+      {required String apiKeys, required Pagination<Order> ordersPage}) {
     return TaskEither.tryCatch(
-      () => orderSource.getOrders(apiKeys: apiKeys, pagination: pagination),
+      () => orderSource.getOrders(apiKeys: apiKeys, ordersPage: ordersPage),
       (error, stackTrace) {
         return ServerFailure(error, stackTrace);
       },

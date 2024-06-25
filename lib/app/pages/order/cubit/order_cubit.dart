@@ -14,38 +14,34 @@ part 'order_cubit.g.dart';
 
 @freezed
 class OrderState with _$OrderState {
-  const factory OrderState({
-    required Pagination<Order> pagination,
+  factory OrderState({
+    @Default(Pagination()) Pagination<Order> ordersPage,
   }) = _OrderState;
-
-  factory OrderState.initial({bool loading = false}) {
-    return OrderState(
-        pagination: Pagination<Order>(data: [], isLoading: loading));
-  }
 
   factory OrderState.fromJson(Map<String, dynamic> json) =>
       _$OrderStateFromJson(json);
 }
 
 class OrderCubit extends Cubit<OrderState> {
-  OrderCubit() : super(OrderState.initial());
+  OrderCubit() : super(OrderState());
 
-  resetOrders({bool loading = false}) =>
-      emit(OrderState.initial(loading: loading));
+  resetOrders({bool loading = false}) => emit(OrderState());
 
   getOrders({required String apiKeys}) async {
-    if (state.pagination.canRequest) {
-      emit(state.copyWith(
-          pagination:
-              state.pagination.copyWith(isLoading: true) as Pagination<Order>));
+    if (state.ordersPage.canRequest) {
+      emit(state.copyWith.ordersPage(isLoading: true));
 
-      final fpdart.Either<Failure, Pagination<Order>> task = await GetOrders()
-          .call(
-              GetOrdersParams(pagination: state.pagination, apiKeys: apiKeys));
+      final fpdart.Either<Failure, Pagination<Order>> task =
+          await GetOrders().call(
+        GetOrdersParams(
+          ordersPage: state.ordersPage,
+          apiKeys: apiKeys,
+        ),
+      );
 
       task.fold(
         (l) => G.snackBar((l.error as DioException).response?.data['message']),
-        (r) => emit(state.copyWith(pagination: r)),
+        (r) => emit(state.copyWith(ordersPage: r)),
       );
     }
   }
@@ -58,34 +54,34 @@ class OrderCubit extends Cubit<OrderState> {
     Function()? navFun,
     String? customMessage,
   }) async {
-    List<Order> orders = List.from(state.pagination.data);
-    orders[orders.indexWhere((e) => e.id == order.id)] =
-        orders[orders.indexWhere((e) => e.id == order.id)]
-            .copyWith(isLoading: true);
+    void emitOrderIsLoading(bool isLoading) {
+      List<Order> orders = List.from(
+        state.ordersPage.data.map(
+            (e) => e.id == order.id ? e.copyWith(isLoading: isLoading) : e),
+      );
+      emit(state.copyWith.ordersPage(data: orders));
+    }
 
-    emit(state.copyWith(
-        pagination:
-            state.pagination.copyWith(data: orders) as Pagination<Order>));
+    emitOrderIsLoading(true);
 
     final fpdart.Either<Failure, bool> task = await PutActionOrders().call(
-        PutActionOrdersParams(
-            order: order, apiKey: apiKey, isFakeBody: isFakeBody));
+      PutActionOrdersParams(
+        order: order,
+        apiKey: apiKey,
+        isFakeBody: isFakeBody,
+      ),
+    );
 
     task.fold(
       (l) {
         G.snackBar((l.error as DioException).response?.data['message']);
-        List<Order> orders = List.from(state.pagination.data);
-        orders[orders.indexWhere((e) => e.id == order.id)] =
-            orders[orders.indexWhere((e) => e.id == order.id)]
-                .copyWith(isLoading: false);
 
-        emit(state.copyWith(
-            pagination:
-                state.pagination.copyWith(data: orders) as Pagination<Order>));
+        emitOrderIsLoading(false);
       },
       (r) {
         resetOrders();
         getOrders(apiKeys: getApiKey);
+
         if (navFun != null) navFun();
         if (customMessage != null) G.snackBar(customMessage);
       },

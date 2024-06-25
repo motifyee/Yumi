@@ -5,7 +5,7 @@ import 'package:yumi/statics/pagination.dart';
 
 abstract class OrderRepo {
   TaskEither<Failure, Pagination<Order>> getOrders(
-      {required String apiKeys, required Pagination<Order> pagination});
+      {required String apiKeys, required Pagination<Order> ordersPage});
 
   TaskEither<Failure, bool> putAction({
     required Order order,

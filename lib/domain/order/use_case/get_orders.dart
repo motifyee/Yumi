@@ -17,17 +17,17 @@ class GetOrders extends UseCase<Pagination<Order>, GetOrdersParams> {
       orderRepo
           .getOrders(
             apiKeys: params.apiKeys,
-            pagination: params.pagination,
+            ordersPage: params.ordersPage,
           )
           .run();
 }
 
 class GetOrdersParams extends Params {
-  final Pagination<Order> pagination;
+  final Pagination<Order> ordersPage;
   final String apiKeys;
 
-  GetOrdersParams({required this.pagination, required this.apiKeys});
+  GetOrdersParams({required this.ordersPage, required this.apiKeys});
 
   @override
-  List<Object?> get props => [pagination, apiKeys];
+  List<Object?> get props => [ordersPage, apiKeys];
 }
