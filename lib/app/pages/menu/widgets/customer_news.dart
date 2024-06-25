@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -124,9 +125,8 @@ class CustomerNews extends StatelessWidget {
                           onTap: () {
                             context.read<MealListBloc>().add(
                                 MealListResetEvent(menuTarget: menuTarget));
-                            context
-                                .read<CategoriesBloc>()
-                                .add(ResetCategoryEvent());
+                            context.read<CategoriesCubit>().reset();
+                            // .add(ResetCategoryEvent());
                             showModalBottomSheet(
                               context: context,
                               isScrollControlled: true,

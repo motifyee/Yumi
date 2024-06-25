@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/menu/meal.dart';
@@ -115,7 +115,7 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
           MultiBlocProvider(
             providers: [
               BlocProvider(create: (context) => MealListBloc()),
-              BlocProvider(create: (context) => CategoriesBloc()),
+              BlocProvider(create: (context) => CategoriesCubit()),
             ],
             child: Builder(builder: (context) {
               return Expanded(
@@ -172,16 +172,18 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                     ),
                     PaginationTemplate(
                       loadDate: () {
-                        context.read<CategoriesBloc>().add(GetCategoriesEvent(
-                            context: context, isPreOrder: false));
+                        context
+                            .read<CategoriesCubit>()
+                            .getAllCategories(isPreOrder: false);
+                        // .add(GetCategoriesEvent(context: context, isPreOrder: false));
                       },
                       scrollDirection: Axis.vertical,
-                      child: BlocConsumer<CategoriesBloc, CategoriesState>(
+                      child: BlocConsumer<CategoriesCubit, CategoriesState>(
                         listener: (context, state) {},
                         builder: (context, state) {
                           return Column(
                             children: [
-                              for (var category in state.categoriesModelList)
+                              for (var category in state.categoriesPage.data)
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {

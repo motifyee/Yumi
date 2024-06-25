@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/chef_profile/cubit/reviews/reviews_bloc.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
@@ -39,7 +39,7 @@ class ChefProfileScreen extends StatelessWidget {
     ]..removeWhere((e) => e.isEmpty);
 
     return BlocProvider(
-      create: (context) => CategoriesBloc(),
+      create: (context) => CategoriesCubit(),
       child: Scaffold(
         body: DraggableScrollableSheet(
           expand: false,
@@ -87,7 +87,7 @@ class ChefProfileScreen extends StatelessWidget {
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
                                   children: [
-                                    for (var meal in [Meal()])
+                                    for (var meal in [const Meal()])
                                       ChefMealCard(
                                         meal: meal,
                                         chef: chef,
@@ -224,28 +224,36 @@ class ChefProfileScreen extends StatelessWidget {
                               child: PaginationTemplate(
                                 scrollDirection: Axis.horizontal,
                                 loadDate: () {
-                                  context.read<CategoriesBloc>().add(
-                                        GetCategoriesEvent(
-                                          context: context,
-                                          isPreOrder:
-                                              menuTarget == MenuTarget.preOrder,
-                                          chefId: chef.id,
-                                        ),
+                                  context
+                                      .read<CategoriesCubit>()
+                                      .getChefCategories(
+                                        isPreOrder:
+                                            menuTarget == MenuTarget.preOrder,
+                                        chefId: chef.id,
                                       );
+                                  //       .add(
+                                  //         GetCategoriesEvent(
+                                  //           context: context,
+                                  //           isPreOrder:
+                                  //               menuTarget == MenuTarget.preOrder,
+                                  //           chefId: chef.id,
+                                  //         ),
+                                  //       );
                                 },
-                                child: BlocConsumer<CategoriesBloc,
+                                child: BlocConsumer<CategoriesCubit,
                                     CategoriesState>(
                                   listener: (context, state) {},
                                   builder: (context, state) {
                                     return Row(
                                       children: [
                                         for (var category
-                                            in state.categoriesModelList)
+                                            in state.categoriesPage.data)
                                           CategoriesCard(category: category),
-                                        if (state.pagination.isLoading)
+                                        if (state.categoriesPage.isLoading)
                                           Loading(
-                                              size: ThemeSelector
-                                                  .statics.defaultBlockGap),
+                                            size: ThemeSelector
+                                                .statics.defaultBlockGap,
+                                          ),
                                       ],
                                     );
                                   },

@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
@@ -110,12 +110,16 @@ class MealCard extends StatelessWidget {
                                 menuTarget: menuTarget,
                               ),
                             )).then((onValue) {
-                      context.read<CategoriesBloc>().add(ResetCategoryEvent());
+                      context.read<CategoriesCubit>().reset();
+                      // .add(ResetCategoryEvent());
 
-                      context.read<CategoriesBloc>().add(GetCategoriesEvent(
-                          context: context,
-                          isPreOrder: menuTarget == MenuTarget.preOrder,
-                          isAll: false));
+                      context.read<CategoriesCubit>().getChefCategories(
+                            isPreOrder: menuTarget == MenuTarget.preOrder,
+                          );
+                      // .add(GetCategoriesEvent(
+                      //     context: context,
+                      //     isPreOrder: menuTarget == MenuTarget.preOrder,
+                      //     isAll: false));
                       context
                           .read<MealListBloc>()
                           .add(MealListResetEvent(menuTarget: menuTarget));
@@ -154,15 +158,19 @@ class MealCard extends StatelessWidget {
                                 return await MealService.deleteMeal(
                                         context: context, mealModel: meal)
                                     .then((res) {
-                                  context
-                                      .read<CategoriesBloc>()
-                                      .add(ResetCategoryEvent());
+                                  context.read<CategoriesCubit>().reset();
+                                  // .add(ResetCategoryEvent());
 
-                                  context.read<CategoriesBloc>().add(
-                                      GetCategoriesEvent(
-                                          context: context,
-                                          isPreOrder: meal.isPreOrder == true,
-                                          isAll: false));
+                                  context
+                                      .read<CategoriesCubit>()
+                                      .getChefCategories(
+                                        isPreOrder: meal.isPreOrder == true,
+                                      );
+                                  // .add(
+                                  //     GetCategoriesEvent(
+                                  //         context: context,
+                                  //         isPreOrder: meal.isPreOrder == true,
+                                  //         isAll: false));
                                   context.read<MealListBloc>().add(
                                       MealListResetEvent(
                                           menuTarget: meal.isPreOrder == true

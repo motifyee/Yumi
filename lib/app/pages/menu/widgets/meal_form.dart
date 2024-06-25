@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/form/meal_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/app/pages/menu/widgets/ingredients_form.dart';
@@ -250,29 +250,33 @@ class MealForm extends StatelessWidget {
                             SizedBox(
                                 height: ThemeSelector.statics.defaultLineGap),
                             BlocProvider(
-                              create: (context) => CategoriesBloc(),
-                              child:
-                                  BlocConsumer<CategoriesBloc, CategoriesState>(
+                              create: (context) => CategoriesCubit(),
+                              child: BlocConsumer<CategoriesCubit,
+                                  CategoriesState>(
                                 listener: (context, state) {},
                                 builder: (context, state) {
                                   return PaginationTemplate(
                                     loadDate: () => context
-                                        .read<CategoriesBloc>()
-                                        .add(GetCategoriesEvent(
-                                            context: context,
-                                            isPreOrder: menuTarget ==
-                                                MenuTarget.preOrder,
-                                            isAll: true)),
+                                        .read<CategoriesCubit>()
+                                        .getAllCategories(
+                                          isPreOrder:
+                                              menuTarget == MenuTarget.preOrder,
+                                        ),
+                                    // .add(GetCategoriesEvent(
+                                    //     context: context,
+                                    //     isPreOrder: menuTarget ==
+                                    //         MenuTarget.preOrder,
+                                    //     isAll: true)),
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: state
-                                              .categoriesModelList.isEmpty
+                                              .categoriesPage.data.isEmpty
                                           ? [Loading()]
                                           : [
                                               for (var category in state
-                                                      .categoriesModelList ??
+                                                      .categoriesPage.data ??
                                                   [])
                                                 BlocConsumer<MealFormBloc,
                                                     MealFormState>(
@@ -333,8 +337,8 @@ class MealForm extends StatelessWidget {
                                               SizedBox(
                                                 width: ThemeSelector
                                                     .statics.defaultTitleGap,
-                                                child: state
-                                                        .pagination.isLoading
+                                                child: state.categoriesPage
+                                                        .isLoading
                                                     ? Loading(
                                                         size: ThemeSelector
                                                             .statics

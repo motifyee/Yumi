@@ -4,7 +4,7 @@ import 'package:nested/nested.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/form/meal_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
@@ -33,7 +33,7 @@ class ChefAppConfig implements AppConfig {
   final List<SingleChildWidget> _providers = [
     BlocProvider(create: (context) => UserCubit()),
     BlocProvider(create: (context) => BankInfoBloc()),
-    BlocProvider(create: (context) => CategoriesBloc()),
+    BlocProvider(create: (context) => CategoriesCubit()),
     BlocProvider(create: (context) => MealFormBloc()),
     BlocProvider(create: (context) => IngredientListBloc()),
     BlocProvider(create: (context) => IngredientFormBloc()),

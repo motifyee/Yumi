@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/menu/meal.dart';
@@ -38,7 +38,7 @@ class MenuPreOrderScreen extends StatelessWidget {
           BlocProvider(
               create: (context) => MealListBloc()
                 ..add(MealListResetEvent(menuTarget: MenuTarget.preOrder))),
-          BlocProvider(create: (context) => CategoriesBloc()),
+          BlocProvider(create: (context) => CategoriesCubit()),
         ],
         child: const MenuTemplate(
           menuTarget: MenuTarget.preOrder,

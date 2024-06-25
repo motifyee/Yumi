@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
@@ -42,19 +42,22 @@ class MenuTemplate extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         horizontal: ThemeSelector.statics.defaultGap,
                         vertical: ThemeSelector.statics.defaultGap),
-                    child: BlocConsumer<CategoriesBloc, CategoriesState>(
+                    child: BlocConsumer<CategoriesCubit, CategoriesState>(
                       listener: (context, state) {},
                       builder: (context, state) {
                         return PaginationTemplate(
                           scrollDirection: Axis.horizontal,
                           loadDate: () => {
-                            context.read<CategoriesBloc>().add(
-                                  GetCategoriesEvent(
-                                      context: context,
-                                      isPreOrder:
-                                          menuTarget == MenuTarget.preOrder,
-                                      isAll: false),
-                                )
+                            context.read<CategoriesCubit>().getChefCategories(
+                                  isPreOrder: menuTarget == MenuTarget.preOrder,
+                                ),
+                            // .add(
+                            //       GetCategoriesEvent(
+                            //           context: context,
+                            //           isPreOrder:
+                            //               menuTarget == MenuTarget.preOrder,
+                            //           isAll: false),
+                            //     )
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +109,7 @@ class MenuTemplate extends StatelessWidget {
                                 ),
                               ),
                               for (var category
-                                  in state.categoriesModelList ?? [])
+                                  in state.categoriesPage.data ?? [])
                                 GestureDetector(
                                   onTap: () {
                                     context.read<MealListBloc>().add(
@@ -161,7 +164,7 @@ class MenuTemplate extends StatelessWidget {
                                 ),
                               SizedBox(
                                 width: ThemeSelector.statics.defaultBlockGap,
-                                child: state.pagination.isLoading
+                                child: state.categoriesPage.isLoading
                                     ? Loading(
                                         size: ThemeSelector
                                             .statics.defaultBlockGap,
@@ -260,12 +263,17 @@ class MenuTemplate extends StatelessWidget {
                     ),
                   ),
                 ).then((value) {
-                  context.read<CategoriesBloc>().add(ResetCategoryEvent());
+                  context
+                      .read<CategoriesCubit>()
+                      .reset(); //.add(ResetCategoryEvent());
 
-                  context.read<CategoriesBloc>().add(GetCategoriesEvent(
-                      context: context,
-                      isPreOrder: menuTarget == MenuTarget.preOrder,
-                      isAll: false));
+                  context.read<CategoriesCubit>().getChefCategories(
+                        isPreOrder: menuTarget == MenuTarget.preOrder,
+                      );
+                  // .add(GetCategoriesEvent(
+                  //     context: context,
+                  //     isPreOrder: menuTarget == MenuTarget.preOrder,
+                  //     isAll: false));
                   context
                       .read<MealListBloc>()
                       .add(MealListResetEvent(menuTarget: menuTarget));

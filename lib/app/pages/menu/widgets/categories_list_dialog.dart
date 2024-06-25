@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_list.dart';
@@ -19,7 +19,8 @@ class CategoriesListDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<CategoriesBloc>().add(ResetCategoryEvent());
+    context.read<CategoriesCubit>().reset();
+
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width -
@@ -50,19 +51,22 @@ class CategoriesListDialog extends StatelessWidget {
               ),
             ),
             SizedBox(height: ThemeSelector.statics.defaultGap),
-            BlocConsumer<CategoriesBloc, CategoriesState>(
+            BlocConsumer<CategoriesCubit, CategoriesState>(
               listener: (context, state) {},
               builder: (context, state) {
                 return PaginationTemplate(
                   loadDate: () {
-                    context.read<CategoriesBloc>().add(GetCategoriesEvent(
-                        context: context,
-                        isPreOrder: menuTarget == MenuTarget.preOrder));
+                    context.read<CategoriesCubit>().getAllCategories(
+                          isPreOrder: menuTarget == MenuTarget.preOrder,
+                        );
+                    // .add(GetCategoriesEvent(
+                    //     context: context,
+                    //     isPreOrder: menuTarget == MenuTarget.preOrder));
                   },
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      for (var category in state.categoriesModelList)
+                      for (var category in state.categoriesPage.data)
                         GestureDetector(
                           onTap: () {
                             context.router.popForced();
@@ -120,7 +124,7 @@ class CategoriesListDialog extends StatelessWidget {
                             ),
                           ),
                         ),
-                      if (state.pagination.isLoading) Loading(),
+                      if (state.categoriesPage.isLoading) Loading(),
                     ],
                   ),
                 );

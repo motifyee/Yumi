@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
@@ -36,7 +36,7 @@ class MealListScreen extends StatelessWidget {
     if (isResetOnInit) {
       context.read<MealListBloc>().add(
           MealListResetEvent(menuTarget: menuTarget, categoryId: categoryId));
-      context.read<CategoriesBloc>().add(ResetCategoryEvent());
+      context.read<CategoriesCubit>().reset(); //.add(ResetCategoryEvent());
     }
     return Container(
       decoration: BoxDecoration(
@@ -96,9 +96,10 @@ class _MealList extends StatelessWidget {
             BlocBuilder<MealListBloc, MealListState>(
               builder: (context, state) {
                 String category = context
-                        .read<CategoriesBloc>()
+                        .read<CategoriesCubit>()
                         .state
-                        .categoriesModelList
+                        .categoriesPage
+                        .data
                         .firstWhereOrNull((e) => e.id == state.selectedCategory)
                         ?.name ??
                     '';
@@ -335,12 +336,15 @@ class _CategoriesList extends StatelessWidget {
           child: LayoutBuilder(
             builder: (context, constraints) => PaginationTemplate(
               loadDate: () {
-                context.read<CategoriesBloc>().add(GetCategoriesEvent(
-                    context: context,
-                    isPreOrder: menuTarget == MenuTarget.preOrder));
+                context.read<CategoriesCubit>().getAllCategories(
+                      isPreOrder: menuTarget == MenuTarget.preOrder,
+                    );
+                // .add(GetCategoriesEvent(
+                //     context: context,
+                //     isPreOrder: menuTarget == MenuTarget.preOrder));
               },
               scrollDirection: Axis.vertical,
-              child: BlocConsumer<CategoriesBloc, CategoriesState>(
+              child: BlocConsumer<CategoriesCubit, CategoriesState>(
                 listener: (context, state) {},
                 builder: (context, state) {
                   return ConstrainedBox(
@@ -349,7 +353,7 @@ class _CategoriesList extends StatelessWidget {
                     child: IntrinsicHeight(
                       child: Column(
                         children: [
-                          for (var category in state.categoriesModelList)
+                          for (var category in state.categoriesPage.data)
                             GestureDetector(
                               onTap: () {
                                 context
@@ -422,7 +426,7 @@ class _CategoriesList extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          if (state.pagination.isLoading)
+                          if (state.categoriesPage.isLoading)
                             Expanded(child: Loading()),
                         ],
                       ),

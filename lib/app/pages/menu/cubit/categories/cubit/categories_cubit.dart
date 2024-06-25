@@ -1,7 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/categories/entity/category.dart';
+import 'package:yumi/domain/categories/use_cases/get_categories.dart';
+import 'package:yumi/domain/categories/use_cases/get_chef_categories.dart';
+import 'package:yumi/domain/categories/use_cases/get_customer_categories.dart';
+import 'package:yumi/domain/categories/use_cases/get_customer_categories_by_chef_id.dart';
+import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/pagination.dart';
 
@@ -16,17 +20,84 @@ class CategoriesState with _$CategoriesState {
 
 class CategoriesCubit extends Cubit<CategoriesState> {
   CategoriesCubit() : super(CategoriesState());
-
-  Future<void> getCategories() async {
+// TODO seprate to four functions
+  Future<void> getAllCategories({
+    required bool isPreOrder,
+  }) async {
     if (!state.categoriesPage.canRequest) return;
 
     emit(state.copyWith.categoriesPage(isLoading: true));
 
-    // if (G.isCustomerApp) {}
-    final v = switch (G.appTarget) {
-      AppTargetUser.customers => 1,
-      AppTargetUser.chefs => throw UnimplementedError(),
-      _ => throw UnimplementedError(),
-    };
+    Pagination<Category> categoriesPage = state.categoriesPage;
+
+    if (G.isCustomerApp) {
+      final params = GetCustomerCategoriesParams(
+        isPreOrder: isPreOrder,
+        pagination: state.categoriesPage,
+        latitude: G.rd<UserCubit>().state.address?.latitude,
+        longitude: G.rd<UserCubit>().state.address?.longitude,
+      );
+
+      final task = await GetCustomerCategories().call(params);
+      categoriesPage = task.fold((l) => state.categoriesPage, (r) => r);
+    } else if (G.isChefApp) {
+      final params = GetCategoriesParams(
+        isPreOrder: isPreOrder,
+        pagination: state.categoriesPage,
+      );
+
+      final task = await GetCategories().call(params);
+      categoriesPage = task.fold((l) => state.categoriesPage, (r) => r);
+    }
+
+    emit(state.copyWith(
+      categoriesPage: categoriesPage.copyWith(
+        isLoading: false,
+        data: [...state.categoriesPage.data, ...categoriesPage.data],
+      ) as Pagination<Category>,
+    ));
+  }
+
+  Future<void> getChefCategories({
+    required bool isPreOrder,
+    String? chefId, // for customer app only
+  }) async {
+    if (!state.categoriesPage.canRequest) return;
+
+    emit(state.copyWith.categoriesPage(isLoading: true));
+
+    Pagination<Category> categoriesPage = state.categoriesPage;
+
+    if (G.isCustomerApp) {
+      final params = GetCustomerCategoriesByChefIdParams(
+        isPreOrder: isPreOrder,
+        pagination: state.categoriesPage,
+        chefId: chefId ?? '',
+      );
+
+      final task = await GetCustomerCategoriesByChefId().call(params);
+      categoriesPage = task.fold((l) => state.categoriesPage, (r) => r);
+    } else if (G.isChefApp) {
+      final params = GetChefCategoriesParams(
+        isPreOrder: isPreOrder,
+        pagination: state.categoriesPage,
+      );
+
+      final task = await GetChefCategories().call(params);
+      categoriesPage = task.fold((l) => state.categoriesPage, (r) => r);
+    }
+
+    emit(state.copyWith(
+      categoriesPage: categoriesPage.copyWith(
+        isLoading: false,
+        data: [...state.categoriesPage.data, ...categoriesPage.data],
+      ) as Pagination<Category>,
+    ));
+  }
+
+  void reset() {
+    emit(state.copyWith(
+      categoriesPage: const Pagination(),
+    ));
   }
 }
