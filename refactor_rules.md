@@ -100,6 +100,7 @@
     - `isUpdateBasket` !
     - `PutActionButton` & `putAction`: what is what?!
     - `state`: which state?!
+    - `statics` !
 
 ### Design Patterns
 

@@ -26,6 +26,7 @@ class ReviewsCubit extends Cubit<ReviewsState> {
         .map<ReviewModel>((e) => ReviewModel.fromJson(e))
         .toList();
 
+    if (isClosed) return;
     emit(
       state.copyWith(
         reviews: data,

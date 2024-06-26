@@ -22,12 +22,14 @@ class CategoriesRemoteSrc implements CategoriesSrc {
       );
 
       final data = jsonDecode(res.toString());
+      final List<Category> categories = (data['data'] as List)
+          .map<Category>((v) => Category.fromJson(v))
+          .toList();
 
       return PaginatedData(
-        data: data['data'].map((v) => Category.fromJson(v)).toList(),
+        data: categories,
         pageNumber: data['pagination']['page'],
         lastPage: data['pagination']['pages'],
-        isLoading: false,
       );
     } catch (e) {
       throw ServerException(e);
@@ -49,12 +51,14 @@ class CategoriesRemoteSrc implements CategoriesSrc {
       );
 
       final data = jsonDecode(res.toString());
+      final List<Category> categories = (data['data'] as List)
+          .map<Category>((v) => Category.fromJson(v))
+          .toList();
 
       return PaginatedData(
-        data: data['data'].map((v) => Category.fromJson(v)).toList(),
+        data: categories,
         pageNumber: data['pagination']['page'],
         lastPage: data['pagination']['pages'],
-        isLoading: false,
       );
     } catch (e) {
       throw ServerException(e);
@@ -80,12 +84,14 @@ class CategoriesRemoteSrc implements CategoriesSrc {
       );
 
       final data = jsonDecode(res.toString());
+      final List<Category> categories = (data['data'] as List)
+          .map<Category>((v) => Category.fromJson(v))
+          .toList();
 
       return PaginatedData(
-        data: data['data'].map((v) => Category.fromJson(v)).toList(),
+        data: categories,
         pageNumber: data['pagination']['page'],
         lastPage: data['pagination']['pages'],
-        isLoading: false,
       );
     } catch (e) {
       throw ServerException(e);
@@ -109,12 +115,14 @@ class CategoriesRemoteSrc implements CategoriesSrc {
       );
 
       final data = jsonDecode(res.toString());
+      final List<Category> categories = (data['data'] as List)
+          .map<Category>((v) => Category.fromJson(v))
+          .toList();
 
-      return PaginatedData(
-        data: data['data'].map((v) => Category.fromJson(v)).toList(),
+      return PaginatedData<Category>(
+        data: categories,
         pageNumber: data['pagination']['page'],
         lastPage: data['pagination']['pages'],
-        isLoading: false,
       );
     } catch (e) {
       throw ServerException(e);

@@ -10,9 +10,7 @@ part 'paginatedData.g.dart';
 
 /// A class that holds data with pagination information.
 ///
-/// For purposes of returning both together.
-/// Issues occures while using this class in cubits, therefore use pure
-/// `Pagination` class.
+/// For purposes of returning both data and a pagination information together.
 class PaginatedData<T> with _$PaginatedData {
   const factory PaginatedData({
     @Default(0) @JsonKey(toJson: _pageNumberToJson) int pageNumber,

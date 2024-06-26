@@ -16,7 +16,8 @@ abstract class ChefRepo {
   TaskEither<Failure, ChefWorkStatus> getChefWorkStatus(String chefId);
   TaskEither<Failure, bool> isFavouriteChef(String chefId);
   TaskEither<Failure, PaginatedData<Chef>> getFavouriteChefs(
-      Pagination paginatedData);
+    Pagination pagination,
+  );
   TaskEither<Failure, bool> addFavouriteChef(String chefId);
   TaskEither<Failure, bool> removeFavouriteChef(String chefId);
 }
