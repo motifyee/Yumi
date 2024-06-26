@@ -50,10 +50,15 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       categoriesPage = task.fold((l) => state.categoriesPage, (r) => r);
     }
 
+    final List<Category> categories = [
+      ...state.categoriesPage.data,
+      ...categoriesPage.data
+    ];
+
     emit(state.copyWith(
       categoriesPage: categoriesPage.copyWith(
         isLoading: false,
-        data: [...state.categoriesPage.data, ...categoriesPage.data],
+        data: categories,
       ) as PaginatedData<Category>,
     ));
   }
@@ -87,7 +92,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       categoriesPage = task.fold((l) => state.categoriesPage, (r) => r);
     }
 
-    final List<Category> data = [
+    final List<Category> categories = [
       ...state.categoriesPage.data,
       ...categoriesPage.data
     ];
@@ -95,7 +100,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     emit(state.copyWith(
       categoriesPage: categoriesPage.copyWith(
         isLoading: false,
-        data: data,
+        data: categories,
       ) as PaginatedData<Category>,
     ));
   }
