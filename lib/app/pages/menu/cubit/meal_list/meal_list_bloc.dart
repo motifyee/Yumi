@@ -7,9 +7,9 @@ import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/service/meal_service.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 part 'meal_list_event.dart';
 part 'meal_list_state.dart';
@@ -19,17 +19,19 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       : super(MealListState(
           meals: const [],
           selectedCategory: 0,
-          pagination: const Pagination(),
+          pagination: const PaginatedData(),
           menuTarget: MenuTarget.order,
         )) {
     on<MealListUpdateEvent>((event, emit) async {
-      if (state.pagination.pageNumber < state.pagination.lastPage && !state.pagination.isLoading) {
+      if (state.pagination.pageNumber < state.pagination.lastPage &&
+          !state.pagination.isLoading) {
         emit(
-          state.copyWith(pagination: state.pagination.copyWith(isLoading: true)),
+          state.copyWith(
+              pagination: state.pagination.copyWith(isLoading: true)),
         );
 
         late dynamic res = [];
-        List<MealModel> data = [];
+        List<Meal> data = [];
 
         try {
           if (event.chefId == null) {
@@ -38,12 +40,14 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
                 context: event.context ?? G.cContext,
                 lat: G.context.read<UserCubit>().state.address?.latitude,
                 long: G.context.read<UserCubit>().state.address?.longitude,
-                isPreorder: event.menuTarget != null ? event.menuTarget == MenuTarget.preOrder : state.menuTarget == MenuTarget.preOrder,
+                isPreorder: event.menuTarget != null
+                    ? event.menuTarget == MenuTarget.preOrder
+                    : state.menuTarget == MenuTarget.preOrder,
                 queryParameters: {...state.pagination.toJson()},
               );
 
-              data = res['data'].map<MealModel>((value) {
-                return MealModel.fromJson({
+              data = res['data'].map<Meal>((value) {
+                return Meal.fromJson({
                   ...?value,
                   ...?value['meal'],
                   ...?value['product'],
@@ -55,12 +59,14 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
                 categoryId: state.selectedCategory,
                 lat: G.context.read<UserCubit>().state.address?.latitude,
                 long: G.context.read<UserCubit>().state.address?.longitude,
-                isPreorder: event.menuTarget != null ? event.menuTarget == MenuTarget.preOrder : state.menuTarget == MenuTarget.preOrder,
+                isPreorder: event.menuTarget != null
+                    ? event.menuTarget == MenuTarget.preOrder
+                    : state.menuTarget == MenuTarget.preOrder,
                 pagination: {...state.pagination.toJson()},
               );
 
-              data = res['data'].map<MealModel>((value) {
-                return MealModel.fromJson({
+              data = res['data'].map<Meal>((value) {
+                return Meal.fromJson({
                   ...?value,
                   ...?value['meal'],
                   ...?value['product'],
@@ -73,12 +79,14 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
               res = await MealService.getMealsByChef(
                 context: event.context ?? G.cContext,
                 chefId: event.chefId,
-                isPreorder: event.menuTarget != null ? event.menuTarget == MenuTarget.preOrder : state.menuTarget == MenuTarget.preOrder,
+                isPreorder: event.menuTarget != null
+                    ? event.menuTarget == MenuTarget.preOrder
+                    : state.menuTarget == MenuTarget.preOrder,
                 queryParameters: {...state.pagination.toJson()},
               );
 
-              data = res['data'].map<MealModel>((value) {
-                return MealModel.fromJson({
+              data = res['data'].map<Meal>((value) {
+                return Meal.fromJson({
                   ...?value,
                   ...?value['meal'],
                   ...?value['product'],
@@ -89,12 +97,14 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
                 context: event.context ?? G.cContext,
                 chefId: event.chefId,
                 categoryId: state.selectedCategory,
-                isPreorder: event.menuTarget != null ? event.menuTarget == MenuTarget.preOrder : state.menuTarget == MenuTarget.preOrder,
+                isPreorder: event.menuTarget != null
+                    ? event.menuTarget == MenuTarget.preOrder
+                    : state.menuTarget == MenuTarget.preOrder,
                 pagination: {...state.pagination.toJson()},
               );
 
-              data = res['data'].map<MealModel>((value) {
-                return MealModel.fromJson({
+              data = res['data'].map<Meal>((value) {
+                return Meal.fromJson({
                   ...?value,
                   ...?value['meal'],
                   ...?value['product'],
@@ -125,7 +135,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         state.copyWith(
           meals: [],
           selectedCategory: event.selectedCategory,
-          pagination: const Pagination(),
+          pagination: const PaginatedData(),
         ),
       );
 
@@ -139,21 +149,24 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       emit(MealListState(
         meals: const [],
         selectedCategory: event.categoryId ?? 0,
-        pagination: const Pagination(),
+        pagination: const PaginatedData(),
         menuTarget: event.menuTarget ?? state.menuTarget,
       ));
     });
 
     on<MealListGetFavoriteMealsEvent>((event, emit) async {
-      if (state.pagination.pageNumber < state.pagination.lastPage && !state.pagination.isLoading) {
+      if (state.pagination.pageNumber < state.pagination.lastPage &&
+          !state.pagination.isLoading) {
         emit(
-          state.copyWith(pagination: state.pagination.copyWith(isLoading: true)),
+          state.copyWith(
+              pagination: state.pagination.copyWith(isLoading: true)),
         );
 
-        Response res = await MealService.getFavoriteMeals(pagination: {...state.pagination.toJson()});
+        Response res = await MealService.getFavoriteMeals(
+            pagination: {...state.pagination.toJson()});
 
-        List<MealModel> data = res.data['data'].map<MealModel>((value) {
-          return MealModel.fromJson({
+        List<Meal> data = res.data['data'].map<Meal>((value) {
+          return Meal.fromJson({
             ...value,
             'id': value['productId'],
             'isFavoritProduct': true,
@@ -173,11 +186,12 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
     on<MealListAddFavoriteMealEvent>((event, emit) async {
       Response res = await MealService.addMealToFavorite(meal: event.meal);
       if (res.statusCode == 200) {
-        List<MealModel> meals = List.from(state.meals);
+        List<Meal> meals = List.from(state.meals);
         if (meals.indexWhere((e) => e.id == event.meal.id) > -1) {
-          meals[meals.indexWhere((e) => e.id == event.meal.id)].isFavoritProduct = true;
+          final idx = meals.indexWhere((e) => e.id == event.meal.id);
+          meals[idx] = meals[idx].copyWith(isFavoritProduct: true);
         } else {
-          meals.add(event.meal.copyWith(isFavorite: true));
+          meals.add(event.meal.copyWith(isFavoritProduct: true));
         }
         emit(state.copyWith(
           meals: meals,
@@ -188,11 +202,12 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
     on<MealListRemoveFavoriteMealEvent>((event, emit) async {
       Response res = await MealService.removeMealToFavorite(meal: event.meal);
       if (res.statusCode == 200) {
-        List<MealModel> meals = List.from(state.meals);
+        List<Meal> meals = List.from(state.meals);
         if (meals.indexWhere((e) => e.id == event.meal.id) > -1) {
-          meals[meals.indexWhere((e) => e.id == event.meal.id)].isFavoritProduct = false;
+          final idx = meals.indexWhere((e) => e.id == event.meal.id);
+          meals[idx] = meals[idx].copyWith(isFavoritProduct: true);
         } else {
-          meals.add(event.meal.copyWith(isFavorite: false));
+          meals.add(event.meal.copyWith(isFavoritProduct: false));
         }
         emit(state.copyWith(
           meals: meals,
@@ -204,7 +219,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       emit(MealListState(
         meals: const [],
         selectedCategory: 0,
-        pagination: const Pagination(),
+        pagination: const PaginatedData(),
         menuTarget: MenuTarget.order,
       ));
     });

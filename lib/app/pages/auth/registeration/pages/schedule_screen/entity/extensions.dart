@@ -8,16 +8,6 @@ extension WeekDayX on WeekDay {
       WeekDay.values.firstWhere((e) => e.name == name);
 }
 
-extension StringX on String {
-  DateTime get toDateTime => DateTime.parse(this);
-
-  TimeOfDay get toTimeOfDay => TimeOfDay(
-        hour: toDateTime.hour,
-        minute: toDateTime.minute,
-      );
-  // hour: int.parse(split(":")[0]), minute: int.parse(split(":")[1])
-}
-
 extension TimeOfDayX on TimeOfDay {
   get toStringD =>
       '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';

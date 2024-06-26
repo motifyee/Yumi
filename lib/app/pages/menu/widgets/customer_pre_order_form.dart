@@ -7,7 +7,7 @@ import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/calendar.dart';
 import 'package:yumi/app/components/text_form_field.dart';
@@ -22,7 +22,7 @@ class CustomerPreOrderForm extends StatelessWidget {
 
   static GlobalKey<FormState> preOrderForm = GlobalKey<FormState>();
 
-  MealModel meal;
+  Meal meal;
   Chef chef;
   bool isPickUpOnly;
 

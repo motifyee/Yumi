@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/domain/schedule/entities/converters.dart';
 import 'package:yumi/domain/schedule/entities/extensions.dart';
+import 'package:yumi/extensions/string.dart';
 
 part 'schedule.freezed.dart';
 part 'schedule.g.dart';

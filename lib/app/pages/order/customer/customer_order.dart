@@ -6,7 +6,7 @@ import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:yumi/core/setup/signalr.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/order/widgets/action_button.dart';

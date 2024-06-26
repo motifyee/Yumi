@@ -1,4 +1,35 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/app/pages/menu/ingredient.dart';
+
+part 'meal.freezed.dart';
+part 'meal.g.dart';
+
+@freezed
+abstract class Meal with _$Meal {
+  const factory Meal({
+    int? id,
+    int? productVariantID,
+    String? chefId,
+    String? code,
+    String? name,
+    String? photo,
+    double? price1,
+    @JsonKey(name: 'calories_Value') double? caloriesValue,
+    @JsonKey(name: 'portion_Persons') double? portionPersons,
+    @JsonKey(name: 'preparation_time') double? preparationTime,
+    @JsonKey(name: 'is_Order') bool? isOrder,
+    @JsonKey(name: 'is_Pre_Order') bool? isPreOrder,
+    @JsonKey(name: 'pickup_Only') bool? isPickUpOnly,
+    @JsonKey(name: 'categoriesIds') List<int>? categoryIds,
+    List<Ingredient>? ingredients,
+    bool? isFavoritProduct,
+  }) = _Meal;
+
+  factory Meal.fromJson(Map<String, dynamic> json) => _$MealFromJson(json);
+}
 
 class MealModel {
   int? id;
@@ -14,8 +45,8 @@ class MealModel {
   bool? isPreOrder;
   bool? isPickUpOnly;
   String? portionPersons;
-  List<int>? categoriesids;
-  List<IngredientsModel>? ingredients;
+  List<int>? categoryIds;
+  List<Ingredient>? ingredients;
   bool? isFavoritProduct;
 
   MealModel({
@@ -32,7 +63,7 @@ class MealModel {
     this.isPreOrder,
     this.isPickUpOnly,
     this.portionPersons,
-    this.categoriesids,
+    this.categoryIds,
     this.ingredients,
     this.isFavoritProduct = false,
   });
@@ -52,7 +83,7 @@ class MealModel {
     bool? isPickUpOnly,
     String? portionPersons,
     List<int>? categoriesids,
-    List<IngredientsModel>? ingredients,
+    List<Ingredient>? ingredients,
     bool? isFavorite,
   }) {
     return MealModel(
@@ -69,7 +100,7 @@ class MealModel {
       isPreOrder: isPreOrder ?? this.isPreOrder,
       isPickUpOnly: isPickUpOnly ?? this.isPickUpOnly,
       portionPersons: portionPersons ?? this.portionPersons,
-      categoriesids: categoriesids ?? this.categoriesids,
+      categoryIds: categoriesids ?? categoryIds,
       ingredients: ingredients ?? this.ingredients,
       isFavoritProduct: isFavorite ?? isFavoritProduct,
     );
@@ -89,12 +120,12 @@ class MealModel {
     isPreOrder = json['is_Pre_Order'];
     isPickUpOnly = json['pickup_Only'];
     portionPersons = json['portion_Persons']?.toString();
-    categoriesids = json['categoriesIds']?.cast<int>();
+    categoryIds = json['categoriesIds']?.cast<int>();
     isFavoritProduct = json['isFavoritProduct'];
     if (json['ingredients'] != null) {
-      ingredients = <IngredientsModel>[];
+      ingredients = <Ingredient>[];
       json['ingredients'].forEach((v) {
-        ingredients!.add(IngredientsModel.fromJson(v));
+        ingredients!.add(Ingredient.fromJson(v));
       });
     }
   }
@@ -116,7 +147,7 @@ class MealModel {
     data['is_Pre_Order'] = isPreOrder;
     if (isPickUpOnly != null) data['pickup_Only'] = isPickUpOnly;
     data['portion_Persons'] = portionPersons;
-    data['categoriesIds'] = categoriesids;
+    data['categoriesIds'] = categoryIds;
     if (ingredients != null) {
       data['ingredients'] = ingredients!.map((v) => v.toJson()).toList();
     }

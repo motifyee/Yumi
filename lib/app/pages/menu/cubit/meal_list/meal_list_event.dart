@@ -33,13 +33,13 @@ class MealListUpdateCategoryEvent implements MealListEvent {
 class MealListGetFavoriteMealsEvent implements MealListEvent {}
 
 class MealListAddFavoriteMealEvent implements MealListEvent {
-  final MealModel meal;
+  final Meal meal;
 
   MealListAddFavoriteMealEvent({required this.meal});
 }
 
 class MealListRemoveFavoriteMealEvent implements MealListEvent {
-  final MealModel meal;
+  final Meal meal;
 
   MealListRemoveFavoriteMealEvent({required this.meal});
 }

@@ -5,7 +5,7 @@ import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:yumi/core/setup/signalr.dart';
 import 'package:yumi/domain/order/entity/order.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/app/pages/order/widgets/order_card.dart';
 import 'package:yumi/app/components/pagination_template.dart';
 
@@ -32,7 +32,7 @@ class NewsOrders extends StatelessWidget {
         if (current.isSignalTriggered(
             signal: signals, isPreOrder: menuTarget == MenuTarget.preOrder)) {
           context.read<OrderCubit>().resetOrders(
-              loading: context.read<OrderCubit>().state.pagination.isLoading);
+              loading: context.read<OrderCubit>().state.ordersPage.isLoading);
           context.read<OrderCubit>().getOrders(apiKeys: apiKey);
           return true;
         }
@@ -51,7 +51,7 @@ class NewsOrders extends StatelessWidget {
             builder: (context, state) {
               return Column(
                 children: [
-                  for (Order order in state.pagination.data)
+                  for (Order order in state.ordersPage.data)
                     OrderCard(
                       order: order,
                       orderCardTargetPage: orderCardTargetPage,
@@ -59,7 +59,7 @@ class NewsOrders extends StatelessWidget {
                       menuTarget: menuTarget,
                       navFun: navFun,
                     ),
-                  if (state.pagination.isLoading) Loading(),
+                  if (state.ordersPage.isLoading) Loading(),
                 ],
               );
             },

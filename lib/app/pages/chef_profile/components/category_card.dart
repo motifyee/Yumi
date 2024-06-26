@@ -1,13 +1,13 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:yumi/app/pages/menu/categories_model.dart';
+import 'package:yumi/domain/categories/entity/category.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class CategoriesCard extends StatelessWidget {
   const CategoriesCard({super.key, required this.category});
 
-  final CategoriesModel category;
+  final Category category;
 
   @override
   Widget build(BuildContext context) {

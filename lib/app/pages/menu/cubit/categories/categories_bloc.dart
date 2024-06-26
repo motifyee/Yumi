@@ -5,9 +5,9 @@ import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/global.dart';
-import 'package:yumi/app/pages/menu/categories_model.dart';
+import 'package:yumi/domain/categories/entity/category.dart';
 import 'package:yumi/service/categories_service.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 part 'categories_event.dart';
 part 'categories_state.dart';
@@ -17,7 +17,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       : super(CategoriesState(
             categoriesModelList: const [],
             categoriesModelListLength: 0,
-            pagination: const Pagination())) {
+            pagination: const PaginatedData())) {
     on<GetCategoriesEvent>((event, emit) async {
       if (state.pagination.pageNumber < state.pagination.lastPage &&
           !state.pagination.isLoading) {
@@ -57,9 +57,9 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
           }
         }
 
-        List<CategoriesModel> data = [];
-        data = res['data'].map<CategoriesModel>((value) {
-          return CategoriesModel.fromJson(value);
+        List<Category> data = [];
+        data = res['data'].map<Category>((value) {
+          return Category.fromJson(value);
         }).toList();
 
         emit(state.copyWith(
@@ -77,7 +77,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       emit(CategoriesState(
         categoriesModelList: const [],
         categoriesModelListLength: 0,
-        pagination: const Pagination(),
+        pagination: const PaginatedData(),
       ));
     });
   }

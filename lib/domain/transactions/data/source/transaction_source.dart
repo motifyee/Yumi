@@ -1,9 +1,9 @@
 import 'package:yumi/domain/transactions/entity/transaction.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 abstract class TransactionSource {
-  Future<Pagination<Transaction>> getAllTransactions({
-    required Pagination<Transaction> pagination,
+  Future<PaginatedData<Transaction>> getAllTransactions({
+    required PaginatedData<Transaction> pagination,
     required String userId,
   });
 }

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
+import 'package:yumi/domain/chef/entity/chef_work_status.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/order/widgets/action_button.dart';
 import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';
@@ -142,9 +143,18 @@ class CustomerChefList extends StatelessWidget {
                       controller: controller,
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        _ChefListStatus(menuTarget: menuTarget, status: 1),
-                        _ChefListStatus(menuTarget: menuTarget, status: 2),
-                        _ChefListStatus(menuTarget: menuTarget, status: 0),
+                        _ChefListStatus(
+                          menuTarget: menuTarget,
+                          workStatus: ChefWorkStatus.open,
+                        ),
+                        _ChefListStatus(
+                          menuTarget: menuTarget,
+                          workStatus: ChefWorkStatus.busy,
+                        ),
+                        _ChefListStatus(
+                          menuTarget: menuTarget,
+                          workStatus: ChefWorkStatus.offline,
+                        ),
                       ],
                     ),
             ),
@@ -156,27 +166,28 @@ class CustomerChefList extends StatelessWidget {
 }
 
 class _ChefListStatus extends StatelessWidget {
-  const _ChefListStatus({required this.menuTarget, this.status});
+  const _ChefListStatus({
+    this.workStatus,
+    required this.menuTarget,
+  });
 
   final MenuTarget menuTarget;
-  final int? status;
+  final ChefWorkStatus? workStatus;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ChefsListBloc(),
+      create: (context) => ChefsCubit(),
       child: BlocBuilder<UserCubit, UserState>(
         builder: (context, state) {
           return state.address != null
               ? PaginationTemplate(
                   scrollDirection: Axis.horizontal,
-                  loadDate: () {
-                    context.read<ChefsListBloc>().add(GetChefsListEvent(
-                        context: context,
-                        status: status,
-                        menuTarget: menuTarget));
-                  },
-                  child: BlocConsumer<ChefsListBloc, ChefsListState>(
+                  loadDate: () => context.read<ChefsCubit>().getChefs(
+                        status: workStatus,
+                        isPreOrder: menuTarget == MenuTarget.preOrder,
+                      ),
+                  child: BlocConsumer<ChefsCubit, ChefsState>(
                     listener: (context, state) {},
                     builder: (context, state) {
                       return Padding(
@@ -204,7 +215,7 @@ class _ChefListStatus extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            if (state.pagination.isLoading) Loading(),
+                            if (state.chefsPagination.isLoading) Loading(),
                             if (state.chefs.isEmpty)
                               SizedBox(
                                 height: ThemeSelector

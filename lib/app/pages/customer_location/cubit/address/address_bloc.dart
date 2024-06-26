@@ -9,7 +9,7 @@ import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/service/address_service.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 part 'address_bloc.freezed.dart';
 part 'address_event.dart';

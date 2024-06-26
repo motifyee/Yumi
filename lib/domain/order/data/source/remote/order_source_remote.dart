@@ -5,23 +5,25 @@ import 'package:yumi/domain/order/data/source/order_source.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 class OrderSourceRemote extends OrderSource {
-  Future<Pagination<Order>> getOrders(
-      {required String apiKeys, required Pagination<Order> pagination}) async {
+  @override
+  Future<PaginatedData<Order>> getOrders(
+      {required String apiKeys,
+      required PaginatedData<Order> ordersPage}) async {
     Response res = await DioClient.simpleDio()
-        .get(apiKeys, queryParameters: {...pagination.toJson()});
+        .get(apiKeys, queryParameters: {...ordersPage.toJson()});
 
     List<Order> data =
         res.data['data'].map<Order>((e) => Order.fromJson(e)).toList();
 
-    return pagination.copyWith(
-      data: <Order>[...pagination.data, ...data].unique((e) => e.id),
+    return ordersPage.copyWith(
+      data: <Order>[...ordersPage.data, ...data].unique((e) => e.id),
       isLoading: false,
       pageNumber: res.data['pagination']['page'],
       lastPage: res.data['pagination']['pages'],
-    ) as Pagination<Order>;
+    ) as PaginatedData<Order>;
   }
 
   @override

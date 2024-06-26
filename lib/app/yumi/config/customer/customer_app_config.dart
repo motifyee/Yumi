@@ -4,10 +4,10 @@ import 'package:nested/nested.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
-import 'package:yumi/app/pages/menu/cubit/form/meal_form_bloc.dart';
-import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredient_form_bloc.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/form/meal_form_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/ingredient_form/ingredient_form_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
@@ -35,7 +35,7 @@ class CustomerAppConfig implements AppConfig {
     BlocProvider(create: (context) => NavigatorBloc()),
     BlocProvider(create: (context) => ProfileCubit()),
     BlocProvider(create: (context) => BankInfoBloc()),
-    BlocProvider(create: (context) => CategoriesBloc()),
+    BlocProvider(create: (context) => CategoriesCubit()),
     BlocProvider(create: (context) => MealFormBloc()),
     BlocProvider(create: (context) => MealListBloc()),
     BlocProvider(create: (context) => IngredientListBloc()),

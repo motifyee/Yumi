@@ -2,7 +2,7 @@ import 'package:fpdart/src/either.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
-import 'package:yumi/extensions/double_fixed.dart';
+import 'package:yumi/extensions/double.dart';
 
 class CalcBasket extends UseCase<Basket, CalcBasketParams> {
   @override

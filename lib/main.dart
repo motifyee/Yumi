@@ -10,7 +10,7 @@ import 'package:yumi/app/pages/menu/cubit/form/meal_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
-import 'package:yumi/bloc/chefs/chefs_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
       BlocProvider(create: (context) => MealFormBloc()),
       BlocProvider(create: (context) => IngredientListBloc()),
       BlocProvider(create: (context) => IngredientFormBloc()),
-      BlocProvider(create: (context) => ChefsListBloc()),
+      BlocProvider(create: (context) => ChefsCubit()),
       BlocProvider(create: (context) => ScheduleCubit()),
     ];
   }

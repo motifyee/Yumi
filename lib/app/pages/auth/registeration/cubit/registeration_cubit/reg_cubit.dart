@@ -7,8 +7,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumi/app/components/google_map/util/geo_location_permission.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
-import 'package:yumi/core/util/string.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/onboarding_screen/onboarding_steps.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/signup_screen/entity/signup_data.dart';
 import 'package:yumi/app/pages/auth/registeration/repository/address_repo.dart';
@@ -29,6 +28,7 @@ import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/profile/use_cases/get_otp.dart';
 import 'package:yumi/domain/profile/use_cases/verify_add_mobile_otp.dart';
 import 'package:yumi/domain/profile/use_cases/verify_email.dart';
+import 'package:yumi/extensions/string.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/app/pages/auth/login/login_model.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -183,7 +183,8 @@ class RegCubit extends Cubit<RegState> {
       if (G.isDriverApp) await getVehicle();
       if (G.isChefApp) {
         G.read<MealListBloc>().add(MealListResetBlocEvent());
-        G.read<MealListBloc>().add(MealListUpdateEvent(chefId: G.rd<UserCubit>().state.user.chefId));
+        G.read<MealListBloc>().add(
+            MealListUpdateEvent(chefId: G.rd<UserCubit>().state.user.chefId));
       }
       if (!G.isCustomerApp) {
         G.rd<ScheduleCubit>().reset();
@@ -286,12 +287,19 @@ class RegCubit extends Cubit<RegState> {
     // final update = await UpdateProfile().call(UpdateProfileParam(profile));
     if (update == null) {
       emit(state.copyWith(status: Status.error));
-      return G.rd<ProfileCubit>().state.form.entityStatus.message.onEmpty('The mobile number is already used.');
+      return G
+          .rd<ProfileCubit>()
+          .state
+          .form
+          .entityStatus
+          .message
+          .onEmpty('The mobile number is already used.');
     }
 
     emit(state.copyWith(phone: phone));
 
-    return (await getMobileOTP()).fold((l) => 'Something went wrong. try again.', (r) {
+    return (await getMobileOTP())
+        .fold((l) => 'Something went wrong. try again.', (r) {
       navigateToIdx(2);
       return null;
     });
@@ -388,7 +396,8 @@ class RegCubit extends Cubit<RegState> {
     // if (idx <= onboardingProgress) return;
 
     // save step index to shared preferences
-    SharedPreferences.getInstance().then((value) => value.setInt(onboardingProgressKey, idx));
+    SharedPreferences.getInstance()
+        .then((value) => value.setInt(onboardingProgressKey, idx));
 
     emit(state.copyWith(storedOnboardingProgress: idx));
   }
@@ -406,7 +415,9 @@ class RegCubit extends Cubit<RegState> {
     await context.read<ProfileCubit>().getProfileForm().then((value) {
       setLoading(false);
 
-      var stepsInfo = G.isChefApp ? chefOnboardingSteps(context, state) : driverOnboardingSteps(context, state);
+      var stepsInfo = G.isChefApp
+          ? chefOnboardingSteps(context, state)
+          : driverOnboardingSteps(context, state);
 
       var idx = onboardingProgress;
       if (idx < stepsInfo.length) return stepsInfo[idx][2]();
@@ -431,7 +442,9 @@ class RegCubit extends Cubit<RegState> {
     )
         .catchError((_) {
       emit(
-        state.copyWith(ridesStatus: Status.error, message: 'could\'nt update your vehicle!'),
+        state.copyWith(
+            ridesStatus: Status.error,
+            message: 'could\'nt update your vehicle!'),
       );
 
       throw 'could\'nt update your vehicle!';

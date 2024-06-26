@@ -2,7 +2,7 @@ import 'package:fpdart/src/either.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 
 class AddMealToBasket extends UseCase<Basket, AddMealToBasketParams> {
   @override
@@ -22,7 +22,7 @@ class AddMealToBasket extends UseCase<Basket, AddMealToBasketParams> {
 }
 
 class AddMealToBasketParams extends Params {
-  final MealModel meal;
+  final Meal meal;
   final Basket basket;
 
   AddMealToBasketParams({required this.meal, required this.basket});

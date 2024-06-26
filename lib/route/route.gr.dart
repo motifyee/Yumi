@@ -46,7 +46,7 @@ import 'package:yumi/app/pages/financial_view/financial_view.dart' as _i11;
 import 'package:yumi/app/pages/home/home.dart' as _i12;
 import 'package:yumi/app/pages/meal_profile/meal_profile.dart' as _i16;
 import 'package:yumi/app/pages/menu/chef/menu_pre.dart' as _i17;
-import 'package:yumi/app/pages/menu/meal_model.dart' as _i37;
+import 'package:yumi/app/pages/menu/meal.dart' as _i37;
 import 'package:yumi/app/pages/notification/notification_screen.dart' as _i20;
 import 'package:yumi/app/pages/order/customer/customer_order.dart' as _i18;
 import 'package:yumi/app/pages/order/widgets/order_status.dart' as _i23;
@@ -670,7 +670,7 @@ class LoginRouteArgs {
 class MealProfileRoute extends _i33.PageRouteInfo<MealProfileRouteArgs> {
   MealProfileRoute({
     _i34.Key? key,
-    required _i37.MealModel meal,
+    required _i37.Meal meal,
     required _i36.Chef chef,
     List<_i33.PageRouteInfo>? children,
   }) : super(
@@ -698,7 +698,7 @@ class MealProfileRouteArgs {
 
   final _i34.Key? key;
 
-  final _i37.MealModel meal;
+  final _i37.Meal meal;
 
   final _i36.Chef chef;
 

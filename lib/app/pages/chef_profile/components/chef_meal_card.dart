@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/app/pages/meal_profile/meal_profile.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/text_currency.dart';
@@ -10,7 +10,7 @@ import 'package:yumi/app/components/text_currency.dart';
 class ChefMealCard extends StatelessWidget {
   const ChefMealCard({super.key, required this.meal, required this.chef});
 
-  final MealModel meal;
+  final Meal meal;
   final Chef chef;
 
   @override
@@ -83,7 +83,7 @@ class ChefMealCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextCurrency(
-                          value: double.parse(meal.price1 ?? '0'),
+                          value: meal.price1 ?? 0,
                           fontSize: ThemeSelector.fonts.font_10,
                         ),
                       ],

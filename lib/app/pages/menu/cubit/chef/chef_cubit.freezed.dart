@@ -16,7 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ChefsState {
-  Pagination<Chef> get chefs => throw _privateConstructorUsedError;
+  List<Chef> get chefs => throw _privateConstructorUsedError;
+  Pagination get chefsPagination => throw _privateConstructorUsedError;
+  String get error => throw _privateConstructorUsedError;
+  bool get errorReported => throw _privateConstructorUsedError;
   int get chefsUpdated => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,9 +33,14 @@ abstract class $ChefsStateCopyWith<$Res> {
           ChefsState value, $Res Function(ChefsState) then) =
       _$ChefsStateCopyWithImpl<$Res, ChefsState>;
   @useResult
-  $Res call({Pagination<Chef> chefs, int chefsUpdated});
+  $Res call(
+      {List<Chef> chefs,
+      Pagination chefsPagination,
+      String error,
+      bool errorReported,
+      int chefsUpdated});
 
-  $PaginationCopyWith<Chef, $Res> get chefs;
+  $PaginationCopyWith<$Res> get chefsPagination;
 }
 
 /// @nodoc
@@ -49,13 +57,28 @@ class _$ChefsStateCopyWithImpl<$Res, $Val extends ChefsState>
   @override
   $Res call({
     Object? chefs = null,
+    Object? chefsPagination = null,
+    Object? error = null,
+    Object? errorReported = null,
     Object? chefsUpdated = null,
   }) {
     return _then(_value.copyWith(
       chefs: null == chefs
           ? _value.chefs
           : chefs // ignore: cast_nullable_to_non_nullable
-              as Pagination<Chef>,
+              as List<Chef>,
+      chefsPagination: null == chefsPagination
+          ? _value.chefsPagination
+          : chefsPagination // ignore: cast_nullable_to_non_nullable
+              as Pagination,
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+      errorReported: null == errorReported
+          ? _value.errorReported
+          : errorReported // ignore: cast_nullable_to_non_nullable
+              as bool,
       chefsUpdated: null == chefsUpdated
           ? _value.chefsUpdated
           : chefsUpdated // ignore: cast_nullable_to_non_nullable
@@ -65,9 +88,9 @@ class _$ChefsStateCopyWithImpl<$Res, $Val extends ChefsState>
 
   @override
   @pragma('vm:prefer-inline')
-  $PaginationCopyWith<Chef, $Res> get chefs {
-    return $PaginationCopyWith<Chef, $Res>(_value.chefs, (value) {
-      return _then(_value.copyWith(chefs: value) as $Val);
+  $PaginationCopyWith<$Res> get chefsPagination {
+    return $PaginationCopyWith<$Res>(_value.chefsPagination, (value) {
+      return _then(_value.copyWith(chefsPagination: value) as $Val);
     });
   }
 }
@@ -80,10 +103,15 @@ abstract class _$$ChefsStateImplCopyWith<$Res>
       __$$ChefsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Pagination<Chef> chefs, int chefsUpdated});
+  $Res call(
+      {List<Chef> chefs,
+      Pagination chefsPagination,
+      String error,
+      bool errorReported,
+      int chefsUpdated});
 
   @override
-  $PaginationCopyWith<Chef, $Res> get chefs;
+  $PaginationCopyWith<$Res> get chefsPagination;
 }
 
 /// @nodoc
@@ -98,13 +126,28 @@ class __$$ChefsStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? chefs = null,
+    Object? chefsPagination = null,
+    Object? error = null,
+    Object? errorReported = null,
     Object? chefsUpdated = null,
   }) {
     return _then(_$ChefsStateImpl(
       chefs: null == chefs
-          ? _value.chefs
+          ? _value._chefs
           : chefs // ignore: cast_nullable_to_non_nullable
-              as Pagination<Chef>,
+              as List<Chef>,
+      chefsPagination: null == chefsPagination
+          ? _value.chefsPagination
+          : chefsPagination // ignore: cast_nullable_to_non_nullable
+              as Pagination,
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+      errorReported: null == errorReported
+          ? _value.errorReported
+          : errorReported // ignore: cast_nullable_to_non_nullable
+              as bool,
       chefsUpdated: null == chefsUpdated
           ? _value.chefsUpdated
           : chefsUpdated // ignore: cast_nullable_to_non_nullable
@@ -115,20 +158,41 @@ class __$$ChefsStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ChefsStateImpl implements _ChefsState {
+class _$ChefsStateImpl extends _ChefsState {
   _$ChefsStateImpl(
-      {this.chefs = const Pagination<Chef>(), this.chefsUpdated = 0});
+      {final List<Chef> chefs = const [],
+      this.chefsPagination = const Pagination(),
+      this.error = '',
+      this.errorReported = false,
+      this.chefsUpdated = 0})
+      : _chefs = chefs,
+        super._();
+
+  final List<Chef> _chefs;
+  @override
+  @JsonKey()
+  List<Chef> get chefs {
+    if (_chefs is EqualUnmodifiableListView) return _chefs;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_chefs);
+  }
 
   @override
   @JsonKey()
-  final Pagination<Chef> chefs;
+  final Pagination chefsPagination;
+  @override
+  @JsonKey()
+  final String error;
+  @override
+  @JsonKey()
+  final bool errorReported;
   @override
   @JsonKey()
   final int chefsUpdated;
 
   @override
   String toString() {
-    return 'ChefsState(chefs: $chefs, chefsUpdated: $chefsUpdated)';
+    return 'ChefsState(chefs: $chefs, chefsPagination: $chefsPagination, error: $error, errorReported: $errorReported, chefsUpdated: $chefsUpdated)';
   }
 
   @override
@@ -136,13 +200,24 @@ class _$ChefsStateImpl implements _ChefsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChefsStateImpl &&
-            (identical(other.chefs, chefs) || other.chefs == chefs) &&
+            const DeepCollectionEquality().equals(other._chefs, _chefs) &&
+            (identical(other.chefsPagination, chefsPagination) ||
+                other.chefsPagination == chefsPagination) &&
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.errorReported, errorReported) ||
+                other.errorReported == errorReported) &&
             (identical(other.chefsUpdated, chefsUpdated) ||
                 other.chefsUpdated == chefsUpdated));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, chefs, chefsUpdated);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_chefs),
+      chefsPagination,
+      error,
+      errorReported,
+      chefsUpdated);
 
   @JsonKey(ignore: true)
   @override
@@ -151,12 +226,23 @@ class _$ChefsStateImpl implements _ChefsState {
       __$$ChefsStateImplCopyWithImpl<_$ChefsStateImpl>(this, _$identity);
 }
 
-abstract class _ChefsState implements ChefsState {
-  factory _ChefsState({final Pagination<Chef> chefs, final int chefsUpdated}) =
-      _$ChefsStateImpl;
+abstract class _ChefsState extends ChefsState {
+  factory _ChefsState(
+      {final List<Chef> chefs,
+      final Pagination chefsPagination,
+      final String error,
+      final bool errorReported,
+      final int chefsUpdated}) = _$ChefsStateImpl;
+  _ChefsState._() : super._();
 
   @override
-  Pagination<Chef> get chefs;
+  List<Chef> get chefs;
+  @override
+  Pagination get chefsPagination;
+  @override
+  String get error;
+  @override
+  bool get errorReported;
   @override
   int get chefsUpdated;
   @override

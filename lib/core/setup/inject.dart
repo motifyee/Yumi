@@ -9,6 +9,10 @@ import 'package:yumi/domain/calories/data/repo/calories_repo.dart';
 import 'package:yumi/domain/calories/data/repo/remote/calories_repo_remote.dart';
 import 'package:yumi/domain/calories/data/source/calories_source.dart';
 import 'package:yumi/domain/calories/data/source/remote/calories_source_remote.dart';
+import 'package:yumi/domain/categories/data/repo/categories_repo.dart';
+import 'package:yumi/domain/categories/data/repo/remote/categories_remote_repo.dart';
+import 'package:yumi/domain/categories/data/source/categories_src.dart';
+import 'package:yumi/domain/categories/data/source/remote/categories_remote_src.dart';
 import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
 import 'package:yumi/domain/chef/data/respositories/remote/chef_remote_repo.dart';
 import 'package:yumi/domain/chef/data/sources/chef_src.dart';
@@ -71,6 +75,11 @@ Future<void> inject() async {
 
   sl.registerFactory<WalletRepo>(() => WalletRepoRemote());
   sl.registerFactory<WalletSource>(() => WalletSourceRemote());
+
+  sl.registerFactory<CategoriesRepo>(() => CategoriesRemoteRepo(
+        categoriesSrc: sl(),
+      ));
+  sl.registerFactory<CategoriesSrc>(() => CategoriesRemoteSrc());
 
   // Utils
   sl.registerLazySingleton<InternetChecker>(() => InternetChecker());

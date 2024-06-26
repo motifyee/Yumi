@@ -8,7 +8,7 @@ part of 'calories_cubit.dart';
 
 _$CaloriesStateImpl _$$CaloriesStateImplFromJson(Map<String, dynamic> json) =>
     _$CaloriesStateImpl(
-      pagination: Pagination<Calories>.fromJson(
+      pagination: PaginatedData<Calories>.fromJson(
           json['pagination'] as Map<String, dynamic>),
     );
 

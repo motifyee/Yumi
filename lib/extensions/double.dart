@@ -1,4 +1,4 @@
-extension ToFixed on double {
+extension DoubleX on double {
   double toFixed(int limit) {
     double value = this;
     final List<String> splitD = value.toString().split('.');
@@ -10,4 +10,6 @@ extension ToFixed on double {
 
     return double.parse(value.toStringAsFixed(limit));
   }
+
+  String get toTextField => this == 0.0 ? '' : toStringAsFixed(2);
 }

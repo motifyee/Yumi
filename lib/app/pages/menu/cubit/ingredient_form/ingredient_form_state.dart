@@ -1,16 +1,14 @@
 part of 'ingredient_form_bloc.dart';
 
-@immutable
 class IngredientFormState extends Equatable {
-  List<IngredientsModel> ingredientsModelList;
+  List<Ingredient> ingredientsModelList;
   int ingredientsModelLength;
 
   IngredientFormState(
       {required this.ingredientsModelList,
       required this.ingredientsModelLength});
 
-  IngredientFormState copyWith(
-      {required List<IngredientsModel> ingredientsModel}) {
+  IngredientFormState copyWith({required List<Ingredient> ingredientsModel}) {
     return IngredientFormState(
         ingredientsModelList: ingredientsModel,
         ingredientsModelLength: ingredientsModel.length);

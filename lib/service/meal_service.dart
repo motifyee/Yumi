@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/code_generator.dart';
 
 class MealService {
   static Future<dynamic> createMeal(
-      {required BuildContext context, required MealModel mealModel}) async {
+      {required BuildContext context, required Meal mealModel}) async {
     final res = await DioClient.simpleDio(context).post(
         ApiKeys.getApiKeyString(apiKey: ApiKeys.meal),
         data: jsonEncode(mealModel.toJson()));
@@ -17,7 +17,7 @@ class MealService {
   }
 
   static Future<dynamic> updateMeal(
-      {required BuildContext context, required MealModel mealModel}) async {
+      {required BuildContext context, required Meal mealModel}) async {
     final res = await DioClient.simpleDio(context).put(
         '${ApiKeys.getApiKeyString(apiKey: ApiKeys.meal)}/${mealModel.id}',
         data: jsonEncode(mealModel.toJson()));
@@ -25,7 +25,7 @@ class MealService {
   }
 
   static Future<dynamic> deleteMeal(
-      {required BuildContext context, required MealModel mealModel}) async {
+      {required BuildContext context, required Meal mealModel}) async {
     final res = await DioClient.simpleDio(context).put(
         '${ApiKeys.getApiKeyString(apiKey: ApiKeys.meal)}/${mealModel.id}/delete',
         data: {"is_Deleted": true});
@@ -132,7 +132,7 @@ class MealService {
     return res;
   }
 
-  static Future<Response> addMealToFavorite({required MealModel meal}) async {
+  static Future<Response> addMealToFavorite({required Meal meal}) async {
     final res = await DioClient.simpleDio().post(ApiKeys.favoriteMeals,
         data: {'code': CodeGenerator.getRandomCode()},
         queryParameters: {'productId': meal.id});
@@ -140,8 +140,7 @@ class MealService {
     return res;
   }
 
-  static Future<Response> removeMealToFavorite(
-      {required MealModel meal}) async {
+  static Future<Response> removeMealToFavorite({required Meal meal}) async {
     final res = await DioClient.simpleDio()
         .delete(ApiKeys.favoriteMeals, queryParameters: {'productId': meal.id});
 

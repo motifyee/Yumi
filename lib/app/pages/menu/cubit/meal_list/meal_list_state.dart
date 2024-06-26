@@ -2,9 +2,9 @@ part of 'meal_list_bloc.dart';
 
 @immutable
 class MealListState extends Equatable {
-  List<MealModel> meals;
+  List<Meal> meals;
   int selectedCategory;
-  Pagination pagination;
+  PaginatedData pagination;
   MenuTarget menuTarget;
   int mealsLength;
   int changesCounter;
@@ -22,9 +22,9 @@ class MealListState extends Equatable {
   });
 
   MealListState copyWith({
-    List<MealModel>? meals,
+    List<Meal>? meals,
     int? selectedCategory,
-    Pagination? pagination,
+    PaginatedData? pagination,
     Status? status,
   }) {
     return MealListState(

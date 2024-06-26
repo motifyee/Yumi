@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/categories_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
 import 'package:yumi/app/pages/chef_profile/cubit/reviews/reviews_bloc.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal_model.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/chef_profile/components/category_card.dart';
 import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';
@@ -39,7 +39,7 @@ class ChefProfileScreen extends StatelessWidget {
     ]..removeWhere((e) => e.isEmpty);
 
     return BlocProvider(
-      create: (context) => CategoriesBloc(),
+      create: (context) => CategoriesCubit(),
       child: Scaffold(
         body: DraggableScrollableSheet(
           expand: false,
@@ -60,12 +60,14 @@ class ChefProfileScreen extends StatelessWidget {
                     isProfileClick: false,
                     isRequestStatus: true,
                     borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(ThemeSelector.statics.defaultBorderRadiusLarge),
+                      bottomRight: Radius.circular(
+                          ThemeSelector.statics.defaultBorderRadiusLarge),
                     ),
                   ),
                   SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ThemeSelector.statics.defaultGap),
                     child: Column(
                       children: [
                         if (false)
@@ -75,7 +77,8 @@ class ChefProfileScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     S.of(context).orderAgain,
-                                    style: Theme.of(context).textTheme.labelMedium,
+                                    style:
+                                        Theme.of(context).textTheme.labelMedium,
                                   ),
                                 ],
                               ),
@@ -84,7 +87,7 @@ class ChefProfileScreen extends StatelessWidget {
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
                                   children: [
-                                    for (var meal in [MealModel()])
+                                    for (var meal in [const Meal()])
                                       ChefMealCard(
                                         meal: meal,
                                         chef: chef,
@@ -92,7 +95,9 @@ class ChefProfileScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                              SizedBox(
+                                  height:
+                                      ThemeSelector.statics.defaultBlockGap),
                             ],
                           ),
                         Row(
@@ -109,7 +114,12 @@ class ChefProfileScreen extends StatelessWidget {
                               ? Center(
                                   child: Text(
                                     S.of(context).empty,
-                                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: ThemeSelector.colors.secondaryFaint),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                            color: ThemeSelector
+                                                .colors.secondaryFaint),
                                   ),
                                 )
                               : Swiper(
@@ -117,14 +127,23 @@ class ChefProfileScreen extends StatelessWidget {
                                   autoplay: true,
                                   viewportFraction: 0.8,
                                   layout: SwiperLayout.STACK,
-                                  itemWidth: MediaQuery.of(context).size.width * .8,
+                                  itemWidth:
+                                      MediaQuery.of(context).size.width * .8,
                                   itemBuilder: (context, index) => Container(
                                     clipBehavior: Clip.hardEdge,
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusExtraLarge)),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            ThemeSelector.statics
+                                                .defaultBorderRadiusExtraLarge)),
                                     child: Image.memory(
-                                      Uri.parse(eventPhotos[index] ?? '').data?.contentAsBytes() ?? Uint8List(0),
+                                      Uri.parse(eventPhotos[index] ?? '')
+                                              .data
+                                              ?.contentAsBytes() ??
+                                          Uint8List(0),
                                       fit: BoxFit.cover,
-                                      errorBuilder: (context, error, stackTrace) => Image.asset(
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Image.asset(
                                         'assets/images/354.jpeg',
                                         fit: BoxFit.cover,
                                       ),
@@ -149,15 +168,22 @@ class ChefProfileScreen extends StatelessWidget {
                               builder: (context, state) {
                                 return PaginationTemplate(
                                   loadDate: () {
-                                    context.read<MealListBloc>().add(MealListUpdateEvent(context: context, chefId: chef.id, menuTarget: menuTarget));
+                                    context.read<MealListBloc>().add(
+                                        MealListUpdateEvent(
+                                            context: context,
+                                            chefId: chef.id,
+                                            menuTarget: menuTarget));
                                   },
                                   scrollDirection: Axis.horizontal,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
-                                          for (var mealIndex = 0; mealIndex < state.meals.length; mealIndex += 2)
+                                          for (var mealIndex = 0;
+                                              mealIndex < state.meals.length;
+                                              mealIndex += 2)
                                             ChefMealCard(
                                               meal: state.meals[mealIndex],
                                               chef: chef,
@@ -166,7 +192,9 @@ class ChefProfileScreen extends StatelessWidget {
                                       ),
                                       Row(
                                         children: [
-                                          for (var mealIndex = 1; mealIndex < state.meals.length; mealIndex += 2)
+                                          for (var mealIndex = 1;
+                                              mealIndex < state.meals.length;
+                                              mealIndex += 2)
                                             ChefMealCard(
                                               meal: state.meals[mealIndex],
                                               chef: chef,
@@ -196,21 +224,36 @@ class ChefProfileScreen extends StatelessWidget {
                               child: PaginationTemplate(
                                 scrollDirection: Axis.horizontal,
                                 loadDate: () {
-                                  context.read<CategoriesBloc>().add(
-                                        GetCategoriesEvent(
-                                          context: context,
-                                          isPreOrder: menuTarget == MenuTarget.preOrder,
-                                          chefId: chef.id,
-                                        ),
+                                  context
+                                      .read<CategoriesCubit>()
+                                      .getChefCategories(
+                                        isPreOrder:
+                                            menuTarget == MenuTarget.preOrder,
+                                        chefId: chef.id,
                                       );
+                                  //       .add(
+                                  //         GetCategoriesEvent(
+                                  //           context: context,
+                                  //           isPreOrder:
+                                  //               menuTarget == MenuTarget.preOrder,
+                                  //           chefId: chef.id,
+                                  //         ),
+                                  //       );
                                 },
-                                child: BlocConsumer<CategoriesBloc, CategoriesState>(
+                                child: BlocConsumer<CategoriesCubit,
+                                    CategoriesState>(
                                   listener: (context, state) {},
                                   builder: (context, state) {
                                     return Row(
                                       children: [
-                                        for (var category in state.categoriesModelList) CategoriesCard(category: category),
-                                        if (state.pagination.isLoading) Loading(size: ThemeSelector.statics.defaultBlockGap),
+                                        for (var category
+                                            in state.categoriesPage.data)
+                                          CategoriesCard(category: category),
+                                        if (state.categoriesPage.isLoading)
+                                          Loading(
+                                            size: ThemeSelector
+                                                .statics.defaultBlockGap,
+                                          ),
                                       ],
                                     );
                                   },
@@ -226,29 +269,46 @@ class ChefProfileScreen extends StatelessWidget {
                             BlocProvider(
                               create: (context) => ReviewsCubit(),
                               child: Builder(builder: (context) {
-                                context.read<ReviewsCubit>().getReviews(chefID: chef.id!);
+                                context
+                                    .read<ReviewsCubit>()
+                                    .getReviews(chefID: chef.id!);
                                 return BlocBuilder<ReviewsCubit, ReviewsState>(
                                   builder: (context, state) {
                                     return state.pagination.isLoading
-                                        ? Loading(size: ThemeSelector.statics.defaultBlockGap)
+                                        ? Loading(
+                                            size: ThemeSelector
+                                                .statics.defaultBlockGap)
                                         : Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 S.of(context).happyCustomer,
-                                                style: Theme.of(context).textTheme.labelMedium,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelMedium,
                                               ),
                                               Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
                                                 children: [
                                                   Icon(
                                                     Icons.star,
-                                                    color: ThemeSelector.colors.warning,
-                                                    size: ThemeSelector.fonts.font_12,
+                                                    color: ThemeSelector
+                                                        .colors.warning,
+                                                    size: ThemeSelector
+                                                        .fonts.font_12,
                                                   ),
                                                   Text(
                                                     '${chef.rate ?? '0'} ( ${state.pagination.total < 1000 ? state.pagination.total : (state.pagination.total / 1000).toStringAsFixed(1)}${state.pagination.total < 1000 ? '' : 'k'} Reviews )',
-                                                    style: Theme.of(context).textTheme.labelSmall?.copyWith(fontSize: ThemeSelector.fonts.font_10),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelSmall
+                                                        ?.copyWith(
+                                                            fontSize:
+                                                                ThemeSelector
+                                                                    .fonts
+                                                                    .font_10),
                                                   )
                                                 ],
                                               )
@@ -263,7 +323,10 @@ class ChefProfileScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   S.of(context).createYourReviewNow,
-                                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall
+                                      ?.copyWith(
                                         fontSize: ThemeSelector.fonts.font_12,
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -277,22 +340,31 @@ class ChefProfileScreen extends StatelessWidget {
                                             isMyReviews: true,
                                           );
 
-                                      return BlocConsumer<ReviewsCubit, ReviewsState>(
+                                      return BlocConsumer<ReviewsCubit,
+                                          ReviewsState>(
                                         listener: (context, state) {},
                                         builder: (context, state) {
                                           return GestureDetector(
                                             onTap: () {},
                                             child: RatingBar(
-                                              initialRating: state.reviews.firstOrNull?.rate ?? 0,
+                                              initialRating: state.reviews
+                                                      .firstOrNull?.rate ??
+                                                  0,
                                               allowHalfRating: true,
                                               ignoreGestures: true,
-                                              itemSize: ThemeSelector.fonts.font_24,
+                                              itemSize:
+                                                  ThemeSelector.fonts.font_24,
                                               ratingWidget: RatingWidget(
-                                                empty: Icon(Icons.star_border, color: ThemeSelector.colors.warning),
-                                                full: Icon(Icons.star, color: ThemeSelector.colors.warning),
+                                                empty: Icon(Icons.star_border,
+                                                    color: ThemeSelector
+                                                        .colors.warning),
+                                                full: Icon(Icons.star,
+                                                    color: ThemeSelector
+                                                        .colors.warning),
                                                 half: Icon(
                                                   Icons.star_half,
-                                                  color: ThemeSelector.colors.warning,
+                                                  color: ThemeSelector
+                                                      .colors.warning,
                                                 ),
                                               ),
                                               onRatingUpdate: (value) {},
@@ -316,14 +388,17 @@ class ChefProfileScreen extends StatelessWidget {
                               builder: (context, state) {
                                 return PaginationTemplate(
                                   loadDate: () {
-                                    context.read<ReviewsCubit>().getReviews(chefID: chef.id!);
+                                    context
+                                        .read<ReviewsCubit>()
+                                        .getReviews(chefID: chef.id!);
                                   },
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     children: [
                                       for (var review in state.reviews)
                                         Padding(
-                                          padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+                                          padding: EdgeInsets.all(
+                                              ThemeSelector.statics.defaultGap),
                                           child: ReviewCard(review: review),
                                         ),
                                       if (state.pagination.isLoading) Loading(),
