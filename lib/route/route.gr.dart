@@ -33,7 +33,7 @@ import 'package:yumi/app/pages/auth/registeration/registeration_screen/registera
     as _i27;
 import 'package:yumi/app/pages/basket/basket_screen.dart' as _i2;
 import 'package:yumi/app/pages/basket/checkout.dart' as _i5;
-import 'package:yumi/app/pages/basket/widgets/payment_paypal.dart' as _i24;
+import 'package:yumi/app/pages/basket/widgets/payment_stripe.dart' as _i24;
 import 'package:yumi/app/pages/basket/widgets/payment_visa.dart' as _i25;
 import 'package:yumi/app/pages/basket/widgets/tracking_order.dart' as _i30;
 import 'package:yumi/app/pages/calories/calories_screen.dart' as _i3;
@@ -245,10 +245,10 @@ abstract class $AppRouter extends _i33.RootStackRouter {
         ),
       );
     },
-    PaymentPaypalRoute.name: (routeData) {
+    PaymentStripeRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i24.PaymentPaypalScreen(),
+        child: const _i24.PaymentStripeScreen(),
       );
     },
     PaymentVisaRoute.name: (routeData) {
@@ -879,15 +879,15 @@ class OrderStatusRouteArgs {
 }
 
 /// generated route for
-/// [_i24.PaymentPaypalScreen]
-class PaymentPaypalRoute extends _i33.PageRouteInfo<void> {
-  const PaymentPaypalRoute({List<_i33.PageRouteInfo>? children})
+/// [_i24.PaymentStripeScreen]
+class PaymentStripeRoute extends _i33.PageRouteInfo<void> {
+  const PaymentStripeRoute({List<_i33.PageRouteInfo>? children})
       : super(
-          PaymentPaypalRoute.name,
+          PaymentStripeRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'PaymentPaypalRoute';
+  static const String name = 'PaymentStripeRoute';
 
   static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
 }

@@ -48,8 +48,7 @@ class CheckOutScreen extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) => Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: ThemeSelector.statics.defaultTitleGap),
+          padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultTitleGap),
           child: SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
@@ -65,10 +64,9 @@ class CheckOutScreen extends StatelessWidget {
                         SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                         Text(
                           S.of(context).payWith,
-                          style:
-                              Theme.of(context).textTheme.labelLarge?.copyWith(
-                                    fontSize: ThemeSelector.fonts.font_18,
-                                  ),
+                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                fontSize: ThemeSelector.fonts.font_18,
+                              ),
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultGap),
 
@@ -78,24 +76,15 @@ class CheckOutScreen extends StatelessWidget {
                             context.router.push(const PaymentVisaRoute());
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    ThemeSelector.statics.defaultInputGap),
+                            padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultInputGap),
                             child: Row(
                               children: [
                                 Container(
                                   width: ThemeSelector.statics.defaultLineGap,
                                   height: ThemeSelector.statics.defaultLineGap,
-                                  decoration: BoxDecoration(
-                                      color: _option == PaymentOption.visa
-                                          ? ThemeSelector.colors.primary
-                                          : ThemeSelector.colors.secondaryFaint,
-                                      borderRadius: BorderRadius.circular(
-                                          ThemeSelector
-                                              .statics.defaultLineGap)),
+                                  decoration: BoxDecoration(color: _option == PaymentOption.visa ? ThemeSelector.colors.primary : ThemeSelector.colors.secondaryFaint, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultLineGap)),
                                 ),
-                                SizedBox(
-                                    width: ThemeSelector.statics.defaultGap),
+                                SizedBox(width: ThemeSelector.statics.defaultGap),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -106,9 +95,7 @@ class CheckOutScreen extends StatelessWidget {
                                     const Text(' '),
                                     Text(
                                       S.of(context).debitCreditCard,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
+                                      style: Theme.of(context).textTheme.bodyMedium,
                                     ),
                                   ],
                                 ),
@@ -122,24 +109,15 @@ class CheckOutScreen extends StatelessWidget {
                             _option = PaymentOption.wallet;
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    ThemeSelector.statics.defaultInputGap),
+                            padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultInputGap),
                             child: Row(
                               children: [
                                 Container(
                                   width: ThemeSelector.statics.defaultLineGap,
                                   height: ThemeSelector.statics.defaultLineGap,
-                                  decoration: BoxDecoration(
-                                      color: _option == PaymentOption.wallet
-                                          ? ThemeSelector.colors.primary
-                                          : ThemeSelector.colors.secondaryFaint,
-                                      borderRadius: BorderRadius.circular(
-                                          ThemeSelector
-                                              .statics.defaultLineGap)),
+                                  decoration: BoxDecoration(color: _option == PaymentOption.wallet ? ThemeSelector.colors.primary : ThemeSelector.colors.secondaryFaint, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultLineGap)),
                                 ),
-                                SizedBox(
-                                    width: ThemeSelector.statics.defaultGap),
+                                SizedBox(width: ThemeSelector.statics.defaultGap),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -150,9 +128,7 @@ class CheckOutScreen extends StatelessWidget {
                                     const Text(' '),
                                     Text(
                                       S.of(context).wallet,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
+                                      style: Theme.of(context).textTheme.bodyMedium,
                                     ),
                                   ],
                                 ),
@@ -218,27 +194,23 @@ class CheckOutScreen extends StatelessWidget {
                       children: [
                         Text(
                           S.of(context).saveOnYourOrder,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontSize: ThemeSelector.fonts.font_18,
-                                  ),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontSize: ThemeSelector.fonts.font_18,
+                              ),
                         ),
                         TextFormFieldTemplate(
                           borderStyle: TextFormFieldBorderStyle.borderedRound,
                           hintText: S.of(context).enterVoucherCode,
                           prefixIcon: Container(
-                            padding: EdgeInsets.all(
-                                ThemeSelector.statics.defaultInputGap),
-                            child:
-                                SvgPicture.asset('assets/images/voucher.svg'),
+                            padding: EdgeInsets.all(ThemeSelector.statics.defaultInputGap),
+                            child: SvgPicture.asset('assets/images/voucher.svg'),
                           ),
                           suffixIcon: TextButton(
                             onPressed: () {},
                             child: Text(
                               S.of(context).submit,
                               style: TextStyle(
-                                color:
-                                    ThemeSelector.colors.secondaryTantLighter,
+                                color: ThemeSelector.colors.secondaryTantLighter,
                               ),
                             ),
                           ),
@@ -276,23 +248,16 @@ class CheckOutScreen extends StatelessWidget {
                                       context.read<BasketCubit>().closeBasket();
                                     },
                                     child: Container(
-                                      width:
-                                          ThemeSelector.statics.defaultGapXXXL *
-                                              1.5,
-                                      height: ThemeSelector
-                                          .statics.defaultTitleGapLarge,
+                                      width: ThemeSelector.statics.defaultGapXXXL * 1.5,
+                                      height: ThemeSelector.statics.defaultTitleGapLarge,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            ThemeSelector
-                                                .statics.defaultBorderRadius),
+                                        borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius),
                                         color: ThemeSelector.colors.primary,
                                       ),
                                       child: Center(
                                         child: Text(
                                           S.of(context).placeOrder,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall,
+                                          style: Theme.of(context).textTheme.displaySmall,
                                         ),
                                       ),
                                     ),

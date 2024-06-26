@@ -8,8 +8,8 @@ import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/password_validator.dart';
 
 @RoutePage()
-class PaymentPaypalScreen extends StatelessWidget {
-  const PaymentPaypalScreen({super.key});
+class PaymentStripeScreen extends StatelessWidget {
+  const PaymentStripeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +49,7 @@ class PaymentPaypalScreen extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ThemeSelector.statics.defaultBlockGap),
+                padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultBlockGap),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -68,8 +67,7 @@ class PaymentPaypalScreen extends StatelessWidget {
                               flex: 2,
                               child: TextFormFieldTemplate(
                                 hintText: S.of(context).password,
-                                borderStyle:
-                                    TextFormFieldBorderStyle.borderBottom,
+                                borderStyle: TextFormFieldBorderStyle.borderBottom,
                                 validators: passwordValidator,
                                 isPassword: true,
                               ),
@@ -97,12 +95,7 @@ class PaymentPaypalScreen extends StatelessWidget {
                           child: Container(
                             width: ThemeSelector.statics.defaultGapXXXL,
                             height: ThemeSelector.statics.defaultTitleGapLarge,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    ThemeSelector.statics.defaultBorderRadius),
-                                border: Border.all(
-                                    color: ThemeSelector.colors.primary,
-                                    width: 1)),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius), border: Border.all(color: ThemeSelector.colors.primary, width: 1)),
                             child: Center(
                               child: Text(
                                 S.of(context).cancel,
@@ -118,18 +111,15 @@ class PaymentPaypalScreen extends StatelessWidget {
                             onTap: () {},
                             child: Container(
                               width: ThemeSelector.statics.defaultGapXXXL,
-                              height:
-                                  ThemeSelector.statics.defaultTitleGapLarge,
+                              height: ThemeSelector.statics.defaultTitleGapLarge,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    ThemeSelector.statics.defaultBorderRadius),
+                                borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius),
                                 color: ThemeSelector.colors.primary,
                               ),
                               child: Center(
                                 child: Text(
                                   S.of(context).pay,
-                                  style:
-                                      Theme.of(context).textTheme.displaySmall,
+                                  style: Theme.of(context).textTheme.displaySmall,
                                 ),
                               ),
                             ),
