@@ -3,7 +3,14 @@ part of 'chef_cubit.dart';
 @freezed
 class ChefsState with _$ChefsState {
   factory ChefsState({
-    @Default(Pagination<Chef>()) Pagination<Chef> chefsPage,
+    @Default([]) List<Chef> chefs,
+    @Default(Pagination()) Pagination pagination,
+    @Default('') String error,
+    @Default(false) bool errorReported,
     @Default(0) int chefsUpdated,
   }) = _ChefsState;
+
+  ChefsState._();
+
+  String? get errorText => error.isNotEmpty && !errorReported ? error : null;
 }

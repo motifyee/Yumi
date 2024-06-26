@@ -70,9 +70,9 @@ class ChefRemoteSrc implements ChefSrc {
           .map((e) => Chef.fromJson({...e, ...e['chef']}))
           .toList();
 
-      return Pagination(
+      return Pagination<Chef>(
         data: chefs,
-        total: res.data['total'],
+        total: res.data['pagination']['total'],
         pageNumber: res.data['pagination']['page'],
         lastPage: res.data['pagination']['pages'],
       );
@@ -93,7 +93,7 @@ class ChefRemoteSrc implements ChefSrc {
           .map<Chef>((e) => Chef.fromJson({...e, ...e['chef']}))
           .toList();
 
-      return Pagination(
+      return Pagination<Chef>(
         data: chefs,
         isLoading: false,
         pageNumber: res.data['pagination']['page'],

@@ -41,7 +41,7 @@ class OrderCubit extends Cubit<OrderState> {
 
       task.fold(
         (l) => G.snackBar((l.error as DioException).response?.data['message']),
-        (r) => emit(state.copyWith(ordersPage: r)),
+        (r) => !isClosed ? emit(state.copyWith(ordersPage: r)) : null,
       );
     }
   }

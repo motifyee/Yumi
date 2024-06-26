@@ -115,7 +115,7 @@ class FavoritesScreen extends StatelessWidget {
                                         ThemeSelector.statics.defaultGap),
                                 child: Column(
                                   children: [
-                                    for (var chef in state.chefsPage.data)
+                                    for (var chef in state.chefs)
                                       ChefBanner(
                                         menuTarget: MenuTarget.preOrder,
                                         chef: chef,
@@ -134,7 +134,7 @@ class FavoritesScreen extends StatelessWidget {
                                                   .statics.defaultBorderRadius),
                                         ),
                                       ),
-                                    if (state.chefsPage.isLoading) Loading(),
+                                    if (state.pagination.isLoading) Loading(),
                                   ],
                                 ),
                               );

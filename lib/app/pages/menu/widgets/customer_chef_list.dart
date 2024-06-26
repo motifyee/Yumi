@@ -195,7 +195,7 @@ class _ChefListStatus extends StatelessWidget {
                             horizontal: ThemeSelector.statics.defaultGap),
                         child: Row(
                           children: [
-                            for (var chef in state.chefsPage.data)
+                            for (var chef in state.chefs)
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal:
@@ -215,8 +215,8 @@ class _ChefListStatus extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            if (state.chefsPage.isLoading) Loading(),
-                            if (state.chefsPage.data.isEmpty)
+                            if (state.pagination.isLoading) Loading(),
+                            if (state.chefs.isEmpty)
                               SizedBox(
                                 height: ThemeSelector
                                         .statics.defaultImageHeightSmall +
