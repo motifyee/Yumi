@@ -4,16 +4,17 @@ import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
+import 'package:yumi/statics/paginatedData.dart';
 import 'package:yumi/statics/pagination.dart';
 
 class GetFavouriteChefs
-    extends UseCase<Pagination<Chef>, GetFavouriteChefsParam> {
+    extends UseCase<PaginatedData<Chef>, GetFavouriteChefsParam> {
   final ChefRepo repo;
 
   GetFavouriteChefs({ChefRepo? repo}) : repo = repo ?? getIt<ChefRepo>();
 
   @override
-  Future<Either<Failure, Pagination<Chef>>> call(
+  Future<Either<Failure, PaginatedData<Chef>>> call(
           GetFavouriteChefsParam params) =>
       repo.getFavouriteChefs(params.pagination).run();
 }

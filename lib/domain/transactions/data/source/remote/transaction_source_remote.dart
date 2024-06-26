@@ -4,12 +4,12 @@ import 'package:yumi/domain/transactions/data/source/transaction_source.dart';
 import 'package:yumi/domain/transactions/entity/transaction.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 class TransactionSourceRemote implements TransactionSource {
   @override
-  Future<Pagination<Transaction>> getAllTransactions({
-    required Pagination<Transaction> pagination,
+  Future<PaginatedData<Transaction>> getAllTransactions({
+    required PaginatedData<Transaction> pagination,
     required String userId,
   }) async {
     final Response res = await DioClient.simpleDio().get(ApiKeys.transactions,
@@ -33,6 +33,6 @@ class TransactionSourceRemote implements TransactionSource {
       isLoading: false,
       pageNumber: res.data['pagination']['page'],
       lastPage: res.data['pagination']['pages'],
-    ) as Pagination<Transaction>;
+    ) as PaginatedData<Transaction>;
   }
 }

@@ -9,7 +9,7 @@ import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/service/meal_service.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 part 'meal_list_event.dart';
 part 'meal_list_state.dart';
@@ -19,7 +19,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       : super(MealListState(
           meals: const [],
           selectedCategory: 0,
-          pagination: const Pagination(),
+          pagination: const PaginatedData(),
           menuTarget: MenuTarget.order,
         )) {
     on<MealListUpdateEvent>((event, emit) async {
@@ -135,7 +135,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
         state.copyWith(
           meals: [],
           selectedCategory: event.selectedCategory,
-          pagination: const Pagination(),
+          pagination: const PaginatedData(),
         ),
       );
 
@@ -149,7 +149,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       emit(MealListState(
         meals: const [],
         selectedCategory: event.categoryId ?? 0,
-        pagination: const Pagination(),
+        pagination: const PaginatedData(),
         menuTarget: event.menuTarget ?? state.menuTarget,
       ));
     });
@@ -219,7 +219,7 @@ class MealListBloc extends Bloc<MealListEvent, MealListState> {
       emit(MealListState(
         meals: const [],
         selectedCategory: 0,
-        pagination: const Pagination(),
+        pagination: const PaginatedData(),
         menuTarget: MenuTarget.order,
       ));
     });

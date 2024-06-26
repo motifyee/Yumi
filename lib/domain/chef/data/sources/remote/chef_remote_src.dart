@@ -5,6 +5,7 @@ import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/domain/chef/entity/chef_work_status.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/code_generator.dart';
+import 'package:yumi/statics/paginatedData.dart';
 import 'package:yumi/statics/pagination.dart';
 
 class ChefRemoteSrc implements ChefSrc {
@@ -45,7 +46,7 @@ class ChefRemoteSrc implements ChefSrc {
   }
 
   @override
-  Future<Pagination<Chef>> getChefs({
+  Future<PaginatedData<Chef>> getChefs({
     required bool isPreOrder,
     required ChefWorkStatus? workStatus,
     required double latitude,
@@ -70,7 +71,7 @@ class ChefRemoteSrc implements ChefSrc {
           .map((e) => Chef.fromJson({...e, ...e['chef']}))
           .toList();
 
-      return Pagination<Chef>(
+      return PaginatedData<Chef>(
         data: chefs,
         total: res.data['pagination']['total'],
         pageNumber: res.data['pagination']['page'],
@@ -82,7 +83,9 @@ class ChefRemoteSrc implements ChefSrc {
   }
 
   @override
-  Future<Pagination<Chef>> getFavouriteChefs(Pagination pagination) async {
+  Future<PaginatedData<Chef>> getFavouriteChefs(
+    Pagination pagination,
+  ) async {
     try {
       final res = await DioClient.simpleDio().get(
         ApiKeys.favoriteChefs,
@@ -93,7 +96,7 @@ class ChefRemoteSrc implements ChefSrc {
           .map<Chef>((e) => Chef.fromJson({...e, ...e['chef']}))
           .toList();
 
-      return Pagination<Chef>(
+      return PaginatedData<Chef>(
         data: chefs,
         isLoading: false,
         pageNumber: res.data['pagination']['page'],

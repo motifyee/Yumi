@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CategoriesState {
-  Pagination<Category> get categoriesPage => throw _privateConstructorUsedError;
+  PaginatedData<Category> get categoriesPage =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CategoriesStateCopyWith<CategoriesState> get copyWith =>
@@ -29,9 +30,9 @@ abstract class $CategoriesStateCopyWith<$Res> {
           CategoriesState value, $Res Function(CategoriesState) then) =
       _$CategoriesStateCopyWithImpl<$Res, CategoriesState>;
   @useResult
-  $Res call({Pagination<Category> categoriesPage});
+  $Res call({PaginatedData<Category> categoriesPage});
 
-  $PaginationCopyWith<Category, $Res> get categoriesPage;
+  $PaginatedDataCopyWith<Category, $Res> get categoriesPage;
 }
 
 /// @nodoc
@@ -53,14 +54,15 @@ class _$CategoriesStateCopyWithImpl<$Res, $Val extends CategoriesState>
       categoriesPage: null == categoriesPage
           ? _value.categoriesPage
           : categoriesPage // ignore: cast_nullable_to_non_nullable
-              as Pagination<Category>,
+              as PaginatedData<Category>,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PaginationCopyWith<Category, $Res> get categoriesPage {
-    return $PaginationCopyWith<Category, $Res>(_value.categoriesPage, (value) {
+  $PaginatedDataCopyWith<Category, $Res> get categoriesPage {
+    return $PaginatedDataCopyWith<Category, $Res>(_value.categoriesPage,
+        (value) {
       return _then(_value.copyWith(categoriesPage: value) as $Val);
     });
   }
@@ -74,10 +76,10 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Pagination<Category> categoriesPage});
+  $Res call({PaginatedData<Category> categoriesPage});
 
   @override
-  $PaginationCopyWith<Category, $Res> get categoriesPage;
+  $PaginatedDataCopyWith<Category, $Res> get categoriesPage;
 }
 
 /// @nodoc
@@ -97,7 +99,7 @@ class __$$InitialImplCopyWithImpl<$Res>
       categoriesPage: null == categoriesPage
           ? _value.categoriesPage
           : categoriesPage // ignore: cast_nullable_to_non_nullable
-              as Pagination<Category>,
+              as PaginatedData<Category>,
     ));
   }
 }
@@ -105,11 +107,11 @@ class __$$InitialImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$InitialImpl implements _Initial {
-  _$InitialImpl({this.categoriesPage = const Pagination()});
+  _$InitialImpl({this.categoriesPage = const PaginatedData()});
 
   @override
   @JsonKey()
-  final Pagination<Category> categoriesPage;
+  final PaginatedData<Category> categoriesPage;
 
   @override
   String toString() {
@@ -136,10 +138,11 @@ class _$InitialImpl implements _Initial {
 }
 
 abstract class _Initial implements CategoriesState {
-  factory _Initial({final Pagination<Category> categoriesPage}) = _$InitialImpl;
+  factory _Initial({final PaginatedData<Category> categoriesPage}) =
+      _$InitialImpl;
 
   @override
-  Pagination<Category> get categoriesPage;
+  PaginatedData<Category> get categoriesPage;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

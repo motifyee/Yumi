@@ -215,7 +215,7 @@ class _ChefListStatus extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            if (state.pagination.isLoading) Loading(),
+                            if (state.chefsPagination.isLoading) Loading(),
                             if (state.chefs.isEmpty)
                               SizedBox(
                                 height: ThemeSelector

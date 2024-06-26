@@ -7,7 +7,7 @@ import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/domain/order/use_case/get_orders.dart';
 import 'package:yumi/domain/order/use_case/put_action_orders.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 part 'order_cubit.freezed.dart';
 part 'order_cubit.g.dart';
@@ -15,7 +15,7 @@ part 'order_cubit.g.dart';
 @freezed
 class OrderState with _$OrderState {
   factory OrderState({
-    @Default(Pagination()) Pagination<Order> ordersPage,
+    @Default(PaginatedData()) PaginatedData<Order> ordersPage,
   }) = _OrderState;
 
   factory OrderState.fromJson(Map<String, dynamic> json) =>
@@ -31,7 +31,7 @@ class OrderCubit extends Cubit<OrderState> {
     if (state.ordersPage.canRequest) {
       emit(state.copyWith.ordersPage(isLoading: true));
 
-      final fpdart.Either<Failure, Pagination<Order>> task =
+      final fpdart.Either<Failure, PaginatedData<Order>> task =
           await GetOrders().call(
         GetOrdersParams(
           ordersPage: state.ordersPage,

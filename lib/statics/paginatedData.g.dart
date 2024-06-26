@@ -1,21 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pagination.dart';
+part of 'paginatedData.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PaginationImpl _$$PaginationImplFromJson(Map<String, dynamic> json) =>
-    _$PaginationImpl(
+_$PaginationImpl<T> _$$PaginationImplFromJson<T>(Map<String, dynamic> json) =>
+    _$PaginationImpl<T>(
       pageNumber: (json['pageNumber'] as num?)?.toInt() ?? 0,
       pageSize: (json['pageSize'] as num?)?.toInt() ?? 20,
-      isLoading: json['isLoading'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$PaginationImplToJson(_$PaginationImpl instance) =>
+Map<String, dynamic> _$$PaginationImplToJson<T>(_$PaginationImpl<T> instance) =>
     <String, dynamic>{
       'pageNumber': _pageNumberToJson(instance.pageNumber),
       'pageSize': instance.pageSize,
-      'isLoading': instance.isLoading,
     };

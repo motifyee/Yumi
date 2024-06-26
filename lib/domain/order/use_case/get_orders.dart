@@ -4,16 +4,16 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/order/data/repo/order_repo.dart';
 import 'package:yumi/domain/order/entity/order.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
-class GetOrders extends UseCase<Pagination<Order>, GetOrdersParams> {
+class GetOrders extends UseCase<PaginatedData<Order>, GetOrdersParams> {
   final OrderRepo orderRepo;
 
   GetOrders({OrderRepo? orderRepo})
       : orderRepo = orderRepo ?? getIt<OrderRepo>();
 
   @override
-  Future<Either<Failure, Pagination<Order>>> call(GetOrdersParams params) =>
+  Future<Either<Failure, PaginatedData<Order>>> call(GetOrdersParams params) =>
       orderRepo
           .getOrders(
             apiKeys: params.apiKeys,
@@ -23,7 +23,7 @@ class GetOrders extends UseCase<Pagination<Order>, GetOrdersParams> {
 }
 
 class GetOrdersParams extends Params {
-  final Pagination<Order> ordersPage;
+  final PaginatedData<Order> ordersPage;
   final String apiKeys;
 
   GetOrdersParams({required this.ordersPage, required this.apiKeys});

@@ -1,11 +1,11 @@
 import 'package:fpdart/src/task_either.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/order/entity/order.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 abstract class OrderRepo {
-  TaskEither<Failure, Pagination<Order>> getOrders(
-      {required String apiKeys, required Pagination<Order> ordersPage});
+  TaskEither<Failure, PaginatedData<Order>> getOrders(
+      {required String apiKeys, required PaginatedData<Order> ordersPage});
 
   TaskEither<Failure, bool> putAction({
     required Order order,

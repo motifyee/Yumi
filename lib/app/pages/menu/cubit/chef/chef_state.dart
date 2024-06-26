@@ -4,7 +4,7 @@ part of 'chef_cubit.dart';
 class ChefsState with _$ChefsState {
   factory ChefsState({
     @Default([]) List<Chef> chefs,
-    @Default(Pagination()) Pagination pagination,
+    @Default(Pagination()) Pagination chefsPagination,
     @Default('') String error,
     @Default(false) bool errorReported,
     @Default(0) int chefsUpdated,

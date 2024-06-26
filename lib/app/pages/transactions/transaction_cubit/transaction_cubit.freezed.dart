@@ -20,7 +20,8 @@ TransactionState _$TransactionStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TransactionState {
-  Pagination<Transaction> get pagination => throw _privateConstructorUsedError;
+  PaginatedData<Transaction> get pagination =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,9 +35,9 @@ abstract class $TransactionStateCopyWith<$Res> {
           TransactionState value, $Res Function(TransactionState) then) =
       _$TransactionStateCopyWithImpl<$Res, TransactionState>;
   @useResult
-  $Res call({Pagination<Transaction> pagination});
+  $Res call({PaginatedData<Transaction> pagination});
 
-  $PaginationCopyWith<Transaction, $Res> get pagination;
+  $PaginatedDataCopyWith<Transaction, $Res> get pagination;
 }
 
 /// @nodoc
@@ -58,14 +59,15 @@ class _$TransactionStateCopyWithImpl<$Res, $Val extends TransactionState>
       pagination: null == pagination
           ? _value.pagination
           : pagination // ignore: cast_nullable_to_non_nullable
-              as Pagination<Transaction>,
+              as PaginatedData<Transaction>,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PaginationCopyWith<Transaction, $Res> get pagination {
-    return $PaginationCopyWith<Transaction, $Res>(_value.pagination, (value) {
+  $PaginatedDataCopyWith<Transaction, $Res> get pagination {
+    return $PaginatedDataCopyWith<Transaction, $Res>(_value.pagination,
+        (value) {
       return _then(_value.copyWith(pagination: value) as $Val);
     });
   }
@@ -79,10 +81,10 @@ abstract class _$$TransactionStateImplCopyWith<$Res>
       __$$TransactionStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Pagination<Transaction> pagination});
+  $Res call({PaginatedData<Transaction> pagination});
 
   @override
-  $PaginationCopyWith<Transaction, $Res> get pagination;
+  $PaginatedDataCopyWith<Transaction, $Res> get pagination;
 }
 
 /// @nodoc
@@ -102,7 +104,7 @@ class __$$TransactionStateImplCopyWithImpl<$Res>
       pagination: null == pagination
           ? _value.pagination
           : pagination // ignore: cast_nullable_to_non_nullable
-              as Pagination<Transaction>,
+              as PaginatedData<Transaction>,
     ));
   }
 }
@@ -116,7 +118,7 @@ class _$TransactionStateImpl implements _TransactionState {
       _$$TransactionStateImplFromJson(json);
 
   @override
-  final Pagination<Transaction> pagination;
+  final PaginatedData<Transaction> pagination;
 
   @override
   String toString() {
@@ -153,14 +155,14 @@ class _$TransactionStateImpl implements _TransactionState {
 
 abstract class _TransactionState implements TransactionState {
   const factory _TransactionState(
-          {required final Pagination<Transaction> pagination}) =
+          {required final PaginatedData<Transaction> pagination}) =
       _$TransactionStateImpl;
 
   factory _TransactionState.fromJson(Map<String, dynamic> json) =
       _$TransactionStateImpl.fromJson;
 
   @override
-  Pagination<Transaction> get pagination;
+  PaginatedData<Transaction> get pagination;
   @override
   @JsonKey(ignore: true)
   _$$TransactionStateImplCopyWith<_$TransactionStateImpl> get copyWith =>

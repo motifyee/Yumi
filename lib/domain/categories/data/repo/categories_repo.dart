@@ -1,26 +1,26 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/domain/categories/entity/category.dart';
 import 'package:yumi/core/failures.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 abstract class CategoriesRepo {
-  TaskEither<Failure, Pagination<Category>> getCategories({
+  TaskEither<Failure, PaginatedData<Category>> getCategories({
     bool isPreOrder = false,
-    Pagination? pagination,
+    PaginatedData? pagination,
   });
-  TaskEither<Failure, Pagination<Category>> getChefCategories({
+  TaskEither<Failure, PaginatedData<Category>> getChefCategories({
     bool isPreOrder = false,
-    Pagination? pagination,
+    PaginatedData? pagination,
   });
-  TaskEither<Failure, Pagination<Category>> getCustomerCategories({
+  TaskEither<Failure, PaginatedData<Category>> getCustomerCategories({
     bool isPreOrder = false,
     double? latitude,
     double? longitude,
-    Pagination? pagination,
+    PaginatedData? pagination,
   });
-  TaskEither<Failure, Pagination<Category>> getCustomerCategoriesByChefId({
+  TaskEither<Failure, PaginatedData<Category>> getCustomerCategoriesByChefId({
     required String chefId,
     bool isPreOrder = false,
-    Pagination? pagination,
+    PaginatedData? pagination,
   });
 }

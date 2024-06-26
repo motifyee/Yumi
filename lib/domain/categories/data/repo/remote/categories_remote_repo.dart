@@ -4,7 +4,7 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/domain/categories/data/repo/categories_repo.dart';
 import 'package:yumi/domain/categories/data/source/categories_src.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 class CategoriesRemoteRepo implements CategoriesRepo {
   final CategoriesSrc categoriesSrc;
@@ -13,9 +13,9 @@ class CategoriesRemoteRepo implements CategoriesRepo {
       : categoriesSrc = categoriesSrc ?? getIt<CategoriesSrc>();
 
   @override
-  TaskEither<Failure, Pagination<Category>> getCategories({
+  TaskEither<Failure, PaginatedData<Category>> getCategories({
     bool isPreOrder = false,
-    Pagination? pagination,
+    PaginatedData? pagination,
   }) =>
       TaskEither.tryCatch(
         () => categoriesSrc.getCategories(
@@ -26,9 +26,9 @@ class CategoriesRemoteRepo implements CategoriesRepo {
       );
 
   @override
-  TaskEither<Failure, Pagination<Category>> getChefCategories({
+  TaskEither<Failure, PaginatedData<Category>> getChefCategories({
     bool isPreOrder = false,
-    Pagination? pagination,
+    PaginatedData? pagination,
   }) =>
       TaskEither.tryCatch(
         () => categoriesSrc.getChefCategories(
@@ -39,11 +39,11 @@ class CategoriesRemoteRepo implements CategoriesRepo {
       );
 
   @override
-  TaskEither<Failure, Pagination<Category>> getCustomerCategories({
+  TaskEither<Failure, PaginatedData<Category>> getCustomerCategories({
     bool isPreOrder = false,
     double? latitude,
     double? longitude,
-    Pagination? pagination,
+    PaginatedData? pagination,
   }) =>
       TaskEither.tryCatch(
         () => categoriesSrc.getCustomerCategories(
@@ -56,10 +56,10 @@ class CategoriesRemoteRepo implements CategoriesRepo {
       );
 
   @override
-  TaskEither<Failure, Pagination<Category>> getCustomerCategoriesByChefId({
+  TaskEither<Failure, PaginatedData<Category>> getCustomerCategoriesByChefId({
     required String chefId,
     bool isPreOrder = false,
-    Pagination? pagination,
+    PaginatedData? pagination,
   }) =>
       TaskEither.tryCatch(
         () => categoriesSrc.getCustomerCategoriesByChefId(

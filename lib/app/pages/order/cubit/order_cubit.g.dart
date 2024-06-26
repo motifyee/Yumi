@@ -9,8 +9,8 @@ part of 'order_cubit.dart';
 _$OrderStateImpl _$$OrderStateImplFromJson(Map<String, dynamic> json) =>
     _$OrderStateImpl(
       ordersPage: json['ordersPage'] == null
-          ? const Pagination()
-          : Pagination<Order>.fromJson(
+          ? const PaginatedData()
+          : PaginatedData<Order>.fromJson(
               json['ordersPage'] as Map<String, dynamic>),
     );
 

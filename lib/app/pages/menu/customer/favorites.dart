@@ -134,7 +134,8 @@ class FavoritesScreen extends StatelessWidget {
                                                   .statics.defaultBorderRadius),
                                         ),
                                       ),
-                                    if (state.pagination.isLoading) Loading(),
+                                    if (state.chefsPagination.isLoading)
+                                      Loading(),
                                   ],
                                 ),
                               );

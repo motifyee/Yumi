@@ -3,12 +3,12 @@ part of 'calories_cubit.dart';
 @freezed
 class CaloriesState with _$CaloriesState {
   const factory CaloriesState({
-    required Pagination<Calories> pagination,
+    required PaginatedData<Calories> pagination,
   }) = _CaloriesState;
 
   factory CaloriesState.initail() {
     return CaloriesState(
-      pagination: const Pagination<Calories>(data: <Calories>[]),
+      pagination: const PaginatedData<Calories>(data: <Calories>[]),
     );
   }
 

@@ -4,13 +4,13 @@ import 'package:yumi/domain/categories/entity/category.dart';
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/categories/data/source/categories_src.dart';
 import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 class CategoriesRemoteSrc implements CategoriesSrc {
   @override
-  Future<Pagination<Category>> getCategories({
+  Future<PaginatedData<Category>> getCategories({
     bool isPreOrder = false,
-    Pagination? pagination,
+    PaginatedData? pagination,
   }) async {
     try {
       final res = await DioClient.simpleDio().get(
@@ -23,7 +23,7 @@ class CategoriesRemoteSrc implements CategoriesSrc {
 
       final data = jsonDecode(res.toString());
 
-      return Pagination(
+      return PaginatedData(
         data: data['data'].map((v) => Category.fromJson(v)).toList(),
         pageNumber: data['pagination']['page'],
         lastPage: data['pagination']['pages'],
@@ -35,9 +35,9 @@ class CategoriesRemoteSrc implements CategoriesSrc {
   }
 
   @override
-  Future<Pagination<Category>> getChefCategories({
+  Future<PaginatedData<Category>> getChefCategories({
     bool isPreOrder = false,
-    Pagination? pagination,
+    PaginatedData? pagination,
   }) async {
     try {
       final res = await DioClient.simpleDio().get(
@@ -50,7 +50,7 @@ class CategoriesRemoteSrc implements CategoriesSrc {
 
       final data = jsonDecode(res.toString());
 
-      return Pagination(
+      return PaginatedData(
         data: data['data'].map((v) => Category.fromJson(v)).toList(),
         pageNumber: data['pagination']['page'],
         lastPage: data['pagination']['pages'],
@@ -62,11 +62,11 @@ class CategoriesRemoteSrc implements CategoriesSrc {
   }
 
   @override
-  Future<Pagination<Category>> getCustomerCategories({
+  Future<PaginatedData<Category>> getCustomerCategories({
     bool isPreOrder = false,
     double? latitude,
     double? longitude,
-    Pagination? pagination,
+    PaginatedData? pagination,
   }) async {
     try {
       final res = await DioClient.simpleDio().get(
@@ -81,7 +81,7 @@ class CategoriesRemoteSrc implements CategoriesSrc {
 
       final data = jsonDecode(res.toString());
 
-      return Pagination(
+      return PaginatedData(
         data: data['data'].map((v) => Category.fromJson(v)).toList(),
         pageNumber: data['pagination']['page'],
         lastPage: data['pagination']['pages'],
@@ -93,10 +93,10 @@ class CategoriesRemoteSrc implements CategoriesSrc {
   }
 
   @override
-  Future<Pagination<Category>> getCustomerCategoriesByChefId({
+  Future<PaginatedData<Category>> getCustomerCategoriesByChefId({
     required String chefId,
     bool isPreOrder = false,
-    Pagination? pagination,
+    PaginatedData? pagination,
   }) async {
     try {
       final res = await DioClient.simpleDio().get(
@@ -110,7 +110,7 @@ class CategoriesRemoteSrc implements CategoriesSrc {
 
       final data = jsonDecode(res.toString());
 
-      return Pagination(
+      return PaginatedData(
         data: data['data'].map((v) => Category.fromJson(v)).toList(),
         pageNumber: data['pagination']['page'],
         lastPage: data['pagination']['pages'],

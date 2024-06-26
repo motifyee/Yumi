@@ -20,7 +20,7 @@ OrderState _$OrderStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OrderState {
-  Pagination<Order> get ordersPage => throw _privateConstructorUsedError;
+  PaginatedData<Order> get ordersPage => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,9 +34,9 @@ abstract class $OrderStateCopyWith<$Res> {
           OrderState value, $Res Function(OrderState) then) =
       _$OrderStateCopyWithImpl<$Res, OrderState>;
   @useResult
-  $Res call({Pagination<Order> ordersPage});
+  $Res call({PaginatedData<Order> ordersPage});
 
-  $PaginationCopyWith<Order, $Res> get ordersPage;
+  $PaginatedDataCopyWith<Order, $Res> get ordersPage;
 }
 
 /// @nodoc
@@ -58,14 +58,14 @@ class _$OrderStateCopyWithImpl<$Res, $Val extends OrderState>
       ordersPage: null == ordersPage
           ? _value.ordersPage
           : ordersPage // ignore: cast_nullable_to_non_nullable
-              as Pagination<Order>,
+              as PaginatedData<Order>,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PaginationCopyWith<Order, $Res> get ordersPage {
-    return $PaginationCopyWith<Order, $Res>(_value.ordersPage, (value) {
+  $PaginatedDataCopyWith<Order, $Res> get ordersPage {
+    return $PaginatedDataCopyWith<Order, $Res>(_value.ordersPage, (value) {
       return _then(_value.copyWith(ordersPage: value) as $Val);
     });
   }
@@ -79,10 +79,10 @@ abstract class _$$OrderStateImplCopyWith<$Res>
       __$$OrderStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Pagination<Order> ordersPage});
+  $Res call({PaginatedData<Order> ordersPage});
 
   @override
-  $PaginationCopyWith<Order, $Res> get ordersPage;
+  $PaginatedDataCopyWith<Order, $Res> get ordersPage;
 }
 
 /// @nodoc
@@ -102,7 +102,7 @@ class __$$OrderStateImplCopyWithImpl<$Res>
       ordersPage: null == ordersPage
           ? _value.ordersPage
           : ordersPage // ignore: cast_nullable_to_non_nullable
-              as Pagination<Order>,
+              as PaginatedData<Order>,
     ));
   }
 }
@@ -110,14 +110,14 @@ class __$$OrderStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$OrderStateImpl implements _OrderState {
-  _$OrderStateImpl({this.ordersPage = const Pagination()});
+  _$OrderStateImpl({this.ordersPage = const PaginatedData()});
 
   factory _$OrderStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$OrderStateImplFromJson(json);
 
   @override
   @JsonKey()
-  final Pagination<Order> ordersPage;
+  final PaginatedData<Order> ordersPage;
 
   @override
   String toString() {
@@ -152,13 +152,14 @@ class _$OrderStateImpl implements _OrderState {
 }
 
 abstract class _OrderState implements OrderState {
-  factory _OrderState({final Pagination<Order> ordersPage}) = _$OrderStateImpl;
+  factory _OrderState({final PaginatedData<Order> ordersPage}) =
+      _$OrderStateImpl;
 
   factory _OrderState.fromJson(Map<String, dynamic> json) =
       _$OrderStateImpl.fromJson;
 
   @override
-  Pagination<Order> get ordersPage;
+  PaginatedData<Order> get ordersPage;
   @override
   @JsonKey(ignore: true)
   _$$OrderStateImplCopyWith<_$OrderStateImpl> get copyWith =>

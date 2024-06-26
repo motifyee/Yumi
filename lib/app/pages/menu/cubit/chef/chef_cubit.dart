@@ -26,13 +26,13 @@ class ChefsCubit extends Cubit<ChefsState> {
     if (userLocation?.latitude == null) return;
     if (userLocation?.longitude == null) return;
 
-    if (!state.pagination.canRequest) return;
-    emit(state.copyWith.pagination(isLoading: true));
+    if (!state.chefsPagination.canRequest) return;
+    emit(state.copyWith.chefsPagination(isLoading: true));
 
     final params = GetChefsParam(
       status: status,
       isPreOrder: isPreOrder,
-      pagination: state.pagination,
+      pagination: state.chefsPagination,
       latitude: userLocation!.latitude!,
       longitude: userLocation.longitude!,
     );
@@ -43,7 +43,7 @@ class ChefsCubit extends Cubit<ChefsState> {
     chefs.fold(
       (l) => emit(
         state.copyWith(
-          pagination: state.pagination.copyWith(isLoading: false),
+          chefsPagination: state.chefsPagination.copyWith(isLoading: false),
           error: l.error.toString(),
           errorReported: false,
         ),
@@ -51,7 +51,7 @@ class ChefsCubit extends Cubit<ChefsState> {
       (r) => emit(
         state.copyWith(
           chefs: [...r.data, ...state.chefs],
-          pagination: r.copyWith(isLoading: false),
+          chefsPagination: r.pagination.copyWith(isLoading: false),
         ),
       ),
     );
@@ -64,21 +64,21 @@ class ChefsCubit extends Cubit<ChefsState> {
       return;
     }
 
-    if (!state.pagination.canRequest) return;
+    if (!state.chefsPagination.canRequest) return;
 
-    emit(state.copyWith.pagination(isLoading: true));
+    emit(state.copyWith.chefsPagination(isLoading: true));
 
-    final params = GetFavouriteChefsParam(state.pagination);
+    final params = GetFavouriteChefsParam(state.chefsPagination);
     final favouriteChefs = await GetFavouriteChefs().call(params);
 
     if (isClosed) return;
 
     favouriteChefs.fold(
-      (l) => emit(state.copyWith.pagination(isLoading: false)),
+      (l) => emit(state.copyWith.chefsPagination(isLoading: false)),
       (r) => emit(
         state.copyWith(
-          chefs: [...r.data, ...state.pagination.data],
-          pagination: r.copyWith(isLoading: false),
+          chefs: [...state.chefs, ...r.data],
+          chefsPagination: r.pagination.copyWith(isLoading: false),
         ),
       ),
     );

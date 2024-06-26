@@ -1,24 +1,24 @@
 import 'package:yumi/domain/categories/entity/category.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 abstract class CategoriesSrc {
-  Future<Pagination<Category>> getCategories({
+  Future<PaginatedData<Category>> getCategories({
     bool isPreOrder = false,
-    Pagination? pagination,
+    PaginatedData? pagination,
   });
-  Future<Pagination<Category>> getChefCategories({
+  Future<PaginatedData<Category>> getChefCategories({
     bool isPreOrder = false,
-    Pagination? pagination,
+    PaginatedData? pagination,
   });
-  Future<Pagination<Category>> getCustomerCategories({
+  Future<PaginatedData<Category>> getCustomerCategories({
     bool isPreOrder = false,
     double? latitude,
     double? longitude,
-    Pagination? pagination,
+    PaginatedData? pagination,
   });
-  Future<Pagination<Category>> getCustomerCategoriesByChefId({
+  Future<PaginatedData<Category>> getCustomerCategoriesByChefId({
     required String chefId,
     bool isPreOrder = false,
-    Pagination? pagination,
+    PaginatedData? pagination,
   });
 }

@@ -4,17 +4,17 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/transactions/data/repo/transaction_repo.dart';
 import 'package:yumi/domain/transactions/entity/transaction.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 class GetAllTransaction
-    extends UseCase<Pagination<Transaction>, GetAllTransactionParams> {
+    extends UseCase<PaginatedData<Transaction>, GetAllTransactionParams> {
   final TransactionRepo transactionRepo;
 
   GetAllTransaction({TransactionRepo? transactionRepo})
       : transactionRepo = transactionRepo ?? getIt<TransactionRepo>();
 
   @override
-  Future<Either<Failure, Pagination<Transaction>>> call(
+  Future<Either<Failure, PaginatedData<Transaction>>> call(
           GetAllTransactionParams params) =>
       transactionRepo
           .getAllTransaction(
@@ -23,7 +23,7 @@ class GetAllTransaction
 }
 
 class GetAllTransactionParams extends Params {
-  final Pagination<Transaction> pagination;
+  final PaginatedData<Transaction> pagination;
   final String userId;
 
   GetAllTransactionParams({required this.pagination, required this.userId});

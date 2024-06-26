@@ -7,14 +7,14 @@ import 'package:yumi/domain/categories/use_cases/get_customer_categories.dart';
 import 'package:yumi/domain/categories/use_cases/get_customer_categories_by_chef_id.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 part 'categories_cubit.freezed.dart';
 
 @freezed
 class CategoriesState with _$CategoriesState {
   factory CategoriesState({
-    @Default(Pagination()) Pagination<Category> categoriesPage,
+    @Default(PaginatedData()) PaginatedData<Category> categoriesPage,
   }) = _Initial;
 }
 
@@ -28,7 +28,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
     emit(state.copyWith.categoriesPage(isLoading: true));
 
-    Pagination<Category> categoriesPage = state.categoriesPage;
+    PaginatedData<Category> categoriesPage = state.categoriesPage;
 
     if (G.isCustomerApp) {
       final params = GetCustomerCategoriesParams(
@@ -54,7 +54,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       categoriesPage: categoriesPage.copyWith(
         isLoading: false,
         data: [...state.categoriesPage.data, ...categoriesPage.data],
-      ) as Pagination<Category>,
+      ) as PaginatedData<Category>,
     ));
   }
 
@@ -66,7 +66,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
     emit(state.copyWith.categoriesPage(isLoading: true));
 
-    Pagination<Category> categoriesPage = state.categoriesPage;
+    PaginatedData<Category> categoriesPage = state.categoriesPage;
 
     if (G.isCustomerApp) {
       final params = GetCustomerCategoriesByChefIdParams(
@@ -91,13 +91,13 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       categoriesPage: categoriesPage.copyWith(
         isLoading: false,
         data: [...state.categoriesPage.data, ...categoriesPage.data],
-      ) as Pagination<Category>,
+      ) as PaginatedData<Category>,
     ));
   }
 
   void reset() {
     emit(state.copyWith(
-      categoriesPage: const Pagination(),
+      categoriesPage: const PaginatedData(),
     ));
   }
 }
