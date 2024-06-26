@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,10 @@ import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/form/meal_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/ingredient_form/ingredient_form_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/ingredient.dart';
 import 'package:yumi/app/pages/menu/widgets/ingredients_form.dart';
+import 'package:yumi/extensions/double.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/service/meal_service.dart';
@@ -42,6 +47,8 @@ class MealForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    state() => context.read<MealFormBloc>().state;
+
     if (meal != null) {
       fetchMeal(meal: meal!, context: context);
     } else {
@@ -81,14 +88,14 @@ class MealForm extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    BlocBuilder<MealFormBloc, MealFormState>(
-                      buildWhen: (previous, current) =>
-                          previous.mealModel.photo != current.mealModel.photo,
-                      builder: (context, state) {
+                    // Image
+                    BlocSelector<MealFormBloc, MealFormState, String?>(
+                      selector: (state) => state.mealModel.photo,
+                      builder: (context, photo) {
                         return Column(
                           children: [
                             UploadPhotoButton(
-                              defaultImage: state.mealModel.photo,
+                              defaultImage: photo,
                               onPressed: (image) {
                                 if (image != null) {
                                   context.read<MealFormBloc>().add(
@@ -102,7 +109,7 @@ class MealForm extends StatelessWidget {
                                 }
                               },
                             ),
-                            if (state.mealModel.photo == null)
+                            if (photo == null)
                               Text(S.of(context).required,
                                   style:
                                       Theme.of(context).textTheme.titleSmall),
@@ -112,276 +119,271 @@ class MealForm extends StatelessWidget {
                         );
                       },
                     ),
-                    BlocConsumer<MealFormBloc, MealFormState>(
-                      listener: (context, state) {},
-                      builder: (context, state) {
-                        return Column(
-                          children: [
-                            TextFormFieldTemplate(
-                              label: S.of(context).mealName,
-                              labelIcon: 'assets/images/meal_name.svg',
-                              borderStyle:
-                                  TextFormFieldBorderStyle.borderBottom,
-                              initialValue: state.mealModel.name,
-                              validators: requiredValidator,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    CustomRegex.lettersNumbersBlankOnly)
-                              ],
-                              onChange: (value) {
-                                context.read<MealFormBloc>().add(
-                                    MealFormUpdateEvent(
-                                        mealModel: state.mealModel
-                                            .copyWith(name: value ?? '')));
-                              },
-                            ),
-                            SizedBox(
-                                height: ThemeSelector.statics.defaultLineGap),
-                            TextFormFieldTemplate(
+
+                    // Fields
+                    Column(
+                      children: [
+                        TextFormFieldTemplate(
+                          label: S.of(context).mealName,
+                          labelIcon: 'assets/images/meal_name.svg',
+                          borderStyle: TextFormFieldBorderStyle.borderBottom,
+                          initialValue: state().mealModel.name,
+                          validators: requiredValidator,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                CustomRegex.lettersNumbersBlankOnly)
+                          ],
+                          onChange: (value) {
+                            context.read<MealFormBloc>().add(
+                                MealFormUpdateEvent(
+                                    mealModel: state()
+                                        .mealModel
+                                        .copyWith(name: value ?? '')));
+                          },
+                        ),
+                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        BlocSelector<MealFormBloc, MealFormState,
+                            List<Ingredient>?>(
+                          selector: (state) {
+                            return state.mealModel.ingredients;
+                          },
+                          builder: (context, ingredients) {
+                            return TextFormFieldTemplate(
                               key: const Key('ingredients_meal_form'),
                               label: S.of(context).ingredients,
                               labelIcon: 'assets/images/ingredient.svg',
                               borderStyle:
                                   TextFormFieldBorderStyle.borderBottom,
-                              initialValue: state.mealModel.ingredients
+                              initialValue: ingredients
                                   ?.map((e) => '${e.portionGrams} ${e.name}')
                                   .join(', '),
                               validators: requiredValidator,
                               readOnly: true,
                               onTap: () {
                                 context.read<IngredientFormBloc>().add(
-                                    IngredientFormUpdateEvent(
-                                        ingredientsModel:
-                                            state.mealModel.ingredients ?? []));
+                                      IngredientFormUpdateEvent(
+                                          ingredientsModel: ingredients ?? []),
+                                    );
                                 showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    context: context,
-                                    builder: (context) => IngredientsForm(
-                                          ingredientFormKey: ingredientForm,
-                                        ));
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  context: context,
+                                  builder: (context) => IngredientsForm(
+                                    ingredientFormKey: ingredientForm,
+                                  ),
+                                );
                               },
-                            ),
-                            SizedBox(
-                                height: ThemeSelector.statics.defaultLineGap),
-                            TextFormFieldTemplate(
-                              label: S.of(context).calories,
-                              labelIcon: 'assets/images/calories.svg',
-                              borderStyle:
-                                  TextFormFieldBorderStyle.borderBottom,
-                              textInputType: TextInputType.number,
-                              initialValue: state.mealModel.caloriesValue,
-                              validators: requiredValidator,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    CustomRegex.numberWith2DecimalOnly)
-                              ],
-                              onChange: (value) {
-                                context.read<MealFormBloc>().add(
-                                    MealFormUpdateEvent(
-                                        mealModel: state.mealModel
-                                            .copyWith(caloriesValue: value)));
-                              },
-                            ),
-                            SizedBox(
-                                height: ThemeSelector.statics.defaultLineGap),
-                            TextFormFieldTemplate(
-                              label: S.of(context).preparationTime,
-                              labelHint: '(${S.of(context).min})',
-                              labelIcon: 'assets/images/preperation_time.svg',
-                              subLabel: S.of(context).maximum25Minutes,
-                              enabled: false,
-                              borderStyle:
-                                  TextFormFieldBorderStyle.borderBottom,
-                              validators: requiredValidator,
-                              onChange: (value) {
-                                context.read<MealFormBloc>().add(
-                                    MealFormUpdateEvent(
-                                        mealModel: state.mealModel
-                                            .copyWith(preparationTime: value)));
-                              },
-                              textInputType: TextInputType.number,
-                              initialValue: state.mealModel.preparationTime,
-                            ),
-                            SizedBox(
-                                height: ThemeSelector.statics.defaultLineGap),
-                            TextFormFieldTemplate(
-                              label: S.of(context).price,
-                              labelHint: '(${S.of(context).currency})',
-                              labelIcon: 'assets/images/price.svg',
-                              borderStyle:
-                                  TextFormFieldBorderStyle.borderBottom,
-                              initialValue: state.mealModel.price1,
-                              validators: requiredValidator,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    CustomRegex.numberWith2DecimalOnly)
-                              ],
-                              onChange: (value) {
-                                context.read<MealFormBloc>().add(
-                                    MealFormUpdateEvent(
-                                        mealModel: state.mealModel
-                                            .copyWith(price1: value)));
-                              },
-                              textInputType: TextInputType.number,
-                            ),
-                            SizedBox(
-                                height: ThemeSelector.statics.defaultLineGap),
-                            TextFormFieldTemplate(
-                              label: S.of(context).portion,
-                              labelHint: '(${S.of(context).forHowManyPerson})',
-                              labelIcon: 'assets/images/description.svg',
-                              borderStyle:
-                                  TextFormFieldBorderStyle.borderBottom,
-                              initialValue: state.mealModel.portionPersons,
-                              textInputType: TextInputType.number,
-                              validators: requiredValidator,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    CustomRegex.numberOnly)
-                              ],
-                              onChange: (value) {
-                                context.read<MealFormBloc>().add(
-                                    MealFormUpdateEvent(
-                                        mealModel: state.mealModel
-                                            .copyWith(portionPersons: value)));
-                              },
-                            ),
-                            SizedBox(
-                                height: ThemeSelector.statics.defaultLineGap),
-                            BlocProvider(
-                              create: (context) => CategoriesCubit(),
-                              child: BlocConsumer<CategoriesCubit,
-                                  CategoriesState>(
-                                listener: (context, state) {},
-                                builder: (context, state) {
-                                  return PaginationTemplate(
-                                    loadDate: () => context
-                                        .read<CategoriesCubit>()
-                                        .getAllCategories(
-                                          isPreOrder:
-                                              menuTarget == MenuTarget.preOrder,
-                                        ),
-                                    // .add(GetCategoriesEvent(
-                                    //     context: context,
-                                    //     isPreOrder: menuTarget ==
-                                    //         MenuTarget.preOrder,
-                                    //     isAll: true)),
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: state
-                                              .categoriesPage.data.isEmpty
-                                          ? [Loading()]
-                                          : [
-                                              for (var category in state
-                                                      .categoriesPage.data ??
+                            );
+                          },
+                        ),
+                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        TextFormFieldTemplate(
+                          label: S.of(context).calories,
+                          labelIcon: 'assets/images/calories.svg',
+                          borderStyle: TextFormFieldBorderStyle.borderBottom,
+                          textInputType: TextInputType.number,
+                          initialValue:
+                              state().mealModel.caloriesValue?.toTextField,
+                          validators: requiredValidator,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                CustomRegex.numberWith2DecimalOnly)
+                          ],
+                          onChange: (value) {
+                            context.read<MealFormBloc>().add(
+                                MealFormUpdateEvent(
+                                    mealModel: state().mealModel.copyWith(
+                                        caloriesValue:
+                                            double.tryParse(value))));
+                          },
+                        ),
+                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        TextFormFieldTemplate(
+                          label: S.of(context).preparationTime,
+                          labelHint: '(${S.of(context).min})',
+                          labelIcon: 'assets/images/preperation_time.svg',
+                          subLabel: S.of(context).maximum25Minutes,
+                          enabled: false,
+                          borderStyle: TextFormFieldBorderStyle.borderBottom,
+                          validators: requiredValidator,
+                          onChange: (value) {
+                            context.read<MealFormBloc>().add(
+                                MealFormUpdateEvent(
+                                    mealModel: state().mealModel.copyWith(
+                                        preparationTime:
+                                            double.tryParse(value))));
+                          },
+                          textInputType: TextInputType.number,
+                          initialValue:
+                              state().mealModel.preparationTime?.toTextField,
+                        ),
+                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        TextFormFieldTemplate(
+                          label: S.of(context).price,
+                          labelHint: '(${S.of(context).currency})',
+                          labelIcon: 'assets/images/price.svg',
+                          borderStyle: TextFormFieldBorderStyle.borderBottom,
+                          initialValue: state().mealModel.price1?.toTextField,
+                          validators: requiredValidator,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                CustomRegex.numberWith2DecimalOnly)
+                          ],
+                          onChange: (value) {
+                            context.read<MealFormBloc>().add(
+                                MealFormUpdateEvent(
+                                    mealModel: state().mealModel.copyWith(
+                                        price1: double.tryParse(value))));
+                          },
+                          textInputType: TextInputType.number,
+                        ),
+                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        TextFormFieldTemplate(
+                          label: S.of(context).portion,
+                          labelHint: '(${S.of(context).forHowManyPerson})',
+                          labelIcon: 'assets/images/description.svg',
+                          borderStyle: TextFormFieldBorderStyle.borderBottom,
+                          initialValue:
+                              state().mealModel.portionPersons?.toTextField,
+                          textInputType: TextInputType.number,
+                          validators: requiredValidator,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                CustomRegex.numberOnly)
+                          ],
+                          onChange: (value) {
+                            context.read<MealFormBloc>().add(
+                                MealFormUpdateEvent(
+                                    mealModel: state().mealModel.copyWith(
+                                        portionPersons:
+                                            double.tryParse(value))));
+                          },
+                        ),
+                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        BlocProvider(
+                          create: (context) => CategoriesCubit(),
+                          child: BlocConsumer<CategoriesCubit, CategoriesState>(
+                            listener: (context, state) {},
+                            builder: (context, state) {
+                              return PaginationTemplate(
+                                loadDate: () => context
+                                    .read<CategoriesCubit>()
+                                    .getAllCategories(
+                                      isPreOrder:
+                                          menuTarget == MenuTarget.preOrder,
+                                    ),
+                                // .add(GetCategoriesEvent(
+                                //     context: context,
+                                //     isPreOrder: menuTarget ==
+                                //         MenuTarget.preOrder,
+                                //     isAll: true)),
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: state.categoriesPage.data.isEmpty
+                                      ? [Loading()]
+                                      : [
+                                          for (var category
+                                              in state.categoriesPage.data ??
                                                   [])
-                                                BlocConsumer<MealFormBloc,
-                                                    MealFormState>(
-                                                  listener: (context, state) {},
-                                                  builder: (context, state) {
-                                                    return Container(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal:
-                                                                  ThemeSelector
-                                                                      .statics
-                                                                      .defaultGap),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                          Checkbox(
-                                                            value: state
-                                                                    .mealModel
-                                                                    .categoryIds
-                                                                    ?.contains(
-                                                                        category
-                                                                            .id) ??
-                                                                false,
-                                                            onChanged:
-                                                                (bool? value) {
-                                                              var listCat = state
-                                                                      .mealModel
-                                                                      .categoryIds ??
-                                                                  [];
+                                            BlocConsumer<MealFormBloc,
+                                                MealFormState>(
+                                              listener: (context, state) {},
+                                              builder: (context, state) {
+                                                return Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: ThemeSelector
+                                                          .statics.defaultGap),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      Checkbox(
+                                                        value: state.mealModel
+                                                                .categoryIds
+                                                                ?.contains(
+                                                                    category
+                                                                        .id) ??
+                                                            false,
+                                                        onChanged:
+                                                            (bool? value) {
+                                                          var listCat = List<
+                                                              int>.from(state
+                                                                  .mealModel
+                                                                  .categoryIds ??
+                                                              []);
 
-                                                              if (value ==
-                                                                  true) {
-                                                                listCat.add(
+                                                          if (value == true) {
+                                                            listCat.add(
+                                                                category.id);
+                                                          } else {
+                                                            listCat.removeWhere(
+                                                                (element) =>
+                                                                    element ==
                                                                     category
                                                                         .id);
-                                                              } else {
-                                                                listCat.removeWhere(
-                                                                    (element) =>
-                                                                        element ==
-                                                                        category
-                                                                            .id);
-                                                              }
-                                                              context.read<MealFormBloc>().add(MealFormUpdateEvent(
+                                                          }
+                                                          context
+                                                              .read<
+                                                                  MealFormBloc>()
+                                                              .add(MealFormUpdateEvent(
                                                                   mealModel: state
                                                                       .mealModel
                                                                       .copyWith(
                                                                           categoryIds:
                                                                               listCat)));
-                                                            },
-                                                          ),
-                                                          Text(category.name),
-                                                        ],
+                                                        },
                                                       ),
-                                                    );
-                                                  },
-                                                ),
-                                              SizedBox(
-                                                width: ThemeSelector
-                                                    .statics.defaultTitleGap,
-                                                child: state.categoriesPage
-                                                        .isLoading
+                                                      Text(category.name),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          SizedBox(
+                                            width: ThemeSelector
+                                                .statics.defaultTitleGap,
+                                            child:
+                                                state.categoriesPage.isLoading
                                                     ? Loading(
                                                         size: ThemeSelector
                                                             .statics
                                                             .defaultTitleGap)
                                                     : const Text(''),
-                                              ),
-                                            ],
-                                    ),
-                                  );
-                                },
+                                          ),
+                                        ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        if (state().mealModel.categoryIds?.isEmpty ?? true)
+                          Text(
+                            S.of(context).required,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                context.router.popForced();
+                              },
+                              child: Text(
+                                S.of(context).cancel,
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ),
-                            if (state.mealModel.categoryIds?.isEmpty ?? true)
-                              Text(
-                                S.of(context).required,
-                                style: Theme.of(context).textTheme.titleSmall,
-                              ),
-                            SizedBox(
-                                height: ThemeSelector.statics.defaultLineGap),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                TextButton(
-                                  onPressed: () {
-                                    context.router.popForced();
-                                  },
-                                  child: Text(
-                                    S.of(context).cancel,
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                ),
-                                _SaveBTN(
-                                  menuTarget: menuTarget,
-                                  state: state,
-                                  meal: meal,
-                                  mealForm: mealForm,
-                                ),
-                              ],
+                            _SaveBTN(
+                              menuTarget: menuTarget,
+                              meal: meal,
+                              mealForm: mealForm,
                             ),
                           ],
-                        );
-                      },
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -395,16 +397,15 @@ class MealForm extends StatelessWidget {
 }
 
 class _SaveBTN extends StatefulWidget {
-  _SaveBTN(
-      {required this.mealForm,
-      required this.menuTarget,
-      required this.meal,
-      required this.state});
+  _SaveBTN({
+    required this.mealForm,
+    required this.menuTarget,
+    required this.meal,
+  });
   final GlobalKey<FormState> mealForm;
 
   final MenuTarget? menuTarget;
   final Meal? meal;
-  final MealFormState state;
 
   bool loading = false;
   @override
@@ -414,47 +415,52 @@ class _SaveBTN extends StatefulWidget {
 class _SaveBTNState extends State<_SaveBTN> {
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () async {
-        if (widget.loading) return;
-        if (widget.mealForm.currentState!.validate() &&
-            widget.state.mealModel.categoryIds!.isNotEmpty &&
-            widget.state.mealModel.photo != null) {
-          widget.mealForm.currentState!.save();
+    return BlocBuilder<MealFormBloc, MealFormState>(
+      builder: (context, state) {
+        return TextButton(
+          onPressed: () async {
+            debugger();
+            if (widget.loading) return;
+            if (widget.mealForm.currentState!.validate() &&
+                state.mealModel.categoryIds!.isNotEmpty &&
+                state.mealModel.photo != null) {
+              widget.mealForm.currentState!.save();
 
-          setState(() {
-            widget.loading = true;
-          });
+              setState(() {
+                widget.loading = true;
+              });
 
-          late dynamic res;
-          if (widget.meal != null) {
-            res = await MealService.updateMeal(
-                context: context, mealModel: widget.state.mealModel);
-          } else {
-            res = await MealService.createMeal(
-                context: context, mealModel: widget.state.mealModel);
-          }
+              late dynamic res;
+              if (widget.meal != null) {
+                res = await MealService.updateMeal(
+                    context: context, mealModel: state.mealModel);
+              } else {
+                res = await MealService.createMeal(
+                    context: context, mealModel: state.mealModel);
+              }
 
-          setState(() {
-            widget.loading = false;
-          });
+              setState(() {
+                widget.loading = false;
+              });
 
-          Navigator.of(context).pop();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: SnackBarMassage(
-                massage: res.toString(),
-              ),
-            ),
-          );
-        }
+              Navigator.of(context).pop();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: SnackBarMassage(
+                    massage: res.toString(),
+                  ),
+                ),
+              );
+            }
+          },
+          child: widget.loading
+              ? Loading(size: ThemeSelector.fonts.font_24)
+              : Text(
+                  S.of(context).save,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+        );
       },
-      child: widget.loading
-          ? Loading(size: ThemeSelector.fonts.font_24)
-          : Text(
-              S.of(context).save,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
     );
   }
 }
