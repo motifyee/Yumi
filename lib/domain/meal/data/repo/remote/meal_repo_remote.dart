@@ -4,7 +4,7 @@ import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/domain/meal/data/repo/meal_repo.dart';
 import 'package:yumi/domain/meal/data/source/meal_source.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:yumi/statics/paginatedData.dart';
 
 class MealRepoRemote extends MealRepo {
   final MealSource mealSource;
@@ -21,25 +21,25 @@ class MealRepoRemote extends MealRepo {
   TaskEither<Failure, Meal> deleteMeal({required Meal meal}) => TaskEither.tryCatch(() => mealSource.deleteMeal(meal: meal), (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
-  TaskEither<Failure, Pagination<Meal>> getFavoriteMeals({required Pagination<Meal> pagination}) => TaskEither.tryCatch(() => mealSource.getFavoriteMeals(pagination: pagination), (error, stackTrace) => ServerFailure(error, stackTrace));
+  TaskEither<Failure, PaginatedData<Meal>> getFavoriteMeals({required PaginatedData<Meal> pagination}) => TaskEither.tryCatch(() => mealSource.getFavoriteMeals(pagination: pagination), (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
   TaskEither<Failure, Meal> getMealById({required int mealId}) => TaskEither.tryCatch(() => mealSource.getMealById(mealId: mealId), (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
-  TaskEither<Failure, Pagination<Meal>> getMeals({required Pagination<Meal> pagination, double? lat, double? long, bool? isPreorder = false}) =>
+  TaskEither<Failure, PaginatedData<Meal>> getMeals({required PaginatedData<Meal> pagination, double? lat, double? long, bool? isPreorder = false}) =>
       TaskEither.tryCatch(() => mealSource.getMeals(pagination: pagination, lat: lat, long: long, isPreorder: isPreorder), (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
-  TaskEither<Failure, Pagination<Meal>> getMealsByCategory({required Pagination<Meal> pagination, required int categoryId, double? lat, double? long, bool? isPreorder = false}) =>
+  TaskEither<Failure, PaginatedData<Meal>> getMealsByCategory({required PaginatedData<Meal> pagination, required int categoryId, double? lat, double? long, bool? isPreorder = false}) =>
       TaskEither.tryCatch(() => mealSource.getMealsByCategory(pagination: pagination, categoryId: categoryId, lat: lat, long: long, isPreorder: isPreorder), (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
-  TaskEither<Failure, Pagination<Meal>> getMealsByChef({required Pagination<Meal> pagination, required String chefId, bool? isPreorder = false}) =>
+  TaskEither<Failure, PaginatedData<Meal>> getMealsByChef({required PaginatedData<Meal> pagination, required String chefId, bool? isPreorder = false}) =>
       TaskEither.tryCatch(() => mealSource.getMealsByChef(pagination: pagination, chefId: chefId, isPreorder: isPreorder), (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override
-  TaskEither<Failure, Pagination<Meal>> getMealsByChefByCategory({required Pagination<Meal> pagination, required int categoryId, required String chefId, bool? isPreorder = false}) =>
+  TaskEither<Failure, PaginatedData<Meal>> getMealsByChefByCategory({required PaginatedData<Meal> pagination, required int categoryId, required String chefId, bool? isPreorder = false}) =>
       TaskEither.tryCatch(() => mealSource.getMealsByChefByCategory(pagination: pagination, categoryId: categoryId, chefId: chefId, isPreorder: isPreorder), (error, stackTrace) => ServerFailure(error, stackTrace));
 
   @override

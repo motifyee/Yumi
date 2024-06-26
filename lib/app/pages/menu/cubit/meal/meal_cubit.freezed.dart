@@ -20,7 +20,7 @@ MealState _$MealStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MealState {
-  Pagination<Meal> get pagination => throw _privateConstructorUsedError;
+  PaginatedData<Meal> get pagination => throw _privateConstructorUsedError;
   int get selectedCategory => throw _privateConstructorUsedError;
   MenuTarget get menuTarget => throw _privateConstructorUsedError;
   int get mealsLength => throw _privateConstructorUsedError;
@@ -39,14 +39,14 @@ abstract class $MealStateCopyWith<$Res> {
       _$MealStateCopyWithImpl<$Res, MealState>;
   @useResult
   $Res call(
-      {Pagination<Meal> pagination,
+      {PaginatedData<Meal> pagination,
       int selectedCategory,
       MenuTarget menuTarget,
       int mealsLength,
       int changesCounter,
       Status status});
 
-  $PaginationCopyWith<Meal, $Res> get pagination;
+  $PaginatedDataCopyWith<Meal, $Res> get pagination;
 }
 
 /// @nodoc
@@ -73,7 +73,7 @@ class _$MealStateCopyWithImpl<$Res, $Val extends MealState>
       pagination: null == pagination
           ? _value.pagination
           : pagination // ignore: cast_nullable_to_non_nullable
-              as Pagination<Meal>,
+              as PaginatedData<Meal>,
       selectedCategory: null == selectedCategory
           ? _value.selectedCategory
           : selectedCategory // ignore: cast_nullable_to_non_nullable
@@ -99,8 +99,8 @@ class _$MealStateCopyWithImpl<$Res, $Val extends MealState>
 
   @override
   @pragma('vm:prefer-inline')
-  $PaginationCopyWith<Meal, $Res> get pagination {
-    return $PaginationCopyWith<Meal, $Res>(_value.pagination, (value) {
+  $PaginatedDataCopyWith<Meal, $Res> get pagination {
+    return $PaginatedDataCopyWith<Meal, $Res>(_value.pagination, (value) {
       return _then(_value.copyWith(pagination: value) as $Val);
     });
   }
@@ -115,7 +115,7 @@ abstract class _$$MealStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Pagination<Meal> pagination,
+      {PaginatedData<Meal> pagination,
       int selectedCategory,
       MenuTarget menuTarget,
       int mealsLength,
@@ -123,7 +123,7 @@ abstract class _$$MealStateImplCopyWith<$Res>
       Status status});
 
   @override
-  $PaginationCopyWith<Meal, $Res> get pagination;
+  $PaginatedDataCopyWith<Meal, $Res> get pagination;
 }
 
 /// @nodoc
@@ -148,7 +148,7 @@ class __$$MealStateImplCopyWithImpl<$Res>
       pagination: null == pagination
           ? _value.pagination
           : pagination // ignore: cast_nullable_to_non_nullable
-              as Pagination<Meal>,
+              as PaginatedData<Meal>,
       selectedCategory: null == selectedCategory
           ? _value.selectedCategory
           : selectedCategory // ignore: cast_nullable_to_non_nullable
@@ -188,7 +188,7 @@ class _$MealStateImpl implements _MealState {
       _$$MealStateImplFromJson(json);
 
   @override
-  final Pagination<Meal> pagination;
+  final PaginatedData<Meal> pagination;
   @override
   final int selectedCategory;
   @override
@@ -247,7 +247,7 @@ class _$MealStateImpl implements _MealState {
 
 abstract class _MealState implements MealState {
   const factory _MealState(
-      {required final Pagination<Meal> pagination,
+      {required final PaginatedData<Meal> pagination,
       required final int selectedCategory,
       required final MenuTarget menuTarget,
       final int mealsLength,
@@ -258,7 +258,7 @@ abstract class _MealState implements MealState {
       _$MealStateImpl.fromJson;
 
   @override
-  Pagination<Meal> get pagination;
+  PaginatedData<Meal> get pagination;
   @override
   int get selectedCategory;
   @override

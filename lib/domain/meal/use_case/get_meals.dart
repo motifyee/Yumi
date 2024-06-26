@@ -7,15 +7,16 @@ import 'package:yumi/domain/meal/data/repo/meal_repo.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/global.dart';
+import 'package:yumi/statics/paginatedData.dart';
 import 'package:yumi/statics/pagination.dart';
 
-class GetMeals extends UseCase<Pagination<Meal>, GetMealsParams> {
+class GetMeals extends UseCase<PaginatedData<Meal>, GetMealsParams> {
   final MealRepo mealRepo;
 
   GetMeals({MealRepo? mealRepo}) : mealRepo = mealRepo ?? getIt<MealRepo>();
 
   @override
-  Future<Either<Failure, Pagination<Meal>>> call(GetMealsParams params) {
+  Future<Either<Failure, PaginatedData<Meal>>> call(GetMealsParams params) {
     if (params.chefId == null) {
       if (params.selectedCategory == 0) {
         return mealRepo.getMeals(pagination: params.pagination, lat: G.context.read<UserCubit>().state.address?.latitude, long: G.context.read<UserCubit>().state.address?.longitude, isPreorder: params.menuTarget == MenuTarget.preOrder).run();
@@ -42,7 +43,7 @@ class GetMeals extends UseCase<Pagination<Meal>, GetMealsParams> {
 class GetMealsParams extends Params {
   final String? chefId;
   final MenuTarget? menuTarget;
-  final Pagination<Meal> pagination;
+  final PaginatedData<Meal> pagination;
   final int selectedCategory;
 
   GetMealsParams({required this.pagination, required this.selectedCategory, this.chefId, this.menuTarget});

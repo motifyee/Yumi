@@ -8,6 +8,7 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/meal/use_case/get_meals.dart';
 import 'package:yumi/global.dart';
+import 'package:yumi/statics/paginatedData.dart';
 import 'package:yumi/statics/pagination.dart';
 
 part 'meal_cubit.freezed.dart';
@@ -16,7 +17,7 @@ part 'meal_cubit.g.dart';
 @freezed
 class MealState with _$MealState {
   const factory MealState({
-    required Pagination<Meal> pagination,
+    required PaginatedData<Meal> pagination,
     required int selectedCategory,
     required MenuTarget menuTarget,
     @Default(0) int mealsLength,
@@ -25,7 +26,7 @@ class MealState with _$MealState {
   }) = _MealState;
 
   factory MealState.initial() {
-    return MealState(pagination: Pagination<Meal>(data: []), selectedCategory: 0, menuTarget: MenuTarget.order);
+    return MealState(pagination: PaginatedData<Meal>(data: []), selectedCategory: 0, menuTarget: MenuTarget.order);
   }
 
   factory MealState.fromJson(Map<String, dynamic> json) => _$MealStateFromJson(json);
@@ -36,8 +37,8 @@ class MealCubit extends Cubit<MealState> {
 
   updateMeals({String? chefId, MenuTarget? menuTarget}) async {
     if (!state.pagination.canRequest) return;
-    emit(state.copyWith(pagination: state.pagination.copyWith(isLoading: true) as Pagination<Meal>));
-    final Either<Failure, Pagination<Meal>> task = await GetMeals().call(GetMealsParams(pagination: state.pagination, selectedCategory: state.selectedCategory, chefId: chefId, menuTarget: menuTarget));
+    emit(state.copyWith(pagination: state.pagination.copyWith(isLoading: true) as PaginatedData<Meal>));
+    final Either<Failure, PaginatedData<Meal>> task = await GetMeals().call(GetMealsParams(pagination: state.pagination, selectedCategory: state.selectedCategory, chefId: chefId, menuTarget: menuTarget));
 
     task.fold((l) => G.snackBar((l.error as DioException).response?.data['message']), (r) => emit(state.copyWith(pagination: r)));
   }

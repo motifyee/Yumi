@@ -8,8 +8,8 @@ part of 'meal_cubit.dart';
 
 _$MealStateImpl _$$MealStateImplFromJson(Map<String, dynamic> json) =>
     _$MealStateImpl(
-      pagination:
-          Pagination<Meal>.fromJson(json['pagination'] as Map<String, dynamic>),
+      pagination: PaginatedData<Meal>.fromJson(
+          json['pagination'] as Map<String, dynamic>),
       selectedCategory: (json['selectedCategory'] as num).toInt(),
       menuTarget: $enumDecode(_$MenuTargetEnumMap, json['menuTarget']),
       mealsLength: (json['mealsLength'] as num?)?.toInt() ?? 0,
