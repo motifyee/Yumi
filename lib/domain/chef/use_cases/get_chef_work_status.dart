@@ -6,20 +6,21 @@ import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
 import 'package:yumi/domain/chef/entity/chef_work_status.dart';
 
 class GetChefWorkStatus
-    extends UseCase<ChefWorkStatus, GetChefWorkStatusParam> {
+    extends UseCase<ChefWorkStatus, GetChefWorkStatusParams> {
   final ChefRepo repo;
 
   GetChefWorkStatus({ChefRepo? repo}) : repo = repo ?? getIt<ChefRepo>();
 
   @override
-  Future<Either<Failure, ChefWorkStatus>> call(GetChefWorkStatusParam params) =>
+  Future<Either<Failure, ChefWorkStatus>> call(
+          GetChefWorkStatusParams params) =>
       repo.getChefWorkStatus(params.chefId).run();
 }
 
-class GetChefWorkStatusParam extends Params {
+class GetChefWorkStatusParams extends Params {
   final String chefId;
 
-  GetChefWorkStatusParam(this.chefId);
+  GetChefWorkStatusParams(this.chefId);
 
   @override
   List<Object?> get props => [chefId];

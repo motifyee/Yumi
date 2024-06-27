@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/form/meal_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/app/pages/menu/ingredient.dart';

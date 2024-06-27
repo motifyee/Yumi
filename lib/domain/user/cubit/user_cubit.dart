@@ -7,8 +7,8 @@ import 'package:yumi/app/yumi/config/driver/driver_signalr.dart';
 import 'package:yumi/core/setup/signalr.dart';
 import 'package:yumi/core/signal_r.dart';
 import 'package:yumi/domain/address/entity/address.dart';
+import 'package:yumi/domain/chef/use_cases/get_chef_work_status.dart';
 import 'package:yumi/domain/user/entity/user.dart';
-import 'package:yumi/service/chef_service.dart';
 import 'package:yumi/service/user_status_service.dart';
 import 'package:yumi/statics/local_storage.dart';
 
@@ -95,9 +95,12 @@ class UserCubit extends Cubit<UserState> {
     dynamic userWithStatus(int status) =>
         state.user.copyWith(status: status).toJson();
 
-    await ChefService.getChefStatus(accountId: state.user.id).then(
-      (value) => saveUser(userWithStatus(value.data['statusWork'])),
-    );
+    final params = GetChefWorkStatusParams(state.user.id);
+
+    await GetChefWorkStatus().call(params).then((res) => res.fold(
+          (l) => null,
+          (r) => saveUser(userWithStatus(r.index)),
+        ));
   }
 
   reset() async {

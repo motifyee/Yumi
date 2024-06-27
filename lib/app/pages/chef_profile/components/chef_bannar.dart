@@ -5,10 +5,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
+import 'package:yumi/domain/chef/use_cases/add_favourite_chef.dart';
+import 'package:yumi/domain/chef/use_cases/get_chef_work_status.dart';
+import 'package:yumi/domain/chef/use_cases/is_favourite_chef.dart';
+import 'package:yumi/domain/chef/use_cases/remove_favourite_chef.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/app/pages/chef_profile/chef_profile.dart';
-import 'package:yumi/service/chef_service.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class ChefBanner extends StatefulWidget {
@@ -43,22 +46,23 @@ class _ChefBannerState extends State<ChefBanner> {
   void initState() {
     if (widget.isShowFav) {
       isLoading = true;
-      ChefService.getIsChefFavorite(chefId: widget.chef.id!)
-          .then((value) => setState(() {
-                widget.chef = widget.chef
-                    .copyWith(isFavorite: value.data['isChefFavorit']);
-                isLoading = false;
-              }))
-          .catchError((onError) {
-        isLoading = false;
-      });
+
+      final params = IsFavouriteChefParams(widget.chef.id!);
+      IsFavouriteChef().call(params).then((res) => res.fold(
+            (l) => isLoading = false,
+            (r) {
+              widget.chef = widget.chef.copyWith(isFavorite: r);
+              isLoading = false;
+            },
+          ));
     }
+
     if (widget.isRequestStatus) {
-      ChefService.getChefStatus(accountId: widget.chef.id!)
-          .then((value) => setState(() {
-                widget.chef =
-                    widget.chef.copyWith(status: value.data['statusWork']);
-              }));
+      final wParams = GetChefWorkStatusParams(widget.chef.id!);
+      GetChefWorkStatus().call(wParams).then((res) => res.fold(
+            (l) => null,
+            (r) => widget.chef = widget.chef.copyWith(status: r.index),
+          ));
     }
 
     super.initState();
@@ -266,19 +270,29 @@ class _ChefBannerState extends State<ChefBanner> {
                         TextButton(
                           onPressed: () {
                             if (widget.chef.isFavorite != true) {
-                              ChefService.addFavoriteChef(
-                                      chefId: widget.chef.id!)
-                                  .then((value) => setState(() {
-                                        widget.chef = widget.chef
-                                            .copyWith(isFavorite: true);
-                                      }));
+                              final aParams =
+                                  AddFavouriteChefParams(widget.chef.id!);
+
+                              AddFavouriteChef()
+                                  .call(aParams)
+                                  .then((res) => res.fold(
+                                      (l) => null,
+                                      (r) => setState(() {
+                                            widget.chef = widget.chef
+                                                .copyWith(isFavorite: true);
+                                          })));
                             } else {
-                              ChefService.removeFavoriteChef(
-                                      chefId: widget.chef.id!)
-                                  .then((value) => setState(() {
-                                        widget.chef = widget.chef
-                                            .copyWith(isFavorite: false);
-                                      }));
+                              final rParams =
+                                  RemoveFavouriteChefParams(widget.chef.id!);
+
+                              RemoveFavouriteChef()
+                                  .call(rParams)
+                                  .then((res) => res.fold(
+                                      (l) => null,
+                                      (r) => setState(() {
+                                            widget.chef = widget.chef
+                                                .copyWith(isFavorite: false);
+                                          })));
                             }
                           },
                           child: widget.chef.isFavorite
