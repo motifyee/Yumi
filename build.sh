@@ -12,12 +12,12 @@ splash="./assets/splash"
 
 echo "Versioning ..."
 
-pubspac="./pubspec.yaml"
-fullVersion=$(echo | grep -i -e "version: " "$pubspac")
+pubspec="./pubspec.yaml"
+fullVersion=$(echo | grep -i -e "version: " "$pubspec")
 buildName=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)
 buildNumber=$(echo $fullVersion | cut -d "+" -f 2 )
 ((buildNumber++))
-sed -i -E "s/version: .+/version: ${buildName}+${buildNumber}/" "$pubspac"
+sed -i -E "s/version: .+/version: ${buildName}+${buildNumber}/" "$pubspec"
 
 rm -rf "$output/out"
 mkdir -p "$output/out"

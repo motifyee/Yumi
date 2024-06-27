@@ -3,3 +3,6 @@
 -dontwarn com.stripe.android.pushProvisioning.PushProvisioningActivityStarter$Error
 -dontwarn com.stripe.android.pushProvisioning.PushProvisioningActivityStarter
 -dontwarn com.stripe.android.pushProvisioning.PushProvisioningEphemeralKeyProvider
+-dontwarn com.google.j2objc.annotations.RetainedWith
+-dontwarn io.flutter.plugins.googlesignin.BackgroundTaskRunner$Callback
+-dontwarn io.flutter.plugins.googlesignin.BackgroundTaskRunner
