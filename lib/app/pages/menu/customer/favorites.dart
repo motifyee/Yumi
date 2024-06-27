@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/app/pages/meal_profile/meal_profile.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';
@@ -25,7 +25,7 @@ class FavoritesScreen extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ChefsCubit()),
         BlocProvider(create: (context) => NewsBloc()),
-        BlocProvider(create: (context) => MealListBloc()),
+        BlocProvider(create: (context) => MealCubit()),
       ],
       child: Builder(builder: (context) {
         return BlocBuilder<NewsBloc, NewsState>(
@@ -112,15 +112,15 @@ class FavoritesScreen extends StatelessWidget {
                         ),
                         PaginationTemplate(
                           loadDate: () {
-                            context.read<MealListBloc>().add(MealListGetFavoriteMealsEvent());
+                            context.read<MealCubit>().getFavoriteMeals();
                           },
                           scrollDirection: Axis.vertical,
-                          child: BlocConsumer<MealListBloc, MealListState>(
+                          child: BlocConsumer<MealCubit, MealState>(
                             listener: (context, state) {},
                             builder: (context, state) {
                               return Column(
                                 children: [
-                                  for (var meal in state.meals)
+                                  for (Meal meal in state.pagination.data)
                                     Padding(
                                       padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
                                       child: Column(
@@ -138,8 +138,8 @@ class FavoritesScreen extends StatelessWidget {
                                                 backgroundColor: Colors.transparent,
                                                 scrollControlDisabledMaxHeightRatio: 1,
                                               ).then((value) {
-                                                context.read<MealListBloc>().add(MealListResetEvent());
-                                                context.read<MealListBloc>().add(MealListGetFavoriteMealsEvent());
+                                                context.read<MealCubit>().reset();
+                                                context.read<MealCubit>().getFavoriteMeals();
                                               });
                                             },
                                           ),
@@ -147,55 +147,6 @@ class FavoritesScreen extends StatelessWidget {
                                       ),
                                     ),
                                   if (state.pagination.isLoading) Loading(),
-                                  // Padding(
-                                  //   padding: EdgeInsets.symmetric(
-                                  //       horizontal:
-                                  //           ThemeSelector.statics.defaultGap),
-                                  //   child: Column(
-                                  //     children: [
-                                  //       Container(
-                                  //         width: ThemeSelector
-                                  //             .statics.defaultGapExtraExtreme,
-                                  //         height: ThemeSelector
-                                  //             .statics.defaultGapXXXL,
-                                  //         clipBehavior: Clip.hardEdge,
-                                  //         decoration: BoxDecoration(
-                                  //           borderRadius:
-                                  //               BorderRadius.circular(
-                                  //                   ThemeSelector
-                                  //                       .statics.defaultGap),
-                                  //         ),
-                                  //         child: category.image != null
-                                  //             ? Image.memory(
-                                  // Uri.parse( category.image ?? '')
-                                  //     .data
-                                  //     ?.contentAsBytes() ??
-                                  //     Uint8List(0),
-                                  //
-                                  //                 fit: BoxFit.cover,
-                                  //                 alignment:
-                                  //                     Alignment.topCenter,
-                                  //               )
-                                  //             : Image.asset(
-                                  //                 'assets/images/354'
-                                  //                 '.jpeg',
-                                  //                 fit: BoxFit.cover,
-                                  //                 alignment:
-                                  //                     Alignment.topCenter,
-                                  //               ),
-                                  //       ),
-                                  //       SizedBox(
-                                  //           height: ThemeSelector
-                                  //               .statics.defaultGap),
-                                  //       Text(
-                                  //         category.name ?? '',
-                                  //         style: Theme.of(context)
-                                  //             .textTheme
-                                  //             .bodyMedium,
-                                  //       )
-                                  //     ],
-                                  //   ),
-                                  // ),
                                 ],
                               );
                             },

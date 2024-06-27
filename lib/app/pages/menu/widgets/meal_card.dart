@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/service/meal_service.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/menu/widgets/delete_dialog.dart';
@@ -105,13 +105,8 @@ class MealCard extends StatelessWidget {
                       //     context: context,
                       //     isPreOrder: menuTarget == MenuTarget.preOrder,
                       //     isAll: false));
-                      context.read<MealListBloc>().add(MealListResetEvent(menuTarget: menuTarget));
-                      context.read<MealListBloc>().add(
-                            MealListUpdateEvent(
-                              context: context,
-                              chefId: context.read<UserCubit>().state.user.chefId,
-                            ),
-                          );
+                      context.read<MealCubit>().reset(menuTarget: menuTarget);
+                      context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId);
                     });
                   },
                   child: Row(
@@ -144,18 +139,9 @@ class MealCard extends StatelessWidget {
                                   context.read<CategoriesCubit>().getChefCategories(
                                         isPreOrder: meal.isPreOrder == true,
                                       );
-                                  // .add(
-                                  //     GetCategoriesEvent(
-                                  //         context: context,
-                                  //         isPreOrder: meal.isPreOrder == true,
-                                  //         isAll: false));
-                                  context.read<MealListBloc>().add(MealListResetEvent(menuTarget: meal.isPreOrder == true ? MenuTarget.preOrder : MenuTarget.order));
-                                  context.read<MealListBloc>().add(
-                                        MealListUpdateEvent(
-                                          context: context,
-                                          chefId: context.read<UserCubit>().state.user.chefId,
-                                        ),
-                                      );
+                                  context.read<MealCubit>().reset(menuTarget: meal.isPreOrder == true ? MenuTarget.preOrder : MenuTarget.order);
+                                  context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId);
+
                                   Navigator.of(context).pop();
                                   return true;
                                 }).catchError((err) {

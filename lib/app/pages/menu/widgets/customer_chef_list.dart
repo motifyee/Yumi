@@ -5,10 +5,10 @@ import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/domain/chef/entity/chef_work_status.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/order/widgets/action_button.dart';
 import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';
@@ -28,9 +28,7 @@ class CustomerChefList extends StatelessWidget {
         builder: (context) => Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: ThemeSelector.statics.defaultGap * 2,
-                  vertical: ThemeSelector.statics.defaultGap),
+              padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap * 2, vertical: ThemeSelector.statics.defaultGap),
               child: BlocBuilder<NewsBloc, NewsState>(
                 builder: (context, state) {
                   return Row(
@@ -38,12 +36,8 @@ class CustomerChefList extends StatelessWidget {
                       Container(
                         width: ThemeSelector.statics.defaultLineGap,
                         height: ThemeSelector.statics.defaultLineGap,
-                        padding: EdgeInsets.all(
-                            ThemeSelector.statics.defaultMicroGap),
-                        decoration: BoxDecoration(
-                            color: ThemeSelector.colors.secondary,
-                            borderRadius: BorderRadius.circular(ThemeSelector
-                                .statics.defaultBorderRadiusSmall)),
+                        padding: EdgeInsets.all(ThemeSelector.statics.defaultMicroGap),
+                        decoration: BoxDecoration(color: ThemeSelector.colors.secondary, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusSmall)),
                         child: Center(
                           child: SvgPicture.asset('assets/images/profile1.svg'),
                         ),
@@ -64,68 +58,49 @@ class CustomerChefList extends StatelessWidget {
                                 label: S.of(context).online,
                                 isActive: state.selectedList == 0,
                                 icon: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: ThemeSelector
-                                          .statics.defaultMicroGap),
-                                  child: SvgPicture.asset(
-                                      'assets/images/online_chef_icon.svg'),
+                                  padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
+                                  child: SvgPicture.asset('assets/images/online_chef_icon.svg'),
                                 ),
                                 onPressed: () {
-                                  context
-                                      .read<NewsBloc>()
-                                      .add(const NewsEvent(selectedList: 0));
+                                  context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
                                   controller.jumpToPage(0);
                                 },
                                 activeColor: ThemeSelector.colors.success,
                                 notActiveColor: ThemeSelector.colors.background,
                                 activeTextColor: ThemeSelector.colors.onSuccess,
-                                notActiveTextColor:
-                                    ThemeSelector.colors.secondary,
+                                notActiveTextColor: ThemeSelector.colors.secondary,
                               ),
                               ActionButton(
                                 label: S.of(context).busy,
                                 isActive: state.selectedList == 1,
                                 icon: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: ThemeSelector
-                                          .statics.defaultMicroGap),
-                                  child: SvgPicture.asset(
-                                      'assets/images/busy_chef_icon.svg'),
+                                  padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
+                                  child: SvgPicture.asset('assets/images/busy_chef_icon.svg'),
                                 ),
                                 onPressed: () {
-                                  context
-                                      .read<NewsBloc>()
-                                      .add(const NewsEvent(selectedList: 1));
+                                  context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
                                   controller.jumpToPage(1);
                                 },
                                 activeColor: ThemeSelector.colors.primary,
                                 notActiveColor: ThemeSelector.colors.background,
                                 activeTextColor: ThemeSelector.colors.onPrimary,
-                                notActiveTextColor:
-                                    ThemeSelector.colors.secondary,
+                                notActiveTextColor: ThemeSelector.colors.secondary,
                               ),
                               ActionButton(
                                 label: S.of(context).offline,
                                 isActive: state.selectedList == 2,
                                 icon: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: ThemeSelector
-                                          .statics.defaultMicroGap),
-                                  child: SvgPicture.asset(
-                                      'assets/images/offline_chef_icon.svg'),
+                                  padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
+                                  child: SvgPicture.asset('assets/images/offline_chef_icon.svg'),
                                 ),
                                 onPressed: () {
-                                  context
-                                      .read<NewsBloc>()
-                                      .add(const NewsEvent(selectedList: 2));
+                                  context.read<NewsBloc>().add(const NewsEvent(selectedList: 2));
                                   controller.jumpToPage(2);
                                 },
                                 activeColor: ThemeSelector.colors.secondaryTant,
                                 notActiveColor: ThemeSelector.colors.background,
-                                activeTextColor:
-                                    ThemeSelector.colors.onSecondary,
-                                notActiveTextColor:
-                                    ThemeSelector.colors.secondary,
+                                activeTextColor: ThemeSelector.colors.onSecondary,
+                                notActiveTextColor: ThemeSelector.colors.secondary,
                               ),
                             ],
                           ),
@@ -191,36 +166,27 @@ class _ChefListStatus extends StatelessWidget {
                     listener: (context, state) {},
                     builder: (context, state) {
                       return Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ThemeSelector.statics.defaultGap),
+                        padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
                         child: Row(
                           children: [
                             for (var chef in state.chefs)
                               Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        ThemeSelector.statics.defaultGap),
+                                padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
                                 child: ChefBanner(
                                   menuTarget: menuTarget,
                                   chef: chef,
-                                  width: MediaQuery.of(context).size.width -
-                                      (ThemeSelector.statics.defaultGap * 10),
-                                  height: ThemeSelector
-                                      .statics.defaultImageHeightSmall,
+                                  width: MediaQuery.of(context).size.width - (ThemeSelector.statics.defaultGap * 10),
+                                  height: ThemeSelector.statics.defaultImageHeightSmall,
                                   borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(ThemeSelector
-                                        .statics.defaultBorderRadius),
-                                    topRight: Radius.circular(ThemeSelector
-                                        .statics.defaultBorderRadius),
+                                    topLeft: Radius.circular(ThemeSelector.statics.defaultBorderRadius),
+                                    topRight: Radius.circular(ThemeSelector.statics.defaultBorderRadius),
                                   ),
                                 ),
                               ),
                             if (state.chefsPagination.isLoading) Loading(),
                             if (state.chefs.isEmpty)
                               SizedBox(
-                                height: ThemeSelector
-                                        .statics.defaultImageHeightSmall +
-                                    ThemeSelector.statics.defaultMediumGap,
+                                height: ThemeSelector.statics.defaultImageHeightSmall + ThemeSelector.statics.defaultMediumGap,
                               ),
                           ],
                         ),

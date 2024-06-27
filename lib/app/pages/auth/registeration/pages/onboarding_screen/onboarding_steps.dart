@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/docs_info.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/rides_screen.dart';
@@ -11,8 +11,8 @@ import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/doc
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/schedule_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/bio_sheet/bio_sheet.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/app/components/dialog.dart';
 import 'package:yumi/app/pages/menu/widgets/menu_template.dart';
 import 'package:yumi/app/components/snack_bar.dart';
@@ -62,7 +62,7 @@ List chefOnboardingSteps(BuildContext context, RegState state) => [
             ),
             actions: {
               'Next': (ctx) {
-                if (G.read<MealListBloc>().state.meals.isEmpty) {
+                if (G.rd<MealCubit>().state.pagination.data.isEmpty) {
                   return addYourMealsDialog(context);
                 }
                 G.pop();

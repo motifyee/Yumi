@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/onboarding_screen/onboarding_steps.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
@@ -30,7 +30,7 @@ class OnboardingScreen extends StatelessWidget {
     }
     context.watch<ProfileCubit>();
     context.watch<RegCubit>();
-    context.watch<MealListBloc>();
+    context.watch<MealCubit>();
     context.watch<ScheduleCubit>();
     context.watch<DocsCubit>();
 

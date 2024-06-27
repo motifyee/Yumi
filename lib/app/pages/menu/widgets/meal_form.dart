@@ -9,11 +9,11 @@ import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/form/meal_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredient_form_bloc.dart';
-import 'package:yumi/app/pages/menu/ingredient.dart';
 import 'package:yumi/app/pages/menu/widgets/Ingredients_form.dart';
+import 'package:yumi/domain/meal/entity/ingredients.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/extensions/double.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/service/meal_service.dart';
 import 'package:yumi/statics/code_generator.dart';
 import 'package:yumi/statics/regex.dart';
@@ -55,7 +55,7 @@ class MealForm extends StatelessWidget {
             MealFormUpdateEvent(
               mealModel: Meal(
                 code: CodeGenerator.getRandomCode(),
-                categoryIds: [],
+                categoriesIds: [],
                 ingredients: [],
                 isOrder: menuTarget == MenuTarget.order,
                 isPreOrder: menuTarget == MenuTarget.preOrder,
@@ -122,7 +122,7 @@ class MealForm extends StatelessWidget {
                           },
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultLineGap),
-                        BlocSelector<MealFormBloc, MealFormState, List<Ingredient>?>(
+                        BlocSelector<MealFormBloc, MealFormState, List<Ingredients>?>(
                           selector: (state) {
                             return state.mealModel.ingredients;
                           },
@@ -238,16 +238,16 @@ class MealForm extends StatelessWidget {
                                                     mainAxisSize: MainAxisSize.min,
                                                     children: [
                                                       Checkbox(
-                                                        value: state.mealModel.categoryIds?.contains(category.id) ?? false,
+                                                        value: state.mealModel.categoriesIds?.contains(category.id) ?? false,
                                                         onChanged: (bool? value) {
-                                                          var listCat = List<int>.from(state.mealModel.categoryIds ?? []);
+                                                          var listCat = List<int>.from(state.mealModel.categoriesIds ?? []);
 
                                                           if (value == true) {
                                                             listCat.add(category.id);
                                                           } else {
                                                             listCat.removeWhere((element) => element == category.id);
                                                           }
-                                                          context.read<MealFormBloc>().add(MealFormUpdateEvent(mealModel: state.mealModel.copyWith(categoryIds: listCat)));
+                                                          context.read<MealFormBloc>().add(MealFormUpdateEvent(mealModel: state.mealModel.copyWith(categoriesIds: listCat)));
                                                         },
                                                       ),
                                                       Text(category.name),
@@ -266,7 +266,7 @@ class MealForm extends StatelessWidget {
                             },
                           ),
                         ),
-                        if (state().mealModel.categoryIds?.isEmpty ?? true)
+                        if (state().mealModel.categoriesIds?.isEmpty ?? true)
                           Text(
                             S.of(context).required,
                             style: Theme.of(context).textTheme.titleSmall,
@@ -329,7 +329,7 @@ class _SaveBTNState extends State<_SaveBTN> {
           onPressed: () async {
             debugger();
             if (widget.loading) return;
-            if (widget.mealForm.currentState!.validate() && state.mealModel.categoryIds!.isNotEmpty && state.mealModel.photo != null) {
+            if (widget.mealForm.currentState!.validate() && state.mealModel.categoriesIds!.isNotEmpty && state.mealModel.photo != null) {
               widget.mealForm.currentState!.save();
 
               setState(() {

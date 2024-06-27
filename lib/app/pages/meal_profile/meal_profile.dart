@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/domain/basket/entity/basket.dart';
@@ -14,7 +15,6 @@ import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/app/pages/menu/widgets/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/text_currency.dart';
 
@@ -62,19 +62,19 @@ class MealProfileScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: ThemeSelector.statics.defaultGap),
                       child: Row(
                         children: [
-                          BlocBuilder<MealListBloc, MealListState>(
+                          BlocBuilder<MealCubit, MealState>(
                             builder: (context, state) {
-                              Meal meal = state.meals.firstWhereOrNull((e) => e.id == this.meal.id) ?? this.meal;
+                              Meal meal = state.pagination.data.firstWhereOrNull((e) => e.id == this.meal.id) ?? this.meal;
                               return TextButton(
                                 onPressed: () {
-                                  if (meal.isFavoritProduct == true) {
-                                    context.read<MealListBloc>().add(MealListRemoveFavoriteMealEvent(meal: meal));
+                                  if (meal.isFavoriteProduct == true) {
+                                    context.read<MealCubit>().removeFavoriteMeal(meal: meal);
                                   } else {
-                                    context.read<MealListBloc>().add(MealListAddFavoriteMealEvent(meal: meal));
+                                    context.read<MealCubit>().addFavoriteMeal(meal: meal);
                                   }
                                 },
                                 child: SvgPicture.asset(
-                                  meal.isFavoritProduct == true ? 'assets/images/heart.svg' : 'assets/images/heart_outline.svg',
+                                  meal.isFavoriteProduct == true ? 'assets/images/heart.svg' : 'assets/images/heart_outline.svg',
                                   colorFilter: ColorFilter.mode(ThemeSelector.colors.primary, BlendMode.srcIn),
                                 ),
                               );

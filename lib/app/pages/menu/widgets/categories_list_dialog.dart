@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_list.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/pagination_template.dart';
@@ -23,20 +23,14 @@ class CategoriesListDialog extends StatelessWidget {
 
     return Center(
       child: Container(
-        width: MediaQuery.of(context).size.width -
-            ThemeSelector.statics.defaultBlockGap,
-        padding: EdgeInsets.symmetric(
-            vertical: ThemeSelector.statics.defaultBlockGap),
-        decoration: BoxDecoration(
-            color: ThemeSelector.colors.background,
-            borderRadius: BorderRadius.circular(
-                ThemeSelector.statics.defaultBorderRadiusMedium)),
+        width: MediaQuery.of(context).size.width - ThemeSelector.statics.defaultBlockGap,
+        padding: EdgeInsets.symmetric(vertical: ThemeSelector.statics.defaultBlockGap),
+        decoration: BoxDecoration(color: ThemeSelector.colors.background, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusMedium)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: ThemeSelector.statics.defaultBlockGap),
+              padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultBlockGap),
               child: Row(
                 children: [
                   SvgPicture.asset('assets/images/categories_list.svg'),
@@ -74,9 +68,7 @@ class CategoriesListDialog extends StatelessWidget {
                               context: context,
                               isScrollControlled: true,
                               isDismissible: true,
-                              constraints: BoxConstraints(
-                                  maxHeight:
-                                      MediaQuery.of(context).size.height * .8),
+                              constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .8),
                               builder: (context) => MealListScreen(
                                 menuTarget: menuTarget,
                                 categoryId: category.id,
@@ -85,37 +77,28 @@ class CategoriesListDialog extends StatelessWidget {
                             );
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: ThemeSelector.statics.defaultGap),
+                            padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
                             child: Column(
                               children: [
                                 Container(
-                                  width: ThemeSelector
-                                      .statics.defaultGapExtraExtreme,
+                                  width: ThemeSelector.statics.defaultGapExtraExtreme,
                                   height: ThemeSelector.statics.defaultGapXXXL,
                                   clipBehavior: Clip.hardEdge,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(
-                                        ThemeSelector.statics.defaultGap),
+                                    borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultGap),
                                   ),
                                   child: Image.memory(
-                                    Uri.parse(category.image ?? '')
-                                            .data
-                                            ?.contentAsBytes() ??
-                                        Uint8List(0),
+                                    Uri.parse(category.image ?? '').data?.contentAsBytes() ?? Uint8List(0),
                                     fit: BoxFit.cover,
                                     alignment: Alignment.topCenter,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            Image.asset(
+                                    errorBuilder: (context, error, stackTrace) => Image.asset(
                                       'assets/images/354.jpeg',
                                       fit: BoxFit.cover,
                                       alignment: Alignment.topCenter,
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                    height: ThemeSelector.statics.defaultGap),
+                                SizedBox(height: ThemeSelector.statics.defaultGap),
                                 Text(
                                   category.name ?? '',
                                   style: Theme.of(context).textTheme.bodyMedium,

@@ -4,13 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/app/pages/menu/widgets/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/dialog.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_card.dart';
@@ -25,12 +25,12 @@ class MenuTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 1)).then((value) {
       if (!G.rd<RegCubit>().state.registerationStarted) return;
-      if (context.read<MealListBloc>().state.meals.isNotEmpty) return;
+      if (context.read<MealCubit>().state.pagination.data.isNotEmpty) return;
       addYourMealsDialog(context);
     });
     return Stack(
       children: [
-        BlocConsumer<MealListBloc, MealListState>(
+        BlocConsumer<MealCubit, MealState>(
           listener: (context, state) {},
           builder: (context, state) {
             var mealListBlocState = state;
@@ -62,11 +62,7 @@ class MenuTemplate extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  context.read<MealListBloc>().add(MealListUpdateCategoryEvent(
-                                        context: context,
-                                        selectedCategory: 0,
-                                        chefId: context.read<UserCubit>().state.user.chefId,
-                                      ));
+                                  context.read<MealCubit>().updateCategory(selectedCategory: 0);
                                 },
                                 child: Container(
                                   width: ((MediaQuery.of(context).size.width - (ThemeSelector.statics.defaultGap * 2)) / 5),
@@ -82,10 +78,10 @@ class MenuTemplate extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              for (var category in state.categoriesPage.data ?? [])
+                              for (var category in state.categoriesPage.data)
                                 GestureDetector(
                                   onTap: () {
-                                    context.read<MealListBloc>().add(MealListUpdateCategoryEvent(context: context, selectedCategory: category.id, chefId: context.read<UserCubit>().state.user.chefId));
+                                    context.read<MealCubit>().updateCategory(selectedCategory: category.id);
                                   },
                                   child: Container(
                                     padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
@@ -126,12 +122,7 @@ class MenuTemplate extends StatelessWidget {
                     child: PaginationTemplate(
                       scrollDirection: Axis.vertical,
                       loadDate: () {
-                        context.read<MealListBloc>().add(
-                              MealListUpdateEvent(
-                                context: context,
-                                chefId: context.read<UserCubit>().state.user.chefId,
-                              ),
-                            );
+                        context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId);
                       },
                       child: Column(
                         children: [
@@ -140,9 +131,9 @@ class MenuTemplate extends StatelessWidget {
                             children: [
                               Column(
                                 children: [
-                                  for (var mealIndex = 0; mealIndex < state.meals.length; mealIndex += 2)
+                                  for (var mealIndex = 0; mealIndex < state.pagination.data.length; mealIndex += 2)
                                     MealCard(
-                                      meal: state.meals[mealIndex],
+                                      meal: state.pagination.data[mealIndex],
                                       menuTarget: menuTarget,
                                     )
                                 ],
@@ -150,9 +141,9 @@ class MenuTemplate extends StatelessWidget {
                               Column(
                                 children: [
                                   SizedBox(height: ThemeSelector.statics.defaultTitleGapLarge),
-                                  for (var mealIndex = 1; mealIndex < state.meals.length; mealIndex += 2)
+                                  for (var mealIndex = 1; mealIndex < state.pagination.data.length; mealIndex += 2)
                                     MealCard(
-                                      meal: state.meals[mealIndex],
+                                      meal: state.pagination.data[mealIndex],
                                       menuTarget: menuTarget,
                                     )
                                 ],
@@ -166,7 +157,7 @@ class MenuTemplate extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (state.meals.isEmpty && !state.pagination.isLoading)
+                  if (state.pagination.data.isEmpty && !state.pagination.isLoading)
                     Expanded(
                       child: Text(
                         S.of(context).empty,
@@ -195,22 +186,13 @@ class MenuTemplate extends StatelessWidget {
                     ),
                   ),
                 ).then((value) {
-                  context.read<CategoriesCubit>().reset(); //.add(ResetCategoryEvent());
+                  context.read<CategoriesCubit>().reset();
 
                   context.read<CategoriesCubit>().getChefCategories(
                         isPreOrder: menuTarget == MenuTarget.preOrder,
                       );
-                  // .add(GetCategoriesEvent(
-                  //     context: context,
-                  //     isPreOrder: menuTarget == MenuTarget.preOrder,
-                  //     isAll: false));
-                  context.read<MealListBloc>().add(MealListResetEvent(menuTarget: menuTarget));
-                  context.read<MealListBloc>().add(
-                        MealListUpdateEvent(
-                          context: context,
-                          chefId: context.read<UserCubit>().state.user.chefId,
-                        ),
-                      );
+                  context.read<MealCubit>().reset(menuTarget: menuTarget);
+                  context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId);
                 });
               },
               child: Container(

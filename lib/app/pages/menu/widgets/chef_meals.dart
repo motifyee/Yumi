@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/menu/widgets/chef_meal_basket_card.dart';
 import 'package:yumi/app/components/pagination_template.dart';
@@ -95,7 +95,7 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
           SizedBox(height: ThemeSelector.statics.defaultGap),
           MultiBlocProvider(
             providers: [
-              BlocProvider(create: (context) => MealListBloc()),
+              BlocProvider(create: (context) => MealCubit()),
               BlocProvider(create: (context) => CategoriesCubit()),
             ],
             child: Builder(builder: (context) {
@@ -107,22 +107,16 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                     PaginationTemplate(
                       scrollDirection: Axis.vertical,
                       loadDate: () {
-                        context.read<MealListBloc>().add(
-                              MealListUpdateEvent(
-                                context: context,
-                                menuTarget: widget.menuTarget,
-                                chefId: widget.chefId,
-                              ),
-                            );
+                        context.read<MealCubit>().updateMeals(menuTarget: widget.menuTarget, chefId: widget.chefId);
                       },
-                      child: BlocConsumer<MealListBloc, MealListState>(
+                      child: BlocConsumer<MealCubit, MealState>(
                         listener: (context, state) {},
                         builder: (context, state) {
                           return Padding(
                             padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
                             child: Column(
                               children: [
-                                for (var meal in state.meals)
+                                for (var meal in state.pagination.data)
                                   BlocConsumer<BasketCubit, BasketState>(
                                     listener: (context, state) {},
                                     builder: (context, state) {
@@ -159,12 +153,8 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                                       favPageController.jumpToPage(0);
                                       pageIndex = 0;
                                     });
-                                    context.read<MealListBloc>().add(MealListResetEvent());
-                                    context.read<MealListBloc>().add(MealListUpdateCategoryEvent(
-                                          context: context,
-                                          selectedCategory: category.id ?? 0,
-                                          chefId: widget.chefId,
-                                        ));
+                                    context.read<MealCubit>().reset();
+                                    context.read<MealCubit>().updateCategory(selectedCategory: category.id ?? 0);
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),

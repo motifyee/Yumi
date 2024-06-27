@@ -2,23 +2,19 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/calendar.dart';
 import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 class CustomerPreOrderForm extends StatelessWidget {
-  CustomerPreOrderForm(
-      {super.key,
-      required this.meal,
-      required this.chef,
-      required this.isPickUpOnly});
+  CustomerPreOrderForm({super.key, required this.meal, required this.chef, required this.isPickUpOnly});
 
   static GlobalKey<FormState> preOrderForm = GlobalKey<FormState>();
 
@@ -42,22 +38,18 @@ class CustomerPreOrderForm extends StatelessWidget {
           decoration: BoxDecoration(
               color: ThemeSelector.colors.background,
               borderRadius: BorderRadius.only(
-                topRight: Radius.circular(
-                    ThemeSelector.statics.defaultBorderRadiusExtreme),
-                topLeft: Radius.circular(
-                    ThemeSelector.statics.defaultBorderRadiusExtreme),
+                topRight: Radius.circular(ThemeSelector.statics.defaultBorderRadiusExtreme),
+                topLeft: Radius.circular(ThemeSelector.statics.defaultBorderRadiusExtreme),
               )),
           width: MediaQuery.of(context).size.width,
-          constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * .9),
+          constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .9),
           child: Form(
             key: preOrderForm,
             child: SizedBox(
               height: MediaQuery.of(context).size.height * .5,
               child: Column(
                 children: [
-                  Text(S.of(context).preOrder,
-                      style: Theme.of(context).textTheme.labelLarge),
+                  Text(S.of(context).preOrder, style: Theme.of(context).textTheme.labelLarge),
                   SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                   Row(
                     children: [
@@ -99,17 +91,12 @@ class CustomerPreOrderForm extends StatelessWidget {
                                 shadowColor: Colors.transparent,
                                 surfaceTintColor: Colors.transparent,
                                 child: Calendar(
-                                  currentDate: DateTime.now()
-                                      .add(const Duration(days: 1)),
-                                  firstDate: DateTime.now()
-                                      .add(const Duration(days: 1)),
-                                  lastDate: DateTime.now()
-                                      .add(const Duration(days: 7)),
+                                  currentDate: DateTime.now().add(const Duration(days: 1)),
+                                  firstDate: DateTime.now().add(const Duration(days: 1)),
+                                  lastDate: DateTime.now().add(const Duration(days: 7)),
                                   onValueChanged: (value) {
                                     if (value.isNotEmpty) {
-                                      context
-                                          .read<BasketCubit>()
-                                          .updateSchedule(date: value[0]);
+                                      context.read<BasketCubit>().updateSchedule(date: value[0]);
                                       context.router.maybePop();
                                     }
                                   },
@@ -117,8 +104,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                               ),
                             );
                           },
-                          initialValue:
-                              '${state.basket.invoice.scheduleDateConstraint.day}/${state.basket.invoice.scheduleDateConstraint.month}/${state.basket.invoice.scheduleDateConstraint.year}',
+                          initialValue: '${state.basket.invoice.scheduleDateConstraint.day}/${state.basket.invoice.scheduleDateConstraint.month}/${state.basket.invoice.scheduleDateConstraint.year}',
                           readOnly: true,
                           hintText: S.of(context).deliveryDay,
                           borderStyle: TextFormFieldBorderStyle.borderedRound,
@@ -145,12 +131,9 @@ class CustomerPreOrderForm extends StatelessWidget {
                           textInputType: TextInputType.number,
                           borderStyle: TextFormFieldBorderStyle.borderedRound,
                           validators: requiredValidator,
-                          initialValue:
-                              '${state.basket.invoice.scheduleDateConstraint.hour}:${state.basket.invoice.scheduleDateConstraint.minute}',
+                          initialValue: '${state.basket.invoice.scheduleDateConstraint.hour}:${state.basket.invoice.scheduleDateConstraint.minute}',
                           onSave: (value) {
-                            context
-                                .read<BasketCubit>()
-                                .updateSchedule(time: value);
+                            context.read<BasketCubit>().updateSchedule(time: value);
                           },
                           onTap: () async {
                             final picked = await showTimePicker(
@@ -174,17 +157,13 @@ class CustomerPreOrderForm extends StatelessWidget {
                                     ),
                                   ),
                                   child: MediaQuery(
-                                    data: MediaQuery.of(context)
-                                        .copyWith(alwaysUse24HourFormat: true),
+                                    data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
                                     child: child!,
                                   ),
                                 );
                               },
                             );
-                            context.read<BasketCubit>().updateSchedule(
-                                time: picked?.hour != null
-                                    ? '${picked?.hour}:${picked?.minute}'
-                                    : null);
+                            context.read<BasketCubit>().updateSchedule(time: picked?.hour != null ? '${picked?.hour}:${picked?.minute}' : null);
                           },
                           readOnly: true,
                         ),
@@ -201,12 +180,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                         child: Container(
                           width: ThemeSelector.statics.defaultGapXXXL,
                           height: ThemeSelector.statics.defaultTitleGapLarge,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                  ThemeSelector.statics.defaultBorderRadius),
-                              border: Border.all(
-                                  color: ThemeSelector.colors.primary,
-                                  width: 1)),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius), border: Border.all(color: ThemeSelector.colors.primary, width: 1)),
                           child: Center(
                             child: Text(
                               S.of(context).cancel,
@@ -226,18 +200,9 @@ class CustomerPreOrderForm extends StatelessWidget {
                                   isPreorder: true,
                                   isSchedule: true,
                                   isPickupOnly: chef.pickupOnly == true,
-                                  shippedAddressId: context
-                                      .read<UserCubit>()
-                                      .state
-                                      .address
-                                      ?.id,
-                                  invoice: Invoice.initial().copyWith(
-                                      chefID: chef.id,
-                                      scheduleDate: state.basket.invoice
-                                          .scheduleDateConstraint),
-                                  invoiceDetails: [
-                                    InvoiceDetails.fromMeal(meal: meal)
-                                  ],
+                                  shippedAddressId: context.read<UserCubit>().state.address?.id,
+                                  invoice: Invoice.initial().copyWith(chefID: chef.id, scheduleDate: state.basket.invoice.scheduleDateConstraint),
+                                  invoiceDetails: [InvoiceDetails.fromMeal(meal: meal)],
                                 ));
                           }
                         },
@@ -245,8 +210,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                           width: ThemeSelector.statics.defaultGapXXXL,
                           height: ThemeSelector.statics.defaultTitleGapLarge,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                                ThemeSelector.statics.defaultBorderRadius),
+                            borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius),
                             color: ThemeSelector.colors.primary,
                           ),
                           child: Center(

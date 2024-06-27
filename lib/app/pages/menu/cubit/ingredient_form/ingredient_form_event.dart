@@ -4,19 +4,19 @@ part of 'ingredient_form_bloc.dart';
 abstract class IngredientFormEvent {}
 
 class IngredientFormAddEvent implements IngredientFormEvent {
-  Ingredient ingredientsModel;
+  Ingredients ingredientsModel;
 
   IngredientFormAddEvent({required this.ingredientsModel});
 }
 
 class IngredientFormRemoveEvent implements IngredientFormEvent {
-  Ingredient ingredientsModel;
+  Ingredients ingredientsModel;
 
   IngredientFormRemoveEvent({required this.ingredientsModel});
 }
 
 class IngredientFormUpdateEvent implements IngredientFormEvent {
-  List<Ingredient> ingredientsModel;
+  List<Ingredients> ingredientsModel;
 
   IngredientFormUpdateEvent({required this.ingredientsModel});
 }

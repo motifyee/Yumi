@@ -11,9 +11,9 @@ import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:yumi/app/pages/order/widgets/order_action_button.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/address/entity/address.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/order_service.dart';
 import 'package:yumi/statics/api_statics.dart';
@@ -45,13 +45,9 @@ class OrderCard extends StatefulWidget {
 
 class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
   getOrderForView() {
-    OrderService.getOrderOrPreOrderDriverById(
-            apiKeys: ApiKeys.orderDriverAvailableById,
-            id: widget.order.id.toString())
-        .then((value) {
+    OrderService.getOrderOrPreOrderDriverById(apiKeys: ApiKeys.orderDriverAvailableById, id: widget.order.id.toString()).then((value) {
       setState(() {
-        widget.order = widget.order.copyWith(
-            invoiceDetails: Order.fromJson(value.data).invoiceDetails);
+        widget.order = widget.order.copyWith(invoiceDetails: Order.fromJson(value.data).invoiceDetails);
       });
     });
   }
@@ -69,24 +65,20 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
     DateTime? updatedDate = DateTime.tryParse(widget.order.updatedDate ?? '');
     DateTime? scheduleDate = DateTime.tryParse(widget.order.scheduleDate ?? '');
 
-    if ((widget.order.invoiceDetails?.length ?? 0) < 2 ||
-        AppTarget.user == AppTargetUser.drivers) {
+    if ((widget.order.invoiceDetails?.length ?? 0) < 2 || AppTarget.user == AppTargetUser.drivers) {
       widget.isView = true;
     }
 
     if (widget.orderCardTargetPage == OrderCardTargetPage.driverAccept) {
-      if (widget.menuTarget == MenuTarget.order &&
-          widget.order.isDriverOrderPendingEnd) {
+      if (widget.menuTarget == MenuTarget.order && widget.order.isDriverOrderPendingEnd) {
         return const SizedBox(height: 0, width: 0);
       }
-      if (widget.menuTarget == MenuTarget.preOrder &&
-          widget.order.isDriverPreOrderPendingEnd) {
+      if (widget.menuTarget == MenuTarget.preOrder && widget.order.isDriverPreOrderPendingEnd) {
         return const SizedBox(height: 0, width: 0);
       }
     }
 
-    if (widget.orderCardTargetPage == OrderCardTargetPage.chefPending &&
-        widget.menuTarget == MenuTarget.preOrder) {
+    if (widget.orderCardTargetPage == OrderCardTargetPage.chefPending && widget.menuTarget == MenuTarget.preOrder) {
       if (widget.order.isOver3H) return const SizedBox(height: 0, width: 0);
     }
 
@@ -94,8 +86,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
       clipBehavior: Clip.none,
       children: [
         Container(
-          margin: EdgeInsets.only(
-              bottom: ThemeSelector.statics.defaultTitleGap / 4),
+          margin: EdgeInsets.only(bottom: ThemeSelector.statics.defaultTitleGap / 4),
           child: Column(
             children: [
               Container(
@@ -103,14 +94,12 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                   horizontal: ThemeSelector.statics.defaultBlockGap,
                   vertical: ThemeSelector.statics.defaultTitleGap,
                 ),
-                margin: EdgeInsets.only(
-                    top: ThemeSelector.statics.defaultTitleGap / 2),
+                margin: EdgeInsets.only(top: ThemeSelector.statics.defaultTitleGap / 2),
                 decoration: BoxDecoration(
                   color: ThemeSelector.colors.onPrimary,
                   boxShadow: [
                     BoxShadow(
-                      color:
-                          ThemeSelector.colors.secondaryFaint.withOpacity(.3),
+                      color: ThemeSelector.colors.secondaryFaint.withOpacity(.3),
                       spreadRadius: 3,
                       blurRadius: 17,
                       offset: const Offset(0, 0),
@@ -131,12 +120,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
                             if (updatedDate != null)
                               Text(
-                                DateFormat('d-M-yyyy | hh:mm')
-                                    .format(updatedDate),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(fontWeight: FontWeight.w300),
+                                DateFormat('d-M-yyyy | hh:mm').format(updatedDate),
+                                style: Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w300),
                               ),
                           ],
                         ),
@@ -145,31 +130,24 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(
-                                    top: ThemeSelector.statics.defaultMicroGap),
+                                padding: EdgeInsets.only(top: ThemeSelector.statics.defaultMicroGap),
                                 child: SvgPicture.asset(
                                   'assets/images/schedule_icon.svg',
                                   height: 28,
                                 ),
                               ),
-                              SizedBox(
-                                  width: ThemeSelector.statics.defaultMicroGap),
+                              SizedBox(width: ThemeSelector.statics.defaultMicroGap),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     '${S.of(context).scheduleDate}:',
-                                    style:
-                                        Theme.of(context).textTheme.labelSmall,
+                                    style: Theme.of(context).textTheme.labelSmall,
                                   ),
                                   Text(
-                                    DateFormat('d-M-yyyy | hh:mm')
-                                        .format(scheduleDate),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelSmall
-                                        ?.copyWith(fontWeight: FontWeight.w300),
+                                    DateFormat('d-M-yyyy | hh:mm').format(scheduleDate),
+                                    style: Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w300),
                                   ),
                                 ],
                               ),
@@ -181,21 +159,13 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               horizontal: ThemeSelector.statics.defaultGap,
                               vertical: ThemeSelector.statics.defaultMicroGap,
                             ),
-                            decoration: BoxDecoration(
-                                color: ThemeSelector.colors.backgroundTant,
-                                borderRadius: BorderRadius.circular(
-                                    ThemeSelector
-                                        .statics.defaultBorderRadiusMedium)),
+                            decoration: BoxDecoration(color: ThemeSelector.colors.backgroundTant, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusMedium)),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                SvgPicture.asset(widget.order.isPickUp == true
-                                    ? 'assets/images/pickup_icon.svg'
-                                    : 'assets/images/delivery_icon.svg'),
+                                SvgPicture.asset(widget.order.isPickUp == true ? 'assets/images/pickup_icon.svg' : 'assets/images/delivery_icon.svg'),
                                 const Text(' '),
-                                Text(widget.order.isPickUp == true
-                                    ? S.of(context).pickup
-                                    : S.of(context).delivery)
+                                Text(widget.order.isPickUp == true ? S.of(context).pickup : S.of(context).delivery)
                               ],
                             ),
                           ),
@@ -215,53 +185,32 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                         path: widget.order.clientMobile,
                                       ),
                                     )) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
+                                      ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(
                                           content: SnackBarMassage(
-                                            massage: S
-                                                .of(context)
-                                                .noAccessToDailSystem,
+                                            massage: S.of(context).noAccessToDailSystem,
                                           ),
                                         ),
                                       );
                                     }
                                   },
                                   child: Container(
-                                    width:
-                                        ThemeSelector.statics.defaultBlockGap,
-                                    height:
-                                        ThemeSelector.statics.defaultBlockGap,
-                                    padding: EdgeInsets.all(
-                                        ThemeSelector.statics.defaultMicroGap),
-                                    decoration: BoxDecoration(
-                                        color: ThemeSelector.colors.primary,
-                                        borderRadius: BorderRadius.circular(
-                                            ThemeSelector
-                                                .statics.defaultBlockGap)),
-                                    child: SvgPicture.asset(
-                                        'assets/images/calling.svg'),
+                                    width: ThemeSelector.statics.defaultBlockGap,
+                                    height: ThemeSelector.statics.defaultBlockGap,
+                                    padding: EdgeInsets.all(ThemeSelector.statics.defaultMicroGap),
+                                    decoration: BoxDecoration(color: ThemeSelector.colors.primary, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBlockGap)),
+                                    child: SvgPicture.asset('assets/images/calling.svg'),
                                   ),
                                 ),
-                                SizedBox(
-                                    width:
-                                        ThemeSelector.statics.defaultInputGap),
+                                SizedBox(width: ThemeSelector.statics.defaultInputGap),
                                 GestureDetector(
                                   onTap: () {},
                                   child: Container(
-                                    width:
-                                        ThemeSelector.statics.defaultBlockGap,
-                                    height:
-                                        ThemeSelector.statics.defaultBlockGap,
-                                    padding: EdgeInsets.all(
-                                        ThemeSelector.statics.defaultMicroGap),
-                                    decoration: BoxDecoration(
-                                        color: ThemeSelector.colors.primary,
-                                        borderRadius: BorderRadius.circular(
-                                            ThemeSelector
-                                                .statics.defaultBlockGap)),
-                                    child: SvgPicture.asset(
-                                        'assets/images/chat.svg'),
+                                    width: ThemeSelector.statics.defaultBlockGap,
+                                    height: ThemeSelector.statics.defaultBlockGap,
+                                    padding: EdgeInsets.all(ThemeSelector.statics.defaultMicroGap),
+                                    decoration: BoxDecoration(color: ThemeSelector.colors.primary, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBlockGap)),
+                                    child: SvgPicture.asset('assets/images/chat.svg'),
                                   ),
                                 ),
                               ],
@@ -276,18 +225,13 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SvgPicture.asset(
-                                  'assets/images/label_yellow.svg'),
+                              SvgPicture.asset('assets/images/label_yellow.svg'),
                               SizedBox(
                                 width: ThemeSelector.statics.defaultGap,
                               ),
                               Text(
                                 S.of(context).clickTheIconToViewCustomerNotes,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                        fontSize: ThemeSelector.fonts.font_10),
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: ThemeSelector.fonts.font_10),
                               ),
                             ],
                           ),
@@ -307,13 +251,11 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                 flex: 1,
                                 child: TextButton(
                                   onPressed: () {
-                                    context.router
-                                        .push(ChefCustomerAddressRoute(
+                                    context.router.push(ChefCustomerAddressRoute(
                                       id: '',
                                       isChef: false,
                                       address: Address(
-                                        longitude:
-                                            widget.order.addressLongitude,
+                                        longitude: widget.order.addressLongitude,
                                         latitude: widget.order.addressLatitude,
                                         location: widget.order.location,
                                         name: widget.order.clientName ?? '',
@@ -323,25 +265,18 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                   },
                                   child: Row(
                                     children: [
-                                      SvgPicture.asset(
-                                          'assets/images/customer_icon.svg'),
-                                      SizedBox(
-                                          width: ThemeSelector
-                                              .statics.defaultMicroGap),
+                                      SvgPicture.asset('assets/images/customer_icon.svg'),
+                                      SizedBox(width: ThemeSelector.statics.defaultMicroGap),
                                       Expanded(
                                         child: Text(
                                           widget.order.clientName ?? '',
                                           overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge,
+                                          style: Theme.of(context).textTheme.labelLarge,
                                         ),
                                       ),
                                       Text(
                                         S.of(context).view,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium,
+                                        style: Theme.of(context).textTheme.headlineMedium,
                                       )
                                     ],
                                   ),
@@ -351,8 +286,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                 flex: 1,
                                 child: TextButton(
                                   onPressed: () {
-                                    context.router
-                                        .push(ChefCustomerAddressRoute(
+                                    context.router.push(ChefCustomerAddressRoute(
                                       id: widget.order.chefID ?? '',
                                       isChef: true,
                                     ));
@@ -362,34 +296,25 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                       SvgPicture.asset(
                                         'assets/images/welocme_chef_icon.svg',
                                         height: 15,
-                                        colorFilter: ColorFilter.mode(
-                                            ThemeSelector.colors.primary,
-                                            BlendMode.srcIn),
+                                        colorFilter: ColorFilter.mode(ThemeSelector.colors.primary, BlendMode.srcIn),
                                       ),
-                                      SizedBox(
-                                          width: ThemeSelector
-                                              .statics.defaultMicroGap),
+                                      SizedBox(width: ThemeSelector.statics.defaultMicroGap),
                                       Expanded(
                                         child: Text(
                                           widget.order.chefName ?? '',
                                           overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge,
+                                          style: Theme.of(context).textTheme.labelLarge,
                                         ),
                                       ),
                                       Text(
                                         S.of(context).view,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium,
+                                        style: Theme.of(context).textTheme.headlineMedium,
                                       )
                                     ],
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                  height: ThemeSelector.statics.defaultGap),
+                              SizedBox(height: ThemeSelector.statics.defaultGap),
                             ],
                           ),
                         ],
@@ -404,44 +329,27 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                         builder: (context, constraints) => AnimatedSize(
                           duration: ThemeSelector.statics.animationDuration,
                           child: SizedBox(
-                            height: widget.isView
-                                ? (widget.order.invoiceDetails?.length ?? 0) *
-                                    55
-                                : 50,
+                            height: widget.isView ? (widget.order.invoiceDetails?.length ?? 0) * 55 : 50,
                             width: constraints.maxWidth,
                             child: Stack(
                               children: [
                                 AnimatedSize(
-                                  duration:
-                                      ThemeSelector.statics.animationDuration,
+                                  duration: ThemeSelector.statics.animationDuration,
                                   child: SizedBox(
-                                    height: widget.isView
-                                        ? (widget.order.invoiceDetails
-                                                    ?.length ??
-                                                0) *
-                                            55
-                                        : 50,
+                                    height: widget.isView ? (widget.order.invoiceDetails?.length ?? 0) * 55 : 50,
                                     width: constraints.maxWidth,
                                   ),
                                 ),
-                                for (var i = 0;
-                                    i <
-                                        (widget.order.invoiceDetails?.length ??
-                                            0);
-                                    i++)
+                                for (var i = 0; i < (widget.order.invoiceDetails?.length ?? 0); i++)
                                   AnimatedPositioned(
                                     left: widget.isView ? 0.0 : 30.0 * i,
                                     top: widget.isView ? 55.0 * i : 0.0,
-                                    width: widget.isView
-                                        ? constraints.maxWidth
-                                        : 50,
-                                    duration:
-                                        ThemeSelector.statics.animationDuration,
+                                    width: widget.isView ? constraints.maxWidth : 50,
+                                    duration: ThemeSelector.statics.animationDuration,
                                     child: ProductInCard(
                                       isView: widget.isView,
                                       maxWidth: constraints.maxWidth,
-                                      invoiceDetails:
-                                          widget.order.invoiceDetails![i],
+                                      invoiceDetails: widget.order.invoiceDetails![i],
                                     ),
                                   )
                               ],
@@ -484,10 +392,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                       children: [
                         Text(
                           S.of(context).theTotalPriceIncludesTax,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(fontWeight: FontWeight.w300),
+                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w300),
                         ),
                       ],
                     ),
@@ -497,10 +402,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                         Expanded(
                           child: Text(
                             S.of(context).total,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge
-                                ?.copyWith(
+                            style: Theme.of(context).textTheme.labelLarge?.copyWith(
                                   fontSize: ThemeSelector.fonts.font_16,
                                 ),
                           ),
@@ -512,43 +414,26 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ThemeSelector.statics.defaultGap),
+                padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
                 child: LayoutBuilder(
                   builder: (context, constraints) => SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: ConstrainedBox(
-                      constraints:
-                          BoxConstraints(minWidth: constraints.maxWidth),
+                      constraints: BoxConstraints(minWidth: constraints.maxWidth),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           // chef close order pickup
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.chefReady &&
-                              widget.order.isPickUp == true)
-                            PutActionButton(
-                                config: OrderPutActions.chefCloseOrderPickup(
-                                    widget: widget)),
+                          if (widget.orderCardTargetPage == OrderCardTargetPage.chefReady && widget.order.isPickUp == true) PutActionButton(config: OrderPutActions.chefCloseOrderPickup(widget: widget)),
 
                           // chef finish order
-                          if (widget.orderCardTargetPage ==
-                              OrderCardTargetPage.chefPreparing)
-                            PutActionButton(
-                                config: OrderPutActions.chefFinishOrder(
-                                    widget: widget)),
+                          if (widget.orderCardTargetPage == OrderCardTargetPage.chefPreparing) PutActionButton(config: OrderPutActions.chefFinishOrder(widget: widget)),
 
                           // chef start order
-                          if (widget.orderCardTargetPage ==
-                              OrderCardTargetPage.chefReceived)
-                            PutActionButton(
-                                config: OrderPutActions.chefStartOrder(
-                                    widget: widget)),
+                          if (widget.orderCardTargetPage == OrderCardTargetPage.chefReceived) PutActionButton(config: OrderPutActions.chefStartOrder(widget: widget)),
 
                           // chef accept preorder
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.chefPending &&
-                              widget.menuTarget == MenuTarget.preOrder)
+                          if (widget.orderCardTargetPage == OrderCardTargetPage.chefPending && widget.menuTarget == MenuTarget.preOrder)
                             Row(
                               children: [
                                 TimerCount(
@@ -556,78 +441,47 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                   order: widget.order,
                                   isOver3hCount: true,
                                 ),
-                                PutActionButton(
-                                    config: OrderPutActions.chefAcceptPreorder(
-                                        widget: widget)),
+                                PutActionButton(config: OrderPutActions.chefAcceptPreorder(widget: widget)),
                               ],
                             ),
 
                           // driver close order delivery
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.driverReceived &&
-                              widget.order.driverReceived == true)
-                            PutActionButton(
-                                config:
-                                    OrderPutActions.driverCloseOrderDelivery(
-                                        widget: widget)),
+                          if (widget.orderCardTargetPage == OrderCardTargetPage.driverReceived && widget.order.driverReceived == true) PutActionButton(config: OrderPutActions.driverCloseOrderDelivery(widget: widget)),
 
                           // driver received
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.driverReceived &&
-                              widget.order.driverReceived != true)
-                            PutActionButton(
-                                config: OrderPutActions.driverReceived(
-                                    widget: widget)),
+                          if (widget.orderCardTargetPage == OrderCardTargetPage.driverReceived && widget.order.driverReceived != true) PutActionButton(config: OrderPutActions.driverReceived(widget: widget)),
 
                           // driver accept
-                          if (widget.orderCardTargetPage ==
-                              OrderCardTargetPage.driverAccept)
+                          if (widget.orderCardTargetPage == OrderCardTargetPage.driverAccept)
                             Row(
                               children: [
-                                TimerCount(
-                                    menuTarget: widget.menuTarget,
-                                    order: widget.order),
-                                PutActionButton(
-                                    config: OrderPutActions.driverAccept(
-                                        widget: widget)),
+                                TimerCount(menuTarget: widget.menuTarget, order: widget.order),
+                                PutActionButton(config: OrderPutActions.driverAccept(widget: widget)),
                               ],
                             ),
 
                           // customer order status
-                          if ([
-                            OrderCardTargetPage.customerHistory,
-                            OrderCardTargetPage.customerOrders,
-                            OrderCardTargetPage.customerPreOrders
-                          ].contains(widget.orderCardTargetPage))
-                            PutActionButton(
-                                config: OrderPutActions.customerOrderStatus(
-                                    widget: widget)),
+                          if ([OrderCardTargetPage.customerHistory, OrderCardTargetPage.customerOrders, OrderCardTargetPage.customerPreOrders].contains(widget.orderCardTargetPage))
+                            PutActionButton(config: OrderPutActions.customerOrderStatus(widget: widget)),
 
                           /// TODO: change api for preorder cancel
                           // customer cancel pre order
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.customerPreOrders &&
-                              widget.order.isOver12H &&
-                              false)
+                          if (widget.orderCardTargetPage == OrderCardTargetPage.customerPreOrders && widget.order.isOver12H && false)
                             Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
+                              padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
                               child: TextButton(
                                 onPressed: () {
                                   OrderService.putActionOrderOrPreOrder(
                                     apiKeys: ApiKeys.cancelChefOrder,
                                     orderId: widget.order.id,
                                   ).then((value) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                       content: SnackBarMassage(
                                         massage: S.of(context).orderCanceled,
                                       ),
                                     ));
                                   }).catchError((err) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                       content: SnackBarMassage(
                                         massage: err.response?.data['message'],
                                       ),
@@ -635,10 +489,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                   });
                                 },
                                 style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) =>
-                                      ThemeSelector.colors.backgroundTant,
+                                    backgroundColor: WidgetStateColor.resolveWith(
+                                  (states) => ThemeSelector.colors.backgroundTant,
                                 )),
                                 child: Text(
                                   S.of(context).cancel,
@@ -648,43 +500,26 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
 
                           // wait & cancel driver
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.customerHistory &&
-                              widget.order.isDriverDelayed &&
-                              widget.menuTarget == MenuTarget.order)
+                          if (widget.orderCardTargetPage == OrderCardTargetPage.customerHistory && widget.order.isDriverDelayed && widget.menuTarget == MenuTarget.order)
                             Row(
                               children: [
-                                PutActionButton(
-                                    config: OrderPutActions.waitDriver(
-                                        widget: widget)),
-                                PutActionButton(
-                                    config: OrderPutActions.cancelDriver(
-                                        widget: widget)),
+                                PutActionButton(config: OrderPutActions.waitDriver(widget: widget)),
+                                PutActionButton(config: OrderPutActions.cancelDriver(widget: widget)),
                               ],
                             ),
 
                           // wait & cancel chef
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.customerHistory &&
-                              widget.order.isChefDelayed &&
-                              widget.menuTarget == MenuTarget.order)
+                          if (widget.orderCardTargetPage == OrderCardTargetPage.customerHistory && widget.order.isChefDelayed && widget.menuTarget == MenuTarget.order)
                             Row(
                               children: [
-                                PutActionButton(
-                                    config: OrderPutActions.waitChef(
-                                        widget: widget)),
-                                PutActionButton(
-                                    config: OrderPutActions.cancelChef(
-                                        widget: widget)),
+                                PutActionButton(config: OrderPutActions.waitChef(widget: widget)),
+                                PutActionButton(config: OrderPutActions.cancelChef(widget: widget)),
                               ],
                             ),
 
-                          if ((widget.order.invoiceDetails?.length ?? 0) > 1 &&
-                              AppTarget.user != AppTargetUser.drivers)
+                          if ((widget.order.invoiceDetails?.length ?? 0) > 1 && AppTarget.user != AppTargetUser.drivers)
                             Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
+                              padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
                               child: TextButton(
                                 onPressed: () {
                                   setState(() {
@@ -692,10 +527,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                   });
                                 },
                                 style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) =>
-                                      ThemeSelector.colors.backgroundTant,
+                                    backgroundColor: WidgetStateColor.resolveWith(
+                                  (states) => ThemeSelector.colors.backgroundTant,
                                 )),
                                 child: Text(
                                   S.of(context).view,
@@ -704,45 +537,32 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               ),
                             ),
 
-                          if (AppTarget.user == AppTargetUser.drivers &&
-                              widget.orderCardTargetPage !=
-                                  OrderCardTargetPage.view)
+                          if (AppTarget.user == AppTargetUser.drivers && widget.orderCardTargetPage != OrderCardTargetPage.view)
                             Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      ThemeSelector.statics.defaultMicroGap),
+                              padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
                               child: TextButton(
                                 onPressed: () {
                                   showModalBottomSheet(
                                     backgroundColor: Colors.transparent,
                                     isScrollControlled: true,
-                                    constraints:
-                                        const BoxConstraints.tightFor(),
+                                    constraints: const BoxConstraints.tightFor(),
                                     context: context,
                                     builder: (context) => SingleChildScrollView(
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Container(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: ThemeSelector
-                                                    .statics.defaultBlockGap),
+                                            padding: EdgeInsets.symmetric(vertical: ThemeSelector.statics.defaultBlockGap),
                                             decoration: BoxDecoration(
-                                                color: ThemeSelector
-                                                    .colors.background,
+                                                color: ThemeSelector.colors.background,
                                                 borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(
-                                                      ThemeSelector.statics
-                                                          .defaultBlockGap),
-                                                  topRight: Radius.circular(
-                                                      ThemeSelector.statics
-                                                          .defaultBlockGap),
+                                                  topLeft: Radius.circular(ThemeSelector.statics.defaultBlockGap),
+                                                  topRight: Radius.circular(ThemeSelector.statics.defaultBlockGap),
                                                 )),
                                             child: OrderCard(
                                               menuTarget: widget.menuTarget,
                                               getApiKey: widget.getApiKey,
-                                              orderCardTargetPage:
-                                                  OrderCardTargetPage.view,
+                                              orderCardTargetPage: OrderCardTargetPage.view,
                                               order: widget.order,
                                             ),
                                           ),
@@ -752,10 +572,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                   );
                                 },
                                 style: ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStateColor.resolveWith(
-                                  (states) =>
-                                      ThemeSelector.colors.backgroundTant,
+                                    backgroundColor: WidgetStateColor.resolveWith(
+                                  (states) => ThemeSelector.colors.backgroundTant,
                                 )),
                                 child: Text(
                                   S.of(context).view,
@@ -782,15 +600,11 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
             ),
             decoration: BoxDecoration(
               color: ThemeSelector.colors.primary,
-              borderRadius: BorderRadius.circular(
-                  ThemeSelector.statics.defaultBorderRadiusMedium),
+              borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusMedium),
             ),
             child: Text(
               S.of(context).orderReceived,
-              style: Theme.of(context)
-                  .textTheme
-                  .displaySmall
-                  ?.copyWith(fontWeight: FontWeight.w500),
+              style: Theme.of(context).textTheme.displaySmall?.copyWith(fontWeight: FontWeight.w500),
             ),
           ),
         ),
@@ -812,11 +626,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
 }
 
 class TimerCount extends StatefulWidget {
-  TimerCount(
-      {super.key,
-      required this.menuTarget,
-      required this.order,
-      this.isOver3hCount = false});
+  TimerCount({super.key, required this.menuTarget, required this.order, this.isOver3hCount = false});
   final Order order;
   final MenuTarget menuTarget;
   final bool isOver3hCount;
@@ -846,8 +656,7 @@ class _TimerCountState extends State<TimerCount> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: ThemeSelector.statics.defaultMicroGap),
+      padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
       child: Column(
         children: [
           SvgPicture.asset('assets/images/stop_watch_icon.svg'),

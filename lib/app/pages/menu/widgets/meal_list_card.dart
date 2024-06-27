@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class MealListCard extends StatelessWidget {
@@ -36,8 +36,7 @@ class MealListCard extends StatelessWidget {
             color: ThemeSelector.colors.background,
           ),
           width: MediaQuery.of(context).size.width * .95,
-          height: ThemeSelector.statics.defaultImageHeightSmall +
-              ThemeSelector.statics.defaultGap,
+          height: ThemeSelector.statics.defaultImageHeightSmall + ThemeSelector.statics.defaultGap,
           child: Row(
             children: [
               Container(
@@ -45,26 +44,15 @@ class MealListCard extends StatelessWidget {
                   height: ThemeSelector.statics.defaultImageHeightSmall,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(ThemeSelector.statics.defaultGap),
+                    borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultGap),
                   ),
                   child: ImageFiltered(
-                    imageFilter: isDisabled
-                        ? const ColorFilter.mode(
-                            Colors.grey, BlendMode.saturation)
-                        : const ColorFilter.mode(
-                            Colors.transparent, BlendMode.darken),
+                    imageFilter: isDisabled ? const ColorFilter.mode(Colors.grey, BlendMode.saturation) : const ColorFilter.mode(Colors.transparent, BlendMode.darken),
                     child: Image.memory(
-                      Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
-                          Uint8List(0),
+                      Uri.parse(meal.photo ?? '').data?.contentAsBytes() ?? Uint8List(0),
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) =>
-                          ImageFiltered(
-                        imageFilter: isDisabled
-                            ? const ColorFilter.mode(
-                                Colors.grey, BlendMode.saturation)
-                            : const ColorFilter.mode(
-                                Colors.transparent, BlendMode.darken),
+                      errorBuilder: (context, error, stackTrace) => ImageFiltered(
+                        imageFilter: isDisabled ? const ColorFilter.mode(Colors.grey, BlendMode.saturation) : const ColorFilter.mode(Colors.transparent, BlendMode.darken),
                         child: Image.asset(
                           'assets/images/354.jpeg',
                           fit: BoxFit.cover,
@@ -74,18 +62,14 @@ class MealListCard extends StatelessWidget {
                   )),
               Expanded(
                   child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ThemeSelector.statics.defaultGap),
+                padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                     Text(
                       meal.name ?? '',
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge
-                          ?.copyWith(fontSize: ThemeSelector.fonts.font_14),
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: ThemeSelector.fonts.font_14),
                     ),
                     Expanded(
                       child: GridView.count(
@@ -99,24 +83,13 @@ class MealListCard extends StatelessWidget {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Container(
-                                  decoration: BoxDecoration(
-                                      color: ThemeSelector.colors.primary,
-                                      borderRadius: BorderRadius.circular(
-                                          ThemeSelector
-                                              .statics.defaultBlockGap)),
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: ThemeSelector
-                                          .statics.defaultMicroGap),
+                                  decoration: BoxDecoration(color: ThemeSelector.colors.primary, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBlockGap)),
+                                  padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
                                   child: Row(
                                     children: [
                                       Text(
                                         '4.5',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displaySmall
-                                            ?.copyWith(
-                                                fontSize:
-                                                    ThemeSelector.fonts.font_9),
+                                        style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: ThemeSelector.fonts.font_9),
                                       ),
                                       Icon(
                                         Icons.star,
@@ -129,8 +102,7 @@ class MealListCard extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     'aaaaa a a a a aaaaaaaaaaaaa a a ',
-                                    style:
-                                        Theme.of(context).textTheme.labelSmall,
+                                    style: Theme.of(context).textTheme.labelSmall,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
@@ -143,14 +115,8 @@ class MealListCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         SvgPicture.asset(
-                          meal.isFavoritProduct == true
-                              ? 'assets/images/heart.svg'
-                              : 'assets/images/heart_outline.svg',
-                          colorFilter: ColorFilter.mode(
-                              isDisabled
-                                  ? ThemeSelector.colors.secondary
-                                  : ThemeSelector.colors.primary,
-                              BlendMode.srcIn),
+                          meal.isFavoriteProduct == true ? 'assets/images/heart.svg' : 'assets/images/heart_outline.svg',
+                          colorFilter: ColorFilter.mode(isDisabled ? ThemeSelector.colors.secondary : ThemeSelector.colors.primary, BlendMode.srcIn),
                         ),
                       ],
                     ),

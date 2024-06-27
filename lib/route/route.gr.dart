@@ -46,7 +46,6 @@ import 'package:yumi/app/pages/financial_view/financial_view.dart' as _i11;
 import 'package:yumi/app/pages/home/home.dart' as _i12;
 import 'package:yumi/app/pages/meal_profile/meal_profile.dart' as _i16;
 import 'package:yumi/app/pages/menu/chef/menu_pre.dart' as _i17;
-import 'package:yumi/app/pages/menu/meal.dart' as _i37;
 import 'package:yumi/app/pages/notification/notification_screen.dart' as _i20;
 import 'package:yumi/app/pages/order/customer/customer_order.dart' as _i18;
 import 'package:yumi/app/pages/order/widgets/order_status.dart' as _i23;
@@ -57,6 +56,7 @@ import 'package:yumi/app/pages/transactions/transactions.dart' as _i31;
 import 'package:yumi/app/pages/wallet/wallet_screen.dart' as _i32;
 import 'package:yumi/domain/address/entity/address.dart' as _i35;
 import 'package:yumi/domain/chef/entity/chef.dart' as _i36;
+import 'package:yumi/domain/meal/entity/meal.dart' as _i37;
 import 'package:yumi/domain/order/entity/order.dart' as _i38;
 
 abstract class $AppRouter extends _i33.RootStackRouter {

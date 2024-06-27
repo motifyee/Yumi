@@ -1,4 +1,4 @@
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
@@ -18,7 +18,7 @@ class Onboarding {
   bool get mealsActive => _onboardingProgress > 0 || approvalDone || profileSheetDone;
   bool get mealsDone {
     if (!mealsActive) return false;
-    if (G.read<MealListBloc>().state.meals.isEmpty) return false;
+    if (G.rd<MealCubit>().state.pagination.data.isEmpty) return false;
 
     if (!G.rd<ScheduleCubit>().state.schedule.validSchedule) return false;
 

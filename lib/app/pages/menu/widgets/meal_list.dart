@@ -7,13 +7,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/app/pages/menu/widgets/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_list_card.dart';
 import 'package:yumi/app/components/pagination_template.dart';
@@ -30,7 +30,7 @@ class MealListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isResetOnInit) {
-      context.read<MealListBloc>().add(MealListResetEvent(menuTarget: menuTarget, categoryId: categoryId));
+      context.read<MealCubit>().reset(menuTarget: menuTarget, categoryId: categoryId);
       context.read<CategoriesCubit>().reset(); //.add(ResetCategoryEvent());
     }
     return Container(
@@ -83,7 +83,7 @@ class _MealList extends StatelessWidget {
               S.of(context).dishName,
               style: Theme.of(context).textTheme.labelLarge,
             ),
-            BlocBuilder<MealListBloc, MealListState>(
+            BlocBuilder<MealCubit, MealState>(
               builder: (context, state) {
                 String category = context.read<CategoriesCubit>().state.categoriesPage.data.firstWhereOrNull((e) => e.id == state.selectedCategory)?.name ?? '';
                 return Expanded(
@@ -94,11 +94,8 @@ class _MealList extends StatelessWidget {
                               SizedBox(width: ThemeSelector.statics.defaultMicroGap),
                               GestureDetector(
                                 onTap: () {
-                                  context.read<MealListBloc>().add(MealListResetEvent());
-                                  context.read<MealListBloc>().add(MealListUpdateCategoryEvent(
-                                        context: context,
-                                        selectedCategory: 0,
-                                      ));
+                                  context.read<MealCubit>().reset();
+                                  context.read<MealCubit>().updateCategory(selectedCategory: 0);
                                 },
                                 child: Container(
                                     padding: EdgeInsets.all(ThemeSelector.statics.defaultMicroGap),
@@ -152,14 +149,9 @@ class _MealList extends StatelessWidget {
             builder: (context, constraints) => PaginationTemplate(
               scrollDirection: Axis.vertical,
               loadDate: () {
-                context.read<MealListBloc>().add(
-                      MealListUpdateEvent(
-                        context: context,
-                        menuTarget: menuTarget,
-                      ),
-                    );
+                context.read<MealCubit>().updateMeals(menuTarget: menuTarget);
               },
-              child: BlocConsumer<MealListBloc, MealListState>(
+              child: BlocConsumer<MealCubit, MealState>(
                 listener: (context, state) {},
                 builder: (context, state) {
                   return Padding(
@@ -169,7 +161,7 @@ class _MealList extends StatelessWidget {
                       child: IntrinsicHeight(
                         child: Column(
                           children: [
-                            for (var meal in state.meals)
+                            for (Meal meal in state.pagination.data)
                               MealListCard(
                                 meal: meal,
                                 onTap: () {
@@ -291,11 +283,8 @@ class _CategoriesList extends StatelessWidget {
                           for (var category in state.categoriesPage.data)
                             GestureDetector(
                               onTap: () {
-                                context.read<MealListBloc>().add(MealListResetEvent());
-                                context.read<MealListBloc>().add(MealListUpdateCategoryEvent(
-                                      context: context,
-                                      selectedCategory: category.id ?? 0,
-                                    ));
+                                context.read<MealCubit>().reset();
+                                context.read<MealCubit>().updateCategory(selectedCategory: category.id ?? 0);
                                 favPageController.jumpToPage(0);
                               },
                               child: Padding(

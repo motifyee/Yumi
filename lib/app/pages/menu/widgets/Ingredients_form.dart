@@ -8,8 +8,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/form/meal_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredient_form_bloc.dart';
-import 'package:yumi/app/pages/menu/ingredient.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
+import 'package:yumi/domain/meal/entity/ingredients.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/regex.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -20,15 +20,15 @@ class IngredientsForm extends StatelessWidget {
   IngredientsForm({super.key, required this.ingredientFormKey});
 
   final GlobalKey<FormState> ingredientFormKey;
-  Ingredient ingredient = const Ingredient();
+  Ingredients ingredient = const Ingredients();
 
   @override
   Widget build(BuildContext context) {
     context.read<IngredientListBloc>().add(IngredientListUpdateEvent(context: context));
 
-    List<Ingredient> filteredList({
-      required List<Ingredient> list,
-      required List<Ingredient> selected,
+    List<Ingredients> filteredList({
+      required List<Ingredients> list,
+      required List<Ingredients> selected,
     }) {
       return list.where((element) {
         return !selected.any((e) => e.id == element.id);
@@ -155,7 +155,7 @@ class IngredientsForm extends StatelessWidget {
                   SizedBox(height: ThemeSelector.statics.defaultGap),
                   BlocBuilder<IngredientListBloc, IngredientListState>(
                     builder: (context, state) {
-                      List<Ingredient> selectFromList = filteredList(list: state.ingredients, selected: context.read<IngredientFormBloc>().state.ingredientsModelList);
+                      List<Ingredients> selectFromList = filteredList(list: state.ingredients, selected: context.read<IngredientFormBloc>().state.ingredientsModelList);
                       return selectFromList.isEmpty
                           ? state.loading
                               ? Loading(size: ThemeSelector.fonts.font_38)
@@ -202,9 +202,9 @@ class IngredientsForm extends StatelessWidget {
                                     if (ingredientFormKey.currentState!.validate()) {
                                       ingredientFormKey.currentState!.save();
 
-                                      context.read<IngredientFormBloc>().add(IngredientFormAddEvent(ingredientsModel: Ingredient.fromJson(ingredient.toJson())));
+                                      context.read<IngredientFormBloc>().add(IngredientFormAddEvent(ingredientsModel: Ingredients.fromJson(ingredient.toJson())));
 
-                                      ingredient = const Ingredient();
+                                      ingredient = const Ingredients();
                                       ingredientFormKey.currentState!.reset();
                                     }
                                   },

@@ -17,7 +17,7 @@ import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/entity/vehi
 import 'package:yumi/app/pages/auth/registeration/pages/onboarding_screen/entity/onboarding.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/rides_service.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/address/entity/address.dart';
@@ -182,8 +182,8 @@ class RegCubit extends Cubit<RegState> {
       await G.rd<ProfileCubit>().getProfileForm();
       if (G.isDriverApp) await getVehicle();
       if (G.isChefApp) {
-        G.read<MealListBloc>().add(MealListResetBlocEvent());
-        G.read<MealListBloc>().add(MealListUpdateEvent(chefId: G.rd<UserCubit>().state.user.chefId));
+        G.rd<MealCubit>().reset();
+        G.rd<MealCubit>().updateMeals(chefId: G.rd<UserCubit>().state.user.chefId);
       }
       if (!G.isCustomerApp) {
         G.rd<ScheduleCubit>().reset();
@@ -503,7 +503,7 @@ class RegCubit extends Cubit<RegState> {
       G.rd<DocsCubit>().reset();
     }
     if (G.isChefApp) {
-      G.read<MealListBloc>().add(MealListResetBlocEvent());
+      G.rd<MealCubit>().reset();
     }
   }
 }

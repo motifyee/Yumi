@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/order/widgets/action_button.dart';
@@ -31,9 +31,7 @@ class DriverHistoryScreen extends StatelessWidget {
                     label: S.of(context).orders,
                     isActive: state.selectedList == 0,
                     onPressed: () {
-                      context
-                          .read<NewsBloc>()
-                          .add(const NewsEvent(selectedList: 0));
+                      context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
                       _controller.jumpToPage(0);
                     },
                   ),
@@ -43,9 +41,7 @@ class DriverHistoryScreen extends StatelessWidget {
                     label: S.of(context).preOrder,
                     isActive: state.selectedList == 1,
                     onPressed: () {
-                      context
-                          .read<NewsBloc>()
-                          .add(const NewsEvent(selectedList: 1));
+                      context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
                       _controller.jumpToPage(1);
                     },
                   ),

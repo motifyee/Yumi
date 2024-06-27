@@ -10,9 +10,9 @@ import 'package:yumi/app/pages/basket/widgets/confirm_checkout_basket.dart';
 import 'package:yumi/app/pages/basket/widgets/expired_basket.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/basket/delivery_option_dialog.dart';
 
@@ -22,14 +22,11 @@ class BasketScreen extends StatelessWidget {
 
   bool isBasketDeleting = false;
 
-  void openAddFood(
-      {required BuildContext context, required BasketState state}) {
+  void openAddFood({required BuildContext context, required BasketState state}) {
     showModalBottomSheet(
       context: context,
       builder: (context) => ChefMealsScreen(
-        menuTarget: state.basket.isPreorder == true
-            ? MenuTarget.preOrder
-            : MenuTarget.order,
+        menuTarget: state.basket.isPreorder == true ? MenuTarget.preOrder : MenuTarget.order,
         chefId: state.basket.invoice.chefID ?? '',
         isPickUpOnly: state.basket.isPickupOnly,
       ),
@@ -38,8 +35,7 @@ class BasketScreen extends StatelessWidget {
     );
   }
 
-  void checkExpiredBasket(
-      {required BuildContext context, required Basket basket}) {
+  void checkExpiredBasket({required BuildContext context, required Basket basket}) {
     if (basket.invoice.isBasketExpired && !isBasketDeleting) {
       Timer(const Duration(milliseconds: 300), () {
         isBasketDeleting = true;
@@ -98,9 +94,7 @@ class BasketScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      for (var i = 0;
-                          i < (state.basket.invoiceDetails ?? []).length;
-                          i++)
+                      for (var i = 0; i < (state.basket.invoiceDetails ?? []).length; i++)
                         BasketMealCard(
                           invoiceDetails: state.basket.invoiceDetails[i],
                           indexInList: i,
@@ -108,8 +102,7 @@ class BasketScreen extends StatelessWidget {
                       Expanded(child: Container()),
                       SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ThemeSelector.statics.defaultTitleGap),
+                        padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultTitleGap),
                         child: PaymentSummaryCard(),
                       ),
                       SizedBox(height: ThemeSelector.statics.defaultBlockGap),
@@ -122,15 +115,8 @@ class BasketScreen extends StatelessWidget {
                             },
                             child: Container(
                               width: ThemeSelector.statics.defaultGapXXXL,
-                              height:
-                                  ThemeSelector.statics.defaultTitleGapLarge,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                      ThemeSelector
-                                          .statics.defaultBorderRadius),
-                                  border: Border.all(
-                                      color: ThemeSelector.colors.primary,
-                                      width: 1)),
+                              height: ThemeSelector.statics.defaultTitleGapLarge,
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius), border: Border.all(color: ThemeSelector.colors.primary, width: 1)),
                               child: Center(
                                 child: Text(
                                   S.of(context).addFoods,
@@ -147,33 +133,22 @@ class BasketScreen extends StatelessWidget {
                                   ? null
                                   : () {
                                       if (state.basket.isPickupOnly) {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) =>
-                                                const ConfirmCheckOutBasket());
+                                        showDialog(context: context, builder: (context) => const ConfirmCheckOutBasket());
                                       } else {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) =>
-                                                const DeliveryOptionDialog());
+                                        showDialog(context: context, builder: (context) => const DeliveryOptionDialog());
                                       }
                                     },
                               child: Container(
                                 width: ThemeSelector.statics.defaultGapXXXL,
-                                height:
-                                    ThemeSelector.statics.defaultTitleGapLarge,
+                                height: ThemeSelector.statics.defaultTitleGapLarge,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                      ThemeSelector
-                                          .statics.defaultBorderRadius),
+                                  borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius),
                                   color: ThemeSelector.colors.primary,
                                 ),
                                 child: Center(
                                   child: Text(
                                     S.of(context).checkout,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall,
+                                    style: Theme.of(context).textTheme.displaySmall,
                                   ),
                                 ),
                               ),

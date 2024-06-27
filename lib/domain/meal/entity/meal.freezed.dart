@@ -26,19 +26,19 @@ mixin _$Meal {
   String? get code => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get photo => throw _privateConstructorUsedError;
-  String? get price1 => throw _privateConstructorUsedError;
+  double? get price1 => throw _privateConstructorUsedError;
   @JsonKey(name: 'calories_Value')
-  String? get caloriesValue => throw _privateConstructorUsedError;
+  double? get caloriesValue => throw _privateConstructorUsedError;
   @JsonKey(name: 'preparation_time')
-  String? get preparationTime => throw _privateConstructorUsedError;
+  double? get preparationTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'portion_Persons')
+  double? get portionPersons => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_Order')
   bool? get isOrder => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_Pre_Order')
   bool? get isPreOrder => throw _privateConstructorUsedError;
   @JsonKey(name: 'pickup_Only')
   bool? get isPickUpOnly => throw _privateConstructorUsedError;
-  @JsonKey(name: 'portion_Persons')
-  String? get portionPersons => throw _privateConstructorUsedError;
   List<int>? get categoriesIds => throw _privateConstructorUsedError;
   List<Ingredients>? get ingredients => throw _privateConstructorUsedError;
   @JsonKey(name: 'isFavoritProduct')
@@ -61,13 +61,13 @@ abstract class $MealCopyWith<$Res> {
       String? code,
       String? name,
       String? photo,
-      String? price1,
-      @JsonKey(name: 'calories_Value') String? caloriesValue,
-      @JsonKey(name: 'preparation_time') String? preparationTime,
+      double? price1,
+      @JsonKey(name: 'calories_Value') double? caloriesValue,
+      @JsonKey(name: 'preparation_time') double? preparationTime,
+      @JsonKey(name: 'portion_Persons') double? portionPersons,
       @JsonKey(name: 'is_Order') bool? isOrder,
       @JsonKey(name: 'is_Pre_Order') bool? isPreOrder,
       @JsonKey(name: 'pickup_Only') bool? isPickUpOnly,
-      @JsonKey(name: 'portion_Persons') String? portionPersons,
       List<int>? categoriesIds,
       List<Ingredients>? ingredients,
       @JsonKey(name: 'isFavoritProduct') bool? isFavoriteProduct});
@@ -95,10 +95,10 @@ class _$MealCopyWithImpl<$Res, $Val extends Meal>
     Object? price1 = freezed,
     Object? caloriesValue = freezed,
     Object? preparationTime = freezed,
+    Object? portionPersons = freezed,
     Object? isOrder = freezed,
     Object? isPreOrder = freezed,
     Object? isPickUpOnly = freezed,
-    Object? portionPersons = freezed,
     Object? categoriesIds = freezed,
     Object? ingredients = freezed,
     Object? isFavoriteProduct = freezed,
@@ -131,15 +131,19 @@ class _$MealCopyWithImpl<$Res, $Val extends Meal>
       price1: freezed == price1
           ? _value.price1
           : price1 // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       caloriesValue: freezed == caloriesValue
           ? _value.caloriesValue
           : caloriesValue // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       preparationTime: freezed == preparationTime
           ? _value.preparationTime
           : preparationTime // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
+      portionPersons: freezed == portionPersons
+          ? _value.portionPersons
+          : portionPersons // ignore: cast_nullable_to_non_nullable
+              as double?,
       isOrder: freezed == isOrder
           ? _value.isOrder
           : isOrder // ignore: cast_nullable_to_non_nullable
@@ -152,10 +156,6 @@ class _$MealCopyWithImpl<$Res, $Val extends Meal>
           ? _value.isPickUpOnly
           : isPickUpOnly // ignore: cast_nullable_to_non_nullable
               as bool?,
-      portionPersons: freezed == portionPersons
-          ? _value.portionPersons
-          : portionPersons // ignore: cast_nullable_to_non_nullable
-              as String?,
       categoriesIds: freezed == categoriesIds
           ? _value.categoriesIds
           : categoriesIds // ignore: cast_nullable_to_non_nullable
@@ -186,13 +186,13 @@ abstract class _$$MealImplCopyWith<$Res> implements $MealCopyWith<$Res> {
       String? code,
       String? name,
       String? photo,
-      String? price1,
-      @JsonKey(name: 'calories_Value') String? caloriesValue,
-      @JsonKey(name: 'preparation_time') String? preparationTime,
+      double? price1,
+      @JsonKey(name: 'calories_Value') double? caloriesValue,
+      @JsonKey(name: 'preparation_time') double? preparationTime,
+      @JsonKey(name: 'portion_Persons') double? portionPersons,
       @JsonKey(name: 'is_Order') bool? isOrder,
       @JsonKey(name: 'is_Pre_Order') bool? isPreOrder,
       @JsonKey(name: 'pickup_Only') bool? isPickUpOnly,
-      @JsonKey(name: 'portion_Persons') String? portionPersons,
       List<int>? categoriesIds,
       List<Ingredients>? ingredients,
       @JsonKey(name: 'isFavoritProduct') bool? isFavoriteProduct});
@@ -217,10 +217,10 @@ class __$$MealImplCopyWithImpl<$Res>
     Object? price1 = freezed,
     Object? caloriesValue = freezed,
     Object? preparationTime = freezed,
+    Object? portionPersons = freezed,
     Object? isOrder = freezed,
     Object? isPreOrder = freezed,
     Object? isPickUpOnly = freezed,
-    Object? portionPersons = freezed,
     Object? categoriesIds = freezed,
     Object? ingredients = freezed,
     Object? isFavoriteProduct = freezed,
@@ -253,15 +253,19 @@ class __$$MealImplCopyWithImpl<$Res>
       price1: freezed == price1
           ? _value.price1
           : price1 // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       caloriesValue: freezed == caloriesValue
           ? _value.caloriesValue
           : caloriesValue // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       preparationTime: freezed == preparationTime
           ? _value.preparationTime
           : preparationTime // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
+      portionPersons: freezed == portionPersons
+          ? _value.portionPersons
+          : portionPersons // ignore: cast_nullable_to_non_nullable
+              as double?,
       isOrder: freezed == isOrder
           ? _value.isOrder
           : isOrder // ignore: cast_nullable_to_non_nullable
@@ -274,10 +278,6 @@ class __$$MealImplCopyWithImpl<$Res>
           ? _value.isPickUpOnly
           : isPickUpOnly // ignore: cast_nullable_to_non_nullable
               as bool?,
-      portionPersons: freezed == portionPersons
-          ? _value.portionPersons
-          : portionPersons // ignore: cast_nullable_to_non_nullable
-              as String?,
       categoriesIds: freezed == categoriesIds
           ? _value._categoriesIds
           : categoriesIds // ignore: cast_nullable_to_non_nullable
@@ -307,10 +307,10 @@ class _$MealImpl implements _Meal {
       this.price1,
       @JsonKey(name: 'calories_Value') this.caloriesValue,
       @JsonKey(name: 'preparation_time') this.preparationTime,
+      @JsonKey(name: 'portion_Persons') this.portionPersons,
       @JsonKey(name: 'is_Order') this.isOrder,
       @JsonKey(name: 'is_Pre_Order') this.isPreOrder,
       @JsonKey(name: 'pickup_Only') this.isPickUpOnly,
-      @JsonKey(name: 'portion_Persons') this.portionPersons,
       final List<int>? categoriesIds,
       final List<Ingredients>? ingredients,
       @JsonKey(name: 'isFavoritProduct') this.isFavoriteProduct = false})
@@ -333,13 +333,16 @@ class _$MealImpl implements _Meal {
   @override
   final String? photo;
   @override
-  final String? price1;
+  final double? price1;
   @override
   @JsonKey(name: 'calories_Value')
-  final String? caloriesValue;
+  final double? caloriesValue;
   @override
   @JsonKey(name: 'preparation_time')
-  final String? preparationTime;
+  final double? preparationTime;
+  @override
+  @JsonKey(name: 'portion_Persons')
+  final double? portionPersons;
   @override
   @JsonKey(name: 'is_Order')
   final bool? isOrder;
@@ -349,9 +352,6 @@ class _$MealImpl implements _Meal {
   @override
   @JsonKey(name: 'pickup_Only')
   final bool? isPickUpOnly;
-  @override
-  @JsonKey(name: 'portion_Persons')
-  final String? portionPersons;
   final List<int>? _categoriesIds;
   @override
   List<int>? get categoriesIds {
@@ -378,7 +378,7 @@ class _$MealImpl implements _Meal {
 
   @override
   String toString() {
-    return 'Meal(id: $id, productVariantID: $productVariantID, chefId: $chefId, code: $code, name: $name, photo: $photo, price1: $price1, caloriesValue: $caloriesValue, preparationTime: $preparationTime, isOrder: $isOrder, isPreOrder: $isPreOrder, isPickUpOnly: $isPickUpOnly, portionPersons: $portionPersons, categoriesIds: $categoriesIds, ingredients: $ingredients, isFavoriteProduct: $isFavoriteProduct)';
+    return 'Meal(id: $id, productVariantID: $productVariantID, chefId: $chefId, code: $code, name: $name, photo: $photo, price1: $price1, caloriesValue: $caloriesValue, preparationTime: $preparationTime, portionPersons: $portionPersons, isOrder: $isOrder, isPreOrder: $isPreOrder, isPickUpOnly: $isPickUpOnly, categoriesIds: $categoriesIds, ingredients: $ingredients, isFavoriteProduct: $isFavoriteProduct)';
   }
 
   @override
@@ -398,13 +398,13 @@ class _$MealImpl implements _Meal {
                 other.caloriesValue == caloriesValue) &&
             (identical(other.preparationTime, preparationTime) ||
                 other.preparationTime == preparationTime) &&
+            (identical(other.portionPersons, portionPersons) ||
+                other.portionPersons == portionPersons) &&
             (identical(other.isOrder, isOrder) || other.isOrder == isOrder) &&
             (identical(other.isPreOrder, isPreOrder) ||
                 other.isPreOrder == isPreOrder) &&
             (identical(other.isPickUpOnly, isPickUpOnly) ||
                 other.isPickUpOnly == isPickUpOnly) &&
-            (identical(other.portionPersons, portionPersons) ||
-                other.portionPersons == portionPersons) &&
             const DeepCollectionEquality()
                 .equals(other._categoriesIds, _categoriesIds) &&
             const DeepCollectionEquality()
@@ -426,10 +426,10 @@ class _$MealImpl implements _Meal {
       price1,
       caloriesValue,
       preparationTime,
+      portionPersons,
       isOrder,
       isPreOrder,
       isPickUpOnly,
-      portionPersons,
       const DeepCollectionEquality().hash(_categoriesIds),
       const DeepCollectionEquality().hash(_ingredients),
       isFavoriteProduct);
@@ -456,13 +456,13 @@ abstract class _Meal implements Meal {
           final String? code,
           final String? name,
           final String? photo,
-          final String? price1,
-          @JsonKey(name: 'calories_Value') final String? caloriesValue,
-          @JsonKey(name: 'preparation_time') final String? preparationTime,
+          final double? price1,
+          @JsonKey(name: 'calories_Value') final double? caloriesValue,
+          @JsonKey(name: 'preparation_time') final double? preparationTime,
+          @JsonKey(name: 'portion_Persons') final double? portionPersons,
           @JsonKey(name: 'is_Order') final bool? isOrder,
           @JsonKey(name: 'is_Pre_Order') final bool? isPreOrder,
           @JsonKey(name: 'pickup_Only') final bool? isPickUpOnly,
-          @JsonKey(name: 'portion_Persons') final String? portionPersons,
           final List<int>? categoriesIds,
           final List<Ingredients>? ingredients,
           @JsonKey(name: 'isFavoritProduct') final bool? isFavoriteProduct}) =
@@ -483,13 +483,16 @@ abstract class _Meal implements Meal {
   @override
   String? get photo;
   @override
-  String? get price1;
+  double? get price1;
   @override
   @JsonKey(name: 'calories_Value')
-  String? get caloriesValue;
+  double? get caloriesValue;
   @override
   @JsonKey(name: 'preparation_time')
-  String? get preparationTime;
+  double? get preparationTime;
+  @override
+  @JsonKey(name: 'portion_Persons')
+  double? get portionPersons;
   @override
   @JsonKey(name: 'is_Order')
   bool? get isOrder;
@@ -499,9 +502,6 @@ abstract class _Meal implements Meal {
   @override
   @JsonKey(name: 'pickup_Only')
   bool? get isPickUpOnly;
-  @override
-  @JsonKey(name: 'portion_Persons')
-  String? get portionPersons;
   @override
   List<int>? get categoriesIds;
   @override

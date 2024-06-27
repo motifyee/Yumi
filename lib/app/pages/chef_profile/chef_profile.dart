@@ -8,10 +8,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
 import 'package:yumi/app/pages/chef_profile/cubit/reviews/reviews_bloc.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/chef_profile/components/category_card.dart';
 import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';
@@ -24,7 +24,7 @@ class ChefProfileScreen extends StatelessWidget {
   ChefProfileScreen({super.key, required this.chef, required this.menuTarget});
 
   final Chef chef;
-  MenuTarget menuTarget;
+  final MenuTarget menuTarget;
 
   List<String> eventPhotos = [];
 
@@ -142,14 +142,14 @@ class ChefProfileScreen extends StatelessWidget {
                           ],
                         ),
                         BlocProvider(
-                          create: (context) => MealListBloc(),
+                          create: (context) => MealCubit(),
                           child: Builder(builder: (context) {
-                            return BlocConsumer<MealListBloc, MealListState>(
+                            return BlocConsumer<MealCubit, MealState>(
                               listener: (context, state) {},
                               builder: (context, state) {
                                 return PaginationTemplate(
                                   loadDate: () {
-                                    context.read<MealListBloc>().add(MealListUpdateEvent(context: context, chefId: chef.id, menuTarget: menuTarget));
+                                    context.read<MealCubit>().updateMeals(chefId: chef.id, menuTarget: menuTarget);
                                   },
                                   scrollDirection: Axis.horizontal,
                                   child: Column(
@@ -157,18 +157,18 @@ class ChefProfileScreen extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          for (var mealIndex = 0; mealIndex < state.meals.length; mealIndex += 2)
+                                          for (var mealIndex = 0; mealIndex < state.pagination.data.length; mealIndex += 2)
                                             ChefMealCard(
-                                              meal: state.meals[mealIndex],
+                                              meal: state.pagination.data[mealIndex],
                                               chef: chef,
                                             )
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                          for (var mealIndex = 1; mealIndex < state.meals.length; mealIndex += 2)
+                                          for (var mealIndex = 1; mealIndex < state.pagination.data.length; mealIndex += 2)
                                             ChefMealCard(
-                                              meal: state.meals[mealIndex],
+                                              meal: state.pagination.data[mealIndex],
                                               chef: chef,
                                             )
                                         ],

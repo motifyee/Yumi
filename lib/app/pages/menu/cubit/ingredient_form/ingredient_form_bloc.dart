@@ -1,24 +1,21 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/app/pages/menu/ingredient.dart';
+import 'package:yumi/domain/meal/entity/ingredients.dart';
 
 part 'ingredient_form_event.dart';
 part 'ingredient_form_state.dart';
 
-class IngredientFormBloc
-    extends Bloc<IngredientFormEvent, IngredientFormState> {
-  IngredientFormBloc()
-      : super(IngredientFormState(
-            ingredientsModelList: const [], ingredientsModelLength: 0)) {
+class IngredientFormBloc extends Bloc<IngredientFormEvent, IngredientFormState> {
+  IngredientFormBloc() : super(IngredientFormState(ingredientsModelList: const [], ingredientsModelLength: 0)) {
     on<IngredientFormAddEvent>((event, emit) {
-      List<Ingredient> data = List.from(state.ingredientsModelList);
+      List<Ingredients> data = List.from(state.ingredientsModelList);
       data.add(event.ingredientsModel.copyWith());
       emit(state.copyWith(ingredientsModel: data));
     });
 
     on<IngredientFormRemoveEvent>((event, emit) {
-      List<Ingredient> data = List.from(state.ingredientsModelList);
+      List<Ingredients> data = List.from(state.ingredientsModelList);
       data.removeWhere((e) => e.id == event.ingredientsModel.id);
       emit(state.copyWith(ingredientsModel: data));
     });

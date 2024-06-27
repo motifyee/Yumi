@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 
 part 'meal_form_event.dart';
 part 'meal_form_state.dart';

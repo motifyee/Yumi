@@ -23,7 +23,7 @@ class MealSourceRemote extends MealSource {
   @override
   Future<PaginatedData<Meal>> getFavoriteMeals({required PaginatedData<Meal> pagination}) async {
     Response res = await DioClient.simpleDio().get(ApiKeys.favoriteMeals, queryParameters: {...pagination.toJson()});
-    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson(e)).toList();
+    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson({...e, 'id': e['productId'], 'isFavoritProduct': true})).toList();
 
     return pagination.copyWith(data: <Meal>[...pagination.data, ...data].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
