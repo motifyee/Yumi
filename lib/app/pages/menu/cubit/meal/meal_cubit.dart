@@ -50,9 +50,9 @@ class MealCubit extends Cubit<MealState> {
     task.fold((l) => G.snackBar((l.error as DioException).response?.data['message']), (r) => emit(state.copyWith(pagination: r)));
   }
 
-  updateCategory({required int selectedCategory}) {
+  updateCategory({required int selectedCategory, String? chefId}) {
     emit(state.copyWith(pagination: PaginatedData<Meal>(), selectedCategory: selectedCategory));
-    updateMeals();
+    updateMeals(chefId: chefId);
   }
 
   getFavoriteMeals() async {

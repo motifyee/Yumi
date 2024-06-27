@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/docs_info.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/onboarding_screen/onboarding_step.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/rides_screen.dart';
@@ -12,15 +12,13 @@ import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/doc
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/schedule_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/bio_sheet/bio_sheet.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/app/components/dialog.dart';
 import 'package:yumi/app/pages/menu/widgets/menu_template.dart';
 import 'package:yumi/app/components/snack_bar.dart';
 
-List<OnboardingStep> chefOnboardingSteps(
-        BuildContext context, RegState state) =>
-    [
+List<OnboardingStep> chefOnboardingSteps(BuildContext context, RegState state) => [
       // profile
       OnboardingStep(
         icon: "profile",
@@ -29,8 +27,7 @@ List<OnboardingStep> chefOnboardingSteps(
         onTap: () async {
           final regCubit = G.rd<RegCubit>();
 
-          if (regCubit.state.onboarding.profileSheetDone &&
-              regCubit.state.onboarding.approvalDone) return;
+          if (regCubit.state.onboarding.profileSheetDone && regCubit.state.onboarding.approvalDone) return;
 
           G.rd<RegCubit>().setLoading();
 
@@ -54,8 +51,7 @@ List<OnboardingStep> chefOnboardingSteps(
         onTap: () async {
           final regCubit = G.rd<RegCubit>();
 
-          if (regCubit.state.onboarding.stepTwoDone &&
-              regCubit.state.onboarding.approvalDone) return;
+          if (regCubit.state.onboarding.stepTwoDone && regCubit.state.onboarding.approvalDone) return;
 
           G.rd<ScheduleCubit>().loadSchedule();
 
@@ -69,7 +65,7 @@ List<OnboardingStep> chefOnboardingSteps(
             ),
             actions: {
               'Next': (ctx) {
-                if (G.read<MealListBloc>().state.meals.isEmpty) {
+                if (G.rd<MealCubit>().state.pagination.data.isEmpty) {
                   return addYourMealsDialog(context);
                 }
                 G.pop();
@@ -94,8 +90,7 @@ List<OnboardingStep> chefOnboardingSteps(
         onTap: () async {
           final regCubit = G.rd<RegCubit>();
 
-          if (regCubit.state.onboarding.docsDone &&
-              regCubit.state.onboarding.approvalDone) return;
+          if (regCubit.state.onboarding.docsDone && regCubit.state.onboarding.approvalDone) return;
 
           G.rd<RegCubit>().setLoading();
 
@@ -104,14 +99,9 @@ List<OnboardingStep> chefOnboardingSteps(
             content: const DocumentationScreen(),
             actions: {
               'Ok': (context) {
-                final List<DocInfo> docsInfo =
-                    G.isChefApp ? chefDocsInfo : driverDocsInfo;
+                final List<DocInfo> docsInfo = G.isChefApp ? chefDocsInfo : driverDocsInfo;
 
-                final List<String?> notUploadedDocs = docsInfo
-                    .filter((t) =>
-                        t.getdata(G.rd<ProfileCubit>().state.form) == null)
-                    .map((e) => e.title)
-                    .toList();
+                final List<String?> notUploadedDocs = docsInfo.filter((t) => t.getdata(G.rd<ProfileCubit>().state.form) == null).map((e) => e.title).toList();
 
                 if (notUploadedDocs.isEmpty) return G.pop();
 
@@ -146,18 +136,13 @@ List<OnboardingStep> chefOnboardingSteps(
         onTap: () async {
           G.rd<RegCubit>().setLoading();
 
-          await context
-              .read<ProfileCubit>()
-              .getProfileForm()
-              .then((value) async {
+          await context.read<ProfileCubit>().getProfileForm().then((value) async {
             await showAlertDialog(
               context: context,
               title: Container(),
               content: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(!state.onboarding.approvalDone
-                    ? "Waiting for approval within 72 hours..."
-                    : "Your application has been approved"),
+                child: Text(!state.onboarding.approvalDone ? "Waiting for approval within 72 hours..." : "Your application has been approved"),
               ),
               actions: {'Ok': null},
               dismissible: true,
@@ -177,23 +162,18 @@ List<OnboardingStep> chefOnboardingSteps(
         onTap: () async {
           final regCubit = G.rd<RegCubit>();
 
-          if (regCubit.state.onboarding.contractDone &&
-              regCubit.state.onboarding.contractApprovalDone) return;
+          if (regCubit.state.onboarding.contractDone && regCubit.state.onboarding.contractApprovalDone) return;
 
           G.rd<RegCubit>().setLoading();
 
-          await showAlertDialog(
-              context: context,
-              content: const ContractScreen(),
-              insetPadding: 0,
-              actions: {
-                'Ok': (ctx) {
-                  var photo = G.rd<ProfileCubit>().state.form.contractPhoto;
-                  if (photo?.isEmpty ?? true) return;
+          await showAlertDialog(context: context, content: const ContractScreen(), insetPadding: 0, actions: {
+            'Ok': (ctx) {
+              var photo = G.rd<ProfileCubit>().state.form.contractPhoto;
+              if (photo?.isEmpty ?? true) return;
 
-                  G.pop();
-                },
-              });
+              G.pop();
+            },
+          });
 
           G.rd<RegCubit>().setLoading(false);
         },
@@ -214,9 +194,7 @@ List<OnboardingStep> chefOnboardingSteps(
               title: Container(),
               content: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(!state.onboarding.contractApprovalDone
-                    ? "Waiting for approval within 72 hours..."
-                    : "Your Contract has been approved"),
+                child: Text(!state.onboarding.contractApprovalDone ? "Waiting for approval within 72 hours..." : "Your Contract has been approved"),
               ),
               actions: {'Ok': null},
               dismissible: true,
@@ -230,21 +208,17 @@ List<OnboardingStep> chefOnboardingSteps(
       ),
     ];
 
-List<OnboardingStep> driverOnboardingSteps(
-        BuildContext context, RegState state) =>
-    [
+List<OnboardingStep> driverOnboardingSteps(BuildContext context, RegState state) => [
       chefOnboardingSteps(context, state)[0],
       // rides
       OnboardingStep(
         icon: "rides",
         stepTitle: "Your Rides",
-        stepDesc:
-            "Secondly, add your vechile type and schedule your working days",
+        stepDesc: "Secondly, add your vechile type and schedule your working days",
         onTap: () async {
           final regCubit = G.rd<RegCubit>();
 
-          if (regCubit.state.onboarding.stepTwoDone &&
-              regCubit.state.onboarding.approvalDone) return;
+          if (regCubit.state.onboarding.stepTwoDone && regCubit.state.onboarding.approvalDone) return;
 
           G.rd<RegCubit>().setLoading();
 

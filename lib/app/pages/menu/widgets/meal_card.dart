@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
+import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/service/meal_service.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/menu/widgets/delete_dialog.dart';
@@ -43,14 +43,8 @@ class MealCard extends StatelessWidget {
             ),
             decoration: BoxDecoration(
                 color: ThemeSelector.colors.backgroundTant,
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(
-                        ThemeSelector.statics.defaultBorderRadiusExtraLarge),
-                    bottomLeft: Radius.circular(
-                        ThemeSelector.statics.defaultBorderRadiusExtraLarge)),
-                boxShadow: [
-                  BoxShadow(color: ThemeSelector.colors.shadow, blurRadius: 3)
-                ]),
+                borderRadius: BorderRadius.only(topRight: Radius.circular(ThemeSelector.statics.defaultBorderRadiusExtraLarge), bottomLeft: Radius.circular(ThemeSelector.statics.defaultBorderRadiusExtraLarge)),
+                boxShadow: [BoxShadow(color: ThemeSelector.colors.shadow, blurRadius: 3)]),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -59,14 +53,10 @@ class MealCard extends StatelessWidget {
                     width: ThemeSelector.statics.iconSizeLarge,
                     height: ThemeSelector.statics.iconSizeLarge,
                     clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                            ThemeSelector.statics.defaultBorderRadiusSmall)),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusSmall)),
                     child: Image.memory(
-                      Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
-                          Uint8List(0),
-                      errorBuilder: (context, error, stackTrace) =>
-                          Image.asset('assets/images/354.jpeg'),
+                      Uri.parse(meal.photo ?? '').data?.contentAsBytes() ?? Uint8List(0),
+                      errorBuilder: (context, error, stackTrace) => Image.asset('assets/images/354.jpeg'),
                     )),
                 SizedBox(height: ThemeSelector.statics.defaultGap),
                 Text(
@@ -75,14 +65,9 @@ class MealCard extends StatelessWidget {
                 ),
                 SizedBox(height: ThemeSelector.statics.defaultGap),
                 Text(
-                  meal.ingredients
-                          ?.map((e) => '${e.portionGrams} ${e.name}')
-                          .join(', ') ??
-                      '',
+                  meal.ingredients?.map((e) => '${e.portionGrams} ${e.name}').join(', ') ?? '',
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontSize: ThemeSelector.fonts.font_9,
-                      fontWeight: FontWeight.w300),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: ThemeSelector.fonts.font_9, fontWeight: FontWeight.w300),
                 ),
                 SizedBox(height: ThemeSelector.statics.defaultGap),
                 Row(
@@ -120,16 +105,8 @@ class MealCard extends StatelessWidget {
                       //     context: context,
                       //     isPreOrder: menuTarget == MenuTarget.preOrder,
                       //     isAll: false));
-                      context
-                          .read<MealListBloc>()
-                          .add(MealListResetEvent(menuTarget: menuTarget));
-                      context.read<MealListBloc>().add(
-                            MealListUpdateEvent(
-                              context: context,
-                              chefId:
-                                  context.read<UserCubit>().state.user.chefId,
-                            ),
-                          );
+                      context.read<MealCubit>().reset(menuTarget: menuTarget);
+                      context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId);
                     });
                   },
                   child: Row(
@@ -155,15 +132,11 @@ class MealCard extends StatelessWidget {
                                 if (isDeleting) return true;
                                 isDeleting = true;
 
-                                return await MealService.deleteMeal(
-                                        context: context, mealModel: meal)
-                                    .then((res) {
+                                return await MealService.deleteMeal(context: context, mealModel: meal).then((res) {
                                   context.read<CategoriesCubit>().reset();
                                   // .add(ResetCategoryEvent());
 
-                                  context
-                                      .read<CategoriesCubit>()
-                                      .getChefCategories(
+                                  context.read<CategoriesCubit>().getChefCategories(
                                         isPreOrder: meal.isPreOrder == true,
                                       );
                                   // .add(
@@ -171,30 +144,15 @@ class MealCard extends StatelessWidget {
                                   //         context: context,
                                   //         isPreOrder: meal.isPreOrder == true,
                                   //         isAll: false));
-                                  context.read<MealListBloc>().add(
-                                      MealListResetEvent(
-                                          menuTarget: meal.isPreOrder == true
-                                              ? MenuTarget.preOrder
-                                              : MenuTarget.order));
-                                  context.read<MealListBloc>().add(
-                                        MealListUpdateEvent(
-                                          context: context,
-                                          chefId: context
-                                              .read<UserCubit>()
-                                              .state
-                                              .user
-                                              .chefId,
-                                        ),
-                                      );
+                                  context.read<MealCubit>().reset(menuTarget: meal.isPreOrder == true ? MenuTarget.preOrder : MenuTarget.order);
+                                  context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId);
                                   Navigator.of(context).pop();
                                   return true;
                                 }).catchError((err) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: SnackBarMassage(
-                                        massage: (err as DioException)
-                                            .response
-                                            ?.data['message'],
+                                        massage: (err as DioException).response?.data['message'],
                                       ),
                                     ),
                                   );
@@ -215,10 +173,9 @@ class MealCard extends StatelessWidget {
                       const Text(' '),
                       Text(
                         'Remove',
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontSize: ThemeSelector.fonts.font_10,
-                                ),
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontSize: ThemeSelector.fonts.font_10,
+                            ),
                       )
                     ],
                   )),
