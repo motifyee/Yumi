@@ -4,16 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
+import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/menu/widgets/chef_meal_basket_card.dart';
 import 'package:yumi/app/components/pagination_template.dart';
 
 class ChefMealsScreen extends StatefulWidget {
-  const ChefMealsScreen({super.key, required this.menuTarget, required this.chefId, required this.isPickUpOnly});
+  const ChefMealsScreen(
+      {super.key,
+      required this.menuTarget,
+      required this.chefId,
+      required this.isPickUpOnly});
 
   final MenuTarget menuTarget;
   final String chefId;
@@ -33,8 +37,10 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
       decoration: BoxDecoration(
           color: ThemeSelector.colors.background,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(ThemeSelector.statics.defaultBorderRadiusExtreme),
-            topRight: Radius.circular(ThemeSelector.statics.defaultBorderRadiusExtreme),
+            topLeft: Radius.circular(
+                ThemeSelector.statics.defaultBorderRadiusExtreme),
+            topRight: Radius.circular(
+                ThemeSelector.statics.defaultBorderRadiusExtreme),
           )),
       padding: EdgeInsets.only(
         top: ThemeSelector.statics.defaultGapExtreme,
@@ -51,12 +57,15 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                 child: SvgPicture.asset(
                   'assets/images/chef_meals_list_icon.svg',
                   height: ThemeSelector.statics.defaultInputGap,
-                  colorFilter: ColorFilter.mode(ThemeSelector.colors.secondary, BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(
+                      ThemeSelector.colors.secondary, BlendMode.srcIn),
                 ),
               ),
               SizedBox(width: ThemeSelector.statics.defaultGap),
               Text(
-                pageIndex == 0 ? S.of(context).chefMenu : S.of(context).chefCuisines,
+                pageIndex == 0
+                    ? S.of(context).chefMenu
+                    : S.of(context).chefCuisines,
                 style: Theme.of(context).textTheme.labelLarge,
               ),
               Expanded(child: Container()),
@@ -68,10 +77,15 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                   });
                 },
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultInputGap),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ThemeSelector.statics.defaultInputGap),
                   child: SvgPicture.asset(
                     'assets/images/chef_meals_list.svg',
-                    colorFilter: ColorFilter.mode(pageIndex == 0 ? ThemeSelector.colors.primary : ThemeSelector.colors.secondary, BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(
+                        pageIndex == 0
+                            ? ThemeSelector.colors.primary
+                            : ThemeSelector.colors.secondary,
+                        BlendMode.srcIn),
                   ),
                 ),
               ),
@@ -83,10 +97,15 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                   });
                 },
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultInputGap),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ThemeSelector.statics.defaultInputGap),
                   child: SvgPicture.asset(
                     'assets/images/meals.svg',
-                    colorFilter: ColorFilter.mode(pageIndex == 0 ? ThemeSelector.colors.secondary : ThemeSelector.colors.primary, BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(
+                        pageIndex == 0
+                            ? ThemeSelector.colors.secondary
+                            : ThemeSelector.colors.primary,
+                        BlendMode.srcIn),
                   ),
                 ),
               ),
@@ -95,7 +114,7 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
           SizedBox(height: ThemeSelector.statics.defaultGap),
           MultiBlocProvider(
             providers: [
-              BlocProvider(create: (context) => MealCubit()),
+              BlocProvider(create: (context) => MealListBloc()),
               BlocProvider(create: (context) => CategoriesCubit()),
             ],
             child: Builder(builder: (context) {
@@ -107,24 +126,40 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                     PaginationTemplate(
                       scrollDirection: Axis.vertical,
                       loadDate: () {
-                        context.read<MealCubit>().updateMeals(menuTarget: widget.menuTarget, chefId: widget.chefId);
+                        context.read<MealListBloc>().add(
+                              MealListUpdateEvent(
+                                context: context,
+                                menuTarget: widget.menuTarget,
+                                chefId: widget.chefId,
+                              ),
+                            );
                       },
-                      child: BlocConsumer<MealCubit, MealState>(
+                      child: BlocConsumer<MealListBloc, MealListState>(
                         listener: (context, state) {},
                         builder: (context, state) {
                           return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: ThemeSelector.statics.defaultGap),
                             child: Column(
                               children: [
-                                for (var meal in state.pagination.data)
+                                for (var meal in state.meals)
                                   BlocConsumer<BasketCubit, BasketState>(
                                     listener: (context, state) {},
                                     builder: (context, state) {
                                       return ChefMealBasketCard(
                                         meal: meal,
-                                        isDisabled: context.read<BasketCubit>().state.basket.invoiceDetails.any((e) => e.productVarintId == meal.productVariantID),
+                                        isDisabled: context
+                                            .read<BasketCubit>()
+                                            .state
+                                            .basket
+                                            .invoiceDetails
+                                            .any((e) =>
+                                                e.productVarintId ==
+                                                meal.productVariantID),
                                         onTap: () {
-                                          context.read<BasketCubit>().addMeal(meal: meal);
+                                          context
+                                              .read<BasketCubit>()
+                                              .addMeal(meal: meal);
                                         },
                                       );
                                     },
@@ -137,7 +172,9 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                     ),
                     PaginationTemplate(
                       loadDate: () {
-                        context.read<CategoriesCubit>().getAllCategories(isPreOrder: false);
+                        context
+                            .read<CategoriesCubit>()
+                            .getAllCategories(isPreOrder: false);
                         // .add(GetCategoriesEvent(context: context, isPreOrder: false));
                       },
                       scrollDirection: Axis.vertical,
@@ -153,43 +190,74 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                                       favPageController.jumpToPage(0);
                                       pageIndex = 0;
                                     });
-                                    context.read<MealCubit>().reset();
-                                    context.read<MealCubit>().updateCategory(selectedCategory: category.id ?? 0);
+                                    context
+                                        .read<MealListBloc>()
+                                        .add(MealListResetEvent());
+                                    context
+                                        .read<MealListBloc>()
+                                        .add(MealListUpdateCategoryEvent(
+                                          context: context,
+                                          selectedCategory: category.id ?? 0,
+                                          chefId: widget.chefId,
+                                        ));
                                   },
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            ThemeSelector.statics.defaultGap),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                            width: MediaQuery.of(context).size.width,
-                                            height: ThemeSelector.statics.defaultImageHeightSmall,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: ThemeSelector.statics
+                                                .defaultImageHeightSmall,
                                             clipBehavior: Clip.hardEdge,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(ThemeSelector.statics.defaultGap),
-                                                topRight: Radius.circular(ThemeSelector.statics.defaultGap),
+                                                topLeft: Radius.circular(
+                                                    ThemeSelector
+                                                        .statics.defaultGap),
+                                                topRight: Radius.circular(
+                                                    ThemeSelector
+                                                        .statics.defaultGap),
                                               ),
                                             ),
                                             child: Image.memory(
-                                              Uri.parse(category.image ?? '').data?.contentAsBytes() ?? Uint8List(0),
+                                              Uri.parse(category.image ?? '')
+                                                      .data
+                                                      ?.contentAsBytes() ??
+                                                  Uint8List(0),
                                               fit: BoxFit.cover,
                                               alignment: Alignment.topCenter,
-                                              errorBuilder: (context, error, stackTrace) => Image.asset(
+                                              errorBuilder: (context, error,
+                                                      stackTrace) =>
+                                                  Image.asset(
                                                 'assets/images/354.jpeg',
                                                 fit: BoxFit.cover,
                                                 alignment: Alignment.topCenter,
                                               ),
                                             )),
-                                        SizedBox(height: ThemeSelector.statics.defaultGap),
+                                        SizedBox(
+                                            height: ThemeSelector
+                                                .statics.defaultGap),
                                         Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: ThemeSelector
+                                                  .statics.defaultGap),
                                           child: Text(
                                             category.name ?? '',
-                                            style: Theme.of(context).textTheme.labelLarge,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelLarge,
                                           ),
                                         ),
-                                        SizedBox(height: ThemeSelector.statics.defaultGap),
+                                        SizedBox(
+                                            height: ThemeSelector
+                                                .statics.defaultGap),
                                       ],
                                     ),
                                   ),

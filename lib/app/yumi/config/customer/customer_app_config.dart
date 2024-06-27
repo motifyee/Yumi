@@ -4,7 +4,7 @@ import 'package:nested/nested.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/form/meal_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';

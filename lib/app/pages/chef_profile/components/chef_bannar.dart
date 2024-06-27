@@ -5,10 +5,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/chef/use_cases/add_favourite_chef.dart';
+import 'package:yumi/domain/chef/use_cases/get_chef_work_status.dart';
+import 'package:yumi/domain/chef/use_cases/is_favourite_chef.dart';
+import 'package:yumi/domain/chef/use_cases/remove_favourite_chef.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/app/pages/chef_profile/chef_profile.dart';
-import 'package:yumi/service/chef_service.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 class ChefBanner extends StatefulWidget {
@@ -43,19 +46,23 @@ class _ChefBannerState extends State<ChefBanner> {
   void initState() {
     if (widget.isShowFav) {
       isLoading = true;
-      ChefService.getIsChefFavorite(chefId: widget.chef.id!)
-          .then((value) => setState(() {
-                widget.chef = widget.chef.copyWith(isFavorite: value.data['isChefFavorit']);
-                isLoading = false;
-              }))
-          .catchError((onError) {
-        isLoading = false;
-      });
+
+      final params = IsFavouriteChefParams(widget.chef.id!);
+      IsFavouriteChef().call(params).then((res) => res.fold(
+            (l) => isLoading = false,
+            (r) {
+              widget.chef = widget.chef.copyWith(isFavorite: r);
+              isLoading = false;
+            },
+          ));
     }
+
     if (widget.isRequestStatus) {
-      ChefService.getChefStatus(accountId: widget.chef.id!).then((value) => setState(() {
-            widget.chef = widget.chef.copyWith(status: value.data['statusWork']);
-          }));
+      final wParams = GetChefWorkStatusParams(widget.chef.id!);
+      GetChefWorkStatus().call(wParams).then((res) => res.fold(
+            (l) => null,
+            (r) => widget.chef = widget.chef.copyWith(status: r.index),
+          ));
     }
 
     super.initState();
@@ -92,7 +99,10 @@ class _ChefBannerState extends State<ChefBanner> {
                   tag: 'chef_${widget.chef.id}',
                   child: SizedBox(
                     child: Image.memory(
-                      Uri.parse(widget.chef.imageProfile ?? '').data?.contentAsBytes() ?? Uint8List(0),
+                      Uri.parse(widget.chef.imageProfile ?? '')
+                              .data
+                              ?.contentAsBytes() ??
+                          Uint8List(0),
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
                       errorBuilder: (context, error, stackTrace) => Image.asset(
@@ -112,8 +122,12 @@ class _ChefBannerState extends State<ChefBanner> {
                     children: [
                       if (widget.chef.status == 0)
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
-                          decoration: BoxDecoration(color: ThemeSelector.colors.primaryDisabled, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusLarge)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ThemeSelector.statics.defaultGap),
+                          decoration: BoxDecoration(
+                              color: ThemeSelector.colors.primaryDisabled,
+                              borderRadius: BorderRadius.circular(ThemeSelector
+                                  .statics.defaultBorderRadiusLarge)),
                           child: Text(
                             S.of(context).offline,
                             style: Theme.of(context).textTheme.bodySmall,
@@ -121,8 +135,12 @@ class _ChefBannerState extends State<ChefBanner> {
                         ),
                       if (widget.chef.status == 1)
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
-                          decoration: BoxDecoration(color: ThemeSelector.colors.success, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusLarge)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ThemeSelector.statics.defaultGap),
+                          decoration: BoxDecoration(
+                              color: ThemeSelector.colors.success,
+                              borderRadius: BorderRadius.circular(ThemeSelector
+                                  .statics.defaultBorderRadiusLarge)),
                           child: Text(
                             S.of(context).open,
                             style: Theme.of(context).textTheme.bodySmall,
@@ -130,8 +148,12 @@ class _ChefBannerState extends State<ChefBanner> {
                         ),
                       if (widget.chef.status == 2)
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
-                          decoration: BoxDecoration(color: ThemeSelector.colors.primaryDisabled, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusLarge)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ThemeSelector.statics.defaultGap),
+                          decoration: BoxDecoration(
+                              color: ThemeSelector.colors.primaryDisabled,
+                              borderRadius: BorderRadius.circular(ThemeSelector
+                                  .statics.defaultBorderRadiusLarge)),
                           child: Text(
                             S.of(context).busy,
                             style: Theme.of(context).textTheme.bodySmall,
@@ -157,15 +179,20 @@ class _ChefBannerState extends State<ChefBanner> {
                       Row(
                         children: [
                           Text(
-                            [widget.chef.firstName, widget.chef.lastName].join(' '),
+                            [widget.chef.firstName, widget.chef.lastName]
+                                .join(' '),
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
                                   fontSize: ThemeSelector.fonts.font_16,
                                 ),
                           ),
                           if (widget.isShowFav)
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: ThemeSelector.statics.defaultGap),
                               child: DeliveryPickUpIcons(
                                 isPickUpOnly: widget.chef.pickupOnly ?? false,
                                 isShowFav: widget.isShowFav,
@@ -181,8 +208,10 @@ class _ChefBannerState extends State<ChefBanner> {
                             allowHalfRating: true,
                             itemSize: ThemeSelector.fonts.font_18,
                             ratingWidget: RatingWidget(
-                              empty: Icon(Icons.star_border, color: ThemeSelector.colors.warning),
-                              full: Icon(Icons.star, color: ThemeSelector.colors.warning),
+                              empty: Icon(Icons.star_border,
+                                  color: ThemeSelector.colors.warning),
+                              full: Icon(Icons.star,
+                                  color: ThemeSelector.colors.warning),
                               half: Icon(
                                 Icons.star_half,
                                 color: ThemeSelector.colors.warning,
@@ -190,10 +219,29 @@ class _ChefBannerState extends State<ChefBanner> {
                             ),
                             onRatingUpdate: (value) {},
                           ),
-                          Text(' | ', style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: ThemeSelector.fonts.font_9)),
-                          if (widget.chef.isHygiene != true) Text('${S.of(context).hygiene} -', style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: ThemeSelector.fonts.font_9)),
-                          if (widget.chef.isHygiene == true) Text(S.of(context).hygieneCertified, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: ThemeSelector.fonts.font_9)),
-                          if (widget.chef.isHygiene == true) SvgPicture.asset('assets/images/certified_icon.svg'),
+                          Text(' | ',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                      fontSize: ThemeSelector.fonts.font_9)),
+                          if (widget.chef.isHygiene != true)
+                            Text('${S.of(context).hygiene} -',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        fontSize: ThemeSelector.fonts.font_9)),
+                          if (widget.chef.isHygiene == true)
+                            Text(S.of(context).hygieneCertified,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        fontSize: ThemeSelector.fonts.font_9)),
+                          if (widget.chef.isHygiene == true)
+                            SvgPicture.asset(
+                                'assets/images/certified_icon.svg'),
                         ],
                       )
                     ],
@@ -212,25 +260,50 @@ class _ChefBannerState extends State<ChefBanner> {
                     children: [
                       if (isLoading)
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultBlockGap),
-                          child: Loading(size: ThemeSelector.statics.defaultBlockGap),
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  ThemeSelector.statics.defaultBlockGap),
+                          child: Loading(
+                              size: ThemeSelector.statics.defaultBlockGap),
                         ),
                       if (!isLoading)
                         TextButton(
                           onPressed: () {
                             if (widget.chef.isFavorite != true) {
-                              ChefService.addFavoriteChef(chefId: widget.chef.id!).then((value) => setState(() {
-                                    widget.chef = widget.chef.copyWith(isFavorite: true);
-                                  }));
+                              final aParams =
+                                  AddFavouriteChefParams(widget.chef.id!);
+
+                              AddFavouriteChef()
+                                  .call(aParams)
+                                  .then((res) => res.fold(
+                                      (l) => null,
+                                      (r) => setState(() {
+                                            widget.chef = widget.chef
+                                                .copyWith(isFavorite: true);
+                                          })));
                             } else {
-                              ChefService.removeFavoriteChef(chefId: widget.chef.id!).then((value) => setState(() {
-                                    widget.chef = widget.chef.copyWith(isFavorite: false);
-                                  }));
+                              final rParams =
+                                  RemoveFavouriteChefParams(widget.chef.id!);
+
+                              RemoveFavouriteChef()
+                                  .call(rParams)
+                                  .then((res) => res.fold(
+                                      (l) => null,
+                                      (r) => setState(() {
+                                            widget.chef = widget.chef
+                                                .copyWith(isFavorite: false);
+                                          })));
                             }
                           },
                           child: widget.chef.isFavorite
-                              ? SvgPicture.asset('assets/images/heart.svg', colorFilter: ColorFilter.mode(ThemeSelector.colors.primary, BlendMode.srcIn), fit: BoxFit.contain)
-                              : SvgPicture.asset('assets/images/heart_outline.svg', fit: BoxFit.contain),
+                              ? SvgPicture.asset('assets/images/heart.svg',
+                                  colorFilter: ColorFilter.mode(
+                                      ThemeSelector.colors.primary,
+                                      BlendMode.srcIn),
+                                  fit: BoxFit.contain)
+                              : SvgPicture.asset(
+                                  'assets/images/heart_outline.svg',
+                                  fit: BoxFit.contain),
                         ),
                     ],
                   )
@@ -244,7 +317,8 @@ class _ChefBannerState extends State<ChefBanner> {
 }
 
 class DeliveryPickUpIcons extends StatelessWidget {
-  const DeliveryPickUpIcons({super.key, required this.isShowFav, required this.isPickUpOnly});
+  const DeliveryPickUpIcons(
+      {super.key, required this.isShowFav, required this.isPickUpOnly});
 
   final bool isShowFav;
   final bool isPickUpOnly;
@@ -274,7 +348,8 @@ class DeliveryIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: showFav ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      crossAxisAlignment:
+          showFav ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       children: [
         Row(
           children: [
@@ -283,20 +358,27 @@ class DeliveryIcon extends StatelessWidget {
               Row(
                 children: [
                   const SizedBox(width: 5),
-                  SvgPicture.asset(isChecked ? 'assets/images/closed_icon.svg' : 'assets/images/checked_icon.svg'),
+                  SvgPicture.asset(isChecked
+                      ? 'assets/images/closed_icon.svg'
+                      : 'assets/images/checked_icon.svg'),
                 ],
               ),
           ],
         ),
         Text(
           S.of(context).delivery,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: ThemeSelector.fonts.font_5),
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(fontSize: ThemeSelector.fonts.font_5),
         ),
         if (!showFav)
           Row(
             children: [
               const SizedBox(height: 3),
-              SvgPicture.asset(isChecked ? 'assets/images/closed_icon.svg' : 'assets/images/checked_icon.svg'),
+              SvgPicture.asset(isChecked
+                  ? 'assets/images/closed_icon.svg'
+                  : 'assets/images/checked_icon.svg'),
             ],
           ),
       ],
@@ -315,7 +397,8 @@ class PickupIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: showFav ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      crossAxisAlignment:
+          showFav ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       children: [
         Row(
           children: [
@@ -331,7 +414,10 @@ class PickupIcon extends StatelessWidget {
         ),
         Text(
           S.of(context).pickup,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: ThemeSelector.fonts.font_5),
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(fontSize: ThemeSelector.fonts.font_5),
         ),
         if (!showFav)
           Row(

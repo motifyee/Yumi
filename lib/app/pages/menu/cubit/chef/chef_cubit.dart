@@ -89,7 +89,7 @@ class ChefsCubit extends Cubit<ChefsState> {
   }) async {
     if (chef.id?.isEmpty ?? true) return null;
 
-    final params = IsFavouriteChefParam(chef.id!);
+    final params = IsFavouriteChefParams(chef.id!);
     final isFavourite = await IsFavouriteChef().call(params);
 
     return isFavourite.fold(
@@ -113,7 +113,7 @@ class ChefsCubit extends Cubit<ChefsState> {
   }) async {
     if (chef.id?.isEmpty ?? true) return false;
 
-    final params = AddFavouriteChefParam(chef.id!);
+    final params = AddFavouriteChefParams(chef.id!);
     final favouriteChef = await AddFavouriteChef().call(params);
 
     return favouriteChef.fold(
@@ -137,7 +137,7 @@ class ChefsCubit extends Cubit<ChefsState> {
   }) async {
     if (chef.id?.isEmpty ?? true) return false;
 
-    final params = RemoveFavouriteChefParam(chef.id!);
+    final params = RemoveFavouriteChefParams(chef.id!);
     final favouriteChef = await RemoveFavouriteChef().call(params);
 
     return favouriteChef.fold(

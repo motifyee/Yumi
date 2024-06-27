@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/categories/cubit/categories_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
+import 'package:yumi/app/pages/menu/cubit/meal_list/meal_list_bloc.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/app/pages/menu/widgets/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
+import 'package:yumi/app/pages/menu/meal.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/dialog.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_card.dart';
@@ -25,12 +25,12 @@ class MenuTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 1)).then((value) {
       if (!G.rd<RegCubit>().state.registerationStarted) return;
-      if (context.read<MealCubit>().state.pagination.data.isNotEmpty) return;
+      if (context.read<MealListBloc>().state.meals.isNotEmpty) return;
       addYourMealsDialog(context);
     });
     return Stack(
       children: [
-        BlocConsumer<MealCubit, MealState>(
+        BlocConsumer<MealListBloc, MealListState>(
           listener: (context, state) {},
           builder: (context, state) {
             var mealListBlocState = state;
@@ -39,7 +39,9 @@ class MenuTemplate extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap, vertical: ThemeSelector.statics.defaultGap),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ThemeSelector.statics.defaultGap,
+                        vertical: ThemeSelector.statics.defaultGap),
                     child: BlocConsumer<CategoriesCubit, CategoriesState>(
                       listener: (context, state) {},
                       builder: (context, state) {
@@ -62,39 +64,99 @@ class MenuTemplate extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  context.read<MealCubit>().updateCategory(selectedCategory: 0);
+                                  context
+                                      .read<MealListBloc>()
+                                      .add(MealListUpdateCategoryEvent(
+                                        context: context,
+                                        selectedCategory: 0,
+                                        chefId: context
+                                            .read<UserCubit>()
+                                            .state
+                                            .user
+                                            .chefId,
+                                      ));
                                 },
                                 child: Container(
-                                  width: ((MediaQuery.of(context).size.width - (ThemeSelector.statics.defaultGap * 2)) / 5),
+                                  width: ((MediaQuery.of(context).size.width -
+                                          (ThemeSelector.statics.defaultGap *
+                                              2)) /
+                                      5),
                                   decoration: BoxDecoration(
-                                      color: mealListBlocState.selectedCategory == 0 ? ThemeSelector.colors.primary : ThemeSelector.colors.background, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusMedium)),
+                                      color:
+                                          mealListBlocState.selectedCategory ==
+                                                  0
+                                              ? ThemeSelector.colors.primary
+                                              : ThemeSelector.colors.background,
+                                      borderRadius: BorderRadius.circular(
+                                          ThemeSelector.statics
+                                              .defaultBorderRadiusMedium)),
                                   child: Center(
                                     child: Text(
                                       'All',
-                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                            color: mealListBlocState.selectedCategory == 0 ? ThemeSelector.colors.onPrimary : ThemeSelector.colors.secondary,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                            color: mealListBlocState
+                                                        .selectedCategory ==
+                                                    0
+                                                ? ThemeSelector.colors.onPrimary
+                                                : ThemeSelector
+                                                    .colors.secondary,
                                           ),
                                     ),
                                   ),
                                 ),
                               ),
-                              for (var category in state.categoriesPage.data)
+                              for (var category
+                                  in state.categoriesPage.data ?? [])
                                 GestureDetector(
                                   onTap: () {
-                                    context.read<MealCubit>().updateCategory(selectedCategory: category.id);
+                                    context.read<MealListBloc>().add(
+                                        MealListUpdateCategoryEvent(
+                                            context: context,
+                                            selectedCategory: category.id,
+                                            chefId: context
+                                                .read<UserCubit>()
+                                                .state
+                                                .user
+                                                .chefId));
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            ThemeSelector.statics.defaultGap),
                                     constraints: BoxConstraints(
-                                      minWidth: ((MediaQuery.of(context).size.width - (ThemeSelector.statics.defaultGap * 2)) / 5),
+                                      minWidth:
+                                          ((MediaQuery.of(context).size.width -
+                                                  (ThemeSelector
+                                                          .statics.defaultGap *
+                                                      2)) /
+                                              5),
                                     ),
                                     decoration: BoxDecoration(
-                                        color: mealListBlocState.selectedCategory == category.id ? ThemeSelector.colors.primary : ThemeSelector.colors.background, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusMedium)),
+                                        color: mealListBlocState
+                                                    .selectedCategory ==
+                                                category.id
+                                            ? ThemeSelector.colors.primary
+                                            : ThemeSelector.colors.background,
+                                        borderRadius: BorderRadius.circular(
+                                            ThemeSelector.statics
+                                                .defaultBorderRadiusMedium)),
                                     child: Center(
                                       child: Text(
                                         category.name,
-                                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                              color: mealListBlocState.selectedCategory == category.id ? ThemeSelector.colors.onPrimary : ThemeSelector.colors.secondary,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                              color: mealListBlocState
+                                                          .selectedCategory ==
+                                                      category.id
+                                                  ? ThemeSelector
+                                                      .colors.onPrimary
+                                                  : ThemeSelector
+                                                      .colors.secondary,
                                             ),
                                       ),
                                     ),
@@ -104,7 +166,8 @@ class MenuTemplate extends StatelessWidget {
                                 width: ThemeSelector.statics.defaultBlockGap,
                                 child: state.categoriesPage.isLoading
                                     ? Loading(
-                                        size: ThemeSelector.statics.defaultBlockGap,
+                                        size: ThemeSelector
+                                            .statics.defaultBlockGap,
                                       )
                                     : const Text(''),
                               ),
@@ -122,7 +185,13 @@ class MenuTemplate extends StatelessWidget {
                     child: PaginationTemplate(
                       scrollDirection: Axis.vertical,
                       loadDate: () {
-                        context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId);
+                        context.read<MealListBloc>().add(
+                              MealListUpdateEvent(
+                                context: context,
+                                chefId:
+                                    context.read<UserCubit>().state.user.chefId,
+                              ),
+                            );
                       },
                       child: Column(
                         children: [
@@ -131,19 +200,25 @@ class MenuTemplate extends StatelessWidget {
                             children: [
                               Column(
                                 children: [
-                                  for (var mealIndex = 0; mealIndex < state.pagination.data.length; mealIndex += 2)
+                                  for (var mealIndex = 0;
+                                      mealIndex < state.meals.length;
+                                      mealIndex += 2)
                                     MealCard(
-                                      meal: state.pagination.data[mealIndex],
+                                      meal: state.meals[mealIndex],
                                       menuTarget: menuTarget,
                                     )
                                 ],
                               ),
                               Column(
                                 children: [
-                                  SizedBox(height: ThemeSelector.statics.defaultTitleGapLarge),
-                                  for (var mealIndex = 1; mealIndex < state.pagination.data.length; mealIndex += 2)
+                                  SizedBox(
+                                      height: ThemeSelector
+                                          .statics.defaultTitleGapLarge),
+                                  for (var mealIndex = 1;
+                                      mealIndex < state.meals.length;
+                                      mealIndex += 2)
                                     MealCard(
-                                      meal: state.pagination.data[mealIndex],
+                                      meal: state.meals[mealIndex],
                                       menuTarget: menuTarget,
                                     )
                                 ],
@@ -151,20 +226,22 @@ class MenuTemplate extends StatelessWidget {
                             ],
                           ),
                           SizedBox(
-                            height: ThemeSelector.statics.defaultGapExtraExtreme,
+                            height:
+                                ThemeSelector.statics.defaultGapExtraExtreme,
                           )
                         ],
                       ),
                     ),
                   ),
-                  if (state.pagination.data.isEmpty && !state.pagination.isLoading)
+                  if (state.meals.isEmpty && !state.pagination.isLoading)
                     Expanded(
                       child: Text(
                         S.of(context).empty,
-                        style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                              color: ThemeSelector.colors.secondaryFaint,
-                              fontSize: ThemeSelector.fonts.font_38,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.displaySmall?.copyWith(
+                                  color: ThemeSelector.colors.secondaryFaint,
+                                  fontSize: ThemeSelector.fonts.font_38,
+                                ),
                       ),
                     ),
                 ],
@@ -186,13 +263,26 @@ class MenuTemplate extends StatelessWidget {
                     ),
                   ),
                 ).then((value) {
-                  context.read<CategoriesCubit>().reset();
+                  context
+                      .read<CategoriesCubit>()
+                      .reset(); //.add(ResetCategoryEvent());
 
                   context.read<CategoriesCubit>().getChefCategories(
                         isPreOrder: menuTarget == MenuTarget.preOrder,
                       );
-                  context.read<MealCubit>().reset(menuTarget: menuTarget);
-                  context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId);
+                  // .add(GetCategoriesEvent(
+                  //     context: context,
+                  //     isPreOrder: menuTarget == MenuTarget.preOrder,
+                  //     isAll: false));
+                  context
+                      .read<MealListBloc>()
+                      .add(MealListResetEvent(menuTarget: menuTarget));
+                  context.read<MealListBloc>().add(
+                        MealListUpdateEvent(
+                          context: context,
+                          chefId: context.read<UserCubit>().state.user.chefId,
+                        ),
+                      );
                 });
               },
               child: Container(
@@ -201,14 +291,17 @@ class MenuTemplate extends StatelessWidget {
                     Container(
                       width: ThemeSelector.statics.iconSizeLarge,
                       height: ThemeSelector.statics.iconSizeLarge,
-                      padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap * .8),
+                      padding: EdgeInsets.all(
+                          ThemeSelector.statics.defaultLineGap * .8),
                       decoration: BoxDecoration(
                         color: ThemeSelector.colors.primary,
-                        borderRadius: BorderRadius.circular(ThemeSelector.statics.iconSizeLarge),
+                        borderRadius: BorderRadius.circular(
+                            ThemeSelector.statics.iconSizeLarge),
                       ),
                       child: SvgPicture.asset('assets/images/meal.svg'),
                     ),
-                    Positioned(child: SvgPicture.asset('assets/images/plus.svg'))
+                    Positioned(
+                        child: SvgPicture.asset('assets/images/plus.svg'))
                   ],
                 ),
               ),
