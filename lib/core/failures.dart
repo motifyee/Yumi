@@ -39,6 +39,9 @@ class NetworkFailure extends Failure with EquatableMixin {
   final StackTrace? stackTrace;
 
   @override
+  toString() => error.toString();
+
+  @override
   List<Object?> get props => [stackTrace];
 }
 
@@ -53,6 +56,9 @@ class ServerFailure extends Failure with EquatableMixin {
   final StackTrace? stackTrace;
 
   @override
+  toString() => error.toString();
+
+  @override
   List<Object?> get props => [stackTrace];
 }
 
@@ -65,6 +71,9 @@ class GenericFailure extends Failure with EquatableMixin {
   final Object? error;
   @override
   final StackTrace? stackTrace;
+
+  @override
+  toString() => error.toString();
 
   @override
   List<Object?> get props => [stackTrace];
