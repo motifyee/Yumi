@@ -14,9 +14,7 @@ import 'package:yumi/app/components/screen_container.dart';
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
-
-  final loginFormKey = GlobalKey<FormState>();
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +61,7 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: ThemeSelector.statics.defaultTitleGap,
                         ),
-                        LoginForm(
-                          loginFormKey: loginFormKey,
-                        ),
+                        const LoginFormProvider(),
                         SizedBox(
                           height: ThemeSelector.statics.defaultBlockGap,
                         ),

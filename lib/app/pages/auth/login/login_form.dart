@@ -1,30 +1,38 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/forgot_password/forgot_password_sheet.dart';
+import 'package:yumi/app/pages/auth/login/cubit/login_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/app/pages/auth/login/login_model.dart';
-import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/service/login_service.dart';
+import 'package:yumi/domain/auth/entities/login_data.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/password_validator.dart';
 
-class LoginForm extends StatelessWidget {
-  LoginForm({super.key, required this.loginFormKey});
-
-  final LoginModel loginForm = LoginModel(email: '', password: '');
-  final GlobalKey<FormState> loginFormKey;
+class LoginFormProvider extends StatelessWidget {
+  const LoginFormProvider({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider<LoginCubit>(
+      create: (_) => LoginCubit(),
+      child: const LoginForm(),
+    );
+  }
+}
+
+class LoginForm extends StatelessWidget {
+  const LoginForm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+
     // redirect to registeration if has cached reg-steps
     final regCubit = G.rd<RegCubit>();
     final userCubit = G.rd<UserCubit>();
@@ -37,14 +45,6 @@ class LoginForm extends StatelessWidget {
         regCubit.init();
       }
     });
-    // userBloc.add(
-    //   LoadxUserFromSharedRefEvent(
-    //     context: context,
-    //     route: null,
-    //     afterFetchSuccess: (context, _, user) async {},
-    //     autoLogin: (_) {},
-    //   ),
-    // );
 
     return Form(
       key: loginFormKey,
@@ -53,26 +53,36 @@ class LoginForm extends StatelessWidget {
             horizontal: ThemeSelector.statics.formFieldInlineGap),
         child: Column(
           children: [
+            // fields
             Column(
               children: [
+                //
+                // Email field
                 TextFormFieldTemplate(
                   label: S.of(context).email,
                   validators: emailValidator,
                   autoHint: const [AutofillHints.username],
-                  onSave: (value) => {loginForm.email = value ?? ''},
+                  onSave: (value) => context
+                      .read<LoginCubit>()
+                      .setLoginData((m) => m.copyWith(email: value ?? '')),
                 ),
-                SizedBox(
-                  height: ThemeSelector.statics.formFieldGap,
-                ),
+
+                SizedBox(height: ThemeSelector.statics.formFieldGap),
+
+                // Password field
                 TextFormFieldTemplate(
                   label: S.of(context).password,
                   validators: passwordValidator,
                   autoHint: const [AutofillHints.password],
-                  onSave: (value) => {loginForm.password = value ?? ''},
+                  onSave: (value) => context
+                      .read<LoginCubit>()
+                      .setLoginData((m) => m.copyWith(password: value ?? '')),
                   isPassword: true,
                 ),
               ],
             ),
+
+            // forgot password
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -101,20 +111,20 @@ class LoginForm extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
-              height: ThemeSelector.statics.defaultGap,
-            ),
-            // ConfirmButton(
+
+            SizedBox(height: ThemeSelector.statics.defaultGap),
+
+            // login button
             InteractiveButton(
               label: S.of(context).login,
-              // isFixedSize: false,
               height: 40,
               onPressed: () async {
-                if (loginFormKey.currentState!.validate()) {
-                  loginFormKey.currentState!.save();
+                if (!loginFormKey.currentState!.validate()) return;
 
-                  await performLogin(context, loginForm);
-                }
+                loginFormKey.currentState!.save();
+                // await performLogin(context, loginForm);
+                final msg = await context.read<LoginCubit>().login();
+                if (msg?.isNotEmpty ?? false) G.snackBar(msg!);
               },
             )
           ],
@@ -124,42 +134,20 @@ class LoginForm extends StatelessWidget {
   }
 }
 
-Future performLogin(BuildContext context, LoginModel loginForm,
+Future performLogin(BuildContext context, LoginData loginForm,
     [String? route]) async {
-  return await LoginServices.login(login: loginForm, context: context)
-      .then((user) async {
-    final Map<String, dynamic> json =
-        user.copyWith(password: loginForm.password).toJson();
+  // return await LoginServices.login(login: loginForm, context: context)
+  //     .then((user) async {
+  //   if ((user.accessToken).isEmpty) {
+  //     if (user.message.isEmpty) return G.snackBar("Login Failed!");
+  //     return G.snackBar(user.message);
+  //   }
+  //   // save login data locally
+  //   await G
+  //       .rd<UserCubit>()
+  //       .saveUser(user.copyWith(password: loginForm.password))
+  //       .then((_) async {});
 
-    if ((user.accessToken).isEmpty) {
-      if (user.message.isEmpty) return G.snackBar("Login Failed!");
-      return G.snackBar(user.message);
-    }
-
-    // save login data locally
-    await G.rd<UserCubit>().saveUser(json).then((_) async {
-      var regStep = -1;
-      if (!(user.mobileVerified ?? false)) {
-        regStep = RegStep.addPhone.index;
-      } else if (user.address?.isEmpty ?? true) {
-        regStep = RegStep.location.index;
-      } else if (!G.isCustomerApp &&
-          (!(user.accountApproved ?? false) ||
-              !(user.contractApproved ?? false))) {
-        regStep = RegStep.onboarding.index;
-      }
-
-      if (regStep == -1) return G.router.replaceAll([HomeRoute()]);
-
-      await context.read<RegCubit>().saveStepToCache(regStep).then((value) {
-        context.router.push(const RegisterationRoute());
-        context.read<RegCubit>().init();
-      });
-    });
-
-    print('login user .................................');
-    print(json);
-
-    context.read<UserCubit>().saveLocation(Address.fromJson(json));
-  }).catchError((onError) => G.snackBar(S.of(context).connectionError));
+  //   // context.read<UserCubit>().saveLocation(Address.fromJson(json));
+  // }).catchError((onError) => G.snackBar(S.of(context).connectionError));
 }
