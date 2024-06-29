@@ -21,6 +21,7 @@ import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/address/entity/address.dart';
+import 'package:yumi/domain/auth/use_cases/signup.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/core/failures.dart';
@@ -30,7 +31,7 @@ import 'package:yumi/domain/profile/use_cases/verify_add_mobile_otp.dart';
 import 'package:yumi/domain/profile/use_cases/verify_email.dart';
 import 'package:yumi/extensions/string.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/app/pages/auth/login/login_model.dart';
+import 'package:yumi/domain/auth/entities/login_data.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/login_service.dart';
 import 'package:yumi/statics/code_generator.dart';
@@ -80,6 +81,7 @@ abstract class RegState with _$RegState {
     @Default(Status.init) Status verifiedEmailStatus,
     //
     @Default(SignupData()) SignupData signupData, // step: 0
+    @Default('') String singupError,
     String? phone, // step: 1
     String? otp, // step: 2
     @Default(Address(isDefault: true)) Address address, // step: 3
@@ -199,11 +201,11 @@ class RegCubit extends Cubit<RegState> {
 
     if (login && user.email.isNotEmpty && (user.password ?? '').isNotEmpty) {
       await LoginServices.login(
-          login: LoginModel(
+          login: LoginData(
         email: state.signupData.email ?? user.email,
         password: state.signupData.password ?? user.password ?? '',
       )).then((user) {
-        G.rd<UserCubit>().saveUser(user.toJson());
+        G.rd<UserCubit>().saveUser(user);
 
         G.rd<UserCubit>().saveLocation(Address.fromJson(user.toJson()));
       });
@@ -241,6 +243,24 @@ class RegCubit extends Cubit<RegState> {
     emit(state.copyWith(signupData: signupData));
     if (navigateToNext) navigateToIdx(1);
     return true;
+  }
+
+  Future<bool> signup() async {
+    final params = SignupParams(state.signupData);
+    final task = await Signup().call(params);
+
+    return task.fold(
+      (l) {
+        emit(state.copyWith(singupError: l.toString()));
+        return false;
+      },
+      (r) {
+        G.rd<UserCubit>().saveUser(r).then((_) {
+          G.rd<ProfileCubit>().getProfileForm();
+        });
+        return true;
+      },
+    );
   }
 
   void setWillVerifyEmail(String email) {

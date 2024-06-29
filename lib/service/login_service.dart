@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:yumi/app/pages/auth/login/login_model.dart';
+import 'package:yumi/domain/auth/entities/login_data.dart';
 import 'package:yumi/domain/user/entity/user.dart';
 import 'package:yumi/statics/api_statics.dart';
 
 class LoginServices {
   static Future<User> login(
-      {required LoginModel login, BuildContext? context}) async {
+      {required LoginData login, BuildContext? context}) async {
     try {
       final res = await DioClient.simpleDio(context).post(
           ApiKeys.getApiKeyString(apiKey: ApiKeys.login),

@@ -15,7 +15,7 @@ class ChefStatusSignalR {
 
       final userCubit = G.rd<UserCubit>();
       dynamic userWithStatus(int status) =>
-          userCubit.state.user.copyWith(status: status).toJson();
+          userCubit.state.user.copyWith(status: status);
 
       userCubit.saveUser(userWithStatus((p0![index] as dynamic)['statusWork']));
     });

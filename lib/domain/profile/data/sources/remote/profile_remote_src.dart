@@ -30,21 +30,23 @@ class ProfileRemoteSrc extends ProfileSrc {
   @override
   Future<String> updateProfile(Profile profile) async {
     final data = profile.toJson();
-    final String? res;
+    final Response<dynamic> response;
+    final String? result;
     final id = profile.guid;
 
     if (id.isEmpty) throw GenericException();
     try {
-      res = (await DioClient.dio.put<dynamic>(
-              '${ApiKeys.getApiKeyString(apiKey: ApiKeys.profile)}?id=$id',
-              data: data))
-          .data;
+      response = await DioClient.dio.put<dynamic>(
+        '${ApiKeys.getApiKeyString(apiKey: ApiKeys.profile)}?id=$id',
+        data: data,
+      );
+      result = response.data;
     } catch (e) {
       throw ServerException(e);
     }
 
-    if (res == null) throw ServerException();
-    return res;
+    if (result == null) throw ServerException('Something went wrong!');
+    return result;
   }
 
   @override

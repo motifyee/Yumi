@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yumi/domain/user/entity/user.dart';
 
 part 'signup_data.freezed.dart';
 part 'signup_data.g.dart';
@@ -27,6 +28,9 @@ class SignupData with _$SignupData {
         'code': code,
         'password': password,
       };
+
+  User toUser(String chefId, String token) =>
+      User.fromJson(toUserMap(chefId, token));
 
   factory SignupData.fromJson(Map<String, dynamic> json) =>
       _$SignupDataFromJson(json);

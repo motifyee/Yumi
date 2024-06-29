@@ -29,6 +29,7 @@ mixin _$RegState {
   String? get emailOTP => throw _privateConstructorUsedError;
   Status get verifiedEmailStatus => throw _privateConstructorUsedError; //
   SignupData get signupData => throw _privateConstructorUsedError; // step: 0
+  String get singupError => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError; // step: 1
   String? get otp => throw _privateConstructorUsedError; // step: 2
   Address get address => throw _privateConstructorUsedError; // step: 3
@@ -65,6 +66,7 @@ abstract class $RegStateCopyWith<$Res> {
       String? emailOTP,
       Status verifiedEmailStatus,
       SignupData signupData,
+      String singupError,
       String? phone,
       String? otp,
       Address address,
@@ -107,6 +109,7 @@ class _$RegStateCopyWithImpl<$Res, $Val extends RegState>
     Object? emailOTP = freezed,
     Object? verifiedEmailStatus = null,
     Object? signupData = null,
+    Object? singupError = null,
     Object? phone = freezed,
     Object? otp = freezed,
     Object? address = null,
@@ -165,6 +168,10 @@ class _$RegStateCopyWithImpl<$Res, $Val extends RegState>
           ? _value.signupData
           : signupData // ignore: cast_nullable_to_non_nullable
               as SignupData,
+      singupError: null == singupError
+          ? _value.singupError
+          : singupError // ignore: cast_nullable_to_non_nullable
+              as String,
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -260,6 +267,7 @@ abstract class _$$InitialImplCopyWith<$Res> implements $RegStateCopyWith<$Res> {
       String? emailOTP,
       Status verifiedEmailStatus,
       SignupData signupData,
+      String singupError,
       String? phone,
       String? otp,
       Address address,
@@ -303,6 +311,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? emailOTP = freezed,
     Object? verifiedEmailStatus = null,
     Object? signupData = null,
+    Object? singupError = null,
     Object? phone = freezed,
     Object? otp = freezed,
     Object? address = null,
@@ -361,6 +370,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.signupData
           : signupData // ignore: cast_nullable_to_non_nullable
               as SignupData,
+      singupError: null == singupError
+          ? _value.singupError
+          : singupError // ignore: cast_nullable_to_non_nullable
+              as String,
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -428,6 +441,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       this.emailOTP,
       this.verifiedEmailStatus = Status.init,
       this.signupData = const SignupData(),
+      this.singupError = '',
       this.phone,
       this.otp,
       this.address = const Address(isDefault: true),
@@ -476,6 +490,9 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   final SignupData signupData;
 // step: 0
   @override
+  @JsonKey()
+  final String singupError;
+  @override
   final String? phone;
 // step: 1
   @override
@@ -516,7 +533,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegState(partialFlow: $partialFlow, registerationStarted: $registerationStarted, finished: $finished, step: $step, lastStep: $lastStep, email: $email, willVerifyEmail: $willVerifyEmail, verifiedEmail: $verifiedEmail, emailOTP: $emailOTP, verifiedEmailStatus: $verifiedEmailStatus, signupData: $signupData, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, ridesStatus: $ridesStatus, storedOnboardingProgress: $storedOnboardingProgress, unique: $unique, countDown: $countDown)';
+    return 'RegState(partialFlow: $partialFlow, registerationStarted: $registerationStarted, finished: $finished, step: $step, lastStep: $lastStep, email: $email, willVerifyEmail: $willVerifyEmail, verifiedEmail: $verifiedEmail, emailOTP: $emailOTP, verifiedEmailStatus: $verifiedEmailStatus, signupData: $signupData, singupError: $singupError, phone: $phone, otp: $otp, address: $address, message: $message, status: $status, addressMessage: $addressMessage, addressStatus: $addressStatus, vehicle: $vehicle, ridesStatus: $ridesStatus, storedOnboardingProgress: $storedOnboardingProgress, unique: $unique, countDown: $countDown)';
   }
 
   @override
@@ -535,6 +552,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('emailOTP', emailOTP))
       ..add(DiagnosticsProperty('verifiedEmailStatus', verifiedEmailStatus))
       ..add(DiagnosticsProperty('signupData', signupData))
+      ..add(DiagnosticsProperty('singupError', singupError))
       ..add(DiagnosticsProperty('phone', phone))
       ..add(DiagnosticsProperty('otp', otp))
       ..add(DiagnosticsProperty('address', address))
@@ -575,6 +593,8 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
                 other.verifiedEmailStatus == verifiedEmailStatus) &&
             (identical(other.signupData, signupData) ||
                 other.signupData == signupData) &&
+            (identical(other.singupError, singupError) ||
+                other.singupError == singupError) &&
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.otp, otp) || other.otp == otp) &&
             (identical(other.address, address) || other.address == address) &&
@@ -609,6 +629,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
         emailOTP,
         verifiedEmailStatus,
         signupData,
+        singupError,
         phone,
         otp,
         address,
@@ -643,6 +664,7 @@ abstract class _Initial extends RegState {
       final String? emailOTP,
       final Status verifiedEmailStatus,
       final SignupData signupData,
+      final String singupError,
       final String? phone,
       final String? otp,
       final Address address,
@@ -681,6 +703,8 @@ abstract class _Initial extends RegState {
   @override //
   SignupData get signupData;
   @override // step: 0
+  String get singupError;
+  @override
   String? get phone;
   @override // step: 1
   String? get otp;

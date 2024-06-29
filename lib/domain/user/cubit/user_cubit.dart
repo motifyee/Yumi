@@ -24,9 +24,8 @@ class UserCubit extends Cubit<UserState> {
     emit(state.copyWith(address: address));
   }
 
-  Future<void> saveUser(dynamic userData) async {
-    await LocalStorage.sharedRef.setValue(LocalStorage.user, userData);
-    User user = User.fromJson(userData);
+  Future<void> saveUser(User user) async {
+    await LocalStorage.sharedRef.setValue(LocalStorage.user, user.toJson());
 
     /// must init Signalr with access token
     // TODO remove to relevant logic block
@@ -58,7 +57,7 @@ class UserCubit extends Cubit<UserState> {
     FlutterNativeSplash.remove();
 
     if (user != null) {
-      await saveUser(user);
+      await saveUser(User.fromJson(user));
 
       if (userLocation != null) saveLocation(Address.fromJson(userLocation));
       return User.fromJson(user);

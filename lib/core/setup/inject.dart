@@ -1,6 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:yumi/core/setup/connection.dart';
 import 'package:yumi/core/setup/internet_connectivity_checker.dart';
+import 'package:yumi/domain/auth/data/repos/auth_repo.dart';
+import 'package:yumi/domain/auth/data/repos/remote/auth_remote_repo.dart';
+import 'package:yumi/domain/auth/data/sources/auth_src.dart';
+import 'package:yumi/domain/auth/data/sources/remote/auth_remote_src.dart';
 import 'package:yumi/domain/basket/data/repo/basket_repo.dart';
 import 'package:yumi/domain/basket/data/repo/remote/basket_remote_repo.dart';
 import 'package:yumi/domain/basket/data/source/basket_source.dart';
@@ -76,10 +80,13 @@ Future<void> inject() async {
   sl.registerFactory<WalletRepo>(() => WalletRepoRemote());
   sl.registerFactory<WalletSource>(() => WalletSourceRemote());
 
+  sl.registerFactory<CategoriesSrc>(() => CategoriesRemoteSrc());
   sl.registerFactory<CategoriesRepo>(() => CategoriesRemoteRepo(
         categoriesSrc: sl(),
       ));
-  sl.registerFactory<CategoriesSrc>(() => CategoriesRemoteSrc());
+
+  sl.registerFactory<AuthSrc>(() => AuthRemoteSrc());
+  sl.registerFactory<AuthRepo>(() => AuthRemoteRepo(authSrc: sl()));
 
   // Utils
   sl.registerLazySingleton<InternetChecker>(() => InternetChecker());

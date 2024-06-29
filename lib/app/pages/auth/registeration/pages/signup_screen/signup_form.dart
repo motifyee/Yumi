@@ -270,26 +270,9 @@ Future<void> _signUp(
 
   Form.of(context).save();
 
-  await SignUpService.signUp(signup: reg.state.signupData, context: G.context)
-      .then((value) {
-    value = jsonDecode(value.toString());
+  await reg.signup().then((v) {
+    if (!v) return G.snackBar(reg.state.singupError);
 
-    if (value["message"].contains('Created')) {
-      var idReg = RegExp(r"Created with id:\s*(.*)");
-
-      var chefId = idReg.firstMatch(value["message"])!.group(1)!;
-
-      var userMap = reg.state.signupData.toUserMap(chefId, value['token']);
-
-      G
-          .rd<UserCubit>()
-          .saveUser(userMap)
-          .then((_) => G.rd<ProfileCubit>().getProfileForm());
-
-      return RegisterationPage.of(context)?.next();
-      // return reg.setAccount(reg.state.signupData, true);
-    }
-
-    G.snackBar(value["message"]);
-  }); //.catchError((err) {});
+    RegisterationPage.of(context)?.next();
+  });
 }
