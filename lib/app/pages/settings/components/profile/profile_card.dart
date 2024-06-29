@@ -8,18 +8,145 @@ import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/dialog.dart';
 
-class UserSettingDetails extends StatelessWidget {
-  const UserSettingDetails({super.key});
+class ProfileCard extends StatelessWidget {
+  const ProfileCard({super.key});
 
   @override
   Widget build(BuildContext context) {
     context.read<ProfileCubit>().getProfile();
+
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
-        // if (!state.profile.entityStatus.hasSuccess &&
-        //     !state.profile.entityStatus.hasError) {
-        //   context.read<ProfileCubit>().getProfile();
-        // }
+        final titleRow = Row(
+          children: [
+            SvgPicture.asset(
+              'assets/images/profile.svg',
+              colorFilter: ColorFilter.mode(
+                  ThemeSelector.colors.secondary, BlendMode.srcIn),
+            ),
+            SizedBox(width: ThemeSelector.statics.defaultGap),
+            Text(S.of(context).profileSettings),
+            const Expanded(child: Text('')),
+            TextButton(
+                onPressed: () {
+                  showAlertDialog(
+                      context: context,
+                      title: Container(),
+                      content: const ProfileFormProvider(),
+                      actions: {'Cancel': null},
+                      actionWidgets: [const ProfileFormSubmitButton()]);
+                },
+                child: Text(
+                  S.of(context).edit,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ))
+          ],
+        );
+
+        final fullNameRow = Row(
+          children: [
+            Text(
+              S.of(context).fullName,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const Expanded(child: Text('')),
+            Text(
+              state.profile.fullName,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+            ),
+          ],
+        );
+
+        final userNameRow = Row(
+          children: [
+            Text(
+              S.of(context).userName,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const Expanded(child: Text('')),
+            Text(
+              state.profile.userName,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+            ),
+          ],
+        );
+
+        final phoneRow = Row(
+          children: [
+            Text(
+              S.of(context).phone,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const Expanded(child: Text('')),
+            Text(
+              state.profile.mobile,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+            ),
+          ],
+        );
+
+        final addressRow = Row(
+          children: [
+            Text(
+              S.of(context).address,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const Expanded(child: Text('')),
+            Text(
+              state.profile.address,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+            ),
+          ],
+        );
+
+        final aboutRow = Row(
+          children: [
+            Text(
+              S.of(context).about,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const Expanded(child: Text('')),
+            Text(
+              state.profile.about,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+            ),
+          ],
+        );
+
+        final deliveryAndPickupIconsRow = Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SizedBox(
+              height: 60,
+              child: SvgPicture.asset('assets/images/pickup-available.svg'),
+            ),
+            SizedBox(
+              height: 60,
+              child: SvgPicture.asset(
+                  'assets/images/delivery-${state.profile.pickupOnly ? 'not-' : ''}available.svg'),
+            ),
+          ],
+        );
+
+        const spinner = SizedBox(
+          height: 150,
+          child: Center(child: CircularProgressIndicator()),
+        );
 
         return Padding(
           padding: EdgeInsets.only(
@@ -45,153 +172,23 @@ class UserSettingDetails extends StatelessWidget {
             ),
             child: Column(
               children: state.profile.entityStatus.isLoading
-                  ? [
-                      const SizedBox(
-                          height: 150,
-                          child: Center(child: CircularProgressIndicator()))
-                    ]
+                  ? [spinner]
                   : [
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/profile.svg',
-                            colorFilter: ColorFilter.mode(
-                                ThemeSelector.colors.secondary,
-                                BlendMode.srcIn),
-                          ),
-                          SizedBox(width: ThemeSelector.statics.defaultGap),
-                          Text(S.of(context).profileSettings),
-                          const Expanded(child: Text('')),
-                          TextButton(
-                              onPressed: () {
-                                showAlertDialog(
-                                    context: context,
-                                    title: Container(),
-                                    content: const ProfileFormProvider(),
-                                    actions: {
-                                      'Cancel': null
-                                    },
-                                    actionWidgets: [
-                                      const ProfileFormSubmitButton()
-                                    ]);
-                              },
-                              child: Text(
-                                S.of(context).edit,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ))
-                        ],
-                      ),
+                      titleRow,
                       SizedBox(height: ThemeSelector.statics.defaultLineGap),
-                      Row(
-                        children: [
-                          Text(
-                            S.of(context).fullName,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          const Expanded(child: Text('')),
-                          Text(
-                            state.profile.fullName,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: ThemeSelector.colors.secondaryTant),
-                          ),
-                        ],
-                      ),
+                      fullNameRow,
                       SizedBox(height: ThemeSelector.statics.defaultGap),
-                      Row(
-                        children: [
-                          Text(
-                            S.of(context).userName,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          const Expanded(child: Text('')),
-                          Text(
-                            state.profile.userName,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: ThemeSelector.colors.secondaryTant),
-                          ),
-                        ],
-                      ),
+                      userNameRow,
                       SizedBox(height: ThemeSelector.statics.defaultGap),
-                      Row(
-                        children: [
-                          Text(
-                            S.of(context).phone,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          const Expanded(child: Text('')),
-                          Text(
-                            state.profile.mobile,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: ThemeSelector.colors.secondaryTant),
-                          ),
-                        ],
-                      ),
+                      phoneRow,
                       SizedBox(height: ThemeSelector.statics.defaultGap),
-                      Row(
-                        children: [
-                          Text(
-                            S.of(context).address,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          const Expanded(child: Text('')),
-                          Text(
-                            state.profile.address,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: ThemeSelector.colors.secondaryTant),
-                          ),
-                        ],
-                      ),
+                      addressRow,
                       if (!G.isCustomerApp)
                         SizedBox(height: ThemeSelector.statics.defaultGap),
-                      if (!G.isCustomerApp)
-                        Row(
-                          children: [
-                            Text(
-                              S.of(context).about,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            const Expanded(child: Text('')),
-                            Text(
-                              state.profile.about,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                      color:
-                                          ThemeSelector.colors.secondaryTant),
-                            ),
-                          ],
-                        ),
+                      if (!G.isCustomerApp) aboutRow,
                       SizedBox(height: ThemeSelector.statics.defaultGap),
                       // pickup allowed
-                      if (G.isChefApp)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SizedBox(
-                              height: 60,
-                              child: SvgPicture.asset(
-                                  'assets/images/pickup-available.svg'),
-                            ),
-                            SizedBox(
-                              height: 60,
-                              child: SvgPicture.asset(
-                                  'assets/images/delivery-${state.profile.pickupOnly ? 'not-' : ''}available.svg'),
-                            ),
-                          ],
-                        ),
+                      if (G.isChefApp) deliveryAndPickupIconsRow,
                     ],
             ),
           ),
