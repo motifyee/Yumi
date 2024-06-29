@@ -114,7 +114,7 @@ class SideBar extends StatelessWidget {
                       showAlertDialog(
                           context: context,
                           title: Container(),
-                          content: const ProfileForm(),
+                          content: const ProfileFormProvider(),
                           actions: {'Cancel': null},
                           actionWidgets: [const ProfileFormSubmitButton()]);
                     },
@@ -133,7 +133,7 @@ class SideBar extends StatelessWidget {
                           TextButton(
                             onPressed: () {
                               context.read<UserCubit>().reset();
-                              context.router.replaceAll([LoginRoute()]);
+                              context.router.replaceAll([const LoginRoute()]);
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

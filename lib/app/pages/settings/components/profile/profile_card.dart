@@ -67,7 +67,7 @@ class UserSettingDetails extends StatelessWidget {
                                 showAlertDialog(
                                     context: context,
                                     title: Container(),
-                                    content: const ProfileForm(),
+                                    content: const ProfileFormProvider(),
                                     actions: {
                                       'Cancel': null
                                     },
