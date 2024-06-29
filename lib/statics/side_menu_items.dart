@@ -301,7 +301,7 @@ class _AppMenuList {
           label: S.of(context).setting,
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const SettingRoute());
+            context.router.push(const SettingsRoute());
             // context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 4));
             // context.router.pop();
             // G.pop();
