@@ -16,13 +16,63 @@ import 'package:yumi/app/pages/settings/components/bankinfo/bank_settings_card.d
 import 'package:yumi/app/components/dialog.dart';
 
 @RoutePage()
-class SettingScreen extends StatelessWidget {
-  const SettingScreen({super.key});
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final fToast = FToast();
     fToast.init(context);
+
+    final deleteAccountButton = InteractiveButton(
+      backgroundColor: ThemeSelector.colors.error,
+      height: 40,
+      label: S.of(context).deleteAccount,
+      icon: Icon(Icons.delete, color: ThemeSelector.colors.onSecondary),
+      onPressed: () async {
+        if (!await confirmDeleteAccount(context)) {
+          return;
+        }
+
+        await G.rd<ProfileCubit>().deleteProfile().then(
+          (value) {
+            if (!value.contains("Deleting a Account")) {
+              G.showToast(
+                "Could not delete account",
+                context: context,
+              );
+            }
+
+            G.showToast(
+              "Account Deleted!",
+              context: context,
+              gravity: ToastGravity.CENTER,
+            );
+
+            context.read<UserCubit>().reset();
+
+            context.router.replaceAll([const LoginRoute()]);
+          },
+        );
+      },
+    );
+
+    final items = [
+      const ProfileCard(),
+      if (G.isCustomerApp)
+        const DeliveryAddresses()
+      else
+        BlocConsumer<BankInfoBloc, BankInfoState>(
+          listener: (context, state) {},
+          builder: (context, state) =>
+              BankSettingsCard(bankInfo: state.selectedBank),
+        ),
+      SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+      Padding(
+        padding: const EdgeInsets.all(40),
+        child: deleteAccountButton,
+      ),
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -31,76 +81,14 @@ class SettingScreen extends StatelessWidget {
         scrolledUnderElevation: 0,
         iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
       ),
-      body: BlocConsumer<ProfileCubit, ProfileState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const UserSettingDetails(),
-                      if (G.isCustomerApp)
-                        const DeliveryAddresses()
-                      else
-                        BlocConsumer<BankInfoBloc, BankInfoState>(
-                          listener: (context, state) {},
-                          builder: (context, state) =>
-                              BankSettingsCard(bankInfo: state.selectedBank),
-                        ),
-                      Column(
-                        children: [
-                          SizedBox(
-                              height: ThemeSelector.statics.defaultBlockGap),
-
-                          // Delete account button
-                          Padding(
-                            padding: const EdgeInsets.all(40),
-                            child: InteractiveButton(
-                              backgroundColor: ThemeSelector.colors.error,
-                              height: 40,
-                              label: S.of(context).deleteAccount,
-                              icon: Icon(Icons.delete,
-                                  color: ThemeSelector.colors.onSecondary),
-                              onPressed: () async {
-                                if (!await confirmDeleteAccount(context)) {
-                                  return;
-                                }
-
-                                await G
-                                    .rd<ProfileCubit>()
-                                    .deleteProfile()
-                                    .then((value) {
-                                  if (!value.contains("Deleting a Account")) {
-                                    G.showToast(
-                                      "Could not delete account",
-                                      context: context,
-                                    );
-                                  }
-
-                                  G.showToast(
-                                    "Account Deleted!",
-                                    context: context,
-                                    gravity: ToastGravity.CENTER,
-                                  );
-
-                                  context.read<UserCubit>().reset();
-
-                                  context.router.replaceAll([LoginRoute()]);
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(children: items),
+            ),
+          ),
+        ],
       ),
     );
   }

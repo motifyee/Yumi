@@ -267,10 +267,10 @@ abstract class $AppRouter extends _i33.RootStackRouter {
         child: const _i27.RegisterationScreen(),
       );
     },
-    SettingRoute.name: (routeData) {
+    SettingsRoute.name: (routeData) {
       return _i33.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i28.SettingScreen(),
+        child: const _i28.SettingsScreen(),
       );
     },
     SignUpRoute.name: (routeData) {
@@ -918,15 +918,15 @@ class RegisterationRoute extends _i33.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i28.SettingScreen]
-class SettingRoute extends _i33.PageRouteInfo<void> {
-  const SettingRoute({List<_i33.PageRouteInfo>? children})
+/// [_i28.SettingsScreen]
+class SettingsRoute extends _i33.PageRouteInfo<void> {
+  const SettingsRoute({List<_i33.PageRouteInfo>? children})
       : super(
-          SettingRoute.name,
+          SettingsRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'SettingRoute';
+  static const String name = 'SettingsRoute';
 
   static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
 }
