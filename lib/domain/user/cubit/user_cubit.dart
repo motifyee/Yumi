@@ -9,6 +9,7 @@ import 'package:yumi/core/signal_r.dart';
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/domain/chef/use_cases/get_chef_work_status.dart';
 import 'package:yumi/domain/user/entity/user.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/service/user_status_service.dart';
 import 'package:yumi/statics/local_storage.dart';
 
@@ -36,23 +37,21 @@ class UserCubit extends Cubit<UserState> {
       GlobalSignalR.initial();
 
       /// initial listen to chef messages from signal r
-      ChefSignalR.initial();
+      if (G.isChefApp) ChefSignalR.initial();
 
       /// initial listen to customer messages from signal r
-      CustomerSignalR.initial();
+      if (G.isCustomerApp) CustomerSignalR.initial();
 
       /// initial listen to driver messages from signal r
-      DriverSignalR.initial();
+      if (G.isDriverApp) DriverSignalR.initial();
     });
 
     emit(state.copyWith(user: user));
   }
 
   Future<User?> loadUser() async {
-    Map<String, dynamic>? user =
-        await LocalStorage.sharedRef.getValue(LocalStorage.user);
-    Map<String, dynamic>? userLocation =
-        await LocalStorage.sharedRef.getValue(LocalStorage.userLocation);
+    Map<String, dynamic>? user = await LocalStorage.sharedRef.getValue(LocalStorage.user);
+    Map<String, dynamic>? userLocation = await LocalStorage.sharedRef.getValue(LocalStorage.userLocation);
 
     FlutterNativeSplash.remove();
 
@@ -77,8 +76,7 @@ class UserCubit extends Cubit<UserState> {
     try {
       await UserStatusService.updateStatus(status: status);
 
-      await LocalStorage.sharedRef
-          .setValue(LocalStorage.user, state.user.copyWith(status: status));
+      await LocalStorage.sharedRef.setValue(LocalStorage.user, state.user.copyWith(status: status));
       emit(state.copyWith(
         loading: false,
         user: state.user.copyWith(status: status),
@@ -91,8 +89,7 @@ class UserCubit extends Cubit<UserState> {
   }
 
   getStatus() async {
-    dynamic userWithStatus(int status) =>
-        state.user.copyWith(status: status).toJson();
+    dynamic userWithStatus(int status) => state.user.copyWith(status: status).toJson();
 
     final params = GetChefWorkStatusParams(state.user.id);
 

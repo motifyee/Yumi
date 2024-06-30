@@ -3,7 +3,7 @@ description: 'Food For Health.'
 
 publish_to: 'none'
 
-version: 1.1.1+47
+version: 1.1.1+50
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
