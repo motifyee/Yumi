@@ -6,7 +6,7 @@ import 'package:yumi/statics/api_statics.dart';
 
 class BankInfoRemoteSrc implements BankInfoSrc {
   @override
-  Future<BankInfo> addBankInfo(BankInfo bankInfo) async {
+  Future<String> addBankInfo(BankInfo bankInfo) async {
     try {
       final data = bankInfo.toJson();
 
@@ -18,7 +18,7 @@ class BankInfoRemoteSrc implements BankInfoSrc {
         data: data,
       );
 
-      return BankInfo.fromJson(res.data);
+      return res.data;
     } catch (e) {
       throw ServerException(e);
     }
@@ -39,7 +39,7 @@ class BankInfoRemoteSrc implements BankInfoSrc {
   }
 
   @override
-  Future<BankInfo> updateBankInfo(BankInfo bankInfo) async {
+  Future<String> updateBankInfo(BankInfo bankInfo) async {
     try {
       final data = bankInfo.toJson();
 
@@ -48,7 +48,7 @@ class BankInfoRemoteSrc implements BankInfoSrc {
         data: data,
       );
 
-      return BankInfo.fromJson(res.data);
+      return res.data;
     } catch (e) {
       throw ServerException(e);
     }

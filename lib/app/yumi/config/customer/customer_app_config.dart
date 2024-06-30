@@ -7,8 +7,9 @@ import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
-import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
+import 'package:yumi/app/pages/settings/bankinfo/bloc/cubit/bankinfo_cubit.dart';
+import 'package:yumi/app/pages/settings/components/profile/cubit/profile_form_cubit.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/app/yumi/config/app_config.dart';
 
@@ -32,7 +33,8 @@ class CustomerAppConfig implements AppConfig {
     BlocProvider(create: (context) => UserCubit()),
     BlocProvider(create: (context) => NavigatorBloc()),
     BlocProvider(create: (context) => ProfileCubit()),
-    BlocProvider(create: (context) => BankInfoBloc()),
+    BlocProvider(create: (context) => ProfileFormCubit()),
+    BlocProvider(create: (context) => BankInfoCubit()),
     BlocProvider(create: (context) => CategoriesCubit()),
     BlocProvider(create: (context) => MealCubit()),
     BlocProvider(create: (context) => IngredientListBloc()),

@@ -13,7 +13,9 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProfileCubit>().getProfile();
+    final cubit = context.read<ProfileCubit>();
+    // if (cubit.state.profile.guid.isEmpty)
+    cubit.getProfile();
 
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
@@ -32,7 +34,7 @@ class ProfileCard extends StatelessWidget {
                   showAlertDialog(
                       context: context,
                       title: Container(),
-                      content: const ProfileFormProvider(),
+                      content: const ProfileForm(),
                       actions: {'Cancel': null},
                       actionWidgets: [const ProfileFormSubmitButton()]);
                 },

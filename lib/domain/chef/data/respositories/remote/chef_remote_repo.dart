@@ -11,7 +11,7 @@ import 'package:yumi/statics/pagination.dart';
 class ChefRemoteRepo implements ChefRepo {
   final ChefSrc chefSrc;
 
-  ChefRemoteRepo({ChefSrc? chefSrc}) : chefSrc = chefSrc ?? getIt<ChefSrc>();
+  ChefRemoteRepo({ChefSrc? src}) : chefSrc = src ?? getIt<ChefSrc>();
 
   @override
   TaskEither<Failure, bool> addFavouriteChef(String chefId) =>

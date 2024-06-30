@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
-import 'package:yumi/app/pages/settings/bankinfo/bloc/cubit/bankinfo_cubit.dart';
 import 'package:yumi/app/pages/settings/components/profile/profile_card.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
@@ -12,7 +11,7 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/pages/settings/components/bankinfo/bank_settings_card.dart';
+import 'package:yumi/app/pages/settings/components/bankinfo/bankinfo_card.dart';
 import 'package:yumi/app/components/dialog.dart';
 
 @RoutePage()
@@ -57,16 +56,12 @@ class SettingsScreen extends StatelessWidget {
       },
     );
 
+    final t =
+        G.isCustomerApp ? const DeliveryAddresses() : const BankInfoCard();
     final items = [
       const ProfileCard(),
-      if (G.isCustomerApp)
-        const DeliveryAddresses()
-      else
-        BlocBuilder<BankInfoCubit, BankInfoState>(
-          builder: (context, state) =>
-              BankSettingsCard(bankInfo: state.bankInfo),
-        ),
       SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+      t,
       Padding(
         padding: const EdgeInsets.all(40),
         child: deleteAccountButton,

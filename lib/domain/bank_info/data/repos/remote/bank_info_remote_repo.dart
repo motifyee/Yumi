@@ -11,7 +11,7 @@ class BankInfoRemoteRepo implements BankInfoRepo {
   BankInfoRemoteRepo({BankInfoSrc? src}) : src = src ?? getIt<BankInfoSrc>();
 
   @override
-  TaskEither<Failure, BankInfo> addBankInfo(BankInfo bankInfo) {
+  TaskEither<Failure, String> addBankInfo(BankInfo bankInfo) {
     return TaskEither.tryCatch(
       () => src.addBankInfo(bankInfo),
       (error, stackTrace) => FailureX.fromException(error, stackTrace),
@@ -27,7 +27,7 @@ class BankInfoRemoteRepo implements BankInfoRepo {
   }
 
   @override
-  TaskEither<Failure, BankInfo> updateBankInfo(BankInfo bankInfo) {
+  TaskEither<Failure, String> updateBankInfo(BankInfo bankInfo) {
     return TaskEither.tryCatch(
       () => src.updateBankInfo(bankInfo),
       (error, stackTrace) => FailureX.fromException(error, stackTrace),

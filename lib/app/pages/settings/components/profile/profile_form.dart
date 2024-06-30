@@ -16,17 +16,17 @@ import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/required_validator.dart';
 
-class ProfileFormProvider extends StatelessWidget {
-  const ProfileFormProvider({super.key});
+// class ProfileFormProvider extends StatelessWidget {
+//   const ProfileFormProvider({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider<ProfileFormCubit>(
-      create: (context) => ProfileFormCubit(),
-      child: const ProfileForm(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocProvider<ProfileFormCubit>(
+//       create: (context) => ProfileFormCubit(),
+//       child: const ProfileForm(),
+//     );
+//   }
+// }
 
 class ProfileForm extends StatelessWidget {
   const ProfileForm({super.key});

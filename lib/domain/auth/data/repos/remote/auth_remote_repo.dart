@@ -10,7 +10,7 @@ import 'package:yumi/domain/user/entity/user.dart';
 class AuthRemoteRepo implements AuthRepo {
   final AuthSrc authSrc;
 
-  AuthRemoteRepo({AuthSrc? authSrc}) : authSrc = authSrc ?? getIt<AuthSrc>();
+  AuthRemoteRepo({AuthSrc? src}) : authSrc = src ?? getIt<AuthSrc>();
 
   @override
   TaskEither<Failure, User> loginWithEmail(LoginData loginModel) {

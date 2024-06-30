@@ -5,6 +5,10 @@ import 'package:yumi/domain/auth/data/repos/auth_repo.dart';
 import 'package:yumi/domain/auth/data/repos/remote/auth_remote_repo.dart';
 import 'package:yumi/domain/auth/data/sources/auth_src.dart';
 import 'package:yumi/domain/auth/data/sources/remote/auth_remote_src.dart';
+import 'package:yumi/domain/bank_info/data/repos/bank_info_repo.dart';
+import 'package:yumi/domain/bank_info/data/repos/remote/bank_info_remote_repo.dart';
+import 'package:yumi/domain/bank_info/data/sources/bank_info_src.dart';
+import 'package:yumi/domain/bank_info/data/sources/remote/bank_info_remote_src.dart';
 import 'package:yumi/domain/basket/data/repo/basket_repo.dart';
 import 'package:yumi/domain/basket/data/repo/remote/basket_remote_repo.dart';
 import 'package:yumi/domain/basket/data/source/basket_source.dart';
@@ -75,7 +79,7 @@ Future<void> inject() async {
   sl.registerFactory<TransactionRepo>(() => TransactionRepoRemote());
 
   sl.registerFactory<ChefSrc>(() => ChefRemoteSrc());
-  sl.registerFactory<ChefRepo>(() => ChefRemoteRepo(chefSrc: sl()));
+  sl.registerFactory<ChefRepo>(() => ChefRemoteRepo(src: sl()));
 
   sl.registerFactory<OrderRepo>(() => OrderRepoRemote());
   sl.registerFactory<OrderSource>(() => OrderSourceRemote());
@@ -91,7 +95,10 @@ Future<void> inject() async {
   sl.registerFactory<MealSource>(() => MealSourceRemote());
 
   sl.registerFactory<AuthSrc>(() => AuthRemoteSrc());
-  sl.registerFactory<AuthRepo>(() => AuthRemoteRepo(authSrc: sl()));
+  sl.registerFactory<AuthRepo>(() => AuthRemoteRepo(src: sl()));
+
+  sl.registerFactory<BankInfoSrc>(() => BankInfoRemoteSrc());
+  sl.registerFactory<BankInfoRepo>(() => BankInfoRemoteRepo(src: sl()));
 
   // Utils
   sl.registerLazySingleton<InternetChecker>(() => InternetChecker());

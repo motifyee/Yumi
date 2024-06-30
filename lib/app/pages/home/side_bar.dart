@@ -114,7 +114,7 @@ class SideBar extends StatelessWidget {
                       showAlertDialog(
                           context: context,
                           title: Container(),
-                          content: const ProfileFormProvider(),
+                          content: const ProfileForm(),
                           actions: {'Cancel': null},
                           actionWidgets: [const ProfileFormSubmitButton()]);
                     },

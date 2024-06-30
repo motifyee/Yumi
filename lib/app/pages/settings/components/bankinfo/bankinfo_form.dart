@@ -7,104 +7,25 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/regex.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/snack_bar.dart';
 import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 final GlobalKey<FormState> bankInfoKey = GlobalKey<FormState>();
 
-class BankInfoSubmitButtons extends StatelessWidget {
-  const BankInfoSubmitButtons({
-    super.key,
-  });
+// class BankInfoFormProvider extends StatelessWidget {
+//   const BankInfoFormProvider({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<BankInfoCubit, BankInfoState>(
-      listener: (context, state) async {
-        // if (!state.status.isSaved) return;
-
-        // context.read<BankInfoBloc>().add(BankInfoLoadingEvent());
-
-        // final dynamic res;
-        // if (state.selectedBank.id.isEmpty) {
-        //   res = await BankInfoService.addBankInfo(
-        //       context: context, data: state.bankInfoForm?.toJson() ?? {});
-        // } else {
-        //   res = await BankInfoService.updateBankInfo(
-        //       context: context, data: state.bankInfoForm?.toJson() ?? {});
-        // }
-
-        // if (!context.mounted) return;
-        // if (res != null && res != false) {
-        //   Navigator.of(context).pop();
-
-        //   context.read<BankInfoBloc>().add(BankInfoInitEvent(context: context));
-
-        //   ScaffoldMessenger.of(context).showSnackBar(
-        //     SnackBar(
-        //       content: SnackBarMassage(
-        //         massage: res.toString(),
-        //       ),
-        //     ),
-        //   );
-        // } else {
-        //   ScaffoldMessenger.of(context).showSnackBar(
-        //     SnackBar(
-        //       content: SnackBarMassage(massage: S.of(context).connectionError),
-        //     ),
-        //   );
-        // }
-      },
-      builder: (context, state) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(child: Container()),
-
-            // cancel
-            TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: ThemeSelector.colors.secondary,
-              ),
-              child: Text(S.of(context).cancel),
-              onPressed: () => context.router
-                  .maybePop()
-                  .then((_) => context.read<BankInfoCubit>().resetForm()),
-            ),
-
-            SizedBox(width: ThemeSelector.statics.defaultLineGap * 2),
-
-            // save
-            TextButton(
-              child: Text(S.of(context).save),
-              onPressed: () async {
-                if (!bankInfoKey.currentState!.validate()) {
-                  return G.snackBar(S.of(context).invalidInput);
-                }
-
-                bankInfoKey.currentState!.save();
-
-                final cubit = context.read<BankInfoCubit>();
-                final update = await cubit.updateBankInfo();
-
-                if (!context.mounted) return;
-                if (update == null) {
-                  Navigator.of(context).pop();
-                  G.snackBar('');
-                }
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocProvider<BankInfoCubit>(
+//       create: (context) => BankInfoCubit(),
+//       child: const BankInfoForm(),
+//     );
+//   }
+// }
 
 class BankInfoForm extends StatelessWidget {
-  final String id;
-  const BankInfoForm({super.key, required this.id});
+  const BankInfoForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -252,5 +173,61 @@ class BankInfoForm extends StatelessWidget {
               );
       },
     );
+  }
+}
+
+class BankInfoSubmitButton extends StatelessWidget {
+  const BankInfoSubmitButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(child: Container()),
+
+        // cancel
+        TextButton(
+          style: TextButton.styleFrom(
+            foregroundColor: ThemeSelector.colors.secondary,
+          ),
+          child: Text(S.of(context).cancel),
+          onPressed: () => context.router
+              .maybePop()
+              .then((_) => context.read<BankInfoCubit>().resetForm()),
+        ),
+
+        SizedBox(width: ThemeSelector.statics.defaultLineGap * 2),
+
+        // save
+        TextButton(
+          child: Text(S.of(context).save),
+          onPressed: () async {
+            if (!bankInfoKey.currentState!.validate()) {
+              return G.snackBar(S.of(context).invalidInput);
+            }
+
+            bankInfoKey.currentState!.save();
+
+            final cubit = context.read<BankInfoCubit>();
+            final update = await cubit.updateBankInfo();
+
+            update.fold(
+              (l) => G.snackBar(l.toString()),
+              (r) async {
+                G.snackBar(r);
+                Navigator.of(context).pop();
+                cubit.resetForm();
+                await cubit.getBankInfo();
+              },
+            );
+          },
+        ),
+      ],
+    );
+    //   },
+    // );
   }
 }

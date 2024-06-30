@@ -8,8 +8,9 @@ import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
-import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
+import 'package:yumi/app/pages/settings/bankinfo/bloc/cubit/bankinfo_cubit.dart';
+import 'package:yumi/app/pages/settings/components/profile/cubit/profile_form_cubit.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/app/yumi/config/app_config.dart';
 
@@ -31,7 +32,8 @@ class DriverAppConfig implements AppConfig {
 
   final List<SingleChildWidget> _providers = [
     BlocProvider(create: (context) => UserCubit()),
-    BlocProvider(create: (context) => BankInfoBloc()),
+    BlocProvider(create: (context) => ProfileFormCubit()),
+    BlocProvider(create: (context) => BankInfoCubit()),
     BlocProvider(create: (context) => CategoriesCubit()),
     BlocProvider(create: (context) => IngredientListBloc()),
     BlocProvider(create: (context) => ChefsCubit()),

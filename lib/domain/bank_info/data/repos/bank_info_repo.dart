@@ -4,6 +4,6 @@ import 'package:yumi/domain/bank_info/entities/bankinfo_model.dart';
 
 abstract class BankInfoRepo {
   TaskEither<Failure, BankInfo> getBankInfo();
-  TaskEither<Failure, BankInfo> updateBankInfo(BankInfo bankInfo);
-  TaskEither<Failure, BankInfo> addBankInfo(BankInfo bankInfo);
+  TaskEither<Failure, String> updateBankInfo(BankInfo bankInfo);
+  TaskEither<Failure, String> addBankInfo(BankInfo bankInfo);
 }

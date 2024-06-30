@@ -5,13 +5,13 @@ import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/bank_info/data/repos/bank_info_repo.dart';
 import 'package:yumi/domain/bank_info/entities/bankinfo_model.dart';
 
-class UpdateBankInfo extends UseCase<BankInfo, UpdateBankInfoParams> {
+class UpdateBankInfo extends UseCase<String, UpdateBankInfoParams> {
   final BankInfoRepo repo;
 
   UpdateBankInfo({BankInfoRepo? repo}) : repo = repo ?? getIt<BankInfoRepo>();
 
   @override
-  Future<Either<Failure, BankInfo>> call(UpdateBankInfoParams params) =>
+  Future<Either<Failure, String>> call(UpdateBankInfoParams params) =>
       repo.updateBankInfo(params.bankInfo).run();
 }
 
