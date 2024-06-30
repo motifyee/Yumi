@@ -6,7 +6,6 @@ import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cub
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/form/meal_form_bloc.dart';
-import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
@@ -37,7 +36,6 @@ class DriverAppConfig implements AppConfig {
     BlocProvider(create: (context) => CategoriesCubit()),
     BlocProvider(create: (context) => MealFormBloc()),
     BlocProvider(create: (context) => IngredientListBloc()),
-    BlocProvider(create: (context) => IngredientFormBloc()),
     BlocProvider(create: (context) => ChefsCubit()),
     //
     BlocProvider(create: (context) => ProfileCubit()),

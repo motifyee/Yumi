@@ -7,7 +7,6 @@ import 'package:nested/nested.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/form/meal_form_bloc.dart';
-import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredient_form_bloc.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
@@ -70,7 +69,6 @@ class MyApp extends StatelessWidget {
       BlocProvider(create: (context) => BankInfoBloc()),
       BlocProvider(create: (context) => MealFormBloc()),
       BlocProvider(create: (context) => IngredientListBloc()),
-      BlocProvider(create: (context) => IngredientFormBloc()),
       BlocProvider(create: (context) => ChefsCubit()),
       BlocProvider(create: (context) => ScheduleCubit()),
     ];

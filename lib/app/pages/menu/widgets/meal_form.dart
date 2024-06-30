@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/form/meal_form_bloc.dart';
-import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredient_form_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredients_form_cubit.dart';
 import 'package:yumi/app/pages/menu/widgets/Ingredients_form.dart';
 import 'package:yumi/domain/meal/entity/ingredients.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
@@ -140,9 +140,7 @@ class MealForm extends StatelessWidget {
                               validators: requiredValidator,
                               readOnly: true,
                               onTap: () {
-                                context.read<IngredientFormBloc>().add(
-                                      IngredientFormUpdateEvent(ingredientsModel: ingredients ?? []),
-                                    );
+                                context.read<IngredientsFormCubit>().update(ingredientsModel: ingredients ?? []);
                                 showModalBottomSheet(
                                   isScrollControlled: true,
                                   backgroundColor: Colors.transparent,
