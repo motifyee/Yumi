@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
-import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
+import 'package:yumi/app/pages/settings/bankinfo/bloc/cubit/bankinfo_cubit.dart';
 import 'package:yumi/app/pages/settings/components/profile/profile_card.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
@@ -62,10 +62,9 @@ class SettingsScreen extends StatelessWidget {
       if (G.isCustomerApp)
         const DeliveryAddresses()
       else
-        BlocConsumer<BankInfoBloc, BankInfoState>(
-          listener: (context, state) {},
+        BlocBuilder<BankInfoCubit, BankInfoState>(
           builder: (context, state) =>
-              BankSettingsCard(bankInfo: state.selectedBank),
+              BankSettingsCard(bankInfo: state.bankInfo),
         ),
       SizedBox(height: ThemeSelector.statics.defaultBlockGap),
       Padding(

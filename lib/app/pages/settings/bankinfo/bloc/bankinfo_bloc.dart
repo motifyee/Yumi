@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/app/pages/settings/components/bankinfo/entities/bankinfo_model.dart';
+import 'package:yumi/domain/bank_info/entities/bankinfo_model.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bankinfo_service.dart';
 

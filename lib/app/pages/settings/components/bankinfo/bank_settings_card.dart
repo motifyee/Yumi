@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/pages/settings/components/bankinfo/entities/bankinfo_model.dart';
+import 'package:yumi/app/pages/settings/bankinfo/bloc/cubit/bankinfo_cubit.dart';
+import 'package:yumi/domain/bank_info/entities/bankinfo_model.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/settings/components/bankinfo/bankinfo_form.dart';
-import 'package:yumi/app/pages/settings/bankinfo/bloc/bankinfo_bloc.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/dialog.dart';
@@ -79,150 +79,154 @@ class BankInfoFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BankInfoBloc, BankInfoState>(builder: (context, state) {
-      if (!state.statusSet.contains(Status.init)) {
-        context.read<BankInfoBloc>().add(BankInfoInitEvent(context: context));
-      }
+    final bankNameRow = Row(
+      children: [
+        Text(
+          S.of(context).bankName,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const Expanded(child: Text('')),
+        Text(
+          bankInfo.bankName,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+        ),
+      ],
+    );
 
-      if (state.status.isLoading) {
-        return const Center(child: CircularProgressIndicator());
-      }
+    final accountNameRow = Row(
+      children: [
+        Text(
+          S.of(context).accountName,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const Expanded(child: Text('')),
+        Text(
+          bankInfo.accountName,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+        ),
+      ],
+    );
 
-      // if (bankInfo.id.isEmpty) {
-      //   return IconButton(
-      //       onPressed: () => showBankInfoForm(context),
-      //       icon: Icon(Icons.add, color: ThemeSelector.colors.secondary));
-      // }
+    final accountNumberRow = Row(
+      children: [
+        Text(
+          S.of(context).accountNumber,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const Expanded(child: Text('')),
+        Text(
+          bankInfo.accountNumber,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+        ),
+      ],
+    );
 
-      return Column(
-        children: [
-          // accountName
-          Row(
-            children: [
-              Text(
-                S.of(context).bankName,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const Expanded(child: Text('')),
-              Text(
-                bankInfo.bankName,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: ThemeSelector.colors.secondaryTant),
-              ),
-            ],
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultGap),
-          Row(
-            children: [
-              Text(
-                S.of(context).accountName,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const Expanded(child: Text('')),
-              Text(
-                bankInfo.accountName,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: ThemeSelector.colors.secondaryTant),
-              ),
-            ],
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultGap),
-          // accuountNumber
-          Row(
-            children: [
-              Text(
-                S.of(context).accountNumber,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const Expanded(child: Text('')),
-              Text(
-                bankInfo.accountNumber,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: ThemeSelector.colors.secondaryTant),
-              ),
-            ],
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultGap),
-          // currency
-          Row(
-            children: [
-              Text(
-                S.of(context).bankCurrency,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const Expanded(child: Text('')),
-              Text(
-                bankInfo.currency,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: ThemeSelector.colors.secondaryTant),
-              ),
-            ],
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultGap),
-          // iban
-          Row(
-            children: [
-              Text(
-                S.of(context).iban,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const Expanded(child: Text('')),
-              Text(
-                bankInfo.iban,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: ThemeSelector.colors.secondaryTant),
-              ),
-            ],
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultGap),
-          // swiftCode
-          Row(
-            children: [
-              Text(
-                S.of(context).swiftCode,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const Expanded(child: Text('')),
-              Text(
-                bankInfo.swiftCode,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: ThemeSelector.colors.secondaryTant),
-              ),
-            ],
-          ),
-          SizedBox(height: ThemeSelector.statics.defaultGap),
-          // branchAddress
-          Row(
-            children: [
-              Text(
-                S.of(context).branchAddress,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const Expanded(child: Text('')),
-              Text(
-                bankInfo.branchAddress,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: ThemeSelector.colors.secondaryTant),
-              ),
-            ],
-          ),
-        ],
-      );
-    });
+    final currnecyRow = Row(
+      children: [
+        Text(
+          S.of(context).bankCurrency,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const Expanded(child: Text('')),
+        Text(
+          bankInfo.currency,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+        ),
+      ],
+    );
+
+    final ibanRow = Row(
+      children: [
+        Text(
+          S.of(context).iban,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const Expanded(child: Text('')),
+        Text(
+          bankInfo.iban,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+        ),
+      ],
+    );
+
+    final swiftRow = Row(
+      children: [
+        Text(
+          S.of(context).swiftCode,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const Expanded(child: Text('')),
+        Text(
+          bankInfo.swiftCode,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+        ),
+      ],
+    );
+
+    final branchAddressRow = Row(
+      children: [
+        Text(
+          S.of(context).branchAddress,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const Expanded(child: Text('')),
+        Text(
+          bankInfo.branchAddress,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+        ),
+      ],
+    );
+
+    return BlocBuilder<BankInfoCubit, BankInfoState>(
+      builder: (context, state) {
+        if (state.isLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (state.bankInfoForm.id.isEmpty) {
+          context.read<BankInfoCubit>().getBankInfo();
+        }
+
+        return Column(
+          children: [
+            bankNameRow,
+            SizedBox(height: ThemeSelector.statics.defaultGap),
+            accountNameRow,
+            SizedBox(height: ThemeSelector.statics.defaultGap),
+            accountNumberRow,
+            SizedBox(height: ThemeSelector.statics.defaultGap),
+            currnecyRow,
+            SizedBox(height: ThemeSelector.statics.defaultGap),
+            ibanRow,
+            SizedBox(height: ThemeSelector.statics.defaultGap),
+            swiftRow,
+            SizedBox(height: ThemeSelector.statics.defaultGap),
+            branchAddressRow,
+          ],
+        );
+      },
+    );
   }
 }
 
