@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
+import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/components/profile/cubit/profile_form_cubit.dart';
 import 'package:yumi/core/util/constants.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
@@ -33,27 +34,28 @@ class ProfileForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<ProfileFormCubit>();
+    final cubit = context.read<ProfileCubit>();
     cubit.initializeForm();
-    cubit.loadProfile();
+    cubit.getProfileForm();
 
-    return BlocBuilder<ProfileFormCubit, ProfileFormState>(
+    return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         final fullNameField = TextFormFieldTemplate(
           label: S.of(context).fullName,
           borderStyle: TextFormFieldBorderStyle.borderBottom,
-          initialValue: state.fullName,
+          initialValue: state.form.fullName,
           validators: requiredValidator,
           inputFormatters: [
             FilteringTextInputFormatter.allow(CustomRegex.lettersBlankOnly)
           ],
-          onSave: (value) => cubit.setState((s) => s.copyWith(fullName: value)),
+          onSave: (value) =>
+              cubit.setState((s) => s.copyWith.form(fullName: value)),
         );
 
         final mobileField = TextFormFieldTemplate(
           label: S.of(context).mobile,
           borderStyle: TextFormFieldBorderStyle.borderBottom,
-          initialValue: state.mobile,
+          initialValue: state.form.mobile,
           textInputType: TextInputType.number,
           validators: mobileValidator,
           inputFormatters: <TextInputFormatter>[
@@ -61,8 +63,10 @@ class ProfileForm extends StatelessWidget {
           ],
           prefixText: '+$kUKCountryCode ',
           enabled: false,
-          onChange: (value) => cubit.setState((s) => s.copyWith(mobile: value)),
-          onSave: (value) => cubit.setState((s) => s.copyWith(mobile: value)),
+          onChange: (value) =>
+              cubit.setState((s) => s.copyWith.form(mobile: value)),
+          onSave: (value) =>
+              cubit.setState((s) => s.copyWith.form(mobile: value)),
         );
 
         final changeMobileButton = Container(
@@ -96,8 +100,9 @@ class ProfileForm extends StatelessWidget {
         final aboutField = TextFormFieldTemplate(
           label: S.of(context).about,
           borderStyle: TextFormFieldBorderStyle.borderBottom,
-          initialValue: state.about,
-          onSave: (value) => cubit.setState((s) => s.copyWith(about: value)),
+          initialValue: state.form.about,
+          onSave: (value) =>
+              cubit.setState((s) => s.copyWith.form(about: value)),
         );
 
         final pickupAndDeliveryIcons = Row(
@@ -112,7 +117,7 @@ class ProfileForm extends StatelessWidget {
               child: InkWell(
                 onTap: () => cubit.toggleDeliveryAvailable(),
                 child: SvgPicture.asset(
-                    'assets/images/delivery-${state.pickupOnly ? 'not-' : ''}available.svg'),
+                    'assets/images/delivery-${state.form.pickupOnly ? 'not-' : ''}available.svg'),
               ),
             ),
           ],
@@ -127,7 +132,7 @@ class ProfileForm extends StatelessWidget {
           ),
         );
 
-        final List<Widget> fields = state.isLoading
+        final List<Widget> fields = state.form.entityStatus.isLoading
             ? [spinner]
             : [
                 fullNameField,
@@ -181,7 +186,7 @@ class ProfileFormSubmitButton extends StatelessWidget {
   Widget build(BuildContext context) => TextButton(
         child: Text(S.of(context).save),
         onPressed: () async {
-          final cubit = context.read<ProfileFormCubit>();
+          final cubit = context.read<ProfileCubit>();
           final form = cubit.state.profileFormKey;
 
           if (form == null) return;
@@ -191,10 +196,10 @@ class ProfileFormSubmitButton extends StatelessWidget {
 
           form.currentState!.save();
 
-          await cubit.updateProfile().then((res) {
-            if (res != null) return G.snackBar(res);
+          await cubit.updateProfileForm().then((res) {
+            G.snackBar(cubit.state.form.entityStatus.message);
 
-            Navigator.of(context).pop();
+            if (res != null) Navigator.of(context).pop();
           });
         },
       );

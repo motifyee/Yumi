@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ProfileState {
   Profile get profile => throw _privateConstructorUsedError;
   Profile get form => throw _privateConstructorUsedError;
+  GlobalKey<FormState>? get profileFormKey =>
+      throw _privateConstructorUsedError;
   List<Review> get reviews => throw _privateConstructorUsedError;
   EntityStatus get reviewsStatus => throw _privateConstructorUsedError;
 
@@ -35,6 +37,7 @@ abstract class $ProfileStateCopyWith<$Res> {
   $Res call(
       {Profile profile,
       Profile form,
+      GlobalKey<FormState>? profileFormKey,
       List<Review> reviews,
       EntityStatus reviewsStatus});
 
@@ -57,6 +60,7 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
   $Res call({
     Object? profile = null,
     Object? form = null,
+    Object? profileFormKey = freezed,
     Object? reviews = null,
     Object? reviewsStatus = null,
   }) {
@@ -69,6 +73,10 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
           ? _value.form
           : form // ignore: cast_nullable_to_non_nullable
               as Profile,
+      profileFormKey: freezed == profileFormKey
+          ? _value.profileFormKey
+          : profileFormKey // ignore: cast_nullable_to_non_nullable
+              as GlobalKey<FormState>?,
       reviews: null == reviews
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -108,6 +116,7 @@ abstract class _$$ProfileStateImplCopyWith<$Res>
   $Res call(
       {Profile profile,
       Profile form,
+      GlobalKey<FormState>? profileFormKey,
       List<Review> reviews,
       EntityStatus reviewsStatus});
 
@@ -130,6 +139,7 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
   $Res call({
     Object? profile = null,
     Object? form = null,
+    Object? profileFormKey = freezed,
     Object? reviews = null,
     Object? reviewsStatus = null,
   }) {
@@ -142,6 +152,10 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
           ? _value.form
           : form // ignore: cast_nullable_to_non_nullable
               as Profile,
+      profileFormKey: freezed == profileFormKey
+          ? _value.profileFormKey
+          : profileFormKey // ignore: cast_nullable_to_non_nullable
+              as GlobalKey<FormState>?,
       reviews: null == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -160,6 +174,7 @@ class _$ProfileStateImpl implements _ProfileState {
   const _$ProfileStateImpl(
       {this.profile = const Profile(),
       this.form = const Profile(),
+      this.profileFormKey,
       final List<Review> reviews = const [],
       this.reviewsStatus = const EntityStatus(status: Status.idle)})
       : _reviews = reviews;
@@ -170,6 +185,8 @@ class _$ProfileStateImpl implements _ProfileState {
   @override
   @JsonKey()
   final Profile form;
+  @override
+  final GlobalKey<FormState>? profileFormKey;
   final List<Review> _reviews;
   @override
   @JsonKey()
@@ -185,7 +202,7 @@ class _$ProfileStateImpl implements _ProfileState {
 
   @override
   String toString() {
-    return 'ProfileState(profile: $profile, form: $form, reviews: $reviews, reviewsStatus: $reviewsStatus)';
+    return 'ProfileState(profile: $profile, form: $form, profileFormKey: $profileFormKey, reviews: $reviews, reviewsStatus: $reviewsStatus)';
   }
 
   @override
@@ -195,13 +212,15 @@ class _$ProfileStateImpl implements _ProfileState {
             other is _$ProfileStateImpl &&
             (identical(other.profile, profile) || other.profile == profile) &&
             (identical(other.form, form) || other.form == form) &&
+            (identical(other.profileFormKey, profileFormKey) ||
+                other.profileFormKey == profileFormKey) &&
             const DeepCollectionEquality().equals(other._reviews, _reviews) &&
             (identical(other.reviewsStatus, reviewsStatus) ||
                 other.reviewsStatus == reviewsStatus));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, profile, form,
+  int get hashCode => Object.hash(runtimeType, profile, form, profileFormKey,
       const DeepCollectionEquality().hash(_reviews), reviewsStatus);
 
   @JsonKey(ignore: true)
@@ -215,6 +234,7 @@ abstract class _ProfileState implements ProfileState {
   const factory _ProfileState(
       {final Profile profile,
       final Profile form,
+      final GlobalKey<FormState>? profileFormKey,
       final List<Review> reviews,
       final EntityStatus reviewsStatus}) = _$ProfileStateImpl;
 
@@ -222,6 +242,8 @@ abstract class _ProfileState implements ProfileState {
   Profile get profile;
   @override
   Profile get form;
+  @override
+  GlobalKey<FormState>? get profileFormKey;
   @override
   List<Review> get reviews;
   @override

@@ -20,6 +20,8 @@ mixin _$RegState {
   bool get registerationStarted => throw _privateConstructorUsedError;
   bool get finished => throw _privateConstructorUsedError;
   int get step => throw _privateConstructorUsedError;
+
+  /// stops automatic flow at [lastStep]
   int get lastStep =>
       throw _privateConstructorUsedError; // applies to partial flow
 //
@@ -468,6 +470,8 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   @override
   @JsonKey()
   final int step;
+
+  /// stops automatic flow at [lastStep]
   @override
   @JsonKey()
   final int lastStep;
@@ -688,6 +692,8 @@ abstract class _Initial extends RegState {
   @override
   int get step;
   @override
+
+  /// stops automatic flow at [lastStep]
   int get lastStep;
   @override // applies to partial flow
 //

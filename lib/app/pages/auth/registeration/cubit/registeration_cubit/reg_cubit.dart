@@ -19,6 +19,7 @@ import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/rides_servi
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
+import 'package:yumi/app/pages/settings/components/profile/cubit/profile_form_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/domain/auth/use_cases/signup.dart';
@@ -51,27 +52,29 @@ enum RegStep {
   location,
   onboarding,
 
-  // onboarding
-  bio,
-  meals,
-  rides,
-  schedule,
-  docs,
-  accountApproval,
-  contract,
-  contractApproval,
+  // onboarding:
+  // bio,
+  // meals,
+  // rides,
+  // schedule,
+  // docs,
+  // accountApproval,
+  // contract,
+  // contractApproval,
 }
 
 @freezed
 abstract class RegState with _$RegState {
   const factory RegState({
     @Default(false)
-    // stops automatic flow at [lastStep]
-    // allows using single components/pages from the registration flow extenally
+
+    /// allows using single components/pages from the registration flow extenally
     bool partialFlow,
     @Default(false) bool registerationStarted,
     @Default(false) bool finished,
     @Default(-1) int step,
+
+    /// stops automatic flow at [lastStep]
     @Default(-1) int lastStep, // applies to partial flow
     //
     String? email,
@@ -185,7 +188,9 @@ class RegCubit extends Cubit<RegState> {
       if (G.isDriverApp) await getVehicle();
       if (G.isChefApp) {
         G.rd<MealCubit>().reset();
-        G.rd<MealCubit>().updateMeals(chefId: G.rd<UserCubit>().state.user.chefId);
+        G
+            .rd<MealCubit>()
+            .updateMeals(chefId: G.rd<UserCubit>().state.user.chefId);
       }
       if (!G.isCustomerApp) {
         G.rd<ScheduleCubit>().reset();
@@ -306,15 +311,24 @@ class RegCubit extends Cubit<RegState> {
     // final update = await UpdateProfile().call(UpdateProfileParam(profile));
     if (update == null) {
       emit(state.copyWith(status: Status.error));
-      return G.rd<ProfileCubit>().state.form.entityStatus.message.onEmpty('The mobile number is already used.');
+      return G
+          .rd<ProfileCubit>()
+          .state
+          .form
+          .entityStatus
+          .message
+          .onEmpty('The mobile number is already used.');
     }
 
     emit(state.copyWith(phone: phone));
 
-    return (await getMobileOTP()).fold((l) => 'Something went wrong. try again.', (r) {
-      navigateToIdx(2);
-      return null;
-    });
+    return (await getMobileOTP()).fold(
+      (l) => 'Something went wrong. try again.',
+      (r) {
+        // navigateToIdx(2);
+        return null;
+      },
+    );
   }
 
   Future<Either<Failure, String>> getMobileOTP() async {
@@ -344,7 +358,10 @@ class RegCubit extends Cubit<RegState> {
         emit(state.copyWith(status: Status.success));
         stopCountDown();
 
-        if (state.lastStep == RegStep.addPhone.index) return G.pop();
+        if (state.lastStep == RegStep.addPhone.index) {
+          G.rd<ProfileCubit>().getProfileForm();
+          return G.pop();
+        }
         navigateToIdx(3);
       },
     );
@@ -408,7 +425,8 @@ class RegCubit extends Cubit<RegState> {
     // if (idx <= onboardingProgress) return;
 
     // save step index to shared preferences
-    SharedPreferences.getInstance().then((value) => value.setInt(onboardingProgressKey, idx));
+    SharedPreferences.getInstance()
+        .then((value) => value.setInt(onboardingProgressKey, idx));
 
     emit(state.copyWith(storedOnboardingProgress: idx));
   }
@@ -426,7 +444,9 @@ class RegCubit extends Cubit<RegState> {
     await context.read<ProfileCubit>().getProfileForm().then((value) {
       setLoading(false);
 
-      var stepsInfo = G.isChefApp ? chefOnboardingSteps(context, state) : driverOnboardingSteps(context, state);
+      var stepsInfo = G.isChefApp
+          ? chefOnboardingSteps(context, state)
+          : driverOnboardingSteps(context, state);
 
       var idx = onboardingProgress;
       if (idx < stepsInfo.length) return stepsInfo[idx].onTap();
@@ -451,7 +471,9 @@ class RegCubit extends Cubit<RegState> {
     )
         .catchError((_) {
       emit(
-        state.copyWith(ridesStatus: Status.error, message: 'could\'nt update your vehicle!'),
+        state.copyWith(
+            ridesStatus: Status.error,
+            message: 'could\'nt update your vehicle!'),
       );
 
       throw 'could\'nt update your vehicle!';

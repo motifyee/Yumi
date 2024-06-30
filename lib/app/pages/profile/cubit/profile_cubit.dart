@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/core/util/constants.dart';
@@ -92,6 +92,19 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   String _removeUKCountryCode(String mobile) {
     return mobile.replaceAll(RegExp(r'^' + kUKCountryCode), '');
+  }
+
+  void setState(ProfileState Function(ProfileState) update) =>
+      emit(update(state));
+
+  void toggleFormDeliveryAvailable() {
+    emit(state.copyWith.form(pickupOnly: !state.form.pickupOnly));
+  }
+
+  void initializeForm() {
+    if (state.profileFormKey == null) {
+      emit(state.copyWith(profileFormKey: GlobalKey<FormState>()));
+    }
   }
 
   // returns the updated profile or null if failed
