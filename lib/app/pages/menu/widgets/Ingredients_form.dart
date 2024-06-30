@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/app/pages/menu/cubit/form/meal_form_bloc.dart';
-import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredient_form_bloc.dart';
+import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredients_form_cubit.dart';
+import 'package:yumi/app/pages/menu/cubit/meal_form/meal_form_cubit.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/domain/meal/entity/ingredients.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -37,7 +37,7 @@ class IngredientsForm extends StatelessWidget {
 
     return Form(
       key: ingredientFormKey,
-      child: BlocConsumer<IngredientFormBloc, IngredientFormState>(
+      child: BlocConsumer<IngredientsFormCubit, IngredientsFormState>(
         listener: (context, state) {},
         builder: (context, state) {
           return Container(
@@ -104,7 +104,7 @@ class IngredientsForm extends StatelessWidget {
                                         const SizedBox(width: 60),
                                       ],
                                     ),
-                                    for (var ingredient in state.ingredientsModelList)
+                                    for (Ingredients ingredient in state.ingredientsModelList)
                                       TableRow(
                                         decoration: BoxDecoration(
                                           border: Border(
@@ -131,7 +131,7 @@ class IngredientsForm extends StatelessWidget {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              context.read<IngredientFormBloc>().add(IngredientFormRemoveEvent(ingredientsModel: ingredient));
+                                              context.read<IngredientsFormCubit>().add(ingredientsModel: ingredient);
                                             },
                                             child: Container(
                                               padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultLineGap, vertical: ThemeSelector.statics.defaultGap),
@@ -155,7 +155,7 @@ class IngredientsForm extends StatelessWidget {
                   SizedBox(height: ThemeSelector.statics.defaultGap),
                   BlocBuilder<IngredientListBloc, IngredientListState>(
                     builder: (context, state) {
-                      List<Ingredients> selectFromList = filteredList(list: state.ingredients, selected: context.read<IngredientFormBloc>().state.ingredientsModelList);
+                      List<Ingredients> selectFromList = filteredList(list: state.ingredients, selected: context.read<IngredientsFormCubit>().state.ingredientsModelList);
                       return selectFromList.isEmpty
                           ? state.loading
                               ? Loading(size: ThemeSelector.fonts.font_38)
@@ -202,7 +202,7 @@ class IngredientsForm extends StatelessWidget {
                                     if (ingredientFormKey.currentState!.validate()) {
                                       ingredientFormKey.currentState!.save();
 
-                                      context.read<IngredientFormBloc>().add(IngredientFormAddEvent(ingredientsModel: Ingredients.fromJson(ingredient.toJson())));
+                                      context.read<IngredientsFormCubit>().add(ingredientsModel: ingredient);
 
                                       ingredient = const Ingredients();
                                       ingredientFormKey.currentState!.reset();
@@ -229,7 +229,7 @@ class IngredientsForm extends StatelessWidget {
                       TextButton(
                           onPressed: () {
                             if (state.ingredientsModelList.isNotEmpty) {
-                              context.read<MealFormBloc>().add(MealFormUpdateEvent(mealModel: context.read<MealFormBloc>().state.mealModel.copyWith(ingredients: state.ingredientsModelList)));
+                              context.read<MealFormCubit>().updateIngredients(ingredients: state.ingredientsModelList);
                               context.router.popForced();
                             }
                           },

@@ -21,6 +21,10 @@ import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
 import 'package:yumi/domain/chef/data/respositories/remote/chef_remote_repo.dart';
 import 'package:yumi/domain/chef/data/sources/chef_src.dart';
 import 'package:yumi/domain/chef/data/sources/remote/chef_remote_src.dart';
+import 'package:yumi/domain/meal/data/repo/meal_repo.dart';
+import 'package:yumi/domain/meal/data/repo/remote/meal_repo_remote.dart';
+import 'package:yumi/domain/meal/data/source/meal_source.dart';
+import 'package:yumi/domain/meal/data/source/remote/meal_source_remote.dart';
 import 'package:yumi/domain/notification/data/repo/notification_repo.dart';
 import 'package:yumi/domain/notification/data/repo/remote/notification_repo_remote.dart';
 import 'package:yumi/domain/notification/data/source/notification_source.dart';
@@ -59,8 +63,7 @@ Future<void> inject() async {
   sl.registerFactory<ScheduleRepo>(() => ScheduleRemoteRepo());
 
   sl.registerFactory<CaloriesSource>(() => CaloriesSourceRemote());
-  sl.registerFactory<CaloriesRepo>(
-      () => CaloriesRepoRemote(caloriesSource: sl()));
+  sl.registerFactory<CaloriesRepo>(() => CaloriesRepoRemote(caloriesSource: sl()));
 
   sl.registerFactory<BasketSource>(() => BasketRemoteSource());
   sl.registerFactory<BasketRepo>(() => BasketRemoteRepo());
@@ -84,6 +87,8 @@ Future<void> inject() async {
   sl.registerFactory<CategoriesRepo>(() => CategoriesRemoteRepo(
         categoriesSrc: sl(),
       ));
+  sl.registerFactory<MealRepo>(() => MealRepoRemote());
+  sl.registerFactory<MealSource>(() => MealSourceRemote());
 
   sl.registerFactory<AuthSrc>(() => AuthRemoteSrc());
   sl.registerFactory<AuthRepo>(() => AuthRemoteRepo(authSrc: sl()));
