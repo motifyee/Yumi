@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/app/pages/menu/cubit/form/meal_form_bloc.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredients_form_cubit.dart';
+import 'package:yumi/app/pages/menu/cubit/meal_form/meal_form_cubit.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/domain/meal/entity/ingredients.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -229,7 +229,7 @@ class IngredientsForm extends StatelessWidget {
                       TextButton(
                           onPressed: () {
                             if (state.ingredientsModelList.isNotEmpty) {
-                              context.read<MealFormBloc>().add(MealFormUpdateEvent(mealModel: context.read<MealFormBloc>().state.mealModel.copyWith(ingredients: state.ingredientsModelList)));
+                              context.read<MealFormCubit>().updateIngredients(ingredients: state.ingredientsModelList);
                               context.router.popForced();
                             }
                           },
