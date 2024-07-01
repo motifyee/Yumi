@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-abstract class TestCase {
+abstract class TestCase<TestParams> {
   unitTest({required TestParams params}) {}
 
   widgetTest({required TestParams params}) {}
