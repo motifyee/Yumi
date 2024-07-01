@@ -23,7 +23,7 @@ class MealSourceRemote extends MealSource {
   @override
   Future<PaginatedData<Meal>> getFavoriteMeals({required PaginatedData<Meal> pagination}) async {
     Response res = await DioClient.simpleDio().get(ApiKeys.favoriteMeals, queryParameters: {...pagination.toJson()});
-    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson({...e, 'id': e['productId'], 'isFavoritProduct': true})).toList();
+    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson({...e, ...e['meal'], 'id': e['productId'], 'isFavoritProduct': true})).toList();
 
     return pagination.copyWith(data: <Meal>[...pagination.data, ...data].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
@@ -38,7 +38,7 @@ class MealSourceRemote extends MealSource {
   @override
   Future<PaginatedData<Meal>> getMeals({required PaginatedData<Meal> pagination, double? lat, double? long, bool? isPreorder = false}) async {
     Response res = await DioClient.simpleDio().get(ApiKeys.getApiKeyString(apiKey: ApiKeys.getMeal), queryParameters: {...pagination.toJson(), 'isPreorder': isPreorder, 'longitude': long, 'latitude': lat}..removeWhere((key, value) => value == null));
-    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson(e)).toList();
+    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson({...e, ...e['meal'], 'id': e['productId']})).toList();
 
     return pagination.copyWith(data: <Meal>[...pagination.data, ...data].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
@@ -47,7 +47,7 @@ class MealSourceRemote extends MealSource {
   Future<PaginatedData<Meal>> getMealsByCategory({required PaginatedData<Meal> pagination, required int categoryId, double? lat, double? long, bool? isPreorder = false}) async {
     Response res = await DioClient.simpleDio()
         .get(ApiKeys.getApiKeyString(apiKey: ApiKeys.getMealByCategory), queryParameters: {...pagination.toJson(), 'categoryId': categoryId, 'isPreorder': isPreorder, 'longitude': long, 'latitude': lat}..removeWhere((key, value) => value == null));
-    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson(e)).toList();
+    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson({...e, ...e['meal'], 'id': e['productId']})).toList();
 
     return pagination.copyWith(data: <Meal>[...pagination.data, ...data].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
@@ -55,7 +55,7 @@ class MealSourceRemote extends MealSource {
   @override
   Future<PaginatedData<Meal>> getMealsByChef({required PaginatedData<Meal> pagination, required String chefId, bool? isPreorder = false}) async {
     Response res = await DioClient.simpleDio().get(ApiKeys.getApiKeyString(apiKey: ApiKeys.getMealByChef), queryParameters: {...pagination.toJson(), 'chefId': chefId, 'isPreorder': isPreorder}..removeWhere((key, value) => value == null));
-    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson(e)).toList();
+    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson({...e, ...e['meal'], 'id': e['productId']})).toList();
 
     return pagination.copyWith(data: <Meal>[...pagination.data, ...data].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
@@ -64,7 +64,7 @@ class MealSourceRemote extends MealSource {
   Future<PaginatedData<Meal>> getMealsByChefByCategory({required PaginatedData<Meal> pagination, required int categoryId, required String chefId, bool? isPreorder = false}) async {
     Response res = await DioClient.simpleDio()
         .get(ApiKeys.getApiKeyString(apiKey: ApiKeys.getMealByChefByCategory), queryParameters: {...pagination.toJson(), 'chefId': chefId, 'CategoryId': categoryId, 'isPreorder': isPreorder}..removeWhere((key, value) => value == null));
-    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson(e)).toList();
+    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson({...e, ...e?['meal'], 'id': e['productId']})).toList();
 
     return pagination.copyWith(data: <Meal>[...pagination.data, ...data].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
