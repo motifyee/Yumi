@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/contract_screen/contract_image.dart';
+import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/docs_info.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/documentation_screen.dart';
@@ -64,10 +65,16 @@ class ContractScreen extends StatelessWidget {
                   }
 
                   return Container(
-                      child: documentWidget(
-                    hexBg: "#F4F4F4",
-                    title: "Contract",
-                    desc: "Download the contract to sign it and upload it",
+                      child: buidlDocumentWidget(
+                    // hexBg: "#F4F4F4",
+                    // title: "Contract",
+                    // desc: "Download the contract to sign it and upload it",
+                    doc: DocInfo(
+                      color: "F4F4F4",
+                      title: "Contract",
+                      desc: "Download the contract to sign it and upload it",
+                      getdata: (_) => null,
+                    ),
                     data: contractImage, //state.form.contractPhoto,
                     fileName: 'YUMI-contract.jpg',
                     uploadAction: (data, _) {

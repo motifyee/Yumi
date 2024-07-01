@@ -12,6 +12,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/core/setup/awesome_notifications.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/docs_info.dart';
@@ -38,7 +39,7 @@ class DocumentationScreen extends StatelessWidget {
               Row(
                 children: [
                   const SizedBox(width: 20),
-                  SvgPicture.asset("assets/images/files.svg"),
+                  SvgPicture.asset(AppAssets.filesIcon),
                   const SizedBox(width: 40),
                   Text(
                     "Documents",
@@ -53,7 +54,7 @@ class DocumentationScreen extends StatelessWidget {
               const SizedBox(height: 40),
               ConstrainedBox(
                 constraints: const BoxConstraints(maxHeight: 140),
-                child: SvgPicture.asset("assets/images/documents-icon.svg"),
+                child: SvgPicture.asset(AppAssets.documentsIcon),
               ),
               const SizedBox(),
               BlocBuilder<DocsCubit, DocsState>(
@@ -65,10 +66,8 @@ class DocumentationScreen extends StatelessWidget {
                   }
 
                   return state.status.isLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : documentWidgets(context, state, profile);
+                      ? const Center(child: CircularProgressIndicator())
+                      : buildDocumentWidgets(context, state, profile);
                 },
               ),
             ],
@@ -80,82 +79,28 @@ class DocumentationScreen extends StatelessWidget {
 
   List<DocInfo> get data => G.isChefApp ? chefDocsInfo : driverDocsInfo;
 
-  Widget documentWidgets(
-      BuildContext context, DocsState state, Profile profile) {
-    Future<String?> Function()? preAction(DocInfo e) {
-      if (e.targets == null) return null;
-
-      return () => showDialog(
-            context: context,
-            builder: (ctx) => FractionallySizedBox(
-              widthFactor: .85,
-              heightFactor: .3,
-              child: Material(
-                child: Container(
-                  // height: 40,
-                  constraints: const BoxConstraints(maxHeight: 60),
-                  padding: EdgeInsets.symmetric(
-                      vertical: ThemeSelector.statics.defaultGap,
-                      horizontal: ThemeSelector.statics.defaultGap),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    // border: Border.all(width: 1),
-                    color: ThemeSelector.colors.background,
-                    borderRadius: BorderRadius.circular(
-                        ThemeSelector.statics.defaultBorderRadiusMedium),
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: e.targets!
-                          .map((e) => TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, e.option),
-                                child: Container(
-                                  width: double.infinity,
-                                  alignment: Alignment.center,
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 20),
-                                  child: Text(
-                                    e.option,
-                                    style: TextStyle(
-                                      color: ThemeSelector.colors.primary,
-                                    ),
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          );
-    }
-
+  Widget buildDocumentWidgets(
+    BuildContext context,
+    DocsState state,
+    Profile profile,
+  ) {
     var children = data
         .mapIndexed(
-          (i, e) => documentWidget(
+          (idx, doc) => buidlDocumentWidget(
             context: context,
-            hexBg: e.color,
-            positionedIdx: i,
-            title: e.title,
-            showTitle: e.showTitle,
-            data: () {
-              var res = e.getdata(profile);
-              return res;
-            }(),
-            desc: e.desc,
-            loading: state.docsStatuses[i]?.isLoading ?? false,
+            positionedIdx: idx,
+            doc: doc,
+            data: doc.getdata(profile),
+            loading: state.docsStatuses[idx]?.isLoading ?? false,
             enabled: !state.isUploading,
-            preAction: preAction(e),
+            documentPropertyPickerFn: _documentPropertyPickerFn(context, doc),
             uploadAction: (String image, String? target) {
-              if (e.update != null) {
-                return G.rd<DocsCubit>().update(e.update!(profile, image), 0);
+              if (doc.update != null) {
+                return G.rd<DocsCubit>().update(doc.update!(profile, image), 0);
               }
 
-              var updater = e.targets!
-                  .firstWhereOrNull((e) => e.option == target)
+              var updater = doc.targets!
+                  .firstWhereOrNull((taget) => taget.option == target)
                   ?.update;
 
               if (updater == null) return;
@@ -178,9 +123,64 @@ class DocumentationScreen extends StatelessWidget {
   }
 }
 
-Widget fileSvg(String hexColor) {
-  Widget svgPicture(String color) => SvgPicture.asset(
-        "assets/images/docs_file.svg",
+/// shows a menu to select the target document to upload (e.g. passport, nid)
+Future<String?> Function()? _documentPropertyPickerFn(
+  BuildContext context,
+  DocInfo doc,
+) {
+  if (doc.targets == null) return null;
+
+  final options = doc.targets!
+      .map((target) => TextButton(
+            onPressed: () => Navigator.pop(context, target.option),
+            child: Container(
+              width: double.infinity,
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Text(
+                target.option,
+                style: TextStyle(
+                  color: ThemeSelector.colors.primary,
+                ),
+              ),
+            ),
+          ))
+      .toList();
+
+  return () => showDialog(
+        context: context,
+        builder: (ctx) => FractionallySizedBox(
+          widthFactor: .85,
+          heightFactor: .3,
+          child: Material(
+            child: Container(
+              // height: 40,
+              constraints: const BoxConstraints(maxHeight: 60),
+              padding: EdgeInsets.symmetric(
+                  vertical: ThemeSelector.statics.defaultGap,
+                  horizontal: ThemeSelector.statics.defaultGap),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: ThemeSelector.colors.background,
+                borderRadius: BorderRadius.circular(
+                    ThemeSelector.statics.defaultBorderRadiusMedium),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: options,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+}
+
+/// builds documentation file widget of color [hexColor] with shadow
+Widget _buildDocumentIcon(String hexColor) {
+  Widget getIconWithColor(String color) => SvgPicture.asset(
+        AppAssets.documentationFileIcon,
         colorFilter:
             ColorFilter.mode(HexColor.fromHex(color), BlendMode.srcATop),
       );
@@ -214,14 +214,14 @@ Widget fileSvg(String hexColor) {
                       HexColor.fromHex("22000000"),
                       BlendMode.srcATop,
                     ),
-                    child: svgPicture(hexColor),
+                    child: getIconWithColor(hexColor),
                   ),
                 ),
               ),
             ),
           ),
         ),
-        svgPicture(hexColor),
+        getIconWithColor(hexColor),
       ],
     ),
   );
@@ -247,32 +247,25 @@ Future<String> _createFileFromString(String data, String? fileName) async {
   return file.path;
 }
 
-Widget documentWidget({
+Widget buidlDocumentWidget({
   BuildContext? context,
-  String? hexBg,
   int? positionedIdx,
-  String? title,
-  bool? showTitle,
-  String? desc,
+  required DocInfo doc,
   String? data,
   String? fileName,
   bool loading = false,
   bool enabled = true,
   //
-  Future<String?> Function()? preAction,
+  Future<String?> Function()? documentPropertyPickerFn,
   required void Function(String, String?) uploadAction,
 }) {
-  var titleWdg = Container(
+  var title = Container(
     width: double.infinity,
     alignment: Alignment.topLeft,
     padding: const EdgeInsets.only(left: 30),
     margin: const EdgeInsets.all(0),
     child: Text(
-      title == null
-          ? ''
-          : (showTitle ?? true)
-              ? title
-              : '',
+      (doc.showTitle ?? true) ? doc.title : '',
       style: TextStyle(
         fontSize: 14,
         color: ThemeSelector.colors.secondary,
@@ -287,7 +280,7 @@ Widget documentWidget({
     // decoration: BoxDecoration(border: Border.all()),
     padding: const EdgeInsets.only(left: 30, right: 30),
     child: Text(
-      desc ?? "",
+      doc.desc ?? "",
       style: TextStyle(
         fontSize: 10,
         color: ThemeSelector.colors.secondaryTantLighter,
@@ -309,8 +302,8 @@ Widget documentWidget({
       onPressed: () async {
         if (!enabled) return;
 
-        if (preAction != null) {
-          return preAction().then((target) async {
+        if (documentPropertyPickerFn != null) {
+          return documentPropertyPickerFn().then((target) async {
             if (target == null) return;
 
             ImagePicker imagePicker = ImagePicker();
@@ -325,7 +318,7 @@ Widget documentWidget({
 
             if (context?.mounted ?? false) {
               // ignore: use_build_context_synchronously
-              G.showToast("Uploaded $title", context: context);
+              G.showToast("Uploaded ${doc.title}", context: context);
             }
           });
         }
@@ -340,7 +333,7 @@ Widget documentWidget({
 
         if (context?.mounted ?? false) {
           // ignore: use_build_context_synchronously
-          G.showToast("Uploaded $title", context: context);
+          G.showToast("Uploaded ${doc.title}", context: context);
         }
       },
       child: const Text("Upload"),
@@ -353,7 +346,7 @@ Widget documentWidget({
         _createFileFromString(data!, fileName);
       },
       child: Row(children: [
-        SvgPicture.asset("assets/images/download_icon.svg"),
+        SvgPicture.asset(AppAssets.downloadIcon),
         const SizedBox(width: 7),
         const Text(
           "Download",
@@ -372,20 +365,18 @@ Widget documentWidget({
       );
 
   var docStack = Stack(
-    // fit: StackFit.expand,
     children: [
       //
       // Icon
-      Container(child: fileSvg(hexBg ?? "FFFFFF")),
+      Container(child: _buildDocumentIcon(doc.color)),
       // Transform.scale(scale: 1.1, child: bg),
       //
       // Text
       filter(
         Column(
           children: [
-            // if (title != null)
-            SizedBox(height: (title == null || showTitle == false ? 50 : 55)),
-            if (title != null && showTitle != false) titleWdg,
+            SizedBox(height: (doc.showTitle == false ? 50 : 55)),
+            if (doc.showTitle != false) title,
             const SizedBox(height: 5),
             desription,
           ],

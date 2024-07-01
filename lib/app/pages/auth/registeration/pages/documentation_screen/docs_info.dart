@@ -29,11 +29,11 @@ final List<DocInfo> chefDocsInfo = [
     desc:
         'The passport must be of British or Irish nationality and valid for at least 6 months',
     targets: [
-      Target(
+      DocumentTarget(
           option: 'Passport',
           update: (Profile profile, String value) =>
               profile.copyWith(passportPhoto: value)),
-      Target(
+      DocumentTarget(
         option: 'ID',
         update: (Profile profile, String value) =>
             profile.copyWith(nidPhoto: value),
@@ -80,10 +80,13 @@ final List<DocInfo> driverDocsInfo = [
   ),
 ];
 
-class Target {
+class DocumentTarget {
   final String option;
-  final Function(Profile, String) update;
-  Target({required this.option, required this.update});
+
+  /// a method to set the value of current document in profile
+  final Function(Profile profile, String value) update;
+
+  DocumentTarget({required this.option, required this.update});
 }
 
 class DocInfo {
@@ -91,8 +94,14 @@ class DocInfo {
   final String title;
   final bool? showTitle;
   final String? desc;
-  final List<Target>? targets;
-  final Profile Function(Profile, String)? update;
+
+  /// a list of target options for the document (e.g. passport, nid)
+  final List<DocumentTarget>? targets;
+
+  /// a method to set the value of current document in profile
+  final Profile Function(Profile profile, String value)? update;
+
+  /// return document image data from profile
   final String? Function(Profile) getdata;
 
   DocInfo({
