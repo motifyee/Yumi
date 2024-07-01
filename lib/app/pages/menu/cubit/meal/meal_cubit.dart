@@ -45,7 +45,7 @@ class MealCubit extends Cubit<MealState> {
   }
 
   updateMeals({String? chefId, MenuTarget? menuTarget}) async {
-    if (!state.pagination.canRequest) return;
+    if (state.pagination.canRequest) return;
     emit(state.copyWith(pagination: state.pagination.copyWith(isLoading: true) as PaginatedData<Meal>));
     final Either<Failure, PaginatedData<Meal>> task = await GetMeals().call(GetMealsParams(pagination: state.pagination, selectedCategory: state.selectedCategory, chefId: chefId, menuTarget: menuTarget));
 
@@ -58,7 +58,7 @@ class MealCubit extends Cubit<MealState> {
   }
 
   getFavoriteMeals() async {
-    if (!state.pagination.canRequest) return;
+    if (state.pagination.canRequest) return;
 
     emit(state.copyWith(pagination: state.pagination.copyWith(isLoading: true) as PaginatedData<Meal>));
 
