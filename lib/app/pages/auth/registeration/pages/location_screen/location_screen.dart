@@ -27,11 +27,27 @@ import '../../../../../components/google_map/util/extenstions.dart';
 class LocationScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
 
-  late final GMapInfo mapInfo;
+  final GMapInfo mapInfo = GMapInfo(
+      setMarkerOnLongPress: true,
+      onAddressLongPress: (placemark, coord, info) {
+        final regCubit = G.rd<RegCubit>();
+        regCubit.setLocation(
+          regCubit.state.address.copyWith(
+            location: '${placemark.subAdministrativeArea}, '
+                '${placemark.administrativeArea}, '
+                '${placemark.country}',
+            latitude: coord.latitude,
+            longitude: coord.longitude,
+          ),
+        );
+      },
+      onTap: (LatLng latLng, GMapInfo info) async {
+        debugPrint((await info.controller?.getZoomLevel()).toString());
+      });
   // var selectedAddr = const Address();
   final bool isBack;
 
-  Function({required Address address})? routeFn;
+  final Function({required Address address})? routeFn;
 
   // onAddressTap: (address) => print(address)
   // onMapCreated: (c) => controller = c,
@@ -52,22 +68,7 @@ class LocationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var regCubit = context.read<RegCubit>();
-    mapInfo = GMapInfo(
-        setMarkerOnLongPress: true,
-        onAddressLongPress: (placemark, coord, info) {
-          regCubit.setLocation(
-            regCubit.state.address.copyWith(
-              location:
-                  '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
-              latitude: coord.latitude,
-              longitude: coord.longitude,
-            ),
-          );
-        },
-        onTap: (LatLng latLng, GMapInfo info) async {
-          debugPrint((await info.controller?.getZoomLevel()).toString());
-        });
+    final regCubit = G.rd<RegCubit>();
     return PopScope(
       canPop: regCubit.state.partialFlow || isBack ? true : false,
       onPopInvoked: (didPop) {
