@@ -50,7 +50,7 @@ class VerifyOtpSheet extends StatelessWidget {
   });
 
   static String storageKeyBase = 'verify_otp_sheet';
-  static storageKey(OTPType type) => '$storageKeyBase-${type.name}';
+  static String storageKey(OTPType type) => '$storageKeyBase-${type.name}';
 
   @override
   Widget build(BuildContext context) {

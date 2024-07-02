@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,13 +6,10 @@ import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button_style.dart';
 import 'package:yumi/app/components/stateful_wrapper/stateful_wrapper.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/registeration_step.dart';
-import 'package:yumi/app/pages/auth/registeration/repository/signup_service.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/signup_screen/cubit/signup_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/count_down_cubit/count_down_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
@@ -27,21 +22,121 @@ import 'package:yumi/validators/password_validator.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 class SignUpForm extends StatelessWidget {
-  final TextEditingController? passwordController;
-  final GlobalKey<FormState> signUpFormKey;
-
-  const SignUpForm(
-      {super.key, required this.signUpFormKey, this.passwordController});
+  const SignUpForm({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController passwordController = TextEditingController();
+
     final signupCubit = context.read<SignupCubit>();
 
     final reg = context.read<RegCubit>();
 
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {});
+    final fullNameField = TextFormFieldTemplate(
+      key: key,
+      label: S.of(context).fullName,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(CustomRegex.lettersBlankOnly)
+      ],
+      onSave: (value) {
+        reg.setAccount(reg.state.signupData.copyWith(fullName: value));
+      },
+      validators: requiredValidator,
+    );
+
+    final userNameField = TextFormFieldTemplate(
+      key: key,
+      label: S.of(context).userName,
+      onSave: (value) {
+        reg.setAccount(reg.state.signupData.copyWith(userName: value));
+      },
+      validators: requiredValidator,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(CustomRegex.lettersNumbersOnly)
+      ],
+    );
+
+    final emailField = TextFormFieldTemplate(
+      key: key,
+      label: S.of(context).email,
+      // set on reload in cubit _navigateToIdx,
+      initialValue: reg.state.willVerifyEmail,
+      onSave: (value) {
+        reg.setAccount(reg.state.signupData.copyWith(email: value));
+      },
+      onChange: (value) {
+        reg.setWillVerifyEmail(value);
+      },
+      validators: emailValidator,
+      suffixText: '                    ',
+    );
+
+    final verifyEmailButton = BlocBuilder<RegCubit, RegState>(
+      builder: (context, state) {
+        return InteractiveButton(
+          height: 48,
+          label: 'Verify',
+          loadingLabel: '',
+          style: InteractiveButtonStyle(
+            backgroundColor:
+                (state.verifiedEmail ?? 'x') == (state.willVerifyEmail ?? 'y')
+                    ? Colors.grey
+                    : null,
+          ),
+          onPressed: () => _sendEmailVerificationOtp(
+            context,
+            signupCubit,
+          ),
+        );
+      },
+    );
+
+    final emailRow = Stack(
+      children: [
+        emailField,
+        Positioned(
+          right: 0,
+          top: 0,
+          child: Container(
+            height: 48,
+            width: 96,
+            padding: const EdgeInsets.all(10),
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(25),
+                bottomRight: Radius.circular(25),
+              ),
+            ),
+            child: verifyEmailButton,
+          ),
+        ),
+      ],
+    );
+
+    final passwordField = TextFormFieldTemplate(
+      key: key,
+      label: S.of(context).password,
+      onSave: (value) {
+        reg.setAccount(reg.state.signupData.copyWith(password: value));
+      },
+      validators: passwordValidator,
+      isPassword: true,
+      controller: passwordController,
+    );
+
+    final confirmPasswordField = TextFormFieldTemplate(
+      key: key,
+      label: S.of(context).confirmPassword,
+      validators: (value) {
+        return confirmPasswordValidator(
+            value: value, comparedValue: passwordController.text);
+      },
+      isPassword: true,
+    );
 
     return StatefulWrapper(
+      // WidgetsBinding.instance.addPostFrameCallback((_) async {});
       onInit: () async {
         final storageKey = VerifyOtpSheet.storageKey(OTPType.email);
 
@@ -52,122 +147,21 @@ class SignUpForm extends StatelessWidget {
         });
       },
       child: Form(
-        key: signUpFormKey,
         child: Builder(builder: (context) {
           return Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: ThemeSelector.statics.formFieldInlineGap),
             child: Column(
               children: [
-                // full name
-                TextFormFieldTemplate(
-                  key: key,
-                  label: S.of(context).fullName,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(
-                        CustomRegex.lettersBlankOnly)
-                  ],
-                  onSave: (value) {
-                    reg.setAccount(
-                        reg.state.signupData.copyWith(fullName: value));
-                  },
-                  validators: requiredValidator,
-                ),
+                fullNameField,
                 SizedBox(height: ThemeSelector.statics.formFieldGap),
-                // user name
-                TextFormFieldTemplate(
-                  key: key,
-                  label: S.of(context).userName,
-                  onSave: (value) {
-                    reg.setAccount(
-                        reg.state.signupData.copyWith(userName: value));
-                  },
-                  validators: requiredValidator,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(
-                        CustomRegex.lettersNumbersOnly)
-                  ],
-                ),
+                userNameField,
                 SizedBox(height: ThemeSelector.statics.formFieldGap),
-                // email
-                Stack(
-                  children: [
-                    TextFormFieldTemplate(
-                      key: key,
-                      label: S.of(context).email,
-                      // set on reload in cubit _navigateToIdx,
-                      initialValue: reg.state.willVerifyEmail,
-                      onSave: (value) {
-                        reg.setAccount(
-                            reg.state.signupData.copyWith(email: value));
-                      },
-                      onChange: (value) {
-                        reg.setWillVerifyEmail(value);
-                      },
-                      validators: emailValidator,
-                      suffixText: '                    ',
-                    ),
-                    Positioned(
-                      right: 0,
-                      top: 0,
-                      child: Container(
-                        height: 48,
-                        width: 96,
-                        padding: const EdgeInsets.all(10),
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(25),
-                            bottomRight: Radius.circular(25),
-                          ),
-                        ),
-                        child: BlocBuilder<RegCubit, RegState>(
-                          builder: (context, state) {
-                            return InteractiveButton(
-                              height: 48,
-                              label: 'Verify',
-                              loadingLabel: '',
-                              style: InteractiveButtonStyle(
-                                backgroundColor: (state.verifiedEmail ?? 'x') ==
-                                        (state.willVerifyEmail ?? 'y')
-                                    ? Colors.grey
-                                    : null,
-                              ),
-                              onPressed: () => _verifyEmailOtp(
-                                context,
-                                signupCubit,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                emailRow,
                 SizedBox(height: ThemeSelector.statics.formFieldGap),
-                // password
-                TextFormFieldTemplate(
-                  key: key,
-                  label: S.of(context).password,
-                  onSave: (value) {
-                    reg.setAccount(
-                        reg.state.signupData.copyWith(password: value));
-                  },
-                  validators: passwordValidator,
-                  isPassword: true,
-                  controller: passwordController,
-                ),
+                passwordField,
                 SizedBox(height: ThemeSelector.statics.formFieldGap),
-                // confirm password
-                TextFormFieldTemplate(
-                  key: key,
-                  label: S.of(context).confirmPassword,
-                  validators: (value) {
-                    return confirmPasswordValidator(
-                        value: value, comparedValue: passwordController?.text);
-                  },
-                  isPassword: true,
-                ),
+                confirmPasswordField,
                 SizedBox(height: ThemeSelector.statics.defaultGap),
                 // Create Account Button
                 InteractiveButton(
@@ -204,40 +198,45 @@ Future<void> _showOTPSheet(BuildContext context) async {
   signupCubit.setSheetIsActive(false);
 }
 
-Future<void> _verifyEmailOtp(
-    BuildContext context, SignupCubit signupCubit) async {
-  final reg = G.rd<RegCubit>();
+Future<void> _sendEmailVerificationOtp(
+  BuildContext context,
+  SignupCubit signupCubit,
+) async {
+  final regCubit = G.rd<RegCubit>();
 
-  if ((reg.state.verifiedEmail ?? '').isNotEmpty &&
-      reg.state.verifiedEmail == reg.state.willVerifyEmail) {
+  if ((regCubit.state.verifiedEmail ?? '').isNotEmpty &&
+      regCubit.state.verifiedEmail == regCubit.state.willVerifyEmail) {
     return G.snackBar(
-      "${reg.state.verifiedEmail} is already verified",
+      "${regCubit.state.verifiedEmail} is already verified",
     );
   }
 
-  if (!emailStructure(reg.state.willVerifyEmail)) {
+  if (!emailStructure(regCubit.state.willVerifyEmail)) {
     return G.snackBar("Please enter a valid email");
   }
 
   final storageKey = VerifyOtpSheet.storageKey(OTPType.email);
 
   if (await hasActiveCountDown(storageKey: storageKey)) {
-    if (await counterStoredValue(storageKey: storageKey).then(
+    final hasMatchingEmail =
+        await counterStoredValue(storageKey: storageKey).then(
       (value) {
-        if (value != reg.state.willVerifyEmail) return false;
+        if (value != regCubit.state.willVerifyEmail) return false;
         _showOTPSheet(context);
         return true;
       },
-    )) {
-      return;
-    }
+    );
 
-    try {
-      if (context.mounted) context.read<CountDownCubit>().stop();
-    } catch (e) {}
+    if (hasMatchingEmail) return;
   }
 
-  await reg.getEmailOTP(reg.state.willVerifyEmail!).then(
+  try {
+    if (context.mounted) context.read<CountDownCubit>().stop();
+  } catch (e) {
+    null;
+  }
+
+  await regCubit.getEmailOTP(regCubit.state.willVerifyEmail!).then(
     (sent) async {
       if (!sent) {
         return G.snackBar(
@@ -262,6 +261,7 @@ Future<void> _signUp(
   if (!Form.of(context).validate()) return;
 
   if (kDebugMode && skipEmailVerification) {
+    // skip email verification
   } else if ((reg.state.verifiedEmail != reg.state.willVerifyEmail ||
       reg.state.willVerifyEmail == null ||
       reg.state.willVerifyEmail!.isEmpty)) {

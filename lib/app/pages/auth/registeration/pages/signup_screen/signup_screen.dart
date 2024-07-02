@@ -33,8 +33,6 @@ class SignUpScreen extends StatelessWidget {
 class SignupScreenContent extends StatelessWidget {
   SignupScreenContent({super.key});
 
-  final passwordController = TextEditingController();
-  final signUpFormKey = GlobalKey<FormState>();
   final regCubit = G.rd<RegCubit>();
 
   @override
@@ -75,11 +73,7 @@ class SignupScreenContent extends StatelessWidget {
                         SizedBox(
                           height: ThemeSelector.statics.defaultTitleGap,
                         ),
-                        SignUpForm(
-                          key: key,
-                          signUpFormKey: signUpFormKey,
-                          passwordController: passwordController,
-                        ),
+                        SignUpForm(key: key),
                         SizedBox(
                           height: ThemeSelector.statics.defaultBlockGap,
                         ),
@@ -91,7 +85,7 @@ class SignupScreenContent extends StatelessWidget {
                           onPressed: () {
                             // context.router.pop();
                             context.read<RegCubit>().reset();
-                            context.router.replace(LoginRoute());
+                            context.router.replace(const LoginRoute());
                           },
                           child: RichText(
                             text: TextSpan(
