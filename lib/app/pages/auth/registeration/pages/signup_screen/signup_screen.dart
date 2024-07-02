@@ -37,6 +37,49 @@ class SignupScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pageItems = [
+      SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+      // Create Account Header
+      Text(
+        S.of(context).createAccount,
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+      // Create New Account Subheader
+      Text(
+        S.of(context).createNewAccount,
+        style: Theme.of(context).textTheme.labelSmall,
+      ),
+      SizedBox(height: ThemeSelector.statics.defaultTitleGap),
+      SignUpForm(key: key),
+      SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+      const SocialLogin(),
+      SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+      // Already have an account? Login
+      TextButton(
+        onPressed: () {
+          context.read<RegCubit>().reset();
+          context.router.replace(const LoginRoute());
+        },
+        child: RichText(
+          text: TextSpan(
+            style: Theme.of(context).textTheme.bodyMedium,
+            children: [
+              TextSpan(text: S.of(context).alreadyHaveAccount),
+              WidgetSpan(
+                  child: SizedBox(width: ThemeSelector.fonts.font_12 / 2)),
+              TextSpan(
+                text: S.of(context).login,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall
+                    ?.copyWith(fontSize: ThemeSelector.fonts.font_12 * 1.3),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ];
+
     return PopScope(
       canPop: regCubit.state.partialFlow ? true : false,
       onPopInvoked: (didPop) {
@@ -60,57 +103,7 @@ class SignupScreenContent extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: ThemeSelector.statics.defaultBlockGap,
-                        ),
-                        Text(S.of(context).createAccount,
-                            style: Theme.of(context).textTheme.titleLarge),
-                        Text(
-                          S.of(context).createNewAccount,
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                        SizedBox(
-                          height: ThemeSelector.statics.defaultTitleGap,
-                        ),
-                        SignUpForm(key: key),
-                        SizedBox(
-                          height: ThemeSelector.statics.defaultBlockGap,
-                        ),
-                        const SocialLogin(),
-                        SizedBox(
-                          height: ThemeSelector.statics.defaultBlockGap,
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            // context.router.pop();
-                            context.read<RegCubit>().reset();
-                            context.router.replace(const LoginRoute());
-                          },
-                          child: RichText(
-                            text: TextSpan(
-                              style: Theme.of(context).textTheme.bodyMedium,
-                              children: [
-                                TextSpan(
-                                    text: S.of(context).alreadyHaveAccount),
-                                WidgetSpan(
-                                    child: SizedBox(
-                                  width: ThemeSelector.fonts.font_12 / 2,
-                                )),
-                                TextSpan(
-                                    text: S.of(context).login,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall
-                                        ?.copyWith(
-                                            fontSize:
-                                                ThemeSelector.fonts.font_12 *
-                                                    1.3)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                      children: pageItems,
                     ),
                   ),
                 ),
