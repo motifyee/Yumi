@@ -78,6 +78,6 @@ class BankInfoCubit extends Cubit<BankInfoState> {
       );
 
   void resetForm() {
-    emit(const BankInfoState());
+    emit(state.copyWith(bankInfoForm: const BankInfo()));
   }
 }
