@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -19,9 +20,9 @@ import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/rides_servi
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
-import 'package:yumi/app/pages/settings/components/profile/cubit/profile_form_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/address/entity/address.dart';
+import 'package:yumi/domain/auth/use_cases/login_with_email.dart';
 import 'package:yumi/domain/auth/use_cases/signup.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
@@ -34,7 +35,6 @@ import 'package:yumi/extensions/string.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/domain/auth/entities/login_data.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/service/login_service.dart';
 import 'package:yumi/statics/code_generator.dart';
 import 'package:yumi/core/util/util.dart';
 
@@ -201,26 +201,34 @@ class RegCubit extends Cubit<RegState> {
     setLoading(false);
   }
 
-  void finish([bool login = true]) async {
+  Future<void> finish([bool login = true]) async {
     final user = G.rd<UserCubit>().state.user;
 
-    if (login && user.email.isNotEmpty && (user.password ?? '').isNotEmpty) {
-      await LoginServices.login(
-          login: LoginData(
-        email: state.signupData.email ?? user.email,
-        password: state.signupData.password ?? user.password ?? '',
-      )).then((user) {
-        G.rd<UserCubit>().saveUser(user);
-
-        G.rd<UserCubit>().saveLocation(Address.fromJson(user.toJson()));
-      });
+    if (!login || user.email.isEmpty && (user.password ?? '').isEmpty) {
+      return _gotoHomePageAndFinish();
     }
 
-    await G.router.replaceAll([HomeRoute()]).then((value) {
-      reset(finished: true);
-    });
+    final params = LoginWithEmailParams(LoginData(
+      email: state.signupData.email ?? user.email,
+      password: state.signupData.password ?? user.password ?? '',
+    ));
+
+    final task = await LoginWithEmail().call(params);
+    task.fold(
+      (l) => null,
+      (r) async {
+        await G.rd<UserCubit>().saveUser(r);
+        await G.rd<UserCubit>().saveLocation(Address.fromJson(r.toJson()));
+        _gotoHomePageAndFinish();
+      },
+    );
   }
 
+  Future<void> _gotoHomePageAndFinish() async {
+    await G.router.replaceAll([HomeRoute()]).then(
+      (value) => reset(finished: true),
+    );
+  }
 // -----------------------------------------------------------------------------
 // Actions
 
@@ -443,6 +451,7 @@ class RegCubit extends Cubit<RegState> {
 
     await context.read<ProfileCubit>().getProfileForm().then((value) {
       setLoading(false);
+      debugger();
 
       var stepsInfo = G.isChefApp
           ? chefOnboardingSteps(context, state)
