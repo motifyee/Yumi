@@ -204,18 +204,18 @@ class RegCubit extends Cubit<RegState> {
   Future<void> finish([bool login = true]) async {
     final user = G.rd<UserCubit>().state.user;
 
-    if (!login || user.email.isEmpty && (user.password ?? '').isEmpty) {
+    if (!login || user.email.isEmpty || (user.password ?? '').isEmpty) {
       return _gotoHomePageAndFinish();
     }
 
     final params = LoginWithEmailParams(LoginData(
-      email: state.signupData.email ?? user.email,
-      password: state.signupData.password ?? user.password ?? '',
+      email: state.signupData.email?.onEmpty(user.email) ?? '',
+      password: state.signupData.password?.onEmpty(user.password ?? '') ?? '',
     ));
 
     final task = await LoginWithEmail().call(params);
     task.fold(
-      (l) => null,
+      (l) => _gotoHomePageAndFinish(),
       (r) async {
         await G.rd<UserCubit>().saveUser(r);
         await G.rd<UserCubit>().saveLocation(Address.fromJson(r.toJson()));
