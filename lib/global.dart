@@ -160,6 +160,57 @@ class G {
   }
 
   // ###########################################################################
+
+  // Cubit Locator
+
+  static final Map<Type, BuildContext> _registeredCubits = {};
+
+  /// Cleans unmounted contexts and closed cubits on every new cubit
+  /// registeration or cubit read.
+  static _cleanCubits() {
+    _registeredCubits.keys.toList().forEach((Type type) {
+      final context = _registeredCubits[type];
+
+      if (context == null) {
+        _registeredCubits.remove(type);
+        return;
+      }
+      if (!context.mounted) _registeredCubits.remove(type);
+
+      // if (readCubit<type>()?.isClosed ?? true) _registeredCubits.remove(type);
+    });
+  }
+
+  /// saves the context that reads the current cubit
+  static void registerCubit<T extends Cubit>(BuildContext context) {
+    _registeredCubits[T] = context;
+    _cleanCubits();
+  }
+
+  /// Reads the current cubit using the stored context.
+  ///
+  /// Allows to access provided cubits from a parallel part of the tree.
+  ///
+  /// Needs caution as it's null if read before the cubit is mounted.
+  static T? readCubit<T extends Cubit>() {
+    _cleanCubits();
+
+    final context = _registeredCubits[T];
+    if (context == null || !context.mounted) return null;
+
+    return context.read<T>();
+  }
+
+  static T? watchCubit<T extends Cubit>() {
+    _cleanCubits();
+
+    final context = _registeredCubits[T];
+    if (context == null || !context.mounted) return null;
+
+    return context.watch<T>();
+  }
+
+  // ###########################################################################
   // Bloc
   static T read<T extends Bloc>() {
     return cContext.read<T>();
