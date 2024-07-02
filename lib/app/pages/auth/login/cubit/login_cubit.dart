@@ -34,6 +34,8 @@ class LoginCubit extends Cubit<LoginState> {
           (v) => v.fold(
             (l) => l.toString(),
             (user) async {
+              emit(state.copyWith(isLoading: false));
+
               await G
                   .rd<UserCubit>()
                   .saveUser(user.copyWith(password: loginData.password));
