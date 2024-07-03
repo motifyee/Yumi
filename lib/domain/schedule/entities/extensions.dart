@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yumi/domain/schedule/entities/schedule.dart';
 
 extension WeekDayX on WeekDay {
-  get apprev => name.substring(0, 3).toUpperCase();
+  String get apprev => name.substring(0, 3).toUpperCase();
 
   static WeekDay? getWeekDay(String name) =>
       WeekDay.values.firstWhere((e) => e.name == name);

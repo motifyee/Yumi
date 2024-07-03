@@ -50,11 +50,11 @@ class MyScheduleScreen extends StatelessWidget {
 
               return Column(
                 children: [
-                  Expanded(child: SingleChildScrollView(child: _cards(state))),
-                  Container(
-                    // color: Colors.green,
+                  Expanded(
+                      child: SingleChildScrollView(child: _buildCards(state))),
+                  Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: _saveButton(context),
+                    child: _buildSaveButton(context),
                   ),
                 ],
               );
@@ -65,7 +65,7 @@ class MyScheduleScreen extends StatelessWidget {
     );
   }
 
-  TextButton _saveButton(BuildContext context) {
+  TextButton _buildSaveButton(BuildContext context) {
     var bloc = context.read<ScheduleCubit>();
     var valid = bloc.state.scheduleForm.uiValid;
     var validSchedule = bloc.state.scheduleForm.validSchedule;
@@ -110,7 +110,7 @@ class MyScheduleScreen extends StatelessWidget {
     );
   }
 
-  Wrap _cards(ScheduleState state) {
+  Wrap _buildCards(ScheduleState state) {
     return Wrap(
       alignment: WrapAlignment.center,
       runAlignment: WrapAlignment.center,
@@ -120,7 +120,7 @@ class MyScheduleScreen extends StatelessWidget {
         const SizedBox(width: double.infinity, height: 50),
         ...WeekDay.values
             .map((e) => [
-                  _card(state.scheduleForm.scheduleDay(e)),
+                  _buildCard(state.scheduleForm.scheduleDay(e)),
                   const SizedBox(
                     height: 10,
                   )
@@ -130,7 +130,7 @@ class MyScheduleScreen extends StatelessWidget {
     );
   }
 
-  Widget _card(ScheduleDay day) {
+  Widget _buildCard(ScheduleDay day) {
     return Card(
         shape: day.uiValid
             ? null
@@ -143,113 +143,106 @@ class MyScheduleScreen extends StatelessWidget {
           width: 140,
           child: Column(
             children: [
-              _title(day),
+              _buildCardTitle(day),
               const SizedBox(height: 10),
-              _body(day),
+              _buildCardBody(day),
             ],
           ),
         ));
   }
 
-  Widget _title(ScheduleDay day) {
-    return Builder(builder: (context) {
-      return Card(
-        borderOnForeground: true,
-        // elevation: 2,
-        color: day.active ?? false
-            ? ThemeSelector.colors.primary
-            : ThemeSelector.colors.primaryTant,
-        margin: const EdgeInsets.all(0),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
+  Widget _buildCardTitle(ScheduleDay day) {
+    final titleInkWell = InkWell(
+      onTap: () {
+        var d = day.copyWith(active: !(day.active ?? false));
+        HapticFeedback.lightImpact();
+        G.rd<ScheduleCubit>().saveScheduleDay(d);
+      },
+      borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+      child: Container(
+        alignment: Alignment.center,
+        child: Text(
+          day.name?.apprev ?? "*DAY",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w800,
+            color: day.active ?? false
+                ? Colors.white
+                : ThemeSelector.colors.secondaryTantLighter,
           ),
         ),
-        child: Builder(
-          builder: (context) {
-            return SizedBox(
-              width: double.infinity,
-              height: 40,
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: InkWell(
-                      onTap: () {
-                        var d = day.copyWith(active: !(day.active ?? false));
-                        HapticFeedback.lightImpact();
-                        context.read<ScheduleCubit>().saveScheduleDay(d);
-                      },
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          day.name?.apprev ?? "*DAY",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                            color: day.active ?? false
-                                ? Colors.white
-                                : ThemeSelector.colors.secondaryTantLighter,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  if (day.valid && (day.active ?? false))
-                    BlocBuilder<ScheduleCubit, ScheduleState>(
-                      builder: (context, state) {
-                        if (state.scheduleForm.activeDays.length < 2) {
-                          return const SizedBox();
-                        }
+      ),
+    );
 
-                        return Positioned(
-                          right: 0,
-                          child: MenuAnchor(
-                            builder: (context, ctrl, child) {
-                              return IconButton(
-                                onPressed: () {
-                                  if (ctrl.isOpen) return ctrl.close();
-                                  ctrl.open();
-                                },
-                                icon: const Icon(
-                                  Icons.more_vert_outlined,
-                                  color: Colors.white,
-                                ),
-                              );
-                            },
-                            menuChildren: [
-                              MenuItemButton(
-                                child: const Text("Copy to all"),
-                                onPressed: () {
-                                  G.rd<ScheduleCubit>().applyDayToAll(day);
-                                },
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                ],
-              ),
-            );
+    final menu = MenuAnchor(
+      builder: (context, ctrl, child) {
+        return IconButton(
+          onPressed: () {
+            if (ctrl.isOpen) return ctrl.close();
+            ctrl.open();
           },
+          icon: const Icon(
+            Icons.more_vert_outlined,
+            color: Colors.white,
+          ),
+        );
+      },
+      menuChildren: [
+        MenuItemButton(
+          child: const Text("Copy to all"),
+          onPressed: () {
+            G.rd<ScheduleCubit>().applyDayToAll(day);
+          },
+        )
+      ],
+    );
+
+    return Card(
+      borderOnForeground: true,
+      color: day.active ?? false
+          ? ThemeSelector.colors.primary
+          : ThemeSelector.colors.primaryTant,
+      margin: const EdgeInsets.all(0),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
         ),
-      );
-    });
+      ),
+      child: SizedBox(
+        width: double.infinity,
+        height: 40,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: titleInkWell,
+            ),
+            if (day.valid && (day.active ?? false))
+              BlocBuilder<ScheduleCubit, ScheduleState>(
+                builder: (context, state) {
+                  if (state.scheduleForm.activeDays.length < 2) {
+                    return const SizedBox();
+                  }
+
+                  return Positioned(right: 0, child: menu);
+                },
+              ),
+          ],
+        ),
+      ),
+    );
   }
 
-  Widget _body(ScheduleDay day) {
+  Widget _buildCardBody(ScheduleDay day) {
     final activeTime = day.activeTime?.toPaddedString;
     final timeDiff = (activeTime?.contains('-') ?? true) ? "00:00" : activeTime;
 
     return Builder(builder: (context) {
       return Column(
         children: [
-          _timeRow(day, true),
-          _timeRow(day, false),
+          _buildTimeRow(day, true),
+          _buildTimeRow(day, false),
           const SizedBox(height: 5),
           //
           Row(
@@ -271,7 +264,7 @@ class MyScheduleScreen extends StatelessWidget {
     });
   }
 
-  Widget _timeRow(ScheduleDay day, bool start) {
+  Widget _buildTimeRow(ScheduleDay day, bool start) {
     return Builder(builder: (context) {
       final themeData = Theme.of(context);
       final textTheme = themeData.textTheme;
@@ -292,36 +285,8 @@ class MyScheduleScreen extends StatelessWidget {
                     context: context,
                     initialTime:
                         (start ? day.start : day.end) ?? TimeOfDay.now(),
-
                     helpText: 'Pick ${start ? "Start" : "End"} Time',
                     initialEntryMode: TimePickerEntryMode.dialOnly,
-                    // builder: (context, child) {
-                    //   return MediaQuery(
-                    //     data: MediaQuery.of(context).copyWith(
-                    //       alwaysUse24HourFormat: false,
-                    //     ),
-                    //     child: ChildDataNotifier(
-                    //       builder: (context, data, notifier) {
-                    //         return Container(
-                    //           decoration: BoxDecoration(
-                    //             border: Border.all(color: Colors.red, width: 5),
-                    //           ),
-                    //           child: Center(
-                    //             child: TextButton(
-                    //               onPressed: () => G.pop(),
-                    //               child: child ??
-                    //                   Icon(
-                    //                     Icons.warning,
-                    //                     size: 32,
-                    //                     color: Colors.yellow.shade800,
-                    //                   ),
-                    //             ),
-                    //           ),
-                    //         );
-                    //       },
-                    //     ),
-                    //   );
-                    // },
                     barrierDismissible: false,
                     useRootNavigator: true,
                   ).then((tod) {
@@ -387,7 +352,7 @@ class MyScheduleScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                _time(day, start),
+                _buildTimeWidget(day, start),
                 const SizedBox(),
               ],
             ),
@@ -397,7 +362,7 @@ class MyScheduleScreen extends StatelessWidget {
     });
   }
 
-  RichText _time(ScheduleDay day, bool start) {
+  RichText _buildTimeWidget(ScheduleDay day, bool start) {
     var timeOfDay =
         (start ? day.start : day.end) ?? const TimeOfDay(hour: 0, minute: 0);
     var timeParts = [
