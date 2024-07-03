@@ -22,8 +22,8 @@ import 'package:yumi/app/components/text_form_field.dart';
 class LocationScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
 
-  final inputKey1 = UniqueKey();
-  final inputKey2 = UniqueKey();
+  final addressTitleKey = UniqueKey();
+  final addressDetailsKey = UniqueKey();
 
   final GMapInfo mapInfo = GMapInfo(
       setMarkerOnLongPress: true,
@@ -248,11 +248,9 @@ class LocationScreen extends StatelessWidget {
 
         final addressTitleField = TextFormFieldTemplate(
           initialValue: address.addressTitle,
-          key: inputKey1,
+          key: addressTitleKey,
           floatingLabelBehavior: FloatingLabelBehavior.auto,
-          onSave: (value) {
-            address = address.copyWith(addressTitle: value);
-          },
+          onSave: (value) => address = address.copyWith(addressTitle: value),
           validators: (val) =>
               (val?.length ?? 0) < 3 ? 'Minimum 3 characters required' : null,
           hintText: 'Address Title, eg: My Home Address',
@@ -261,11 +259,9 @@ class LocationScreen extends StatelessWidget {
 
         final addressDetailsField = TextFormFieldTemplate(
           initialValue: address.addressDetails,
-          key: inputKey2,
+          key: addressDetailsKey,
           floatingLabelBehavior: FloatingLabelBehavior.auto,
-          onSave: (value) {
-            address = address.copyWith(addressDetails: value);
-          },
+          onSave: (value) => address = address.copyWith(addressDetails: value),
           validators: (val) =>
               (val?.length ?? 0) < 8 ? 'Minimum 8 characters required' : null,
           hintText: 'Address Details, eg: House No., Building Name, etc',
