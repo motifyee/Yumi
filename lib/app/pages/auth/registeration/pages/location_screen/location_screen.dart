@@ -154,7 +154,7 @@ class LocationScreen extends StatelessWidget {
                 );
 
                 // get placemark(address) of current location
-                await tryV(
+                await tryCall(
                   () => placemarkFromCoordinates(
                     currLocation.latitude,
                     currLocation.longitude,

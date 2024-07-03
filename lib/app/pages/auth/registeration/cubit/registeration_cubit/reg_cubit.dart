@@ -332,7 +332,6 @@ class RegCubit extends Cubit<RegState> {
     return (await getMobileOTP()).fold(
       (l) => 'Something went wrong. try again.',
       (r) {
-        // navigateToIdx(2);
         return null;
       },
     );
@@ -386,7 +385,7 @@ class RegCubit extends Cubit<RegState> {
   }) async {
     if (state.addressStatus == Status.loading) return;
     emit(state.copyWith(addressStatus: Status.loading));
-    await tryV(
+    await tryCall(
       () => AddressRepo.addAddress(address: state.address),
     ).then((res) async {
       if (res == null) {

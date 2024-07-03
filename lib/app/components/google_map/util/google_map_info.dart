@@ -33,7 +33,7 @@ class GMapInfo {
   }
 
   Future<Position?> get currentPosition async {
-    return tryV<Position>(() => Geolocator.getCurrentPosition());
+    return tryCall<Position>(() => Geolocator.getCurrentPosition());
   }
 
   Future<void> animateCamera(
@@ -45,7 +45,7 @@ class GMapInfo {
 
     double zoom0 = zoom;
     if (retainZoomLevel) {
-      zoom0 = await tryV(() => controller?.getZoomLevel() ?? zoom);
+      zoom0 = await tryCall(() => controller?.getZoomLevel() ?? zoom);
     }
 
     await controller?.animateCamera(CameraUpdate.newCameraPosition(
@@ -53,7 +53,8 @@ class GMapInfo {
   }
 
   Future<Location?> animateToAddress(String address) async {
-    List<Location>? locations = await tryV(() => locationFromAddress(address));
+    List<Location>? locations =
+        await tryCall(() => locationFromAddress(address));
 
     if (locations == null) return null;
 

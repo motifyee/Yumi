@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:yumi/app/components/dialog.dart';
 
+/// Checks if geo location services are enabled.
 Future<bool> checkGeoService([
   bool prompt = true,
   BuildContext? context,
@@ -18,7 +19,9 @@ Future<bool> checkGeoService([
       content: const Padding(
         padding: EdgeInsets.all(8),
         child: Text(
-            "Location services are not enabled on your device. Please enable it."),
+          "Location services are not enabled on your device."
+          "Please enable it.",
+        ),
       ),
       actions: {
         'Cancel': null,
@@ -41,6 +44,7 @@ Future<bool> checkGeoService([
   // Test if location services are enabled.
 }
 
+/// Checks if geo location permission is granted.
 Future<bool> checkGeoPermission([
   bool prompt = true,
   BuildContext? context,
@@ -64,7 +68,9 @@ Future<bool> checkGeoPermission([
         content: const Padding(
           padding: EdgeInsets.all(8),
           child: Text(
-              "Location permission is not granted. Please allow it in app settings."),
+            "Location permission is not granted. "
+            "Please allow it in app settings.",
+          ),
         ),
         actions: {
           'Cancel': null,
@@ -80,8 +86,11 @@ Future<bool> checkGeoPermission([
   });
 }
 
-Future<bool> checkGeoLocation(
-    [bool prompt = true, BuildContext? context]) async {
+/// Checks geo location services and permission.
+Future<bool> checkGeoLocation([
+  bool prompt = true,
+  BuildContext? context,
+]) async {
   return await checkGeoService(prompt, context).then(
     (serviceEnabled) async {
       return !serviceEnabled
@@ -91,33 +100,21 @@ Future<bool> checkGeoLocation(
   );
 }
 
-// safe executer for geo operations.
+/// Checks geo location services and permission.
+/// Then trys to return result of [func].
 Future<T?> geo<T>(
   Function func, [
   bool prompt = true,
   BuildContext? context,
 ]) async {
-  if (!await checkGeoLocation(prompt, context)) {
-    // if (context != null) {
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     const SnackBar(
-    //       content: SnackBarMassage(
-    //         massage: "Location services are not accessable",
-    //       ),
-    //     ),
-    //   );
-    // }
-    return null;
-  }
-  // replace with a gracceful error message.
-  // throw Exception(
-  //     'Location services are not accessable. replace this message with a gracceful error message.');
+  if (!await checkGeoLocation(prompt, context)) return null;
 
-  // return await func();
-  return await tryV(func);
+  return await tryCall(func);
 }
 
-Future<T?> tryV<T>(Function func) async {
+/// Try to call function.
+/// Returns null if failed.
+Future<T?> tryCall<T>(Function func) async {
   try {
     return await func();
   } catch (e) {
