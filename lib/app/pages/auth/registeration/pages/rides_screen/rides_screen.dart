@@ -4,9 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/entity/vehicle.dart';
-import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/rides_service.dart';
+import 'package:yumi/core/use_cases.dart';
+import 'package:yumi/domain/vehicle/entities/vehicle.dart';
 import 'package:yumi/core/resources/app_assets.dart';
+import 'package:yumi/domain/vehicle/use_cases/get_vehicle.dart';
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -38,9 +39,11 @@ class RidesScreen extends StatelessWidget {
     () async {
       if (regCubit.state.vehicle.typeCode != 0) return;
 
-      var v = await VehicleService.getVehicle();
-      if (v == null) return;
-      regCubit.setVehicleType(v);
+      final task = await GetVehicle().call(NoParams());
+      task.fold(
+        (l) => null,
+        (r) => regCubit.setVehicleType(r),
+      );
     }();
 
     Future.delayed(const Duration(milliseconds: 300)).then((value) {

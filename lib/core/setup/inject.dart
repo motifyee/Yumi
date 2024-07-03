@@ -49,6 +49,11 @@ import 'package:yumi/domain/transactions/data/repo/remote/transaction_repo_remot
 import 'package:yumi/domain/transactions/data/repo/transaction_repo.dart';
 import 'package:yumi/domain/transactions/data/source/remote/transaction_source_remote.dart';
 import 'package:yumi/domain/transactions/data/source/transaction_source.dart';
+import 'package:yumi/domain/vehicle/data/repos/remote/vehicle_remote_repo.dart';
+import 'package:yumi/domain/vehicle/data/repos/vehicle_repo.dart';
+import 'package:yumi/domain/vehicle/data/sources/remote/vehicle_remote_src.dart';
+import 'package:yumi/domain/vehicle/data/sources/vehicle_src.dart';
+import 'package:yumi/domain/vehicle/entities/vehicle.dart';
 import 'package:yumi/domain/wallet/data/repo/remote/wallet_repo_remote.dart';
 import 'package:yumi/domain/wallet/data/repo/wallet_repo.dart';
 import 'package:yumi/domain/wallet/data/source/remote/wallet_source_remote.dart';
@@ -67,7 +72,8 @@ Future<void> inject() async {
   sl.registerFactory<ScheduleRepo>(() => ScheduleRemoteRepo());
 
   sl.registerFactory<CaloriesSource>(() => CaloriesSourceRemote());
-  sl.registerFactory<CaloriesRepo>(() => CaloriesRepoRemote(caloriesSource: sl()));
+  sl.registerFactory<CaloriesRepo>(
+      () => CaloriesRepoRemote(caloriesSource: sl()));
 
   sl.registerFactory<BasketSource>(() => BasketRemoteSource());
   sl.registerFactory<BasketRepo>(() => BasketRemoteRepo());
@@ -99,6 +105,9 @@ Future<void> inject() async {
 
   sl.registerFactory<BankInfoSrc>(() => BankInfoRemoteSrc());
   sl.registerFactory<BankInfoRepo>(() => BankInfoRemoteRepo(src: sl()));
+
+  sl.registerFactory<VehicleSrc>(() => VehicleRemoteSrc());
+  sl.registerFactory<VehicleRepo>(() => VehicleRemoteRepo(src: sl()));
 
   // Utils
   sl.registerLazySingleton<InternetChecker>(() => InternetChecker());

@@ -274,23 +274,19 @@ List<OnboardingStep> driverOnboardingSteps(
                   return sheduleDialog(context);
                 }
 
-                await regCubit.saveVehicleType().then((_) {
-                  G.pop();
-                  sheduleDialog(context);
-                }).catchError((msg) {
-                  ScaffoldMessenger.of(G.context).showSnackBar(
-                    SnackBar(
-                      content: SnackBarMassage(
-                        massage: msg.toString(),
-                      ),
-                    ),
-                  );
+                final task = await regCubit.saveVehicleType();
+                task.fold(
+                  (l) {
+                    G.snackBar(l.toString());
 
-                  G.pop();
-                  sheduleDialog(context);
-
-                  return;
-                });
+                    G.pop();
+                    sheduleDialog(context);
+                  },
+                  (r) {
+                    G.pop();
+                    sheduleDialog(context);
+                  },
+                );
               });
             },
           },
