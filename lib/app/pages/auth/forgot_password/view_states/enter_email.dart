@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
+import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/extensions/string.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/app/components/text_form_field.dart';
@@ -45,7 +46,10 @@ class ForgotPwdEnterEmail extends StatelessWidget {
                           .read<ForgotPwdCubit>()
                           .setVerificationType(ForgotPwdVerificationType.email),
                       child: SvgPicture.asset(
-                          'assets/images/email_msg${verificationType == ForgotPwdVerificationType.email ? '' : '_inactive'}.svg'),
+                        verificationType == ForgotPwdVerificationType.email
+                            ? AppAssets.emailMsgIcon
+                            : AppAssets.emailMsgInactiveIcon,
+                      ),
                     ),
                     InkWell(
                       onTap: () => context
@@ -53,7 +57,10 @@ class ForgotPwdEnterEmail extends StatelessWidget {
                           .setVerificationType(
                               ForgotPwdVerificationType.mobile),
                       child: SvgPicture.asset(
-                          'assets/images/mobile_msg${verificationType == ForgotPwdVerificationType.mobile ? '' : '_inactive'}.svg'),
+                        verificationType == ForgotPwdVerificationType.mobile
+                            ? AppAssets.mobileMsgIcon
+                            : AppAssets.mobileMsgInactiveIcon,
+                      ),
                     )
                   ],
                 ),

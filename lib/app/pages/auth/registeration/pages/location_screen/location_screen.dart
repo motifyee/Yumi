@@ -13,6 +13,7 @@ import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/components/google_map/google_map_widget.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
+import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -181,7 +182,7 @@ class LocationScreen extends StatelessWidget {
 
         final pinButton = IconButton(
           onPressed: getUserCurrentLocation,
-          icon: SvgPicture.asset('assets/images/map/map_pin.svg'),
+          icon: SvgPicture.asset(AppAssets.mapPinIcon),
         );
 
         return Positioned(
@@ -270,7 +271,7 @@ class LocationScreen extends StatelessWidget {
 
         final addressLocationRow = Row(
           children: [
-            SvgPicture.asset('assets/images/map/map_pin.svg'),
+            SvgPicture.asset(AppAssets.mapPinIcon),
             const SizedBox(
               width: 10,
             ),

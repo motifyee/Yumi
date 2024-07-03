@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/domain/schedule/entities/schedule.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/domain/schedule/entities/extensions.dart';
@@ -453,7 +454,7 @@ void addYourScheduleDialog(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset('assets/images/flow/add-schedule.svg'),
+            SvgPicture.asset(AppAssets.addScheduleIcon),
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.all(8.0),

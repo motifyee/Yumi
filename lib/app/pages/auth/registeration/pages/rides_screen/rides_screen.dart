@@ -6,6 +6,7 @@ import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/entity/vehicle.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/rides_service.dart';
+import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -69,7 +70,7 @@ class RidesScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Image(
-                          image: AssetImage('assets/images/flow/rides.png'),
+                          image: AssetImage(AppAssets.ridesIcon),
                         ),
                       ),
                       // SizedBox(width: 20),
@@ -186,7 +187,7 @@ void addYourVehicleDialog(BuildContext context, {bool firstTime = true}) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(child: SvgPicture.asset('assets/images/flow/motorcycle.svg')),
+          Center(child: SvgPicture.asset(AppAssets.motorcycleIcon)),
           const SizedBox(height: 8),
           Text(
             '         Now',

@@ -6,6 +6,7 @@ import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/bloc/util/status.dart';
+import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/app/components/otp/otp.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -36,9 +37,7 @@ class OTPScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(30.0),
                   child: Column(
                     children: [
-                      Image.asset(
-                        "assets/images/registeration/otp.png",
-                      ),
+                      Image.asset(AppAssets.otpIcon),
                       const SizedBox(height: 60),
                       Text(
                         "OTP Verification",
