@@ -12,7 +12,6 @@ import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/components/dialog.dart';
 import 'package:yumi/app/components/screen_container.dart';
-import 'package:yumi/app/components/snack_bar.dart';
 
 class RidesScreen extends StatelessWidget {
   const RidesScreen({super.key});
@@ -37,14 +36,14 @@ class RidesScreen extends StatelessWidget {
 
     var regCubit = G.rd<RegCubit>();
     () async {
-      if (regCubit.state.vehicle.typeCode != '0') return;
+      if (regCubit.state.vehicle.typeCode != 0) return;
 
       var v = await VehicleService.getVehicle();
       if (v == null) return;
       regCubit.setVehicleType(v);
     }();
 
-    Future.delayed(const Duration(seconds: 1)).then((value) {
+    Future.delayed(const Duration(milliseconds: 300)).then((value) {
       if (!regCubit.state.registerationStarted) return;
       if (regCubit.state.vehicle.vehicleName()?.isNotEmpty ?? false) return;
       addYourVehicleDialog(context);
@@ -63,108 +62,85 @@ class RidesScreen extends StatelessWidget {
               ),
         body: BlocBuilder<RegCubit, RegState>(
           builder: (context, state) {
+            const ridesBGImage = Image(image: AssetImage(AppAssets.ridesIcon));
+
+            // Toggle Buttons
+            Widget buildToggleButton(int i, Vehicle e) => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      if (i <= 2) Icon(vehicleIcons[i]),
+                      const SizedBox(width: 10),
+                      Text(e.vehicleName()?.capitalize() ?? 'Other'),
+                    ],
+                  ),
+                );
+
+            final toggleButtons = ToggleButtons(
+              isSelected: List.generate(
+                vehicles.length,
+                (index) => state.vehicle.typeCode == vehicles[index].typeCode,
+              ),
+              children: vehicles.mapIndexed(buildToggleButton).toList(),
+              onPressed: (int idx) async {
+                regCubit.state.canAddVehicle.then((bool canSetVehicle) {
+                  var regCubit = G.rd<RegCubit>();
+
+                  if (canSetVehicle) {
+                    regCubit.setVehicleType(vehicles[idx]);
+                    if (idx == 3) node.requestFocus();
+                    return;
+                  }
+
+                  regCubit.setVehicleType(regCubit.state.vehicle);
+                  return G.snackBar("You can'nt update your vehicle type now.");
+                });
+              },
+            );
+
+            final customVehicleTypeField = TextFormField(
+              initialValue: state.vehicle.vehicleType == VehicleType.other
+                  ? state.vehicle.otherType
+                  : '',
+              focusNode: node,
+              enabled: state.vehicle.vehicleType == VehicleType.other,
+              onChanged: (value) {
+                vehicleOtherType = value;
+              },
+              onTapOutside: (evt) {
+                if (vehicleOtherType.length < 3) {
+                  return G.snackBar(
+                      "Custom vehicle type must be at least 3 characters long");
+                }
+
+                G.rd<RegCubit>().setVehicleType(
+                    state.vehicle.copyWithVehicleType(vehicleOtherType));
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter your vehicle type',
+              ),
+            );
+
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  const Row(
-                    children: [
-                      Expanded(
-                        child: Image(
-                          image: AssetImage(AppAssets.ridesIcon),
-                        ),
-                      ),
-                      // SizedBox(width: 20),
-                    ],
-                  ),
+                  const Row(children: [Expanded(child: ridesBGImage)]),
                   const SizedBox(height: 40),
                   state.ridesStatus.isLoading
                       ? const CircularProgressIndicator()
                       : Column(
                           children: [
-                            ToggleButtons(
-                              isSelected: List.generate(
-                                4,
-                                (index) =>
-                                    state.vehicle.typeCode ==
-                                    vehicles[index].typeCode,
-                                //  || index == 3 && state.otherVehicle == true,
-                              ),
-                              children: vehicles
-                                  .mapIndexed((i, e) => Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            if (i <= 2) Icon(vehicleIcons[i]),
-                                            const SizedBox(width: 10),
-                                            Text(
-                                                e.vehicleName()?.capitalize() ??
-                                                    'Other'),
-                                          ],
-                                        ),
-                                      ))
-                                  .toList(),
-                              onPressed: (int idx) async {
-                                regCubit.state.canAddVehicle
-                                    .then((bool canAdd) {
-                                  var regCubit = G.rd<RegCubit>();
-                                  if (!canAdd) {
-                                    regCubit
-                                        .setVehicleType(regCubit.state.vehicle);
-
-                                    return ScaffoldMessenger.of(G.context)
-                                        .showSnackBar(
-                                      const SnackBar(
-                                        content: SnackBarMassage(
-                                            massage:
-                                                'You can\'nt update your vehicle type now.'),
-                                      ),
-                                    );
-                                  }
-
-                                  regCubit.setVehicleType(vehicles[idx]);
-                                  if (idx == 3) node.requestFocus();
-                                });
-                              },
-                            ),
+                            toggleButtons,
                             const SizedBox(height: 20),
                             Padding(
                               padding: const EdgeInsets.all(16.0),
-                              child: TextFormField(
-                                initialValue: state.vehicle.vehicleType ==
-                                        VehicleType.other
-                                    ? state.vehicle.otherType
-                                    : '',
-                                focusNode: node,
-                                enabled: state.vehicle.vehicleType ==
-                                    VehicleType.other,
-                                onChanged: (value) {
-                                  vehicleOtherType = value;
-                                },
-                                onTapOutside: (evt) {
-                                  if (vehicleOtherType.length < 3) {
-                                    return G.snackBar(
-                                        "Custom vehicle type must be at least 3 characters long");
-                                  }
-
-                                  G.rd<RegCubit>().setVehicleType(state.vehicle
-                                      .copyWithVehicleType(vehicleOtherType));
-                                },
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Enter your vehicle type',
-                                ),
-                              ),
+                              child: customVehicleTypeField,
                             ),
                             Container(
                               padding: const EdgeInsets.all(16.0),
                               alignment: Alignment.centerLeft,
-                              child: const Text(
-                                'Choose your vehicle type:',
-                                style: TextStyle(
-                                    // fontSize: 20,
-                                    // fontWeight: FontWeight.bold,
-                                    ),
-                              ),
+                              child: const Text('Choose your vehicle type:'),
                             ),
                             const SizedBox(height: 20),
                           ],
