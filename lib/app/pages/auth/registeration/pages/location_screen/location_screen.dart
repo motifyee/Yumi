@@ -90,53 +90,115 @@ class LocationScreen extends StatelessWidget {
     );
   }
 
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController autoCompleteController = TextEditingController();
 
   Widget locationBar() {
     return BlocSelector<RegCubit, RegState, Address>(
       selector: (state) => state.address,
       builder: (context, state) {
-        getLocation() {
+        final placesAutocompleteField = GooglePlaceAutoCompleteTextField(
+          textEditingController: autoCompleteController,
+          googleAPIKey: "AIzaSyBlhKSqJ_5FgfUS3tnGmjV6hxPocuFBB_Y",
+          // googleAPIKey: "AIzaSyCT36qFZg_DTHBU0fdTWdooUtixPJw3TUA",
+          boxDecoration: const BoxDecoration(
+            // border: Border.all(width: 1, color: Colors.transparent),
+            color: Colors.transparent,
+          ),
+          inputDecoration: const InputDecoration(
+            border: InputBorder.none,
+          ),
+
+          debounceTime: 800,
+          countries: const ["uk", "ie"],
+          isLatLngRequired: true,
+          getPlaceDetailWithLatLng: (Prediction prediction) async {
+            final double lat = double.tryParse(prediction.lat ?? '') ?? 0;
+            final double lng = double.tryParse(prediction.lng ?? '') ?? 0;
+
+            mapInfo.animateCamera(LatLng(lat, lng), zoom: 11);
+
+            if (lat == 0 || lng == 0 || prediction.description == null) {
+              return G.snackBar("Try to pin an exact location!");
+            }
+
+            context.read<RegCubit>().setLocation(
+                  state.copyWith(
+                    location: prediction.description!,
+                    latitude: lat,
+                    longitude: lng,
+                  ),
+                );
+          },
+          itemClick: (Prediction prediction) {
+            autoCompleteController.text = prediction.description ?? '';
+            autoCompleteController.selection = TextSelection.fromPosition(
+              TextPosition(offset: prediction.description?.length ?? 0),
+            );
+          },
+          itemBuilder: (context, index, Prediction prediction) {
+            return Container(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  const Icon(Icons.location_on),
+                  const SizedBox(
+                    width: 7,
+                  ),
+                  Expanded(child: Text(prediction.description ?? ""))
+                ],
+              ),
+            );
+          },
+          seperatedBuilder:
+              Divider(color: ThemeSelector.colors.primary.withOpacity(.1)),
+          isCrossBtnShown: true,
+          containerHorizontalPadding: 50,
+        );
+
+        final searchIcon =
+            Icon(Icons.search, color: ThemeSelector.colors.primary);
+
+        getUserCurrentLocation() {
           debugPrint('clicks');
           geo(() async {
-            await Geolocator.getCurrentPosition().then((loc) async {
-              mapInfo.animateCamera(
-                LatLng(loc.latitude, loc.longitude),
-                zoom: 11,
-              );
-              // mapInfo.controller?.animateCamera(CameraUpdate.newLatLngZoom(
-              //     LatLng(loc.latitude, loc.longitude), 11));
+            await Geolocator.getCurrentPosition().then(
+              (currLocation) async {
+                mapInfo.animateCamera(
+                  LatLng(currLocation.latitude, currLocation.longitude),
+                  zoom: 11,
+                );
 
-              await tryV(() => placemarkFromCoordinates(
-                    loc.latitude,
-                    loc.longitude,
-                  )).then((placemarks) {
-                var placemark = placemarks[0];
+                // get placemark(address) of current location
+                await tryV(
+                  () => placemarkFromCoordinates(
+                    currLocation.latitude,
+                    currLocation.longitude,
+                  ),
+                ).then(
+                  (placemarks) {
+                    var placemark = placemarks[0];
 
-                context.read<RegCubit>().setLocation(
-                      state.copyWith(
-                        location:
-                            '${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.country}',
-                        latitude: loc.latitude,
-                        longitude: loc.longitude,
-                      ),
-                    );
-              });
-            });
+                    context.read<RegCubit>().setLocation(
+                          state.copyWith(
+                            latitude: currLocation.latitude,
+                            longitude: currLocation.longitude,
+                            location: '${placemark.subAdministrativeArea}, '
+                                '${placemark.administrativeArea}, '
+                                '${placemark.country}',
+                          ),
+                        );
+                  },
+                );
+              },
+            );
           }, true, context);
         }
 
-        () async {
-          void getSuggestion(String input) async {
-            String kplacesApiKey = "CHANGE THIS WITH YOUR GOOGLE API KEY";
-            String baseURL =
-                'https://maps.googleapis.com/maps/api/place/autocomplete/json';
-            String request = '$baseURL?input=$input&key=$kplacesApiKey';
+        final pinButton = IconButton(
+          onPressed: getUserCurrentLocation,
+          icon: SvgPicture.asset('assets/images/map/map_pin.svg'),
+        );
 
-            var response = await DioClient.simpleDio().get(request);
-            debugPrint(response.toString());
-          }
-        }();
         return Positioned(
           top: 50,
           left: 20,
@@ -147,86 +209,9 @@ class LocationScreen extends StatelessWidget {
               height: 50,
               child: Stack(
                 children: [
-                  GooglePlaceAutoCompleteTextField(
-                    textEditingController: controller,
-                    googleAPIKey: "AIzaSyBlhKSqJ_5FgfUS3tnGmjV6hxPocuFBB_Y",
-                    // googleAPIKey: "AIzaSyCT36qFZg_DTHBU0fdTWdooUtixPJw3TUA",
-                    boxDecoration: const BoxDecoration(
-                      // border: Border.all(width: 1, color: Colors.transparent),
-                      color: Colors.transparent,
-                    ),
-                    inputDecoration: const InputDecoration(
-                      border: InputBorder.none,
-                    ),
-
-                    debounceTime: 800,
-                    countries: const ["uk", "ie"],
-                    isLatLngRequired: true,
-                    getPlaceDetailWithLatLng: (Prediction prediction) async {
-                      final double lat =
-                          double.tryParse(prediction.lat ?? '') ?? 0;
-                      final double lng =
-                          double.tryParse(prediction.lng ?? '') ?? 0;
-
-                      mapInfo.animateCamera(LatLng(lat, lng), zoom: 11);
-
-                      if (lat == 0 ||
-                          lng == 0 ||
-                          prediction.description == null) {
-                        return G.snackBar("Try to pin an exact location!");
-                      }
-
-                      debugPrint("placeDetails${prediction.lng}");
-
-                      context.read<RegCubit>().setLocation(
-                            state.copyWith(
-                              location: prediction.description!,
-                              latitude: lat,
-                              longitude: lng,
-                            ),
-                          );
-                    },
-                    itemClick: (Prediction prediction) {
-                      controller.text = prediction.description ?? '';
-                      controller.selection = TextSelection.fromPosition(
-                        TextPosition(
-                            offset: prediction.description?.length ?? 0),
-                      );
-                    },
-                    itemBuilder: (context, index, Prediction prediction) {
-                      return Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.location_on),
-                            const SizedBox(
-                              width: 7,
-                            ),
-                            Expanded(child: Text(prediction.description ?? ""))
-                          ],
-                        ),
-                      );
-                    },
-                    seperatedBuilder: Divider(
-                        color: ThemeSelector.colors.primary.withOpacity(.1)),
-                    isCrossBtnShown: true,
-                    containerHorizontalPadding: 50,
-                  ),
-                  Positioned(
-                      top: 0,
-                      bottom: 0,
-                      left: 16,
-                      child: Icon(Icons.search,
-                          color: ThemeSelector.colors.primary)),
-                  Positioned(
-                    top: 5,
-                    bottom: 5,
-                    right: 5,
-                    child: IconButton(
-                      onPressed: getLocation,
-                      icon: SvgPicture.asset('assets/images/map/map_pin.svg'),
-                    ),
-                  ),
+                  placesAutocompleteField,
+                  Positioned(top: 0, bottom: 0, left: 16, child: searchIcon),
+                  Positioned(top: 5, bottom: 5, right: 5, child: pinButton),
                 ],
               ),
             ),

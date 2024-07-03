@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -451,7 +450,6 @@ class RegCubit extends Cubit<RegState> {
 
     await context.read<ProfileCubit>().getProfileForm().then((value) {
       setLoading(false);
-      debugger();
 
       var stepsInfo = G.isChefApp
           ? chefOnboardingSteps(context, state)

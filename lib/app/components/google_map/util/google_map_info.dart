@@ -19,7 +19,7 @@ class GMapInfo {
       onAddressLongPress;
   final bool setMarkerOnLongPress;
 
-  Set<Marker> markers = {};
+  final Set<Marker> markers = const {};
 
   final LatLng? initialCameraLocation;
   final bool animateToLocationOnLoad;
@@ -50,6 +50,18 @@ class GMapInfo {
 
     await controller?.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(target: latLng, zoom: zoom0)));
+  }
+
+  Future<Location?> animateToAddress(String address) async {
+    List<Location>? locations = await tryV(() => locationFromAddress(address));
+
+    if (locations == null) return null;
+
+    var loc = locations[0];
+
+    animateCamera(loc.toLatLng(), retainZoomLevel: true);
+
+    return loc;
   }
 
   Future<void> animateToCurrentPosition() async {
