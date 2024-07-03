@@ -13,19 +13,17 @@ import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/components/google_map/google_map_widget.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/snack_bar.dart';
 import 'package:yumi/app/components/text_form_field.dart';
-
-import '../../../../../components/google_map/util/extenstions.dart';
 
 @RoutePage()
 class LocationScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
+
+  final inputKey1 = UniqueKey();
+  final inputKey2 = UniqueKey();
 
   final GMapInfo mapInfo = GMapInfo(
       setMarkerOnLongPress: true,
@@ -44,31 +42,16 @@ class LocationScreen extends StatelessWidget {
       onTap: (LatLng latLng, GMapInfo info) async {
         debugPrint((await info.controller?.getZoomLevel()).toString());
       });
-  // var selectedAddr = const Address();
-  final bool isBack;
 
+  final bool isBack;
   final Function({required Address address})? routeFn;
 
-  // onAddressTap: (address) => print(address)
-  // onMapCreated: (c) => controller = c,
-
   LocationScreen({super.key, this.routeFn, this.isBack = false});
-
-  Future<Location?> _navToAddress(String address) async {
-    List<Location>? locations = await tryV(() => locationFromAddress(address));
-
-    if (locations == null) return null;
-
-    var loc = locations[0];
-
-    mapInfo.animateCamera(loc.toLatLng(), retainZoomLevel: true);
-
-    return loc;
-  }
 
   @override
   Widget build(BuildContext context) {
     final regCubit = G.rd<RegCubit>();
+
     return PopScope(
       canPop: regCubit.state.partialFlow || isBack ? true : false,
       onPopInvoked: (didPop) {
@@ -82,8 +65,8 @@ class LocationScreen extends StatelessWidget {
               height: MediaQuery.of(context).size.height,
               child: GMap(info: mapInfo),
             ),
-            locationBar(),
-            addressCard(),
+            buildLocationBar(),
+            buildAddressCard(),
           ],
         ),
       ),
@@ -92,7 +75,7 @@ class LocationScreen extends StatelessWidget {
 
   final TextEditingController autoCompleteController = TextEditingController();
 
-  Widget locationBar() {
+  Widget buildLocationBar() {
     return BlocSelector<RegCubit, RegState, Address>(
       selector: (state) => state.address,
       builder: (context, state) {
@@ -155,8 +138,10 @@ class LocationScreen extends StatelessWidget {
           containerHorizontalPadding: 50,
         );
 
-        final searchIcon =
-            Icon(Icons.search, color: ThemeSelector.colors.primary);
+        final searchIcon = Icon(
+          Icons.search,
+          color: ThemeSelector.colors.primary,
+        );
 
         getUserCurrentLocation() {
           debugPrint('clicks');
@@ -221,168 +206,121 @@ class LocationScreen extends StatelessWidget {
     );
   }
 
-  Widget addressCard() {
-    return BlocListener<RegCubit, RegState>(
-      listener: (context, state) {
-        if (state.addressStatus == Status.error) {
-          ScaffoldMessenger.of(G.cContext).showSnackBar(
-            SnackBar(
-              content: SnackBarMassage(
-                massage: state.addressMessage,
-                // massage: "Error updating location",
-              ),
-            ),
-          );
-        }
-      },
-      child: BlocSelector<RegCubit, RegState, Address>(
-        selector: (RegState state) {
-          return state.address;
-        },
-        // listener: (context, state) { },
-        builder: (context, addressState) {
-          if (addressState.latitude == null) return const SizedBox();
+  Widget buildAddressCard() {
+    return BlocSelector<RegCubit, RegState, Address>(
+      selector: (RegState state) => state.address,
+      builder: (context, address) {
+        if (address.latitude == null) return const SizedBox();
 
-          return Positioned(
-              bottom: 20,
-              left: 20,
-              right: 20,
-              child: Card(
-                elevation: 5,
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-                  child: addressForm(addressState, context),
-                ),
-              ));
-        },
-      ),
-    );
-  }
+        bool validateAddressForm() {
+          if (!(formKey.currentState?.validate() ?? false)) return false;
 
-  final inputKey1 = UniqueKey();
-  final inputKey2 = UniqueKey();
-  Widget? addressForm(Address addressState, BuildContext context) {
-    Address address = addressState.copyWith();
-    bool validate() {
-      if (!(formKey.currentState?.validate() ?? false)) return false;
-
-      var values = [
-        [
-          address.location?.isEmpty ?? true,
-          "Please choose a valid address",
-        ],
-        [
-          address.addressDetails?.isEmpty ?? true,
-          "Please enter your address details",
-        ],
-        [
-          address.addressTitle?.isEmpty ?? true,
-          "Please enter a title for your address",
-        ],
-        [
-          address.latitude == null || address.longitude == null,
-          "Please interact with the map to specify your exact location"
-        ]
-      ];
-      var trueV = values.firstWhere((element) => element[0] as bool,
-          orElse: () => [false]);
-
-      if (!(trueV[0] as bool)) return true;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: SnackBarMassage(
-            massage: trueV[1] as String,
-          ),
-        ),
-      );
-      return false;
-    }
-
-    void moveCameraToManualAddress() async {
-      formKey.currentState!.save();
-
-      await tryV(
-        () => _navToAddress(address.location ?? ''),
-      ).then((value) {
-        if (value != null) {
-          context.read<RegCubit>().setLocation(
-                address.copyWith(
-                  latitude: value.latitude,
-                  longitude: value.longitude,
-                ),
-              );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: SnackBarMassage(
-                massage: "Please enter a valid address",
-              ),
-            ),
-          );
-        }
-      });
-    }
-
-    return Form(
-      key: formKey,
-      child: Column(
-        children: [
-          SizedBox(
-            // height: 50,
-            child: TextFormFieldTemplate(
-              initialValue: address.addressTitle,
-              key: inputKey1,
-              floatingLabelBehavior: FloatingLabelBehavior.auto,
-              onSave: (value) {
-                address = address.copyWith(addressTitle: value);
-              },
-              validators: (val) => (val?.length ?? 0) < 3
-                  ? 'Minimum 3 characters required'
-                  : null,
-              hintText: 'Address Title, eg: My Home Address',
-              label: "Address Title",
-            ),
-          ),
-          const SizedBox(height: 20),
-          TextFormFieldTemplate(
-            initialValue: address.addressDetails,
-            key: inputKey2,
-            floatingLabelBehavior: FloatingLabelBehavior.auto,
-            onSave: (value) {
-              address = address.copyWith(addressDetails: value);
-            },
-            validators: (val) =>
-                (val?.length ?? 0) < 8 ? 'Minimum 8 characters required' : null,
-            hintText: 'Address Details, eg: House No., Building Name, etc',
-            label: 'Adddress Details',
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              SvgPicture.asset('assets/images/map/map_pin.svg'),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Text(address.location ?? ''),
-              ),
+          List<List<Object>> addressFormValidFields = [
+            [
+              address.location?.isEmpty ?? true,
+              "Please choose a valid address",
             ],
-          ),
-          const SizedBox(height: 20),
-          InteractiveButton(
-            label: 'Ok',
-            onPressed: () async {
-              formKey.currentState!.save();
-              if (!validate()) return;
+            [
+              address.addressDetails?.isEmpty ?? true,
+              "Please enter your address details",
+            ],
+            [
+              address.addressTitle?.isEmpty ?? true,
+              "Please enter a title for your address",
+            ],
+            [
+              address.latitude == null || address.longitude == null,
+              "Please interact with the map to specify your exact location"
+            ]
+          ];
 
-              context.read<RegCubit>().setLocation(address);
-              await context.read<RegCubit>().saveLocation(routeFn: routeFn);
-            },
+          var trueV = addressFormValidFields.firstWhere(
+            (element) => element[0] as bool,
+            orElse: () => [false],
+          );
+
+          if (!(trueV[0] as bool)) return true;
+
+          G.snackBar(trueV[1] as String);
+
+          return false;
+        }
+
+        final addressTitleField = TextFormFieldTemplate(
+          initialValue: address.addressTitle,
+          key: inputKey1,
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          onSave: (value) {
+            address = address.copyWith(addressTitle: value);
+          },
+          validators: (val) =>
+              (val?.length ?? 0) < 3 ? 'Minimum 3 characters required' : null,
+          hintText: 'Address Title, eg: My Home Address',
+          label: "Address Title",
+        );
+
+        final addressDetailsField = TextFormFieldTemplate(
+          initialValue: address.addressDetails,
+          key: inputKey2,
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          onSave: (value) {
+            address = address.copyWith(addressDetails: value);
+          },
+          validators: (val) =>
+              (val?.length ?? 0) < 8 ? 'Minimum 8 characters required' : null,
+          hintText: 'Address Details, eg: House No., Building Name, etc',
+          label: 'Adddress Details',
+        );
+
+        final addressLocationRow = Row(
+          children: [
+            SvgPicture.asset('assets/images/map/map_pin.svg'),
+            const SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Text(address.location ?? ''),
+            ),
+          ],
+        );
+
+        final submitButton = InteractiveButton(
+          label: 'Ok',
+          onPressed: () async {
+            formKey.currentState!.save();
+            if (!validateAddressForm()) return;
+
+            context.read<RegCubit>().setLocation(address);
+            await context.read<RegCubit>().saveLocation(routeFn: routeFn);
+          },
+        );
+
+        return Positioned(
+          bottom: 20,
+          left: 20,
+          right: 20,
+          child: Card(
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    addressTitleField,
+                    const SizedBox(height: 20),
+                    addressDetailsField,
+                    const SizedBox(height: 20),
+                    addressLocationRow,
+                    const SizedBox(height: 20),
+                    submitButton,
+                  ],
+                ),
+              ),
+            ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
