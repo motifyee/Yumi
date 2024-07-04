@@ -6,21 +6,20 @@ import 'package:yumi/domain/schedule/data/sources/schedule_sources.dart';
 import 'package:yumi/domain/schedule/entities/schedule.dart';
 
 class ScheduleRemoteRepo implements ScheduleRepo {
-  final ScheduleSrc scheduleSrc;
+  final ScheduleSrc src;
 
-  ScheduleRemoteRepo({ScheduleSrc? scheduleSrc})
-      : scheduleSrc = scheduleSrc ?? getIt<ScheduleSrc>();
+  ScheduleRemoteRepo({ScheduleSrc? src}) : src = src ?? getIt<ScheduleSrc>();
 
   @override
   TaskEither<Failure, Schedule> getMySchedule() => TaskEither.tryCatch(
-        () => scheduleSrc.getMySchedule(),
+        () => src.getMySchedule(),
         (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 
   @override
   TaskEither<Failure, String> saveMySchedule(Schedule schedule) =>
       TaskEither.tryCatch(
-        () => scheduleSrc.saveMySchedule(schedule),
+        () => src.saveMySchedule(schedule),
         (error, stackTrace) => ServerFailure(error, stackTrace),
       );
 }

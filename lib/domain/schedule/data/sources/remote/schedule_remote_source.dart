@@ -5,6 +5,10 @@ import 'package:yumi/domain/schedule/entities/schedule.dart';
 import 'package:yumi/statics/api_statics.dart';
 
 class ScheduleRemoteSrc implements ScheduleSrc {
+  final Dio client;
+
+  ScheduleRemoteSrc({Dio? client}) : client = client ?? DioClient.dio;
+
   @override
   Future<Schedule> getMySchedule() async {
     final Response res = await DioClient.get(
