@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:yumi/core/exceptions.dart';
 
-sealed class Failure {
+abstract class Failure {
   Object? error;
   StackTrace? stackTrace;
 }
@@ -42,41 +42,41 @@ class NetworkFailure extends Failure with EquatableMixin {
   toString() => error.toString();
 
   @override
-  List<Object?> get props => [stackTrace];
+  List<Object?> get props => [error, stackTrace];
 }
 
 // -----------------------------------------------------------------------------
 
 class ServerFailure extends Failure with EquatableMixin {
-  ServerFailure(this.error, this.stackTrace);
+  ServerFailure(this.error, [this.stackTrace]);
 
   @override
   final Object? error;
   @override
   final StackTrace? stackTrace;
 
-  @override
-  toString() => error.toString();
+  // @override
+  // toString() => error.toString();
 
   @override
-  List<Object?> get props => [stackTrace];
+  List<Object?> get props => [error];
 }
 
 // -----------------------------------------------------------------------------
 
 class GenericFailure extends Failure with EquatableMixin {
-  GenericFailure(this.error, this.stackTrace);
+  GenericFailure(this.error, [this.stackTrace]);
 
   @override
   final Object? error;
   @override
   final StackTrace? stackTrace;
 
-  @override
-  toString() => error.toString();
+  // @override
+  // toString() => error.toString();
 
   @override
-  List<Object?> get props => [stackTrace];
+  List<Object?> get props => [error];
 }
 
 // -----------------------------------------------------------------------------
@@ -90,7 +90,7 @@ class CacheFailure extends Failure with EquatableMixin {
   final StackTrace? stackTrace;
 
   @override
-  List<Object?> get props => [stackTrace];
+  List<Object?> get props => [error, stackTrace];
 }
 
 // -----------------------------------------------------------------------------
@@ -104,5 +104,5 @@ class SignalrFailure extends Failure with EquatableMixin {
   final StackTrace? stackTrace;
 
   @override
-  List<Object?> get props => [stackTrace];
+  List<Object?> get props => [error, stackTrace];
 }

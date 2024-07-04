@@ -12,12 +12,12 @@ import 'schedule_remote_src_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<Dio>()])
 void main() {
   group('ScheduleSrc', () {
-    final dio = MockDio();
-    final scheduleSrcTest = ScheduleRemoteSrc(dio: dio);
+    final mockDio = MockDio();
+    final scheduleSrcTest = ScheduleRemoteSrc(client: mockDio);
 
     group('Should return Schedule', () {
       test('when response is 200 and has valid data', () async {
-        when(dio.get('/accounts/schedule')).thenAnswer(
+        when(mockDio.get('/accounts/schedule')).thenAnswer(
           (ans) => Future.value(
             Response(
               data: {},
@@ -34,7 +34,7 @@ void main() {
 
     group('Should throw', () {
       test('a ServerException when response is not 200', () async {
-        when(dio.get('/accounts/schedule')).thenAnswer(
+        when(mockDio.get('/accounts/schedule')).thenAnswer(
           (ans) => Future.value(
             Response(
               data: null,
@@ -51,7 +51,7 @@ void main() {
       });
 
       test('a TypeError when response is 200 and has invalid data', () async {
-        when(dio.get('/accounts/schedule')).thenAnswer(
+        when(mockDio.get('/accounts/schedule')).thenAnswer(
           (ans) => Future.value(
             Response(
               data: '',
