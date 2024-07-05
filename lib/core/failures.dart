@@ -30,7 +30,7 @@ abstract class Failure {
 // -----------------------------------------------------------------------------
 
 class NetworkFailure extends Failure with EquatableMixin {
-  NetworkFailure(super.error);
+  NetworkFailure([super.error]);
 
   @override
   toString() => error.toString();
@@ -42,7 +42,7 @@ class NetworkFailure extends Failure with EquatableMixin {
 // -----------------------------------------------------------------------------
 
 class ServerFailure extends Failure with EquatableMixin {
-  ServerFailure(super.error);
+  ServerFailure([super.error]);
 
   @override
   toString() => error ?? '';
@@ -54,7 +54,7 @@ class ServerFailure extends Failure with EquatableMixin {
 // -----------------------------------------------------------------------------
 
 class GenericFailure extends Failure with EquatableMixin {
-  GenericFailure(super.error);
+  GenericFailure([super.error]);
 
   @override
   toString() => error ?? '';
@@ -66,7 +66,7 @@ class GenericFailure extends Failure with EquatableMixin {
 // -----------------------------------------------------------------------------
 
 class CacheFailure extends Failure with EquatableMixin {
-  CacheFailure(super.error);
+  CacheFailure([super.error]);
 
   @override
   toString() => error ?? '';
@@ -78,7 +78,7 @@ class CacheFailure extends Failure with EquatableMixin {
 // -----------------------------------------------------------------------------
 
 class SignalrFailure extends Failure with EquatableMixin {
-  SignalrFailure(super.error);
+  SignalrFailure([super.error]);
 
   @override
   toString() => error ?? '';
