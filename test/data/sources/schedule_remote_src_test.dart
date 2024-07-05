@@ -1,15 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/schedule/data/sources/remote/schedule_remote_source.dart';
 
-import 'schedule_remote_src_test.mocks.dart';
-
 // TODO test all the rules of data sources for all data sources in a single test
 
-@GenerateNiceMocks([MockSpec<Dio>()])
+class MockDio extends Mock implements Dio {}
+
 void main() {
   group('ScheduleSrc', () {
     final mockDio = MockDio();
@@ -17,7 +15,7 @@ void main() {
 
     group('Should return Schedule', () {
       test('when response is 200 and has valid data', () async {
-        when(mockDio.get('/accounts/schedule')).thenAnswer(
+        when(() => mockDio.get('/accounts/schedule')).thenAnswer(
           (ans) => Future.value(
             Response(
               data: {},
@@ -34,7 +32,7 @@ void main() {
 
     group('Should throw', () {
       test('a ServerException when response is not 200', () async {
-        when(mockDio.get('/accounts/schedule')).thenAnswer(
+        when(() => mockDio.get('/accounts/schedule')).thenAnswer(
           (ans) => Future.value(
             Response(
               data: null,
@@ -51,7 +49,7 @@ void main() {
       });
 
       test('a TypeError when response is 200 and has invalid data', () async {
-        when(mockDio.get('/accounts/schedule')).thenAnswer(
+        when(() => mockDio.get('/accounts/schedule')).thenAnswer(
           (ans) => Future.value(
             Response(
               data: '',
