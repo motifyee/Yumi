@@ -13,13 +13,13 @@ class ScheduleRemoteRepo implements ScheduleRepo {
   @override
   TaskEither<Failure, Schedule> getMySchedule() => TaskEither.tryCatch(
         () => src.getMySchedule(),
-        (error, stackTrace) => ServerFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error.toString()),
       );
 
   @override
   TaskEither<Failure, String> saveMySchedule(Schedule schedule) =>
       TaskEither.tryCatch(
         () => src.saveMySchedule(schedule),
-        (error, stackTrace) => ServerFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error.toString()),
       );
 }

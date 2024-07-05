@@ -17,14 +17,14 @@ class ChefRemoteRepo implements ChefRepo {
   TaskEither<Failure, bool> addFavouriteChef(String chefId) =>
       TaskEither.tryCatch(
         () => chefSrc.addFavouriteChef(chefId),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error.toString()),
       );
 
   @override
   TaskEither<Failure, ChefWorkStatus> getChefWorkStatus(String chefId) =>
       TaskEither.tryCatch(
         () => chefSrc.getChefWorkStatus(chefId),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error.toString()),
       );
 
   @override
@@ -42,7 +42,7 @@ class ChefRemoteRepo implements ChefRepo {
             longitude: longitude,
             workStatus: workStatus,
             pagination: pagination),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error.toString()),
       );
 
   @override
@@ -50,20 +50,20 @@ class ChefRemoteRepo implements ChefRepo {
           Pagination pagination) =>
       TaskEither.tryCatch(
         () => chefSrc.getFavouriteChefs(pagination),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error.toString()),
       );
 
   @override
   TaskEither<Failure, bool> isFavouriteChef(String chefId) =>
       TaskEither.tryCatch(
         () => chefSrc.isFavouriteChef(chefId),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error.toString()),
       );
 
   @override
   TaskEither<Failure, bool> removeFavouriteChef(String chefId) =>
       TaskEither.tryCatch(
         () => chefSrc.removeFavouriteChef(chefId),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error.toString()),
       );
 }

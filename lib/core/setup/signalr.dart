@@ -147,7 +147,7 @@ class Signalr {
 
         return hubConnection!.invoke(methodName.name, args: args);
       },
-      (error, stackTrace) => SignalrFailure(error, stackTrace),
+      (error, _) => SignalrFailure(error.toString()),
     ).run();
   }
 }

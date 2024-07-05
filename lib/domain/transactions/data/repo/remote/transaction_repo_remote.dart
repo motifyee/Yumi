@@ -19,5 +19,5 @@ class TransactionRepoRemote implements TransactionRepo {
       TaskEither.tryCatch(
           () => transactionSource.getAllTransactions(
               pagination: pagination, userId: userId),
-          (error, stackTrace) => ServerFailure(error, stackTrace));
+          (error, stackTrace) => ServerFailure(error.toString()));
 }

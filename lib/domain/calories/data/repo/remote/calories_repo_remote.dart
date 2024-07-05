@@ -17,5 +17,5 @@ class CaloriesRepoRemote implements CaloriesRepo {
           {required PaginatedData<Calories> pagination}) =>
       TaskEither.tryCatch(
           () => caloriesSource.loadCalories(pagination: pagination),
-          (error, stackTrace) => ServerFailure(error, stackTrace));
+          (error, stackTrace) => ServerFailure(error.toString()));
 }

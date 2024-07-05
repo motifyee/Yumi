@@ -18,7 +18,7 @@ class OrderRepoRemote extends OrderRepo {
     return TaskEither.tryCatch(
       () => orderSource.getOrders(apiKeys: apiKeys, ordersPage: ordersPage),
       (error, stackTrace) {
-        return ServerFailure(error, stackTrace);
+        return ServerFailure(error.toString());
       },
     );
   }
@@ -35,6 +35,6 @@ class OrderRepoRemote extends OrderRepo {
               isFakeBody: isFakeBody,
               orderId: order.id,
             ),
-        (error, stackTrace) => ServerFailure(error, stackTrace));
+        (error, stackTrace) => ServerFailure(error.toString()));
   }
 }
