@@ -3,7 +3,8 @@ import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/schedule/entities/schedule.dart';
 
-class ApplyDayToAll extends UseCase<Schedule, ApplyDayToAllParams> {
+/// applies start and end times of [day] to active days
+class ApplyToActiveDays extends UseCase<Schedule, ApplyToActiveDaysParams> {
   @override
   Future<Either<Failure, Schedule>> call(params) async {
     var schedule = params.schedule;
@@ -21,11 +22,11 @@ class ApplyDayToAll extends UseCase<Schedule, ApplyDayToAllParams> {
   }
 }
 
-class ApplyDayToAllParams extends Params {
+class ApplyToActiveDaysParams extends Params {
   final ScheduleDay day;
   final Schedule schedule;
 
-  ApplyDayToAllParams(this.day, this.schedule);
+  ApplyToActiveDaysParams(this.day, this.schedule);
 
   @override
   List<Object?> get props => [day, schedule];
