@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
+import 'package:yumi/app/pages/settings/bankinfo/cubit/bankinfo_cubit.dart';
 import 'package:yumi/app/pages/settings/components/profile/profile_card.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
@@ -56,30 +57,47 @@ class SettingsScreen extends StatelessWidget {
       },
     );
 
-    final t =
+    final secondCard =
         G.isCustomerApp ? const DeliveryAddresses() : const BankInfoCard();
-    final items = [
-      const ProfileCard(),
-      SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-      t,
+
+    final pageItems = [
+      SizedBox(height: ThemeSelector.statics.defaultBorderRadiusExtraLarge),
+      // profile card
       Padding(
-        padding: const EdgeInsets.all(40),
+        padding: EdgeInsets.symmetric(
+          horizontal: ThemeSelector.statics.defaultTitleGap,
+        ),
+        child: const ProfileCard(),
+      ),
+      SizedBox(height: ThemeSelector.statics.defaultBorderRadiusExtraLarge),
+      // (bank info | delivery addresses) card
+      Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: ThemeSelector.statics.defaultTitleGap,
+        ),
+        child: secondCard,
+      ),
+      SizedBox(height: ThemeSelector.statics.defaultBorderRadiusExtraLarge),
+      // delete account button
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40),
         child: deleteAccountButton,
       ),
+      SizedBox(height: ThemeSelector.statics.defaultBorderRadiusExtraLarge),
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        bottomOpacity: 0,
-        scrolledUnderElevation: 0,
-        iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
-      ),
       body: Column(
         children: [
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(children: items),
+            child: RefreshIndicator(
+              onRefresh: () async {
+                context.read<BankInfoCubit>().getBankInfo();
+                context.read<ProfileCubit>().getProfile();
+              },
+              child: SingleChildScrollView(
+                child: Column(children: pageItems),
+              ),
             ),
           ),
         ],
@@ -118,43 +136,36 @@ class DeliveryAddresses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: ThemeSelector.statics.defaultTitleGap,
-        right: ThemeSelector.statics.defaultTitleGap,
-        left: ThemeSelector.statics.defaultTitleGap,
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
+      decoration: BoxDecoration(
+        color: ThemeSelector.colors.background,
+        borderRadius: BorderRadius.circular(
+            ThemeSelector.statics.defaultBorderRadiusSmall),
+        boxShadow: [
+          BoxShadow(
+            color: ThemeSelector.colors.secondary.withOpacity(.15),
+            spreadRadius: 0,
+            blurRadius: 5,
+            offset: const Offset(2, 4),
+          )
+        ],
       ),
-      child: Container(
-        width: double.infinity,
-        padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
-        decoration: BoxDecoration(
-          color: ThemeSelector.colors.background,
-          borderRadius: BorderRadius.circular(
-              ThemeSelector.statics.defaultBorderRadiusSmall),
-          boxShadow: [
-            BoxShadow(
-              color: ThemeSelector.colors.secondary.withOpacity(.15),
-              spreadRadius: 0,
-              blurRadius: 5,
-              offset: const Offset(2, 4),
-            )
+      child: InkWell(
+        onTap: () => {
+          context.router.replaceAll([const CustomerLocationRoute()])
+        },
+        child: Row(
+          children: [
+            const Icon(Icons.location_on_outlined),
+            SizedBox(width: ThemeSelector.statics.defaultGap),
+            const Text(
+              "Delivery Addresses",
+            ),
+            Expanded(child: Container()),
+            const Icon(Icons.chevron_right_outlined),
           ],
-        ),
-        child: InkWell(
-          onTap: () => {
-            context.router.replaceAll([const CustomerLocationRoute()])
-          },
-          child: Row(
-            children: [
-              const Icon(Icons.location_on_outlined),
-              SizedBox(width: ThemeSelector.statics.defaultGap),
-              const Text(
-                "Delivery Addresses",
-              ),
-              Expanded(child: Container()),
-              const Icon(Icons.chevron_right_outlined),
-            ],
-          ),
         ),
       ),
     );

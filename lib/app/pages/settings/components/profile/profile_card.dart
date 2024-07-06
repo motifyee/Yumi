@@ -150,49 +150,42 @@ class ProfileCard extends StatelessWidget {
           child: Center(child: CircularProgressIndicator()),
         );
 
-        return Padding(
-          padding: EdgeInsets.only(
-            top: ThemeSelector.statics.defaultTitleGap,
-            right: ThemeSelector.statics.defaultTitleGap,
-            left: ThemeSelector.statics.defaultTitleGap,
+        return Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
+          decoration: BoxDecoration(
+            color: ThemeSelector.colors.background,
+            borderRadius: BorderRadius.circular(
+                ThemeSelector.statics.defaultBorderRadiusSmall),
+            boxShadow: [
+              BoxShadow(
+                color: ThemeSelector.colors.secondary.withOpacity(.15),
+                spreadRadius: 0,
+                blurRadius: 5,
+                offset: const Offset(2, 4),
+              )
+            ],
           ),
-          child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
-            decoration: BoxDecoration(
-              color: ThemeSelector.colors.background,
-              borderRadius: BorderRadius.circular(
-                  ThemeSelector.statics.defaultBorderRadiusSmall),
-              boxShadow: [
-                BoxShadow(
-                  color: ThemeSelector.colors.secondary.withOpacity(.15),
-                  spreadRadius: 0,
-                  blurRadius: 5,
-                  offset: const Offset(2, 4),
-                )
-              ],
-            ),
-            child: Column(
-              children: state.profile.entityStatus.isLoading
-                  ? [spinner]
-                  : [
-                      titleRow,
-                      SizedBox(height: ThemeSelector.statics.defaultLineGap),
-                      fullNameRow,
+          child: Column(
+            children: state.profile.entityStatus.isLoading
+                ? [spinner]
+                : [
+                    titleRow,
+                    SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                    fullNameRow,
+                    SizedBox(height: ThemeSelector.statics.defaultGap),
+                    userNameRow,
+                    SizedBox(height: ThemeSelector.statics.defaultGap),
+                    phoneRow,
+                    SizedBox(height: ThemeSelector.statics.defaultGap),
+                    addressRow,
+                    if (!G.isCustomerApp)
                       SizedBox(height: ThemeSelector.statics.defaultGap),
-                      userNameRow,
-                      SizedBox(height: ThemeSelector.statics.defaultGap),
-                      phoneRow,
-                      SizedBox(height: ThemeSelector.statics.defaultGap),
-                      addressRow,
-                      if (!G.isCustomerApp)
-                        SizedBox(height: ThemeSelector.statics.defaultGap),
-                      if (!G.isCustomerApp) aboutRow,
-                      SizedBox(height: ThemeSelector.statics.defaultGap),
-                      // pickup allowed
-                      if (G.isChefApp) deliveryAndPickupIconsRow,
-                    ],
-            ),
+                    if (!G.isCustomerApp) aboutRow,
+                    SizedBox(height: ThemeSelector.statics.defaultGap),
+                    // pickup allowed
+                    if (G.isChefApp) deliveryAndPickupIconsRow,
+                  ],
           ),
         );
       },
