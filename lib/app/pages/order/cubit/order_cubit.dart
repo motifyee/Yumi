@@ -6,6 +6,7 @@ import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/domain/order/use_case/get_orders.dart';
 import 'package:yumi/domain/order/use_case/put_action_orders.dart';
+import 'package:yumi/extensions/string.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/paginatedData.dart';
 
@@ -40,7 +41,7 @@ class OrderCubit extends Cubit<OrderState> {
       );
 
       task.fold(
-        (l) => G.snackBar((l.error as DioException).response?.data['message']),
+        (l) => G.snackBar(l.toString().onEmpty('Connection Error!')),
         (r) => !isClosed ? emit(state.copyWith(ordersPage: r)) : null,
       );
     }

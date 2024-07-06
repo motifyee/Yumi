@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:yumi/app/pages/settings/bankinfo/bankinfo_service.dart';
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/bank_info/data/sources/bank_info_src.dart';
@@ -20,7 +21,7 @@ class BankInfoRemoteSrc implements BankInfoSrc {
 
       return res.data;
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 
@@ -34,7 +35,7 @@ class BankInfoRemoteSrc implements BankInfoSrc {
       final banks = res.data['data'] as List<dynamic>;
       return BankInfo.fromJson(banks.first);
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 
@@ -50,7 +51,7 @@ class BankInfoRemoteSrc implements BankInfoSrc {
 
       return res.data;
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 }

@@ -16,13 +16,13 @@ abstract class Failure {
 
   bool get isSignalrFailure => this is SignalrFailure;
 
-  static Failure fromException(String? error) {
-    return switch (error as CException) {
-      ServerException() => ServerFailure(error),
-      NetworkException() => NetworkFailure(error),
-      CacheException() => CacheFailure(error),
-      GenericException() => GenericFailure(error),
-      SignalRException() => SignalrFailure(error),
+  static Failure fromException(CException error) {
+    return switch (error) {
+      ServerException() => ServerFailure(error.toString()),
+      NetworkException() => NetworkFailure(error.toString()),
+      CacheException() => CacheFailure(error.toString()),
+      GenericException() => GenericFailure(error.toString()),
+      SignalRException() => SignalrFailure(error.toString()),
     } as Failure;
   }
 }

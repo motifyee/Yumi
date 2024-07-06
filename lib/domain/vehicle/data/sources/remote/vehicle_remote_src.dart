@@ -20,7 +20,7 @@ class VehicleRemoteSrc implements VehicleSrc {
 
       return res.data;
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 
@@ -33,7 +33,7 @@ class VehicleRemoteSrc implements VehicleSrc {
 
       return Vehicle.fromJson(res.data);
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 
@@ -53,7 +53,7 @@ class VehicleRemoteSrc implements VehicleSrc {
 
       return res.data;
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 }

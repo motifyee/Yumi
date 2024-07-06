@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -32,8 +33,17 @@ void main() {
 
     group('should return left with', () {
       test('a ServerFailure when as ServerException occurs', () async {
-        when(() => mockScheduleRemoteSrc.getMySchedule())
-            .thenThrow(ServerException('test'));
+        when(() => mockScheduleRemoteSrc.getMySchedule()).thenThrow(
+          ServerException(
+            DioException(
+              requestOptions: RequestOptions(),
+              response: Response(
+                data: {'message': 'test'},
+                requestOptions: RequestOptions(),
+              ),
+            ),
+          ),
+        );
 
         final result = await scheduleRepoTest.getMySchedule().run();
 
