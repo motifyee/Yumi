@@ -75,7 +75,7 @@ class OrderCubit extends Cubit<OrderState> {
 
     task.fold(
       (l) {
-        G.snackBar((l.error as DioException).response?.data['message']);
+        G.snackBar(l.toString());
 
         emitOrderIsLoading(false);
       },

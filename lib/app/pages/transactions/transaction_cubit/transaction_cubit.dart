@@ -36,9 +36,7 @@ class TransactionCubit extends Cubit<TransactionState> {
       final Either<Failure, PaginatedData<Transaction>> task =
           await GetAllTransaction().call(GetAllTransactionParams(
               pagination: state.pagination, userId: userId));
-      task.fold(
-          (l) =>
-              G.snackBar((l.error as DioException).response?.data['message']),
+      task.fold((l) => G.snackBar(l.toString()),
           (r) => emit(state.copyWith(pagination: r)));
     }
   }
