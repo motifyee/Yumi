@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:yumi/app/pages/settings/bankinfo/bankinfo_service.dart';
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/bank_info/data/sources/bank_info_src.dart';
 import 'package:yumi/domain/bank_info/entities/bankinfo_model.dart';
 import 'package:yumi/statics/api_statics.dart';
+import 'package:yumi/util/random_string.dart';
 
 class BankInfoRemoteSrc implements BankInfoSrc {
   @override

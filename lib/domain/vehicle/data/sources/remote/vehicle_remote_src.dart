@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:yumi/app/pages/settings/bankinfo/bankinfo_service.dart';
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/domain/vehicle/data/sources/vehicle_src.dart';
 import 'package:yumi/domain/vehicle/entities/vehicle.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/api_statics.dart';
+import 'package:yumi/util/random_string.dart';
 
 class VehicleRemoteSrc implements VehicleSrc {
   @override
