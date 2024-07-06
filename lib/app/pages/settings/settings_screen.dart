@@ -96,6 +96,7 @@ class SettingsScreen extends StatelessWidget {
                 context.read<ProfileCubit>().getProfile();
               },
               child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(children: pageItems),
               ),
             ),
