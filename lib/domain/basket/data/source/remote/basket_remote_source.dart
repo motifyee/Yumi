@@ -75,7 +75,7 @@ class BasketRemoteSource implements BasketSource {
     Response res = await DioClient.simpleDio().put(
       ApiKeys.order,
       data: basket.toJson(),
-      queryParameters: {'orderId': basket.id},
+      queryParameters: {'orderId': basket.id, 'voucherId': basket.voucherId}..removeWhere((key, value) => value == null),
     );
     return basket;
   }
