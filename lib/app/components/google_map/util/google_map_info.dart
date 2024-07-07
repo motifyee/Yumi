@@ -19,7 +19,7 @@ class GMapInfo {
       onAddressLongPress;
   final bool setMarkerOnLongPress;
 
-  Set<Marker> markers = {};
+  final Set<Marker> markers = const {};
 
   final LatLng? initialCameraLocation;
   final bool animateToLocationOnLoad;
@@ -33,7 +33,7 @@ class GMapInfo {
   }
 
   Future<Position?> get currentPosition async {
-    return tryV<Position>(() => Geolocator.getCurrentPosition());
+    return tryCall<Position>(() => Geolocator.getCurrentPosition());
   }
 
   Future<void> animateCamera(
@@ -45,11 +45,24 @@ class GMapInfo {
 
     double zoom0 = zoom;
     if (retainZoomLevel) {
-      zoom0 = await tryV(() => controller?.getZoomLevel() ?? zoom);
+      zoom0 = await tryCall(() => controller?.getZoomLevel() ?? zoom);
     }
 
     await controller?.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(target: latLng, zoom: zoom0)));
+  }
+
+  Future<Location?> animateToAddress(String address) async {
+    List<Location>? locations =
+        await tryCall(() => locationFromAddress(address));
+
+    if (locations == null) return null;
+
+    var loc = locations[0];
+
+    animateCamera(loc.toLatLng(), retainZoomLevel: true);
+
+    return loc;
   }
 
   Future<void> animateToCurrentPosition() async {

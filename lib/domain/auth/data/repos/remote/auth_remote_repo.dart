@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/auth/entities/login_data.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/signup_screen/entity/signup_data.dart';
 import 'package:yumi/core/failures.dart';
@@ -16,7 +17,7 @@ class AuthRemoteRepo implements AuthRepo {
   TaskEither<Failure, User> loginWithEmail(LoginData loginModel) {
     return TaskEither.tryCatch(
       () => authSrc.loginWithEmail(loginModel),
-      (error, stackTrace) => FailureX.fromException(error, stackTrace),
+      (error, stackTrace) => Failure.fromException(error as CException),
     );
   }
 
@@ -24,7 +25,7 @@ class AuthRemoteRepo implements AuthRepo {
   TaskEither<Failure, bool> logout() {
     return TaskEither.tryCatch(
       () => authSrc.logout(),
-      (error, stackTrace) => FailureX.fromException(error, stackTrace),
+      (error, stackTrace) => Failure.fromException(error as CException),
     );
   }
 
@@ -32,7 +33,7 @@ class AuthRemoteRepo implements AuthRepo {
   TaskEither<Failure, User> signup(SignupData signupData) {
     return TaskEither.tryCatch(
       () => authSrc.signup(signupData),
-      (error, stackTrace) => FailureX.fromException(error, stackTrace),
+      (error, stackTrace) => Failure.fromException(error as CException),
     );
   }
 }

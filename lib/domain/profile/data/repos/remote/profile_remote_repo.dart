@@ -17,8 +17,8 @@ class ProfileRemoteRepo implements ProfileRepo {
   TaskEither<Failure, Profile> loadProfile(String id) => TaskEither.tryCatch(
         () => profileSrc.loadProfile(id),
         (error, stackTrace) => switch (error) {
-          ServerException() => ServerFailure(error, stackTrace),
-          _ => GenericFailure(error, stackTrace),
+          ServerException() => ServerFailure(error.toString()),
+          _ => GenericFailure(error.toString()),
         } as Failure,
       );
 
@@ -29,46 +29,46 @@ class ProfileRemoteRepo implements ProfileRepo {
           await profileSrc.updateProfile(profile);
           return profile;
         },
-        (error, stackTrace) => ServerFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error.toString()),
       );
 
   @override
   TaskEither<Failure, String> deleteProfile() => TaskEither.tryCatch(
         () => profileSrc.deleteProfile(),
-        (error, stackTrace) => ServerFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error.toString()),
       );
 
   @override
   TaskEither<Failure, String> getMobileOTP() => TaskEither.tryCatch(
         () => profileSrc.getMobileOTP(),
-        (error, stackTrace) => ServerFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error.toString()),
       );
 
   @override
   TaskEither<Failure, String> verifyAddMobileOTP(String otp) =>
       TaskEither.tryCatch(
         () => profileSrc.verifyAddMobileOTP(otp),
-        (error, stackTrace) => ServerFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error.toString()),
       );
 
   @override
   TaskEither<Failure, List<Review>> getReviews() => TaskEither.tryCatch(
         () => profileSrc.getReviews(),
-        (error, stackTrace) => ServerFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error.toString()),
       );
 
   @override
   TaskEither<Failure, String> resetPasswordByEmail(String email) =>
       TaskEither.tryCatch(
         () => profileSrc.resetPasswordByEmail(email),
-        (error, stackTrace) => ServerFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error.toString()),
       );
 
   @override
   TaskEither<Failure, String> resetPasswordByMobile(String mobile) =>
       TaskEither.tryCatch(
         () => profileSrc.resetPasswordByMobile(mobile),
-        (error, stackTrace) => ServerFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error.toString()),
       );
 
   @override
@@ -76,7 +76,7 @@ class ProfileRemoteRepo implements ProfileRepo {
           String email, String otp, String password) =>
       TaskEither.tryCatch(
         () => profileSrc.verifyResetPasswordByEmailOTP(email, otp, password),
-        (error, stackTrace) => ServerFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error.toString()),
       );
 
   @override
@@ -84,12 +84,12 @@ class ProfileRemoteRepo implements ProfileRepo {
           String mobile, String otp, String password) =>
       TaskEither.tryCatch(
         () => profileSrc.verifyResetPasswordByMobileOTP(mobile, otp, password),
-        (error, stackTrace) => ServerFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error.toString()),
       );
 
   @override
   TaskEither<Failure, String> verifyEmail(String email) => TaskEither.tryCatch(
         () => profileSrc.verifyEmail(email),
-        (error, stackTrace) => ServerFailure(error, stackTrace),
+        (error, stackTrace) => ServerFailure(error.toString()),
       );
 }

@@ -20,7 +20,7 @@ class ChefRemoteSrc implements ChefSrc {
 
       return res.statusCode == 200 ? true : false;
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 
@@ -34,7 +34,7 @@ class ChefRemoteSrc implements ChefSrc {
         queryParameters: {'accountId': chefId},
       );
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
 
     if (res.statusCode != 200) throw ServerException();
@@ -78,7 +78,7 @@ class ChefRemoteSrc implements ChefSrc {
         lastPage: res.data['pagination']['pages'],
       );
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 
@@ -104,7 +104,7 @@ class ChefRemoteSrc implements ChefSrc {
         total: res.data['count'],
       );
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 
@@ -118,7 +118,7 @@ class ChefRemoteSrc implements ChefSrc {
 
       return res.data['isChefFavorit'] as bool;
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 
@@ -132,7 +132,7 @@ class ChefRemoteSrc implements ChefSrc {
 
       return res.statusCode == 200 ? true : false;
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 }

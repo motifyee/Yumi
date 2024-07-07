@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/categories/entity/category.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/setup/inject.dart';
@@ -22,7 +23,7 @@ class CategoriesRemoteRepo implements CategoriesRepo {
           isPreOrder: isPreOrder,
           pagination: pagination,
         ),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error as CException),
       );
 
   @override
@@ -35,7 +36,7 @@ class CategoriesRemoteRepo implements CategoriesRepo {
           isPreOrder: isPreOrder,
           pagination: pagination,
         ),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error as CException),
       );
 
   @override
@@ -52,7 +53,7 @@ class CategoriesRemoteRepo implements CategoriesRepo {
           longitude: longitude,
           pagination: pagination,
         ),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error as CException),
       );
 
   @override
@@ -67,6 +68,6 @@ class CategoriesRemoteRepo implements CategoriesRepo {
           isPreOrder: isPreOrder,
           pagination: pagination,
         ),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error as CException),
       );
 }

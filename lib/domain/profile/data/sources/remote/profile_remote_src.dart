@@ -42,10 +42,10 @@ class ProfileRemoteSrc extends ProfileSrc {
       );
       result = response.data;
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
 
-    if (result == null) throw ServerException('Something went wrong!');
+    if (result == null) throw ServerException();
     return result;
   }
 
@@ -71,7 +71,7 @@ class ProfileRemoteSrc extends ProfileSrc {
 
       return call.data['otp'];
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 
@@ -84,7 +84,7 @@ class ProfileRemoteSrc extends ProfileSrc {
         '/accounts/mobileverified?OTP=$otp',
       );
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
 
     if (res.data == null) throw ServerException();
@@ -135,7 +135,7 @@ class ProfileRemoteSrc extends ProfileSrc {
         '/accounts/password/mobile?mobile=$mobile',
       );
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
 
     if (res.data?['message'] == null) throw ServerException();
@@ -164,7 +164,7 @@ class ProfileRemoteSrc extends ProfileSrc {
           (jsonDecode((e as dynamic).response.data as String))['message']);
     }
 
-    if (res.data == null) throw ServerException('Something went wrong!');
+    if (res.data == null) throw ServerException();
     return res.data!;
   }
 
@@ -186,10 +186,10 @@ class ProfileRemoteSrc extends ProfileSrc {
         },
       );
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
 
-    if (res.data == null) throw ServerException('Something went wrong!');
+    if (res.data == null) throw ServerException();
     return res.data!;
   }
 
@@ -202,10 +202,10 @@ class ProfileRemoteSrc extends ProfileSrc {
         '/accounts/emailverified?email=$email',
       );
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
 
-    if (res.data == null) throw ServerException('Something went wrong!');
+    if (res.data == null) throw ServerException();
     return res.data!['otp'];
   }
 }

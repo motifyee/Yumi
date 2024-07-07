@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:fpdart/src/task_either.dart';
+import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/order/data/repo/order_repo.dart';
@@ -17,9 +19,7 @@ class OrderRepoRemote extends OrderRepo {
       {required String apiKeys, required PaginatedData<Order> ordersPage}) {
     return TaskEither.tryCatch(
       () => orderSource.getOrders(apiKeys: apiKeys, ordersPage: ordersPage),
-      (error, stackTrace) {
-        return ServerFailure(error, stackTrace);
-      },
+      (error, stackTrace) => Failure.fromException(error as CException),
     );
   }
 
@@ -35,6 +35,6 @@ class OrderRepoRemote extends OrderRepo {
               isFakeBody: isFakeBody,
               orderId: order.id,
             ),
-        (error, stackTrace) => ServerFailure(error, stackTrace));
+        (error, stackTrace) => ServerFailure(error.toString()));
   }
 }

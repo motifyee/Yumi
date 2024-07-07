@@ -24,7 +24,7 @@ class LoginWithGoogle extends UseCase<String?, NoParams> {
 
       return right(account?.serverAuthCode);
     } catch (e) {
-      return left(ServerFailure(e, StackTrace.current));
+      return left(ServerFailure(e.toString()));
     }
   }
 }

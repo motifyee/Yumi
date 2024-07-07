@@ -13,13 +13,15 @@ part 'wallet_cubit.g.dart';
 
 @freezed
 class WalletState with _$WalletState {
-  const factory WalletState({required Wallet wallet, required bool isLoading}) = _WalletState;
+  const factory WalletState({required Wallet wallet, required bool isLoading}) =
+      _WalletState;
 
   factory WalletState.initial() {
     return const WalletState(wallet: Wallet(), isLoading: false);
   }
 
-  factory WalletState.fromJson(Map<String, dynamic> json) => _$WalletStateFromJson(json);
+  factory WalletState.fromJson(Map<String, dynamic> json) =>
+      _$WalletStateFromJson(json);
 }
 
 class WalletCubit extends Cubit<WalletState> {
@@ -31,7 +33,7 @@ class WalletCubit extends Cubit<WalletState> {
     final Either<Failure, Wallet> task = await GetWallet().call(NoParams());
 
     task.fold(
-      (l) => G.snackBar((l.error as DioException).response?.data['message']),
+      (l) => G.snackBar(l.toString()),
       (r) => emit(state.copyWith(wallet: r, isLoading: false)),
     );
   }

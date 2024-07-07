@@ -15,5 +15,5 @@ class NotificationRepoRemote implements NotificationRepo {
           {required PaginatedData<NotificationS> pagination}) =>
       TaskEither.tryCatch(
           () => notificationSource.loadNotifications(pagination: pagination),
-          (error, stackTrace) => ServerFailure(error, stackTrace));
+          (error, stackTrace) => ServerFailure(error.toString()));
 }

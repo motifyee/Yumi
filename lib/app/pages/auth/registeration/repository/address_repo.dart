@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
-import 'package:yumi/app/pages/settings/bankinfo/bankinfo_service.dart';
 import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/statics/api_statics.dart';
+import 'package:yumi/util/random_string.dart';
 
 class AddressRepo {
   static Future<List<Address>?> getAddresses({

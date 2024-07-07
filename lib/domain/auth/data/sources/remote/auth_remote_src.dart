@@ -18,7 +18,7 @@ class AuthRemoteSrc implements AuthSrc {
           ApiKeys.getApiKeyString(apiKey: ApiKeys.login),
           data: jsonEncode(loginModel.toJson()));
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
 
     final user = User.fromJson(res.data);
@@ -43,7 +43,7 @@ class AuthRemoteSrc implements AuthSrc {
         data: signupData0,
       );
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
 
     final data = jsonDecode(res.toString());

@@ -1,12 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:yumi/core/exceptions.dart';
 
-sealed class Failure {
-  Object? error;
-  StackTrace? stackTrace;
-}
+abstract class Failure {
+  final String? error;
 
-extension FailureX on Failure {
+  Failure(this.error);
+
   bool get isNetworkFailure => this is NetworkFailure;
 
   bool get isServerFailure => this is ServerFailure;
@@ -17,13 +16,13 @@ extension FailureX on Failure {
 
   bool get isSignalrFailure => this is SignalrFailure;
 
-  static Failure fromException(Object? error, StackTrace? stackTrace) {
-    return switch (error as CException) {
-      ServerException() => ServerFailure(error, stackTrace),
-      NetworkException() => NetworkFailure(error, stackTrace),
-      CacheException() => CacheFailure(error, stackTrace),
-      GenericException() => GenericFailure(error, stackTrace),
-      SignalRException() => SignalrFailure(error, stackTrace),
+  static Failure fromException(CException error) {
+    return switch (error) {
+      ServerException() => ServerFailure(error.toString()),
+      NetworkException() => NetworkFailure(error.toString()),
+      CacheException() => CacheFailure(error.toString()),
+      GenericException() => GenericFailure(error.toString()),
+      SignalRException() => SignalrFailure(error.toString()),
     } as Failure;
   }
 }
@@ -31,78 +30,59 @@ extension FailureX on Failure {
 // -----------------------------------------------------------------------------
 
 class NetworkFailure extends Failure with EquatableMixin {
-  NetworkFailure(this.error, this.stackTrace);
-
-  @override
-  final Object? error;
-  @override
-  final StackTrace? stackTrace;
+  NetworkFailure([super.error]);
 
   @override
   toString() => error.toString();
 
   @override
-  List<Object?> get props => [stackTrace];
+  List<Object?> get props => [error];
 }
 
 // -----------------------------------------------------------------------------
 
 class ServerFailure extends Failure with EquatableMixin {
-  ServerFailure(this.error, this.stackTrace);
+  ServerFailure([super.error]);
 
   @override
-  final Object? error;
-  @override
-  final StackTrace? stackTrace;
+  toString() => error ?? '';
 
   @override
-  toString() => error.toString();
-
-  @override
-  List<Object?> get props => [stackTrace];
+  List<Object?> get props => [error];
 }
 
 // -----------------------------------------------------------------------------
 
 class GenericFailure extends Failure with EquatableMixin {
-  GenericFailure(this.error, this.stackTrace);
+  GenericFailure([super.error]);
 
   @override
-  final Object? error;
-  @override
-  final StackTrace? stackTrace;
+  toString() => error ?? '';
 
   @override
-  toString() => error.toString();
-
-  @override
-  List<Object?> get props => [stackTrace];
+  List<Object?> get props => [error];
 }
 
 // -----------------------------------------------------------------------------
 
 class CacheFailure extends Failure with EquatableMixin {
-  CacheFailure(this.error, this.stackTrace);
+  CacheFailure([super.error]);
 
   @override
-  final Object? error;
-  @override
-  final StackTrace? stackTrace;
+  toString() => error ?? '';
 
   @override
-  List<Object?> get props => [stackTrace];
+  List<Object?> get props => [error];
 }
 
 // -----------------------------------------------------------------------------
 
 class SignalrFailure extends Failure with EquatableMixin {
-  SignalrFailure(this.error, this.stackTrace);
+  SignalrFailure([super.error]);
 
   @override
-  final Object? error;
-  @override
-  final StackTrace? stackTrace;
+  toString() => error ?? '';
 
   @override
-  List<Object?> get props => [stackTrace];
+  List<Object?> get props => [error];
 }

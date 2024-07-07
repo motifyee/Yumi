@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
@@ -17,14 +18,14 @@ class ChefRemoteRepo implements ChefRepo {
   TaskEither<Failure, bool> addFavouriteChef(String chefId) =>
       TaskEither.tryCatch(
         () => chefSrc.addFavouriteChef(chefId),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error as CException),
       );
 
   @override
   TaskEither<Failure, ChefWorkStatus> getChefWorkStatus(String chefId) =>
       TaskEither.tryCatch(
         () => chefSrc.getChefWorkStatus(chefId),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error as CException),
       );
 
   @override
@@ -42,7 +43,7 @@ class ChefRemoteRepo implements ChefRepo {
             longitude: longitude,
             workStatus: workStatus,
             pagination: pagination),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error as CException),
       );
 
   @override
@@ -50,20 +51,20 @@ class ChefRemoteRepo implements ChefRepo {
           Pagination pagination) =>
       TaskEither.tryCatch(
         () => chefSrc.getFavouriteChefs(pagination),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error as CException),
       );
 
   @override
   TaskEither<Failure, bool> isFavouriteChef(String chefId) =>
       TaskEither.tryCatch(
         () => chefSrc.isFavouriteChef(chefId),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error as CException),
       );
 
   @override
   TaskEither<Failure, bool> removeFavouriteChef(String chefId) =>
       TaskEither.tryCatch(
         () => chefSrc.removeFavouriteChef(chefId),
-        (error, stackTrace) => FailureX.fromException(error, stackTrace),
+        (error, stackTrace) => Failure.fromException(error as CException),
       );
 }

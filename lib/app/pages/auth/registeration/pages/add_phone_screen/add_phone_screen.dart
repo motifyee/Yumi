@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/registeration_step.dart';
+import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/core/util/constants.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
@@ -34,7 +35,7 @@ class AddPhoneContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final form = GlobalKey<FormState>();
-    final ctrl = TextEditingController();
+    final mobilNumberController = TextEditingController();
     final regCubit = context.read<RegCubit>();
 
     return PopScope(
@@ -56,9 +57,7 @@ class AddPhoneContent extends StatelessWidget {
                       padding: const EdgeInsets.all(36.0),
                       child: Column(
                         children: [
-                          Image.asset(
-                            "assets/images/registeration/add_phone.png",
-                          ),
+                          Image.asset(AppAssets.addPhoneIcon),
                           const SizedBox(height: 60),
                           Text(
                             "Hi ${state.split(" ").first},",
@@ -86,13 +85,17 @@ class AddPhoneContent extends StatelessWidget {
                                 FilteringTextInputFormatter.digitsOnly,
                               ],
                               validators: mobileValidator,
-                              controller: ctrl,
+                              controller: mobilNumberController,
                             ),
                           ),
                           const SizedBox(height: 40),
                           InteractiveButton(
                             label: "Get OTP",
-                            onPressed: () => _getOtp(context, form, ctrl),
+                            onPressed: () => _getOtp(
+                              context,
+                              form,
+                              mobilNumberController.text.trim(),
+                            ),
                           ),
                         ],
                       ),
@@ -111,23 +114,22 @@ class AddPhoneContent extends StatelessWidget {
 Future<void> _getOtp(
   BuildContext context,
   GlobalKey<FormState> form,
-  TextEditingController ctrl,
+  String mobileNumber,
 ) async {
   if (!form.currentState!.validate()) return;
 
-  var value = ctrl.text.trim();
-
   await () async {
     final profileCubit = context.read<ProfileCubit>();
-    if (profileCubit.state.form.guid.isEmpty) {
-      await profileCubit.getProfileForm();
-    }
+
+    if (profileCubit.state.form.guid.isNotEmpty) return;
+
+    await profileCubit.getProfileForm();
   }()
       .then((_) async {
-    await context.read<RegCubit>().setMobile(value).then((value) {
-      if (value == null) return RegisterationPage.of(context)?.next();
+    await G.rd<RegCubit>().setMobile(mobileNumber).then((res) {
+      if (res == null) return RegisterationPage.of(context)?.next();
 
-      G.snackBar(value);
+      G.snackBar(res);
     });
   });
 }

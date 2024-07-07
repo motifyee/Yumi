@@ -7,6 +7,7 @@ import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/doc
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/documentation_screen.dart';
+import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -35,7 +36,7 @@ class ContractScreen extends StatelessWidget {
               Row(
                 children: [
                   const SizedBox(width: 20),
-                  SvgPicture.asset("assets/images/contract_icon.svg"),
+                  SvgPicture.asset(AppAssets.contractIcon),
                   const SizedBox(width: 30),
                   Text(
                     S.of(ctx).contract,
@@ -50,8 +51,8 @@ class ContractScreen extends StatelessWidget {
               const SizedBox(height: 80),
               Center(
                 child: G.isChefApp
-                    ? SvgPicture.asset("assets/images/chef_contract.svg")
-                    : SvgPicture.asset("assets/images/driver_contract.svg"),
+                    ? SvgPicture.asset(AppAssets.chefConrtactIcon)
+                    : SvgPicture.asset(AppAssets.driverContractIcon),
               ),
               const SizedBox(height: 60),
               BlocBuilder<ProfileCubit, ProfileState>(

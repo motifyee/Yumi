@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
+import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
@@ -39,7 +40,7 @@ class RegisterationScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 child: IconButton(
                   onPressed: () => askToLogout(context),
-                  icon: SvgPicture.asset('assets/images/logout_menu.svg'),
+                  icon: SvgPicture.asset(AppAssets.logoutMenuIcon),
                 ),
               ),
             ),

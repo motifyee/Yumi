@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/pages/settings/bankinfo/bloc/cubit/bankinfo_cubit.dart';
+import 'package:yumi/app/pages/settings/bankinfo/cubit/bankinfo_cubit.dart';
 import 'package:yumi/app/pages/settings/components/bankinfo/bankinfo_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -45,35 +45,28 @@ class BankInfoCard extends StatelessWidget {
     );
 
     return SizedBox(
-      child: Padding(
-        padding: EdgeInsets.only(
-          top: ThemeSelector.statics.defaultTitleGap,
-          right: ThemeSelector.statics.defaultTitleGap,
-          left: ThemeSelector.statics.defaultTitleGap,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
+        decoration: BoxDecoration(
+          color: ThemeSelector.colors.background,
+          borderRadius: BorderRadius.circular(
+              ThemeSelector.statics.defaultBorderRadiusSmall),
+          boxShadow: [
+            BoxShadow(
+              color: ThemeSelector.colors.secondary.withOpacity(.15),
+              spreadRadius: 0,
+              blurRadius: 5,
+              offset: const Offset(2, 4),
+            )
+          ],
         ),
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
-          decoration: BoxDecoration(
-            color: ThemeSelector.colors.background,
-            borderRadius: BorderRadius.circular(
-                ThemeSelector.statics.defaultBorderRadiusSmall),
-            boxShadow: [
-              BoxShadow(
-                color: ThemeSelector.colors.secondary.withOpacity(.15),
-                spreadRadius: 0,
-                blurRadius: 5,
-                offset: const Offset(2, 4),
-              )
-            ],
-          ),
-          child: Column(
-            children: [
-              headerRow,
-              SizedBox(height: ThemeSelector.statics.defaultLineGap),
-              const BankInfoFields(),
-            ],
-          ),
+        child: Column(
+          children: [
+            headerRow,
+            SizedBox(height: ThemeSelector.statics.defaultLineGap),
+            const BankInfoFields(),
+          ],
         ),
       ),
     );

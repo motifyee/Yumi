@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/order/data/source/order_source.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
@@ -9,21 +10,31 @@ import 'package:yumi/statics/paginatedData.dart';
 
 class OrderSourceRemote extends OrderSource {
   @override
-  Future<PaginatedData<Order>> getOrders(
-      {required String apiKeys,
-      required PaginatedData<Order> ordersPage}) async {
-    Response res = await DioClient.simpleDio()
-        .get(apiKeys, queryParameters: {...ordersPage.toJson()});
+  Future<PaginatedData<Order>> getOrders({
+    required String apiKeys,
+    required PaginatedData<Order> ordersPage,
+  }) async {
+    Response res;
 
-    List<Order> data =
-        res.data['data'].map<Order>((e) => Order.fromJson(e)).toList();
+    try {
+      res = await DioClient.simpleDio()
+          .get(apiKeys, queryParameters: {...ordersPage.toJson()});
+    } catch (e) {
+      throw ServerException((e as DioException).response?.data['message']);
+    }
+    try {
+      List<Order> data =
+          res.data['data'].map<Order>((e) => Order.fromJson(e)).toList();
 
-    return ordersPage.copyWith(
-      data: <Order>[...ordersPage.data, ...data].unique((e) => e.id),
-      isLoading: false,
-      pageNumber: res.data['pagination']['page'],
-      lastPage: res.data['pagination']['pages'],
-    ) as PaginatedData<Order>;
+      return ordersPage.copyWith(
+        data: <Order>[...ordersPage.data, ...data].unique((e) => e.id),
+        isLoading: false,
+        pageNumber: res.data['pagination']['page'],
+        lastPage: res.data['pagination']['pages'],
+      ) as PaginatedData<Order>;
+    } catch (e) {
+      throw GenericException(e.toString());
+    }
   }
 
   @override

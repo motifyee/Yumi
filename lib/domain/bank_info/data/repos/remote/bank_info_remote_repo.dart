@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/domain/bank_info/data/repos/bank_info_repo.dart';
@@ -14,7 +15,7 @@ class BankInfoRemoteRepo implements BankInfoRepo {
   TaskEither<Failure, String> addBankInfo(BankInfo bankInfo) {
     return TaskEither.tryCatch(
       () => src.addBankInfo(bankInfo),
-      (error, stackTrace) => FailureX.fromException(error, stackTrace),
+      (error, stackTrace) => Failure.fromException(error as CException),
     );
   }
 
@@ -22,7 +23,7 @@ class BankInfoRemoteRepo implements BankInfoRepo {
   TaskEither<Failure, BankInfo> getBankInfo() {
     return TaskEither.tryCatch(
       () => src.getBankInfo(),
-      (error, stackTrace) => FailureX.fromException(error, stackTrace),
+      (error, stackTrace) => Failure.fromException(error as CException),
     );
   }
 
@@ -30,7 +31,7 @@ class BankInfoRemoteRepo implements BankInfoRepo {
   TaskEither<Failure, String> updateBankInfo(BankInfo bankInfo) {
     return TaskEither.tryCatch(
       () => src.updateBankInfo(bankInfo),
-      (error, stackTrace) => FailureX.fromException(error, stackTrace),
+      (error, stackTrace) => Failure.fromException(error as CException),
     );
   }
 }

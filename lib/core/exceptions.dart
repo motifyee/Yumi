@@ -1,70 +1,44 @@
-/// Custom Exception
-sealed class CException implements Exception {}
+import 'package:dio/dio.dart';
 
-class NetworkException extends CException {
+/// Custom Exception
+sealed class CException implements Exception {
   final String? error;
 
-  NetworkException([this.error]);
+  CException([this.error = '']);
 
   @override
   String toString() => error ?? '';
+}
+
+class NetworkException extends CException {
+  NetworkException([super.error = '']);
 }
 
 // -----------------------------------------------------------------------------
 
 class ServerException extends CException {
-  final dynamic error;
-
-  ServerException([this.error]);
-  @override
-  String toString() {
-    try {
-      return error.response.data['message'];
-    } catch (e) {
-      return error.toString();
-    }
-  }
+  ServerException([DioException? error])
+      : super(error?.response?.data['message'] ?? '');
 }
 
 // -----------------------------------------------------------------------------
 
-class CacheException implements CException {
-  final String? error;
-
-  CacheException([this.error]);
-
-  @override
-  String toString() => error ?? '';
+class CacheException extends CException {
+  CacheException([super.error = '']);
 }
 
-class CacheUserFoundException implements CacheException {
-  @override
-  final String? error;
-
-  CacheUserFoundException([this.error]);
-
-  @override
-  String toString() => error ?? '';
+class CacheUserFoundException extends CacheException {
+  CacheUserFoundException([super.error = '']);
 }
 
 // -----------------------------------------------------------------------------
 
-class GenericException implements CException {
-  final String? error;
-
-  GenericException([this.error]);
-
-  @override
-  String toString() => error ?? '';
+class GenericException extends CException {
+  GenericException([super.error = '']);
 }
 
 // -----------------------------------------------------------------------------
 
-class SignalRException implements CException {
-  final String? error;
-
-  SignalRException([this.error]);
-
-  @override
-  String toString() => error ?? '';
+class SignalRException extends CException {
+  SignalRException([super.error = '']);
 }

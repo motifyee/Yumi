@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:yumi/domain/categories/entity/category.dart';
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/categories/data/source/categories_src.dart';
@@ -32,7 +33,7 @@ class CategoriesRemoteSrc implements CategoriesSrc {
         lastPage: data['pagination']['pages'],
       );
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 
@@ -61,7 +62,7 @@ class CategoriesRemoteSrc implements CategoriesSrc {
         lastPage: data['pagination']['pages'],
       );
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 
@@ -94,7 +95,7 @@ class CategoriesRemoteSrc implements CategoriesSrc {
         lastPage: data['pagination']['pages'],
       );
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 
@@ -125,7 +126,7 @@ class CategoriesRemoteSrc implements CategoriesSrc {
         lastPage: data['pagination']['pages'],
       );
     } catch (e) {
-      throw ServerException(e);
+      throw ServerException(e as DioException);
     }
   }
 }

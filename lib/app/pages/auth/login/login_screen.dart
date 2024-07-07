@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/app/pages/auth/login/login_form.dart';
+import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -45,11 +46,9 @@ class LoginScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         if (AppTarget.user == AppTargetUser.chefs)
-                          SvgPicture.asset(
-                              'assets/images/welocme_chef_icon.svg'),
+                          SvgPicture.asset(AppAssets.welcomeChefIcon),
                         if (AppTarget.user == AppTargetUser.drivers)
-                          SvgPicture.asset(
-                              'assets/images/welcom_driver_icon.svg'),
+                          SvgPicture.asset(AppAssets.welcomeDriverIcon),
                         Text(
                           S.of(context).welcomeBack,
                           style: Theme.of(context).textTheme.titleLarge,
@@ -84,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                     child: Stack(
                       children: [
                         SvgPicture.asset(
-                          'assets/images/Ellipse1.svg',
+                          AppAssets.ellipseIcon,
                           width: MediaQuery.of(context).size.width,
                         ),
                         Positioned.fill(

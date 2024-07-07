@@ -5,7 +5,7 @@ import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/schedule/data/repos/schedule_repo.dart';
 import 'package:yumi/domain/schedule/entities/schedule.dart';
-import 'package:yumi/domain/schedule/use_cases/apply_day_to_all.dart';
+import 'package:yumi/domain/schedule/use_cases/apply_to_active_days.dart';
 import 'package:yumi/domain/schedule/use_cases/load_schedule.dart';
 import 'package:yumi/domain/schedule/use_cases/save_schedule.dart';
 
@@ -68,7 +68,7 @@ class ScheduleCubit extends Cubit<ScheduleState> {
   }
 
   void applyDayToAll(ScheduleDay scheduleDay) async {
-    final apply = await ApplyDayToAll().call(ApplyDayToAllParams(
+    final apply = await ApplyToActiveDays().call(ApplyToActiveDaysParams(
       scheduleDay,
       state.scheduleForm,
     ));

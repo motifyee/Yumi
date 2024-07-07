@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
+import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -49,7 +50,8 @@ class CheckOutScreen extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) => Padding(
-          padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultTitleGap),
+          padding: EdgeInsets.symmetric(
+              horizontal: ThemeSelector.statics.defaultTitleGap),
           child: SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
@@ -65,38 +67,49 @@ class CheckOutScreen extends StatelessWidget {
                         SizedBox(height: ThemeSelector.statics.defaultBlockGap),
                         Text(
                           S.of(context).payWith,
-                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                fontSize: ThemeSelector.fonts.font_18,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.labelLarge?.copyWith(
+                                    fontSize: ThemeSelector.fonts.font_18,
+                                  ),
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultGap),
-
                         GestureDetector(
                           onTap: () {
                             _option = PaymentOption.visa;
                             context.router.push(const PaymentVisaRoute());
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultInputGap),
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    ThemeSelector.statics.defaultInputGap),
                             child: Row(
                               children: [
                                 Container(
                                   width: ThemeSelector.statics.defaultLineGap,
                                   height: ThemeSelector.statics.defaultLineGap,
-                                  decoration: BoxDecoration(color: _option == PaymentOption.visa ? ThemeSelector.colors.primary : ThemeSelector.colors.secondaryFaint, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultLineGap)),
+                                  decoration: BoxDecoration(
+                                      color: _option == PaymentOption.visa
+                                          ? ThemeSelector.colors.primary
+                                          : ThemeSelector.colors.secondaryFaint,
+                                      borderRadius: BorderRadius.circular(
+                                          ThemeSelector
+                                              .statics.defaultLineGap)),
                                 ),
-                                SizedBox(width: ThemeSelector.statics.defaultGap),
+                                SizedBox(
+                                    width: ThemeSelector.statics.defaultGap),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SvgPicture.asset(
-                                      'assets/images/add_visa_card.svg',
+                                      AppAssets.addVisaCardIcon,
                                       height: ThemeSelector.fonts.font_12,
                                     ),
                                     const Text(' '),
                                     Text(
                                       S.of(context).debitCreditCard,
-                                      style: Theme.of(context).textTheme.bodyMedium,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
                                     ),
                                   ],
                                 ),
@@ -110,26 +123,37 @@ class CheckOutScreen extends StatelessWidget {
                             _option = PaymentOption.wallet;
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultInputGap),
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    ThemeSelector.statics.defaultInputGap),
                             child: Row(
                               children: [
                                 Container(
                                   width: ThemeSelector.statics.defaultLineGap,
                                   height: ThemeSelector.statics.defaultLineGap,
-                                  decoration: BoxDecoration(color: _option == PaymentOption.wallet ? ThemeSelector.colors.primary : ThemeSelector.colors.secondaryFaint, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultLineGap)),
+                                  decoration: BoxDecoration(
+                                      color: _option == PaymentOption.wallet
+                                          ? ThemeSelector.colors.primary
+                                          : ThemeSelector.colors.secondaryFaint,
+                                      borderRadius: BorderRadius.circular(
+                                          ThemeSelector
+                                              .statics.defaultLineGap)),
                                 ),
-                                SizedBox(width: ThemeSelector.statics.defaultGap),
+                                SizedBox(
+                                    width: ThemeSelector.statics.defaultGap),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SvgPicture.asset(
-                                      'assets/images/schedule_menu.svg',
+                                      AppAssets.scheduleMenuIcon,
                                       height: ThemeSelector.fonts.font_12,
                                     ),
                                     const Text(' '),
                                     Text(
                                       S.of(context).wallet,
-                                      style: Theme.of(context).textTheme.bodyMedium,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
                                     ),
                                   ],
                                 ),
@@ -138,56 +162,6 @@ class CheckOutScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: ThemeSelector.statics.defaultGap),
-
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     _option = PaymentOption.paypal;
-                        //     showDialog(
-                        //       context: context,
-                        //       builder: (context) => Center(
-                        //         child: PaymentPaypalScreen(),
-                        //       ),
-                        //     );
-                        //   },
-                        //   child: Padding(
-                        //     padding: EdgeInsets.symmetric(
-                        //         horizontal:
-                        //             ThemeSelector.statics.defaultInputGap),
-                        //     child: Row(
-                        //       children: [
-                        //         Container(
-                        //           width: ThemeSelector.statics.defaultLineGap,
-                        //           height: ThemeSelector.statics.defaultLineGap,
-                        //           decoration: BoxDecoration(
-                        //               color: _option == PaymentOption.paypal
-                        //                   ? ThemeSelector.colors.primary
-                        //                   : ThemeSelector.colors.secondaryFaint,
-                        //               borderRadius: BorderRadius.circular(
-                        //                   ThemeSelector
-                        //                       .statics.defaultLineGap)),
-                        //         ),
-                        //         SizedBox(
-                        //             width: ThemeSelector.statics.defaultGap),
-                        //         Row(
-                        //           crossAxisAlignment: CrossAxisAlignment.center,
-                        //           children: [
-                        //             SvgPicture.asset(
-                        //               'assets/images/paypal.svg',
-                        //               height: ThemeSelector.fonts.font_12,
-                        //             ),
-                        //             Text(' '),
-                        //             Text(
-                        //               S.of(context).paypal,
-                        //               style: Theme.of(context)
-                        //                   .textTheme
-                        //                   .bodyMedium,
-                        //             ),
-                        //           ],
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                     Column(
@@ -195,17 +169,19 @@ class CheckOutScreen extends StatelessWidget {
                       children: [
                         Text(
                           S.of(context).saveOnYourOrder,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontSize: ThemeSelector.fonts.font_18,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    fontSize: ThemeSelector.fonts.font_18,
+                                  ),
                         ),
                         TextFormFieldTemplate(
                           controller: voucherController,
                           borderStyle: TextFormFieldBorderStyle.borderedRound,
                           hintText: S.of(context).enterVoucherCode,
                           prefixIcon: Container(
-                            padding: EdgeInsets.all(ThemeSelector.statics.defaultInputGap),
-                            child: SvgPicture.asset('assets/images/voucher.svg'),
+                            padding: EdgeInsets.all(
+                                ThemeSelector.statics.defaultInputGap),
+                            child: SvgPicture.asset(AppAssets.voucherIcon),
                           ),
                           suffixIcon: TextButton(
                             onPressed: () {
@@ -214,7 +190,8 @@ class CheckOutScreen extends StatelessWidget {
                             child: Text(
                               S.of(context).submit,
                               style: TextStyle(
-                                color: ThemeSelector.colors.secondaryTantLighter,
+                                color:
+                                    ThemeSelector.colors.secondaryTantLighter,
                               ),
                             ),
                           ),
@@ -252,16 +229,23 @@ class CheckOutScreen extends StatelessWidget {
                                       context.read<BasketCubit>().closeBasket();
                                     },
                                     child: Container(
-                                      width: ThemeSelector.statics.defaultGapXXXL * 1.5,
-                                      height: ThemeSelector.statics.defaultTitleGapLarge,
+                                      width:
+                                          ThemeSelector.statics.defaultGapXXXL *
+                                              1.5,
+                                      height: ThemeSelector
+                                          .statics.defaultTitleGapLarge,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius),
+                                        borderRadius: BorderRadius.circular(
+                                            ThemeSelector
+                                                .statics.defaultBorderRadius),
                                         color: ThemeSelector.colors.primary,
                                       ),
                                       child: Center(
                                         child: Text(
                                           S.of(context).placeOrder,
-                                          style: Theme.of(context).textTheme.displaySmall,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall,
                                         ),
                                       ),
                                     ),

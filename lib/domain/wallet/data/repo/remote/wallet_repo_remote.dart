@@ -16,7 +16,7 @@ class WalletRepoRemote extends WalletRepo {
   TaskEither<Failure, Wallet> getWallet() {
     return TaskEither<Failure, Wallet>.tryCatch(
       () => walletSource.getWallet(),
-      (error, stackTrace) => ServerFailure(error, stackTrace),
+      (error, stackTrace) => ServerFailure(error.toString()),
     );
   }
 }

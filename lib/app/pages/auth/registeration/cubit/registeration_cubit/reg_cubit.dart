@@ -14,9 +14,8 @@ import 'package:yumi/app/pages/auth/registeration/repository/address_repo.dart';
 import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/count_down_cubit/count_down_cubit.dart';
-import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/entity/vehicle.dart';
+import 'package:yumi/domain/vehicle/entities/vehicle.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/onboarding_screen/entity/onboarding.dart';
-import 'package:yumi/app/pages/auth/registeration/pages/rides_screen/rides_service.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
@@ -31,6 +30,8 @@ import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/profile/use_cases/get_otp.dart';
 import 'package:yumi/domain/profile/use_cases/verify_add_mobile_otp.dart';
 import 'package:yumi/domain/profile/use_cases/verify_email.dart';
+import 'package:yumi/domain/vehicle/use_cases/add_vehicle.dart';
+import 'package:yumi/domain/vehicle/use_cases/get_vehicle.dart';
 import 'package:yumi/extensions/string.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/domain/auth/entities/login_data.dart';
@@ -108,26 +109,20 @@ abstract class RegState with _$RegState {
     var regCub = G.rd<RegCubit>();
 
     regCub.setRidesLoading();
-    var vehicle = await VehicleService.getVehicle();
+    final task = await GetVehicle().call(NoParams());
     regCub.setRidesLoading(false);
-
-    if (vehicle == null) return true;
-
-    regCub.setVehicleType(vehicle);
-    return false;
+    return task.fold(
+      (l) => true,
+      (vehicle) {
+        regCub.setVehicleType(vehicle);
+        return false;
+      },
+    );
   }
 
   const RegState._();
 
   Onboarding get onboarding => Onboarding(); // step: 4
-
-  List<String> get screenNames => [
-        'signup',
-        'addPhone',
-        'otp',
-        'location',
-        'onboarding',
-      ];
 }
 
 class RegCubit extends Cubit<RegState> {
@@ -333,7 +328,6 @@ class RegCubit extends Cubit<RegState> {
     return (await getMobileOTP()).fold(
       (l) => 'Something went wrong. try again.',
       (r) {
-        // navigateToIdx(2);
         return null;
       },
     );
@@ -387,7 +381,7 @@ class RegCubit extends Cubit<RegState> {
   }) async {
     if (state.addressStatus == Status.loading) return;
     emit(state.copyWith(addressStatus: Status.loading));
-    await tryV(
+    await tryCall(
       () => AddressRepo.addAddress(address: state.address),
     ).then((res) async {
       if (res == null) {
@@ -451,7 +445,6 @@ class RegCubit extends Cubit<RegState> {
 
     await context.read<ProfileCubit>().getProfileForm().then((value) {
       setLoading(false);
-      debugger();
 
       var stepsInfo = G.isChefApp
           ? chefOnboardingSteps(context, state)
@@ -468,25 +461,26 @@ class RegCubit extends Cubit<RegState> {
 // Vehicle
 
   Future<void> getVehicle() async {
-    var vehicle = await VehicleService.getVehicle();
-    if (vehicle == null) return;
-    emit(state.copyWith(vehicle: vehicle));
+    final task = await GetVehicle().call(NoParams());
+    task.fold(
+      (l) => null,
+      (vehicle) => emit(state.copyWith(vehicle: vehicle)),
+    );
   }
 
-  Future saveVehicleType() async {
-    return VehicleService.addVehicle(state.vehicle)
-        .then(
-      (value) => emit(state.copyWith(vehicle: state.vehicle)),
-    )
-        .catchError((_) {
-      emit(
+  Future<Either<Failure, String>> saveVehicleType() async {
+    final params = AddVehicleParams(vehicle: state.vehicle);
+    final task = await AddVehicle().call(params);
+    task.fold(
+      (l) => emit(
         state.copyWith(
             ridesStatus: Status.error,
             message: 'could\'nt update your vehicle!'),
-      );
+      ),
+      (r) => emit(state.copyWith(vehicle: state.vehicle)),
+    );
 
-      throw 'could\'nt update your vehicle!';
-    });
+    return task;
   }
 
   void setVehicleType(Vehicle vehicle) {
