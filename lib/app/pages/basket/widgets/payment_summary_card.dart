@@ -38,8 +38,21 @@ class PaymentSummaryCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     TextCurrency(
-                      value: state.basket.invoice.totalPrice -
-                          state.basket.invoice.invoiceDiscount,
+                      value: state.basket.invoice.totalPrice - state.basket.invoice.invoiceDiscount,
+                      fontSize: ThemeSelector.fonts.font_12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      S.of(context).discount,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    TextCurrency(
+                      value: state.basket.invoice.invoiceDiscount,
                       fontSize: ThemeSelector.fonts.font_12,
                       fontWeight: FontWeight.w500,
                     ),

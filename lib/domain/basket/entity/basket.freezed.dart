@@ -23,6 +23,7 @@ mixin _$Basket {
   int? get id => throw _privateConstructorUsedError;
   Invoice get invoice => throw _privateConstructorUsedError;
   List<InvoiceDetails> get invoiceDetails => throw _privateConstructorUsedError;
+  String? get voucherId => throw _privateConstructorUsedError;
   int? get bankId => throw _privateConstructorUsedError;
   int? get shippedAddressId => throw _privateConstructorUsedError;
   bool get isSchedule => throw _privateConstructorUsedError;
@@ -50,6 +51,7 @@ abstract class $BasketCopyWith<$Res> {
       {int? id,
       Invoice invoice,
       List<InvoiceDetails> invoiceDetails,
+      String? voucherId,
       int? bankId,
       int? shippedAddressId,
       bool isSchedule,
@@ -78,6 +80,7 @@ class _$BasketCopyWithImpl<$Res, $Val extends Basket>
     Object? id = freezed,
     Object? invoice = null,
     Object? invoiceDetails = null,
+    Object? voucherId = freezed,
     Object? bankId = freezed,
     Object? shippedAddressId = freezed,
     Object? isSchedule = null,
@@ -100,6 +103,10 @@ class _$BasketCopyWithImpl<$Res, $Val extends Basket>
           ? _value.invoiceDetails
           : invoiceDetails // ignore: cast_nullable_to_non_nullable
               as List<InvoiceDetails>,
+      voucherId: freezed == voucherId
+          ? _value.voucherId
+          : voucherId // ignore: cast_nullable_to_non_nullable
+              as String?,
       bankId: freezed == bankId
           ? _value.bankId
           : bankId // ignore: cast_nullable_to_non_nullable
@@ -155,6 +162,7 @@ abstract class _$$BasketImplCopyWith<$Res> implements $BasketCopyWith<$Res> {
       {int? id,
       Invoice invoice,
       List<InvoiceDetails> invoiceDetails,
+      String? voucherId,
       int? bankId,
       int? shippedAddressId,
       bool isSchedule,
@@ -182,6 +190,7 @@ class __$$BasketImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? invoice = null,
     Object? invoiceDetails = null,
+    Object? voucherId = freezed,
     Object? bankId = freezed,
     Object? shippedAddressId = freezed,
     Object? isSchedule = null,
@@ -204,6 +213,10 @@ class __$$BasketImplCopyWithImpl<$Res>
           ? _value._invoiceDetails
           : invoiceDetails // ignore: cast_nullable_to_non_nullable
               as List<InvoiceDetails>,
+      voucherId: freezed == voucherId
+          ? _value.voucherId
+          : voucherId // ignore: cast_nullable_to_non_nullable
+              as String?,
       bankId: freezed == bankId
           ? _value.bankId
           : bankId // ignore: cast_nullable_to_non_nullable
@@ -248,6 +261,7 @@ class _$BasketImpl implements _Basket {
       {this.id,
       required this.invoice,
       required final List<InvoiceDetails> invoiceDetails,
+      this.voucherId,
       this.bankId,
       this.shippedAddressId,
       this.isSchedule = false,
@@ -275,6 +289,8 @@ class _$BasketImpl implements _Basket {
   }
 
   @override
+  final String? voucherId;
+  @override
   final int? bankId;
   @override
   final int? shippedAddressId;
@@ -299,7 +315,7 @@ class _$BasketImpl implements _Basket {
 
   @override
   String toString() {
-    return 'Basket(id: $id, invoice: $invoice, invoiceDetails: $invoiceDetails, bankId: $bankId, shippedAddressId: $shippedAddressId, isSchedule: $isSchedule, isPickupOnly: $isPickupOnly, isPickup: $isPickup, isDelivery: $isDelivery, isPreorder: $isPreorder, status: $status)';
+    return 'Basket(id: $id, invoice: $invoice, invoiceDetails: $invoiceDetails, voucherId: $voucherId, bankId: $bankId, shippedAddressId: $shippedAddressId, isSchedule: $isSchedule, isPickupOnly: $isPickupOnly, isPickup: $isPickup, isDelivery: $isDelivery, isPreorder: $isPreorder, status: $status)';
   }
 
   @override
@@ -311,6 +327,8 @@ class _$BasketImpl implements _Basket {
             (identical(other.invoice, invoice) || other.invoice == invoice) &&
             const DeepCollectionEquality()
                 .equals(other._invoiceDetails, _invoiceDetails) &&
+            (identical(other.voucherId, voucherId) ||
+                other.voucherId == voucherId) &&
             (identical(other.bankId, bankId) || other.bankId == bankId) &&
             (identical(other.shippedAddressId, shippedAddressId) ||
                 other.shippedAddressId == shippedAddressId) &&
@@ -334,6 +352,7 @@ class _$BasketImpl implements _Basket {
       id,
       invoice,
       const DeepCollectionEquality().hash(_invoiceDetails),
+      voucherId,
       bankId,
       shippedAddressId,
       isSchedule,
@@ -362,6 +381,7 @@ abstract class _Basket implements Basket {
       {final int? id,
       required final Invoice invoice,
       required final List<InvoiceDetails> invoiceDetails,
+      final String? voucherId,
       final int? bankId,
       final int? shippedAddressId,
       final bool isSchedule,
@@ -380,6 +400,8 @@ abstract class _Basket implements Basket {
   Invoice get invoice;
   @override
   List<InvoiceDetails> get invoiceDetails;
+  @override
+  String? get voucherId;
   @override
   int? get bankId;
   @override

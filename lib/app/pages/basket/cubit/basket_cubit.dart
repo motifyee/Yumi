@@ -21,6 +21,7 @@ import 'package:yumi/domain/basket/use_case/update_delivery_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_meal_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_pickUp_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_schedule_basket.dart';
+import 'package:yumi/domain/basket/use_case/voucher_basket.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -128,6 +129,15 @@ class BasketCubit extends Cubit<BasketState> {
   stripePayment() async {
     final Either<Failure, bool> task = await StripePayment().call(true);
     task.fold((l) => null, (r) => closeBasket());
+  }
+
+  addVoucher({required String voucher}) async {
+    _loadingIndicator();
+    final Either<Failure, Basket> task = await VoucherBasket().call(VoucherBasketParams(basket: state.basket, voucher: voucher));
+    task.fold((l) => _message((l.error as DioException).response?.data['message'] ?? 'Voucher not available'), (r) {
+      G.context.router.maybePop();
+      calcBasket(basket: r);
+    });
   }
 
   closeBasket() async {

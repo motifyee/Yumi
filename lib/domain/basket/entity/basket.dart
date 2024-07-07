@@ -14,6 +14,7 @@ class Basket with _$Basket {
     int? id,
     required Invoice invoice,
     required List<InvoiceDetails> invoiceDetails,
+    String? voucherId,
     int? bankId,
     int? shippedAddressId,
     @Default(false) bool isSchedule,

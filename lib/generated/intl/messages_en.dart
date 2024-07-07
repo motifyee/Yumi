@@ -119,6 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deliveryTime": MessageLookupByLibrary.simpleMessage("Delivery time"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "disclaimer": MessageLookupByLibrary.simpleMessage("Disclaimer"),
+        "discount": MessageLookupByLibrary.simpleMessage("Discount"),
         "dishName": MessageLookupByLibrary.simpleMessage("Dish Name"),
         "doYouWantToContinue":
             MessageLookupByLibrary.simpleMessage("Do you want to continue?"),

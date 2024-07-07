@@ -15,6 +15,7 @@ class CheckOutScreen extends StatelessWidget {
   CheckOutScreen({super.key});
 
   PaymentOption _option = PaymentOption.visa;
+  TextEditingController voucherController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -199,6 +200,7 @@ class CheckOutScreen extends StatelessWidget {
                               ),
                         ),
                         TextFormFieldTemplate(
+                          controller: voucherController,
                           borderStyle: TextFormFieldBorderStyle.borderedRound,
                           hintText: S.of(context).enterVoucherCode,
                           prefixIcon: Container(
@@ -206,7 +208,9 @@ class CheckOutScreen extends StatelessWidget {
                             child: SvgPicture.asset('assets/images/voucher.svg'),
                           ),
                           suffixIcon: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if (voucherController.value.text.isNotEmpty) context.read<BasketCubit>().addVoucher(voucher: voucherController.value.text);
+                            },
                             child: Text(
                               S.of(context).submit,
                               style: TextStyle(

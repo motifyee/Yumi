@@ -12,6 +12,7 @@ _$BasketImpl _$$BasketImplFromJson(Map<String, dynamic> json) => _$BasketImpl(
       invoiceDetails: (json['invoiceDetails'] as List<dynamic>)
           .map((e) => InvoiceDetails.fromJson(e as Map<String, dynamic>))
           .toList(),
+      voucherId: json['voucherId'] as String?,
       bankId: (json['bankId'] as num?)?.toInt(),
       shippedAddressId: (json['shippedAddressId'] as num?)?.toInt(),
       isSchedule: json['isSchedule'] as bool? ?? false,
@@ -33,6 +34,7 @@ Map<String, dynamic> _$$BasketImplToJson(_$BasketImpl instance) {
   writeNotNull('id', instance.id);
   val['invoice'] = instance.invoice;
   val['invoiceDetails'] = instance.invoiceDetails;
+  writeNotNull('voucherId', instance.voucherId);
   writeNotNull('bankId', instance.bankId);
   writeNotNull('shippedAddressId', instance.shippedAddressId);
   val['isSchedule'] = instance.isSchedule;

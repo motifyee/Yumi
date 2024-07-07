@@ -18,8 +18,7 @@ String originApi = '';
 
 class DioClient {
   static Future<void> getOriginApi() async {
-    final value =
-        await LocalStorage.sharedRef.getValue(LocalStorage.domainName);
+    final value = await LocalStorage.sharedRef.getValue(LocalStorage.domainName);
     originApi = value ?? defaultOriginApi;
   }
 
@@ -64,8 +63,7 @@ class DioClient {
     /// must be commented in publish
     (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
       HttpClient dioClient = HttpClient();
-      dioClient.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
+      dioClient.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
       return dioClient;
     };
 
@@ -78,22 +76,19 @@ class DioClient {
     return await dio.get(url);
   }
 
-  static Future<Response<T>> post<T>(String url,
-      [dynamic data, skipOnToken = true]) async {
+  static Future<Response<T>> post<T>(String url, [dynamic data, skipOnToken = true]) async {
     if (skipOnToken && token.isEmpty) throw GenericException();
 
     return await dio.post(url, data: data);
   }
 
-  static Future<Response<T>> put<T>(String url,
-      [dynamic data, skipOnToken = true]) async {
+  static Future<Response<T>> put<T>(String url, [dynamic data, skipOnToken = true]) async {
     if (skipOnToken && token.isEmpty) throw GenericException();
 
     return await dio.post(url, data: data);
   }
 
-  static Future<Response<T>> delete<T>(String url,
-      [dynamic data, skipOnToken = true]) async {
+  static Future<Response<T>> delete<T>(String url, [dynamic data, skipOnToken = true]) async {
     if (skipOnToken && token.isEmpty) throw GenericException();
 
     return await dio.post(url);
@@ -105,8 +100,7 @@ class ApiKeys {
     return apiKey.replaceAll("_", G.appName);
   }
 
-  static String actionApiKeyString(
-      {required String apiKey, required String id}) {
+  static String actionApiKeyString({required String apiKey, required String id}) {
     return apiKey.replaceAll("_", id);
   }
 
@@ -151,6 +145,7 @@ class ApiKeys {
   static String orderDelivery = '/order/delivery';
   static String orderPickUp = '/order/pickup';
   static String order = '/order';
+  static String voucher = '/Voucher/CheckVoucherValidation';
 
   // get order && get preOrder X(
   static String preOrderCustomerActive = '/preorder/customer/active';

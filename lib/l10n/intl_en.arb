@@ -252,5 +252,6 @@
 	"leave": "Leave",
 	"pleaseSelectLocation" : "Please Select Location",
 	"invoiceTax": "Invoice Tax",
-	"calculationError": "Calculation Error"
+	"calculationError": "Calculation Error",
+	"discount": "Discount"
 }
