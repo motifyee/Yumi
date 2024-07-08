@@ -358,6 +358,21 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                         ),
                       ),
                     SizedBox(height: ThemeSelector.statics.defaultGap),
+                    if ((widget.order.invoiceDiscount ?? 0) > 0)
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              S.of(context).discount,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ),
+                          TextCurrency(
+                            value: widget.order.invoiceDiscount ?? 0.0,
+                            fontSize: ThemeSelector.fonts.font_14,
+                          ),
+                        ],
+                      ),
                     Row(
                       children: [
                         Expanded(
