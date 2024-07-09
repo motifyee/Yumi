@@ -32,7 +32,7 @@ class DriverHistoryScreen extends StatelessWidget {
                     isActive: state.selectedList == 0,
                     onPressed: () {
                       context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
-                      _controller.jumpToPage(0);
+                      _controller.animateToPage(0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                     },
                   ),
                   SizedBox(width: ThemeSelector.statics.defaultBlockGap),
@@ -42,7 +42,7 @@ class DriverHistoryScreen extends StatelessWidget {
                     isActive: state.selectedList == 1,
                     onPressed: () {
                       context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
-                      _controller.jumpToPage(1);
+                      _controller.animateToPage(1, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                     },
                   ),
                 ],

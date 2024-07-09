@@ -36,9 +36,7 @@ class HomeScreen extends StatelessWidget {
           });
         }
         return ScreenContainer(
-          isColored: NavigateOptions
-                  .navigateList[state.selectedIndex].isBackGroundGradient ??
-              false,
+          isColored: NavigateOptions.navigateList[state.selectedIndex].isBackGroundGradient ?? false,
           child: Scaffold(
             backgroundColor: Colors.transparent,
             key: _scaffoldState,
@@ -58,10 +56,8 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               actions: [
-                NavigateOptions.navigateList[state.selectedIndex].pageAction !=
-                        null
-                    ? NavigateOptions
-                        .navigateList[state.selectedIndex].pageAction!
+                NavigateOptions.navigateList[state.selectedIndex].pageAction != null
+                    ? NavigateOptions.navigateList[state.selectedIndex].pageAction!
                     : const SizedBox(
                         width: 1,
                       ),
@@ -73,16 +69,12 @@ class HomeScreen extends StatelessWidget {
             ),
             bottomNavigationBar: Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.symmetric(
-                  horizontal: ThemeSelector.statics.defaultBorderRadius,
-                  vertical: 0),
+              padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultBorderRadius, vertical: 0),
               decoration: BoxDecoration(
                   color: ThemeSelector.colors.backgroundTant,
                   borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(
-                        ThemeSelector.statics.defaultBorderRadius),
-                    topLeft: Radius.circular(
-                        ThemeSelector.statics.defaultBorderRadius),
+                    topRight: Radius.circular(ThemeSelector.statics.defaultBorderRadius),
+                    topLeft: Radius.circular(ThemeSelector.statics.defaultBorderRadius),
                   )),
               child: const NavigationBottomBar(),
             ),
@@ -90,9 +82,7 @@ class HomeScreen extends StatelessWidget {
               controller: navPageController,
               children: NavigateOptions.navigationPages(),
               onPageChanged: (page) {
-                context
-                    .read<NavigatorBloc>()
-                    .add(NavigatorEvent(selectedIndex: page));
+                context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: page));
               },
             ),
             drawer: Drawer(

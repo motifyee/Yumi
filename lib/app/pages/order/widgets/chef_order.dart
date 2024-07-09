@@ -43,7 +43,7 @@ class ChefOrder extends StatelessWidget {
                         isNotificationIconShow: states.isSignalTriggered(signal: [Signals.neworderreceived], isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
                           context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
-                          controller.jumpToPage(0);
+                          controller.animateToPage(0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                           context.read<SignalRCubit>().removeSignals(signal: [Signals.neworderreceived]);
                         },
                       ),
@@ -57,7 +57,7 @@ class ChefOrder extends StatelessWidget {
                       ], isPreOrder: menuTarget == MenuTarget.preOrder),
                       onPressed: () {
                         context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
-                        controller.jumpToPage(1);
+                        controller.animateToPage(1, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                         context.read<SignalRCubit>().removeSignals(signal: [
                           Signals.driveraccept,
                           if (menuTarget == MenuTarget.order) Signals.neworderreceived,
@@ -70,7 +70,7 @@ class ChefOrder extends StatelessWidget {
                       isActive: state.selectedList == 2,
                       onPressed: () {
                         context.read<NewsBloc>().add(const NewsEvent(selectedList: 2));
-                        controller.jumpToPage(2);
+                        controller.animateToPage(2, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                       },
                     ),
                     ActionButton(
@@ -79,13 +79,13 @@ class ChefOrder extends StatelessWidget {
                       isActive: state.selectedList == 3,
                       onPressed: () {
                         context.read<NewsBloc>().add(const NewsEvent(selectedList: 3));
-                        controller.jumpToPage(3);
+                        controller.animateToPage(3, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                       },
                     ),
                     GestureDetector(
                       onTap: () {
                         context.read<NewsBloc>().add(const NewsEvent(selectedList: 4));
-                        controller.jumpToPage(4);
+                        controller.animateToPage(4, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                       },
                       child: SvgPicture.asset(
                         'assets/images/history.svg',
@@ -112,7 +112,7 @@ class ChefOrder extends StatelessWidget {
                   signals: const [Signals.neworderreceived, Signals.driveraccept],
                   navFun: () {
                     context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
-                    controller.jumpToPage(1);
+                    controller.animateToPage(1, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                   },
                 ),
               ),
@@ -128,7 +128,7 @@ class ChefOrder extends StatelessWidget {
                   ],
                   navFun: () {
                     context.read<NewsBloc>().add(const NewsEvent(selectedList: 2));
-                    controller.jumpToPage(2);
+                    controller.animateToPage(2, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                     if (context.read<UserCubit>().state.user.status == 1) {
                       G.rd<UserCubit>().updateStatus(UserStatus.busy);
                     }
@@ -144,7 +144,7 @@ class ChefOrder extends StatelessWidget {
                   signals: const [Signals.chefstart, Signals.clientcancel],
                   navFun: () {
                     context.read<NewsBloc>().add(const NewsEvent(selectedList: 3));
-                    controller.jumpToPage(3);
+                    controller.animateToPage(3, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                     if (context.read<UserCubit>().state.user.status == 2) {
                       G.rd<UserCubit>().updateStatus(UserStatus.online);
                     }
@@ -160,7 +160,7 @@ class ChefOrder extends StatelessWidget {
                   signals: const [Signals.cheffinished],
                   navFun: () {
                     context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
-                    controller.jumpToPage(1);
+                    controller.animateToPage(1, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                   },
                 ),
               ),

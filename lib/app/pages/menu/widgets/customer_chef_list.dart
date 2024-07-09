@@ -63,7 +63,7 @@ class CustomerChefList extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
-                                  controller.jumpToPage(0);
+                                  controller.animateToPage(0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                                 },
                                 activeColor: ThemeSelector.colors.success,
                                 notActiveColor: ThemeSelector.colors.background,
@@ -79,7 +79,7 @@ class CustomerChefList extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
-                                  controller.jumpToPage(1);
+                                  controller.animateToPage(1, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                                 },
                                 activeColor: ThemeSelector.colors.primary,
                                 notActiveColor: ThemeSelector.colors.background,
@@ -95,7 +95,7 @@ class CustomerChefList extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   context.read<NewsBloc>().add(const NewsEvent(selectedList: 2));
-                                  controller.jumpToPage(2);
+                                  controller.animateToPage(2, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                                 },
                                 activeColor: ThemeSelector.colors.secondaryTant,
                                 notActiveColor: ThemeSelector.colors.background,

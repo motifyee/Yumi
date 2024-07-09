@@ -50,7 +50,7 @@ class FavoritesScreen extends StatelessWidget {
                       Expanded(child: Container()),
                       GestureDetector(
                         onTap: () {
-                          favPageController.jumpToPage(0);
+                          favPageController.animateToPage(0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                           context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
                         },
                         child: Padding(
@@ -63,7 +63,7 @@ class FavoritesScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          favPageController.jumpToPage(1);
+                          favPageController.animateToPage(1, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                           context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
                         },
                         child: Padding(

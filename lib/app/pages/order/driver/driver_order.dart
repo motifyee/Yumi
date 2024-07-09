@@ -69,7 +69,7 @@ class DriverOrderScreen extends StatelessWidget {
                         isNotificationIconShow: states.isSignalTriggered(signal: [Signals.neworderreceived], isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
                           context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
-                          _controller.jumpToPage(0);
+                          _controller.animateToPage(0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                           context.read<SignalRCubit>().removeSignals(signal: [Signals.neworderreceived]);
                         },
                       ),
@@ -86,7 +86,7 @@ class DriverOrderScreen extends StatelessWidget {
                         ], isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
                           context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
-                          _controller.jumpToPage(1);
+                          _controller.animateToPage(1, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                           context.read<SignalRCubit>().removeSignals(signal: [
                             Signals.chefstart,
                             Signals.cheffinished,

@@ -7,51 +7,46 @@ class DriverRoutes extends $AppRouter {
   DriverRoutes();
 
   @override
-  List<AutoRoute> get routes => [
-        AutoRoute(
+  List<CustomRoute> get routes => [
+        CustomRoute(
           path: '/registeration',
           page: RegisterationRoute.page,
           children: [
             RedirectRoute(path: '', redirectTo: RegStep.signup.name),
-            AutoRoute(path: RegStep.signup.name, page: SignUpRoute.page),
-            AutoRoute(path: RegStep.addPhone.name, page: AddPhoneRoute.page),
-            AutoRoute(path: RegStep.otp.name, page: OTPRoute.page),
-            AutoRoute(path: RegStep.location.name, page: LocationRoute.page),
-            AutoRoute(
-                path: RegStep.onboarding.name, page: OnboardingRoute.page),
+            CustomRoute(path: RegStep.signup.name, page: SignUpRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+            CustomRoute(path: RegStep.addPhone.name, page: AddPhoneRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+            CustomRoute(path: RegStep.otp.name, page: OTPRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+            CustomRoute(path: RegStep.location.name, page: LocationRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+            CustomRoute(path: RegStep.onboarding.name, page: OnboardingRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
           ],
         ),
 
         /// routes go here
-        AutoRoute(page: LoadingRoute.page, keepHistory: false),
-        AutoRoute(page: LoginRoute.page, keepHistory: false),
-        AutoRoute(page: SignUpRoute.page, keepHistory: false),
-        AutoRoute(
-          initial: true,
-          page: HomeRoute.page,
-          guards: [AuthGuard()],
-        ),
-        AutoRoute(page: MenuPreOrderRoute.page),
-        AutoRoute(page: NotificationRoute.page),
-        AutoRoute(page: MyScheduleRoute.page),
-        AutoRoute(page: CaloriesReferenceRoute.page),
-        AutoRoute(page: DocumentationRoute.page),
-        AutoRoute(page: ContractRoute.page),
-        AutoRoute(page: OnboardingRoute.page),
+        CustomRoute(page: LoadingRoute.page, keepHistory: false, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: LoginRoute.page, keepHistory: false, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: SignUpRoute.page, keepHistory: false, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(initial: true, page: HomeRoute.page, guards: [AuthGuard()], transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: MenuPreOrderRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: NotificationRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: MyScheduleRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: CaloriesReferenceRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: DocumentationRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: ContractRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: OnboardingRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
 
-        AutoRoute(page: PerformanceAnalysisRoute.page),
-        AutoRoute(page: FinancialViewRoute.page),
-        AutoRoute(page: ChatRoute.page),
-        AutoRoute(page: TransactionsRoute.page),
-        AutoRoute(page: ChefProfileRoute.page),
-        AutoRoute(page: BasketRoute.page),
-        AutoRoute(page: CheckOutRoute.page),
-        AutoRoute(page: PaymentVisaRoute.page),
-        AutoRoute(page: OrderStatusRoute.page),
-        AutoRoute(page: TrackingOrderRoute.page),
-        AutoRoute(page: WalletRoute.page),
-        AutoRoute(page: MealProfileRoute.page),
-        AutoRoute(page: CustomerLocationRoute.page),
-        AutoRoute(page: ChefCustomerAddressRoute.page),
+        CustomRoute(page: PerformanceAnalysisRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: FinancialViewRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: ChatRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: TransactionsRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: ChefProfileRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: BasketRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: CheckOutRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: PaymentVisaRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: OrderStatusRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: TrackingOrderRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: WalletRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: MealProfileRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: CustomerLocationRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+        CustomRoute(page: ChefCustomerAddressRoute.page, transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
       ];
 }
