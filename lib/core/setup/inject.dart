@@ -71,7 +71,7 @@ Future<void> inject() async {
   sl.registerFactory<ScheduleSrc>(() => ScheduleRemoteSrc());
   sl.registerFactory<ScheduleRepo>(() => ScheduleRemoteRepo());
 
-  sl.registerFactory<CaloriesSource>(() => CaloriesSourceRemote());
+  sl.registerFactory<CaloriesSource>(() => CaloriesRemoteSource());
   sl.registerFactory<CaloriesRepo>(
       () => CaloriesRepoRemote(caloriesSource: sl()));
 

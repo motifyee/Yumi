@@ -1,13 +1,14 @@
-import 'package:fpdart/src/either.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
+import 'package:yumi/domain/basket/entity/invoice_detail.dart';
 
 class RemoveMealFromBasket extends UseCase<Basket, RemoveMealFromBasketParams> {
   @override
   Future<Either<Failure, Basket>> call(
       RemoveMealFromBasketParams params) async {
-    List<InvoiceDetails> invoiceDetails =
+    List<InvoiceDetail> invoiceDetails =
         List.from(params.basket.invoiceDetails);
     invoiceDetails.removeWhere(
         (e) => e.productVarintId == params.invoiceDetails.productVarintId);
@@ -18,7 +19,7 @@ class RemoveMealFromBasket extends UseCase<Basket, RemoveMealFromBasketParams> {
 
 class RemoveMealFromBasketParams extends Params {
   final Basket basket;
-  final InvoiceDetails invoiceDetails;
+  final InvoiceDetail invoiceDetails;
 
   RemoveMealFromBasketParams(
       {required this.basket, required this.invoiceDetails});

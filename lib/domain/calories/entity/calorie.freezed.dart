@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'calories.dart';
+part of 'calorie.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Calories _$CaloriesFromJson(Map<String, dynamic> json) {
-  return _Calories.fromJson(json);
+Calorie _$CalorieFromJson(Map<String, dynamic> json) {
+  return _Calorie.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Calories {
+mixin _$Calorie {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'calories_Value')
@@ -27,14 +27,13 @@ mixin _$Calories {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CaloriesCopyWith<Calories> get copyWith =>
-      throw _privateConstructorUsedError;
+  $CalorieCopyWith<Calorie> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CaloriesCopyWith<$Res> {
-  factory $CaloriesCopyWith(Calories value, $Res Function(Calories) then) =
-      _$CaloriesCopyWithImpl<$Res, Calories>;
+abstract class $CalorieCopyWith<$Res> {
+  factory $CalorieCopyWith(Calorie value, $Res Function(Calorie) then) =
+      _$CalorieCopyWithImpl<$Res, Calorie>;
   @useResult
   $Res call(
       {int id,
@@ -43,9 +42,9 @@ abstract class $CaloriesCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CaloriesCopyWithImpl<$Res, $Val extends Calories>
-    implements $CaloriesCopyWith<$Res> {
-  _$CaloriesCopyWithImpl(this._value, this._then);
+class _$CalorieCopyWithImpl<$Res, $Val extends Calorie>
+    implements $CalorieCopyWith<$Res> {
+  _$CalorieCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -77,11 +76,10 @@ class _$CaloriesCopyWithImpl<$Res, $Val extends Calories>
 }
 
 /// @nodoc
-abstract class _$$CaloriesImplCopyWith<$Res>
-    implements $CaloriesCopyWith<$Res> {
-  factory _$$CaloriesImplCopyWith(
-          _$CaloriesImpl value, $Res Function(_$CaloriesImpl) then) =
-      __$$CaloriesImplCopyWithImpl<$Res>;
+abstract class _$$CalorieImplCopyWith<$Res> implements $CalorieCopyWith<$Res> {
+  factory _$$CalorieImplCopyWith(
+          _$CalorieImpl value, $Res Function(_$CalorieImpl) then) =
+      __$$CalorieImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -91,11 +89,11 @@ abstract class _$$CaloriesImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$CaloriesImplCopyWithImpl<$Res>
-    extends _$CaloriesCopyWithImpl<$Res, _$CaloriesImpl>
-    implements _$$CaloriesImplCopyWith<$Res> {
-  __$$CaloriesImplCopyWithImpl(
-      _$CaloriesImpl _value, $Res Function(_$CaloriesImpl) _then)
+class __$$CalorieImplCopyWithImpl<$Res>
+    extends _$CalorieCopyWithImpl<$Res, _$CalorieImpl>
+    implements _$$CalorieImplCopyWith<$Res> {
+  __$$CalorieImplCopyWithImpl(
+      _$CalorieImpl _value, $Res Function(_$CalorieImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -105,7 +103,7 @@ class __$$CaloriesImplCopyWithImpl<$Res>
     Object? name = null,
     Object? caloriesValue = null,
   }) {
-    return _then(_$CaloriesImpl(
+    return _then(_$CalorieImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -124,14 +122,14 @@ class __$$CaloriesImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CaloriesImpl implements _Calories {
-  const _$CaloriesImpl(
+class _$CalorieImpl implements _Calorie {
+  const _$CalorieImpl(
       {required this.id,
       required this.name,
       @JsonKey(name: 'calories_Value') this.caloriesValue = 0});
 
-  factory _$CaloriesImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CaloriesImplFromJson(json);
+  factory _$CalorieImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CalorieImplFromJson(json);
 
   @override
   final int id;
@@ -143,14 +141,14 @@ class _$CaloriesImpl implements _Calories {
 
   @override
   String toString() {
-    return 'Calories(id: $id, name: $name, caloriesValue: $caloriesValue)';
+    return 'Calorie(id: $id, name: $name, caloriesValue: $caloriesValue)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CaloriesImpl &&
+            other is _$CalorieImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.caloriesValue, caloriesValue) ||
@@ -164,26 +162,25 @@ class _$CaloriesImpl implements _Calories {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CaloriesImplCopyWith<_$CaloriesImpl> get copyWith =>
-      __$$CaloriesImplCopyWithImpl<_$CaloriesImpl>(this, _$identity);
+  _$$CalorieImplCopyWith<_$CalorieImpl> get copyWith =>
+      __$$CalorieImplCopyWithImpl<_$CalorieImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CaloriesImplToJson(
+    return _$$CalorieImplToJson(
       this,
     );
   }
 }
 
-abstract class _Calories implements Calories {
-  const factory _Calories(
+abstract class _Calorie implements Calorie {
+  const factory _Calorie(
           {required final int id,
           required final String name,
           @JsonKey(name: 'calories_Value') final double caloriesValue}) =
-      _$CaloriesImpl;
+      _$CalorieImpl;
 
-  factory _Calories.fromJson(Map<String, dynamic> json) =
-      _$CaloriesImpl.fromJson;
+  factory _Calorie.fromJson(Map<String, dynamic> json) = _$CalorieImpl.fromJson;
 
   @override
   int get id;
@@ -194,6 +191,6 @@ abstract class _Calories implements Calories {
   double get caloriesValue;
   @override
   @JsonKey(ignore: true)
-  _$$CaloriesImplCopyWith<_$CaloriesImpl> get copyWith =>
+  _$$CalorieImplCopyWith<_$CalorieImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

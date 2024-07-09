@@ -1,7 +1,8 @@
-import 'package:fpdart/src/either.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:yumi/core/failures.dart';
 import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
+import 'package:yumi/domain/basket/entity/invoice_detail.dart';
 
 class UpdateMealInBasket extends UseCase<Basket, UpdateMealInBasketParams> {
   @override
@@ -10,7 +11,7 @@ class UpdateMealInBasket extends UseCase<Basket, UpdateMealInBasketParams> {
       return Right(params.basket);
     }
 
-    List<InvoiceDetails> invoiceDetails =
+    List<InvoiceDetail> invoiceDetails =
         List.from(params.basket.invoiceDetails);
     invoiceDetails[params.indexInList] =
         invoiceDetails[params.indexInList].copyWith(
@@ -24,7 +25,7 @@ class UpdateMealInBasket extends UseCase<Basket, UpdateMealInBasketParams> {
 
 class UpdateMealInBasketParams extends Params {
   final Basket basket;
-  final InvoiceDetails invoiceDetails;
+  final InvoiceDetail invoiceDetails;
   final int indexInList;
   final String newQuantity;
   final String note;

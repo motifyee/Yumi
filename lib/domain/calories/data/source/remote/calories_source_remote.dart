@@ -1,27 +1,27 @@
 import 'package:yumi/domain/calories/data/source/calories_source.dart';
-import 'package:yumi/domain/calories/entity/calories.dart';
+import 'package:yumi/domain/calories/entity/calorie.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/paginatedData.dart';
+import 'package:yumi/statics/pagination.dart';
 
-class CaloriesSourceRemote implements CaloriesSource {
+class CaloriesRemoteSource implements CaloriesSource {
   @override
-  Future<PaginatedData<Calories>> loadCalories(
-      {required PaginatedData<Calories> pagination}) async {
+  Future<PaginatedData<Calorie>> loadCalories({
+    required Pagination pagination,
+  }) async {
     final res = await DioClient.simpleDio().get(
         ApiKeys.getApiKeyString(apiKey: ApiKeys.mealCalories),
         queryParameters: pagination.toJson());
 
-    List<Calories> calories = res.data['data']
-        .map<Calories>((json) => Calories.fromJson(json))
+    List<Calorie> calories = res.data['data']
+        .map<Calorie>((json) => Calorie.fromJson(json))
         .toList();
 
-    return pagination.copyWith(
-      data: <Calories>[...(pagination.data as List<Calories>), ...calories]
-          .unique((e) => e.id),
-      isLoading: false,
+    return PaginatedData<Calorie>(
+      data: calories.unique((e) => e.id),
       pageNumber: res.data['pagination']['page'],
       lastPage: res.data['pagination']['pages'],
-    ) as PaginatedData<Calories>;
+    );
   }
 }
