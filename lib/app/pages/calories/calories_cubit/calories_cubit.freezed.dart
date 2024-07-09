@@ -20,7 +20,7 @@ CaloriesState _$CaloriesStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CaloriesState {
-  PaginatedData<Calories> get pagination => throw _privateConstructorUsedError;
+  PaginatedData<Calorie> get calories => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,9 +34,9 @@ abstract class $CaloriesStateCopyWith<$Res> {
           CaloriesState value, $Res Function(CaloriesState) then) =
       _$CaloriesStateCopyWithImpl<$Res, CaloriesState>;
   @useResult
-  $Res call({PaginatedData<Calories> pagination});
+  $Res call({PaginatedData<Calorie> calories});
 
-  $PaginatedDataCopyWith<Calories, $Res> get pagination;
+  $PaginatedDataCopyWith<Calorie, $Res> get calories;
 }
 
 /// @nodoc
@@ -52,21 +52,21 @@ class _$CaloriesStateCopyWithImpl<$Res, $Val extends CaloriesState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? pagination = null,
+    Object? calories = null,
   }) {
     return _then(_value.copyWith(
-      pagination: null == pagination
-          ? _value.pagination
-          : pagination // ignore: cast_nullable_to_non_nullable
-              as PaginatedData<Calories>,
+      calories: null == calories
+          ? _value.calories
+          : calories // ignore: cast_nullable_to_non_nullable
+              as PaginatedData<Calorie>,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PaginatedDataCopyWith<Calories, $Res> get pagination {
-    return $PaginatedDataCopyWith<Calories, $Res>(_value.pagination, (value) {
-      return _then(_value.copyWith(pagination: value) as $Val);
+  $PaginatedDataCopyWith<Calorie, $Res> get calories {
+    return $PaginatedDataCopyWith<Calorie, $Res>(_value.calories, (value) {
+      return _then(_value.copyWith(calories: value) as $Val);
     });
   }
 }
@@ -79,10 +79,10 @@ abstract class _$$CaloriesStateImplCopyWith<$Res>
       __$$CaloriesStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({PaginatedData<Calories> pagination});
+  $Res call({PaginatedData<Calorie> calories});
 
   @override
-  $PaginatedDataCopyWith<Calories, $Res> get pagination;
+  $PaginatedDataCopyWith<Calorie, $Res> get calories;
 }
 
 /// @nodoc
@@ -96,13 +96,13 @@ class __$$CaloriesStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? pagination = null,
+    Object? calories = null,
   }) {
     return _then(_$CaloriesStateImpl(
-      pagination: null == pagination
-          ? _value.pagination
-          : pagination // ignore: cast_nullable_to_non_nullable
-              as PaginatedData<Calories>,
+      calories: null == calories
+          ? _value.calories
+          : calories // ignore: cast_nullable_to_non_nullable
+              as PaginatedData<Calorie>,
     ));
   }
 }
@@ -110,17 +110,18 @@ class __$$CaloriesStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CaloriesStateImpl implements _CaloriesState {
-  const _$CaloriesStateImpl({required this.pagination});
+  _$CaloriesStateImpl({this.calories = const PaginatedData()});
 
   factory _$CaloriesStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$CaloriesStateImplFromJson(json);
 
   @override
-  final PaginatedData<Calories> pagination;
+  @JsonKey()
+  final PaginatedData<Calorie> calories;
 
   @override
   String toString() {
-    return 'CaloriesState(pagination: $pagination)';
+    return 'CaloriesState(calories: $calories)';
   }
 
   @override
@@ -128,13 +129,13 @@ class _$CaloriesStateImpl implements _CaloriesState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CaloriesStateImpl &&
-            (identical(other.pagination, pagination) ||
-                other.pagination == pagination));
+            (identical(other.calories, calories) ||
+                other.calories == calories));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, pagination);
+  int get hashCode => Object.hash(runtimeType, calories);
 
   @JsonKey(ignore: true)
   @override
@@ -151,15 +152,14 @@ class _$CaloriesStateImpl implements _CaloriesState {
 }
 
 abstract class _CaloriesState implements CaloriesState {
-  const factory _CaloriesState(
-          {required final PaginatedData<Calories> pagination}) =
+  factory _CaloriesState({final PaginatedData<Calorie> calories}) =
       _$CaloriesStateImpl;
 
   factory _CaloriesState.fromJson(Map<String, dynamic> json) =
       _$CaloriesStateImpl.fromJson;
 
   @override
-  PaginatedData<Calories> get pagination;
+  PaginatedData<Calorie> get calories;
   @override
   @JsonKey(ignore: true)
   _$$CaloriesStateImplCopyWith<_$CaloriesStateImpl> get copyWith =>

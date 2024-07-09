@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/domain/calories/entity/calories.dart';
+import 'package:yumi/domain/calories/entity/calorie.dart';
 import 'package:yumi/domain/calories/use_case/load_calories.dart';
 import 'package:yumi/statics/paginatedData.dart';
 
@@ -11,17 +9,25 @@ part 'calories_cubit.g.dart';
 part 'calories_state.dart';
 
 class CaloriesCubit extends Cubit<CaloriesState> {
-  CaloriesCubit() : super(CaloriesState.initail());
+  CaloriesCubit() : super(CaloriesState());
 
   loadCalories() async {
-    if (state.pagination.canRequest) {
-      emit(state.copyWith(
-          pagination: state.pagination.copyWith(isLoading: true)
-              as PaginatedData<Calories>));
+    if (!state.calories.canRequest) return;
 
-      final Either<Failure, PaginatedData<Calories>> task = await LoadCalories()
-          .call(LoadCaloriesParams(pagination: state.pagination));
-      task.fold((l) => null, (r) => emit(state.copyWith(pagination: r)));
-    }
+    emit(state.copyWith.calories(isLoading: true));
+
+    final params = LoadCaloriesParams(pagination: state.calories.pagination);
+    final task = await LoadCalories().call(params);
+
+    task.fold(
+      (l) => null, // TODO: Handle Failure
+      (r) => emit(
+        state.copyWith(
+          calories: r.copyWith(
+            data: [...state.calories.data, ...r.data],
+          ) as PaginatedData<Calorie>,
+        ),
+      ),
+    );
   }
 }
