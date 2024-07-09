@@ -183,23 +183,10 @@ class _MealList extends StatelessWidget {
                                         basket: context.read<BasketCubit>().state.basket.copyWith(
                                               isPreorder: false,
                                               isSchedule: false,
-                                              shippedAddressId: context
-                                                  .read<UserCubit>()
-                                                  .state
-                                                  .address
-                                                  ?.id,
-                                              isPickupOnly:
-                                                  meal.isPickUpOnly ?? false,
-                                              invoiceDetails: [
-                                                InvoiceDetail.fromMeal(
-                                                    meal: meal)
-                                              ],
-                                              invoice: context
-                                                  .read<BasketCubit>()
-                                                  .state
-                                                  .basket
-                                                  .invoice
-                                                  .copyWith(
+                                              shippedAddressId: context.read<UserCubit>().state.address?.id,
+                                              isPickupOnly: meal.isPickUpOnly ?? false,
+                                              invoiceDetails: [InvoiceDetail.fromMeal(meal: meal)],
+                                              invoice: context.read<BasketCubit>().state.basket.invoice.copyWith(
                                                     chefID: meal.chefId,
                                                   ),
                                             ));
