@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
-import 'package:yumi/domain/basket/entity/basket.dart';
+import 'package:yumi/domain/basket/entity/invoice_detail.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/statics/debouncer.dart';
 import 'package:yumi/statics/theme_statics.dart';
@@ -13,7 +13,7 @@ class BasketMealCard extends StatelessWidget {
   BasketMealCard(
       {super.key, required this.invoiceDetails, required this.indexInList});
 
-  final InvoiceDetails invoiceDetails;
+  final InvoiceDetail invoiceDetails;
   final int indexInList;
 
   final _debouncer = Debouncer(milliseconds: 3000);

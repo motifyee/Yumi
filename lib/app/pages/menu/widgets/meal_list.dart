@@ -8,7 +8,7 @@ import 'package:yumi/app/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
-import 'package:yumi/domain/basket/entity/basket.dart';
+import 'package:yumi/domain/basket/entity/invoice_detail.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
@@ -235,7 +235,7 @@ class _MealList extends StatelessWidget {
                                               isPickupOnly:
                                                   meal.isPickUpOnly ?? false,
                                               invoiceDetails: [
-                                                InvoiceDetails.fromMeal(
+                                                InvoiceDetail.fromMeal(
                                                     meal: meal)
                                               ],
                                               invoice: context
