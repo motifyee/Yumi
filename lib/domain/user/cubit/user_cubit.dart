@@ -57,8 +57,7 @@ class UserCubit extends Cubit<UserState> {
 
     if (user != null) {
       await saveUser(User.fromJson(user));
-
-      if (userLocation != null) saveLocation(Address.fromJson(userLocation));
+      await saveLocation(Address.fromJson(userLocation ?? user));
       return User.fromJson(user);
     }
 

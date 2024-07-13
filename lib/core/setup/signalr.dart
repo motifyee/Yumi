@@ -43,7 +43,7 @@ class Signalr {
     if (!force && hubConnection != null) return;
     if (accessToken == null) return;
 
-    Logger.root.level = Level.FINEST;
+    Logger.root.level = Level.OFF;
     Logger.root.onRecord.listen((LogRecord rec) {
       debugPrint('${rec.level.name}: ${rec.time}: ${rec.message}');
     });
@@ -54,8 +54,7 @@ class Signalr {
     final httpOptions = HttpConnectionOptions(
       httpClient: WebSupportingHttpClient(
         hubLogger,
-        httpClientCreateCallback: (httpClient) =>
-            HttpOverrides.global = HttpOverrideCertificateVerificationInDev(),
+        httpClientCreateCallback: (httpClient) => HttpOverrides.global = HttpOverrideCertificateVerificationInDev(),
       ),
       logger: transportLogger,
       logMessageContent: true,
@@ -107,8 +106,7 @@ class Signalr {
   }
 
   static void stopConnection() async {
-    if (hubConnection == null ||
-        hubConnection!.state != HubConnectionState.Connected) return;
+    if (hubConnection == null || hubConnection!.state != HubConnectionState.Connected) return;
 
     // await hubConnection!.invoke("Stop");
     await hubConnection!.stop();
@@ -155,9 +153,7 @@ class Signalr {
 class HttpOverrideCertificateVerificationInDev extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
+    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }
 
