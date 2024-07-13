@@ -12,11 +12,7 @@ class OrderService {
     required Basket invoice,
     required bool isPreOrder,
   }) async {
-    var res = await DioClient.simpleDio(context).post(
-        ApiKeys.getApiKeyString(
-            apiKey:
-                isPreOrder ? ApiKeys.preOrderDelivery : ApiKeys.orderDelivery),
-        data: invoice.toJson());
+    var res = await DioClient.simpleDio().post(ApiKeys.getApiKeyString(apiKey: isPreOrder ? ApiKeys.preOrderDelivery : ApiKeys.orderDelivery), data: invoice.toJson());
     return res;
   }
 
@@ -25,10 +21,7 @@ class OrderService {
     required Basket invoice,
     required bool isPreOrder,
   }) async {
-    var res = await DioClient.simpleDio(context).post(
-        ApiKeys.getApiKeyString(
-            apiKey: isPreOrder ? ApiKeys.preOrderPickUp : ApiKeys.orderPickUp),
-        data: invoice.toJson());
+    var res = await DioClient.simpleDio().post(ApiKeys.getApiKeyString(apiKey: isPreOrder ? ApiKeys.preOrderPickUp : ApiKeys.orderPickUp), data: invoice.toJson());
     return res;
   }
 
@@ -36,50 +29,30 @@ class OrderService {
     required String apiKeys,
     Map<String, dynamic>? pagination,
   }) async {
-    Response res = await DioClient.simpleDio()
-        .get(apiKeys, queryParameters: {...?pagination});
+    Response res = await DioClient.simpleDio().get(apiKeys, queryParameters: {...?pagination});
 
     return res;
   }
 
-  static Future<Response> getOrderOrPreOrderDriverById(
-      {required String apiKeys,
-      required String id,
-      Map<String, dynamic>? pagination}) async {
-    Response res = await DioClient.simpleDio()
-        .get('$apiKeys$id', queryParameters: {...?pagination});
+  static Future<Response> getOrderOrPreOrderDriverById({required String apiKeys, required String id, Map<String, dynamic>? pagination}) async {
+    Response res = await DioClient.simpleDio().get('$apiKeys$id', queryParameters: {...?pagination});
     return res;
   }
 
-  static Future<Response> putActionOrderOrPreOrder(
-      {required String apiKeys,
-      int? orderId,
-      bool isFakeBody = true,
-      Map<String, dynamic>? pagination}) async {
-    Response res = await DioClient.simpleDio().put(apiKeys,
-        data: isFakeBody ? {'driver_ID': null} : null,
-        queryParameters: {...?pagination, 'orderId': orderId}
-          ..removeWhere((key, value) => value == null));
+  static Future<Response> putActionOrderOrPreOrder({required String apiKeys, int? orderId, bool isFakeBody = true, Map<String, dynamic>? pagination}) async {
+    Response res = await DioClient.simpleDio().put(apiKeys, data: isFakeBody ? {'driver_ID': null} : null, queryParameters: {...?pagination, 'orderId': orderId}..removeWhere((key, value) => value == null));
 
     return res;
   }
 
   static Future<Response> getBaskets({Map<String, dynamic>? pagination}) async {
     debugger();
-    Response res = await DioClient.simpleDio().get(ApiKeys.order,
-        queryParameters: {...?pagination}
-          ..removeWhere((key, value) => value == null));
+    Response res = await DioClient.simpleDio().get(ApiKeys.order, queryParameters: {...?pagination}..removeWhere((key, value) => value == null));
     return res;
   }
 
-  static Future<Response> closeInvoice(
-      {required Basket basket,
-      required InvoiceTransactionModel invoiceTransaction,
-      Map<String, dynamic>? pagination}) async {
-    Response res = await DioClient.simpleDio().post(ApiKeys.order,
-        data: invoiceTransaction.toJson(),
-        queryParameters: {...?pagination, 'orderId': basket.id}
-          ..removeWhere((key, value) => value == null));
+  static Future<Response> closeInvoice({required Basket basket, required InvoiceTransactionModel invoiceTransaction, Map<String, dynamic>? pagination}) async {
+    Response res = await DioClient.simpleDio().post(ApiKeys.order, data: invoiceTransaction.toJson(), queryParameters: {...?pagination, 'orderId': basket.id}..removeWhere((key, value) => value == null));
     return res;
   }
 
@@ -92,11 +65,8 @@ class OrderService {
     return res;
   }
 
-  static Future<Response> deleteInvoice(
-      {required Basket invoice, Map<String, dynamic>? pagination}) async {
-    Response res = await DioClient.simpleDio().delete(ApiKeys.order,
-        queryParameters: {...?pagination, 'orderId': invoice.id}
-          ..removeWhere((key, value) => value == null));
+  static Future<Response> deleteInvoice({required Basket invoice, Map<String, dynamic>? pagination}) async {
+    Response res = await DioClient.simpleDio().delete(ApiKeys.order, queryParameters: {...?pagination, 'orderId': invoice.id}..removeWhere((key, value) => value == null));
     return res;
   }
 }

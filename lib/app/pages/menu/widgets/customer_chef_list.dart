@@ -51,58 +51,61 @@ class CustomerChefList extends StatelessWidget {
                       ),
                       if (menuTarget == MenuTarget.order)
                         Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              ActionButton(
-                                label: S.of(context).online,
-                                isActive: state.selectedList == 0,
-                                icon: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
-                                  child: SvgPicture.asset('assets/images/online_chef_icon.svg'),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                ActionButton(
+                                  label: S.of(context).online,
+                                  isActive: state.selectedList == 0,
+                                  icon: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
+                                    child: SvgPicture.asset('assets/images/online_chef_icon.svg'),
+                                  ),
+                                  onPressed: () {
+                                    context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
+                                    controller.animateToPage(0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
+                                  },
+                                  activeColor: ThemeSelector.colors.success,
+                                  notActiveColor: ThemeSelector.colors.background,
+                                  activeTextColor: ThemeSelector.colors.onSuccess,
+                                  notActiveTextColor: ThemeSelector.colors.secondary,
                                 ),
-                                onPressed: () {
-                                  context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
-                                  controller.animateToPage(0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
-                                },
-                                activeColor: ThemeSelector.colors.success,
-                                notActiveColor: ThemeSelector.colors.background,
-                                activeTextColor: ThemeSelector.colors.onSuccess,
-                                notActiveTextColor: ThemeSelector.colors.secondary,
-                              ),
-                              ActionButton(
-                                label: S.of(context).busy,
-                                isActive: state.selectedList == 1,
-                                icon: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
-                                  child: SvgPicture.asset('assets/images/busy_chef_icon.svg'),
+                                ActionButton(
+                                  label: S.of(context).busy,
+                                  isActive: state.selectedList == 1,
+                                  icon: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
+                                    child: SvgPicture.asset('assets/images/busy_chef_icon.svg'),
+                                  ),
+                                  onPressed: () {
+                                    context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
+                                    controller.animateToPage(1, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
+                                  },
+                                  activeColor: ThemeSelector.colors.primary,
+                                  notActiveColor: ThemeSelector.colors.background,
+                                  activeTextColor: ThemeSelector.colors.onPrimary,
+                                  notActiveTextColor: ThemeSelector.colors.secondary,
                                 ),
-                                onPressed: () {
-                                  context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
-                                  controller.animateToPage(1, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
-                                },
-                                activeColor: ThemeSelector.colors.primary,
-                                notActiveColor: ThemeSelector.colors.background,
-                                activeTextColor: ThemeSelector.colors.onPrimary,
-                                notActiveTextColor: ThemeSelector.colors.secondary,
-                              ),
-                              ActionButton(
-                                label: S.of(context).offline,
-                                isActive: state.selectedList == 2,
-                                icon: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
-                                  child: SvgPicture.asset('assets/images/offline_chef_icon.svg'),
+                                ActionButton(
+                                  label: S.of(context).offline,
+                                  isActive: state.selectedList == 2,
+                                  icon: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
+                                    child: SvgPicture.asset('assets/images/offline_chef_icon.svg'),
+                                  ),
+                                  onPressed: () {
+                                    context.read<NewsBloc>().add(const NewsEvent(selectedList: 2));
+                                    controller.animateToPage(2, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
+                                  },
+                                  activeColor: ThemeSelector.colors.secondaryTant,
+                                  notActiveColor: ThemeSelector.colors.background,
+                                  activeTextColor: ThemeSelector.colors.onSecondary,
+                                  notActiveTextColor: ThemeSelector.colors.secondary,
                                 ),
-                                onPressed: () {
-                                  context.read<NewsBloc>().add(const NewsEvent(selectedList: 2));
-                                  controller.animateToPage(2, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
-                                },
-                                activeColor: ThemeSelector.colors.secondaryTant,
-                                notActiveColor: ThemeSelector.colors.background,
-                                activeTextColor: ThemeSelector.colors.onSecondary,
-                                notActiveTextColor: ThemeSelector.colors.secondary,
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                     ],

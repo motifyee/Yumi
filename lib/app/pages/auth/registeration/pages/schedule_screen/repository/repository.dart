@@ -7,7 +7,7 @@ import 'package:yumi/statics/api_statics.dart';
 class ScheduleRepo implements IScheduleRepo {
   @override
   Future<Schedule> getMySchedule(BuildContext? ctx) async {
-    final Response res = await DioClient.simpleDio(ctx!).get(
+    final Response res = await DioClient.simpleDio().get(
       '/accounts/schedule',
     );
 
@@ -36,7 +36,7 @@ class ScheduleRepo implements IScheduleRepo {
       data.remove(element);
     }
 
-    final Response res = await DioClient.simpleDio(ctx!).put(
+    final Response res = await DioClient.simpleDio().put(
       '/accounts/schedule',
       data: data,
     );

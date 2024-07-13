@@ -26,3 +26,10 @@ enum AppTargetUser { customers, chefs, drivers }
 class AppTargetBranches {
   static String yumi = '48';
 }
+
+abstract class StripeKeys {
+  static const String publishableKey = 'pk_test_51PaxDVRoObAqpHXQeaRuTvZTNUwhLog9MnExmSVRJGq73x1A0FYvjOBV5NXjZ3TmbYIHqmAk3OMzpxMgpcWo6C4t00HZNfeTVN';
+  static const String secretKey = 'sk_test_51PaxDVRoObAqpHXQzwSb106U3Rr0g5vvI85JgLB8J34HLO4AuTCoqHXtx2Lwj2xkpREVRjcPfBiE1aEg55kaJVMV007oldunUg';
+  static const String currency = 'GBP';
+  static const String appName = 'YUMI';
+}

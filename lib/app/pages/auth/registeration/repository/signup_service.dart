@@ -4,14 +4,12 @@ import 'package:yumi/statics/api_statics.dart';
 import 'package:yumi/statics/code_generator.dart';
 
 class SignUpService {
-  static Future<dynamic> signUp(
-      {required SignupData signup, required BuildContext context}) async {
-    return await DioClient.simpleDio(context)
-        .post(ApiKeys.getApiKeyString(apiKey: ApiKeys.signup),
-            data: signup
-                .copyWith(
-                  code: CodeGenerator.getRandomCode(),
-                )
-                .toJson());
+  static Future<dynamic> signUp({required SignupData signup, required BuildContext context}) async {
+    return await DioClient.simpleDio().post(ApiKeys.getApiKeyString(apiKey: ApiKeys.signup),
+        data: signup
+            .copyWith(
+              code: CodeGenerator.getRandomCode(),
+            )
+            .toJson());
   }
 }

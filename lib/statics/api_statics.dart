@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/global.dart';
@@ -30,9 +29,9 @@ class DioClient {
 
   static String get token => G.rd<UserCubit>().state.user.accessToken;
   static Dio get dio => simpleDio();
-  static Dio simpleDio([BuildContext? context]) {
+  static Dio simpleDio({String? customAPi}) {
     Dio dio = Dio(
-      BaseOptions(baseUrl: originApi, headers: {
+      BaseOptions(baseUrl: customAPi ?? originApi, headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'authorization': 'Bearer $token',
       }),
@@ -107,6 +106,11 @@ class ApiKeys {
   /// user ( _ ) where
   /// chefs || customers || drivers
   /// at in api end point
+  ///
+
+  /// stripe
+  static String stripeApi = 'https://api.stripe.com/v1';
+  static String stripePaymentIntent = '/payment_intents';
 
   static String login = '/accounts/_/login';
   static String signup = '/accounts/_/register';

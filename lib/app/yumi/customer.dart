@@ -8,8 +8,8 @@ import 'package:yumi/global.dart';
 import 'package:yumi/statics/theme_statics.dart';
 
 Future main() async {
+  Stripe.publishableKey = StripeKeys.publishableKey;
   await init();
-  Stripe.publishableKey = 'stripePublishableKey';
 
   AppTarget.user = AppTargetUser.customers;
 

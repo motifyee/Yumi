@@ -9,17 +9,17 @@ import 'package:yumi/statics/code_generator.dart';
 
 class MealService {
   static Future<dynamic> createMeal({required BuildContext context, required Meal mealModel}) async {
-    final res = await DioClient.simpleDio(context).post(ApiKeys.getApiKeyString(apiKey: ApiKeys.meal), data: jsonEncode(mealModel.toJson()));
+    final res = await DioClient.simpleDio().post(ApiKeys.getApiKeyString(apiKey: ApiKeys.meal), data: jsonEncode(mealModel.toJson()));
     return res.data;
   }
 
   static Future<dynamic> updateMeal({required BuildContext context, required Meal mealModel}) async {
-    final res = await DioClient.simpleDio(context).put('${ApiKeys.getApiKeyString(apiKey: ApiKeys.meal)}/${mealModel.id}', data: jsonEncode(mealModel.toJson()));
+    final res = await DioClient.simpleDio().put('${ApiKeys.getApiKeyString(apiKey: ApiKeys.meal)}/${mealModel.id}', data: jsonEncode(mealModel.toJson()));
     return res.data;
   }
 
   static Future<dynamic> deleteMeal({required BuildContext context, required Meal mealModel}) async {
-    final res = await DioClient.simpleDio(context).put('${ApiKeys.getApiKeyString(apiKey: ApiKeys.meal)}/${mealModel.id}/delete', data: {"is_Deleted": true});
+    final res = await DioClient.simpleDio().put('${ApiKeys.getApiKeyString(apiKey: ApiKeys.meal)}/${mealModel.id}/delete', data: {"is_Deleted": true});
     return res;
   }
 
@@ -30,7 +30,7 @@ class MealService {
     required Map<String, dynamic>? queryParameters,
     bool? isPreorder = false,
   }) async {
-    final res = await DioClient.simpleDio(context).get(
+    final res = await DioClient.simpleDio().get(
       ApiKeys.getApiKeyString(apiKey: ApiKeys.getMeal),
       queryParameters: {
         ...?queryParameters,
@@ -44,7 +44,7 @@ class MealService {
   }
 
   static Future<dynamic> getMealsByCategory({required BuildContext context, required Map<String, dynamic>? pagination, required int? categoryId, double? lat, double? long, bool? isPreorder = false}) async {
-    final res = await DioClient.simpleDio(context).get(
+    final res = await DioClient.simpleDio().get(
       ApiKeys.getApiKeyString(apiKey: ApiKeys.getMealByCategory),
       queryParameters: {
         ...?pagination,
@@ -61,7 +61,7 @@ class MealService {
   static Future<dynamic> getMealsByChef({required BuildContext context, required Map<String, dynamic>? queryParameters, String? chefId, bool? isPreorder = false}) async {
     if (chefId?.isEmpty ?? true) return Future.value([]);
 
-    final res = await DioClient.simpleDio(context).get(
+    final res = await DioClient.simpleDio().get(
       ApiKeys.getApiKeyString(apiKey: ApiKeys.getMealByChef),
       queryParameters: {...?queryParameters, 'chefId': chefId, 'isPreorder': isPreorder}..removeWhere((key, value) => value == null),
     );
@@ -70,7 +70,7 @@ class MealService {
   }
 
   static Future<dynamic> getMealsByChefByCategory({required BuildContext context, required Map<String, dynamic>? pagination, required int? categoryId, String? chefId, bool? isPreorder = false}) async {
-    final res = await DioClient.simpleDio(context).get(
+    final res = await DioClient.simpleDio().get(
       ApiKeys.getApiKeyString(apiKey: ApiKeys.getMealByChefByCategory),
       queryParameters: {...?pagination, 'chefId': chefId, 'CategoryId': categoryId, 'isPreorder': isPreorder}..removeWhere((key, value) => value == null),
     );

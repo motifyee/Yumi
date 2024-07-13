@@ -11,7 +11,7 @@ class AddressRepo {
     required BuildContext context,
   }) async {
     try {
-      var result = await DioClient.simpleDio(context).get('/accounts/address');
+      var result = await DioClient.simpleDio().get('/accounts/address');
 
       return (result.data as List).map((e) => Address.fromJson(e)).toList();
     } catch (e) {
@@ -29,10 +29,7 @@ class AddressRepo {
     data.remove('id');
 
     String? res;
-    await DioClient.simpleDio()
-        .post<String?>('/accounts/address', data: data)
-        .then((_) {})
-        .catchError((err) {
+    await DioClient.simpleDio().post<String?>('/accounts/address', data: data).then((_) {}).catchError((err) {
       res = (err.response as Response).data['message'];
     });
 
@@ -44,8 +41,7 @@ class AddressRepo {
     required BuildContext context,
   }) async {
     try {
-      await DioClient.simpleDio(context).put('/accounts/address',
-          queryParameters: {'addressId': 'address.id'}, data: address.toJson());
+      await DioClient.simpleDio().put('/accounts/address', queryParameters: {'addressId': 'address.id'}, data: address.toJson());
 
       return true;
     } catch (e) {
@@ -58,8 +54,7 @@ class AddressRepo {
     required BuildContext context,
   }) async {
     try {
-      await DioClient.simpleDio(context).delete('/accounts/address',
-          queryParameters: {'addressId': addressId});
+      await DioClient.simpleDio().delete('/accounts/address', queryParameters: {'addressId': addressId});
 
       return true;
     } catch (e) {
