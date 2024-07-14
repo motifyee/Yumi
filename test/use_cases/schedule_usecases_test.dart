@@ -1,8 +1,8 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/use_cases.dart';
+import 'package:common_code/core/failures.dart';
+import 'package:common_code/core/use_cases.dart';
 import 'package:yumi/domain/schedule/data/repos/remote/schedule_remote_repo.dart';
 import 'package:yumi/domain/schedule/entities/schedule.dart';
 import 'package:yumi/domain/schedule/use_cases/load_schedule.dart';

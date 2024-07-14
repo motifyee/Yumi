@@ -12,7 +12,7 @@ class AppTarget {
   /// ios/Runner/Info.plist <== CFBundleDisplayName: $appName
   /// ios/Runner/Info.plist <== CFBundleName: $appName
 
-  static AppTargetUser user = AppTargetUser.customers;
+  static YumiApp user = YumiApp.customers;
   static String branch = AppTargetBranches.yumi;
   static String version = '1.0.9+1';
 }
@@ -21,7 +21,7 @@ class AppTarget {
 /// AppTargetUser.chefs     - YUMI Chef   - com.yumi.chefs
 /// AppTargetUser.customers - YUMI        - com.yumi.customers
 /// AppTargetUser.drivers   - YUMI Driver - com.yumi.drivers
-enum AppTargetUser { customers, chefs, drivers }
+enum YumiApp { customers, chefs, drivers }
 
 class AppTargetBranches {
   static String yumi = '48';

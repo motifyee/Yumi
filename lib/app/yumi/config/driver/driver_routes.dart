@@ -3,7 +3,7 @@ import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_
 import 'package:yumi/app/yumi/config/guards.dart';
 import 'package:yumi/route/route.gr.dart';
 
-class DriverRoutes extends $AppRouter {
+class DriverRoutes extends $YumiRouter {
   DriverRoutes();
 
   @override

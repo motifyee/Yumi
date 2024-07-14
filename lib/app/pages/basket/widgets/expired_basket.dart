@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class ExpiredBasket extends StatelessWidget {
   const ExpiredBasket({super.key});
@@ -12,23 +12,22 @@ class ExpiredBasket extends StatelessWidget {
       child: Container(
         height: 125,
         width: MediaQuery.of(context).size.width * .9,
-        padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+        padding: const EdgeInsets.all(CommonDimens.defaultGap),
         decoration: BoxDecoration(
-          color: ThemeSelector.colors.background,
-          borderRadius:
-              BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius),
+          color: CommonColors.background,
+          borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadius),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+            const SizedBox(height: CommonDimens.defaultBlockGap),
             Row(
               children: [
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultInputGap),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultInputGap),
                     child: Text(S.of(context).basketExpiredAndWillBeDeleted,
                         style: Theme.of(context).textTheme.bodyMedium),
                   ),

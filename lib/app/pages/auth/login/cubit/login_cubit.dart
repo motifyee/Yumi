@@ -1,10 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/domain/auth/entities/login_data.dart';
+import 'package:common_code/domain/auth/entities/login_data.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/domain/address/entity/address.dart';
-import 'package:yumi/domain/auth/use_cases/login_with_email.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/address/entity/address.dart';
+import 'package:common_code/domain/auth/use_cases/login_with_email.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
+import 'package:yumi/app/yumi/config/chef/chef_routes.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 
@@ -36,7 +37,7 @@ class LoginCubit extends Cubit<LoginState> {
             (user) async {
               emit(state.copyWith(isLoading: false));
 
-              await G
+              await G()
                   .rd<UserCubit>()
                   .saveUser(user.copyWith(password: loginData.password));
 
@@ -47,7 +48,7 @@ class LoginCubit extends Cubit<LoginState> {
                   regStep = RegStep.addPhone.index;
                 } else if (user.address?.isEmpty ?? true) {
                   regStep = RegStep.location.index;
-                } else if (!G.isCustomerApp &&
+                } else if (!G().isCustomerApp &&
                     (!(user.accountApproved ?? false) ||
                         !(user.contractApproved ?? false))) {
                   regStep = RegStep.onboarding.index;
@@ -58,18 +59,19 @@ class LoginCubit extends Cubit<LoginState> {
 
               final regStep = getPendingRegStep();
               if (regStep == -1) {
-                await G.router.replaceAll([HomeRoute()]);
+                await G().router.replaceAll([HomeRoute()]);
+
                 return null;
               }
 
-              await G.rd<RegCubit>().saveStepToCache(regStep).then(
+              await G().rd<RegCubit>().saveStepToCache(regStep).then(
                 (value) {
-                  G.router.push(const RegisterationRoute());
-                  G.rd<RegCubit>().init();
+                  G().router.push(const RegisterationRoute());
+                  G().rd<RegCubit>().initReg();
                 },
               );
 
-              G.rd<UserCubit>().saveLocation(Address.fromJson(user.toJson()));
+              G().rd<UserCubit>().saveLocation(Address.fromJson(user.toJson()));
 
               return null;
             },

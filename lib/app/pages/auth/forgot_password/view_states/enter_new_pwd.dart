@@ -1,10 +1,8 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/confirm_password_validator.dart';
 import 'package:yumi/validators/password_validator.dart';
 
@@ -40,8 +38,8 @@ class ForgotPwdNewPwd extends StatelessWidget {
                 isPassword: true,
                 // onSave: (value) => {loginForm.email = value ?? ''},
               ),
-              SizedBox(
-                height: ThemeSelector.statics.formFieldGap,
+              const SizedBox(
+                height: CommonDimens.formFieldGap,
               ),
               TextFormFieldTemplate(
                 label: 'Confirm Password',

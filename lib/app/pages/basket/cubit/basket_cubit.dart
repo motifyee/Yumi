@@ -1,12 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/use_cases.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/basket/entity/invoice.dart';
 import 'package:yumi/domain/basket/entity/invoice_detail.dart';
@@ -25,12 +24,10 @@ import 'package:yumi/domain/basket/use_case/update_pickUp_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_schedule_basket.dart';
 import 'package:yumi/domain/basket/use_case/voucher_basket.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/snack_bar.dart';
 
 part 'basket_cubit.freezed.dart';
 part 'basket_cubit.g.dart';
@@ -52,7 +49,7 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   addMeal({required Meal meal}) async {
-    print('addMeal ...');
+    debugPrint('addMeal ...');
     final Either<Failure, Basket> task = await AddMealToBasket()
         .call(AddMealToBasketParams(meal: meal, basket: state.basket));
     task.fold((l) => null, (r) => calcBasket(basket: r));
@@ -84,7 +81,7 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   Future<dynamic> getBaskets() async {
-    print('getBaskets ...');
+    debugPrint('getBaskets ...');
     final Either<Failure, Basket?> task = await GetBasket().call(NoParams());
     return task.fold((l) => null, (r) async {
       if (r == null) return null;
@@ -99,7 +96,7 @@ class BasketCubit extends Cubit<BasketState> {
       }, (r2) {
         emit(state.copyWith(basket: r2));
 
-        return () => G.router.replaceAll([BasketRoute()]);
+        return () => G().router.replaceAll([BasketRoute()]);
       });
     });
   }
@@ -116,7 +113,7 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   calcBasket({required Basket basket, bool isUpdateBasket = true}) async {
-    print('calcBasket ...');
+    debugPrint('calcBasket ...');
     final Either<Failure, Basket> task =
         await CalcBasket().call(CalcBasketParams(basket: basket));
     task.fold((l) => _message(S.current.calculationError),
@@ -124,7 +121,7 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   createBasket({required Basket basket}) async {
-    print('createBasket ...');
+    debugPrint('createBasket ...');
     _loadingIndicator();
     final Either<Failure, Basket> task =
         await CalcBasket().call(CalcBasketParams(basket: basket));
@@ -135,13 +132,13 @@ class BasketCubit extends Cubit<BasketState> {
       task2.fold((l) => _message(l.toString()), (r) {
         _message(S.current.basketCreated);
         emit(state.copyWith(basket: r));
-        G.router.replaceAll([BasketRoute()]);
+        G().router.replaceAll([BasketRoute()]);
       });
     });
   }
 
   updateBasket({required Basket basket}) async {
-    print('updateBasket ...');
+    debugPrint('updateBasket ...');
     _loadingIndicator();
     final Either<Failure, Basket> task =
         await UpdateBasket().call(UpdateBasketParams(basket: basket));
@@ -150,7 +147,7 @@ class BasketCubit extends Cubit<BasketState> {
       _message(S.current.basketUpdated);
       emit(state.copyWith(basket: r));
     });
-    G.router.maybePop();
+    G().router.maybePop();
   }
 
   stripePayment() async {
@@ -163,23 +160,23 @@ class BasketCubit extends Cubit<BasketState> {
     final Either<Failure, Basket> task = await VoucherBasket()
         .call(VoucherBasketParams(basket: state.basket, voucher: voucher));
     task.fold((l) => _message(l.toString()), (r) {
-      G.context.router.maybePop();
+      G().context.router.maybePop();
       calcBasket(basket: r);
     });
   }
 
   closeBasket() async {
-    print('closeBasket ...');
+    debugPrint('closeBasket ...');
 
     Basket basket = state.basket;
 
     if (state.basket.shippedAddressId == null && !state.basket.isPickup) {
-      if (G.context.read<UserCubit>().state.address?.id == null) {
+      if (G().context.read<UserCubit>().state.address?.id == null) {
         return _message(S.current.pleaseSelectLocation);
       }
 
       basket = state.basket.copyWith(
-          shippedAddressId: G.context.read<UserCubit>().state.address?.id);
+          shippedAddressId: G().context.read<UserCubit>().state.address?.id);
     }
 
     _loadingIndicator();
@@ -189,27 +186,27 @@ class BasketCubit extends Cubit<BasketState> {
     task.fold((l) => _message(l.toString()), (r) {
       _message(S.current.OrderCreated);
       emit(BasketState.initial());
-      G.router.replaceAll([HomeRoute()]);
+      G().router.replaceAll([HomeRoute()]);
     });
   }
 
   void deleteBasket({isLocationChange = false}) async {
-    print('deleteBasket ...');
+    debugPrint('deleteBasket ...');
     if (state.basket.id == null) return;
     _loadingIndicator();
 
     final Either<Failure, Response> task =
         await DeleteBasket().call(DeleteBasketParam(basket: state.basket));
     task.fold((l) {
-      G.router.replaceAll([HomeRoute()]);
+      G().router.replaceAll([HomeRoute()]);
       _message(l.toString());
     }, (r) {
       _message(S.current.basketDeleted);
       emit(BasketState.initial());
       if (isLocationChange) {
-        G.router.replaceAll([const CustomerLocationRoute()]);
+        G().router.replaceAll([const CustomerLocationRoute()]);
       } else {
-        G.router.replaceAll([HomeRoute()]);
+        G().router.replaceAll([HomeRoute()]);
       }
     });
   }
@@ -217,17 +214,17 @@ class BasketCubit extends Cubit<BasketState> {
 
 void _loadingIndicator() => showDialog(
     barrierDismissible: false,
-    context: G.context,
-    builder: (context) => Center(
+    context: G().context,
+    builder: (context) => const Center(
             child: SizedBox(
-          width: ThemeSelector.statics.defaultGapExtraExtreme,
-          height: ThemeSelector.statics.defaultGapExtraExtreme,
+          width: CommonDimens.defaultGapExtraExtreme,
+          height: CommonDimens.defaultGapExtraExtreme,
           child: Loading(),
         )));
 
 void _message(String message) {
-  G.context.router.maybePop();
-  ScaffoldMessenger.of(G.context).showSnackBar(
+  G().context.router.maybePop();
+  ScaffoldMessenger.of(G().context).showSnackBar(
     SnackBar(
       content: SnackBarMassage(
         massage: message,

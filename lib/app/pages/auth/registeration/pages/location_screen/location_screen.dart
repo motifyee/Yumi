@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,17 +8,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
-import 'package:yumi/app/components/google_map/util/geo_location_permission.dart';
-import 'package:yumi/app/components/google_map/util/google_map_info.dart';
-import 'package:yumi/app/components/interactive_button/interactive_button.dart';
-import 'package:yumi/app/components/google_map/google_map_widget.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/core/resources/app_assets.dart';
-import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 
 @RoutePage()
 class LocationScreen extends StatelessWidget {
@@ -29,7 +23,7 @@ class LocationScreen extends StatelessWidget {
   final GMapInfo mapInfo = GMapInfo(
       setMarkerOnLongPress: true,
       onAddressLongPress: (placemark, coord, info) {
-        final regCubit = G.rd<RegCubit>();
+        final regCubit = G().rd<RegCubit>();
         regCubit.setLocation(
           regCubit.state.address.copyWith(
             location: '${placemark.subAdministrativeArea}, '
@@ -51,7 +45,7 @@ class LocationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final regCubit = G.rd<RegCubit>();
+    final regCubit = G().rd<RegCubit>();
 
     return PopScope(
       canPop: regCubit.state.partialFlow || isBack ? true : false,
@@ -102,7 +96,7 @@ class LocationScreen extends StatelessWidget {
             mapInfo.animateCamera(LatLng(lat, lng), zoom: 11);
 
             if (lat == 0 || lng == 0 || prediction.description == null) {
-              return G.snackBar("Try to pin an exact location!");
+              return G().snackBar("Try to pin an exact location!");
             }
 
             context.read<RegCubit>().setLocation(
@@ -134,14 +128,14 @@ class LocationScreen extends StatelessWidget {
             );
           },
           seperatedBuilder:
-              Divider(color: ThemeSelector.colors.primary.withOpacity(.1)),
+              Divider(color: CommonColors.primary.withOpacity(.1)),
           isCrossBtnShown: true,
           containerHorizontalPadding: 50,
         );
 
         final searchIcon = Icon(
           Icons.search,
-          color: ThemeSelector.colors.primary,
+          color: CommonColors.primary,
         );
 
         getUserCurrentLocation() {
@@ -242,7 +236,7 @@ class LocationScreen extends StatelessWidget {
 
           if (!(trueV[0] as bool)) return true;
 
-          G.snackBar(trueV[1] as String);
+          G().snackBar(trueV[1] as String);
 
           return false;
         }

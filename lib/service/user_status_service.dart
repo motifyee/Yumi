@@ -1,10 +1,10 @@
-import 'package:yumi/statics/api_statics.dart';
+import 'package:common_code/common_code.dart';
 
 class UserStatusService {
   /// params: {status : '{1-ready , 2-busy}'}
   static Future<dynamic> updateStatus({required int status}) async {
-    final res = await DioClient.simpleDio().put(
-      ApiKeys.userStatus,
+    final res = await APIClient().put(
+      EndPoints.userStatus,
       queryParameters: {'status': status},
     );
     return res;

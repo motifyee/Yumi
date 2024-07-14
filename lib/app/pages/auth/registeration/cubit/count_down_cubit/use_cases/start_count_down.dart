@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/core/use_cases.dart';
-import 'package:yumi/core/failures.dart';
+import 'package:common_code/core/use_cases.dart';
+import 'package:common_code/core/failures.dart';
 import 'package:yumi/global.dart';
 
 class CountDownStarted extends UseCase<bool, CountDownStartedParam> {
@@ -8,7 +8,7 @@ class CountDownStarted extends UseCase<bool, CountDownStartedParam> {
 
   @override
   Future<Either<Failure, bool>> call(params) async {
-    await G.prefs.then((prefs) {
+    await G().prefs.then((prefs) {
       prefs.setString(params.storageKey, params.value);
       prefs.setInt(params.timeStorageKey, params.initialTime);
     });

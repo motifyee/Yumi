@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
@@ -11,9 +12,8 @@ import 'package:yumi/app/pages/basket/widgets/expired_basket.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/basket/delivery_option_dialog.dart';
 
 @RoutePage()
@@ -22,11 +22,14 @@ class BasketScreen extends StatelessWidget {
 
   bool isBasketDeleting = false;
 
-  void openAddFood({required BuildContext context, required BasketState state}) {
+  void openAddFood(
+      {required BuildContext context, required BasketState state}) {
     showModalBottomSheet(
       context: context,
       builder: (context) => ChefMealsScreen(
-        menuTarget: state.basket.isPreorder == true ? MenuTarget.preOrder : MenuTarget.order,
+        menuTarget: state.basket.isPreorder == true
+            ? MenuTarget.preOrder
+            : MenuTarget.order,
         chefId: state.basket.invoice.chefID ?? '',
         isPickUpOnly: state.basket.isPickupOnly,
       ),
@@ -35,7 +38,8 @@ class BasketScreen extends StatelessWidget {
     );
   }
 
-  void checkExpiredBasket({required BuildContext context, required Basket basket}) {
+  void checkExpiredBasket(
+      {required BuildContext context, required Basket basket}) {
     if (basket.invoice.isBasketExpired && !isBasketDeleting) {
       Timer(const Duration(milliseconds: 300), () {
         isBasketDeleting = true;
@@ -66,7 +70,7 @@ class BasketScreen extends StatelessWidget {
                   },
                   child: Icon(
                     Icons.close,
-                    color: ThemeSelector.colors.primary,
+                    color: CommonColors.primary,
                   )),
             ],
             title: Column(
@@ -74,7 +78,7 @@ class BasketScreen extends StatelessWidget {
                 Text(
                   S.of(context).basket,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        fontSize: ThemeSelector.fonts.font_16,
+                        fontSize: CommonFontSize.font_16,
                       ),
                 ),
                 Text(
@@ -94,18 +98,21 @@ class BasketScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      for (var i = 0; i < (state.basket.invoiceDetails ?? []).length; i++)
+                      for (var i = 0;
+                          i < (state.basket.invoiceDetails ?? []).length;
+                          i++)
                         BasketMealCard(
                           invoiceDetails: state.basket.invoiceDetails[i],
                           indexInList: i,
                         ),
                       Expanded(child: Container()),
-                      SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                      const SizedBox(height: CommonDimens.defaultBlockGap),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultTitleGap),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: CommonDimens.defaultTitleGap),
                         child: PaymentSummaryCard(),
                       ),
-                      SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                      const SizedBox(height: CommonDimens.defaultBlockGap),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -114,9 +121,13 @@ class BasketScreen extends StatelessWidget {
                               openAddFood(context: context, state: state);
                             },
                             child: Container(
-                              width: ThemeSelector.statics.defaultGapXXXL,
-                              height: ThemeSelector.statics.defaultTitleGapLarge,
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius), border: Border.all(color: ThemeSelector.colors.primary, width: 1)),
+                              width: CommonDimens.defaultGapXXXL,
+                              height: CommonDimens.defaultTitleGapLarge,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                      CommonDimens.defaultBorderRadius),
+                                  border: Border.all(
+                                      color: CommonColors.primary, width: 1)),
                               child: Center(
                                 child: Text(
                                   S.of(context).addFoods,
@@ -125,7 +136,7 @@ class BasketScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: ThemeSelector.statics.defaultGap),
+                          const SizedBox(width: CommonDimens.defaultGap),
                           Hero(
                             tag: 'ConfirmBasketSeries',
                             child: GestureDetector(
@@ -133,22 +144,31 @@ class BasketScreen extends StatelessWidget {
                                   ? null
                                   : () {
                                       if (state.basket.isPickupOnly) {
-                                        showDialog(context: context, builder: (context) => const ConfirmCheckOutBasket());
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                const ConfirmCheckOutBasket());
                                       } else {
-                                        showDialog(context: context, builder: (context) => const DeliveryOptionDialog());
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                const DeliveryOptionDialog());
                                       }
                                     },
                               child: Container(
-                                width: ThemeSelector.statics.defaultGapXXXL,
-                                height: ThemeSelector.statics.defaultTitleGapLarge,
+                                width: CommonDimens.defaultGapXXXL,
+                                height: CommonDimens.defaultTitleGapLarge,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius),
-                                  color: ThemeSelector.colors.primary,
+                                  borderRadius: BorderRadius.circular(
+                                      CommonDimens.defaultBorderRadius),
+                                  color: CommonColors.primary,
                                 ),
                                 child: Center(
                                   child: Text(
                                     S.of(context).checkout,
-                                    style: Theme.of(context).textTheme.displaySmall,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
                                   ),
                                 ),
                               ),
@@ -156,7 +176,7 @@ class BasketScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                      const SizedBox(height: CommonDimens.defaultBlockGap),
                     ],
                   ),
                 ),

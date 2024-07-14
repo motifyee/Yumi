@@ -1,6 +1,6 @@
-import 'package:fpdart/src/either.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/use_cases.dart';
+import 'package:common_code/core/failures.dart';
+import 'package:common_code/core/use_cases.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 
 class UpdatePickUpBasket extends UseCase<Basket, UpdatePickUpBasketParams> {

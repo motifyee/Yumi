@@ -1,12 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/basket/widgets/custom_switch.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/card_number_input_formatter.dart';
 import 'package:yumi/validators/expiry_date_input_formatter.dart';
 
@@ -26,20 +25,20 @@ class PaymentVisaScreen extends StatelessWidget {
             },
             child: Icon(
               Icons.arrow_back,
-              color: ThemeSelector.colors.primary,
+              color: CommonColors.primary,
             )),
         title: Text(
           S.of(context).addCardDetails,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                fontSize: ThemeSelector.fonts.font_16,
+                fontSize: CommonFontSize.font_16,
               ),
         ),
         centerTitle: true,
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) => Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: ThemeSelector.statics.defaultTitleGap),
+          padding: const EdgeInsets.symmetric(
+              horizontal: CommonDimens.defaultTitleGap),
           child: SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
@@ -79,22 +78,22 @@ class PaymentVisaScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(width: ThemeSelector.statics.defaultGap),
+                        const SizedBox(width: CommonDimens.defaultGap),
                         Flexible(
                           flex: 7,
                           child: TextFormFieldTemplate(
                             hintText: S.of(context).securityCode,
                             borderStyle: TextFormFieldBorderStyle.borderBottom,
                             suffixIcon: Padding(
-                              padding: EdgeInsets.only(
-                                  top: ThemeSelector.statics.defaultGap),
+                              padding: const EdgeInsets.only(
+                                  top: CommonDimens.defaultGap),
                               child: SvgPicture.asset(
                                 'assets/images/visa_card_icon.svg',
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
-                            suffixIconConstraints: BoxConstraints(
-                                maxWidth: ThemeSelector.statics.iconSizeSmall),
+                            suffixIconConstraints: const BoxConstraints(
+                                maxWidth: CommonDimens.iconSizeSmall),
                             textInputType: TextInputType.number,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly,
@@ -113,12 +112,12 @@ class PaymentVisaScreen extends StatelessWidget {
                         isSelected: false,
                       ),
                     ),
-                    SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                    const SizedBox(height: CommonDimens.defaultBlockGap),
                     PaymentSummaryCard(
                       hideTitle: true,
                       hideHint: true,
                     ),
-                    SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                    const SizedBox(height: CommonDimens.defaultBlockGap),
                     Text(
                       S.of(context).securePaymentWithSSLEncryptionInfo,
                       style: Theme.of(context).textTheme.bodyMedium,
@@ -132,14 +131,13 @@ class PaymentVisaScreen extends StatelessWidget {
                             context.router.pop();
                           },
                           child: Container(
-                            width: ThemeSelector.statics.defaultGapXXXL,
-                            height: ThemeSelector.statics.defaultTitleGapLarge,
+                            width: CommonDimens.defaultGapXXXL,
+                            height: CommonDimens.defaultTitleGapLarge,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(
-                                    ThemeSelector.statics.defaultBorderRadius),
+                                    CommonDimens.defaultBorderRadius),
                                 border: Border.all(
-                                    color: ThemeSelector.colors.primary,
-                                    width: 1)),
+                                    color: CommonColors.primary, width: 1)),
                             child: Center(
                               child: Text(
                                 S.of(context).cancel,
@@ -148,19 +146,18 @@ class PaymentVisaScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(width: ThemeSelector.statics.defaultGap),
+                        const SizedBox(width: CommonDimens.defaultGap),
                         Hero(
                           tag: 'ConfirmBasketSeries',
                           child: GestureDetector(
                             onTap: () {},
                             child: Container(
-                              width: ThemeSelector.statics.defaultGapXXXL,
-                              height:
-                                  ThemeSelector.statics.defaultTitleGapLarge,
+                              width: CommonDimens.defaultGapXXXL,
+                              height: CommonDimens.defaultTitleGapLarge,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(
-                                    ThemeSelector.statics.defaultBorderRadius),
-                                color: ThemeSelector.colors.primary,
+                                    CommonDimens.defaultBorderRadius),
+                                color: CommonColors.primary,
                               ),
                               child: Center(
                                 child: Text(
@@ -174,7 +171,7 @@ class PaymentVisaScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                    const SizedBox(height: CommonDimens.defaultBlockGap),
                   ],
                 ),
               ),

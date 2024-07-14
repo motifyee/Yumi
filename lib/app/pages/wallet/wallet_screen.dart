@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/pagination_template.dart';
-import 'package:yumi/app/components/text_currency.dart';
 
 @RoutePage()
 class WalletScreen extends StatelessWidget {
@@ -23,11 +22,11 @@ class WalletScreen extends StatelessWidget {
           surfaceTintColor: Colors.transparent,
           leading: TextButton(
               onPressed: () {
-                context.router.maybePop();
+                G().router.pop();
               },
               child: Icon(
                 Icons.arrow_back,
-                color: ThemeSelector.colors.primary,
+                color: CommonColors.primary,
               )),
           title: Text(
             S.of(context).wallet,
@@ -38,8 +37,8 @@ class WalletScreen extends StatelessWidget {
         body: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: ThemeSelector.statics.defaultLineGap),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: CommonDimens.defaultLineGap),
               child: Row(
                 children: [
                   SvgPicture.asset('assets/images/schedule_menu.svg'),
@@ -51,7 +50,7 @@ class WalletScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: ThemeSelector.statics.defaultGap),
+            const SizedBox(height: CommonDimens.defaultGap),
             Expanded(
               child: PaginationTemplate(
                 scrollDirection: Axis.vertical,
@@ -62,21 +61,19 @@ class WalletScreen extends StatelessWidget {
                   builder: (context, state) {
                     return Column(
                       children: [
-                        if (state.isLoading) Loading(),
+                        if (state.isLoading) const Loading(),
                         if (!state.isLoading)
                           Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: ThemeSelector.statics.defaultGap,
-                                horizontal: ThemeSelector.statics.defaultGap),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: CommonDimens.defaultGap,
+                                horizontal: CommonDimens.defaultGap),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: ThemeSelector.colors.backgroundTant),
+                                  color: CommonColors.backgroundTant),
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        ThemeSelector.statics.defaultBlockGap,
-                                    vertical:
-                                        ThemeSelector.statics.defaultLineGap),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: CommonDimens.defaultBlockGap,
+                                    vertical: CommonDimens.defaultLineGap),
                                 child: Row(
                                   children: [
                                     Expanded(
@@ -90,8 +87,7 @@ class WalletScreen extends StatelessWidget {
                                                   .bodyMedium),
                                           TextCurrency(
                                             value: state.wallet.money ?? 0,
-                                            fontSize:
-                                                ThemeSelector.fonts.font_20,
+                                            fontSize: CommonFontSize.font_20,
                                           ),
                                         ],
                                       ),

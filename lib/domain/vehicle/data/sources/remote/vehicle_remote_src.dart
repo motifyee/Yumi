@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:yumi/core/exceptions.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/domain/vehicle/data/sources/vehicle_src.dart';
 import 'package:yumi/domain/vehicle/entities/vehicle.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/api_statics.dart';
+import 'package:common_code/common_code.dart';
 import 'package:yumi/util/random_string.dart';
 
 class VehicleRemoteSrc implements VehicleSrc {
@@ -13,7 +12,7 @@ class VehicleRemoteSrc implements VehicleSrc {
     var v = vehicle.copyWith(code: getRandomString(15)).toJson();
 
     try {
-      final Response res = await DioClient.simpleDio().post(
+      final Response res = await APIClient().post(
         '/drivers/vehicle',
         data: v,
       );
@@ -27,7 +26,7 @@ class VehicleRemoteSrc implements VehicleSrc {
   @override
   Future<Vehicle> getVehicle() async {
     try {
-      final Response res = await DioClient.get(
+      final Response res = await APIClient().get(
         '/drivers/vehicle',
       );
 
@@ -39,14 +38,14 @@ class VehicleRemoteSrc implements VehicleSrc {
 
   @override
   Future<String> updateVehicle(Vehicle vehicle) async {
-    String id = G.rd<UserCubit>().state.user.id;
+    String id = G().rd<UserCubit>().state.user.id;
     var v = vehicle.toJson();
 
     v.remove('code');
     if (v['Other_Type'] == null) v['Other_Type'] = '';
 
     try {
-      final Response res = await DioClient.simpleDio().put(
+      final Response res = await APIClient().put(
         '/drivers/vehicle/$id',
         data: vehicle.toJson(),
       );

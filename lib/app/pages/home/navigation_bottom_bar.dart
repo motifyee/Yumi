@@ -1,11 +1,11 @@
 import 'dart:math';
 
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:yumi/statics/navigate_option.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class NavigationBottomBar extends StatelessWidget {
   const NavigationBottomBar({super.key});
@@ -16,14 +16,14 @@ class NavigationBottomBar extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         double selectedPageIndicator = (MediaQuery.of(context).size.width -
-                (ThemeSelector.statics.defaultBorderRadius * 2)) /
+                (CommonDimens.defaultBorderRadius * 2)) /
             5;
         return Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.center,
           children: [
             AnimatedPositioned(
-              duration: ThemeSelector.statics.animationDuration,
+              duration: CommonDimens.animationDuration,
               top: 0,
               left: selectedPageIndicator * state.selectedIndex,
               child: SizedBox(
@@ -43,9 +43,9 @@ class NavigationBottomBar extends StatelessWidget {
                         width: min(45, selectedPageIndicator - 30),
                         height: min(45, selectedPageIndicator - 30),
                         decoration: BoxDecoration(
-                          color: ThemeSelector.colors.primary,
+                          color: CommonColors.primary,
                           borderRadius: BorderRadius.circular(
-                              ThemeSelector.statics.buttonBorderRadius),
+                              CommonDimens.buttonBorderRadius),
                         ),
                       ),
                     )
@@ -62,7 +62,7 @@ class NavigationBottomBar extends StatelessWidget {
               overlayColor: WidgetStateProperty.resolveWith(
                 (states) => Colors.transparent,
               ),
-              animationDuration: ThemeSelector.statics.animationDuration,
+              animationDuration: CommonDimens.animationDuration,
               destinations: NavigateOptions.navigationDestination(
                   context, state.selectedIndex, selectedPageIndicator),
               selectedIndex: state.selectedIndex,

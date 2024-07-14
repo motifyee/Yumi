@@ -1,10 +1,8 @@
-import 'package:fpdart/src/task_either.dart';
-import 'package:yumi/core/setup/inject.dart';
-import 'package:yumi/core/failures.dart';
+import 'package:common_code/common_code.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:yumi/domain/transactions/data/repo/transaction_repo.dart';
 import 'package:yumi/domain/transactions/data/source/transaction_source.dart';
 import 'package:yumi/domain/transactions/entity/transaction.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 class TransactionRepoRemote implements TransactionRepo {
   final TransactionSource transactionSource;

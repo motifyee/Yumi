@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -22,14 +22,13 @@ import 'package:yumi/app/pages/menu/customer/customer_menu_pre.dart';
 import 'package:yumi/app/pages/menu/customer/cutomer_menu.dart';
 import 'package:yumi/app/pages/menu/customer/favorites.dart';
 import 'package:yumi/app/pages/order/driver/driver_history.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class NavigateOptions {
   static List<NavigateListItem> navigateList = getNavigateList();
 
   static List<NavigateListItem> getNavigateList() {
-    if (AppTarget.user == AppTargetUser.chefs) return navigateListChefs;
-    if (AppTarget.user == AppTargetUser.drivers) return navigateListDrivers;
+    if (AppTarget.user == YumiApp.chefs) return navigateListChefs;
+    if (AppTarget.user == YumiApp.drivers) return navigateListDrivers;
     return navigateListCustomer;
   }
 
@@ -133,14 +132,14 @@ class NavigateOptions {
               child: BlocBuilder<NotificationCubit, NotificationState>(
                 builder: (context, state) {
                   return Container(
-                    width: ThemeSelector.statics.defaultInputGap,
-                    height: ThemeSelector.statics.defaultInputGap,
+                    width: CommonDimens.defaultInputGap,
+                    height: CommonDimens.defaultInputGap,
                     decoration: BoxDecoration(
                         color: state.isNewNotification
-                            ? ThemeSelector.colors.primary
+                            ? CommonColors.primary
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.defaultInputGap,
+                          CommonDimens.defaultInputGap,
                         )),
                   );
                 },
@@ -186,7 +185,7 @@ class NavigateOptions {
               i,
               NavigationDestination(
                 icon: AnimatedAlign(
-                  duration: ThemeSelector.statics.animationDuration,
+                  duration: CommonDimens.animationDuration,
                   alignment:
                       index == i ? Alignment.topCenter : Alignment.center,
                   child: index == i
@@ -234,12 +233,12 @@ class _CustomerAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        G.context.router.push(MyOrdersRoute(isHistory: true));
+        G().router.push(MyOrdersRoute(isHistory: true));
       },
       child: SvgPicture.asset(
         'assets/images/history.svg',
-        height: ThemeSelector.statics.iconSizeDefault,
-        width: ThemeSelector.statics.iconSizeDefault,
+        height: CommonDimens.iconSizeDefault,
+        width: CommonDimens.iconSizeDefault,
       ),
     );
   }
@@ -252,7 +251,7 @@ class _ChefAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        G.context.router.push(NotificationRoute(isScreen: false));
+        G().router.push(NotificationRoute(isScreen: false));
       },
       child: BlocBuilder<NotificationCubit, NotificationState>(
         builder: (context, state) {
@@ -261,19 +260,19 @@ class _ChefAction extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 'assets/images/notification.svg',
-                height: ThemeSelector.statics.iconSizeSmall,
-                width: ThemeSelector.statics.iconSizeSmall,
+                height: CommonDimens.iconSizeSmall,
+                width: CommonDimens.iconSizeSmall,
               ),
               if (state.isNewNotification)
                 Positioned(
                   bottom: 0,
                   right: -5,
                   child: Container(
-                    width: ThemeSelector.statics.defaultInputGap,
-                    height: ThemeSelector.statics.defaultInputGap,
+                    width: CommonDimens.defaultInputGap,
+                    height: CommonDimens.defaultInputGap,
                     padding: const EdgeInsets.all(0),
                     decoration: BoxDecoration(
-                      color: ThemeSelector.colors.primary,
+                      color: CommonColors.primary,
                       borderRadius: BorderRadius.circular(50),
                     ),
                   ),

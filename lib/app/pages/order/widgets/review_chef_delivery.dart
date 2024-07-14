@@ -1,18 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/domain/profile/entities/review_model.dart';
 import 'package:yumi/service/review_service.dart';
-import 'package:yumi/statics/regex.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/snack_bar.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 
 class ReviewChefDriver extends StatefulWidget {
   ReviewChefDriver(
@@ -37,7 +34,7 @@ class _ReviewChefDriverState extends State<ReviewChefDriver> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? Center(
+        ? const Center(
             child: Loading(),
           )
         : Material(
@@ -45,13 +42,13 @@ class _ReviewChefDriverState extends State<ReviewChefDriver> {
               key: _formController,
               child: Container(
                 width: MediaQuery.of(context).size.width -
-                    ThemeSelector.statics.defaultBlockGap,
+                    CommonDimens.defaultBlockGap,
                 decoration: BoxDecoration(
-                    color: ThemeSelector.colors.background,
-                    borderRadius: BorderRadius.circular(
-                        ThemeSelector.statics.defaultGap)),
+                    color: CommonColors.background,
+                    borderRadius:
+                        BorderRadius.circular(CommonDimens.defaultGap)),
                 child: Padding(
-                  padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
+                  padding: const EdgeInsets.all(CommonDimens.defaultLineGap),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,23 +68,22 @@ class _ReviewChefDriverState extends State<ReviewChefDriver> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                                height: ThemeSelector.statics.defaultLineGap),
+                            const SizedBox(height: CommonDimens.defaultLineGap),
                             Text(S.of(context).theDriver,
                                 style: Theme.of(context).textTheme.bodyLarge),
                             Center(
                               child: RatingBar(
                                 initialRating: widget.reviewDriver.rate,
                                 allowHalfRating: true,
-                                itemSize: ThemeSelector.fonts.font_24,
+                                itemSize: CommonFontSize.font_24,
                                 ratingWidget: RatingWidget(
                                   empty: Icon(Icons.star_border,
-                                      color: ThemeSelector.colors.warning),
+                                      color: CommonColors.warning),
                                   full: Icon(Icons.star,
-                                      color: ThemeSelector.colors.warning),
+                                      color: CommonColors.warning),
                                   half: Icon(
                                     Icons.star_half,
-                                    color: ThemeSelector.colors.warning,
+                                    color: CommonColors.warning,
                                   ),
                                 ),
                                 onRatingUpdate: (value) => widget.reviewDriver =
@@ -110,22 +106,21 @@ class _ReviewChefDriverState extends State<ReviewChefDriver> {
                             ),
                           ],
                         ),
-                      SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                      const SizedBox(height: CommonDimens.defaultLineGap),
                       Text(S.of(context).theChef,
                           style: Theme.of(context).textTheme.bodyLarge),
                       Center(
                         child: RatingBar(
                           initialRating: widget.reviewChef.rate,
                           allowHalfRating: true,
-                          itemSize: ThemeSelector.fonts.font_24,
+                          itemSize: CommonFontSize.font_24,
                           ratingWidget: RatingWidget(
                             empty: Icon(Icons.star_border,
-                                color: ThemeSelector.colors.warning),
-                            full: Icon(Icons.star,
-                                color: ThemeSelector.colors.warning),
+                                color: CommonColors.warning),
+                            full: Icon(Icons.star, color: CommonColors.warning),
                             half: Icon(
                               Icons.star_half,
-                              color: ThemeSelector.colors.warning,
+                              color: CommonColors.warning,
                             ),
                           ),
                           onRatingUpdate: (value) => widget.reviewChef =
@@ -143,7 +138,7 @@ class _ReviewChefDriverState extends State<ReviewChefDriver> {
                             .reviewChef
                             .copyWith(reviewComment: value ?? ''),
                       ),
-                      SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                      const SizedBox(height: CommonDimens.defaultLineGap),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [

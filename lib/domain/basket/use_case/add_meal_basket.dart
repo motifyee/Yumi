@@ -1,6 +1,5 @@
+import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/basket/entity/invoice_detail.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';

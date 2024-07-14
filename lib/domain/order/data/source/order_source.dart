@@ -1,5 +1,5 @@
+import 'package:common_code/common_code.dart';
 import 'package:yumi/domain/order/entity/order.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 abstract class OrderSource {
   Future<PaginatedData<Order>> getOrders(

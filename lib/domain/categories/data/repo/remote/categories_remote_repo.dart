@@ -1,11 +1,8 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/categories/entity/category.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/setup/inject.dart';
+import 'package:common_code/common_code.dart';
 import 'package:yumi/domain/categories/data/repo/categories_repo.dart';
 import 'package:yumi/domain/categories/data/source/categories_src.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 class CategoriesRemoteRepo implements CategoriesRepo {
   final CategoriesSrc categoriesSrc;

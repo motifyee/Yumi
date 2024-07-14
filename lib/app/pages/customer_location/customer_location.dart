@@ -1,18 +1,17 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/location_screen/location_screen.dart';
 import 'package:yumi/app/pages/customer_location/cubit/address/address_bloc.dart';
-import 'package:yumi/domain/address/entity/address.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
+import 'package:yumi/app/yumi/config/chef/chef_routes.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/pagination_template.dart';
 
 @RoutePage()
 class CustomerLocationScreen extends StatelessWidget {
@@ -35,7 +34,7 @@ class CustomerLocationScreen extends StatelessWidget {
               child: Image.asset('assets/images/customer_location.png',
                   fit: BoxFit.fitWidth),
             ),
-            SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+            const SizedBox(height: CommonDimens.defaultBlockGap),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -52,20 +51,18 @@ class CustomerLocationScreen extends StatelessWidget {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width * .35,
-                  height: ThemeSelector.statics.defaultMicroGap,
-                  decoration:
-                      BoxDecoration(color: ThemeSelector.colors.secondary),
+                  height: CommonDimens.defaultMicroGap,
+                  decoration: BoxDecoration(color: CommonColors.secondary),
                 ),
-                SizedBox(width: ThemeSelector.statics.defaultMicroGap),
+                const SizedBox(width: CommonDimens.defaultMicroGap),
                 Container(
-                  width: ThemeSelector.statics.defaultMicroGap,
-                  height: ThemeSelector.statics.defaultMicroGap,
-                  decoration:
-                      BoxDecoration(color: ThemeSelector.colors.primary),
+                  width: CommonDimens.defaultMicroGap,
+                  height: CommonDimens.defaultMicroGap,
+                  decoration: BoxDecoration(color: CommonColors.primary),
                 ),
               ],
             ),
-            SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+            const SizedBox(height: CommonDimens.defaultBlockGap),
             SizedBox(
               width: MediaQuery.of(context).size.width * .75,
               child: Text(
@@ -76,7 +73,7 @@ class CustomerLocationScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: ThemeSelector.statics.defaultGap),
+            const SizedBox(height: CommonDimens.defaultGap),
             Expanded(
                 child: BlocProvider(
               create: (context) => AddressBloc(),
@@ -84,8 +81,8 @@ class CustomerLocationScreen extends StatelessWidget {
                 listener: (context, state) {},
                 builder: (context, state) {
                   return Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultMediumGap),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultMediumGap),
                     child: PaginationTemplate(
                       scrollDirection: Axis.vertical,
                       loadDate: () {
@@ -94,7 +91,7 @@ class CustomerLocationScreen extends StatelessWidget {
                       },
                       child: Column(
                         children: [
-                          if (state.pagination.isLoading) Loading(),
+                          if (state.pagination.isLoading) const Loading(),
                           if (!state.pagination.isLoading)
                             for (var i = 0; i < state.addressList.length; i++)
                               if (state.addressList[i].isDeleted != true)
@@ -113,13 +110,13 @@ class CustomerLocationScreen extends StatelessWidget {
                     context.router.replaceAll([HomeRoute()]);
                   },
                   child: Container(
-                    width: ThemeSelector.statics.buttonWidth,
-                    height: ThemeSelector.statics.defaultTitleGapLarge,
-                    padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+                    width: CommonDimens.buttonWidth,
+                    height: CommonDimens.defaultTitleGapLarge,
+                    padding: const EdgeInsets.all(CommonDimens.defaultGap),
                     decoration: BoxDecoration(
-                        color: ThemeSelector.colors.primary,
+                        color: CommonColors.primary,
                         borderRadius: BorderRadius.circular(
-                            ThemeSelector.statics.buttonBorderRadius)),
+                            CommonDimens.buttonBorderRadius)),
                     child: Center(
                       child: Text(
                         S.of(context).confirmLocation,
@@ -133,7 +130,7 @@ class CustomerLocationScreen extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => LocationScreen(
                               routeFn: ({Address? address}) {
-                                G.rd<UserCubit>().saveLocation(address!);
+                                G().rd<UserCubit>().saveLocation(address!);
 
                                 context.router.replaceAll([HomeRoute()]);
                               },
@@ -141,14 +138,14 @@ class CustomerLocationScreen extends StatelessWidget {
                             )));
                   },
                   child: Container(
-                    width: ThemeSelector.statics.buttonWidth,
-                    height: ThemeSelector.statics.defaultTitleGapLarge,
-                    padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+                    width: CommonDimens.buttonWidth,
+                    height: CommonDimens.defaultTitleGapLarge,
+                    padding: const EdgeInsets.all(CommonDimens.defaultGap),
                     decoration: BoxDecoration(
-                      border: Border.all(
-                          color: ThemeSelector.colors.secondary, width: 1),
+                      border:
+                          Border.all(color: CommonColors.secondary, width: 1),
                       borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.buttonBorderRadius),
+                          CommonDimens.buttonBorderRadius),
                     ),
                     child: Row(
                       children: [
@@ -156,9 +153,9 @@ class CustomerLocationScreen extends StatelessWidget {
                           width: 27,
                           height: 27,
                           padding:
-                              EdgeInsets.all(ThemeSelector.statics.defaultGap),
+                              const EdgeInsets.all(CommonDimens.defaultGap),
                           decoration: BoxDecoration(
-                            color: ThemeSelector.colors.secondary,
+                            color: CommonColors.secondary,
                             borderRadius: BorderRadius.circular(27),
                           ),
                           child: SvgPicture.asset('assets/images/location.svg',
@@ -182,7 +179,7 @@ class CustomerLocationScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+            const SizedBox(height: CommonDimens.defaultBlockGap),
           ],
         ),
       ),
@@ -198,21 +195,21 @@ class _LocationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: ThemeSelector.statics.defaultMicroGap,
-          vertical: ThemeSelector.statics.defaultMicroGap),
+      padding: const EdgeInsets.symmetric(
+          horizontal: CommonDimens.defaultMicroGap,
+          vertical: CommonDimens.defaultMicroGap),
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: ThemeSelector.statics.defaultGap,
+            padding: const EdgeInsets.symmetric(
+              horizontal: CommonDimens.defaultGap,
             ),
-            height: ThemeSelector.statics.defaultTitleGapLarge,
+            height: CommonDimens.defaultTitleGapLarge,
             decoration: BoxDecoration(
-              color: ThemeSelector.colors.primary
+              color: CommonColors.primary
                   .withAlpha(address.isDefault == true ? 255 : 100),
-              borderRadius: BorderRadius.circular(
-                  ThemeSelector.statics.defaultBorderRadiusMedium),
+              borderRadius:
+                  BorderRadius.circular(CommonDimens.defaultBorderRadiusMedium),
             ),
             child: Row(
               children: [
@@ -229,8 +226,8 @@ class _LocationCard extends StatelessWidget {
                                 );
                           },
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultGap,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultGap,
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -238,12 +235,11 @@ class _LocationCard extends StatelessWidget {
                           Row(
                             children: [
                               Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        ThemeSelector.statics.defaultGap),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: CommonDimens.defaultGap),
                                 child: SvgPicture.asset(
                                   'assets/images/location_indecator.svg',
-                                  height: ThemeSelector.fonts.font_12,
+                                  height: CommonFontSize.font_12,
                                 ),
                               ),
                               Expanded(
@@ -272,13 +268,13 @@ class _LocationCard extends StatelessWidget {
                           );
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ThemeSelector.statics.defaultGap,
-                          vertical: ThemeSelector.statics.defaultGap),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: CommonDimens.defaultGap,
+                          vertical: CommonDimens.defaultGap),
                       child: Icon(
                         Icons.delete,
-                        color: ThemeSelector.colors.onPrimary,
-                        size: ThemeSelector.fonts.font_16,
+                        color: CommonColors.onPrimary,
+                        size: CommonFontSize.font_16,
                       ),
                     ),
                   )
@@ -287,18 +283,18 @@ class _LocationCard extends StatelessWidget {
           ),
           if (address.isDefault == true)
             Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: ThemeSelector.statics.defaultGap),
+              padding:
+                  const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+                    padding: const EdgeInsets.all(CommonDimens.defaultGap),
                     child: SvgPicture.asset(
                       'assets/images/location_indecator.svg',
-                      height: ThemeSelector.fonts.font_12,
+                      height: CommonFontSize.font_12,
                       colorFilter: ColorFilter.mode(
-                          ThemeSelector.colors.secondary, BlendMode.srcIn),
+                          CommonColors.secondary, BlendMode.srcIn),
                     ),
                   ),
                   Expanded(

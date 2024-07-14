@@ -1,18 +1,19 @@
-import 'package:fpdart/src/either.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/setup/inject.dart';
-import 'package:yumi/core/use_cases.dart';
+import 'package:common_code/common_code.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:yumi/domain/basket/data/repo/basket_repo.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 
 class VoucherBasket extends UseCase<Basket, VoucherBasketParams> {
   final BasketRepo basketRepo;
 
-  VoucherBasket({BasketRepo? basketRepo}) : basketRepo = basketRepo ?? getIt<BasketRepo>();
+  VoucherBasket({BasketRepo? basketRepo})
+      : basketRepo = basketRepo ?? getIt<BasketRepo>();
 
   @override
   Future<Either<Failure, Basket>> call(VoucherBasketParams params) {
-    return basketRepo.checkVoucherBasket(basket: params.basket, voucher: params.voucher).run();
+    return basketRepo
+        .checkVoucherBasket(basket: params.basket, voucher: params.voucher)
+        .run();
   }
 }
 

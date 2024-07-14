@@ -1,19 +1,17 @@
 import 'package:dio/dio.dart';
-import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/chef/data/sources/chef_src.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/domain/chef/entity/chef_work_status.dart';
-import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/code_generator.dart';
-import 'package:yumi/statics/paginatedData.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:common_code/common_code.dart';
+
+import 'package:common_code/domain/entities/pagination.dart';
 
 class ChefRemoteSrc implements ChefSrc {
   @override
   Future<bool> addFavouriteChef(String chefId) async {
     try {
-      final res = await DioClient.simpleDio().post<String>(
-        ApiKeys.favoriteChefs,
+      final res = await APIClient().post<String>(
+        EndPoints.favoriteChefs,
         data: {'code': CodeGenerator.getRandomCode(codeLength: 15)},
         queryParameters: {'chefId': chefId},
       );
@@ -29,8 +27,8 @@ class ChefRemoteSrc implements ChefSrc {
     final Response res;
 
     try {
-      res = await DioClient.simpleDio().get(
-        ApiKeys.chefStatus,
+      res = await APIClient().get(
+        EndPoints.chefStatus,
         queryParameters: {'accountId': chefId},
       );
     } catch (e) {
@@ -54,9 +52,9 @@ class ChefRemoteSrc implements ChefSrc {
     required Pagination pagination,
   }) async {
     try {
-      final Response res = await DioClient.simpleDio().get(
-          ApiKeys.getApiKeyString(
-            apiKey: isPreOrder ? ApiKeys.chefsPreOrder : ApiKeys.chefsOrder,
+      final Response res = await APIClient().get(
+          EndPoints.getApiKeyString(
+            apiKey: isPreOrder ? EndPoints.chefsPreOrder : EndPoints.chefsOrder,
           ),
           queryParameters: {
             ...pagination.toJson(),
@@ -87,8 +85,8 @@ class ChefRemoteSrc implements ChefSrc {
     Pagination pagination,
   ) async {
     try {
-      final res = await DioClient.simpleDio().get(
-        ApiKeys.favoriteChefs,
+      final res = await APIClient().get(
+        EndPoints.favoriteChefs,
         queryParameters: {...pagination.toJson()},
       );
 
@@ -111,8 +109,8 @@ class ChefRemoteSrc implements ChefSrc {
   @override
   Future<bool> isFavouriteChef(String chefId) async {
     try {
-      final res = await DioClient.simpleDio().get(
-        ApiKeys.favoriteChef,
+      final res = await APIClient().get(
+        EndPoints.favoriteChef,
         queryParameters: {'chefId': chefId},
       );
 
@@ -125,8 +123,8 @@ class ChefRemoteSrc implements ChefSrc {
   @override
   Future<bool> removeFavouriteChef(String chefId) async {
     try {
-      final res = await DioClient.simpleDio().delete(
-        ApiKeys.favoriteChefs,
+      final res = await APIClient().delete(
+        EndPoints.favoriteChefs,
         queryParameters: {'chefId': chefId},
       );
 

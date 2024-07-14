@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,14 +7,12 @@ import 'package:yumi/app/pages/settings/components/profile/profile_form.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/app_info/app_info_cubit.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/statics/side_menu_items.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/dialog.dart';
 import 'package:yumi/app/pages/home/menu_button.dart';
 
 class SideBar extends StatelessWidget {
@@ -33,10 +32,10 @@ class SideBar extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(
-                top: ThemeSelector.statics.defaultTitleGap,
-                left: ThemeSelector.statics.defaultBlockGap,
-                right: ThemeSelector.statics.defaultBlockGap,
+              padding: const EdgeInsets.only(
+                top: CommonDimens.defaultTitleGap,
+                left: CommonDimens.defaultBlockGap,
+                right: CommonDimens.defaultBlockGap,
               ),
               decoration: const BoxDecoration(color: Colors.transparent),
               child: Column(
@@ -51,19 +50,19 @@ class SideBar extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: ThemeSelector.statics.defaultGap),
+                  const SizedBox(height: CommonDimens.defaultGap),
                   Container(
-                    padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+                    padding: const EdgeInsets.all(CommonDimens.defaultGap),
                     decoration: BoxDecoration(
                       border: Border.fromBorderSide(
                         BorderSide(
                           width: 3,
-                          color: ThemeSelector.colors.primary,
+                          color: CommonColors.primary,
                         ),
                       ),
                       borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.defaultBorderRadiusExtreme),
-                      color: ThemeSelector.colors.onPrimary,
+                          CommonDimens.defaultBorderRadiusExtreme),
+                      color: CommonColors.onPrimary,
                     ),
                     child: GestureDetector(
                       onTap: () {
@@ -77,9 +76,9 @@ class SideBar extends StatelessWidget {
                         height: 72,
                         padding: EdgeInsets.zero,
                         decoration: BoxDecoration(
-                          color: ThemeSelector.colors.secondary,
+                          color: CommonColors.secondary,
                           borderRadius: BorderRadius.circular(
-                              ThemeSelector.statics.defaultBorderRadiusExtreme),
+                              CommonDimens.defaultBorderRadiusExtreme),
                         ),
                         child: Center(
                           child: Text(
@@ -88,7 +87,7 @@ class SideBar extends StatelessWidget {
                                 : (state.user.userName[0]).toUpperCase(),
                             style:
                                 Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      fontSize: ThemeSelector.fonts.font_38,
+                                      fontSize: CommonFontSize.font_38,
                                       fontWeight: FontWeight.w700,
                                     ),
                           ),
@@ -96,18 +95,18 @@ class SideBar extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: ThemeSelector.statics.defaultGap),
+                  const SizedBox(height: CommonDimens.defaultGap),
                   Text(
                     state.user.userName.capitalize(),
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          fontSize: ThemeSelector.fonts.font_18,
+                          fontSize: CommonFontSize.font_18,
                         ),
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
-                        minimumSize: Size(ThemeSelector.statics.defaultTitleGap,
-                            ThemeSelector.statics.defaultTitleGap),
+                        minimumSize: const Size(CommonDimens.defaultTitleGap,
+                            CommonDimens.defaultTitleGap),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         alignment: Alignment.centerLeft),
                     onPressed: () {
@@ -121,7 +120,7 @@ class SideBar extends StatelessWidget {
                     child: Center(
                         child: SvgPicture.asset('assets/images/edit.svg')),
                   ),
-                  SizedBox(height: ThemeSelector.statics.defaultGap),
+                  const SizedBox(height: CommonDimens.defaultGap),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
@@ -142,8 +141,7 @@ class SideBar extends StatelessWidget {
                                   S.of(context).logOut,
                                   style: Theme.of(context).textTheme.labelLarge,
                                 ),
-                                SizedBox(
-                                    width: ThemeSelector.statics.defaultGap),
+                                const SizedBox(width: CommonDimens.defaultGap),
                                 SvgPicture.asset(
                                     'assets/images/logout_menu.svg'),
                               ],
@@ -161,19 +159,19 @@ class SideBar extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const Text(' '),
-                      if (AppTarget.user == AppTargetUser.chefs)
+                      if (AppTarget.user == YumiApp.chefs)
                         SvgPicture.asset(
                           'assets/images/welocme_chef_icon.svg',
-                          height: ThemeSelector.fonts.font_12,
+                          height: CommonFontSize.font_12,
                           colorFilter: ColorFilter.mode(
-                              ThemeSelector.colors.primary, BlendMode.srcIn),
+                              CommonColors.primary, BlendMode.srcIn),
                         ),
-                      if (AppTarget.user == AppTargetUser.drivers)
+                      if (AppTarget.user == YumiApp.drivers)
                         SvgPicture.asset(
                           'assets/images/welcom_driver_icon.svg',
-                          height: ThemeSelector.fonts.font_12,
+                          height: CommonFontSize.font_12,
                           colorFilter: ColorFilter.mode(
-                              ThemeSelector.colors.primary, BlendMode.srcIn),
+                              CommonColors.primary, BlendMode.srcIn),
                         ),
                     ],
                   ),
@@ -194,7 +192,7 @@ class SideBar extends StatelessWidget {
                       );
                     },
                   ),
-                  SizedBox(height: ThemeSelector.statics.defaultGap),
+                  const SizedBox(height: CommonDimens.defaultGap),
                 ],
               ),
             ),

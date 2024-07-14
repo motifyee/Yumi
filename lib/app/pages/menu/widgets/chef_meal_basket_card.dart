@@ -1,10 +1,9 @@
 import 'dart:typed_data';
 
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/text_currency.dart';
 
 class ChefMealBasketCard extends StatelessWidget {
   const ChefMealBasketCard({
@@ -21,33 +20,40 @@ class ChefMealBasketCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: ThemeSelector.statics.defaultGap),
+      padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap),
       child: GestureDetector(
         onTap: isDisabled ? null : onTap,
         child: Container(
-          padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+          padding: const EdgeInsets.all(CommonDimens.defaultGap),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: ThemeSelector.colors.shadow.withOpacity(.1),
+                color: CommonColors.shadow.withOpacity(.1),
                 blurRadius: 3,
                 offset: const Offset(2, 3),
               )
             ],
-            color: ThemeSelector.colors.background,
+            color: CommonColors.background,
           ),
           width: MediaQuery.of(context).size.width * .95,
           child: Row(
             children: [
               Container(
-                width: ThemeSelector.statics.defaultImageHeightSmall,
-                height: ThemeSelector.statics.defaultImageHeightSmall,
+                width: CommonDimens.defaultImageHeightSmall,
+                height: CommonDimens.defaultImageHeightSmall,
                 clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultGap)),
+                decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(CommonDimens.defaultGap)),
                 child: ImageFiltered(
-                  imageFilter: isDisabled ? const ColorFilter.mode(Colors.grey, BlendMode.saturation) : const ColorFilter.mode(Colors.transparent, BlendMode.darken),
+                  imageFilter: isDisabled
+                      ? const ColorFilter.mode(
+                          Colors.grey, BlendMode.saturation)
+                      : const ColorFilter.mode(
+                          Colors.transparent, BlendMode.darken),
                   child: Image.memory(
-                    Uri.parse(meal.photo ?? '').data?.contentAsBytes() ?? Uint8List(0),
+                    Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
+                        Uint8List(0),
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) => Image.asset(
                       'assets/images/354.jpeg',
@@ -58,7 +64,8 @@ class ChefMealBasketCard extends StatelessWidget {
               ),
               Expanded(
                   child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: CommonDimens.defaultGap),
                 child: Column(
                   children: [
                     Row(
@@ -66,28 +73,39 @@ class ChefMealBasketCard extends StatelessWidget {
                         Expanded(
                             child: Text(
                           meal.name ?? '',
-                          style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: ThemeSelector.fonts.font_16),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge
+                              ?.copyWith(fontSize: CommonFontSize.font_16),
                         )),
                         Container(
-                          width: ThemeSelector.statics.defaultTitleGap,
-                          height: ThemeSelector.statics.defaultTitleGap,
-                          decoration: BoxDecoration(color: isDisabled ? ThemeSelector.colors.secondaryFaint : ThemeSelector.colors.primary, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultTitleGap)),
+                          width: CommonDimens.defaultTitleGap,
+                          height: CommonDimens.defaultTitleGap,
+                          decoration: BoxDecoration(
+                              color: isDisabled
+                                  ? CommonColors.secondaryFaint
+                                  : CommonColors.primary,
+                              borderRadius: BorderRadius.circular(
+                                  CommonDimens.defaultTitleGap)),
                           child: Center(
                             child: Text(
                               '${meal.portionPersons}',
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(color: ThemeSelector.colors.onSuccess),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(color: CommonColors.onSuccess),
                             ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                    const SizedBox(height: CommonDimens.defaultBlockGap),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextCurrency(
                           value: meal.price1 ?? 0,
-                          fontSize: ThemeSelector.fonts.font_14,
+                          fontSize: CommonFontSize.font_14,
                         ),
                       ],
                     ),
@@ -95,10 +113,17 @@ class ChefMealBasketCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: CommonDimens.defaultGap),
                           child: SvgPicture.asset(
-                            meal.isFavoriteProduct == true ? 'assets/images/heart.svg' : 'assets/images/heart_outline.svg',
-                            colorFilter: ColorFilter.mode(isDisabled ? ThemeSelector.colors.secondary : ThemeSelector.colors.primary, BlendMode.srcIn),
+                            meal.isFavoriteProduct == true
+                                ? 'assets/images/heart.svg'
+                                : 'assets/images/heart_outline.svg',
+                            colorFilter: ColorFilter.mode(
+                                isDisabled
+                                    ? CommonColors.secondary
+                                    : CommonColors.primary,
+                                BlendMode.srcIn),
                           ),
                         ),
                       ],

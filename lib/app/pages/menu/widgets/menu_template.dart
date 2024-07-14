@@ -1,20 +1,18 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/app/pages/menu/widgets/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/dialog.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_card.dart';
-import 'package:yumi/app/components/pagination_template.dart';
 
 class MenuTemplate extends StatelessWidget {
   const MenuTemplate({super.key, required this.menuTarget});
@@ -23,8 +21,8 @@ class MenuTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 1)).then((value) {
-      if (!G.rd<RegCubit>().state.registerationStarted) return;
+    Future.delayed(const Duration(milliseconds: 300)).then((value) {
+      if (!G().rd<RegCubit>().state.registerationStarted) return;
       if (context.read<MealCubit>().state.pagination.data.isNotEmpty) return;
       addYourMealsDialog(context);
     });
@@ -40,9 +38,9 @@ class MenuTemplate extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultGap,
-                        vertical: ThemeSelector.statics.defaultGap),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultGap,
+                        vertical: CommonDimens.defaultGap),
                     child: BlocConsumer<CategoriesCubit, CategoriesState>(
                       listener: (context, state) {},
                       builder: (context, state) {
@@ -68,17 +66,16 @@ class MenuTemplate extends StatelessWidget {
                                 },
                                 child: Container(
                                   width: ((MediaQuery.of(context).size.width -
-                                          (ThemeSelector.statics.defaultGap *
-                                              2)) /
+                                          (CommonDimens.defaultGap * 2)) /
                                       5),
                                   decoration: BoxDecoration(
                                       color:
                                           mealListBlocState.selectedCategory ==
                                                   0
-                                              ? ThemeSelector.colors.primary
-                                              : ThemeSelector.colors.background,
+                                              ? CommonColors.primary
+                                              : CommonColors.background,
                                       borderRadius: BorderRadius.circular(
-                                          ThemeSelector.statics
+                                          CommonDimens
                                               .defaultBorderRadiusMedium)),
                                   child: Center(
                                     child: Text(
@@ -90,9 +87,8 @@ class MenuTemplate extends StatelessWidget {
                                             color: mealListBlocState
                                                         .selectedCategory ==
                                                     0
-                                                ? ThemeSelector.colors.onPrimary
-                                                : ThemeSelector
-                                                    .colors.secondary,
+                                                ? CommonColors.onPrimary
+                                                : CommonColors.secondary,
                                           ),
                                     ),
                                   ),
@@ -111,25 +107,23 @@ class MenuTemplate extends StatelessWidget {
                                             .chefId);
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            ThemeSelector.statics.defaultGap),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: CommonDimens.defaultGap),
                                     constraints: BoxConstraints(
-                                      minWidth:
-                                          ((MediaQuery.of(context).size.width -
-                                                  (ThemeSelector
-                                                          .statics.defaultGap *
-                                                      2)) /
-                                              5),
+                                      minWidth: ((MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              (CommonDimens.defaultGap * 2)) /
+                                          5),
                                     ),
                                     decoration: BoxDecoration(
                                         color: mealListBlocState
                                                     .selectedCategory ==
                                                 category.id
-                                            ? ThemeSelector.colors.primary
-                                            : ThemeSelector.colors.background,
+                                            ? CommonColors.primary
+                                            : CommonColors.background,
                                         borderRadius: BorderRadius.circular(
-                                            ThemeSelector.statics
+                                            CommonDimens
                                                 .defaultBorderRadiusMedium)),
                                     child: Center(
                                       child: Text(
@@ -141,21 +135,18 @@ class MenuTemplate extends StatelessWidget {
                                               color: mealListBlocState
                                                           .selectedCategory ==
                                                       category.id
-                                                  ? ThemeSelector
-                                                      .colors.onPrimary
-                                                  : ThemeSelector
-                                                      .colors.secondary,
+                                                  ? CommonColors.onPrimary
+                                                  : CommonColors.secondary,
                                             ),
                                       ),
                                     ),
                                   ),
                                 ),
                               SizedBox(
-                                width: ThemeSelector.statics.defaultBlockGap,
+                                width: CommonDimens.defaultBlockGap,
                                 child: state.categoriesPage.isLoading
-                                    ? Loading(
-                                        size: ThemeSelector
-                                            .statics.defaultBlockGap,
+                                    ? const Loading(
+                                        size: CommonDimens.defaultBlockGap,
                                       )
                                     : const Text(''),
                               ),
@@ -166,7 +157,7 @@ class MenuTemplate extends StatelessWidget {
                     ),
                   ),
                   if (state.pagination.isLoading)
-                    Expanded(
+                    const Expanded(
                       child: Loading(),
                     ),
                   Expanded(
@@ -195,9 +186,9 @@ class MenuTemplate extends StatelessWidget {
                               ),
                               Column(
                                 children: [
-                                  SizedBox(
-                                      height: ThemeSelector
-                                          .statics.defaultTitleGapLarge),
+                                  const SizedBox(
+                                      height:
+                                          CommonDimens.defaultTitleGapLarge),
                                   for (var mealIndex = 1;
                                       mealIndex < state.pagination.data.length;
                                       mealIndex += 2)
@@ -209,9 +200,8 @@ class MenuTemplate extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height:
-                                ThemeSelector.statics.defaultGapExtraExtreme,
+                          const SizedBox(
+                            height: CommonDimens.defaultGapExtraExtreme,
                           )
                         ],
                       ),
@@ -224,8 +214,8 @@ class MenuTemplate extends StatelessWidget {
                         S.of(context).empty,
                         style:
                             Theme.of(context).textTheme.displaySmall?.copyWith(
-                                  color: ThemeSelector.colors.secondaryFaint,
-                                  fontSize: ThemeSelector.fonts.font_38,
+                                  color: CommonColors.secondaryFaint,
+                                  fontSize: CommonFontSize.font_38,
                                 ),
                       ),
                     ),
@@ -237,7 +227,7 @@ class MenuTemplate extends StatelessWidget {
         Align(
           alignment: Alignment.bottomRight,
           child: Container(
-            margin: EdgeInsets.all(ThemeSelector.statics.defaultBlockGap),
+            margin: const EdgeInsets.all(CommonDimens.defaultBlockGap),
             child: TextButton(
               onPressed: () async {
                 showDialog(
@@ -264,14 +254,14 @@ class MenuTemplate extends StatelessWidget {
                 child: Stack(
                   children: [
                     Container(
-                      width: ThemeSelector.statics.iconSizeLarge,
-                      height: ThemeSelector.statics.iconSizeLarge,
-                      padding: EdgeInsets.all(
-                          ThemeSelector.statics.defaultLineGap * .8),
+                      width: CommonDimens.iconSizeLarge,
+                      height: CommonDimens.iconSizeLarge,
+                      padding: const EdgeInsets.all(
+                          CommonDimens.defaultLineGap * .8),
                       decoration: BoxDecoration(
-                        color: ThemeSelector.colors.primary,
-                        borderRadius: BorderRadius.circular(
-                            ThemeSelector.statics.iconSizeLarge),
+                        color: CommonColors.primary,
+                        borderRadius:
+                            BorderRadius.circular(CommonDimens.iconSizeLarge),
                       ),
                       child: SvgPicture.asset('assets/images/meal.svg'),
                     ),
@@ -301,15 +291,15 @@ void addYourMealsDialog(BuildContext context) {
           Text(
             '         Now',
             style: TextStyle(
-              color: ThemeSelector.colors.primary,
-              fontSize: ThemeSelector.fonts.font_14,
+              color: CommonColors.primary,
+              fontSize: CommonFontSize.font_14,
             ),
           ),
           const SizedBox(height: 16),
-          Text(
+          const Text(
             '         You should create your own menu',
             style: TextStyle(
-              fontSize: ThemeSelector.fonts.font_14,
+              fontSize: CommonFontSize.font_14,
             ),
           ),
         ],

@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:yumi/domain/categories/entity/category.dart';
-import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/categories/data/source/categories_src.dart';
-import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/paginatedData.dart';
+import 'package:common_code/common_code.dart';
 
 class CategoriesRemoteSrc implements CategoriesSrc {
   @override
@@ -14,8 +12,8 @@ class CategoriesRemoteSrc implements CategoriesSrc {
     PaginatedData? pagination,
   }) async {
     try {
-      final res = await DioClient.simpleDio().get(
-        ApiKeys.getApiKeyString(apiKey: ApiKeys.categories),
+      final res = await APIClient().get(
+        EndPoints.getApiKeyString(apiKey: EndPoints.categories),
         queryParameters: {
           ...?pagination?.toJson(),
           'isPreOrder': isPreOrder,
@@ -43,8 +41,8 @@ class CategoriesRemoteSrc implements CategoriesSrc {
     PaginatedData? pagination,
   }) async {
     try {
-      final res = await DioClient.simpleDio().get(
-        ApiKeys.getApiKeyString(apiKey: ApiKeys.categoriesForChef),
+      final res = await APIClient().get(
+        EndPoints.getApiKeyString(apiKey: EndPoints.categoriesForChef),
         queryParameters: {
           ...?pagination?.toJson(),
           'isPreOrder': isPreOrder,
@@ -74,8 +72,8 @@ class CategoriesRemoteSrc implements CategoriesSrc {
     PaginatedData? pagination,
   }) async {
     try {
-      final res = await DioClient.simpleDio().get(
-        ApiKeys.getApiKeyString(apiKey: ApiKeys.categoriesForCustomer),
+      final res = await APIClient().get(
+        EndPoints.getApiKeyString(apiKey: EndPoints.categoriesForCustomer),
         queryParameters: {
           ...?pagination?.toJson(),
           'isPreOrder': isPreOrder,
@@ -106,8 +104,8 @@ class CategoriesRemoteSrc implements CategoriesSrc {
     PaginatedData? pagination,
   }) async {
     try {
-      final res = await DioClient.simpleDio().get(
-        ApiKeys.getApiKeyString(apiKey: ApiKeys.categoriesForCustomer),
+      final res = await APIClient().get(
+        EndPoints.getApiKeyString(apiKey: EndPoints.categoriesForCustomer),
         queryParameters: {
           ...?pagination?.toJson(),
           'isPreOrder': isPreOrder,

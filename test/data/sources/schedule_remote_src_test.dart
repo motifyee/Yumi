@@ -1,21 +1,21 @@
+import 'package:common_code/common_code.dart';
 import 'package:dio/dio.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
-import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/schedule/data/sources/remote/schedule_remote_source.dart';
 
 // TODO test all the rules of data sources for all data sources in a single test
 
-class MockDio extends Mock implements Dio {}
+class MockClient extends Mock implements APIClient {}
 
 void main() {
   group('ScheduleSrc', () {
-    final mockDio = MockDio();
-    final scheduleSrcTest = ScheduleRemoteSrc(client: mockDio);
+    final mockClient = MockClient();
+    final scheduleSrcTest = ScheduleRemoteSrc(client: mockClient);
 
     group('Should return Schedule', () {
       test('when response is 200 and has valid data', () async {
-        when(() => mockDio.get('/accounts/schedule')).thenAnswer(
+        when(() => mockClient.get('/accounts/schedule')).thenAnswer(
           (ans) => Future.value(
             Response(
               data: {},
@@ -32,7 +32,7 @@ void main() {
 
     group('Should throw', () {
       test('a ServerException when response is not 200', () async {
-        when(() => mockDio.get('/accounts/schedule')).thenAnswer(
+        when(() => mockClient.get('/accounts/schedule')).thenAnswer(
           (ans) => Future.value(
             Response(
               data: null,
@@ -49,7 +49,7 @@ void main() {
       });
 
       test('a TypeError when response is 200 and has invalid data', () async {
-        when(() => mockDio.get('/accounts/schedule')).thenAnswer(
+        when(() => mockClient.get('/accounts/schedule')).thenAnswer(
           (ans) => Future.value(
             Response(
               data: '',

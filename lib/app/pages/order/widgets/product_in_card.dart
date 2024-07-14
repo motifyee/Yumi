@@ -1,10 +1,9 @@
 import 'dart:typed_data';
 
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/domain/order/entity/order.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/text_currency.dart';
 import 'package:yumi/app/pages/order/widgets/text_quntaty.dart';
 
 class ProductInCard extends StatelessWidget {
@@ -28,11 +27,10 @@ class ProductInCard extends StatelessWidget {
             context: context,
             builder: (context) => Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
+              padding: const EdgeInsets.all(CommonDimens.defaultLineGap),
               decoration: BoxDecoration(
-                  color: ThemeSelector.colors.background,
-                  borderRadius:
-                      BorderRadius.circular(ThemeSelector.statics.defaultGap)),
+                  color: CommonColors.background,
+                  borderRadius: BorderRadius.circular(CommonDimens.defaultGap)),
               child: Text(
                 invoiceDetails.note ?? '',
                 style: Theme.of(context).textTheme.headlineMedium,
@@ -51,12 +49,12 @@ class ProductInCard extends StatelessWidget {
               invoiceDetails: invoiceDetails,
             ),
             AnimatedSize(
-              duration: ThemeSelector.statics.animationDuration,
+              duration: CommonDimens.animationDuration,
               child: SizedBox(
                 width: isView ? maxWidth - 50 : 0,
                 child: Row(
                   children: [
-                    SizedBox(width: ThemeSelector.statics.defaultGap),
+                    const SizedBox(width: CommonDimens.defaultGap),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +73,7 @@ class ProductInCard extends StatelessWidget {
                                 .textTheme
                                 .bodyMedium
                                 ?.copyWith(
-                                  fontSize: ThemeSelector.fonts.font_9,
+                                  fontSize: CommonFontSize.font_9,
                                   fontWeight: FontWeight.w300,
                                 ),
                           ),
@@ -92,10 +90,10 @@ class ProductInCard extends StatelessWidget {
                       children: [
                         TextCurrency(
                             value: invoiceDetails.productVarintPrice ?? 0.0,
-                            fontSize: ThemeSelector.fonts.font_14),
+                            fontSize: CommonFontSize.font_14),
                         TextQuantity(
                           value: invoiceDetails.quantity ?? 0.0,
-                          fontSize: ThemeSelector.fonts.font_10,
+                          fontSize: CommonFontSize.font_10,
                         ),
                       ],
                     ),
@@ -121,27 +119,27 @@ class _ProductImage extends StatelessWidget {
         Container(
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-                ThemeSelector.statics.defaultBorderRadiusSmall),
+            borderRadius:
+                BorderRadius.circular(CommonDimens.defaultBorderRadiusSmall),
           ),
           child: Image.memory(
             Uri.parse(invoiceDetails.image ?? '').data?.contentAsBytes() ??
                 Uint8List(0),
-            width: ThemeSelector.statics.iconSizeLarge,
-            height: ThemeSelector.statics.iconSizeLarge,
+            width: CommonDimens.iconSizeLarge,
+            height: CommonDimens.iconSizeLarge,
             fit: BoxFit.fill,
             errorBuilder: (context, error, stackTrace) => Image.asset(
               'assets/images/354.jpeg',
-              width: ThemeSelector.statics.iconSizeLarge,
-              height: ThemeSelector.statics.iconSizeLarge,
+              width: CommonDimens.iconSizeLarge,
+              height: CommonDimens.iconSizeLarge,
               fit: BoxFit.fill,
             ),
           ),
         ),
         if (invoiceDetails.note == null || invoiceDetails.note != '')
           Positioned(
-            top: (ThemeSelector.statics.defaultGap / 2) * -1,
-            left: (ThemeSelector.statics.defaultGap / 2) * -1,
+            top: (CommonDimens.defaultGap / 2) * -1,
+            left: (CommonDimens.defaultGap / 2) * -1,
             child: SvgPicture.asset('assets/images/label_yellow.svg'),
           ),
       ],

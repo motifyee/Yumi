@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/order/entity/invoice_transaction_model.dart';
-import 'package:yumi/statics/api_statics.dart';
+import 'package:common_code/common_code.dart';
 
 class OrderService {
   static Future<dynamic> createOrderOrPreOrderDelivery({
@@ -12,10 +12,11 @@ class OrderService {
     required Basket invoice,
     required bool isPreOrder,
   }) async {
-    var res = await DioClient.simpleDio(context).post(
-        ApiKeys.getApiKeyString(
-            apiKey:
-                isPreOrder ? ApiKeys.preOrderDelivery : ApiKeys.orderDelivery),
+    var res = await APIClient().post(
+        EndPoints.getApiKeyString(
+            apiKey: isPreOrder
+                ? EndPoints.preOrderDelivery
+                : EndPoints.orderDelivery),
         data: invoice.toJson());
     return res;
   }
@@ -25,9 +26,10 @@ class OrderService {
     required Basket invoice,
     required bool isPreOrder,
   }) async {
-    var res = await DioClient.simpleDio(context).post(
-        ApiKeys.getApiKeyString(
-            apiKey: isPreOrder ? ApiKeys.preOrderPickUp : ApiKeys.orderPickUp),
+    var res = await APIClient().post(
+        EndPoints.getApiKeyString(
+            apiKey:
+                isPreOrder ? EndPoints.preOrderPickUp : EndPoints.orderPickUp),
         data: invoice.toJson());
     return res;
   }
@@ -36,8 +38,8 @@ class OrderService {
     required String apiKeys,
     Map<String, dynamic>? pagination,
   }) async {
-    Response res = await DioClient.simpleDio()
-        .get(apiKeys, queryParameters: {...?pagination});
+    Response res =
+        await APIClient().get(apiKeys, queryParameters: {...?pagination});
 
     return res;
   }
@@ -46,8 +48,8 @@ class OrderService {
       {required String apiKeys,
       required String id,
       Map<String, dynamic>? pagination}) async {
-    Response res = await DioClient.simpleDio()
-        .get('$apiKeys$id', queryParameters: {...?pagination});
+    Response res =
+        await APIClient().get('$apiKeys$id', queryParameters: {...?pagination});
     return res;
   }
 
@@ -56,7 +58,7 @@ class OrderService {
       int? orderId,
       bool isFakeBody = true,
       Map<String, dynamic>? pagination}) async {
-    Response res = await DioClient.simpleDio().put(apiKeys,
+    Response res = await APIClient().put(apiKeys,
         data: isFakeBody ? {'driver_ID': null} : null,
         queryParameters: {...?pagination, 'orderId': orderId}
           ..removeWhere((key, value) => value == null));
@@ -66,7 +68,7 @@ class OrderService {
 
   static Future<Response> getBaskets({Map<String, dynamic>? pagination}) async {
     debugger();
-    Response res = await DioClient.simpleDio().get(ApiKeys.order,
+    Response res = await APIClient().get(EndPoints.order,
         queryParameters: {...?pagination}
           ..removeWhere((key, value) => value == null));
     return res;
@@ -76,7 +78,7 @@ class OrderService {
       {required Basket basket,
       required InvoiceTransactionModel invoiceTransaction,
       Map<String, dynamic>? pagination}) async {
-    Response res = await DioClient.simpleDio().post(ApiKeys.order,
+    Response res = await APIClient().post(EndPoints.order,
         data: invoiceTransaction.toJson(),
         queryParameters: {...?pagination, 'orderId': basket.id}
           ..removeWhere((key, value) => value == null));
@@ -84,8 +86,8 @@ class OrderService {
   }
 
   static Future<Response> updateInvoice({required Basket basket}) async {
-    Response res = await DioClient.simpleDio().put(
-      ApiKeys.order,
+    Response res = await APIClient().put(
+      EndPoints.order,
       data: basket.toJson(),
       queryParameters: {'orderId': basket.id},
     );
@@ -94,7 +96,7 @@ class OrderService {
 
   static Future<Response> deleteInvoice(
       {required Basket invoice, Map<String, dynamic>? pagination}) async {
-    Response res = await DioClient.simpleDio().delete(ApiKeys.order,
+    Response res = await APIClient().delete(EndPoints.order,
         queryParameters: {...?pagination, 'orderId': invoice.id}
           ..removeWhere((key, value) => value == null));
     return res;

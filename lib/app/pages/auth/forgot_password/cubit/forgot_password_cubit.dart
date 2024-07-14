@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/core/util/constants.dart';
-import 'package:yumi/core/failures.dart';
+import 'package:common_code/core/failures.dart';
 import 'package:yumi/domain/profile/use_cases/reset_pwd_by_email.dart';
 import 'package:yumi/domain/profile/use_cases/reset_pwd_by_mobile.dart';
 import 'package:yumi/domain/profile/use_cases/verify_reset_pwd_by_email_otp.dart';
@@ -23,7 +23,7 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
   }
 
   void init() async {
-    final prefs = await G.prefs;
+    final prefs = await G().prefs;
 
     final email = prefs.getString(forgotPwdEmailKey);
     if (email == null) return;
@@ -89,7 +89,7 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
     _unique = unique();
     emit(state.copyWith(countDown: null));
 
-    final prefs = await G.prefs;
+    final prefs = await G().prefs;
     prefs.remove(forgotPwdTimeKey);
     prefs.remove(forgotPwdEmailKey);
   }
@@ -111,7 +111,7 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
       (r) {
         final initialCountDown = DateTime.now().millisecondsSinceEpoch;
 
-        G.prefs.then((prefs) async {
+        G().prefs.then((prefs) async {
           await prefs.setString(forgotPwdEmailKey, email0);
           await prefs.setInt(forgotPwdTimeKey, initialCountDown);
         });
@@ -181,7 +181,7 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
       (r) {
         final initialCountDown = DateTime.now().millisecondsSinceEpoch;
 
-        G.prefs.then((prefs) async {
+        G().prefs.then((prefs) async {
           await prefs.setString(forgotPwdEmailKey, mobile0);
           await prefs.setInt(forgotPwdTimeKey, initialCountDown);
         });
@@ -247,7 +247,7 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
     ));
 
     if (state.isPasswordUpdated) {
-      G.pop();
+      G().pop();
     }
   }
 

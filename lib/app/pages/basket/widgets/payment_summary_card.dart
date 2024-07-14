@@ -1,9 +1,8 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/text_currency.dart';
 
 class PaymentSummaryCard extends StatelessWidget {
   PaymentSummaryCard({super.key, this.hideTitle, this.hideHint});
@@ -26,10 +25,10 @@ class PaymentSummaryCard extends StatelessWidget {
                   Text(
                     S.of(context).paymentSummary,
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                          fontSize: ThemeSelector.fonts.font_18,
+                          fontSize: CommonFontSize.font_18,
                         ),
                   ),
-                SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                const SizedBox(height: CommonDimens.defaultLineGap),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -39,7 +38,7 @@ class PaymentSummaryCard extends StatelessWidget {
                     ),
                     TextCurrency(
                       value: state.basket.invoice.totalPrice,
-                      fontSize: ThemeSelector.fonts.font_12,
+                      fontSize: CommonFontSize.font_12,
                       fontWeight: FontWeight.w500,
                     ),
                   ],
@@ -53,7 +52,7 @@ class PaymentSummaryCard extends StatelessWidget {
                     ),
                     TextCurrency(
                       value: state.basket.invoice.invoiceDiscount,
-                      fontSize: ThemeSelector.fonts.font_12,
+                      fontSize: CommonFontSize.font_12,
                       fontWeight: FontWeight.w500,
                     ),
                   ],
@@ -67,7 +66,7 @@ class PaymentSummaryCard extends StatelessWidget {
                     ),
                     TextCurrency(
                       value: state.basket.invoice.invoiceTax,
-                      fontSize: ThemeSelector.fonts.font_12,
+                      fontSize: CommonFontSize.font_12,
                       fontWeight: FontWeight.w500,
                     ),
                   ],
@@ -81,7 +80,7 @@ class PaymentSummaryCard extends StatelessWidget {
                     ),
                     TextCurrency(
                       value: state.basket.invoice.deliveryAreaPrice ?? 0.0,
-                      fontSize: ThemeSelector.fonts.font_12,
+                      fontSize: CommonFontSize.font_12,
                       fontWeight: FontWeight.w500,
                     ),
                   ],
@@ -95,7 +94,7 @@ class PaymentSummaryCard extends StatelessWidget {
                     ),
                     TextCurrency(
                       value: state.basket.invoice.finalPrice ?? 0.0,
-                      fontSize: ThemeSelector.fonts.font_14,
+                      fontSize: CommonFontSize.font_14,
                       fontWeight: FontWeight.w700,
                     ),
                   ],

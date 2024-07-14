@@ -2,28 +2,27 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
-import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/profile/data/sources/profile_source.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/domain/profile/entities/review.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/api_statics.dart';
+import 'package:common_code/common_code.dart';
 
 class ProfileRemoteSrc extends ProfileSrc {
   @override
   Future<Profile> loadProfile(String id) async {
     if (id.isEmpty) throw GenericException();
 
-    final Response res = await DioClient.dio
-        .get('${ApiKeys.getApiKeyString(apiKey: ApiKeys.profile)}/$id');
+    final Response res = await APIClient()
+        .get('${EndPoints.getApiKeyString(apiKey: EndPoints.profile)}/$id');
 
     if (res.statusCode != 200) throw ServerException();
 
     return Profile.fromJson(res.data).copyWith(
       updatedBy: '366',
-      email: G.rd<UserCubit>().state.user.email,
+      email: G().rd<UserCubit>().state.user.email,
     );
   }
 
@@ -36,8 +35,8 @@ class ProfileRemoteSrc extends ProfileSrc {
 
     if (id.isEmpty) throw GenericException();
     try {
-      response = await DioClient.dio.put<dynamic>(
-        '${ApiKeys.getApiKeyString(apiKey: ApiKeys.profile)}?id=$id',
+      response = await APIClient().put<dynamic>(
+        '${EndPoints.getApiKeyString(apiKey: EndPoints.profile)}?id=$id',
         data: data,
       );
       result = response.data;
@@ -54,7 +53,7 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response<String> res;
 
     try {
-      res = await DioClient.dio.delete<String>('/accounts?isDelete=true');
+      res = await APIClient().delete<String>('/accounts?isDelete=true');
     } catch (e) {
       throw ServerException();
     }
@@ -66,8 +65,7 @@ class ProfileRemoteSrc extends ProfileSrc {
   @override
   Future<String> getMobileOTP() async {
     try {
-      final call =
-          await DioClient.dio.post<dynamic>('/accounts/mobileverified');
+      final call = await APIClient().post<dynamic>('/accounts/mobileverified');
 
       return call.data['otp'];
     } catch (e) {
@@ -80,7 +78,7 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response<String> res;
 
     try {
-      res = await DioClient.dio.put<String>(
+      res = await APIClient().put<String>(
         '/accounts/mobileverified?OTP=$otp',
       );
     } catch (e) {
@@ -96,7 +94,7 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response res;
 
     try {
-      res = await DioClient.dio.get(
+      res = await APIClient().get(
         '/accounts/review',
       );
     } catch (e) {
@@ -115,7 +113,7 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response res;
 
     try {
-      res = await DioClient.dio.post(
+      res = await APIClient().post(
         '/accounts/password?mail=$email',
       );
     } catch (e) {
@@ -131,7 +129,7 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response res;
 
     try {
-      res = await DioClient.dio.post(
+      res = await APIClient().post(
         '/accounts/password/mobile?mobile=$mobile',
       );
     } catch (e) {
@@ -151,7 +149,7 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response<String> res;
 
     try {
-      res = await DioClient.dio.put<String>(
+      res = await APIClient().put<String>(
         '/accounts/password',
         data: {
           'OTP': otp,
@@ -177,7 +175,7 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response<dynamic> res;
 
     try {
-      res = await DioClient.dio.put<dynamic>(
+      res = await APIClient().put<dynamic>(
         '/accounts/password/mobile',
         data: {
           'OTP': otp,
@@ -198,7 +196,7 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response res;
 
     try {
-      res = await DioClient.dio.post(
+      res = await APIClient().post(
         '/accounts/emailverified?email=$email',
       );
     } catch (e) {

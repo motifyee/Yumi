@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/password_validator.dart';
 
@@ -20,7 +19,7 @@ class PaymentStripeScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+            const SizedBox(height: CommonDimens.defaultBlockGap),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -30,13 +29,13 @@ class PaymentStripeScreen extends StatelessWidget {
                   },
                   child: Icon(
                     Icons.arrow_back,
-                    color: ThemeSelector.colors.primary,
+                    color: CommonColors.primary,
                   ),
                 ),
                 Text(
                   S.of(context).payByPaypal,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        fontSize: ThemeSelector.fonts.font_16,
+                        fontSize: CommonFontSize.font_16,
                       ),
                 ),
                 const TextButton(
@@ -49,7 +48,8 @@ class PaymentStripeScreen extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultBlockGap),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: CommonDimens.defaultBlockGap),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -67,7 +67,8 @@ class PaymentStripeScreen extends StatelessWidget {
                               flex: 2,
                               child: TextFormFieldTemplate(
                                 hintText: S.of(context).password,
-                                borderStyle: TextFormFieldBorderStyle.borderBottom,
+                                borderStyle:
+                                    TextFormFieldBorderStyle.borderBottom,
                                 validators: passwordValidator,
                                 isPassword: true,
                               ),
@@ -93,9 +94,13 @@ class PaymentStripeScreen extends StatelessWidget {
                             context.router.pop();
                           },
                           child: Container(
-                            width: ThemeSelector.statics.defaultGapXXXL,
-                            height: ThemeSelector.statics.defaultTitleGapLarge,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius), border: Border.all(color: ThemeSelector.colors.primary, width: 1)),
+                            width: CommonDimens.defaultGapXXXL,
+                            height: CommonDimens.defaultTitleGapLarge,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                    CommonDimens.defaultBorderRadius),
+                                border: Border.all(
+                                    color: CommonColors.primary, width: 1)),
                             child: Center(
                               child: Text(
                                 S.of(context).cancel,
@@ -104,22 +109,24 @@ class PaymentStripeScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(width: ThemeSelector.statics.defaultGap),
+                        const SizedBox(width: CommonDimens.defaultGap),
                         Hero(
                           tag: 'ConfirmBasketSeries',
                           child: GestureDetector(
                             onTap: () {},
                             child: Container(
-                              width: ThemeSelector.statics.defaultGapXXXL,
-                              height: ThemeSelector.statics.defaultTitleGapLarge,
+                              width: CommonDimens.defaultGapXXXL,
+                              height: CommonDimens.defaultTitleGapLarge,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius),
-                                color: ThemeSelector.colors.primary,
+                                borderRadius: BorderRadius.circular(
+                                    CommonDimens.defaultBorderRadius),
+                                color: CommonColors.primary,
                               ),
                               child: Center(
                                 child: Text(
                                   S.of(context).pay,
-                                  style: Theme.of(context).textTheme.displaySmall,
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
                                 ),
                               ),
                             ),
@@ -127,7 +134,7 @@ class PaymentStripeScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                    const SizedBox(height: CommonDimens.defaultBlockGap),
                   ],
                 ),
               ),

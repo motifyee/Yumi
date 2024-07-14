@@ -1,10 +1,8 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/core/setup/inject.dart';
-import 'package:yumi/core/failures.dart';
+import 'package:common_code/common_code.dart';
 import 'package:yumi/domain/notification/data/repo/notification_repo.dart';
 import 'package:yumi/domain/notification/data/source/notification_source.dart';
 import 'package:yumi/domain/notification/entity/notification.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 class NotificationRepoRemote implements NotificationRepo {
   NotificationSource notificationSource;

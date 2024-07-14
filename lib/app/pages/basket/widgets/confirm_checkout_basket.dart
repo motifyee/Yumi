@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/widgets/confirm_change_location_basket.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class ConfirmCheckOutBasket extends StatelessWidget {
   const ConfirmCheckOutBasket({super.key});
@@ -17,11 +17,10 @@ class ConfirmCheckOutBasket extends StatelessWidget {
       child: Container(
         height: 150,
         width: MediaQuery.of(context).size.width * .9,
-        padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+        padding: const EdgeInsets.all(CommonDimens.defaultGap),
         decoration: BoxDecoration(
-          color: ThemeSelector.colors.background,
-          borderRadius:
-              BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius),
+          color: CommonColors.background,
+          borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadius),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,8 +29,8 @@ class ConfirmCheckOutBasket extends StatelessWidget {
             Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultBlockGap),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: CommonDimens.defaultBlockGap),
                   child: Text(
                     '${S.of(context).hi} ${context.read<UserCubit>().state.user.userName}',
                     style: Theme.of(context).textTheme.titleMedium,
@@ -43,8 +42,8 @@ class ConfirmCheckOutBasket extends StatelessWidget {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultInputGap),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultInputGap),
                     child: RichText(
                       text: TextSpan(
                         children: [
@@ -81,9 +80,9 @@ class ConfirmCheckOutBasket extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .labelSmall
-                          ?.copyWith(fontSize: ThemeSelector.fonts.font_12),
+                          ?.copyWith(fontSize: CommonFontSize.font_12),
                     )),
-                SizedBox(width: ThemeSelector.statics.defaultLineGap),
+                const SizedBox(width: CommonDimens.defaultLineGap),
                 TextButton(
                     onPressed: () {
                       context.router.push(CheckOutRoute());

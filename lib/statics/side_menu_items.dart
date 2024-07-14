@@ -1,28 +1,26 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/dialog.dart';
 import 'package:yumi/app/pages/home/menu_button.dart';
-import 'package:yumi/app/components/text_currency.dart';
 
 class AppMenuList {
   static List<AppMenuItem> appList(BuildContext context) {
-    if (AppTarget.user == AppTargetUser.customers) {
+    if (AppTarget.user == YumiApp.customers) {
       return _AppMenuList.customerList(context: context);
     }
 
-    if (AppTarget.user == AppTargetUser.chefs) {
+    if (AppTarget.user == YumiApp.chefs) {
       return _AppMenuList.chefList(context: context);
     }
 
@@ -42,14 +40,14 @@ class _AppMenuList {
           textLabel: BlocBuilder<NotificationCubit, NotificationState>(
             builder: (context, state) {
               return Container(
-                width: ThemeSelector.statics.defaultInputGap,
-                height: ThemeSelector.statics.defaultInputGap,
+                width: CommonDimens.defaultInputGap,
+                height: CommonDimens.defaultInputGap,
                 decoration: BoxDecoration(
                     color: state.isNewNotification
-                        ? ThemeSelector.colors.primary
+                        ? CommonColors.primary
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(
-                      ThemeSelector.statics.defaultInputGap,
+                      CommonDimens.defaultInputGap,
                     )),
               );
             },
@@ -60,7 +58,7 @@ class _AppMenuList {
           label: S.of(context).mySchedule,
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const MyScheduleRoute());
+            context.router.push(const LoadingRoute());
           },
         ),
         AppMenuItem(
@@ -77,13 +75,13 @@ class _AppMenuList {
                       return FractionallySizedBox(
                         widthFactor: .85,
                         child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: ThemeSelector.statics.defaultGap,
-                              horizontal: ThemeSelector.statics.defaultGap),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: CommonDimens.defaultGap,
+                              horizontal: CommonDimens.defaultGap),
                           decoration: BoxDecoration(
-                            color: ThemeSelector.colors.background,
-                            borderRadius: BorderRadius.circular(ThemeSelector
-                                .statics.defaultBorderRadiusMedium),
+                            color: CommonColors.background,
+                            borderRadius: BorderRadius.circular(
+                                CommonDimens.defaultBorderRadiusMedium),
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -145,10 +143,10 @@ class _AppMenuList {
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
               return state.isLoading
-                  ? Loading(size: ThemeSelector.statics.defaultBlockGap)
+                  ? const Loading(size: CommonDimens.defaultBlockGap)
                   : TextCurrency(
                       value: state.wallet.money ?? 0,
-                      fontSize: ThemeSelector.fonts.font_14);
+                      fontSize: CommonFontSize.font_14);
             },
           ),
           onRender: () {
@@ -207,7 +205,7 @@ class _AppMenuList {
           onPressed: () {
             context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 4));
             // context.router.pop();
-            G.pop();
+            G().pop();
           },
         ),
       ];
@@ -223,14 +221,14 @@ class _AppMenuList {
           textLabel: BlocBuilder<NotificationCubit, NotificationState>(
             builder: (context, state) {
               return Container(
-                width: ThemeSelector.statics.defaultInputGap,
-                height: ThemeSelector.statics.defaultInputGap,
+                width: CommonDimens.defaultInputGap,
+                height: CommonDimens.defaultInputGap,
                 decoration: BoxDecoration(
                     color: state.isNewNotification
-                        ? ThemeSelector.colors.primary
+                        ? CommonColors.primary
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(
-                      ThemeSelector.statics.defaultInputGap,
+                      CommonDimens.defaultInputGap,
                     )),
               );
             },
@@ -264,10 +262,10 @@ class _AppMenuList {
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
               return state.isLoading
-                  ? Loading(size: ThemeSelector.statics.defaultBlockGap)
+                  ? const Loading(size: CommonDimens.defaultBlockGap)
                   : TextCurrency(
                       value: state.wallet.money ?? 0,
-                      fontSize: ThemeSelector.fonts.font_14);
+                      fontSize: CommonFontSize.font_14);
             },
           ),
           onRender: () {
@@ -304,7 +302,7 @@ class _AppMenuList {
             context.router.push(const SettingsRoute());
             // context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 4));
             // context.router.pop();
-            // G.pop();
+            G().pop();
           },
         ),
       ];
@@ -320,14 +318,14 @@ class _AppMenuList {
           textLabel: BlocBuilder<NotificationCubit, NotificationState>(
             builder: (context, state) {
               return Container(
-                width: ThemeSelector.statics.defaultInputGap,
-                height: ThemeSelector.statics.defaultInputGap,
+                width: CommonDimens.defaultInputGap,
+                height: CommonDimens.defaultInputGap,
                 decoration: BoxDecoration(
                     color: state.isNewNotification
-                        ? ThemeSelector.colors.primary
+                        ? CommonColors.primary
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(
-                      ThemeSelector.statics.defaultInputGap,
+                      CommonDimens.defaultInputGap,
                     )),
               );
             },
@@ -339,10 +337,10 @@ class _AppMenuList {
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
               return state.isLoading
-                  ? Loading(size: ThemeSelector.statics.defaultBlockGap)
+                  ? const Loading(size: CommonDimens.defaultBlockGap)
                   : TextCurrency(
                       value: state.wallet.money ?? 0,
-                      fontSize: ThemeSelector.fonts.font_14);
+                      fontSize: CommonFontSize.font_14);
             },
           ),
           onRender: () {
@@ -408,7 +406,7 @@ class _AppMenuList {
           label: S.of(context).setting,
           onPressed: () {
             context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 4));
-            G.pop();
+            G().pop();
           },
         ),
       ];

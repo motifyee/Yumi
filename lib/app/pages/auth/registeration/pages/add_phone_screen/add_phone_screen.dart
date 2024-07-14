@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/registeration_step.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/core/util/constants.dart';
@@ -10,9 +10,6 @@ import 'package:yumi/app/pages/auth/registeration/registeration_screen/registera
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/screen_container.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/email_validator.dart';
 
 @RoutePage()
@@ -62,16 +59,16 @@ class AddPhoneContent extends StatelessWidget {
                           Text(
                             "Hi ${state.split(" ").first},",
                             style: TextStyle(
-                              fontSize: ThemeSelector.fonts.font_24,
+                              fontSize: CommonFontSize.font_24,
                               fontWeight: FontWeight.bold,
-                              color: ThemeSelector.colors.primary,
+                              color: CommonColors.primary,
                             ),
                           ),
                           Text(
                             "Enter your phone number",
                             style: TextStyle(
-                              fontSize: ThemeSelector.fonts.font_10,
-                              color: ThemeSelector.colors.secondaryTant,
+                              fontSize: CommonFontSize.font_10,
+                              color: CommonColors.secondaryTant,
                             ),
                           ),
                           const SizedBox(height: 40),
@@ -126,10 +123,10 @@ Future<void> _getOtp(
     await profileCubit.getProfileForm();
   }()
       .then((_) async {
-    await G.rd<RegCubit>().setMobile(mobileNumber).then((res) {
-      if (res == null) return RegisterationPage.of(context)?.next();
+    await G().rd<RegCubit>().setMobile(mobileNumber).then((res) {
+      if (res == null) return RegisterationPage.of(context)?.done();
 
-      G.snackBar(res);
+      G().snackBar(res);
     });
   });
 }

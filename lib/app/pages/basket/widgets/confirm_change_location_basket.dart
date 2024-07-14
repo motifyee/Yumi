@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class ConfirmChangeLocationBasket extends StatelessWidget {
   const ConfirmChangeLocationBasket({super.key});
@@ -14,23 +14,22 @@ class ConfirmChangeLocationBasket extends StatelessWidget {
       child: Container(
         height: 125,
         width: MediaQuery.of(context).size.width * .9,
-        padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+        padding: const EdgeInsets.all(CommonDimens.defaultGap),
         decoration: BoxDecoration(
-          color: ThemeSelector.colors.background,
-          borderRadius:
-              BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius),
+          color: CommonColors.background,
+          borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadius),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+            const SizedBox(height: CommonDimens.defaultBlockGap),
             Row(
               children: [
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultInputGap),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultInputGap),
                     child: RichText(
                       text: TextSpan(
                         children: [
@@ -60,9 +59,9 @@ class ConfirmChangeLocationBasket extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .labelSmall
-                          ?.copyWith(fontSize: ThemeSelector.fonts.font_12),
+                          ?.copyWith(fontSize: CommonFontSize.font_12),
                     )),
-                SizedBox(width: ThemeSelector.statics.defaultLineGap),
+                const SizedBox(width: CommonDimens.defaultLineGap),
                 TextButton(
                     onPressed: () {
                       context

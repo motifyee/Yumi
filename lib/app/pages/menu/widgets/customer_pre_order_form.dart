@@ -1,18 +1,16 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/domain/basket/entity/invoice.dart';
 import 'package:yumi/domain/basket/entity/invoice_detail.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/calendar.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 class CustomerPreOrderForm extends StatelessWidget {
@@ -36,19 +34,19 @@ class CustomerPreOrderForm extends StatelessWidget {
       builder: (context, state) {
         return Container(
           padding: EdgeInsets.only(
-            left: ThemeSelector.statics.defaultBlockGap,
-            right: ThemeSelector.statics.defaultBlockGap,
-            top: ThemeSelector.statics.defaultGapExtreme,
+            left: CommonDimens.defaultBlockGap,
+            right: CommonDimens.defaultBlockGap,
+            top: CommonDimens.defaultGapExtreme,
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-              color: ThemeSelector.colors.background,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(
-                    ThemeSelector.statics.defaultBorderRadiusExtreme),
-                topLeft: Radius.circular(
-                    ThemeSelector.statics.defaultBorderRadiusExtreme),
+              color: CommonColors.background,
+              borderRadius: const BorderRadius.only(
+                topRight:
+                    Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+                topLeft:
+                    Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
               )),
           width: MediaQuery.of(context).size.width,
           constraints: BoxConstraints(
@@ -61,7 +59,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                 children: [
                   Text(S.of(context).preOrder,
                       style: Theme.of(context).textTheme.labelLarge),
-                  SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                  const SizedBox(height: CommonDimens.defaultBlockGap),
                   Row(
                     children: [
                       Text(
@@ -78,19 +76,19 @@ class CustomerPreOrderForm extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                  const SizedBox(height: CommonDimens.defaultBlockGap),
                   Row(
                     children: [
                       SizedBox(
-                        width: ThemeSelector.statics.defaultGapExtreme,
+                        width: CommonDimens.defaultGapExtreme,
                         child: Text(
                           '${S.of(context).day}:',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
-                      SizedBox(width: ThemeSelector.statics.defaultMicroGap),
+                      const SizedBox(width: CommonDimens.defaultMicroGap),
                       SizedBox(
-                        width: ThemeSelector.statics.defaultGapXXXL,
+                        width: CommonDimens.defaultGapXXXL,
                         child: TextFormFieldTemplate(
                           onTap: () {
                             showDialog(
@@ -130,19 +128,19 @@ class CustomerPreOrderForm extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: ThemeSelector.statics.defaultMicroGap),
+                  const SizedBox(height: CommonDimens.defaultMicroGap),
                   Row(
                     children: [
                       SizedBox(
-                        width: ThemeSelector.statics.defaultGapExtreme,
+                        width: CommonDimens.defaultGapExtreme,
                         child: Text(
                           '${S.of(context).time}:',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
-                      SizedBox(width: ThemeSelector.statics.defaultMicroGap),
+                      const SizedBox(width: CommonDimens.defaultMicroGap),
                       SizedBox(
-                        width: ThemeSelector.statics.defaultGapXXXL,
+                        width: CommonDimens.defaultGapXXXL,
                         child: TextFormFieldTemplate(
                           hintText: S.of(context).deliveryTime,
                           textInputType: TextInputType.number,
@@ -171,9 +169,9 @@ class CustomerPreOrderForm extends StatelessWidget {
                                 return Theme(
                                   data: ThemeData.light().copyWith(
                                     colorScheme: ColorScheme.light(
-                                      primary: ThemeSelector.colors.secondary,
-                                      onSurface: ThemeSelector.colors.secondary,
-                                      surface: ThemeSelector.colors.background,
+                                      primary: CommonColors.secondary,
+                                      onSurface: CommonColors.secondary,
+                                      surface: CommonColors.background,
                                     ),
                                   ),
                                   child: MediaQuery(
@@ -192,24 +190,23 @@ class CustomerPreOrderForm extends StatelessWidget {
                           readOnly: true,
                         ),
                       ),
-                      SizedBox(width: ThemeSelector.statics.defaultMicroGap),
+                      const SizedBox(width: CommonDimens.defaultMicroGap),
                     ],
                   ),
-                  SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                  const SizedBox(height: CommonDimens.defaultBlockGap),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
                         onTap: () => Navigator.of(context).pop(),
                         child: Container(
-                          width: ThemeSelector.statics.defaultGapXXXL,
-                          height: ThemeSelector.statics.defaultTitleGapLarge,
+                          width: CommonDimens.defaultGapXXXL,
+                          height: CommonDimens.defaultTitleGapLarge,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(
-                                  ThemeSelector.statics.defaultBorderRadius),
+                                  CommonDimens.defaultBorderRadius),
                               border: Border.all(
-                                  color: ThemeSelector.colors.primary,
-                                  width: 1)),
+                                  color: CommonColors.primary, width: 1)),
                           child: Center(
                             child: Text(
                               S.of(context).cancel,
@@ -218,7 +215,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(width: ThemeSelector.statics.defaultGap),
+                      const SizedBox(width: CommonDimens.defaultGap),
                       GestureDetector(
                         onTap: () {
                           if (preOrderForm.currentState!.validate()) {
@@ -245,12 +242,12 @@ class CustomerPreOrderForm extends StatelessWidget {
                           }
                         },
                         child: Container(
-                          width: ThemeSelector.statics.defaultGapXXXL,
-                          height: ThemeSelector.statics.defaultTitleGapLarge,
+                          width: CommonDimens.defaultGapXXXL,
+                          height: CommonDimens.defaultTitleGapLarge,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(
-                                ThemeSelector.statics.defaultBorderRadius),
-                            color: ThemeSelector.colors.primary,
+                                CommonDimens.defaultBorderRadius),
+                            color: CommonColors.primary,
                           ),
                           child: Center(
                             child: Text(

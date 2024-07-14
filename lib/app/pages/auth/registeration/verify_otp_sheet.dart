@@ -1,13 +1,11 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/count_down_cubit/count_down_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/app/components/otp/otp.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/screen_container.dart';
+import 'package:common_code/components/otp/otp.dart';
 
 enum OTPType {
   email,
@@ -66,16 +64,16 @@ class VerifyOtpSheet extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        padding: EdgeInsets.only(
-          top: ThemeSelector.statics.iconSizeSmall,
+        padding: const EdgeInsets.only(
+          top: CommonDimens.iconSizeSmall,
         ),
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(
-                ThemeSelector.statics.defaultBorderRadiusExtraLarge),
-            topLeft: Radius.circular(
-                ThemeSelector.statics.defaultBorderRadiusExtraLarge),
+          borderRadius: const BorderRadius.only(
+            topRight:
+                Radius.circular(CommonDimens.defaultBorderRadiusExtraLarge),
+            topLeft:
+                Radius.circular(CommonDimens.defaultBorderRadiusExtraLarge),
           ),
           gradient: screenGradient,
         ),
@@ -88,19 +86,18 @@ class VerifyOtpSheet extends StatelessWidget {
               backgroundColor: Colors.transparent,
               bottomOpacity: 0,
               scrolledUnderElevation: 0,
-              // iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
+              // iconTheme: IconThemeData(color: CommonColors.primary),
               leading: IconButton(
-                icon:
-                    Icon(Icons.arrow_back, color: ThemeSelector.colors.primary),
+                icon: Icon(Icons.arrow_back, color: CommonColors.primary),
                 onPressed: () {
-                  // return G.pop(rootNavigator: false);
+                  // return G().pop(rootNavigator: false);
                 },
               )),
           body: Padding(
-            padding: EdgeInsets.only(
-              left: ThemeSelector.statics.defaultBlockGap,
-              right: ThemeSelector.statics.defaultBlockGap,
-              // top: ThemeSelector.statics.defaultGapExtreme,
+            padding: const EdgeInsets.only(
+              left: CommonDimens.defaultBlockGap,
+              right: CommonDimens.defaultBlockGap,
+              // top: CommonDimens.defaultGapExtreme,
             ),
             child: VerifyOTPSheetContent(type: type, otp: otp),
           ),
@@ -166,7 +163,7 @@ class VerifyOTPSheetContent extends StatelessWidget {
         ),
         Padding(
           padding:
-              EdgeInsets.symmetric(vertical: ThemeSelector.statics.defaultGap),
+              const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap),
           child: SizedBox(
             width: 200,
             child: OTP(
@@ -209,14 +206,14 @@ void verifyEmailOTP(BuildContext context, String otp) {
   final reg = context.read<RegCubit>();
   final counter = context.read<CountDownCubit>();
   if (otp.replaceAll(' ', '').length < 4) {
-    return G.snackBar("Invalid OTP!");
+    return G().snackBar("Invalid OTP!");
   }
 
   if (!reg.verifyEmailOTP(otp)) {
-    return G.snackBar("Wrong OTP!");
+    return G().snackBar("Wrong OTP!");
   }
 
-  G.snackBar("Your email was verified successfully");
+  G().snackBar("Your email was verified successfully");
   counter.stop(); // not to emit after close
   Navigator.of(context).pop();
 }
@@ -235,13 +232,13 @@ void verifyMobileOTP(BuildContext context, String otp) async {
   final counter = context.read<CountDownCubit>();
 
   if (otp.length < 4) {
-    return G.snackBar("Invalid OTP!");
+    return G().snackBar("Invalid OTP!");
   }
 
   await profileCubit.verifyMobileOTP(otp).then((value) {
-    if (!value) return G.snackBar("Wrong OTP!");
+    if (!value) return G().snackBar("Wrong OTP!");
 
-    G.snackBar("Your mobile was verified successfully");
+    G().snackBar("Your mobile was verified successfully");
     counter.stop(); // not to emit after close
     Navigator.of(context).pop();
   });

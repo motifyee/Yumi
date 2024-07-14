@@ -1,5 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
+import 'package:common_code/util/global_context.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nested/nested.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
@@ -11,22 +16,24 @@ import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/bankinfo/cubit/bankinfo_cubit.dart';
 import 'package:yumi/app/pages/settings/components/profile/cubit/profile_form_cubit.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
-import 'package:yumi/app/yumi/config/app_config.dart';
+import 'package:yumi/app/yumi/config/chef/chef_routes.dart';
 
 import 'package:yumi/app/yumi/config/customer/customer_routes.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/bloc/app_info/app_info_cubit.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
+import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/theme/theme.dart';
 
 class CustomerAppConfig implements AppConfig {
-  @override
-  AppTargetUser get appTargetUser => AppTargetUser.customers;
-
   final RootStackRouter _appRouter = CustomerRoutes();
   @override
   RootStackRouter get appRouter => _appRouter;
+
+  @override
+  String get appTitle => YumiApp.customers.name;
 
   final List<SingleChildWidget> _providers = [
     BlocProvider(create: (context) => RegCubit()),
@@ -46,4 +53,18 @@ class CustomerAppConfig implements AppConfig {
   ];
   @override
   List<SingleChildWidget> get blocProviders => _providers;
+
+  @override
+  Iterable<LocalizationsDelegate>? get localizationsDelegates => const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ];
+
+  @override
+  Iterable<Locale> get supportedLocales => S.delegate.supportedLocales;
+
+  @override
+  ThemeData? get theme => defaultTheme;
 }

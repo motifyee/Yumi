@@ -1,13 +1,10 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/domain/basket/entity/invoice_detail.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/debouncer.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/text_currency.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 
 class BasketMealCard extends StatelessWidget {
   BasketMealCard(
@@ -21,21 +18,21 @@ class BasketMealCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: ThemeSelector.statics.defaultGap),
+      padding: const EdgeInsets.only(bottom: CommonDimens.defaultGap),
       child: Container(
         decoration: BoxDecoration(
-          color: ThemeSelector.colors.background,
+          color: CommonColors.background,
           boxShadow: [
             BoxShadow(
-                color: ThemeSelector.colors.shadow.withOpacity(.05),
+                color: CommonColors.shadow.withOpacity(.05),
                 blurRadius: 2,
                 offset: const Offset(0, 3))
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: ThemeSelector.statics.defaultTitleGap,
-              vertical: ThemeSelector.statics.defaultLineGap),
+          padding: const EdgeInsets.symmetric(
+              horizontal: CommonDimens.defaultTitleGap,
+              vertical: CommonDimens.defaultLineGap),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -49,17 +46,17 @@ class BasketMealCard extends StatelessWidget {
                           invoiceDetails.meal?.name ?? '',
                           style:
                               Theme.of(context).textTheme.labelLarge?.copyWith(
-                                    fontSize: ThemeSelector.fonts.font_18,
+                                    fontSize: CommonFontSize.font_18,
                                   ),
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(
-                              width: ThemeSelector.statics.defaultGapExtreme,
+                              width: CommonDimens.defaultGapExtreme,
                               child: TextCurrency(
                                 value: invoiceDetails.productVarintPrice ?? 0,
-                                fontSize: ThemeSelector.fonts.font_14,
+                                fontSize: CommonFontSize.font_14,
                               ),
                             ),
                             TextButton(
@@ -90,7 +87,7 @@ class BasketMealCard extends StatelessWidget {
                                       ?.copyWith(fontWeight: FontWeight.w500),
                                 )),
                             SizedBox(
-                              width: ThemeSelector.statics.defaultTitleGapLarge,
+                              width: CommonDimens.defaultTitleGapLarge,
                               child: TextFormFieldTemplate(
                                 isDense: true,
                                 borderStyle:
@@ -139,12 +136,12 @@ class BasketMealCard extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    width: ThemeSelector.statics.defaultGapXXL,
-                    height: ThemeSelector.statics.defaultGapXXL,
+                    width: CommonDimens.defaultGapXXL,
+                    height: CommonDimens.defaultGapXXL,
                     clipBehavior: Clip.hardEdge,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.defaultBorderRadius),
+                          CommonDimens.defaultBorderRadius),
                     ),
                     child: Image.memory(
                       Uri.parse(invoiceDetails.meal?.photo ?? '')
@@ -164,7 +161,7 @@ class BasketMealCard extends StatelessWidget {
                 S.of(context).specialRequest,
                 style: Theme.of(context).textTheme.labelLarge,
               ),
-              SizedBox(height: ThemeSelector.statics.defaultLineGap),
+              const SizedBox(height: CommonDimens.defaultLineGap),
               TextFormFieldTemplate(
                 isDense: true,
                 borderStyle: TextFormFieldBorderStyle.borderNone,

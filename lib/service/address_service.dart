@@ -1,14 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:yumi/domain/address/entity/address.dart';
-import 'package:yumi/statics/api_statics.dart';
+import 'package:common_code/common_code.dart';
 
 class AddressService {
   static Future<dynamic> getAddresses(
       {required BuildContext context,
       required Map<String, dynamic> pagination,
       Map<String, dynamic>? queryParameters}) async {
-    final Response res = await DioClient.simpleDio(context).get(ApiKeys.address,
+    final Response res = await APIClient().get(EndPoints.address,
         queryParameters: {...pagination, ...?queryParameters});
     return res;
   }
@@ -18,7 +17,7 @@ class AddressService {
     required Address address,
     Map<String, dynamic>? queryParameters,
   }) async {
-    final Response res = await DioClient.simpleDio(context).put(ApiKeys.address,
+    final Response res = await APIClient().put(EndPoints.address,
         data: address.toJson(),
         queryParameters: {'addressid': address.id, ...?queryParameters});
     return res;
@@ -29,8 +28,7 @@ class AddressService {
     required Address address,
     Map<String, dynamic>? queryParameters,
   }) async {
-    final Response res = await DioClient.simpleDio(context).delete(
-        ApiKeys.address,
+    final Response res = await APIClient().delete(EndPoints.address,
         queryParameters: {'addressid': address.id, ...?queryParameters});
     return res;
   }

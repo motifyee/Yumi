@@ -1,3 +1,4 @@
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,14 +8,14 @@ import 'package:yumi/core/setup/awesome_notifications.dart';
 import 'package:yumi/core/setup/crashlyticts.dart';
 import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/api_statics.dart';
+import 'package:common_code/common_code.dart';
 
 Future init() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // to work with custom domains
-  await DioClient.getOriginApi();
+  await BaseUrl.load();
 
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -29,25 +30,27 @@ Future init() async {
 
   await inject();
 
-  G.listenConnectivity();
+  APIClient.getToken = () => G().rd<UserCubit>().state.user.accessToken;
+
+  // G().listenConnectivity();
 }
 
 // class MyBlocDelegate extends BlocDelegate  {
 //   @override
 //   void onEvent(Bloc bloc, Object event) {
-//     print(event);
+//     debugPrint(event);
 //     super.onEvent(bloc, event);
 //   }
 
 //   @override
 //   void onError(Bloc bloc, Object error, StackTrace stackTrace) {
-//     print(error);
+//     debugPrint(error);
 //     super.onError(bloc, error, stackTrace);
 //   }
 
 //   @override
 //   void onTransition(Bloc bloc, Transition transition) {
-//     print(transition);
+//     debugPrint(transition);
 //     super.onTransition(bloc, transition);
 //   }
 // }
@@ -58,8 +61,6 @@ class SimpleBlocObserver extends BlocObserver {
     super.onChange(bloc, change);
     debugPrint('\n${bloc.runtimeType}');
     // ignore: avoid_print
-    print(change);
-    debugPrint('----------------------------------------------------------\n');
   }
 
   @override
@@ -67,8 +68,8 @@ class SimpleBlocObserver extends BlocObserver {
     super.onTransition(bloc, transition);
     debugPrint('\n${bloc.runtimeType} $transition\n');
     // ignore: avoid_print
-    print(transition);
-    debugPrint('----------------------------------------------------------\n');
+    // debugPrint(transition);
+    // debugPrint('----------------------------------------------------------\n');
   }
 
   @override
@@ -76,7 +77,7 @@ class SimpleBlocObserver extends BlocObserver {
     super.onError(bloc, error, stackTrace);
     debugPrint('\n${bloc.runtimeType} $error $stackTrace\n');
     // ignore: avoid_print
-    print(stackTrace);
-    debugPrint('----------------------------------------------------------\n');
+    // debugPrint(stackTrace);
+    // debugPrint('----------------------------------------------------------\n');
   }
 }

@@ -1,7 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/setup/inject.dart';
-import 'package:yumi/core/use_cases.dart';
+import 'package:common_code/common_code.dart';
 import 'package:yumi/domain/vehicle/data/repos/vehicle_repo.dart';
 import 'package:yumi/domain/vehicle/entities/vehicle.dart';
 

@@ -1,13 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/calories/calories_cubit/calories_cubit.dart';
 import 'package:yumi/domain/calories/entity/calorie.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/pagination_template.dart';
 
 @RoutePage()
 class CaloriesReferenceScreen extends StatelessWidget {
@@ -54,7 +53,7 @@ class CaloriesReference extends StatelessWidget {
   Widget _buildBody(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: ThemeSelector.statics.defaultGap),
+        const SizedBox(height: CommonDimens.defaultGap),
         Expanded(
           child: PaginationTemplate(
             scrollDirection: Axis.vertical,
@@ -66,7 +65,7 @@ class CaloriesReference extends StatelessWidget {
                   children: [
                     for (Calorie calorie in state.calories.data)
                       _buildCalorieWidget(context, calorie),
-                    if (state.calories.isLoading) Loading(),
+                    if (state.calories.isLoading) const Loading(),
                   ],
                 );
               },
@@ -79,15 +78,15 @@ class CaloriesReference extends StatelessWidget {
 
   Widget _buildCalorieWidget(BuildContext context, Calorie calorie) {
     return Container(
-      margin: EdgeInsets.symmetric(
-        vertical: ThemeSelector.statics.defaultMicroGap,
+      margin: const EdgeInsets.symmetric(
+        vertical: CommonDimens.defaultMicroGap,
       ),
-      padding: EdgeInsets.symmetric(
-        vertical: ThemeSelector.statics.defaultLineGap,
-        horizontal: ThemeSelector.statics.defaultTitleGap,
+      padding: const EdgeInsets.symmetric(
+        vertical: CommonDimens.defaultLineGap,
+        horizontal: CommonDimens.defaultTitleGap,
       ),
       decoration: BoxDecoration(
-        color: ThemeSelector.colors.backgroundTant,
+        color: CommonColors.backgroundTant,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

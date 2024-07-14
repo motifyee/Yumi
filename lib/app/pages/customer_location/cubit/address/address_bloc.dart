@@ -1,15 +1,15 @@
+import 'package:common_code/common_code.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/domain/address/entity/address.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/address/entity/address.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/service/address_service.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 part 'address_bloc.freezed.dart';
 part 'address_event.dart';
@@ -35,7 +35,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     List<Address> address =
         [...event.address, ...state.addressList].unique((x) => x.id);
 
-    G
+    G()
         .rd<UserCubit>()
         .saveLocation(address.firstWhere((e) => e.isDefault == true));
 
@@ -64,7 +64,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
           context: event.context,
           pagination: {...state.pagination.toJson(), 'id': event.id}
             ..removeWhere((e, v) => v == null));
-      print(res.data);
+      debugPrint(res.data);
 
       List<Address> data = [];
       data = res.data.map<Address>((value) {

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/domain/address/entity/address.dart';
+import 'package:common_code/domain/address/entity/address.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/domain/chef/entity/chef_work_status.dart';
 import 'package:yumi/domain/chef/use_cases/add_favourite_chef.dart';
@@ -8,9 +8,9 @@ import 'package:yumi/domain/chef/use_cases/get_chefs.dart';
 import 'package:yumi/domain/chef/use_cases/get_favourite_chefs.dart';
 import 'package:yumi/domain/chef/use_cases/is_favourite_chef.dart';
 import 'package:yumi/domain/chef/use_cases/remove_favourite_chef.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:common_code/domain/entities/pagination.dart';
 
 part 'chef_state.dart';
 part 'chef_cubit.freezed.dart';
@@ -22,7 +22,7 @@ class ChefsCubit extends Cubit<ChefsState> {
     required bool isPreOrder,
     ChefWorkStatus? status,
   }) async {
-    Address? userLocation = G.rd<UserCubit>().state.address;
+    Address? userLocation = G().rd<UserCubit>().state.address;
     if (userLocation?.latitude == null) return;
     if (userLocation?.longitude == null) return;
 
@@ -58,7 +58,7 @@ class ChefsCubit extends Cubit<ChefsState> {
   }
 
   Future<void> getFavouriteChefs() async {
-    Address? userLocation = G.rd<UserCubit>().state.address;
+    Address? userLocation = G().rd<UserCubit>().state.address;
 
     if (userLocation?.latitude == null || userLocation?.longitude == null) {
       return;

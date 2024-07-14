@@ -1,32 +1,35 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yumi/app/components/google_map/util/geo_location_permission.dart';
+import 'package:common_code/components/google_map/util/geo_location_permission.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/onboarding_screen/onboarding_steps.dart';
-import 'package:yumi/app/pages/auth/registeration/pages/signup_screen/entity/signup_data.dart';
+import 'package:common_code/domain/auth/entities/signup_data.dart';
 import 'package:yumi/app/pages/auth/registeration/repository/address_repo.dart';
 import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/count_down_cubit/count_down_cubit.dart';
+import 'package:yumi/app/yumi/config/chef/chef_routes.dart';
 import 'package:yumi/domain/vehicle/entities/vehicle.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/onboarding_screen/entity/onboarding.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
-import 'package:yumi/domain/address/entity/address.dart';
-import 'package:yumi/domain/auth/use_cases/login_with_email.dart';
-import 'package:yumi/domain/auth/use_cases/signup.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
-import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/use_cases.dart';
+import 'package:common_code/domain/address/entity/address.dart';
+import 'package:common_code/domain/auth/use_cases/login_with_email.dart';
+import 'package:common_code/domain/auth/use_cases/signup.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/util/status.dart';
+import 'package:common_code/core/failures.dart';
+import 'package:common_code/core/use_cases.dart';
 import 'package:yumi/domain/profile/use_cases/get_otp.dart';
 import 'package:yumi/domain/profile/use_cases/verify_add_mobile_otp.dart';
 import 'package:yumi/domain/profile/use_cases/verify_email.dart';
@@ -34,9 +37,9 @@ import 'package:yumi/domain/vehicle/use_cases/add_vehicle.dart';
 import 'package:yumi/domain/vehicle/use_cases/get_vehicle.dart';
 import 'package:yumi/extensions/string.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/domain/auth/entities/login_data.dart';
+import 'package:common_code/domain/auth/entities/login_data.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/code_generator.dart';
+import 'package:common_code/util/code_generator.dart';
 import 'package:yumi/core/util/util.dart';
 
 part 'reg_cubit.freezed.dart';
@@ -106,7 +109,7 @@ abstract class RegState with _$RegState {
   factory RegState.initial() => const RegState();
 
   Future<bool> get canAddVehicle async {
-    var regCub = G.rd<RegCubit>();
+    var regCub = G().rd<RegCubit>();
 
     regCub.setRidesLoading();
     final task = await GetVehicle().call(NoParams());
@@ -135,14 +138,14 @@ class RegCubit extends Cubit<RegState> {
   }
 
   Future<bool> hasActiveRegisteration() async {
-    return await G.prefs.then((prefs) {
+    return await G().prefs.then((prefs) {
       if ((prefs.getBool(partialFlowKey) ?? false)) return false;
 
       return prefs.getInt(regStepKey) != null;
     });
   }
 
-  void init({bool partialFlow = false, int lastStep = -1}) async {
+  Future<void> initReg({bool partialFlow = false, int lastStep = -1}) async {
     setLoading();
 
     //return finish();
@@ -151,7 +154,7 @@ class RegCubit extends Cubit<RegState> {
     var pref = await SharedPreferences.getInstance();
     var step = pref.getInt(regStepKey) ?? 0;
 
-    if (G.rd<UserCubit>().state.user.accessToken.isEmpty) step = 0;
+    if (G().rd<UserCubit>().state.user.accessToken.isEmpty) step = 0;
 
     if (!state.registerationStarted) {
       emit(
@@ -174,22 +177,22 @@ class RegCubit extends Cubit<RegState> {
       );
     }
 
-    if (step >= 0) navigateToIdx(step);
+    if (step >= 0) await navigateToIdx(step);
 
     await loadOnboardingProgress();
 
     if (step > 0) {
-      await G.rd<ProfileCubit>().getProfileForm();
-      if (G.isDriverApp) await getVehicle();
-      if (G.isChefApp) {
-        G.rd<MealCubit>().reset();
-        G
+      await G().rd<ProfileCubit>().getProfileForm();
+      if (G().isDriverApp) await getVehicle();
+      if (G().isChefApp) {
+        G().rd<MealCubit>().reset();
+        G()
             .rd<MealCubit>()
-            .updateMeals(chefId: G.rd<UserCubit>().state.user.chefId);
+            .updateMeals(chefId: G().rd<UserCubit>().state.user.chefId);
       }
-      if (!G.isCustomerApp) {
-        G.rd<ScheduleCubit>().reset();
-        await G.rd<ScheduleCubit>().loadSchedule();
+      if (!G().isCustomerApp) {
+        G().rd<ScheduleCubit>().reset();
+        await G().rd<ScheduleCubit>().loadSchedule();
       }
     }
 
@@ -197,7 +200,7 @@ class RegCubit extends Cubit<RegState> {
   }
 
   Future<void> finish([bool login = true]) async {
-    final user = G.rd<UserCubit>().state.user;
+    final user = G().rd<UserCubit>().state.user;
 
     if (!login || user.email.isEmpty || (user.password ?? '').isEmpty) {
       return _gotoHomePageAndFinish();
@@ -212,15 +215,15 @@ class RegCubit extends Cubit<RegState> {
     task.fold(
       (l) => _gotoHomePageAndFinish(),
       (r) async {
-        await G.rd<UserCubit>().saveUser(r);
-        await G.rd<UserCubit>().saveLocation(Address.fromJson(r.toJson()));
+        await G().rd<UserCubit>().saveUser(r);
+        await G().rd<UserCubit>().saveLocation(Address.fromJson(r.toJson()));
         _gotoHomePageAndFinish();
       },
     );
   }
 
   Future<void> _gotoHomePageAndFinish() async {
-    await G.router.replaceAll([HomeRoute()]).then(
+    await G().router.replaceAll([HomeRoute()]).then(
       (value) => reset(finished: true),
     );
   }
@@ -245,11 +248,14 @@ class RegCubit extends Cubit<RegState> {
 // -----------------------------------------------------------------------------
 // Account
 
-  bool setAccount(SignupData signupData, [bool navigateToNext = false]) {
+  Future<bool> setAccount(
+    SignupData signupData, [
+    bool navigateToNext = false,
+  ]) async {
     // TODO keep in storage
 
     emit(state.copyWith(signupData: signupData));
-    if (navigateToNext) navigateToIdx(1);
+    if (navigateToNext) await navigateToIdx(1);
     return true;
   }
 
@@ -263,8 +269,8 @@ class RegCubit extends Cubit<RegState> {
         return false;
       },
       (r) {
-        G.rd<UserCubit>().saveUser(r).then((_) {
-          G.rd<ProfileCubit>().getProfileForm();
+        G().rd<UserCubit>().saveUser(r).then((_) {
+          G().rd<ProfileCubit>().getProfileForm();
         });
         return true;
       },
@@ -308,13 +314,13 @@ class RegCubit extends Cubit<RegState> {
 // Mobile
 
   Future<String?> setMobile(String phone) async {
-    var profile = G.rd<ProfileCubit>().state.form.copyWith(mobile: phone);
-    var update = await G.rd<ProfileCubit>().updateProfileForm(profile);
+    var profile = G().rd<ProfileCubit>().state.form.copyWith(mobile: phone);
+    var update = await G().rd<ProfileCubit>().updateProfileForm(profile);
 
     // final update = await UpdateProfile().call(UpdateProfileParam(profile));
     if (update == null) {
       emit(state.copyWith(status: Status.error));
-      return G
+      return G()
           .rd<ProfileCubit>()
           .state
           .form
@@ -356,13 +362,12 @@ class RegCubit extends Cubit<RegState> {
 
     verify.fold(
       (l) => emit(state.copyWith(status: Status.error)),
-      (r) {
-        emit(state.copyWith(status: Status.success));
+      (r) async {
         stopCountDown();
 
         if (state.lastStep == RegStep.addPhone.index) {
-          G.rd<ProfileCubit>().getProfileForm();
-          return G.pop();
+          G().rd<ProfileCubit>().getProfileForm();
+          return G().pop();
         }
         navigateToIdx(3);
       },
@@ -388,7 +393,7 @@ class RegCubit extends Cubit<RegState> {
         emit(state.copyWith(addressStatus: Status.success));
 
         if (routeFn != null) return routeFn(address: state.address);
-        if (G.isCustomerApp) return finish(true);
+        if (G().isCustomerApp) return finish(true);
         return await navigateToIdx(4);
       }
 
@@ -440,20 +445,20 @@ class RegCubit extends Cubit<RegState> {
   }
 
   void nextButtonPressed() async {
-    var context = G.context;
+    var context = G().context;
     setLoading();
 
-    await context.read<ProfileCubit>().getProfileForm().then((value) {
+    await context.read<ProfileCubit>().getProfileForm().then((value) async {
       setLoading(false);
 
-      var stepsInfo = G.isChefApp
+      var stepsInfo = G().isChefApp
           ? chefOnboardingSteps(context, state)
           : driverOnboardingSteps(context, state);
 
       var idx = onboardingProgress;
       if (idx < stepsInfo.length) return stepsInfo[idx].onTap();
 
-      finish(true);
+      await finish(true);
     });
   }
 
@@ -500,15 +505,15 @@ class RegCubit extends Cubit<RegState> {
     if (step > 4) step = 4;
     if (step < 0) step = 0;
     if (!Platform.isAndroid && !Platform.isIOS && step == 3) step = 4;
-    if (G.isCustomerApp && step == 4) return finish(true);
+    if (G().isCustomerApp && step == 4) return finish(true);
 
-    var path = G.router.currentPath;
+    var path = G().router.currentPath;
 
     // if (path.contains('/login')) return;
     if (!state.registerationStarted) return;
     if (path == '/registeration/${RegStep.values[step].name}') return;
 
-    await G.router.navigate(RegisterationRoute(children: [_getPage(step)]));
+    await G().router.navigate(RegisterationRoute(children: [_getPage(step)]));
     final storageKey = VerifyOtpSheet.storageKey(OTPType.email);
     if (step == 0) {
       // if (await hasActiveCountDown(storageKey: storageKey)) {
@@ -536,19 +541,19 @@ class RegCubit extends Cubit<RegState> {
   Future<void> reset({bool finished = false}) async {
     emit(RegState(finished: finished));
 
-    await G.prefs.then((prefs) async {
+    await G().prefs.then((prefs) async {
       await prefs.remove(regStepKey);
       await prefs.remove(partialFlowKey);
       await prefs.remove(onboardingProgressKey);
     });
 
-    G.rd<ProfileCubit>().reset();
-    if (!G.isCustomerApp) {
-      G.rd<ScheduleCubit>().reset();
-      G.rd<DocsCubit>().reset();
+    G().rd<ProfileCubit>().reset();
+    if (!G().isCustomerApp) {
+      G().rd<ScheduleCubit>().reset();
+      G().rd<DocsCubit>().reset();
     }
-    if (G.isChefApp) {
-      G.rd<MealCubit>().reset();
+    if (G().isChefApp) {
+      G().rd<MealCubit>().reset();
     }
   }
 }

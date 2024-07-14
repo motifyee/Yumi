@@ -1,23 +1,23 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class DeleteDialogTemplate extends StatefulWidget {
-  DeleteDialogTemplate({
+  const DeleteDialogTemplate({
     super.key,
     required this.actions,
     required this.title,
     required this.content,
   });
 
-  Future<bool> Function() actions;
-  String title;
-  String content;
+  final Future<bool> Function() actions;
+  final String title;
+  final String content;
 
   @override
   State<DeleteDialogTemplate> createState() => _DeleteDialogTemplateState();
@@ -29,7 +29,7 @@ class _DeleteDialogTemplateState extends State<DeleteDialogTemplate> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: ThemeSelector.colors.background,
+      backgroundColor: CommonColors.background,
       surfaceTintColor: Colors.transparent,
       titleTextStyle: Theme.of(context).textTheme.headlineMedium?.copyWith(
             fontWeight: FontWeight.w700,
@@ -38,7 +38,7 @@ class _DeleteDialogTemplateState extends State<DeleteDialogTemplate> {
         children: [
           SvgPicture.asset(
             'assets/images/trash.svg',
-            height: ThemeSelector.fonts.font_12,
+            height: CommonFontSize.font_12,
           ),
           const Text(' '),
           Text(widget.title),
@@ -67,10 +67,10 @@ class _DeleteDialogTemplateState extends State<DeleteDialogTemplate> {
                       }));
             },
             child: isDeletingLoading
-                ? SizedBox(
-                    width: ThemeSelector.statics.defaultTitleGapLarge,
+                ? const SizedBox(
+                    width: CommonDimens.defaultTitleGapLarge,
                     child: Loading(
-                      size: ThemeSelector.statics.defaultBlockGap,
+                      size: CommonDimens.defaultBlockGap,
                     ),
                   )
                 : Text(S.of(context).delete)),

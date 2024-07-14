@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/use_cases.dart';
+import 'package:common_code/core/failures.dart';
+import 'package:common_code/core/use_cases.dart';
 import 'package:yumi/domain/bank_info/entities/bankinfo_model.dart';
 import 'package:yumi/domain/bank_info/use_cases/add_bank_info.dart';
 import 'package:yumi/domain/bank_info/use_cases/get_bank_info.dart';

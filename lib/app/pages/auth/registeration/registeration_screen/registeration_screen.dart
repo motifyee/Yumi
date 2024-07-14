@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/core/resources/app_assets.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/app/components/dialog.dart';
+import 'package:common_code/components/dialog.dart';
 
 @RoutePage()
 class RegisterationScreen extends StatelessWidget {
@@ -20,10 +20,8 @@ class RegisterationScreen extends StatelessWidget {
 
     return Builder(
       builder: (context) {
-        G.rd<UserCubit>().loadUser().then((_) {
-          if (!regCubit.state.registerationStarted) {
-            regCubit.init();
-          }
+        G().rd<UserCubit>().loadUser().then((_) {
+          if (!regCubit.state.registerationStarted) regCubit.initReg();
         });
 
         if (regCubit.state.partialFlow) return const AutoRouter();
@@ -69,9 +67,9 @@ Future<void> askToLogout(BuildContext context, {bool isBack = false}) async {
     ),
     actions: {
       'Cancel': null,
-      'Ok': (ctx) {
-        G.rd<UserCubit>().reset();
-        G.rd<RegCubit>().finish(false);
+      'Ok': (ctx) async {
+        await G().rd<UserCubit>().reset();
+        await G().rd<RegCubit>().finish(false);
       },
     },
     insetPadding: 0,

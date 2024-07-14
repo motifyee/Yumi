@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/menu/widgets/offer_card.dart';
 
 class OfferCarousel extends StatefulWidget {
@@ -11,31 +11,31 @@ class OfferCarousel extends StatefulWidget {
   List<dynamic> items = [
     {
       'id': 1,
-      'color': ThemeSelector.colors.primary,
+      'color': CommonColors.primary,
       'percent': 30,
       'image': "assets/images/humbarger.png"
     },
     {
       'id': 2,
-      'color': ThemeSelector.colors.secondary,
+      'color': CommonColors.secondary,
       'percent': 15,
       'image': "assets/images/soup.png"
     },
     {
       'id': 3,
-      'color': ThemeSelector.colors.warning,
+      'color': CommonColors.warning,
       'percent': 20,
       'image': "assets/images/pizza.png"
     },
     {
       'id': 4,
-      'color': ThemeSelector.colors.success,
+      'color': CommonColors.success,
       'percent': 10,
       'image': "assets/images/salad.png"
     },
     {
       'id': 5,
-      'color': ThemeSelector.colors.secondary,
+      'color': CommonColors.secondary,
       'percent': 15,
       'image': "assets/images/soup.png"
     },
@@ -96,25 +96,25 @@ class _OfferCarouselState extends State<OfferCarousel> {
               offer: widget.items[widget.index],
             )),
         Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: ThemeSelector.statics.defaultGapXXL),
+          padding: const EdgeInsets.symmetric(
+              horizontal: CommonDimens.defaultGapXXL),
           child: SingleChildScrollView(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 for (var i = 0; i < widget.items.length; i++)
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultMicroGap),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultMicroGap),
                     child: Container(
-                      width: ThemeSelector.statics.defaultInputGap,
-                      height: ThemeSelector.statics.defaultInputGap,
+                      width: CommonDimens.defaultInputGap,
+                      height: CommonDimens.defaultInputGap,
                       decoration: BoxDecoration(
                         color: widget.index == i
-                            ? ThemeSelector.colors.primary
-                            : ThemeSelector.colors.secondaryFaint,
-                        borderRadius: BorderRadius.circular(
-                            ThemeSelector.statics.defaultInputGap),
+                            ? CommonColors.primary
+                            : CommonColors.secondaryFaint,
+                        borderRadius:
+                            BorderRadius.circular(CommonDimens.defaultInputGap),
                       ),
                     ),
                   ),

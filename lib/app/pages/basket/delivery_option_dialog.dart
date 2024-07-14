@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/basket/widgets/confirm_checkout_basket.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class DeliveryOptionDialog extends StatelessWidget {
   const DeliveryOptionDialog({super.key});
@@ -17,11 +17,10 @@ class DeliveryOptionDialog extends StatelessWidget {
       child: Container(
         height: 150,
         width: MediaQuery.of(context).size.width * .9,
-        padding: EdgeInsets.all(ThemeSelector.statics.defaultGap),
+        padding: const EdgeInsets.all(CommonDimens.defaultGap),
         decoration: BoxDecoration(
-          color: ThemeSelector.colors.background,
-          borderRadius:
-              BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius),
+          color: CommonColors.background,
+          borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadius),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,8 +29,8 @@ class DeliveryOptionDialog extends StatelessWidget {
             Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ThemeSelector.statics.defaultBlockGap),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: CommonDimens.defaultBlockGap),
                   child: Text(
                     '${S.of(context).hi} ${context.read<UserCubit>().state.user.userName}',
                     style: Theme.of(context).textTheme.titleMedium,
@@ -47,8 +46,8 @@ class DeliveryOptionDialog extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ThemeSelector.statics.defaultGap),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: CommonDimens.defaultGap),
                         child: TextButton(
                           onPressed: () {
                             context
@@ -58,16 +57,16 @@ class DeliveryOptionDialog extends StatelessWidget {
                           child: Row(
                             children: [
                               Container(
-                                width: ThemeSelector.statics.defaultLineGap,
-                                height: ThemeSelector.statics.defaultLineGap,
+                                width: CommonDimens.defaultLineGap,
+                                height: CommonDimens.defaultLineGap,
                                 decoration: BoxDecoration(
                                     color: option != true
-                                        ? ThemeSelector.colors.primary
-                                        : ThemeSelector.colors.secondaryFaint,
+                                        ? CommonColors.primary
+                                        : CommonColors.secondaryFaint,
                                     borderRadius: BorderRadius.circular(
-                                        ThemeSelector.statics.defaultLineGap)),
+                                        CommonDimens.defaultLineGap)),
                               ),
-                              SizedBox(width: ThemeSelector.statics.defaultGap),
+                              const SizedBox(width: CommonDimens.defaultGap),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
@@ -85,8 +84,8 @@ class DeliveryOptionDialog extends StatelessWidget {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ThemeSelector.statics.defaultGap),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: CommonDimens.defaultGap),
                         child: TextButton(
                           onPressed: () {
                             context
@@ -96,17 +95,17 @@ class DeliveryOptionDialog extends StatelessWidget {
                           child: Row(
                             children: [
                               Container(
-                                width: ThemeSelector.statics.defaultLineGap,
-                                height: ThemeSelector.statics.defaultLineGap,
+                                width: CommonDimens.defaultLineGap,
+                                height: CommonDimens.defaultLineGap,
                                 decoration: BoxDecoration(
                                   color: option == true
-                                      ? ThemeSelector.colors.primary
-                                      : ThemeSelector.colors.secondaryFaint,
+                                      ? CommonColors.primary
+                                      : CommonColors.secondaryFaint,
                                   borderRadius: BorderRadius.circular(
-                                      ThemeSelector.statics.defaultLineGap),
+                                      CommonDimens.defaultLineGap),
                                 ),
                               ),
-                              SizedBox(width: ThemeSelector.statics.defaultGap),
+                              const SizedBox(width: CommonDimens.defaultGap),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
@@ -138,9 +137,9 @@ class DeliveryOptionDialog extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .labelSmall
-                          ?.copyWith(fontSize: ThemeSelector.fonts.font_12),
+                          ?.copyWith(fontSize: CommonFontSize.font_12),
                     )),
-                SizedBox(width: ThemeSelector.statics.defaultLineGap),
+                const SizedBox(width: CommonDimens.defaultLineGap),
                 TextButton(
                     onPressed: () {
                       context.router.maybePop();

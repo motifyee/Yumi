@@ -1,7 +1,8 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
@@ -9,10 +10,8 @@ import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/meal_profile/meal_profile.dart';
-import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';
 import 'package:yumi/app/pages/menu/widgets/chef_meal_basket_card.dart';
-import 'package:yumi/app/components/pagination_template.dart';
 
 class FavoritesScreen extends StatelessWidget {
   FavoritesScreen({super.key});
@@ -31,7 +30,8 @@ class FavoritesScreen extends StatelessWidget {
         return BlocBuilder<NewsBloc, NewsState>(
           builder: (context, state) {
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultBlockGap),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: CommonDimens.defaultBlockGap),
               child: Column(
                 children: [
                   Row(
@@ -39,44 +39,61 @@ class FavoritesScreen extends StatelessWidget {
                     children: [
                       SvgPicture.asset(
                         'assets/images/heart.svg',
-                        height: ThemeSelector.statics.defaultInputGap,
-                        colorFilter: ColorFilter.mode(ThemeSelector.colors.secondary, BlendMode.srcIn),
+                        height: CommonDimens.defaultInputGap,
+                        colorFilter: ColorFilter.mode(
+                            CommonColors.secondary, BlendMode.srcIn),
                       ),
-                      SizedBox(width: ThemeSelector.statics.defaultGap),
+                      const SizedBox(width: CommonDimens.defaultGap),
                       Text(
-                        state.selectedList == 0 ? S.of(context).chefs : S.of(context).meals,
+                        state.selectedList == 0
+                            ? S.of(context).chefs
+                            : S.of(context).meals,
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
                       Expanded(child: Container()),
                       GestureDetector(
                         onTap: () {
                           favPageController.jumpToPage(0);
-                          context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
+                          context
+                              .read<NewsBloc>()
+                              .add(const NewsEvent(selectedList: 0));
                         },
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultInputGap),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: CommonDimens.defaultInputGap),
                           child: SvgPicture.asset(
                             'assets/images/users.svg',
-                            colorFilter: ColorFilter.mode(state.selectedList == 0 ? ThemeSelector.colors.primary : ThemeSelector.colors.secondary, BlendMode.srcIn),
+                            colorFilter: ColorFilter.mode(
+                                state.selectedList == 0
+                                    ? CommonColors.primary
+                                    : CommonColors.secondary,
+                                BlendMode.srcIn),
                           ),
                         ),
                       ),
                       GestureDetector(
                         onTap: () {
                           favPageController.jumpToPage(1);
-                          context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
+                          context
+                              .read<NewsBloc>()
+                              .add(const NewsEvent(selectedList: 1));
                         },
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultInputGap),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: CommonDimens.defaultInputGap),
                           child: SvgPicture.asset(
                             'assets/images/meals.svg',
-                            colorFilter: ColorFilter.mode(state.selectedList == 1 ? ThemeSelector.colors.primary : ThemeSelector.colors.secondary, BlendMode.srcIn),
+                            colorFilter: ColorFilter.mode(
+                                state.selectedList == 1
+                                    ? CommonColors.primary
+                                    : CommonColors.secondary,
+                                BlendMode.srcIn),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: ThemeSelector.statics.defaultGap),
+                  const SizedBox(height: CommonDimens.defaultGap),
                   Expanded(
                     child: PageView(
                       controller: favPageController,
@@ -84,26 +101,34 @@ class FavoritesScreen extends StatelessWidget {
                       children: [
                         PaginationTemplate(
                           scrollDirection: Axis.vertical,
-                          loadDate: () => context.read<ChefsCubit>().getFavouriteChefs(),
+                          loadDate: () =>
+                              context.read<ChefsCubit>().getFavouriteChefs(),
                           child: BlocConsumer<ChefsCubit, ChefsState>(
                             listener: (context, state) {},
                             builder: (context, state) {
                               return Padding(
-                                padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: CommonDimens.defaultGap),
                                 child: Column(
                                   children: [
                                     for (var chef in state.chefs)
                                       ChefBanner(
                                         menuTarget: MenuTarget.preOrder,
                                         chef: chef,
-                                        width: MediaQuery.of(context).size.width - (ThemeSelector.statics.defaultGap * 10),
-                                        height: ThemeSelector.statics.defaultImageHeightSmall,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(ThemeSelector.statics.defaultBorderRadius),
-                                          topRight: Radius.circular(ThemeSelector.statics.defaultBorderRadius),
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                (CommonDimens.defaultGap * 10),
+                                        height: CommonDimens
+                                            .defaultImageHeightSmall,
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(
+                                              CommonDimens.defaultBorderRadius),
+                                          topRight: Radius.circular(
+                                              CommonDimens.defaultBorderRadius),
                                         ),
                                       ),
-                                    if (state.chefsPagination.isLoading) Loading(),
+                                    if (state.chefsPagination.isLoading)
+                                      const Loading(),
                                   ],
                                 ),
                               );
@@ -122,7 +147,8 @@ class FavoritesScreen extends StatelessWidget {
                                 children: [
                                   for (Meal meal in state.pagination.data)
                                     Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: CommonDimens.defaultGap),
                                       child: Column(
                                         children: [
                                           ChefMealBasketCard(
@@ -131,22 +157,30 @@ class FavoritesScreen extends StatelessWidget {
                                             onTap: () {
                                               showModalBottomSheet(
                                                 context: context,
-                                                builder: (context) => MealProfileScreen(
+                                                builder: (context) =>
+                                                    MealProfileScreen(
                                                   meal: meal,
                                                   chef: Chef(id: meal.chefId),
                                                 ),
-                                                backgroundColor: Colors.transparent,
-                                                scrollControlDisabledMaxHeightRatio: 1,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                scrollControlDisabledMaxHeightRatio:
+                                                    1,
                                               ).then((value) {
-                                                context.read<MealCubit>().reset();
-                                                context.read<MealCubit>().getFavoriteMeals();
+                                                context
+                                                    .read<MealCubit>()
+                                                    .reset();
+                                                context
+                                                    .read<MealCubit>()
+                                                    .getFavoriteMeals();
                                               });
                                             },
                                           ),
                                         ],
                                       ),
                                     ),
-                                  if (state.pagination.isLoading) Loading(),
+                                  if (state.pagination.isLoading)
+                                    const Loading(),
                                 ],
                               );
                             },

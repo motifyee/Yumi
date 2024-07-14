@@ -1,16 +1,13 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/app/components/otp/otp.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/screen_container.dart';
+import 'package:common_code/components/otp/otp.dart';
 
 @RoutePage()
 class OTPScreen extends StatelessWidget {
@@ -19,7 +16,7 @@ class OTPScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var otp = '';
-    final regCubit = G.rd<RegCubit>();
+    final regCubit = G().rd<RegCubit>();
 
     return PopScope(
       canPop: regCubit.state.partialFlow ? true : false,
@@ -42,9 +39,9 @@ class OTPScreen extends StatelessWidget {
                       Text(
                         "OTP Verification",
                         style: TextStyle(
-                          fontSize: ThemeSelector.fonts.font_24,
+                          fontSize: CommonFontSize.font_24,
                           fontWeight: FontWeight.bold,
-                          color: ThemeSelector.colors.primary,
+                          color: CommonColors.primary,
                         ),
                       ),
                       BlocSelector<RegCubit, RegState, String?>(
@@ -56,16 +53,16 @@ class OTPScreen extends StatelessWidget {
                                 TextSpan(
                                   text: "Enter the OTP sent to ",
                                   style: TextStyle(
-                                    fontSize: ThemeSelector.fonts.font_10,
-                                    color: ThemeSelector.colors.secondaryTant,
+                                    fontSize: CommonFontSize.font_10,
+                                    color: CommonColors.secondaryTant,
                                   ),
                                 ),
                                 TextSpan(
                                   text: phone,
                                   style: TextStyle(
-                                    fontSize: ThemeSelector.fonts.font_12,
+                                    fontSize: CommonFontSize.font_12,
                                     fontWeight: FontWeight.bold,
-                                    color: ThemeSelector.colors.secondary,
+                                    color: CommonColors.secondary,
                                   ),
                                 )
                               ],
@@ -100,9 +97,9 @@ class OTPScreen extends StatelessWidget {
                           Text(
                             "Didn't receive an OTP?  ",
                             style: TextStyle(
-                              fontSize: ThemeSelector.fonts.font_12,
+                              fontSize: CommonFontSize.font_12,
                               fontWeight: FontWeight.normal,
-                              color: ThemeSelector.colors.secondaryTant,
+                              color: CommonColors.secondaryTant,
                             ),
                           ),
                           BlocSelector<RegCubit, RegState, int?>(
@@ -119,9 +116,9 @@ class OTPScreen extends StatelessWidget {
                                       ? countDown.toString()
                                       : "Resend OTP",
                                   style: TextStyle(
-                                    fontSize: ThemeSelector.fonts.font_12,
+                                    fontSize: CommonFontSize.font_12,
                                     fontWeight: FontWeight.normal,
-                                    color: ThemeSelector.colors.primary,
+                                    color: CommonColors.primary,
                                   ),
                                 ),
                               );
@@ -140,7 +137,7 @@ class OTPScreen extends StatelessWidget {
                                 .verifyMobileOTP(otp)
                                 .then((value) {
                               if (regCubit.state.status.isError) {
-                                G.snackBar('Failed verify OTP. Try again!');
+                                G().snackBar('Failed verify OTP. Try again!');
                               }
                             });
                           }),

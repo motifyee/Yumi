@@ -1,15 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
 import 'package:yumi/core/resources/app_assets.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 
 @RoutePage()
 class CheckOutScreen extends StatelessWidget {
@@ -26,18 +26,19 @@ class CheckOutScreen extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
         leading: TextButton(
             onPressed: () {
-              context.router.popForced();
+              //* context.router.popForced();
+              G().router.pop();
             },
             child: Icon(
               Icons.arrow_back,
-              color: ThemeSelector.colors.primary,
+              color: CommonColors.primary,
             )),
         title: Column(
           children: [
             Text(
               S.of(context).checkout,
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    fontSize: ThemeSelector.fonts.font_16,
+                    fontSize: CommonFontSize.font_16,
                   ),
             ),
             Text(
@@ -50,8 +51,8 @@ class CheckOutScreen extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) => Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: ThemeSelector.statics.defaultTitleGap),
+          padding: const EdgeInsets.symmetric(
+              horizontal: CommonDimens.defaultTitleGap),
           child: SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
@@ -64,45 +65,42 @@ class CheckOutScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                        const SizedBox(height: CommonDimens.defaultBlockGap),
                         Text(
                           S.of(context).payWith,
                           style:
                               Theme.of(context).textTheme.labelLarge?.copyWith(
-                                    fontSize: ThemeSelector.fonts.font_18,
+                                    fontSize: CommonFontSize.font_18,
                                   ),
                         ),
-                        SizedBox(height: ThemeSelector.statics.defaultGap),
+                        const SizedBox(height: CommonDimens.defaultGap),
                         GestureDetector(
                           onTap: () {
                             _option = PaymentOption.visa;
                             context.router.push(const PaymentVisaRoute());
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    ThemeSelector.statics.defaultInputGap),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: CommonDimens.defaultInputGap),
                             child: Row(
                               children: [
                                 Container(
-                                  width: ThemeSelector.statics.defaultLineGap,
-                                  height: ThemeSelector.statics.defaultLineGap,
+                                  width: CommonDimens.defaultLineGap,
+                                  height: CommonDimens.defaultLineGap,
                                   decoration: BoxDecoration(
                                       color: _option == PaymentOption.visa
-                                          ? ThemeSelector.colors.primary
-                                          : ThemeSelector.colors.secondaryFaint,
+                                          ? CommonColors.primary
+                                          : CommonColors.secondaryFaint,
                                       borderRadius: BorderRadius.circular(
-                                          ThemeSelector
-                                              .statics.defaultLineGap)),
+                                          CommonDimens.defaultLineGap)),
                                 ),
-                                SizedBox(
-                                    width: ThemeSelector.statics.defaultGap),
+                                const SizedBox(width: CommonDimens.defaultGap),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SvgPicture.asset(
                                       AppAssets.addVisaCardIcon,
-                                      height: ThemeSelector.fonts.font_12,
+                                      height: CommonFontSize.font_12,
                                     ),
                                     const Text(' '),
                                     Text(
@@ -117,36 +115,33 @@ class CheckOutScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: ThemeSelector.statics.defaultGap),
+                        const SizedBox(height: CommonDimens.defaultGap),
                         GestureDetector(
                           onTap: () {
                             _option = PaymentOption.wallet;
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    ThemeSelector.statics.defaultInputGap),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: CommonDimens.defaultInputGap),
                             child: Row(
                               children: [
                                 Container(
-                                  width: ThemeSelector.statics.defaultLineGap,
-                                  height: ThemeSelector.statics.defaultLineGap,
+                                  width: CommonDimens.defaultLineGap,
+                                  height: CommonDimens.defaultLineGap,
                                   decoration: BoxDecoration(
                                       color: _option == PaymentOption.wallet
-                                          ? ThemeSelector.colors.primary
-                                          : ThemeSelector.colors.secondaryFaint,
+                                          ? CommonColors.primary
+                                          : CommonColors.secondaryFaint,
                                       borderRadius: BorderRadius.circular(
-                                          ThemeSelector
-                                              .statics.defaultLineGap)),
+                                          CommonDimens.defaultLineGap)),
                                 ),
-                                SizedBox(
-                                    width: ThemeSelector.statics.defaultGap),
+                                const SizedBox(width: CommonDimens.defaultGap),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SvgPicture.asset(
                                       AppAssets.scheduleMenuIcon,
-                                      height: ThemeSelector.fonts.font_12,
+                                      height: CommonFontSize.font_12,
                                     ),
                                     const Text(' '),
                                     Text(
@@ -161,7 +156,7 @@ class CheckOutScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: ThemeSelector.statics.defaultGap),
+                        const SizedBox(height: CommonDimens.defaultGap),
                       ],
                     ),
                     Column(
@@ -171,7 +166,7 @@ class CheckOutScreen extends StatelessWidget {
                           S.of(context).saveOnYourOrder,
                           style:
                               Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontSize: ThemeSelector.fonts.font_18,
+                                    fontSize: CommonFontSize.font_18,
                                   ),
                         ),
                         TextFormFieldTemplate(
@@ -179,19 +174,21 @@ class CheckOutScreen extends StatelessWidget {
                           borderStyle: TextFormFieldBorderStyle.borderedRound,
                           hintText: S.of(context).enterVoucherCode,
                           prefixIcon: Container(
-                            padding: EdgeInsets.all(
-                                ThemeSelector.statics.defaultInputGap),
+                            padding: const EdgeInsets.all(
+                                CommonDimens.defaultInputGap),
                             child: SvgPicture.asset(AppAssets.voucherIcon),
                           ),
                           suffixIcon: TextButton(
                             onPressed: () {
-                              if (voucherController.value.text.isNotEmpty) context.read<BasketCubit>().addVoucher(voucher: voucherController.value.text);
+                              if (voucherController.value.text.isNotEmpty) {
+                                context.read<BasketCubit>().addVoucher(
+                                    voucher: voucherController.value.text);
+                              }
                             },
                             child: Text(
                               S.of(context).submit,
                               style: TextStyle(
-                                color:
-                                    ThemeSelector.colors.secondaryTantLighter,
+                                color: CommonColors.secondaryTantLighter,
                               ),
                             ),
                           ),
@@ -229,16 +226,12 @@ class CheckOutScreen extends StatelessWidget {
                                       context.read<BasketCubit>().closeBasket();
                                     },
                                     child: Container(
-                                      width:
-                                          ThemeSelector.statics.defaultGapXXXL *
-                                              1.5,
-                                      height: ThemeSelector
-                                          .statics.defaultTitleGapLarge,
+                                      width: CommonDimens.defaultGapXXXL * 1.5,
+                                      height: CommonDimens.defaultTitleGapLarge,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(
-                                            ThemeSelector
-                                                .statics.defaultBorderRadius),
-                                        color: ThemeSelector.colors.primary,
+                                            CommonDimens.defaultBorderRadius),
+                                        color: CommonColors.primary,
                                       ),
                                       child: Center(
                                         child: Text(
@@ -255,7 +248,7 @@ class CheckOutScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+                        const SizedBox(height: CommonDimens.defaultBlockGap),
                       ],
                     ),
                   ],

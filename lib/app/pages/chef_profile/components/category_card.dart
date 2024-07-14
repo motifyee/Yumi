@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:yumi/domain/categories/entity/category.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class CategoriesCard extends StatelessWidget {
   const CategoriesCard({super.key, required this.category});
@@ -12,32 +12,31 @@ class CategoriesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        top: ThemeSelector.statics.defaultMicroGap,
-        bottom: ThemeSelector.statics.defaultMicroGap,
-        right: ThemeSelector.statics.defaultMicroGap,
+      padding: const EdgeInsets.only(
+        top: CommonDimens.defaultMicroGap,
+        bottom: CommonDimens.defaultMicroGap,
+        right: CommonDimens.defaultMicroGap,
       ),
       child: Container(
-        padding: EdgeInsets.all(ThemeSelector.statics.defaultMicroGap),
+        padding: const EdgeInsets.all(CommonDimens.defaultMicroGap),
         decoration: BoxDecoration(
-            color: ThemeSelector.colors.background,
-            borderRadius:
-                BorderRadius.circular(ThemeSelector.statics.defaultGapExtreme),
+            color: CommonColors.background,
+            borderRadius: BorderRadius.circular(CommonDimens.defaultGapExtreme),
             boxShadow: [
               BoxShadow(
-                color: ThemeSelector.colors.shadow,
-                blurRadius: ThemeSelector.statics.defaultGap,
+                color: CommonColors.shadow,
+                blurRadius: CommonDimens.defaultGap,
               )
             ]),
         child: Row(
           children: [
             Container(
-              width: ThemeSelector.statics.defaultBlockGap,
-              height: ThemeSelector.statics.defaultBlockGap,
+              width: CommonDimens.defaultBlockGap,
+              height: CommonDimens.defaultBlockGap,
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                      ThemeSelector.statics.defaultBlockGap)),
+                  borderRadius:
+                      BorderRadius.circular(CommonDimens.defaultBlockGap)),
               child: Image.memory(
                 Uri.parse(category.image ?? '').data?.contentAsBytes() ??
                     Uint8List(0),
@@ -49,13 +48,13 @@ class CategoriesCard extends StatelessWidget {
               ),
             ),
             Container(
-              width: ThemeSelector.statics.defaultTitleGap,
-              height: ThemeSelector.statics.defaultBlockGap,
-              padding: EdgeInsets.only(
-                  top: ThemeSelector.statics.defaultMicroGap,
-                  bottom: ThemeSelector.statics.defaultMicroGap,
-                  left: ThemeSelector.statics.defaultMicroGap,
-                  right: ThemeSelector.statics.defaultMicroGap),
+              width: CommonDimens.defaultTitleGap,
+              height: CommonDimens.defaultBlockGap,
+              padding: const EdgeInsets.only(
+                  top: CommonDimens.defaultMicroGap,
+                  bottom: CommonDimens.defaultMicroGap,
+                  left: CommonDimens.defaultMicroGap,
+                  right: CommonDimens.defaultMicroGap),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -63,7 +62,7 @@ class CategoriesCard extends StatelessWidget {
                     category.name ?? '',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                          fontSize: ThemeSelector.fonts.font_9,
+                          fontSize: CommonFontSize.font_9,
                         ),
                   ),
                 ],

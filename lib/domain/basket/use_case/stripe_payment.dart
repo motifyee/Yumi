@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:fpdart/src/either.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/use_cases.dart';
+import 'package:common_code/core/failures.dart';
+import 'package:common_code/core/use_cases.dart';
+import 'package:fpdart/fpdart.dart';
 
 class StripePayment extends UseCase<bool, bool> {
   @override
@@ -34,7 +34,7 @@ class StripePayment extends UseCase<bool, bool> {
     );
     await Stripe.instance.presentPaymentSheet();
 
-    return Right(true);
+    return const Right(true);
   }
 }
 

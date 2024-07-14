@@ -1,10 +1,10 @@
+import 'package:common_code/common_code.dart';
+import 'package:common_code/domain/auth/entities/signup_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/app/components/interactive_button/interactive_button.dart';
-import 'package:yumi/app/components/interactive_button/interactive_button_style.dart';
-import 'package:yumi/app/components/stateful_wrapper/stateful_wrapper.dart';
+import 'package:common_code/components/stateful_wrapper/stateful_wrapper.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/registeration_step.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/signup_screen/cubit/signup_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
@@ -13,9 +13,6 @@ import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/regex.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/confirm_password_validator.dart';
 import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/password_validator.dart';
@@ -149,20 +146,20 @@ class SignUpForm extends StatelessWidget {
       child: Form(
         child: Builder(builder: (context) {
           return Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ThemeSelector.statics.formFieldInlineGap),
+            padding: const EdgeInsets.symmetric(
+                horizontal: CommonDimens.formFieldInlineGap),
             child: Column(
               children: [
                 fullNameField,
-                SizedBox(height: ThemeSelector.statics.formFieldGap),
+                const SizedBox(height: CommonDimens.formFieldGap),
                 userNameField,
-                SizedBox(height: ThemeSelector.statics.formFieldGap),
+                const SizedBox(height: CommonDimens.formFieldGap),
                 emailRow,
-                SizedBox(height: ThemeSelector.statics.formFieldGap),
+                const SizedBox(height: CommonDimens.formFieldGap),
                 passwordField,
-                SizedBox(height: ThemeSelector.statics.formFieldGap),
+                const SizedBox(height: CommonDimens.formFieldGap),
                 confirmPasswordField,
-                SizedBox(height: ThemeSelector.statics.defaultGap),
+                const SizedBox(height: CommonDimens.defaultGap),
                 // Create Account Button
                 InteractiveButton(
                   label: S.of(context).createAccount,
@@ -184,14 +181,14 @@ Future<void> _showOTPSheet(BuildContext context) async {
 
   signupCubit.setSheetIsActive(true);
   await showModalBottomSheet(
-    context: G.context, // context mush have a scaffold
+    context: G().context, // context mush have a scaffold
     isScrollControlled: true,
     enableDrag: true,
     sheetAnimationStyle: AnimationStyle(curve: Curves.bounceIn),
     backgroundColor: Colors.transparent,
     builder: (context) => VerifyOtpSheetProvider(
-      value: G.rd<RegCubit>().state.willVerifyEmail ?? '',
-      // otp: G.rd<RegCubit>().state.emailOTP,
+      value: G().rd<RegCubit>().state.willVerifyEmail ?? '',
+      // otp: G().rd<RegCubit>().state.emailOTP,
     ),
   );
 
@@ -202,17 +199,17 @@ Future<void> _sendEmailVerificationOtp(
   BuildContext context,
   SignupCubit signupCubit,
 ) async {
-  final regCubit = G.rd<RegCubit>();
+  final regCubit = G().rd<RegCubit>();
 
   if ((regCubit.state.verifiedEmail ?? '').isNotEmpty &&
       regCubit.state.verifiedEmail == regCubit.state.willVerifyEmail) {
-    return G.snackBar(
+    return G().snackBar(
       "${regCubit.state.verifiedEmail} is already verified",
     );
   }
 
   if (!emailStructure(regCubit.state.willVerifyEmail)) {
-    return G.snackBar("Please enter a valid email");
+    return G().snackBar("Please enter a valid email");
   }
 
   final storageKey = VerifyOtpSheet.storageKey(OTPType.email);
@@ -239,12 +236,12 @@ Future<void> _sendEmailVerificationOtp(
   await regCubit.getEmailOTP(regCubit.state.willVerifyEmail!).then(
     (sent) async {
       if (!sent) {
-        return G.snackBar(
+        return G().snackBar(
           "Please enter a valid email, nothing sent!",
         );
       }
 
-      G.snackBar("Verification code sent");
+      G().snackBar("Verification code sent");
 
       // signupCubit.showSheet(() => showOTPSheet());
       _showOTPSheet(context);
@@ -256,7 +253,7 @@ Future<void> _signUp(
   BuildContext context, [
   bool skipEmailVerification = false,
 ]) async {
-  final reg = G.rd<RegCubit>();
+  final reg = G().rd<RegCubit>();
 
   if (!Form.of(context).validate()) return;
 
@@ -265,14 +262,15 @@ Future<void> _signUp(
   } else if ((reg.state.verifiedEmail != reg.state.willVerifyEmail ||
       reg.state.willVerifyEmail == null ||
       reg.state.willVerifyEmail!.isEmpty)) {
-    return G.snackBar("Please verify your email");
+    return G().snackBar("Please verify your email");
   }
 
   Form.of(context).save();
 
   await reg.signup().then((v) {
-    if (!v) return G.snackBar(reg.state.singupError);
+    if (!v) return G().snackBar(reg.state.singupError);
 
-    RegisterationPage.of(context)?.next();
+    final rp = RegisterationPage.of(context);
+    rp?.done();
   });
 }

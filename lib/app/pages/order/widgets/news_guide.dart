@@ -1,13 +1,10 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/domain/user/entity/user.dart';
-import 'package:yumi/statics/local_storage.dart';
-import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/order/widgets/location.dart';
-import 'package:yumi/app/components/screen_container.dart';
 import 'package:yumi/app/pages/order/widgets/status_button.dart';
 
 class NewsGuide extends StatelessWidget {
@@ -18,27 +15,25 @@ class NewsGuide extends StatelessWidget {
     return Container(
       height: 550,
       clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
-        topRight:
-            Radius.circular(ThemeSelector.statics.defaultBorderRadiusExtreme),
-        topLeft:
-            Radius.circular(ThemeSelector.statics.defaultBorderRadiusExtreme),
+        topRight: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+        topLeft: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
       )),
       child: ScreenContainer(
         child: Container(
-          padding: EdgeInsets.only(
-              top: ThemeSelector.statics.defaultBorderRadiusExtreme / 2,
-              left: ThemeSelector.statics.defaultBlockGap,
-              right: ThemeSelector.statics.defaultBlockGap,
+          padding: const EdgeInsets.only(
+              top: CommonDimens.defaultBorderRadiusExtreme / 2,
+              left: CommonDimens.defaultBlockGap,
+              right: CommonDimens.defaultBlockGap,
               bottom: 0),
           width: MediaQuery.of(context).size.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ThemeSelector.statics.defaultGap),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: CommonDimens.defaultGap),
                 width: MediaQuery.of(context).size.width,
                 child: Text(
                   '${S.of(context).hi} ${context.read<UserCubit>().state.user.userName},',
@@ -50,7 +45,7 @@ class NewsGuide extends StatelessWidget {
                 S.of(context).thisSectionYourSavedAddress,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: ThemeSelector.fonts.font_16,
+                      fontSize: CommonFontSize.font_16,
                     ),
               ),
               StatusButton(forGuide: UserStatus.online),
@@ -58,7 +53,7 @@ class NewsGuide extends StatelessWidget {
                 S.of(context).thisButtonMeansThatYouAreCurrentlyAvailable,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: ThemeSelector.fonts.font_16,
+                      fontSize: CommonFontSize.font_16,
                     ),
               ),
               StatusButton(forGuide: UserStatus.offline),
@@ -66,7 +61,7 @@ class NewsGuide extends StatelessWidget {
                 S.of(context).thisButtonMeansThatYouAreCurrentlyClosed,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: ThemeSelector.fonts.font_16,
+                      fontSize: CommonFontSize.font_16,
                     ),
               ),
               StatusButton(forGuide: UserStatus.busy),
@@ -74,7 +69,7 @@ class NewsGuide extends StatelessWidget {
                 S.of(context).thisButtonMeansThatYouAreCurrentlyNotAvailable,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: ThemeSelector.fonts.font_16,
+                      fontSize: CommonFontSize.font_16,
                     ),
               ),
               Row(
@@ -92,7 +87,7 @@ class NewsGuide extends StatelessWidget {
                       )),
                 ],
               ),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
+              const SizedBox(height: CommonDimens.defaultGap),
             ],
           ),
         ),

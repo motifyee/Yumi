@@ -1,18 +1,14 @@
 import 'package:collection/collection.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/core/use_cases.dart';
 import 'package:yumi/domain/vehicle/entities/vehicle.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/domain/vehicle/use_cases/get_vehicle.dart';
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/dialog.dart';
-import 'package:yumi/app/components/screen_container.dart';
 
 class RidesScreen extends StatelessWidget {
   const RidesScreen({super.key});
@@ -35,7 +31,7 @@ class RidesScreen extends StatelessWidget {
     String vehicleOtherType = '';
     var node = FocusNode();
 
-    var regCubit = G.rd<RegCubit>();
+    var regCubit = G().rd<RegCubit>();
     () async {
       if (regCubit.state.vehicle.typeCode != 0) return;
 
@@ -55,13 +51,13 @@ class RidesScreen extends StatelessWidget {
     return ScreenContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: G.rd<RegCubit>().state.registerationStarted
+        appBar: G().rd<RegCubit>().state.registerationStarted
             ? null
             : AppBar(
                 backgroundColor: Colors.transparent,
                 bottomOpacity: 0,
                 scrolledUnderElevation: 0,
-                iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
+                iconTheme: IconThemeData(color: CommonColors.primary),
               ),
         body: BlocBuilder<RegCubit, RegState>(
           builder: (context, state) {
@@ -87,7 +83,7 @@ class RidesScreen extends StatelessWidget {
               children: vehicles.mapIndexed(buildToggleButton).toList(),
               onPressed: (int idx) async {
                 regCubit.state.canAddVehicle.then((bool canSetVehicle) {
-                  var regCubit = G.rd<RegCubit>();
+                  var regCubit = G().rd<RegCubit>();
 
                   if (canSetVehicle) {
                     regCubit.setVehicleType(vehicles[idx]);
@@ -96,7 +92,8 @@ class RidesScreen extends StatelessWidget {
                   }
 
                   regCubit.setVehicleType(regCubit.state.vehicle);
-                  return G.snackBar("You can'nt update your vehicle type now.");
+                  return G()
+                      .snackBar("You can'nt update your vehicle type now.");
                 });
               },
             );
@@ -112,11 +109,11 @@ class RidesScreen extends StatelessWidget {
               },
               onTapOutside: (evt) {
                 if (vehicleOtherType.length < 3) {
-                  return G.snackBar(
+                  return G().snackBar(
                       "Custom vehicle type must be at least 3 characters long");
                 }
 
-                G.rd<RegCubit>().setVehicleType(
+                G().rd<RegCubit>().setVehicleType(
                     state.vehicle.copyWithVehicleType(vehicleOtherType));
               },
               decoration: const InputDecoration(
@@ -171,8 +168,8 @@ void addYourVehicleDialog(BuildContext context, {bool firstTime = true}) {
           Text(
             '         Now',
             style: TextStyle(
-              color: ThemeSelector.colors.primary,
-              fontSize: ThemeSelector.fonts.font_14,
+              color: CommonColors.primary,
+              fontSize: CommonFontSize.font_14,
             ),
           ),
           const SizedBox(height: 16),
@@ -180,8 +177,8 @@ void addYourVehicleDialog(BuildContext context, {bool firstTime = true}) {
             firstTime
                 ? '         Please spicify your vehicle type.'
                 : '         You should add your vehicle to continue.',
-            style: TextStyle(
-              fontSize: ThemeSelector.fonts.font_14,
+            style: const TextStyle(
+              fontSize: CommonFontSize.font_14,
             ),
           ),
         ],

@@ -1,22 +1,21 @@
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/domain/basket/entity/invoice_detail.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/app/pages/menu/widgets/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_list_card.dart';
-import 'package:yumi/app/components/pagination_template.dart';
 
 class MealListScreen extends StatelessWidget {
   MealListScreen(
@@ -41,17 +40,15 @@ class MealListScreen extends StatelessWidget {
     }
     return Container(
       decoration: BoxDecoration(
-          color: ThemeSelector.colors.background,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(
-                ThemeSelector.statics.defaultBorderRadiusExtreme),
-            topRight: Radius.circular(
-                ThemeSelector.statics.defaultBorderRadiusExtreme),
+          color: CommonColors.background,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+            topRight: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
           )),
-      padding: EdgeInsets.only(
-        top: ThemeSelector.statics.defaultGapExtreme,
-        left: ThemeSelector.statics.defaultBlockGap,
-        right: ThemeSelector.statics.defaultBlockGap,
+      padding: const EdgeInsets.only(
+        top: CommonDimens.defaultGapExtreme,
+        left: CommonDimens.defaultBlockGap,
+        right: CommonDimens.defaultBlockGap,
       ),
       child: PageView(
         controller: favPageController,
@@ -84,12 +81,12 @@ class _MealList extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset(
                 'assets/images/chef_meals_list_icon.svg',
-                height: ThemeSelector.statics.defaultInputGap,
-                colorFilter: ColorFilter.mode(
-                    ThemeSelector.colors.secondary, BlendMode.srcIn),
+                height: CommonDimens.defaultInputGap,
+                colorFilter:
+                    ColorFilter.mode(CommonColors.secondary, BlendMode.srcIn),
               ),
             ),
-            SizedBox(width: ThemeSelector.statics.defaultGap),
+            const SizedBox(width: CommonDimens.defaultGap),
             Text(
               S.of(context).dishName,
               style: Theme.of(context).textTheme.labelLarge,
@@ -109,8 +106,8 @@ class _MealList extends StatelessWidget {
                         ? const SizedBox.shrink()
                         : Row(
                             children: [
-                              SizedBox(
-                                  width: ThemeSelector.statics.defaultMicroGap),
+                              const SizedBox(
+                                  width: CommonDimens.defaultMicroGap),
                               GestureDetector(
                                 onTap: () {
                                   context.read<MealCubit>().reset();
@@ -119,14 +116,12 @@ class _MealList extends StatelessWidget {
                                       .updateCategory(selectedCategory: 0);
                                 },
                                 child: Container(
-                                    padding: EdgeInsets.all(
-                                        ThemeSelector.statics.defaultMicroGap),
+                                    padding: const EdgeInsets.all(
+                                        CommonDimens.defaultMicroGap),
                                     decoration: BoxDecoration(
-                                        color:
-                                            ThemeSelector.colors.backgroundTant,
+                                        color: CommonColors.backgroundTant,
                                         borderRadius: BorderRadius.circular(
-                                            ThemeSelector
-                                                .statics.defaultMicroGap)),
+                                            CommonDimens.defaultMicroGap)),
                                     child: Row(
                                       children: [
                                         Text(
@@ -135,9 +130,9 @@ class _MealList extends StatelessWidget {
                                               .textTheme
                                               .labelSmall,
                                         ),
-                                        SizedBox(
-                                            width: ThemeSelector
-                                                .statics.defaultMicroGap),
+                                        const SizedBox(
+                                            width:
+                                                CommonDimens.defaultMicroGap),
                                         Text(
                                           'x',
                                           style: Theme.of(context)
@@ -156,12 +151,12 @@ class _MealList extends StatelessWidget {
                 favPageController.jumpToPage(0);
               },
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ThemeSelector.statics.defaultInputGap),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: CommonDimens.defaultInputGap),
                 child: SvgPicture.asset(
                   'assets/images/chef_meals_list.svg',
-                  colorFilter: ColorFilter.mode(
-                      ThemeSelector.colors.primary, BlendMode.srcIn),
+                  colorFilter:
+                      ColorFilter.mode(CommonColors.primary, BlendMode.srcIn),
                 ),
               ),
             ),
@@ -170,8 +165,8 @@ class _MealList extends StatelessWidget {
                 favPageController.jumpToPage(1);
               },
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ThemeSelector.statics.defaultInputGap),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: CommonDimens.defaultInputGap),
                 child: SvgPicture.asset(
                   'assets/images/meals.svg',
                 ),
@@ -179,7 +174,7 @@ class _MealList extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: ThemeSelector.statics.defaultGap),
+        const SizedBox(height: CommonDimens.defaultGap),
         Expanded(
           child: LayoutBuilder(
             builder: (context, constraints) => PaginationTemplate(
@@ -193,8 +188,8 @@ class _MealList extends StatelessWidget {
                 listener: (context, state) {},
                 builder: (context, state) {
                   return Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultGap),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultGap),
                     child: ConstrainedBox(
                       constraints:
                           BoxConstraints(minHeight: constraints.maxHeight),
@@ -251,7 +246,7 @@ class _MealList extends StatelessWidget {
                                 },
                               ),
                             if (state.pagination.isLoading)
-                              Expanded(child: Loading()),
+                              const Expanded(child: Loading()),
                           ],
                         ),
                       ),
@@ -285,12 +280,12 @@ class _CategoriesList extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset(
                 'assets/images/chef_meals_list_icon.svg',
-                height: ThemeSelector.statics.defaultInputGap,
-                colorFilter: ColorFilter.mode(
-                    ThemeSelector.colors.secondary, BlendMode.srcIn),
+                height: CommonDimens.defaultInputGap,
+                colorFilter:
+                    ColorFilter.mode(CommonColors.secondary, BlendMode.srcIn),
               ),
             ),
-            SizedBox(width: ThemeSelector.statics.defaultGap),
+            const SizedBox(width: CommonDimens.defaultGap),
             Text(
               S.of(context).cuisines,
               style: Theme.of(context).textTheme.labelLarge,
@@ -301,8 +296,8 @@ class _CategoriesList extends StatelessWidget {
                 favPageController.jumpToPage(0);
               },
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ThemeSelector.statics.defaultInputGap),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: CommonDimens.defaultInputGap),
                 child: SvgPicture.asset(
                   'assets/images/chef_meals_list.svg',
                 ),
@@ -313,18 +308,18 @@ class _CategoriesList extends StatelessWidget {
                 favPageController.jumpToPage(1);
               },
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ThemeSelector.statics.defaultInputGap),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: CommonDimens.defaultInputGap),
                 child: SvgPicture.asset(
                   'assets/images/meals.svg',
-                  colorFilter: ColorFilter.mode(
-                      ThemeSelector.colors.primary, BlendMode.srcIn),
+                  colorFilter:
+                      ColorFilter.mode(CommonColors.primary, BlendMode.srcIn),
                 ),
               ),
             ),
           ],
         ),
-        SizedBox(height: ThemeSelector.statics.defaultGap),
+        const SizedBox(height: CommonDimens.defaultGap),
         Expanded(
           child: LayoutBuilder(
             builder: (context, constraints) => PaginationTemplate(
@@ -355,26 +350,23 @@ class _CategoriesList extends StatelessWidget {
                                 favPageController.jumpToPage(0);
                               },
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        ThemeSelector.statics.defaultGap),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: CommonDimens.defaultGap),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
                                         width:
                                             MediaQuery.of(context).size.width,
-                                        height: ThemeSelector
-                                            .statics.defaultImageHeightSmall,
+                                        height: CommonDimens
+                                            .defaultImageHeightSmall,
                                         clipBehavior: Clip.hardEdge,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(
-                                                ThemeSelector
-                                                    .statics.defaultGap),
+                                                CommonDimens.defaultGap),
                                             topRight: Radius.circular(
-                                                ThemeSelector
-                                                    .statics.defaultGap),
+                                                CommonDimens.defaultGap),
                                           ),
                                         ),
                                         child: Image.memory(
@@ -392,13 +384,11 @@ class _CategoriesList extends StatelessWidget {
                                             alignment: Alignment.topCenter,
                                           ),
                                         )),
-                                    SizedBox(
-                                        height:
-                                            ThemeSelector.statics.defaultGap),
+                                    const SizedBox(
+                                        height: CommonDimens.defaultGap),
                                     Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              ThemeSelector.statics.defaultGap),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: CommonDimens.defaultGap),
                                       child: Text(
                                         category.name ?? '',
                                         style: Theme.of(context)
@@ -406,15 +396,14 @@ class _CategoriesList extends StatelessWidget {
                                             .labelLarge,
                                       ),
                                     ),
-                                    SizedBox(
-                                        height:
-                                            ThemeSelector.statics.defaultGap),
+                                    const SizedBox(
+                                        height: CommonDimens.defaultGap),
                                   ],
                                 ),
                               ),
                             ),
                           if (state.categoriesPage.isLoading)
-                            Expanded(child: Loading()),
+                            const Expanded(child: Loading()),
                         ],
                       ),
                     ),
