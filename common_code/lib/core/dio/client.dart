@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:common_code/common_code.dart';
-import 'package:common_code/core/dio/interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
@@ -17,7 +16,6 @@ class APIClient {
     _dio = Dio(
       BaseOptions(baseUrl: baseUrl),
     )..interceptors.addAll([
-        APIInterceptor(),
         ...interceptors,
       ]);
 
@@ -46,6 +44,13 @@ class APIClient {
   static String Function() get getToken => _getToken;
   static set getToken(String Function() getToken) {
     _getToken = getToken;
+    _instance = APIClient._init();
+  }
+
+  static String? _token;
+  static String? get token => _token;
+  static set token(String? token) {
+    _token = token;
     _instance = APIClient._init();
   }
 

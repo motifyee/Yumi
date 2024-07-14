@@ -37,12 +37,12 @@ Future<String> _getClientSecret(StripePaymentParams params) async {
 
   Response res = await APIClient().post(
     EndPoints.stripePaymentIntent,
-    options: Options(
-      headers: {
-        'Authorization': 'Bearer ${StripeKeys.secretKey}',
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-    ),
+    // options: Options(
+    //   headers: {
+    //     'Authorization': 'Bearer ${StripeKeys.secretKey}',
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   },
+    // ),
     data: params.toJson(),
   );
 
