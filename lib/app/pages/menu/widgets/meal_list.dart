@@ -18,11 +18,7 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_list_card.dart';
 
 class MealListScreen extends StatelessWidget {
-  MealListScreen(
-      {super.key,
-      required this.menuTarget,
-      this.categoryId,
-      this.isResetOnInit = true});
+  MealListScreen({super.key, required this.menuTarget, this.categoryId, this.isResetOnInit = true});
 
   final PageController favPageController = PageController(initialPage: 0);
 
@@ -33,9 +29,7 @@ class MealListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isResetOnInit) {
-      context
-          .read<MealCubit>()
-          .reset(menuTarget: menuTarget, categoryId: categoryId);
+      context.read<MealCubit>().reset(menuTarget: menuTarget, categoryId: categoryId);
       context.read<CategoriesCubit>().reset();
     }
     return Container(
@@ -54,10 +48,8 @@ class MealListScreen extends StatelessWidget {
         controller: favPageController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          _MealList(
-              favPageController: favPageController, menuTarget: menuTarget),
-          _CategoriesList(
-              favPageController: favPageController, menuTarget: menuTarget),
+          _MealList(favPageController: favPageController, menuTarget: menuTarget),
+          _CategoriesList(favPageController: favPageController, menuTarget: menuTarget),
         ],
       ),
     );
@@ -93,14 +85,7 @@ class _MealList extends StatelessWidget {
             ),
             BlocBuilder<MealCubit, MealState>(
               builder: (context, state) {
-                String category = context
-                        .read<CategoriesCubit>()
-                        .state
-                        .categoriesPage
-                        .data
-                        .firstWhereOrNull((e) => e.id == state.selectedCategory)
-                        ?.name ??
-                    '';
+                String category = context.read<CategoriesCubit>().state.categoriesPage.data.firstWhereOrNull((e) => e.id == state.selectedCategory)?.name ?? '';
                 return Expanded(
                     child: category.isEmpty
                         ? const SizedBox.shrink()
@@ -111,9 +96,7 @@ class _MealList extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {
                                   context.read<MealCubit>().reset();
-                                  context
-                                      .read<MealCubit>()
-                                      .updateCategory(selectedCategory: 0);
+                                  context.read<MealCubit>().updateCategory(selectedCategory: 0);
                                 },
                                 child: Container(
                                     padding: const EdgeInsets.all(
@@ -126,18 +109,14 @@ class _MealList extends StatelessWidget {
                                       children: [
                                         Text(
                                           category,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall,
+                                          style: Theme.of(context).textTheme.labelSmall,
                                         ),
                                         const SizedBox(
                                             width:
                                                 CommonDimens.defaultMicroGap),
                                         Text(
                                           'x',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall,
+                                          style: Theme.of(context).textTheme.labelSmall,
                                         ),
                                       ],
                                     )),
@@ -148,7 +127,7 @@ class _MealList extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                favPageController.jumpToPage(0);
+                favPageController.animateToPage(0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -162,7 +141,7 @@ class _MealList extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                favPageController.jumpToPage(1);
+                favPageController.animateToPage(1, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -191,8 +170,7 @@ class _MealList extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: CommonDimens.defaultGap),
                     child: ConstrainedBox(
-                      constraints:
-                          BoxConstraints(minHeight: constraints.maxHeight),
+                      constraints: BoxConstraints(minHeight: constraints.maxHeight),
                       child: IntrinsicHeight(
                         child: Column(
                           children: [
@@ -205,40 +183,21 @@ class _MealList extends StatelessWidget {
                                       isScrollControlled: true,
                                       backgroundColor: Colors.transparent,
                                       context: context,
-                                      builder: (context) =>
-                                          CustomerPreOrderForm(
+                                      builder: (context) => CustomerPreOrderForm(
                                         meal: meal,
                                         chef: Chef(id: meal.chefId),
-                                        isPickUpOnly:
-                                            meal.isPickUpOnly ?? false,
+                                        isPickUpOnly: meal.isPickUpOnly ?? false,
                                       ),
                                     );
                                   } else {
                                     context.read<BasketCubit>().createBasket(
-                                        basket: context
-                                            .read<BasketCubit>()
-                                            .state
-                                            .basket
-                                            .copyWith(
+                                        basket: context.read<BasketCubit>().state.basket.copyWith(
                                               isPreorder: false,
                                               isSchedule: false,
-                                              shippedAddressId: context
-                                                  .read<UserCubit>()
-                                                  .state
-                                                  .address
-                                                  ?.id,
-                                              isPickupOnly:
-                                                  meal.isPickUpOnly ?? false,
-                                              invoiceDetails: [
-                                                InvoiceDetail.fromMeal(
-                                                    meal: meal)
-                                              ],
-                                              invoice: context
-                                                  .read<BasketCubit>()
-                                                  .state
-                                                  .basket
-                                                  .invoice
-                                                  .copyWith(
+                                              shippedAddressId: context.read<UserCubit>().state.address?.id,
+                                              isPickupOnly: meal.isPickUpOnly ?? false,
+                                              invoiceDetails: [InvoiceDetail.fromMeal(meal: meal)],
+                                              invoice: context.read<BasketCubit>().state.basket.invoice.copyWith(
                                                     chefID: meal.chefId,
                                                   ),
                                             ));
@@ -263,8 +222,7 @@ class _MealList extends StatelessWidget {
 }
 
 class _CategoriesList extends StatelessWidget {
-  const _CategoriesList(
-      {required this.favPageController, required this.menuTarget});
+  const _CategoriesList({required this.favPageController, required this.menuTarget});
 
   final PageController favPageController;
   final MenuTarget menuTarget;
@@ -293,7 +251,7 @@ class _CategoriesList extends StatelessWidget {
             Expanded(child: Container()),
             GestureDetector(
               onTap: () {
-                favPageController.jumpToPage(0);
+                favPageController.animateToPage(0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -305,7 +263,7 @@ class _CategoriesList extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                favPageController.jumpToPage(1);
+                favPageController.animateToPage(1, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -336,8 +294,7 @@ class _CategoriesList extends StatelessWidget {
                 listener: (context, state) {},
                 builder: (context, state) {
                   return ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraints.maxHeight),
+                    constraints: BoxConstraints(minHeight: constraints.maxHeight),
                     child: IntrinsicHeight(
                       child: Column(
                         children: [
@@ -345,9 +302,8 @@ class _CategoriesList extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 context.read<MealCubit>().reset();
-                                context.read<MealCubit>().updateCategory(
-                                    selectedCategory: category.id ?? 0);
-                                favPageController.jumpToPage(0);
+                                context.read<MealCubit>().updateCategory(selectedCategory: category.id ?? 0);
+                                favPageController.animateToPage(0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -370,15 +326,10 @@ class _CategoriesList extends StatelessWidget {
                                           ),
                                         ),
                                         child: Image.memory(
-                                          Uri.parse(category.image ?? '')
-                                                  .data
-                                                  ?.contentAsBytes() ??
-                                              Uint8List(0),
+                                          Uri.parse(category.image ?? '').data?.contentAsBytes() ?? Uint8List(0),
                                           fit: BoxFit.cover,
                                           alignment: Alignment.topCenter,
-                                          errorBuilder:
-                                              (context, error, stackTrace) =>
-                                                  Image.asset(
+                                          errorBuilder: (context, error, stackTrace) => Image.asset(
                                             'assets/images/354.jpeg',
                                             fit: BoxFit.cover,
                                             alignment: Alignment.topCenter,
@@ -391,9 +342,7 @@ class _CategoriesList extends StatelessWidget {
                                           horizontal: CommonDimens.defaultGap),
                                       child: Text(
                                         category.name ?? '',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge,
+                                        style: Theme.of(context).textTheme.labelLarge,
                                       ),
                                     ),
                                     const SizedBox(

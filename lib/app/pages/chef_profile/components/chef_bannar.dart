@@ -104,11 +104,11 @@ class _ChefBannerState extends State<ChefBanner> {
                               ?.contentAsBytes() ??
                           Uint8List(0),
                       fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
+                      alignment: Alignment.center,
                       errorBuilder: (context, error, stackTrace) => Image.asset(
                         'assets/images/354.jpeg',
                         fit: BoxFit.cover,
-                        alignment: Alignment.topCenter,
+                        alignment: Alignment.center,
                       ),
                     ),
                   ),

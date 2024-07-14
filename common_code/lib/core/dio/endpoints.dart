@@ -37,6 +37,11 @@ class EndPoints {
   /// user ( _ ) where
   /// chefs || customers || drivers
   /// at in api end point
+  ///
+
+  /// stripe
+  static String stripeApi = 'https://api.stripe.com/v1';
+  static String stripePaymentIntent = '/payment_intents';
 
   static String login = '/accounts/_/login';
   static String signup = '/accounts/_/register';

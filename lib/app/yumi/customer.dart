@@ -6,6 +6,7 @@ import 'package:yumi/app/yumi/config/customer/customer_app_config.dart';
 import 'package:yumi/app_target.dart';
 
 Future main() async {
+  Stripe.publishableKey = StripeKeys.publishableKey;
   await init();
 
   Stripe.publishableKey = 'stripePublishableKey';

@@ -70,7 +70,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 ActionButton(
                   onPressed: () {
                     setState(() {
-                      _controller.jumpToPage(widget.isHistory ? 1 : 0);
+                      _controller.animateToPage(widget.isHistory ? 1 : 0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                       _index = widget.isHistory ? 1 : 0;
                     });
                     context.read<SignalRCubit>().removeSignals(signal: [
@@ -99,7 +99,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 ActionButton(
                   onPressed: () {
                     setState(() {
-                      _controller.jumpToPage(widget.isHistory ? 3 : 2);
+                      _controller.animateToPage(widget.isHistory ? 3 : 2, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                       _index = widget.isHistory ? 3 : 2;
                     });
                     context.read<SignalRCubit>().removeSignals(signal: [

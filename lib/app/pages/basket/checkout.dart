@@ -105,9 +105,7 @@ class CheckOutScreen extends StatelessWidget {
                                     const Text(' '),
                                     Text(
                                       S.of(context).debitCreditCard,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
+                                      style: Theme.of(context).textTheme.bodyMedium,
                                     ),
                                   ],
                                 ),
@@ -146,9 +144,7 @@ class CheckOutScreen extends StatelessWidget {
                                     const Text(' '),
                                     Text(
                                       S.of(context).wallet,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
+                                      style: Theme.of(context).textTheme.bodyMedium,
                                     ),
                                   ],
                                 ),
@@ -223,7 +219,8 @@ class CheckOutScreen extends StatelessWidget {
                                 builder: (context, state) {
                                   return GestureDetector(
                                     onTap: () {
-                                      context.read<BasketCubit>().closeBasket();
+                                      context.read<BasketCubit>().stripePayment();
+                                      // context.read<BasketCubit>().closeBasket();
                                     },
                                     child: Container(
                                       width: CommonDimens.defaultGapXXXL * 1.5,
@@ -236,9 +233,7 @@ class CheckOutScreen extends StatelessWidget {
                                       child: Center(
                                         child: Text(
                                           S.of(context).placeOrder,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall,
+                                          style: Theme.of(context).textTheme.displaySmall,
                                         ),
                                       ),
                                     ),

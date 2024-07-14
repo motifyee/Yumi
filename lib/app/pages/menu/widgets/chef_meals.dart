@@ -69,7 +69,7 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    favPageController.jumpToPage(0);
+                    favPageController.animateToPage(0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                     pageIndex = 0;
                   });
                 },
@@ -89,7 +89,7 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    favPageController.jumpToPage(1);
+                    favPageController.animateToPage(1, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                     pageIndex = 1;
                   });
                 },
@@ -180,7 +180,7 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      favPageController.jumpToPage(0);
+                                      favPageController.animateToPage(0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
                                       pageIndex = 0;
                                     });
                                     context.read<MealCubit>().reset();
