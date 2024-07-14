@@ -1,8 +1,12 @@
 import 'package:common_code/common_code.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/util/global_context.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/app_target.dart';
+import 'package:yumi/domain/basket/entity/stripe.dart';
+import 'package:common_code/core/dio/stripe_interceptor.dart';
 
 class StripePayment extends UseCase<bool, StripePaymentParams> {
   @override
@@ -32,16 +36,27 @@ class StripePaymentParams extends Params {
 }
 
 Future<StripeModel> _getClientSecret(StripePaymentParams params) async {
-  Response res = await DioClient.simpleDio(customAPi: ApiKeys.stripeApi)
-      .post(ApiKeys.stripePaymentIntent, options: Options(headers: {'Authorization': 'Bearer ${StripeKeys.secretKey}', 'Content-Type': 'application/x-www-form-urlencoded'}), data: params.toJson());
+  final baseUrl = APIClient.baseUrl;
+  APIClient.baseUrl = EndPoints.stripeApi;
+  StripeInterceptor stripeInterceptor = StripeInterceptor(clientSecret: StripeKeys.secretKey);
+  APIClient.addInterceptor(stripeInterceptor);
+  Response res = await APIClient().post(EndPoints.stripePaymentIntent, data: params.toJson());
+  APIClient.removeInterceptor(stripeInterceptor);
+  APIClient.baseUrl = baseUrl;
 
   return StripeModel.fromJson(res.data);
 }
 
 Future<void> _initPaymentSheet({required String clientSecret}) async {
   await Stripe.instance.initPaymentSheet(
-      paymentSheetParameters: SetupPaymentSheetParameters(
-    paymentIntentClientSecret: clientSecret,
-    merchantDisplayName: StripeKeys.appName,
-  ));
+    paymentSheetParameters: SetupPaymentSheetParameters(
+      paymentIntentClientSecret: clientSecret,
+      merchantDisplayName: StripeKeys.appName,
+      customerId: GlobalContext().readCubit<UserCubit>()?.state.user.userName,
+      appearance: PaymentSheetAppearance(
+        shapes: PaymentSheetShape(borderRadius: 15),
+        colors: PaymentSheetAppearanceColors(background: CommonColors.background, componentDivider: CommonColors.primary, icon: CommonColors.secondary),
+      ),
+    ),
+  );
 }

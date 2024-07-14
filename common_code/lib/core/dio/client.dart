@@ -55,6 +55,11 @@ class APIClient {
     _instance = APIClient._init();
   }
 
+  static void removeInterceptor(Interceptor interceptor) {
+    interceptors.removeWhere((e) => e == interceptor);
+    _instance = APIClient._init();
+  }
+
   Future<Response<T>> get<T>(
     String url, {
     dynamic queryParameters,
