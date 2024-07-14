@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
-import 'package:yumi/core/setup/awesome_notifications.dart';
-import 'package:yumi/core/setup/crashlyticts.dart';
+import 'package:common_code/core/setup/awesome_notifications.dart';
+import 'package:common_code/core/setup/crashlyticts.dart';
 import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/global.dart';
 import 'package:common_code/common_code.dart';
@@ -32,7 +32,7 @@ Future init() async {
 
   APIClient.getToken = () => G().rd<UserCubit>().state.user.accessToken;
 
-  // G().listenConnectivity();
+  G().listenConnectivity();
 }
 
 // class MyBlocDelegate extends BlocDelegate  {
