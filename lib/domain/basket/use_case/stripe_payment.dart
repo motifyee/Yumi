@@ -9,7 +9,7 @@ class StripePayment extends UseCase<bool, StripePaymentParams> {
   Future<Either<Failure, bool>> call(StripePaymentParams params) async {
     try {
       final clientSecret = await _getClientSecret(params);
-      await _initPaymentSheet(clientSecret: clientSecret.clientSecret);
+      await _initPaymentSheet(clientSecret: clientSecret);
       await Stripe.instance.presentPaymentSheet();
       return const Right(true);
     } catch (error) {
