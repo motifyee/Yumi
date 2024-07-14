@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:yumi/domain/profile/entities/review_model.dart';
-import 'package:yumi/statics/api_statics.dart';
+import 'package:common_code/common_code.dart';
 
 class ReviewService {
   static Future<dynamic> getAllReviews({
@@ -8,7 +8,7 @@ class ReviewService {
     bool loginCustomer = false,
     Map<String, dynamic>? queryParameters,
   }) async {
-    final Response res = await DioClient.simpleDio().get(ApiKeys.review,
+    final Response res = await APIClient().get(EndPoints.review,
         queryParameters: {
           ...?queryParameters,
           'chefId': chefId,
@@ -23,7 +23,7 @@ class ReviewService {
     String? driverId,
     Map<String, dynamic>? queryParameters,
   }) async {
-    final Response res = await DioClient.simpleDio().put(ApiKeys.review,
+    final Response res = await APIClient().put(EndPoints.review,
         data: review.toJson()
           ..removeWhere((key, value) => key == 'buddiesUserId'),
         queryParameters: {

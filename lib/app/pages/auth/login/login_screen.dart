@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
@@ -7,11 +8,8 @@ import 'package:yumi/app/pages/auth/login/login_form.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/auth/login/custom_domain.dart';
 import 'package:yumi/app/pages/auth/login/login_thrid_part.dart';
-import 'package:yumi/app/components/screen_container.dart';
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {
@@ -37,17 +35,17 @@ class LoginScreen extends StatelessWidget {
                       CustomDomain(),
                     ],
                   ),
-                  SizedBox(
-                    height: ThemeSelector.statics.defaultBlockGap,
+                  const SizedBox(
+                    height: CommonDimens.defaultBlockGap,
                   ),
                   Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        if (AppTarget.user == AppTargetUser.chefs)
+                        if (AppTarget.user == YumiApp.chefs)
                           SvgPicture.asset(AppAssets.welcomeChefIcon),
-                        if (AppTarget.user == AppTargetUser.drivers)
+                        if (AppTarget.user == YumiApp.drivers)
                           SvgPicture.asset(AppAssets.welcomeDriverIcon),
                         Text(
                           S.of(context).welcomeBack,
@@ -57,12 +55,12 @@ class LoginScreen extends StatelessWidget {
                           S.of(context).signToContinue,
                           style: Theme.of(context).textTheme.labelSmall,
                         ),
-                        SizedBox(
-                          height: ThemeSelector.statics.defaultTitleGap,
+                        const SizedBox(
+                          height: CommonDimens.defaultTitleGap,
                         ),
                         const LoginFormProvider(),
-                        SizedBox(
-                          height: ThemeSelector.statics.defaultBlockGap,
+                        const SizedBox(
+                          height: CommonDimens.defaultBlockGap,
                         ),
                         const SocialLogin(),
                       ],
@@ -71,7 +69,7 @@ class LoginScreen extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       // context.router.push(const RegisterationRoute());
-                      G.rd<RegCubit>().init();
+                      G().rd<RegCubit>().initReg();
                     },
                     style: ButtonStyle(
                         backgroundColor: WidgetStateProperty.resolveWith<Color>(

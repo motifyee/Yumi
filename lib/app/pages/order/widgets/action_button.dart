@@ -1,5 +1,5 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class ActionButton extends StatelessWidget {
   ActionButton(
@@ -33,13 +33,13 @@ class ActionButton extends StatelessWidget {
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.resolveWith(
                 (states) => isActive
-                    ? activeColor ?? ThemeSelector.colors.primary
-                    : notActiveColor ?? ThemeSelector.colors.secondaryFaint,
+                    ? activeColor ?? CommonColors.primary
+                    : notActiveColor ?? CommonColors.secondaryFaint,
               ),
               shape: WidgetStateProperty.resolveWith(
-                (states) => RoundedRectangleBorder(
+                (states) => const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
-                    Radius.circular(ThemeSelector.statics.defaultBorderRadius),
+                    Radius.circular(CommonDimens.defaultBorderRadius),
                   ),
                 ),
               ),
@@ -51,9 +51,8 @@ class ActionButton extends StatelessWidget {
                   label,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: isActive
-                            ? activeTextColor ?? ThemeSelector.colors.onPrimary
-                            : notActiveTextColor ??
-                                ThemeSelector.colors.secondary,
+                            ? activeTextColor ?? CommonColors.onPrimary
+                            : notActiveTextColor ?? CommonColors.secondary,
                       ),
                 ),
               ],
@@ -63,14 +62,14 @@ class ActionButton extends StatelessWidget {
               top: 0,
               left: 0,
               child: Container(
-                width: ThemeSelector.statics.defaultInputGap,
-                height: ThemeSelector.statics.defaultInputGap,
+                width: CommonDimens.defaultInputGap,
+                height: CommonDimens.defaultInputGap,
                 decoration: BoxDecoration(
                     color: isActive
-                        ? notActiveColor ?? ThemeSelector.colors.secondaryFaint
-                        : activeColor ?? ThemeSelector.colors.primary,
-                    borderRadius: BorderRadius.circular(
-                        ThemeSelector.statics.defaultInputGap)),
+                        ? notActiveColor ?? CommonColors.secondaryFaint
+                        : activeColor ?? CommonColors.primary,
+                    borderRadius:
+                        BorderRadius.circular(CommonDimens.defaultInputGap)),
               ))
       ],
     );

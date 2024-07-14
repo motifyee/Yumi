@@ -1,16 +1,15 @@
 import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_list.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/pagination_template.dart';
 
 class CategoriesListDialog extends StatelessWidget {
   CategoriesListDialog({super.key, required this.menuTarget});
@@ -23,14 +22,19 @@ class CategoriesListDialog extends StatelessWidget {
 
     return Center(
       child: Container(
-        width: MediaQuery.of(context).size.width - ThemeSelector.statics.defaultBlockGap,
-        padding: EdgeInsets.symmetric(vertical: ThemeSelector.statics.defaultBlockGap),
-        decoration: BoxDecoration(color: ThemeSelector.colors.background, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusMedium)),
+        width: MediaQuery.of(context).size.width - CommonDimens.defaultBlockGap,
+        padding:
+            const EdgeInsets.symmetric(vertical: CommonDimens.defaultBlockGap),
+        decoration: BoxDecoration(
+            color: CommonColors.background,
+            borderRadius:
+                BorderRadius.circular(CommonDimens.defaultBorderRadiusMedium)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultBlockGap),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: CommonDimens.defaultBlockGap),
               child: Row(
                 children: [
                   SvgPicture.asset('assets/images/categories_list.svg'),
@@ -38,13 +42,13 @@ class CategoriesListDialog extends StatelessWidget {
                   Text(
                     S.of(context).cuisines,
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          fontSize: ThemeSelector.fonts.font_16,
+                          fontSize: CommonFontSize.font_16,
                         ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: ThemeSelector.statics.defaultGap),
+            const SizedBox(height: CommonDimens.defaultGap),
             BlocConsumer<CategoriesCubit, CategoriesState>(
               listener: (context, state) {},
               builder: (context, state) {
@@ -68,7 +72,9 @@ class CategoriesListDialog extends StatelessWidget {
                               context: context,
                               isScrollControlled: true,
                               isDismissible: true,
-                              constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .8),
+                              constraints: BoxConstraints(
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height * .8),
                               builder: (context) => MealListScreen(
                                 menuTarget: menuTarget,
                                 categoryId: category.id,
@@ -77,28 +83,35 @@ class CategoriesListDialog extends StatelessWidget {
                             );
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultGap),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: CommonDimens.defaultGap),
                             child: Column(
                               children: [
                                 Container(
-                                  width: ThemeSelector.statics.defaultGapExtraExtreme,
-                                  height: ThemeSelector.statics.defaultGapXXXL,
+                                  width: CommonDimens.defaultGapExtraExtreme,
+                                  height: CommonDimens.defaultGapXXXL,
                                   clipBehavior: Clip.hardEdge,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultGap),
+                                    borderRadius: BorderRadius.circular(
+                                        CommonDimens.defaultGap),
                                   ),
                                   child: Image.memory(
-                                    Uri.parse(category.image ?? '').data?.contentAsBytes() ?? Uint8List(0),
+                                    Uri.parse(category.image ?? '')
+                                            .data
+                                            ?.contentAsBytes() ??
+                                        Uint8List(0),
                                     fit: BoxFit.cover,
                                     alignment: Alignment.topCenter,
-                                    errorBuilder: (context, error, stackTrace) => Image.asset(
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            Image.asset(
                                       'assets/images/354.jpeg',
                                       fit: BoxFit.cover,
                                       alignment: Alignment.topCenter,
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: ThemeSelector.statics.defaultGap),
+                                const SizedBox(height: CommonDimens.defaultGap),
                                 Text(
                                   category.name ?? '',
                                   style: Theme.of(context).textTheme.bodyMedium,
@@ -107,7 +120,7 @@ class CategoriesListDialog extends StatelessWidget {
                             ),
                           ),
                         ),
-                      if (state.categoriesPage.isLoading) Loading(),
+                      if (state.categoriesPage.isLoading) const Loading(),
                     ],
                   ),
                 );

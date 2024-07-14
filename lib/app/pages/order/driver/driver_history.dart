@@ -5,8 +5,7 @@ import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/theme_statics.dart';
+import 'package:common_code/common_code.dart';
 import 'package:yumi/app/pages/order/widgets/action_button.dart';
 import 'package:yumi/app/pages/order/widgets/news_orders.dart';
 
@@ -31,18 +30,22 @@ class DriverHistoryScreen extends StatelessWidget {
                     label: S.of(context).orders,
                     isActive: state.selectedList == 0,
                     onPressed: () {
-                      context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
-                      _controller.animateToPage(0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
+                      context
+                          .read<NewsBloc>()
+                          .add(const NewsEvent(selectedList: 0));
+                      _controller.jumpToPage(0);
                     },
                   ),
-                  SizedBox(width: ThemeSelector.statics.defaultBlockGap),
+                  const SizedBox(width: CommonDimens.defaultBlockGap),
                   ActionButton(
                     key: key,
                     label: S.of(context).preOrder,
                     isActive: state.selectedList == 1,
                     onPressed: () {
-                      context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
-                      _controller.animateToPage(1, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
+                      context
+                          .read<NewsBloc>()
+                          .add(const NewsEvent(selectedList: 1));
+                      _controller.jumpToPage(1);
                     },
                   ),
                 ],
@@ -58,7 +61,7 @@ class DriverHistoryScreen extends StatelessWidget {
                   create: (context) => OrderCubit(),
                   child: NewsOrders(
                     menuTarget: MenuTarget.order,
-                    apiKey: ApiKeys.orderDriverClosed,
+                    apiKey: EndPoints.orderDriverClosed,
                     orderCardTargetPage: OrderCardTargetPage.driverHistory,
                   ),
                 ),
@@ -66,7 +69,7 @@ class DriverHistoryScreen extends StatelessWidget {
                   create: (context) => OrderCubit(),
                   child: NewsOrders(
                     menuTarget: MenuTarget.preOrder,
-                    apiKey: ApiKeys.preOrderDriverClosed,
+                    apiKey: EndPoints.preOrderDriverClosed,
                     orderCardTargetPage: OrderCardTargetPage.driverHistory,
                   ),
                 ),

@@ -1,17 +1,17 @@
 import 'package:yumi/domain/calories/data/source/calories_source.dart';
 import 'package:yumi/domain/calories/entity/calorie.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
-import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/paginatedData.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:common_code/common_code.dart';
+
+import 'package:common_code/domain/entities/pagination.dart';
 
 class CaloriesRemoteSource implements CaloriesSource {
   @override
   Future<PaginatedData<Calorie>> loadCalories({
     required Pagination pagination,
   }) async {
-    final res = await DioClient.simpleDio().get(
-        ApiKeys.getApiKeyString(apiKey: ApiKeys.mealCalories),
+    final res = await APIClient().get(
+        EndPoints.getApiKeyString(apiKey: EndPoints.mealCalories),
         queryParameters: pagination.toJson());
 
     List<Calorie> calories = res.data['data']

@@ -8,8 +8,7 @@ import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/theme_statics.dart';
+import 'package:common_code/common_code.dart';
 
 class PutActionButton extends StatelessWidget {
   const PutActionButton({
@@ -22,29 +21,40 @@ class PutActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
+      padding:
+          const EdgeInsets.symmetric(horizontal: CommonDimens.defaultMicroGap),
       child: TextButton(
         onPressed: config.cannotPress
             ? null
             : config.customFun ??
                 () {
                   context.read<OrderCubit>().putAction(
-                      order: config.order, apiKey: ApiKeys.actionApiKeyString(apiKey: config.apiKey, id: '${config.order.id}'), getApiKey: config.getApiKey, isFakeBody: config.isFakeBody, navFun: config.navFun, customMessage: config.customMessage);
+                      order: config.order,
+                      apiKey: EndPoints.actionApiKeyString(
+                          apiKey: config.apiKey, id: '${config.order.id}'),
+                      getApiKey: config.getApiKey,
+                      isFakeBody: config.isFakeBody,
+                      navFun: config.navFun,
+                      customMessage: config.customMessage);
                 },
         style: ButtonStyle(
             backgroundColor: WidgetStateColor.resolveWith(
-          (states) => config.backGroundColor ?? ThemeSelector.colors.backgroundTant,
+          (states) => config.backGroundColor ?? CommonColors.backgroundTant,
         )),
         child: Row(
           children: [
             if (config.isWaiting)
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultMicroGap),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: CommonDimens.defaultMicroGap),
                 child: SvgPicture.asset('assets/images/waiting.svg'),
               ),
             Text(
               config.text,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: config.color ?? ThemeSelector.colors.secondary),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: config.color ?? CommonColors.secondary),
             ),
           ],
         ),
@@ -84,98 +94,117 @@ class OrderPutActionConfig {
 }
 
 class OrderPutActions {
-  static chefCloseOrderPickup({required dynamic widget}) => OrderPutActionConfig(
-        apiKey: widget.menuTarget == MenuTarget.order ? ApiKeys.orderChefPickUpDelivered : ApiKeys.preOrderChefPickUpDelivered,
+  static chefCloseOrderPickup({required dynamic widget}) =>
+      OrderPutActionConfig(
+        apiKey: widget.menuTarget == MenuTarget.order
+            ? EndPoints.orderChefPickUpDelivered
+            : EndPoints.preOrderChefPickUpDelivered,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: false,
         navFun: widget.navFun,
         text: S.current.clientReceived,
-        backGroundColor: ThemeSelector.colors.success,
-        color: ThemeSelector.colors.onSuccess,
+        backGroundColor: CommonColors.success,
+        color: CommonColors.onSuccess,
       );
 
   static chefFinishOrder({required dynamic widget}) => OrderPutActionConfig(
         apiKey: widget.menuTarget == MenuTarget.order
             ? widget.order.isPickUp == true
-                ? ApiKeys.orderChefPickUpFinished
-                : ApiKeys.orderChefDeliveryFinished
+                ? EndPoints.orderChefPickUpFinished
+                : EndPoints.orderChefDeliveryFinished
             : widget.order.isPickUp == true
-                ? ApiKeys.preOrderChefPickUpFinished
-                : ApiKeys.preOrderChefDeliveryFinished,
+                ? EndPoints.preOrderChefPickUpFinished
+                : EndPoints.preOrderChefDeliveryFinished,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: true,
         navFun: widget.navFun,
         text: S.current.finish,
-        backGroundColor: ThemeSelector.colors.success,
-        color: ThemeSelector.colors.onSuccess,
+        backGroundColor: CommonColors.success,
+        color: CommonColors.onSuccess,
       );
 
   static chefStartOrder({required dynamic widget}) => OrderPutActionConfig(
-        cannotPress: widget.order.isPickUp != true && widget.order.driverAccept != true,
+        cannotPress:
+            widget.order.isPickUp != true && widget.order.driverAccept != true,
         apiKey: widget.menuTarget == MenuTarget.order
             ? widget.order.isPickUp == true
-                ? ApiKeys.orderChefPickUpStart
-                : ApiKeys.orderChefDeliveryStart
+                ? EndPoints.orderChefPickUpStart
+                : EndPoints.orderChefDeliveryStart
             : widget.order.isPickUp == true
-                ? ApiKeys.preOrderChefPickUpStart
-                : ApiKeys.preOrderChefDeliveryStart,
+                ? EndPoints.preOrderChefPickUpStart
+                : EndPoints.preOrderChefDeliveryStart,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: true,
         navFun: widget.navFun,
         text: S.current.start,
-        backGroundColor: ThemeSelector.colors.primary.withAlpha(widget.order.isPickUp != true && widget.order.driverAccept != true ? 100 : 255),
-        color: ThemeSelector.colors.onPrimary,
-        isWaiting: widget.order.isPickUp != true && widget.order.driverAccept != true,
+        backGroundColor: CommonColors.primary.withAlpha(
+            widget.order.isPickUp != true && widget.order.driverAccept != true
+                ? 100
+                : 255),
+        color: CommonColors.onPrimary,
+        isWaiting:
+            widget.order.isPickUp != true && widget.order.driverAccept != true,
       );
 
   static chefAcceptPreorder({required dynamic widget}) => OrderPutActionConfig(
-        cannotPress: widget.order.isPickUp != true && widget.order.driverAccept != true,
-        apiKey: widget.order.isPickUp == true ? ApiKeys.preOrderChefPickUpAccept : ApiKeys.preOrderChefDeliveryAccept,
+        cannotPress:
+            widget.order.isPickUp != true && widget.order.driverAccept != true,
+        apiKey: widget.order.isPickUp == true
+            ? EndPoints.preOrderChefPickUpAccept
+            : EndPoints.preOrderChefDeliveryAccept,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: true,
         navFun: widget.navFun,
         text: S.current.accept,
-        backGroundColor: ThemeSelector.colors.success,
-        color: ThemeSelector.colors.onSuccess,
+        backGroundColor: CommonColors.success,
+        color: CommonColors.onSuccess,
       );
 
-  static driverCloseOrderDelivery({required dynamic widget}) => OrderPutActionConfig(
-        apiKey: widget.menuTarget == MenuTarget.order ? ApiKeys.orderDriverDelivered : ApiKeys.preOrderDriverDelivered,
+  static driverCloseOrderDelivery({required dynamic widget}) =>
+      OrderPutActionConfig(
+        apiKey: widget.menuTarget == MenuTarget.order
+            ? EndPoints.orderDriverDelivered
+            : EndPoints.preOrderDriverDelivered,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: true,
         navFun: widget.navFun,
         text: S.current.clientReceived,
-        backGroundColor: ThemeSelector.colors.success,
-        color: ThemeSelector.colors.onSuccess,
+        backGroundColor: CommonColors.success,
+        color: CommonColors.onSuccess,
       );
 
   static driverReceived({required dynamic widget}) => OrderPutActionConfig(
         cannotPress: widget.order.chefFinished != true,
-        apiKey: widget.menuTarget == MenuTarget.order ? ApiKeys.orderDriverReceived : ApiKeys.preOrderDriverReceived,
+        apiKey: widget.menuTarget == MenuTarget.order
+            ? EndPoints.orderDriverReceived
+            : EndPoints.preOrderDriverReceived,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: true,
         navFun: widget.navFun,
         text: S.current.orderReceived,
-        backGroundColor: ThemeSelector.colors.primary.withAlpha(widget.order.chefFinished == true ? 255 : 100),
-        color: ThemeSelector.colors.onPrimary,
+        backGroundColor: CommonColors.primary
+            .withAlpha(widget.order.chefFinished == true ? 255 : 100),
+        color: CommonColors.onPrimary,
         isWaiting: widget.order.chefFinished != true,
       );
 
   static driverAccept({required dynamic widget}) => OrderPutActionConfig(
-        apiKey: widget.menuTarget == MenuTarget.order ? ApiKeys.orderDriverAccept : ApiKeys.preOrderDriverAccept,
+        apiKey: widget.menuTarget == MenuTarget.order
+            ? EndPoints.orderDriverAccept
+            : EndPoints.preOrderDriverAccept,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: true,
         navFun: widget.navFun,
         text: S.current.accept,
-        backGroundColor: ThemeSelector.colors.success,
-        color: ThemeSelector.colors.onSuccess,
+        backGroundColor: CommonColors.success,
+        color: CommonColors.onSuccess,
       );
 
   static customerOrderStatus({required dynamic widget}) => OrderPutActionConfig(
@@ -183,21 +212,22 @@ class OrderPutActions {
         getApiKey: '',
         order: widget.order,
         text: S.current.orderStatus,
-        customFun: () => G.context.router.push(OrderStatusRoute(order: widget.order)),
+        customFun: () =>
+            G().context.router.push(OrderStatusRoute(order: widget.order)),
       );
 
   static waitDriver({required dynamic widget}) => OrderPutActionConfig(
-        apiKey: ApiKeys.waitDriverOrder,
+        apiKey: EndPoints.waitDriverOrder,
         order: widget.order,
         getApiKey: widget.getApiKey,
         text: S.current.wait,
-        backGroundColor: ThemeSelector.colors.success,
-        color: ThemeSelector.colors.onSuccess,
+        backGroundColor: CommonColors.success,
+        color: CommonColors.onSuccess,
         customMessage: S.current.thankYouForWaiting,
       );
 
   static cancelDriver({required dynamic widget}) => OrderPutActionConfig(
-        apiKey: ApiKeys.cancelDriverOrder,
+        apiKey: EndPoints.cancelDriverOrder,
         order: widget.order,
         getApiKey: widget.getApiKey,
         text: S.current.cancel,
@@ -205,17 +235,17 @@ class OrderPutActions {
       );
 
   static waitChef({required dynamic widget}) => OrderPutActionConfig(
-        apiKey: ApiKeys.waitChefOrder,
+        apiKey: EndPoints.waitChefOrder,
         order: widget.order,
         getApiKey: widget.getApiKey,
         text: S.current.wait,
-        backGroundColor: ThemeSelector.colors.success,
-        color: ThemeSelector.colors.onSuccess,
+        backGroundColor: CommonColors.success,
+        color: CommonColors.onSuccess,
         customMessage: S.current.thankYouForWaiting,
       );
 
   static cancelChef({required dynamic widget}) => OrderPutActionConfig(
-        apiKey: ApiKeys.cancelChefOrder,
+        apiKey: EndPoints.cancelChefOrder,
         order: widget.order,
         getApiKey: widget.getApiKey,
         text: S.current.cancel,

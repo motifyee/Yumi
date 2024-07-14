@@ -1,16 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/transactions/transaction_cubit/transaction_cubit.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/domain/transactions/entity/transaction.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/pagination_template.dart';
-import 'package:yumi/app/components/text_currency.dart';
+import 'package:yumi/global.dart';
 
 @RoutePage()
 class TransactionsScreen extends StatelessWidget {
@@ -27,11 +26,11 @@ class TransactionsScreen extends StatelessWidget {
             surfaceTintColor: Colors.transparent,
             leading: TextButton(
                 onPressed: () {
-                  context.router.maybePop();
+                  G().router.pop();
                 },
                 child: Icon(
                   Icons.arrow_back,
-                  color: ThemeSelector.colors.primary,
+                  color: CommonColors.primary,
                 )),
             title: Text(
               S.of(context).transactions,
@@ -42,8 +41,8 @@ class TransactionsScreen extends StatelessWidget {
           body: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ThemeSelector.statics.defaultLineGap),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: CommonDimens.defaultLineGap),
                 child: Row(
                   children: [
                     SvgPicture.asset(
@@ -56,7 +55,7 @@ class TransactionsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
+              const SizedBox(height: CommonDimens.defaultGap),
               Expanded(
                 child: PaginationTemplate(
                   scrollDirection: Axis.vertical,
@@ -71,20 +70,17 @@ class TransactionsScreen extends StatelessWidget {
                           for (Transaction transaction in state.pagination.data)
                             if (transaction.credit != null)
                               Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: ThemeSelector.statics.defaultGap,
-                                    horizontal:
-                                        ThemeSelector.statics.defaultGap),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: CommonDimens.defaultGap,
+                                    horizontal: CommonDimens.defaultGap),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      color:
-                                          ThemeSelector.colors.backgroundTant),
+                                      color: CommonColors.backgroundTant),
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: ThemeSelector
-                                            .statics.defaultBlockGap,
-                                        vertical: ThemeSelector
-                                            .statics.defaultLineGap),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal:
+                                            CommonDimens.defaultBlockGap,
+                                        vertical: CommonDimens.defaultLineGap),
                                     child: Row(
                                       children: [
                                         Expanded(
@@ -111,14 +107,14 @@ class TransactionsScreen extends StatelessWidget {
                                           value: transaction.debit! > 0
                                               ? transaction.debit!
                                               : transaction.credit!,
-                                          fontSize: ThemeSelector.fonts.font_12,
+                                          fontSize: CommonFontSize.font_12,
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
                               ),
-                          if (state.pagination.isLoading) Loading(),
+                          if (state.pagination.isLoading) const Loading(),
                         ],
                       );
                     },

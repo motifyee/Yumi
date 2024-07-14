@@ -1,11 +1,9 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/setup/inject.dart';
-import 'package:yumi/core/use_cases.dart';
+import 'package:common_code/common_code.dart';
 import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
-import 'package:yumi/statics/paginatedData.dart';
-import 'package:yumi/statics/pagination.dart';
+
+import 'package:common_code/domain/entities/pagination.dart';
 
 class GetFavouriteChefs
     extends UseCase<PaginatedData<Chef>, GetFavouriteChefsParam> {

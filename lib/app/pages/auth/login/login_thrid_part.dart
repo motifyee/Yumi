@@ -1,10 +1,8 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/core/resources/app_assets.dart';
-import 'package:yumi/core/use_cases.dart';
-import 'package:yumi/domain/auth/use_cases/login_with_google.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class SocialLogin extends StatelessWidget {
   const SocialLogin({super.key});
@@ -21,19 +19,19 @@ class SocialLogin extends StatelessWidget {
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Divider(color: ThemeSelector.colors.secondaryTant),
+                child: Divider(color: CommonColors.secondaryTant),
               )),
               Text(
                 S.of(context).orSignUpWith,
                 style: Theme.of(context)
                     .textTheme
                     .labelSmall
-                    ?.copyWith(fontSize: ThemeSelector.fonts.font_12),
+                    ?.copyWith(fontSize: CommonFontSize.font_12),
               ),
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Divider(color: ThemeSelector.colors.secondaryTant),
+                child: Divider(color: CommonColors.secondaryTant),
               )),
             ],
           ),

@@ -1,13 +1,12 @@
+import 'package:common_code/common_code.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/profile/components/my_reviews.dart';
-import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/profile/components/bio.dart';
 import 'package:yumi/app/pages/profile/components/event_photo.dart';
 import 'package:yumi/app/pages/profile/components/upload_photo_button.dart';
@@ -18,26 +17,26 @@ Widget profileImagePicker(
   bool loading,
   FormFieldState<String> fieldState,
 ) {
-  if (loading) return Loading();
+  if (loading) return const Loading();
 
   return Container(
-    // width: ThemeSelector.statics.defaultBorderRadiusExtreme * 1.3,
-    // height: ThemeSelector.statics.defaultBorderRadiusExtreme * 1.3,
+    // width: CommonDimens.defaultBorderRadiusExtreme * 1.3,
+    // height: CommonDimens.defaultBorderRadiusExtreme * 1.3,
     decoration: BoxDecoration(
-      color: ThemeSelector.colors.onSecondary,
+      color: CommonColors.onSecondary,
       borderRadius: BorderRadius.circular(
-        ThemeSelector.statics.defaultBorderRadiusExtreme,
+        CommonDimens.defaultBorderRadiusExtreme,
       ),
     ),
     child: UploadPhotoButton(
       defaultImage: profileImage,
       borderWidth: 0,
       title: null,
-      size: ThemeSelector.statics.iconSizeExtreme * 2.3,
+      size: CommonDimens.iconSizeExtreme * 2.3,
       onPressed: (image) async {
         if (image == null) return;
 
-        final p = await G.rd<ProfileCubit>().updateProfilePhoto(image);
+        final p = await G().rd<ProfileCubit>().updateProfilePhoto(image);
         fieldState.didChange(p.profileImage);
       },
     ),
@@ -72,9 +71,9 @@ class ProfileScreen extends StatelessWidget {
     return Column(
       children: [
         const Bio(),
-        SizedBox(height: ThemeSelector.statics.defaultBlockGap),
-        if (G.isChefApp) const EventsPhoto(),
-        SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+        const SizedBox(height: CommonDimens.defaultBlockGap),
+        if (G().isChefApp) const EventsPhoto(),
+        const SizedBox(height: CommonDimens.defaultBlockGap),
         if (!isSheet) const MyReviews(),
       ],
     );
@@ -107,7 +106,7 @@ class ProfilePicture extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormField<String>(
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      initialValue: G.rd<ProfileCubit>().state.form.profileImage,
+      initialValue: G().rd<ProfileCubit>().state.form.profileImage,
       validator: (value) => value == null || value.trim().isEmpty
           ? 'Please select a profile photo'
           : null,
@@ -123,7 +122,7 @@ class ProfilePicture extends StatelessWidget {
         builder: (context, profileState) {
           if (profileState.photo == null &&
               profileState.entityStatus.isLoading) {
-            return Loading();
+            return const Loading();
           }
 
           return Column(
@@ -134,7 +133,7 @@ class ProfilePicture extends StatelessWidget {
                 profileState.entityStatus.isLoading,
                 fieldState,
               ),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
+              const SizedBox(height: CommonDimens.defaultGap),
               if (fieldState.hasError)
                 Text(
                   fieldState.errorText ?? "",
@@ -143,17 +142,17 @@ class ProfilePicture extends StatelessWidget {
               Text(
                 profileState.fullName,
                 style: TextStyle(
-                    color: ThemeSelector.colors.primary,
-                    fontSize: ThemeSelector.fonts.font_24),
+                    color: CommonColors.primary,
+                    fontSize: CommonFontSize.font_24),
               ),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
+              const SizedBox(height: CommonDimens.defaultGap),
               // rating bar
-              if (!G.rd<RegCubit>().state.registerationStarted)
+              if (!G().rd<RegCubit>().state.registerationStarted)
                 SizedBox(
                   width: 50,
                   child: RatingContainer(rate: profileState.rate),
                 ),
-              SizedBox(height: ThemeSelector.statics.defaultTitleGap),
+              const SizedBox(height: CommonDimens.defaultTitleGap),
             ],
           );
         },

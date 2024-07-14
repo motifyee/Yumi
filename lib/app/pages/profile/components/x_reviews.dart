@@ -1,7 +1,7 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class MyReviews extends StatelessWidget {
   const MyReviews({super.key});
@@ -9,34 +9,33 @@ class MyReviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: ThemeSelector.statics.defaultTitleGap),
+      padding:
+          const EdgeInsets.symmetric(horizontal: CommonDimens.defaultTitleGap),
       child: Column(
         children: [
           Row(
             children: [
               SvgPicture.asset('assets/images/users.svg'),
-              SizedBox(width: ThemeSelector.statics.defaultLineGap),
+              const SizedBox(width: CommonDimens.defaultLineGap),
               Text(
                 S.of(context).myReviews,
                 style: Theme.of(context).textTheme.labelLarge,
               ),
             ],
           ),
-          SizedBox(height: ThemeSelector.statics.defaultGap),
+          const SizedBox(height: CommonDimens.defaultGap),
           for (var review in [4.5, 5, 1, 3])
             Padding(
-              padding:
-                  EdgeInsets.only(bottom: ThemeSelector.statics.defaultGap),
+              padding: const EdgeInsets.only(bottom: CommonDimens.defaultGap),
               child: Row(
                 children: [
                   Container(
-                    width: ThemeSelector.statics.iconSizeLarge,
-                    height: ThemeSelector.statics.iconSizeLarge,
+                    width: CommonDimens.iconSizeLarge,
+                    height: CommonDimens.iconSizeLarge,
                     decoration: BoxDecoration(
-                      color: ThemeSelector.colors.secondaryTant,
+                      color: CommonColors.secondaryTant,
                       borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.buttonBorderRadius),
+                          CommonDimens.buttonBorderRadius),
                     ),
                     child: Center(
                       child: SvgPicture.asset('assets/images/profile1.svg'),
@@ -44,23 +43,23 @@ class MyReviews extends StatelessWidget {
                   ),
                   const Expanded(child: Text('')),
                   Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultGap,
-                        vertical: ThemeSelector.statics.defaultGap / 2),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultGap,
+                        vertical: CommonDimens.defaultGap / 2),
                     decoration: BoxDecoration(
-                      color: ThemeSelector.colors.primary,
+                      color: CommonColors.primary,
                       borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.buttonBorderRadius),
+                          CommonDimens.buttonBorderRadius),
                     ),
                     child: Row(
                       children: [
                         Text(review.toString(),
                             style: Theme.of(context).textTheme.displaySmall),
-                        SizedBox(width: ThemeSelector.statics.defaultGap / 2),
+                        const SizedBox(width: CommonDimens.defaultGap / 2),
                         SvgPicture.asset(
                           'assets/images/star.svg',
                           colorFilter: ColorFilter.mode(
-                              ThemeSelector.colors.onPrimary, BlendMode.srcIn),
+                              CommonColors.onPrimary, BlendMode.srcIn),
                         ),
                       ],
                     ),

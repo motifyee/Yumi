@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class UploadPhotoButton extends StatelessWidget {
   double? borderWidth;
@@ -33,16 +33,15 @@ class UploadPhotoButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         // border: Border.all(
-        //   color: ThemeSelector.colors.secondary,
+        //   color: CommonColors.secondary,
         //   width: 2,
         // ),
         borderRadius: BorderRadius.circular(
-          ThemeSelector.statics.defaultBorderRadiusExtreme,
+          CommonDimens.defaultBorderRadiusExtreme,
         ),
       ),
       child: InkWell(
-        borderRadius:
-            BorderRadius.circular(ThemeSelector.statics.iconSizeLarge),
+        borderRadius: BorderRadius.circular(CommonDimens.iconSizeLarge),
         onTap: () async {
           ImagePicker picker = ImagePicker();
 
@@ -66,19 +65,17 @@ class UploadPhotoButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              padding:
-                  EdgeInsets.all(padding ?? ThemeSelector.statics.defaultGap),
-              width: size ?? ThemeSelector.statics.iconSizeExtreme,
-              height: size ?? ThemeSelector.statics.iconSizeExtreme,
+              padding: EdgeInsets.all(padding ?? CommonDimens.defaultGap),
+              width: size ?? CommonDimens.iconSizeExtreme,
+              height: size ?? CommonDimens.iconSizeExtreme,
               decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(ThemeSelector.statics.iconSizeLarge),
+                borderRadius: BorderRadius.circular(CommonDimens.iconSizeLarge),
                 border: (borderWidth ?? 1) > 0
                     ? Border.fromBorderSide(BorderSide(
                         width: defaultImage != null
                             ? 0
-                            : borderWidth ?? ThemeSelector.statics.defaultGap,
-                        color: ThemeSelector.colors.primary,
+                            : borderWidth ?? CommonDimens.defaultGap,
+                        color: CommonColors.primary,
                       ))
                     : null,
               ),
@@ -101,12 +98,12 @@ class UploadPhotoButton extends StatelessWidget {
             if (title != null)
               Column(
                 children: [
-                  SizedBox(height: ThemeSelector.statics.defaultGap),
+                  const SizedBox(height: CommonDimens.defaultGap),
                   Text(
                     S.of(context).upload,
                     style: TextStyle(
-                      color: ThemeSelector.colors.secondary,
-                      fontSize: ThemeSelector.fonts.font_10,
+                      color: CommonColors.secondary,
+                      fontSize: CommonFontSize.font_10,
                     ),
                   )
                 ],

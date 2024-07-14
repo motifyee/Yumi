@@ -1,7 +1,7 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/statics/side_menu_items.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class MenuButton extends StatelessWidget {
   const MenuButton({super.key, required this.menuItem});
@@ -14,7 +14,7 @@ class MenuButton extends StatelessWidget {
     return TextButton(
       style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
-          minimumSize: Size.fromHeight(ThemeSelector.statics.defaultTitleGap),
+          minimumSize: const Size.fromHeight(CommonDimens.defaultTitleGap),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           alignment: Alignment.centerLeft),
       onPressed: menuItem.onPressed,
@@ -26,7 +26,7 @@ class MenuButton extends StatelessWidget {
               child: SvgPicture.asset(
                 menuItem.icon,
               )),
-          SizedBox(width: ThemeSelector.statics.defaultGap),
+          const SizedBox(width: CommonDimens.defaultGap),
           Text(
             menuItem.label,
             style: Theme.of(context).textTheme.labelLarge,

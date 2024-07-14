@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,8 +11,6 @@ import 'package:mime/mime.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/dialog.dart';
 
 class EventsPhoto extends StatelessWidget {
   const EventsPhoto({super.key});
@@ -22,13 +21,13 @@ class EventsPhoto extends StatelessWidget {
       validator: (value) =>
           value == null || value.isEmpty ? "Upload at least one photo" : null,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      initialValue: G.rd<ProfileCubit>().state.form.eventPhotos,
+      initialValue: G().rd<ProfileCubit>().state.form.eventPhotos,
       builder: (fieldState) => BlocBuilder<ProfileCubit, ProfileState>(
         builder: (ctx, state) {
           var eventPhotosTitle = Row(
             children: [
               SvgPicture.asset('assets/images/camera_dark.svg'),
-              SizedBox(width: ThemeSelector.statics.defaultLineGap),
+              const SizedBox(width: CommonDimens.defaultLineGap),
               Text(
                 S.of(ctx).eventsPhoto,
                 style: Theme.of(ctx).textTheme.labelLarge,
@@ -37,8 +36,8 @@ class EventsPhoto extends StatelessWidget {
           );
 
           return Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ThemeSelector.statics.defaultTitleGap),
+            padding: const EdgeInsets.symmetric(
+                horizontal: CommonDimens.defaultTitleGap),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -46,15 +45,15 @@ class EventsPhoto extends StatelessWidget {
                 if (state.form.eventPhotosCount < 5)
                   Row(
                     children: [
-                      SizedBox(width: ThemeSelector.statics.defaultLineGap),
-                      SizedBox(width: ThemeSelector.statics.defaultLineGap),
+                      const SizedBox(width: CommonDimens.defaultLineGap),
+                      const SizedBox(width: CommonDimens.defaultLineGap),
                       Text(
                         S.of(context).maxImageSize,
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ],
                   ),
-                SizedBox(height: ThemeSelector.statics.defaultGap * 2),
+                const SizedBox(height: CommonDimens.defaultGap * 2),
                 Flexible(
                   fit: FlexFit.loose,
                   child: SingleChildScrollView(
@@ -70,7 +69,7 @@ class EventsPhoto extends StatelessWidget {
                   ),
                 ),
                 if (fieldState.hasError)
-                  SizedBox(height: ThemeSelector.statics.defaultGap),
+                  const SizedBox(height: CommonDimens.defaultGap),
                 if (fieldState.hasError)
                   Text(
                     fieldState.errorText ?? '',
@@ -152,8 +151,8 @@ class EventsPhoto extends StatelessWidget {
             var allowed = 5 - state.form.eventPhotos.length;
 
             if (photos.length <= 5) {
-              final p = await G.rd<ProfileCubit>().uploadFormPhotos(photos);
-              G.rd<ProfileCubit>().getProfileForm();
+              final p = await G().rd<ProfileCubit>().uploadFormPhotos(photos);
+              G().rd<ProfileCubit>().getProfileForm();
 
               if (!fieldState.mounted) return;
               return fieldState.didChange(p.eventPhotos);
@@ -161,7 +160,7 @@ class EventsPhoto extends StatelessWidget {
 
             showAlertDialog(
               // ignore: use_build_context_synchronously
-              context: G.context,
+              context: G().context,
               content: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Text(
@@ -172,7 +171,7 @@ class EventsPhoto extends StatelessWidget {
               actions: {
                 if (allowed > 0) 'Cancel': (ctx) => ctx.router.popForced(),
                 'Ok': (ctx) {
-                  final p = G.rd<ProfileCubit>().uploadFormPhotos(photos);
+                  final p = G().rd<ProfileCubit>().uploadFormPhotos(photos);
                   fieldState.didChange(photos);
                   ctx.router.popForced();
                 },
@@ -193,7 +192,7 @@ class EventsPhoto extends StatelessWidget {
       child: InkWell(
         onTap: () {
           showAlertDialog(
-              context: G.context,
+              context: G().context,
               content: const Padding(
                 padding: EdgeInsets.all(12),
                 child: Text("Are you sure you want ot delete selected image"),
@@ -201,9 +200,10 @@ class EventsPhoto extends StatelessWidget {
               actions: {
                 'Cancel': null,
                 'Ok': (ctx) async {
-                  G.pop();
-                  final p =
-                      await G.rd<ProfileCubit>().deleteFormPhoto(photo: image!);
+                  G().pop();
+                  final p = await G()
+                      .rd<ProfileCubit>()
+                      .deleteFormPhoto(photo: image!);
                   fieldState.didChange(p.eventPhotos);
                 }
               });
@@ -228,7 +228,7 @@ class EventsPhoto extends StatelessWidget {
               child: Icon(
                 Icons.close,
                 size: 15,
-                color: ThemeSelector.colors.primary,
+                color: CommonColors.primary,
               ),
             ),
           ),

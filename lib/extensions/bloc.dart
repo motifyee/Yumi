@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/global.dart';
 
 mixin CubitX<T> on Cubit<T> {
-  Cubit<T> get read => G.rd<Cubit<T>>();
+  Cubit<T> get read => G().rd<Cubit<T>>();
 
   Cubit<T> get r => read;
 
@@ -11,7 +11,7 @@ mixin CubitX<T> on Cubit<T> {
 }
 
 mixin BlocX<T, S> on Bloc<T, S> {
-  Bloc<T, S> get read => G.read<Bloc<T, S>>();
+  Bloc<T, S> get read => G().read<Bloc<T, S>>();
 
   Bloc<T, S> get r => read;
 

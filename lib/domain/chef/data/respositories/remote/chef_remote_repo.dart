@@ -1,13 +1,11 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/core/exceptions.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/setup/inject.dart';
+import 'package:common_code/common_code.dart';
 import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
 import 'package:yumi/domain/chef/data/sources/chef_src.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/domain/chef/entity/chef_work_status.dart';
-import 'package:yumi/statics/paginatedData.dart';
-import 'package:yumi/statics/pagination.dart';
+
+import 'package:common_code/domain/entities/pagination.dart';
 
 class ChefRemoteRepo implements ChefRepo {
   final ChefSrc chefSrc;

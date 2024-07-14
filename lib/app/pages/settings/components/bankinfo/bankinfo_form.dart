@@ -1,13 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/settings/bankinfo/cubit/bankinfo_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/regex.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 final GlobalKey<FormState> bankInfoKey = GlobalKey<FormState>();
@@ -146,26 +144,26 @@ class BankInfoForm extends StatelessWidget {
         return state.isLoading
             ? spinner
             : Container(
-                padding: EdgeInsets.all(ThemeSelector.statics.defaultBlockGap),
+                padding: const EdgeInsets.all(CommonDimens.defaultBlockGap),
                 child: Form(
                   key: bankInfoKey,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
                         bankNameField,
-                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        const SizedBox(height: CommonDimens.defaultLineGap),
                         accountNameField,
-                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        const SizedBox(height: CommonDimens.defaultLineGap),
                         accountNumberField,
-                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        const SizedBox(height: CommonDimens.defaultLineGap),
                         bankCurrencyField,
-                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        const SizedBox(height: CommonDimens.defaultLineGap),
                         ibanField,
-                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        const SizedBox(height: CommonDimens.defaultLineGap),
                         swiftCodeField,
-                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        const SizedBox(height: CommonDimens.defaultLineGap),
                         branchAddressField,
-                        SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                        const SizedBox(height: CommonDimens.defaultLineGap),
                       ],
                     ),
                   ),
@@ -191,7 +189,7 @@ class BankInfoSubmitButton extends StatelessWidget {
         // cancel
         TextButton(
           style: TextButton.styleFrom(
-            foregroundColor: ThemeSelector.colors.secondary,
+            foregroundColor: CommonColors.secondary,
           ),
           child: Text(S.of(context).cancel),
           onPressed: () => context.router
@@ -199,14 +197,14 @@ class BankInfoSubmitButton extends StatelessWidget {
               .then((_) => context.read<BankInfoCubit>().resetForm()),
         ),
 
-        SizedBox(width: ThemeSelector.statics.defaultLineGap * 2),
+        const SizedBox(width: CommonDimens.defaultLineGap * 2),
 
         // save
         TextButton(
           child: Text(S.of(context).save),
           onPressed: () async {
             if (!bankInfoKey.currentState!.validate()) {
-              return G.snackBar(S.of(context).invalidInput);
+              return G().snackBar(S.of(context).invalidInput);
             }
 
             bankInfoKey.currentState!.save();
@@ -215,9 +213,9 @@ class BankInfoSubmitButton extends StatelessWidget {
             final update = await cubit.updateBankInfo();
 
             update.fold(
-              (l) => G.snackBar(l.toString()),
+              (l) => G().snackBar(l.toString()),
               (r) async {
-                G.snackBar(r);
+                G().snackBar(r);
                 Navigator.of(context).pop();
                 cubit.resetForm();
                 await cubit.getBankInfo();

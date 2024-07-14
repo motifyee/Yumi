@@ -1,7 +1,7 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/domain/profile/entities/review_model.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class ReviewCard extends StatelessWidget {
   ReviewCard({super.key, required this.review});
@@ -11,16 +11,16 @@ class ReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: ThemeSelector.statics.defaultLineGap,
-          vertical: ThemeSelector.statics.defaultGap),
+      padding: const EdgeInsets.symmetric(
+          horizontal: CommonDimens.defaultLineGap,
+          vertical: CommonDimens.defaultGap),
       decoration: BoxDecoration(
-        color: ThemeSelector.colors.background,
-        borderRadius: BorderRadius.circular(
-            ThemeSelector.statics.defaultBorderRadiusMedium),
+        color: CommonColors.background,
+        borderRadius:
+            BorderRadius.circular(CommonDimens.defaultBorderRadiusMedium),
         boxShadow: [
           BoxShadow(
-              color: ThemeSelector.colors.shadow.withOpacity(.05),
+              color: CommonColors.shadow.withOpacity(.05),
               blurRadius: 5,
               offset: const Offset(2, 3))
         ],
@@ -28,29 +28,29 @@ class ReviewCard extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: ThemeSelector.statics.defaultTitleGapLarge,
-            height: ThemeSelector.statics.defaultTitleGapLarge,
+            width: CommonDimens.defaultTitleGapLarge,
+            height: CommonDimens.defaultTitleGapLarge,
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
-                color: ThemeSelector.colors.secondaryFaint,
-                borderRadius: BorderRadius.circular(
-                    ThemeSelector.statics.defaultTitleGapLarge)),
+                color: CommonColors.secondaryFaint,
+                borderRadius:
+                    BorderRadius.circular(CommonDimens.defaultTitleGapLarge)),
             child: Center(
               child: Text(
                 review.customerName[0].toUpperCase(),
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    fontSize: ThemeSelector.fonts.font_24,
-                    color: ThemeSelector.colors.onSecondary),
+                    fontSize: CommonFontSize.font_24,
+                    color: CommonColors.onSecondary),
               ),
             ),
           ),
-          SizedBox(width: ThemeSelector.statics.defaultGap),
+          const SizedBox(width: CommonDimens.defaultGap),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ThemeSelector.statics.defaultMicroGap),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: CommonDimens.defaultMicroGap),
                 child: Text(
                   review.customerName,
                   style: Theme.of(context).textTheme.labelMedium,
@@ -60,14 +60,13 @@ class ReviewCard extends StatelessWidget {
                 ignoreGestures: true,
                 initialRating: review.rate,
                 allowHalfRating: true,
-                itemSize: ThemeSelector.fonts.font_18,
+                itemSize: CommonFontSize.font_18,
                 ratingWidget: RatingWidget(
-                  empty: Icon(Icons.star_border,
-                      color: ThemeSelector.colors.warning),
-                  full: Icon(Icons.star, color: ThemeSelector.colors.warning),
+                  empty: Icon(Icons.star_border, color: CommonColors.warning),
+                  full: Icon(Icons.star, color: CommonColors.warning),
                   half: Icon(
                     Icons.star_half,
-                    color: ThemeSelector.colors.warning,
+                    color: CommonColors.warning,
                   ),
                 ),
                 onRatingUpdate: (value) {},

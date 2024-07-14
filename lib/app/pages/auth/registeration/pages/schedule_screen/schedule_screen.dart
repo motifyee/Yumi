@@ -2,20 +2,17 @@ import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/domain/schedule/entities/schedule.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/domain/schedule/entities/extensions.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/dialog.dart';
-import 'package:yumi/app/components/screen_container.dart';
 
 @RoutePage()
 class MyScheduleScreen extends StatelessWidget {
@@ -31,13 +28,13 @@ class MyScheduleScreen extends StatelessWidget {
       child: ScreenContainer(
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: G.rd<RegCubit>().state.registerationStarted
+          appBar: G().rd<RegCubit>().state.registerationStarted
               ? null
               : AppBar(
                   backgroundColor: Colors.transparent,
                   bottomOpacity: 0,
                   scrolledUnderElevation: 0,
-                  iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
+                  iconTheme: IconThemeData(color: CommonColors.primary),
                 ),
           body: BlocBuilder<ScheduleCubit, ScheduleState>(
             builder: (context, state) {
@@ -87,18 +84,16 @@ class MyScheduleScreen extends StatelessWidget {
           vertical: 10,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(
-              Radius.circular(ThemeSelector.statics.defaultBorderRadiusLarge)),
-          color: enableUpdate
-              ? ThemeSelector.colors.primary
-              : ThemeSelector.colors.primaryTant,
+          borderRadius: const BorderRadius.all(
+              Radius.circular(CommonDimens.defaultBorderRadiusLarge)),
+          color: enableUpdate ? CommonColors.primary : CommonColors.primaryTant,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Icon(
               Icons.save,
-              color: ThemeSelector.colors.onSecondary,
+              color: CommonColors.onSecondary,
             ),
             Text(
               'Save',
@@ -135,7 +130,7 @@ class MyScheduleScreen extends StatelessWidget {
         shape: day.uiValid
             ? null
             : RoundedRectangleBorder(
-                side: BorderSide(color: ThemeSelector.colors.error, width: 2.0),
+                side: BorderSide(color: CommonColors.error, width: 2.0),
                 borderRadius: BorderRadius.circular(10.0)),
         borderOnForeground: true,
         elevation: day.active ?? false ? 5 : 1,
@@ -156,7 +151,7 @@ class MyScheduleScreen extends StatelessWidget {
       onTap: () {
         var d = day.copyWith(active: !(day.active ?? false));
         HapticFeedback.lightImpact();
-        G.rd<ScheduleCubit>().saveScheduleDay(d);
+        G().rd<ScheduleCubit>().saveScheduleDay(d);
       },
       borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10), topRight: Radius.circular(10)),
@@ -169,7 +164,7 @@ class MyScheduleScreen extends StatelessWidget {
             fontWeight: FontWeight.w800,
             color: day.active ?? false
                 ? Colors.white
-                : ThemeSelector.colors.secondaryTantLighter,
+                : CommonColors.secondaryTantLighter,
           ),
         ),
       ),
@@ -192,7 +187,7 @@ class MyScheduleScreen extends StatelessWidget {
         MenuItemButton(
           child: const Text("Copy to all"),
           onPressed: () {
-            G.rd<ScheduleCubit>().applyDayToAll(day);
+            G().rd<ScheduleCubit>().applyDayToAll(day);
           },
         )
       ],
@@ -200,9 +195,8 @@ class MyScheduleScreen extends StatelessWidget {
 
     return Card(
       borderOnForeground: true,
-      color: day.active ?? false
-          ? ThemeSelector.colors.primary
-          : ThemeSelector.colors.primaryTant,
+      color:
+          day.active ?? false ? CommonColors.primary : CommonColors.primaryTant,
       margin: const EdgeInsets.all(0),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -253,8 +247,8 @@ class MyScheduleScreen extends StatelessWidget {
                 timeDiff ?? "00:00",
                 style: TextStyle(
                     color: day.active ?? false
-                        ? ThemeSelector.colors.secondaryTant
-                        : ThemeSelector.colors.secondaryFaint),
+                        ? CommonColors.secondaryTant
+                        : CommonColors.secondaryFaint),
               ),
             ],
           ),
@@ -272,8 +266,8 @@ class MyScheduleScreen extends StatelessWidget {
         data: themeData.copyWith(
             textTheme: textTheme.copyWith(
           headlineSmall: TextStyle(
-            color: ThemeSelector.colors.primary,
-            fontSize: ThemeSelector.fonts.font_9,
+            color: CommonColors.primary,
+            fontSize: CommonFontSize.font_9,
           ),
         )),
         child: InkWell(
@@ -304,8 +298,8 @@ class MyScheduleScreen extends StatelessWidget {
                       if (saved?.end?.hour == 0 && saved?.end?.minute == 0) {
                       } else if ((saved?.end?.minutesDifference(tod) ?? 0) <
                           2 * 60) {
-                        G.hideSnackbar();
-                        G.snackBar(
+                        G().hideSnackbar();
+                        G().snackBar(
                           "Start time must be at least 2 hours before end time",
                         );
                       }
@@ -313,15 +307,15 @@ class MyScheduleScreen extends StatelessWidget {
 
                     if (!start) {
                       if (tod.minutesDifference(saved?.start) < 2 * 60) {
-                        G.hideSnackbar();
-                        return G.snackBar(
+                        G().hideSnackbar();
+                        return G().snackBar(
                           "End time must be at least 2 hours after start time",
                         );
                       }
                     }
                     // ---------------------------------------------------------
 
-                    G.hideSnackbar();
+                    G().hideSnackbar();
                     HapticFeedback.lightImpact();
 
                     cubit.saveScheduleDay(
@@ -347,8 +341,8 @@ class MyScheduleScreen extends StatelessWidget {
                       fontWeight: FontWeight.w900,
                       fontSize: 12,
                       color: day.active ?? false
-                          ? ThemeSelector.colors.primaryDisabled
-                          : ThemeSelector.colors.primaryTant,
+                          ? CommonColors.primaryDisabled
+                          : CommonColors.primaryTant,
                     ),
                   ),
                 ),
@@ -376,7 +370,7 @@ class MyScheduleScreen extends StatelessWidget {
     return RichText(
       text: TextSpan(
         style: TextStyle(
-          color: ThemeSelector.colors.secondary,
+          color: CommonColors.secondary,
           textBaseline: TextBaseline.alphabetic,
         ),
         children: [
@@ -384,9 +378,7 @@ class MyScheduleScreen extends StatelessWidget {
             text: timeParts,
             style: TextStyle(
               fontSize: 14,
-              color: day.active ?? false
-                  ? null
-                  : ThemeSelector.colors.secondaryFaint,
+              color: day.active ?? false ? null : CommonColors.secondaryFaint,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -399,8 +391,8 @@ class MyScheduleScreen extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
                     color: day.active ?? false
-                        ? ThemeSelector.colors.primaryDisabled.withAlpha(950)
-                        : ThemeSelector.colors.secondaryFaint,
+                        ? CommonColors.primaryDisabled.withAlpha(950)
+                        : CommonColors.secondaryFaint,
                   )),
             ),
           ),
@@ -421,12 +413,12 @@ void addYourScheduleDialog(BuildContext context) {
           children: [
             SvgPicture.asset(AppAssets.addScheduleIcon),
             const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 'You should schedule at least two working days with at least two hours each.',
                 style: TextStyle(
-                  fontSize: ThemeSelector.fonts.font_14,
+                  fontSize: CommonFontSize.font_14,
                 ),
               ),
             ),
@@ -445,13 +437,13 @@ void sheduleDialog(BuildContext context) {
     content: const MyScheduleScreen(),
     actions: {
       'Next': (ctx) {
-        if (!G.rd<ScheduleCubit>().state.schedule.validSchedule) {
+        if (!G().rd<ScheduleCubit>().state.schedule.validSchedule) {
           return addYourScheduleDialog(context);
         }
 
-        G.rd<RegCubit>().refresh();
+        G().rd<RegCubit>().refresh();
 
-        G.pop();
+        G().pop();
       },
     },
     insetPadding: 0,

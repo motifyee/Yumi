@@ -1,19 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
-import 'package:yumi/app/pages/settings/components/profile/cubit/profile_form_cubit.dart';
 import 'package:yumi/core/util/constants.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/regex.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/required_validator.dart';
 
@@ -86,9 +82,11 @@ class ProfileForm extends StatelessWidget {
             label: 'Change',
             loadingLabel: '',
             onPressed: () async {
-              context.read<RegCubit>().saveStepToCache(RegStep.addPhone.index);
+              await context
+                  .read<RegCubit>()
+                  .saveStepToCache(RegStep.addPhone.index);
               context.router.push(const RegisterationRoute());
-              context.read<RegCubit>().init(
+              context.read<RegCubit>().initReg(
                     partialFlow: true,
                     // stops at subsequent verification
                     lastStep: RegStep.addPhone.index,
@@ -136,7 +134,7 @@ class ProfileForm extends StatelessWidget {
             ? [spinner]
             : [
                 fullNameField,
-                SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
+                const SizedBox(height: CommonDimens.defaultLineGap * 2),
                 Stack(
                   children: [
                     mobileField,
@@ -147,15 +145,15 @@ class ProfileForm extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-                if (!G.isCustomerApp) aboutField,
-                SizedBox(height: ThemeSelector.statics.defaultLineGap * 2),
-                if (G.isChefApp) pickupAndDeliveryIcons,
+                const SizedBox(height: CommonDimens.defaultLineGap * 2),
+                if (!G().isCustomerApp) aboutField,
+                const SizedBox(height: CommonDimens.defaultLineGap * 2),
+                if (G().isChefApp) pickupAndDeliveryIcons,
               ];
 
         return Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: ThemeSelector.statics.defaultBlockGap,
+          padding: const EdgeInsets.symmetric(
+            horizontal: CommonDimens.defaultBlockGap,
           ),
           child: Form(
             key: state.profileFormKey,
@@ -191,13 +189,13 @@ class ProfileFormSubmitButton extends StatelessWidget {
 
           if (form == null) return;
           if (!form.currentState!.validate()) {
-            return G.snackBar(S.of(context).invalidInput);
+            return G().snackBar(S.of(context).invalidInput);
           }
 
           form.currentState!.save();
 
           await cubit.updateProfileForm().then((res) {
-            G.snackBar(cubit.state.form.entityStatus.message);
+            G().snackBar(cubit.state.form.entityStatus.message);
 
             if (res != null) Navigator.of(context).pop();
           });

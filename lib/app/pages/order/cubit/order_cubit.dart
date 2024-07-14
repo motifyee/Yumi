@@ -1,14 +1,13 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
+import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart' as fpdart;
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/core/failures.dart';
+import 'package:common_code/core/failures.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/domain/order/use_case/get_orders.dart';
 import 'package:yumi/domain/order/use_case/put_action_orders.dart';
 import 'package:yumi/extensions/string.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 part 'order_cubit.freezed.dart';
 part 'order_cubit.g.dart';
@@ -41,7 +40,7 @@ class OrderCubit extends Cubit<OrderState> {
       );
 
       task.fold(
-        (l) => G.snackBar(l.toString().onEmpty('Connection Error!')),
+        (l) => G().snackBar(l.toString().onEmpty('Connection Error!')),
         (r) => !isClosed ? emit(state.copyWith(ordersPage: r)) : null,
       );
     }
@@ -75,7 +74,7 @@ class OrderCubit extends Cubit<OrderState> {
 
     task.fold(
       (l) {
-        G.snackBar(l.toString());
+        G().snackBar(l.toString());
 
         emitOrderIsLoading(false);
       },
@@ -84,7 +83,7 @@ class OrderCubit extends Cubit<OrderState> {
         getOrders(apiKeys: getApiKey);
 
         if (navFun != null) navFun();
-        if (customMessage != null) G.snackBar(customMessage);
+        if (customMessage != null) G().snackBar(customMessage);
       },
     );
   }

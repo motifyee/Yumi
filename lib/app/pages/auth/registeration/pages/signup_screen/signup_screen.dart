@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
+import 'package:common_code/domain/auth/entities/signup_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/registeration_step.dart';
@@ -9,9 +11,7 @@ import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/auth/login/login_thrid_part.dart';
-import 'package:yumi/app/components/screen_container.dart';
 
 @RoutePage()
 class SignUpScreen extends StatelessWidget {
@@ -24,21 +24,23 @@ class SignUpScreen extends StatelessWidget {
       child: RegisterationPage(
         step: RegStep.signup,
         nextStep: RegStep.addPhone,
-        page: SignupScreenContent(),
+        page: SignupScreenContent(onDone: (signupData) => {}),
       ),
     );
   }
 }
 
 class SignupScreenContent extends StatelessWidget {
-  SignupScreenContent({super.key});
+  final void Function(SignupData) onDone;
 
-  final regCubit = G.rd<RegCubit>();
+  SignupScreenContent({super.key, required this.onDone});
+
+  final regCubit = G().rd<RegCubit>();
 
   @override
   Widget build(BuildContext context) {
     final pageItems = [
-      SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+      const SizedBox(height: CommonDimens.defaultBlockGap),
       // Create Account Header
       Text(
         S.of(context).createAccount,
@@ -49,11 +51,11 @@ class SignupScreenContent extends StatelessWidget {
         S.of(context).createNewAccount,
         style: Theme.of(context).textTheme.labelSmall,
       ),
-      SizedBox(height: ThemeSelector.statics.defaultTitleGap),
+      const SizedBox(height: CommonDimens.defaultTitleGap),
       SignUpForm(key: key),
-      SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+      const SizedBox(height: CommonDimens.defaultBlockGap),
       const SocialLogin(),
-      SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+      const SizedBox(height: CommonDimens.defaultBlockGap),
       // Already have an account? Login
       TextButton(
         onPressed: () {
@@ -65,14 +67,14 @@ class SignupScreenContent extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyMedium,
             children: [
               TextSpan(text: S.of(context).alreadyHaveAccount),
-              WidgetSpan(
-                  child: SizedBox(width: ThemeSelector.fonts.font_12 / 2)),
+              const WidgetSpan(
+                  child: SizedBox(width: CommonFontSize.font_12 / 2)),
               TextSpan(
                 text: S.of(context).login,
                 style: Theme.of(context)
                     .textTheme
                     .titleSmall
-                    ?.copyWith(fontSize: ThemeSelector.fonts.font_12 * 1.3),
+                    ?.copyWith(fontSize: CommonFontSize.font_12 * 1.3),
               ),
             ],
           ),
@@ -92,7 +94,7 @@ class SignupScreenContent extends StatelessWidget {
             backgroundColor: Colors.transparent,
             bottomOpacity: 0,
             scrolledUnderElevation: 0,
-            iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
+            iconTheme: IconThemeData(color: CommonColors.primary),
           ),
           body: LayoutBuilder(builder: (context, constraint) {
             return SingleChildScrollView(

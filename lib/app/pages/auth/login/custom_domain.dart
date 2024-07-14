@@ -1,9 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/text_form_field.dart';
+import 'package:common_code/common_code.dart';
 
 class CustomDomain extends StatelessWidget {
   CustomDomain({super.key});
@@ -24,7 +22,7 @@ class CustomDomain extends StatelessWidget {
         },
         child: Icon(
           Icons.dns_outlined,
-          color: ThemeSelector.colors.secondaryTant,
+          color: CommonColors.secondaryTant,
         ));
   }
 }
@@ -47,9 +45,9 @@ class _DomainFormState extends State<_DomainForm> {
       child: Form(
         key: widget.domainFormKey,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: ThemeSelector.statics.defaultGap,
-            vertical: ThemeSelector.statics.defaultBlockGap,
+          padding: const EdgeInsets.symmetric(
+            horizontal: CommonDimens.defaultGap,
+            vertical: CommonDimens.defaultBlockGap,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -60,7 +58,7 @@ class _DomainFormState extends State<_DomainForm> {
                     child: TextFormFieldTemplate(
                       borderStyle: TextFormFieldBorderStyle.borderedCircle,
                       label: S.of(context).domain,
-                      onSave: (value) => DioClient.setOriginApi(value),
+                      onSave: (value) => BaseUrl.set(value),
                     ),
                   ),
                   TextButton(
@@ -70,14 +68,14 @@ class _DomainFormState extends State<_DomainForm> {
                       },
                       child: Container(
                           padding:
-                              EdgeInsets.all(ThemeSelector.statics.defaultGap),
+                              const EdgeInsets.all(CommonDimens.defaultGap),
                           decoration: BoxDecoration(
-                              color: ThemeSelector.colors.primary,
+                              color: CommonColors.primary,
                               borderRadius: BorderRadius.circular(
-                                  ThemeSelector.statics.defaultBlockGap)),
+                                  CommonDimens.defaultBlockGap)),
                           child: Icon(
                             Icons.dns,
-                            color: ThemeSelector.colors.onPrimary,
+                            color: CommonColors.onPrimary,
                           ))),
                 ],
               ),
@@ -95,7 +93,7 @@ class _DomainFormState extends State<_DomainForm> {
                   ),
                   TextButton(
                     onPressed: () => setState(() {
-                      DioClient.setOriginApi(defaultOriginApi);
+                      BaseUrl.set(defaultOriginApi);
                     }),
                     child: Text(S.of(context).reset),
                   ),

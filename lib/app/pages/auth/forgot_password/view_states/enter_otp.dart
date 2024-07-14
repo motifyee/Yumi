@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/app/components/interactive_button/interactive_button.dart';
+import 'package:common_code/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/app/components/otp/otp.dart';
-import 'package:yumi/app/components/text_form_field.dart';
+import 'package:common_code/components/otp/otp.dart';
+import 'package:common_code/components/text_form_field.dart';
 import 'package:yumi/core/util/util.dart';
 import 'package:yumi/validators/confirm_password_validator.dart';
 import 'package:yumi/validators/password_validator.dart';
@@ -98,7 +98,7 @@ class ForgotPwdEnterOTP extends StatelessWidget {
         InteractiveButton(
             label: 'Send',
             onPressed: () async {
-              if (otp.length < 4) return G.snackBar("Invalid OTP!");
+              if (otp.length < 4) return G().snackBar("Invalid OTP!");
               if (!form.currentState!.validate()) return;
 
               final entry = cubit.state.email;
@@ -116,10 +116,10 @@ class ForgotPwdEnterOTP extends StatelessWidget {
               }
 
               if (cubit.state.codeVerified) {
-                return G.snackBar("Password reset successfully!");
+                return G().snackBar("Password reset successfully!");
               }
 
-              G.snackBar(cubit.state.error);
+              G().snackBar(cubit.state.error);
             }),
         const SizedBox(height: 60),
       ],

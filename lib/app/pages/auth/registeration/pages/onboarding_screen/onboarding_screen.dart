@@ -11,10 +11,10 @@ import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
-import 'package:yumi/bloc/util/status.dart';
+import 'package:common_code/util/status.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/app/components/screen_container.dart';
+import 'package:common_code/components/screen_container.dart';
 
 part "onboarding_curve.dart";
 
@@ -27,12 +27,13 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final regCubit = context.read<RegCubit>();
-    if (!regCubit.state.registerationStarted && !regCubit.state.finished) {
-      context.read<RegCubit>().init();
-    }
+    // if (!regCubit.state.registerationStarted && !regCubit.state.finished) {
+    //   context.read<RegCubit>().initReg();
+    // }
+
     context.watch<ProfileCubit>();
     context.watch<RegCubit>();
-    if (G.isChefApp) context.watch<MealCubit>();
+    if (G().isChefApp) context.watch<MealCubit>();
     context.watch<ScheduleCubit>();
     context.watch<DocsCubit>();
 
@@ -59,13 +60,13 @@ class OnboardingScreen extends StatelessWidget {
                         height: 250,
                         alignment: Alignment.topLeft,
                         child: Image(
-                          image: G.isChefApp
+                          image: G().isChefApp
                               ? const AssetImage(AppAssets.vegiesIcon)
                               : const AssetImage(AppAssets.driverFlowIcon),
                         ),
                       ),
                     ),
-                    if (G.isChefApp) Expanded(child: Container()),
+                    if (G().isChefApp) Expanded(child: Container()),
                   ],
                 ),
               ),
@@ -95,10 +96,10 @@ class OnboardingScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
                       onPressed: () {
-                        G.rd<RegCubit>().nextButtonPressed();
+                        G().rd<RegCubit>().nextButtonPressed();
                       },
                       onLongPress: () {
-                        if (kDebugMode) G.rd<RegCubit>().finish(true);
+                        if (kDebugMode) G().rd<RegCubit>().finish(true);
                       },
                       child: const Text('Next'),
                     ),
@@ -119,7 +120,7 @@ Widget _buildOnboardingStackWidget(RegState state) {
     builder: (context, constraints) {
       var buildTile = _getTileBuilder(constraints);
 
-      var steps = G.isChefApp
+      var steps = G().isChefApp
           ? chefOnboardingSteps(context, state)
           : driverOnboardingSteps(context, state);
 

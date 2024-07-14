@@ -1,11 +1,10 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/settings/bankinfo/cubit/bankinfo_cubit.dart';
 import 'package:yumi/app/pages/settings/components/bankinfo/bankinfo_form.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/dialog.dart';
 
 // class BankInfoCardProvider extends StatelessWidget {
 //   const BankInfoCardProvider({super.key});
@@ -29,9 +28,9 @@ class BankInfoCard extends StatelessWidget {
         SvgPicture.asset(
           'assets/images/bank.svg',
           colorFilter:
-              ColorFilter.mode(ThemeSelector.colors.secondary, BlendMode.srcIn),
+              ColorFilter.mode(CommonColors.secondary, BlendMode.srcIn),
         ),
-        SizedBox(width: ThemeSelector.statics.defaultGap),
+        const SizedBox(width: CommonDimens.defaultGap),
         Text(S.of(context).bankAccount),
         const Expanded(child: SizedBox()),
         // if (bankInfo.id.isNotEmpty)
@@ -47,14 +46,14 @@ class BankInfoCard extends StatelessWidget {
     return SizedBox(
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
+        padding: const EdgeInsets.all(CommonDimens.defaultLineGap),
         decoration: BoxDecoration(
-          color: ThemeSelector.colors.background,
-          borderRadius: BorderRadius.circular(
-              ThemeSelector.statics.defaultBorderRadiusSmall),
+          color: CommonColors.background,
+          borderRadius:
+              BorderRadius.circular(CommonDimens.defaultBorderRadiusSmall),
           boxShadow: [
             BoxShadow(
-              color: ThemeSelector.colors.secondary.withOpacity(.15),
+              color: CommonColors.secondary.withOpacity(.15),
               spreadRadius: 0,
               blurRadius: 5,
               offset: const Offset(2, 4),
@@ -64,7 +63,7 @@ class BankInfoCard extends StatelessWidget {
         child: Column(
           children: [
             headerRow,
-            SizedBox(height: ThemeSelector.statics.defaultLineGap),
+            const SizedBox(height: CommonDimens.defaultLineGap),
             const BankInfoFields(),
           ],
         ),
@@ -99,7 +98,7 @@ class BankInfoFields extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+                  ?.copyWith(color: CommonColors.secondaryTant),
             ),
           ],
         );
@@ -116,7 +115,7 @@ class BankInfoFields extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+                  ?.copyWith(color: CommonColors.secondaryTant),
             ),
           ],
         );
@@ -133,7 +132,7 @@ class BankInfoFields extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+                  ?.copyWith(color: CommonColors.secondaryTant),
             ),
           ],
         );
@@ -150,7 +149,7 @@ class BankInfoFields extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+                  ?.copyWith(color: CommonColors.secondaryTant),
             ),
           ],
         );
@@ -167,7 +166,7 @@ class BankInfoFields extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+                  ?.copyWith(color: CommonColors.secondaryTant),
             ),
           ],
         );
@@ -184,7 +183,7 @@ class BankInfoFields extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+                  ?.copyWith(color: CommonColors.secondaryTant),
             ),
           ],
         );
@@ -201,7 +200,7 @@ class BankInfoFields extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+                  ?.copyWith(color: CommonColors.secondaryTant),
             ),
           ],
         );
@@ -209,17 +208,17 @@ class BankInfoFields extends StatelessWidget {
         return Column(
           children: [
             bankNameRow,
-            SizedBox(height: ThemeSelector.statics.defaultGap),
+            const SizedBox(height: CommonDimens.defaultGap),
             accountNameRow,
-            SizedBox(height: ThemeSelector.statics.defaultGap),
+            const SizedBox(height: CommonDimens.defaultGap),
             accountNumberRow,
-            SizedBox(height: ThemeSelector.statics.defaultGap),
+            const SizedBox(height: CommonDimens.defaultGap),
             currnecyRow,
-            SizedBox(height: ThemeSelector.statics.defaultGap),
+            const SizedBox(height: CommonDimens.defaultGap),
             ibanRow,
-            SizedBox(height: ThemeSelector.statics.defaultGap),
+            const SizedBox(height: CommonDimens.defaultGap),
             swiftRow,
-            SizedBox(height: ThemeSelector.statics.defaultGap),
+            const SizedBox(height: CommonDimens.defaultGap),
             branchAddressRow,
           ],
         );

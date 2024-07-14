@@ -1,11 +1,10 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
 import 'package:yumi/app/pages/auth/forgot_password/view_states/enter_email.dart';
 import 'package:yumi/app/pages/auth/forgot_password/view_states/enter_otp.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/screen_container.dart';
 
 class ForgotPasswordSheetProvider extends StatelessWidget {
   const ForgotPasswordSheetProvider({super.key});
@@ -27,16 +26,16 @@ class ForgotPasswordSheet extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        padding: EdgeInsets.only(
-          top: ThemeSelector.statics.iconSizeSmall,
+        padding: const EdgeInsets.only(
+          top: CommonDimens.iconSizeSmall,
         ),
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(
-                ThemeSelector.statics.defaultBorderRadiusExtraLarge),
-            topLeft: Radius.circular(
-                ThemeSelector.statics.defaultBorderRadiusExtraLarge),
+          borderRadius: const BorderRadius.only(
+            topRight:
+                Radius.circular(CommonDimens.defaultBorderRadiusExtraLarge),
+            topLeft:
+                Radius.circular(CommonDimens.defaultBorderRadiusExtraLarge),
           ),
           gradient: screenGradient,
         ),
@@ -49,16 +48,15 @@ class ForgotPasswordSheet extends StatelessWidget {
               backgroundColor: Colors.transparent,
               bottomOpacity: 0,
               scrolledUnderElevation: 0,
-              // iconTheme: IconThemeData(color: ThemeSelector.colors.primary),
+              // iconTheme: IconThemeData(color: CommonColors.primary),
               leading: IconButton(
-                icon:
-                    Icon(Icons.arrow_back, color: ThemeSelector.colors.primary),
+                icon: Icon(Icons.arrow_back, color: CommonColors.primary),
                 onPressed: () {
                   final cubit = context.read<ForgotPwdCubit>();
 
                   switch (cubit.state.window) {
                     case ForgotPwdWindow.enterEmail:
-                      return G.pop();
+                      return G().pop();
                     default:
                       cubit.setWindow(ForgotPwdWindow.enterEmail);
                     // ForgotPwdWindow.enterOTP:
@@ -68,10 +66,10 @@ class ForgotPasswordSheet extends StatelessWidget {
                 },
               )),
           body: Padding(
-            padding: EdgeInsets.only(
-              left: ThemeSelector.statics.defaultBlockGap,
-              right: ThemeSelector.statics.defaultBlockGap,
-              top: ThemeSelector.statics.defaultGapExtreme,
+            padding: const EdgeInsets.only(
+              left: CommonDimens.defaultBlockGap,
+              right: CommonDimens.defaultBlockGap,
+              top: CommonDimens.defaultGapExtreme,
               // bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
             child: SingleChildScrollView(
@@ -90,7 +88,7 @@ class ForgotPasswordSheet extends StatelessWidget {
                   ForgotPwdWindow.enterEmail => ForgotPwdEnterEmail(),
                   ForgotPwdWindow.enterOTP => const ForgotPwdEnterOTP(),
                   ForgotPwdWindow.done => () {
-                      G.pop();
+                      G().pop();
                       return const ForgotPwdEnterOTP();
                     }(),
                 };

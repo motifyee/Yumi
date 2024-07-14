@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/bloc/util/status.dart';
+import 'package:common_code/util/status.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/domain/profile/entities/country_model.dart';
 
@@ -100,7 +100,7 @@ abstract class Profile with _$Profile {
   bool get profileSheetDone {
     if (bio.isEmpty) return false;
     if (profileImage == null) return false;
-    if (G.isChefApp && (eventPhotosCount == 0)) return false;
+    if (G().isChefApp && (eventPhotosCount == 0)) return false;
 
     return true;
   }
@@ -108,7 +108,7 @@ abstract class Profile with _$Profile {
   bool get documentaionDone {
     if (idPhoto == null) return false;
 
-    if (G.isDriverApp) {
+    if (G().isDriverApp) {
       if (driverLicensePhoto == null) return false;
       if (driverLicenseCodePhoto == null) return false;
       if (foodDeliveryInsurancePhoto == null) return false;
@@ -117,7 +117,7 @@ abstract class Profile with _$Profile {
       return true;
     }
 
-    if (G.isChefApp) {
+    if (G().isChefApp) {
       if (hygienePhoto == null) return false;
       if (riskPhoto == null) return false;
       if (registerationPhoto == null) return false;

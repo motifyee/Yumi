@@ -1,5 +1,5 @@
+import 'package:common_code/common_code.dart';
 import 'package:yumi/domain/notification/entity/notification.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 abstract class NotificationSource {
   Future<PaginatedData<NotificationS>> loadNotifications(

@@ -1,19 +1,17 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:yumi/app/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/bankinfo/cubit/bankinfo_cubit.dart';
 import 'package:yumi/app/pages/settings/components/profile/profile_card.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/settings/components/bankinfo/bankinfo_card.dart';
-import 'package:yumi/app/components/dialog.dart';
 
 @RoutePage()
 class SettingsScreen extends StatelessWidget {
@@ -25,25 +23,25 @@ class SettingsScreen extends StatelessWidget {
     fToast.init(context);
 
     final deleteAccountButton = InteractiveButton(
-      backgroundColor: ThemeSelector.colors.error,
+      backgroundColor: CommonColors.error,
       height: 40,
       label: S.of(context).deleteAccount,
-      icon: Icon(Icons.delete, color: ThemeSelector.colors.onSecondary),
+      icon: Icon(Icons.delete, color: CommonColors.onSecondary),
       onPressed: () async {
         if (!await confirmDeleteAccount(context)) {
           return;
         }
 
-        await G.rd<ProfileCubit>().deleteProfile().then(
+        await G().rd<ProfileCubit>().deleteProfile().then(
           (value) {
             if (!value.contains("Deleting a Account")) {
-              G.showToast(
+              G().showToast(
                 "Could not delete account",
                 context: context,
               );
             }
 
-            G.showToast(
+            G().showToast(
               "Account Deleted!",
               context: context,
               gravity: ToastGravity.CENTER,
@@ -58,32 +56,32 @@ class SettingsScreen extends StatelessWidget {
     );
 
     final secondCard =
-        G.isCustomerApp ? const DeliveryAddresses() : const BankInfoCard();
+        G().isCustomerApp ? const DeliveryAddresses() : const BankInfoCard();
 
     final pageItems = [
-      SizedBox(height: ThemeSelector.statics.defaultBorderRadiusExtraLarge),
+      const SizedBox(height: CommonDimens.defaultBorderRadiusExtraLarge),
       // profile card
-      Padding(
+      const Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: ThemeSelector.statics.defaultTitleGap,
+          horizontal: CommonDimens.defaultTitleGap,
         ),
-        child: const ProfileCard(),
+        child: ProfileCard(),
       ),
-      SizedBox(height: ThemeSelector.statics.defaultBorderRadiusExtraLarge),
+      const SizedBox(height: CommonDimens.defaultBorderRadiusExtraLarge),
       // (bank info | delivery addresses) card
       Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: ThemeSelector.statics.defaultTitleGap,
+        padding: const EdgeInsets.symmetric(
+          horizontal: CommonDimens.defaultTitleGap,
         ),
         child: secondCard,
       ),
-      SizedBox(height: ThemeSelector.statics.defaultBorderRadiusExtraLarge),
+      const SizedBox(height: CommonDimens.defaultBorderRadiusExtraLarge),
       // delete account button
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40),
         child: deleteAccountButton,
       ),
-      SizedBox(height: ThemeSelector.statics.defaultBorderRadiusExtraLarge),
+      const SizedBox(height: CommonDimens.defaultBorderRadiusExtraLarge),
     ];
 
     return Scaffold(
@@ -124,7 +122,7 @@ Future<bool> confirmDeleteAccount(context) async {
       "Delete": (_) async {
         confirm = true;
 
-        G.pop();
+        G().pop();
       }
     },
   );
@@ -139,14 +137,14 @@ class DeliveryAddresses extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
+      padding: const EdgeInsets.all(CommonDimens.defaultLineGap),
       decoration: BoxDecoration(
-        color: ThemeSelector.colors.background,
-        borderRadius: BorderRadius.circular(
-            ThemeSelector.statics.defaultBorderRadiusSmall),
+        color: CommonColors.background,
+        borderRadius:
+            BorderRadius.circular(CommonDimens.defaultBorderRadiusSmall),
         boxShadow: [
           BoxShadow(
-            color: ThemeSelector.colors.secondary.withOpacity(.15),
+            color: CommonColors.secondary.withOpacity(.15),
             spreadRadius: 0,
             blurRadius: 5,
             offset: const Offset(2, 4),
@@ -160,7 +158,7 @@ class DeliveryAddresses extends StatelessWidget {
         child: Row(
           children: [
             const Icon(Icons.location_on_outlined),
-            SizedBox(width: ThemeSelector.statics.defaultGap),
+            const SizedBox(width: CommonDimens.defaultGap),
             const Text(
               "Delivery Addresses",
             ),

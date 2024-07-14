@@ -1,14 +1,12 @@
 import 'package:auto_route/annotations.dart';
 import 'package:collection/collection.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/customer_location/cubit/address/address_bloc.dart';
-import 'package:yumi/domain/address/entity/address.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/google_maps_template.dart';
 import 'package:yumi/util/map_util.dart';
 
 @RoutePage()
@@ -45,23 +43,23 @@ class ChefCustomerAddressScreen extends StatelessWidget {
                     target: address,
                   ),
                 if (address == null)
-                  Center(
+                  const Center(
                     child: Loading(),
                   ),
                 if (address != null)
                   Positioned(
-                    left: ThemeSelector.statics.defaultTitleGap,
-                    right: ThemeSelector.statics.defaultTitleGap,
-                    bottom: ThemeSelector.statics.defaultMediumGap,
+                    left: CommonDimens.defaultTitleGap,
+                    right: CommonDimens.defaultTitleGap,
+                    bottom: CommonDimens.defaultMediumGap,
                     child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: ThemeSelector.statics.defaultTitleGap,
-                        vertical: ThemeSelector.statics.defaultBlockGap,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultTitleGap,
+                        vertical: CommonDimens.defaultBlockGap,
                       ),
                       decoration: BoxDecoration(
-                        color: ThemeSelector.colors.background,
-                        borderRadius: BorderRadius.circular(
-                            ThemeSelector.statics.defaultInputGap),
+                        color: CommonColors.background,
+                        borderRadius:
+                            BorderRadius.circular(CommonDimens.defaultInputGap),
                       ),
                       child: Column(
                         children: [
@@ -81,8 +79,7 @@ class ChefCustomerAddressScreen extends StatelessWidget {
                                       Theme.of(context).textTheme.bodyMedium),
                             ],
                           ),
-                          SizedBox(
-                              height: ThemeSelector.statics.defaultInputGap),
+                          const SizedBox(height: CommonDimens.defaultInputGap),
                           Row(
                             children: [
                               Text(
@@ -97,22 +94,20 @@ class ChefCustomerAddressScreen extends StatelessWidget {
                                       Theme.of(context).textTheme.bodyMedium),
                             ],
                           ),
-                          SizedBox(
-                              height: ThemeSelector.statics.defaultInputGap),
+                          const SizedBox(height: CommonDimens.defaultInputGap),
                           Text(
                             address?.location ?? address?.addressTitle ?? '',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
-                          SizedBox(
-                              height: ThemeSelector.statics.defaultInputGap),
+                          const SizedBox(height: CommonDimens.defaultInputGap),
                           TextButton(
                               style: ButtonStyle(
                                 minimumSize: WidgetStateProperty.resolveWith(
-                                  (states) => Size(double.maxFinite,
-                                      ThemeSelector.statics.defaultTitleGap),
+                                  (states) => const Size(double.maxFinite,
+                                      CommonDimens.defaultTitleGap),
                                 ),
                                 backgroundColor: WidgetStateColor.resolveWith(
-                                    (s) => ThemeSelector.colors.primary),
+                                    (s) => CommonColors.primary),
                               ),
                               onPressed: address?.latitude == null ||
                                       address?.longitude == null

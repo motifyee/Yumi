@@ -1,11 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/google_maps_template.dart';
-import 'package:yumi/app/components/snack_bar.dart';
 
 @RoutePage()
 class TrackingOrderScreen extends StatelessWidget {
@@ -23,12 +21,12 @@ class TrackingOrderScreen extends StatelessWidget {
             },
             child: Icon(
               Icons.arrow_back,
-              color: ThemeSelector.colors.primary,
+              color: CommonColors.primary,
             )),
         title: Text(
           S.of(context).tracking,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                fontSize: ThemeSelector.fonts.font_16,
+                fontSize: CommonFontSize.font_16,
               ),
         ),
         centerTitle: true,
@@ -48,7 +46,7 @@ class TrackingOrderScreen extends StatelessWidget {
               Text(
                 S.of(context).orderStatus,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      fontSize: ThemeSelector.fonts.font_16,
+                      fontSize: CommonFontSize.font_16,
                     ),
               ),
               Text(
@@ -58,7 +56,7 @@ class TrackingOrderScreen extends StatelessWidget {
               Text(
                 '${S.of(context).arrivesIn}: 13 ${S.of(context).minutes}',
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      fontSize: ThemeSelector.fonts.font_16,
+                      fontSize: CommonFontSize.font_16,
                     ),
               ),
               Row(
@@ -82,35 +80,35 @@ class TrackingOrderScreen extends StatelessWidget {
                       }
                     },
                     child: Container(
-                      width: ThemeSelector.statics.defaultBlockGap,
-                      height: ThemeSelector.statics.defaultBlockGap,
+                      width: CommonDimens.defaultBlockGap,
+                      height: CommonDimens.defaultBlockGap,
                       padding:
-                          EdgeInsets.all(ThemeSelector.statics.defaultMicroGap),
+                          const EdgeInsets.all(CommonDimens.defaultMicroGap),
                       decoration: BoxDecoration(
-                          color: ThemeSelector.colors.primary,
+                          color: CommonColors.primary,
                           borderRadius: BorderRadius.circular(
-                              ThemeSelector.statics.defaultBlockGap)),
+                              CommonDimens.defaultBlockGap)),
                       child: SvgPicture.asset('assets/images/calling.svg'),
                     ),
                   ),
-                  SizedBox(width: ThemeSelector.statics.defaultInputGap),
+                  const SizedBox(width: CommonDimens.defaultInputGap),
                   GestureDetector(
                     onTap: () {},
                     child: Container(
-                      width: ThemeSelector.statics.defaultBlockGap,
-                      height: ThemeSelector.statics.defaultBlockGap,
+                      width: CommonDimens.defaultBlockGap,
+                      height: CommonDimens.defaultBlockGap,
                       padding:
-                          EdgeInsets.all(ThemeSelector.statics.defaultMicroGap),
+                          const EdgeInsets.all(CommonDimens.defaultMicroGap),
                       decoration: BoxDecoration(
-                          color: ThemeSelector.colors.primary,
+                          color: CommonColors.primary,
                           borderRadius: BorderRadius.circular(
-                              ThemeSelector.statics.defaultBlockGap)),
+                              CommonDimens.defaultBlockGap)),
                       child: SvgPicture.asset('assets/images/chat.svg'),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: ThemeSelector.statics.defaultGap),
+              const SizedBox(height: CommonDimens.defaultGap),
               Hero(
                 tag: 'ConfirmBasketSeries',
                 child: GestureDetector(
@@ -118,12 +116,12 @@ class TrackingOrderScreen extends StatelessWidget {
                     context.router.pop();
                   },
                   child: Container(
-                    width: ThemeSelector.statics.defaultGapXXXL * 1.6,
-                    height: ThemeSelector.statics.defaultTitleGapLarge,
+                    width: CommonDimens.defaultGapXXXL * 1.6,
+                    height: CommonDimens.defaultTitleGapLarge,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
-                          ThemeSelector.statics.defaultBorderRadius),
-                      color: ThemeSelector.colors.primary,
+                          CommonDimens.defaultBorderRadius),
+                      color: CommonColors.primary,
                     ),
                     child: Center(
                       child: Text(
@@ -134,7 +132,7 @@ class TrackingOrderScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: ThemeSelector.statics.defaultBlockGap),
+              const SizedBox(height: CommonDimens.defaultBlockGap),
             ],
           ),
         ],

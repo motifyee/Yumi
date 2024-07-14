@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
+import 'package:common_code/common_code.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/domain/categories/entity/category.dart';
 import 'package:yumi/domain/categories/use_cases/get_categories.dart';
 import 'package:yumi/domain/categories/use_cases/get_chef_categories.dart';
 import 'package:yumi/domain/categories/use_cases/get_customer_categories.dart';
 import 'package:yumi/domain/categories/use_cases/get_customer_categories_by_chef_id.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 part 'categories_cubit.freezed.dart';
 
@@ -30,17 +30,17 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
     PaginatedData<Category> categoriesPage = state.categoriesPage;
 
-    if (G.isCustomerApp) {
+    if (G().isCustomerApp) {
       final params = GetCustomerCategoriesParams(
         isPreOrder: isPreOrder,
         pagination: state.categoriesPage,
-        latitude: G.rd<UserCubit>().state.address?.latitude,
-        longitude: G.rd<UserCubit>().state.address?.longitude,
+        latitude: G().rd<UserCubit>().state.address?.latitude,
+        longitude: G().rd<UserCubit>().state.address?.longitude,
       );
 
       final task = await GetCustomerCategories().call(params);
       categoriesPage = task.fold((l) => state.categoriesPage, (r) => r);
-    } else if (G.isChefApp) {
+    } else if (G().isChefApp) {
       final params = GetCategoriesParams(
         isPreOrder: isPreOrder,
         pagination: state.categoriesPage,
@@ -73,7 +73,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
     PaginatedData<Category> categoriesPage = state.categoriesPage;
 
-    if (G.isCustomerApp) {
+    if (G().isCustomerApp) {
       final params = GetCustomerCategoriesByChefIdParams(
         isPreOrder: isPreOrder,
         pagination: state.categoriesPage,
@@ -82,7 +82,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
       final task = await GetCustomerCategoriesByChefId().call(params);
       categoriesPage = task.fold((l) => state.categoriesPage, (r) => r);
-    } else if (G.isChefApp) {
+    } else if (G().isChefApp) {
       final params = GetChefCategoriesParams(
         isPreOrder: isPreOrder,
         pagination: state.categoriesPage,

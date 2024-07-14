@@ -1,12 +1,10 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/dialog.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 import 'package:yumi/validators/required_validator.dart';
 
 class Bio extends StatelessWidget {
@@ -21,19 +19,19 @@ class Bio extends StatelessWidget {
       builder: (context, state) {
         return FormField<String>(
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          initialValue: G.rd<ProfileCubit>().state.form.bio,
+          initialValue: G().rd<ProfileCubit>().state.form.bio,
           validator: (value) => value == null || value.trim().isEmpty
               ? S.of(context).required
               : null,
           builder: (fieldState) => Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ThemeSelector.statics.defaultTitleGap),
+            padding: const EdgeInsets.symmetric(
+                horizontal: CommonDimens.defaultTitleGap),
             child: Column(
               children: [
                 Row(
                   children: [
                     SvgPicture.asset('assets/images/bio.svg'),
-                    SizedBox(width: ThemeSelector.statics.defaultLineGap),
+                    const SizedBox(width: CommonDimens.defaultLineGap),
                     Text(
                       S.of(context).bio,
                       style: Theme.of(context).textTheme.labelLarge,
@@ -47,13 +45,13 @@ class Bio extends StatelessWidget {
                           title: Container(),
                           content: BioForm(state, formKey, fieldState),
                           actions: {
-                            'Cancel': (_) => G.pop(),
+                            'Cancel': (_) => G().pop(),
                             'Save': (_) {
                               if (formKey.currentState!.validate()) {
                                 return formKey.currentState?.save();
                               }
 
-                              G.snackBar(S.of(context).invalidInput);
+                              G().snackBar(S.of(context).invalidInput);
                             }
                           },
                         );
@@ -61,15 +59,15 @@ class Bio extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: ThemeSelector.statics.formFieldGap),
+                const SizedBox(height: CommonDimens.formFieldGap),
                 Container(
-                  constraints: BoxConstraints(
-                      minHeight: ThemeSelector.statics.defaultBlockGap),
+                  constraints: const BoxConstraints(
+                      minHeight: CommonDimens.defaultBlockGap),
                   child: Center(
                     child: Text(
                       state.isNotEmpty ? state : S.of(context).writeABio,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: ThemeSelector.fonts.font_10,
+                            fontSize: CommonFontSize.font_10,
                           ),
                     ),
                   ),

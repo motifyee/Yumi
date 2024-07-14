@@ -5,6 +5,7 @@ import 'dart:ui';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,12 +18,9 @@ import 'package:yumi/core/setup/awesome_notifications.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/docs_info.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
-import 'package:yumi/bloc/util/status.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/extensions/color.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/screen_container.dart';
 
 @RoutePage()
 class DocumentationScreen extends StatelessWidget {
@@ -45,7 +43,7 @@ class DocumentationScreen extends StatelessWidget {
                     "Documents",
                     style: TextStyle(
                       fontSize: 14,
-                      color: ThemeSelector.colors.secondary,
+                      color: CommonColors.secondary,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -59,7 +57,7 @@ class DocumentationScreen extends StatelessWidget {
               const SizedBox(),
               BlocBuilder<DocsCubit, DocsState>(
                 builder: (context, state) {
-                  final profile = G.rd<ProfileCubit>().state.form;
+                  final profile = G().rd<ProfileCubit>().state.form;
 
                   if (profile.guid.isEmpty) {
                     context.read<DocsCubit>().init();
@@ -77,7 +75,7 @@ class DocumentationScreen extends StatelessWidget {
     );
   }
 
-  List<DocInfo> get data => G.isChefApp ? chefDocsInfo : driverDocsInfo;
+  List<DocInfo> get data => G().isChefApp ? chefDocsInfo : driverDocsInfo;
 
   Widget buildDocumentWidgets(
     BuildContext context,
@@ -96,7 +94,9 @@ class DocumentationScreen extends StatelessWidget {
             documentPropertyPickerFn: _documentPropertyPickerFn(context, doc),
             uploadAction: (String image, String? target) {
               if (doc.update != null) {
-                return G.rd<DocsCubit>().update(doc.update!(profile, image), 0);
+                return G()
+                    .rd<DocsCubit>()
+                    .update(doc.update!(profile, image), 0);
               }
 
               var updater = doc.targets!
@@ -105,7 +105,7 @@ class DocumentationScreen extends StatelessWidget {
 
               if (updater == null) return;
 
-              G.rd<DocsCubit>().update(updater(profile, image), 0);
+              G().rd<DocsCubit>().update(updater(profile, image), 0);
             },
           ),
         )
@@ -140,7 +140,7 @@ Future<String?> Function()? _documentPropertyPickerFn(
               child: Text(
                 target.option,
                 style: TextStyle(
-                  color: ThemeSelector.colors.primary,
+                  color: CommonColors.primary,
                 ),
               ),
             ),
@@ -156,14 +156,14 @@ Future<String?> Function()? _documentPropertyPickerFn(
             child: Container(
               // height: 40,
               constraints: const BoxConstraints(maxHeight: 60),
-              padding: EdgeInsets.symmetric(
-                  vertical: ThemeSelector.statics.defaultGap,
-                  horizontal: ThemeSelector.statics.defaultGap),
+              padding: const EdgeInsets.symmetric(
+                  vertical: CommonDimens.defaultGap,
+                  horizontal: CommonDimens.defaultGap),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: ThemeSelector.colors.background,
+                color: CommonColors.background,
                 borderRadius: BorderRadius.circular(
-                    ThemeSelector.statics.defaultBorderRadiusMedium),
+                    CommonDimens.defaultBorderRadiusMedium),
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -268,7 +268,7 @@ Widget buidlDocumentWidget({
       (doc.showTitle ?? true) ? doc.title : '',
       style: TextStyle(
         fontSize: 14,
-        color: ThemeSelector.colors.secondary,
+        color: CommonColors.secondary,
         fontWeight: FontWeight.w700,
       ),
     ),
@@ -283,7 +283,7 @@ Widget buidlDocumentWidget({
       doc.desc ?? "",
       style: TextStyle(
         fontSize: 10,
-        color: ThemeSelector.colors.secondaryTantLighter,
+        color: CommonColors.secondaryTantLighter,
         fontWeight: FontWeight.w400,
       ),
       // maxLines: 2,
@@ -295,9 +295,8 @@ Widget buidlDocumentWidget({
     alignment: Alignment.bottomRight,
     child: TextButton(
       style: TextButton.styleFrom(
-        foregroundColor: enabled
-            ? ThemeSelector.colors.primary
-            : ThemeSelector.colors.secondary,
+        foregroundColor:
+            enabled ? CommonColors.primary : CommonColors.secondary,
       ),
       onPressed: () async {
         if (!enabled) return;
@@ -318,7 +317,7 @@ Widget buidlDocumentWidget({
 
             if (context?.mounted ?? false) {
               // ignore: use_build_context_synchronously
-              G.showToast("Uploaded ${doc.title}", context: context);
+              G().showToast("Uploaded ${doc.title}", context: context);
             }
           });
         }
@@ -333,7 +332,7 @@ Widget buidlDocumentWidget({
 
         if (context?.mounted ?? false) {
           // ignore: use_build_context_synchronously
-          G.showToast("Uploaded ${doc.title}", context: context);
+          G().showToast("Uploaded ${doc.title}", context: context);
         }
       },
       child: const Text("Upload"),

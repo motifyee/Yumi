@@ -1,8 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/core/setup/inject.dart';
-import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/core/use_cases.dart';
+import 'package:common_code/common_code.dart';
 import 'package:yumi/domain/schedule/data/repos/schedule_repo.dart';
 import 'package:yumi/domain/schedule/entities/schedule.dart';
 import 'package:yumi/domain/schedule/use_cases/apply_to_active_days.dart';

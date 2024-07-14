@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
@@ -9,23 +10,24 @@ import 'package:yumi/route/route.gr.dart';
 class AuthGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    final regCubit = G.rd<RegCubit>();
-    final userCubit = G.rd<UserCubit>();
+    final regCubit = G().rd<RegCubit>();
+    final userCubit = G().rd<UserCubit>();
+    FlutterNativeSplash.remove();
 
     userCubit.loadUser().then((user) async {
       if (user != null) {
         if (!(user.mobileVerified ?? false)) {
-          return router.replaceAll([LoginRoute()]);
+          return router.replaceAll([const LoginRoute()]);
         }
 
         if (user.address?.isEmpty ?? true) {
-          return router.replaceAll([LoginRoute()]);
+          return router.replaceAll([const LoginRoute()]);
         }
 
-        if (G.isCustomerApp) {
+        if (G().isCustomerApp) {
           router.push(const LoadingRoute());
           // ignore: use_build_context_synchronously
-          final basket = await G.rd<BasketCubit>().getBaskets();
+          final basket = await G().rd<BasketCubit>().getBaskets();
 
           if (basket == null) return resolver.next(true);
           return basket();
@@ -34,25 +36,12 @@ class AuthGuard extends AutoRouteGuard {
         //(user?.accountApproved ?? false) &&
         if ((user.contractApproved ?? false)) return resolver.next(true);
 
-        router.replaceAll([LoginRoute()]);
+        router.replaceAll([const LoginRoute()]);
       } else {
-        if (await regCubit.hasActiveRegisteration()) return regCubit.init();
+        if (await regCubit.hasActiveRegisteration()) return regCubit.initReg();
 
-        router.push(LoginRoute());
+        router.push(const LoginRoute());
       }
     });
-
-    // userCubit.add(LoadxUserFromSharedRefEvent(
-    //   afterFetchSuccess: (context, route, user) async {},
-    //   context: G.cContext,
-    //   // in case of no stored data:
-    //   autoLogin: (context) async {
-    //     // redirect to registeration if has cached reg-steps
-    //     if (await regCubit.hasActiveRegisteration()) return regCubit.init();
-
-    //     router.push(LoginRoute());
-    //   },
-    //   route: "",
-    // ));
   }
 }

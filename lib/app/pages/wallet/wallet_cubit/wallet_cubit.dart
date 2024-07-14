@@ -1,9 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/use_cases.dart';
+import 'package:common_code/core/failures.dart';
+import 'package:common_code/core/use_cases.dart';
 import 'package:yumi/domain/wallet/entity/wallet.dart';
 import 'package:yumi/domain/wallet/use_case/get_wallet.dart';
 import 'package:yumi/global.dart';
@@ -33,7 +32,7 @@ class WalletCubit extends Cubit<WalletState> {
     final Either<Failure, Wallet> task = await GetWallet().call(NoParams());
 
     task.fold(
-      (l) => G.snackBar(l.toString()),
+      (l) => G().snackBar(l.toString()),
       (r) => emit(state.copyWith(wallet: r, isLoading: false)),
     );
   }

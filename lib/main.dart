@@ -1,3 +1,4 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,11 +11,10 @@ import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.dart';
-import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/theme/theme.dart';
 
 import 'generated/l10n.dart';
@@ -32,7 +32,7 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final _appRouter = AppRouter();
+  final _appRouter = YumiRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +72,13 @@ class MyApp extends StatelessWidget {
 
   Widget _builder(context, child) {
     return Builder(
-        key: G.builderKey,
+        key: G().appBuilderKey,
         builder: (context) {
           return Container(
             decoration: const BoxDecoration(color: Colors.transparent),
             child: SafeArea(
               child: Container(
-                color: ThemeSelector.colors.background,
+                color: CommonColors.background,
                 child: child ?? const Text(''),
               ),
             ),

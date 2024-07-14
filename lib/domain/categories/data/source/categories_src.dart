@@ -1,5 +1,5 @@
+import 'package:common_code/common_code.dart';
 import 'package:yumi/domain/categories/entity/category.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 abstract class CategoriesSrc {
   Future<PaginatedData<Category>> getCategories({

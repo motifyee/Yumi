@@ -1,17 +1,16 @@
 import 'package:dio/dio.dart';
-import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/schedule/data/sources/schedule_sources.dart';
 import 'package:yumi/domain/schedule/entities/schedule.dart';
-import 'package:yumi/statics/api_statics.dart';
+import 'package:common_code/common_code.dart';
 
 class ScheduleRemoteSrc implements ScheduleSrc {
-  final Dio client;
+  final APIClient client;
 
-  ScheduleRemoteSrc({Dio? client}) : client = client ?? DioClient.dio;
+  ScheduleRemoteSrc({APIClient? client}) : client = client ?? APIClient();
 
   @override
   Future<Schedule> getMySchedule() async {
-    final Response res = await DioClient.get(
+    final Response res = await client.get(
       '/accounts/schedule',
     );
 
@@ -44,7 +43,7 @@ class ScheduleRemoteSrc implements ScheduleSrc {
 
     // -------------------------------------------------------------------------
 
-    final Response res = await DioClient.simpleDio().put(
+    final Response res = await client.put(
       '/accounts/schedule',
       data: data,
     );

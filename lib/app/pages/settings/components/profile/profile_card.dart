@@ -1,3 +1,4 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,8 +6,6 @@ import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/components/profile/profile_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/dialog.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({super.key});
@@ -23,10 +22,10 @@ class ProfileCard extends StatelessWidget {
           children: [
             SvgPicture.asset(
               'assets/images/profile.svg',
-              colorFilter: ColorFilter.mode(
-                  ThemeSelector.colors.secondary, BlendMode.srcIn),
+              colorFilter:
+                  ColorFilter.mode(CommonColors.secondary, BlendMode.srcIn),
             ),
-            SizedBox(width: ThemeSelector.statics.defaultGap),
+            const SizedBox(width: CommonDimens.defaultGap),
             Text(S.of(context).profileSettings),
             const Expanded(child: Text('')),
             TextButton(
@@ -57,7 +56,7 @@ class ProfileCard extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+                  ?.copyWith(color: CommonColors.secondaryTant),
             ),
           ],
         );
@@ -74,7 +73,7 @@ class ProfileCard extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+                  ?.copyWith(color: CommonColors.secondaryTant),
             ),
           ],
         );
@@ -91,7 +90,7 @@ class ProfileCard extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+                  ?.copyWith(color: CommonColors.secondaryTant),
             ),
           ],
         );
@@ -108,7 +107,7 @@ class ProfileCard extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+                  ?.copyWith(color: CommonColors.secondaryTant),
             ),
           ],
         );
@@ -125,7 +124,7 @@ class ProfileCard extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: ThemeSelector.colors.secondaryTant),
+                  ?.copyWith(color: CommonColors.secondaryTant),
             ),
           ],
         );
@@ -152,14 +151,14 @@ class ProfileCard extends StatelessWidget {
 
         return Container(
           width: double.infinity,
-          padding: EdgeInsets.all(ThemeSelector.statics.defaultLineGap),
+          padding: const EdgeInsets.all(CommonDimens.defaultLineGap),
           decoration: BoxDecoration(
-            color: ThemeSelector.colors.background,
-            borderRadius: BorderRadius.circular(
-                ThemeSelector.statics.defaultBorderRadiusSmall),
+            color: CommonColors.background,
+            borderRadius:
+                BorderRadius.circular(CommonDimens.defaultBorderRadiusSmall),
             boxShadow: [
               BoxShadow(
-                color: ThemeSelector.colors.secondary.withOpacity(.15),
+                color: CommonColors.secondary.withOpacity(.15),
                 spreadRadius: 0,
                 blurRadius: 5,
                 offset: const Offset(2, 4),
@@ -171,20 +170,20 @@ class ProfileCard extends StatelessWidget {
                 ? [spinner]
                 : [
                     titleRow,
-                    SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                    const SizedBox(height: CommonDimens.defaultLineGap),
                     fullNameRow,
-                    SizedBox(height: ThemeSelector.statics.defaultGap),
+                    const SizedBox(height: CommonDimens.defaultGap),
                     userNameRow,
-                    SizedBox(height: ThemeSelector.statics.defaultGap),
+                    const SizedBox(height: CommonDimens.defaultGap),
                     phoneRow,
-                    SizedBox(height: ThemeSelector.statics.defaultGap),
+                    const SizedBox(height: CommonDimens.defaultGap),
                     addressRow,
-                    if (!G.isCustomerApp)
-                      SizedBox(height: ThemeSelector.statics.defaultGap),
-                    if (!G.isCustomerApp) aboutRow,
-                    SizedBox(height: ThemeSelector.statics.defaultGap),
+                    if (!G().isCustomerApp)
+                      const SizedBox(height: CommonDimens.defaultGap),
+                    if (!G().isCustomerApp) aboutRow,
+                    const SizedBox(height: CommonDimens.defaultGap),
                     // pickup allowed
-                    if (G.isChefApp) deliveryAndPickupIconsRow,
+                    if (G().isChefApp) deliveryAndPickupIconsRow,
                   ],
           ),
         );

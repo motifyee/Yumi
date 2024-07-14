@@ -1,9 +1,7 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/domain/chef/entity/chef_work_status.dart';
-import 'package:yumi/statics/paginatedData.dart';
-import 'package:yumi/statics/pagination.dart';
+import 'package:common_code/common_code.dart';
 
 abstract class ChefRepo {
   TaskEither<Failure, PaginatedData<Chef>> getChefs({

@@ -3,8 +3,7 @@ import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/transactions/data/source/transaction_source.dart';
 import 'package:yumi/domain/transactions/entity/transaction.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
-import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/paginatedData.dart';
+import 'package:common_code/common_code.dart';
 
 class TransactionSourceRemote implements TransactionSource {
   @override
@@ -12,12 +11,11 @@ class TransactionSourceRemote implements TransactionSource {
     required PaginatedData<Transaction> pagination,
     required String userId,
   }) async {
-    final Response res = await DioClient.simpleDio().get(ApiKeys.transactions,
+    final Response res = await APIClient().get(EndPoints.transactions,
         queryParameters: {
-          'chefId': AppTarget.user == AppTargetUser.chefs ? userId : null,
-          'driverId': AppTarget.user == AppTargetUser.drivers ? userId : null,
-          'customerId':
-              AppTarget.user == AppTargetUser.customers ? userId : null,
+          'chefId': AppTarget.user == YumiApp.chefs ? userId : null,
+          'driverId': AppTarget.user == YumiApp.drivers ? userId : null,
+          'customerId': AppTarget.user == YumiApp.customers ? userId : null,
           'dateFrom': '0001-01-01T00:00:00.000',
           'dateTo': DateTime.now().toIso8601String(),
           ...pagination.toJson(),

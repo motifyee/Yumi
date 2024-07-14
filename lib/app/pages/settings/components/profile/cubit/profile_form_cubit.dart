@@ -39,7 +39,7 @@ class ProfileFormCubit extends Cubit<ProfileFormState> {
 
   Future<void> loadProfile() async {
     emit(state.copyWith(isLoading: true));
-    final profile = await G.rd<ProfileCubit>().getProfileForm();
+    final profile = await G().rd<ProfileCubit>().getProfileForm();
     emit(state.copyWith(isLoading: false));
 
     if (profile == null) return;

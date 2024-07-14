@@ -1,9 +1,8 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
-
-import 'package:yumi/statics/theme_statics.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 class Location extends StatelessWidget {
   const Location({super.key});
@@ -15,10 +14,10 @@ class Location extends StatelessWidget {
       children: [
         SvgPicture.asset(
           'assets/images/location.svg',
-          width: ThemeSelector.statics.iconSizeSmall,
-          height: ThemeSelector.statics.iconSizeSmall,
+          width: CommonDimens.iconSizeSmall,
+          height: CommonDimens.iconSizeSmall,
         ),
-        SizedBox(width: ThemeSelector.statics.defaultGap),
+        const SizedBox(width: CommonDimens.defaultGap),
         BlocConsumer<UserCubit, UserState>(
           listener: (context, state) {},
           builder: (context, state) {
@@ -27,7 +26,7 @@ class Location extends StatelessWidget {
               child: Text(
                 state.address?.location ?? state.address?.addressTitle ?? '',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: ThemeSelector.colors.secondaryFaint,
+                      color: CommonColors.secondaryFaint,
                     ),
               ),
             );

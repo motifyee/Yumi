@@ -47,7 +47,7 @@ class CountDownCubit extends Cubit<CountDownState> {
       onTick: onTick,
     ));
 
-    final prefs = await G.prefs;
+    final prefs = await G().prefs;
     final value = prefs.getString(state.storageKey);
     if (value == null) return;
 
@@ -89,7 +89,7 @@ class CountDownCubit extends Cubit<CountDownState> {
       countDown: timeout - (d / 1000).round(),
     ));
 
-    await G.prefs.then((prefs) {
+    await G().prefs.then((prefs) {
       prefs.setString(state.storageKey, value);
       prefs.setInt(state.timeStorageKey, initialTime);
     });
@@ -124,7 +124,7 @@ class CountDownCubit extends Cubit<CountDownState> {
     _unique = unique();
     emit(state.copyWith(countDown: null, initialTime: null));
 
-    await G.prefs.then((prefs) {
+    await G().prefs.then((prefs) {
       prefs.remove(state.storageKey);
       prefs.remove(state.timeStorageKey);
     });
@@ -134,7 +134,7 @@ class CountDownCubit extends Cubit<CountDownState> {
     emit(state.copyWith(value: value));
 
     if (state.isRunning) {
-      await G.prefs.then((prefs) => prefs.setString(state.storageKey, value));
+      await G().prefs.then((prefs) => prefs.setString(state.storageKey, value));
     }
   }
 }
@@ -146,7 +146,7 @@ Future<bool> hasActiveCountDown({
   required String storageKey,
   int timeout = 60,
 }) async {
-  final prefs = await G.prefs;
+  final prefs = await G().prefs;
   final initialTime = prefs.getInt('$storageKey-time');
 
   if (initialTime == null) return false;
@@ -158,6 +158,6 @@ Future<bool> hasActiveCountDown({
 Future<String?> counterStoredValue({
   required String storageKey,
 }) async {
-  final prefs = await G.prefs;
+  final prefs = await G().prefs;
   return prefs.getString(storageKey);
 }

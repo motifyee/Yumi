@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/core/failures.dart';
+import 'package:common_code/core/failures.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/domain/profile/entities/review.dart';
 

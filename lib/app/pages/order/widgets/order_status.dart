@@ -8,11 +8,10 @@ import 'package:yumi/core/setup/signalr.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/domain/profile/entities/review_model.dart';
+import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/service/order_service.dart';
-import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/code_generator.dart';
-import 'package:yumi/statics/theme_statics.dart';
+import 'package:common_code/common_code.dart';
 import 'package:yumi/app/pages/order/widgets/review_chef_delivery.dart';
 
 @RoutePage()
@@ -48,9 +47,10 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
           Signals.clientreceived,
         ])) {
           OrderService.getOrderOrPreOrderDriverById(
-                  apiKeys: '${ApiKeys.order}/', id: widget.order.id.toString())
+                  apiKeys: '${EndPoints.order}/',
+                  id: widget.order.id.toString())
               .then((e) => setState(() {
-                    print(e.data);
+                    debugPrint(e.data);
                     widget.order = Order.fromJson(e.data[0]);
                   }));
         }
@@ -62,18 +62,18 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
             surfaceTintColor: Colors.transparent,
             leading: TextButton(
                 onPressed: () {
-                  context.router.popForced();
+                  G().router.pop();
                 },
                 child: Icon(
                   Icons.arrow_back,
-                  color: ThemeSelector.colors.primary,
+                  color: CommonColors.primary,
                 )),
             title: Column(
               children: [
                 Text(
                   S.of(context).orderStatus,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        fontSize: ThemeSelector.fonts.font_16,
+                        fontSize: CommonFontSize.font_16,
                       ),
                 ),
                 Text(
@@ -85,8 +85,8 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
             centerTitle: true,
           ),
           body: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ThemeSelector.statics.defaultBlockGap),
+            padding: const EdgeInsets.symmetric(
+                horizontal: CommonDimens.defaultBlockGap),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -99,10 +99,10 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(height: ThemeSelector.statics.defaultGap),
+                        const SizedBox(height: CommonDimens.defaultGap),
                         Icon(
                           Icons.access_time_filled,
-                          color: ThemeSelector.colors.primary.withAlpha(255),
+                          color: CommonColors.primary.withAlpha(255),
                         ),
                         Container(
                           height: 75,
@@ -113,14 +113,13 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                             child: CustomPaint(
                               painter: DrawDottedVerticalLine(
                                   height: 200,
-                                  color: ThemeSelector.colors.primary
-                                      .withAlpha(255)),
+                                  color: CommonColors.primary.withAlpha(255)),
                             ),
                           ),
                         ),
                         Icon(
                           Icons.map,
-                          color: ThemeSelector.colors.primary.withAlpha(
+                          color: CommonColors.primary.withAlpha(
                               widget.order.chefStart == true ? 255 : 100),
                         ),
                         Container(
@@ -132,7 +131,7 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                             child: CustomPaint(
                               painter: DrawDottedVerticalLine(
                                   height: 200,
-                                  color: ThemeSelector.colors.primary.withAlpha(
+                                  color: CommonColors.primary.withAlpha(
                                       widget.order.chefStart == true
                                           ? 255
                                           : 100)),
@@ -141,7 +140,7 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                         ),
                         Icon(
                           Icons.check_circle,
-                          color: ThemeSelector.colors.primary.withAlpha(
+                          color: CommonColors.primary.withAlpha(
                               widget.order.driverReceived == true ||
                                       (widget.order.chefFinished == true &&
                                           widget.order.isPickUp == true)
@@ -157,7 +156,7 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                             child: CustomPaint(
                               painter: DrawDottedVerticalLine(
                                   height: 200,
-                                  color: ThemeSelector.colors.primary.withAlpha(
+                                  color: CommonColors.primary.withAlpha(
                                       widget.order.driverReceived == true ||
                                               (widget.order.chefFinished ==
                                                       true &&
@@ -173,19 +172,19 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                           padding: const EdgeInsets.all(5),
                           margin: const EdgeInsets.symmetric(vertical: 3),
                           decoration: BoxDecoration(
-                            color: ThemeSelector.colors.primary.withAlpha(
+                            color: CommonColors.primary.withAlpha(
                                 widget.order.clientReceived == true
                                     ? 255
                                     : 100),
                             borderRadius: BorderRadius.circular(
-                                ThemeSelector.statics.defaultBlockGap),
+                                CommonDimens.defaultBlockGap),
                           ),
                           child: SvgPicture.asset(
                               'assets/images/client_received_icon.svg'),
                         ),
                       ],
                     ),
-                    SizedBox(width: ThemeSelector.statics.defaultInputGap),
+                    const SizedBox(width: CommonDimens.defaultInputGap),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -208,8 +207,8 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                 children: [
                                   Icon(
                                     Icons.access_time,
-                                    color: ThemeSelector.colors.primary,
-                                    size: ThemeSelector.fonts.font_14,
+                                    color: CommonColors.primary,
+                                    size: CommonFontSize.font_14,
                                   ),
                                   const Text(' '),
                                   Text(
@@ -248,8 +247,8 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                 children: [
                                   Icon(
                                     Icons.access_time,
-                                    color: ThemeSelector.colors.primary,
-                                    size: ThemeSelector.fonts.font_14,
+                                    color: CommonColors.primary,
+                                    size: CommonFontSize.font_14,
                                   ),
                                   const Text(' '),
                                   Text(
@@ -291,8 +290,8 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                   children: [
                                     Icon(
                                       Icons.access_time,
-                                      color: ThemeSelector.colors.primary,
-                                      size: ThemeSelector.fonts.font_14,
+                                      color: CommonColors.primary,
+                                      size: CommonFontSize.font_14,
                                     ),
                                     const Text(' '),
                                     Text(
@@ -306,46 +305,8 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                    height:
-                                        ThemeSelector.statics.defaultMicroGap),
-                                if (widget.order.driverReceived == true &&
-                                    false)
-                                  GestureDetector(
-                                    onTap: () {
-                                      context.router
-                                          .push(const TrackingOrderRoute());
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              ThemeSelector.statics.defaultGap,
-                                          vertical: ThemeSelector
-                                              .statics.defaultMicroGap),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            ThemeSelector.statics
-                                                .defaultBorderRadiusMedium),
-                                        color: ThemeSelector.colors.primary,
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            S.of(context).tracking,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displaySmall,
-                                          ),
-                                          SizedBox(
-                                              width: ThemeSelector
-                                                  .statics.defaultMicroGap),
-                                          SvgPicture.asset(
-                                              'assets/images/dot.svg')
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                const SizedBox(
+                                    height: CommonDimens.defaultMicroGap),
                               ],
                             ),
                           if (widget.order.isPickUp == true)
@@ -366,8 +327,8 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                   children: [
                                     Icon(
                                       Icons.access_time,
-                                      color: ThemeSelector.colors.primary,
-                                      size: ThemeSelector.fonts.font_14,
+                                      color: CommonColors.primary,
+                                      size: CommonFontSize.font_14,
                                     ),
                                     const Text(' '),
                                     Text(
@@ -381,9 +342,8 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                    height:
-                                        ThemeSelector.statics.defaultMicroGap),
+                                const SizedBox(
+                                    height: CommonDimens.defaultMicroGap),
                                 if (widget.order.chefFinished == true)
                                   GestureDetector(
                                     onTap: () {
@@ -394,16 +354,15 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                       ));
                                     },
                                     child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              ThemeSelector.statics.defaultGap,
-                                          vertical: ThemeSelector
-                                              .statics.defaultMicroGap),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: CommonDimens.defaultGap,
+                                          vertical:
+                                              CommonDimens.defaultMicroGap),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(
-                                            ThemeSelector.statics
+                                            CommonDimens
                                                 .defaultBorderRadiusMedium),
-                                        color: ThemeSelector.colors.primary,
+                                        color: CommonColors.primary,
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
@@ -414,9 +373,9 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                                 .textTheme
                                                 .displaySmall,
                                           ),
-                                          SizedBox(
-                                              width: ThemeSelector
-                                                  .statics.defaultMicroGap),
+                                          const SizedBox(
+                                              width:
+                                                  CommonDimens.defaultMicroGap),
                                           SvgPicture.asset(
                                               'assets/images/dot.svg')
                                         ],
@@ -451,8 +410,8 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                 children: [
                                   Icon(
                                     Icons.access_time,
-                                    color: ThemeSelector.colors.primary,
-                                    size: ThemeSelector.fonts.font_14,
+                                    color: CommonColors.primary,
+                                    size: CommonFontSize.font_14,
                                   ),
                                   const Text(' '),
                                   Text(
@@ -507,12 +466,12 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                               );
                             },
                       child: Container(
-                        width: ThemeSelector.statics.defaultGapXXXL * 1.6,
-                        height: ThemeSelector.statics.defaultTitleGapLarge,
+                        width: CommonDimens.defaultGapXXXL * 1.6,
+                        height: CommonDimens.defaultTitleGapLarge,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
-                              ThemeSelector.statics.defaultBorderRadius),
-                          color: ThemeSelector.colors.primary.withAlpha(
+                              CommonDimens.defaultBorderRadius),
+                          color: CommonColors.primary.withAlpha(
                               widget.order.clientReceived != true ? 100 : 255),
                         ),
                         child: Center(

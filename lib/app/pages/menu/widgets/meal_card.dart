@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:common_code/common_code.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,17 +8,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_form.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/service/meal_service.dart';
-import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/menu/widgets/delete_dialog.dart';
-import 'package:yumi/app/components/dialog.dart';
-import 'package:yumi/app/components/snack_bar.dart';
-import 'package:yumi/app/components/text_currency.dart';
 
 class MealCard extends StatelessWidget {
   MealCard({super.key, required this.meal, required this.menuTarget});
@@ -30,52 +27,67 @@ class MealCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width / 2,
-      padding: EdgeInsets.symmetric(
-        horizontal: ThemeSelector.statics.defaultInputGap,
-        vertical: ThemeSelector.statics.defaultGap,
+      padding: const EdgeInsets.symmetric(
+        horizontal: CommonDimens.defaultInputGap,
+        vertical: CommonDimens.defaultGap,
       ),
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: ThemeSelector.statics.defaultLineGap,
-              vertical: ThemeSelector.statics.defaultGap,
+            padding: const EdgeInsets.symmetric(
+              horizontal: CommonDimens.defaultLineGap,
+              vertical: CommonDimens.defaultGap,
             ),
             decoration: BoxDecoration(
-                color: ThemeSelector.colors.backgroundTant,
-                borderRadius: BorderRadius.only(topRight: Radius.circular(ThemeSelector.statics.defaultBorderRadiusExtraLarge), bottomLeft: Radius.circular(ThemeSelector.statics.defaultBorderRadiusExtraLarge)),
-                boxShadow: [BoxShadow(color: ThemeSelector.colors.shadow, blurRadius: 3)]),
+                color: CommonColors.backgroundTant,
+                borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(
+                        CommonDimens.defaultBorderRadiusExtraLarge),
+                    bottomLeft: Radius.circular(
+                        CommonDimens.defaultBorderRadiusExtraLarge)),
+                boxShadow: [
+                  BoxShadow(color: CommonColors.shadow, blurRadius: 3)
+                ]),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: ThemeSelector.statics.defaultLineGap),
+                const SizedBox(height: CommonDimens.defaultLineGap),
                 Container(
-                    width: ThemeSelector.statics.iconSizeLarge,
-                    height: ThemeSelector.statics.iconSizeLarge,
+                    width: CommonDimens.iconSizeLarge,
+                    height: CommonDimens.iconSizeLarge,
                     clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusSmall)),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                            CommonDimens.defaultBorderRadiusSmall)),
                     child: Image.memory(
-                      Uri.parse(meal.photo ?? '').data?.contentAsBytes() ?? Uint8List(0),
-                      errorBuilder: (context, error, stackTrace) => Image.asset('assets/images/354.jpeg'),
+                      Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
+                          Uint8List(0),
+                      errorBuilder: (context, error, stackTrace) =>
+                          Image.asset('assets/images/354.jpeg'),
                     )),
-                SizedBox(height: ThemeSelector.statics.defaultGap),
+                const SizedBox(height: CommonDimens.defaultGap),
                 Text(
                   meal.name?.capitalize() ?? '',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                SizedBox(height: ThemeSelector.statics.defaultGap),
+                const SizedBox(height: CommonDimens.defaultGap),
                 Text(
-                  meal.ingredients?.map((e) => '${e.portionGrams} ${e.name}').join(', ') ?? '',
+                  meal.ingredients
+                          ?.map((e) => '${e.portionGrams} ${e.name}')
+                          .join(', ') ??
+                      '',
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: ThemeSelector.fonts.font_9, fontWeight: FontWeight.w300),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontSize: CommonFontSize.font_9,
+                      fontWeight: FontWeight.w300),
                 ),
-                SizedBox(height: ThemeSelector.statics.defaultGap),
+                const SizedBox(height: CommonDimens.defaultGap),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextCurrency(
                       value: meal.price1 ?? 0,
-                      fontSize: ThemeSelector.fonts.font_18,
+                      fontSize: CommonFontSize.font_18,
                     ),
                   ],
                 )
@@ -106,15 +118,16 @@ class MealCard extends StatelessWidget {
                       //     isPreOrder: menuTarget == MenuTarget.preOrder,
                       //     isAll: false));
                       context.read<MealCubit>().reset(menuTarget: menuTarget);
-                      context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId);
+                      context.read<MealCubit>().updateMeals(
+                          chefId: context.read<UserCubit>().state.user.chefId);
                     });
                   },
                   child: Row(
                     children: [
                       SvgPicture.asset(
                         'assets/images/pin.svg',
-                        width: ThemeSelector.fonts.font_10,
-                        height: ThemeSelector.fonts.font_10,
+                        width: CommonFontSize.font_10,
+                        height: CommonFontSize.font_10,
                       ),
                       const Text(' '),
                       Text(
@@ -132,11 +145,15 @@ class MealCard extends StatelessWidget {
                                 if (isDeleting) return true;
                                 isDeleting = true;
 
-                                return await MealService.deleteMeal(context: context, mealModel: meal).then((res) {
+                                return await MealService.deleteMeal(
+                                        context: context, mealModel: meal)
+                                    .then((res) {
                                   context.read<CategoriesCubit>().reset();
                                   // .add(ResetCategoryEvent());
 
-                                  context.read<CategoriesCubit>().getChefCategories(
+                                  context
+                                      .read<CategoriesCubit>()
+                                      .getChefCategories(
                                         isPreOrder: meal.isPreOrder == true,
                                       );
                                   // .add(
@@ -144,15 +161,25 @@ class MealCard extends StatelessWidget {
                                   //         context: context,
                                   //         isPreOrder: meal.isPreOrder == true,
                                   //         isAll: false));
-                                  context.read<MealCubit>().reset(menuTarget: meal.isPreOrder == true ? MenuTarget.preOrder : MenuTarget.order);
-                                  context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId);
+                                  context.read<MealCubit>().reset(
+                                      menuTarget: meal.isPreOrder == true
+                                          ? MenuTarget.preOrder
+                                          : MenuTarget.order);
+                                  context.read<MealCubit>().updateMeals(
+                                      chefId: context
+                                          .read<UserCubit>()
+                                          .state
+                                          .user
+                                          .chefId);
                                   Navigator.of(context).pop();
                                   return true;
                                 }).catchError((err) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: SnackBarMassage(
-                                        massage: (err as DioException).response?.data['message'],
+                                        massage: (err as DioException)
+                                            .response
+                                            ?.data['message'],
                                       ),
                                     ),
                                   );
@@ -167,15 +194,16 @@ class MealCard extends StatelessWidget {
                     children: [
                       SvgPicture.asset(
                         'assets/images/trash.svg',
-                        width: ThemeSelector.fonts.font_10,
-                        height: ThemeSelector.fonts.font_10,
+                        width: CommonFontSize.font_10,
+                        height: CommonFontSize.font_10,
                       ),
                       const Text(' '),
                       Text(
                         'Remove',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontSize: ThemeSelector.fonts.font_10,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontSize: CommonFontSize.font_10,
+                                ),
                       )
                     ],
                   )),

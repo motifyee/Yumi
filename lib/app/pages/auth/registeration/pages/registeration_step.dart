@@ -1,14 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/widgets.dart';
 
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/global.dart';
 
-class RegisterationPage extends StatelessWidget {
+class RegisterationPage<T> extends StatelessWidget {
   final RegStep step;
   final RegStep? nextStep;
   final Widget page;
-  final VoidCallback? onNext;
+  final void Function(T?)? onDone;
   final VoidCallback? onCancel;
 
   const RegisterationPage({
@@ -16,7 +15,7 @@ class RegisterationPage extends StatelessWidget {
     required this.step,
     this.nextStep,
     required this.page,
-    this.onNext,
+    this.onDone,
     this.onCancel,
   });
 
@@ -25,22 +24,17 @@ class RegisterationPage extends StatelessWidget {
     return page;
   }
 
-  void next() {
-    if (nextStep != null) G.rd<RegCubit>().navigateToIdx(nextStep!.index);
+  Future<void> done([T? value]) async {
+    if (nextStep != null) {
+      await G().rd<RegCubit>().navigateToIdx(nextStep!.index);
+    }
 
-    if (onNext != null) onNext!();
+    if (onDone != null) onDone!(value);
   }
+
+  void cancel() => onCancel != null ? onCancel!() : null;
 
   // to access the object from the child (Widget page)
   static RegisterationPage? of(BuildContext context) =>
       context.findAncestorWidgetOfExactType<RegisterationPage>();
-}
-
-class RegstepTest extends RegisterationPage {
-  const RegstepTest(
-      {super.key,
-      required super.step,
-      required super.page,
-      required super.onNext,
-      required super.onCancel});
 }

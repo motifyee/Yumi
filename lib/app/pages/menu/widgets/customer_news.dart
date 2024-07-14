@@ -1,19 +1,18 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/route/route.gr.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_list.dart';
-import 'package:yumi/statics/theme_statics.dart';
 import 'package:yumi/app/pages/menu/widgets/categories_list_dialog.dart';
 import 'package:yumi/app/pages/menu/widgets/customer_chef_list.dart';
 import 'package:yumi/app/pages/menu/widgets/offer_carousel.dart';
-import 'package:yumi/app/components/text_form_field.dart';
 
 class CustomerNews extends StatelessWidget {
   CustomerNews({super.key, required this.menuTarget});
@@ -24,7 +23,8 @@ class CustomerNews extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) => SingleChildScrollView(
+        builder: (BuildContext context, BoxConstraints constraints) =>
+            SingleChildScrollView(
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: constraints.maxHeight),
             child: IntrinsicHeight(
@@ -34,20 +34,22 @@ class CustomerNews extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      context.router.replaceAll([const CustomerLocationRoute()]);
+                      context.router
+                          .replaceAll([const CustomerLocationRoute()]);
                     },
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultBlockGap),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: CommonDimens.defaultBlockGap),
                       child: Row(
                         children: [
                           SizedBox(
-                              height: ThemeSelector.statics.defaultLineGap,
-                              width: ThemeSelector.statics.defaultLineGap,
+                              height: CommonDimens.defaultLineGap,
+                              width: CommonDimens.defaultLineGap,
                               child: SvgPicture.asset(
                                 'assets/images/location.svg',
                                 fit: BoxFit.fill,
                               )),
-                          SizedBox(width: ThemeSelector.statics.defaultGap),
+                          const SizedBox(width: CommonDimens.defaultGap),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -56,7 +58,8 @@ class CustomerNews extends StatelessWidget {
                                 builder: (context, state) {
                                   return RichText(
                                       text: TextSpan(
-                                    style: Theme.of(context).textTheme.labelMedium,
+                                    style:
+                                        Theme.of(context).textTheme.labelMedium,
                                     children: [
                                       TextSpan(
                                         text: S.of(context).hi,
@@ -66,7 +69,11 @@ class CustomerNews extends StatelessWidget {
                                       ),
                                       TextSpan(
                                         text: state.user.userName,
-                                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w700),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.w700),
                                       ),
                                     ],
                                   ));
@@ -83,17 +90,20 @@ class CustomerNews extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: ThemeSelector.statics.defaultInputGap),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultInputGap),
                     child: TextFormFieldTemplate(
                       borderStyle: TextFormFieldBorderStyle.borderedRound,
                       hintText: S.of(context).searchForFood,
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(ThemeSelector.statics.defaultInputGap),
+                        padding:
+                            const EdgeInsets.all(CommonDimens.defaultInputGap),
                         child: SvgPicture.asset('assets/images/search.svg'),
                       ),
                       suffixIcon: GestureDetector(
                         child: Padding(
-                          padding: EdgeInsets.all(ThemeSelector.statics.defaultInputGap),
+                          padding: const EdgeInsets.all(
+                              CommonDimens.defaultInputGap),
                           child: SvgPicture.asset('assets/images/config.svg'),
                         ),
                       ),
@@ -104,14 +114,16 @@ class CustomerNews extends StatelessWidget {
                     clipBehavior: Clip.none,
                     children: [
                       SizedBox(
-                        height: ThemeSelector.statics.defaultTitleGap,
+                        height: CommonDimens.defaultTitleGap,
                         width: MediaQuery.of(context).size.width,
                       ),
                       Positioned(
-                        left: -ThemeSelector.statics.defaultLineGap,
+                        left: -CommonDimens.defaultLineGap,
                         child: GestureDetector(
                           onTap: () {
-                            context.read<MealCubit>().reset(menuTarget: menuTarget);
+                            context
+                                .read<MealCubit>()
+                                .reset(menuTarget: menuTarget);
                             context.read<CategoriesCubit>().reset();
                             // .add(ResetCategoryEvent());
                             showModalBottomSheet(
@@ -119,8 +131,10 @@ class CustomerNews extends StatelessWidget {
                               isScrollControlled: true,
                               isDismissible: true,
                               constraints: BoxConstraints(
-                                maxHeight: MediaQuery.of(context).size.height * .8,
-                                minHeight: MediaQuery.of(context).size.height * .7,
+                                maxHeight:
+                                    MediaQuery.of(context).size.height * .8,
+                                minHeight:
+                                    MediaQuery.of(context).size.height * .7,
                               ),
                               builder: (context) => MealListScreen(
                                 menuTarget: menuTarget,
@@ -130,71 +144,120 @@ class CustomerNews extends StatelessWidget {
                             );
                           },
                           child: Container(
-                            height: ThemeSelector.statics.defaultTitleGap,
-                            width: (MediaQuery.of(context).size.width / 4) + (ThemeSelector.statics.defaultLineGap * 1.5),
+                            height: CommonDimens.defaultTitleGap,
+                            width: (MediaQuery.of(context).size.width / 4) +
+                                (CommonDimens.defaultLineGap * 1.5),
                             decoration: BoxDecoration(
-                                color: ThemeSelector.colors.backgroundTant,
-                                borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusMedium),
-                                boxShadow: [BoxShadow(color: ThemeSelector.colors.shadow.withOpacity(.1), blurRadius: 4)]),
+                                color: CommonColors.backgroundTant,
+                                borderRadius: BorderRadius.circular(
+                                    CommonDimens.defaultBorderRadiusMedium),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color:
+                                          CommonColors.shadow.withOpacity(.1),
+                                      blurRadius: 4)
+                                ]),
                             child: Center(
                                 child: Text(
                               S.of(context).dishName,
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: ThemeSelector.fonts.font_9),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(fontSize: CommonFontSize.font_9),
                             )),
                           ),
                         ),
                       ),
                       Positioned(
-                        left: (MediaQuery.of(context).size.width / 4) - ThemeSelector.statics.defaultLineGap,
+                        left: (MediaQuery.of(context).size.width / 4) -
+                            CommonDimens.defaultLineGap,
                         child: GestureDetector(
                           onTap: () {
-                            showDialog(context: context, builder: (context) => CategoriesListDialog(menuTarget: menuTarget));
+                            showDialog(
+                                context: context,
+                                builder: (context) => CategoriesListDialog(
+                                    menuTarget: menuTarget));
                           },
                           child: Container(
-                            height: ThemeSelector.statics.defaultTitleGap,
-                            width: (MediaQuery.of(context).size.width / 4) + (ThemeSelector.statics.defaultLineGap),
+                            height: CommonDimens.defaultTitleGap,
+                            width: (MediaQuery.of(context).size.width / 4) +
+                                (CommonDimens.defaultLineGap),
                             decoration: BoxDecoration(
-                              color: ThemeSelector.colors.backgroundTant,
-                              borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius),
-                              boxShadow: [BoxShadow(color: ThemeSelector.colors.shadow.withOpacity(.1), blurRadius: 4)],
+                              color: CommonColors.backgroundTant,
+                              borderRadius: BorderRadius.circular(
+                                  CommonDimens.defaultBorderRadius),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: CommonColors.shadow.withOpacity(.1),
+                                    blurRadius: 4)
+                              ],
                             ),
                             child: Center(
                               child: Text(
                                 S.of(context).cuisines,
-                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: ThemeSelector.fonts.font_9),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(fontSize: CommonFontSize.font_9),
                               ),
                             ),
                           ),
                         ),
                       ),
                       Positioned(
-                        left: ((MediaQuery.of(context).size.width / 4) * 2) - ThemeSelector.statics.defaultLineGap,
+                        left: ((MediaQuery.of(context).size.width / 4) * 2) -
+                            CommonDimens.defaultLineGap,
                         child: GestureDetector(
                           child: Container(
-                            height: ThemeSelector.statics.defaultTitleGap,
-                            width: (MediaQuery.of(context).size.width / 4) + (ThemeSelector.statics.defaultLineGap),
+                            height: CommonDimens.defaultTitleGap,
+                            width: (MediaQuery.of(context).size.width / 4) +
+                                (CommonDimens.defaultLineGap),
                             decoration: BoxDecoration(
-                                color: ThemeSelector.colors.backgroundTant, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius), boxShadow: [BoxShadow(color: ThemeSelector.colors.shadow.withOpacity(.1), blurRadius: 4)]),
+                                color: CommonColors.backgroundTant,
+                                borderRadius: BorderRadius.circular(
+                                    CommonDimens.defaultBorderRadius),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color:
+                                          CommonColors.shadow.withOpacity(.1),
+                                      blurRadius: 4)
+                                ]),
                             child: Center(
                                 child: Text(
                               S.of(context).recentSearch,
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: ThemeSelector.fonts.font_9),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(fontSize: CommonFontSize.font_9),
                             )),
                           ),
                         ),
                       ),
                       Positioned(
-                        left: ((MediaQuery.of(context).size.width / 4) * 3) - ThemeSelector.statics.defaultLineGap,
+                        left: ((MediaQuery.of(context).size.width / 4) * 3) -
+                            CommonDimens.defaultLineGap,
                         child: GestureDetector(
                           child: Container(
-                            height: ThemeSelector.statics.defaultTitleGap,
-                            width: (MediaQuery.of(context).size.width / 4) + (ThemeSelector.statics.defaultLineGap),
+                            height: CommonDimens.defaultTitleGap,
+                            width: (MediaQuery.of(context).size.width / 4) +
+                                (CommonDimens.defaultLineGap),
                             decoration: BoxDecoration(
-                                color: ThemeSelector.colors.backgroundTant, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadius), boxShadow: [BoxShadow(color: ThemeSelector.colors.shadow.withOpacity(.1), blurRadius: 4)]),
+                                color: CommonColors.backgroundTant,
+                                borderRadius: BorderRadius.circular(
+                                    CommonDimens.defaultBorderRadius),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color:
+                                          CommonColors.shadow.withOpacity(.1),
+                                      blurRadius: 4)
+                                ]),
                             child: Center(
                                 child: Text(
                               S.of(context).suggestions,
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: ThemeSelector.fonts.font_9),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(fontSize: CommonFontSize.font_9),
                             )),
                           ),
                         ),
@@ -209,11 +272,14 @@ class CustomerNews extends StatelessWidget {
                         child: SvgPicture.asset('assets/images/surprise.svg'),
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: ThemeSelector.statics.defaultBlockGap,
-                          vertical: ThemeSelector.statics.defaultMicroGap,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: CommonDimens.defaultBlockGap,
+                          vertical: CommonDimens.defaultMicroGap,
                         ),
-                        decoration: BoxDecoration(color: ThemeSelector.colors.backgroundTant, borderRadius: BorderRadius.circular(ThemeSelector.statics.defaultBorderRadiusExtraLarge)),
+                        decoration: BoxDecoration(
+                            color: CommonColors.backgroundTant,
+                            borderRadius: BorderRadius.circular(
+                                CommonDimens.defaultBorderRadiusExtraLarge)),
                         child: Column(
                           children: [
                             Text(

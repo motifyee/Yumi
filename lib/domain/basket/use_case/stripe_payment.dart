@@ -1,12 +1,8 @@
+import 'package:common_code/common_code.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:fpdart/src/either.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:yumi/app_target.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/use_cases.dart';
-import 'package:yumi/domain/basket/entity/stripe.dart';
-import 'package:yumi/statics/api_statics.dart';
 
 class StripePayment extends UseCase<bool, StripePaymentParams> {
   @override
@@ -15,7 +11,7 @@ class StripePayment extends UseCase<bool, StripePaymentParams> {
       final clientSecret = await _getClientSecret(params);
       await _initPaymentSheet(clientSecret: clientSecret.clientSecret);
       await Stripe.instance.presentPaymentSheet();
-      return Right(true);
+      return const Right(true);
     } catch (error) {
       return Left(GenericFailure(error.toString()));
     }

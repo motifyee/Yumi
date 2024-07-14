@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/core/util/constants.dart';
-import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/use_cases.dart';
+import 'package:common_code/util/status.dart';
+import 'package:common_code/core/failures.dart';
+import 'package:common_code/core/use_cases.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
 import 'package:yumi/domain/profile/entities/review.dart';
 import 'package:yumi/domain/profile/use_cases/delete_photo.dart';
@@ -305,8 +305,8 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future<String?> setMobile(String mobile) async {
-    var profile = G.rd<ProfileCubit>().state.form.copyWith(mobile: mobile);
-    var update = await G.rd<ProfileCubit>().updateProfileForm(profile);
+    var profile = G().rd<ProfileCubit>().state.form.copyWith(mobile: mobile);
+    var update = await G().rd<ProfileCubit>().updateProfileForm(profile);
 
     if (update == null) {
       emit(state.copyWith.form(

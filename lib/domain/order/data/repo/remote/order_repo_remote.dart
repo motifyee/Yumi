@@ -1,12 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:fpdart/src/task_either.dart';
-import 'package:yumi/core/exceptions.dart';
-import 'package:yumi/core/setup/inject.dart';
-import 'package:yumi/core/failures.dart';
+import 'package:common_code/common_code.dart';
 import 'package:yumi/domain/order/data/repo/order_repo.dart';
 import 'package:yumi/domain/order/data/source/order_source.dart';
 import 'package:yumi/domain/order/entity/order.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 class OrderRepoRemote extends OrderRepo {
   final OrderSource orderSource;

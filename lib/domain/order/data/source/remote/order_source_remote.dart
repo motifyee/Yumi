@@ -1,12 +1,10 @@
 import 'dart:async';
 
+import 'package:common_code/common_code.dart';
 import 'package:dio/dio.dart';
-import 'package:yumi/core/exceptions.dart';
 import 'package:yumi/domain/order/data/source/order_source.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
-import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 class OrderSourceRemote extends OrderSource {
   @override
@@ -17,10 +15,12 @@ class OrderSourceRemote extends OrderSource {
     Response res;
 
     try {
-      res = await DioClient.simpleDio()
-          .get(apiKeys, queryParameters: {...ordersPage.toJson()});
+      res = await APIClient().get(
+        apiKeys,
+        queryParameters: {...ordersPage.toJson()},
+      );
     } catch (e) {
-      throw ServerException((e as DioException).response?.data['message']);
+      throw ServerException((e as DioException));
     }
     try {
       List<Order> data =
@@ -43,7 +43,7 @@ class OrderSourceRemote extends OrderSource {
     int? orderId,
     bool isFakeBody = true,
   }) async {
-    Response res = await DioClient.simpleDio().put(apiKeys,
+    Response res = await APIClient().put(apiKeys,
         data: isFakeBody ? {'driver_ID': null} : null,
         queryParameters: {'orderId': orderId}
           ..removeWhere((key, value) => value == null));

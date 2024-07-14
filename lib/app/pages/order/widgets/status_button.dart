@@ -1,10 +1,9 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/domain/user/cubit/user_cubit.dart';
-import 'package:yumi/domain/user/entity/user.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class StatusButton extends StatelessWidget {
   StatusButton({super.key, this.forGuide});
@@ -39,12 +38,12 @@ class StatusButton extends StatelessWidget {
           style: ButtonStyle(
             backgroundColor: WidgetStateProperty.resolveWith(
               (states) => state.loading
-                  ? ThemeSelector.colors.secondaryFaint
+                  ? CommonColors.secondaryFaint
                   : status == UserStatus.online
-                      ? ThemeSelector.colors.success
+                      ? CommonColors.success
                       : status == UserStatus.busy
-                          ? ThemeSelector.colors.primaryDisabled
-                          : ThemeSelector.colors.secondaryTant,
+                          ? CommonColors.primaryDisabled
+                          : CommonColors.secondaryTant,
             ),
           ),
           child: Row(
@@ -54,7 +53,7 @@ class StatusButton extends StatelessWidget {
                   ? SvgPicture.asset(
                       'assets/images/busy.svg',
                       colorFilter: ColorFilter.mode(
-                          ThemeSelector.colors.secondaryFaint, BlendMode.srcIn),
+                          CommonColors.secondaryFaint, BlendMode.srcIn),
                     )
                   : status == UserStatus.online
                       ? SvgPicture.asset('assets/images/opened.svg')
@@ -62,11 +61,11 @@ class StatusButton extends StatelessWidget {
                           'assets/images/busy.svg',
                           colorFilter: ColorFilter.mode(
                               status == UserStatus.busy
-                                  ? ThemeSelector.colors.primaryDisabled
-                                  : ThemeSelector.colors.secondaryTant,
+                                  ? CommonColors.primaryDisabled
+                                  : CommonColors.secondaryTant,
                               BlendMode.srcIn),
                         ),
-              SizedBox(width: ThemeSelector.statics.defaultGap),
+              const SizedBox(width: CommonDimens.defaultGap),
               Text(
                 state.loading
                     ? '...'
@@ -77,8 +76,8 @@ class StatusButton extends StatelessWidget {
                             : S.of(context).offline,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: status == UserStatus.online
-                          ? ThemeSelector.colors.onSuccess
-                          : ThemeSelector.colors.onPrimary,
+                          ? CommonColors.onSuccess
+                          : CommonColors.onPrimary,
                     ),
               )
             ],

@@ -1,10 +1,8 @@
-import 'package:fpdart/src/task_either.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/setup/inject.dart';
+import 'package:common_code/common_code.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:yumi/domain/meal/data/repo/meal_repo.dart';
 import 'package:yumi/domain/meal/data/source/meal_source.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 class MealRepoRemote extends MealRepo {
   final MealSource mealSource;

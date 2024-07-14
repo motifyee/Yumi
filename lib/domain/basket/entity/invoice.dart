@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/extensions/datetime_toIso8601string_converter.dart';
-import 'package:yumi/statics/code_generator.dart';
+import 'package:common_code/util/code_generator.dart';
 
 part 'invoice.freezed.dart';
 part 'invoice.g.dart';

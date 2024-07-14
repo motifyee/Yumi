@@ -7,8 +7,7 @@ import 'package:yumi/core/setup/signalr.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/api_statics.dart';
-import 'package:yumi/statics/theme_statics.dart';
+import 'package:common_code/common_code.dart';
 import 'package:yumi/app/pages/order/widgets/action_button.dart';
 import 'package:yumi/app/pages/order/widgets/news_orders.dart';
 
@@ -67,11 +66,13 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
           builder: (context, state) {
             return Row(
               children: [
-                SizedBox(width: ThemeSelector.statics.defaultGap),
+                const SizedBox(width: CommonDimens.defaultGap),
                 ActionButton(
                   onPressed: () {
                     setState(() {
-                      _controller.animateToPage(widget.isHistory ? 1 : 0, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
+                      _controller.animateToPage(widget.isHistory ? 1 : 0,
+                          duration: CommonDimens.animationDuration,
+                          curve: Curves.easeOut);
                       _index = widget.isHistory ? 1 : 0;
                     });
                     context.read<SignalRCubit>().removeSignals(signal: [
@@ -96,11 +97,13 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                     Signals.clientreceived,
                   ], isPreOrder: false),
                 ),
-                SizedBox(width: ThemeSelector.statics.defaultGap),
+                const SizedBox(width: CommonDimens.defaultGap),
                 ActionButton(
                   onPressed: () {
                     setState(() {
-                      _controller.animateToPage(widget.isHistory ? 3 : 2, duration: ThemeSelector.statics.animationDuration, curve: Curves.easeOut);
+                      _controller.animateToPage(widget.isHistory ? 3 : 2,
+                          duration: CommonDimens.animationDuration,
+                          curve: Curves.easeOut);
                       _index = widget.isHistory ? 3 : 2;
                     });
                     context.read<SignalRCubit>().removeSignals(signal: [
@@ -138,7 +141,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: MenuTarget.order,
-                  apiKey: ApiKeys.orderCustomerActive,
+                  apiKey: EndPoints.orderCustomerActive,
                   orderCardTargetPage: OrderCardTargetPage.customerOrders,
                   signals: const [
                     Signals.driveraccept,
@@ -154,7 +157,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: MenuTarget.order,
-                  apiKey: ApiKeys.orderCustomerClosed,
+                  apiKey: EndPoints.orderCustomerClosed,
                   orderCardTargetPage: OrderCardTargetPage.customerHistory,
                   signals: const [Signals.clientreceived],
                 ),
@@ -163,7 +166,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: MenuTarget.preOrder,
-                  apiKey: ApiKeys.preOrderCustomerActive,
+                  apiKey: EndPoints.preOrderCustomerActive,
                   orderCardTargetPage: OrderCardTargetPage.customerPreOrders,
                   signals: const [
                     Signals.driveraccept,
@@ -179,7 +182,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: MenuTarget.preOrder,
-                  apiKey: ApiKeys.preOrderCustomerClosed,
+                  apiKey: EndPoints.preOrderCustomerClosed,
                   orderCardTargetPage: OrderCardTargetPage.customerHistory,
                   signals: const [Signals.clientreceived],
                 ),

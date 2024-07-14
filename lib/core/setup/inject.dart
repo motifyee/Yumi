@@ -1,10 +1,11 @@
-import 'package:get_it/get_it.dart';
+import 'package:common_code/common_code.dart';
+import 'package:yumi/app/yumi/config/chef/chef_routes.dart';
 import 'package:yumi/core/setup/connection.dart';
 import 'package:yumi/core/setup/internet_connectivity_checker.dart';
-import 'package:yumi/domain/auth/data/repos/auth_repo.dart';
-import 'package:yumi/domain/auth/data/repos/remote/auth_remote_repo.dart';
-import 'package:yumi/domain/auth/data/sources/auth_src.dart';
-import 'package:yumi/domain/auth/data/sources/remote/auth_remote_src.dart';
+import 'package:common_code/domain/auth/data/repos/auth_repo.dart';
+import 'package:common_code/domain/auth/data/repos/remote/auth_remote_repo.dart';
+import 'package:common_code/domain/auth/data/sources/auth_src.dart';
+import 'package:common_code/domain/auth/data/sources/remote/auth_remote_src.dart';
 import 'package:yumi/domain/bank_info/data/repos/bank_info_repo.dart';
 import 'package:yumi/domain/bank_info/data/repos/remote/bank_info_remote_repo.dart';
 import 'package:yumi/domain/bank_info/data/sources/bank_info_src.dart';
@@ -53,14 +54,10 @@ import 'package:yumi/domain/vehicle/data/repos/remote/vehicle_remote_repo.dart';
 import 'package:yumi/domain/vehicle/data/repos/vehicle_repo.dart';
 import 'package:yumi/domain/vehicle/data/sources/remote/vehicle_remote_src.dart';
 import 'package:yumi/domain/vehicle/data/sources/vehicle_src.dart';
-import 'package:yumi/domain/vehicle/entities/vehicle.dart';
 import 'package:yumi/domain/wallet/data/repo/remote/wallet_repo_remote.dart';
 import 'package:yumi/domain/wallet/data/repo/wallet_repo.dart';
 import 'package:yumi/domain/wallet/data/source/remote/wallet_source_remote.dart';
 import 'package:yumi/domain/wallet/data/source/wallet_source.dart';
-
-final sl = GetIt.I; // sl == Service Locator
-final getIt = sl.get;
 
 void initGetItBase() {}
 

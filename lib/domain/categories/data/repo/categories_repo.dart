@@ -1,7 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/domain/categories/entity/category.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/statics/paginatedData.dart';
+import 'package:common_code/common_code.dart';
 
 abstract class CategoriesRepo {
   TaskEither<Failure, PaginatedData<Category>> getCategories({

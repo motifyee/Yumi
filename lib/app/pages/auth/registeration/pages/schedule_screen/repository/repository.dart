@@ -2,12 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/entity/schedule.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/repository/interface.dart';
-import 'package:yumi/statics/api_statics.dart';
+import 'package:common_code/common_code.dart';
 
 class ScheduleRepo implements IScheduleRepo {
   @override
   Future<Schedule> getMySchedule(BuildContext? ctx) async {
-    final Response res = await DioClient.simpleDio().get(
+    final Response res = await APIClient().get(
       '/accounts/schedule',
     );
 
@@ -36,7 +36,7 @@ class ScheduleRepo implements IScheduleRepo {
       data.remove(element);
     }
 
-    final Response res = await DioClient.simpleDio().put(
+    final Response res = await APIClient().put(
       '/accounts/schedule',
       data: data,
     );

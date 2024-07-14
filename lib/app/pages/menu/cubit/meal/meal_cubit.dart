@@ -1,16 +1,13 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
+import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/bloc/util/status.dart';
-import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/domain/meal/use_case/add_meal_to_favorite.dart';
 import 'package:yumi/domain/meal/use_case/get_favorite_meals.dart';
 import 'package:yumi/domain/meal/use_case/get_meals.dart';
 import 'package:yumi/domain/meal/use_case/remove_meal_from_favorite.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 part 'meal_cubit.freezed.dart';
 part 'meal_cubit.g.dart';
@@ -59,7 +56,7 @@ class MealCubit extends Cubit<MealState> {
             chefId: chefId,
             menuTarget: menuTarget));
 
-    task.fold((l) => G.snackBar(l.toString()),
+    task.fold((l) => G().snackBar(l.toString()),
         (r) => emit(state.copyWith(pagination: r)));
   }
 
@@ -80,7 +77,7 @@ class MealCubit extends Cubit<MealState> {
     final params = GetFavoriteMealsParams(paginatedData: state.pagination);
     final task = await GetFavoriteMeals().call(params);
 
-    task.fold((l) => G.snackBar(l.toString()),
+    task.fold((l) => G().snackBar(l.toString()),
         (r) => emit(state.copyWith(pagination: r)));
   }
 
@@ -89,7 +86,7 @@ class MealCubit extends Cubit<MealState> {
         .call(AddMealToFavoriteParams(
             paginatedData: state.pagination, meal: meal));
 
-    task.fold((l) => G.snackBar(l.toString()),
+    task.fold((l) => G().snackBar(l.toString()),
         (r) => emit(state.copyWith(pagination: r)));
   }
 
@@ -97,7 +94,7 @@ class MealCubit extends Cubit<MealState> {
     final Either<Failure, PaginatedData<Meal>> task =
         await RemoveMealFromFavorite().call(RemoveMealFromFavoriteParams(
             paginatedData: state.pagination, meal: meal));
-    task.fold((l) => G.snackBar(l.toString()),
+    task.fold((l) => G().snackBar(l.toString()),
         (r) => emit(state.copyWith(pagination: r)));
   }
 }

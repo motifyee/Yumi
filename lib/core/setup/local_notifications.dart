@@ -77,7 +77,7 @@
 //     int id, String? title, String? body, String? payload) async {
 //   // display a dialog with the notification details, tap ok to go to another page
 //   showDialog(
-//     context: G.context,
+//     context: G().context,
 //     builder: (BuildContext context) => CupertinoAlertDialog(
 //       title: Text(title ?? ''),
 //       content: Text(body ?? ''),

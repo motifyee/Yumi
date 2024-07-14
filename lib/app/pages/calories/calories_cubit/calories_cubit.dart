@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:common_code/common_code.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/domain/calories/entity/calorie.dart';
 import 'package:yumi/domain/calories/use_case/load_calories.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 part 'calories_cubit.freezed.dart';
 part 'calories_cubit.g.dart';

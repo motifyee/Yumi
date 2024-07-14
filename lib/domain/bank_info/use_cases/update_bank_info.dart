@@ -1,7 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/core/failures.dart';
-import 'package:yumi/core/setup/inject.dart';
-import 'package:yumi/core/use_cases.dart';
+import 'package:common_code/common_code.dart';
 import 'package:yumi/domain/bank_info/data/repos/bank_info_repo.dart';
 import 'package:yumi/domain/bank_info/entities/bankinfo_model.dart';
 

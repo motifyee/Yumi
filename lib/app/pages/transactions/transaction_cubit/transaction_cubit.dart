@@ -1,12 +1,11 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
+import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/core/failures.dart';
+import 'package:common_code/core/failures.dart';
 import 'package:yumi/domain/transactions/entity/transaction.dart';
 import 'package:yumi/domain/transactions/use_case/get_all_transaction.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 part 'transaction_cubit.freezed.dart';
 part 'transaction_cubit.g.dart';
@@ -36,7 +35,7 @@ class TransactionCubit extends Cubit<TransactionState> {
       final Either<Failure, PaginatedData<Transaction>> task =
           await GetAllTransaction().call(GetAllTransactionParams(
               pagination: state.pagination, userId: userId));
-      task.fold((l) => G.snackBar(l.toString()),
+      task.fold((l) => G().snackBar(l.toString()),
           (r) => emit(state.copyWith(pagination: r)));
     }
   }

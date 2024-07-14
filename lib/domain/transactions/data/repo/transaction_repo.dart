@@ -1,7 +1,6 @@
+import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/core/failures.dart';
 import 'package:yumi/domain/transactions/entity/transaction.dart';
-import 'package:yumi/statics/paginatedData.dart';
 
 abstract class TransactionRepo {
   TaskEither<Failure, PaginatedData<Transaction>> getAllTransaction(

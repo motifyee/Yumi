@@ -9,8 +9,8 @@ import 'package:yumi/route/route.gr.dart';
 /// dart run build_runner watch
 
 @AutoRouterConfig()
-class AppRouter extends $AppRouter {
-  AppRouter();
+class YumiRouter extends $YumiRouter {
+  YumiRouter();
 
   @override
   List<AutoRoute> get routes => [

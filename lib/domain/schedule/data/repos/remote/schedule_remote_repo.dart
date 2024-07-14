@@ -1,6 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/core/setup/inject.dart';
-import 'package:yumi/core/failures.dart';
+import 'package:common_code/common_code.dart';
 import 'package:yumi/domain/schedule/data/repos/schedule_repo.dart';
 import 'package:yumi/domain/schedule/data/sources/schedule_sources.dart';
 import 'package:yumi/domain/schedule/entities/schedule.dart';

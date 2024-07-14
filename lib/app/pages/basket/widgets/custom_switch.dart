@@ -1,5 +1,5 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:yumi/statics/theme_statics.dart';
 
 class CustomSwitch extends StatelessWidget {
   CustomSwitch({super.key, required this.isSelected});
@@ -9,26 +9,24 @@ class CustomSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: ThemeSelector.statics.defaultGapExtreme,
-      height: ThemeSelector.statics.defaultBlockGap,
+      width: CommonDimens.defaultGapExtreme,
+      height: CommonDimens.defaultBlockGap,
       decoration: BoxDecoration(
-        color: ThemeSelector.colors.backgroundTant,
-        borderRadius: BorderRadius.circular(
-            ThemeSelector.statics.defaultBorderRadiusSubLarge),
+        color: CommonColors.backgroundTant,
+        borderRadius:
+            BorderRadius.circular(CommonDimens.defaultBorderRadiusSubLarge),
       ),
       child: AnimatedAlign(
-        duration: ThemeSelector.statics.animationDuration,
+        duration: CommonDimens.animationDuration,
         alignment: isSelected ? Alignment.centerRight : Alignment.centerLeft,
         child: AnimatedContainer(
-          duration: ThemeSelector.statics.animationDuration,
-          width: ThemeSelector.statics.defaultBlockGap,
-          height: ThemeSelector.statics.defaultBlockGap,
+          duration: CommonDimens.animationDuration,
+          width: CommonDimens.defaultBlockGap,
+          height: CommonDimens.defaultBlockGap,
           decoration: BoxDecoration(
-            color: isSelected
-                ? ThemeSelector.colors.primary
-                : ThemeSelector.colors.secondaryFaint,
-            borderRadius:
-                BorderRadius.circular(ThemeSelector.statics.defaultBlockGap),
+            color:
+                isSelected ? CommonColors.primary : CommonColors.secondaryFaint,
+            borderRadius: BorderRadius.circular(CommonDimens.defaultBlockGap),
           ),
         ),
       ),

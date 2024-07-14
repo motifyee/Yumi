@@ -1,14 +1,14 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:yumi/app/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/domain/notification/entity/notification.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/statics/theme_statics.dart';
-import 'package:yumi/app/components/pagination_template.dart';
+import 'package:yumi/global.dart';
 
 @RoutePage()
 class NotificationScreen extends StatelessWidget {
@@ -27,11 +27,11 @@ class NotificationScreen extends StatelessWidget {
               surfaceTintColor: Colors.transparent,
               leading: TextButton(
                   onPressed: () {
-                    context.router.popForced();
+                    G().router.pop();
                   },
                   child: Icon(
                     Icons.arrow_back,
-                    color: ThemeSelector.colors.primary,
+                    color: CommonColors.primary,
                   )),
               title: Text(
                 S.of(context).notification,
@@ -42,8 +42,8 @@ class NotificationScreen extends StatelessWidget {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ThemeSelector.statics.defaultLineGap),
+            padding: const EdgeInsets.symmetric(
+                horizontal: CommonDimens.defaultLineGap),
             child: Row(
               children: [
                 SvgPicture.asset('assets/images/notification.svg'),
@@ -55,7 +55,7 @@ class NotificationScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: ThemeSelector.statics.defaultGap),
+          const SizedBox(height: CommonDimens.defaultGap),
           const Expanded(
             child: _NotificationList(),
           ),
@@ -82,24 +82,24 @@ class _NotificationList extends StatelessWidget {
               for (NotificationS notification in state.pagination.data)
                 GestureDetector(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ThemeSelector.statics.defaultGap,
-                        horizontal: ThemeSelector.statics.defaultTitleGap),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: CommonDimens.defaultGap,
+                        horizontal: CommonDimens.defaultTitleGap),
                     child: Row(
                       children: [
                         Container(
-                          width: ThemeSelector.statics.defaultMediumGap,
-                          height: ThemeSelector.statics.defaultMediumGap,
+                          width: CommonDimens.defaultMediumGap,
+                          height: CommonDimens.defaultMediumGap,
                           decoration: BoxDecoration(
-                              color: ThemeSelector.colors.backgroundTant,
+                              color: CommonColors.backgroundTant,
                               borderRadius: BorderRadius.circular(
-                                  ThemeSelector.statics.defaultMediumGap)),
+                                  CommonDimens.defaultMediumGap)),
                           child: Center(
                             child: SvgPicture.asset(
                                 'assets/images/offer_icon.svg'),
                           ),
                         ),
-                        SizedBox(width: ThemeSelector.statics.defaultGap),
+                        const SizedBox(width: CommonDimens.defaultGap),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +121,7 @@ class _NotificationList extends StatelessWidget {
                     ),
                   ),
                 ),
-              if (state.pagination.isLoading) Loading(),
+              if (state.pagination.isLoading) const Loading(),
             ],
           );
         },
