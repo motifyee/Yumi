@@ -38,10 +38,18 @@ class StripePaymentParams extends Params {
 Future<StripeModel> _getClientSecret(StripePaymentParams params) async {
   final baseUrl = APIClient.baseUrl;
   APIClient.baseUrl = EndPoints.stripeApi;
-  StripeInterceptor stripeInterceptor = StripeInterceptor(clientSecret: StripeKeys.secretKey);
-  APIClient.addInterceptor(stripeInterceptor);
-  Response res = await APIClient().post(EndPoints.stripePaymentIntent, data: params.toJson());
-  APIClient.removeInterceptor(stripeInterceptor);
+
+  Response res = await APIClient().post(
+    EndPoints.stripePaymentIntent,
+    // options: Options(
+    //   headers: {
+    //     'Authorization': 'Bearer ${StripeKeys.secretKey}',
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   },
+    // ),
+    data: params.toJson(),
+  );
+
   APIClient.baseUrl = baseUrl;
 
   return StripeModel.fromJson(res.data);

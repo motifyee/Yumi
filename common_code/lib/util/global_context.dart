@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/components/toast/toast.dart';
+import 'package:common_code/core/setup/connection.dart';
+import 'package:common_code/core/setup/internet_connectivity_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -174,4 +176,69 @@ class GlobalContext {
     return bContext.read<T>();
   }
   // static void add<T extends Bloc<E, S>, E,S>(E event) {
+
+  // ###########################################################################
+  // Contectivity
+
+  // ###########################################################################
+  // Connectivity
+
+  Future<bool> checkConnectivity() async {
+    if (await sl<Connection>().isDisconnected) return false;
+    if (await sl<InternetChecker>().isDisconnected) return false;
+
+    return true;
+  }
+
+  void listenConnectivity() {
+    getIt<Connection>().listen(
+      onConnected: () {
+        if (!isOnline) showConnectivitySnackBar(true);
+        isOnline = true;
+
+        listenInternetChecker();
+      },
+      onDisconnected: () {
+        if (isOnline) showConnectivitySnackBar(false);
+        isOnline = false;
+      },
+    );
+  }
+
+  void listenInternetChecker() {
+    getIt<InternetChecker>().listen(
+      onConnected: () {
+        if (!isOnline) showConnectivitySnackBar(true);
+        isOnline = true;
+        getIt<InternetChecker>().dispose();
+      },
+      onDisconnected: () {
+        if (isOnline) showConnectivitySnackBar(false);
+        isOnline = false;
+      },
+    );
+  }
+
+  static void disposeConnectivityListeners() {
+    sl<Connection>().dispose();
+    sl<InternetChecker>().dispose();
+  }
+
+  static bool isOnline = true;
+  void showConnectivitySnackBar(bool isConnected) {
+    hideSnackbar();
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      behavior: SnackBarBehavior.floating,
+      duration:
+          isConnected ? const Duration(seconds: 2) : const Duration(days: 1),
+      backgroundColor: isConnected ? Colors.green : Colors.red,
+      padding: const EdgeInsets.all(3),
+      margin: const EdgeInsets.all(3),
+      dismissDirection: DismissDirection.down,
+      content: Center(
+        child: Text(isConnected ? 'Connected' : 'No internet access!'),
+      ),
+    ));
+  }
 }
