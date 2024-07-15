@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:common_code/common_code.dart';
+import 'package:common_code/core/setup/signalr.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 // import 'package:yumi/app/yumi/config/chef/chef_signalr.dart';
@@ -29,30 +30,14 @@ class UserCubit extends Cubit<UserState> {
   Future<void> saveUser(User user) async {
     await LocalStorage.sharedRef.setValue(LocalStorage.user, user.toJson());
 
-    /// must init Signalr with access token
-    // TODO remove to relevant logic block
-    // Signalr.accessToken = user.accessToken;
-
-    //* Signalr.startConnection().then((value) {
-    //   /// initial listen to global messages from signal r
-    //*   GlobalSignalR.initial();
-
-    //   /// initial listen to chef messages from signal r
-    //*   if (G().isChefApp) ChefSignalR.initial();
-
-    //   /// initial listen to customer messages from signal r
-    //*   if (G().isCustomerApp) CustomerSignalR.initial();
-
-    //   /// initial listen to driver messages from signal r
-    //*   if (G().isDriverApp) DriverSignalR.initial();
-    //* });
-
     emit(state.copyWith(user: user));
   }
 
   Future<User?> loadUser() async {
-    Map<String, dynamic>? user = await LocalStorage.sharedRef.getValue(LocalStorage.user);
-    Map<String, dynamic>? userLocation = await LocalStorage.sharedRef.getValue(LocalStorage.userLocation);
+    Map<String, dynamic>? user =
+        await LocalStorage.sharedRef.getValue(LocalStorage.user);
+    Map<String, dynamic>? userLocation =
+        await LocalStorage.sharedRef.getValue(LocalStorage.userLocation);
 
     if (user == null) return null;
 
@@ -73,7 +58,8 @@ class UserCubit extends Cubit<UserState> {
     try {
       //* await UserStatusService.updateStatus(status: status);
 
-      await LocalStorage.sharedRef.setValue(LocalStorage.user, state.user.copyWith(status: status));
+      await LocalStorage.sharedRef
+          .setValue(LocalStorage.user, state.user.copyWith(status: status));
       emit(state.copyWith(
         loading: false,
         user: state.user.copyWith(status: status),
@@ -86,7 +72,8 @@ class UserCubit extends Cubit<UserState> {
   }
 
   getStatus() async {
-    dynamic userWithStatus(int status) => state.user.copyWith(status: status).toJson();
+    dynamic userWithStatus(int status) =>
+        state.user.copyWith(status: status).toJson();
 
     //* final params = GetChefWorkStatusParams(state.user.id);
 
