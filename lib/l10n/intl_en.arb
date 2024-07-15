@@ -253,5 +253,6 @@
 	"pleaseSelectLocation" : "Please Select Location",
 	"invoiceTax": "Invoice Tax",
 	"calculationError": "Calculation Error",
-	"discount": "Discount"
+	"discount": "Discount",
+	"stripeError": "Stripe Error"
 }

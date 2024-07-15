@@ -2601,6 +2601,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Stripe Error`
+  String get stripeError {
+    return Intl.message(
+      'Stripe Error',
+      name: 'stripeError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

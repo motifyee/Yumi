@@ -298,6 +298,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "specialRequest":
             MessageLookupByLibrary.simpleMessage("Special request"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
+        "stripeError": MessageLookupByLibrary.simpleMessage("Stripe Error"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
         "suggestions": MessageLookupByLibrary.simpleMessage("Suggestions"),
