@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/core/setup/signalr.dart';
+import 'package:common_code/core/setup/signalr.dart';
 import 'package:yumi/domain/signal_r/entity/signal_r.dart';
 
 part 'signal_r_cubit.freezed.dart';
@@ -20,15 +20,11 @@ class SignalRState with _$SignalRState {
 
   bool isSignalTriggered({required List<Signals> signal, bool? isPreOrder}) {
     return signals.any((e) {
-      return signal.any((c) => c == e.type) &&
-          (isPreOrder == null
-              ? true
-              : isPreOrder == e.message[0]['is_Preorder']);
+      return signal.any((c) => c == e.type) && (isPreOrder == null ? true : isPreOrder == e.message[0]['is_Preorder']);
     });
   }
 
-  factory SignalRState.fromJson(Map<String, dynamic> json) =>
-      _$SignalRStateFromJson(json);
+  factory SignalRState.fromJson(Map<String, dynamic> json) => _$SignalRStateFromJson(json);
 }
 
 class SignalRCubit extends Cubit<SignalRState> {
@@ -39,9 +35,6 @@ class SignalRCubit extends Cubit<SignalRState> {
   }
 
   removeSignals({required List<Signals> signal}) {
-    emit(state.copyWith(
-        signals: state.signals
-            .where((e) => !signal.any((c) => c == e.type))
-            .toList()));
+    emit(state.copyWith(signals: state.signals.where((e) => !signal.any((c) => c == e.type)).toList()));
   }
 }

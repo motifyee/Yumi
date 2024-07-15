@@ -6,7 +6,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/basket/entity/stripe.dart';
-import 'package:common_code/core/dio/stripe_interceptor.dart';
+// import 'package:common_code/core/dio/stripe_interceptor.dart';
 
 class StripePayment extends UseCase<bool, StripePaymentParams> {
   @override

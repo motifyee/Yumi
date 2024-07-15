@@ -14,7 +14,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:yumi/core/resources/app_assets.dart';
-import 'package:yumi/core/setup/awesome_notifications.dart';
+import 'package:common_code/core/setup/awesome_notifications.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/docs_info.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
@@ -63,9 +63,7 @@ class DocumentationScreen extends StatelessWidget {
                     context.read<DocsCubit>().init();
                   }
 
-                  return state.status.isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : buildDocumentWidgets(context, state, profile);
+                  return state.status.isLoading ? const Center(child: CircularProgressIndicator()) : buildDocumentWidgets(context, state, profile);
                 },
               ),
             ],
@@ -94,14 +92,10 @@ class DocumentationScreen extends StatelessWidget {
             documentPropertyPickerFn: _documentPropertyPickerFn(context, doc),
             uploadAction: (String image, String? target) {
               if (doc.update != null) {
-                return G()
-                    .rd<DocsCubit>()
-                    .update(doc.update!(profile, image), 0);
+                return G().rd<DocsCubit>().update(doc.update!(profile, image), 0);
               }
 
-              var updater = doc.targets!
-                  .firstWhereOrNull((taget) => taget.option == target)
-                  ?.update;
+              var updater = doc.targets!.firstWhereOrNull((taget) => taget.option == target)?.update;
 
               if (updater == null) return;
 
@@ -156,14 +150,11 @@ Future<String?> Function()? _documentPropertyPickerFn(
             child: Container(
               // height: 40,
               constraints: const BoxConstraints(maxHeight: 60),
-              padding: const EdgeInsets.symmetric(
-                  vertical: CommonDimens.defaultGap,
-                  horizontal: CommonDimens.defaultGap),
+              padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap, horizontal: CommonDimens.defaultGap),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: CommonColors.background,
-                borderRadius: BorderRadius.circular(
-                    CommonDimens.defaultBorderRadiusMedium),
+                borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadiusMedium),
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -181,8 +172,7 @@ Future<String?> Function()? _documentPropertyPickerFn(
 Widget _buildDocumentIcon(String hexColor) {
   Widget getIconWithColor(String color) => SvgPicture.asset(
         AppAssets.documentationFileIcon,
-        colorFilter:
-            ColorFilter.mode(HexColor.fromHex(color), BlendMode.srcATop),
+        colorFilter: ColorFilter.mode(HexColor.fromHex(color), BlendMode.srcATop),
       );
 
   return IgnorePointer(
@@ -295,8 +285,7 @@ Widget buidlDocumentWidget({
     alignment: Alignment.bottomRight,
     child: TextButton(
       style: TextButton.styleFrom(
-        foregroundColor:
-            enabled ? CommonColors.primary : CommonColors.secondary,
+        foregroundColor: enabled ? CommonColors.primary : CommonColors.secondary,
       ),
       onPressed: () async {
         if (!enabled) return;
@@ -306,12 +295,10 @@ Widget buidlDocumentWidget({
             if (target == null) return;
 
             ImagePicker imagePicker = ImagePicker();
-            final image =
-                await imagePicker.pickImage(source: ImageSource.gallery);
+            final image = await imagePicker.pickImage(source: ImageSource.gallery);
             if (image == null) return;
 
-            var encoded =
-                'data:${lookupMimeType(image.path)};base64,${base64Encode(await image.readAsBytes())}';
+            var encoded = 'data:${lookupMimeType(image.path)};base64,${base64Encode(await image.readAsBytes())}';
 
             uploadAction(encoded, target);
 
@@ -326,8 +313,7 @@ Widget buidlDocumentWidget({
         final image = await imagePicker.pickImage(source: ImageSource.gallery);
         if (image == null) return;
 
-        var encoded =
-            'data:${lookupMimeType(image.path)};base64,${base64Encode(await image.readAsBytes())}';
+        var encoded = 'data:${lookupMimeType(image.path)};base64,${base64Encode(await image.readAsBytes())}';
         uploadAction(encoded, null);
 
         if (context?.mounted ?? false) {

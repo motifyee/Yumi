@@ -1,11 +1,6 @@
 import 'package:common_code/common_code.dart';
-import 'package:yumi/app/yumi/config/chef/chef_routes.dart';
-import 'package:yumi/core/setup/connection.dart';
-import 'package:yumi/core/setup/internet_connectivity_checker.dart';
-import 'package:common_code/domain/auth/data/repos/auth_repo.dart';
-import 'package:common_code/domain/auth/data/repos/remote/auth_remote_repo.dart';
-import 'package:common_code/domain/auth/data/sources/auth_src.dart';
-import 'package:common_code/domain/auth/data/sources/remote/auth_remote_src.dart';
+import 'package:common_code/core/setup/connection.dart';
+import 'package:common_code/core/setup/internet_connectivity_checker.dart';
 import 'package:yumi/domain/bank_info/data/repos/bank_info_repo.dart';
 import 'package:yumi/domain/bank_info/data/repos/remote/bank_info_remote_repo.dart';
 import 'package:yumi/domain/bank_info/data/sources/bank_info_src.dart';
@@ -69,8 +64,7 @@ Future<void> inject() async {
   sl.registerFactory<ScheduleRepo>(() => ScheduleRemoteRepo());
 
   sl.registerFactory<CaloriesSource>(() => CaloriesRemoteSource());
-  sl.registerFactory<CaloriesRepo>(
-      () => CaloriesRepoRemote(caloriesSource: sl()));
+  sl.registerFactory<CaloriesRepo>(() => CaloriesRepoRemote(caloriesSource: sl()));
 
   sl.registerFactory<BasketSource>(() => BasketRemoteSource());
   sl.registerFactory<BasketRepo>(() => BasketRemoteRepo());

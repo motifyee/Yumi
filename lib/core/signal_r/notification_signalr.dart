@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/core/setup/signalr.dart';
+import 'package:common_code/core/setup/signalr.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/domain/notification/entity/notification.dart';
@@ -8,15 +8,8 @@ import 'package:yumi/global.dart';
 class NotificationSignalR {
   static listen() {
     Signalr.on(Signals.notification, (List<dynamic>? p0) {
-      if (p0?.any((e) =>
-              e['chef_ID'] == G().context.read<UserCubit>().state.user.id ||
-              e['driver_ID'] == G().context.read<UserCubit>().state.user.id ||
-              e['client_ID'] == G().context.read<UserCubit>().state.user.id) ??
-          false) {
-        G()
-            .context
-            .read<NotificationCubit>()
-            .newNotification(NotificationS.fromJson(p0?[0]));
+      if (p0?.any((e) => e['chef_ID'] == G().context.read<UserCubit>().state.user.id || e['driver_ID'] == G().context.read<UserCubit>().state.user.id || e['client_ID'] == G().context.read<UserCubit>().state.user.id) ?? false) {
+        G().context.read<NotificationCubit>().newNotification(NotificationS.fromJson(p0?[0]));
       }
     });
   }
