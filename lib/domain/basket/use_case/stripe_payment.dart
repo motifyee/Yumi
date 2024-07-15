@@ -2,19 +2,21 @@ import 'package:common_code/common_code.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:common_code/util/global_context.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/basket/entity/stripe.dart';
-// import 'package:common_code/core/dio/stripe_interceptor.dart';
 
 class StripePayment extends UseCase<bool, StripePaymentParams> {
   @override
   Future<Either<Failure, bool>> call(StripePaymentParams params) async {
     try {
-      final clientSecret = await _getClientSecret(params);
-      await _initPaymentSheet(clientSecret: clientSecret.clientSecret);
-      await Stripe.instance.presentPaymentSheet();
+      final stripe = await _getClientSecret(params);
+      await _initPaymentSheet(stripe: stripe);
+      print('presentPaymentSheet .......');
+      await Stripe.instance.presentPaymentSheet().then((value) => print(value));
+      return Left(GenericFailure('just kidding .. :D'));
       return const Right(true);
     } catch (error) {
       return Left(GenericFailure(error.toString()));
@@ -55,15 +57,40 @@ Future<StripeModel> _getClientSecret(StripePaymentParams params) async {
   return StripeModel.fromJson(res.data);
 }
 
-Future<void> _initPaymentSheet({required String clientSecret}) async {
+Future<void> _initPaymentSheet({required StripeModel stripe}) async {
   await Stripe.instance.initPaymentSheet(
     paymentSheetParameters: SetupPaymentSheetParameters(
-      paymentIntentClientSecret: clientSecret,
+      style: ThemeMode.light,
+      allowsRemovalOfLastSavedPaymentMethod: true,
+      removeSavedPaymentMethodMessage: 'removeSavedPaymentMethodMessage',
+      billingDetailsCollectionConfiguration: BillingDetailsCollectionConfiguration(name: CollectionMode.always, email: CollectionMode.always, attachDefaultsToPaymentMethod: true),
+      setupIntentClientSecret: stripe.clientSecret,
+      paymentIntentClientSecret: stripe.clientSecret,
       merchantDisplayName: StripeKeys.appName,
+      customFlow: true,
+      intentConfiguration: IntentConfiguration(mode: IntentMode(currencyCode: stripe.currency, amount: stripe.amount, setupFutureUsage: IntentFutureUsage.OffSession, captureMethod: CaptureMethod.AutomaticAsync)),
       customerId: GlobalContext().readCubit<UserCubit>()?.state.user.userName,
+      billingDetails: BillingDetails(name: GlobalContext().readCubit<UserCubit>()?.state.user.userName, email: GlobalContext().readCubit<UserCubit>()?.state.user.email),
       appearance: PaymentSheetAppearance(
-        shapes: PaymentSheetShape(borderRadius: 15),
-        colors: PaymentSheetAppearanceColors(background: CommonColors.background, componentDivider: CommonColors.primary, icon: CommonColors.secondary),
+        primaryButton: PaymentSheetPrimaryButtonAppearance(
+            shapes: PaymentSheetPrimaryButtonShape(blurRadius: 15),
+            colors: PaymentSheetPrimaryButtonTheme(
+              dark: PaymentSheetPrimaryButtonThemeColors(background: CommonColors.primary, border: CommonColors.primary, text: CommonColors.onPrimary),
+              light: PaymentSheetPrimaryButtonThemeColors(background: CommonColors.primary, border: CommonColors.primary, text: CommonColors.onPrimary),
+            )),
+        shapes: PaymentSheetShape(borderRadius: 15, shadow: PaymentSheetShadowParams(color: CommonColors.secondary, opacity: .05)),
+        colors: PaymentSheetAppearanceColors(
+            background: CommonColors.background,
+            componentDivider: CommonColors.secondary,
+            icon: CommonColors.primary,
+            componentBackground: CommonColors.background,
+            componentBorder: CommonColors.secondary,
+            componentText: CommonColors.secondary,
+            error: CommonColors.primary,
+            placeholderText: CommonColors.secondaryTant,
+            primary: CommonColors.primary,
+            primaryText: CommonColors.primary,
+            secondaryText: CommonColors.secondary),
       ),
     ),
   );

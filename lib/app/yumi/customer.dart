@@ -9,8 +9,6 @@ Future main() async {
   Stripe.publishableKey = StripeKeys.publishableKey;
   await init();
 
-  Stripe.publishableKey = 'stripePublishableKey';
-
   AppTarget.user = YumiApp.customers;
 
   runApp(YumiCustomer(config: CustomerAppConfig()));

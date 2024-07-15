@@ -7,6 +7,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:common_code/core/setup/awesome_notifications.dart';
 import 'package:common_code/core/setup/crashlyticts.dart';
 import 'package:yumi/core/setup/inject.dart';
+import 'package:yumi/core/setup/interceptor.dart';
 import 'package:yumi/global.dart';
 import 'package:common_code/common_code.dart';
 
@@ -31,6 +32,7 @@ Future init() async {
   await inject();
 
   APIClient.getToken = () => G().rd<UserCubit>().state.user.accessToken;
+  APIClient.addInterceptor(APIInterceptor());
 
   G().listenConnectivity();
 }
