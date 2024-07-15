@@ -5,7 +5,6 @@ import 'package:fpdart/fpdart.dart';
 import 'package:logging/logging.dart';
 import 'package:signalr_netcore/json_hub_protocol.dart';
 import 'package:signalr_netcore/signalr_client.dart';
-import 'package:yumi/core/signal_r/after_reconnect_signalr.dart';
 import 'package:common_code/common_code.dart';
 
 enum Signals {
@@ -53,7 +52,8 @@ class Signalr {
     final httpOptions = HttpConnectionOptions(
       httpClient: WebSupportingHttpClient(
         hubLogger,
-        httpClientCreateCallback: (httpClient) => HttpOverrides.global = HttpOverrideCertificateVerificationInDev(),
+        httpClientCreateCallback: (httpClient) =>
+            HttpOverrides.global = HttpOverrideCertificateVerificationInDev(),
       ),
       logger: transportLogger,
       logMessageContent: true,
@@ -77,9 +77,9 @@ class Signalr {
         .withHubProtocol(JsonHubProtocol())
         .build();
 
-    hubConnection!.onclose(onclose);
-    hubConnection!.onreconnecting(onreconnecting);
-    hubConnection!.onreconnected(onreconnected);
+    hubConnection!.onclose(_onclose);
+    hubConnection!.onreconnecting(_onreconnecting);
+    hubConnection!.onreconnected(_onreconnected);
   }
 
   static void ensureInitialized() {
@@ -101,11 +101,12 @@ class Signalr {
 
     if (hubConnection!.state == HubConnectionState.Connected) return;
 
-    await hubConnection!.start()?.then(onstarted).catchError(onstarterror);
+    await hubConnection!.start()?.then(_onstarted).catchError(_onstarterror);
   }
 
   static void stopConnection() async {
-    if (hubConnection == null || hubConnection!.state != HubConnectionState.Connected) return;
+    if (hubConnection == null ||
+        hubConnection!.state != HubConnectionState.Connected) return;
 
     // await hubConnection!.invoke("Stop");
     await hubConnection!.stop();
@@ -147,34 +148,48 @@ class Signalr {
       (error, _) => SignalrFailure(error.toString()),
     ).run();
   }
+
+  static final List<void Function(String?)> onreconnectedCallbacks = [];
+  static onreconnected(void Function(String?) callback) {
+    onreconnectedCallbacks.add(callback);
+  }
+
+  static bool offreconnected(void Function(String?) callback) {
+    return onreconnectedCallbacks.remove(callback);
+  }
 }
 
 class HttpOverrideCertificateVerificationInDev extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
 
-void onclose({Exception? error}) {
+void _onclose({Exception? error}) {
   debugPrint("SignalR closed ");
   debugPrint(error.toString());
 }
 
-void onreconnecting({Exception? error}) {
+void _onreconnecting({Exception? error}) {
   debugPrint("SignalR re-connecting");
 }
 
-void onreconnected({String? connectionId}) {
+void _onreconnected({String? connectionId}) {
   debugPrint("SignalR re-connected");
-  AfterReconnectSignalr.reconnectedCall();
+
+  for (var fn in Signalr.onreconnectedCallbacks) {
+    fn(connectionId);
+  }
 }
 
-void onstarted(_) {
+void _onstarted(_) {
   debugPrint("SignalR Connection Started");
 }
 
-void onstarterror(dynamic error) {
+void _onstarterror(dynamic error) {
   debugPrint("SignalR Connection Init Error: $error");
 }
 

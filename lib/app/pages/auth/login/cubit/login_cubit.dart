@@ -5,7 +5,7 @@ import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_
 import 'package:common_code/domain/address/entity/address.dart';
 import 'package:common_code/domain/auth/use_cases/login_with_email.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
-import 'package:yumi/app/yumi/config/chef/chef_routes.dart';
+import 'package:yumi/core/signal_r.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
 
@@ -40,6 +40,8 @@ class LoginCubit extends Cubit<LoginState> {
               await G()
                   .rd<UserCubit>()
                   .saveUser(user.copyWith(password: loginData.password));
+
+              initializeSignalr();
 
               int getPendingRegStep() {
                 var regStep = -1;
