@@ -7,11 +7,9 @@ import 'package:yumi/app_target.dart';
 
 Future main() async {
   Stripe.publishableKey = StripeKeys.publishableKey;
-
   await init();
 
   AppTarget.user = YumiApp.customers;
-
   runApp(YumiCustomer(config: CustomerAppConfig()));
 }
 
