@@ -5,7 +5,7 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
@@ -250,7 +250,7 @@ class _MealList extends StatelessWidget {
                                 },
                               ),
                             if (state.pagination.isLoading)
-                              const Expanded(child: Loading()),
+                              const Expanded(child: PacmanLoadingWidget()),
                           ],
                         ),
                       ),
@@ -413,7 +413,7 @@ class _CategoriesList extends StatelessWidget {
                               ),
                             ),
                           if (state.categoriesPage.isLoading)
-                            const Expanded(child: Loading()),
+                            const Expanded(child: PacmanLoadingWidget()),
                         ],
                       ),
                     ),

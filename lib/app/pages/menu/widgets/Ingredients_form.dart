@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredients_form_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal_form/meal_form_cubit.dart';
 import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
@@ -195,7 +195,8 @@ class IngredientsForm extends StatelessWidget {
                               .ingredientsModelList);
                       return selectFromList.isEmpty
                           ? state.loading
-                              ? const Loading(size: CommonFontSize.font_38)
+                              ? const PacmanLoadingWidget(
+                                  size: CommonFontSize.font_38)
                               : const SizedBox.shrink()
                           : Row(
                               crossAxisAlignment: CrossAxisAlignment.start,

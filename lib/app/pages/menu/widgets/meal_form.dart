@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredients_form_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal_form/meal_form_cubit.dart';
@@ -283,7 +283,7 @@ class MealForm extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: state.categoriesPage.data.isEmpty
-                                      ? [const Loading()]
+                                      ? [const PacmanLoadingWidget()]
                                       : [
                                           for (var category
                                               in state.categoriesPage.data ??
@@ -347,7 +347,7 @@ class MealForm extends StatelessWidget {
                                             width: CommonDimens.defaultTitleGap,
                                             child:
                                                 state.categoriesPage.isLoading
-                                                    ? const Loading(
+                                                    ? const PacmanLoadingWidget(
                                                         size: CommonDimens
                                                             .defaultTitleGap)
                                                     : const Text(''),
@@ -458,7 +458,7 @@ class _SaveBTNState extends State<_SaveBTN> {
             }
           },
           child: widget.loading
-              ? const Loading(size: CommonFontSize.font_24)
+              ? const PacmanLoadingWidget(size: CommonFontSize.font_24)
               : Text(
                   S.of(context).save,
                   style: Theme.of(context).textTheme.headlineMedium,

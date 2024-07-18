@@ -9,8 +9,9 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i33;
-import 'package:common_code/domain/address/entity/address.dart' as _i35;
+import 'package:common_code/common_code.dart' as _i35;
 import 'package:flutter/material.dart' as _i34;
+import 'package:yumi/app/inherited_pages/loading.dart' as _i13;
 import 'package:yumi/app/pages/auth/login/login_screen.dart' as _i15;
 import 'package:yumi/app/pages/auth/registeration/pages/add_phone_screen/add_phone_screen.dart'
     as _i1;
@@ -53,7 +54,6 @@ import 'package:yumi/app/pages/performance_analysis/performance_analysis.dart'
 import 'package:yumi/app/pages/settings/settings_screen.dart' as _i28;
 import 'package:yumi/app/pages/transactions/transactions.dart' as _i31;
 import 'package:yumi/app/pages/wallet/wallet_screen.dart' as _i32;
-import 'package:yumi/app/yumi/config/chef/chef_routes.dart' as _i13;
 import 'package:yumi/domain/chef/entity/chef.dart' as _i36;
 import 'package:yumi/domain/meal/entity/meal.dart' as _i37;
 import 'package:yumi/domain/order/entity/order.dart' as _i38;

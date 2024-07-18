@@ -63,5 +63,8 @@ class CustomerAppConfig implements AppConfig {
   Iterable<Locale> get supportedLocales => S.delegate.supportedLocales;
 
   @override
+  Locale get locale => const Locale('en');
+
+  @override
   ThemeData? get theme => defaultTheme;
 }

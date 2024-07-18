@@ -3,6 +3,7 @@ import 'package:common_code/common_code.dart';
 import 'package:common_code/domain/auth/entities/signup_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/pages/auth/login/social_login.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/registeration_step.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/signup_screen/cubit/signup_cubit.dart';
@@ -11,7 +12,6 @@ import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/app/pages/auth/login/login_thrid_part.dart';
 
 @RoutePage()
 class SignUpScreen extends StatelessWidget {

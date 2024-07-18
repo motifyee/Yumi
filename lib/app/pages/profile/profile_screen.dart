@@ -2,7 +2,7 @@ import 'package:common_code/common_code.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/profile/components/my_reviews.dart';
@@ -17,7 +17,7 @@ Widget profileImagePicker(
   bool loading,
   FormFieldState<String> fieldState,
 ) {
-  if (loading) return const Loading();
+  if (loading) return const PacmanLoadingWidget();
 
   return Container(
     // width: CommonDimens.defaultBorderRadiusExtreme * 1.3,
@@ -122,7 +122,7 @@ class ProfilePicture extends StatelessWidget {
         builder: (context, profileState) {
           if (profileState.photo == null &&
               profileState.entityStatus.isLoading) {
-            return const Loading();
+            return const PacmanLoadingWidget();
           }
 
           return Column(

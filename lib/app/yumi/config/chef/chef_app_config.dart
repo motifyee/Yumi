@@ -66,6 +66,7 @@ class ChefAppConfig implements AppConfig {
 
   @override
   Iterable<LocalizationsDelegate>? get localizationsDelegates => const [
+        CommonCodeS.delegate,
         S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -74,6 +75,9 @@ class ChefAppConfig implements AppConfig {
 
   @override
   Iterable<Locale> get supportedLocales => S.delegate.supportedLocales;
+
+  @override
+  Locale get locale => const Locale('ar');
 
   @override
   ThemeData? get theme => defaultTheme;

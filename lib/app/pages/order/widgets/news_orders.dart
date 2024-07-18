@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:common_code/core/setup/signalr.dart';
@@ -29,8 +29,10 @@ class NewsOrders extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SignalRCubit, SignalRState>(
       buildWhen: (previous, current) {
-        if (current.isSignalTriggered(signal: signals, isPreOrder: menuTarget == MenuTarget.preOrder)) {
-          context.read<OrderCubit>().resetOrders(loading: context.read<OrderCubit>().state.ordersPage.isLoading);
+        if (current.isSignalTriggered(
+            signal: signals, isPreOrder: menuTarget == MenuTarget.preOrder)) {
+          context.read<OrderCubit>().resetOrders(
+              loading: context.read<OrderCubit>().state.ordersPage.isLoading);
           context.read<OrderCubit>().getOrders(apiKeys: apiKey);
           return true;
         }
@@ -57,7 +59,7 @@ class NewsOrders extends StatelessWidget {
                       menuTarget: menuTarget,
                       navFun: navFun,
                     ),
-                  if (state.ordersPage.isLoading) const Loading(),
+                  if (state.ordersPage.isLoading) const PacmanLoadingWidget(),
                 ],
               );
             },

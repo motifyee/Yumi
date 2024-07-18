@@ -8,7 +8,6 @@ import 'package:nested/nested.dart';
 
 class App extends StatelessWidget {
   final AppConfig config;
-  // final TransitionBuilder builder;
 
   const App({
     super.key,
@@ -25,8 +24,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // GlobalContext().setGoRouter(config.routerBuilder);
-
     return MultiBlocProvider(
       providers: config.blocProviders,
       child: MaterialApp.router(
@@ -37,6 +34,7 @@ class App extends StatelessWidget {
         //
         routerConfig: config.appRouter.config(),
         //
+        locale: config.locale,
         supportedLocales: config.supportedLocales,
         localizationsDelegates: config.localizationsDelegates,
       ),
@@ -66,6 +64,8 @@ abstract class AppConfig {
   ThemeData? get theme => defaultTheme;
 
   List<SingleChildWidget> get blocProviders;
+
+  Locale get locale;
 
   Iterable<Locale> get supportedLocales;
 

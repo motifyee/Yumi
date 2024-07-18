@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/app_target.dart';
@@ -56,8 +56,9 @@ class _AppMenuList {
         AppMenuItem(
           icon: 'assets/images/schedule_menu.svg',
           label: S.of(context).mySchedule,
-          onPressed: () {
+          onPressed: () async {
             Navigator.of(context, rootNavigator: true).pop();
+            // context.router.push(const MyScheduleRoute());
             context.router.push(const LoadingRoute());
           },
         ),
@@ -134,7 +135,8 @@ class _AppMenuList {
           label: S.of(context).caloriesReference,
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const CaloriesReferenceRoute());
+            // context.router.push(const CaloriesReferenceRoute());
+            context.router.push(const LoadingRoute());
           },
         ),
         AppMenuItem(
@@ -143,7 +145,8 @@ class _AppMenuList {
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
               return state.isLoading
-                  ? const Loading(size: CommonDimens.defaultBlockGap)
+                  ? const PacmanLoadingWidget(
+                      size: CommonDimens.defaultBlockGap)
                   : TextCurrency(
                       value: state.wallet.money ?? 0,
                       fontSize: CommonFontSize.font_14);
@@ -262,7 +265,8 @@ class _AppMenuList {
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
               return state.isLoading
-                  ? const Loading(size: CommonDimens.defaultBlockGap)
+                  ? const PacmanLoadingWidget(
+                      size: CommonDimens.defaultBlockGap)
                   : TextCurrency(
                       value: state.wallet.money ?? 0,
                       fontSize: CommonFontSize.font_14);
@@ -337,7 +341,8 @@ class _AppMenuList {
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
               return state.isLoading
-                  ? const Loading(size: CommonDimens.defaultBlockGap)
+                  ? const PacmanLoadingWidget(
+                      size: CommonDimens.defaultBlockGap)
                   : TextCurrency(
                       value: state.wallet.money ?? 0,
                       fontSize: CommonFontSize.font_14);

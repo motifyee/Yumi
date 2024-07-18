@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 
 @RoutePage()
 class LoadingPage extends StatelessWidget {
@@ -8,6 +9,15 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Loading();
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: [
+            Text(S.of(context).test),
+            const PacmanLoadingWidget(),
+          ],
+        ),
+      ),
+    );
   }
 }
