@@ -10,7 +10,6 @@ Future main() async {
   await init();
 
   AppTarget.user = YumiApp.customers;
-
   runApp(YumiCustomer(config: CustomerAppConfig()));
 }
 

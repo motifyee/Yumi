@@ -29,7 +29,11 @@ Future init() async {
 
   await initCrashlytics();
 
-  await NotificationService.initialize();
+  try {
+    NotificationService.initialize();
+  } catch (error) {
+    return;
+  }
 
   await inject();
 
