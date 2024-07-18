@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 import 'package:yumi/extensions/string_to_double_converter.dart';
 
 part 'invoice_detail.freezed.dart';

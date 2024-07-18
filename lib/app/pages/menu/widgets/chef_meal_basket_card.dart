@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 
 class ChefMealBasketCard extends StatelessWidget {
   const ChefMealBasketCard({

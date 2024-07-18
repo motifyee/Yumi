@@ -3,9 +3,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 import 'package:common_code/common_code.dart';
-import 'package:common_code/util/code_generator.dart';
 
 class MealService {
   static Future<dynamic> createMeal(

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/domain/basket/entity/invoice.dart';
 import 'package:yumi/domain/basket/entity/invoice_detail.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/domain/basket/entity/basket.dart';

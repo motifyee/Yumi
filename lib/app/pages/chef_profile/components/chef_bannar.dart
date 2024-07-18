@@ -10,7 +10,7 @@ import 'package:yumi/domain/chef/use_cases/add_favourite_chef.dart';
 import 'package:yumi/domain/chef/use_cases/get_chef_work_status.dart';
 import 'package:yumi/domain/chef/use_cases/is_favourite_chef.dart';
 import 'package:yumi/domain/chef/use_cases/remove_favourite_chef.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/chef_profile/chef_profile.dart';
 

@@ -1378,7 +1378,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
 mixin _$Product {
   int? get productID => throw _privateConstructorUsedError;
   String? get productName => throw _privateConstructorUsedError;
-  List<Ingredients>? get ingredients => throw _privateConstructorUsedError;
+  List<Ingredient>? get ingredients => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1391,7 +1391,7 @@ abstract class $ProductCopyWith<$Res> {
       _$ProductCopyWithImpl<$Res, Product>;
   @useResult
   $Res call(
-      {int? productID, String? productName, List<Ingredients>? ingredients});
+      {int? productID, String? productName, List<Ingredient>? ingredients});
 }
 
 /// @nodoc
@@ -1423,7 +1423,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
       ingredients: freezed == ingredients
           ? _value.ingredients
           : ingredients // ignore: cast_nullable_to_non_nullable
-              as List<Ingredients>?,
+              as List<Ingredient>?,
     ) as $Val);
   }
 }
@@ -1436,7 +1436,7 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? productID, String? productName, List<Ingredients>? ingredients});
+      {int? productID, String? productName, List<Ingredient>? ingredients});
 }
 
 /// @nodoc
@@ -1466,7 +1466,7 @@ class __$$ProductImplCopyWithImpl<$Res>
       ingredients: freezed == ingredients
           ? _value._ingredients
           : ingredients // ignore: cast_nullable_to_non_nullable
-              as List<Ingredients>?,
+              as List<Ingredient>?,
     ));
   }
 }
@@ -1475,7 +1475,7 @@ class __$$ProductImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProductImpl implements _Product {
   const _$ProductImpl(
-      {this.productID, this.productName, final List<Ingredients>? ingredients})
+      {this.productID, this.productName, final List<Ingredient>? ingredients})
       : _ingredients = ingredients;
 
   factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
@@ -1485,9 +1485,9 @@ class _$ProductImpl implements _Product {
   final int? productID;
   @override
   final String? productName;
-  final List<Ingredients>? _ingredients;
+  final List<Ingredient>? _ingredients;
   @override
-  List<Ingredients>? get ingredients {
+  List<Ingredient>? get ingredients {
     final value = _ingredients;
     if (value == null) return null;
     if (_ingredients is EqualUnmodifiableListView) return _ingredients;
@@ -1536,7 +1536,7 @@ abstract class _Product implements Product {
   const factory _Product(
       {final int? productID,
       final String? productName,
-      final List<Ingredients>? ingredients}) = _$ProductImpl;
+      final List<Ingredient>? ingredients}) = _$ProductImpl;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
 
@@ -1545,7 +1545,7 @@ abstract class _Product implements Product {
   @override
   String? get productName;
   @override
-  List<Ingredients>? get ingredients;
+  List<Ingredient>? get ingredients;
   @override
   @JsonKey(ignore: true)
   _$$ProductImplCopyWith<_$ProductImpl> get copyWith =>

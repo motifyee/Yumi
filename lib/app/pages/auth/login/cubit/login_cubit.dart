@@ -7,7 +7,7 @@ import 'package:common_code/domain/auth/use_cases/login_with_email.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/core/signal_r.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/routes/routes.gr.dart';
 
 part 'login_cubit.freezed.dart';
 

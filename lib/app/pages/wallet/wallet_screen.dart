@@ -7,7 +7,7 @@ import 'package:common_code/components/loading_indicator/pacman_loading_widget.d
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/routes/routes.gr.dart';
 
 @RoutePage()
 class WalletScreen extends StatelessWidget {

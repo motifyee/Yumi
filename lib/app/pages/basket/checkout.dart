@@ -9,7 +9,7 @@ import 'package:yumi/core/resources/app_assets.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/routes/routes.gr.dart';
 
 @RoutePage()
 class CheckOutScreen extends StatelessWidget {

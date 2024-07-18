@@ -11,7 +11,7 @@ import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/domain/basket/entity/invoice_detail.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/app/pages/menu/widgets/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';

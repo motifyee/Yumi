@@ -5,7 +5,7 @@ import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/global.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/routes/routes.gr.dart';
 
 class AuthGuard extends AutoRouteGuard {
   @override

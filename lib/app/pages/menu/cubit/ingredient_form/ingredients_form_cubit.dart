@@ -3,9 +3,9 @@ import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:common_code/core/failures.dart';
-import 'package:yumi/domain/meal/entity/ingredients.dart';
-import 'package:yumi/domain/meal/use_case/add_ingredients_form.dart';
-import 'package:yumi/domain/meal/use_case/remove_ingredients_form.dart';
+import 'package:yumi/domain/ingredients/entities/ingredient.dart';
+import 'package:yumi/domain/meal/use_cases/add_ingredients_form.dart';
+import 'package:yumi/domain/meal/use_cases/remove_ingredients_form.dart';
 import 'package:yumi/global.dart';
 
 part 'ingredients_form_cubit.freezed.dart';
@@ -14,7 +14,7 @@ part 'ingredients_form_cubit.g.dart';
 @freezed
 class IngredientsFormState with _$IngredientsFormState {
   const factory IngredientsFormState(
-      {required List<Ingredients> ingredientsModelList}) = _IngredientsState;
+      {required List<Ingredient> ingredientsModelList}) = _IngredientsState;
 
   factory IngredientsFormState.initial() =>
       const IngredientsFormState(ingredientsModelList: []);
@@ -26,8 +26,8 @@ class IngredientsFormState with _$IngredientsFormState {
 class IngredientsFormCubit extends Cubit<IngredientsFormState> {
   IngredientsFormCubit() : super(IngredientsFormState.initial());
 
-  add({required Ingredients ingredientsModel}) async {
-    final Either<Failure, List<Ingredients>> task = await AddIngredientsForm()
+  add({required Ingredient ingredientsModel}) async {
+    final Either<Failure, List<Ingredient>> task = await AddIngredientsForm()
         .call(AddIngredientsFormParams(
             ingredients: state.ingredientsModelList,
             ingredient: ingredientsModel));
@@ -35,16 +35,16 @@ class IngredientsFormCubit extends Cubit<IngredientsFormState> {
         (r) => emit(state.copyWith(ingredientsModelList: r)));
   }
 
-  remove({required Ingredients ingredientsModel}) async {
-    final Either<Failure, List<Ingredients>> task =
-        await RemoveIngredientsForm().call(RemoveIngredientsFormParams(
+  remove({required Ingredient ingredientsModel}) async {
+    final Either<Failure, List<Ingredient>> task = await RemoveIngredientsForm()
+        .call(RemoveIngredientsFormParams(
             ingredients: state.ingredientsModelList,
             ingredient: ingredientsModel));
     task.fold((l) => G().snackBar("Cant remove Ingredient"),
         (r) => emit(state.copyWith(ingredientsModelList: r)));
   }
 
-  update({required List<Ingredients> ingredientsModel}) {
+  update({required List<Ingredient> ingredientsModel}) {
     emit(state.copyWith(ingredientsModelList: List.from(ingredientsModel)));
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:common_code/common_code.dart';

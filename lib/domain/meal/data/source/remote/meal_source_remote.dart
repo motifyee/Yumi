@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:yumi/domain/meal/data/source/meal_source.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:common_code/common_code.dart';
 
@@ -35,7 +35,11 @@ class MealSourceRemote extends MealSource {
             }))
         .toList();
 
-    return pagination.copyWith(data: <Meal>[...pagination.data, ...data].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
+    return pagination.copyWith(
+        data: <Meal>[...pagination.data, ...data].unique((e) => e.id),
+        isLoading: false,
+        pageNumber: res.data['pagination']['page'],
+        lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
 
   @override
@@ -65,7 +69,11 @@ class MealSourceRemote extends MealSource {
             (e) => Meal.fromJson({...e, ...e['meal'], 'id': e['productId']}))
         .toList();
 
-    return pagination.copyWith(data: <Meal>[...pagination.data, ...data].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
+    return pagination.copyWith(
+        data: <Meal>[...pagination.data, ...data].unique((e) => e.id),
+        isLoading: false,
+        pageNumber: res.data['pagination']['page'],
+        lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
 
   @override
@@ -89,7 +97,11 @@ class MealSourceRemote extends MealSource {
             (e) => Meal.fromJson({...e, ...e['meal'], 'id': e['productId']}))
         .toList();
 
-    return pagination.copyWith(data: <Meal>[...pagination.data, ...data].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
+    return pagination.copyWith(
+        data: <Meal>[...pagination.data, ...data].unique((e) => e.id),
+        isLoading: false,
+        pageNumber: res.data['pagination']['page'],
+        lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
 
   @override
@@ -109,7 +121,11 @@ class MealSourceRemote extends MealSource {
             (e) => Meal.fromJson({...e, ...e['meal'], 'id': e['productId']}))
         .toList();
 
-    return pagination.copyWith(data: <Meal>[...pagination.data, ...data].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
+    return pagination.copyWith(
+        data: <Meal>[...pagination.data, ...data].unique((e) => e.id),
+        isLoading: false,
+        pageNumber: res.data['pagination']['page'],
+        lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
 
   @override
@@ -130,10 +146,15 @@ class MealSourceRemote extends MealSource {
 
     List data = (res.data['data'] as List);
     final meals = data.map<Meal>((e) {
-      return Meal.fromJson({...e, ...e?['meal'], 'id': e?['meal']?['id'] ?? e?['productId']});
+      return Meal.fromJson(
+          {...e, ...e?['meal'], 'id': e?['meal']?['id'] ?? e?['productId']});
     }).toList();
 
-    return pagination.copyWith(data: <Meal>[...pagination.data, ...meals].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
+    return pagination.copyWith(
+        data: <Meal>[...pagination.data, ...meals].unique((e) => e.id),
+        isLoading: false,
+        pageNumber: res.data['pagination']['page'],
+        lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
 
   @override

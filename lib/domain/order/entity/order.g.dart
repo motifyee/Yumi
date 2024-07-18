@@ -127,7 +127,7 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
       productID: (json['productID'] as num?)?.toInt(),
       productName: json['productName'] as String?,
       ingredients: (json['ingredients'] as List<dynamic>?)
-          ?.map((e) => Ingredients.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

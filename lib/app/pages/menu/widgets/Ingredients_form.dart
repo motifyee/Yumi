@@ -9,8 +9,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredients_form_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal_form/meal_form_cubit.dart';
-import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
-import 'package:yumi/domain/meal/entity/ingredients.dart';
+import 'package:yumi/app/pages/menu/cubit/ingredients/ingredients_cubit.dart';
+import 'package:yumi/domain/ingredients/entities/ingredient.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/validators/required_validator.dart';
 
@@ -18,17 +18,15 @@ class IngredientsForm extends StatelessWidget {
   IngredientsForm({super.key, required this.ingredientFormKey});
 
   final GlobalKey<FormState> ingredientFormKey;
-  Ingredients ingredient = const Ingredients();
+  Ingredient ingredient = const Ingredient();
 
   @override
   Widget build(BuildContext context) {
-    context
-        .read<IngredientListBloc>()
-        .add(IngredientListUpdateEvent(context: context));
+    context.read<IngredientsCubit>().getIngredients();
 
-    List<Ingredients> filteredList({
-      required List<Ingredients> list,
-      required List<Ingredients> selected,
+    List<Ingredient> filteredList({
+      required List<Ingredient> list,
+      required List<Ingredient> selected,
     }) {
       return list.where((element) {
         return !selected.any((e) => e.id == element.id);
@@ -116,7 +114,7 @@ class IngredientsForm extends StatelessWidget {
                                         const SizedBox(width: 60),
                                       ],
                                     ),
-                                    for (Ingredients ingredient
+                                    for (Ingredient ingredient
                                         in state.ingredientsModelList)
                                       TableRow(
                                         decoration: BoxDecoration(
@@ -185,9 +183,9 @@ class IngredientsForm extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: CommonDimens.defaultGap),
-                  BlocBuilder<IngredientListBloc, IngredientListState>(
+                  BlocBuilder<IngredientsCubit, IngredientsState>(
                     builder: (context, state) {
-                      List<Ingredients> selectFromList = filteredList(
+                      List<Ingredient> selectFromList = filteredList(
                           list: state.ingredients,
                           selected: context
                               .read<IngredientsFormCubit>()
@@ -253,7 +251,7 @@ class IngredientsForm extends StatelessWidget {
                                           .read<IngredientsFormCubit>()
                                           .add(ingredientsModel: ingredient);
 
-                                      ingredient = const Ingredients();
+                                      ingredient = const Ingredient();
                                       ingredientFormKey.currentState!.reset();
                                     }
                                   },

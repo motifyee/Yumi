@@ -27,7 +27,7 @@ import 'package:yumi/domain/vehicle/use_cases/add_vehicle.dart';
 import 'package:yumi/domain/vehicle/use_cases/get_vehicle.dart';
 import 'package:yumi/extensions/string.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/routes/routes.gr.dart';
 import 'package:yumi/core/util/util.dart';
 
 part 'reg_cubit.freezed.dart';

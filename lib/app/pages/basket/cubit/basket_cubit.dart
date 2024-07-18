@@ -27,11 +27,11 @@ import 'package:yumi/domain/basket/use_case/update_meal_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_pickUp_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_schedule_basket.dart';
 import 'package:yumi/domain/basket/use_case/voucher_basket.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/routes/routes.gr.dart';
 
 part 'basket_cubit.freezed.dart';
 part 'basket_cubit.g.dart';

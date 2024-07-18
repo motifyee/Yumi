@@ -7,4 +7,3 @@ export 'exceptions.dart';
 export 'failures.dart';
 export 'injector.dart';
 export 'use_cases.dart';
-export 'localizations.dart';

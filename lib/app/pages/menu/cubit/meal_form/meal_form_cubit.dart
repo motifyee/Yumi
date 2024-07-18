@@ -3,10 +3,10 @@ import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:common_code/core/failures.dart';
-import 'package:yumi/domain/meal/entity/ingredients.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/domain/meal/use_case/add_ingredients_to_meal.dart';
-import 'package:yumi/domain/meal/use_case/update_meal_form.dart';
+import 'package:yumi/domain/ingredients/entities/ingredient.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
+import 'package:yumi/domain/meal/use_cases/add_ingredients_to_meal.dart';
+import 'package:yumi/domain/meal/use_cases/update_meal_form.dart';
 import 'package:yumi/global.dart';
 import 'package:common_code/util/code_generator.dart';
 
@@ -34,7 +34,7 @@ class MealFormCubit extends Cubit<MealFormState> {
         (r) => emit(state.copyWith(mealModel: r)));
   }
 
-  updateIngredients({required List<Ingredients> ingredients}) async {
+  updateIngredients({required List<Ingredient> ingredients}) async {
     final Either<Failure, Meal> task = await AddIngredientsToMeal().call(
         AddIngredientsToMealParams(
             ingredients: ingredients, meal: state.mealModel));

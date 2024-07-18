@@ -1,5 +1,5 @@
 import 'package:common_code/common_code.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 
 abstract class MealSource {
   Future<String> createMeal({required Meal meal});

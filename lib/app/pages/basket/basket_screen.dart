@@ -11,7 +11,7 @@ import 'package:yumi/app/pages/basket/widgets/confirm_checkout_basket.dart';
 import 'package:yumi/app/pages/basket/widgets/expired_basket.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/basket/delivery_option_dialog.dart';

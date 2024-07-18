@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:common_code/core/setup/signalr.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 import 'package:yumi/domain/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:common_code/common_code.dart';
@@ -70,7 +70,9 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 ActionButton(
                   onPressed: () {
                     setState(() {
-                      _controller.animateToPage(widget.isHistory ? 1 : 0, duration: CommonDimens.animationDuration, curve: Curves.easeOut);
+                      _controller.animateToPage(widget.isHistory ? 1 : 0,
+                          duration: CommonDimens.animationDuration,
+                          curve: Curves.easeOut);
                       _index = widget.isHistory ? 1 : 0;
                     });
                     context.read<SignalRCubit>().removeSignals(signal: [
@@ -99,7 +101,9 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 ActionButton(
                   onPressed: () {
                     setState(() {
-                      _controller.animateToPage(widget.isHistory ? 3 : 2, duration: CommonDimens.animationDuration, curve: Curves.easeOut);
+                      _controller.animateToPage(widget.isHistory ? 3 : 2,
+                          duration: CommonDimens.animationDuration,
+                          curve: Curves.easeOut);
                       _index = widget.isHistory ? 3 : 2;
                     });
                     context.read<SignalRCubit>().removeSignals(signal: [

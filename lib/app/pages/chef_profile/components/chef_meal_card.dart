@@ -4,7 +4,7 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:yumi/domain/chef/entity/chef.dart';
 import 'package:yumi/app/pages/meal_profile/meal_profile.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 
 class ChefMealCard extends StatelessWidget {
   const ChefMealCard({super.key, required this.meal, required this.chef});

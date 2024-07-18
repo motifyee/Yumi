@@ -11,7 +11,7 @@ import 'package:yumi/app/yumi/config/chef/chef_routes.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/routes/routes.gr.dart';
 
 @RoutePage()
 class CustomerLocationScreen extends StatelessWidget {

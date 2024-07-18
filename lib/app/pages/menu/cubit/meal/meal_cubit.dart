@@ -2,11 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/domain/meal/use_case/add_meal_to_favorite.dart';
-import 'package:yumi/domain/meal/use_case/get_favorite_meals.dart';
-import 'package:yumi/domain/meal/use_case/get_meals.dart';
-import 'package:yumi/domain/meal/use_case/remove_meal_from_favorite.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
+import 'package:yumi/domain/meal/use_cases/add_meal_to_favorite.dart';
+import 'package:yumi/domain/meal/use_cases/get_favorite_meals.dart';
+import 'package:yumi/domain/meal/use_cases/get_meals.dart';
+import 'package:yumi/domain/meal/use_cases/remove_meal_from_favorite.dart';
 import 'package:yumi/global.dart';
 
 part 'meal_cubit.freezed.dart';

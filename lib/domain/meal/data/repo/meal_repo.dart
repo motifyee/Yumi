@@ -1,6 +1,6 @@
 import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 
 abstract class MealRepo {
   TaskEither<Failure, String> createMeal({required Meal meal});

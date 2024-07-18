@@ -11,8 +11,8 @@ import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredients_form_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal_form/meal_form_cubit.dart';
 import 'package:yumi/app/pages/menu/widgets/Ingredients_form.dart';
-import 'package:yumi/domain/meal/entity/ingredients.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/ingredients/entities/ingredient.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 import 'package:yumi/extensions/double.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/service/meal_service.dart';
@@ -134,7 +134,7 @@ class MealForm extends StatelessWidget {
 
                         // Ingredients
                         BlocSelector<MealFormCubit, MealFormState,
-                            List<Ingredients>?>(
+                            List<Ingredient>?>(
                           selector: (state) {
                             return state.mealModel.ingredients;
                           },

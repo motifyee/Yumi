@@ -2,7 +2,7 @@ import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/domain/meal/data/repo/meal_repo.dart';
 import 'package:yumi/domain/meal/data/source/meal_source.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/entities/meal.dart';
 
 class MealRepoRemote extends MealRepo {
   final MealSource mealSource;

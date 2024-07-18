@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/yumi/config/guards.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/routes/routes.gr.dart';
 
 class ChefRoutes extends $YumiRouter {
   ChefRoutes();
