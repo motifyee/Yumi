@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:yumi/domain/categories/entity/category.dart';
+import 'package:common_code/domain/food_delivery/categories/entity/category.dart';
 
 class CategoriesCard extends StatelessWidget {
   const CategoriesCard({super.key, required this.category});

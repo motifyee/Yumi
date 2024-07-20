@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:yumi/domain/notification/data/source/notification_source.dart';
 import 'package:yumi/domain/notification/entity/notification.dart';
-import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:common_code/common_code.dart';
 
 class NotificationSourceRemote implements NotificationSource {

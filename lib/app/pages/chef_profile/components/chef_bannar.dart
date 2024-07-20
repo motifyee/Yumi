@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
-import 'package:yumi/domain/chef/entity/chef.dart';
-import 'package:yumi/domain/chef/use_cases/add_favourite_chef.dart';
-import 'package:yumi/domain/chef/use_cases/get_chef_work_status.dart';
-import 'package:yumi/domain/chef/use_cases/is_favourite_chef.dart';
-import 'package:yumi/domain/chef/use_cases/remove_favourite_chef.dart';
-import 'package:yumi/domain/meal/entities/meal.dart';
+import 'package:common_code/domain/food_delivery/chef/entity/chef.dart';
+import 'package:common_code/domain/food_delivery/chef/use_cases/add_favourite_chef.dart';
+import 'package:common_code/domain/food_delivery/chef/use_cases/get_chef_work_status.dart';
+import 'package:common_code/domain/food_delivery/chef/use_cases/is_favourite_chef.dart';
+import 'package:common_code/domain/food_delivery/chef/use_cases/remove_favourite_chef.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/chef_profile/chef_profile.dart';
 

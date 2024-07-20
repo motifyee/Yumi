@@ -12,7 +12,7 @@ import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/doc
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/schedule_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/bio_sheet/bio_sheet.dart';
-import 'package:yumi/domain/meal/entities/meal.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:yumi/global.dart';
 import 'package:common_code/components/dialog.dart';
 import 'package:yumi/app/pages/menu/widgets/menu_template.dart';

@@ -8,7 +8,7 @@ import 'package:common_code/components/loading_indicator/pacman_loading_widget.d
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/domain/profile/entities/review_model.dart';
+import 'package:common_code/domain/profile/entities/review_model.dart';
 import 'package:yumi/service/review_service.dart';
 
 class ReviewChefDriver extends StatefulWidget {

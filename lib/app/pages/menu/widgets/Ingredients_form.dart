@@ -10,7 +10,7 @@ import 'package:common_code/components/loading_indicator/pacman_loading_widget.d
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredients_form_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal_form/meal_form_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredients/ingredients_cubit.dart';
-import 'package:yumi/domain/ingredients/entities/ingredient.dart';
+import 'package:common_code/domain/food_delivery/ingredients/entities/ingredient.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/validators/required_validator.dart';
 

@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
-import 'package:yumi/domain/order/entity/invoice_transaction_model.dart';
+import 'package:common_code/domain/food_delivery/order/entity/invoice_transaction_model.dart';
 import 'package:common_code/common_code.dart';
 
 class OrderService {

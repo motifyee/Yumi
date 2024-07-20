@@ -58,8 +58,7 @@ class _AppMenuList {
           label: S.of(context).mySchedule,
           onPressed: () async {
             Navigator.of(context, rootNavigator: true).pop();
-            // context.router.push(const MyScheduleRoute());
-            context.router.push(const LoadingRoute());
+            context.router.push(const MyScheduleRoute());
           },
         ),
         AppMenuItem(
@@ -135,8 +134,7 @@ class _AppMenuList {
           label: S.of(context).caloriesReference,
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            // context.router.push(const CaloriesReferenceRoute());
-            context.router.push(const LoadingRoute());
+            context.router.push(const CaloriesReferenceRoute());
           },
         ),
         AppMenuItem(

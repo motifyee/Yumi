@@ -9,7 +9,6 @@ import 'package:yumi/bloc/app_info/app_info_cubit.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
-import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/routes/routes.gr.dart';
 import 'package:yumi/statics/side_menu_items.dart';

@@ -1,7 +1,7 @@
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:yumi/domain/profile/entities/review_model.dart';
+import 'package:common_code/domain/profile/entities/review_model.dart';
 
 class ReviewCard extends StatelessWidget {
   ReviewCard({super.key, required this.review});

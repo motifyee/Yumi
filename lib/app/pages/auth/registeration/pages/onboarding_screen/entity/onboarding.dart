@@ -2,7 +2,8 @@ import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
-import 'package:yumi/domain/profile/entities/profile.dart';
+import 'package:common_code/domain/profile/entities/profile.dart';
+import 'package:yumi/domain/profile/profile.dart';
 import 'package:yumi/global.dart';
 
 class Onboarding {

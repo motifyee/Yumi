@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/calories/calories_cubit/calories_cubit.dart';
-import 'package:yumi/domain/calories/entity/calorie.dart';
+import 'package:common_code/domain/food_delivery/calories/entity/calorie.dart';
 import 'package:yumi/generated/l10n.dart';
 
 @RoutePage()

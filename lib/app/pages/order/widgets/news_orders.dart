@@ -4,8 +4,8 @@ import 'package:common_code/components/loading_indicator/pacman_loading_widget.d
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:common_code/core/setup/signalr.dart';
-import 'package:yumi/domain/meal/entities/meal.dart';
-import 'package:yumi/domain/order/entity/order.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
+import 'package:common_code/domain/food_delivery/order/entity/order.dart';
 import 'package:yumi/app/pages/order/widgets/order_card.dart';
 import 'package:common_code/components/pagination_template.dart';
 

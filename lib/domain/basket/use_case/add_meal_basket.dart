@@ -2,7 +2,7 @@ import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/basket/entity/invoice_detail.dart';
-import 'package:yumi/domain/meal/entities/meal.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 
 class AddMealToBasket extends UseCase<Basket, AddMealToBasketParams> {
   @override

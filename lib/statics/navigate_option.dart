@@ -14,7 +14,7 @@ import 'package:yumi/app/pages/order/driver/driver_order.dart';
 import 'package:yumi/app/pages/profile/profile_screen.dart';
 import 'package:yumi/app/pages/settings/settings_screen.dart';
 import 'package:yumi/app_target.dart';
-import 'package:yumi/domain/meal/entities/meal.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/routes/routes.gr.dart';

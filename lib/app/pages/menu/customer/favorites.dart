@@ -6,8 +6,8 @@ import 'package:common_code/components/loading_indicator/pacman_loading_widget.d
 import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/bloc/news/news_bloc.dart';
-import 'package:yumi/domain/chef/entity/chef.dart';
-import 'package:yumi/domain/meal/entities/meal.dart';
+import 'package:common_code/domain/food_delivery/chef/entity/chef.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/meal_profile/meal_profile.dart';
 import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';

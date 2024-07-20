@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/domain/order/entity/order.dart';
+import 'package:common_code/domain/food_delivery/order/entity/order.dart';
 import 'package:yumi/app/pages/order/widgets/text_quntaty.dart';
 
 class ProductInCard extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -8,17 +9,17 @@ import 'package:yumi/core/util/constants.dart';
 import 'package:common_code/util/status.dart';
 import 'package:common_code/core/failures.dart';
 import 'package:common_code/core/use_cases.dart';
-import 'package:yumi/domain/profile/entities/profile.dart';
-import 'package:yumi/domain/profile/entities/review.dart';
-import 'package:yumi/domain/profile/use_cases/delete_photo.dart';
-import 'package:yumi/domain/profile/use_cases/delete_profile.dart';
-import 'package:yumi/domain/profile/use_cases/get_otp.dart';
-import 'package:yumi/domain/profile/use_cases/load_profile.dart';
-import 'package:yumi/domain/profile/use_cases/load_reviews.dart';
-import 'package:yumi/domain/profile/use_cases/update_profile.dart';
-import 'package:yumi/domain/profile/use_cases/update_profile_photo.dart';
-import 'package:yumi/domain/profile/use_cases/upload_photos.dart';
-import 'package:yumi/domain/profile/use_cases/verify_add_mobile_otp.dart';
+import 'package:common_code/domain/profile/entities/profile.dart';
+import 'package:common_code/domain/profile/entities/review.dart';
+import 'package:common_code/domain/profile/use_cases/delete_photo.dart';
+import 'package:common_code/domain/profile/use_cases/delete_profile.dart';
+import 'package:common_code/domain/profile/use_cases/get_otp.dart';
+import 'package:common_code/domain/profile/use_cases/load_profile.dart';
+import 'package:common_code/domain/profile/use_cases/load_reviews.dart';
+import 'package:common_code/domain/profile/use_cases/update_profile.dart';
+import 'package:common_code/domain/profile/use_cases/update_profile_photo.dart';
+import 'package:common_code/domain/profile/use_cases/upload_photos.dart';
+import 'package:common_code/domain/profile/use_cases/verify_add_mobile_otp.dart';
 import 'package:yumi/global.dart';
 
 part 'profile_cubit.freezed.dart';
@@ -35,7 +36,11 @@ class ProfileCubit extends Cubit<ProfileState> {
         entityStatus:
             state.profile.entityStatus.copyWith(status: Status.loading)));
 
-    final profile = await LoadProfile().call(LoadProfileParam());
+    final params = LoadProfileParam(
+      G().rd<UserCubit>().state.user.id,
+      G().rd<UserCubit>().state.user.email,
+    );
+    final profile = await LoadProfile().call(params);
 
     return profile.fold(
       (l) {
@@ -63,7 +68,11 @@ class ProfileCubit extends Cubit<ProfileState> {
         entityStatus:
             state.form.entityStatus.copyWith(status: Status.loading)));
 
-    final profile = await LoadProfile().call(LoadProfileParam());
+    final params = LoadProfileParam(
+      G().rd<UserCubit>().state.user.id,
+      G().rd<UserCubit>().state.user.email,
+    );
+    final profile = await LoadProfile().call(params);
 
     return profile.fold(
       (l) {

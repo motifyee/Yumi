@@ -1,10 +1,10 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/entity/converters.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/entity/extensions.dart';
-import 'package:yumi/extensions/string.dart';
 
 part 'schedule.freezed.dart';
 part 'schedule.g.dart';

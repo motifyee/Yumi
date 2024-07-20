@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:common_code/common_code.dart';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/domain/profile/entities/review_model.dart';
+import 'package:common_code/domain/profile/entities/review_model.dart';
 import 'package:yumi/service/review_service.dart';
 
 part 'reviews_bloc.freezed.dart';

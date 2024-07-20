@@ -10,6 +10,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i33;
 import 'package:common_code/common_code.dart' as _i35;
+import 'package:common_code/domain/food_delivery/order/entity/order.dart'
+    as _i36;
 import 'package:flutter/material.dart' as _i34;
 import 'package:yumi/app/inherited_pages/loading.dart' as _i13;
 import 'package:yumi/app/pages/auth/login/login_screen.dart' as _i15;
@@ -54,9 +56,6 @@ import 'package:yumi/app/pages/performance_analysis/performance_analysis.dart'
 import 'package:yumi/app/pages/settings/settings_screen.dart' as _i28;
 import 'package:yumi/app/pages/transactions/transactions.dart' as _i31;
 import 'package:yumi/app/pages/wallet/wallet_screen.dart' as _i32;
-import 'package:yumi/domain/chef/entity/chef.dart' as _i36;
-import 'package:yumi/domain/meal/entities/meal.dart' as _i37;
-import 'package:yumi/domain/order/entity/order.dart' as _i38;
 
 abstract class $YumiRouter extends _i33.RootStackRouter {
   $YumiRouter({super.navigatorKey});
@@ -453,8 +452,8 @@ class ChefCustomerAddressRouteArgs {
 class ChefProfileRoute extends _i33.PageRouteInfo<ChefProfileRouteArgs> {
   ChefProfileRoute({
     _i34.Key? key,
-    required _i36.Chef chef,
-    required _i37.MenuTarget menuTarget,
+    required _i35.Chef chef,
+    required _i35.MenuTarget menuTarget,
     List<_i33.PageRouteInfo>? children,
   }) : super(
           ChefProfileRoute.name,
@@ -481,9 +480,9 @@ class ChefProfileRouteArgs {
 
   final _i34.Key? key;
 
-  final _i36.Chef chef;
+  final _i35.Chef chef;
 
-  final _i37.MenuTarget menuTarget;
+  final _i35.MenuTarget menuTarget;
 
   @override
   String toString() {
@@ -652,8 +651,8 @@ class LoginRoute extends _i33.PageRouteInfo<void> {
 class MealProfileRoute extends _i33.PageRouteInfo<MealProfileRouteArgs> {
   MealProfileRoute({
     _i34.Key? key,
-    required _i37.Meal meal,
-    required _i36.Chef chef,
+    required _i35.Meal meal,
+    required _i35.Chef chef,
     List<_i33.PageRouteInfo>? children,
   }) : super(
           MealProfileRoute.name,
@@ -680,9 +679,9 @@ class MealProfileRouteArgs {
 
   final _i34.Key? key;
 
-  final _i37.Meal meal;
+  final _i35.Meal meal;
 
-  final _i36.Chef chef;
+  final _i35.Chef chef;
 
   @override
   String toString() {
@@ -827,7 +826,7 @@ class OnboardingRoute extends _i33.PageRouteInfo<void> {
 class OrderStatusRoute extends _i33.PageRouteInfo<OrderStatusRouteArgs> {
   OrderStatusRoute({
     _i34.Key? key,
-    required _i38.Order order,
+    required _i36.Order order,
     List<_i33.PageRouteInfo>? children,
   }) : super(
           OrderStatusRoute.name,
@@ -852,7 +851,7 @@ class OrderStatusRouteArgs {
 
   final _i34.Key? key;
 
-  final _i38.Order order;
+  final _i36.Order order;
 
   @override
   String toString() {

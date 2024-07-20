@@ -3,9 +3,9 @@ import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:common_code/core/failures.dart';
-import 'package:yumi/domain/ingredients/entities/ingredient.dart';
-import 'package:yumi/domain/meal/use_cases/add_ingredients_form.dart';
-import 'package:yumi/domain/meal/use_cases/remove_ingredients_form.dart';
+import 'package:common_code/domain/food_delivery/ingredients/entities/ingredient.dart';
+import 'package:common_code/domain/food_delivery/meal/use_cases/add_ingredients_form.dart';
+import 'package:common_code/domain/food_delivery/meal/use_cases/remove_ingredients_form.dart';
 import 'package:yumi/global.dart';
 
 part 'ingredients_form_cubit.freezed.dart';

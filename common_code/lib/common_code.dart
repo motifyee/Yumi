@@ -8,5 +8,6 @@ export 'domain/_domain.dart';
 // export 'pages/pages.dart';
 export 'resources/_resouces.dart';
 export 'util/_util.dart';
+export 'extensions/_extenstions.dart';
 
 typedef CommonCodeS = S;

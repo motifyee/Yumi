@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/profile/profile_screen.dart';
+import 'package:yumi/domain/profile/profile.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/app/pages/profile/components/bio.dart';
 import 'package:yumi/app/pages/profile/components/event_photo.dart';

@@ -3,7 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:common_code/util/status.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/domain/profile/entities/profile.dart';
+import 'package:common_code/domain/profile/entities/profile.dart';
+import 'package:yumi/domain/profile/profile.dart';
 import 'package:yumi/global.dart';
 
 part 'docs_cubit.freezed.dart';

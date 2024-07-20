@@ -7,7 +7,6 @@ import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_
 import 'package:yumi/domain/vehicle/entities/vehicle.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/domain/vehicle/use_cases/get_vehicle.dart';
-import 'package:yumi/extensions/capitalize_string_extension.dart';
 import 'package:yumi/global.dart';
 
 class RidesScreen extends StatelessWidget {

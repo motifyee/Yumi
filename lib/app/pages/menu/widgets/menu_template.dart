@@ -6,7 +6,7 @@ import 'package:common_code/components/loading_indicator/pacman_loading_widget.d
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
-import 'package:yumi/domain/meal/entities/meal.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/app/pages/menu/widgets/meal_form.dart';

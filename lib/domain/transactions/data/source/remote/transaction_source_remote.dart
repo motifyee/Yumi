@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/transactions/data/source/transaction_source.dart';
 import 'package:yumi/domain/transactions/entity/transaction.dart';
-import 'package:yumi/extensions/unique_list_extension.dart';
 import 'package:common_code/common_code.dart';
 
 class TransactionSourceRemote implements TransactionSource {

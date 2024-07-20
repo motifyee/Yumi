@@ -3,10 +3,10 @@ import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:common_code/core/failures.dart';
-import 'package:yumi/domain/ingredients/entities/ingredient.dart';
-import 'package:yumi/domain/meal/entities/meal.dart';
-import 'package:yumi/domain/meal/use_cases/add_ingredients_to_meal.dart';
-import 'package:yumi/domain/meal/use_cases/update_meal_form.dart';
+import 'package:common_code/domain/food_delivery/ingredients/entities/ingredient.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
+import 'package:common_code/domain/food_delivery/meal/use_cases/add_ingredients_to_meal.dart';
+import 'package:common_code/domain/food_delivery/meal/use_cases/update_meal_form.dart';
 import 'package:yumi/global.dart';
 import 'package:common_code/util/code_generator.dart';
 

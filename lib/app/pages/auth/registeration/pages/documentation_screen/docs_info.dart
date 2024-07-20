@@ -1,4 +1,4 @@
-import 'package:yumi/domain/profile/entities/profile.dart';
+import 'package:common_code/domain/profile/entities/profile.dart';
 
 final List<DocInfo> chefDocsInfo = [
   DocInfo(

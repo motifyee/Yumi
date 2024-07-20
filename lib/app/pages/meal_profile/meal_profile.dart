@@ -9,11 +9,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/domain/basket/entity/invoice_detail.dart';
-import 'package:yumi/domain/meal/entities/meal.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
-import 'package:yumi/domain/chef/entity/chef.dart';
-import 'package:yumi/extensions/capitalize_string_extension.dart';
+import 'package:common_code/domain/food_delivery/chef/entity/chef.dart';
 import 'package:yumi/app/pages/menu/widgets/customer_pre_order_form.dart';
 import 'package:yumi/generated/l10n.dart';
 

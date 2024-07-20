@@ -1,12 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:common_code/common_code.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/domain/meal/entities/meal.dart';
-import 'package:yumi/domain/meal/use_cases/add_meal_to_favorite.dart';
-import 'package:yumi/domain/meal/use_cases/get_favorite_meals.dart';
-import 'package:yumi/domain/meal/use_cases/get_meals.dart';
-import 'package:yumi/domain/meal/use_cases/remove_meal_from_favorite.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
+import 'package:common_code/domain/food_delivery/meal/use_cases/add_meal_to_favorite.dart';
+import 'package:common_code/domain/food_delivery/meal/use_cases/get_favorite_meals.dart';
+import 'package:common_code/domain/food_delivery/meal/use_cases/get_meals.dart';
+import 'package:common_code/domain/food_delivery/meal/use_cases/remove_meal_from_favorite.dart';
 import 'package:yumi/global.dart';
 
 part 'meal_cubit.freezed.dart';
@@ -50,11 +51,15 @@ class MealCubit extends Cubit<MealState> {
         pagination:
             state.pagination.copyWith(isLoading: true) as PaginatedData<Meal>));
     final Either<Failure, PaginatedData<Meal>> task = await GetMeals().call(
-        GetMealsParams(
-            pagination: state.pagination,
-            selectedCategory: state.selectedCategory,
-            chefId: chefId,
-            menuTarget: menuTarget));
+      GetMealsParams(
+        chefId: chefId,
+        menuTarget: menuTarget,
+        pagination: state.pagination,
+        selectedCategory: state.selectedCategory,
+        lat: G().rd<UserCubit>().state.address?.latitude,
+        long: G().rd<UserCubit>().state.address?.longitude,
+      ),
+    );
 
     task.fold((l) => G().snackBar(l.toString()),
         (r) => emit(state.copyWith(pagination: r)));
