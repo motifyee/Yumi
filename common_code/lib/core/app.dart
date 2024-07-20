@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:common_code/common_code.dart';
-import 'package:common_code/theme/theme.dart';
 import 'package:common_code/util/global_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,7 +60,7 @@ abstract class AppConfig {
 
   RootStackRouter get appRouter;
 
-  ThemeData? get theme => defaultTheme;
+  ThemeData? get theme;
 
   List<SingleChildWidget> get blocProviders;
 
