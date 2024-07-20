@@ -152,13 +152,11 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   stripePayment() async {
-    final Either<Failure, bool> task = await StripePayment().call(
-        StripePaymentParams(
-            amount: state.basket.invoice.finalPrice,
-            currency: StripeKeys.currency));
-    task.fold(
-        (l) => _message(l.error ?? S.current.stripeError, isReturn: false),
-        (r) => closeBasket());
+    if (state.basket.isPaying) return;
+    emit(state.copyWith(basket: state.basket.copyWith(isPaying: true)));
+    final Either<Failure, bool> task = await StripePayment().call(StripePaymentParams(amount: state.basket.invoice.finalPrice, currency: StripeKeys.currency));
+    emit(state.copyWith(basket: state.basket.copyWith(isPaying: false)));
+    task.fold((l) => _message(l.error ?? S.current.stripeError, isReturn: false), (r) => closeBasket());
   }
 
   addVoucher({required String voucher}) async {

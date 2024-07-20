@@ -16,8 +16,7 @@ class OrderState with _$OrderState {
     @Default(PaginatedData()) PaginatedData<Order> ordersPage,
   }) = _OrderState;
 
-  factory OrderState.fromJson(Map<String, dynamic> json) =>
-      _$OrderStateFromJson(json);
+  factory OrderState.fromJson(Map<String, dynamic> json) => _$OrderStateFromJson(json);
 }
 
 class OrderCubit extends Cubit<OrderState> {
@@ -29,8 +28,7 @@ class OrderCubit extends Cubit<OrderState> {
     if (state.ordersPage.canRequest) {
       emit(state.copyWith.ordersPage(isLoading: true));
 
-      final fpdart.Either<Failure, PaginatedData<Order>> task =
-          await GetOrders().call(
+      final fpdart.Either<Failure, PaginatedData<Order>> task = await GetOrders().call(
         GetOrdersParams(
           ordersPage: state.ordersPage,
           apiKeys: apiKeys,
@@ -52,10 +50,11 @@ class OrderCubit extends Cubit<OrderState> {
     Function()? navFun,
     String? customMessage,
   }) async {
+    print('putAction ...............');
+
     void emitOrderIsLoading(bool isLoading) {
       List<Order> orders = List.from(
-        state.ordersPage.data.map(
-            (e) => e.id == order.id ? e.copyWith(isLoading: isLoading) : e),
+        state.ordersPage.data.map((e) => e.id == order.id ? e.copyWith(isLoading: isLoading) : e),
       );
       emit(state.copyWith.ordersPage(data: orders));
     }

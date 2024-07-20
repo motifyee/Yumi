@@ -36,6 +36,7 @@ mixin _$Basket {
   @JsonKey(name: 'is_Preorder')
   bool get isPreorder => throw _privateConstructorUsedError;
   int? get status => throw _privateConstructorUsedError;
+  bool get isPaying => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,7 +60,8 @@ abstract class $BasketCopyWith<$Res> {
       @JsonKey(name: 'is_Pickup') bool isPickup,
       @JsonKey(name: 'is_Delivery') bool isDelivery,
       @JsonKey(name: 'is_Preorder') bool isPreorder,
-      int? status});
+      int? status,
+      bool isPaying});
 
   $InvoiceCopyWith<$Res> get invoice;
 }
@@ -89,6 +91,7 @@ class _$BasketCopyWithImpl<$Res, $Val extends Basket>
     Object? isDelivery = null,
     Object? isPreorder = null,
     Object? status = freezed,
+    Object? isPaying = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -139,6 +142,10 @@ class _$BasketCopyWithImpl<$Res, $Val extends Basket>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as int?,
+      isPaying: null == isPaying
+          ? _value.isPaying
+          : isPaying // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -170,7 +177,8 @@ abstract class _$$BasketImplCopyWith<$Res> implements $BasketCopyWith<$Res> {
       @JsonKey(name: 'is_Pickup') bool isPickup,
       @JsonKey(name: 'is_Delivery') bool isDelivery,
       @JsonKey(name: 'is_Preorder') bool isPreorder,
-      int? status});
+      int? status,
+      bool isPaying});
 
   @override
   $InvoiceCopyWith<$Res> get invoice;
@@ -199,6 +207,7 @@ class __$$BasketImplCopyWithImpl<$Res>
     Object? isDelivery = null,
     Object? isPreorder = null,
     Object? status = freezed,
+    Object? isPaying = null,
   }) {
     return _then(_$BasketImpl(
       id: freezed == id
@@ -249,6 +258,10 @@ class __$$BasketImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as int?,
+      isPaying: null == isPaying
+          ? _value.isPaying
+          : isPaying // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -270,7 +283,8 @@ class _$BasketImpl implements _Basket {
       @JsonKey(name: 'is_Pickup') this.isPickup = true,
       @JsonKey(name: 'is_Delivery') this.isDelivery = false,
       @JsonKey(name: 'is_Preorder') this.isPreorder = false,
-      this.status = 1})
+      this.status = 1,
+      this.isPaying = false})
       : _invoiceDetails = invoiceDetails;
 
   factory _$BasketImpl.fromJson(Map<String, dynamic> json) =>
@@ -312,10 +326,13 @@ class _$BasketImpl implements _Basket {
   @override
   @JsonKey()
   final int? status;
+  @override
+  @JsonKey()
+  final bool isPaying;
 
   @override
   String toString() {
-    return 'Basket(id: $id, invoice: $invoice, invoiceDetails: $invoiceDetails, voucherId: $voucherId, bankId: $bankId, shippedAddressId: $shippedAddressId, isSchedule: $isSchedule, isPickupOnly: $isPickupOnly, isPickup: $isPickup, isDelivery: $isDelivery, isPreorder: $isPreorder, status: $status)';
+    return 'Basket(id: $id, invoice: $invoice, invoiceDetails: $invoiceDetails, voucherId: $voucherId, bankId: $bankId, shippedAddressId: $shippedAddressId, isSchedule: $isSchedule, isPickupOnly: $isPickupOnly, isPickup: $isPickup, isDelivery: $isDelivery, isPreorder: $isPreorder, status: $status, isPaying: $isPaying)';
   }
 
   @override
@@ -342,7 +359,9 @@ class _$BasketImpl implements _Basket {
                 other.isDelivery == isDelivery) &&
             (identical(other.isPreorder, isPreorder) ||
                 other.isPreorder == isPreorder) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.isPaying, isPaying) ||
+                other.isPaying == isPaying));
   }
 
   @JsonKey(ignore: true)
@@ -360,7 +379,8 @@ class _$BasketImpl implements _Basket {
       isPickup,
       isDelivery,
       isPreorder,
-      status);
+      status,
+      isPaying);
 
   @JsonKey(ignore: true)
   @override
@@ -390,7 +410,8 @@ abstract class _Basket implements Basket {
       @JsonKey(name: 'is_Pickup') final bool isPickup,
       @JsonKey(name: 'is_Delivery') final bool isDelivery,
       @JsonKey(name: 'is_Preorder') final bool isPreorder,
-      final int? status}) = _$BasketImpl;
+      final int? status,
+      final bool isPaying}) = _$BasketImpl;
 
   factory _Basket.fromJson(Map<String, dynamic> json) = _$BasketImpl.fromJson;
 
@@ -422,6 +443,8 @@ abstract class _Basket implements Basket {
   bool get isPreorder;
   @override
   int? get status;
+  @override
+  bool get isPaying;
   @override
   @JsonKey(ignore: true)
   _$$BasketImplCopyWith<_$BasketImpl> get copyWith =>
