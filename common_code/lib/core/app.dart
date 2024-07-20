@@ -61,7 +61,7 @@ abstract class AppConfig {
 
   RootStackRouter get appRouter;
 
-  ThemeData? get theme => defaultTheme;
+  ThemeData? get theme;
 
   List<SingleChildWidget> get blocProviders;
 

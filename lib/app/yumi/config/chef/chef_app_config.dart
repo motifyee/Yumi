@@ -26,7 +26,6 @@ import 'package:yumi/app/pages/menu/cubit/ingredients/ingredients_cubit.dart';
 import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/theme/theme.dart';
 
 class ChefAppConfig implements AppConfig {
   final RootStackRouter _appRouter = ChefRoutes();
@@ -80,5 +79,5 @@ class ChefAppConfig implements AppConfig {
   Locale get locale => const Locale('ar');
 
   @override
-  ThemeData? get theme => defaultTheme;
+  ThemeData? get theme => commonTheme;
 }

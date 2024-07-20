@@ -9,5 +9,6 @@ export 'domain/_domain.dart';
 export 'resources/_resouces.dart';
 export 'util/_util.dart';
 export 'extensions/_extenstions.dart';
+export 'theme/theme.dart';
 
 typedef CommonCodeS = S;
