@@ -23,7 +23,7 @@ class NewsOrders extends StatelessWidget {
   final String apiKey;
   final OrderCardTargetPage orderCardTargetPage;
   final Function()? navFun;
-  List<Signals> signals;
+  List<Signal> signals;
 
   @override
   Widget build(BuildContext context) {

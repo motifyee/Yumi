@@ -7,7 +7,7 @@ import 'package:yumi/global.dart';
 
 class NotificationSignalR {
   static listen() {
-    Signalr.on(Signals.notification, (List<dynamic>? p0) {
+    Signalr.on(Signal.notification, (List<dynamic>? p0) {
       if (p0?.any((e) =>
               e['chef_ID'] == G().context.read<UserCubit>().state.user.id ||
               e['driver_ID'] == G().context.read<UserCubit>().state.user.id ||

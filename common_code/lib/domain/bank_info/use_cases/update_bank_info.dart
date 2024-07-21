@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:common_code/common_code.dart';
-import 'package:yumi/domain/bank_info/data/repos/bank_info_repo.dart';
-import 'package:yumi/domain/bank_info/entities/bankinfo_model.dart';
+import 'package:common_code/domain/bank_info/data/repos/bank_info_repo.dart';
+import 'package:common_code/domain/bank_info/entities/bankinfo_model.dart';
 
 class UpdateBankInfo extends UseCase<String, UpdateBankInfoParams> {
   final BankInfoRepo repo;

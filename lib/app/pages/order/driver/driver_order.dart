@@ -65,15 +65,16 @@ class DriverOrderScreen extends StatelessWidget {
                         label: S.of(context).available,
                         isActive: state.selectedList == 0,
                         isNotificationIconShow: states.isSignalTriggered(
-                            signal: [Signals.neworderreceived],
+                            signal: [Signal.neworderreceived],
                             isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
                           context
                               .read<NewsBloc>()
                               .add(const NewsEvent(selectedList: 0));
                           _controller.jumpToPage(0);
-                          context.read<SignalRCubit>().removeSignals(
-                              signal: [Signals.neworderreceived]);
+                          context
+                              .read<SignalRCubit>()
+                              .removeSignals(signal: [Signal.neworderreceived]);
                         },
                       ),
                       const SizedBox(width: CommonDimens.defaultBlockGap),
@@ -83,10 +84,10 @@ class DriverOrderScreen extends StatelessWidget {
                         isActive: state.selectedList == 1,
                         isNotificationIconShow:
                             states.isSignalTriggered(signal: [
-                          Signals.chefstart,
-                          Signals.cheffinished,
-                          Signals.driverreceived,
-                          Signals.clientreceived,
+                          Signal.chefstart,
+                          Signal.cheffinished,
+                          Signal.driverreceived,
+                          Signal.clientreceived,
                         ], isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
                           context
@@ -94,10 +95,10 @@ class DriverOrderScreen extends StatelessWidget {
                               .add(const NewsEvent(selectedList: 1));
                           _controller.jumpToPage(1);
                           context.read<SignalRCubit>().removeSignals(signal: [
-                            Signals.chefstart,
-                            Signals.cheffinished,
-                            Signals.driverreceived,
-                            Signals.clientreceived,
+                            Signal.chefstart,
+                            Signal.cheffinished,
+                            Signal.driverreceived,
+                            Signal.clientreceived,
                           ]);
                         },
                       ),
@@ -139,8 +140,8 @@ class DriverOrderScreen extends StatelessWidget {
                               orderCardTargetPage:
                                   OrderCardTargetPage.driverAccept,
                               signals: const [
-                                Signals.neworderreceived,
-                                Signals.driveraccept
+                                Signal.neworderreceived,
+                                Signal.driveraccept
                               ],
                             ),
                           );
@@ -155,10 +156,10 @@ class DriverOrderScreen extends StatelessWidget {
                         : EndPoints.preOrderDriverActive,
                     orderCardTargetPage: OrderCardTargetPage.driverReceived,
                     signals: const [
-                      Signals.chefstart,
-                      Signals.cheffinished,
-                      Signals.driverreceived,
-                      Signals.clientreceived,
+                      Signal.chefstart,
+                      Signal.cheffinished,
+                      Signal.driverreceived,
+                      Signal.clientreceived,
                     ],
                   ),
                 ),

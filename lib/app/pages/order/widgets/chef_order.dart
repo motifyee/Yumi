@@ -41,15 +41,16 @@ class ChefOrder extends StatelessWidget {
                         label: S.of(context).pending,
                         isActive: state.selectedList == 0,
                         isNotificationIconShow: states.isSignalTriggered(
-                            signal: [Signals.neworderreceived],
+                            signal: [Signal.neworderreceived],
                             isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
                           context
                               .read<NewsBloc>()
                               .add(const NewsEvent(selectedList: 0));
                           controller.jumpToPage(0);
-                          context.read<SignalRCubit>().removeSignals(
-                              signal: [Signals.neworderreceived]);
+                          context
+                              .read<SignalRCubit>()
+                              .removeSignals(signal: [Signal.neworderreceived]);
                         },
                       ),
                     ActionButton(
@@ -57,9 +58,9 @@ class ChefOrder extends StatelessWidget {
                       label: S.of(context).received,
                       isActive: state.selectedList == 1,
                       isNotificationIconShow: states.isSignalTriggered(signal: [
-                        Signals.driveraccept,
+                        Signal.driveraccept,
                         if (menuTarget == MenuTarget.order)
-                          Signals.neworderreceived,
+                          Signal.neworderreceived,
                       ], isPreOrder: menuTarget == MenuTarget.preOrder),
                       onPressed: () {
                         context
@@ -67,9 +68,9 @@ class ChefOrder extends StatelessWidget {
                             .add(const NewsEvent(selectedList: 1));
                         controller.jumpToPage(1);
                         context.read<SignalRCubit>().removeSignals(signal: [
-                          Signals.driveraccept,
+                          Signal.driveraccept,
                           if (menuTarget == MenuTarget.order)
-                            Signals.neworderreceived,
+                            Signal.neworderreceived,
                         ]);
                       },
                     ),
@@ -128,10 +129,7 @@ class ChefOrder extends StatelessWidget {
                   menuTarget: menuTarget,
                   apiKey: EndPoints.preOrderChefReceived,
                   orderCardTargetPage: OrderCardTargetPage.chefPending,
-                  signals: const [
-                    Signals.neworderreceived,
-                    Signals.driveraccept
-                  ],
+                  signals: const [Signal.neworderreceived, Signal.driveraccept],
                   navFun: () {
                     context
                         .read<NewsBloc>()
@@ -149,9 +147,8 @@ class ChefOrder extends StatelessWidget {
                       : EndPoints.preOrderChefAccepted,
                   orderCardTargetPage: OrderCardTargetPage.chefReceived,
                   signals: [
-                    Signals.driveraccept,
-                    if (menuTarget == MenuTarget.order)
-                      Signals.neworderreceived,
+                    Signal.driveraccept,
+                    if (menuTarget == MenuTarget.order) Signal.neworderreceived,
                   ],
                   navFun: () {
                     context
@@ -172,7 +169,7 @@ class ChefOrder extends StatelessWidget {
                       ? EndPoints.orderChefPreparing
                       : EndPoints.preOrderChefPreparing,
                   orderCardTargetPage: OrderCardTargetPage.chefPreparing,
-                  signals: const [Signals.chefstart, Signals.clientcancel],
+                  signals: const [Signal.chefstart, Signal.clientcancel],
                   navFun: () {
                     context
                         .read<NewsBloc>()
@@ -192,7 +189,7 @@ class ChefOrder extends StatelessWidget {
                       ? EndPoints.orderChefReady
                       : EndPoints.preOrderChefReady,
                   orderCardTargetPage: OrderCardTargetPage.chefReady,
-                  signals: const [Signals.cheffinished],
+                  signals: const [Signal.cheffinished],
                   navFun: () {
                     context
                         .read<NewsBloc>()
@@ -209,10 +206,7 @@ class ChefOrder extends StatelessWidget {
                       ? EndPoints.orderChefClosed
                       : EndPoints.preOrderChefClosed,
                   orderCardTargetPage: OrderCardTargetPage.chefHistory,
-                  signals: const [
-                    Signals.clientreceived,
-                    Signals.driverreceived
-                  ],
+                  signals: const [Signal.clientreceived, Signal.driverreceived],
                 ),
               ),
             ],

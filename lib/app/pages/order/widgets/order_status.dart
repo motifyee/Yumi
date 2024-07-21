@@ -41,10 +41,10 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
     return BlocConsumer<SignalRCubit, SignalRState>(
       listener: (context, state) async {
         if (state.isSignalTriggered(signal: [
-          Signals.chefstart,
-          Signals.cheffinished,
-          Signals.driverreceived,
-          Signals.clientreceived,
+          Signal.chefstart,
+          Signal.cheffinished,
+          Signal.driverreceived,
+          Signal.clientreceived,
         ])) {
           OrderService.getOrderOrPreOrderDriverById(
                   apiKeys: '${EndPoints.order}/',

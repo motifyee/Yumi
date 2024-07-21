@@ -1,4 +1,4 @@
-import 'package:yumi/domain/bank_info/entities/bankinfo_model.dart';
+import 'package:common_code/domain/bank_info/entities/bankinfo_model.dart';
 
 abstract class BankInfoSrc {
   Future<BankInfo> getBankInfo();

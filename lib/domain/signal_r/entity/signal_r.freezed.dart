@@ -20,7 +20,7 @@ SignalRM _$SignalRMFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SignalRM {
-  Signals get type => throw _privateConstructorUsedError;
+  Signal get type => throw _privateConstructorUsedError;
   dynamic get message => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +34,7 @@ abstract class $SignalRMCopyWith<$Res> {
   factory $SignalRMCopyWith(SignalRM value, $Res Function(SignalRM) then) =
       _$SignalRMCopyWithImpl<$Res, SignalRM>;
   @useResult
-  $Res call({Signals type, dynamic message});
+  $Res call({Signal type, dynamic message});
 }
 
 /// @nodoc
@@ -57,7 +57,7 @@ class _$SignalRMCopyWithImpl<$Res, $Val extends SignalRM>
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as Signals,
+              as Signal,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,7 @@ abstract class _$$SignalRMImplCopyWith<$Res>
       __$$SignalRMImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Signals type, dynamic message});
+  $Res call({Signal type, dynamic message});
 }
 
 /// @nodoc
@@ -95,7 +95,7 @@ class __$$SignalRMImplCopyWithImpl<$Res>
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as Signals,
+              as Signal,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -113,7 +113,7 @@ class _$SignalRMImpl implements _SignalRM {
       _$$SignalRMImplFromJson(json);
 
   @override
-  final Signals type;
+  final Signal type;
   @override
   final dynamic message;
 
@@ -151,14 +151,14 @@ class _$SignalRMImpl implements _SignalRM {
 }
 
 abstract class _SignalRM implements SignalRM {
-  const factory _SignalRM(
-      {required final Signals type, final dynamic message}) = _$SignalRMImpl;
+  const factory _SignalRM({required final Signal type, final dynamic message}) =
+      _$SignalRMImpl;
 
   factory _SignalRM.fromJson(Map<String, dynamic> json) =
       _$SignalRMImpl.fromJson;
 
   @override
-  Signals get type;
+  Signal get type;
   @override
   dynamic get message;
   @override

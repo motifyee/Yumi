@@ -7,16 +7,16 @@ import 'package:yumi/global.dart';
 
 class GeneralListenerSignalr {
   static listen() {
-    List<Signals> list = [
-      Signals.neworderreceived,
-      Signals.chefaccept,
-      Signals.driveraccept,
-      Signals.chefstart,
-      Signals.cheffinished,
-      Signals.driverreceived,
-      Signals.clientreceived,
-      Signals.clientcancel,
-      Signals.clientwait,
+    List<Signal> list = [
+      Signal.neworderreceived,
+      Signal.chefaccept,
+      Signal.driveraccept,
+      Signal.chefstart,
+      Signal.cheffinished,
+      Signal.driverreceived,
+      Signal.clientreceived,
+      Signal.clientcancel,
+      Signal.clientwait,
     ];
 
     for (var signal in list) {
@@ -25,9 +25,13 @@ class GeneralListenerSignalr {
                 e['chef_ID'] == G().context.read<UserCubit>().state.user.id ||
                 e['driver_ID'] == G().context.read<UserCubit>().state.user.id ||
                 e['client_ID'] == G().context.read<UserCubit>().state.user.id ||
-                e['buddiesId'] == G().context.read<UserCubit>().state.user.id) ??
-            false || (signal == Signals.neworderreceived && G().isDriverApp)) {
-          G().context.read<SignalRCubit>().addSignals(signal: SignalRM(type: signal, message: p0));
+                e['buddiesId'] ==
+                    G().context.read<UserCubit>().state.user.id) ??
+            false || (signal == Signal.neworderreceived && G().isDriverApp)) {
+          G()
+              .context
+              .read<SignalRCubit>()
+              .addSignals(signal: SignalRM(type: signal, message: p0));
         }
       });
     }
