@@ -4,8 +4,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:common_code/common_code.dart';
-import 'package:yumi/domain/schedule/data/repos/remote/schedule_remote_repo.dart';
-import 'package:yumi/domain/schedule/use_cases/load_schedule.dart';
+import 'package:common_code/domain/schedule/data/repos/remote/schedule_remote_repo.dart';
+import 'package:common_code/domain/schedule/use_cases/load_schedule.dart';
 
 class MockScheduleRemoteRepo extends Mock implements ScheduleRemoteRepo {}
 

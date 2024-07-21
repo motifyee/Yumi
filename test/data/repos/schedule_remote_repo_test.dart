@@ -3,9 +3,9 @@ import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:common_code/common_code.dart';
-import 'package:yumi/domain/schedule/data/repos/remote/schedule_remote_repo.dart';
-import 'package:yumi/domain/schedule/data/sources/remote/schedule_remote_source.dart';
-import 'package:yumi/domain/schedule/entities/schedule.dart';
+import 'package:common_code/domain/schedule/data/repos/remote/schedule_remote_repo.dart';
+import 'package:common_code/domain/schedule/data/sources/remote/schedule_remote_source.dart';
+import 'package:common_code/domain/schedule/entities/schedule.dart';
 
 class MockScheduleRemoteSrc extends Mock implements ScheduleRemoteSrc {}
 

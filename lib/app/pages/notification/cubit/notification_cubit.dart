@@ -3,9 +3,9 @@ import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:common_code/core/failures.dart';
-import 'package:yumi/domain/notification/entity/notification.dart';
-import 'package:yumi/domain/notification/use_case/load_notification.dart';
-import 'package:yumi/domain/notification/use_case/new_notification.dart';
+import 'package:common_code/domain/notification/entity/notification.dart';
+import 'package:common_code/domain/notification/use_case/load_notification.dart';
+import 'package:common_code/domain/notification/use_case/new_notification.dart';
 
 part 'notification_cubit.freezed.dart';
 part 'notification_cubit.g.dart';

@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
-import 'package:yumi/domain/notification/entity/notification.dart';
+import 'package:common_code/domain/notification/entity/notification.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 

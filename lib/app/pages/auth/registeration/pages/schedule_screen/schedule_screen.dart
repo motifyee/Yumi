@@ -8,9 +8,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/core/resources/app_assets.dart';
-import 'package:yumi/domain/schedule/entities/schedule.dart';
+import 'package:common_code/domain/schedule/entities/schedule.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
-import 'package:yumi/domain/schedule/entities/extensions.dart';
+import 'package:common_code/domain/schedule/entities/extensions.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/global.dart';
 
@@ -113,7 +113,7 @@ class MyScheduleScreen extends StatelessWidget {
       runSpacing: 15,
       children: [
         const SizedBox(width: double.infinity, height: 50),
-        ...WeekDay.values
+        ...ScheduleWeekDay.values
             .map((e) => [
                   _buildCard(state.scheduleForm.scheduleDay(e)),
                   const SizedBox(
