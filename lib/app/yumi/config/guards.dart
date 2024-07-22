@@ -40,7 +40,7 @@ class AuthGuard extends AutoRouteGuard {
       } else {
         if (await regCubit.hasActiveRegisteration()) return regCubit.initReg();
 
-        router.push(const LoginRoute());
+        router.replaceAll([const LoginRoute()]);
       }
     });
   }
