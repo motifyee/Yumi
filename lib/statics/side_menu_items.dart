@@ -3,10 +3,10 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:yumi/app/pages/home/cubit/navigator_cubit.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/app_target.dart';
-import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
@@ -43,9 +43,7 @@ class _AppMenuList {
                 width: CommonDimens.defaultInputGap,
                 height: CommonDimens.defaultInputGap,
                 decoration: BoxDecoration(
-                    color: state.isNewNotification
-                        ? CommonColors.primary
-                        : Colors.transparent,
+                    color: state.isNewNotification ? CommonColors.primary : Colors.transparent,
                     borderRadius: BorderRadius.circular(
                       CommonDimens.defaultInputGap,
                     )),
@@ -69,52 +67,37 @@ class _AppMenuList {
               context: context,
               builder: (context) => Center(
                 child: DialogContainer(
-                  child: BlocConsumer<NavigatorBloc, NavigatesState>(
+                  child: BlocConsumer<NavigatorCubit, NavigatorStates>(
                     listener: (context, state) {},
                     builder: (context, state) {
                       return FractionallySizedBox(
                         widthFactor: .85,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: CommonDimens.defaultGap,
-                              horizontal: CommonDimens.defaultGap),
+                          padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap, horizontal: CommonDimens.defaultGap),
                           decoration: BoxDecoration(
                             color: CommonColors.background,
-                            borderRadius: BorderRadius.circular(
-                                CommonDimens.defaultBorderRadiusMedium),
+                            borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadiusMedium),
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               MenuButton(
                                   menuItem: AppMenuItem(
-                                      icon:
-                                          'assets/images/menus_order_menu.svg',
+                                      icon: 'assets/images/menus_order_menu.svg',
                                       label: S.of(context).menuOrders,
                                       onPressed: () {
-                                        context.read<NavigatorBloc>().add(
-                                            NavigatorEvent(selectedIndex: 2));
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
+                                        context.read<NavigatorCubit>().navigate(selectedIndex: 2);
+                                        Navigator.of(context, rootNavigator: true).pop();
+                                        Navigator.of(context, rootNavigator: true).pop();
                                       })),
                               MenuButton(
                                   menuItem: AppMenuItem(
-                                      icon:
-                                          'assets/images/menus_pre_order_menu.svg',
+                                      icon: 'assets/images/menus_pre_order_menu.svg',
                                       label: S.of(context).menuPreOrders,
                                       onPressed: () {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
-                                        context.router
-                                            .push(const MenuPreOrderRoute());
+                                        Navigator.of(context, rootNavigator: true).pop();
+                                        Navigator.of(context, rootNavigator: true).pop();
+                                        context.router.push(const MenuPreOrderRoute());
                                       })),
                             ],
                           ),
@@ -142,11 +125,7 @@ class _AppMenuList {
           label: S.of(context).yourWallet,
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
-              return state.isLoading
-                  ? const Loading(size: CommonDimens.defaultBlockGap)
-                  : TextCurrency(
-                      value: state.wallet.money ?? 0,
-                      fontSize: CommonFontSize.font_14);
+              return state.isLoading ? const Loading(size: CommonDimens.defaultBlockGap) : TextCurrency(value: state.wallet.money ?? 0, fontSize: CommonFontSize.font_14);
             },
           ),
           onRender: () {
@@ -203,7 +182,7 @@ class _AppMenuList {
           icon: 'assets/images/setting_menu.svg',
           label: S.of(context).setting,
           onPressed: () {
-            context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 4));
+            context.read<NavigatorCubit>().navigate(selectedIndex: 4);
             // context.router.pop();
             G().pop();
           },
@@ -224,9 +203,7 @@ class _AppMenuList {
                 width: CommonDimens.defaultInputGap,
                 height: CommonDimens.defaultInputGap,
                 decoration: BoxDecoration(
-                    color: state.isNewNotification
-                        ? CommonColors.primary
-                        : Colors.transparent,
+                    color: state.isNewNotification ? CommonColors.primary : Colors.transparent,
                     borderRadius: BorderRadius.circular(
                       CommonDimens.defaultInputGap,
                     )),
@@ -239,7 +216,7 @@ class _AppMenuList {
           label: S.of(context).yourOrders,
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
-            context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 3));
+            context.read<NavigatorCubit>().navigate(selectedIndex: 3);
           },
         ),
         AppMenuItem(
@@ -261,11 +238,7 @@ class _AppMenuList {
           label: S.of(context).yourWallet,
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
-              return state.isLoading
-                  ? const Loading(size: CommonDimens.defaultBlockGap)
-                  : TextCurrency(
-                      value: state.wallet.money ?? 0,
-                      fontSize: CommonFontSize.font_14);
+              return state.isLoading ? const Loading(size: CommonDimens.defaultBlockGap) : TextCurrency(value: state.wallet.money ?? 0, fontSize: CommonFontSize.font_14);
             },
           ),
           onRender: () {
@@ -321,9 +294,7 @@ class _AppMenuList {
                 width: CommonDimens.defaultInputGap,
                 height: CommonDimens.defaultInputGap,
                 decoration: BoxDecoration(
-                    color: state.isNewNotification
-                        ? CommonColors.primary
-                        : Colors.transparent,
+                    color: state.isNewNotification ? CommonColors.primary : Colors.transparent,
                     borderRadius: BorderRadius.circular(
                       CommonDimens.defaultInputGap,
                     )),
@@ -336,11 +307,7 @@ class _AppMenuList {
           label: S.of(context).yourWallet,
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
-              return state.isLoading
-                  ? const Loading(size: CommonDimens.defaultBlockGap)
-                  : TextCurrency(
-                      value: state.wallet.money ?? 0,
-                      fontSize: CommonFontSize.font_14);
+              return state.isLoading ? const Loading(size: CommonDimens.defaultBlockGap) : TextCurrency(value: state.wallet.money ?? 0, fontSize: CommonFontSize.font_14);
             },
           ),
           onRender: () {
@@ -405,7 +372,7 @@ class _AppMenuList {
           icon: 'assets/images/setting_menu.svg',
           label: S.of(context).setting,
           onPressed: () {
-            context.read<NavigatorBloc>().add(NavigatorEvent(selectedIndex: 4));
+            context.read<NavigatorCubit>().navigate(selectedIndex: 4);
             G().pop();
           },
         ),

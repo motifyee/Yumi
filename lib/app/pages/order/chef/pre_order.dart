@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/news/news_bloc.dart';
+import 'package:yumi/app/components/page_view/cubit/page_view_cubit.dart';
 import 'package:yumi/app/pages/order/widgets/chef_order.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 
@@ -13,7 +13,7 @@ class PreOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NewsBloc(),
+      create: (context) => PageViewCubit(),
       child: ChefOrder(controller: controller, menuTarget: menuTarget),
     );
   }

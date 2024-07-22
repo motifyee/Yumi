@@ -7,7 +7,10 @@ import 'package:nested/nested.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
+import 'package:yumi/app/pages/home/cubit/app_info/app_info_cubit.dart';
+import 'package:yumi/app/pages/home/cubit/navigator_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
+import 'package:yumi/app/pages/menu/cubit/ingredient_list/ingredient_list_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
@@ -17,9 +20,6 @@ import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 
 import 'package:yumi/app/yumi/config/customer/customer_routes.dart';
 import 'package:yumi/app_target.dart';
-import 'package:yumi/bloc/app_info/app_info_cubit.dart';
-import 'package:yumi/bloc/ingredient/ingredient_list_bloc.dart';
-import 'package:yumi/bloc/navigator/navigator_bloc.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/theme/theme.dart';
@@ -35,13 +35,13 @@ class CustomerAppConfig implements AppConfig {
   final List<SingleChildWidget> _providers = [
     BlocProvider(create: (context) => RegCubit()),
     BlocProvider(create: (context) => UserCubit()),
-    BlocProvider(create: (context) => NavigatorBloc()),
+    BlocProvider(create: (context) => NavigatorCubit()),
     BlocProvider(create: (context) => ProfileCubit()),
     BlocProvider(create: (context) => ProfileFormCubit()),
     BlocProvider(create: (context) => BankInfoCubit()),
     BlocProvider(create: (context) => CategoriesCubit()),
     BlocProvider(create: (context) => MealCubit()),
-    BlocProvider(create: (context) => IngredientListBloc()),
+    BlocProvider(create: (context) => IngredientListCubit()),
     BlocProvider(create: (context) => BasketCubit()),
     BlocProvider(create: (context) => AppInfoCubit()),
     BlocProvider(create: (context) => WalletCubit()),

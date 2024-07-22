@@ -1,7 +1,7 @@
 import 'package:common_code/core/failures.dart';
 import 'package:common_code/core/use_cases.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/domain/meal/entity/ingredients.dart';
+import 'package:yumi/domain/ingredients/entity/ingredients.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 
 class AddIngredientsToMeal extends UseCase<Meal, AddIngredientsToMealParams> {

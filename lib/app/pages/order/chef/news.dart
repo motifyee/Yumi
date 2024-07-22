@@ -2,7 +2,7 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yumi/bloc/news/news_bloc.dart';
+import 'package:yumi/app/components/page_view/cubit/page_view_cubit.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:yumi/app/pages/order/widgets/chef_order.dart';
 import 'package:yumi/app/pages/order/widgets/location.dart';
@@ -36,7 +36,7 @@ class NewsScreen extends StatelessWidget {
     });
 
     return BlocProvider(
-      create: (context) => NewsBloc(),
+      create: (context) => PageViewCubit(),
       child: Column(
         children: [
           const Location(),
@@ -45,9 +45,7 @@ class NewsScreen extends StatelessWidget {
           const SizedBox(
             height: CommonDimens.defaultTitleGap,
           ),
-          Expanded(
-              child:
-                  ChefOrder(controller: _controller, menuTarget: _menuTarget)),
+          Expanded(child: ChefOrder(controller: _controller, menuTarget: _menuTarget)),
         ],
       ),
     );

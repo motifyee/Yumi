@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:common_code/common_code.dart';
 import 'package:yumi/domain/profile/data/repos/profile_repo.dart';
-import 'package:yumi/domain/profile/entities/review.dart';
+import 'package:yumi/domain/review/entity/review.dart';
 
 class LoadReviews extends UseCase<List<Review>, NoParams> {
   final ProfileRepo repo;

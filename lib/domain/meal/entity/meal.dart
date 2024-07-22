@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/domain/meal/entity/ingredients.dart';
+import 'package:yumi/domain/ingredients/entity/ingredients.dart';
 
 part 'meal.g.dart';
 part 'meal.freezed.dart';

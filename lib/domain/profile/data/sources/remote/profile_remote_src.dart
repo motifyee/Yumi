@@ -6,7 +6,7 @@ import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/domain/profile/data/sources/profile_source.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
-import 'package:yumi/domain/profile/entities/review.dart';
+import 'package:yumi/domain/review/entity/review.dart';
 import 'package:yumi/global.dart';
 import 'package:common_code/common_code.dart';
 
@@ -15,8 +15,7 @@ class ProfileRemoteSrc extends ProfileSrc {
   Future<Profile> loadProfile(String id) async {
     if (id.isEmpty) throw GenericException();
 
-    final Response res = await APIClient()
-        .get('${EndPoints.getApiKeyString(apiKey: EndPoints.profile)}/$id');
+    final Response res = await APIClient().get('${EndPoints.getApiKeyString(apiKey: EndPoints.profile)}/$id');
 
     if (res.statusCode != 200) throw ServerException();
 
@@ -102,8 +101,7 @@ class ProfileRemoteSrc extends ProfileSrc {
     }
 
     if (res.data?['data'] == null) throw ServerException();
-    final List<Review> reviews =
-        res.data['data'].map<Review>((e) => Review.fromJson(e)).toList();
+    final List<Review> reviews = res.data['data'].map<Review>((e) => Review.fromJson(e)).toList();
 
     return reviews;
   }
@@ -158,8 +156,7 @@ class ProfileRemoteSrc extends ProfileSrc {
         },
       );
     } catch (e) {
-      throw ServerException(
-          (jsonDecode((e as dynamic).response.data as String))['message']);
+      throw ServerException((jsonDecode((e as dynamic).response.data as String))['message']);
     }
 
     if (res.data == null) throw ServerException();

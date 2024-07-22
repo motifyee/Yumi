@@ -1,5 +1,5 @@
 import 'package:yumi/domain/profile/entities/profile.dart';
-import 'package:yumi/domain/profile/entities/review.dart';
+import 'package:yumi/domain/review/entity/review.dart';
 
 abstract class ProfileSrc {
   Future<Profile> loadProfile(String id);

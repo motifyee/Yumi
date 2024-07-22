@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:common_code/common_code.dart';
+import 'package:common_code/util/global_context.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,11 +12,13 @@ import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredients_form_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal_form/meal_form_cubit.dart';
 import 'package:yumi/app/pages/menu/widgets/Ingredients_form.dart';
-import 'package:yumi/domain/meal/entity/ingredients.dart';
+import 'package:yumi/domain/ingredients/entity/ingredients.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:yumi/domain/meal/use_case/create_meal.dart';
+import 'package:yumi/domain/meal/use_case/get_meal_by_id.dart';
+import 'package:yumi/domain/meal/use_case/update_meal.dart';
 import 'package:yumi/extensions/double.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/service/meal_service.dart';
 import 'package:yumi/app/pages/profile/components/upload_photo_button.dart';
 import 'package:yumi/validators/required_validator.dart';
 
@@ -29,14 +32,17 @@ class MealForm extends StatelessWidget {
   final Meal? meal;
 
   fetchMeal({required Meal meal, required BuildContext context}) async {
-    Response res = await MealService.getMealById(mealId: meal.id!);
-    Meal meal0 = Meal.fromJson(res.data);
-    context.read<MealFormCubit>().update(
-            mealModel: meal0.copyWith(
-          preparationTime: 25,
-          isOrder: meal.isPreOrder == true ? false : true,
-          isPreOrder: meal.isPreOrder ?? false,
-        ));
+    final task = await GetMealById().call(GetMealByIdParams(mealId: meal.id!));
+
+    task.fold((l) => null, (r) {
+      Meal meal0 = r;
+      context.read<MealFormCubit>().update(
+              mealModel: meal0.copyWith(
+            preparationTime: 25,
+            isOrder: meal.isPreOrder == true ? false : true,
+            isPreOrder: meal.isPreOrder ?? false,
+          ));
+    });
   }
 
   @override
@@ -69,8 +75,7 @@ class MealForm extends StatelessWidget {
           key: mealForm,
           child: Container(
             height: MediaQuery.of(context).size.height,
-            padding: const EdgeInsets.symmetric(
-                horizontal: CommonDimens.defaultBlockGap),
+            padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultBlockGap),
             child: SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(minHeight: constraint.maxHeight),
@@ -88,21 +93,12 @@ class MealForm extends StatelessWidget {
                               defaultImage: photo,
                               onPressed: (image) {
                                 if (image != null) {
-                                  context.read<MealFormCubit>().update(
-                                      mealModel: context
-                                          .read<MealFormCubit>()
-                                          .state
-                                          .mealModel
-                                          .copyWith(photo: image.toString()));
+                                  context.read<MealFormCubit>().update(mealModel: context.read<MealFormCubit>().state.mealModel.copyWith(photo: image.toString()));
                                 }
                               },
                             ),
-                            if (photo == null)
-                              Text(S.of(context).required,
-                                  style:
-                                      Theme.of(context).textTheme.titleSmall),
-                            const SizedBox(
-                                height: CommonDimens.defaultBlockGap),
+                            if (photo == null) Text(S.of(context).required, style: Theme.of(context).textTheme.titleSmall),
+                            const SizedBox(height: CommonDimens.defaultBlockGap),
                           ],
                         );
                       },
@@ -118,23 +114,16 @@ class MealForm extends StatelessWidget {
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           initialValue: state().mealModel.name,
                           validators: requiredValidator,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                CustomRegex.lettersNumbersBlankOnly)
-                          ],
+                          inputFormatters: [FilteringTextInputFormatter.allow(CustomRegex.lettersNumbersBlankOnly)],
                           onChange: (value) {
-                            context.read<MealFormCubit>().update(
-                                mealModel: state()
-                                    .mealModel
-                                    .copyWith(name: value ?? ''));
+                            context.read<MealFormCubit>().update(mealModel: state().mealModel.copyWith(name: value ?? ''));
                           },
                         ),
 
                         const SizedBox(height: CommonDimens.defaultLineGap),
 
                         // Ingredients
-                        BlocSelector<MealFormCubit, MealFormState,
-                            List<Ingredients>?>(
+                        BlocSelector<MealFormCubit, MealFormState, List<Ingredients>?>(
                           selector: (state) {
                             return state.mealModel.ingredients;
                           },
@@ -143,16 +132,12 @@ class MealForm extends StatelessWidget {
                               key: const Key('ingredients_meal_form'),
                               label: S.of(context).ingredients,
                               labelIcon: 'assets/images/ingredient.svg',
-                              borderStyle:
-                                  TextFormFieldBorderStyle.borderBottom,
-                              initialValue: ingredients
-                                  ?.map((e) => '${e.portionGrams} ${e.name}')
-                                  .join(', '),
+                              borderStyle: TextFormFieldBorderStyle.borderBottom,
+                              initialValue: ingredients?.map((e) => '${e.portionGrams} ${e.name}').join(', '),
                               validators: requiredValidator,
                               readOnly: true,
                               onTap: () {
-                                context.read<IngredientsFormCubit>().update(
-                                    ingredientsModel: ingredients ?? []);
+                                context.read<IngredientsFormCubit>().update(ingredientsModel: ingredients ?? []);
                                 showModalBottomSheet(
                                   isScrollControlled: true,
                                   backgroundColor: Colors.transparent,
@@ -174,17 +159,11 @@ class MealForm extends StatelessWidget {
                           labelIcon: 'assets/images/calories.svg',
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           textInputType: TextInputType.number,
-                          initialValue:
-                              state().mealModel.caloriesValue?.toTextField,
+                          initialValue: state().mealModel.caloriesValue?.toTextField,
                           validators: requiredValidator,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                CustomRegex.numberWith2DecimalOnly)
-                          ],
+                          inputFormatters: [FilteringTextInputFormatter.allow(CustomRegex.numberWith2DecimalOnly)],
                           onChange: (value) {
-                            context.read<MealFormCubit>().update(
-                                mealModel: state().mealModel.copyWith(
-                                    caloriesValue: double.tryParse(value)));
+                            context.read<MealFormCubit>().update(mealModel: state().mealModel.copyWith(caloriesValue: double.tryParse(value)));
                           },
                         ),
 
@@ -204,9 +183,7 @@ class MealForm extends StatelessWidget {
                             borderStyle: TextFormFieldBorderStyle.borderBottom,
                             validators: requiredValidator,
                             onChange: (value) {
-                              context.read<MealFormCubit>().update(
-                                  mealModel: state().mealModel.copyWith(
-                                      preparationTime: double.tryParse(value)));
+                              context.read<MealFormCubit>().update(mealModel: state().mealModel.copyWith(preparationTime: double.tryParse(value)));
                             },
                             textInputType: TextInputType.number,
                             initialValue: prepTime?.toTextField,
@@ -222,15 +199,9 @@ class MealForm extends StatelessWidget {
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
                           initialValue: state().mealModel.price1?.toTextField,
                           validators: requiredValidator,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                CustomRegex.numberWith2DecimalOnly)
-                          ],
+                          inputFormatters: [FilteringTextInputFormatter.allow(CustomRegex.numberWith2DecimalOnly)],
                           onChange: (value) {
-                            context.read<MealFormCubit>().update(
-                                mealModel: state()
-                                    .mealModel
-                                    .copyWith(price1: double.tryParse(value)));
+                            context.read<MealFormCubit>().update(mealModel: state().mealModel.copyWith(price1: double.tryParse(value)));
                           },
                           textInputType: TextInputType.number,
                         ),
@@ -243,18 +214,12 @@ class MealForm extends StatelessWidget {
                           labelHint: '(${S.of(context).forHowManyPerson})',
                           labelIcon: 'assets/images/description.svg',
                           borderStyle: TextFormFieldBorderStyle.borderBottom,
-                          initialValue:
-                              state().mealModel.portionPersons?.toTextField,
+                          initialValue: state().mealModel.portionPersons?.toTextField,
                           textInputType: TextInputType.number,
                           validators: requiredValidator,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                CustomRegex.numberOnly)
-                          ],
+                          inputFormatters: [FilteringTextInputFormatter.allow(CustomRegex.numberOnly)],
                           onChange: (value) {
-                            context.read<MealFormCubit>().update(
-                                mealModel: state().mealModel.copyWith(
-                                    portionPersons: double.tryParse(value)));
+                            context.read<MealFormCubit>().update(mealModel: state().mealModel.copyWith(portionPersons: double.tryParse(value)));
                           },
                         ),
 
@@ -267,11 +232,8 @@ class MealForm extends StatelessWidget {
                             listener: (context, state) {},
                             builder: (context, state) {
                               return PaginationTemplate(
-                                loadDate: () => context
-                                    .read<CategoriesCubit>()
-                                    .getAllCategories(
-                                      isPreOrder:
-                                          menuTarget == MenuTarget.preOrder,
+                                loadDate: () => context.read<CategoriesCubit>().getAllCategories(
+                                      isPreOrder: menuTarget == MenuTarget.preOrder,
                                     ),
                                 // .add(GetCategoriesEvent(
                                 //     context: context,
@@ -280,61 +242,30 @@ class MealForm extends StatelessWidget {
                                 //     isAll: true)),
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: state.categoriesPage.data.isEmpty
                                       ? [const Loading()]
                                       : [
-                                          for (var category
-                                              in state.categoriesPage.data ??
-                                                  [])
-                                            BlocConsumer<MealFormCubit,
-                                                MealFormState>(
+                                          for (var category in state.categoriesPage.data ?? [])
+                                            BlocConsumer<MealFormCubit, MealFormState>(
                                               listener: (context, state) {},
                                               builder: (context, state) {
                                                 return Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: CommonDimens
-                                                          .defaultGap),
+                                                  padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap),
                                                   child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
+                                                    mainAxisSize: MainAxisSize.min,
                                                     children: [
                                                       Checkbox(
-                                                        value: state.mealModel
-                                                                .categoriesIds
-                                                                ?.contains(
-                                                                    category
-                                                                        .id) ??
-                                                            false,
-                                                        onChanged:
-                                                            (bool? value) {
-                                                          var listCat = List<
-                                                              int>.from(state
-                                                                  .mealModel
-                                                                  .categoriesIds ??
-                                                              []);
+                                                        value: state.mealModel.categoriesIds?.contains(category.id) ?? false,
+                                                        onChanged: (bool? value) {
+                                                          var listCat = List<int>.from(state.mealModel.categoriesIds ?? []);
 
                                                           if (value == true) {
-                                                            listCat.add(
-                                                                category.id);
+                                                            listCat.add(category.id);
                                                           } else {
-                                                            listCat.removeWhere(
-                                                                (element) =>
-                                                                    element ==
-                                                                    category
-                                                                        .id);
+                                                            listCat.removeWhere((element) => element == category.id);
                                                           }
-                                                          context
-                                                              .read<
-                                                                  MealFormCubit>()
-                                                              .update(
-                                                                  mealModel: state
-                                                                      .mealModel
-                                                                      .copyWith(
-                                                                          categoriesIds:
-                                                                              listCat));
+                                                          context.read<MealFormCubit>().update(mealModel: state.mealModel.copyWith(categoriesIds: listCat));
                                                         },
                                                       ),
                                                       Text(category.name),
@@ -345,12 +276,7 @@ class MealForm extends StatelessWidget {
                                             ),
                                           SizedBox(
                                             width: CommonDimens.defaultTitleGap,
-                                            child:
-                                                state.categoriesPage.isLoading
-                                                    ? const Loading(
-                                                        size: CommonDimens
-                                                            .defaultTitleGap)
-                                                    : const Text(''),
+                                            child: state.categoriesPage.isLoading ? const Loading(size: CommonDimens.defaultTitleGap) : const Text(''),
                                           ),
                                         ],
                                 ),
@@ -425,36 +351,22 @@ class _SaveBTNState extends State<_SaveBTN> {
         return TextButton(
           onPressed: () async {
             if (widget.loading) return;
-            if (widget.mealForm.currentState!.validate() &&
-                state.mealModel.categoriesIds!.isNotEmpty &&
-                state.mealModel.photo != null) {
+            if (widget.mealForm.currentState!.validate() && state.mealModel.categoriesIds!.isNotEmpty && state.mealModel.photo != null) {
               widget.mealForm.currentState!.save();
 
               setState(() {
                 widget.loading = true;
               });
 
-              late dynamic res;
               if (widget.meal != null) {
-                res = await MealService.updateMeal(
-                    context: context, mealModel: state.mealModel);
+                await context.read<MealFormCubit>().updateMeal(meal: state.mealModel);
               } else {
-                res = await MealService.createMeal(
-                    context: context, mealModel: state.mealModel);
+                await context.read<MealFormCubit>().createMeal(meal: state.mealModel);
               }
 
               setState(() {
                 widget.loading = false;
               });
-
-              Navigator.of(context).pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: SnackBarMassage(
-                    massage: res.toString(),
-                  ),
-                ),
-              );
             }
           },
           child: widget.loading

@@ -5,7 +5,7 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/navigator/navigator_bloc.dart';
+import 'package:yumi/app/pages/home/cubit/navigator_cubit.dart';
 import 'package:yumi/statics/navigate_option.dart';
 import 'package:yumi/app/pages/home/navigation_bottom_bar.dart';
 import 'package:yumi/app/pages/home/side_bar.dart';
@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
     bool isInit = false;
 
     return Builder(builder: (context) {
-      return BlocConsumer<NavigatorBloc, NavigatesState>(
+      return BlocConsumer<NavigatorCubit, NavigatorStates>(
         listener: (context, state) {
           if (state.selectedIndex != navPageController.page) {
             navPageController.jumpToPage(state.selectedIndex);
@@ -36,9 +36,7 @@ class HomeScreen extends StatelessWidget {
             });
           }
           return ScreenContainer(
-            isColored: NavigateOptions
-                    .navigateList[state.selectedIndex].isBackGroundGradient ??
-                false,
+            isColored: NavigateOptions.navigateList[state.selectedIndex].isBackGroundGradient ?? false,
             child: Scaffold(
               backgroundColor: Colors.transparent,
               key: _scaffoldState,
@@ -58,11 +56,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 actions: [
-                  NavigateOptions
-                              .navigateList[state.selectedIndex].pageAction !=
-                          null
-                      ? NavigateOptions
-                          .navigateList[state.selectedIndex].pageAction!
+                  NavigateOptions.navigateList[state.selectedIndex].pageAction != null
+                      ? NavigateOptions.navigateList[state.selectedIndex].pageAction!
                       : const SizedBox(
                           width: 1,
                         ),
@@ -74,15 +69,12 @@ class HomeScreen extends StatelessWidget {
               ),
               bottomNavigationBar: Container(
                 width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: CommonDimens.defaultBorderRadius, vertical: 0),
+                padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultBorderRadius, vertical: 0),
                 decoration: BoxDecoration(
                     color: CommonColors.backgroundTant,
                     borderRadius: const BorderRadius.only(
-                      topRight:
-                          Radius.circular(CommonDimens.defaultBorderRadius),
-                      topLeft:
-                          Radius.circular(CommonDimens.defaultBorderRadius),
+                      topRight: Radius.circular(CommonDimens.defaultBorderRadius),
+                      topLeft: Radius.circular(CommonDimens.defaultBorderRadius),
                     )),
                 child: const NavigationBottomBar(),
               ),
@@ -90,9 +82,7 @@ class HomeScreen extends StatelessWidget {
                 controller: navPageController,
                 children: NavigateOptions.navigationPages(),
                 onPageChanged: (page) {
-                  context
-                      .read<NavigatorBloc>()
-                      .add(NavigatorEvent(selectedIndex: page));
+                  context.read<NavigatorCubit>().navigate(selectedIndex: page);
                 },
               ),
               drawer: Drawer(

@@ -1,6 +1,10 @@
 import 'package:common_code/common_code.dart';
 import 'package:common_code/core/setup/connection.dart';
 import 'package:common_code/core/setup/internet_connectivity_checker.dart';
+import 'package:yumi/domain/address/data/repo/address_repo.dart';
+import 'package:yumi/domain/address/data/repo/remote/address_remote_repo.dart';
+import 'package:yumi/domain/address/data/source/address_source.dart';
+import 'package:yumi/domain/address/data/source/remote/address_remote_source.dart';
 import 'package:yumi/domain/bank_info/data/repos/bank_info_repo.dart';
 import 'package:yumi/domain/bank_info/data/repos/remote/bank_info_remote_repo.dart';
 import 'package:yumi/domain/bank_info/data/sources/bank_info_src.dart';
@@ -21,6 +25,10 @@ import 'package:yumi/domain/chef/data/respositories/chef_repo.dart';
 import 'package:yumi/domain/chef/data/respositories/remote/chef_remote_repo.dart';
 import 'package:yumi/domain/chef/data/sources/chef_src.dart';
 import 'package:yumi/domain/chef/data/sources/remote/chef_remote_src.dart';
+import 'package:yumi/domain/ingredients/data/repo/ingredients_repo.dart';
+import 'package:yumi/domain/ingredients/data/repo/remote/ingredients_remote_repo.dart';
+import 'package:yumi/domain/ingredients/data/source/ingredients_source.dart';
+import 'package:yumi/domain/ingredients/data/source/remote/ingredients_remote_source.dart';
 import 'package:yumi/domain/meal/data/repo/meal_repo.dart';
 import 'package:yumi/domain/meal/data/repo/remote/meal_repo_remote.dart';
 import 'package:yumi/domain/meal/data/source/meal_source.dart';
@@ -37,6 +45,10 @@ import 'package:yumi/domain/profile/data/repos/profile_repo.dart';
 import 'package:yumi/domain/profile/data/repos/remote/profile_remote_repo.dart';
 import 'package:yumi/domain/profile/data/sources/profile_source.dart';
 import 'package:yumi/domain/profile/data/sources/remote/profile_remote_src.dart';
+import 'package:yumi/domain/review/data/repo/remote/review_remote_repo.dart';
+import 'package:yumi/domain/review/data/repo/review_repo.dart';
+import 'package:yumi/domain/review/data/source/remote/review_remote_source.dart';
+import 'package:yumi/domain/review/data/source/review_source.dart';
 import 'package:yumi/domain/schedule/data/repos/remote/schedule_remote_repo.dart';
 import 'package:yumi/domain/schedule/data/repos/schedule_repo.dart';
 import 'package:yumi/domain/schedule/data/sources/remote/schedule_remote_source.dart';
@@ -64,8 +76,7 @@ Future<void> inject() async {
   sl.registerFactory<ScheduleRepo>(() => ScheduleRemoteRepo());
 
   sl.registerFactory<CaloriesSource>(() => CaloriesRemoteSource());
-  sl.registerFactory<CaloriesRepo>(
-      () => CaloriesRepoRemote(caloriesSource: sl()));
+  sl.registerFactory<CaloriesRepo>(() => CaloriesRepoRemote(caloriesSource: sl()));
 
   sl.registerFactory<BasketSource>(() => BasketRemoteSource());
   sl.registerFactory<BasketRepo>(() => BasketRemoteRepo());
@@ -100,6 +111,15 @@ Future<void> inject() async {
 
   sl.registerFactory<VehicleSrc>(() => VehicleRemoteSrc());
   sl.registerFactory<VehicleRepo>(() => VehicleRemoteRepo(src: sl()));
+
+  sl.registerFactory<ReviewSource>(() => ReviewRemoteSource());
+  sl.registerFactory<ReviewRepo>(() => ReviewRemoteRepo());
+
+  sl.registerFactory<IngredientsSource>(() => IngredientsRemoteSource());
+  sl.registerFactory<IngredientsRepo>(() => IngredientsRemoteRepo());
+
+  sl.registerFactory<AddressRepo>(() => AddressRemoteRepo());
+  sl.registerFactory<AddressSource>(() => AddressRemoteSource());
 
   // Utils
   sl.registerLazySingleton<InternetChecker>(() => InternetChecker());

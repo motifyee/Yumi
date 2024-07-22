@@ -4,7 +4,8 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yumi/bloc/navigator/navigator_bloc.dart';
+import 'package:yumi/app/pages/home/cubit/navigator_cubit.dart';
+
 import 'package:yumi/statics/navigate_option.dart';
 
 class NavigationBottomBar extends StatelessWidget {
@@ -12,12 +13,10 @@ class NavigationBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NavigatorBloc, NavigatesState>(
+    return BlocConsumer<NavigatorCubit, NavigatorStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        double selectedPageIndicator = (MediaQuery.of(context).size.width -
-                (CommonDimens.defaultBorderRadius * 2)) /
-            5;
+        double selectedPageIndicator = (MediaQuery.of(context).size.width - (CommonDimens.defaultBorderRadius * 2)) / 5;
         return Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.center,
@@ -44,8 +43,7 @@ class NavigationBottomBar extends StatelessWidget {
                         height: min(45, selectedPageIndicator - 30),
                         decoration: BoxDecoration(
                           color: CommonColors.primary,
-                          borderRadius: BorderRadius.circular(
-                              CommonDimens.buttonBorderRadius),
+                          borderRadius: BorderRadius.circular(CommonDimens.buttonBorderRadius),
                         ),
                       ),
                     )
@@ -63,13 +61,10 @@ class NavigationBottomBar extends StatelessWidget {
                 (states) => Colors.transparent,
               ),
               animationDuration: CommonDimens.animationDuration,
-              destinations: NavigateOptions.navigationDestination(
-                  context, state.selectedIndex, selectedPageIndicator),
+              destinations: NavigateOptions.navigationDestination(context, state.selectedIndex, selectedPageIndicator),
               selectedIndex: state.selectedIndex,
               onDestinationSelected: (index) {
-                context
-                    .read<NavigatorBloc>()
-                    .add(NavigatorEvent(selectedIndex: index));
+                context.read<NavigatorCubit>().navigate(selectedIndex: index);
               },
             )
           ],

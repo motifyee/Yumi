@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yumi/app/components/page_view/cubit/page_view_cubit.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:common_code/core/setup/signalr.dart';
-import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
@@ -23,12 +23,12 @@ class ChefOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<NewsBloc>().add(NewsEvent(selectedList: menuTarget == MenuTarget.order ? 1 : 0));
+    context.read<PageViewCubit>().updateSelect(selectedList: menuTarget == MenuTarget.order ? 1 : 0);
     return Column(
       children: [
         BlocBuilder<SignalRCubit, SignalRState>(
           builder: (context, states) {
-            return BlocBuilder<NewsBloc, NewsState>(
+            return BlocBuilder<PageViewCubit, PageViewState>(
               builder: (context, state) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -40,7 +40,7 @@ class ChefOrder extends StatelessWidget {
                         isActive: state.selectedList == 0,
                         isNotificationIconShow: states.isSignalTriggered(signal: [Signals.neworderreceived], isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
-                          context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
+                          context.read<PageViewCubit>().updateSelect(selectedList: 0);
                           controller.jumpToPage(0);
                           context.read<SignalRCubit>().removeSignals(signal: [Signals.neworderreceived]);
                         },
@@ -54,7 +54,7 @@ class ChefOrder extends StatelessWidget {
                         if (menuTarget == MenuTarget.order) Signals.neworderreceived,
                       ], isPreOrder: menuTarget == MenuTarget.preOrder),
                       onPressed: () {
-                        context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
+                        context.read<PageViewCubit>().updateSelect(selectedList: 1);
                         controller.jumpToPage(1);
                         context.read<SignalRCubit>().removeSignals(signal: [
                           Signals.driveraccept,
@@ -67,7 +67,7 @@ class ChefOrder extends StatelessWidget {
                       label: S.of(context).preparing,
                       isActive: state.selectedList == 2,
                       onPressed: () {
-                        context.read<NewsBloc>().add(const NewsEvent(selectedList: 2));
+                        context.read<PageViewCubit>().updateSelect(selectedList: 2);
                         controller.jumpToPage(2);
                       },
                     ),
@@ -76,13 +76,13 @@ class ChefOrder extends StatelessWidget {
                       label: S.of(context).ready,
                       isActive: state.selectedList == 3,
                       onPressed: () {
-                        context.read<NewsBloc>().add(const NewsEvent(selectedList: 3));
+                        context.read<PageViewCubit>().updateSelect(selectedList: 3);
                         controller.jumpToPage(3);
                       },
                     ),
                     GestureDetector(
                       onTap: () {
-                        context.read<NewsBloc>().add(const NewsEvent(selectedList: 4));
+                        context.read<PageViewCubit>().updateSelect(selectedList: 4);
                         controller.jumpToPage(4);
                       },
                       child: SvgPicture.asset(
@@ -109,7 +109,7 @@ class ChefOrder extends StatelessWidget {
                   orderCardTargetPage: OrderCardTargetPage.chefPending,
                   signals: const [Signals.neworderreceived, Signals.driveraccept],
                   navFun: () {
-                    context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
+                    context.read<PageViewCubit>().updateSelect(selectedList: 1);
                     controller.jumpToPage(1);
                   },
                 ),
@@ -125,7 +125,7 @@ class ChefOrder extends StatelessWidget {
                     if (menuTarget == MenuTarget.order) Signals.neworderreceived,
                   ],
                   navFun: () {
-                    context.read<NewsBloc>().add(const NewsEvent(selectedList: 2));
+                    context.read<PageViewCubit>().updateSelect(selectedList: 2);
                     controller.jumpToPage(2);
                     if (context.read<UserCubit>().state.user.status == 1) {
                       G().rd<UserCubit>().updateStatus(UserStatus.busy);
@@ -141,7 +141,7 @@ class ChefOrder extends StatelessWidget {
                   orderCardTargetPage: OrderCardTargetPage.chefPreparing,
                   signals: const [Signals.chefstart, Signals.clientcancel],
                   navFun: () {
-                    context.read<NewsBloc>().add(const NewsEvent(selectedList: 3));
+                    context.read<PageViewCubit>().updateSelect(selectedList: 3);
                     controller.jumpToPage(3);
                     if (context.read<UserCubit>().state.user.status == 2) {
                       G().rd<UserCubit>().updateStatus(UserStatus.online);
@@ -157,7 +157,7 @@ class ChefOrder extends StatelessWidget {
                   orderCardTargetPage: OrderCardTargetPage.chefReady,
                   signals: const [Signals.cheffinished],
                   navFun: () {
-                    context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
+                    context.read<PageViewCubit>().updateSelect(selectedList: 1);
                     controller.jumpToPage(1);
                   },
                 ),

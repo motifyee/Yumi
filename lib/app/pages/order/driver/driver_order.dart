@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yumi/app/components/page_view/cubit/page_view_cubit.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:common_code/core/setup/signalr.dart';
-import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
@@ -47,7 +47,7 @@ class DriverOrderScreen extends StatelessWidget {
     }
 
     return BlocProvider(
-      create: (context) => NewsBloc(),
+      create: (context) => PageViewCubit(),
       child: Column(
         children: [
           const Location(),
@@ -55,7 +55,7 @@ class DriverOrderScreen extends StatelessWidget {
           if (menuTarget == MenuTarget.order) StatusButton(),
           BlocBuilder<SignalRCubit, SignalRState>(
             builder: (context, states) {
-              return BlocBuilder<NewsBloc, NewsState>(
+              return BlocBuilder<PageViewCubit, PageViewState>(
                 builder: (context, state) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +66,7 @@ class DriverOrderScreen extends StatelessWidget {
                         isActive: state.selectedList == 0,
                         isNotificationIconShow: states.isSignalTriggered(signal: [Signals.neworderreceived], isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
-                          context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
+                          context.read<PageViewCubit>().updateSelect(selectedList: 0);
                           _controller.jumpToPage(0);
                           context.read<SignalRCubit>().removeSignals(signal: [Signals.neworderreceived]);
                         },
@@ -83,7 +83,7 @@ class DriverOrderScreen extends StatelessWidget {
                           Signals.clientreceived,
                         ], isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
-                          context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
+                          context.read<PageViewCubit>().updateSelect(selectedList: 1);
                           _controller.jumpToPage(1);
                           context.read<SignalRCubit>().removeSignals(signal: [
                             Signals.chefstart,

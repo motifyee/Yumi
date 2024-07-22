@@ -6,11 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:common_code/core/setup/signalr.dart';
 import 'package:yumi/domain/order/entity/order.dart';
+import 'package:yumi/domain/order/use_case/get_order_preorder_driver_by_id.dart';
+import 'package:yumi/domain/review/entity/review.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/domain/profile/entities/review_model.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/route/route.gr.dart';
-import 'package:yumi/service/order_service.dart';
 import 'package:common_code/common_code.dart';
 import 'package:yumi/app/pages/order/widgets/review_chef_delivery.dart';
 
@@ -41,10 +41,8 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
           Signals.driverreceived,
           Signals.clientreceived,
         ])) {
-          OrderService.getOrderOrPreOrderDriverById(apiKeys: '${EndPoints.order}/', id: widget.order.id.toString()).then((e) => setState(() {
-                debugPrint(e.data);
-                widget.order = Order.fromJson(e.data[0]);
-              }));
+          final task = await GetOrderPreorderDriverById().call(GetOrderPreorderDriverByIdParams(apiKeys: EndPoints.orderDriverAvailableById, id: widget.order.id.toString()));
+          task.fold((l) => null, (r) => widget.order = r);
         }
       },
       builder: (context, state) {
@@ -361,11 +359,11 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                   insetPadding: EdgeInsets.zero,
                                   content: ReviewChefDriver(
                                     isChefOnly: widget.order.isPickUp == true ? true : false,
-                                    reviewChef: const ReviewModel().copyWith(
+                                    reviewChef: const Review().copyWith(
                                       buddiesUserId: widget.order.chefID ?? '',
                                       code: CodeGenerator.getRandomCode(),
                                     ),
-                                    reviewDriver: const ReviewModel().copyWith(
+                                    reviewDriver: const Review().copyWith(
                                       buddiesUserId: widget.order.driverID ?? '',
                                       code: CodeGenerator.getRandomCode(),
                                     ),

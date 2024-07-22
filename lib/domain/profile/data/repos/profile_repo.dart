@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:common_code/core/failures.dart';
 import 'package:yumi/domain/profile/entities/profile.dart';
-import 'package:yumi/domain/profile/entities/review.dart';
+import 'package:yumi/domain/review/entity/review.dart';
 
 abstract class ProfileRepo {
   TaskEither<Failure, Profile> loadProfile(String id);

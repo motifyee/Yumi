@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:yumi/app/components/page_view/cubit/page_view_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
-import 'package:yumi/bloc/news/news_bloc.dart';
 import 'package:yumi/domain/chef/entity/chef_work_status.dart';
 import 'package:yumi/domain/meal/entity/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
@@ -22,13 +22,13 @@ class CustomerChefList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NewsBloc(),
+      create: (context) => PageViewCubit(),
       child: Builder(
         builder: (context) => Column(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap * 2, vertical: CommonDimens.defaultGap),
-              child: BlocBuilder<NewsBloc, NewsState>(
+              child: BlocBuilder<PageViewCubit, PageViewState>(
                 builder: (context, state) {
                   return Row(
                     children: [
@@ -63,7 +63,7 @@ class CustomerChefList extends StatelessWidget {
                                     child: SvgPicture.asset('assets/images/online_chef_icon.svg'),
                                   ),
                                   onPressed: () {
-                                    context.read<NewsBloc>().add(const NewsEvent(selectedList: 0));
+                                    context.read<PageViewCubit>().updateSelect(selectedList: 0);
                                     controller.jumpToPage(0);
                                   },
                                   activeColor: CommonColors.success,
@@ -79,7 +79,7 @@ class CustomerChefList extends StatelessWidget {
                                     child: SvgPicture.asset('assets/images/busy_chef_icon.svg'),
                                   ),
                                   onPressed: () {
-                                    context.read<NewsBloc>().add(const NewsEvent(selectedList: 1));
+                                    context.read<PageViewCubit>().updateSelect(selectedList: 1);
                                     controller.jumpToPage(1);
                                   },
                                   activeColor: CommonColors.primary,
@@ -95,7 +95,7 @@ class CustomerChefList extends StatelessWidget {
                                     child: SvgPicture.asset('assets/images/offline_chef_icon.svg'),
                                   ),
                                   onPressed: () {
-                                    context.read<NewsBloc>().add(const NewsEvent(selectedList: 2));
+                                    context.read<PageViewCubit>().updateSelect(selectedList: 2);
                                     controller.jumpToPage(2);
                                   },
                                   activeColor: CommonColors.secondaryTant,
