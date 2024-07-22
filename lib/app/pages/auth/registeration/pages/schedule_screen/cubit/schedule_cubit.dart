@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:common_code/common_code.dart';
-import 'package:yumi/domain/schedule/data/repos/schedule_repo.dart';
-import 'package:yumi/domain/schedule/entities/schedule.dart';
-import 'package:yumi/domain/schedule/use_cases/apply_to_active_days.dart';
-import 'package:yumi/domain/schedule/use_cases/load_schedule.dart';
-import 'package:yumi/domain/schedule/use_cases/save_schedule.dart';
+import 'package:common_code/domain/schedule/data/repos/schedule_repo.dart';
+import 'package:common_code/domain/schedule/entities/schedule.dart';
+import 'package:common_code/domain/schedule/use_cases/apply_to_active_days.dart';
+import 'package:common_code/domain/schedule/use_cases/load_schedule.dart';
+import 'package:common_code/domain/schedule/use_cases/save_schedule.dart';
 
 part 'schedule_cubit.freezed.dart';
 

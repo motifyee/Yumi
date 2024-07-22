@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yumi/app/pages/menu/widgets/customer_news.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 
 class CustomerMenuPreScreen extends StatelessWidget {
   const CustomerMenuPreScreen({super.key});

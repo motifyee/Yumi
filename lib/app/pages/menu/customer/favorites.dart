@@ -2,12 +2,12 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/components/page_view/cubit/page_view_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
-import 'package:yumi/domain/chef/entity/chef.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:common_code/domain/food_delivery/chef/entity/chef.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/meal_profile/meal_profile.dart';
 import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';
@@ -102,7 +102,7 @@ class FavoritesScreen extends StatelessWidget {
                                           topRight: Radius.circular(CommonDimens.defaultBorderRadius),
                                         ),
                                       ),
-                                    if (state.chefsPagination.isLoading) const Loading(),
+                                    if (state.chefsPagination.isLoading) const PacmanLoadingWidget(),
                                   ],
                                 ),
                               );
@@ -145,7 +145,7 @@ class FavoritesScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                  if (state.pagination.isLoading) const Loading(),
+                                  if (state.pagination.isLoading) const PacmanLoadingWidget(),
                                 ],
                               );
                             },

@@ -3,7 +3,6 @@ import 'package:common_code/common_code.dart';
 import 'package:common_code/util/global_context.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
-import 'package:yumi/domain/ingredients/entity/ingredients.dart';
 import 'package:yumi/domain/ingredients/use_case/get_all_ingredients.dart';
 
 part 'ingredient_list_cubit.g.dart';
@@ -13,7 +12,7 @@ part 'ingredient_list_cubit.freezed.dart';
 @freezed
 class IngredientListState with _$IngredientListState {
   const factory IngredientListState({
-    required List<Ingredients> ingredients,
+    required List<Ingredient> ingredients,
     required bool loading,
   }) = _IngredientListState;
 

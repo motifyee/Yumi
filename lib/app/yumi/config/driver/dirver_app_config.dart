@@ -24,7 +24,6 @@ import 'package:yumi/app_target.dart';
 import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/theme/theme.dart';
 
 class DriverAppConfig implements AppConfig {
   final RootStackRouter _appRouter = DriverRoutes();
@@ -69,5 +68,8 @@ class DriverAppConfig implements AppConfig {
   Iterable<Locale> get supportedLocales => S.delegate.supportedLocales;
 
   @override
-  ThemeData? get theme => defaultTheme;
+  Locale get locale => const Locale('en');
+
+  @override
+  ThemeData? get theme => commonTheme;
 }

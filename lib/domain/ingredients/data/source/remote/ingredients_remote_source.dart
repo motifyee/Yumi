@@ -1,11 +1,10 @@
 import 'package:common_code/common_code.dart';
 import 'package:dio/dio.dart';
 import 'package:yumi/domain/ingredients/data/source/ingredients_source.dart';
-import 'package:yumi/domain/ingredients/entity/ingredients.dart';
 
 class IngredientsRemoteSource extends IngredientsSource {
   @override
-  Future<List<Ingredients>> getAllIngredients() async {
+  Future<List<Ingredient>> getAllIngredients() async {
     Response res;
     try {
       res = await APIClient().get(EndPoints.ingredient);
@@ -13,7 +12,7 @@ class IngredientsRemoteSource extends IngredientsSource {
       throw ServerException(e as DioException);
     }
 
-    List<Ingredients> ingredients = res.data['data'].map<Ingredients>((json) => Ingredients.fromJson(json)).toList();
+    List<Ingredient> ingredients = res.data['data'].map<Ingredient>((json) => Ingredient.fromJson(json)).toList();
 
     return ingredients;
   }

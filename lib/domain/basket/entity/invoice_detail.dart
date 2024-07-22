@@ -1,6 +1,6 @@
+import 'package:common_code/common_code.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/extensions/string_to_double_converter.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 
 part 'invoice_detail.freezed.dart';
 part 'invoice_detail.g.dart';

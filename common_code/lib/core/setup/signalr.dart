@@ -7,7 +7,7 @@ import 'package:signalr_netcore/json_hub_protocol.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 import 'package:common_code/common_code.dart';
 
-enum Signals {
+enum Signal {
   sendmessage,
   receivemessage,
   updatechefstatus,
@@ -190,5 +190,5 @@ void _onstarterror(dynamic error) {
 }
 
 Future<void> sendMessage(String message) async {
-  await Signalr.invoke(Signals.sendmessage, args: [message]);
+  await Signalr.invoke(Signal.sendmessage, args: [message]);
 }

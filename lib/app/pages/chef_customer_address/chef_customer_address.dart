@@ -1,10 +1,10 @@
 import 'package:auto_route/annotations.dart';
 import 'package:collection/collection.dart';
 import 'package:common_code/common_code.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/customer_location/cubit/address_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/util/map_util.dart';
@@ -39,7 +39,7 @@ class ChefCustomerAddressScreen extends StatelessWidget {
                   ),
                 if (address == null)
                   const Center(
-                    child: Loading(),
+                    child: PacmanLoadingWidget(),
                   ),
                 if (address != null)
                   Positioned(

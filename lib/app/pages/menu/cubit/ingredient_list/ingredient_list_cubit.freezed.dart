@@ -20,27 +20,23 @@ IngredientListState _$IngredientListStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$IngredientListState {
-  List<Ingredients> get ingredients => throw _privateConstructorUsedError;
+  List<Ingredient> get ingredients => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $IngredientListStateCopyWith<IngredientListState> get copyWith =>
-      throw _privateConstructorUsedError;
+  $IngredientListStateCopyWith<IngredientListState> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $IngredientListStateCopyWith<$Res> {
-  factory $IngredientListStateCopyWith(
-          IngredientListState value, $Res Function(IngredientListState) then) =
-      _$IngredientListStateCopyWithImpl<$Res, IngredientListState>;
+  factory $IngredientListStateCopyWith(IngredientListState value, $Res Function(IngredientListState) then) = _$IngredientListStateCopyWithImpl<$Res, IngredientListState>;
   @useResult
-  $Res call({List<Ingredients> ingredients, bool loading});
+  $Res call({List<Ingredient> ingredients, bool loading});
 }
 
 /// @nodoc
-class _$IngredientListStateCopyWithImpl<$Res, $Val extends IngredientListState>
-    implements $IngredientListStateCopyWith<$Res> {
+class _$IngredientListStateCopyWithImpl<$Res, $Val extends IngredientListState> implements $IngredientListStateCopyWith<$Res> {
   _$IngredientListStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -58,7 +54,7 @@ class _$IngredientListStateCopyWithImpl<$Res, $Val extends IngredientListState>
       ingredients: null == ingredients
           ? _value.ingredients
           : ingredients // ignore: cast_nullable_to_non_nullable
-              as List<Ingredients>,
+              as List<Ingredient>,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -68,23 +64,16 @@ class _$IngredientListStateCopyWithImpl<$Res, $Val extends IngredientListState>
 }
 
 /// @nodoc
-abstract class _$$IngredientListStateImplCopyWith<$Res>
-    implements $IngredientListStateCopyWith<$Res> {
-  factory _$$IngredientListStateImplCopyWith(_$IngredientListStateImpl value,
-          $Res Function(_$IngredientListStateImpl) then) =
-      __$$IngredientListStateImplCopyWithImpl<$Res>;
+abstract class _$$IngredientListStateImplCopyWith<$Res> implements $IngredientListStateCopyWith<$Res> {
+  factory _$$IngredientListStateImplCopyWith(_$IngredientListStateImpl value, $Res Function(_$IngredientListStateImpl) then) = __$$IngredientListStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Ingredients> ingredients, bool loading});
+  $Res call({List<Ingredient> ingredients, bool loading});
 }
 
 /// @nodoc
-class __$$IngredientListStateImplCopyWithImpl<$Res>
-    extends _$IngredientListStateCopyWithImpl<$Res, _$IngredientListStateImpl>
-    implements _$$IngredientListStateImplCopyWith<$Res> {
-  __$$IngredientListStateImplCopyWithImpl(_$IngredientListStateImpl _value,
-      $Res Function(_$IngredientListStateImpl) _then)
-      : super(_value, _then);
+class __$$IngredientListStateImplCopyWithImpl<$Res> extends _$IngredientListStateCopyWithImpl<$Res, _$IngredientListStateImpl> implements _$$IngredientListStateImplCopyWith<$Res> {
+  __$$IngredientListStateImplCopyWithImpl(_$IngredientListStateImpl _value, $Res Function(_$IngredientListStateImpl) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -96,7 +85,7 @@ class __$$IngredientListStateImplCopyWithImpl<$Res>
       ingredients: null == ingredients
           ? _value._ingredients
           : ingredients // ignore: cast_nullable_to_non_nullable
-              as List<Ingredients>,
+              as List<Ingredient>,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -108,16 +97,13 @@ class __$$IngredientListStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$IngredientListStateImpl implements _IngredientListState {
-  const _$IngredientListStateImpl(
-      {required final List<Ingredients> ingredients, required this.loading})
-      : _ingredients = ingredients;
+  const _$IngredientListStateImpl({required final List<Ingredient> ingredients, required this.loading}) : _ingredients = ingredients;
 
-  factory _$IngredientListStateImpl.fromJson(Map<String, dynamic> json) =>
-      _$$IngredientListStateImplFromJson(json);
+  factory _$IngredientListStateImpl.fromJson(Map<String, dynamic> json) => _$$IngredientListStateImplFromJson(json);
 
-  final List<Ingredients> _ingredients;
+  final List<Ingredient> _ingredients;
   @override
-  List<Ingredients> get ingredients {
+  List<Ingredient> get ingredients {
     if (_ingredients is EqualUnmodifiableListView) return _ingredients;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_ingredients);
@@ -134,24 +120,17 @@ class _$IngredientListStateImpl implements _IngredientListState {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$IngredientListStateImpl &&
-            const DeepCollectionEquality()
-                .equals(other._ingredients, _ingredients) &&
-            (identical(other.loading, loading) || other.loading == loading));
+        (other.runtimeType == runtimeType && other is _$IngredientListStateImpl && const DeepCollectionEquality().equals(other._ingredients, _ingredients) && (identical(other.loading, loading) || other.loading == loading));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_ingredients), loading);
+  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(_ingredients), loading);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$IngredientListStateImplCopyWith<_$IngredientListStateImpl> get copyWith =>
-      __$$IngredientListStateImplCopyWithImpl<_$IngredientListStateImpl>(
-          this, _$identity);
+  _$$IngredientListStateImplCopyWith<_$IngredientListStateImpl> get copyWith => __$$IngredientListStateImplCopyWithImpl<_$IngredientListStateImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -162,19 +141,15 @@ class _$IngredientListStateImpl implements _IngredientListState {
 }
 
 abstract class _IngredientListState implements IngredientListState {
-  const factory _IngredientListState(
-      {required final List<Ingredients> ingredients,
-      required final bool loading}) = _$IngredientListStateImpl;
+  const factory _IngredientListState({required final List<Ingredient> ingredients, required final bool loading}) = _$IngredientListStateImpl;
 
-  factory _IngredientListState.fromJson(Map<String, dynamic> json) =
-      _$IngredientListStateImpl.fromJson;
+  factory _IngredientListState.fromJson(Map<String, dynamic> json) = _$IngredientListStateImpl.fromJson;
 
   @override
-  List<Ingredients> get ingredients;
+  List<Ingredient> get ingredients;
   @override
   bool get loading;
   @override
   @JsonKey(ignore: true)
-  _$$IngredientListStateImplCopyWith<_$IngredientListStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$IngredientListStateImplCopyWith<_$IngredientListStateImpl> get copyWith => throw _privateConstructorUsedError;
 }

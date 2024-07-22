@@ -18,13 +18,17 @@ class SignalRState with _$SignalRState {
 
   const SignalRState._();
 
-  bool isSignalTriggered({required List<Signals> signal, bool? isPreOrder}) {
+  bool isSignalTriggered({required List<Signal> signal, bool? isPreOrder}) {
     return signals.any((e) {
-      return signal.any((c) => c == e.type) && (isPreOrder == null ? true : isPreOrder == e.message[0]['is_Preorder']);
+      return signal.any((c) => c == e.type) &&
+          (isPreOrder == null
+              ? true
+              : isPreOrder == e.message[0]['is_Preorder']);
     });
   }
 
-  factory SignalRState.fromJson(Map<String, dynamic> json) => _$SignalRStateFromJson(json);
+  factory SignalRState.fromJson(Map<String, dynamic> json) =>
+      _$SignalRStateFromJson(json);
 }
 
 class SignalRCubit extends Cubit<SignalRState> {
@@ -34,7 +38,10 @@ class SignalRCubit extends Cubit<SignalRState> {
     emit(state.copyWith(signals: [...state.signals, signal]));
   }
 
-  removeSignals({required List<Signals> signal}) {
-    emit(state.copyWith(signals: state.signals.where((e) => !signal.any((c) => c == e.type)).toList()));
+  removeSignals({required List<Signal> signal}) {
+    emit(state.copyWith(
+        signals: state.signals
+            .where((e) => !signal.any((c) => c == e.type))
+            .toList()));
   }
 }

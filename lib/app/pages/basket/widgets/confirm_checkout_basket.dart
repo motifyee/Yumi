@@ -6,7 +6,7 @@ import 'package:yumi/app/pages/basket/widgets/confirm_change_location_basket.dar
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/routes/routes.gr.dart';
 
 class ConfirmCheckOutBasket extends StatelessWidget {
   const ConfirmCheckOutBasket({super.key});

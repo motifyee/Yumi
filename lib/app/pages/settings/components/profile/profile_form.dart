@@ -9,7 +9,7 @@ import 'package:yumi/core/util/constants.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/routes/routes.gr.dart';
 import 'package:yumi/validators/email_validator.dart';
 import 'package:yumi/validators/required_validator.dart';
 

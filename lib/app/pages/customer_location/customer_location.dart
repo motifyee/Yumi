@@ -3,14 +3,14 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/location_screen/location_screen.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/app/pages/customer_location/cubit/address_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/routes/routes.gr.dart';
 
 @RoutePage()
 class CustomerLocationScreen extends StatelessWidget {
@@ -83,7 +83,8 @@ class CustomerLocationScreen extends StatelessWidget {
                       },
                       child: Column(
                         children: [
-                          if (state.pagination.isLoading) const Loading(),
+                          if (state.pagination.isLoading)
+                            const PacmanLoadingWidget(),
                           if (!state.pagination.isLoading)
                             for (var i = 0; i < state.pagination.data.length; i++)
                               if (state.pagination.data[i].isDeleted != true) _LocationCard(address: state.pagination.data[i]),

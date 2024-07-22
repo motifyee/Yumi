@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
-import 'package:yumi/domain/review/entity/review.dart';
+import 'package:common_code/domain/profile/entities/review.dart';
 import 'package:yumi/generated/l10n.dart';
 
 class MyReviews extends StatelessWidget {

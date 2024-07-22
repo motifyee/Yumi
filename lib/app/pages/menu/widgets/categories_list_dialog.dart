@@ -5,8 +5,8 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_list.dart';
@@ -120,7 +120,8 @@ class CategoriesListDialog extends StatelessWidget {
                             ),
                           ),
                         ),
-                      if (state.categoriesPage.isLoading) const Loading(),
+                      if (state.categoriesPage.isLoading)
+                        const PacmanLoadingWidget(),
                     ],
                   ),
                 );

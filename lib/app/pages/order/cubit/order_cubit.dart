@@ -2,11 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart' as fpdart;
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:common_code/core/failures.dart';
-import 'package:yumi/domain/order/entity/order.dart';
-import 'package:yumi/domain/order/use_case/get_orders.dart';
-import 'package:yumi/domain/order/use_case/put_action_orders.dart';
-import 'package:yumi/extensions/string.dart';
+import 'package:common_code/domain/food_delivery/order/entity/order.dart';
+import 'package:common_code/domain/food_delivery/order/use_case/get_orders.dart';
+import 'package:common_code/domain/food_delivery/order/use_case/put_action_orders.dart';
 import 'package:yumi/global.dart';
 
 part 'order_cubit.freezed.dart';

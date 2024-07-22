@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:common_code/common_code.dart';
-import 'package:common_code/theme/theme.dart';
 import 'package:common_code/util/global_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +7,6 @@ import 'package:nested/nested.dart';
 
 class App extends StatelessWidget {
   final AppConfig config;
-  // final TransitionBuilder builder;
 
   const App({
     super.key,
@@ -25,8 +23,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // GlobalContext().setGoRouter(config.routerBuilder);
-
     return MultiBlocProvider(
       providers: config.blocProviders,
       child: MaterialApp.router(
@@ -37,6 +33,7 @@ class App extends StatelessWidget {
         //
         routerConfig: config.appRouter.config(),
         //
+        locale: config.locale,
         supportedLocales: config.supportedLocales,
         localizationsDelegates: config.localizationsDelegates,
       ),
@@ -63,9 +60,11 @@ abstract class AppConfig {
 
   RootStackRouter get appRouter;
 
-  ThemeData? get theme => defaultTheme;
+  ThemeData? get theme;
 
   List<SingleChildWidget> get blocProviders;
+
+  Locale get locale;
 
   Iterable<Locale> get supportedLocales;
 

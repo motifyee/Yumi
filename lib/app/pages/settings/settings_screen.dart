@@ -10,7 +10,7 @@ import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/routes/routes.gr.dart';
 import 'package:yumi/app/pages/settings/components/bankinfo/bankinfo_card.dart';
 
 @RoutePage()

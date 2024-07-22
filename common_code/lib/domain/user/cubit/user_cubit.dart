@@ -1,19 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/core/setup/signalr.dart';
-// import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:common_code/domain/profile/use_cases/update_status.dart';
+import 'package:common_code/domain/food_delivery/chef/use_cases/get_chef_work_status.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-// import 'package:yumi/app/yumi/config/chef/chef_signalr.dart';
-// import 'package:yumi/app/yumi/config/customer/customer_signalr.dart';
-// import 'package:yumi/app/yumi/config/driver/driver_signalr.dart';
-// import 'package:yumi/core/setup/signalr.dart';
-// import 'package:yumi/core/signal_r.dart';
-// import 'package:common_code/domain/address/entity/address.dart';
-// import 'package:yumi/domain/chef/use_cases/get_chef_work_status.dart';
-// import 'package:common_code/domain/user/entity/user.dart';
-// import 'package:yumi/global.dart';
-// import 'package:yumi/service/user_status_service.dart';
-// import 'package:yumi/statics/local_storage.dart';
 
 part 'user_cubit.freezed.dart';
 part 'user_state.dart';
@@ -34,8 +24,10 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<User?> loadUser() async {
-    Map<String, dynamic>? user = await LocalStorage.sharedRef.getValue(LocalStorage.user);
-    Map<String, dynamic>? userLocation = await LocalStorage.sharedRef.getValue(LocalStorage.userLocation);
+    Map<String, dynamic>? user =
+        await LocalStorage.sharedRef.getValue(LocalStorage.user);
+    Map<String, dynamic>? userLocation =
+        await LocalStorage.sharedRef.getValue(LocalStorage.userLocation);
 
     if (user == null) return null;
 
@@ -54,7 +46,11 @@ class UserCubit extends Cubit<UserState> {
     if (userStatus == UserStatus.online) status = 1;
     if (userStatus == UserStatus.busy) status = 2;
     try {
-      await LocalStorage.sharedRef.setValue(LocalStorage.user, state.user.copyWith(status: status));
+      //* await UserStatusService.updateStatus(status: status);
+      UpdateStatus().call(UpdateStatusParam(status));
+
+      await LocalStorage.sharedRef
+          .setValue(LocalStorage.user, state.user.copyWith(status: status));
       emit(state.copyWith(
         loading: false,
         user: state.user.copyWith(status: status),
@@ -67,14 +63,15 @@ class UserCubit extends Cubit<UserState> {
   }
 
   getStatus() async {
-    dynamic userWithStatus(int status) => state.user.copyWith(status: status).toJson();
+    dynamic userWithStatus(int status) =>
+        state.user.copyWith(status: status).toJson();
 
-    //* final params = GetChefWorkStatusParams(state.user.id);
+    final params = GetChefWorkStatusParams(state.user.id);
 
-    // await GetChefWorkStatus().call(params).then((res) => res.fold(
-    //       (l) => null,
-    //       (r) => saveUser(userWithStatus(r.index)),
-    //     ));
+    await GetChefWorkStatus().call(params).then((res) => res.fold(
+          (l) => null,
+          (r) => saveUser(userWithStatus(r.index)),
+        ));
   }
 
   Future<void> reset() async {
@@ -83,7 +80,7 @@ class UserCubit extends Cubit<UserState> {
     await LocalStorage.sharedRef.removeValue(LocalStorage.userLocation);
 
     // TODO remove to relevant logic block
-    //* Signalr.stopConnection();
+    Signalr.stopConnection();
 
     emit(const UserState());
   }

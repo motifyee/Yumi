@@ -7,7 +7,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:yumi/main.dart';
 
 import 'domain/domain_spec.dart';
 

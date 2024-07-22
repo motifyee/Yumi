@@ -14,7 +14,7 @@ ColorScheme colorScheme = ColorScheme(
   inverseSurface: CommonColors.primary,
 );
 
-ThemeData defaultTheme = ThemeData(
+ThemeData commonTheme = ThemeData(
   brightness: Brightness.light,
   fontFamily: 'Inter',
   useMaterial3: true,

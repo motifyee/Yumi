@@ -1,7 +1,6 @@
 import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
-import 'package:yumi/extensions/double.dart';
 
 class CalcBasket extends UseCase<Basket, CalcBasketParams> {
   @override

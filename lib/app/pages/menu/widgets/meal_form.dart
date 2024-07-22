@@ -7,17 +7,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredients_form_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal_form/meal_form_cubit.dart';
 import 'package:yumi/app/pages/menu/widgets/Ingredients_form.dart';
-import 'package:yumi/domain/ingredients/entity/ingredients.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/domain/meal/use_case/create_meal.dart';
-import 'package:yumi/domain/meal/use_case/get_meal_by_id.dart';
-import 'package:yumi/domain/meal/use_case/update_meal.dart';
-import 'package:yumi/extensions/double.dart';
+import 'package:common_code/domain/food_delivery/ingredients/entities/ingredient.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/profile/components/upload_photo_button.dart';
 import 'package:yumi/validators/required_validator.dart';
@@ -123,7 +119,7 @@ class MealForm extends StatelessWidget {
                         const SizedBox(height: CommonDimens.defaultLineGap),
 
                         // Ingredients
-                        BlocSelector<MealFormCubit, MealFormState, List<Ingredients>?>(
+                        BlocSelector<MealFormCubit, MealFormState, List<Ingredient>?>(
                           selector: (state) {
                             return state.mealModel.ingredients;
                           },
@@ -244,7 +240,7 @@ class MealForm extends StatelessWidget {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: state.categoriesPage.data.isEmpty
-                                      ? [const Loading()]
+                                      ? [const PacmanLoadingWidget()]
                                       : [
                                           for (var category in state.categoriesPage.data ?? [])
                                             BlocConsumer<MealFormCubit, MealFormState>(
@@ -276,7 +272,7 @@ class MealForm extends StatelessWidget {
                                             ),
                                           SizedBox(
                                             width: CommonDimens.defaultTitleGap,
-                                            child: state.categoriesPage.isLoading ? const Loading(size: CommonDimens.defaultTitleGap) : const Text(''),
+                                            child: state.categoriesPage.isLoading ? const PacmanLoadingWidget(size: CommonDimens.defaultTitleGap) : const Text(''),
                                           ),
                                         ],
                                 ),
@@ -370,7 +366,7 @@ class _SaveBTNState extends State<_SaveBTN> {
             }
           },
           child: widget.loading
-              ? const Loading(size: CommonFontSize.font_24)
+              ? const PacmanLoadingWidget(size: CommonFontSize.font_24)
               : Text(
                   S.of(context).save,
                   style: Theme.of(context).textTheme.headlineMedium,

@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/app/pages/chef_profile/cubit/review_cubit.dart';
-import 'package:yumi/domain/review/entity/review.dart';
-
 import 'package:yumi/generated/l10n.dart';
 
 class ReviewChefDriver extends StatefulWidget {
@@ -31,7 +29,7 @@ class _ReviewChefDriverState extends State<ReviewChefDriver> {
   Widget build(BuildContext context) {
     return _isLoading
         ? const Center(
-            child: Loading(),
+            child: PacmanLoadingWidget(),
           )
         : Material(
             child: Form(

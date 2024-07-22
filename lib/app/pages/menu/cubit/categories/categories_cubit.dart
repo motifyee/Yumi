@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:common_code/common_code.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:yumi/domain/categories/entity/category.dart';
-import 'package:yumi/domain/categories/use_cases/get_categories.dart';
-import 'package:yumi/domain/categories/use_cases/get_chef_categories.dart';
-import 'package:yumi/domain/categories/use_cases/get_customer_categories.dart';
-import 'package:yumi/domain/categories/use_cases/get_customer_categories_by_chef_id.dart';
+import 'package:common_code/domain/food_delivery/categories/entity/category.dart';
+import 'package:common_code/domain/food_delivery/categories/use_cases/get_categories.dart';
+import 'package:common_code/domain/food_delivery/categories/use_cases/get_chef_categories.dart';
+import 'package:common_code/domain/food_delivery/categories/use_cases/get_customer_categories.dart';
+import 'package:common_code/domain/food_delivery/categories/use_cases/get_customer_categories_by_chef_id.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/global.dart';
 

@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/order/widgets/order_action_button.dart';
 import 'package:yumi/app_target.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
-import 'package:yumi/domain/order/entity/order.dart';
-import 'package:yumi/domain/order/use_case/get_order_preorder_driver_by_id.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
+import 'package:common_code/domain/food_delivery/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/route/route.gr.dart';
+import 'package:yumi/routes/routes.gr.dart';
+import 'package:yumi/service/order_service.dart';
 import 'package:common_code/common_code.dart';
 import 'package:yumi/app/pages/order/widgets/product_in_card.dart';
 
@@ -630,7 +630,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
               child: Container(
                 decoration: BoxDecoration(color: CommonColors.shadow),
                 child: const Center(
-                  child: Loading(),
+                  child: PacmanLoadingWidget(),
                 ),
               )),
       ],

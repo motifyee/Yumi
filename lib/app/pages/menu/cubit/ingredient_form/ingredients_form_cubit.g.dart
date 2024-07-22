@@ -10,7 +10,7 @@ _$IngredientsStateImpl _$$IngredientsStateImplFromJson(
         Map<String, dynamic> json) =>
     _$IngredientsStateImpl(
       ingredientsModelList: (json['ingredientsModelList'] as List<dynamic>)
-          .map((e) => Ingredients.fromJson(e as Map<String, dynamic>))
+          .map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

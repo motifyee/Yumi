@@ -3,8 +3,8 @@ import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:common_code/core/failures.dart';
 import 'package:common_code/core/use_cases.dart';
-import 'package:yumi/domain/wallet/entity/wallet.dart';
-import 'package:yumi/domain/wallet/use_case/get_wallet.dart';
+import 'package:common_code/domain/wallet/entity/wallet.dart';
+import 'package:common_code/domain/wallet/use_case/get_wallet.dart';
 import 'package:yumi/global.dart';
 
 part 'wallet_cubit.freezed.dart';

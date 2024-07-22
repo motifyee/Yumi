@@ -13,6 +13,7 @@ import 'package:common_code/common_code.dart';
 
 Future init() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // to work with custom domains
@@ -21,6 +22,7 @@ Future init() async {
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   WakelockPlus.enable();
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   // Bloc.observer = SimpleBlocObserver();

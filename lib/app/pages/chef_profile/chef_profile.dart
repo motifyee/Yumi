@@ -3,15 +3,15 @@ import 'dart:typed_data';
 import 'package:auto_route/annotations.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:common_code/common_code.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
 import 'package:yumi/app/pages/chef_profile/cubit/review_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
-import 'package:yumi/domain/chef/entity/chef.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:common_code/domain/food_delivery/chef/entity/chef.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/chef_profile/components/category_card.dart';
 import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';
@@ -172,7 +172,7 @@ class ChefProfileScreen extends StatelessWidget {
                                             )
                                         ],
                                       ),
-                                      if (state.pagination.isLoading) const Loading(),
+                                      if (state.pagination.isLoading) const PacmanLoadingWidget(),
                                     ],
                                   ),
                                 );
@@ -215,7 +215,7 @@ class ChefProfileScreen extends StatelessWidget {
                                       children: [
                                         for (var category in state.categoriesPage.data) CategoriesCard(category: category),
                                         if (state.categoriesPage.isLoading)
-                                          const Loading(
+                                          const PacmanLoadingWidget(
                                             size: CommonDimens.defaultBlockGap,
                                           ),
                                       ],
@@ -237,7 +237,7 @@ class ChefProfileScreen extends StatelessWidget {
                                 return BlocBuilder<ReviewCubit, ReviewState>(
                                   builder: (context, state) {
                                     return state.pagination.isLoading
-                                        ? const Loading(size: CommonDimens.defaultBlockGap)
+                                        ? const PacmanLoadingWidget(size: CommonDimens.defaultBlockGap)
                                         : Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -333,7 +333,7 @@ class ChefProfileScreen extends StatelessWidget {
                                           padding: const EdgeInsets.all(CommonDimens.defaultGap),
                                           child: ReviewCard(review: review),
                                         ),
-                                      if (state.pagination.isLoading) const Loading(),
+                                      if (state.pagination.isLoading) const PacmanLoadingWidget(),
                                     ],
                                   ),
                                 );

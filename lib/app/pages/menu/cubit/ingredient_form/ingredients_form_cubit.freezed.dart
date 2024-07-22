@@ -20,7 +20,7 @@ IngredientsFormState _$IngredientsFormStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$IngredientsFormState {
-  List<Ingredients> get ingredientsModelList =>
+  List<Ingredient> get ingredientsModelList =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $IngredientsFormStateCopyWith<$Res> {
           $Res Function(IngredientsFormState) then) =
       _$IngredientsFormStateCopyWithImpl<$Res, IngredientsFormState>;
   @useResult
-  $Res call({List<Ingredients> ingredientsModelList});
+  $Res call({List<Ingredient> ingredientsModelList});
 }
 
 /// @nodoc
@@ -58,7 +58,7 @@ class _$IngredientsFormStateCopyWithImpl<$Res,
       ingredientsModelList: null == ingredientsModelList
           ? _value.ingredientsModelList
           : ingredientsModelList // ignore: cast_nullable_to_non_nullable
-              as List<Ingredients>,
+              as List<Ingredient>,
     ) as $Val);
   }
 }
@@ -71,7 +71,7 @@ abstract class _$$IngredientsStateImplCopyWith<$Res>
       __$$IngredientsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Ingredients> ingredientsModelList});
+  $Res call({List<Ingredient> ingredientsModelList});
 }
 
 /// @nodoc
@@ -91,7 +91,7 @@ class __$$IngredientsStateImplCopyWithImpl<$Res>
       ingredientsModelList: null == ingredientsModelList
           ? _value._ingredientsModelList
           : ingredientsModelList // ignore: cast_nullable_to_non_nullable
-              as List<Ingredients>,
+              as List<Ingredient>,
     ));
   }
 }
@@ -100,15 +100,15 @@ class __$$IngredientsStateImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$IngredientsStateImpl implements _IngredientsState {
   const _$IngredientsStateImpl(
-      {required final List<Ingredients> ingredientsModelList})
+      {required final List<Ingredient> ingredientsModelList})
       : _ingredientsModelList = ingredientsModelList;
 
   factory _$IngredientsStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$IngredientsStateImplFromJson(json);
 
-  final List<Ingredients> _ingredientsModelList;
+  final List<Ingredient> _ingredientsModelList;
   @override
-  List<Ingredients> get ingredientsModelList {
+  List<Ingredient> get ingredientsModelList {
     if (_ingredientsModelList is EqualUnmodifiableListView)
       return _ingredientsModelList;
     // ignore: implicit_dynamic_type
@@ -151,14 +151,14 @@ class _$IngredientsStateImpl implements _IngredientsState {
 
 abstract class _IngredientsState implements IngredientsFormState {
   const factory _IngredientsState(
-          {required final List<Ingredients> ingredientsModelList}) =
+          {required final List<Ingredient> ingredientsModelList}) =
       _$IngredientsStateImpl;
 
   factory _IngredientsState.fromJson(Map<String, dynamic> json) =
       _$IngredientsStateImpl.fromJson;
 
   @override
-  List<Ingredients> get ingredientsModelList;
+  List<Ingredient> get ingredientsModelList;
   @override
   @JsonKey(ignore: true)
   _$$IngredientsStateImplCopyWith<_$IngredientsStateImpl> get copyWith =>

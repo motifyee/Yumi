@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
-import 'package:yumi/domain/profile/entities/profile.dart';
-import 'package:yumi/domain/profile/use_cases/update_profile.dart';
+import 'package:common_code/domain/profile/entities/profile.dart';
+import 'package:common_code/domain/profile/use_cases/update_profile.dart';
 import 'package:yumi/global.dart';
 
 part 'profile_form_cubit.freezed.dart';

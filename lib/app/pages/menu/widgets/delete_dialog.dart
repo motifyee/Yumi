@@ -4,7 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/generated/l10n.dart';
 
 class DeleteDialogTemplate extends StatefulWidget {
@@ -69,7 +69,7 @@ class _DeleteDialogTemplateState extends State<DeleteDialogTemplate> {
             child: isDeletingLoading
                 ? const SizedBox(
                     width: CommonDimens.defaultTitleGapLarge,
-                    child: Loading(
+                    child: PacmanLoadingWidget(
                       size: CommonDimens.defaultBlockGap,
                     ),
                   )

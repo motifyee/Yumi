@@ -2,11 +2,11 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:common_code/components/loading_indicator/loading.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/components/page_view/cubit/page_view_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
-import 'package:yumi/domain/chef/entity/chef_work_status.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:common_code/domain/food_delivery/chef/entity/chef_work_status.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/generated/l10n.dart';
@@ -185,7 +185,7 @@ class _ChefListStatus extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            if (state.chefsPagination.isLoading) const Loading(),
+                            if (state.chefsPagination.isLoading) const PacmanLoadingWidget(),
                             if (state.chefs.isEmpty)
                               const SizedBox(
                                 height: CommonDimens.defaultImageHeightSmall + CommonDimens.defaultMediumGap,

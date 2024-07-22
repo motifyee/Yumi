@@ -5,10 +5,10 @@ import 'package:yumi/app/components/page_view/cubit/page_view_cubit.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:common_code/core/setup/signalr.dart';
-import 'package:yumi/domain/meal/entity/meal.dart';
+import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
-import 'package:yumi/domain/order/entity/order.dart';
+import 'package:common_code/domain/food_delivery/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:common_code/common_code.dart';
@@ -38,11 +38,11 @@ class ChefOrder extends StatelessWidget {
                         key: key,
                         label: S.of(context).pending,
                         isActive: state.selectedList == 0,
-                        isNotificationIconShow: states.isSignalTriggered(signal: [Signals.neworderreceived], isPreOrder: menuTarget == MenuTarget.preOrder),
+                        isNotificationIconShow: states.isSignalTriggered(signal: [Signal.neworderreceived], isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
                           context.read<PageViewCubit>().updateSelect(selectedList: 0);
                           controller.jumpToPage(0);
-                          context.read<SignalRCubit>().removeSignals(signal: [Signals.neworderreceived]);
+                          context.read<SignalRCubit>().removeSignals(signal: [Signal.neworderreceived]);
                         },
                       ),
                     ActionButton(
@@ -50,15 +50,15 @@ class ChefOrder extends StatelessWidget {
                       label: S.of(context).received,
                       isActive: state.selectedList == 1,
                       isNotificationIconShow: states.isSignalTriggered(signal: [
-                        Signals.driveraccept,
-                        if (menuTarget == MenuTarget.order) Signals.neworderreceived,
+                        Signal.driveraccept,
+                        if (menuTarget == MenuTarget.order) Signal.neworderreceived,
                       ], isPreOrder: menuTarget == MenuTarget.preOrder),
                       onPressed: () {
                         context.read<PageViewCubit>().updateSelect(selectedList: 1);
                         controller.jumpToPage(1);
                         context.read<SignalRCubit>().removeSignals(signal: [
-                          Signals.driveraccept,
-                          if (menuTarget == MenuTarget.order) Signals.neworderreceived,
+                          Signal.driveraccept,
+                          if (menuTarget == MenuTarget.order) Signal.neworderreceived,
                         ]);
                       },
                     ),
@@ -107,7 +107,7 @@ class ChefOrder extends StatelessWidget {
                   menuTarget: menuTarget,
                   apiKey: EndPoints.preOrderChefReceived,
                   orderCardTargetPage: OrderCardTargetPage.chefPending,
-                  signals: const [Signals.neworderreceived, Signals.driveraccept],
+                  signals: const [Signal.neworderreceived, Signal.driveraccept],
                   navFun: () {
                     context.read<PageViewCubit>().updateSelect(selectedList: 1);
                     controller.jumpToPage(1);
@@ -121,8 +121,8 @@ class ChefOrder extends StatelessWidget {
                   apiKey: menuTarget == MenuTarget.order ? EndPoints.orderChefReceived : EndPoints.preOrderChefAccepted,
                   orderCardTargetPage: OrderCardTargetPage.chefReceived,
                   signals: [
-                    Signals.driveraccept,
-                    if (menuTarget == MenuTarget.order) Signals.neworderreceived,
+                    Signal.driveraccept,
+                    if (menuTarget == MenuTarget.order) Signal.neworderreceived,
                   ],
                   navFun: () {
                     context.read<PageViewCubit>().updateSelect(selectedList: 2);
@@ -139,7 +139,7 @@ class ChefOrder extends StatelessWidget {
                   menuTarget: menuTarget,
                   apiKey: menuTarget == MenuTarget.order ? EndPoints.orderChefPreparing : EndPoints.preOrderChefPreparing,
                   orderCardTargetPage: OrderCardTargetPage.chefPreparing,
-                  signals: const [Signals.chefstart, Signals.clientcancel],
+                  signals: const [Signal.chefstart, Signal.clientcancel],
                   navFun: () {
                     context.read<PageViewCubit>().updateSelect(selectedList: 3);
                     controller.jumpToPage(3);
@@ -155,7 +155,7 @@ class ChefOrder extends StatelessWidget {
                   menuTarget: menuTarget,
                   apiKey: menuTarget == MenuTarget.order ? EndPoints.orderChefReady : EndPoints.preOrderChefReady,
                   orderCardTargetPage: OrderCardTargetPage.chefReady,
-                  signals: const [Signals.cheffinished],
+                  signals: const [Signal.cheffinished],
                   navFun: () {
                     context.read<PageViewCubit>().updateSelect(selectedList: 1);
                     controller.jumpToPage(1);
@@ -168,7 +168,7 @@ class ChefOrder extends StatelessWidget {
                   menuTarget: menuTarget,
                   apiKey: menuTarget == MenuTarget.order ? EndPoints.orderChefClosed : EndPoints.preOrderChefClosed,
                   orderCardTargetPage: OrderCardTargetPage.chefHistory,
-                  signals: const [Signals.clientreceived, Signals.driverreceived],
+                  signals: const [Signal.clientreceived, Signal.driverreceived],
                 ),
               ),
             ],
