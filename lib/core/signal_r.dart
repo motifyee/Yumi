@@ -16,6 +16,7 @@ class GlobalSignalR {
 }
 
 void initializeSignalr() {
+  print('initializeSignalr ...........');
   final userCubit = G().rd<UserCubit>();
 
   Signalr.accessToken = userCubit.state.user.accessToken;

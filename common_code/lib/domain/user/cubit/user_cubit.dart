@@ -24,10 +24,8 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<User?> loadUser() async {
-    Map<String, dynamic>? user =
-        await LocalStorage.sharedRef.getValue(LocalStorage.user);
-    Map<String, dynamic>? userLocation =
-        await LocalStorage.sharedRef.getValue(LocalStorage.userLocation);
+    Map<String, dynamic>? user = await LocalStorage.sharedRef.getValue(LocalStorage.user);
+    Map<String, dynamic>? userLocation = await LocalStorage.sharedRef.getValue(LocalStorage.userLocation);
 
     if (user == null) return null;
 
@@ -49,8 +47,7 @@ class UserCubit extends Cubit<UserState> {
       //* await UserStatusService.updateStatus(status: status);
       UpdateStatus().call(UpdateStatusParam(status));
 
-      await LocalStorage.sharedRef
-          .setValue(LocalStorage.user, state.user.copyWith(status: status));
+      await LocalStorage.sharedRef.setValue(LocalStorage.user, state.user.copyWith(status: status));
       emit(state.copyWith(
         loading: false,
         user: state.user.copyWith(status: status),
@@ -63,8 +60,7 @@ class UserCubit extends Cubit<UserState> {
   }
 
   getStatus() async {
-    dynamic userWithStatus(int status) =>
-        state.user.copyWith(status: status).toJson();
+    dynamic userWithStatus(int status) => state.user.copyWith(status: status).toJson();
 
     final params = GetChefWorkStatusParams(state.user.id);
 

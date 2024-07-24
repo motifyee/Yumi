@@ -5,6 +5,7 @@ import 'package:yumi/app/pages/auth/forgot_password/forgot_password_sheet.dart';
 import 'package:yumi/app/pages/auth/login/cubit/login_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
+import 'package:yumi/core/signal_r.dart';
 
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
@@ -36,9 +37,8 @@ class LoginForm extends StatelessWidget {
 
     G().rd<UserCubit>().loadUser().then((user) async {
       if (user == null) return;
-
-      if (await regCubit.hasActiveRegisteration() &&
-          userCubit.state.user.accessToken.isNotEmpty) {
+      initializeSignalr();
+      if (await regCubit.hasActiveRegisteration() && userCubit.state.user.accessToken.isNotEmpty) {
         await regCubit.initReg();
       }
     });
@@ -46,8 +46,7 @@ class LoginForm extends StatelessWidget {
     return Form(
       key: loginFormKey,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: CommonDimens.formFieldInlineGap),
+        padding: const EdgeInsets.symmetric(horizontal: CommonDimens.formFieldInlineGap),
         child: Column(
           children: [
             // fields
@@ -59,9 +58,7 @@ class LoginForm extends StatelessWidget {
                   label: S.of(context).email,
                   validators: emailValidator,
                   autoHint: const [AutofillHints.username],
-                  onSave: (value) => context
-                      .read<LoginCubit>()
-                      .setLoginData((m) => m.copyWith(email: value ?? '')),
+                  onSave: (value) => context.read<LoginCubit>().setLoginData((m) => m.copyWith(email: value ?? '')),
                 ),
 
                 const SizedBox(height: CommonDimens.formFieldGap),
@@ -71,9 +68,7 @@ class LoginForm extends StatelessWidget {
                   label: S.of(context).password,
                   validators: passwordValidator,
                   autoHint: const [AutofillHints.password],
-                  onSave: (value) => context
-                      .read<LoginCubit>()
-                      .setLoginData((m) => m.copyWith(password: value ?? '')),
+                  onSave: (value) => context.read<LoginCubit>().setLoginData((m) => m.copyWith(password: value ?? '')),
                   isPassword: true,
                 ),
               ],
@@ -96,11 +91,7 @@ class LoginForm extends StatelessWidget {
                       ),
                     );
                   },
-                  style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      minimumSize: const Size(80, 20),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      alignment: Alignment.centerLeft),
+                  style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: const Size(80, 20), tapTargetSize: MaterialTapTargetSize.shrinkWrap, alignment: Alignment.centerLeft),
                   child: Text(
                     "${S.of(context).forgetPassword}?",
                     style: Theme.of(context).textTheme.headlineMedium,
@@ -131,8 +122,7 @@ class LoginForm extends StatelessWidget {
   }
 }
 
-Future performLogin(BuildContext context, LoginData loginForm,
-    [String? route]) async {
+Future performLogin(BuildContext context, LoginData loginForm, [String? route]) async {
   // return await LoginServices.login(login: loginForm, context: context)
   //     .then((user) async {
   //   if ((user.accessToken).isEmpty) {

@@ -63,7 +63,7 @@ Future<void> _initPaymentSheet({required StripeModel stripe}) async {
       style: ThemeMode.light,
       allowsRemovalOfLastSavedPaymentMethod: true,
       removeSavedPaymentMethodMessage: 'removeSavedPaymentMethodMessage',
-      billingDetailsCollectionConfiguration: BillingDetailsCollectionConfiguration(name: CollectionMode.always, email: CollectionMode.always, attachDefaultsToPaymentMethod: true),
+      // billingDetailsCollectionConfiguration: BillingDetailsCollectionConfiguration(name: CollectionMode.always, email: CollectionMode.always, attachDefaultsToPaymentMethod: true),
       setupIntentClientSecret: stripe.clientSecret,
       paymentIntentClientSecret: stripe.clientSecret,
       merchantDisplayName: StripeKeys.appName,
