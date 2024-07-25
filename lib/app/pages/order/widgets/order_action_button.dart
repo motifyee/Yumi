@@ -130,6 +130,14 @@ class OrderPutActions {
         isWaiting: widget.order.isPickUp != true && widget.order.driverAccept != true,
       );
 
+  static chefCancelPreOrder({required dynamic widget}) => OrderPutActionConfig(
+        apiKey: EndPoints.cancelChefOrder,
+        order: widget.order,
+        getApiKey: widget.getApiKey,
+        text: S.current.cancel,
+        customMessage: S.current.orderCanceled,
+      );
+
   static chefAcceptPreorder({required dynamic widget}) => OrderPutActionConfig(
         cannotPress: widget.order.isPickUp != true && widget.order.driverAccept != true,
         apiKey: widget.order.isPickUp == true ? EndPoints.preOrderChefPickUpAccept : EndPoints.preOrderChefDeliveryAccept,

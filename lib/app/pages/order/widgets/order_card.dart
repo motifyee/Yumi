@@ -437,16 +437,13 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
 
                           // chef start order
                           if (widget.orderCardTargetPage == OrderCardTargetPage.chefReceived) PutActionButton(config: OrderPutActions.chefStartOrder(widget: widget)),
+                          if (widget.orderCardTargetPage == OrderCardTargetPage.chefReceived && widget.menuTarget == MenuTarget.preOrder) PutActionButton(config: OrderPutActions.chefCancelPreOrder(widget: widget)),
 
                           // chef accept preorder
                           if (widget.orderCardTargetPage == OrderCardTargetPage.chefPending && widget.menuTarget == MenuTarget.preOrder)
                             Row(
                               children: [
-                                TimerCount(
-                                  menuTarget: widget.menuTarget,
-                                  order: widget.order,
-                                  isOver3hCount: true,
-                                ),
+                                TimerCount(menuTarget: widget.menuTarget, order: widget.order, isOver3hCount: true),
                                 PutActionButton(config: OrderPutActions.chefAcceptPreorder(widget: widget)),
                               ],
                             ),
