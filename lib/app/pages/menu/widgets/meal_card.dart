@@ -101,7 +101,7 @@ class MealCard extends StatelessWidget {
                       //     isPreOrder: menuTarget == MenuTarget.preOrder,
                       //     isAll: false));
                       context.read<MealCubit>().reset(menuTarget: menuTarget);
-                      context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId);
+                      context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId, menuTarget: menuTarget);
                     });
                   },
                   child: Row(
@@ -146,7 +146,7 @@ class MealCard extends StatelessWidget {
                                       );
 
                                   context.read<MealCubit>().reset(menuTarget: meal.isPreOrder == true ? MenuTarget.preOrder : MenuTarget.order);
-                                  context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId);
+                                  context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId, menuTarget: menuTarget);
                                   Navigator.of(context).pop();
                                   return true;
                                 });

@@ -185,7 +185,7 @@ class MenuTemplate extends StatelessWidget {
                         isPreOrder: menuTarget == MenuTarget.preOrder,
                       );
                   context.read<MealCubit>().reset(menuTarget: menuTarget);
-                  context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId);
+                  context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId, menuTarget: menuTarget);
                 });
               },
               child: Container(
