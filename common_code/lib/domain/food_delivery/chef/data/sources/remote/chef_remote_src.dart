@@ -56,18 +56,9 @@ class ChefRemoteSrc implements ChefSrc {
           EndPoints.getApiKeyString(
             apiKey: isPreOrder ? EndPoints.chefsPreOrder : EndPoints.chefsOrder,
           ),
-          queryParameters: {
-            ...pagination.toJson(),
-            'status_Work': isPreOrder
-                ? null
-                : workStatus?.index ?? ChefWorkStatus.open.index,
-            'latitude': latitude,
-            'longitude': longitude
-          }..removeWhere((key, value) => value == null));
+          queryParameters: {...pagination.toJson(), 'status_Work': isPreOrder ? null : workStatus?.index ?? ChefWorkStatus.open.index, 'latitude': latitude, 'longitude': longitude}..removeWhere((key, value) => value == null));
 
-      final chefs = (res.data['data'] as List<dynamic>)
-          .map((e) => Chef.fromJson({...e, ...e['chef']}))
-          .toList();
+      final chefs = (res.data['data'] as List<dynamic>).map((e) => Chef.fromJson({...e, ...e['chef']})).toList();
 
       return PaginatedData<Chef>(
         data: chefs,
@@ -90,16 +81,14 @@ class ChefRemoteSrc implements ChefSrc {
         queryParameters: {...pagination.toJson()},
       );
 
-      final chefs = (res.data['data'] as List<dynamic>)
-          .map<Chef>((e) => Chef.fromJson({...e, ...e['chef']}))
-          .toList();
+      List<Chef> chefs = res.data['data'].map<Chef>((e) => Chef.fromJson({...e, ...e['chef']})).toList();
 
       return PaginatedData<Chef>(
         data: chefs,
         isLoading: false,
         pageNumber: res.data['pagination']['page'],
         lastPage: res.data['pagination']['pages'],
-        total: res.data['count'],
+        total: res.data['pagination']['total'],
       );
     } catch (e) {
       throw ServerException(e as DioException);
