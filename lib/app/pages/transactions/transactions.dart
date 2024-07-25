@@ -41,12 +41,10 @@ class TransactionsScreen extends StatelessWidget {
           body: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: CommonDimens.defaultLineGap),
+                padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultLineGap),
                 child: Row(
                   children: [
-                    SvgPicture.asset(
-                        'assets/images/transaction_wallet_icon.svg'),
+                    SvgPicture.asset('assets/images/transaction_wallet_icon.svg'),
                     const Text('  '),
                     Text(
                       S.of(context).transactions,
@@ -60,8 +58,7 @@ class TransactionsScreen extends StatelessWidget {
                 child: PaginationTemplate(
                   scrollDirection: Axis.vertical,
                   loadDate: () {
-                    context.read<TransactionCubit>().getAllTransactions(
-                        userId: context.read<UserCubit>().state.user.id);
+                    context.read<TransactionCubit>().getAllTransactions(userId: context.read<UserCubit>().state.user.id);
                   },
                   child: BlocBuilder<TransactionCubit, TransactionState>(
                     builder: (context, state) {
@@ -70,52 +67,33 @@ class TransactionsScreen extends StatelessWidget {
                           for (Transaction transaction in state.pagination.data)
                             if (transaction.credit != null)
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: CommonDimens.defaultGap,
-                                    horizontal: CommonDimens.defaultGap),
+                                padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap, horizontal: CommonDimens.defaultGap),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      color: CommonColors.backgroundTant),
+                                  decoration: BoxDecoration(color: CommonColors.backgroundTant),
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal:
-                                            CommonDimens.defaultBlockGap,
-                                        vertical: CommonDimens.defaultLineGap),
+                                    padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultBlockGap, vertical: CommonDimens.defaultLineGap),
                                     child: Row(
                                       children: [
                                         Expanded(
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                  transaction.journalType ?? '',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyMedium),
-                                              Text('- ${transaction.guid}',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyMedium),
+                                              Text(transaction.journalType ?? '', style: Theme.of(context).textTheme.bodyMedium),
+                                              Text('- ${transaction.guid}', style: Theme.of(context).textTheme.bodyMedium),
                                             ],
                                           ),
                                         ),
                                         TextCurrency(
-                                          prefix: transaction.debit! > 0
-                                              ? null
-                                              : ' - ',
-                                          value: transaction.debit! > 0
-                                              ? transaction.debit!
-                                              : transaction.credit!,
+                                          value: transaction.debit! == 0 ? transaction.credit! : transaction.debit!,
                                           fontSize: CommonFontSize.font_12,
+                                          fontColor: transaction.debit! == 0 ? CommonColors.primary : CommonColors.secondary,
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
                               ),
-                          if (state.pagination.isLoading)
-                            const PacmanLoadingWidget(),
+                          if (state.pagination.isLoading) const PacmanLoadingWidget(),
                         ],
                       );
                     },
