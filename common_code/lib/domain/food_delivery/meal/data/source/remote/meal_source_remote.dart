@@ -36,7 +36,7 @@ class MealSourceRemote extends MealSource {
     }
     List<Meal> data;
     try {
-      data = res.data['data'].map<Meal>((e) => Meal.fromJson({...e, ...e['meal'], 'id': e['productId'], 'isFavoritProduct': true})).toList();
+      data = res.data['data'].map<Meal>((e) => Meal.fromJson({...?e, ...e?['meal'], 'id': e?['meal']?['id'] ?? e?['productId'], 'isFavoritProduct': true})).toList();
     } catch (e) {
       throw GenericException(e.toString());
     }
@@ -65,7 +65,7 @@ class MealSourceRemote extends MealSource {
     } catch (e) {
       throw ServerException((e as DioException));
     }
-    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson({...e, ...e['meal'], 'id': e['productId']})).toList();
+    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson({...?e, ...e?['meal'], 'id': e?['meal']?['id'] ?? e?['productId']})).toList();
 
     return pagination.copyWith(data: <Meal>[...pagination.data, ...data].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
@@ -80,7 +80,7 @@ class MealSourceRemote extends MealSource {
       throw ServerException((e as DioException));
     }
 
-    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson({...e, ...e['meal'], 'id': e['productId']})).toList();
+    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson({...?e, ...e?['meal'], 'id': e?['meal']?['id'] ?? e?['productId']})).toList();
 
     return pagination.copyWith(data: <Meal>[...pagination.data, ...data].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
@@ -93,7 +93,7 @@ class MealSourceRemote extends MealSource {
     } catch (e) {
       throw ServerException((e as DioException));
     }
-    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson({...e, ...e['meal'], 'id': e['productId']})).toList();
+    List<Meal> data = res.data['data'].map<Meal>((e) => Meal.fromJson({...?e, ...e?['meal'], 'id': e?['meal']?['id'] ?? e?['productId']})).toList();
 
     return pagination.copyWith(data: <Meal>[...pagination.data, ...data].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
   }
@@ -115,7 +115,7 @@ class MealSourceRemote extends MealSource {
 
     List data = (res.data['data'] as List);
     final meals = data.map<Meal>((e) {
-      return Meal.fromJson({...e, ...e?['meal'], 'id': e?['meal']?['id'] ?? e?['productId']});
+      return Meal.fromJson({...?e, ...e?['meal'], 'id': e?['meal']?['id'] ?? e?['productId']});
     }).toList();
 
     return pagination.copyWith(data: <Meal>[...pagination.data, ...meals].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;

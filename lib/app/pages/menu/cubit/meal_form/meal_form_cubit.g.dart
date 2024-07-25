@@ -9,9 +9,11 @@ part of 'meal_form_cubit.dart';
 _$MealFormStateImpl _$$MealFormStateImplFromJson(Map<String, dynamic> json) =>
     _$MealFormStateImpl(
       mealModel: Meal.fromJson(json['mealModel'] as Map<String, dynamic>),
+      isLoading: json['isLoading'] as bool,
     );
 
 Map<String, dynamic> _$$MealFormStateImplToJson(_$MealFormStateImpl instance) =>
     <String, dynamic>{
       'mealModel': instance.mealModel,
+      'isLoading': instance.isLoading,
     };

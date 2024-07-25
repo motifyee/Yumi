@@ -21,6 +21,7 @@ MealFormState _$MealFormStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MealFormState {
   Meal get mealModel => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $MealFormStateCopyWith<$Res> {
           MealFormState value, $Res Function(MealFormState) then) =
       _$MealFormStateCopyWithImpl<$Res, MealFormState>;
   @useResult
-  $Res call({Meal mealModel});
+  $Res call({Meal mealModel, bool isLoading});
 
   $MealCopyWith<$Res> get mealModel;
 }
@@ -53,12 +54,17 @@ class _$MealFormStateCopyWithImpl<$Res, $Val extends MealFormState>
   @override
   $Res call({
     Object? mealModel = null,
+    Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
       mealModel: null == mealModel
           ? _value.mealModel
           : mealModel // ignore: cast_nullable_to_non_nullable
               as Meal,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -79,7 +85,7 @@ abstract class _$$MealFormStateImplCopyWith<$Res>
       __$$MealFormStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Meal mealModel});
+  $Res call({Meal mealModel, bool isLoading});
 
   @override
   $MealCopyWith<$Res> get mealModel;
@@ -97,12 +103,17 @@ class __$$MealFormStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? mealModel = null,
+    Object? isLoading = null,
   }) {
     return _then(_$MealFormStateImpl(
       mealModel: null == mealModel
           ? _value.mealModel
           : mealModel // ignore: cast_nullable_to_non_nullable
               as Meal,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -110,17 +121,19 @@ class __$$MealFormStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$MealFormStateImpl implements _MealFormState {
-  const _$MealFormStateImpl({required this.mealModel});
+  const _$MealFormStateImpl({required this.mealModel, required this.isLoading});
 
   factory _$MealFormStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$MealFormStateImplFromJson(json);
 
   @override
   final Meal mealModel;
+  @override
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'MealFormState(mealModel: $mealModel)';
+    return 'MealFormState(mealModel: $mealModel, isLoading: $isLoading)';
   }
 
   @override
@@ -129,12 +142,14 @@ class _$MealFormStateImpl implements _MealFormState {
         (other.runtimeType == runtimeType &&
             other is _$MealFormStateImpl &&
             (identical(other.mealModel, mealModel) ||
-                other.mealModel == mealModel));
+                other.mealModel == mealModel) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, mealModel);
+  int get hashCode => Object.hash(runtimeType, mealModel, isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -151,14 +166,17 @@ class _$MealFormStateImpl implements _MealFormState {
 }
 
 abstract class _MealFormState implements MealFormState {
-  const factory _MealFormState({required final Meal mealModel}) =
-      _$MealFormStateImpl;
+  const factory _MealFormState(
+      {required final Meal mealModel,
+      required final bool isLoading}) = _$MealFormStateImpl;
 
   factory _MealFormState.fromJson(Map<String, dynamic> json) =
       _$MealFormStateImpl.fromJson;
 
   @override
   Meal get mealModel;
+  @override
+  bool get isLoading;
   @override
   @JsonKey(ignore: true)
   _$$MealFormStateImplCopyWith<_$MealFormStateImpl> get copyWith =>

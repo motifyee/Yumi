@@ -8,17 +8,17 @@ part of 'signal_r.dart';
 
 _$SignalRMImpl _$$SignalRMImplFromJson(Map<String, dynamic> json) =>
     _$SignalRMImpl(
-      type: $enumDecode(_$SignalsEnumMap, json['type']),
+      type: $enumDecode(_$SignalEnumMap, json['type']),
       message: json['message'],
     );
 
 Map<String, dynamic> _$$SignalRMImplToJson(_$SignalRMImpl instance) =>
     <String, dynamic>{
-      'type': _$SignalsEnumMap[instance.type]!,
+      'type': _$SignalEnumMap[instance.type]!,
       'message': instance.message,
     };
 
-const _$SignalsEnumMap = {
+const _$SignalEnumMap = {
   Signal.sendmessage: 'sendmessage',
   Signal.receivemessage: 'receivemessage',
   Signal.updatechefstatus: 'updatechefstatus',
