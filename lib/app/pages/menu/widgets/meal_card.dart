@@ -91,15 +91,11 @@ class MealCard extends StatelessWidget {
                               ),
                             )).then((onValue) {
                       context.read<CategoriesCubit>().reset();
-                      // .add(ResetCategoryEvent());
 
                       context.read<CategoriesCubit>().getChefCategories(
                             isPreOrder: menuTarget == MenuTarget.preOrder,
                           );
-                      // .add(GetCategoriesEvent(
-                      //     context: context,
-                      //     isPreOrder: menuTarget == MenuTarget.preOrder,
-                      //     isAll: false));
+
                       context.read<MealCubit>().reset(menuTarget: menuTarget);
                       context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId, menuTarget: menuTarget);
                     });
@@ -130,15 +126,17 @@ class MealCard extends StatelessWidget {
                                 final task = await DeleteMeal().call(DeleteMealParams(meal: meal));
 
                                 return task.fold((l) {
+                                  isDeleting = false;
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: SnackBarMassage(
-                                        massage: (l as DioException).response?.data['message'],
+                                        massage: l.error ?? '',
                                       ),
                                     ),
                                   );
                                   return true;
                                 }, (r) {
+                                  isDeleting = false;
                                   context.read<CategoriesCubit>().reset();
 
                                   context.read<CategoriesCubit>().getChefCategories(
