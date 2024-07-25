@@ -32,6 +32,7 @@ class BankInfoRemoteSrc implements BankInfoSrc {
       );
 
       final banks = res.data['data'] as List<dynamic>;
+      if (banks.isEmpty) return const BankInfo();
       return BankInfo.fromJson(banks.first);
     } catch (e) {
       throw ServerException(e as DioException);
