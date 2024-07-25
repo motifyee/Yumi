@@ -112,10 +112,9 @@ class MealSourceRemote extends MealSource {
     } catch (e) {
       throw ServerException((e as DioException));
     }
-
-    List data = (res.data['data'] as List);
-    final meals = data.map<Meal>((e) {
-      return Meal.fromJson({...?e, ...e?['meal'], 'id': e?['meal']?['id'] ?? e?['productId']});
+    print('getMealsByChefByCategory ..............');
+    final meals = res.data['data'].map<Meal>((e) {
+      return Meal.fromJson({...?e, ...e?['product'], 'id': e?['meal']?['id'] ?? e?['productId'] ?? e?['product']['id']});
     }).toList();
 
     return pagination.copyWith(data: <Meal>[...pagination.data, ...meals].unique((e) => e.id), isLoading: false, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages']) as PaginatedData<Meal>;
