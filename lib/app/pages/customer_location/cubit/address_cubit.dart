@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:common_code/common_code.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:common_code/util/global_context.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/domain/address/use_case/delete_address.dart';
 import 'package:yumi/domain/address/use_case/get_addresses.dart';
@@ -34,14 +36,17 @@ class AddressCubit extends Cubit<AddressState> {
   }
 
   updateDefaultAddress({required Address address}) async {
-    if (!state.pagination.canRequest) return;
+    if (state.pagination.isLoading) return;
     emit(state.copyWith.pagination(isLoading: true));
     final task = await UpdateDefaultAddress().call(UpdateDefaultAddressParams(pagination: state.pagination, address: address, queryParameters: null));
-    task.fold((l) => GlobalContext().snackBar(l.error ?? S.current.apiError), (r) => emit(state.copyWith(pagination: r)));
+    task.fold((l) => GlobalContext().snackBar(l.error ?? S.current.apiError), (r) {
+      GlobalContext().context.read<UserCubit>().saveLocation(address);
+      emit(state.copyWith(pagination: r));
+    });
   }
 
   deleteAddress({required Address address}) async {
-    if (!state.pagination.canRequest) return;
+    if (state.pagination.isLoading) return;
     emit(state.copyWith.pagination(isLoading: true));
     final task = await DeleteAddress().call(DeleteAddressParams(pagination: state.pagination, address: address, queryParameters: null));
     task.fold((l) => GlobalContext().snackBar(l.error ?? S.current.apiError), (r) => emit(state.copyWith(pagination: r)));

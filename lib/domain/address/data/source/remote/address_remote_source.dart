@@ -23,7 +23,6 @@ class AddressRemoteSource extends AddressSource {
   @override
   Future<PaginatedData<Address>> getAddresses({required PaginatedData<Address> pagination, Map<String, dynamic>? queryParameters}) async {
     Response res;
-
     try {
       res = await APIClient().get(EndPoints.address, queryParameters: {...pagination.toJson(), ...?queryParameters});
     } catch (e) {
@@ -33,7 +32,7 @@ class AddressRemoteSource extends AddressSource {
       return Address.fromJson(value);
     }).toList();
 
-    return pagination.copyWith(data: addressList, isLoading: false) as PaginatedData<Address>;
+    return pagination.copyWith(data: addressList, isLoading: false, lastPage: 1, pageNumber: 1) as PaginatedData<Address>;
   }
 
   @override
@@ -43,10 +42,16 @@ class AddressRemoteSource extends AddressSource {
     } catch (e) {
       throw ServerException(e as DioException);
     }
-    List<Address> addressList = pagination.data.map((e) {
-      return e.id == address.id ? e.copyWith(isDefault: true) : e.copyWith(isDefault: false);
-    }).toList() as List<Address>;
 
-    return pagination.copyWith(data: addressList, isLoading: false) as PaginatedData<Address>;
+    List<Address> addressList;
+    try {
+      addressList = pagination.data.map<Address>((e) {
+        return e.id == address.id ? e.copyWith(isDefault: true) : e.copyWith(isDefault: false);
+      }).toList();
+    } catch (e) {
+      throw GenericException(e.toString());
+    }
+
+    return pagination.copyWith(data: <Address>[...addressList], isLoading: false) as PaginatedData<Address>;
   }
 }
