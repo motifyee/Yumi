@@ -24,7 +24,7 @@ class CaloriesCubit extends Cubit<CaloriesState> {
       (r) => emit(
         state.copyWith(
           calories: r.copyWith(
-            data: [...state.calories.data, ...r.data],
+            data: <Calorie>[...state.calories.data, ...r.data],
           ) as PaginatedData<Calorie>,
         ),
       ),
