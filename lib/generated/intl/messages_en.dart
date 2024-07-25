@@ -73,12 +73,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "cards": MessageLookupByLibrary.simpleMessage("Cards"),
         "change": MessageLookupByLibrary.simpleMessage("Change"),
         "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
-        "chef": MessageLookupByLibrary.simpleMessage("Branch"),
-        "chefAddress": MessageLookupByLibrary.simpleMessage("Branch Address"),
-        "chefCuisines": MessageLookupByLibrary.simpleMessage("Branch Cuisines"),
-        "chefEvents": MessageLookupByLibrary.simpleMessage("Branch events"),
-        "chefMenu": MessageLookupByLibrary.simpleMessage("Branch Menu"),
-        "chefs": MessageLookupByLibrary.simpleMessage("Branches"),
+        "chef": MessageLookupByLibrary.simpleMessage("Chef"),
+        "chefAddress": MessageLookupByLibrary.simpleMessage("Chef Address"),
+        "chefCuisines": MessageLookupByLibrary.simpleMessage("Chef Cuisines"),
+        "chefEvents": MessageLookupByLibrary.simpleMessage("Chef events"),
+        "chefMenu": MessageLookupByLibrary.simpleMessage("Chef Menu"),
+        "chefs": MessageLookupByLibrary.simpleMessage("Chefs"),
         "clickTheIconToViewCustomerNotes": MessageLookupByLibrary.simpleMessage(
             "Click the icon to view customer notes"),
         "clientReceived":
@@ -135,8 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "expiryDateMMYY":
             MessageLookupByLibrary.simpleMessage("Expiry date (mm/yy)"),
         "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
-        "featuredChefs":
-            MessageLookupByLibrary.simpleMessage("Featured Branches"),
+        "featuredChefs": MessageLookupByLibrary.simpleMessage("Featured Chefs"),
         "financialView": MessageLookupByLibrary.simpleMessage("Financial view"),
         "finish": MessageLookupByLibrary.simpleMessage("Finish"),
         "firstName": MessageLookupByLibrary.simpleMessage("First name"),
@@ -201,7 +200,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "onTheWay": MessageLookupByLibrary.simpleMessage("On The Way"),
         "online": MessageLookupByLibrary.simpleMessage("Online"),
-        "onlineChefs": MessageLookupByLibrary.simpleMessage("Online Branches"),
+        "onlineChefs": MessageLookupByLibrary.simpleMessage("Online Chefs"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "opened": MessageLookupByLibrary.simpleMessage("Opened"),
         "orSignUpWith": MessageLookupByLibrary.simpleMessage("or sign up with"),
@@ -237,7 +236,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "placeOrder": MessageLookupByLibrary.simpleMessage("Place order"),
         "pleaseEnterYourLocationOrAllowAccessToYourLocationToFindChefsNearYou":
             MessageLookupByLibrary.simpleMessage(
-                "Please enter your location or allow access to your location to ﬁnd Branch near you."),
+                "Please enter your location or allow access to your location to ﬁnd Chef near you."),
         "pleaseSelectLocation":
             MessageLookupByLibrary.simpleMessage("Please Select Location"),
         "pleaseSpecifyTheDayTimeOfDelivery":
@@ -268,7 +267,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
         "review": MessageLookupByLibrary.simpleMessage("Review"),
         "reviewTheChef":
-            MessageLookupByLibrary.simpleMessage("Review the Branch"),
+            MessageLookupByLibrary.simpleMessage("Review the Chef"),
         "reviewTheDriver":
             MessageLookupByLibrary.simpleMessage("Review the driver"),
         "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
@@ -307,7 +306,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Thank you for waiting"),
         "thankYouForYourReview":
             MessageLookupByLibrary.simpleMessage("Thank you for your review."),
-        "theChef": MessageLookupByLibrary.simpleMessage("The Branch"),
+        "theChef": MessageLookupByLibrary.simpleMessage("The Chef"),
         "theDriver": MessageLookupByLibrary.simpleMessage("The driver"),
         "theTotalPriceIncludesTax": MessageLookupByLibrary.simpleMessage(
             "The total price includes tax"),

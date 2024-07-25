@@ -1040,10 +1040,10 @@ class S {
     );
   }
 
-  /// `Featured Branches`
+  /// `Featured Chefs`
   String get featuredChefs {
     return Intl.message(
-      'Featured Branches',
+      'Featured Chefs',
       name: 'featuredChefs',
       desc: '',
       args: [],
@@ -1160,10 +1160,10 @@ class S {
     );
   }
 
-  /// `Branch events`
+  /// `Chef events`
   String get chefEvents {
     return Intl.message(
-      'Branch events',
+      'Chef events',
       name: 'chefEvents',
       desc: '',
       args: [],
@@ -1350,10 +1350,10 @@ class S {
     );
   }
 
-  /// `Online Branches`
+  /// `Online Chefs`
   String get onlineChefs {
     return Intl.message(
-      'Online Branches',
+      'Online Chefs',
       name: 'onlineChefs',
       desc: '',
       args: [],
@@ -1370,10 +1370,10 @@ class S {
     );
   }
 
-  /// `Branches`
+  /// `Chefs`
   String get chefs {
     return Intl.message(
-      'Branches',
+      'Chefs',
       name: 'chefs',
       desc: '',
       args: [],
@@ -1880,10 +1880,10 @@ class S {
     );
   }
 
-  /// `Branch Menu`
+  /// `Chef Menu`
   String get chefMenu {
     return Intl.message(
-      'Branch Menu',
+      'Chef Menu',
       name: 'chefMenu',
       desc: '',
       args: [],
@@ -1920,10 +1920,10 @@ class S {
     );
   }
 
-  /// `Branch Cuisines`
+  /// `Chef Cuisines`
   String get chefCuisines {
     return Intl.message(
-      'Branch Cuisines',
+      'Chef Cuisines',
       name: 'chefCuisines',
       desc: '',
       args: [],
@@ -1940,11 +1940,11 @@ class S {
     );
   }
 
-  /// `Please enter your location or allow access to your location to ﬁnd Branch near you.`
+  /// `Please enter your location or allow access to your location to ﬁnd Chef near you.`
   String
       get pleaseEnterYourLocationOrAllowAccessToYourLocationToFindChefsNearYou {
     return Intl.message(
-      'Please enter your location or allow access to your location to ﬁnd Branch near you.',
+      'Please enter your location or allow access to your location to ﬁnd Chef near you.',
       name:
           'pleaseEnterYourLocationOrAllowAccessToYourLocationToFindChefsNearYou',
       desc: '',
@@ -2132,10 +2132,10 @@ class S {
     );
   }
 
-  /// `The Branch`
+  /// `The Chef`
   String get theChef {
     return Intl.message(
-      'The Branch',
+      'The Chef',
       name: 'theChef',
       desc: '',
       args: [],
@@ -2162,10 +2162,10 @@ class S {
     );
   }
 
-  /// `Review the Branch`
+  /// `Review the Chef`
   String get reviewTheChef {
     return Intl.message(
-      'Review the Branch',
+      'Review the Chef',
       name: 'reviewTheChef',
       desc: '',
       args: [],
@@ -2382,10 +2382,10 @@ class S {
     );
   }
 
-  /// `Branch`
+  /// `Chef`
   String get chef {
     return Intl.message(
-      'Branch',
+      'Chef',
       name: 'chef',
       desc: '',
       args: [],
@@ -2492,10 +2492,10 @@ class S {
     );
   }
 
-  /// `Branch Address`
+  /// `Chef Address`
   String get chefAddress {
     return Intl.message(
-      'Branch Address',
+      'Chef Address',
       name: 'chefAddress',
       desc: '',
       args: [],
