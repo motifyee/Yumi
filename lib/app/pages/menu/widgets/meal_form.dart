@@ -22,7 +22,7 @@ class MealForm extends StatefulWidget {
   MealForm({super.key, this.meal, this.menuTarget});
 
   final MenuTarget? menuTarget;
-  final Meal? meal;
+  Meal? meal;
 
   @override
   State<MealForm> createState() => _MealFormState();
@@ -46,9 +46,9 @@ class _MealFormState extends State<MealForm> {
       setState(() {
         isLoaded = true;
       });
-      Meal meal0 = r;
+      widget.meal = r;
       context.read<MealFormCubit>().update(
-              mealModel: meal0.copyWith(
+              mealModel: widget.meal!.copyWith(
             preparationTime: 25,
             isOrder: meal.isPreOrder == true ? false : true,
             isPreOrder: meal.isPreOrder ?? false,
@@ -58,27 +58,28 @@ class _MealFormState extends State<MealForm> {
 
   @override
   Widget build(BuildContext context) {
-    state() => context.read<MealFormCubit>().state;
     if (widget.meal != null) {
       fetchMeal(meal: widget.meal!, context: context);
     } else {
-      context.read<MealFormCubit>().update(
-          mealModel: Meal(
-              code: CodeGenerator.getRandomCode(),
-              categoriesIds: [],
-              ingredients: [],
-              isOrder: widget.menuTarget == MenuTarget.order,
-              isPreOrder: widget.menuTarget == MenuTarget.preOrder,
-              preparationTime: 25,
-              isPickUpOnly: false,
-              name: '',
-              id: 0,
-              caloriesValue: 0,
-              portionPersons: 0,
-              price1: 0,
-              productVariantID: 0,
-              chefId: ''));
+      widget.meal = Meal(
+          code: CodeGenerator.getRandomCode(),
+          categoriesIds: [],
+          ingredients: [],
+          isOrder: widget.menuTarget == MenuTarget.order,
+          isPreOrder: widget.menuTarget == MenuTarget.preOrder,
+          preparationTime: 25,
+          isPickUpOnly: false,
+          name: '',
+          photo: null,
+          id: 0,
+          caloriesValue: 0,
+          portionPersons: 0,
+          price1: 0,
+          productVariantID: 0,
+          chefId: '');
+      context.read<MealFormCubit>().update(mealModel: widget.meal!);
     }
+
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraint) {
@@ -123,11 +124,11 @@ class _MealFormState extends State<MealForm> {
                             label: S.of(context).mealName,
                             labelIcon: 'assets/images/meal_name.svg',
                             borderStyle: TextFormFieldBorderStyle.borderBottom,
-                            initialValue: state().mealModel.name,
+                            initialValue: widget.meal?.name,
                             validators: requiredValidator,
                             inputFormatters: [FilteringTextInputFormatter.allow(CustomRegex.lettersNumbersBlankOnly)],
                             onChange: (value) {
-                              context.read<MealFormCubit>().update(mealModel: state().mealModel.copyWith(name: value ?? ''));
+                              context.read<MealFormCubit>().update(mealModel: widget.meal!.copyWith(name: value ?? ''));
                             },
                           ),
 
@@ -170,11 +171,11 @@ class _MealFormState extends State<MealForm> {
                             labelIcon: 'assets/images/calories.svg',
                             borderStyle: TextFormFieldBorderStyle.borderBottom,
                             textInputType: TextInputType.number,
-                            initialValue: state().mealModel.caloriesValue?.toTextField,
+                            initialValue: widget.meal?.caloriesValue?.toTextField,
                             validators: requiredValidator,
                             inputFormatters: [FilteringTextInputFormatter.allow(CustomRegex.numberWith2DecimalOnly)],
                             onChange: (value) {
-                              context.read<MealFormCubit>().update(mealModel: state().mealModel.copyWith(caloriesValue: double.tryParse(value)));
+                              context.read<MealFormCubit>().update(mealModel: widget.meal!.copyWith(caloriesValue: double.tryParse(value)));
                             },
                           ),
 
@@ -194,7 +195,7 @@ class _MealFormState extends State<MealForm> {
                               borderStyle: TextFormFieldBorderStyle.borderBottom,
                               validators: requiredValidator,
                               onChange: (value) {
-                                context.read<MealFormCubit>().update(mealModel: state().mealModel.copyWith(preparationTime: double.tryParse(value)));
+                                context.read<MealFormCubit>().update(mealModel: widget.meal!.copyWith(preparationTime: double.tryParse(value)));
                               },
                               textInputType: TextInputType.number,
                               initialValue: prepTime?.toTextField,
@@ -208,11 +209,11 @@ class _MealFormState extends State<MealForm> {
                             labelHint: '(${S.of(context).currency})',
                             labelIcon: 'assets/images/price.svg',
                             borderStyle: TextFormFieldBorderStyle.borderBottom,
-                            initialValue: state().mealModel.price1?.toTextField,
+                            initialValue: widget.meal?.price1?.toTextField,
                             validators: requiredValidator,
                             inputFormatters: [FilteringTextInputFormatter.allow(CustomRegex.numberWith2DecimalOnly)],
                             onChange: (value) {
-                              context.read<MealFormCubit>().update(mealModel: state().mealModel.copyWith(price1: double.tryParse(value)));
+                              context.read<MealFormCubit>().update(mealModel: widget.meal!.copyWith(price1: double.tryParse(value)));
                             },
                             textInputType: TextInputType.number,
                           ),
@@ -225,12 +226,12 @@ class _MealFormState extends State<MealForm> {
                             labelHint: '(${S.of(context).forHowManyPerson})',
                             labelIcon: 'assets/images/description.svg',
                             borderStyle: TextFormFieldBorderStyle.borderBottom,
-                            initialValue: state().mealModel.portionPersons?.toTextField,
+                            initialValue: widget.meal?.portionPersons?.toTextField,
                             textInputType: TextInputType.number,
                             validators: requiredValidator,
                             inputFormatters: [FilteringTextInputFormatter.allow(CustomRegex.numberOnly)],
                             onChange: (value) {
-                              context.read<MealFormCubit>().update(mealModel: state().mealModel.copyWith(portionPersons: double.tryParse(value)));
+                              context.read<MealFormCubit>().update(mealModel: widget.meal!.copyWith(portionPersons: double.tryParse(value)));
                             },
                           ),
 
@@ -246,11 +247,6 @@ class _MealFormState extends State<MealForm> {
                                   loadDate: () => context.read<CategoriesCubit>().getAllCategories(
                                         isPreOrder: widget.menuTarget == MenuTarget.preOrder,
                                       ),
-                                  // .add(GetCategoriesEvent(
-                                  //     context: context,
-                                  //     isPreOrder: menuTarget ==
-                                  //         MenuTarget.preOrder,
-                                  //     isAll: true)),
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -297,7 +293,7 @@ class _MealFormState extends State<MealForm> {
                           ),
 
                           // Categories Required
-                          if (state().mealModel.categoriesIds?.isEmpty ?? true)
+                          if (widget.meal?.categoriesIds?.isEmpty ?? true)
                             Text(
                               S.of(context).required,
                               style: Theme.of(context).textTheme.titleSmall,

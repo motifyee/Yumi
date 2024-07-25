@@ -27,6 +27,10 @@ class MealFormState with _$MealFormState {
 class MealFormCubit extends Cubit<MealFormState> {
   MealFormCubit() : super(MealFormState.initial());
 
+  resetForm() {
+    emit(MealFormState.initial());
+  }
+
   updateLoading({required bool isLoading}) {
     emit(state.copyWith(isLoading: isLoading));
   }
