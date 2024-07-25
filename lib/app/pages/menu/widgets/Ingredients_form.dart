@@ -130,7 +130,7 @@ class IngredientsForm extends StatelessWidget {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              context.read<IngredientsFormCubit>().add(ingredientsModel: ingredient);
+                                              context.read<IngredientsFormCubit>().remove(ingredientsModel: ingredient);
                                             },
                                             child: Container(
                                               padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultLineGap, vertical: CommonDimens.defaultGap),
