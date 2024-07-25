@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -21,9 +22,6 @@ import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/sc
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app_target.dart';
-import 'package:common_code/domain/profile/use_cases/get_otp.dart';
-import 'package:common_code/domain/profile/use_cases/verify_add_mobile_otp.dart';
-import 'package:common_code/domain/profile/use_cases/verify_email.dart';
 import 'package:common_code/domain/vehicle/use_cases/add_vehicle.dart';
 import 'package:common_code/domain/vehicle/use_cases/get_vehicle.dart';
 import 'package:yumi/global.dart';
@@ -120,9 +118,7 @@ class RegCubit extends Cubit<RegState> {
 
 // -----------------------------------------------------------------------------
 
-  void setLoading([bool loading = true]) {
-    emit(state.copyWith(status: loading ? Status.loading : Status.idle));
-  }
+  void setStatus(Status status) => emit(state.copyWith(status: status));
 
   Future<bool> hasActiveRegisteration() async {
     return await G().prefs.then((prefs) {
@@ -133,7 +129,7 @@ class RegCubit extends Cubit<RegState> {
   }
 
   Future<void> initReg({bool partialFlow = false, int lastStep = -1}) async {
-    setLoading();
+    setStatus(Status.loading);
 
     //return finish();
 
@@ -183,7 +179,7 @@ class RegCubit extends Cubit<RegState> {
       }
     }
 
-    setLoading(false);
+    setStatus(Status.idle);
   }
 
   Future<void> finish([bool login = true]) async {
@@ -306,7 +302,7 @@ class RegCubit extends Cubit<RegState> {
 
     // final update = await UpdateProfile().call(UpdateProfileParam(profile));
     if (update == null) {
-      emit(state.copyWith(status: Status.error));
+      setStatus(Status.error);
       return G()
           .rd<ProfileCubit>()
           .state
@@ -327,12 +323,12 @@ class RegCubit extends Cubit<RegState> {
   }
 
   Future<Either<Failure, String>> getMobileOTP() async {
-    emit(state.copyWith(status: Status.loading));
+    setStatus(Status.loading);
     final getOTP = await GetMobileOTP().call(NoParams());
 
     getOTP.fold(
       (l) {
-        emit(state.copyWith(status: Status.error));
+        setStatus(Status.error);
       },
       (r) {
         emit(state.copyWith(status: Status.success, otp: r));
@@ -344,18 +340,20 @@ class RegCubit extends Cubit<RegState> {
   }
 
   Future verifyMobileOTP(String otp) async {
-    emit(state.copyWith(status: Status.loading));
+    setStatus(Status.loading);
     final verify = await VerifyMobileOTP().call(VerifyOTPParams(otp));
 
     verify.fold(
-      (l) => emit(state.copyWith(status: Status.error)),
+      (l) => setStatus(Status.error),
       (r) async {
         stopCountDown();
 
+        setStatus(Status.idle);
         if (state.lastStep == RegStep.addPhone.index) {
           G().rd<ProfileCubit>().getProfileForm();
           return G().pop();
         }
+
         navigateToIdx(3);
       },
     );
@@ -433,10 +431,10 @@ class RegCubit extends Cubit<RegState> {
 
   void nextButtonPressed() async {
     var context = G().context;
-    setLoading();
+    setStatus(Status.loading);
 
     await context.read<ProfileCubit>().getProfileForm().then((value) async {
-      setLoading(false);
+      setStatus(Status.idle);
 
       var stepsInfo = G().isChefApp
           ? chefOnboardingSteps(context, state)
