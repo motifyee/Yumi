@@ -40,8 +40,7 @@ class _DomainFormState extends State<_DomainForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Form(
         key: widget.domainFormKey,
         child: Padding(
@@ -58,6 +57,7 @@ class _DomainFormState extends State<_DomainForm> {
                     child: TextFormFieldTemplate(
                       borderStyle: TextFormFieldBorderStyle.borderedCircle,
                       label: S.of(context).domain,
+                      initialValue: originApi,
                       onSave: (value) => BaseUrl.set(value),
                     ),
                   ),
@@ -67,12 +67,8 @@ class _DomainFormState extends State<_DomainForm> {
                         context.router.maybePop();
                       },
                       child: Container(
-                          padding:
-                              const EdgeInsets.all(CommonDimens.defaultGap),
-                          decoration: BoxDecoration(
-                              color: CommonColors.primary,
-                              borderRadius: BorderRadius.circular(
-                                  CommonDimens.defaultBlockGap)),
+                          padding: const EdgeInsets.all(CommonDimens.defaultGap),
+                          decoration: BoxDecoration(color: CommonColors.primary, borderRadius: BorderRadius.circular(CommonDimens.defaultBlockGap)),
                           child: Icon(
                             Icons.dns,
                             color: CommonColors.onPrimary,
