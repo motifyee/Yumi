@@ -33,7 +33,9 @@ class GetMeals extends UseCase<PaginatedData<Meal>, GetMealsParams> {
       if (params.selectedCategory == 0) {
         return mealRepo.getMealsByChef(pagination: params.pagination, chefId: params.chefId!, isPreorder: params.menuTarget == MenuTarget.preOrder).run();
       } else {
-        return mealRepo.getMealsByChefByCategory(pagination: params.pagination, categoryId: params.selectedCategory, chefId: params.chefId!).run();
+        print('GetMeals use case .....................');
+        print(params.menuTarget);
+        return mealRepo.getMealsByChefByCategory(pagination: params.pagination, categoryId: params.selectedCategory, chefId: params.chefId!, isPreorder: params.menuTarget == MenuTarget.preOrder).run();
       }
     }
   }

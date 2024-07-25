@@ -55,7 +55,7 @@ class MealCubit extends Cubit<MealState> {
 
   updateCategory({required int selectedCategory, String? chefId}) {
     emit(state.copyWith(pagination: const PaginatedData<Meal>(), selectedCategory: selectedCategory));
-    updateMeals(chefId: chefId);
+    updateMeals(chefId: chefId, menuTarget: state.menuTarget);
   }
 
   getFavoriteMeals() async {

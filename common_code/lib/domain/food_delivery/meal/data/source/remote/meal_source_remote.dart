@@ -112,7 +112,7 @@ class MealSourceRemote extends MealSource {
     } catch (e) {
       throw ServerException((e as DioException));
     }
-    print('getMealsByChefByCategory ..............');
+
     final meals = res.data['data'].map<Meal>((e) {
       return Meal.fromJson({...?e, ...e?['product'], 'id': e?['meal']?['id'] ?? e?['productId'] ?? e?['product']['id']});
     }).toList();
