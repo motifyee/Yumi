@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:common_code/common_code.dart';
+import 'package:common_code/util/global_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -135,28 +136,19 @@ class _ReviewChefDriverState extends State<ReviewChefDriver> {
                                     setState(() {
                                       _isLoading = false;
                                     });
+
                                     if (value.any(
                                       (e) => e == false,
                                     )) return;
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: SnackBarMassage(
-                                          massage: S.of(context).thankYouForYourReview,
-                                        ),
-                                      ),
-                                    );
-                                    context.router.popForced();
+
+                                    GlobalContext().snackBar(S.current.thankYouForYourReview);
+
+                                    GlobalContext().context.router.maybePop();
                                   }).catchError((err) {
                                     setState(() {
                                       _isLoading = false;
                                     });
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: SnackBarMassage(
-                                          massage: err.response?.data['message'],
-                                        ),
-                                      ),
-                                    );
+                                    GlobalContext().snackBar(err.response?.data['message']);
                                   });
                                 },
                                 child: Text(S.of(context).review, style: Theme.of(context).textTheme.headlineMedium),
