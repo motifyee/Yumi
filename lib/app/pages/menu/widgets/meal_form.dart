@@ -105,6 +105,7 @@ class _MealFormState extends State<MealForm> {
                                 defaultImage: photo,
                                 onPressed: (image) {
                                   if (image != null) {
+                                    widget.meal = widget.meal?.copyWith(photo: image.toString());
                                     context.read<MealFormCubit>().update(mealModel: context.read<MealFormCubit>().state.mealModel.copyWith(photo: image.toString()));
                                   }
                                 },
