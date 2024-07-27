@@ -35,7 +35,7 @@ class MealFormCubit extends Cubit<MealFormState> {
     emit(state.copyWith(isLoading: isLoading));
   }
 
-  update({required Meal mealModel}) async {
+  Future<void> update({required Meal mealModel}) async {
     final Either<Failure, Meal> task = await UpdateMealForm().call(UpdateMealFormParams(meal: mealModel));
     task.fold((l) => G().snackBar("Try again"), (r) => emit(state.copyWith(mealModel: r, isLoading: false)));
   }

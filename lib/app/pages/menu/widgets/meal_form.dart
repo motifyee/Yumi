@@ -18,66 +18,60 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/profile/components/upload_photo_button.dart';
 import 'package:yumi/validators/required_validator.dart';
 
-class MealForm extends StatefulWidget {
+class MealForm extends StatelessWidget {
   MealForm({super.key, this.meal, this.menuTarget});
 
   final MenuTarget? menuTarget;
   Meal? meal;
 
-  @override
-  State<MealForm> createState() => _MealFormState();
-}
-
-class _MealFormState extends State<MealForm> {
   bool isLoaded = false;
+  bool isEdit = false;
 
   final GlobalKey<FormState> mealForm = GlobalKey<FormState>();
 
   final GlobalKey<FormState> ingredientForm = GlobalKey<FormState>();
 
   fetchMeal({required Meal meal, required BuildContext context}) async {
-    if (isLoaded) return;
     final task = await GetMealById().call(GetMealByIdParams(mealId: meal.id!));
 
-    task.fold(
-        (l) => setState(() {
-              isLoaded = true;
-            }), (r) {
-      setState(() {
-        isLoaded = true;
-      });
-      widget.meal = r;
+    task.fold((l) => isLoaded = true, (r) {
+      this.meal = r;
+      isLoaded = true;
       context.read<MealFormCubit>().update(
-              mealModel: widget.meal!.copyWith(
-            preparationTime: 25,
-            isOrder: meal.isPreOrder == true ? false : true,
-            isPreOrder: meal.isPreOrder ?? false,
-          ));
+          mealModel: this.meal!.copyWith(
+                preparationTime: 25,
+                isOrder: meal.isPreOrder == true ? false : true,
+                isPreOrder: meal.isPreOrder ?? false,
+              ));
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.meal != null) {
-      fetchMeal(meal: widget.meal!, context: context);
-    } else {
-      widget.meal = Meal(
-          code: CodeGenerator.getRandomCode(),
-          categoriesIds: [],
-          ingredients: [],
-          isOrder: widget.menuTarget == MenuTarget.order,
-          isPreOrder: widget.menuTarget == MenuTarget.preOrder,
-          preparationTime: 25,
-          isPickUpOnly: false,
-          name: '',
-          photo: null,
-          id: 0,
-          caloriesValue: 0,
-          portionPersons: 0,
-          price1: 0,
-          productVariantID: 0,
-          chefId: '');
-      context.read<MealFormCubit>().update(mealModel: widget.meal!);
+    Meal getMeal() => isLoaded ? context.read<MealFormCubit>().state.mealModel : meal!;
+    if (!isLoaded) {
+      if (meal != null) {
+        isEdit = true;
+        fetchMeal(meal: meal!, context: context);
+      } else {
+        meal = Meal(
+            code: CodeGenerator.getRandomCode(),
+            categoriesIds: [],
+            ingredients: [],
+            isOrder: menuTarget == MenuTarget.order,
+            isPreOrder: menuTarget == MenuTarget.preOrder,
+            preparationTime: 25,
+            isPickUpOnly: false,
+            name: '',
+            photo: null,
+            id: 0,
+            caloriesValue: 0,
+            portionPersons: 0,
+            price1: 0,
+            productVariantID: 0,
+            chefId: '');
+        context.read<MealFormCubit>().update(mealModel: meal!).then((e) => isLoaded = true);
+      }
     }
 
     return Scaffold(
@@ -102,11 +96,11 @@ class _MealFormState extends State<MealForm> {
                           return Column(
                             children: [
                               UploadPhotoButton(
-                                defaultImage: photo,
+                                defaultImage: getMeal().photo,
                                 onPressed: (image) {
                                   if (image != null) {
-                                    widget.meal = widget.meal?.copyWith(photo: image.toString());
-                                    context.read<MealFormCubit>().update(mealModel: context.read<MealFormCubit>().state.mealModel.copyWith(photo: image.toString()));
+                                    meal = meal?.copyWith(photo: image.toString());
+                                    context.read<MealFormCubit>().update(mealModel: getMeal().copyWith(photo: image.toString()));
                                   }
                                 },
                               ),
@@ -125,11 +119,11 @@ class _MealFormState extends State<MealForm> {
                             label: S.of(context).mealName,
                             labelIcon: 'assets/images/meal_name.svg',
                             borderStyle: TextFormFieldBorderStyle.borderBottom,
-                            initialValue: widget.meal?.name,
+                            initialValue: getMeal().name,
                             validators: requiredValidator,
                             inputFormatters: [FilteringTextInputFormatter.allow(CustomRegex.lettersNumbersBlankOnly)],
                             onChange: (value) {
-                              context.read<MealFormCubit>().update(mealModel: widget.meal!.copyWith(name: value ?? ''));
+                              context.read<MealFormCubit>().update(mealModel: getMeal().copyWith(name: value ?? ''));
                             },
                           ),
 
@@ -146,7 +140,7 @@ class _MealFormState extends State<MealForm> {
                                 label: S.of(context).ingredients,
                                 labelIcon: 'assets/images/ingredient.svg',
                                 borderStyle: TextFormFieldBorderStyle.borderBottom,
-                                initialValue: ingredients?.map((e) => '${e.portionGrams} ${e.name}').join(', '),
+                                initialValue: getMeal().ingredients?.map((e) => '${e.portionGrams} ${e.name}').join(', '),
                                 validators: requiredValidator,
                                 readOnly: true,
                                 onTap: () {
@@ -172,11 +166,11 @@ class _MealFormState extends State<MealForm> {
                             labelIcon: 'assets/images/calories.svg',
                             borderStyle: TextFormFieldBorderStyle.borderBottom,
                             textInputType: TextInputType.number,
-                            initialValue: widget.meal?.caloriesValue?.toTextField,
+                            initialValue: getMeal().caloriesValue?.toTextField,
                             validators: requiredValidator,
                             inputFormatters: [FilteringTextInputFormatter.allow(CustomRegex.numberWith2DecimalOnly)],
                             onChange: (value) {
-                              context.read<MealFormCubit>().update(mealModel: widget.meal!.copyWith(caloriesValue: double.tryParse(value)));
+                              context.read<MealFormCubit>().update(mealModel: getMeal().copyWith(caloriesValue: double.tryParse(value)));
                             },
                           ),
 
@@ -196,7 +190,7 @@ class _MealFormState extends State<MealForm> {
                               borderStyle: TextFormFieldBorderStyle.borderBottom,
                               validators: requiredValidator,
                               onChange: (value) {
-                                context.read<MealFormCubit>().update(mealModel: widget.meal!.copyWith(preparationTime: double.tryParse(value)));
+                                context.read<MealFormCubit>().update(mealModel: getMeal().copyWith(preparationTime: double.tryParse(value)));
                               },
                               textInputType: TextInputType.number,
                               initialValue: prepTime?.toTextField,
@@ -210,11 +204,11 @@ class _MealFormState extends State<MealForm> {
                             labelHint: '(${S.of(context).currency})',
                             labelIcon: 'assets/images/price.svg',
                             borderStyle: TextFormFieldBorderStyle.borderBottom,
-                            initialValue: widget.meal?.price1?.toTextField,
+                            initialValue: getMeal().price1?.toTextField,
                             validators: requiredValidator,
                             inputFormatters: [FilteringTextInputFormatter.allow(CustomRegex.numberWith2DecimalOnly)],
                             onChange: (value) {
-                              context.read<MealFormCubit>().update(mealModel: widget.meal!.copyWith(price1: double.tryParse(value)));
+                              context.read<MealFormCubit>().update(mealModel: getMeal().copyWith(price1: double.tryParse(value)));
                             },
                             textInputType: TextInputType.number,
                           ),
@@ -227,12 +221,12 @@ class _MealFormState extends State<MealForm> {
                             labelHint: '(${S.of(context).forHowManyPerson})',
                             labelIcon: 'assets/images/description.svg',
                             borderStyle: TextFormFieldBorderStyle.borderBottom,
-                            initialValue: widget.meal?.portionPersons?.toTextField,
+                            initialValue: getMeal().portionPersons?.toTextField,
                             textInputType: TextInputType.number,
                             validators: requiredValidator,
                             inputFormatters: [FilteringTextInputFormatter.allow(CustomRegex.numberOnly)],
                             onChange: (value) {
-                              context.read<MealFormCubit>().update(mealModel: widget.meal!.copyWith(portionPersons: double.tryParse(value)));
+                              context.read<MealFormCubit>().update(mealModel: getMeal().copyWith(portionPersons: double.tryParse(value)));
                             },
                           ),
 
@@ -246,7 +240,7 @@ class _MealFormState extends State<MealForm> {
                               builder: (context, state) {
                                 return PaginationTemplate(
                                   loadDate: () => context.read<CategoriesCubit>().getAllCategories(
-                                        isPreOrder: widget.menuTarget == MenuTarget.preOrder,
+                                        isPreOrder: menuTarget == MenuTarget.preOrder,
                                       ),
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
@@ -294,7 +288,7 @@ class _MealFormState extends State<MealForm> {
                           ),
 
                           // Categories Required
-                          if (widget.meal?.categoriesIds?.isEmpty ?? true)
+                          if (meal?.categoriesIds?.isEmpty ?? true)
                             Text(
                               S.of(context).required,
                               style: Theme.of(context).textTheme.titleSmall,
@@ -316,9 +310,10 @@ class _MealFormState extends State<MealForm> {
                                 ),
                               ),
                               _SaveBTN(
-                                menuTarget: widget.menuTarget,
-                                meal: widget.meal,
+                                menuTarget: menuTarget,
+                                meal: meal,
                                 mealForm: mealForm,
+                                isEdit: isEdit,
                               ),
                             ],
                           ),
@@ -341,11 +336,13 @@ class _SaveBTN extends StatefulWidget {
     required this.mealForm,
     required this.menuTarget,
     required this.meal,
+    required this.isEdit,
   });
   final GlobalKey<FormState> mealForm;
 
   final MenuTarget? menuTarget;
   final Meal? meal;
+  final bool isEdit;
 
   bool loading = false;
   @override
@@ -367,7 +364,7 @@ class _SaveBTNState extends State<_SaveBTN> {
                 widget.loading = true;
               });
 
-              if (widget.meal != null) {
+              if (widget.isEdit) {
                 await context.read<MealFormCubit>().updateMeal(meal: state.mealModel);
               } else {
                 await context.read<MealFormCubit>().createMeal(meal: state.mealModel);
