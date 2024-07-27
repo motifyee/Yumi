@@ -18,14 +18,12 @@ class PaginatedData<T> with _$PaginatedData {
     @Default(1) @JsonKey(includeFromJson: false) int lastPage,
     @Default(0) @JsonKey(includeFromJson: false) int total,
     @Default(false) @JsonKey(includeFromJson: false) bool isLoading,
-    @Default([])
-    @JsonKey(includeToJson: false, includeFromJson: false)
-    List<T> data,
+    @Default([]) @JsonKey(includeToJson: false, includeFromJson: false) List<T> data,
   }) = _Pagination;
 
   const PaginatedData._();
 
-  bool get canRequest => pageNumber != lastPage && !isLoading;
+  bool get canRequest => pageNumber < lastPage && !isLoading;
 
   Pagination get pagination => Pagination(
         pageNumber: pageNumber,
@@ -35,8 +33,7 @@ class PaginatedData<T> with _$PaginatedData {
         isLoading: isLoading,
       );
 
-  factory PaginatedData.fromJson(Map<String, dynamic> json) =>
-      _$PaginatedDataFromJson(json);
+  factory PaginatedData.fromJson(Map<String, dynamic> json) => _$PaginatedDataFromJson(json);
 }
 
 int _pageNumberToJson(int value) {
