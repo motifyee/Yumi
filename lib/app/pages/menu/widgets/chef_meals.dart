@@ -151,7 +151,7 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                                       favPageController.animateToPage(0, duration: CommonDimens.animationDuration, curve: Curves.easeOut);
                                       pageIndex = 0;
                                     });
-                                    context.read<MealCubit>().reset();
+                                    context.read<MealCubit>().reset(menuTarget: widget.menuTarget);
                                     context.read<MealCubit>().updateCategory(
                                           selectedCategory: category.id ?? 0,
                                           chefId: widget.chefId,

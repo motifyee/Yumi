@@ -10,15 +10,8 @@ class BasketRemoteSource implements BasketSource {
     required Basket basket,
     required bool isPreOrder,
   }) async {
-    var res = await APIClient().post(
-        EndPoints.getApiKeyString(
-            apiKey: isPreOrder
-                ? EndPoints.preOrderDelivery
-                : EndPoints.orderDelivery),
-        data: basket.toJson());
-    return basket.copyWith(
-        id: res.data['invoiceId'],
-        invoice: basket.invoice.copyWith(createdDate: res.data['createdDate']));
+    var res = await APIClient().post(EndPoints.getApiKeyString(apiKey: isPreOrder ? EndPoints.preOrderDelivery : EndPoints.orderDelivery), data: basket.toJson());
+    return basket.copyWith(id: res.data['invoiceId'], invoice: basket.invoice.copyWith(createdDate: res.data['createdDate']));
   }
 
   @override
@@ -26,52 +19,35 @@ class BasketRemoteSource implements BasketSource {
     required Basket basket,
     required bool isPreOrder,
   }) async {
-    var res = await APIClient().post(
-        EndPoints.getApiKeyString(
-            apiKey:
-                isPreOrder ? EndPoints.preOrderPickUp : EndPoints.orderPickUp),
-        data: basket.toJson());
-    return basket.copyWith(
-        id: res.data['invoiceId'],
-        invoice: basket.invoice.copyWith(createdDate: res.data['createdDate']));
+    var res = await APIClient().post(EndPoints.getApiKeyString(apiKey: isPreOrder ? EndPoints.preOrderPickUp : EndPoints.orderPickUp), data: basket.toJson());
+    return basket.copyWith(id: res.data['invoiceId'], invoice: basket.invoice.copyWith(createdDate: res.data['createdDate']));
   }
 
   @override
-  Future<Response> getOrderOrPreOrder(
-      {required String apiKeys, Map<String, dynamic>? pagination}) async {
-    Response res =
-        await APIClient().get(apiKeys, queryParameters: {...?pagination});
+  Future<Response> getOrderOrPreOrder({required String apiKeys, Map<String, dynamic>? pagination}) async {
+    Response res = await APIClient().get(apiKeys, queryParameters: {...?pagination});
     return res;
   }
 
   @override
-  Future<Response> getOrderOrPreOrderDriverById(
-      {required String apiKeys,
-      required String id,
-      Map<String, dynamic>? pagination}) async {
-    Response res =
-        await APIClient().get('$apiKeys$id', queryParameters: {...?pagination});
+  Future<Response> getOrderOrPreOrderDriverById({required String apiKeys, required String id, Map<String, dynamic>? pagination}) async {
+    Response res = await APIClient().get('$apiKeys$id', queryParameters: {...?pagination});
     return res;
   }
 
   @override
-  Future<Response> putActionOrderOrPreOrder(
-      {required String apiKeys, Map<String, dynamic>? pagination}) async {
-    Response res = await APIClient().put(apiKeys,
-        data: {'driver_ID': null}, queryParameters: {...?pagination});
+  Future<Response> putActionOrderOrPreOrder({required String apiKeys, Map<String, dynamic>? pagination}) async {
+    Response res = await APIClient().put(apiKeys, data: {'driver_ID': null}, queryParameters: {...?pagination});
     return res;
   }
 
   @override
   Future<Basket?> getBaskets({Map<String, dynamic>? pagination}) async {
-    Response res = await APIClient().get(EndPoints.order,
-        queryParameters: {...?pagination}
-          ..removeWhere((key, value) => value == null));
+    Response res = await APIClient().get(EndPoints.order, queryParameters: {...?pagination}..removeWhere((key, value) => value == null));
 
     if (res.data['data'].isEmpty) return null;
 
-    List<dynamic> invoiceDetails =
-        res.data['data'][0]['invoiceDetails'].map((e) {
+    List<dynamic> invoiceDetails = res.data['data'][0]['invoiceDetails'].map((e) {
       return <String, dynamic>{
         ...e,
         'meal': {
@@ -87,16 +63,13 @@ class BasketRemoteSource implements BasketSource {
     return Basket.fromJson({
       ...res.data['data'][0],
       'invoice': res.data['data'][0],
-      'invoiceDetails': invoiceDetails
+      'invoiceDetails': invoiceDetails,
     });
   }
 
   @override
-  Future<Response> closeBasket(
-      {required Basket basket, Map<String, dynamic>? pagination}) async {
-    Response res = await APIClient().post(EndPoints.order,
-        queryParameters: {...?pagination, 'orderId': basket.id}
-          ..removeWhere((key, value) => value == null));
+  Future<Response> closeBasket({required Basket basket, Map<String, dynamic>? pagination}) async {
+    Response res = await APIClient().post(EndPoints.order, queryParameters: {...?pagination, 'orderId': basket.id}..removeWhere((key, value) => value == null));
 
     return res;
   }
@@ -106,8 +79,7 @@ class BasketRemoteSource implements BasketSource {
     Response res = await APIClient().put(
       EndPoints.order,
       data: basket.toJson(),
-      queryParameters: {'orderId': basket.id, 'voucherId': basket.voucherId}
-        ..removeWhere((key, value) => value == null),
+      queryParameters: {'orderId': basket.id, 'voucherId': basket.voucherId}..removeWhere((key, value) => value == null),
     );
     return basket;
   }
@@ -123,14 +95,11 @@ class BasketRemoteSource implements BasketSource {
   }
 
   @override
-  Future<Basket> checkVoucherBasket(
-      {required Basket basket, required String voucher}) async {
+  Future<Basket> checkVoucherBasket({required Basket basket, required String voucher}) async {
     Response res = await APIClient().get('${EndPoints.voucher}/$voucher');
     if (res.statusCode == 200) {
       Voucher voucher = Voucher.fromJson({...res.data, ...res.data['voucher']});
-      return basket.copyWith(
-          voucherId: voucher.id,
-          invoice: basket.invoice.copyWith(invoiceDiscount: voucher.amount));
+      return basket.copyWith(voucherId: voucher.id, invoice: basket.invoice.copyWith(invoiceDiscount: voucher.amount));
     }
     return basket;
   }
