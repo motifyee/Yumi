@@ -50,90 +50,31 @@ class Order with _$Order {
 
   const Order._();
 
-  bool get isChefDelayed =>
-      DateTime.now()
-              .difference(
-                  DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-              .inMinutes >
-          35 &&
-      chefStart == true &&
-      chefFinished != true;
+  bool get isChefDelayed => DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes > 35 && chefStart == true && chefFinished != true;
 
-  bool get isDriverDelayed =>
-      DateTime.now()
-              .difference(
-                  DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-              .inMinutes >
-          70 &&
-      chefFinished == true &&
-      clientReceived != true;
+  bool get isDriverDelayed => DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes > 70 && chefFinished == true && clientReceived != true;
 
   // TODO : should be 2 min
-  bool get isDriverOrderPendingEnd =>
-      DateTime.now()
-          .difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-          .inMinutes >
-      (24 * 60);
+  bool get isDriverOrderPendingEnd => DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes > (24 * 60);
 
-  bool get isDriverPreOrderPendingEnd =>
-      DateTime.now()
-          .difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-          .inMinutes >
-      (24 * 60);
+  bool get isDriverPreOrderPendingEnd => DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes > (24 * 60);
 
-  String get driverOrderPendingCount =>
-      '${120 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inSeconds}s';
+  String get driverOrderPendingCount => '${120 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inSeconds}s';
 
   String get driverPreOrderPendingCount => [
-        if ((24 -
-                DateTime.now()
-                    .difference(
-                        DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-                    .inHours) >
-            0)
-          '${24 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours}h ',
-        if ((24 -
-                DateTime.now()
-                    .difference(
-                        DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-                    .inHours) ==
-            0)
-          '${(24 * 60) - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes}m'
+        if ((24 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours) > 0) '${24 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours}h ',
+        if ((24 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours) == 0) '${(24 * 60) - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes}m'
       ].join(' ');
 
-  bool get isClientReceivedOverDay =>
-      (DateTime.now()
-              .difference(
-                  DateTime.tryParse(clientReceivedDate ?? '') ?? DateTime.now())
-              .inHours <
-          24) &&
-      clientReceived == true;
+  bool get isClientReceivedOverDay => (DateTime.now().difference(DateTime.tryParse(clientReceivedDate ?? '') ?? DateTime.now()).inHours < 24) && clientReceived == true;
 
-  bool get isOver12H => (DateTime.now()
-          .difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-          .inHours >=
-      12);
+  bool get isOver12H => (DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours >= 12);
 
-  bool get isOver3H => (DateTime.now()
-          .difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-          .inHours >=
-      3);
+  bool get isOver3H => (DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours >= 3);
 
   String get isOver3HCount => [
-        if ((3 -
-                DateTime.now()
-                    .difference(
-                        DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-                    .inHours) >
-            0)
-          '${3 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours}h',
-        if ((3 -
-                DateTime.now()
-                    .difference(
-                        DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-                    .inHours) <=
-            0)
-          '${(3 * 60) - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes}m'
+        if ((3 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours) > 0) '${3 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours}h',
+        if ((3 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours) <= 0) '${(3 * 60) - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes}m'
       ].join(' ');
 
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
@@ -152,8 +93,7 @@ class InvoiceDetails with _$InvoiceDetails {
     Product? product,
   }) = _InvoiceDetails;
 
-  factory InvoiceDetails.fromJson(Map<String, dynamic> json) =>
-      _$InvoiceDetailsFromJson(json);
+  factory InvoiceDetails.fromJson(Map<String, dynamic> json) => _$InvoiceDetailsFromJson(json);
 }
 
 @freezed
@@ -164,8 +104,7 @@ class Product with _$Product {
     List<Ingredient>? ingredients,
   }) = _Product;
 
-  factory Product.fromJson(Map<String, dynamic> json) =>
-      _$ProductFromJson(json);
+  factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 }
 
 enum OrderCardTargetPage {

@@ -36,7 +36,7 @@ class MealSourceRemote extends MealSource {
     }
     List<Meal> data;
     try {
-      data = res.data['data'].map<Meal>((e) => Meal.fromJson({...?e, ...e?['meal'], 'id': e?['meal']?['id'] ?? e?['productId'], 'isFavoritProduct': true})).toList();
+      data = res.data['data'].map<Meal>((e) => Meal.fromJson({...?e, 'id': e['productId'], 'isFavoritProduct': true})).toList();
     } catch (e) {
       throw GenericException(e.toString());
     }
