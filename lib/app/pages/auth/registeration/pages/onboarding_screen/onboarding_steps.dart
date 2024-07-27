@@ -1,3 +1,4 @@
+import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
@@ -12,11 +13,8 @@ import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/doc
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/schedule_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/bio_sheet/bio_sheet.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:yumi/global.dart';
-import 'package:common_code/components/dialog.dart';
 import 'package:yumi/app/pages/menu/widgets/menu_template.dart';
-import 'package:common_code/components/snack_bar.dart';
 
 List<OnboardingStep> chefOnboardingSteps(
   BuildContext context,
@@ -34,7 +32,7 @@ List<OnboardingStep> chefOnboardingSteps(
           if (regCubit.state.onboarding.profileSheetDone &&
               regCubit.state.onboarding.approvalDone) return;
 
-          G().rd<RegCubit>().setLoading();
+          G().rd<RegCubit>().setStatus(Status.loading);
 
           await showModalBottomSheet(
             isScrollControlled: true,
@@ -43,7 +41,7 @@ List<OnboardingStep> chefOnboardingSteps(
             builder: (context) => EditBioSheet(),
           );
 
-          G().rd<RegCubit>().setLoading(false);
+          G().rd<RegCubit>().setStatus(Status.idle);
         },
         isActive: () => true,
         isDone: () => state.onboarding.profileSheetDone,
@@ -61,7 +59,7 @@ List<OnboardingStep> chefOnboardingSteps(
 
           G().rd<ScheduleCubit>().loadSchedule();
 
-          G().rd<RegCubit>().setLoading();
+          G().rd<RegCubit>().setStatus(Status.loading);
 
           await showAlertDialog(
             context: context,
@@ -83,7 +81,7 @@ List<OnboardingStep> chefOnboardingSteps(
             insetPadding: 0,
           );
 
-          G().rd<RegCubit>().setLoading(false);
+          G().rd<RegCubit>().setStatus(Status.idle);
         },
         isActive: () => state.onboarding.mealsActive,
         isDone: () => G().rd<RegCubit>().state.onboarding.mealsDone,
@@ -99,7 +97,7 @@ List<OnboardingStep> chefOnboardingSteps(
           if (regCubit.state.onboarding.docsDone &&
               regCubit.state.onboarding.approvalDone) return;
 
-          G().rd<RegCubit>().setLoading();
+          G().rd<RegCubit>().setStatus(Status.loading);
 
           await showAlertDialog(
             context: context,
@@ -135,7 +133,7 @@ List<OnboardingStep> chefOnboardingSteps(
             insetPadding: 0,
           );
 
-          G().rd<RegCubit>().setLoading(false);
+          G().rd<RegCubit>().setStatus(Status.idle);
         },
         isActive: () => state.onboarding.docsActive,
         isDone: () => G().rd<RegCubit>().state.onboarding.docsDone,
@@ -146,7 +144,7 @@ List<OnboardingStep> chefOnboardingSteps(
         stepTitle: "Get Approval",
         stepDesc: "Then, waiting for approval within 72 hours",
         onTap: () async {
-          G().rd<RegCubit>().setLoading();
+          G().rd<RegCubit>().setStatus(Status.loading);
 
           await context
               .read<ProfileCubit>()
@@ -165,7 +163,7 @@ List<OnboardingStep> chefOnboardingSteps(
               dismissible: true,
             );
 
-            G().rd<RegCubit>().setLoading(false);
+            G().rd<RegCubit>().setStatus(Status.idle);
           });
         },
         isActive: () => state.onboarding.approvalActive,
@@ -182,7 +180,7 @@ List<OnboardingStep> chefOnboardingSteps(
           if (regCubit.state.onboarding.contractDone &&
               regCubit.state.onboarding.contractApprovalDone) return;
 
-          G().rd<RegCubit>().setLoading();
+          G().rd<RegCubit>().setStatus(Status.loading);
 
           await showAlertDialog(
               context: context,
@@ -197,7 +195,7 @@ List<OnboardingStep> chefOnboardingSteps(
                 },
               });
 
-          G().rd<RegCubit>().setLoading(false);
+          G().rd<RegCubit>().setStatus(Status.idle);
         },
         isActive: () => state.onboarding.contractActive,
         isDone: () => G().rd<RegCubit>().state.onboarding.contractDone,
@@ -208,7 +206,7 @@ List<OnboardingStep> chefOnboardingSteps(
         stepTitle: "Contract Approval",
         stepDesc: "Finally, waiting for approval within 72 hours",
         onTap: () async {
-          G().rd<RegCubit>().setLoading();
+          G().rd<RegCubit>().setStatus(Status.loading);
 
           await context.read<ProfileCubit>().getProfileForm().then((value) {
             showAlertDialog(
@@ -225,7 +223,7 @@ List<OnboardingStep> chefOnboardingSteps(
             );
           });
 
-          G().rd<RegCubit>().setLoading(false);
+          G().rd<RegCubit>().setStatus(Status.idle);
         },
         isActive: () => state.onboarding.contractApprovalActive,
         isDone: () => G().rd<RegCubit>().state.onboarding.contractApprovalDone,
@@ -253,7 +251,7 @@ List<OnboardingStep> driverOnboardingSteps(
         if (regCubit.state.onboarding.stepTwoDone &&
             regCubit.state.onboarding.approvalDone) return;
 
-        G().rd<RegCubit>().setLoading();
+        G().rd<RegCubit>().setStatus(Status.loading);
 
         G().rd<ScheduleCubit>().loadSchedule();
         await showAlertDialog(
@@ -293,7 +291,7 @@ List<OnboardingStep> driverOnboardingSteps(
           insetPadding: 0,
         );
 
-        G().rd<RegCubit>().setLoading(false);
+        G().rd<RegCubit>().setStatus(Status.idle);
       },
       isActive: () => state.onboarding.ridesActive,
       isDone: () => G().rd<RegCubit>().state.onboarding.ridesDone,
