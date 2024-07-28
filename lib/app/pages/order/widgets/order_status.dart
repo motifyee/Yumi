@@ -43,7 +43,7 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
           Signal.driverreceived,
           Signal.clientreceived,
         ])) {
-          final task = await GetOrderPreorderDriverById().call(GetOrderPreorderDriverByIdParams(apiKeys: EndPoints.orderDriverAvailableById, id: widget.order.id.toString()));
+          final task = await GetOrderPreorderDriverById().call(GetOrderPreorderDriverByIdParams(apiKeys: '${EndPoints.order}/', id: widget.order.id.toString()));
           task.fold((l) => null, (r) => widget.order = r);
         }
       },
