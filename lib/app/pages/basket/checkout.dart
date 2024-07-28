@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:common_code/common_code.dart';
+import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
+import 'package:common_code/resources/_resouces.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -203,7 +205,6 @@ class CheckOutScreen extends StatelessWidget {
                                   return GestureDetector(
                                     onTap: () {
                                       context.read<BasketCubit>().stripePayment();
-                                      // context.read<BasketCubit>().closeBasket();
                                     },
                                     child: Container(
                                       width: CommonDimens.defaultGapXXXL * 1.5,
@@ -213,10 +214,12 @@ class CheckOutScreen extends StatelessWidget {
                                         color: CommonColors.primary,
                                       ),
                                       child: Center(
-                                        child: Text(
-                                          S.of(context).placeOrder,
-                                          style: Theme.of(context).textTheme.displaySmall,
-                                        ),
+                                        child: state.basket.isPaying
+                                            ? PacmanLoadingWidget(color: CommonColors.onPrimary, size: CommonFontSize.font_24)
+                                            : Text(
+                                                S.of(context).placeOrder,
+                                                style: Theme.of(context).textTheme.displaySmall,
+                                              ),
                                       ),
                                     ),
                                   );

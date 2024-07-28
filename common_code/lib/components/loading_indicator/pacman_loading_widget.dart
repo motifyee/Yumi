@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class PacmanLoadingWidget extends StatelessWidget {
-  const PacmanLoadingWidget({super.key, this.size});
+  const PacmanLoadingWidget({super.key, this.size, this.color});
 
   final double? size;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +17,9 @@ class PacmanLoadingWidget extends StatelessWidget {
         key: dataKey,
         width: size ?? CommonDimens.defaultGapExtraExtreme,
         height: size ?? CommonDimens.defaultGapExtraExtreme,
-        child: const LoadingIndicator(
+        child: LoadingIndicator(
           indicatorType: Indicator.pacman,
+          colors: color != null ? [color!] : null,
         ),
       ),
     );
