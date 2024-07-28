@@ -131,7 +131,7 @@ class OrderPutActions {
       );
 
   static chefCancelPreOrder({required dynamic widget}) => OrderPutActionConfig(
-        apiKey: EndPoints.cancelChefOrder,
+        apiKey: (widget.order as Order).isPickUp == true ? EndPoints.preorderCancelChefPickup : EndPoints.preorderCancelChefDelivery,
         order: widget.order,
         getApiKey: widget.getApiKey,
         text: S.current.cancel,

@@ -7,8 +7,7 @@ String originApi = '';
 
 class BaseUrl {
   static Future<void> load() async {
-    final value =
-        await LocalStorage.sharedRef.getValue(LocalStorage.domainName);
+    final value = await LocalStorage.sharedRef.getValue(LocalStorage.domainName);
 
     originApi = value ?? defaultOriginApi;
     APIClient.baseUrl = originApi;
@@ -29,8 +28,7 @@ class EndPoints {
     return apiKey.replaceAll("_", GlobalContext().app.config.appTitle);
   }
 
-  static String actionApiKeyString(
-      {required String apiKey, required String id}) {
+  static String actionApiKeyString({required String apiKey, required String id}) {
     return apiKey.replaceAll("_", id);
   }
 
@@ -127,10 +125,15 @@ class EndPoints {
   static String preOrderChefPickUpFinished = '/preorder/_/chef/pickup/finished';
   static String preOrderChefPickUpDelivered = '/preorder/pickup/chef/delivered';
 
+  // customers
   static String waitChefOrder = '/order/wait/chef';
   static String cancelChefOrder = '/order/cancel/chef';
   static String waitDriverOrder = '/order/wait/driver';
   static String cancelDriverOrder = '/order/cancel/driver';
+
+  // chef
+  static String preorderCancelChefDelivery = '/preorder/cancel/chef/delivery';
+  static String preorderCancelChefPickup = '/preorder/cancel/chef/pickup';
 
   static String updateInvoice = '/api/Invoices/UpdateRestaurantInvoice/_/48';
 

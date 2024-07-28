@@ -66,10 +66,13 @@ class Order with _$Order {
         if ((24 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours) == 0) '${(24 * 60) - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes}m'
       ].join(' ');
 
+  // for review
   bool get isClientReceivedOverDay => (DateTime.now().difference(DateTime.tryParse(clientReceivedDate ?? '') ?? DateTime.now()).inHours < 24) && clientReceived == true;
 
+  // for customer to cancel pre order
   bool get isOver12H => (DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours >= 12);
 
+  // for chef to accept pre order
   bool get isOver3H => (DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours >= 3);
 
   String get isOver3HCount => [

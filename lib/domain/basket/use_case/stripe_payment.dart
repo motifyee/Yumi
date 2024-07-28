@@ -3,6 +3,7 @@ import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:common_code/util/global_context.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/app_target.dart';
@@ -11,14 +12,21 @@ import 'package:yumi/domain/basket/entity/stripe.dart';
 class StripePayment extends UseCase<bool, StripePaymentParams> {
   @override
   Future<Either<Failure, bool>> call(StripePaymentParams params) async {
+    print('presentPaymentSheet .......');
     try {
+      print('presentPaymentSheet  _getClientSecret.......');
       final stripe = await _getClientSecret(params);
+
+      print('presentPaymentSheet  _initPaymentSheet.......');
       await _initPaymentSheet(stripe: stripe);
-      print('presentPaymentSheet .......');
+      print('presentPaymentSheet  presentPaymentSheet.......');
       await Stripe.instance.presentPaymentSheet();
 
       return Right(true);
     } catch (error) {
+      print('presentPaymentSheet  error.......');
+      print((error as PlatformException).message);
+      if (error.runtimeType == PlatformException) return Left(GenericFailure((error as PlatformException).message));
       return Left(GenericFailure((error as StripeException).error.localizedMessage));
     }
   }
@@ -68,7 +76,7 @@ Future<void> _initPaymentSheet({required StripeModel stripe}) async {
       paymentIntentClientSecret: stripe.clientSecret,
       merchantDisplayName: StripeKeys.appName,
       customFlow: false,
-      intentConfiguration: IntentConfiguration(mode: IntentMode(currencyCode: stripe.currency, amount: stripe.amount, setupFutureUsage: IntentFutureUsage.OffSession, captureMethod: CaptureMethod.AutomaticAsync)),
+      intentConfiguration: IntentConfiguration(mode: IntentMode.paymentMode(currencyCode: stripe.currency, amount: stripe.amount, setupFutureUsage: IntentFutureUsage.OffSession, captureMethod: CaptureMethod.AutomaticAsync)),
       customerId: GlobalContext().readCubit<UserCubit>()?.state.user.userName,
       billingDetails: BillingDetails(name: GlobalContext().readCubit<UserCubit>()?.state.user.userName, email: GlobalContext().readCubit<UserCubit>()?.state.user.email),
       appearance: PaymentSheetAppearance(
