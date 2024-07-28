@@ -510,7 +510,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           //   ),
 
                           // wait & cancel driver
-                          if (widget.orderCardTargetPage == OrderCardTargetPage.customerHistory && widget.order.isDriverDelayed && widget.menuTarget == MenuTarget.order)
+                          if ([OrderCardTargetPage.customerOrders, OrderCardTargetPage.customerPreOrders].contains(widget.orderCardTargetPage) && widget.order.isDriverDelayed)
                             Row(
                               children: [
                                 PutActionButton(config: OrderPutActions.waitDriver(widget: widget)),
@@ -519,7 +519,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
 
                           // wait & cancel chef
-                          if (widget.orderCardTargetPage == OrderCardTargetPage.customerHistory && widget.order.isChefDelayed && widget.menuTarget == MenuTarget.order)
+                          if ([OrderCardTargetPage.customerOrders, OrderCardTargetPage.customerPreOrders].contains(widget.orderCardTargetPage) && widget.order.isChefDelayed)
                             Row(
                               children: [
                                 PutActionButton(config: OrderPutActions.waitChef(widget: widget)),
