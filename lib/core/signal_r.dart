@@ -20,10 +20,10 @@ void initializeSignalr() {
   final userCubit = G().rd<UserCubit>();
 
   Signalr.accessToken = userCubit.state.user.accessToken;
+  Signalr.onreconnected(AfterReconnectSignalr.reconnectedCall);
 
   Signalr.startConnection().then((value) {
-    AfterReconnectSignalr.reconnectedCall();
-    //   /// initial listen to global messages from signal r
+    /// initial listen to global messages from signal r
     GlobalSignalR.initial();
 
     /// initial listen to chef messages from signal r
