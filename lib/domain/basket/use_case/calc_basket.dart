@@ -11,16 +11,11 @@ class CalcBasket extends UseCase<Basket, CalcBasketParams> {
       deliveryCostPrice: params.basket.isPickup == true ? 0 : 4.5,
     ));
 
-    double totalPrice = params.basket.invoiceDetails.fold(
-        0.0, (p, e) => p + (e.productVarintPrice * int.parse(e.quantity)));
+    double totalPrice = params.basket.invoiceDetails.fold(0.0, (p, e) => p + (e.productVarintPrice * int.parse(e.quantity)));
 
-    double invoiceTax =
-        ((totalPrice - params.basket.invoice.invoiceDiscount) * .3) * .25;
+    double invoiceTax = ((totalPrice - params.basket.invoice.invoiceDiscount) * .25) * .19;
 
-    double finalPrice = totalPrice -
-        params.basket.invoice.invoiceDiscount +
-        invoiceTax +
-        params.basket.invoice.deliveryAreaPrice;
+    double finalPrice = totalPrice - params.basket.invoice.invoiceDiscount + invoiceTax + params.basket.invoice.deliveryAreaPrice;
 
     return Right(
       params.basket.copyWith(
