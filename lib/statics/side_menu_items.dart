@@ -238,7 +238,7 @@ class _AppMenuList {
           label: S.of(context).yourWallet,
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
-              return state.isLoading ? const PacmanLoadingWidget(size: CommonDimens.defaultBlockGap) : TextCurrency(value: state.wallet.money ?? 0, fontSize: CommonFontSize.font_14);
+              return state.isLoading ? const PacmanLoadingWidget(size: CommonDimens.defaultBlockGap) : TextCurrency(value: -1 * (state.wallet.money ?? 0), fontSize: CommonFontSize.font_14);
             },
           ),
           onRender: () {

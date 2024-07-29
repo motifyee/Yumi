@@ -22,7 +22,7 @@ class WalletScreen extends StatelessWidget {
           surfaceTintColor: Colors.transparent,
           leading: TextButton(
               onPressed: () {
-                G().router.pop();
+                G().router.maybePop();
               },
               child: Icon(
                 Icons.arrow_back,
@@ -37,8 +37,7 @@ class WalletScreen extends StatelessWidget {
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: CommonDimens.defaultLineGap),
+              padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultLineGap),
               child: Row(
                 children: [
                   SvgPicture.asset('assets/images/schedule_menu.svg'),
@@ -64,29 +63,20 @@ class WalletScreen extends StatelessWidget {
                         if (state.isLoading) const PacmanLoadingWidget(),
                         if (!state.isLoading)
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: CommonDimens.defaultGap,
-                                horizontal: CommonDimens.defaultGap),
+                            padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap, horizontal: CommonDimens.defaultGap),
                             child: Container(
-                              decoration: BoxDecoration(
-                                  color: CommonColors.backgroundTant),
+                              decoration: BoxDecoration(color: CommonColors.backgroundTant),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: CommonDimens.defaultBlockGap,
-                                    vertical: CommonDimens.defaultLineGap),
+                                padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultBlockGap, vertical: CommonDimens.defaultLineGap),
                                 child: Row(
                                   children: [
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text(S.of(context).youHave,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium),
+                                          Text(S.of(context).youHave, style: Theme.of(context).textTheme.bodyMedium),
                                           TextCurrency(
-                                            value: state.wallet.money ?? 0,
+                                            value: (G().isCustomerApp ? -1 : 1) * (state.wallet.money ?? 0),
                                             fontSize: CommonFontSize.font_20,
                                           ),
                                         ],
@@ -94,18 +84,14 @@ class WalletScreen extends StatelessWidget {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        context.router
-                                            .push(const PaymentVisaRoute());
+                                        context.router.push(const PaymentVisaRoute());
                                       },
                                       child: Column(
                                         children: [
-                                          SvgPicture.asset(
-                                              'assets/images/visa_card_icon.svg'),
+                                          SvgPicture.asset('assets/images/visa_card_icon.svg'),
                                           Text(
                                             S.of(context).cards,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelSmall,
+                                            style: Theme.of(context).textTheme.labelSmall,
                                           ),
                                         ],
                                       ),
