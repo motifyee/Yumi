@@ -12,7 +12,6 @@ import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:common_code/domain/food_delivery/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/routes/routes.gr.dart';
-import 'package:yumi/service/order_service.dart';
 import 'package:common_code/common_code.dart';
 import 'package:yumi/app/pages/order/widgets/product_in_card.dart';
 
