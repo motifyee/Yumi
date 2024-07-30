@@ -530,13 +530,13 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
 
                           // wait & cancel chef
-                          if ([OrderCardTargetPage.customerOrders, OrderCardTargetPage.customerPreOrders].contains(widget.orderCardTargetPage) && widget.order.isChefDelayed)
-                            Row(
-                              children: [
-                                PutActionButton(config: OrderPutActions.waitChef(widget: widget)),
-                                PutActionButton(config: OrderPutActions.cancelChef(widget: widget)),
-                              ],
-                            ),
+                          // if ([OrderCardTargetPage.customerOrders, OrderCardTargetPage.customerPreOrders].contains(widget.orderCardTargetPage) && widget.order.isChefDelayed  )
+                          //   Row(
+                          //     children: [
+                          //       PutActionButton(config: OrderPutActions.waitChef(widget: widget)),
+                          //       PutActionButton(config: OrderPutActions.cancelChef(widget: widget)),
+                          //     ],
+                          //   ),
 
                           if ((widget.order.invoiceDetails?.length ?? 0) > 1 && AppTarget.user != YumiApp.drivers)
                             Padding(
