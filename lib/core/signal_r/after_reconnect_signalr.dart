@@ -5,7 +5,6 @@ class AfterReconnectSignalr {
   static reconnectedCall([String? connectionId]) {
     print('AfterReconnectSignalr ......................');
     if (G().isCustomerApp) return;
-
     G().rd<UserCubit>().getStatus();
   }
 }

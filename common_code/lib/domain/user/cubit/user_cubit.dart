@@ -3,6 +3,7 @@ import 'package:common_code/common_code.dart';
 import 'package:common_code/core/setup/signalr.dart';
 import 'package:common_code/domain/profile/use_cases/update_status.dart';
 import 'package:common_code/domain/food_delivery/chef/use_cases/get_chef_work_status.dart';
+import 'package:common_code/util/global_context.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_cubit.freezed.dart';
@@ -60,13 +61,14 @@ class UserCubit extends Cubit<UserState> {
   }
 
   getStatus() async {
-    dynamic userWithStatus(int status) => state.user.copyWith(status: status).toJson();
+    dynamic userWithStatus(int status) => state.user.copyWith(status: status);
 
     final params = GetChefWorkStatusParams(state.user.id);
-
     await GetChefWorkStatus().call(params).then((res) => res.fold(
-          (l) => null,
-          (r) => saveUser(userWithStatus(r.index)),
+          (l) => print(l.toString()),
+          (r) {
+            saveUser(userWithStatus(r.index));
+          },
         ));
   }
 

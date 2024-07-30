@@ -38,7 +38,7 @@ class ChefRemoteSrc implements ChefSrc {
     if (res.statusCode != 200) throw ServerException();
 
     return ChefWorkStatus.values.firstWhere(
-      (e) => e == res.data['statusWork'],
+      (e) => e.index == res.data['statusWork'],
       orElse: () => throw GenericException(),
     );
   }

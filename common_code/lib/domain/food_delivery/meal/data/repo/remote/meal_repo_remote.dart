@@ -38,8 +38,6 @@ class MealRepoRemote extends MealRepo {
 
   @override
   TaskEither<Failure, PaginatedData<Meal>> getMealsByChefByCategory({required PaginatedData<Meal> pagination, required int categoryId, required String chefId, bool? isPreorder = false}) {
-    print('getMealsByChefByCategory .....');
-    print(isPreorder);
     return TaskEither.tryCatch(() => mealSource.getMealsByChefByCategory(pagination: pagination, categoryId: categoryId, chefId: chefId, isPreorder: isPreorder), (error, stackTrace) => ServerFailure(error.toString()));
   }
 

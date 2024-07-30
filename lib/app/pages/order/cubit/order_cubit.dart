@@ -50,8 +50,6 @@ class OrderCubit extends Cubit<OrderState> {
     Function()? navFun,
     String? customMessage,
   }) async {
-    print('putAction ...............');
-
     void emitOrderIsLoading(bool isLoading) {
       List<Order> orders = List.from(
         state.ordersPage.data.map((e) => e.id == order.id ? e.copyWith(isLoading: isLoading) : e),

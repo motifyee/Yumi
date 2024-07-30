@@ -14,18 +14,13 @@ class StripePayment extends UseCase<bool, StripePaymentParams> {
   Future<Either<Failure, bool>> call(StripePaymentParams params) async {
     print('presentPaymentSheet .......');
     try {
-      print('presentPaymentSheet  _getClientSecret.......');
       final stripe = await _getClientSecret(params);
 
-      print('presentPaymentSheet  _initPaymentSheet.......');
       await _initPaymentSheet(stripe: stripe);
-      print('presentPaymentSheet  presentPaymentSheet.......');
       await Stripe.instance.presentPaymentSheet();
 
       return Right(true);
     } catch (error) {
-      print('presentPaymentSheet  error.......');
-      print((error as PlatformException).message);
       if (error.runtimeType == PlatformException) return Left(GenericFailure((error as PlatformException).message));
       return Left(GenericFailure((error as StripeException).error.localizedMessage));
     }
