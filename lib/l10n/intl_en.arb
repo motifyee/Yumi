@@ -254,5 +254,6 @@
 	"invoiceTax": "Invoice Tax",
 	"calculationError": "Calculation Error",
 	"discount": "Discount",
-	"stripeError": "Stripe Error"
+	"stripeError": "Stripe Error",
+	"canceled": "Canceled"
 }

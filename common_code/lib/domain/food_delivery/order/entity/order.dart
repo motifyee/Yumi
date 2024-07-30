@@ -28,6 +28,7 @@ class Order with _$Order {
     String? clientName,
     String? clientMobile,
     String? clientDefaultAddress,
+    bool? isDeleted,
     @JsonKey(name: 'driver_Accept') bool? driverAccept,
     @JsonKey(name: 'driver_Accept_Date') String? driverAcceptDate,
     @JsonKey(name: 'driver_Received') bool? driverReceived,

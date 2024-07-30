@@ -69,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "caloriesReference":
             MessageLookupByLibrary.simpleMessage("Calories reference"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "canceled": MessageLookupByLibrary.simpleMessage("Canceled"),
         "cardNumber": MessageLookupByLibrary.simpleMessage("Card number"),
         "cards": MessageLookupByLibrary.simpleMessage("Cards"),
         "change": MessageLookupByLibrary.simpleMessage("Change"),

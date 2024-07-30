@@ -143,7 +143,19 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               ),
                             ],
                           ),
-                        if (AppTarget.user != YumiApp.drivers)
+                        if (AppTarget.user == YumiApp.customers && widget.order.isDeleted == true)
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: CommonDimens.defaultGap,
+                              vertical: CommonDimens.defaultMicroGap,
+                            ),
+                            decoration: BoxDecoration(color: CommonColors.backgroundTant, borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadiusMedium)),
+                            child: Text(
+                              S.of(context).canceled,
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                          ),
+                        if (AppTarget.user != YumiApp.drivers && widget.order.isDeleted != true)
                           Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: CommonDimens.defaultGap,
@@ -463,7 +475,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
 
                           // customer order status
-                          if ([OrderCardTargetPage.customerHistory, OrderCardTargetPage.customerOrders, OrderCardTargetPage.customerPreOrders].contains(widget.orderCardTargetPage))
+                          if ([OrderCardTargetPage.customerHistory, OrderCardTargetPage.customerOrders, OrderCardTargetPage.customerPreOrders].contains(widget.orderCardTargetPage) && widget.order.isDeleted != true)
                             PutActionButton(config: OrderPutActions.customerOrderStatus(widget: widget)),
 
                           /// TODO: change api for preorder cancel

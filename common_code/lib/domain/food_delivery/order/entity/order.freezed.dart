@@ -44,6 +44,7 @@ mixin _$Order {
   String? get clientName => throw _privateConstructorUsedError;
   String? get clientMobile => throw _privateConstructorUsedError;
   String? get clientDefaultAddress => throw _privateConstructorUsedError;
+  bool? get isDeleted => throw _privateConstructorUsedError;
   @JsonKey(name: 'driver_Accept')
   bool? get driverAccept => throw _privateConstructorUsedError;
   @JsonKey(name: 'driver_Accept_Date')
@@ -111,6 +112,7 @@ abstract class $OrderCopyWith<$Res> {
       String? clientName,
       String? clientMobile,
       String? clientDefaultAddress,
+      bool? isDeleted,
       @JsonKey(name: 'driver_Accept') bool? driverAccept,
       @JsonKey(name: 'driver_Accept_Date') String? driverAcceptDate,
       @JsonKey(name: 'driver_Received') bool? driverReceived,
@@ -165,6 +167,7 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
     Object? clientName = freezed,
     Object? clientMobile = freezed,
     Object? clientDefaultAddress = freezed,
+    Object? isDeleted = freezed,
     Object? driverAccept = freezed,
     Object? driverAcceptDate = freezed,
     Object? driverReceived = freezed,
@@ -269,6 +272,10 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
           ? _value.clientDefaultAddress
           : clientDefaultAddress // ignore: cast_nullable_to_non_nullable
               as String?,
+      isDeleted: freezed == isDeleted
+          ? _value.isDeleted
+          : isDeleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
       driverAccept: freezed == driverAccept
           ? _value.driverAccept
           : driverAccept // ignore: cast_nullable_to_non_nullable
@@ -374,6 +381,7 @@ abstract class _$$OrderImplCopyWith<$Res> implements $OrderCopyWith<$Res> {
       String? clientName,
       String? clientMobile,
       String? clientDefaultAddress,
+      bool? isDeleted,
       @JsonKey(name: 'driver_Accept') bool? driverAccept,
       @JsonKey(name: 'driver_Accept_Date') String? driverAcceptDate,
       @JsonKey(name: 'driver_Received') bool? driverReceived,
@@ -426,6 +434,7 @@ class __$$OrderImplCopyWithImpl<$Res>
     Object? clientName = freezed,
     Object? clientMobile = freezed,
     Object? clientDefaultAddress = freezed,
+    Object? isDeleted = freezed,
     Object? driverAccept = freezed,
     Object? driverAcceptDate = freezed,
     Object? driverReceived = freezed,
@@ -530,6 +539,10 @@ class __$$OrderImplCopyWithImpl<$Res>
           ? _value.clientDefaultAddress
           : clientDefaultAddress // ignore: cast_nullable_to_non_nullable
               as String?,
+      isDeleted: freezed == isDeleted
+          ? _value.isDeleted
+          : isDeleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
       driverAccept: freezed == driverAccept
           ? _value.driverAccept
           : driverAccept // ignore: cast_nullable_to_non_nullable
@@ -631,6 +644,7 @@ class _$OrderImpl extends _Order {
       this.clientName,
       this.clientMobile,
       this.clientDefaultAddress,
+      this.isDeleted,
       @JsonKey(name: 'driver_Accept') this.driverAccept,
       @JsonKey(name: 'driver_Accept_Date') this.driverAcceptDate,
       @JsonKey(name: 'driver_Received') this.driverReceived,
@@ -701,6 +715,8 @@ class _$OrderImpl extends _Order {
   @override
   final String? clientDefaultAddress;
   @override
+  final bool? isDeleted;
+  @override
   @JsonKey(name: 'driver_Accept')
   final bool? driverAccept;
   @override
@@ -764,7 +780,7 @@ class _$OrderImpl extends _Order {
 
   @override
   String toString() {
-    return 'Order(id: $id, chefID: $chefID, driverID: $driverID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, createdDate: $createdDate, updatedDate: $updatedDate, scheduleDate: $scheduleDate, chefName: $chefName, clientName: $clientName, clientMobile: $clientMobile, clientDefaultAddress: $clientDefaultAddress, driverAccept: $driverAccept, driverAcceptDate: $driverAcceptDate, driverReceived: $driverReceived, driverReceivedDate: $driverReceivedDate, chefAccept: $chefAccept, chefAcceptDate: $chefAcceptDate, chefStart: $chefStart, chefStartDate: $chefStartDate, chefFinished: $chefFinished, chefFinishedDate: $chefFinishedDate, clientReceived: $clientReceived, clientReceivedDate: $clientReceivedDate, isPickUp: $isPickUp, addressLatitude: $addressLatitude, addressLongitude: $addressLongitude, location: $location, invoiceDetails: $invoiceDetails, isLoading: $isLoading)';
+    return 'Order(id: $id, chefID: $chefID, driverID: $driverID, employeeNote: $employeeNote, clientNote: $clientNote, preparationNote: $preparationNote, shippedAddressId: $shippedAddressId, deliveryAreaPrice: $deliveryAreaPrice, deliveryCostPrice: $deliveryCostPrice, finalPrice: $finalPrice, totalPrice: $totalPrice, invoiceTax: $invoiceTax, invoiceDiscount: $invoiceDiscount, bankID: $bankID, createdDate: $createdDate, updatedDate: $updatedDate, scheduleDate: $scheduleDate, chefName: $chefName, clientName: $clientName, clientMobile: $clientMobile, clientDefaultAddress: $clientDefaultAddress, isDeleted: $isDeleted, driverAccept: $driverAccept, driverAcceptDate: $driverAcceptDate, driverReceived: $driverReceived, driverReceivedDate: $driverReceivedDate, chefAccept: $chefAccept, chefAcceptDate: $chefAcceptDate, chefStart: $chefStart, chefStartDate: $chefStartDate, chefFinished: $chefFinished, chefFinishedDate: $chefFinishedDate, clientReceived: $clientReceived, clientReceivedDate: $clientReceivedDate, isPickUp: $isPickUp, addressLatitude: $addressLatitude, addressLongitude: $addressLongitude, location: $location, invoiceDetails: $invoiceDetails, isLoading: $isLoading)';
   }
 
   @override
@@ -811,6 +827,8 @@ class _$OrderImpl extends _Order {
                 other.clientMobile == clientMobile) &&
             (identical(other.clientDefaultAddress, clientDefaultAddress) ||
                 other.clientDefaultAddress == clientDefaultAddress) &&
+            (identical(other.isDeleted, isDeleted) ||
+                other.isDeleted == isDeleted) &&
             (identical(other.driverAccept, driverAccept) ||
                 other.driverAccept == driverAccept) &&
             (identical(other.driverAcceptDate, driverAcceptDate) ||
@@ -874,6 +892,7 @@ class _$OrderImpl extends _Order {
         clientName,
         clientMobile,
         clientDefaultAddress,
+        isDeleted,
         driverAccept,
         driverAcceptDate,
         driverReceived,
@@ -931,6 +950,7 @@ abstract class _Order extends Order {
       final String? clientName,
       final String? clientMobile,
       final String? clientDefaultAddress,
+      final bool? isDeleted,
       @JsonKey(name: 'driver_Accept') final bool? driverAccept,
       @JsonKey(name: 'driver_Accept_Date') final String? driverAcceptDate,
       @JsonKey(name: 'driver_Received') final bool? driverReceived,
@@ -998,6 +1018,8 @@ abstract class _Order extends Order {
   String? get clientMobile;
   @override
   String? get clientDefaultAddress;
+  @override
+  bool? get isDeleted;
   @override
   @JsonKey(name: 'driver_Accept')
   bool? get driverAccept;
