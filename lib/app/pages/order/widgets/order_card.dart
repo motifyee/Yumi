@@ -521,7 +521,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           //   ),
 
                           // wait & cancel driver
-                          if ([OrderCardTargetPage.customerOrders, OrderCardTargetPage.customerPreOrders].contains(widget.orderCardTargetPage) && widget.order.isDriverDelayed)
+                          if ([OrderCardTargetPage.customerOrders, OrderCardTargetPage.customerPreOrders].contains(widget.orderCardTargetPage) &&
+                              (widget.menuTarget == MenuTarget.preOrder ? widget.order.isDriverPreOrderDelayed : widget.order.isDriverOrderDelayed))
                             Row(
                               children: [
                                 PutActionButton(config: OrderPutActions.waitDriver(widget: widget)),

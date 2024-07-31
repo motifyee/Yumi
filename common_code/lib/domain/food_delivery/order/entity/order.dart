@@ -53,7 +53,8 @@ class Order with _$Order {
 
   bool get isChefDelayed => DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes > 35 && chefStart == true && chefFinished != true;
 
-  bool get isDriverDelayed => DateTime.now().difference(DateTime.tryParse(chefStartDate ?? '') ?? DateTime.now()).inMinutes > 70 && chefFinished == true && clientReceived != true;
+  bool get isDriverOrderDelayed => DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes > 70 && chefFinished == true && clientReceived != true;
+  bool get isDriverPreOrderDelayed => DateTime.now().difference(DateTime.tryParse(scheduleDate ?? '') ?? DateTime.now()).inMinutes > 70 && chefFinished == true && clientReceived != true;
 
   // TODO : should be 2 min
   bool get isDriverOrderPendingEnd => DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes > (24 * 60);
