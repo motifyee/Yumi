@@ -102,6 +102,7 @@ class Signalr {
     ensureInitialized();
 
     if (hubConnection!.state == HubConnectionState.Connected) return;
+    if (GlobalContext().context.read<UserCubit>().state.user.accessToken.isEmpty) return;
 
     await hubConnection!.start()?.then(_onstarted).catchError(_onstarterror);
   }
