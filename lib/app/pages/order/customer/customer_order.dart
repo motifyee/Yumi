@@ -70,9 +70,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 ActionButton(
                   onPressed: () {
                     setState(() {
-                      _controller.animateToPage(widget.isHistory ? 1 : 0,
-                          duration: CommonDimens.animationDuration,
-                          curve: Curves.easeOut);
+                      _controller.animateToPage(widget.isHistory ? 1 : 0, duration: CommonDimens.animationDuration, curve: Curves.easeOut);
                       _index = widget.isHistory ? 1 : 0;
                     });
                     context.read<SignalRCubit>().removeSignals(signal: [
@@ -83,6 +81,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                       Signal.cheffinished,
                       Signal.driverreceived,
                       Signal.clientreceived,
+                      Signal.chefcancel,
                     ]);
                   },
                   label: S.of(context).myOrders,
@@ -95,15 +94,14 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                     Signal.cheffinished,
                     Signal.driverreceived,
                     Signal.clientreceived,
+                    Signal.chefcancel,
                   ], isPreOrder: false),
                 ),
                 const SizedBox(width: CommonDimens.defaultGap),
                 ActionButton(
                   onPressed: () {
                     setState(() {
-                      _controller.animateToPage(widget.isHistory ? 3 : 2,
-                          duration: CommonDimens.animationDuration,
-                          curve: Curves.easeOut);
+                      _controller.animateToPage(widget.isHistory ? 3 : 2, duration: CommonDimens.animationDuration, curve: Curves.easeOut);
                       _index = widget.isHistory ? 3 : 2;
                     });
                     context.read<SignalRCubit>().removeSignals(signal: [
@@ -114,6 +112,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                       Signal.cheffinished,
                       Signal.driverreceived,
                       Signal.clientreceived,
+                      Signal.chefcancel,
                     ]);
                   },
                   label: S.of(context).myPreOrder,
@@ -126,6 +125,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                     Signal.cheffinished,
                     Signal.driverreceived,
                     Signal.clientreceived,
+                    Signal.chefcancel,
                   ], isPreOrder: true),
                 ),
               ],
@@ -150,6 +150,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                     Signal.cheffinished,
                     Signal.driverreceived,
                     Signal.clientreceived,
+                    Signal.chefcancel,
                   ],
                 ),
               ),
@@ -159,7 +160,10 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   menuTarget: MenuTarget.order,
                   apiKey: EndPoints.orderCustomerClosed,
                   orderCardTargetPage: OrderCardTargetPage.customerHistory,
-                  signals: const [Signal.clientreceived],
+                  signals: const [
+                    Signal.clientreceived,
+                    Signal.chefcancel,
+                  ],
                 ),
               ),
               BlocProvider(
@@ -175,6 +179,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                     Signal.cheffinished,
                     Signal.driverreceived,
                     Signal.clientreceived,
+                    Signal.chefcancel,
                   ],
                 ),
               ),
@@ -184,7 +189,10 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   menuTarget: MenuTarget.preOrder,
                   apiKey: EndPoints.preOrderCustomerClosed,
                   orderCardTargetPage: OrderCardTargetPage.customerHistory,
-                  signals: const [Signal.clientreceived],
+                  signals: const [
+                    Signal.clientreceived,
+                    Signal.chefcancel,
+                  ],
                 ),
               ),
             ],

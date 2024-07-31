@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
@@ -25,6 +26,7 @@ enum Signal {
   clientreceived,
   clientcancel,
   clientwait,
+  chefcancel,
   notification,
   start,
   stop,
@@ -89,7 +91,6 @@ class Signalr {
     ensureInitialized();
 
     if (hubConnection!.state == HubConnectionState.Connected) return;
-    if (GlobalContext().context.read<UserCubit>().state.user.accessToken.isEmpty) return;
 
     await hubConnection!.start()?.then(_onstarted).catchError(_onstarterror);
   }
@@ -179,6 +180,7 @@ void _onstarted(_) {
 
 void _onstarterror(dynamic error) {
   debugPrint("SignalR Connection Init Error: $error");
+  Timer(const Duration(seconds: 1), () => Signalr.startConnection());
 }
 
 Future<void> sendMessage(String message) async {
