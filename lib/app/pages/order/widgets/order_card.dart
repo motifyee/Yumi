@@ -143,7 +143,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                               ),
                             ],
                           ),
-                        if (AppTarget.user == YumiApp.customers && widget.order.isDeleted == true)
+                        if ([OrderCardTargetPage.customerHistory, OrderCardTargetPage.chefHistory, OrderCardTargetPage.driverHistory].contains(widget.orderCardTargetPage) && widget.order.isDeleted == true)
                           Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: CommonDimens.defaultGap,
