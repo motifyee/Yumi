@@ -2,8 +2,8 @@ import 'package:common_code/common_code.dart';
 import 'package:common_code/util/global_context.dart';
 
 // const defaultOriginApi = 'https://10.99.77.247:5012';
-const defaultOriginApi = 'https://vroot.tarabia.online';
-// const defaultOriginApi = 'https://beat.vroot.com:8099';
+// const defaultOriginApi = 'https://vroot.tarabia.online';
+const defaultOriginApi = 'https://beta.vroot.com:8099';
 String originApi = '';
 
 class BaseUrl {

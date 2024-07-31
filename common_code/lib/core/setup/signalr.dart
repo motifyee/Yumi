@@ -170,6 +170,7 @@ class HttpOverrideCertificateVerificationInDev extends HttpOverrides {
 void _onclose({Exception? error}) {
   debugPrint("SignalR closed ");
   debugPrint(error.toString());
+  Signalr.startConnection();
 }
 
 void _onreconnecting({Exception? error}) {

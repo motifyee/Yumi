@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/core/setup/signalr.dart';
@@ -51,35 +53,10 @@ class App extends StatelessWidget {
             color: CommonColors.background,
             child: Stack(children: [
               child ?? const SizedBox(),
-              Positioned(
-                top: -15,
-                left: -15,
-                child: StreamBuilder(
-                    stream: Signalr.hubConnection?.stateStream,
-                    builder: (context, snapshot) {
-                      print('hubConnection stream ............ ');
-                      print(snapshot.data);
-
-                      Color color = CommonColors.secondary;
-
-                      switch (snapshot.data) {
-                        case HubConnectionState.Connected:
-                          color = CommonColors.success;
-                          break;
-                        case HubConnectionState.Reconnecting:
-                          color = CommonColors.primary;
-                          break;
-
-                        default:
-                          break;
-                      }
-
-                      return Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(30)),
-                      );
-                    }),
+              const Positioned(
+                top: -10,
+                right: -10,
+                child: SignalRStatus(),
               ),
             ]),
           ),
@@ -103,4 +80,41 @@ abstract class AppConfig {
   Iterable<Locale> get supportedLocales;
 
   Iterable<LocalizationsDelegate<dynamic>>? get localizationsDelegates;
+}
+
+class SignalRStatus extends StatefulWidget {
+  const SignalRStatus({super.key});
+
+  @override
+  State<SignalRStatus> createState() => _SignalRStatusState();
+}
+
+class _SignalRStatusState extends State<SignalRStatus> {
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 1), (e) => setState(() {}));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Color color = CommonColors.secondary;
+
+    switch (Signalr.hubConnection?.state) {
+      case HubConnectionState.Connected:
+        color = CommonColors.success;
+        break;
+      case HubConnectionState.Reconnecting:
+        color = CommonColors.primary;
+        break;
+
+      default:
+        break;
+    }
+    return Container(
+      width: 20,
+      height: 20,
+      decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(20)),
+    );
+  }
 }
