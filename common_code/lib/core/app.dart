@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:common_code/common_code.dart';
+import 'package:common_code/core/setup/signalr.dart';
 import 'package:common_code/util/global_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nested/nested.dart';
+import 'package:signalr_netcore/signalr_client.dart';
 
 class App extends StatelessWidget {
   final AppConfig config;
@@ -47,7 +49,39 @@ class App extends StatelessWidget {
         return SafeArea(
           child: Container(
             color: CommonColors.background,
-            child: child ?? const SizedBox(),
+            child: Stack(children: [
+              child ?? const SizedBox(),
+              Positioned(
+                top: -15,
+                left: -15,
+                child: StreamBuilder(
+                    stream: Signalr.hubConnection?.stateStream,
+                    builder: (context, snapshot) {
+                      print('hubConnection stream ............ ');
+                      print(snapshot.data);
+
+                      Color color = CommonColors.secondary;
+
+                      switch (snapshot.data) {
+                        case HubConnectionState.Connected:
+                          color = CommonColors.success;
+                          break;
+                        case HubConnectionState.Reconnecting:
+                          color = CommonColors.primary;
+                          break;
+
+                        default:
+                          break;
+                      }
+
+                      return Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(30)),
+                      );
+                    }),
+              ),
+            ]),
           ),
         );
       },
