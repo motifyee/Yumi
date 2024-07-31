@@ -64,20 +64,7 @@ class Signalr {
       accessTokenFactory: () => Future.value(accessToken!),
     );
 
-    hubConnection = HubConnectionBuilder()
-        .withUrl("$baseUrl/$hubName", options: httpOptions)
-        .configureLogging(hubLogger)
-        .withAutomaticReconnect(retryDelays: [
-          0,
-          1000,
-          2000,
-          4000,
-          8000,
-          15000,
-          30000,
-        ])
-        .withHubProtocol(JsonHubProtocol())
-        .build();
+    hubConnection = HubConnectionBuilder().withUrl("$baseUrl/$hubName", options: httpOptions).configureLogging(hubLogger).withAutomaticReconnect(retryDelays: List<int>.filled(120, 1000)).withHubProtocol(JsonHubProtocol()).build();
 
     hubConnection!.onclose(_onclose);
     hubConnection!.onreconnecting(_onreconnecting);
