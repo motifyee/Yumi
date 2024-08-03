@@ -32,7 +32,9 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(const ProfileState());
 
   Future<Profile?> getProfile() async {
-    emit(state.copyWith.profile(entityStatus: state.profile.entityStatus.copyWith(status: Status.loading)));
+    emit(state.copyWith.profile(
+        entityStatus:
+            state.profile.entityStatus.copyWith(status: Status.loading)));
 
     final params = LoadProfileParam(
       G().rd<UserCubit>().state.user.id,
@@ -42,12 +44,19 @@ class ProfileCubit extends Cubit<ProfileState> {
 
     return profile.fold(
       (l) {
-        emit(state.copyWith(profile: state.profile.copyWith(entityStatus: state.profile.entityStatus.copyWith(status: Status.error))));
+        emit(state.copyWith(
+            profile: state.profile.copyWith(
+                entityStatus: state.profile.entityStatus
+                    .copyWith(status: Status.error))));
 
         return null;
       },
       (r) {
-        emit(state.copyWith(profile: r.copyWith(mobile: _removeUKCountryCode(r.mobile), entityStatus: state.profile.entityStatus.copyWith(status: Status.success))));
+        emit(state.copyWith(
+            profile: r.copyWith(
+                mobile: _removeUKCountryCode(r.mobile),
+                entityStatus: state.profile.entityStatus
+                    .copyWith(status: Status.success))));
 
         return r;
       },
@@ -55,7 +64,9 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future<Profile?> getProfileForm() async {
-    emit(state.copyWith.form(entityStatus: state.form.entityStatus.copyWith(status: Status.loading)));
+    emit(state.copyWith.form(
+        entityStatus:
+            state.form.entityStatus.copyWith(status: Status.loading)));
 
     final params = LoadProfileParam(
       G().rd<UserCubit>().state.user.id,
@@ -65,13 +76,18 @@ class ProfileCubit extends Cubit<ProfileState> {
 
     return profile.fold(
       (l) {
-        emit(state.copyWith.form(entityStatus: state.form.entityStatus.copyWith(status: Status.error)));
+        emit(state.copyWith.form(
+            entityStatus:
+                state.form.entityStatus.copyWith(status: Status.error)));
 
         return null;
       },
       (r) {
         emit(state.copyWith(
-          form: r.copyWith(mobile: _removeUKCountryCode(r.mobile), entityStatus: state.form.entityStatus.copyWith(status: Status.success)),
+          form: r.copyWith(
+              mobile: _removeUKCountryCode(r.mobile),
+              entityStatus:
+                  state.form.entityStatus.copyWith(status: Status.success)),
         ));
 
         return r;
@@ -87,7 +103,8 @@ class ProfileCubit extends Cubit<ProfileState> {
     return mobile.replaceAll(RegExp(r'^' + kUKCountryCode), '');
   }
 
-  void setState(ProfileState Function(ProfileState) update) => emit(update(state));
+  void setState(ProfileState Function(ProfileState) update) =>
+      emit(update(state));
 
   void toggleFormDeliveryAvailable() {
     emit(state.copyWith.form(pickupOnly: !state.form.pickupOnly));
@@ -100,23 +117,28 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   // returns the updated profile or null if failed
-  Future<Profile?> updateProfileForm([Profile? profile]) async {
+  Future<Either<Failure, Profile>> updateProfileForm([Profile? profile]) async {
     var profile0 = profile ?? state.form;
     profile0 = profile0.copyWith(mobile: _addUKCountryCode(profile0.mobile));
 
-    emit(state.copyWith.form(entityStatus: state.form.entityStatus.copyWith(status: Status.loading)));
+    emit(state.copyWith.form(
+        entityStatus:
+            state.form.entityStatus.copyWith(status: Status.loading)));
 
     final update = await UpdateProfile().call(UpdateProfileParam(profile0));
 
-    return update.fold(
+    update.fold(
       (l) {
         emit(
           state.copyWith.form(
-            entityStatus: state.form.entityStatus.copyWith(status: Status.error, message: switch (l) { ServerFailure() => l.error.toString(), _ => generalError }),
+            entityStatus: state.form.entityStatus.copyWith(
+                status: Status.error,
+                message: switch (l) {
+                  ServerFailure() => l.error.toString(),
+                  _ => generalError
+                }),
           ),
         );
-
-        return null;
       },
       (r) {
         emit(
@@ -128,17 +150,20 @@ class ProfileCubit extends Cubit<ProfileState> {
                 message: 'Profile updated successfully.',
               ),
             ),
-            profile: profile0.copyWith(entityStatus: state.profile.entityStatus),
+            profile:
+                profile0.copyWith(entityStatus: state.profile.entityStatus),
           ),
         );
-
-        return profile0;
       },
     );
+
+    return update;
   }
 
   Future<Profile> uploadFormPhotos(List<String?> photos) async {
-    emit(state.copyWith.form(entityStatus: state.form.entityStatus.copyWith(status: Status.loading)));
+    emit(state.copyWith.form(
+        entityStatus:
+            state.form.entityStatus.copyWith(status: Status.loading)));
 
     final profile = await UploadProfilePhotos().call(UploadProfilePhotosParam(
       state.form.copyWith(mobile: _addUKCountryCode(state.form.mobile)),
@@ -146,37 +171,58 @@ class ProfileCubit extends Cubit<ProfileState> {
     ));
 
     return profile.fold((l) {
-      emit(state.copyWith.form(entityStatus: state.form.entityStatus.copyWith(status: Status.error)));
+      emit(state.copyWith.form(
+          entityStatus:
+              state.form.entityStatus.copyWith(status: Status.error)));
 
       return state.form;
     }, (r) {
-      emit(state.copyWith(form: r.copyWith(mobile: _removeUKCountryCode(r.mobile), entityStatus: state.form.entityStatus.copyWith(status: Status.success))));
+      emit(state.copyWith(
+          form: r.copyWith(
+              mobile: _removeUKCountryCode(r.mobile),
+              entityStatus:
+                  state.form.entityStatus.copyWith(status: Status.success))));
 
       return r;
     });
   }
 
-  Future<Profile> updateProfilePhoto(String? photo) async {
-    emit(state.copyWith.form(entityStatus: state.form.entityStatus.copyWith(status: Status.loading)));
+  Future<Either<Failure, Profile>> updateProfilePhoto(String? photo) async {
+    emit(state.copyWith.form(
+        entityStatus:
+            state.form.entityStatus.copyWith(status: Status.loading)));
 
-    final profile = await UpdateProfilePhoto().call(UpdateProfilePhotoParam(
+    final update = await UpdateProfilePhoto().call(UpdateProfilePhotoParam(
       state.form.copyWith(mobile: _addUKCountryCode(state.form.mobile)),
       photo,
     ));
 
-    return profile.fold((l) {
-      emit(state.copyWith.form(entityStatus: state.form.entityStatus.copyWith(status: Status.error)));
+    update.fold(
+      (l) {
+        emit(state.copyWith.form(
+            entityStatus:
+                state.form.entityStatus.copyWith(status: Status.error)));
 
-      return state.form;
-    }, (r) {
-      emit(state.copyWith(form: r.copyWith(mobile: _removeUKCountryCode(r.mobile), entityStatus: state.form.entityStatus.copyWith(status: Status.success))));
+        return state.form;
+      },
+      (r) {
+        emit(state.copyWith(
+            form: r.copyWith(
+                mobile: _removeUKCountryCode(r.mobile),
+                entityStatus:
+                    state.form.entityStatus.copyWith(status: Status.success))));
 
-      return r;
-    });
+        return r;
+      },
+    );
+
+    return update;
   }
 
   Future<Profile> deleteFormPhoto({required String photo}) async {
-    emit(state.copyWith.form(entityStatus: state.form.entityStatus.copyWith(status: Status.loading)));
+    emit(state.copyWith.form(
+        entityStatus:
+            state.form.entityStatus.copyWith(status: Status.loading)));
 
     final update = await DeleteProfilePhoto().call(DeleteProfilePhotoParam(
       state.form.copyWith(mobile: _addUKCountryCode(state.form.mobile)),
@@ -184,11 +230,17 @@ class ProfileCubit extends Cubit<ProfileState> {
     ));
 
     return update.fold((l) {
-      emit(state.copyWith.form(entityStatus: state.form.entityStatus.copyWith(status: Status.error)));
+      emit(state.copyWith.form(
+          entityStatus:
+              state.form.entityStatus.copyWith(status: Status.error)));
 
       return state.form;
     }, (r) {
-      emit(state.copyWith(form: r.copyWith(mobile: _removeUKCountryCode(r.mobile), entityStatus: state.form.entityStatus.copyWith(status: Status.success))));
+      emit(state.copyWith(
+          form: r.copyWith(
+              mobile: _removeUKCountryCode(r.mobile),
+              entityStatus:
+                  state.form.entityStatus.copyWith(status: Status.success))));
 
       return r;
     });
@@ -205,7 +257,8 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future<List<Review>> getReviews() async {
-    emit(state.copyWith(reviewsStatus: state.reviewsStatus.copyWith(status: Status.loading)));
+    emit(state.copyWith(
+        reviewsStatus: state.reviewsStatus.copyWith(status: Status.loading)));
 
     return (await LoadReviews().call(NoParams())).fold(
       (l) {
@@ -244,7 +297,8 @@ class ProfileCubit extends Cubit<ProfileState> {
 
         emit(
           state.copyWith.form(
-            entityStatus: state.form.entityStatus.copyWith(message: msg, status: Status.error),
+            entityStatus: state.form.entityStatus
+                .copyWith(message: msg, status: Status.error),
           ),
         );
 
@@ -253,7 +307,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       (r) {
         emit(
           state.copyWith.form(
-            entityStatus: state.form.entityStatus.copyWith(status: Status.success),
+            entityStatus:
+                state.form.entityStatus.copyWith(status: Status.success),
           ),
         );
         return r;
@@ -263,14 +318,13 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<String?> setMobile(String mobile) async {
     var profile = G().rd<ProfileCubit>().state.form.copyWith(mobile: mobile);
-    var update = await G().rd<ProfileCubit>().updateProfileForm(profile);
+    final profileUpdateError =
+        (await G().rd<ProfileCubit>().updateProfileForm(profile)).fold(
+      (l) => l.toString(),
+      (_) => null,
+    );
 
-    if (update == null) {
-      emit(state.copyWith.form(
-        entityStatus: const EntityStatus(status: Status.error),
-      ));
-      return null;
-    }
+    if (profileUpdateError != null) return null;
 
     emit(state.copyWith.form(mobile: mobile));
 

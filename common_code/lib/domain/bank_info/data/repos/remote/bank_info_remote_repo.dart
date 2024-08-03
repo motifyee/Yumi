@@ -13,7 +13,7 @@ class BankInfoRemoteRepo implements BankInfoRepo {
   TaskEither<Failure, String> addBankInfo(BankInfo bankInfo) {
     return TaskEither.tryCatch(
       () => src.addBankInfo(bankInfo),
-      (error, stackTrace) => Failure.fromException(error as CException),
+      (error, stackTrace) => Failure.fromException(error),
     );
   }
 
@@ -21,7 +21,7 @@ class BankInfoRemoteRepo implements BankInfoRepo {
   TaskEither<Failure, BankInfo> getBankInfo() {
     return TaskEither.tryCatch(
       () => src.getBankInfo(),
-      (error, stackTrace) => Failure.fromException(error as CException),
+      (error, stackTrace) => Failure.fromException(error),
     );
   }
 
@@ -29,7 +29,7 @@ class BankInfoRemoteRepo implements BankInfoRepo {
   TaskEither<Failure, String> updateBankInfo(BankInfo bankInfo) {
     return TaskEither.tryCatch(
       () => src.updateBankInfo(bankInfo),
-      (error, stackTrace) => Failure.fromException(error as CException),
+      (error, stackTrace) => Failure.fromException(error),
     );
   }
 }

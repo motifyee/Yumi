@@ -3,8 +3,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:common_code/domain/profile/data/sources/profile_source.dart';
-import 'package:common_code/domain/profile/entities/profile.dart';
-import 'package:common_code/domain/profile/entities/review.dart';
 import 'package:common_code/common_code.dart';
 
 class ProfileRemoteSrc extends ProfileSrc {
@@ -38,7 +36,8 @@ class ProfileRemoteSrc extends ProfileSrc {
       );
       result = response.data;
     } catch (e) {
-      throw ServerException(e as DioException);
+      if (e is DioException) throw ServerException(e);
+      throw GenericException(e.toString());
     }
 
     if (result == null) throw ServerException();

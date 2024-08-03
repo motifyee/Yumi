@@ -6,3 +6,4 @@ export 'double.dart';
 export 'string.dart';
 export 'string_to_double_converter.dart';
 export 'unique_list_extension.dart';
+export 'dio.dart';

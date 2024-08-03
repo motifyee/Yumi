@@ -14,7 +14,7 @@ class IngredientsRemoteRepo implements IngredientsRepo {
   TaskEither<Failure, List<Ingredient>> getIngredients() {
     return TaskEither.tryCatch(
       () => src.getIngredients(),
-      (e, _) => Failure.fromException(e as CException),
+      (e, _) => Failure.fromException(e),
     );
   }
 }

@@ -37,7 +37,15 @@ Widget profileImagePicker(
         if (image == null) return;
 
         final p = await G().rd<ProfileCubit>().updateProfilePhoto(image);
-        fieldState.didChange(p.profileImage);
+        fieldState.didChange(
+          p.fold(
+            (l) {
+              G().snackBar(l.toString());
+              return null;
+            },
+            (r) => r.profileImage,
+          ),
+        );
       },
     ),
   );

@@ -66,9 +66,6 @@ class ContractScreen extends StatelessWidget {
 
                   return Container(
                       child: buidlDocumentWidget(
-                    // hexBg: "#F4F4F4",
-                    // title: "Contract",
-                    // desc: "Download the contract to sign it and upload it",
                     doc: DocInfo(
                       color: "F4F4F4",
                       title: "Contract",
@@ -77,10 +74,13 @@ class ContractScreen extends StatelessWidget {
                     ),
                     data: contractImage, //state.form.contractPhoto,
                     fileName: 'YUMI-contract.jpg',
-                    uploadAction: (data, _) {
+                    uploadAction: (data, _) async {
                       var c = context.read<ProfileCubit>();
-                      c.updateProfileForm(
+
+                      final update = await c.updateProfileForm(
                           c.state.form.copyWith(contractPhoto: data));
+
+                      update.fold((l) => G().snackBar(l.toString()), (_) {});
                     },
                   ));
                 },

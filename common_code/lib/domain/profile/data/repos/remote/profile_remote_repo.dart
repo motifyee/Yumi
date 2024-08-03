@@ -26,7 +26,7 @@ class ProfileRemoteRepo implements ProfileRepo {
           await profileSrc.updateProfile(profile);
           return profile;
         },
-        (error, stackTrace) => ServerFailure(error.toString()),
+        (error, stackTrace) => Failure.fromException(error),
       );
 
   @override
@@ -94,7 +94,7 @@ class ProfileRemoteRepo implements ProfileRepo {
   TaskEither<Failure, String> updateStatus(int status) {
     return TaskEither.tryCatch(
       () => profileSrc.updateStatus(status),
-      (error, stackTrace) => Failure.fromException(error as CException),
+      (error, stackTrace) => Failure.fromException(error),
     );
   }
 }

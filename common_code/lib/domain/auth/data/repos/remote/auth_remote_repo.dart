@@ -11,7 +11,7 @@ class AuthRemoteRepo implements AuthRepo {
   TaskEither<Failure, User> loginWithEmail(LoginData loginModel) {
     return TaskEither.tryCatch(
       () => authSrc.loginWithEmail(loginModel),
-      (error, stackTrace) => Failure.fromException(error as CException),
+      (error, stackTrace) => Failure.fromException(error),
     );
   }
 
@@ -19,7 +19,7 @@ class AuthRemoteRepo implements AuthRepo {
   TaskEither<Failure, bool> logout() {
     return TaskEither.tryCatch(
       () => authSrc.logout(),
-      (error, stackTrace) => Failure.fromException(error as CException),
+      (error, stackTrace) => Failure.fromException(error),
     );
   }
 
@@ -27,7 +27,7 @@ class AuthRemoteRepo implements AuthRepo {
   TaskEither<Failure, User> signup(SignupData signupData) {
     return TaskEither.tryCatch(
       () => authSrc.signup(signupData),
-      (error, stackTrace) => Failure.fromException(error as CException),
+      (error, stackTrace) => Failure.fromException(error),
     );
   }
 }

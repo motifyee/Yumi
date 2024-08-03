@@ -1,14 +1,11 @@
+import 'package:common_code/common_code.dart';
 import 'package:dio/dio.dart';
 
 /// Custom Exception
 sealed class CException implements Exception {
   late String? error;
 
-  CException([String? error = '']) {
-    print('CException .........');
-    print(error);
-    this.error = error;
-  }
+  CException([this.error]);
 
   @override
   String toString() => error ?? '';
@@ -21,7 +18,8 @@ class NetworkException extends CException {
 // -----------------------------------------------------------------------------
 
 class ServerException extends CException {
-  ServerException([DioException? error]) : super(error?.response?.data.runtimeType == String ? error?.response?.data : error?.response?.data?['message'] ?? '');
+  // error?.response?.data.runtimeType == String ? error?.response?.data : error?.response?.data?['message'] ?? ''
+  ServerException([DioException? error]) : super(error?.errorMsg);
 }
 
 // -----------------------------------------------------------------------------

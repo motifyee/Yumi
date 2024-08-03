@@ -16,7 +16,9 @@ abstract class Failure {
 
   bool get isSignalrFailure => this is SignalrFailure;
 
-  static Failure fromException(CException error) {
+  static Failure fromException(Object error) {
+    if (error is! CException) return GenericFailure(error.toString());
+
     return switch (error) {
       ServerException() => ServerFailure(error.toString()),
       NetworkException() => NetworkFailure(error.toString()),

@@ -1,7 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/domain/profile/data/repos/profile_repo.dart';
-import 'package:common_code/domain/profile/entities/profile.dart';
 
 class UpdateProfile extends UseCase<Profile, UpdateProfileParam> {
   final ProfileRepo repo;

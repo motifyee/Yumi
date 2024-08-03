@@ -18,7 +18,6 @@ import 'package:common_code/core/setup/awesome_notifications.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/docs_info.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
-import 'package:common_code/domain/profile/entities/profile.dart';
 import 'package:yumi/global.dart';
 
 @RoutePage()

@@ -20,7 +20,7 @@ class CategoriesRemoteRepo implements CategoriesRepo {
           isPreOrder: isPreOrder,
           pagination: pagination,
         ),
-        (error, stackTrace) => Failure.fromException(error as CException),
+        (error, stackTrace) => Failure.fromException(error),
       );
 
   @override
@@ -33,7 +33,7 @@ class CategoriesRemoteRepo implements CategoriesRepo {
           isPreOrder: isPreOrder,
           pagination: pagination,
         ),
-        (error, stackTrace) => Failure.fromException(error as CException),
+        (error, stackTrace) => Failure.fromException(error),
       );
 
   @override
@@ -50,7 +50,7 @@ class CategoriesRemoteRepo implements CategoriesRepo {
           longitude: longitude,
           pagination: pagination,
         ),
-        (error, stackTrace) => Failure.fromException(error as CException),
+        (error, stackTrace) => Failure.fromException(error),
       );
 
   @override
@@ -65,6 +65,6 @@ class CategoriesRemoteRepo implements CategoriesRepo {
           isPreOrder: isPreOrder,
           pagination: pagination,
         ),
-        (error, stackTrace) => Failure.fromException(error as CException),
+        (error, stackTrace) => Failure.fromException(error),
       );
 }

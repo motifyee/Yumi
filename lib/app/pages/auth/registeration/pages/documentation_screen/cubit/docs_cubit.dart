@@ -50,7 +50,7 @@ class DocsCubit extends Cubit<DocsState> {
 
     final update = await G().rd<ProfileCubit>().updateProfileForm(profile);
 
-    if (update != null) {
+    if (update.isRight()) {
       emit(state.copyWith(
         status: Status.success,
         docsStatuses: [...state.docsStatuses]..[idx] = Status.success,
@@ -60,6 +60,7 @@ class DocsCubit extends Cubit<DocsState> {
         status: Status.error,
         docsStatuses: [...state.docsStatuses]..[idx] = Status.error,
       ));
+      G().snackBar(update.getLeft().toNullable()!.toString());
     }
 
     G().rd<RegCubit>().refresh();

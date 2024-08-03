@@ -300,8 +300,7 @@ class RegCubit extends Cubit<RegState> {
     var profile = G().rd<ProfileCubit>().state.form.copyWith(mobile: phone);
     var update = await G().rd<ProfileCubit>().updateProfileForm(profile);
 
-    // final update = await UpdateProfile().call(UpdateProfileParam(profile));
-    if (update == null) {
+    if (update.isLeft()) {
       setStatus(Status.error);
       return G()
           .rd<ProfileCubit>()

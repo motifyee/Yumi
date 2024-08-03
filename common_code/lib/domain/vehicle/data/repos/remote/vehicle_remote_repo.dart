@@ -14,7 +14,7 @@ class VehicleRemoteRepo implements VehicleRepo {
   TaskEither<Failure, String> addVehicle(Vehicle vehicle) {
     return TaskEither.tryCatch(
       () => src.addVehicle(vehicle),
-      (error, stackTrace) => Failure.fromException(error as CException),
+      (error, stackTrace) => Failure.fromException(error),
     );
   }
 
@@ -22,7 +22,7 @@ class VehicleRemoteRepo implements VehicleRepo {
   TaskEither<Failure, Vehicle> getVehicle() {
     return TaskEither.tryCatch(
       () => src.getVehicle(),
-      (error, stackTrace) => Failure.fromException(error as CException),
+      (error, stackTrace) => Failure.fromException(error),
     );
   }
 
@@ -30,7 +30,7 @@ class VehicleRemoteRepo implements VehicleRepo {
   TaskEither<Failure, String> updateVehicle(Vehicle vehicle, String userId) {
     return TaskEither.tryCatch(
       () => src.updateVehicle(vehicle, userId),
-      (error, stackTrace) => Failure.fromException(error as CException),
+      (error, stackTrace) => Failure.fromException(error),
     );
   }
 }

@@ -197,7 +197,7 @@ class ProfileFormSubmitButton extends StatelessWidget {
           await cubit.updateProfileForm().then((res) {
             G().snackBar(cubit.state.form.entityStatus.message);
 
-            if (res != null) Navigator.of(context).pop();
+            if (res.isRight()) Navigator.of(context).pop();
           });
         },
       );
