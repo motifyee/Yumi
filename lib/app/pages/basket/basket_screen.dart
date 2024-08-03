@@ -147,7 +147,7 @@ class BasketScreen extends StatelessWidget {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    S.of(context).checkout,
+                                    S.of(context).next,
                                     style: Theme.of(context).textTheme.displaySmall,
                                   ),
                                 ),

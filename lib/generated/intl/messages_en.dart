@@ -190,6 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nameOnCard": MessageLookupByLibrary.simpleMessage("Name on card"),
         "new0": MessageLookupByLibrary.simpleMessage("New"),
         "newOrder": MessageLookupByLibrary.simpleMessage("New Order"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noAccessToDailSystem":
             MessageLookupByLibrary.simpleMessage("No Access To Dail System!"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),

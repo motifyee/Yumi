@@ -255,5 +255,6 @@
 	"calculationError": "Calculation Error",
 	"discount": "Discount",
 	"stripeError": "Stripe Error",
-	"canceled": "Canceled"
+	"canceled": "Canceled",
+	"next": "Next"
 }

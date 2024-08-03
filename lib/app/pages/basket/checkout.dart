@@ -217,7 +217,7 @@ class CheckOutScreen extends StatelessWidget {
                                         child: state.basket.isPaying
                                             ? PacmanLoadingWidget(color: CommonColors.onPrimary, size: CommonFontSize.font_24)
                                             : Text(
-                                                S.of(context).placeOrder,
+                                                S.of(context).checkout,
                                                 style: Theme.of(context).textTheme.displaySmall,
                                               ),
                                       ),
