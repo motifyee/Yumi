@@ -10,12 +10,7 @@ import 'package:nested/nested.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 
 class App extends StatelessWidget {
-  final AppConfig config;
-
-  const App({
-    super.key,
-    required this.config,
-  });
+  const App({super.key});
 
   static App of(BuildContext context) {
     App? app = context.findAncestorWidgetOfExactType<App>();
@@ -27,20 +22,26 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: config.blocProviders,
-      child: MaterialApp.router(
-        builder: _builder,
-        theme: config.theme,
-        title: config.appTitle,
-        debugShowCheckedModeBanner: false,
-        //
-        routerConfig: config.appRouter.config(),
-        //
-        locale: config.locale,
-        supportedLocales: config.supportedLocales,
-        localizationsDelegates: config.localizationsDelegates,
-      ),
+    return BlocBuilder<AppCubit, AppState>(
+      builder: (context, state) {
+        final AppConfig config = state.config;
+
+        return MultiBlocProvider(
+          providers: config.blocProviders,
+          child: MaterialApp.router(
+            builder: _builder,
+            theme: config.theme,
+            title: config.appTitle,
+            debugShowCheckedModeBanner: false,
+            //
+            routerConfig: config.appRouter.config(),
+            //
+            locale: config.locale,
+            supportedLocales: config.supportedLocales,
+            localizationsDelegates: config.localizationsDelegates,
+          ),
+        );
+      },
     );
   }
 
@@ -114,7 +115,8 @@ class _SignalRStatusState extends State<SignalRStatus> {
     return Container(
       width: 20,
       height: 20,
-      decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(20)),
+      decoration:
+          BoxDecoration(color: color, borderRadius: BorderRadius.circular(20)),
     );
   }
 }
