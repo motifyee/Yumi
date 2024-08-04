@@ -9,6 +9,7 @@ import 'package:yumi/core/util/constants.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/validators/email_validator.dart';
 
@@ -57,7 +58,7 @@ class AddPhoneContent extends StatelessWidget {
                           Image.asset(AppAssets.addPhoneIcon),
                           const SizedBox(height: 60),
                           Text(
-                            "Hi ${state.split(" ").first},",
+                            "${S.of(context).hi} ${state.split(" ").first},",
                             style: TextStyle(
                               fontSize: CommonFontSize.font_24,
                               fontWeight: FontWeight.bold,
@@ -65,7 +66,7 @@ class AddPhoneContent extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "Enter your phone number",
+                            S.of(context).enterYourPhoneNumber,
                             style: TextStyle(
                               fontSize: CommonFontSize.font_10,
                               color: CommonColors.secondaryTant,
@@ -75,7 +76,7 @@ class AddPhoneContent extends StatelessWidget {
                           Form(
                             key: form,
                             child: TextFormFieldTemplate(
-                              label: "Enter Mobile Number",
+                              label: S.of(context).enterMobileNumber,
                               prefixText: '+$kUKCountryCode ',
                               textInputType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
@@ -87,7 +88,7 @@ class AddPhoneContent extends StatelessWidget {
                           ),
                           const SizedBox(height: 40),
                           InteractiveButton(
-                            label: "Get OTP",
+                            label: S.of(context).getOTP,
                             onPressed: () => _getOtp(
                               context,
                               form,

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common_code/common_code.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,11 +12,9 @@ import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
-import 'package:common_code/util/status.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
-import 'package:common_code/components/screen_container.dart';
 
 part "onboarding_curve.dart";
 
@@ -67,7 +66,7 @@ class OnboardingScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    if (G().isChefApp) Expanded(child: Container()),
+                    // if (G().isChefApp) Expanded(child: Container()),
                   ],
                 ),
               ),
@@ -171,8 +170,12 @@ Widget _buildOnboardingStackWidget(RegState state) {
   );
 }
 
-Widget Function(OnboardingStep step, num x, num y, {bool alignRight})
-    _getTileBuilder(BoxConstraints constraints) {
+Widget Function(
+  OnboardingStep step,
+  num x,
+  num y, {
+  bool alignRight,
+}) _getTileBuilder(BoxConstraints constraints) {
   var hs = constraints.maxWidth / 6;
   var vs = constraints.maxHeight / 6;
 
@@ -216,6 +219,8 @@ Widget Function(OnboardingStep step, num x, num y, {bool alignRight})
 /// returns a function that creates a row of step's children widgets ..
 /// (icon + text) (rtl | ltr)
 Widget _buildTileChildren(OnboardingStep step, [bool alignRight = false]) {
+  final isRightAligned = CommonLocale.isRTL ? !alignRight : alignRight;
+
   final icon =
       SvgPicture.asset(AppAssets.onboardingStepIcon(step.icon, step.isDone()));
 
@@ -236,7 +241,7 @@ Widget _buildTileChildren(OnboardingStep step, [bool alignRight = false]) {
       fit: FlexFit.loose,
       child: Column(
         crossAxisAlignment:
-            alignRight ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            isRightAligned ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -253,7 +258,7 @@ Widget _buildTileChildren(OnboardingStep step, [bool alignRight = false]) {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisAlignment:
-        alignRight ? MainAxisAlignment.end : MainAxisAlignment.start,
-    children: alignRight ? children.reversed.toList() : children,
+        isRightAligned ? MainAxisAlignment.end : MainAxisAlignment.start,
+    children: isRightAligned ? children.reversed.toList() : children,
   );
 }

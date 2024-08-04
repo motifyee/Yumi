@@ -5,6 +5,7 @@ import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/profile/profile_screen.dart';
 import 'package:yumi/domain/profile/profile.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/app/pages/profile/components/bio.dart';
 import 'package:yumi/app/pages/profile/components/event_photo.dart';
@@ -71,7 +72,7 @@ class EditBioSheet extends StatelessWidget {
                               ? CommonColors.primary
                               : CommonColors.secondary,
                         ),
-                        child: const Text('Ok'),
+                        child: Text(S.of(context).ok),
                       );
                     },
                   ),

@@ -285,23 +285,23 @@ void addYourMealsDialog(BuildContext context) {
   showAlertDialog(
     context: context,
     content: SizedBox(
-      height: 150,
+      height: 155,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(child: SvgPicture.asset('assets/images/flow/add-menu.svg')),
           const SizedBox(height: 8),
           Text(
-            '         Now',
+            '         ${S.of(context).now}',
             style: TextStyle(
               color: CommonColors.primary,
               fontSize: CommonFontSize.font_14,
             ),
           ),
           const SizedBox(height: 16),
-          const Text(
-            '         You should create your own menu',
-            style: TextStyle(
+          Text(
+            '         ${S.of(context).youShouldCreateYourOwnMenu}',
+            style: const TextStyle(
               fontSize: CommonFontSize.font_14,
             ),
           ),

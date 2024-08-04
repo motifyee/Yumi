@@ -171,7 +171,7 @@ class EventsPhoto extends StatelessWidget {
               actions: {
                 if (allowed > 0)
                   S.current.cancel: (ctx) => ctx.router.popForced(),
-                'Ok': (ctx) {
+                S.current.ok: (ctx) {
                   final p = G().rd<ProfileCubit>().uploadFormPhotos(photos);
                   fieldState.didChange(photos);
                   ctx.router.popForced();

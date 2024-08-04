@@ -25,8 +25,8 @@ List<OnboardingStep> chefOnboardingSteps(
       // profile
       OnboardingStep(
         icon: "profile",
-        stepTitle: "Profile",
-        stepDesc: "First, you should complete your profile",
+        stepTitle: S.of(context).profile,
+        stepDesc: S.of(context).firstYouShouldCompleteYourProfile,
         onTap: () async {
           final regCubit = G().rd<RegCubit>();
 
@@ -50,8 +50,8 @@ List<OnboardingStep> chefOnboardingSteps(
       // your menu
       OnboardingStep(
         icon: "menu",
-        stepTitle: "Your Menu",
-        stepDesc: "Secondly, add your meals on menu and schedule it",
+        stepTitle: S.of(context).yourMenu,
+        stepDesc: S.of(context).secondlyAddYourMealsOnMenuAndScheduleIt,
         onTap: () async {
           final regCubit = G().rd<RegCubit>();
 
@@ -90,8 +90,8 @@ List<OnboardingStep> chefOnboardingSteps(
       // documentation
       OnboardingStep(
         icon: "documentation",
-        stepTitle: "Documentation",
-        stepDesc: "Third, attach your documents",
+        stepTitle: S.of(context).documentation,
+        stepDesc: S.of(context).thirdAttachYourDocuments,
         onTap: () async {
           final regCubit = G().rd<RegCubit>();
 
@@ -104,7 +104,7 @@ List<OnboardingStep> chefOnboardingSteps(
             context: context,
             content: const DocumentationScreen(),
             actions: {
-              'Ok': (context) {
+              S.of(context).ok: (context) {
                 final List<DocInfo> docsInfo =
                     G().isChefApp ? chefDocsInfo : driverDocsInfo;
 
@@ -118,14 +118,14 @@ List<OnboardingStep> chefOnboardingSteps(
 
                 showAlertDialog(
                   context: context,
-                  actions: {'Ok': null},
+                  actions: {S.of(context).ok: null},
                   content: Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 8.0,
                       horizontal: 16.0,
                     ),
                     child: Text(
-                      'You have not uploaded the following documents: \n\n${notUploadedDocs.join('\n')}',
+                      '${S.of(context).youHaveNotUploadedTheFollowingDocuments}: \n\n${notUploadedDocs.join('\n')}',
                     ),
                   ),
                 );
@@ -142,8 +142,8 @@ List<OnboardingStep> chefOnboardingSteps(
       // get approval
       OnboardingStep(
         icon: "approval",
-        stepTitle: "Get Approval",
-        stepDesc: "Then, waiting for approval within 72 hours",
+        stepTitle: S.of(context).getApproval,
+        stepDesc: S.of(context).thenWaitingForApprovalWithin72Hours,
         onTap: () async {
           G().rd<RegCubit>().setStatus(Status.loading);
 
@@ -157,10 +157,10 @@ List<OnboardingStep> chefOnboardingSteps(
               content: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(!state.onboarding.approvalDone
-                    ? "Waiting for approval within 72 hours..."
-                    : "Your application has been approved"),
+                    ? S.of(context).waitingforapprovalWithin72Hours
+                    : S.of(context).yourApplicationHasBeenApproved),
               ),
-              actions: {'Ok': null},
+              actions: {S.of(context).ok: null},
               dismissible: true,
             );
 
@@ -173,8 +173,8 @@ List<OnboardingStep> chefOnboardingSteps(
       // get contract
       OnboardingStep(
         icon: "contract",
-        stepTitle: "Get Contract",
-        stepDesc: "Fourth, download the contract to sign and upload it",
+        stepTitle: S.of(context).getContract,
+        stepDesc: S.of(context).fourthDownloadTheContractToSignAndUploadIt,
         onTap: () async {
           final regCubit = G().rd<RegCubit>();
 
@@ -188,7 +188,7 @@ List<OnboardingStep> chefOnboardingSteps(
               content: const ContractScreen(),
               insetPadding: 0,
               actions: {
-                'Ok': (ctx) {
+                S.of(context).ok: (ctx) {
                   var photo = G().rd<ProfileCubit>().state.form.contractPhoto;
                   if (photo?.isEmpty ?? true) return;
 
@@ -204,8 +204,8 @@ List<OnboardingStep> chefOnboardingSteps(
       // contract approval
       OnboardingStep(
         icon: "approval",
-        stepTitle: "Contract Approval",
-        stepDesc: "Finally, waiting for approval within 72 hours",
+        stepTitle: S.of(context).contractApproval,
+        stepDesc: S.of(context).finallyWaitingForApprovalWithin72Hours,
         onTap: () async {
           G().rd<RegCubit>().setStatus(Status.loading);
 
@@ -216,10 +216,10 @@ List<OnboardingStep> chefOnboardingSteps(
               content: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(!state.onboarding.contractApprovalDone
-                    ? "Waiting for approval within 72 hours..."
-                    : "Your Contract has been approved"),
+                    ? S.of(context).waitingforapprovalWithin72Hours
+                    : S.of(context).yourContractHasBeenApproved),
               ),
-              actions: {'Ok': null},
+              actions: {S.of(context).ok: null},
               dismissible: true,
             );
           });
@@ -243,9 +243,9 @@ List<OnboardingStep> driverOnboardingSteps(
     // rides
     OnboardingStep(
       icon: "rides",
-      stepTitle: "Your Rides",
+      stepTitle: S.of(context).yourRides,
       stepDesc:
-          "Secondly, add your vechile type and schedule your working days",
+          S.of(context).secondlyAddYourVechileTypeAndScheduleYourWorkingDays,
       onTap: () async {
         final regCubit = G().rd<RegCubit>();
 
@@ -259,7 +259,7 @@ List<OnboardingStep> driverOnboardingSteps(
           context: context,
           content: const RidesScreen(),
           actions: {
-            'Save': (ctx) async {
+            S.of(context).save: (ctx) async {
               // if (G.cread<RegCubit>().state.vehicleType?.isEmpty ?? true) {
               var regCubit = G().rd<RegCubit>();
 

@@ -10,16 +10,16 @@ String? emailValidator(String? value) {
 
 String? mobileValidator(String? mobile) {
   if (mobile == null || mobile.isEmpty) return S.current.required;
-  if (!isNumeric(mobile)) return "Invalid Mobile Number";
+  if (!isNumeric(mobile)) return S.current.invalidMobileNumber;
 
   if (mobile.trim().startsWith('00$kUKCountryCode')) {
-    if (mobile.length != 14) return "Invalid Mobile Number";
+    if (mobile.length != 14) return S.current.invalidMobileNumber;
   } else if (mobile.trim().startsWith('+$kUKCountryCode')) {
-    if (mobile.length != 13) return "Invalid Mobile Number";
+    if (mobile.length != 13) return S.current.invalidMobileNumber;
   } else if (mobile.trim().startsWith(kUKCountryCode)) {
-    if (mobile.length != 12) return "Invalid Mobile Number";
+    if (mobile.length != 12) return S.current.invalidMobileNumber;
   } else if (mobile.trim().length != 10) {
-    return "Invalid Mobile Number";
+    return S.current.invalidMobileNumber;
   }
 
   return null;

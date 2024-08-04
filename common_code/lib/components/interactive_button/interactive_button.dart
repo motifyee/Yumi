@@ -1,4 +1,5 @@
 import 'package:common_code/components/interactive_button/interactive_button_style.dart';
+import 'package:common_code/generated/l10n.dart';
 import 'package:common_code/resources/common_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -179,7 +180,7 @@ Widget buildButton({
             (icon != null && label.isNotEmpty))
           const SizedBox(width: 20),
         Text(
-          isLoading ? loadingLabel ?? 'Please Wait...' : label,
+          isLoading ? loadingLabel ?? "${S.current.pleaseWait}..." : label,
           style: TextStyle(
               letterSpacing: 1.5,
               fontWeight: FontWeight.w600,

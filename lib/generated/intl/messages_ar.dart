@@ -96,6 +96,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("خطأ في الاتصال!"),
         "continue0": MessageLookupByLibrary.simpleMessage("أكمل"),
         "contract": MessageLookupByLibrary.simpleMessage("التعاقد"),
+        "contractApproval":
+            MessageLookupByLibrary.simpleMessage("الموافقة علي العقد"),
         "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب"),
         "createNewAccount":
             MessageLookupByLibrary.simpleMessage("انشاء حساب جديد"),
@@ -130,10 +132,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
         "email": MessageLookupByLibrary.simpleMessage("الايميل"),
         "empty": MessageLookupByLibrary.simpleMessage("فارغ"),
+        "enterMobileNumber":
+            MessageLookupByLibrary.simpleMessage("ادخل رقم الموبايل"),
         "enterOTPSentTo": MessageLookupByLibrary.simpleMessage(
             "أدخل كلمة السر اللحظية المرسلة الي"),
         "enterVoucherCode":
             MessageLookupByLibrary.simpleMessage("أدخل رقم القسيمة"),
+        "enterYourPhoneNumber":
+            MessageLookupByLibrary.simpleMessage("ادخل رقم الموبايل الخاص بك"),
         "eventsPhoto": MessageLookupByLibrary.simpleMessage("صور الفعاليات"),
         "expiryDateMMYY":
             MessageLookupByLibrary.simpleMessage("تاريخ الانتهاء (شهر/سنة)"),
@@ -141,15 +147,28 @@ class MessageLookup extends MessageLookupByLibrary {
             "فشل تأكيد كلمة السر اللحظية. أعد المحاولة!"),
         "favorites": MessageLookupByLibrary.simpleMessage("المفضلة"),
         "featuredChefs": MessageLookupByLibrary.simpleMessage("شيفات مميزة"),
+        "finallyWaitingForApprovalWithin72Hours":
+            MessageLookupByLibrary.simpleMessage(
+                "أخيرا, انتظر الموافقة علي العقد خلال 72 ساعة"),
         "financialView":
             MessageLookupByLibrary.simpleMessage("المراجعة المالية"),
         "finish": MessageLookupByLibrary.simpleMessage("أنهي"),
         "firstName": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
+        "firstYouShouldCompleteYourProfile":
+            MessageLookupByLibrary.simpleMessage(
+                "أولا, يجب أن تكمل ملفك الشخصي"),
         "forHowManyPerson": MessageLookupByLibrary.simpleMessage("لعدد أشخاص"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
+        "fourthDownloadTheContractToSignAndUploadIt":
+            MessageLookupByLibrary.simpleMessage(
+                "رابعا, قم بتحميل العقد وتوقيعه ورفعه"),
         "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
+        "getApproval":
+            MessageLookupByLibrary.simpleMessage("الحصول علي الموافقة"),
+        "getContract": MessageLookupByLibrary.simpleMessage("احصل علي العقد"),
         "getHelp": MessageLookupByLibrary.simpleMessage("احصل علي المساعدة"),
+        "getOTP": MessageLookupByLibrary.simpleMessage("طلب كلمة سر لحظية"),
         "happyCustomer": MessageLookupByLibrary.simpleMessage("عميل سعيد"),
         "hello": MessageLookupByLibrary.simpleMessage("أهلا"),
         "hi": MessageLookupByLibrary.simpleMessage("اهلا"),
@@ -163,6 +182,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ingredients": MessageLookupByLibrary.simpleMessage("المكونات"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("ايميل غير صحيح"),
         "invalidInput": MessageLookupByLibrary.simpleMessage("ادخال غير صالح!"),
+        "invalidMobileNumber":
+            MessageLookupByLibrary.simpleMessage("رقم موبايل غير صحيح"),
         "invoice": MessageLookupByLibrary.simpleMessage("فاتورة"),
         "invoiceTax": MessageLookupByLibrary.simpleMessage("ضريبة الفاتورة"),
         "km": MessageLookupByLibrary.simpleMessage("كم"),
@@ -199,6 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noAccessToDailSystem":
             MessageLookupByLibrary.simpleMessage("No Access To Dail System!"),
         "notification": MessageLookupByLibrary.simpleMessage("الاشعارات"),
+        "now": MessageLookupByLibrary.simpleMessage("الان"),
         "numNumber": MessageLookupByLibrary.simpleMessage("1 رقم"),
         "nutritionalValuePer100g":
             MessageLookupByLibrary.simpleMessage("القيمة الغذائية لكل 100جرام"),
@@ -251,6 +273,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("رجاءا اختر موقعك"),
         "pleaseSpecifyTheDayTimeOfDelivery":
             MessageLookupByLibrary.simpleMessage("حدد يوم ووقت التوصيل"),
+        "pleaseWait": MessageLookupByLibrary.simpleMessage("جاري الانتظار"),
         "pm": MessageLookupByLibrary.simpleMessage("م"),
         "points": MessageLookupByLibrary.simpleMessage("نقاط"),
         "portion": MessageLookupByLibrary.simpleMessage("حصة"),
@@ -286,6 +309,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "searchForFood": MessageLookupByLibrary.simpleMessage("ابحث عن طعام"),
         "searchOrEnterAnAddress":
             MessageLookupByLibrary.simpleMessage("ابحث أو أدخل عنوانا"),
+        "secondlyAddYourMealsOnMenuAndScheduleIt":
+            MessageLookupByLibrary.simpleMessage(
+                "ثانيا, أضف وجباتك الي المنيو وجدول العمل"),
+        "secondlyAddYourVechileTypeAndScheduleYourWorkingDays":
+            MessageLookupByLibrary.simpleMessage(
+                "ثانيا, نوع مركبتك وجدول عملك"),
         "securePaymentWithSSLEncryptionInfo":
             MessageLookupByLibrary.simpleMessage(
                 "Secure payment with SSL Encryption info"),
@@ -313,6 +342,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "theDriver": MessageLookupByLibrary.simpleMessage("السائق"),
         "theTotalPriceIncludesTax":
             MessageLookupByLibrary.simpleMessage("السعر الاجمالي شامل الضريبة"),
+        "thenWaitingForApprovalWithin72Hours":
+            MessageLookupByLibrary.simpleMessage(
+                "ثم, انتظر الموافقة خلال 72 ساعة"),
+        "thirdAttachYourDocuments":
+            MessageLookupByLibrary.simpleMessage("ثالثا, أضف مستنداتك"),
         "thisButtonMeansThatYouAreCurrentlyAvailable":
             MessageLookupByLibrary.simpleMessage(
                 "هذا الزر يعني أنك حاليا متاح"),
@@ -342,6 +376,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "view": MessageLookupByLibrary.simpleMessage("مراجعة"),
         "vouchers": MessageLookupByLibrary.simpleMessage("القسائم"),
         "wait": MessageLookupByLibrary.simpleMessage("انتظر"),
+        "waitingforapprovalWithin72Hours": MessageLookupByLibrary.simpleMessage(
+            "جاري انتظار الموافقة خلال 72 ساعة..."),
         "wallet": MessageLookupByLibrary.simpleMessage("محفظة"),
         "welcomeBack": MessageLookupByLibrary.simpleMessage("مرحبا بعودتك"),
         "whatYouWishToEatToday":
@@ -351,11 +387,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "youCanNowCreateYourReview":
             MessageLookupByLibrary.simpleMessage("تستطيع تسجيل تقييمك"),
         "youHave": MessageLookupByLibrary.simpleMessage("تمتلك"),
+        "youHaveNotUploadedTheFollowingDocuments":
+            MessageLookupByLibrary.simpleMessage("لم تضف الملفات التالية"),
+        "youShouldCreateYourOwnMenu":
+            MessageLookupByLibrary.simpleMessage("يجب أن تدخل المنيو الخاص بك"),
+        "yourApplicationHasBeenApproved":
+            MessageLookupByLibrary.simpleMessage("تمت الموافقة علي طلبك"),
+        "yourContractHasBeenApproved":
+            MessageLookupByLibrary.simpleMessage("تمت الموافقة علي عقدك"),
+        "yourMenu": MessageLookupByLibrary.simpleMessage("المنيو الخاص بك"),
         "yourOrderSendToSavedLocation": MessageLookupByLibrary.simpleMessage(
             "تم ارسال طلبك للموقع المسجل لدينا"),
         "yourOrderWillBeCancelled":
             MessageLookupByLibrary.simpleMessage("سيتم الغاء طلبك"),
         "yourOrders": MessageLookupByLibrary.simpleMessage("طلباتك"),
+        "yourRides": MessageLookupByLibrary.simpleMessage("مشاوريك"),
         "yourWallet": MessageLookupByLibrary.simpleMessage("محفظتك"),
         "yumi": MessageLookupByLibrary.simpleMessage("YUMI")
       };

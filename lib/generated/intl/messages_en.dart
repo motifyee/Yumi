@@ -98,6 +98,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Connection Error!"),
         "continue0": MessageLookupByLibrary.simpleMessage("Continue"),
         "contract": MessageLookupByLibrary.simpleMessage("Contract"),
+        "contractApproval":
+            MessageLookupByLibrary.simpleMessage("Contract Approval"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
         "createNewAccount":
             MessageLookupByLibrary.simpleMessage("Create New Account"),
@@ -133,10 +135,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "empty": MessageLookupByLibrary.simpleMessage("Empty"),
+        "enterMobileNumber":
+            MessageLookupByLibrary.simpleMessage("Enter Mobile Number"),
         "enterOTPSentTo":
             MessageLookupByLibrary.simpleMessage("Enter the OTP sent to"),
         "enterVoucherCode":
             MessageLookupByLibrary.simpleMessage("Enter voucher code"),
+        "enterYourPhoneNumber":
+            MessageLookupByLibrary.simpleMessage("Enter your phone number"),
         "eventsPhoto": MessageLookupByLibrary.simpleMessage("Events Photo"),
         "expiryDateMMYY":
             MessageLookupByLibrary.simpleMessage("Expiry date (mm/yy)"),
@@ -144,15 +150,27 @@ class MessageLookup extends MessageLookupByLibrary {
             "Failed verify OTP. Try again!"),
         "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
         "featuredChefs": MessageLookupByLibrary.simpleMessage("Featured Chefs"),
+        "finallyWaitingForApprovalWithin72Hours":
+            MessageLookupByLibrary.simpleMessage(
+                "Finally, waiting for approval within 72 hours"),
         "financialView": MessageLookupByLibrary.simpleMessage("Financial view"),
         "finish": MessageLookupByLibrary.simpleMessage("Finish"),
         "firstName": MessageLookupByLibrary.simpleMessage("First name"),
+        "firstYouShouldCompleteYourProfile":
+            MessageLookupByLibrary.simpleMessage(
+                "First, you should complete your profile"),
         "forHowManyPerson":
             MessageLookupByLibrary.simpleMessage("For how many person"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Forget password"),
+        "fourthDownloadTheContractToSignAndUploadIt":
+            MessageLookupByLibrary.simpleMessage(
+                "Fourth, download the contract to sign and upload it"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
+        "getApproval": MessageLookupByLibrary.simpleMessage("Get Approval"),
+        "getContract": MessageLookupByLibrary.simpleMessage("Get Contract"),
         "getHelp": MessageLookupByLibrary.simpleMessage("Get help"),
+        "getOTP": MessageLookupByLibrary.simpleMessage("Get OTP"),
         "happyCustomer": MessageLookupByLibrary.simpleMessage("Happy Customer"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello"),
         "hi": MessageLookupByLibrary.simpleMessage("Hi"),
@@ -166,6 +184,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ingredients": MessageLookupByLibrary.simpleMessage("Ingredients"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidInput": MessageLookupByLibrary.simpleMessage("Invalid input"),
+        "invalidMobileNumber":
+            MessageLookupByLibrary.simpleMessage("Invalid Mobile Number"),
         "invoice": MessageLookupByLibrary.simpleMessage("Invoice"),
         "invoiceTax": MessageLookupByLibrary.simpleMessage("Invoice Tax"),
         "km": MessageLookupByLibrary.simpleMessage("Km"),
@@ -201,6 +221,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noAccessToDailSystem":
             MessageLookupByLibrary.simpleMessage("No Access To Dail System!"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
+        "now": MessageLookupByLibrary.simpleMessage("Now"),
         "numNumber": MessageLookupByLibrary.simpleMessage("1 number"),
         "nutritionalValuePer100g":
             MessageLookupByLibrary.simpleMessage("Nutritional value per 100g"),
@@ -253,6 +274,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseSpecifyTheDayTimeOfDelivery":
             MessageLookupByLibrary.simpleMessage(
                 "Please specify the day & time of delivery"),
+        "pleaseWait": MessageLookupByLibrary.simpleMessage("Please Wait"),
         "pm": MessageLookupByLibrary.simpleMessage("PM"),
         "points": MessageLookupByLibrary.simpleMessage("Points"),
         "portion": MessageLookupByLibrary.simpleMessage("Portion"),
@@ -292,6 +314,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Search for food"),
         "searchOrEnterAnAddress":
             MessageLookupByLibrary.simpleMessage("Search or enter an address"),
+        "secondlyAddYourMealsOnMenuAndScheduleIt":
+            MessageLookupByLibrary.simpleMessage(
+                "Secondly, add your meals on menu and schedule it"),
+        "secondlyAddYourVechileTypeAndScheduleYourWorkingDays":
+            MessageLookupByLibrary.simpleMessage(
+                "Secondly, add your vechile type and schedule your working days"),
         "securePaymentWithSSLEncryptionInfo":
             MessageLookupByLibrary.simpleMessage(
                 "Secure payment with SSL Encryption info"),
@@ -320,6 +348,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "theDriver": MessageLookupByLibrary.simpleMessage("The driver"),
         "theTotalPriceIncludesTax": MessageLookupByLibrary.simpleMessage(
             "The total price includes tax"),
+        "thenWaitingForApprovalWithin72Hours":
+            MessageLookupByLibrary.simpleMessage(
+                "Then, waiting for approval within 72 hours"),
+        "thirdAttachYourDocuments": MessageLookupByLibrary.simpleMessage(
+            "Third, attach your documents"),
         "thisButtonMeansThatYouAreCurrentlyAvailable":
             MessageLookupByLibrary.simpleMessage(
                 "This button means that you are currently available"),
@@ -350,6 +383,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "view": MessageLookupByLibrary.simpleMessage("View"),
         "vouchers": MessageLookupByLibrary.simpleMessage("Vouchers"),
         "wait": MessageLookupByLibrary.simpleMessage("Wait"),
+        "waitingforapprovalWithin72Hours": MessageLookupByLibrary.simpleMessage(
+            "Waiting for approval within 72 hours..."),
         "wallet": MessageLookupByLibrary.simpleMessage("Wallet"),
         "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
         "whatYouWishToEatToday":
@@ -359,11 +394,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "youCanNowCreateYourReview": MessageLookupByLibrary.simpleMessage(
             "You can now create your review."),
         "youHave": MessageLookupByLibrary.simpleMessage("You have"),
+        "youHaveNotUploadedTheFollowingDocuments":
+            MessageLookupByLibrary.simpleMessage(
+                "You have not uploaded the following documents"),
+        "youShouldCreateYourOwnMenu": MessageLookupByLibrary.simpleMessage(
+            "You should create your own menu"),
+        "yourApplicationHasBeenApproved": MessageLookupByLibrary.simpleMessage(
+            "Your application has been approved"),
+        "yourContractHasBeenApproved": MessageLookupByLibrary.simpleMessage(
+            "Your Contract has been approved"),
+        "yourMenu": MessageLookupByLibrary.simpleMessage("Your Menu"),
         "yourOrderSendToSavedLocation": MessageLookupByLibrary.simpleMessage(
             "Your order send to saved location"),
         "yourOrderWillBeCancelled": MessageLookupByLibrary.simpleMessage(
             "Your order will be cancelled"),
         "yourOrders": MessageLookupByLibrary.simpleMessage("Your orders"),
+        "yourRides": MessageLookupByLibrary.simpleMessage("Your Rides"),
         "yourWallet": MessageLookupByLibrary.simpleMessage("Your wallet"),
         "yumi": MessageLookupByLibrary.simpleMessage("YUMI")
       };

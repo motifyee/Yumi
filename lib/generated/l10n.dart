@@ -2701,6 +2701,236 @@ class S {
       args: [],
     );
   }
+
+  /// `Get OTP`
+  String get getOTP {
+    return Intl.message(
+      'Get OTP',
+      name: 'getOTP',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Mobile Number`
+  String get enterMobileNumber {
+    return Intl.message(
+      'Enter Mobile Number',
+      name: 'enterMobileNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your phone number`
+  String get enterYourPhoneNumber {
+    return Intl.message(
+      'Enter your phone number',
+      name: 'enterYourPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid Mobile Number`
+  String get invalidMobileNumber {
+    return Intl.message(
+      'Invalid Mobile Number',
+      name: 'invalidMobileNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Wait`
+  String get pleaseWait {
+    return Intl.message(
+      'Please Wait',
+      name: 'pleaseWait',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `First, you should complete your profile`
+  String get firstYouShouldCompleteYourProfile {
+    return Intl.message(
+      'First, you should complete your profile',
+      name: 'firstYouShouldCompleteYourProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Menu`
+  String get yourMenu {
+    return Intl.message(
+      'Your Menu',
+      name: 'yourMenu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Secondly, add your meals on menu and schedule it`
+  String get secondlyAddYourMealsOnMenuAndScheduleIt {
+    return Intl.message(
+      'Secondly, add your meals on menu and schedule it',
+      name: 'secondlyAddYourMealsOnMenuAndScheduleIt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Third, attach your documents`
+  String get thirdAttachYourDocuments {
+    return Intl.message(
+      'Third, attach your documents',
+      name: 'thirdAttachYourDocuments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have not uploaded the following documents`
+  String get youHaveNotUploadedTheFollowingDocuments {
+    return Intl.message(
+      'You have not uploaded the following documents',
+      name: 'youHaveNotUploadedTheFollowingDocuments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get Approval`
+  String get getApproval {
+    return Intl.message(
+      'Get Approval',
+      name: 'getApproval',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Then, waiting for approval within 72 hours`
+  String get thenWaitingForApprovalWithin72Hours {
+    return Intl.message(
+      'Then, waiting for approval within 72 hours',
+      name: 'thenWaitingForApprovalWithin72Hours',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Waiting for approval within 72 hours...`
+  String get waitingforapprovalWithin72Hours {
+    return Intl.message(
+      'Waiting for approval within 72 hours...',
+      name: 'waitingforapprovalWithin72Hours',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your application has been approved`
+  String get yourApplicationHasBeenApproved {
+    return Intl.message(
+      'Your application has been approved',
+      name: 'yourApplicationHasBeenApproved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Contract has been approved`
+  String get yourContractHasBeenApproved {
+    return Intl.message(
+      'Your Contract has been approved',
+      name: 'yourContractHasBeenApproved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get Contract`
+  String get getContract {
+    return Intl.message(
+      'Get Contract',
+      name: 'getContract',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fourth, download the contract to sign and upload it`
+  String get fourthDownloadTheContractToSignAndUploadIt {
+    return Intl.message(
+      'Fourth, download the contract to sign and upload it',
+      name: 'fourthDownloadTheContractToSignAndUploadIt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contract Approval`
+  String get contractApproval {
+    return Intl.message(
+      'Contract Approval',
+      name: 'contractApproval',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finally, waiting for approval within 72 hours`
+  String get finallyWaitingForApprovalWithin72Hours {
+    return Intl.message(
+      'Finally, waiting for approval within 72 hours',
+      name: 'finallyWaitingForApprovalWithin72Hours',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Rides`
+  String get yourRides {
+    return Intl.message(
+      'Your Rides',
+      name: 'yourRides',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Secondly, add your vechile type and schedule your working days`
+  String get secondlyAddYourVechileTypeAndScheduleYourWorkingDays {
+    return Intl.message(
+      'Secondly, add your vechile type and schedule your working days',
+      name: 'secondlyAddYourVechileTypeAndScheduleYourWorkingDays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You should create your own menu`
+  String get youShouldCreateYourOwnMenu {
+    return Intl.message(
+      'You should create your own menu',
+      name: 'youShouldCreateYourOwnMenu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Now`
+  String get now {
+    return Intl.message(
+      'Now',
+      name: 'now',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

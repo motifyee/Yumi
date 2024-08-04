@@ -11,6 +11,7 @@ import 'package:google_places_flutter/model/prediction.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/core/resources/app_assets.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 
 @RoutePage()
@@ -276,7 +277,7 @@ class LocationScreen extends StatelessWidget {
         );
 
         final submitButton = InteractiveButton(
-          label: 'Ok',
+          label: S.of(context).ok,
           onPressed: () async {
             formKey.currentState!.save();
             if (!validateAddressForm()) return;
