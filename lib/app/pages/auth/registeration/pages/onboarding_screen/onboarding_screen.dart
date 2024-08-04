@@ -13,6 +13,7 @@ import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cub
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:common_code/util/status.dart';
 import 'package:yumi/core/resources/app_assets.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:common_code/components/screen_container.dart';
 
@@ -101,7 +102,7 @@ class OnboardingScreen extends StatelessWidget {
                       onLongPress: () {
                         if (kDebugMode) G().rd<RegCubit>().finish(true);
                       },
-                      child: const Text('Next'),
+                      child: Text(S.of(context).next),
                     ),
                   ),
                 ],

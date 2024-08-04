@@ -12,6 +12,7 @@ import 'package:common_code/domain/schedule/entities/schedule.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:common_code/domain/schedule/entities/extensions.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 
 @RoutePage()
@@ -426,7 +427,7 @@ void addYourScheduleDialog(BuildContext context) {
         ),
       ),
     ),
-    actions: {'Next': null},
+    actions: {S.of(context).next: null},
   );
 }
 
@@ -436,7 +437,7 @@ void sheduleDialog(BuildContext context) {
     // title: Container(),
     content: const MyScheduleScreen(),
     actions: {
-      'Next': (ctx) {
+      S.of(context).next: (ctx) {
         if (!G().rd<ScheduleCubit>().state.schedule.validSchedule) {
           return addYourScheduleDialog(context);
         }

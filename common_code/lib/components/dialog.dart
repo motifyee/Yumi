@@ -44,8 +44,9 @@ Future<void> showAlertDialog({
       TextButton(
         onPressed: () => (value ?? popFn)!(context),
         style: TextButton.styleFrom(
-          foregroundColor:
-              key == 'Cancel' ? CommonColors.secondary : CommonColors.primary,
+          foregroundColor: key == 'Cancel' || key == 'الغاء'
+              ? CommonColors.secondary
+              : CommonColors.primary,
         ),
         child: Text(key),
       ),

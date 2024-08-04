@@ -13,6 +13,7 @@ import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/doc
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/schedule_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/bio_sheet/bio_sheet.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/app/pages/menu/widgets/menu_template.dart';
 
@@ -68,7 +69,7 @@ List<OnboardingStep> chefOnboardingSteps(
               menuTarget: MenuTarget.order,
             ),
             actions: {
-              'Next': (ctx) {
+              S.of(context).next: (ctx) {
                 if (G().rd<MealCubit>().state.pagination.data.isEmpty) {
                   return addYourMealsDialog(context);
                 }

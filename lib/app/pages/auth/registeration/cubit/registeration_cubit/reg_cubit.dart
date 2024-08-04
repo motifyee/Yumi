@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -15,7 +14,6 @@ import 'package:yumi/app/pages/auth/registeration/repository/address_repo.dart';
 import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/count_down_cubit/count_down_cubit.dart';
-import 'package:yumi/core/util/util.dart';
 import 'package:common_code/domain/vehicle/entities/vehicle.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/onboarding_screen/entity/onboarding.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';

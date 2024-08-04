@@ -66,8 +66,8 @@ Future<void> askToLogout(BuildContext context, {bool isBack = false}) async {
           : S.of(context).areYouSureYouWantToLeave),
     ),
     actions: {
-      'Cancel': null,
-      'Ok': (ctx) async {
+      S.current.cancel: null,
+      S.current.ok: (ctx) async {
         await G().rd<UserCubit>().reset();
         await G().rd<RegCubit>().finish(false);
       },

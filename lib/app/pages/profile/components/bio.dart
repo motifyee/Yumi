@@ -45,8 +45,8 @@ class Bio extends StatelessWidget {
                           title: Container(),
                           content: BioForm(state, formKey, fieldState),
                           actions: {
-                            'Cancel': (_) => G().pop(),
-                            'Save': (_) {
+                            S.of(context).cancel: (_) => G().pop(),
+                            S.of(context).save: (_) {
                               if (formKey.currentState!.validate()) {
                                 return formKey.currentState?.save();
                               }

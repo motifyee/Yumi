@@ -118,8 +118,8 @@ Future<bool> confirmDeleteAccount(context) async {
       ),
     ),
     actions: {
-      "Cancel": null,
-      "Delete": (_) async {
+      S.of(context).cancel: null,
+      S.of(context).delete: (_) async {
         confirm = true;
 
         G().pop();

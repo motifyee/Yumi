@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/core/resources/app_assets.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:common_code/components/otp/otp.dart';
 
@@ -37,7 +38,7 @@ class OTPScreen extends StatelessWidget {
                       Image.asset(AppAssets.otpIcon),
                       const SizedBox(height: 60),
                       Text(
-                        "OTP Verification",
+                        S.of(context).otpVerification,
                         style: TextStyle(
                           fontSize: CommonFontSize.font_24,
                           fontWeight: FontWeight.bold,
@@ -51,7 +52,7 @@ class OTPScreen extends StatelessWidget {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: "Enter the OTP sent to ",
+                                  text: "${S.of(context).enterOTPSentTo} ",
                                   style: TextStyle(
                                     fontSize: CommonFontSize.font_10,
                                     color: CommonColors.secondaryTant,
@@ -95,7 +96,7 @@ class OTPScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Didn't receive an OTP?  ",
+                            "${S.of(context).didntReceiveAnOTP}  ",
                             style: TextStyle(
                               fontSize: CommonFontSize.font_12,
                               fontWeight: FontWeight.normal,
@@ -114,7 +115,7 @@ class OTPScreen extends StatelessWidget {
                                 child: Text(
                                   (countDown ?? 0) > 0
                                       ? countDown.toString()
-                                      : "Resend OTP",
+                                      : S.of(context).resendOTP,
                                   style: TextStyle(
                                     fontSize: CommonFontSize.font_12,
                                     fontWeight: FontWeight.normal,
@@ -128,7 +129,7 @@ class OTPScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 40),
                       InteractiveButton(
-                          label: "Verify & Proceed",
+                          label: S.of(context).verifyProceed,
                           onPressed: () async {
                             if (kReleaseMode && otp.length < 4) return;
 
@@ -137,7 +138,8 @@ class OTPScreen extends StatelessWidget {
                                 .verifyMobileOTP(otp)
                                 .then((value) {
                               if (regCubit.state.status.isError) {
-                                G().snackBar('Failed verify OTP. Try again!');
+                                G().snackBar(
+                                    S.of(context).failedverifyOTPTryagain);
                               }
                             });
                           }),

@@ -34,7 +34,7 @@ class ProfileCard extends StatelessWidget {
                       context: context,
                       title: Container(),
                       content: const ProfileForm(),
-                      actions: {'Cancel': null},
+                      actions: {S.of(context).cancel: null},
                       actionWidgets: [const ProfileFormSubmitButton()]);
                 },
                 child: Text(

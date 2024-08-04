@@ -2,12 +2,9 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:common_code/components/interactive_button/interactive_button.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/global.dart';
-import 'package:common_code/components/text_form_field.dart';
-import 'package:yumi/core/util/util.dart';
 import 'package:yumi/validators/email_validator.dart';
 
 final GlobalKey<FormState> form = GlobalKey<FormState>();

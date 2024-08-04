@@ -7,6 +7,7 @@ import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_
 import 'package:common_code/domain/vehicle/entities/vehicle.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:common_code/domain/vehicle/use_cases/get_vehicle.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 
 class RidesScreen extends StatelessWidget {
@@ -183,6 +184,6 @@ void addYourVehicleDialog(BuildContext context, {bool firstTime = true}) {
         ],
       ),
     ),
-    actions: {'Next': null},
+    actions: {S.of(context).next: null},
   );
 }

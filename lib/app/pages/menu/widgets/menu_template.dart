@@ -38,7 +38,9 @@ class MenuTemplate extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap, vertical: CommonDimens.defaultGap),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultGap,
+                        vertical: CommonDimens.defaultGap),
                     child: BlocConsumer<CategoriesCubit, CategoriesState>(
                       listener: (context, state) {},
                       builder: (context, state) {
@@ -54,37 +56,87 @@ class MenuTemplate extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  context.read<MealCubit>().updateCategory(selectedCategory: 0, chefId: context.read<UserCubit>().state.user.chefId);
+                                  context.read<MealCubit>().updateCategory(
+                                      selectedCategory: 0,
+                                      chefId: context
+                                          .read<UserCubit>()
+                                          .state
+                                          .user
+                                          .chefId);
                                 },
                                 child: Container(
-                                  width: ((MediaQuery.of(context).size.width - (CommonDimens.defaultGap * 2)) / 5),
-                                  decoration: BoxDecoration(color: mealListBlocState.selectedCategory == 0 ? CommonColors.primary : CommonColors.background, borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadiusMedium)),
+                                  width: ((MediaQuery.of(context).size.width -
+                                          (CommonDimens.defaultGap * 2)) /
+                                      5),
+                                  decoration: BoxDecoration(
+                                      color:
+                                          mealListBlocState.selectedCategory ==
+                                                  0
+                                              ? CommonColors.primary
+                                              : CommonColors.background,
+                                      borderRadius: BorderRadius.circular(
+                                          CommonDimens
+                                              .defaultBorderRadiusMedium)),
                                   child: Center(
                                     child: Text(
                                       'All',
-                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                            color: mealListBlocState.selectedCategory == 0 ? CommonColors.onPrimary : CommonColors.secondary,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                            color: mealListBlocState
+                                                        .selectedCategory ==
+                                                    0
+                                                ? CommonColors.onPrimary
+                                                : CommonColors.secondary,
                                           ),
                                     ),
                                   ),
                                 ),
                               ),
-                              for (var category in state.categoriesPage.data ?? [])
+                              for (var category
+                                  in state.categoriesPage.data ?? [])
                                 GestureDetector(
                                   onTap: () {
-                                    context.read<MealCubit>().updateCategory(selectedCategory: category.id, chefId: context.read<UserCubit>().state.user.chefId);
+                                    context.read<MealCubit>().updateCategory(
+                                        selectedCategory: category.id,
+                                        chefId: context
+                                            .read<UserCubit>()
+                                            .state
+                                            .user
+                                            .chefId);
                                   },
                                   child: Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: CommonDimens.defaultGap),
                                     constraints: BoxConstraints(
-                                      minWidth: ((MediaQuery.of(context).size.width - (CommonDimens.defaultGap * 2)) / 5),
+                                      minWidth: ((MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              (CommonDimens.defaultGap * 2)) /
+                                          5),
                                     ),
-                                    decoration: BoxDecoration(color: mealListBlocState.selectedCategory == category.id ? CommonColors.primary : CommonColors.background, borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadiusMedium)),
+                                    decoration: BoxDecoration(
+                                        color: mealListBlocState
+                                                    .selectedCategory ==
+                                                category.id
+                                            ? CommonColors.primary
+                                            : CommonColors.background,
+                                        borderRadius: BorderRadius.circular(
+                                            CommonDimens
+                                                .defaultBorderRadiusMedium)),
                                     child: Center(
                                       child: Text(
                                         category.name,
-                                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                              color: mealListBlocState.selectedCategory == category.id ? CommonColors.onPrimary : CommonColors.secondary,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                              color: mealListBlocState
+                                                          .selectedCategory ==
+                                                      category.id
+                                                  ? CommonColors.onPrimary
+                                                  : CommonColors.secondary,
                                             ),
                                       ),
                                     ),
@@ -113,7 +165,8 @@ class MenuTemplate extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       loadDate: () {
                         context.read<MealCubit>().updateMeals(
-                              chefId: context.read<UserCubit>().state.user.chefId,
+                              chefId:
+                                  context.read<UserCubit>().state.user.chefId,
                               menuTarget: menuTarget,
                             );
                       },
@@ -124,7 +177,9 @@ class MenuTemplate extends StatelessWidget {
                             children: [
                               Column(
                                 children: [
-                                  for (var mealIndex = 0; mealIndex < state.pagination.data.length; mealIndex += 2)
+                                  for (var mealIndex = 0;
+                                      mealIndex < state.pagination.data.length;
+                                      mealIndex += 2)
                                     MealCard(
                                       meal: state.pagination.data[mealIndex],
                                       menuTarget: menuTarget,
@@ -133,8 +188,12 @@ class MenuTemplate extends StatelessWidget {
                               ),
                               Column(
                                 children: [
-                                  const SizedBox(height: CommonDimens.defaultTitleGapLarge),
-                                  for (var mealIndex = 1; mealIndex < state.pagination.data.length; mealIndex += 2)
+                                  const SizedBox(
+                                      height:
+                                          CommonDimens.defaultTitleGapLarge),
+                                  for (var mealIndex = 1;
+                                      mealIndex < state.pagination.data.length;
+                                      mealIndex += 2)
                                     MealCard(
                                       meal: state.pagination.data[mealIndex],
                                       menuTarget: menuTarget,
@@ -150,14 +209,16 @@ class MenuTemplate extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (state.pagination.data.isEmpty && !state.pagination.isLoading)
+                  if (state.pagination.data.isEmpty &&
+                      !state.pagination.isLoading)
                     Expanded(
                       child: Text(
                         S.of(context).empty,
-                        style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                              color: CommonColors.secondaryFaint,
-                              fontSize: CommonFontSize.font_38,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.displaySmall?.copyWith(
+                                  color: CommonColors.secondaryFaint,
+                                  fontSize: CommonFontSize.font_38,
+                                ),
                       ),
                     ),
                 ],
@@ -179,13 +240,17 @@ class MenuTemplate extends StatelessWidget {
                     ),
                   ),
                 ).then((value) {
-                  context.read<CategoriesCubit>().reset(); //.add(ResetCategoryEvent());
+                  context
+                      .read<CategoriesCubit>()
+                      .reset(); //.add(ResetCategoryEvent());
 
                   context.read<CategoriesCubit>().getChefCategories(
                         isPreOrder: menuTarget == MenuTarget.preOrder,
                       );
                   context.read<MealCubit>().reset(menuTarget: menuTarget);
-                  context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId, menuTarget: menuTarget);
+                  context.read<MealCubit>().updateMeals(
+                      chefId: context.read<UserCubit>().state.user.chefId,
+                      menuTarget: menuTarget);
                 });
               },
               child: Container(
@@ -194,14 +259,17 @@ class MenuTemplate extends StatelessWidget {
                     Container(
                       width: CommonDimens.iconSizeLarge,
                       height: CommonDimens.iconSizeLarge,
-                      padding: const EdgeInsets.all(CommonDimens.defaultLineGap * .8),
+                      padding: const EdgeInsets.all(
+                          CommonDimens.defaultLineGap * .8),
                       decoration: BoxDecoration(
                         color: CommonColors.primary,
-                        borderRadius: BorderRadius.circular(CommonDimens.iconSizeLarge),
+                        borderRadius:
+                            BorderRadius.circular(CommonDimens.iconSizeLarge),
                       ),
                       child: SvgPicture.asset('assets/images/meal.svg'),
                     ),
-                    Positioned(child: SvgPicture.asset('assets/images/plus.svg'))
+                    Positioned(
+                        child: SvgPicture.asset('assets/images/plus.svg'))
                   ],
                 ),
               ),
@@ -240,6 +308,6 @@ void addYourMealsDialog(BuildContext context) {
         ],
       ),
     ),
-    actions: {'Next': null},
+    actions: {S.of(context).next: null},
   );
 }

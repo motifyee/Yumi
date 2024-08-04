@@ -79,7 +79,7 @@ class ProfileForm extends StatelessWidget {
           // child: BlocBuilder<ProfileCubit, ProfileState>( builder: (context, state) { },),
           child: InteractiveButton(
             height: 48,
-            label: 'Change',
+            label: S.of(context).change,
             loadingLabel: '',
             onPressed: () async {
               await context
@@ -140,8 +140,14 @@ class ProfileForm extends StatelessWidget {
                     mobileField,
                     Positioned(
                       right: 0,
+                      left: 0,
                       top: 0,
-                      child: changeMobileButton,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          changeMobileButton,
+                        ],
+                      ),
                     )
                   ],
                 ),

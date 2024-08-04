@@ -1,6 +1,6 @@
+import 'package:common_code/common_code.dart';
 import 'package:yumi/core/util/constants.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/core/util/util.dart';
 
 String? emailValidator(String? value) {
   if (value == null || value.isEmpty) return S.current.required;

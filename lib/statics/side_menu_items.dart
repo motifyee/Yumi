@@ -43,7 +43,9 @@ class _AppMenuList {
                 width: CommonDimens.defaultInputGap,
                 height: CommonDimens.defaultInputGap,
                 decoration: BoxDecoration(
-                    color: state.isNewNotification ? CommonColors.primary : Colors.transparent,
+                    color: state.isNewNotification
+                        ? CommonColors.primary
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(
                       CommonDimens.defaultInputGap,
                     )),
@@ -73,31 +75,47 @@ class _AppMenuList {
                       return FractionallySizedBox(
                         widthFactor: .85,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap, horizontal: CommonDimens.defaultGap),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: CommonDimens.defaultGap,
+                              horizontal: CommonDimens.defaultGap),
                           decoration: BoxDecoration(
                             color: CommonColors.background,
-                            borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadiusMedium),
+                            borderRadius: BorderRadius.circular(
+                                CommonDimens.defaultBorderRadiusMedium),
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               MenuButton(
                                   menuItem: AppMenuItem(
-                                      icon: 'assets/images/menus_order_menu.svg',
+                                      icon:
+                                          'assets/images/menus_order_menu.svg',
                                       label: S.of(context).menuOrders,
                                       onPressed: () {
-                                        context.read<NavigatorCubit>().navigate(selectedIndex: 2);
-                                        Navigator.of(context, rootNavigator: true).pop();
-                                        Navigator.of(context, rootNavigator: true).pop();
+                                        context
+                                            .read<NavigatorCubit>()
+                                            .navigate(selectedIndex: 2);
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .pop();
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .pop();
                                       })),
                               MenuButton(
                                   menuItem: AppMenuItem(
-                                      icon: 'assets/images/menus_pre_order_menu.svg',
+                                      icon:
+                                          'assets/images/menus_pre_order_menu.svg',
                                       label: S.of(context).menuPreOrders,
                                       onPressed: () {
-                                        Navigator.of(context, rootNavigator: true).pop();
-                                        Navigator.of(context, rootNavigator: true).pop();
-                                        context.router.push(const MenuPreOrderRoute());
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .pop();
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .pop();
+                                        context.router
+                                            .push(const MenuPreOrderRoute());
                                       })),
                             ],
                           ),
@@ -125,7 +143,12 @@ class _AppMenuList {
           label: S.of(context).yourWallet,
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
-              return state.isLoading ? const PacmanLoadingWidget(size: CommonDimens.defaultBlockGap) : TextCurrency(value: state.wallet.money ?? 0, fontSize: CommonFontSize.font_14);
+              return state.isLoading
+                  ? const PacmanLoadingWidget(
+                      size: CommonDimens.defaultBlockGap)
+                  : TextCurrency(
+                      value: state.wallet.money ?? 0,
+                      fontSize: CommonFontSize.font_14);
             },
           ),
           onRender: () {
@@ -180,7 +203,7 @@ class _AppMenuList {
         ),
         AppMenuItem(
           icon: 'assets/images/setting_menu.svg',
-          label: S.of(context).setting,
+          label: S.of(context).settings,
           onPressed: () {
             context.read<NavigatorCubit>().navigate(selectedIndex: 4);
             // context.router.pop();
@@ -203,7 +226,9 @@ class _AppMenuList {
                 width: CommonDimens.defaultInputGap,
                 height: CommonDimens.defaultInputGap,
                 decoration: BoxDecoration(
-                    color: state.isNewNotification ? CommonColors.primary : Colors.transparent,
+                    color: state.isNewNotification
+                        ? CommonColors.primary
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(
                       CommonDimens.defaultInputGap,
                     )),
@@ -238,7 +263,12 @@ class _AppMenuList {
           label: S.of(context).yourWallet,
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
-              return state.isLoading ? const PacmanLoadingWidget(size: CommonDimens.defaultBlockGap) : TextCurrency(value: -1 * (state.wallet.money ?? 0), fontSize: CommonFontSize.font_14);
+              return state.isLoading
+                  ? const PacmanLoadingWidget(
+                      size: CommonDimens.defaultBlockGap)
+                  : TextCurrency(
+                      value: -1 * (state.wallet.money ?? 0),
+                      fontSize: CommonFontSize.font_14);
             },
           ),
           onRender: () {
@@ -269,7 +299,7 @@ class _AppMenuList {
         ),
         AppMenuItem(
           icon: 'assets/images/setting_menu.svg',
-          label: S.of(context).setting,
+          label: S.of(context).settings,
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
             context.router.push(const SettingsRoute());
@@ -294,7 +324,9 @@ class _AppMenuList {
                 width: CommonDimens.defaultInputGap,
                 height: CommonDimens.defaultInputGap,
                 decoration: BoxDecoration(
-                    color: state.isNewNotification ? CommonColors.primary : Colors.transparent,
+                    color: state.isNewNotification
+                        ? CommonColors.primary
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(
                       CommonDimens.defaultInputGap,
                     )),
@@ -307,7 +339,12 @@ class _AppMenuList {
           label: S.of(context).yourWallet,
           textLabel: BlocBuilder<WalletCubit, WalletState>(
             builder: (context, state) {
-              return state.isLoading ? const PacmanLoadingWidget(size: CommonDimens.defaultBlockGap) : TextCurrency(value: state.wallet.money ?? 0, fontSize: CommonFontSize.font_14);
+              return state.isLoading
+                  ? const PacmanLoadingWidget(
+                      size: CommonDimens.defaultBlockGap)
+                  : TextCurrency(
+                      value: state.wallet.money ?? 0,
+                      fontSize: CommonFontSize.font_14);
             },
           ),
           onRender: () {
@@ -370,7 +407,7 @@ class _AppMenuList {
         ),
         AppMenuItem(
           icon: 'assets/images/setting_menu.svg',
-          label: S.of(context).setting,
+          label: S.of(context).settings,
           onPressed: () {
             context.read<NavigatorCubit>().navigate(selectedIndex: 4);
             G().pop();

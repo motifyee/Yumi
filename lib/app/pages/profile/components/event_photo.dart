@@ -169,7 +169,8 @@ class EventsPhoto extends StatelessWidget {
                 ),
               ),
               actions: {
-                if (allowed > 0) 'Cancel': (ctx) => ctx.router.popForced(),
+                if (allowed > 0)
+                  S.current.cancel: (ctx) => ctx.router.popForced(),
                 'Ok': (ctx) {
                   final p = G().rd<ProfileCubit>().uploadFormPhotos(photos);
                   fieldState.didChange(photos);
@@ -198,8 +199,8 @@ class EventsPhoto extends StatelessWidget {
                 child: Text("Are you sure you want ot delete selected image"),
               ),
               actions: {
-                'Cancel': null,
-                'Ok': (ctx) async {
+                S.current.cancel: null,
+                S.current.ok: (ctx) async {
                   G().pop();
                   final p = await G()
                       .rd<ProfileCubit>()

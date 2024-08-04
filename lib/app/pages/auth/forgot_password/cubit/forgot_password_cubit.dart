@@ -1,13 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:common_code/common_code.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/core/util/constants.dart';
-import 'package:common_code/core/failures.dart';
-import 'package:common_code/domain/profile/use_cases/reset_pwd_by_email.dart';
-import 'package:common_code/domain/profile/use_cases/reset_pwd_by_mobile.dart';
-import 'package:common_code/domain/profile/use_cases/verify_reset_pwd_by_email_otp.dart';
-import 'package:common_code/domain/profile/use_cases/verify_reset_pwd_by_mobile_otp.dart';
 import 'package:yumi/global.dart';
-import 'package:yumi/core/util/util.dart';
 
 part 'forgot_password_state.dart';
 part 'forgot_password_cubit.freezed.dart';
