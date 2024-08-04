@@ -33,6 +33,7 @@ const _$SignalEnumMap = {
   Signal.clientreceived: 'clientreceived',
   Signal.clientcancel: 'clientcancel',
   Signal.clientwait: 'clientwait',
+  Signal.chefcancel: 'chefcancel',
   Signal.notification: 'notification',
   Signal.start: 'start',
   Signal.stop: 'stop',

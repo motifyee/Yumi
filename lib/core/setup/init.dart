@@ -32,13 +32,15 @@ Future init() async {
   try {
     NotificationService.initialize();
   } catch (error) {
-    return;
+    debugPrint(error.toString());
   }
 
   await inject();
 
   APIClient.getToken = () => G().rd<UserCubit>().state.user.accessToken;
   APIClient.addInterceptor(APIInterceptor());
+
+  await CommonLocale.loadAppLocale();
 
   G().listenConnectivity();
 }
