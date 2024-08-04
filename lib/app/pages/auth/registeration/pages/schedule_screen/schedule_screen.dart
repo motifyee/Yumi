@@ -74,8 +74,6 @@ class MyScheduleScreen extends StatelessWidget {
       onPressed: () {
         if (!enableUpdate) return;
         if (!validSchedule) return addYourScheduleDialog(context);
-
-        // bloc.add(const ScheduleEvent.saveSchedule());
         bloc.updateSchedule();
       },
       child: Container(
@@ -97,7 +95,7 @@ class MyScheduleScreen extends StatelessWidget {
               color: CommonColors.onSecondary,
             ),
             Text(
-              'Save',
+              S.of(context).save,
               style: Theme.of(context).textTheme.displaySmall,
             ),
           ],
@@ -159,7 +157,8 @@ class MyScheduleScreen extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         child: Text(
-          day.name?.apprev ?? "*DAY",
+          // day.name?.apprev ?? "*DAY",
+          S.current.getProp('${day.name?.name}Prev'),
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w800,
@@ -247,9 +246,10 @@ class MyScheduleScreen extends StatelessWidget {
               Text(
                 timeDiff ?? "00:00",
                 style: TextStyle(
-                    color: day.active ?? false
-                        ? CommonColors.secondaryTant
-                        : CommonColors.secondaryFaint),
+                  color: day.active ?? false
+                      ? CommonColors.secondaryTant
+                      : CommonColors.secondaryFaint,
+                ),
               ),
             ],
           ),
@@ -280,7 +280,9 @@ class MyScheduleScreen extends StatelessWidget {
                     context: context,
                     initialTime:
                         (start ? day.start : day.end) ?? TimeOfDay.now(),
-                    helpText: 'Pick ${start ? "Start" : "End"} Time',
+                    helpText: start
+                        ? S.of(context).pickStartTime
+                        : S.of(context).pickEndTime,
                     initialEntryMode: TimePickerEntryMode.dialOnly,
                     barrierDismissible: false,
                     useRootNavigator: true,
@@ -301,7 +303,9 @@ class MyScheduleScreen extends StatelessWidget {
                           2 * 60) {
                         G().hideSnackbar();
                         G().snackBar(
-                          "Start time must be at least 2 hours before end time",
+                          S
+                              .of(context)
+                              .startTimeMustBeAtLeast2HoursBeforeEndTime,
                         );
                       }
                     }
@@ -310,7 +314,9 @@ class MyScheduleScreen extends StatelessWidget {
                       if (tod.minutesDifference(saved?.start) < 2 * 60) {
                         G().hideSnackbar();
                         return G().snackBar(
-                          "End time must be at least 2 hours after start time",
+                          S
+                              .of(context)
+                              .endTimeMustBeAtLeast2HoursAfterStartTime,
                         );
                       }
                     }
@@ -337,7 +343,7 @@ class MyScheduleScreen extends StatelessWidget {
                   width: 48,
                   alignment: Alignment.centerRight,
                   child: Text(
-                    "${start ? 'START' : 'END'} ",
+                    "${start ? S.of(context).scheduleStart : S.of(context).scheduleEnd} ",
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 12,
@@ -360,11 +366,16 @@ class MyScheduleScreen extends StatelessWidget {
   RichText _buildTimeWidget(ScheduleDay day, bool start) {
     var timeOfDay =
         (start ? day.start : day.end) ?? const TimeOfDay(hour: 0, minute: 0);
+
     var timeParts = [
       (timeOfDay.hour > 12 ? timeOfDay.hour - 12 : timeOfDay.hour).toString(),
       ' : ',
       timeOfDay.minute.toString()
-    ].reduce(
+    ];
+
+    if (CommonLocale.isRTL) timeParts = timeParts.reversed.toList();
+
+    var timeString = timeParts.reduce(
       (value, element) => value.padLeft(2, '0') + element.padLeft(2, '0'),
     );
 
@@ -376,7 +387,7 @@ class MyScheduleScreen extends StatelessWidget {
         ),
         children: [
           TextSpan(
-            text: timeParts,
+            text: timeString,
             style: TextStyle(
               fontSize: 14,
               color: day.active ?? false ? null : CommonColors.secondaryFaint,
@@ -387,7 +398,8 @@ class MyScheduleScreen extends StatelessWidget {
             child: Transform.translate(
               offset: const Offset(0, 0),
               // offset: const Offset(2, -4),
-              child: Text(' ${timeOfDay.period.name.toUpperCase()}',
+              child: Text(
+                  ' ${timeOfDay.period.name == 'am' ? S.current.am : S.current.pm}',
                   textScaler: const TextScaler.linear(0.7),
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
@@ -414,11 +426,12 @@ void addYourScheduleDialog(BuildContext context) {
           children: [
             SvgPicture.asset(AppAssets.addScheduleIcon),
             const SizedBox(height: 16),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Text(
-                'You should schedule at least two working days with at least two hours each.',
-                style: TextStyle(
+                S.current
+                    .youShouldScheduleAtLeastTwoWorkingDaysWithAtLeastTwoHoursEach,
+                style: const TextStyle(
                   fontSize: CommonFontSize.font_14,
                 ),
               ),
@@ -455,4 +468,20 @@ double textScaleFactor(BuildContext context, {double maxTextScaleFactor = 2}) {
   final width = MediaQuery.of(context).size.width;
   double val = (width / 1400) * maxTextScaleFactor;
   return max(1, min(val, maxTextScaleFactor));
+}
+
+extension _SX on S {
+  String getProp(String key) =>
+      <String, String>{
+        "pm": S.current.pm,
+        "am": S.current.am,
+        "saturdayPrev": S.current.saturdayPrev,
+        "sundayPrev": S.current.sundayPrev,
+        "mondayPrev": S.current.mondayPrev,
+        "tuesdayPrev": S.current.tuesdayPrev,
+        "wednesdayPrev": S.current.wednesdayPrev,
+        "thursdayPrev": S.current.thursdayPrev,
+        "fridayPrev": S.current.fridayPrev,
+      }[key] ??
+      key;
 }

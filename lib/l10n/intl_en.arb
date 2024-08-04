@@ -286,5 +286,19 @@
 	"yourRides": "Your Rides",
 	"secondlyAddYourVechileTypeAndScheduleYourWorkingDays": "Secondly, add your vechile type and schedule your working days",
 	"youShouldCreateYourOwnMenu": "You should create your own menu",
-	"now": "Now"
+	"now": "Now",
+	"youShouldScheduleAtLeastTwoWorkingDaysWithAtLeastTwoHoursEach": "You should schedule at least two working days with at least two hours each.",
+	"scheduleStart": "START",
+	"scheduleEnd": "End",
+	"pickStartTime": "Pick Start Time",
+	"pickEndTime": "Pick End Time",
+	"startTimeMustBeAtLeast2HoursBeforeEndTime": "Start time must be at least 2 hours before end time",
+	"endTimeMustBeAtLeast2HoursAfterStartTime": "End time must be at least 2 hours after start time",
+	"saturdayPrev": "SAT",
+	"sundayPrev": "SUN",
+	"mondayPrev": "MON",
+	"tuesdayPrev": "TUE",
+	"wednesdayPrev": "WED",
+	"thursdayPrev": "THU",
+	"fridayPrev": "FRI"
 }

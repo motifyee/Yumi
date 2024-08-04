@@ -135,6 +135,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "empty": MessageLookupByLibrary.simpleMessage("Empty"),
+        "endTimeMustBeAtLeast2HoursAfterStartTime":
+            MessageLookupByLibrary.simpleMessage(
+                "End time must be at least 2 hours after start time"),
         "enterMobileNumber":
             MessageLookupByLibrary.simpleMessage("Enter Mobile Number"),
         "enterOTPSentTo":
@@ -166,6 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "fourthDownloadTheContractToSignAndUploadIt":
             MessageLookupByLibrary.simpleMessage(
                 "Fourth, download the contract to sign and upload it"),
+        "fridayPrev": MessageLookupByLibrary.simpleMessage("FRI"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "getApproval": MessageLookupByLibrary.simpleMessage("Get Approval"),
         "getContract": MessageLookupByLibrary.simpleMessage("Get Contract"),
@@ -209,6 +213,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "min": MessageLookupByLibrary.simpleMessage("Min"),
         "minutes": MessageLookupByLibrary.simpleMessage("Minutes"),
         "mobile": MessageLookupByLibrary.simpleMessage("Mobile"),
+        "mondayPrev": MessageLookupByLibrary.simpleMessage("MON"),
         "myOrders": MessageLookupByLibrary.simpleMessage("My Orders"),
         "myPreOrder": MessageLookupByLibrary.simpleMessage("My pre-order"),
         "myReviews": MessageLookupByLibrary.simpleMessage("My reviews"),
@@ -263,6 +268,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "performanceAnalysis":
             MessageLookupByLibrary.simpleMessage("Performance analysis"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
+        "pickEndTime": MessageLookupByLibrary.simpleMessage("Pick End Time"),
+        "pickStartTime":
+            MessageLookupByLibrary.simpleMessage("Pick Start Time"),
         "pickUpOnly": MessageLookupByLibrary.simpleMessage("Pick up only"),
         "pickup": MessageLookupByLibrary.simpleMessage("Pickup"),
         "placeOrder": MessageLookupByLibrary.simpleMessage("Place order"),
@@ -303,12 +311,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "reviewTheDriver":
             MessageLookupByLibrary.simpleMessage("Review the driver"),
         "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
+        "saturdayPrev": MessageLookupByLibrary.simpleMessage("SAT"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saveCreditCardDetails":
             MessageLookupByLibrary.simpleMessage("Save credit card details"),
         "saveOnYourOrder":
             MessageLookupByLibrary.simpleMessage("Save on your order"),
         "scheduleDate": MessageLookupByLibrary.simpleMessage("Schedule Date"),
+        "scheduleEnd": MessageLookupByLibrary.simpleMessage("End"),
+        "scheduleStart": MessageLookupByLibrary.simpleMessage("START"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchForFood":
             MessageLookupByLibrary.simpleMessage("Search for food"),
@@ -335,10 +346,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "specialRequest":
             MessageLookupByLibrary.simpleMessage("Special request"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
+        "startTimeMustBeAtLeast2HoursBeforeEndTime":
+            MessageLookupByLibrary.simpleMessage(
+                "Start time must be at least 2 hours before end time"),
         "stripeError": MessageLookupByLibrary.simpleMessage("Stripe Error"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
         "suggestions": MessageLookupByLibrary.simpleMessage("Suggestions"),
+        "sundayPrev": MessageLookupByLibrary.simpleMessage("SUN"),
         "swiftCode": MessageLookupByLibrary.simpleMessage("Swift code"),
         "thankYouForWaiting":
             MessageLookupByLibrary.simpleMessage("Thank you for waiting"),
@@ -364,6 +379,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "This button means that you are currently not available"),
         "thisSectionYourSavedAddress": MessageLookupByLibrary.simpleMessage(
             "This section your saved address"),
+        "thursdayPrev": MessageLookupByLibrary.simpleMessage("THU"),
         "time": MessageLookupByLibrary.simpleMessage("Time"),
         "toReceiveOrdersChangYourStatusToOnline":
             MessageLookupByLibrary.simpleMessage(
@@ -372,6 +388,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalAmount": MessageLookupByLibrary.simpleMessage("Total amount"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "transactions": MessageLookupByLibrary.simpleMessage("Transactions"),
+        "tuesdayPrev": MessageLookupByLibrary.simpleMessage("TUE"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "upperCase": MessageLookupByLibrary.simpleMessage("1 upper case"),
         "useCurrentLocation":
@@ -386,6 +403,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "waitingforapprovalWithin72Hours": MessageLookupByLibrary.simpleMessage(
             "Waiting for approval within 72 hours..."),
         "wallet": MessageLookupByLibrary.simpleMessage("Wallet"),
+        "wednesdayPrev": MessageLookupByLibrary.simpleMessage("WED"),
         "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
         "whatYouWishToEatToday":
             MessageLookupByLibrary.simpleMessage("What you wish to eat today?"),
@@ -399,6 +417,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "You have not uploaded the following documents"),
         "youShouldCreateYourOwnMenu": MessageLookupByLibrary.simpleMessage(
             "You should create your own menu"),
+        "youShouldScheduleAtLeastTwoWorkingDaysWithAtLeastTwoHoursEach":
+            MessageLookupByLibrary.simpleMessage(
+                "You should schedule at least two working days with at least two hours each."),
         "yourApplicationHasBeenApproved": MessageLookupByLibrary.simpleMessage(
             "Your application has been approved"),
         "yourContractHasBeenApproved": MessageLookupByLibrary.simpleMessage(

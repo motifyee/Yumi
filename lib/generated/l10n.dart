@@ -2931,6 +2931,146 @@ class S {
       args: [],
     );
   }
+
+  /// `You should schedule at least two working days with at least two hours each.`
+  String get youShouldScheduleAtLeastTwoWorkingDaysWithAtLeastTwoHoursEach {
+    return Intl.message(
+      'You should schedule at least two working days with at least two hours each.',
+      name: 'youShouldScheduleAtLeastTwoWorkingDaysWithAtLeastTwoHoursEach',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `START`
+  String get scheduleStart {
+    return Intl.message(
+      'START',
+      name: 'scheduleStart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End`
+  String get scheduleEnd {
+    return Intl.message(
+      'End',
+      name: 'scheduleEnd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick Start Time`
+  String get pickStartTime {
+    return Intl.message(
+      'Pick Start Time',
+      name: 'pickStartTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick End Time`
+  String get pickEndTime {
+    return Intl.message(
+      'Pick End Time',
+      name: 'pickEndTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start time must be at least 2 hours before end time`
+  String get startTimeMustBeAtLeast2HoursBeforeEndTime {
+    return Intl.message(
+      'Start time must be at least 2 hours before end time',
+      name: 'startTimeMustBeAtLeast2HoursBeforeEndTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End time must be at least 2 hours after start time`
+  String get endTimeMustBeAtLeast2HoursAfterStartTime {
+    return Intl.message(
+      'End time must be at least 2 hours after start time',
+      name: 'endTimeMustBeAtLeast2HoursAfterStartTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SAT`
+  String get saturdayPrev {
+    return Intl.message(
+      'SAT',
+      name: 'saturdayPrev',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SUN`
+  String get sundayPrev {
+    return Intl.message(
+      'SUN',
+      name: 'sundayPrev',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `MON`
+  String get mondayPrev {
+    return Intl.message(
+      'MON',
+      name: 'mondayPrev',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `TUE`
+  String get tuesdayPrev {
+    return Intl.message(
+      'TUE',
+      name: 'tuesdayPrev',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WED`
+  String get wednesdayPrev {
+    return Intl.message(
+      'WED',
+      name: 'wednesdayPrev',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `THU`
+  String get thursdayPrev {
+    return Intl.message(
+      'THU',
+      name: 'thursdayPrev',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FRI`
+  String get fridayPrev {
+    return Intl.message(
+      'FRI',
+      name: 'fridayPrev',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -132,6 +132,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
         "email": MessageLookupByLibrary.simpleMessage("الايميل"),
         "empty": MessageLookupByLibrary.simpleMessage("فارغ"),
+        "endTimeMustBeAtLeast2HoursAfterStartTime":
+            MessageLookupByLibrary.simpleMessage(
+                "End time must be at least 2 hours after start time"),
         "enterMobileNumber":
             MessageLookupByLibrary.simpleMessage("ادخل رقم الموبايل"),
         "enterOTPSentTo": MessageLookupByLibrary.simpleMessage(
@@ -163,10 +166,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "fourthDownloadTheContractToSignAndUploadIt":
             MessageLookupByLibrary.simpleMessage(
                 "رابعا, قم بتحميل العقد وتوقيعه ورفعه"),
+        "fridayPrev": MessageLookupByLibrary.simpleMessage("الجمعة"),
         "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
         "getApproval":
             MessageLookupByLibrary.simpleMessage("الحصول علي الموافقة"),
-        "getContract": MessageLookupByLibrary.simpleMessage("احصل علي العقد"),
+        "getContract": MessageLookupByLibrary.simpleMessage("الحصول علي العقد"),
         "getHelp": MessageLookupByLibrary.simpleMessage("احصل علي المساعدة"),
         "getOTP": MessageLookupByLibrary.simpleMessage("طلب كلمة سر لحظية"),
         "happyCustomer": MessageLookupByLibrary.simpleMessage("عميل سعيد"),
@@ -207,6 +211,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "min": MessageLookupByLibrary.simpleMessage("حد أدني"),
         "minutes": MessageLookupByLibrary.simpleMessage("دقائق"),
         "mobile": MessageLookupByLibrary.simpleMessage("الموبايل"),
+        "mondayPrev": MessageLookupByLibrary.simpleMessage("الاثنين"),
         "myOrders": MessageLookupByLibrary.simpleMessage("طلباتي"),
         "myPreOrder":
             MessageLookupByLibrary.simpleMessage("طلباتي تحت التجهيز"),
@@ -263,6 +268,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "performanceAnalysis":
             MessageLookupByLibrary.simpleMessage("تحليل الاداء"),
         "phone": MessageLookupByLibrary.simpleMessage("الهاتف"),
+        "pickEndTime": MessageLookupByLibrary.simpleMessage("اختر وقت النهاية"),
+        "pickStartTime":
+            MessageLookupByLibrary.simpleMessage("اختر وقت البداية"),
         "pickUpOnly": MessageLookupByLibrary.simpleMessage("التقاط فقط"),
         "pickup": MessageLookupByLibrary.simpleMessage("استلم بنفسك"),
         "placeOrder": MessageLookupByLibrary.simpleMessage("سجل الطلب"),
@@ -299,12 +307,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "reviewTheChef": MessageLookupByLibrary.simpleMessage("تقييم الشيف"),
         "reviewTheDriver": MessageLookupByLibrary.simpleMessage("تقييم السائق"),
         "reviews": MessageLookupByLibrary.simpleMessage("المراجعات"),
+        "saturdayPrev": MessageLookupByLibrary.simpleMessage("السبت"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "saveCreditCardDetails":
             MessageLookupByLibrary.simpleMessage("احفظ تفاصيل البطاقة"),
         "saveOnYourOrder":
             MessageLookupByLibrary.simpleMessage("احفظ علي طلبك"),
         "scheduleDate": MessageLookupByLibrary.simpleMessage("تاريخ الجدول"),
+        "scheduleEnd": MessageLookupByLibrary.simpleMessage("النهاية"),
+        "scheduleStart": MessageLookupByLibrary.simpleMessage("البداية"),
         "search": MessageLookupByLibrary.simpleMessage("بحث"),
         "searchForFood": MessageLookupByLibrary.simpleMessage("ابحث عن طعام"),
         "searchOrEnterAnAddress":
@@ -329,10 +340,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("1 رمز ( ! @ # \$ & * ~ )"),
         "specialRequest": MessageLookupByLibrary.simpleMessage("طلب خاص"),
         "start": MessageLookupByLibrary.simpleMessage("ابدأ"),
+        "startTimeMustBeAtLeast2HoursBeforeEndTime":
+            MessageLookupByLibrary.simpleMessage(
+                "وقت البداية يجب ألا يقل عن ساعتين قبل وقت النهاية"),
         "stripeError": MessageLookupByLibrary.simpleMessage("خطأ Stripe"),
         "submit": MessageLookupByLibrary.simpleMessage("ارفع"),
         "subtotal": MessageLookupByLibrary.simpleMessage("مبلغ اجمالي"),
         "suggestions": MessageLookupByLibrary.simpleMessage("اقتراحات"),
+        "sundayPrev": MessageLookupByLibrary.simpleMessage("الأحد"),
         "swiftCode": MessageLookupByLibrary.simpleMessage("Swift code"),
         "thankYouForWaiting":
             MessageLookupByLibrary.simpleMessage("شكرا للانتظار"),
@@ -358,6 +373,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "هذا الزر يعني أنك حاليا غير متاح"),
         "thisSectionYourSavedAddress":
             MessageLookupByLibrary.simpleMessage("هذا القسم عنوانك المسجل"),
+        "thursdayPrev": MessageLookupByLibrary.simpleMessage("الخميس"),
         "time": MessageLookupByLibrary.simpleMessage("وقت"),
         "toReceiveOrdersChangYourStatusToOnline":
             MessageLookupByLibrary.simpleMessage(
@@ -366,6 +382,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalAmount": MessageLookupByLibrary.simpleMessage("الإجمالي"),
         "tracking": MessageLookupByLibrary.simpleMessage("التتبع"),
         "transactions": MessageLookupByLibrary.simpleMessage("عمليات مالية"),
+        "tuesdayPrev": MessageLookupByLibrary.simpleMessage("الثلاثاء"),
         "upload": MessageLookupByLibrary.simpleMessage("رفع"),
         "upperCase": MessageLookupByLibrary.simpleMessage("1 upper case"),
         "useCurrentLocation":
@@ -379,6 +396,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "waitingforapprovalWithin72Hours": MessageLookupByLibrary.simpleMessage(
             "جاري انتظار الموافقة خلال 72 ساعة..."),
         "wallet": MessageLookupByLibrary.simpleMessage("محفظة"),
+        "wednesdayPrev": MessageLookupByLibrary.simpleMessage("الأربعاء"),
         "welcomeBack": MessageLookupByLibrary.simpleMessage("مرحبا بعودتك"),
         "whatYouWishToEatToday":
             MessageLookupByLibrary.simpleMessage("ما الذي تريده اليوم؟"),
