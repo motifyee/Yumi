@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "anythingElseWeNeedToKnow": MessageLookupByLibrary.simpleMessage(
             "Anything else we need to know?"),
         "apiError": MessageLookupByLibrary.simpleMessage("Api Error"),
+        "appLang": MessageLookupByLibrary.simpleMessage("ع"),
         "areYouSureToDeleteAMeal": MessageLookupByLibrary.simpleMessage(
             "Are you sure to delete a meal?"),
         "areYouSureYouWantToLeave": MessageLookupByLibrary.simpleMessage(
@@ -119,6 +120,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "deliveryIn": MessageLookupByLibrary.simpleMessage("Delivery in"),
         "deliveryTime": MessageLookupByLibrary.simpleMessage("Delivery time"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "didntReceiveAnOTP":
+            MessageLookupByLibrary.simpleMessage("Didn\'\'t receive an OTP?"),
         "disclaimer": MessageLookupByLibrary.simpleMessage("Disclaimer"),
         "discount": MessageLookupByLibrary.simpleMessage("Discount"),
         "dishName": MessageLookupByLibrary.simpleMessage("Dish Name"),
@@ -130,11 +133,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "empty": MessageLookupByLibrary.simpleMessage("Empty"),
+        "enterOTPSentTo":
+            MessageLookupByLibrary.simpleMessage("Enter the OTP sent to"),
         "enterVoucherCode":
             MessageLookupByLibrary.simpleMessage("Enter voucher code"),
         "eventsPhoto": MessageLookupByLibrary.simpleMessage("Events Photo"),
         "expiryDateMMYY":
             MessageLookupByLibrary.simpleMessage("Expiry date (mm/yy)"),
+        "failedverifyOTPTryagain": MessageLookupByLibrary.simpleMessage(
+            "Failed verify OTP. Try again!"),
         "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
         "featuredChefs": MessageLookupByLibrary.simpleMessage("Featured Chefs"),
         "financialView": MessageLookupByLibrary.simpleMessage("Financial view"),
@@ -190,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nameOnCard": MessageLookupByLibrary.simpleMessage("Name on card"),
         "new0": MessageLookupByLibrary.simpleMessage("New"),
         "newOrder": MessageLookupByLibrary.simpleMessage("New Order"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noAccessToDailSystem":
             MessageLookupByLibrary.simpleMessage("No Access To Dail System!"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
@@ -217,6 +225,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderStatus": MessageLookupByLibrary.simpleMessage("Order Status"),
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "ordersHistory": MessageLookupByLibrary.simpleMessage("Orders History"),
+        "otpVerification":
+            MessageLookupByLibrary.simpleMessage("OTP Verification"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordDoesNotMatch":
             MessageLookupByLibrary.simpleMessage("Password does not match!"),
@@ -254,8 +264,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Preparing Order"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
-        "profileSetting":
-            MessageLookupByLibrary.simpleMessage("Profile Setting"),
         "profileSettings":
             MessageLookupByLibrary.simpleMessage("Profile Settings"),
         "rateOrder": MessageLookupByLibrary.simpleMessage("Rate Order"),
@@ -265,6 +273,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "received": MessageLookupByLibrary.simpleMessage("Received"),
         "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
+        "resendOTP": MessageLookupByLibrary.simpleMessage("Resend OTP"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
         "review": MessageLookupByLibrary.simpleMessage("Review"),
         "reviewTheChef":
@@ -287,7 +296,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Secure payment with SSL Encryption info"),
         "securityCode": MessageLookupByLibrary.simpleMessage("Security code"),
-        "setting": MessageLookupByLibrary.simpleMessage("Setting"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "shippingFee": MessageLookupByLibrary.simpleMessage("Shipping fee"),
         "signToContinue":
             MessageLookupByLibrary.simpleMessage("Sign to continue"),
@@ -335,6 +344,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "useCurrentLocation":
             MessageLookupByLibrary.simpleMessage("Use Current Location"),
         "userName": MessageLookupByLibrary.simpleMessage("User name"),
+        "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+        "verifyProceed":
+            MessageLookupByLibrary.simpleMessage("Verify & Proceed"),
         "view": MessageLookupByLibrary.simpleMessage("View"),
         "vouchers": MessageLookupByLibrary.simpleMessage("Vouchers"),
         "wait": MessageLookupByLibrary.simpleMessage("Wait"),

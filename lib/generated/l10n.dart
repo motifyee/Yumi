@@ -530,11 +530,11 @@ class S {
     );
   }
 
-  /// `Setting`
-  String get setting {
+  /// `Settings`
+  String get settings {
     return Intl.message(
-      'Setting',
-      name: 'setting',
+      'Settings',
+      name: 'settings',
       desc: '',
       args: [],
     );
@@ -645,16 +645,6 @@ class S {
     return Intl.message(
       'My reviews',
       name: 'myReviews',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Profile Setting`
-  String get profileSetting {
-    return Intl.message(
-      'Profile Setting',
-      name: 'profileSetting',
       desc: '',
       args: [],
     );
@@ -2621,6 +2611,96 @@ class S {
       args: [],
     );
   }
+
+  /// `ع`
+  String get appLang {
+    return Intl.message(
+      'ع',
+      name: 'appLang',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify`
+  String get verify {
+    return Intl.message(
+      'Verify',
+      name: 'verify',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OTP Verification`
+  String get otpVerification {
+    return Intl.message(
+      'OTP Verification',
+      name: 'otpVerification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the OTP sent to`
+  String get enterOTPSentTo {
+    return Intl.message(
+      'Enter the OTP sent to',
+      name: 'enterOTPSentTo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Didn''t receive an OTP?`
+  String get didntReceiveAnOTP {
+    return Intl.message(
+      'Didn\'\'t receive an OTP?',
+      name: 'didntReceiveAnOTP',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend OTP`
+  String get resendOTP {
+    return Intl.message(
+      'Resend OTP',
+      name: 'resendOTP',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify & Proceed`
+  String get verifyProceed {
+    return Intl.message(
+      'Verify & Proceed',
+      name: 'verifyProceed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed verify OTP. Try again!`
+  String get failedverifyOTPTryagain {
+    return Intl.message(
+      'Failed verify OTP. Try again!',
+      name: 'failedverifyOTPTryagain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -2629,6 +2709,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'ar'),
     ];
   }
 
