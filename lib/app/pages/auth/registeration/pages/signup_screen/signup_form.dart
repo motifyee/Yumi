@@ -1,5 +1,4 @@
 import 'package:common_code/common_code.dart';
-import 'package:common_code/domain/auth/entities/signup_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -72,7 +71,7 @@ class SignUpForm extends StatelessWidget {
       builder: (context, state) {
         return InteractiveButton(
           height: 48,
-          label: 'Verify',
+          label: S.of(context).verify,
           loadingLabel: '',
           style: InteractiveButtonStyle(
             backgroundColor:
@@ -92,20 +91,26 @@ class SignUpForm extends StatelessWidget {
       children: [
         emailField,
         Positioned(
+          left: 0,
           right: 0,
           top: 0,
-          child: Container(
-            height: 48,
-            width: 96,
-            padding: const EdgeInsets.all(10),
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(25),
-                bottomRight: Radius.circular(25),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                height: 48,
+                width: 96,
+                padding: const EdgeInsets.all(10),
+                alignment: Alignment.center,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(25),
+                    bottomRight: Radius.circular(25),
+                  ),
+                ),
+                child: verifyEmailButton,
               ),
-            ),
-            child: verifyEmailButton,
+            ],
           ),
         ),
       ],
