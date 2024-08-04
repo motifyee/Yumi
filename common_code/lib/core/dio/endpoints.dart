@@ -8,7 +8,8 @@ String originApi = '';
 
 class BaseUrl {
   static Future<void> load() async {
-    final value = await LocalStorage.sharedRef.getValue(LocalStorage.domainName);
+    final value =
+        await LocalStorage.sharedRef.getValue(LocalStorage.domainName);
 
     originApi = value ?? defaultOriginApi;
     APIClient.baseUrl = originApi;
@@ -26,10 +27,11 @@ class BaseUrl {
 
 class EndPoints {
   static String getApiKeyString({required String apiKey}) {
-    return apiKey.replaceAll("_", GlobalContext().app.config.appTitle);
+    return apiKey.replaceAll("_", GlobalContext().appConfig.appTitle);
   }
 
-  static String actionApiKeyString({required String apiKey, required String id}) {
+  static String actionApiKeyString(
+      {required String apiKey, required String id}) {
     return apiKey.replaceAll("_", id);
   }
 

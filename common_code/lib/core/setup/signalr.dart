@@ -57,7 +57,8 @@ class Signalr {
     final httpOptions = HttpConnectionOptions(
       httpClient: WebSupportingHttpClient(
         hubLogger,
-        httpClientCreateCallback: (httpClient) => HttpOverrides.global = HttpOverrideCertificateVerificationInDev(),
+        httpClientCreateCallback: (httpClient) =>
+            HttpOverrides.global = HttpOverrideCertificateVerificationInDev(),
       ),
       logger: transportLogger,
       logMessageContent: true,
@@ -66,7 +67,12 @@ class Signalr {
       accessTokenFactory: () => Future.value(accessToken!),
     );
 
-    hubConnection = HubConnectionBuilder().withUrl("$baseUrl/$hubName", options: httpOptions).configureLogging(hubLogger).withAutomaticReconnect(retryDelays: List<int>.filled(120, 1000)).withHubProtocol(JsonHubProtocol()).build();
+    hubConnection = HubConnectionBuilder()
+        .withUrl("$baseUrl/$hubName", options: httpOptions)
+        .configureLogging(hubLogger)
+        .withAutomaticReconnect(retryDelays: List<int>.filled(120, 1000))
+        .withHubProtocol(JsonHubProtocol())
+        .build();
 
     hubConnection!.onclose(_onclose);
     hubConnection!.onreconnecting(_onreconnecting);
@@ -90,13 +96,14 @@ class Signalr {
   static Future<void> startConnection() async {
     ensureInitialized();
 
-    if (hubConnection!.state == HubConnectionState.Connected) return;
+    if (hubConnection?.state == HubConnectionState.Connected) return;
 
-    await hubConnection!.start()?.then(_onstarted).catchError(_onstarterror);
+    await hubConnection?.start()?.then(_onstarted).catchError(_onstarterror);
   }
 
   static void stopConnection() async {
-    if (hubConnection == null || hubConnection!.state != HubConnectionState.Connected) return;
+    if (hubConnection == null ||
+        hubConnection!.state != HubConnectionState.Connected) return;
 
     // await hubConnection!.invoke("Stop");
     await hubConnection!.stop();
@@ -113,7 +120,7 @@ class Signalr {
   ) {
     ensureInitialized();
 
-    hubConnection!.on(methodName.name, callback);
+    hubConnection?.on(methodName.name, callback);
   }
 
   static void off<T extends Enum>(
@@ -122,7 +129,7 @@ class Signalr {
   }) {
     ensureInitialized();
 
-    hubConnection!.off(methodName.name, method: method);
+    hubConnection?.off(methodName.name, method: method);
   }
 
   static Future<Either<Failure, Object?>> invoke<T extends Enum>(
@@ -152,7 +159,9 @@ class Signalr {
 class HttpOverrideCertificateVerificationInDev extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
 
