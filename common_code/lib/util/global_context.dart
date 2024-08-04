@@ -18,6 +18,7 @@ class GlobalContext {
   BuildContext get bContext => _appBuilderContext;
 
   App get app => App.of(bContext);
+  AppConfig get appConfig => rd<AppCubit>().state.config;
 
   // ###########################################################################
   // Router
@@ -49,7 +50,7 @@ class GlobalContext {
   // }
   // final GlobalKey<NavigatorState> routerKey = GlobalKey<NavigatorState>();
 
-  StackRouter get router => app.config.appRouter;
+  StackRouter get router => appConfig.appRouter;
   BuildContext get context => router.navigatorKey.currentContext!;
 
   void pop({bool rootNavigator = true}) {

@@ -3,7 +3,6 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:nested/nested.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
@@ -31,10 +30,6 @@ class ChefAppConfig implements AppConfig {
   final RootStackRouter _appRouter = ChefRoutes();
   @override
   RootStackRouter get appRouter => _appRouter;
-
-  ChefAppConfig() {
-    FlutterNativeSplash.remove();
-  }
 
   @override
   String get appTitle => YumiApp.chefs.name;
@@ -65,8 +60,8 @@ class ChefAppConfig implements AppConfig {
 
   @override
   Iterable<LocalizationsDelegate>? get localizationsDelegates => const [
-        CommonCodeS.delegate,
         S.delegate,
+        CommonCodeS.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -76,7 +71,7 @@ class ChefAppConfig implements AppConfig {
   Iterable<Locale> get supportedLocales => S.delegate.supportedLocales;
 
   @override
-  Locale get locale => const Locale('ar');
+  Locale get locale => CommonLocale.appLocale;
 
   @override
   ThemeData? get theme => commonTheme;
