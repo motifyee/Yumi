@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/app_target.dart';
@@ -30,8 +31,18 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Container(
+                        width: 75,
+                        padding: const EdgeInsets.all(CommonDimens.defaultGap),
+                        child: InteractiveButton(
+                          label: S.current.appLang,
+                          buttonType: ButtonType.outline,
+                          onPressed: () =>
+                              context.read<AppCubit>().toggleLocale(),
+                        ),
+                      ),
                       CustomDomain(),
                     ],
                   ),
