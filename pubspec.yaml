@@ -75,6 +75,8 @@ dependencies:
   connectivity_plus: ^6.0.3
   flutter_stripe: ^11.0.0
 
+  hotkey_manager: ^0.2.3
+
   common_code:
     path: ./common_code
 

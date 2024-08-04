@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:hotkey_manager/hotkey_manager.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:common_code/core/setup/awesome_notifications.dart';
 import 'package:common_code/core/setup/crashlyticts.dart';
+import 'package:yumi/core/setup/hotkeys.dart';
 import 'package:yumi/core/setup/inject.dart';
 import 'package:yumi/core/setup/interceptor.dart';
 import 'package:yumi/global.dart';
@@ -41,6 +45,11 @@ Future init() async {
   APIClient.addInterceptor(APIInterceptor());
 
   await CommonLocale.loadAppLocale();
+
+  if (Platform.isWindows) {
+    await hotKeyManager.unregisterAll();
+    await registerHotkeys();
+  }
 
   G().listenConnectivity();
 }
