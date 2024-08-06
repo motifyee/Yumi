@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/domain/food_delivery/ingredients/entities/ingredient.dart';
 
 part 'meal.g.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:common_code/core/setup/signalr.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';

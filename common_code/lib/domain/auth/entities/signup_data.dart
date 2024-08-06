@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/domain/user/entity/user.dart';
 
 part 'signup_data.freezed.dart';

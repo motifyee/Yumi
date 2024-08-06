@@ -1,9 +1,7 @@
-import 'package:bloc/bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:common_code/util/global_context.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/domain/address/use_case/delete_address.dart';
 import 'package:yumi/domain/address/use_case/get_addresses.dart';
 import 'package:yumi/domain/address/use_case/update_default_address.dart';
@@ -22,7 +20,8 @@ class AddressState with _$AddressState {
     return AddressState(pagination: const PaginatedData<Address>(data: []));
   }
 
-  factory AddressState.fromJson(Map<String, dynamic> json) => _$AddressStateFromJson(json);
+  factory AddressState.fromJson(Map<String, dynamic> json) =>
+      _$AddressStateFromJson(json);
 }
 
 class AddressCubit extends Cubit<AddressState> {
@@ -31,15 +30,19 @@ class AddressCubit extends Cubit<AddressState> {
   getAddresses({String? id}) async {
     if (!state.pagination.canRequest) return;
     emit(state.copyWith.pagination(isLoading: true));
-    final task = await GetAddresses().call(GetAddressesParams(pagination: state.pagination, queryParameters: {'id': id}));
-    task.fold((l) => GlobalContext().snackBar(l.error ?? S.current.apiError), (r) => emit(state.copyWith(pagination: r)));
+    final task = await GetAddresses().call(GetAddressesParams(
+        pagination: state.pagination, queryParameters: {'id': id}));
+    task.fold((l) => GlobalContext().snackBar(l.error ?? S.current.apiError),
+        (r) => emit(state.copyWith(pagination: r)));
   }
 
   updateDefaultAddress({required Address address}) async {
     if (state.pagination.isLoading) return;
     emit(state.copyWith.pagination(isLoading: true));
-    final task = await UpdateDefaultAddress().call(UpdateDefaultAddressParams(pagination: state.pagination, address: address, queryParameters: null));
-    task.fold((l) => GlobalContext().snackBar(l.error ?? S.current.apiError), (r) {
+    final task = await UpdateDefaultAddress().call(UpdateDefaultAddressParams(
+        pagination: state.pagination, address: address, queryParameters: null));
+    task.fold((l) => GlobalContext().snackBar(l.error ?? S.current.apiError),
+        (r) {
       GlobalContext().context.read<UserCubit>().saveLocation(address);
       emit(state.copyWith(pagination: r));
     });
@@ -48,7 +51,9 @@ class AddressCubit extends Cubit<AddressState> {
   deleteAddress({required Address address}) async {
     if (state.pagination.isLoading) return;
     emit(state.copyWith.pagination(isLoading: true));
-    final task = await DeleteAddress().call(DeleteAddressParams(pagination: state.pagination, address: address, queryParameters: null));
-    task.fold((l) => GlobalContext().snackBar(l.error ?? S.current.apiError), (r) => emit(state.copyWith(pagination: r)));
+    final task = await DeleteAddress().call(DeleteAddressParams(
+        pagination: state.pagination, address: address, queryParameters: null));
+    task.fold((l) => GlobalContext().snackBar(l.error ?? S.current.apiError),
+        (r) => emit(state.copyWith(pagination: r)));
   }
 }

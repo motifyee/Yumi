@@ -2,7 +2,7 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/components/stateful_wrapper/stateful_wrapper.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/registeration_step.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/signup_screen/cubit/signup_cubit.dart';

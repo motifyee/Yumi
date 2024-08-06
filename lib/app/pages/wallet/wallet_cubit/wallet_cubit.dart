@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:common_code/core/failures.dart';
 import 'package:common_code/core/use_cases.dart';
 import 'package:common_code/domain/wallet/entity/wallet.dart';

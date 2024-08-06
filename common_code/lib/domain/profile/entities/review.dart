@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:common_code/domain/food_delivery/chef/entity/chef.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dependencies/dependencies.dart';
 
 part 'review.freezed.dart';
 part 'review.g.dart';

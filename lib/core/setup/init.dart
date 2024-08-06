@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';

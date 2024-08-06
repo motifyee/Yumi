@@ -1,11 +1,9 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/basket/entity/invoice.dart';
@@ -24,7 +22,6 @@ import 'package:yumi/domain/basket/use_case/update_meal_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_pickUp_basket.dart';
 import 'package:yumi/domain/basket/use_case/update_schedule_basket.dart';
 import 'package:yumi/domain/basket/use_case/voucher_basket.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
@@ -154,9 +151,14 @@ class BasketCubit extends Cubit<BasketState> {
   stripePayment() async {
     if (state.basket.isPaying) return;
     emit(state.copyWith(basket: state.basket.copyWith(isPaying: true)));
-    final Either<Failure, bool> task = await StripePayment().call(StripePaymentParams(amount: state.basket.invoice.finalPrice, currency: StripeKeys.currency));
+    final Either<Failure, bool> task = await StripePayment().call(
+        StripePaymentParams(
+            amount: state.basket.invoice.finalPrice,
+            currency: StripeKeys.currency));
     emit(state.copyWith(basket: state.basket.copyWith(isPaying: false)));
-    task.fold((l) => _message(l.error ?? S.current.stripeError, isReturn: false), (r) => closeBasket());
+    task.fold(
+        (l) => _message(l.error ?? S.current.stripeError, isReturn: false),
+        (r) => closeBasket());
   }
 
   addVoucher({required String voucher}) async {

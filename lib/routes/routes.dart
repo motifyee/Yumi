@@ -1,4 +1,4 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:yumi/app/yumi/config/guards.dart';
 import 'package:yumi/routes/routes.gr.dart';
 

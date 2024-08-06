@@ -1,4 +1,4 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dependencies/dependencies.dart';
 
 mixin CubitX<T> on Cubit<T> {
   // Cubit<T> get read => G().rd<Cubit<T>>();

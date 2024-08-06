@@ -1,10 +1,6 @@
-import 'package:bloc/bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart' as fpdart;
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:common_code/domain/food_delivery/order/entity/order.dart';
-import 'package:common_code/domain/food_delivery/order/use_case/get_orders.dart';
-import 'package:common_code/domain/food_delivery/order/use_case/put_action_orders.dart';
 import 'package:yumi/global.dart';
 
 part 'order_cubit.freezed.dart';
@@ -16,7 +12,8 @@ class OrderState with _$OrderState {
     @Default(PaginatedData()) PaginatedData<Order> ordersPage,
   }) = _OrderState;
 
-  factory OrderState.fromJson(Map<String, dynamic> json) => _$OrderStateFromJson(json);
+  factory OrderState.fromJson(Map<String, dynamic> json) =>
+      _$OrderStateFromJson(json);
 }
 
 class OrderCubit extends Cubit<OrderState> {
@@ -28,7 +25,8 @@ class OrderCubit extends Cubit<OrderState> {
     if (state.ordersPage.canRequest) {
       emit(state.copyWith.ordersPage(isLoading: true));
 
-      final fpdart.Either<Failure, PaginatedData<Order>> task = await GetOrders().call(
+      final fpdart.Either<Failure, PaginatedData<Order>> task =
+          await GetOrders().call(
         GetOrdersParams(
           ordersPage: state.ordersPage,
           apiKeys: apiKeys,
@@ -52,7 +50,8 @@ class OrderCubit extends Cubit<OrderState> {
   }) async {
     void emitOrderIsLoading(bool isLoading) {
       List<Order> orders = List.from(
-        state.ordersPage.data.map((e) => e.id == order.id ? e.copyWith(isLoading: isLoading) : e),
+        state.ordersPage.data.map(
+            (e) => e.id == order.id ? e.copyWith(isLoading: isLoading) : e),
       );
       emit(state.copyWith.ordersPage(data: orders));
     }

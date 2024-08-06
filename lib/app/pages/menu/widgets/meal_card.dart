@@ -1,13 +1,11 @@
 import 'dart:typed_data';
 
 import 'package:common_code/common_code.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/app/pages/menu/widgets/meal_form.dart';
@@ -38,8 +36,14 @@ class MealCard extends StatelessWidget {
             ),
             decoration: BoxDecoration(
                 color: CommonColors.backgroundTant,
-                borderRadius: const BorderRadius.only(topRight: Radius.circular(CommonDimens.defaultBorderRadiusExtraLarge), bottomLeft: Radius.circular(CommonDimens.defaultBorderRadiusExtraLarge)),
-                boxShadow: [BoxShadow(color: CommonColors.shadow, blurRadius: 3)]),
+                borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(
+                        CommonDimens.defaultBorderRadiusExtraLarge),
+                    bottomLeft: Radius.circular(
+                        CommonDimens.defaultBorderRadiusExtraLarge)),
+                boxShadow: [
+                  BoxShadow(color: CommonColors.shadow, blurRadius: 3)
+                ]),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -48,10 +52,14 @@ class MealCard extends StatelessWidget {
                     width: CommonDimens.iconSizeLarge,
                     height: CommonDimens.iconSizeLarge,
                     clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadiusSmall)),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                            CommonDimens.defaultBorderRadiusSmall)),
                     child: Image.memory(
-                      Uri.parse(meal.photo ?? '').data?.contentAsBytes() ?? Uint8List(0),
-                      errorBuilder: (context, error, stackTrace) => Image.asset('assets/images/354.jpeg'),
+                      Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
+                          Uint8List(0),
+                      errorBuilder: (context, error, stackTrace) =>
+                          Image.asset('assets/images/354.jpeg'),
                     )),
                 const SizedBox(height: CommonDimens.defaultGap),
                 Text(
@@ -60,9 +68,14 @@ class MealCard extends StatelessWidget {
                 ),
                 const SizedBox(height: CommonDimens.defaultGap),
                 Text(
-                  meal.ingredients?.map((e) => '${e.portionGrams} ${e.name}').join(', ') ?? '',
+                  meal.ingredients
+                          ?.map((e) => '${e.portionGrams} ${e.name}')
+                          .join(', ') ??
+                      '',
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: CommonFontSize.font_9, fontWeight: FontWeight.w300),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontSize: CommonFontSize.font_9,
+                      fontWeight: FontWeight.w300),
                 ),
                 const SizedBox(height: CommonDimens.defaultGap),
                 Row(
@@ -97,7 +110,9 @@ class MealCard extends StatelessWidget {
                           );
 
                       context.read<MealCubit>().reset(menuTarget: menuTarget);
-                      context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId, menuTarget: menuTarget);
+                      context.read<MealCubit>().updateMeals(
+                          chefId: context.read<UserCubit>().state.user.chefId,
+                          menuTarget: menuTarget);
                     });
                   },
                   child: Row(
@@ -123,7 +138,8 @@ class MealCard extends StatelessWidget {
                                 if (isDeleting) return true;
                                 isDeleting = true;
 
-                                final task = await DeleteMeal().call(DeleteMealParams(meal: meal));
+                                final task = await DeleteMeal()
+                                    .call(DeleteMealParams(meal: meal));
 
                                 return task.fold((l) {
                                   isDeleting = false;
@@ -139,12 +155,23 @@ class MealCard extends StatelessWidget {
                                   isDeleting = false;
                                   context.read<CategoriesCubit>().reset();
 
-                                  context.read<CategoriesCubit>().getChefCategories(
+                                  context
+                                      .read<CategoriesCubit>()
+                                      .getChefCategories(
                                         isPreOrder: meal.isPreOrder == true,
                                       );
 
-                                  context.read<MealCubit>().reset(menuTarget: meal.isPreOrder == true ? MenuTarget.preOrder : MenuTarget.order);
-                                  context.read<MealCubit>().updateMeals(chefId: context.read<UserCubit>().state.user.chefId, menuTarget: menuTarget);
+                                  context.read<MealCubit>().reset(
+                                      menuTarget: meal.isPreOrder == true
+                                          ? MenuTarget.preOrder
+                                          : MenuTarget.order);
+                                  context.read<MealCubit>().updateMeals(
+                                      chefId: context
+                                          .read<UserCubit>()
+                                          .state
+                                          .user
+                                          .chefId,
+                                      menuTarget: menuTarget);
                                   Navigator.of(context).pop();
                                   return true;
                                 });
@@ -163,9 +190,10 @@ class MealCard extends StatelessWidget {
                       const Text(' '),
                       Text(
                         'Remove',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontSize: CommonFontSize.font_10,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontSize: CommonFontSize.font_10,
+                                ),
                       )
                     ],
                   )),

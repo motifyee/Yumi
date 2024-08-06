@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'app_cubit.freezed.dart';
 

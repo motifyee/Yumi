@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:yumi/app/components/page_view/cubit/page_view_cubit.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:common_code/core/setup/signalr.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
-import 'package:common_code/domain/food_delivery/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:common_code/common_code.dart';
 import 'package:yumi/app/pages/order/widgets/action_button.dart';
@@ -64,11 +62,17 @@ class DriverOrderScreen extends StatelessWidget {
                         key: key,
                         label: S.of(context).available,
                         isActive: state.selectedList == 0,
-                        isNotificationIconShow: states.isSignalTriggered(signal: [Signal.neworderreceived], isPreOrder: menuTarget == MenuTarget.preOrder),
+                        isNotificationIconShow: states.isSignalTriggered(
+                            signal: [Signal.neworderreceived],
+                            isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
-                          context.read<PageViewCubit>().updateSelect(selectedList: 0);
+                          context
+                              .read<PageViewCubit>()
+                              .updateSelect(selectedList: 0);
                           _controller.jumpToPage(0);
-                          context.read<SignalRCubit>().removeSignals(signal: [Signal.neworderreceived]);
+                          context
+                              .read<SignalRCubit>()
+                              .removeSignals(signal: [Signal.neworderreceived]);
                         },
                       ),
                       const SizedBox(width: CommonDimens.defaultBlockGap),
@@ -76,14 +80,17 @@ class DriverOrderScreen extends StatelessWidget {
                         key: key,
                         label: S.of(context).active,
                         isActive: state.selectedList == 1,
-                        isNotificationIconShow: states.isSignalTriggered(signal: [
+                        isNotificationIconShow:
+                            states.isSignalTriggered(signal: [
                           Signal.chefstart,
                           Signal.cheffinished,
                           Signal.driverreceived,
                           Signal.clientreceived,
                         ], isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
-                          context.read<PageViewCubit>().updateSelect(selectedList: 1);
+                          context
+                              .read<PageViewCubit>()
+                              .updateSelect(selectedList: 1);
                           _controller.jumpToPage(1);
                           context.read<SignalRCubit>().removeSignals(signal: [
                             Signal.chefstart,
@@ -106,12 +113,16 @@ class DriverOrderScreen extends StatelessWidget {
               children: [
                 BlocBuilder<UserCubit, UserState>(
                   builder: (context, state) {
-                    return state.user.status != 1 && menuTarget == MenuTarget.order
+                    return state.user.status != 1 &&
+                            menuTarget == MenuTarget.order
                         ? Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(CommonDimens.defaultMediumGap),
+                              padding: const EdgeInsets.all(
+                                  CommonDimens.defaultMediumGap),
                               child: Text(
-                                S.of(context).toReceiveOrdersChangYourStatusToOnline,
+                                S
+                                    .of(context)
+                                    .toReceiveOrdersChangYourStatusToOnline,
                                 softWrap: true,
                                 textAlign: TextAlign.center,
                               ),
@@ -121,9 +132,15 @@ class DriverOrderScreen extends StatelessWidget {
                             create: (context) => OrderCubit(),
                             child: NewsOrders(
                               menuTarget: menuTarget,
-                              apiKey: menuTarget == MenuTarget.order ? EndPoints.orderDriverAvailable : EndPoints.preOrderDriverAvailable,
-                              orderCardTargetPage: OrderCardTargetPage.driverAccept,
-                              signals: const [Signal.neworderreceived, Signal.driveraccept],
+                              apiKey: menuTarget == MenuTarget.order
+                                  ? EndPoints.orderDriverAvailable
+                                  : EndPoints.preOrderDriverAvailable,
+                              orderCardTargetPage:
+                                  OrderCardTargetPage.driverAccept,
+                              signals: const [
+                                Signal.neworderreceived,
+                                Signal.driveraccept
+                              ],
                             ),
                           );
                   },
@@ -132,7 +149,9 @@ class DriverOrderScreen extends StatelessWidget {
                   create: (context) => OrderCubit(),
                   child: NewsOrders(
                     menuTarget: menuTarget,
-                    apiKey: menuTarget == MenuTarget.order ? EndPoints.orderDriverActive : EndPoints.preOrderDriverActive,
+                    apiKey: menuTarget == MenuTarget.order
+                        ? EndPoints.orderDriverActive
+                        : EndPoints.preOrderDriverActive,
                     orderCardTargetPage: OrderCardTargetPage.driverReceived,
                     signals: const [
                       Signal.chefstart,

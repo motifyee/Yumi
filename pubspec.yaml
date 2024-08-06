@@ -90,7 +90,7 @@ dev_dependencies:
   build_runner: ^2.4.11
 
   json_serializable: ^6.8.0
-  freezed: ^2.5.2 # analyzer: 6.5.1 > meta: 1.15.0
+  # freezed: ^2.5.2 # analyzer: 6.5.1 > meta: 1.15.0
 
   # mockito: ^5.4.4
   mocktail: ^1.0.4
