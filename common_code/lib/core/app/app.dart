@@ -52,10 +52,11 @@ class App extends StatelessWidget {
             color: CommonColors.background,
             child: Stack(children: [
               child ?? const SizedBox(),
-              const Positioned(
+              Positioned(
                 top: -10,
-                right: -10,
-                child: SignalRStatus(),
+                right: CommonLocale.isLTR ? -10 : null,
+                left: CommonLocale.isRTL ? -10 : null,
+                child: const SignalRStatus(),
               ),
             ]),
           ),
@@ -113,8 +114,7 @@ class _SignalRStatusState extends State<SignalRStatus> {
     return Container(
       width: 20,
       height: 20,
-      decoration:
-          BoxDecoration(color: color, borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(20)),
     );
   }
 }
