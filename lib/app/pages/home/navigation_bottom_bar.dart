@@ -24,7 +24,8 @@ class NavigationBottomBar extends StatelessWidget {
             AnimatedPositioned(
               duration: CommonDimens.animationDuration,
               top: 0,
-              left: selectedPageIndicator * state.selectedIndex,
+              left: CommonLocale.isLTR ? selectedPageIndicator * state.selectedIndex : null,
+              right: CommonLocale.isRTL ? selectedPageIndicator * state.selectedIndex : null,
               child: SizedBox(
                 width: selectedPageIndicator,
                 child: Stack(

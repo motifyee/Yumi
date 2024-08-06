@@ -14,17 +14,17 @@ class OfferCard extends StatefulWidget {
 }
 
 class _OfferCardState extends State<OfferCard> {
-  double rightPosition = -100;
+  double marginPosition = -100;
   Duration duration = CommonDimens.slowAnimationDuration;
 
   void animationFn() {
     setState(() {
-      rightPosition = -100;
+      marginPosition = -100;
       duration = Duration.zero;
     });
     Timer(const Duration(milliseconds: 100), () {
       setState(() {
-        rightPosition = 0;
+        marginPosition = 0;
         duration = CommonDimens.slowAnimationDuration;
       });
     });
@@ -54,8 +54,8 @@ class _OfferCardState extends State<OfferCard> {
         children: [
           SvgPicture.asset(
             'assets/images/offer_card.svg',
-            colorFilter: ColorFilter.mode(
-                widget.offer['color'] ?? CommonColors.primary, BlendMode.srcIn),
+            matchTextDirection: true,
+            colorFilter: ColorFilter.mode(widget.offer['color'] ?? CommonColors.primary, BlendMode.srcIn),
           ),
           Align(
             child: Row(
@@ -73,20 +73,14 @@ class _OfferCardState extends State<OfferCard> {
                       children: [
                         Text(
                           'Great healthy food and lots of discounted prices',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge
-                              ?.copyWith(
+                          style: Theme.of(context).textTheme.displayLarge?.copyWith(
                                 fontSize: CommonFontSize.font_12,
                               ),
                         ),
                         const SizedBox(height: CommonDimens.defaultGap),
                         Text(
                           'Our Happy Customer',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge
-                              ?.copyWith(
+                          style: Theme.of(context).textTheme.displayLarge?.copyWith(
                                 fontSize: CommonFontSize.font_10,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -100,10 +94,7 @@ class _OfferCardState extends State<OfferCard> {
                             ),
                             Text(
                               '4.2 (2k Reviews)',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge
-                                  ?.copyWith(
+                              style: Theme.of(context).textTheme.displayLarge?.copyWith(
                                     fontSize: CommonFontSize.font_10,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -122,14 +113,11 @@ class _OfferCardState extends State<OfferCard> {
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.only(
-                            top: CommonDimens.defaultMediumGap,
+                            top: CommonDimens.defaultGapExtreme,
                           ),
                           child: Text(
                             '${widget.offer['percent'].toString()}%',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge
-                                ?.copyWith(
+                            style: Theme.of(context).textTheme.displayLarge?.copyWith(
                                   fontSize: CommonFontSize.font_38,
                                 ),
                           ),
@@ -143,7 +131,8 @@ class _OfferCardState extends State<OfferCard> {
           ),
           AnimatedPositioned(
             top: 0,
-            right: rightPosition,
+            right: CommonLocale.isLTR ? marginPosition : null,
+            left: CommonLocale.isRTL ? marginPosition : null,
             width: CommonDimens.defaultGapExtraExtreme,
             height: CommonDimens.defaultGapExtraExtreme,
             duration: duration,
