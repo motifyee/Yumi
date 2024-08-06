@@ -1,10 +1,6 @@
-import 'package:bloc/bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/core/setup/signalr.dart';
-import 'package:common_code/domain/profile/use_cases/update_status.dart';
-import 'package:common_code/domain/food_delivery/chef/use_cases/get_chef_work_status.dart';
-import 'package:common_code/util/global_context.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_cubit.freezed.dart';
 part 'user_state.dart';
@@ -25,8 +21,10 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<User?> loadUser() async {
-    Map<String, dynamic>? user = await LocalStorage.sharedRef.getValue(LocalStorage.user);
-    Map<String, dynamic>? userLocation = await LocalStorage.sharedRef.getValue(LocalStorage.userLocation);
+    Map<String, dynamic>? user =
+        await LocalStorage.sharedRef.getValue(LocalStorage.user);
+    Map<String, dynamic>? userLocation =
+        await LocalStorage.sharedRef.getValue(LocalStorage.userLocation);
 
     if (user == null) return null;
 
@@ -48,7 +46,8 @@ class UserCubit extends Cubit<UserState> {
       //* await UserStatusService.updateStatus(status: status);
       UpdateStatus().call(UpdateStatusParam(status));
 
-      await LocalStorage.sharedRef.setValue(LocalStorage.user, state.user.copyWith(status: status));
+      await LocalStorage.sharedRef
+          .setValue(LocalStorage.user, state.user.copyWith(status: status));
       emit(state.copyWith(
         loading: false,
         user: state.user.copyWith(status: status),
