@@ -1,5 +1,4 @@
-import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/domain/auth/entities/login_data.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:common_code/domain/address/entity/address.dart';

@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dependencies/dependencies.dart';
 
 part 'stripe.freezed.dart';
 part 'stripe.g.dart';
@@ -30,8 +30,10 @@ class StripeModel with _$StripeModel {
       @JsonKey(name: 'next_action') dynamic nextAction,
       @JsonKey(name: 'on_behalf_of') dynamic onBehalfOf,
       @JsonKey(name: 'payment_method') dynamic paymentMethod,
-      @JsonKey(name: 'payment_method_configuration_details') String? paymentMethodConfigurationDetails,
-      @JsonKey(name: 'payment_method_options') Map<String, dynamic>? paymentMethodOptions,
+      @JsonKey(name: 'payment_method_configuration_details')
+      String? paymentMethodConfigurationDetails,
+      @JsonKey(name: 'payment_method_options')
+      Map<String, dynamic>? paymentMethodOptions,
       @JsonKey(name: 'payment_method_types') List<String>? paymentMethodTypes,
       dynamic processing,
       @JsonKey(name: 'receipt_email') String? receiptEmail,
@@ -40,10 +42,12 @@ class StripeModel with _$StripeModel {
       dynamic shipping,
       dynamic source,
       @JsonKey(name: 'statement_descriptor') dynamic statementDescriptor,
-      @JsonKey(name: 'statement_descriptor_suffix') dynamic statementDescriptorSuffix,
+      @JsonKey(name: 'statement_descriptor_suffix')
+      dynamic statementDescriptorSuffix,
       required String status,
       @JsonKey(name: 'transfer_data') dynamic transferData,
       @JsonKey(name: 'transfer_group') dynamic transferGroup}) = _StripeModel;
 
-  factory StripeModel.fromJson(Map<String, dynamic> json) => _$StripeModelFromJson(json);
+  factory StripeModel.fromJson(Map<String, dynamic> json) =>
+      _$StripeModelFromJson(json);
 }

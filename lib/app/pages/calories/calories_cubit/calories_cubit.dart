@@ -1,8 +1,5 @@
-import 'package:bloc/bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:common_code/domain/food_delivery/calories/entity/calorie.dart';
-import 'package:common_code/domain/food_delivery/calories/use_case/load_calories.dart';
 
 part 'calories_cubit.freezed.dart';
 part 'calories_cubit.g.dart';

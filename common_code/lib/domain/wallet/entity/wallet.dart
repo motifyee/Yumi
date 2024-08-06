@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dependencies/dependencies.dart';
 
 part 'wallet.freezed.dart';
 part 'wallet.g.dart';

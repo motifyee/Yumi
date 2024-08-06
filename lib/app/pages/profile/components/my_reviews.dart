@@ -1,9 +1,8 @@
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
-import 'package:common_code/domain/profile/entities/review.dart';
 import 'package:yumi/generated/l10n.dart';
 
 class MyReviews extends StatelessWidget {
@@ -12,7 +11,8 @@ class MyReviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultTitleGap),
+      padding:
+          const EdgeInsets.symmetric(horizontal: CommonDimens.defaultTitleGap),
       child: BlocBuilder<ProfileCubit, ProfileState>(
         // selector: (state) => state.reviews,, Status<List<Review>>
         builder: (context, state) {
@@ -57,12 +57,16 @@ class ReviewWidget extends StatelessWidget {
             height: CommonDimens.iconSizeMedium,
             decoration: BoxDecoration(
               color: CommonColors.secondaryFaint,
-              borderRadius: BorderRadius.circular(CommonDimens.buttonBorderRadius),
+              borderRadius:
+                  BorderRadius.circular(CommonDimens.buttonBorderRadius),
             ),
             child: Center(
               child: Text(
                 (review.customerName[0]).toUpperCase(),
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: CommonFontSize.font_24),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(fontSize: CommonFontSize.font_24),
               ),
             ),
           ),
@@ -86,7 +90,9 @@ class RatingContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap, vertical: CommonDimens.defaultGap / 2),
+      padding: const EdgeInsets.symmetric(
+          horizontal: CommonDimens.defaultGap,
+          vertical: CommonDimens.defaultGap / 2),
       decoration: BoxDecoration(
         color: CommonColors.primary,
         borderRadius: BorderRadius.circular(CommonDimens.buttonBorderRadius),
@@ -94,11 +100,13 @@ class RatingContainer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(rate.toStringAsFixed(1), style: Theme.of(context).textTheme.displaySmall),
+          Text(rate.toStringAsFixed(1),
+              style: Theme.of(context).textTheme.displaySmall),
           const SizedBox(width: CommonDimens.defaultGap / 2),
           SvgPicture.asset(
             'assets/images/star.svg',
-            colorFilter: ColorFilter.mode(CommonColors.onPrimary, BlendMode.srcIn),
+            colorFilter:
+                ColorFilter.mode(CommonColors.onPrimary, BlendMode.srcIn),
           ),
         ],
       ),

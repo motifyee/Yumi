@@ -1,4 +1,4 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';

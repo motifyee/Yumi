@@ -1,13 +1,11 @@
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/components/page_view/cubit/page_view_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
-import 'package:common_code/domain/food_delivery/chef/entity/chef.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/meal_profile/meal_profile.dart';
 import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';
@@ -30,7 +28,8 @@ class FavoritesScreen extends StatelessWidget {
         return BlocBuilder<PageViewCubit, PageViewState>(
           builder: (context, state) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultBlockGap),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: CommonDimens.defaultBlockGap),
               child: Column(
                 children: [
                   Row(
@@ -39,37 +38,54 @@ class FavoritesScreen extends StatelessWidget {
                       SvgPicture.asset(
                         'assets/images/heart.svg',
                         height: CommonDimens.defaultInputGap,
-                        colorFilter: ColorFilter.mode(CommonColors.secondary, BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(
+                            CommonColors.secondary, BlendMode.srcIn),
                       ),
                       const SizedBox(width: CommonDimens.defaultGap),
                       Text(
-                        state.selectedList == 0 ? S.of(context).chefs : S.of(context).meals,
+                        state.selectedList == 0
+                            ? S.of(context).chefs
+                            : S.of(context).meals,
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
                       Expanded(child: Container()),
                       GestureDetector(
                         onTap: () {
                           favPageController.jumpToPage(0);
-                          context.read<PageViewCubit>().updateSelect(selectedList: 0);
+                          context
+                              .read<PageViewCubit>()
+                              .updateSelect(selectedList: 0);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultInputGap),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: CommonDimens.defaultInputGap),
                           child: SvgPicture.asset(
                             'assets/images/users.svg',
-                            colorFilter: ColorFilter.mode(state.selectedList == 0 ? CommonColors.primary : CommonColors.secondary, BlendMode.srcIn),
+                            colorFilter: ColorFilter.mode(
+                                state.selectedList == 0
+                                    ? CommonColors.primary
+                                    : CommonColors.secondary,
+                                BlendMode.srcIn),
                           ),
                         ),
                       ),
                       GestureDetector(
                         onTap: () {
                           favPageController.jumpToPage(1);
-                          context.read<PageViewCubit>().updateSelect(selectedList: 1);
+                          context
+                              .read<PageViewCubit>()
+                              .updateSelect(selectedList: 1);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultInputGap),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: CommonDimens.defaultInputGap),
                           child: SvgPicture.asset(
                             'assets/images/meals.svg',
-                            colorFilter: ColorFilter.mode(state.selectedList == 1 ? CommonColors.primary : CommonColors.secondary, BlendMode.srcIn),
+                            colorFilter: ColorFilter.mode(
+                                state.selectedList == 1
+                                    ? CommonColors.primary
+                                    : CommonColors.secondary,
+                                BlendMode.srcIn),
                           ),
                         ),
                       ),
@@ -83,26 +99,34 @@ class FavoritesScreen extends StatelessWidget {
                       children: [
                         PaginationTemplate(
                           scrollDirection: Axis.vertical,
-                          loadDate: () => context.read<ChefsCubit>().getFavouriteChefs(),
+                          loadDate: () =>
+                              context.read<ChefsCubit>().getFavouriteChefs(),
                           child: BlocConsumer<ChefsCubit, ChefsState>(
                             listener: (context, state) {},
                             builder: (context, state) {
                               return Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: CommonDimens.defaultGap),
                                 child: Column(
                                   children: [
                                     for (var chef in state.chefs)
                                       ChefBanner(
                                         menuTarget: MenuTarget.preOrder,
                                         chef: chef,
-                                        width: MediaQuery.of(context).size.width - (CommonDimens.defaultGap * 10),
-                                        height: CommonDimens.defaultImageHeightSmall,
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                (CommonDimens.defaultGap * 10),
+                                        height: CommonDimens
+                                            .defaultImageHeightSmall,
                                         borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(CommonDimens.defaultBorderRadius),
-                                          topRight: Radius.circular(CommonDimens.defaultBorderRadius),
+                                          topLeft: Radius.circular(
+                                              CommonDimens.defaultBorderRadius),
+                                          topRight: Radius.circular(
+                                              CommonDimens.defaultBorderRadius),
                                         ),
                                       ),
-                                    if (state.chefsPagination.isLoading) const PacmanLoadingWidget(),
+                                    if (state.chefsPagination.isLoading)
+                                      const PacmanLoadingWidget(),
                                   ],
                                 ),
                               );
@@ -121,7 +145,8 @@ class FavoritesScreen extends StatelessWidget {
                                 children: [
                                   for (Meal meal in state.pagination.data)
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: CommonDimens.defaultGap),
                                       child: Column(
                                         children: [
                                           ChefMealBasketCard(
@@ -130,22 +155,30 @@ class FavoritesScreen extends StatelessWidget {
                                             onTap: () {
                                               showModalBottomSheet(
                                                 context: context,
-                                                builder: (context) => MealProfileScreen(
+                                                builder: (context) =>
+                                                    MealProfileScreen(
                                                   meal: meal,
                                                   chef: Chef(id: meal.chefId),
                                                 ),
-                                                backgroundColor: Colors.transparent,
-                                                scrollControlDisabledMaxHeightRatio: 1,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                scrollControlDisabledMaxHeightRatio:
+                                                    1,
                                               ).then((value) {
-                                                context.read<MealCubit>().reset();
-                                                context.read<MealCubit>().getFavoriteMeals();
+                                                context
+                                                    .read<MealCubit>()
+                                                    .reset();
+                                                context
+                                                    .read<MealCubit>()
+                                                    .getFavoriteMeals();
                                               });
                                             },
                                           ),
                                         ],
                                       ),
                                     ),
-                                  if (state.pagination.isLoading) const PacmanLoadingWidget(),
+                                  if (state.pagination.isLoading)
+                                    const PacmanLoadingWidget(),
                                 ],
                               );
                             },

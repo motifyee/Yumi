@@ -1,11 +1,8 @@
-import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:common_code/core/setup/signalr.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
-import 'package:common_code/domain/food_delivery/order/entity/order.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:common_code/common_code.dart';
 import 'package:yumi/app/pages/order/widgets/action_button.dart';
@@ -70,7 +67,9 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 ActionButton(
                   onPressed: () {
                     setState(() {
-                      _controller.animateToPage(widget.isHistory ? 1 : 0, duration: CommonDimens.animationDuration, curve: Curves.easeOut);
+                      _controller.animateToPage(widget.isHistory ? 1 : 0,
+                          duration: CommonDimens.animationDuration,
+                          curve: Curves.easeOut);
                       _index = widget.isHistory ? 1 : 0;
                     });
                     context.read<SignalRCubit>().removeSignals(signal: [
@@ -101,7 +100,9 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 ActionButton(
                   onPressed: () {
                     setState(() {
-                      _controller.animateToPage(widget.isHistory ? 3 : 2, duration: CommonDimens.animationDuration, curve: Curves.easeOut);
+                      _controller.animateToPage(widget.isHistory ? 3 : 2,
+                          duration: CommonDimens.animationDuration,
+                          curve: Curves.easeOut);
                       _index = widget.isHistory ? 3 : 2;
                     });
                     context.read<SignalRCubit>().removeSignals(signal: [

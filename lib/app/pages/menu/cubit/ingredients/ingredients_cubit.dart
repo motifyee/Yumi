@@ -1,8 +1,5 @@
-import 'package:bloc/bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:common_code/domain/food_delivery/ingredients/entities/ingredient.dart';
-import 'package:common_code/domain/food_delivery/ingredients/use_cases/get_ingredients.dart';
 
 part 'ingredients_cubit.freezed.dart';
 

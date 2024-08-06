@@ -1,6 +1,5 @@
 import 'package:common_code/common_code.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
+import 'package:dependencies/dependencies.dart';
 
 part 'invoice_detail.freezed.dart';
 part 'invoice_detail.g.dart';

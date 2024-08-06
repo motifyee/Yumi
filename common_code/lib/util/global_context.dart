@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/components/toast/toast.dart';
 import 'package:common_code/core/setup/connection.dart';
@@ -6,7 +5,7 @@ import 'package:common_code/core/setup/internet_connectivity_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dependencies/dependencies.dart';
 
 class GlobalContext {
   factory GlobalContext() => _inner;

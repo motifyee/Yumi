@@ -1,6 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/util/status.dart';
 import 'package:common_code/domain/profile/entities/country_model.dart';
 

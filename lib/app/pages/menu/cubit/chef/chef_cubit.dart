@@ -1,5 +1,4 @@
-import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/domain/address/entity/address.dart';
 import 'package:common_code/domain/food_delivery/chef/entity/chef.dart';
 import 'package:common_code/domain/food_delivery/chef/entity/chef_work_status.dart';

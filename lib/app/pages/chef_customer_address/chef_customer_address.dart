@@ -1,9 +1,8 @@
-import 'package:auto_route/annotations.dart';
 import 'package:collection/collection.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/customer_location/cubit/address_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -11,7 +10,8 @@ import 'package:yumi/util/map_util.dart';
 
 @RoutePage()
 class ChefCustomerAddressScreen extends StatelessWidget {
-  ChefCustomerAddressScreen({super.key, this.isChef = true, required this.id, this.address});
+  ChefCustomerAddressScreen(
+      {super.key, this.isChef = true, required this.id, this.address});
 
   final bool isChef;
   final String id;
@@ -29,12 +29,14 @@ class ChefCustomerAddressScreen extends StatelessWidget {
 
         return BlocBuilder<AddressCubit, AddressState>(
           builder: (context, state) {
-            address ??= state.pagination.data.firstWhereOrNull((e) => e.isDefault == true);
+            address ??= state.pagination.data
+                .firstWhereOrNull((e) => e.isDefault == true);
             return Stack(
               children: [
                 if (address != null)
                   GoogleMapsTemplate(
-                    loadingChild: SvgPicture.asset('assets/images/delivery_on_road.svg'),
+                    loadingChild:
+                        SvgPicture.asset('assets/images/delivery_on_road.svg'),
                     target: address,
                   ),
                 if (address == null)
@@ -53,18 +55,25 @@ class ChefCustomerAddressScreen extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         color: CommonColors.background,
-                        borderRadius: BorderRadius.circular(CommonDimens.defaultInputGap),
+                        borderRadius:
+                            BorderRadius.circular(CommonDimens.defaultInputGap),
                       ),
                       child: Column(
                         children: [
                           Row(
                             children: [
                               Text(
-                                isChef ? S.of(context).chef : S.of(context).customer,
+                                isChef
+                                    ? S.of(context).chef
+                                    : S.of(context).customer,
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
-                              Text(": ", style: Theme.of(context).textTheme.bodyMedium),
-                              Text(address?.userName ?? address?.name ?? '', style: Theme.of(context).textTheme.bodyMedium),
+                              Text(": ",
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
+                              Text(address?.userName ?? address?.name ?? '',
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
                             ],
                           ),
                           const SizedBox(height: CommonDimens.defaultInputGap),
@@ -74,8 +83,12 @@ class ChefCustomerAddressScreen extends StatelessWidget {
                                 S.of(context).mobile,
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
-                              Text(": ", style: Theme.of(context).textTheme.bodyMedium),
-                              Text(address?.mobile ?? '', style: Theme.of(context).textTheme.bodyMedium),
+                              Text(": ",
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
+                              Text(address?.mobile ?? '',
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
                             ],
                           ),
                           const SizedBox(height: CommonDimens.defaultInputGap),
@@ -87,14 +100,18 @@ class ChefCustomerAddressScreen extends StatelessWidget {
                           TextButton(
                               style: ButtonStyle(
                                 minimumSize: WidgetStateProperty.resolveWith(
-                                  (states) => const Size(double.maxFinite, CommonDimens.defaultTitleGap),
+                                  (states) => const Size(double.maxFinite,
+                                      CommonDimens.defaultTitleGap),
                                 ),
-                                backgroundColor: WidgetStateColor.resolveWith((s) => CommonColors.primary),
+                                backgroundColor: WidgetStateColor.resolveWith(
+                                    (s) => CommonColors.primary),
                               ),
-                              onPressed: address?.latitude == null || address?.longitude == null
+                              onPressed: address?.latitude == null ||
+                                      address?.longitude == null
                                   ? null
                                   : () {
-                                      MapUtils.openMap(address!.latitude!, address!.longitude!);
+                                      MapUtils.openMap(address!.latitude!,
+                                          address!.longitude!);
                                     },
                               child: Text(
                                 S.of(context).continue0,

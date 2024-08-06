@@ -1,16 +1,13 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
-import 'package:common_code/resources/_resouces.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
-import 'package:yumi/global.dart';
 import 'package:yumi/routes/routes.gr.dart';
 
 @RoutePage()
@@ -52,7 +49,8 @@ class CheckOutScreen extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultTitleGap),
+          padding: const EdgeInsets.symmetric(
+              horizontal: CommonDimens.defaultTitleGap),
           child: SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
@@ -68,9 +66,10 @@ class CheckOutScreen extends StatelessWidget {
                         const SizedBox(height: CommonDimens.defaultBlockGap),
                         Text(
                           S.of(context).payWith,
-                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                fontSize: CommonFontSize.font_18,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.labelLarge?.copyWith(
+                                    fontSize: CommonFontSize.font_18,
+                                  ),
                         ),
                         const SizedBox(height: CommonDimens.defaultGap),
                         GestureDetector(
@@ -80,13 +79,19 @@ class CheckOutScreen extends StatelessWidget {
                             context.router.push(const PaymentVisaRoute());
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultInputGap),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: CommonDimens.defaultInputGap),
                             child: Row(
                               children: [
                                 Container(
                                   width: CommonDimens.defaultLineGap,
                                   height: CommonDimens.defaultLineGap,
-                                  decoration: BoxDecoration(color: _option == PaymentOption.visa ? CommonColors.primary : CommonColors.secondaryFaint, borderRadius: BorderRadius.circular(CommonDimens.defaultLineGap)),
+                                  decoration: BoxDecoration(
+                                      color: _option == PaymentOption.visa
+                                          ? CommonColors.primary
+                                          : CommonColors.secondaryFaint,
+                                      borderRadius: BorderRadius.circular(
+                                          CommonDimens.defaultLineGap)),
                                 ),
                                 const SizedBox(width: CommonDimens.defaultGap),
                                 Row(
@@ -99,7 +104,9 @@ class CheckOutScreen extends StatelessWidget {
                                     const Text(' '),
                                     Text(
                                       S.of(context).debitCreditCard,
-                                      style: Theme.of(context).textTheme.bodyMedium,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
                                     ),
                                   ],
                                 ),
@@ -113,13 +120,19 @@ class CheckOutScreen extends StatelessWidget {
                             _option = PaymentOption.wallet;
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultInputGap),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: CommonDimens.defaultInputGap),
                             child: Row(
                               children: [
                                 Container(
                                   width: CommonDimens.defaultLineGap,
                                   height: CommonDimens.defaultLineGap,
-                                  decoration: BoxDecoration(color: _option == PaymentOption.wallet ? CommonColors.primary : CommonColors.secondaryFaint, borderRadius: BorderRadius.circular(CommonDimens.defaultLineGap)),
+                                  decoration: BoxDecoration(
+                                      color: _option == PaymentOption.wallet
+                                          ? CommonColors.primary
+                                          : CommonColors.secondaryFaint,
+                                      borderRadius: BorderRadius.circular(
+                                          CommonDimens.defaultLineGap)),
                                 ),
                                 const SizedBox(width: CommonDimens.defaultGap),
                                 Row(
@@ -132,7 +145,9 @@ class CheckOutScreen extends StatelessWidget {
                                     const Text(' '),
                                     Text(
                                       S.of(context).wallet,
-                                      style: Theme.of(context).textTheme.bodyMedium,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
                                     ),
                                   ],
                                 ),
@@ -148,22 +163,25 @@ class CheckOutScreen extends StatelessWidget {
                       children: [
                         Text(
                           S.of(context).saveOnYourOrder,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontSize: CommonFontSize.font_18,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    fontSize: CommonFontSize.font_18,
+                                  ),
                         ),
                         TextFormFieldTemplate(
                           controller: voucherController,
                           borderStyle: TextFormFieldBorderStyle.borderedRound,
                           hintText: S.of(context).enterVoucherCode,
                           prefixIcon: Container(
-                            padding: const EdgeInsets.all(CommonDimens.defaultInputGap),
+                            padding: const EdgeInsets.all(
+                                CommonDimens.defaultInputGap),
                             child: SvgPicture.asset(AppAssets.voucherIcon),
                           ),
                           suffixIcon: TextButton(
                             onPressed: () {
                               if (voucherController.value.text.isNotEmpty) {
-                                context.read<BasketCubit>().addVoucher(voucher: voucherController.value.text);
+                                context.read<BasketCubit>().addVoucher(
+                                    voucher: voucherController.value.text);
                               }
                             },
                             child: Text(
@@ -204,21 +222,28 @@ class CheckOutScreen extends StatelessWidget {
                                 builder: (context, state) {
                                   return GestureDetector(
                                     onTap: () {
-                                      context.read<BasketCubit>().stripePayment();
+                                      context
+                                          .read<BasketCubit>()
+                                          .stripePayment();
                                     },
                                     child: Container(
                                       width: CommonDimens.defaultGapXXXL * 1.5,
                                       height: CommonDimens.defaultTitleGapLarge,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadius),
+                                        borderRadius: BorderRadius.circular(
+                                            CommonDimens.defaultBorderRadius),
                                         color: CommonColors.primary,
                                       ),
                                       child: Center(
                                         child: state.basket.isPaying
-                                            ? PacmanLoadingWidget(color: CommonColors.onPrimary, size: CommonFontSize.font_24)
+                                            ? PacmanLoadingWidget(
+                                                color: CommonColors.onPrimary,
+                                                size: CommonFontSize.font_24)
                                             : Text(
                                                 S.of(context).checkout,
-                                                style: Theme.of(context).textTheme.displaySmall,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displaySmall,
                                               ),
                                       ),
                                     ),

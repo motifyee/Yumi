@@ -1,5 +1,5 @@
 import 'package:common_code/common_code.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dependencies/dependencies.dart';
 
 part 'voucher.freezed.dart';
 part 'voucher.g.dart';

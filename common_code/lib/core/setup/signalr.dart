@@ -1,10 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:common_code/domain/user/cubit/user_cubit.dart';
-import 'package:common_code/util/global_context.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:logging/logging.dart';
 import 'package:signalr_netcore/json_hub_protocol.dart';

@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/home/cubit/navigator_cubit.dart';
 import 'package:yumi/statics/navigate_option.dart';
@@ -36,7 +35,9 @@ class HomeScreen extends StatelessWidget {
             });
           }
           return ScreenContainer(
-            isColored: NavigateOptions.navigateList[state.selectedIndex].isBackGroundGradient ?? false,
+            isColored: NavigateOptions
+                    .navigateList[state.selectedIndex].isBackGroundGradient ??
+                false,
             child: Scaffold(
               backgroundColor: Colors.transparent,
               key: _scaffoldState,
@@ -56,8 +57,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 actions: [
-                  NavigateOptions.navigateList[state.selectedIndex].pageAction != null
-                      ? NavigateOptions.navigateList[state.selectedIndex].pageAction!
+                  NavigateOptions
+                              .navigateList[state.selectedIndex].pageAction !=
+                          null
+                      ? NavigateOptions
+                          .navigateList[state.selectedIndex].pageAction!
                       : const SizedBox(
                           width: 1,
                         ),
@@ -69,12 +73,15 @@ class HomeScreen extends StatelessWidget {
               ),
               bottomNavigationBar: Container(
                 width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultBorderRadius, vertical: 0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: CommonDimens.defaultBorderRadius, vertical: 0),
                 decoration: BoxDecoration(
                     color: CommonColors.backgroundTant,
                     borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(CommonDimens.defaultBorderRadius),
-                      topLeft: Radius.circular(CommonDimens.defaultBorderRadius),
+                      topRight:
+                          Radius.circular(CommonDimens.defaultBorderRadius),
+                      topLeft:
+                          Radius.circular(CommonDimens.defaultBorderRadius),
                     )),
                 child: const NavigationBottomBar(),
               ),

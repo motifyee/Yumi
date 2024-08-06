@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/basket/widgets/basket_meal_card.dart';
 import 'package:yumi/app/pages/menu/widgets/chef_meals.dart';
@@ -11,7 +10,6 @@ import 'package:yumi/app/pages/basket/widgets/confirm_checkout_basket.dart';
 import 'package:yumi/app/pages/basket/widgets/expired_basket.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/basket/delivery_option_dialog.dart';
@@ -22,11 +20,14 @@ class BasketScreen extends StatelessWidget {
 
   bool isBasketDeleting = false;
 
-  void openAddFood({required BuildContext context, required BasketState state}) {
+  void openAddFood(
+      {required BuildContext context, required BasketState state}) {
     showModalBottomSheet(
       context: context,
       builder: (context) => ChefMealsScreen(
-        menuTarget: state.basket.isPreorder == true ? MenuTarget.preOrder : MenuTarget.order,
+        menuTarget: state.basket.isPreorder == true
+            ? MenuTarget.preOrder
+            : MenuTarget.order,
         chefId: state.basket.invoice.chefID ?? '',
         isPickUpOnly: state.basket.isPickupOnly,
       ),
@@ -35,7 +36,8 @@ class BasketScreen extends StatelessWidget {
     );
   }
 
-  void checkExpiredBasket({required BuildContext context, required Basket basket}) {
+  void checkExpiredBasket(
+      {required BuildContext context, required Basket basket}) {
     if (basket.invoice.isBasketExpired && !isBasketDeleting) {
       Timer(const Duration(milliseconds: 300), () {
         isBasketDeleting = true;
@@ -94,7 +96,9 @@ class BasketScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      for (var i = 0; i < (state.basket.invoiceDetails ?? []).length; i++)
+                      for (var i = 0;
+                          i < (state.basket.invoiceDetails ?? []).length;
+                          i++)
                         BasketMealCard(
                           invoiceDetails: state.basket.invoiceDetails[i],
                           indexInList: i,
@@ -102,7 +106,8 @@ class BasketScreen extends StatelessWidget {
                       Expanded(child: Container()),
                       const SizedBox(height: CommonDimens.defaultBlockGap),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultTitleGap),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: CommonDimens.defaultTitleGap),
                         child: PaymentSummaryCard(),
                       ),
                       const SizedBox(height: CommonDimens.defaultBlockGap),
@@ -116,7 +121,11 @@ class BasketScreen extends StatelessWidget {
                             child: Container(
                               width: CommonDimens.defaultGapXXXL,
                               height: CommonDimens.defaultTitleGapLarge,
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadius), border: Border.all(color: CommonColors.primary, width: 1)),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                      CommonDimens.defaultBorderRadius),
+                                  border: Border.all(
+                                      color: CommonColors.primary, width: 1)),
                               child: Center(
                                 child: Text(
                                   S.of(context).addFoods,
@@ -133,22 +142,31 @@ class BasketScreen extends StatelessWidget {
                                   ? null
                                   : () {
                                       if (state.basket.isPickupOnly) {
-                                        showDialog(context: context, builder: (context) => const ConfirmCheckOutBasket());
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                const ConfirmCheckOutBasket());
                                       } else {
-                                        showDialog(context: context, builder: (context) => const DeliveryOptionDialog());
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                const DeliveryOptionDialog());
                                       }
                                     },
                               child: Container(
                                 width: CommonDimens.defaultGapXXXL,
                                 height: CommonDimens.defaultTitleGapLarge,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadius),
+                                  borderRadius: BorderRadius.circular(
+                                      CommonDimens.defaultBorderRadius),
                                   color: CommonColors.primary,
                                 ),
                                 child: Center(
                                   child: Text(
                                     S.of(context).next,
-                                    style: Theme.of(context).textTheme.displaySmall,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
                                   ),
                                 ),
                               ),

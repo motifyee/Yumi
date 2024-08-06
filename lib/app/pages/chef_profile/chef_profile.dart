@@ -1,17 +1,14 @@
 import 'dart:typed_data';
 
-import 'package:auto_route/annotations.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yumi/app/pages/chef_profile/cubit/review_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
-import 'package:common_code/domain/food_delivery/chef/entity/chef.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/chef_profile/components/category_card.dart';
 import 'package:yumi/app/pages/chef_profile/components/chef_bannar.dart';
@@ -59,12 +56,14 @@ class ChefProfileScreen extends StatelessWidget {
                     isProfileClick: false,
                     isRequestStatus: true,
                     borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.circular(CommonDimens.defaultBorderRadiusLarge),
+                      bottomRight: Radius.circular(
+                          CommonDimens.defaultBorderRadiusLarge),
                     ),
                   ),
                   const SizedBox(height: CommonDimens.defaultBlockGap),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultGap),
                     child: Column(
                       children: [
                         if (false)
@@ -74,7 +73,8 @@ class ChefProfileScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     S.of(context).orderAgain,
-                                    style: Theme.of(context).textTheme.labelMedium,
+                                    style:
+                                        Theme.of(context).textTheme.labelMedium,
                                   ),
                                 ],
                               ),
@@ -91,7 +91,8 @@ class ChefProfileScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              const SizedBox(height: CommonDimens.defaultBlockGap),
+                              const SizedBox(
+                                  height: CommonDimens.defaultBlockGap),
                             ],
                           ),
                         Row(
@@ -108,7 +109,11 @@ class ChefProfileScreen extends StatelessWidget {
                               ? Center(
                                   child: Text(
                                     S.of(context).empty,
-                                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: CommonColors.secondaryFaint),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                            color: CommonColors.secondaryFaint),
                                   ),
                                 )
                               : Swiper(
@@ -116,14 +121,23 @@ class ChefProfileScreen extends StatelessWidget {
                                   autoplay: true,
                                   viewportFraction: 0.8,
                                   layout: SwiperLayout.STACK,
-                                  itemWidth: MediaQuery.of(context).size.width * .8,
+                                  itemWidth:
+                                      MediaQuery.of(context).size.width * .8,
                                   itemBuilder: (context, index) => Container(
                                     clipBehavior: Clip.hardEdge,
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadiusExtraLarge)),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            CommonDimens
+                                                .defaultBorderRadiusExtraLarge)),
                                     child: Image.memory(
-                                      Uri.parse(eventPhotos[index] ?? '').data?.contentAsBytes() ?? Uint8List(0),
+                                      Uri.parse(eventPhotos[index] ?? '')
+                                              .data
+                                              ?.contentAsBytes() ??
+                                          Uint8List(0),
                                       fit: BoxFit.cover,
-                                      errorBuilder: (context, error, stackTrace) => Image.asset(
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Image.asset(
                                         'assets/images/354.jpeg',
                                         fit: BoxFit.cover,
                                       ),
@@ -148,31 +162,43 @@ class ChefProfileScreen extends StatelessWidget {
                               builder: (context, state) {
                                 return PaginationTemplate(
                                   loadDate: () {
-                                    context.read<MealCubit>().updateMeals(chefId: chef.id, menuTarget: menuTarget);
+                                    context.read<MealCubit>().updateMeals(
+                                        chefId: chef.id,
+                                        menuTarget: menuTarget);
                                   },
                                   scrollDirection: Axis.horizontal,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
-                                          for (var mealIndex = 0; mealIndex < state.pagination.data.length; mealIndex += 2)
+                                          for (var mealIndex = 0;
+                                              mealIndex <
+                                                  state.pagination.data.length;
+                                              mealIndex += 2)
                                             ChefMealCard(
-                                              meal: state.pagination.data[mealIndex],
+                                              meal: state
+                                                  .pagination.data[mealIndex],
                                               chef: chef,
                                             )
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                          for (var mealIndex = 1; mealIndex < state.pagination.data.length; mealIndex += 2)
+                                          for (var mealIndex = 1;
+                                              mealIndex <
+                                                  state.pagination.data.length;
+                                              mealIndex += 2)
                                             ChefMealCard(
-                                              meal: state.pagination.data[mealIndex],
+                                              meal: state
+                                                  .pagination.data[mealIndex],
                                               chef: chef,
                                             )
                                         ],
                                       ),
-                                      if (state.pagination.isLoading) const PacmanLoadingWidget(),
+                                      if (state.pagination.isLoading)
+                                        const PacmanLoadingWidget(),
                                     ],
                                   ),
                                 );
@@ -195,8 +221,11 @@ class ChefProfileScreen extends StatelessWidget {
                               child: PaginationTemplate(
                                 scrollDirection: Axis.horizontal,
                                 loadDate: () {
-                                  context.read<CategoriesCubit>().getChefCategories(
-                                        isPreOrder: menuTarget == MenuTarget.preOrder,
+                                  context
+                                      .read<CategoriesCubit>()
+                                      .getChefCategories(
+                                        isPreOrder:
+                                            menuTarget == MenuTarget.preOrder,
                                         chefId: chef.id,
                                       );
                                   //       .add(
@@ -208,12 +237,15 @@ class ChefProfileScreen extends StatelessWidget {
                                   //         ),
                                   //       );
                                 },
-                                child: BlocConsumer<CategoriesCubit, CategoriesState>(
+                                child: BlocConsumer<CategoriesCubit,
+                                    CategoriesState>(
                                   listener: (context, state) {},
                                   builder: (context, state) {
                                     return Row(
                                       children: [
-                                        for (var category in state.categoriesPage.data) CategoriesCard(category: category),
+                                        for (var category
+                                            in state.categoriesPage.data)
+                                          CategoriesCard(category: category),
                                         if (state.categoriesPage.isLoading)
                                           const PacmanLoadingWidget(
                                             size: CommonDimens.defaultBlockGap,
@@ -233,29 +265,43 @@ class ChefProfileScreen extends StatelessWidget {
                             BlocProvider(
                               create: (context) => ReviewCubit(),
                               child: Builder(builder: (context) {
-                                context.read<ReviewCubit>().getReviews(chefID: chef.id!);
+                                context
+                                    .read<ReviewCubit>()
+                                    .getReviews(chefID: chef.id!);
                                 return BlocBuilder<ReviewCubit, ReviewState>(
                                   builder: (context, state) {
                                     return state.pagination.isLoading
-                                        ? const PacmanLoadingWidget(size: CommonDimens.defaultBlockGap)
+                                        ? const PacmanLoadingWidget(
+                                            size: CommonDimens.defaultBlockGap)
                                         : Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 S.of(context).happyCustomer,
-                                                style: Theme.of(context).textTheme.labelMedium,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelMedium,
                                               ),
                                               Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
                                                 children: [
                                                   Icon(
                                                     Icons.star,
                                                     color: CommonColors.warning,
-                                                    size: CommonFontSize.font_12,
+                                                    size:
+                                                        CommonFontSize.font_12,
                                                   ),
                                                   Text(
                                                     '${chef.rate ?? '0'} ( ${state.pagination.total < 1000 ? state.pagination.total : (state.pagination.total / 1000).toStringAsFixed(1)}${state.pagination.total < 1000 ? '' : 'k'} Reviews )',
-                                                    style: Theme.of(context).textTheme.labelSmall?.copyWith(fontSize: CommonFontSize.font_10),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelSmall
+                                                        ?.copyWith(
+                                                            fontSize:
+                                                                CommonFontSize
+                                                                    .font_10),
                                                   )
                                                 ],
                                               )
@@ -270,7 +316,10 @@ class ChefProfileScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   S.of(context).createYourReviewNow,
-                                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall
+                                      ?.copyWith(
                                         fontSize: CommonFontSize.font_12,
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -284,19 +333,26 @@ class ChefProfileScreen extends StatelessWidget {
                                             isMyReviews: true,
                                           );
 
-                                      return BlocConsumer<ReviewCubit, ReviewState>(
+                                      return BlocConsumer<ReviewCubit,
+                                          ReviewState>(
                                         listener: (context, state) {},
                                         builder: (context, state) {
                                           return GestureDetector(
                                             onTap: () {},
                                             child: RatingBar(
-                                              initialRating: state.pagination.data.firstOrNull?.rate ?? 0,
+                                              initialRating: state.pagination
+                                                      .data.firstOrNull?.rate ??
+                                                  0,
                                               allowHalfRating: true,
                                               ignoreGestures: true,
                                               itemSize: CommonFontSize.font_24,
                                               ratingWidget: RatingWidget(
-                                                empty: Icon(Icons.star_border, color: CommonColors.warning),
-                                                full: Icon(Icons.star, color: CommonColors.warning),
+                                                empty: Icon(Icons.star_border,
+                                                    color:
+                                                        CommonColors.warning),
+                                                full: Icon(Icons.star,
+                                                    color:
+                                                        CommonColors.warning),
                                                 half: Icon(
                                                   Icons.star_half,
                                                   color: CommonColors.warning,
@@ -323,17 +379,21 @@ class ChefProfileScreen extends StatelessWidget {
                               builder: (context, state) {
                                 return PaginationTemplate(
                                   loadDate: () {
-                                    context.read<ReviewCubit>().getReviews(chefID: chef.id!);
+                                    context
+                                        .read<ReviewCubit>()
+                                        .getReviews(chefID: chef.id!);
                                   },
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     children: [
                                       for (var review in state.pagination.data)
                                         Padding(
-                                          padding: const EdgeInsets.all(CommonDimens.defaultGap),
+                                          padding: const EdgeInsets.all(
+                                              CommonDimens.defaultGap),
                                           child: ReviewCard(review: review),
                                         ),
-                                      if (state.pagination.isLoading) const PacmanLoadingWidget(),
+                                      if (state.pagination.isLoading)
+                                        const PacmanLoadingWidget(),
                                     ],
                                   ),
                                 );

@@ -1,17 +1,14 @@
 import 'dart:math';
 
-import 'package:auto_route/auto_route.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredients_form_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_list/ingredient_list_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal_form/meal_form_cubit.dart';
-import 'package:yumi/app/pages/menu/cubit/ingredients/ingredients_cubit.dart';
-import 'package:common_code/domain/food_delivery/ingredients/entities/ingredient.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/validators/required_validator.dart';
 
@@ -50,11 +47,14 @@ class IngredientsForm extends StatelessWidget {
             decoration: BoxDecoration(
                 color: CommonColors.background,
                 borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
-                  topLeft: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+                  topRight:
+                      Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+                  topLeft:
+                      Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
                 )),
             width: MediaQuery.of(context).size.width,
-            constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .9),
+            constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * .9),
             child: SizedBox(
               height: MediaQuery.of(context).size.height * .5,
               child: Column(
@@ -64,7 +64,8 @@ class IngredientsForm extends StatelessWidget {
                     child: LayoutBuilder(
                       builder: (context, constraints) => SingleChildScrollView(
                         child: ConstrainedBox(
-                          constraints: BoxConstraints.tightFor(height: max(200, constraints.maxHeight)),
+                          constraints: BoxConstraints.tightFor(
+                              height: max(200, constraints.maxHeight)),
                           child: SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -87,53 +88,81 @@ class IngredientsForm extends StatelessWidget {
                                       ),
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical:
+                                                  CommonDimens.defaultGap),
                                           child: Text(
                                             S.of(context).ingredients,
-                                            style: Theme.of(context).textTheme.labelMedium,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelMedium,
                                           ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical:
+                                                  CommonDimens.defaultGap),
                                           child: Text(
                                             S.of(context).measurement,
-                                            style: Theme.of(context).textTheme.labelMedium,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelMedium,
                                           ),
                                         ),
                                         const SizedBox(width: 60),
                                       ],
                                     ),
-                                    for (Ingredient ingredient in state.ingredientsModelList)
+                                    for (Ingredient ingredient
+                                        in state.ingredientsModelList)
                                       TableRow(
                                         decoration: BoxDecoration(
                                           border: Border(
                                             bottom: BorderSide(
-                                              color: CommonColors.secondaryFaint,
+                                              color:
+                                                  CommonColors.secondaryFaint,
                                               width: 1,
                                             ),
                                           ),
                                         ),
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical:
+                                                    CommonDimens.defaultGap),
                                             child: Text(
                                               ingredient.name.toString(),
-                                              style: Theme.of(context).textTheme.bodyMedium,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
                                             ),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical:
+                                                    CommonDimens.defaultGap),
                                             child: Text(
-                                              ingredient.portionGrams.toString(),
-                                              style: Theme.of(context).textTheme.bodyMedium,
+                                              ingredient.portionGrams
+                                                  .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
                                             ),
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              context.read<IngredientsFormCubit>().remove(ingredientsModel: ingredient);
+                                              context
+                                                  .read<IngredientsFormCubit>()
+                                                  .remove(
+                                                      ingredientsModel:
+                                                          ingredient);
                                             },
                                             child: Container(
-                                              padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultLineGap, vertical: CommonDimens.defaultGap),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: CommonDimens
+                                                          .defaultLineGap,
+                                                      vertical: CommonDimens
+                                                          .defaultGap),
                                               child: Icon(
                                                 Icons.close,
                                                 color: CommonColors.primary,
@@ -154,10 +183,16 @@ class IngredientsForm extends StatelessWidget {
                   const SizedBox(height: CommonDimens.defaultGap),
                   BlocBuilder<IngredientListCubit, IngredientListState>(
                     builder: (context, state) {
-                      List<Ingredient> selectFromList = filteredList(list: state.ingredients, selected: context.read<IngredientsFormCubit>().state.ingredientsModelList);
+                      List<Ingredient> selectFromList = filteredList(
+                          list: state.ingredients,
+                          selected: context
+                              .read<IngredientsFormCubit>()
+                              .state
+                              .ingredientsModelList);
                       return selectFromList.isEmpty
                           ? state.loading
-                              ? const PacmanLoadingWidget(size: CommonFontSize.font_38)
+                              ? const PacmanLoadingWidget(
+                                  size: CommonFontSize.font_38)
                               : const SizedBox.shrink()
                           : Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,12 +200,16 @@ class IngredientsForm extends StatelessWidget {
                                 Flexible(
                                   flex: 2,
                                   child: TextFormFieldTemplate(
-                                    borderStyle: TextFormFieldBorderStyle.borderedRound,
+                                    borderStyle:
+                                        TextFormFieldBorderStyle.borderedRound,
                                     objectValidators: requiredObjectValidator,
                                     dropdownSelection: true,
                                     dropdownSelectionTargetLabel: 'name',
                                     dropdownSelectionList: selectFromList,
-                                    initialValue: ingredient.id != null ? selectFromList.firstWhere((e) => e.id == ingredient.id) : selectFromList.firstOrNull,
+                                    initialValue: ingredient.id != null
+                                        ? selectFromList.firstWhere(
+                                            (e) => e.id == ingredient.id)
+                                        : selectFromList.firstOrNull,
                                     onChange: (value) {},
                                     onSave: (value) {
                                       ingredient = ingredient.copyWith(
@@ -185,9 +224,13 @@ class IngredientsForm extends StatelessWidget {
                                   flex: 1,
                                   child: TextFormFieldTemplate(
                                     textInputType: TextInputType.number,
-                                    borderStyle: TextFormFieldBorderStyle.borderedRound,
+                                    borderStyle:
+                                        TextFormFieldBorderStyle.borderedRound,
                                     validators: requiredValidator,
-                                    inputFormatters: [FilteringTextInputFormatter.allow(CustomRegex.numberWith2DecimalOnly)],
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          CustomRegex.numberWith2DecimalOnly)
+                                    ],
                                     initialValue: ingredient.portionGrams,
                                     onSave: (value) {
                                       ingredient = ingredient.copyWith(
@@ -198,16 +241,20 @@ class IngredientsForm extends StatelessWidget {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    if (ingredientFormKey.currentState!.validate()) {
+                                    if (ingredientFormKey.currentState!
+                                        .validate()) {
                                       ingredientFormKey.currentState!.save();
 
-                                      context.read<IngredientsFormCubit>().add(ingredientsModel: ingredient);
+                                      context
+                                          .read<IngredientsFormCubit>()
+                                          .add(ingredientsModel: ingredient);
 
                                       ingredient = const Ingredient();
                                       ingredientFormKey.currentState!.reset();
                                     }
                                   },
-                                  child: SvgPicture.asset('assets/images/plus.svg'),
+                                  child: SvgPicture.asset(
+                                      'assets/images/plus.svg'),
                                 ),
                               ],
                             );
@@ -228,13 +275,17 @@ class IngredientsForm extends StatelessWidget {
                       TextButton(
                           onPressed: () {
                             if (state.ingredientsModelList.isNotEmpty) {
-                              context.read<MealFormCubit>().updateIngredients(ingredients: state.ingredientsModelList);
+                              context.read<MealFormCubit>().updateIngredients(
+                                  ingredients: state.ingredientsModelList);
                               context.router.popForced();
                             }
                           },
                           child: Text(
                             S.of(context).save,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: CommonColors.primary),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(color: CommonColors.primary),
                           )),
                     ],
                   ),

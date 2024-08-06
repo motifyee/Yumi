@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/core/setup/signalr.dart';
 import 'package:common_code/util/global_context.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nested/nested.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 
 class App extends StatelessWidget {

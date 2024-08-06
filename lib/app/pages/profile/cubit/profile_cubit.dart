@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yumi/core/util/constants.dart';
 import 'package:common_code/util/status.dart';
 import 'package:common_code/core/failures.dart';

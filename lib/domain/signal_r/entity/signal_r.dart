@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/core/setup/signalr.dart';
 
 part 'signal_r.freezed.dart';

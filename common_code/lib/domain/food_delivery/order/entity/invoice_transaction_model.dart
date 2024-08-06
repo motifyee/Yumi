@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dependencies/dependencies.dart';
 
 part 'invoice_transaction_model.freezed.dart';
 part 'invoice_transaction_model.g.dart';

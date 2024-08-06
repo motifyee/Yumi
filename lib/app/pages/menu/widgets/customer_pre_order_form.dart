@@ -1,15 +1,12 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/domain/basket/entity/invoice.dart';
 import 'package:yumi/domain/basket/entity/invoice_detail.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
 import 'package:yumi/domain/basket/entity/basket.dart';
-import 'package:common_code/domain/food_delivery/chef/entity/chef.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/validators/required_validator.dart';
 
