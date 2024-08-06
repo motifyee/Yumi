@@ -300,5 +300,8 @@
 	"tuesdayPrev": "الثلاثاء",
 	"wednesdayPrev": "الأربعاء",
 	"thursdayPrev": "الخميس",
-	"fridayPrev": "الجمعة"
+	"fridayPrev": "الجمعة",
+	"download": "تنزيل",
+	"processingImage": "جاري معالجة الصورة",
+	"documents": "الوثائق"
 }

@@ -6,3 +6,4 @@ export 'regex.dart';
 export 'remove_duplication.dart';
 export 'unique.dart';
 export 'util.dart';
+export 'image.dart';

@@ -3,21 +3,19 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:mime/mime.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:common_code/core/setup/awesome_notifications.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/cubit/docs_cubit.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/docs_info.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
+import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 
 @RoutePage()
@@ -38,7 +36,7 @@ class DocumentationScreen extends StatelessWidget {
                   SvgPicture.asset(AppAssets.filesIcon),
                   const SizedBox(width: 40),
                   Text(
-                    "Documents",
+                    S.of(context).documentation,
                     style: TextStyle(
                       fontSize: 14,
                       color: CommonColors.secondary,
@@ -299,41 +297,26 @@ Widget buidlDocumentWidget({
       onPressed: () async {
         if (!enabled) return;
 
-        if (documentPropertyPickerFn != null) {
-          return documentPropertyPickerFn().then((target) async {
-            if (target == null) return;
+        void uploadAnImage([String? target]) async {
+          final imageStr = await pickAnImage(context);
+          if (imageStr == null) return;
 
-            ImagePicker imagePicker = ImagePicker();
-            final image =
-                await imagePicker.pickImage(source: ImageSource.gallery);
-            if (image == null) return;
+          uploadAction(imageStr, target);
 
-            var encoded =
-                'data:${lookupMimeType(image.path)};base64,${base64Encode(await image.readAsBytes())}';
-
-            uploadAction(encoded, target);
-
-            if (context?.mounted ?? false) {
-              // ignore: use_build_context_synchronously
-              G().showToast("Uploaded ${doc.title}", context: context);
-            }
-          });
+          if (context?.mounted ?? false) {
+            // ignore: use_build_context_synchronously
+            G().showToast("Uploading ${doc.title}", context: context);
+          }
         }
 
-        ImagePicker imagePicker = ImagePicker();
-        final image = await imagePicker.pickImage(source: ImageSource.gallery);
-        if (image == null) return;
+        if (documentPropertyPickerFn == null) return uploadAnImage();
 
-        var encoded =
-            'data:${lookupMimeType(image.path)};base64,${base64Encode(await image.readAsBytes())}';
-        uploadAction(encoded, null);
-
-        if (context?.mounted ?? false) {
-          // ignore: use_build_context_synchronously
-          G().showToast("Uploaded ${doc.title}", context: context);
-        }
+        documentPropertyPickerFn().then((target) async {
+          if (target == null) return;
+          uploadAnImage(target);
+        });
       },
-      child: const Text("Upload"),
+      child: Text(S.current.upload),
     ),
   );
   var downloadButton = Container(
@@ -345,9 +328,7 @@ Widget buidlDocumentWidget({
       child: Row(children: [
         SvgPicture.asset(AppAssets.downloadIcon),
         const SizedBox(width: 7),
-        const Text(
-          "Download",
-        ),
+        Text(S.current.download)
       ]),
     ),
   );

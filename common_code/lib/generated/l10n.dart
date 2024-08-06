@@ -59,6 +59,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Processing image...`
+  String get processingImage {
+    return Intl.message(
+      'Processing image...',
+      name: 'processingImage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

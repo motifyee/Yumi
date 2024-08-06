@@ -300,5 +300,7 @@
 	"tuesdayPrev": "TUE",
 	"wednesdayPrev": "WED",
 	"thursdayPrev": "THU",
-	"fridayPrev": "FRI"
+	"fridayPrev": "FRI",
+	"download": "Download",
+	"documents": "Documents"
 }

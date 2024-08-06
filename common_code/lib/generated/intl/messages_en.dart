@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "pleaseWait": MessageLookupByLibrary.simpleMessage("Please Wait")
+        "pleaseWait": MessageLookupByLibrary.simpleMessage("Please Wait"),
+        "processingImage":
+            MessageLookupByLibrary.simpleMessage("Processing image...")
       };
 }

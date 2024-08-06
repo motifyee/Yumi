@@ -127,7 +127,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "doYouWantToContinue":
             MessageLookupByLibrary.simpleMessage("هل تريد المتابعة؟"),
         "documentation": MessageLookupByLibrary.simpleMessage("الوثائق"),
+        "documents": MessageLookupByLibrary.simpleMessage("الوثائق"),
         "domain": MessageLookupByLibrary.simpleMessage("لينك"),
+        "download": MessageLookupByLibrary.simpleMessage("تنزيل"),
         "driver": MessageLookupByLibrary.simpleMessage("سائق"),
         "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
         "email": MessageLookupByLibrary.simpleMessage("الايميل"),
