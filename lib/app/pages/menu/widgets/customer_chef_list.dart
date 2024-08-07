@@ -25,9 +25,7 @@ class CustomerChefList extends StatelessWidget {
         builder: (context) => Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: CommonDimens.defaultGap * 2,
-                  vertical: CommonDimens.defaultGap),
+              padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap * 2, vertical: CommonDimens.defaultGap),
               child: BlocBuilder<PageViewCubit, PageViewState>(
                 builder: (context, state) {
                   return Row(
@@ -35,12 +33,8 @@ class CustomerChefList extends StatelessWidget {
                       Container(
                         width: CommonDimens.defaultLineGap,
                         height: CommonDimens.defaultLineGap,
-                        padding:
-                            const EdgeInsets.all(CommonDimens.defaultMicroGap),
-                        decoration: BoxDecoration(
-                            color: CommonColors.secondary,
-                            borderRadius: BorderRadius.circular(
-                                CommonDimens.defaultBorderRadiusSmall)),
+                        padding: const EdgeInsets.all(CommonDimens.defaultMicroGap),
+                        decoration: BoxDecoration(color: CommonColors.secondary, borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadiusSmall)),
                         child: Center(
                           child: SvgPicture.asset('assets/images/profile1.svg'),
                         ),
@@ -52,6 +46,7 @@ class CustomerChefList extends StatelessWidget {
                               fontSize: CommonFontSize.font_16,
                             ),
                       ),
+                      const SizedBox(width: CommonDimens.defaultGap),
                       if (menuTarget == MenuTarget.order)
                         Expanded(
                           child: SingleChildScrollView(
@@ -63,16 +58,11 @@ class CustomerChefList extends StatelessWidget {
                                   label: S.of(context).online,
                                   isActive: state.selectedList == 0,
                                   icon: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal:
-                                            CommonDimens.defaultMicroGap),
-                                    child: SvgPicture.asset(
-                                        'assets/images/online_chef_icon.svg'),
+                                    padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultMicroGap),
+                                    child: SvgPicture.asset('assets/images/online_chef_icon.svg'),
                                   ),
                                   onPressed: () {
-                                    context
-                                        .read<PageViewCubit>()
-                                        .updateSelect(selectedList: 0);
+                                    context.read<PageViewCubit>().updateSelect(selectedList: 0);
                                     controller.jumpToPage(0);
                                   },
                                   activeColor: CommonColors.success,
@@ -84,16 +74,11 @@ class CustomerChefList extends StatelessWidget {
                                   label: S.of(context).busy,
                                   isActive: state.selectedList == 1,
                                   icon: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal:
-                                            CommonDimens.defaultMicroGap),
-                                    child: SvgPicture.asset(
-                                        'assets/images/busy_chef_icon.svg'),
+                                    padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultMicroGap),
+                                    child: SvgPicture.asset('assets/images/busy_chef_icon.svg'),
                                   ),
                                   onPressed: () {
-                                    context
-                                        .read<PageViewCubit>()
-                                        .updateSelect(selectedList: 1);
+                                    context.read<PageViewCubit>().updateSelect(selectedList: 1);
                                     controller.jumpToPage(1);
                                   },
                                   activeColor: CommonColors.primary,
@@ -105,16 +90,11 @@ class CustomerChefList extends StatelessWidget {
                                   label: S.of(context).offline,
                                   isActive: state.selectedList == 2,
                                   icon: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal:
-                                            CommonDimens.defaultMicroGap),
-                                    child: SvgPicture.asset(
-                                        'assets/images/offline_chef_icon.svg'),
+                                    padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultMicroGap),
+                                    child: SvgPicture.asset('assets/images/offline_chef_icon.svg'),
                                   ),
                                   onPressed: () {
-                                    context
-                                        .read<PageViewCubit>()
-                                        .updateSelect(selectedList: 2);
+                                    context.read<PageViewCubit>().updateSelect(selectedList: 2);
                                     controller.jumpToPage(2);
                                   },
                                   activeColor: CommonColors.secondaryTant,
@@ -187,34 +167,27 @@ class _ChefListStatus extends StatelessWidget {
                     listener: (context, state) {},
                     builder: (context, state) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: CommonDimens.defaultGap),
+                        padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap),
                         child: Row(
                           children: [
                             for (var chef in state.chefs)
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: CommonDimens.defaultGap),
+                                padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap),
                                 child: ChefBanner(
                                   menuTarget: menuTarget,
                                   chef: chef,
-                                  width: MediaQuery.of(context).size.width -
-                                      (CommonDimens.defaultGap * 10),
+                                  width: MediaQuery.of(context).size.width - (CommonDimens.defaultGap * 10),
                                   height: CommonDimens.defaultImageHeightSmall,
                                   borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(
-                                        CommonDimens.defaultBorderRadius),
-                                    topRight: Radius.circular(
-                                        CommonDimens.defaultBorderRadius),
+                                    topLeft: Radius.circular(CommonDimens.defaultBorderRadius),
+                                    topRight: Radius.circular(CommonDimens.defaultBorderRadius),
                                   ),
                                 ),
                               ),
-                            if (state.chefsPagination.isLoading)
-                              const PacmanLoadingWidget(),
+                            if (state.chefsPagination.isLoading) const PacmanLoadingWidget(),
                             if (state.chefs.isEmpty)
                               const SizedBox(
-                                height: CommonDimens.defaultImageHeightSmall +
-                                    CommonDimens.defaultMediumGap,
+                                height: CommonDimens.defaultImageHeightSmall + CommonDimens.defaultMediumGap,
                               ),
                           ],
                         ),

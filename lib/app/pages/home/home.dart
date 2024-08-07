@@ -5,9 +5,10 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/home/cubit/navigator_cubit.dart';
+import 'package:yumi/app/pages/home/widget/side_bar_button.dart';
 import 'package:yumi/statics/navigate_option.dart';
-import 'package:yumi/app/pages/home/navigation_bottom_bar.dart';
-import 'package:yumi/app/pages/home/side_bar.dart';
+import 'package:yumi/app/pages/home/widget/navigation_bottom_bar.dart';
+import 'package:yumi/app/pages/home/widget/side_bar.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -35,9 +36,7 @@ class HomeScreen extends StatelessWidget {
             });
           }
           return ScreenContainer(
-            isColored: NavigateOptions
-                    .navigateList[state.selectedIndex].isBackGroundGradient ??
-                false,
+            isColored: NavigateOptions.navigateList[state.selectedIndex].isBackGroundGradient ?? false,
             child: Scaffold(
               backgroundColor: Colors.transparent,
               key: _scaffoldState,
@@ -46,22 +45,14 @@ class HomeScreen extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 bottomOpacity: 0,
                 scrolledUnderElevation: 0,
-                leading: TextButton(
+                leading: SideBarButton(
                   onPressed: () {
                     _scaffoldState.currentState?.openDrawer();
                   },
-                  child: SvgPicture.asset(
-                    'assets/images/side_bar.svg',
-                    width: CommonDimens.iconSizeSmall,
-                    height: CommonDimens.iconSizeSmall,
-                  ),
                 ),
                 actions: [
-                  NavigateOptions
-                              .navigateList[state.selectedIndex].pageAction !=
-                          null
-                      ? NavigateOptions
-                          .navigateList[state.selectedIndex].pageAction!
+                  NavigateOptions.navigateList[state.selectedIndex].pageAction != null
+                      ? NavigateOptions.navigateList[state.selectedIndex].pageAction!
                       : const SizedBox(
                           width: 1,
                         ),
@@ -73,15 +64,12 @@ class HomeScreen extends StatelessWidget {
               ),
               bottomNavigationBar: Container(
                 width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: CommonDimens.defaultBorderRadius, vertical: 0),
+                padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultBorderRadius, vertical: 0),
                 decoration: BoxDecoration(
                     color: CommonColors.backgroundTant,
                     borderRadius: const BorderRadius.only(
-                      topRight:
-                          Radius.circular(CommonDimens.defaultBorderRadius),
-                      topLeft:
-                          Radius.circular(CommonDimens.defaultBorderRadius),
+                      topRight: Radius.circular(CommonDimens.defaultBorderRadius),
+                      topLeft: Radius.circular(CommonDimens.defaultBorderRadius),
                     )),
                 child: const NavigationBottomBar(),
               ),
