@@ -14,24 +14,23 @@ Future<String?> pickAnImage([BuildContext? context]) async {
   if (imageFile == null) return null;
 
   final srcImageData = await imageFile.readAsBytes();
-  final srcImageSize = srcImageData.lengthInBytes / 1024 / 1024;
+  final srcImageSize = srcImageData.lengthInBytes / 1024;
 
   Uint8List? imageData = srcImageData;
   String? mime = lookupMimeType(imageFile.path);
 
-  if (srcImageSize >= 1.5) {
+  if (srcImageSize >= 500) {
     GlobalContext().snackBar(S.current.processingImage);
 
     final cmd = await (img.Command()..decodeImageFile(imageFile.path))
             .executeThread(),
         image = await cmd.getImageThread(),
-        regex = RegExp(r"\..+$"),
-        ext = regex.firstMatch(imageFile.path),
+        // regex = RegExp(r"\..+$"),
+        // ext = regex.firstMatch(imageFile.path),
         compressCmd = cmd
           ..copyResize(width: min(image?.width ?? 0, 1024))
-          ..encodeJpg(quality: 85)
-          ..writeToFile(
-              imageFile.path.replaceFirst(ext![0]!, '_compressed.jpg'));
+          ..encodeJpg(quality: 85);
+    // ..writeToFile(imageFile.path.replaceFirst(ext![0]!, '_compressed.jpg'));
 
     final cmdExec = await compressCmd.executeThread();
 

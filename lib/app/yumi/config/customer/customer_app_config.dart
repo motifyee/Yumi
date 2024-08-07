@@ -51,6 +51,7 @@ class CustomerAppConfig implements AppConfig {
   @override
   Iterable<LocalizationsDelegate>? get localizationsDelegates => const [
         S.delegate,
+        CommonCodeS.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

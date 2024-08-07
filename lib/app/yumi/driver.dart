@@ -2,7 +2,7 @@ import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:yumi/core/setup/init.dart';
-import 'package:yumi/app/yumi/config/driver/dirver_app_config.dart';
+import 'package:yumi/app/yumi/config/driver/driver_app_config.dart';
 import 'package:yumi/app_target.dart';
 
 Future<void> main() async {
