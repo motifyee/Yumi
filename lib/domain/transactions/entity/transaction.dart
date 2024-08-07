@@ -8,6 +8,7 @@ class Transaction with _$Transaction {
   const factory Transaction({
     int? guid,
     int? accountId,
+    int? invoiceId,
     String? accountName,
     String? journalType,
     String? createdDate,
@@ -16,6 +17,5 @@ class Transaction with _$Transaction {
     @JsonKey(name: 'previous_Balance') double? previousBalance,
   }) = _Transaction;
 
-  factory Transaction.fromJson(Map<String, dynamic> json) =>
-      _$TransactionFromJson(json);
+  factory Transaction.fromJson(Map<String, dynamic> json) => _$TransactionFromJson(json);
 }

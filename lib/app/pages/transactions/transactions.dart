@@ -77,7 +77,14 @@ class TransactionsScreen extends StatelessWidget {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text(transaction.journalType ?? '', style: Theme.of(context).textTheme.bodyMedium),
+                                              Text(
+                                                '${S.of(context).orderId}: ${transaction.invoiceId}',
+                                                style: Theme.of(context).textTheme.titleSmall,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap),
+                                                child: Text(transaction.journalType ?? '', style: Theme.of(context).textTheme.bodyMedium),
+                                              ),
                                               Text('- ${transaction.guid}', style: Theme.of(context).textTheme.bodyMedium),
                                             ],
                                           ),

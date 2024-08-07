@@ -1,15 +1,14 @@
 import 'package:common_code/common_code.dart';
 import 'package:common_code/util/global_context.dart';
 
-// const defaultOriginApi = 'https://10.99.77.247:5012';
+const defaultOriginApi = 'https://10.99.77.247:5012';
 // const defaultOriginApi = 'https://vroot.tarabia.online';
-const defaultOriginApi = 'https://beta.vroot.com:8099';
+// const defaultOriginApi = 'https://beta.vroot.com:8099';
 String originApi = '';
 
 class BaseUrl {
   static Future<void> load() async {
-    final value =
-        await LocalStorage.sharedRef.getValue(LocalStorage.domainName);
+    final value = await LocalStorage.sharedRef.getValue(LocalStorage.domainName);
 
     originApi = value ?? defaultOriginApi;
     APIClient.baseUrl = originApi;
@@ -30,8 +29,7 @@ class EndPoints {
     return apiKey.replaceAll("_", GlobalContext().appConfig.appTitle);
   }
 
-  static String actionApiKeyString(
-      {required String apiKey, required String id}) {
+  static String actionApiKeyString({required String apiKey, required String id}) {
     return apiKey.replaceAll("_", id);
   }
 
