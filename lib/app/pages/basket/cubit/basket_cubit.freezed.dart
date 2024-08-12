@@ -21,7 +21,6 @@ BasketState _$BasketStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$BasketState {
   Basket get basket => throw _privateConstructorUsedError;
-  PaymentOption get paymentType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +34,7 @@ abstract class $BasketStateCopyWith<$Res> {
           BasketState value, $Res Function(BasketState) then) =
       _$BasketStateCopyWithImpl<$Res, BasketState>;
   @useResult
-  $Res call({Basket basket, PaymentOption paymentType});
+  $Res call({Basket basket});
 
   $BasketCopyWith<$Res> get basket;
 }
@@ -54,17 +53,12 @@ class _$BasketStateCopyWithImpl<$Res, $Val extends BasketState>
   @override
   $Res call({
     Object? basket = null,
-    Object? paymentType = null,
   }) {
     return _then(_value.copyWith(
       basket: null == basket
           ? _value.basket
           : basket // ignore: cast_nullable_to_non_nullable
               as Basket,
-      paymentType: null == paymentType
-          ? _value.paymentType
-          : paymentType // ignore: cast_nullable_to_non_nullable
-              as PaymentOption,
     ) as $Val);
   }
 
@@ -85,7 +79,7 @@ abstract class _$$BasketStateImplCopyWith<$Res>
       __$$BasketStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Basket basket, PaymentOption paymentType});
+  $Res call({Basket basket});
 
   @override
   $BasketCopyWith<$Res> get basket;
@@ -103,17 +97,12 @@ class __$$BasketStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? basket = null,
-    Object? paymentType = null,
   }) {
     return _then(_$BasketStateImpl(
       basket: null == basket
           ? _value.basket
           : basket // ignore: cast_nullable_to_non_nullable
               as Basket,
-      paymentType: null == paymentType
-          ? _value.paymentType
-          : paymentType // ignore: cast_nullable_to_non_nullable
-              as PaymentOption,
     ));
   }
 }
@@ -121,19 +110,17 @@ class __$$BasketStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$BasketStateImpl implements _BasketState {
-  const _$BasketStateImpl({required this.basket, required this.paymentType});
+  const _$BasketStateImpl({required this.basket});
 
   factory _$BasketStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$BasketStateImplFromJson(json);
 
   @override
   final Basket basket;
-  @override
-  final PaymentOption paymentType;
 
   @override
   String toString() {
-    return 'BasketState(basket: $basket, paymentType: $paymentType)';
+    return 'BasketState(basket: $basket)';
   }
 
   @override
@@ -141,14 +128,12 @@ class _$BasketStateImpl implements _BasketState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BasketStateImpl &&
-            (identical(other.basket, basket) || other.basket == basket) &&
-            (identical(other.paymentType, paymentType) ||
-                other.paymentType == paymentType));
+            (identical(other.basket, basket) || other.basket == basket));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, basket, paymentType);
+  int get hashCode => Object.hash(runtimeType, basket);
 
   @JsonKey(ignore: true)
   @override
@@ -165,17 +150,14 @@ class _$BasketStateImpl implements _BasketState {
 }
 
 abstract class _BasketState implements BasketState {
-  const factory _BasketState(
-      {required final Basket basket,
-      required final PaymentOption paymentType}) = _$BasketStateImpl;
+  const factory _BasketState({required final Basket basket}) =
+      _$BasketStateImpl;
 
   factory _BasketState.fromJson(Map<String, dynamic> json) =
       _$BasketStateImpl.fromJson;
 
   @override
   Basket get basket;
-  @override
-  PaymentOption get paymentType;
   @override
   @JsonKey(ignore: true)
   _$$BasketStateImplCopyWith<_$BasketStateImpl> get copyWith =>

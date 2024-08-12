@@ -34,10 +34,6 @@ part 'basket_state.dart';
 class BasketCubit extends Cubit<BasketState> {
   BasketCubit() : super(BasketState.initial());
 
-  selectPayment({required PaymentOption paymentOption}) {
-    emit(state.copyWith(paymentType: paymentOption));
-  }
-
   pickUpOnly({bool isPickUpOnly = true}) {
     emit(state.copyWith(basket: state.basket.copyWith(isPickupOnly: isPickUpOnly)));
   }
@@ -132,6 +128,10 @@ class BasketCubit extends Cubit<BasketState> {
     final Either<Failure, bool> task = await StripePayment().call(StripePaymentParams(amount: state.basket.invoice.finalPrice, currency: StripeKeys.currency));
     emit(state.copyWith(basket: state.basket.copyWith(isPaying: false)));
     task.fold((l) => _message(l.error ?? S.current.stripeError, isReturn: false), (r) => closeBasket());
+  }
+
+  updatePayment({required int paymentType}) {
+    updateBasket(basket: state.basket.copyWith(invoice: state.basket.invoice.copyWith(paymentType: paymentType)));
   }
 
   addVoucher({required String voucher}) async {

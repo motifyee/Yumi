@@ -74,7 +74,7 @@ class CheckOutScreen extends StatelessWidget {
                             const SizedBox(height: CommonDimens.defaultGap),
                             GestureDetector(
                               onTap: () {
-                                context.read<BasketCubit>().selectPayment(paymentOption: PaymentOption.visa);
+                                context.read<BasketCubit>().updatePayment(paymentType: PaymentOption.visa.index);
                                 return;
                                 context.router.push(const PaymentVisaRoute());
                               },
@@ -85,7 +85,8 @@ class CheckOutScreen extends StatelessWidget {
                                     Container(
                                       width: CommonDimens.defaultLineGap,
                                       height: CommonDimens.defaultLineGap,
-                                      decoration: BoxDecoration(color: state.paymentType == PaymentOption.visa ? CommonColors.primary : CommonColors.secondaryFaint, borderRadius: BorderRadius.circular(CommonDimens.defaultLineGap)),
+                                      decoration:
+                                          BoxDecoration(color: state.basket.invoice.paymentType == PaymentOption.visa.index ? CommonColors.primary : CommonColors.secondaryFaint, borderRadius: BorderRadius.circular(CommonDimens.defaultLineGap)),
                                     ),
                                     const SizedBox(width: CommonDimens.defaultGap),
                                     Row(
@@ -109,7 +110,7 @@ class CheckOutScreen extends StatelessWidget {
                             const SizedBox(height: CommonDimens.defaultGap),
                             GestureDetector(
                               onTap: () {
-                                context.read<BasketCubit>().selectPayment(paymentOption: PaymentOption.wallet);
+                                context.read<BasketCubit>().updatePayment(paymentType: PaymentOption.wallet.index);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultInputGap),
@@ -118,7 +119,8 @@ class CheckOutScreen extends StatelessWidget {
                                     Container(
                                       width: CommonDimens.defaultLineGap,
                                       height: CommonDimens.defaultLineGap,
-                                      decoration: BoxDecoration(color: state.paymentType == PaymentOption.wallet ? CommonColors.primary : CommonColors.secondaryFaint, borderRadius: BorderRadius.circular(CommonDimens.defaultLineGap)),
+                                      decoration:
+                                          BoxDecoration(color: state.basket.invoice.paymentType == PaymentOption.wallet.index ? CommonColors.primary : CommonColors.secondaryFaint, borderRadius: BorderRadius.circular(CommonDimens.defaultLineGap)),
                                     ),
                                     const SizedBox(width: CommonDimens.defaultGap),
                                     Row(
@@ -211,8 +213,8 @@ class CheckOutScreen extends StatelessWidget {
                                 builder: (context, state) {
                                   return GestureDetector(
                                     onTap: () {
-                                      if (state.paymentType == PaymentOption.visa) context.read<BasketCubit>().stripePayment();
-                                      if (state.paymentType == PaymentOption.wallet) context.read<BasketCubit>().closeBasket();
+                                      if (state.basket.invoice.paymentType == PaymentOption.visa.index) context.read<BasketCubit>().stripePayment();
+                                      if (state.basket.invoice.paymentType == PaymentOption.wallet.index) context.read<BasketCubit>().closeBasket();
                                     },
                                     child: Container(
                                       width: CommonDimens.defaultGapXXXL * 1.5,
