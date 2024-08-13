@@ -19,6 +19,8 @@ class CheckOutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<WalletCubit>().getWallet();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -140,7 +142,7 @@ class CheckOutScreen extends StatelessWidget {
                                     const Expanded(child: SizedBox.shrink()),
                                     BlocBuilder<WalletCubit, WalletState>(
                                       builder: (context, state) {
-                                        return state.isLoading ? const PacmanLoadingWidget(size: CommonDimens.defaultBlockGap) : TextCurrency(value: state.wallet.money ?? 0, fontSize: CommonFontSize.font_14);
+                                        return state.isLoading ? const PacmanLoadingWidget(size: CommonDimens.defaultBlockGap) : TextCurrency(value: -1 * (state.wallet.money ?? 0), fontSize: CommonFontSize.font_14);
                                       },
                                     )
                                   ],
