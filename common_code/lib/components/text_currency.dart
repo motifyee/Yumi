@@ -33,7 +33,7 @@ class TextCurrency extends StatelessWidget {
               ),
         ),
         Text(
-          value.toStringAsFixed(2),
+          value == -0 ? "0.00" : value.toStringAsFixed(2),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: fontWeight,
                 fontSize: fontSize ?? CommonFontSize.font_16,
