@@ -1,5 +1,5 @@
 import 'package:common_code/common_code.dart';
-import 'package:dio/dio.dart';
+import 'package:dependencies/dependencies.dart';
 
 /// Custom Exception
 sealed class CException implements Exception {
