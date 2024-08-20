@@ -125,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "didntReceiveAnOTP":
             MessageLookupByLibrary.simpleMessage("Didn\'\'t receive an OTP?"),
         "disclaimer": MessageLookupByLibrary.simpleMessage("Disclaimer"),
+        "disconnected": MessageLookupByLibrary.simpleMessage("Disconnected"),
         "discount": MessageLookupByLibrary.simpleMessage("Discount"),
         "dishName": MessageLookupByLibrary.simpleMessage("Dish Name"),
         "doYouWantToContinue":

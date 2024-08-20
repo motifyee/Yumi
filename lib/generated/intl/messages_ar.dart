@@ -122,6 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "didntReceiveAnOTP":
             MessageLookupByLibrary.simpleMessage("لم تستلم كلمة سر لحظية؟"),
         "disclaimer": MessageLookupByLibrary.simpleMessage("تنويه"),
+        "disconnected": MessageLookupByLibrary.simpleMessage("غير متصل"),
         "discount": MessageLookupByLibrary.simpleMessage("خصم"),
         "dishName": MessageLookupByLibrary.simpleMessage("اسم الطبق"),
         "doYouWantToContinue":

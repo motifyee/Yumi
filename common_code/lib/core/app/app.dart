@@ -50,15 +50,7 @@ class App extends StatelessWidget {
         return SafeArea(
           child: Container(
             color: CommonColors.background,
-            child: Stack(children: [
-              child ?? const SizedBox(),
-              Positioned(
-                top: -10,
-                right: CommonLocale.isLTR ? -10 : null,
-                left: CommonLocale.isRTL ? -10 : null,
-                child: const SignalRStatus(),
-              ),
-            ]),
+            child: child ?? const SizedBox(),
           ),
         );
       },
@@ -80,41 +72,4 @@ abstract class AppConfig {
   Iterable<Locale> get supportedLocales;
 
   Iterable<LocalizationsDelegate<dynamic>>? get localizationsDelegates;
-}
-
-class SignalRStatus extends StatefulWidget {
-  const SignalRStatus({super.key});
-
-  @override
-  State<SignalRStatus> createState() => _SignalRStatusState();
-}
-
-class _SignalRStatusState extends State<SignalRStatus> {
-  @override
-  void initState() {
-    super.initState();
-    Timer.periodic(const Duration(seconds: 1), (e) => setState(() {}));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Color color = CommonColors.secondary;
-
-    switch (Signalr.hubConnection?.state) {
-      case HubConnectionState.Connected:
-        color = CommonColors.success;
-        break;
-      case HubConnectionState.Reconnecting:
-        color = CommonColors.primary;
-        break;
-
-      default:
-        break;
-    }
-    return Container(
-      width: 20,
-      height: 20,
-      decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(20)),
-    );
-  }
 }

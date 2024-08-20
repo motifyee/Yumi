@@ -303,5 +303,6 @@
 	"fridayPrev": "الجمعة",
 	"download": "تنزيل",
 	"processingImage": "جاري معالجة الصورة",
-	"documents": "الوثائق"
+	"documents": "الوثائق",
+	"disconnected": "غير متصل"
 }

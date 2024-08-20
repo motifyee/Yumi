@@ -19,8 +19,7 @@ class NotificationS with _$NotificationS {
     @JsonKey(name: 'employee_ID') int? employeeID,
   }) = _NotificationS;
 
-  factory NotificationS.fromJson(Map<String, dynamic> json) =>
-      _$NotificationSFromJson(json);
+  factory NotificationS.fromJson(Map<String, dynamic> json) => _$NotificationSFromJson(json);
 }
 
 enum NotificationTypeEnum {
@@ -31,4 +30,5 @@ enum NotificationTypeEnum {
   PickupOrder,
   FinishOrder,
   AccountApproved,
+  AccountContractApproved,
 }

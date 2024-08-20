@@ -36,8 +36,7 @@ class MealListCard extends StatelessWidget {
             color: CommonColors.background,
           ),
           width: MediaQuery.of(context).size.width * .95,
-          height:
-              CommonDimens.defaultImageHeightSmall + CommonDimens.defaultGap,
+          height: CommonDimens.defaultImageHeightSmall + CommonDimens.defaultGap,
           child: Row(
             children: [
               Container(
@@ -45,26 +44,15 @@ class MealListCard extends StatelessWidget {
                   height: CommonDimens.defaultImageHeightSmall,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(CommonDimens.defaultGap),
+                    borderRadius: BorderRadius.circular(CommonDimens.defaultGap),
                   ),
                   child: ImageFiltered(
-                    imageFilter: isDisabled
-                        ? const ColorFilter.mode(
-                            Colors.grey, BlendMode.saturation)
-                        : const ColorFilter.mode(
-                            Colors.transparent, BlendMode.darken),
+                    imageFilter: isDisabled ? const ColorFilter.mode(Colors.grey, BlendMode.saturation) : const ColorFilter.mode(Colors.transparent, BlendMode.darken),
                     child: Image.memory(
-                      Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
-                          Uint8List(0),
+                      Uri.parse(meal.photo ?? '').data?.contentAsBytes() ?? Uint8List(0),
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) =>
-                          ImageFiltered(
-                        imageFilter: isDisabled
-                            ? const ColorFilter.mode(
-                                Colors.grey, BlendMode.saturation)
-                            : const ColorFilter.mode(
-                                Colors.transparent, BlendMode.darken),
+                      errorBuilder: (context, error, stackTrace) => ImageFiltered(
+                        imageFilter: isDisabled ? const ColorFilter.mode(Colors.grey, BlendMode.saturation) : const ColorFilter.mode(Colors.transparent, BlendMode.darken),
                         child: Image.asset(
                           'assets/images/354.jpeg',
                           fit: BoxFit.cover,
@@ -74,66 +62,39 @@ class MealListCard extends StatelessWidget {
                   )),
               Expanded(
                   child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: CommonDimens.defaultGap),
+                padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: CommonDimens.defaultBlockGap),
-                    Text(
-                      meal.name ?? '',
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge
-                          ?.copyWith(fontSize: CommonFontSize.font_14),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Text(
+                          meal.name ?? '',
+                          style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: CommonFontSize.font_16),
+                        )),
+                        Container(
+                          width: CommonDimens.defaultTitleGap,
+                          height: CommonDimens.defaultTitleGap,
+                          decoration: BoxDecoration(color: isDisabled ? CommonColors.secondaryFaint : CommonColors.primary, borderRadius: BorderRadius.circular(CommonDimens.defaultTitleGap)),
+                          child: Center(
+                            child: Text(
+                              '${meal.portionPersons}',
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(color: CommonColors.onSuccess),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     Expanded(
-                      child: GridView.count(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 2.0,
-                        crossAxisSpacing: 2.0,
-                        childAspectRatio: 4.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          for (var i in [0, 1, 2, 3])
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: CommonColors.primary,
-                                      borderRadius: BorderRadius.circular(
-                                          CommonDimens.defaultBlockGap)),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: CommonDimens.defaultMicroGap),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        '4.5',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displaySmall
-                                            ?.copyWith(
-                                                fontSize:
-                                                    CommonFontSize.font_9),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: CommonColors.onPrimary,
-                                        size: CommonFontSize.font_10,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    'aaaaa a a a a aaaaaaaaaaaaa a a ',
-                                    style:
-                                        Theme.of(context).textTheme.labelSmall,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
+                          TextCurrency(
+                            value: meal.price1 ?? 0,
+                            fontSize: CommonFontSize.font_14,
+                          ),
                         ],
                       ),
                     ),
@@ -141,14 +102,8 @@ class MealListCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         SvgPicture.asset(
-                          meal.isFavoriteProduct == true
-                              ? 'assets/images/heart.svg'
-                              : 'assets/images/heart_outline.svg',
-                          colorFilter: ColorFilter.mode(
-                              isDisabled
-                                  ? CommonColors.secondary
-                                  : CommonColors.primary,
-                              BlendMode.srcIn),
+                          meal.isFavoriteProduct == true ? 'assets/images/heart.svg' : 'assets/images/heart_outline.svg',
+                          colorFilter: ColorFilter.mode(isDisabled ? CommonColors.secondary : CommonColors.primary, BlendMode.srcIn),
                         ),
                       ],
                     ),

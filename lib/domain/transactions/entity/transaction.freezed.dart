@@ -22,6 +22,7 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) {
 mixin _$Transaction {
   int? get guid => throw _privateConstructorUsedError;
   int? get accountId => throw _privateConstructorUsedError;
+  int? get invoiceId => throw _privateConstructorUsedError;
   String? get accountName => throw _privateConstructorUsedError;
   String? get journalType => throw _privateConstructorUsedError;
   String? get createdDate => throw _privateConstructorUsedError;
@@ -45,6 +46,7 @@ abstract class $TransactionCopyWith<$Res> {
   $Res call(
       {int? guid,
       int? accountId,
+      int? invoiceId,
       String? accountName,
       String? journalType,
       String? createdDate,
@@ -68,6 +70,7 @@ class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
   $Res call({
     Object? guid = freezed,
     Object? accountId = freezed,
+    Object? invoiceId = freezed,
     Object? accountName = freezed,
     Object? journalType = freezed,
     Object? createdDate = freezed,
@@ -83,6 +86,10 @@ class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
       accountId: freezed == accountId
           ? _value.accountId
           : accountId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      invoiceId: freezed == invoiceId
+          ? _value.invoiceId
+          : invoiceId // ignore: cast_nullable_to_non_nullable
               as int?,
       accountName: freezed == accountName
           ? _value.accountName
@@ -123,6 +130,7 @@ abstract class _$$TransactionImplCopyWith<$Res>
   $Res call(
       {int? guid,
       int? accountId,
+      int? invoiceId,
       String? accountName,
       String? journalType,
       String? createdDate,
@@ -144,6 +152,7 @@ class __$$TransactionImplCopyWithImpl<$Res>
   $Res call({
     Object? guid = freezed,
     Object? accountId = freezed,
+    Object? invoiceId = freezed,
     Object? accountName = freezed,
     Object? journalType = freezed,
     Object? createdDate = freezed,
@@ -159,6 +168,10 @@ class __$$TransactionImplCopyWithImpl<$Res>
       accountId: freezed == accountId
           ? _value.accountId
           : accountId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      invoiceId: freezed == invoiceId
+          ? _value.invoiceId
+          : invoiceId // ignore: cast_nullable_to_non_nullable
               as int?,
       accountName: freezed == accountName
           ? _value.accountName
@@ -194,6 +207,7 @@ class _$TransactionImpl implements _Transaction {
   const _$TransactionImpl(
       {this.guid,
       this.accountId,
+      this.invoiceId,
       this.accountName,
       this.journalType,
       this.createdDate,
@@ -208,6 +222,8 @@ class _$TransactionImpl implements _Transaction {
   final int? guid;
   @override
   final int? accountId;
+  @override
+  final int? invoiceId;
   @override
   final String? accountName;
   @override
@@ -224,7 +240,7 @@ class _$TransactionImpl implements _Transaction {
 
   @override
   String toString() {
-    return 'Transaction(guid: $guid, accountId: $accountId, accountName: $accountName, journalType: $journalType, createdDate: $createdDate, debit: $debit, credit: $credit, previousBalance: $previousBalance)';
+    return 'Transaction(guid: $guid, accountId: $accountId, invoiceId: $invoiceId, accountName: $accountName, journalType: $journalType, createdDate: $createdDate, debit: $debit, credit: $credit, previousBalance: $previousBalance)';
   }
 
   @override
@@ -235,6 +251,8 @@ class _$TransactionImpl implements _Transaction {
             (identical(other.guid, guid) || other.guid == guid) &&
             (identical(other.accountId, accountId) ||
                 other.accountId == accountId) &&
+            (identical(other.invoiceId, invoiceId) ||
+                other.invoiceId == invoiceId) &&
             (identical(other.accountName, accountName) ||
                 other.accountName == accountName) &&
             (identical(other.journalType, journalType) ||
@@ -249,8 +267,8 @@ class _$TransactionImpl implements _Transaction {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, guid, accountId, accountName,
-      journalType, createdDate, debit, credit, previousBalance);
+  int get hashCode => Object.hash(runtimeType, guid, accountId, invoiceId,
+      accountName, journalType, createdDate, debit, credit, previousBalance);
 
   @JsonKey(ignore: true)
   @override
@@ -270,6 +288,7 @@ abstract class _Transaction implements Transaction {
   const factory _Transaction(
           {final int? guid,
           final int? accountId,
+          final int? invoiceId,
           final String? accountName,
           final String? journalType,
           final String? createdDate,
@@ -285,6 +304,8 @@ abstract class _Transaction implements Transaction {
   int? get guid;
   @override
   int? get accountId;
+  @override
+  int? get invoiceId;
   @override
   String? get accountName;
   @override

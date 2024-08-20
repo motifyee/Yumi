@@ -107,6 +107,7 @@ flutter:
     - assets/images/map/
     - assets/images/flow/
     - assets/images/registeration/
+    - assets/images/notifications/
 
   fonts:
     - family: Inter

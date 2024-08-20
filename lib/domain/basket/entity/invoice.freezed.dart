@@ -37,6 +37,7 @@ mixin _$Invoice {
   @DateTimeToIso8601StringConverter()
   DateTime? get scheduleDate => throw _privateConstructorUsedError;
   String? get invoiceCode => throw _privateConstructorUsedError;
+  int? get paymentType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -64,7 +65,8 @@ abstract class $InvoiceCopyWith<$Res> {
       @JsonKey(name: 'schedule_Date')
       @DateTimeToIso8601StringConverter()
       DateTime? scheduleDate,
-      String? invoiceCode});
+      String? invoiceCode,
+      int? paymentType});
 }
 
 /// @nodoc
@@ -94,6 +96,7 @@ class _$InvoiceCopyWithImpl<$Res, $Val extends Invoice>
     Object? totalPrice = null,
     Object? scheduleDate = freezed,
     Object? invoiceCode = freezed,
+    Object? paymentType = freezed,
   }) {
     return _then(_value.copyWith(
       createdBy: freezed == createdBy
@@ -152,6 +155,10 @@ class _$InvoiceCopyWithImpl<$Res, $Val extends Invoice>
           ? _value.invoiceCode
           : invoiceCode // ignore: cast_nullable_to_non_nullable
               as String?,
+      paymentType: freezed == paymentType
+          ? _value.paymentType
+          : paymentType // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -179,7 +186,8 @@ abstract class _$$InvoiceImplCopyWith<$Res> implements $InvoiceCopyWith<$Res> {
       @JsonKey(name: 'schedule_Date')
       @DateTimeToIso8601StringConverter()
       DateTime? scheduleDate,
-      String? invoiceCode});
+      String? invoiceCode,
+      int? paymentType});
 }
 
 /// @nodoc
@@ -207,6 +215,7 @@ class __$$InvoiceImplCopyWithImpl<$Res>
     Object? totalPrice = null,
     Object? scheduleDate = freezed,
     Object? invoiceCode = freezed,
+    Object? paymentType = freezed,
   }) {
     return _then(_$InvoiceImpl(
       createdBy: freezed == createdBy
@@ -265,6 +274,10 @@ class __$$InvoiceImplCopyWithImpl<$Res>
           ? _value.invoiceCode
           : invoiceCode // ignore: cast_nullable_to_non_nullable
               as String?,
+      paymentType: freezed == paymentType
+          ? _value.paymentType
+          : paymentType // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -289,7 +302,8 @@ class _$InvoiceImpl extends _Invoice {
       @JsonKey(name: 'schedule_Date')
       @DateTimeToIso8601StringConverter()
       this.scheduleDate,
-      this.invoiceCode})
+      this.invoiceCode,
+      this.paymentType = 1})
       : super._();
 
   factory _$InvoiceImpl.fromJson(Map<String, dynamic> json) =>
@@ -335,10 +349,13 @@ class _$InvoiceImpl extends _Invoice {
   final DateTime? scheduleDate;
   @override
   final String? invoiceCode;
+  @override
+  @JsonKey()
+  final int? paymentType;
 
   @override
   String toString() {
-    return 'Invoice(createdBy: $createdBy, createdDate: $createdDate, chefID: $chefID, clientNote: $clientNote, preparationNotes: $preparationNotes, employeeNote: $employeeNote, deliveryCostPrice: $deliveryCostPrice, deliveryAreaPrice: $deliveryAreaPrice, invoiceDiscount: $invoiceDiscount, invoiceTax: $invoiceTax, finalPrice: $finalPrice, totalPrice: $totalPrice, scheduleDate: $scheduleDate, invoiceCode: $invoiceCode)';
+    return 'Invoice(createdBy: $createdBy, createdDate: $createdDate, chefID: $chefID, clientNote: $clientNote, preparationNotes: $preparationNotes, employeeNote: $employeeNote, deliveryCostPrice: $deliveryCostPrice, deliveryAreaPrice: $deliveryAreaPrice, invoiceDiscount: $invoiceDiscount, invoiceTax: $invoiceTax, finalPrice: $finalPrice, totalPrice: $totalPrice, scheduleDate: $scheduleDate, invoiceCode: $invoiceCode, paymentType: $paymentType)';
   }
 
   @override
@@ -372,7 +389,9 @@ class _$InvoiceImpl extends _Invoice {
             (identical(other.scheduleDate, scheduleDate) ||
                 other.scheduleDate == scheduleDate) &&
             (identical(other.invoiceCode, invoiceCode) ||
-                other.invoiceCode == invoiceCode));
+                other.invoiceCode == invoiceCode) &&
+            (identical(other.paymentType, paymentType) ||
+                other.paymentType == paymentType));
   }
 
   @JsonKey(ignore: true)
@@ -392,7 +411,8 @@ class _$InvoiceImpl extends _Invoice {
       finalPrice,
       totalPrice,
       scheduleDate,
-      invoiceCode);
+      invoiceCode,
+      paymentType);
 
   @JsonKey(ignore: true)
   @override
@@ -425,7 +445,8 @@ abstract class _Invoice extends Invoice {
       @JsonKey(name: 'schedule_Date')
       @DateTimeToIso8601StringConverter()
       final DateTime? scheduleDate,
-      final String? invoiceCode}) = _$InvoiceImpl;
+      final String? invoiceCode,
+      final int? paymentType}) = _$InvoiceImpl;
   const _Invoice._() : super._();
 
   factory _Invoice.fromJson(Map<String, dynamic> json) = _$InvoiceImpl.fromJson;
@@ -461,6 +482,8 @@ abstract class _Invoice extends Invoice {
   DateTime? get scheduleDate;
   @override
   String? get invoiceCode;
+  @override
+  int? get paymentType;
   @override
   @JsonKey(ignore: true)
   _$$InvoiceImplCopyWith<_$InvoiceImpl> get copyWith =>

@@ -41,8 +41,7 @@ class NotificationScreen extends StatelessWidget {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: CommonDimens.defaultLineGap),
+            padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultLineGap),
             child: Row(
               children: [
                 SvgPicture.asset('assets/images/notification.svg'),
@@ -81,27 +80,18 @@ class _NotificationList extends StatelessWidget {
               for (NotificationS notification in state.pagination.data)
                 GestureDetector(
                   onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) =>
-                            _NotificationNote(notification: notification));
+                    showDialog(context: context, builder: (context) => _NotificationNote(notification: notification));
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: CommonDimens.defaultGap,
-                        horizontal: CommonDimens.defaultTitleGap),
+                    padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap, horizontal: CommonDimens.defaultTitleGap),
                     child: Row(
                       children: [
                         Container(
                           width: CommonDimens.defaultMediumGap,
                           height: CommonDimens.defaultMediumGap,
-                          decoration: BoxDecoration(
-                              color: CommonColors.backgroundTant,
-                              borderRadius: BorderRadius.circular(
-                                  CommonDimens.defaultMediumGap)),
+                          decoration: BoxDecoration(color: CommonColors.backgroundTant, borderRadius: BorderRadius.circular(CommonDimens.defaultMediumGap)),
                           child: Center(
-                            child: SvgPicture.asset(
-                                'assets/images/offer_icon.svg'),
+                            child: SvgPicture.asset('assets/images/notifications/${notification.notificationType.name}.svg'),
                           ),
                         ),
                         const SizedBox(width: CommonDimens.defaultGap),
@@ -109,16 +99,8 @@ class _NotificationList extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(notification.description,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium),
-                              Text(
-                                  DateFormat('d-M-yyyy | hh:mm')
-                                      .format(notification.createDate),
-                                  style:
-                                      Theme.of(context).textTheme.labelSmall),
+                              Text(notification.description, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.headlineMedium),
+                              Text(DateFormat('d-M-yyyy | hh:mm').format(notification.createDate), style: Theme.of(context).textTheme.labelSmall),
                             ],
                           ),
                         ),
@@ -143,31 +125,24 @@ class _NotificationNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-          vertical: CommonDimens.defaultGap,
-          horizontal: CommonDimens.defaultTitleGap),
+      padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap, horizontal: CommonDimens.defaultTitleGap),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            decoration: BoxDecoration(
-                color: CommonColors.background,
-                borderRadius: BorderRadius.circular(CommonDimens.defaultGap)),
-            padding: const EdgeInsets.symmetric(
-                vertical: CommonDimens.defaultGap,
-                horizontal: CommonDimens.defaultTitleGap),
+            decoration: BoxDecoration(color: CommonColors.background, borderRadius: BorderRadius.circular(CommonDimens.defaultGap)),
+            padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap, horizontal: CommonDimens.defaultTitleGap),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   width: CommonDimens.defaultMediumGap,
                   height: CommonDimens.defaultMediumGap,
-                  decoration: BoxDecoration(
-                      color: CommonColors.backgroundTant,
-                      borderRadius:
-                          BorderRadius.circular(CommonDimens.defaultMediumGap)),
+                  decoration: BoxDecoration(color: CommonColors.backgroundTant, borderRadius: BorderRadius.circular(CommonDimens.defaultMediumGap)),
                   child: Center(
-                    child: SvgPicture.asset('assets/images/offer_icon.svg'),
+                    child: SvgPicture.asset(
+                      'assets/images/notifications/${notification.notificationType.name}.svg',
+                    ),
                   ),
                 ),
                 const SizedBox(width: CommonDimens.defaultGap),
@@ -175,12 +150,8 @@ class _NotificationNote extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(notification.description,
-                          style: Theme.of(context).textTheme.headlineMedium),
-                      Text(
-                          DateFormat('d-M-yyyy | hh:mm')
-                              .format(notification.createDate),
-                          style: Theme.of(context).textTheme.labelSmall),
+                      Text(notification.description, style: Theme.of(context).textTheme.headlineMedium),
+                      Text(DateFormat('d-M-yyyy | hh:mm').format(notification.createDate), style: Theme.of(context).textTheme.labelSmall),
                     ],
                   ),
                 ),

@@ -302,5 +302,6 @@
 	"thursdayPrev": "THU",
 	"fridayPrev": "FRI",
 	"download": "Download",
-	"documents": "Documents"
+	"documents": "Documents",
+	"disconnected": "Disconnected"
 }

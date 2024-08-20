@@ -23,6 +23,7 @@ _$InvoiceImpl _$$InvoiceImplFromJson(Map json) => _$InvoiceImpl(
           json['schedule_Date'],
           const DateTimeToIso8601StringConverter().fromJson),
       invoiceCode: json['invoiceCode'] as String?,
+      paymentType: (json['paymentType'] as num?)?.toInt() ?? 1,
     );
 
 Map<String, dynamic> _$$InvoiceImplToJson(_$InvoiceImpl instance) =>
@@ -43,6 +44,7 @@ Map<String, dynamic> _$$InvoiceImplToJson(_$InvoiceImpl instance) =>
           instance.scheduleDate,
           const DateTimeToIso8601StringConverter().toJson),
       'invoiceCode': instance.invoiceCode,
+      'paymentType': instance.paymentType,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(
