@@ -39,7 +39,7 @@ class NewsScreen extends StatelessWidget {
       create: (context) => PageViewCubit(),
       child: Column(
         children: [
-          const Location(),
+          const LocationWidget(),
           const SizedBox(height: CommonDimens.defaultGap),
           StatusButton(),
           const SizedBox(

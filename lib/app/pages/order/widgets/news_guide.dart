@@ -40,7 +40,7 @@ class NewsGuide extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
-              const Location(),
+              const LocationWidget(),
               Text(
                 S.of(context).thisSectionYourSavedAddress,
                 textAlign: TextAlign.center,

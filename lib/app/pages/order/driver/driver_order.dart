@@ -48,7 +48,7 @@ class DriverOrderScreen extends StatelessWidget {
       create: (context) => PageViewCubit(),
       child: Column(
         children: [
-          const Location(),
+          const LocationWidget(),
           const SizedBox(height: CommonDimens.defaultGap),
           if (menuTarget == MenuTarget.order) StatusButton(),
           BlocBuilder<SignalRCubit, SignalRState>(
