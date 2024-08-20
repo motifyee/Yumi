@@ -1,5 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:fpdart/fpdart.dart';
+import 'package:dependencies/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/schedule_screen/cubit/schedule_cubit.dart';

@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
-import 'package:fpdart/fpdart.dart';
+import 'package:dependencies/fpdart.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:common_code/common_code.dart';

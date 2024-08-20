@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'domain/domain_spec.dart';
+import 'domain_spec.dart';
 
 void main() {
   print('test started .........');

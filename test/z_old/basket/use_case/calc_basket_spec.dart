@@ -4,7 +4,7 @@ import 'package:common_code/core/failures.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/basket/use_case/calc_basket.dart';
 
-import '../../../test_case.dart';
+import '../../test_case.dart';
 
 class CalcBasketSpecParams extends TestParams {
   final Basket mockBasket;

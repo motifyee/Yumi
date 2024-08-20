@@ -1,5 +1,5 @@
 import 'package:common_code/common_code.dart';
-import 'package:dio/dio.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:common_code/domain/schedule/data/sources/remote/schedule_remote_source.dart';
