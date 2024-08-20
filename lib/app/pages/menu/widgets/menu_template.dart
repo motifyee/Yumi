@@ -22,7 +22,7 @@ class MenuTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 300)).then((value) {
       if (!G().rd<RegCubit>().state.registerationStarted) return;
-      if (context.read<MealCubit>().state.pagination.data.isNotEmpty) return;
+      if (G().rd<MealCubit>().state.pagination.data.isNotEmpty) return;
       addYourMealsDialog(context);
     });
 
