@@ -11,7 +11,7 @@ class ChefRemoteSrc implements ChefSrc {
   Future<bool> addFavouriteChef(String chefId) async {
     try {
       final res = await APIClient().post<String>(
-        EndPoints.favoriteChefs,
+        Endpoints().favoriteChefs,
         data: {'code': CodeGenerator.getRandomCode(codeLength: 15)},
         queryParameters: {'chefId': chefId},
       );
@@ -28,7 +28,7 @@ class ChefRemoteSrc implements ChefSrc {
 
     try {
       res = await APIClient().get(
-        EndPoints.chefStatus,
+        Endpoints().chefStatus,
         queryParameters: {'accountId': chefId},
       );
     } catch (e) {
@@ -52,13 +52,20 @@ class ChefRemoteSrc implements ChefSrc {
     required Pagination pagination,
   }) async {
     try {
-      final Response res = await APIClient().get(
-          EndPoints.getApiKeyString(
-            apiKey: isPreOrder ? EndPoints.chefsPreOrder : EndPoints.chefsOrder,
-          ),
-          queryParameters: {...pagination.toJson(), 'status_Work': isPreOrder ? null : workStatus?.index ?? ChefWorkStatus.open.index, 'latitude': latitude, 'longitude': longitude}..removeWhere((key, value) => value == null));
+      final Response res = await APIClient()
+          .get(isPreOrder ? Endpoints().chefsPreOrder : Endpoints().chefsOrder,
+              queryParameters: {
+                ...pagination.toJson(),
+                'status_Work': isPreOrder
+                    ? null
+                    : workStatus?.index ?? ChefWorkStatus.open.index,
+                'latitude': latitude,
+                'longitude': longitude
+              }..removeWhere((key, value) => value == null));
 
-      final chefs = (res.data['data'] as List<dynamic>).map((e) => Chef.fromJson({...e, ...e['chef']})).toList();
+      final chefs = (res.data['data'] as List<dynamic>)
+          .map((e) => Chef.fromJson({...e, ...e['chef']}))
+          .toList();
 
       return PaginatedData<Chef>(
         data: chefs,
@@ -77,11 +84,13 @@ class ChefRemoteSrc implements ChefSrc {
   ) async {
     try {
       final res = await APIClient().get(
-        EndPoints.favoriteChefs,
+        Endpoints().favoriteChefs,
         queryParameters: {...pagination.toJson()},
       );
 
-      List<Chef> chefs = res.data['data'].map<Chef>((e) => Chef.fromJson({...e, ...e['chef']})).toList();
+      List<Chef> chefs = res.data['data']
+          .map<Chef>((e) => Chef.fromJson({...e, ...e['chef']}))
+          .toList();
 
       return PaginatedData<Chef>(
         data: chefs,
@@ -99,7 +108,7 @@ class ChefRemoteSrc implements ChefSrc {
   Future<bool> isFavouriteChef(String chefId) async {
     try {
       final res = await APIClient().get(
-        EndPoints.favoriteChef,
+        Endpoints().favoriteChef,
         queryParameters: {'chefId': chefId},
       );
 
@@ -113,7 +122,7 @@ class ChefRemoteSrc implements ChefSrc {
   Future<bool> removeFavouriteChef(String chefId) async {
     try {
       final res = await APIClient().delete(
-        EndPoints.favoriteChefs,
+        Endpoints().favoriteChefs,
         queryParameters: {'chefId': chefId},
       );
 

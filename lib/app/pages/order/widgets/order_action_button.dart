@@ -27,7 +27,7 @@ class PutActionButton extends StatelessWidget {
                 () {
                   context.read<OrderCubit>().putAction(
                       order: config.order,
-                      apiKey: EndPoints.actionApiKeyString(
+                      apiKey: Endpoints.actionApiKeyString(
                           apiKey: config.apiKey, id: '${config.order.id}'),
                       getApiKey: config.getApiKey,
                       isFakeBody: config.isFakeBody,
@@ -94,8 +94,8 @@ class OrderPutActions {
   static chefCloseOrderPickup({required dynamic widget}) =>
       OrderPutActionConfig(
         apiKey: widget.menuTarget == MenuTarget.order
-            ? EndPoints.orderChefPickUpDelivered
-            : EndPoints.preOrderChefPickUpDelivered,
+            ? Endpoints().orderChefPickUpDelivered
+            : Endpoints().preOrderChefPickUpDelivered,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: false,
@@ -108,11 +108,11 @@ class OrderPutActions {
   static chefFinishOrder({required dynamic widget}) => OrderPutActionConfig(
         apiKey: widget.menuTarget == MenuTarget.order
             ? widget.order.isPickUp == true
-                ? EndPoints.orderChefPickUpFinished
-                : EndPoints.orderChefDeliveryFinished
+                ? Endpoints().orderChefPickUpFinished
+                : Endpoints().orderChefDeliveryFinished
             : widget.order.isPickUp == true
-                ? EndPoints.preOrderChefPickUpFinished
-                : EndPoints.preOrderChefDeliveryFinished,
+                ? Endpoints().preOrderChefPickUpFinished
+                : Endpoints().preOrderChefDeliveryFinished,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: true,
@@ -127,11 +127,11 @@ class OrderPutActions {
             widget.order.isPickUp != true && widget.order.driverAccept != true,
         apiKey: widget.menuTarget == MenuTarget.order
             ? widget.order.isPickUp == true
-                ? EndPoints.orderChefPickUpStart
-                : EndPoints.orderChefDeliveryStart
+                ? Endpoints().orderChefPickUpStart
+                : Endpoints().orderChefDeliveryStart
             : widget.order.isPickUp == true
-                ? EndPoints.preOrderChefPickUpStart
-                : EndPoints.preOrderChefDeliveryStart,
+                ? Endpoints().preOrderChefPickUpStart
+                : Endpoints().preOrderChefDeliveryStart,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: true,
@@ -148,8 +148,8 @@ class OrderPutActions {
 
   static chefCancelPreOrder({required dynamic widget}) => OrderPutActionConfig(
         apiKey: (widget.order as Order).isPickUp == true
-            ? EndPoints.preorderCancelChefPickup
-            : EndPoints.preorderCancelChefDelivery,
+            ? Endpoints().preorderCancelChefPickup
+            : Endpoints().preorderCancelChefDelivery,
         order: widget.order,
         getApiKey: widget.getApiKey,
         text: S.current.cancel,
@@ -160,8 +160,8 @@ class OrderPutActions {
         cannotPress:
             widget.order.isPickUp != true && widget.order.driverAccept != true,
         apiKey: widget.order.isPickUp == true
-            ? EndPoints.preOrderChefPickUpAccept
-            : EndPoints.preOrderChefDeliveryAccept,
+            ? Endpoints().preOrderChefPickUpAccept
+            : Endpoints().preOrderChefDeliveryAccept,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: true,
@@ -174,8 +174,8 @@ class OrderPutActions {
   static driverCloseOrderDelivery({required dynamic widget}) =>
       OrderPutActionConfig(
         apiKey: widget.menuTarget == MenuTarget.order
-            ? EndPoints.orderDriverDelivered
-            : EndPoints.preOrderDriverDelivered,
+            ? Endpoints().orderDriverDelivered
+            : Endpoints().preOrderDriverDelivered,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: true,
@@ -188,8 +188,8 @@ class OrderPutActions {
   static driverReceived({required dynamic widget}) => OrderPutActionConfig(
         cannotPress: widget.order.chefFinished != true,
         apiKey: widget.menuTarget == MenuTarget.order
-            ? EndPoints.orderDriverReceived
-            : EndPoints.preOrderDriverReceived,
+            ? Endpoints().orderDriverReceived
+            : Endpoints().preOrderDriverReceived,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: true,
@@ -203,8 +203,8 @@ class OrderPutActions {
 
   static driverAccept({required dynamic widget}) => OrderPutActionConfig(
         apiKey: widget.menuTarget == MenuTarget.order
-            ? EndPoints.orderDriverAccept
-            : EndPoints.preOrderDriverAccept,
+            ? Endpoints().orderDriverAccept
+            : Endpoints().preOrderDriverAccept,
         getApiKey: widget.getApiKey,
         order: widget.order,
         isFakeBody: true,
@@ -224,7 +224,7 @@ class OrderPutActions {
       );
 
   static waitDriver({required dynamic widget}) => OrderPutActionConfig(
-        apiKey: EndPoints.waitDriverOrder,
+        apiKey: Endpoints().waitDriverOrder,
         order: widget.order,
         getApiKey: widget.getApiKey,
         text: S.current.wait,
@@ -234,7 +234,7 @@ class OrderPutActions {
       );
 
   static cancelDriver({required dynamic widget}) => OrderPutActionConfig(
-        apiKey: EndPoints.cancelDriverOrder,
+        apiKey: Endpoints().cancelDriverOrder,
         order: widget.order,
         getApiKey: widget.getApiKey,
         text: S.current.cancel,
@@ -242,7 +242,7 @@ class OrderPutActions {
       );
 
   static waitChef({required dynamic widget}) => OrderPutActionConfig(
-        apiKey: EndPoints.waitChefOrder,
+        apiKey: Endpoints().waitChefOrder,
         order: widget.order,
         getApiKey: widget.getApiKey,
         text: S.current.wait,
@@ -252,7 +252,7 @@ class OrderPutActions {
       );
 
   static cancelChef({required dynamic widget}) => OrderPutActionConfig(
-        apiKey: EndPoints.cancelChefOrder,
+        apiKey: Endpoints().cancelChefOrder,
         order: widget.order,
         getApiKey: widget.getApiKey,
         text: S.current.cancel,

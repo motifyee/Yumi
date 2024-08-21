@@ -9,9 +9,8 @@ class AuthRemoteSrc implements AuthSrc {
   Future<User> loginWithEmail(LoginData loginModel) async {
     Response res;
     try {
-      res = await APIClient().post(
-          EndPoints.getApiKeyString(apiKey: EndPoints.login),
-          data: jsonEncode(loginModel.toJson()));
+      res = await APIClient()
+          .post(Endpoints().login, data: jsonEncode(loginModel.toJson()));
     } catch (e) {
       throw ServerException(e as DioException);
     }
@@ -34,7 +33,7 @@ class AuthRemoteSrc implements AuthSrc {
           signupData.copyWith(code: CodeGenerator.getRandomCode()).toJson();
 
       res = await APIClient().post(
-        EndPoints.getApiKeyString(apiKey: EndPoints.signup),
+        Endpoints().signup,
         data: signupData0,
       );
     } catch (e) {

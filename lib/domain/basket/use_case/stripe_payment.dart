@@ -21,8 +21,10 @@ class StripePayment extends UseCase<bool, StripePaymentParams> {
 
       return Right(true);
     } catch (error) {
-      if (error.runtimeType == PlatformException) return Left(GenericFailure((error as PlatformException).message));
-      return Left(GenericFailure((error as StripeException).error.localizedMessage));
+      if (error.runtimeType == PlatformException)
+        return Left(GenericFailure((error as PlatformException).message));
+      return Left(
+          GenericFailure((error as StripeException).error.localizedMessage));
     }
   }
 }
@@ -42,10 +44,10 @@ class StripePaymentParams extends Params {
 
 Future<StripeModel> _getClientSecret(StripePaymentParams params) async {
   final baseUrl = APIClient.baseUrl;
-  APIClient.baseUrl = EndPoints.stripeApi;
+  APIClient.baseUrl = Endpoints().stripeApi;
 
   Response res = await APIClient().post(
-    EndPoints.stripePaymentIntent,
+    Endpoints().stripePaymentIntent,
     // options: Options(
     //   headers: {
     //     'Authorization': 'Bearer ${StripeKeys.secretKey}',
@@ -71,17 +73,34 @@ Future<void> _initPaymentSheet({required StripeModel stripe}) async {
       paymentIntentClientSecret: stripe.clientSecret,
       merchantDisplayName: StripeKeys.appName,
       customFlow: false,
-      intentConfiguration: IntentConfiguration(mode: IntentMode.paymentMode(currencyCode: stripe.currency, amount: stripe.amount, setupFutureUsage: IntentFutureUsage.OffSession, captureMethod: CaptureMethod.AutomaticAsync)),
+      intentConfiguration: IntentConfiguration(
+          mode: IntentMode.paymentMode(
+              currencyCode: stripe.currency,
+              amount: stripe.amount,
+              setupFutureUsage: IntentFutureUsage.OffSession,
+              captureMethod: CaptureMethod.AutomaticAsync)),
       customerId: GlobalContext().readCubit<UserCubit>()?.state.user.userName,
-      billingDetails: BillingDetails(name: GlobalContext().readCubit<UserCubit>()?.state.user.userName, email: GlobalContext().readCubit<UserCubit>()?.state.user.email),
+      billingDetails: BillingDetails(
+          name: GlobalContext().readCubit<UserCubit>()?.state.user.userName,
+          email: GlobalContext().readCubit<UserCubit>()?.state.user.email),
       appearance: PaymentSheetAppearance(
         primaryButton: PaymentSheetPrimaryButtonAppearance(
             shapes: PaymentSheetPrimaryButtonShape(blurRadius: 15),
             colors: PaymentSheetPrimaryButtonTheme(
-              dark: PaymentSheetPrimaryButtonThemeColors(background: CommonColors.primary, border: CommonColors.primary, text: CommonColors.onPrimary),
-              light: PaymentSheetPrimaryButtonThemeColors(background: CommonColors.primary, border: CommonColors.primary, text: CommonColors.onPrimary),
+              dark: PaymentSheetPrimaryButtonThemeColors(
+                  background: CommonColors.primary,
+                  border: CommonColors.primary,
+                  text: CommonColors.onPrimary),
+              light: PaymentSheetPrimaryButtonThemeColors(
+                  background: CommonColors.primary,
+                  border: CommonColors.primary,
+                  text: CommonColors.onPrimary),
             )),
-        shapes: PaymentSheetShape(borderRadius: 15, shadow: PaymentSheetShadowParams(color: CommonColors.secondary, opacity: .05), borderWidth: 0),
+        shapes: PaymentSheetShape(
+            borderRadius: 15,
+            shadow: PaymentSheetShadowParams(
+                color: CommonColors.secondary, opacity: .05),
+            borderWidth: 0),
         colors: PaymentSheetAppearanceColors(
           background: CommonColors.background,
           componentDivider: CommonColors.secondary,

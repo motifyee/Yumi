@@ -9,7 +9,7 @@ class APIInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) {
-    if (options.baseUrl == EndPoints.stripeApi) {
+    if (options.baseUrl == Endpoints().stripeApi) {
       options.headers.addAll(
         {
           "Content-Type": "application/x-www-form-urlencoded",

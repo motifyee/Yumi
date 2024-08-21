@@ -14,7 +14,7 @@ class BankInfoRemoteSrc implements BankInfoSrc {
       data.remove('id');
 
       final res = await APIClient().post(
-        '${EndPoints.getApiKeyString(apiKey: EndPoints.info)}/bank',
+        '${Endpoints().info}/bank',
         data: data,
       );
 
@@ -28,7 +28,7 @@ class BankInfoRemoteSrc implements BankInfoSrc {
   Future<BankInfo> getBankInfo() async {
     try {
       final res = await APIClient().get(
-        '${EndPoints.getApiKeyString(apiKey: EndPoints.info)}/bank',
+        '${Endpoints().info}/bank',
       );
 
       final banks = res.data['data'] as List<dynamic>;
@@ -45,7 +45,7 @@ class BankInfoRemoteSrc implements BankInfoSrc {
       final data = bankInfo.toJson();
 
       final res = await APIClient().put(
-        '${EndPoints.getApiKeyString(apiKey: EndPoints.info)}/bank/${data['id']}',
+        '${Endpoints().info}/bank/${data['id']}',
         data: data,
       );
 

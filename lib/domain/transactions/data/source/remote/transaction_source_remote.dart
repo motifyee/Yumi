@@ -10,7 +10,7 @@ class TransactionSourceRemote implements TransactionSource {
     required PaginatedData<Transaction> pagination,
     required String userId,
   }) async {
-    final Response res = await APIClient().get(EndPoints.transactions,
+    final Response res = await APIClient().get(Endpoints().transactions,
         queryParameters: {
           'chefId': AppTarget.user == YumiApp.chefs ? userId : null,
           'driverId': AppTarget.user == YumiApp.drivers ? userId : null,

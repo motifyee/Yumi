@@ -59,7 +59,7 @@ class DriverHistoryScreen extends StatelessWidget {
                   create: (context) => OrderCubit(),
                   child: NewsOrders(
                     menuTarget: MenuTarget.order,
-                    apiKey: EndPoints.orderDriverClosed,
+                    apiKey: Endpoints().orderDriverClosed,
                     orderCardTargetPage: OrderCardTargetPage.driverHistory,
                   ),
                 ),
@@ -67,7 +67,7 @@ class DriverHistoryScreen extends StatelessWidget {
                   create: (context) => OrderCubit(),
                   child: NewsOrders(
                     menuTarget: MenuTarget.preOrder,
-                    apiKey: EndPoints.preOrderDriverClosed,
+                    apiKey: Endpoints().preOrderDriverClosed,
                     orderCardTargetPage: OrderCardTargetPage.driverHistory,
                   ),
                 ),

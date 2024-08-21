@@ -7,12 +7,14 @@ class IngredientsRemoteSource extends IngredientsSource {
   Future<List<Ingredient>> getAllIngredients() async {
     Response res;
     try {
-      res = await APIClient().get(EndPoints.ingredient);
+      res = await APIClient().get(Endpoints().ingredient);
     } catch (e) {
       throw ServerException(e as DioException);
     }
 
-    List<Ingredient> ingredients = res.data['data'].map<Ingredient>((json) => Ingredient.fromJson(json)).toList();
+    List<Ingredient> ingredients = res.data['data']
+        .map<Ingredient>((json) => Ingredient.fromJson(json))
+        .toList();
 
     return ingredients;
   }

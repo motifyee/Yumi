@@ -13,7 +13,7 @@ class CategoriesRemoteSrc implements CategoriesSrc {
   }) async {
     try {
       final res = await APIClient().get(
-        EndPoints.getApiKeyString(apiKey: EndPoints.categories),
+        Endpoints().categories,
         queryParameters: {
           ...?pagination?.toJson(),
           'isPreOrder': isPreOrder,
@@ -21,7 +21,9 @@ class CategoriesRemoteSrc implements CategoriesSrc {
       );
 
       final data = jsonDecode(res.toString());
-      final List<Category> categories = (data['data'] as List).map<Category>((v) => Category.fromJson(v)).toList();
+      final List<Category> categories = (data['data'] as List)
+          .map<Category>((v) => Category.fromJson(v))
+          .toList();
 
       return PaginatedData(
         data: categories,
@@ -40,7 +42,7 @@ class CategoriesRemoteSrc implements CategoriesSrc {
   }) async {
     try {
       final res = await APIClient().get(
-        EndPoints.getApiKeyString(apiKey: EndPoints.categoriesForChef),
+        Endpoints().categoriesForChef,
         queryParameters: {
           ...?pagination?.toJson(),
           'isPreOrder': isPreOrder,
@@ -48,7 +50,9 @@ class CategoriesRemoteSrc implements CategoriesSrc {
       );
 
       final data = jsonDecode(res.toString());
-      final List<Category> categories = (data['data'] as List).map<Category>((v) => Category.fromJson(v)).toList();
+      final List<Category> categories = (data['data'] as List)
+          .map<Category>((v) => Category.fromJson(v))
+          .toList();
 
       return PaginatedData(
         data: categories,
@@ -69,7 +73,7 @@ class CategoriesRemoteSrc implements CategoriesSrc {
   }) async {
     try {
       final res = await APIClient().get(
-        EndPoints.getApiKeyString(apiKey: EndPoints.categoriesForCustomer),
+        Endpoints().categoriesForCustomer,
         queryParameters: {
           ...?pagination?.toJson(),
           'isPreOrder': isPreOrder,
@@ -79,7 +83,9 @@ class CategoriesRemoteSrc implements CategoriesSrc {
       );
 
       final data = jsonDecode(res.toString());
-      final List<Category> categories = (data['data'] as List).map<Category>((v) => Category.fromJson(v)).toList();
+      final List<Category> categories = (data['data'] as List)
+          .map<Category>((v) => Category.fromJson(v))
+          .toList();
 
       return PaginatedData(
         data: categories,
@@ -99,7 +105,7 @@ class CategoriesRemoteSrc implements CategoriesSrc {
   }) async {
     try {
       final res = await APIClient().get(
-        EndPoints.getApiKeyString(apiKey: EndPoints.categoriesForCustomerByChefId),
+        Endpoints().categoriesForCustomerByChefId,
         queryParameters: {
           ...?pagination?.toJson(),
           'isPreOrder': isPreOrder,
@@ -108,7 +114,9 @@ class CategoriesRemoteSrc implements CategoriesSrc {
       );
 
       final data = jsonDecode(res.toString());
-      final List<Category> categories = (data['data'] as List).map<Category>((v) => Category.fromJson(v)).toList();
+      final List<Category> categories = (data['data'] as List)
+          .map<Category>((v) => Category.fromJson(v))
+          .toList();
 
       return PaginatedData<Category>(
         data: categories,

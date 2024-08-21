@@ -8,7 +8,7 @@ class NotificationSourceRemote implements NotificationSource {
   Future<PaginatedData<NotificationS>> loadNotifications(
       {required PaginatedData<NotificationS> pagination}) async {
     Response res = await APIClient()
-        .get(EndPoints.notifications, queryParameters: pagination.toJson());
+        .get(Endpoints().notifications, queryParameters: pagination.toJson());
 
     List<NotificationS> notification = res.data['data']
         .map<NotificationS>((json) => NotificationS.fromJson(json))

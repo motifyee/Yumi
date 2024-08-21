@@ -9,8 +9,7 @@ class IngredientsRemoteSrc implements IngredientsSrc {
   @override
   Future<List<Ingredient>> getIngredients() async {
     try {
-      final res = await APIClient()
-          .get(EndPoints.getApiKeyString(apiKey: EndPoints.ingredient));
+      final res = await APIClient().get(Endpoints().ingredient);
 
       return jsonDecode(res.toString());
     } catch (e) {

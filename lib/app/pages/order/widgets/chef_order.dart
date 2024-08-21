@@ -125,7 +125,7 @@ class ChefOrder extends StatelessWidget {
                 create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: menuTarget,
-                  apiKey: EndPoints.preOrderChefReceived,
+                  apiKey: Endpoints().preOrderChefReceived,
                   orderCardTargetPage: OrderCardTargetPage.chefPending,
                   signals: const [Signal.neworderreceived, Signal.driveraccept],
                   navFun: () {
@@ -139,8 +139,8 @@ class ChefOrder extends StatelessWidget {
                 child: NewsOrders(
                   menuTarget: menuTarget,
                   apiKey: menuTarget == MenuTarget.order
-                      ? EndPoints.orderChefReceived
-                      : EndPoints.preOrderChefAccepted,
+                      ? Endpoints().orderChefReceived
+                      : Endpoints().preOrderChefAccepted,
                   orderCardTargetPage: OrderCardTargetPage.chefReceived,
                   signals: [
                     Signal.driveraccept,
@@ -160,8 +160,8 @@ class ChefOrder extends StatelessWidget {
                 child: NewsOrders(
                   menuTarget: menuTarget,
                   apiKey: menuTarget == MenuTarget.order
-                      ? EndPoints.orderChefPreparing
-                      : EndPoints.preOrderChefPreparing,
+                      ? Endpoints().orderChefPreparing
+                      : Endpoints().preOrderChefPreparing,
                   orderCardTargetPage: OrderCardTargetPage.chefPreparing,
                   signals: const [Signal.chefstart, Signal.clientcancel],
                   navFun: () {
@@ -178,8 +178,8 @@ class ChefOrder extends StatelessWidget {
                 child: NewsOrders(
                   menuTarget: menuTarget,
                   apiKey: menuTarget == MenuTarget.order
-                      ? EndPoints.orderChefReady
-                      : EndPoints.preOrderChefReady,
+                      ? Endpoints().orderChefReady
+                      : Endpoints().preOrderChefReady,
                   orderCardTargetPage: OrderCardTargetPage.chefReady,
                   signals: const [Signal.cheffinished],
                   navFun: () {
@@ -193,8 +193,8 @@ class ChefOrder extends StatelessWidget {
                 child: NewsOrders(
                   menuTarget: menuTarget,
                   apiKey: menuTarget == MenuTarget.order
-                      ? EndPoints.orderChefClosed
-                      : EndPoints.preOrderChefClosed,
+                      ? Endpoints().orderChefClosed
+                      : Endpoints().preOrderChefClosed,
                   orderCardTargetPage: OrderCardTargetPage.chefHistory,
                   signals: const [Signal.clientreceived, Signal.driverreceived],
                 ),

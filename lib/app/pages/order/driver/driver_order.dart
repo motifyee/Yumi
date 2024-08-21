@@ -133,8 +133,8 @@ class DriverOrderScreen extends StatelessWidget {
                             child: NewsOrders(
                               menuTarget: menuTarget,
                               apiKey: menuTarget == MenuTarget.order
-                                  ? EndPoints.orderDriverAvailable
-                                  : EndPoints.preOrderDriverAvailable,
+                                  ? Endpoints().orderDriverAvailable
+                                  : Endpoints().preOrderDriverAvailable,
                               orderCardTargetPage:
                                   OrderCardTargetPage.driverAccept,
                               signals: const [
@@ -150,8 +150,8 @@ class DriverOrderScreen extends StatelessWidget {
                   child: NewsOrders(
                     menuTarget: menuTarget,
                     apiKey: menuTarget == MenuTarget.order
-                        ? EndPoints.orderDriverActive
-                        : EndPoints.preOrderDriverActive,
+                        ? Endpoints().orderDriverActive
+                        : Endpoints().preOrderDriverActive,
                     orderCardTargetPage: OrderCardTargetPage.driverReceived,
                     signals: const [
                       Signal.chefstart,

@@ -38,7 +38,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
   getOrderForView() async {
     final task = await GetOrderPreorderDriverById().call(
         GetOrderPreorderDriverByIdParams(
-            apiKeys: EndPoints.orderDriverAvailableById,
+            apiKeys: Endpoints().orderDriverAvailableById,
             id: widget.order.id.toString()));
     task.fold(
         (l) => null,

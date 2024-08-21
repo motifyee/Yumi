@@ -142,7 +142,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: MenuTarget.order,
-                  apiKey: EndPoints.orderCustomerActive,
+                  apiKey: Endpoints().orderCustomerActive,
                   orderCardTargetPage: OrderCardTargetPage.customerOrders,
                   signals: const [
                     Signal.driveraccept,
@@ -159,7 +159,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: MenuTarget.order,
-                  apiKey: EndPoints.orderCustomerClosed,
+                  apiKey: Endpoints().orderCustomerClosed,
                   orderCardTargetPage: OrderCardTargetPage.customerHistory,
                   signals: const [
                     Signal.clientreceived,
@@ -171,7 +171,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: MenuTarget.preOrder,
-                  apiKey: EndPoints.preOrderCustomerActive,
+                  apiKey: Endpoints().preOrderCustomerActive,
                   orderCardTargetPage: OrderCardTargetPage.customerPreOrders,
                   signals: const [
                     Signal.driveraccept,
@@ -188,7 +188,7 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: MenuTarget.preOrder,
-                  apiKey: EndPoints.preOrderCustomerClosed,
+                  apiKey: Endpoints().preOrderCustomerClosed,
                   orderCardTargetPage: OrderCardTargetPage.customerHistory,
                   signals: const [
                     Signal.clientreceived,

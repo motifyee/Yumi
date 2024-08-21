@@ -5,10 +5,14 @@ import 'package:yumi/domain/review/entity/review.dart';
 
 class ReviewRemoteSource extends ReviewSource {
   @override
-  Future<PaginatedData<Review>> getAllReviews({required String chefId, required PaginatedData<Review> paginatedData, bool loginCustomer = false, Map<String, dynamic>? queryParameters}) async {
+  Future<PaginatedData<Review>> getAllReviews(
+      {required String chefId,
+      required PaginatedData<Review> paginatedData,
+      bool loginCustomer = false,
+      Map<String, dynamic>? queryParameters}) async {
     late Response res;
     try {
-      res = await APIClient().get(EndPoints.review,
+      res = await APIClient().get(Endpoints().review,
           queryParameters: {
             ...?queryParameters,
             ...paginatedData.toJson(),
@@ -19,16 +23,32 @@ class ReviewRemoteSource extends ReviewSource {
       ServerException(error as DioException);
     }
 
-    List<Review> data = res.data['data'].map<Review>((e) => Review.fromJson(e)).toList();
-    return paginatedData.copyWith(data: data, pageNumber: res.data['pagination']['page'], lastPage: res.data['pagination']['pages'], total: res.data['pagination']['total'], isLoading: false) as PaginatedData<Review>;
+    List<Review> data =
+        res.data['data'].map<Review>((e) => Review.fromJson(e)).toList();
+    return paginatedData.copyWith(
+        data: data,
+        pageNumber: res.data['pagination']['page'],
+        lastPage: res.data['pagination']['pages'],
+        total: res.data['pagination']['total'],
+        isLoading: false) as PaginatedData<Review>;
   }
 
   @override
-  Future<bool> updateRate({required Review review, String? chefId, String? driverId, Map<String, dynamic>? queryParameters}) async {
+  Future<bool> updateRate(
+      {required Review review,
+      String? chefId,
+      String? driverId,
+      Map<String, dynamic>? queryParameters}) async {
     late Response res;
     try {
-      res =
-          await APIClient().put(EndPoints.review, data: review.toJson()..removeWhere((key, value) => key == 'buddiesUserId'), queryParameters: {...?queryParameters, 'chefId': chefId, 'driverId': driverId}..removeWhere((key, value) => value == null));
+      res = await APIClient().put(Endpoints().review,
+          data: review.toJson()
+            ..removeWhere((key, value) => key == 'buddiesUserId'),
+          queryParameters: {
+            ...?queryParameters,
+            'chefId': chefId,
+            'driverId': driverId
+          }..removeWhere((key, value) => value == null));
     } catch (error) {
       ServerException(error as DioException);
     }

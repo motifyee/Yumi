@@ -7,9 +7,8 @@ class CaloriesRemoteSource implements CaloriesSource {
   Future<PaginatedData<Calorie>> loadCalories({
     required Pagination pagination,
   }) async {
-    final res = await APIClient().get(
-        EndPoints.getApiKeyString(apiKey: EndPoints.mealCalories),
-        queryParameters: pagination.toJson());
+    final res = await APIClient()
+        .get(Endpoints().mealCalories, queryParameters: pagination.toJson());
 
     List<Calorie> calories = res.data['data']
         .map<Calorie>((json) => Calorie.fromJson(json))
