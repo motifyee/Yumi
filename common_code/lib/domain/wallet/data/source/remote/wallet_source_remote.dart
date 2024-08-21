@@ -6,7 +6,7 @@ import 'package:common_code/common_code.dart';
 class WalletSourceRemote extends WalletSource {
   @override
   Future<Wallet> getWallet({Map<String, dynamic>? queryParameters}) async {
-    final Response res = await APIClient().get(EndPoints.wallet,
+    final Response res = await APIClient().get(Endpoints().wallet,
         queryParameters: {
           ...?queryParameters,
         }..removeWhere((key, value) => value == null));
