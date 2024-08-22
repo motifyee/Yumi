@@ -10,8 +10,7 @@ class ProfileRemoteSrc extends ProfileSrc {
   Future<Profile> loadProfile(String id, String withEmail) async {
     if (id.isEmpty) throw GenericException();
 
-    final Response res = await APIClient()
-        .get('${EndPoints.getApiKeyString(apiKey: EndPoints.profile)}/$id');
+    final Response res = await APIClient().get('${Endpoints().profile}/$id');
 
     if (res.statusCode != 200) throw ServerException();
 
@@ -31,7 +30,7 @@ class ProfileRemoteSrc extends ProfileSrc {
     if (id.isEmpty) throw GenericException();
     try {
       response = await APIClient().put<dynamic>(
-        '${EndPoints.getApiKeyString(apiKey: EndPoints.profile)}?id=$id',
+        '${Endpoints().profile}?id=$id',
         data: data,
       );
       result = response.data;
@@ -98,8 +97,7 @@ class ProfileRemoteSrc extends ProfileSrc {
     }
 
     if (res.data?['data'] == null) throw ServerException();
-    final List<Review> reviews =
-        res.data['data'].map<Review>((e) => Review.fromJson(e)).toList();
+    final List<Review> reviews = res.data['data'].map<Review>((e) => Review.fromJson(e)).toList();
 
     return reviews;
   }
@@ -154,8 +152,7 @@ class ProfileRemoteSrc extends ProfileSrc {
         },
       );
     } catch (e) {
-      throw ServerException(
-          (jsonDecode((e as dynamic).response.data as String))['message']);
+      throw ServerException((jsonDecode((e as dynamic).response.data as String))['message']);
     }
 
     if (res.data == null) throw ServerException();
@@ -207,7 +204,7 @@ class ProfileRemoteSrc extends ProfileSrc {
   Future<String> updateStatus(int status) async {
     try {
       final res = await APIClient().put(
-        EndPoints.userStatus,
+        Endpoints().userStatus,
         queryParameters: {'status': status},
       );
 
