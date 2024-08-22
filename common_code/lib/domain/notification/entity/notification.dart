@@ -1,4 +1,5 @@
 import 'package:common_code/common_code.dart';
+import 'package:common_code/domain/notification/entity/notificationStatus_converter.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/domain/notification/entity/notificationType_converter.dart';
 
@@ -10,6 +11,7 @@ class NotificationS with _$NotificationS {
   const factory NotificationS({
     required String id,
     @NotificationTypeConverter() required NotificationTypeEnum notificationType,
+    @NotificationStatusConverter() required YumiStatus yumiStatus,
     @DateTimeToIso8601StringConverter() required DateTime createDate,
     required String description,
     @JsonKey(name: 'type_ID') int? typeID,
@@ -32,3 +34,5 @@ enum NotificationTypeEnum {
   AccountApproved,
   AccountContractApproved,
 }
+
+enum YumiStatus { GeneralNotification }

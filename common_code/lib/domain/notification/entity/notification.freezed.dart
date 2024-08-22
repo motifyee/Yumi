@@ -24,6 +24,8 @@ mixin _$NotificationS {
   @NotificationTypeConverter()
   NotificationTypeEnum get notificationType =>
       throw _privateConstructorUsedError;
+  @NotificationStatusConverter()
+  YumiStatus get yumiStatus => throw _privateConstructorUsedError;
   @DateTimeToIso8601StringConverter()
   DateTime get createDate => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -53,6 +55,7 @@ abstract class $NotificationSCopyWith<$Res> {
   $Res call(
       {String id,
       @NotificationTypeConverter() NotificationTypeEnum notificationType,
+      @NotificationStatusConverter() YumiStatus yumiStatus,
       @DateTimeToIso8601StringConverter() DateTime createDate,
       String description,
       @JsonKey(name: 'type_ID') int? typeID,
@@ -77,6 +80,7 @@ class _$NotificationSCopyWithImpl<$Res, $Val extends NotificationS>
   $Res call({
     Object? id = null,
     Object? notificationType = null,
+    Object? yumiStatus = null,
     Object? createDate = null,
     Object? description = null,
     Object? typeID = freezed,
@@ -94,6 +98,10 @@ class _$NotificationSCopyWithImpl<$Res, $Val extends NotificationS>
           ? _value.notificationType
           : notificationType // ignore: cast_nullable_to_non_nullable
               as NotificationTypeEnum,
+      yumiStatus: null == yumiStatus
+          ? _value.yumiStatus
+          : yumiStatus // ignore: cast_nullable_to_non_nullable
+              as YumiStatus,
       createDate: null == createDate
           ? _value.createDate
           : createDate // ignore: cast_nullable_to_non_nullable
@@ -137,6 +145,7 @@ abstract class _$$NotificationSImplCopyWith<$Res>
   $Res call(
       {String id,
       @NotificationTypeConverter() NotificationTypeEnum notificationType,
+      @NotificationStatusConverter() YumiStatus yumiStatus,
       @DateTimeToIso8601StringConverter() DateTime createDate,
       String description,
       @JsonKey(name: 'type_ID') int? typeID,
@@ -159,6 +168,7 @@ class __$$NotificationSImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? notificationType = null,
+    Object? yumiStatus = null,
     Object? createDate = null,
     Object? description = null,
     Object? typeID = freezed,
@@ -176,6 +186,10 @@ class __$$NotificationSImplCopyWithImpl<$Res>
           ? _value.notificationType
           : notificationType // ignore: cast_nullable_to_non_nullable
               as NotificationTypeEnum,
+      yumiStatus: null == yumiStatus
+          ? _value.yumiStatus
+          : yumiStatus // ignore: cast_nullable_to_non_nullable
+              as YumiStatus,
       createDate: null == createDate
           ? _value.createDate
           : createDate // ignore: cast_nullable_to_non_nullable
@@ -214,6 +228,7 @@ class _$NotificationSImpl implements _NotificationS {
   const _$NotificationSImpl(
       {required this.id,
       @NotificationTypeConverter() required this.notificationType,
+      @NotificationStatusConverter() required this.yumiStatus,
       @DateTimeToIso8601StringConverter() required this.createDate,
       required this.description,
       @JsonKey(name: 'type_ID') this.typeID,
@@ -230,6 +245,9 @@ class _$NotificationSImpl implements _NotificationS {
   @override
   @NotificationTypeConverter()
   final NotificationTypeEnum notificationType;
+  @override
+  @NotificationStatusConverter()
+  final YumiStatus yumiStatus;
   @override
   @DateTimeToIso8601StringConverter()
   final DateTime createDate;
@@ -253,7 +271,7 @@ class _$NotificationSImpl implements _NotificationS {
 
   @override
   String toString() {
-    return 'NotificationS(id: $id, notificationType: $notificationType, createDate: $createDate, description: $description, typeID: $typeID, driverID: $driverID, chefID: $chefID, clientID: $clientID, employeeID: $employeeID)';
+    return 'NotificationS(id: $id, notificationType: $notificationType, yumiStatus: $yumiStatus, createDate: $createDate, description: $description, typeID: $typeID, driverID: $driverID, chefID: $chefID, clientID: $clientID, employeeID: $employeeID)';
   }
 
   @override
@@ -264,6 +282,8 @@ class _$NotificationSImpl implements _NotificationS {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.notificationType, notificationType) ||
                 other.notificationType == notificationType) &&
+            (identical(other.yumiStatus, yumiStatus) ||
+                other.yumiStatus == yumiStatus) &&
             (identical(other.createDate, createDate) ||
                 other.createDate == createDate) &&
             (identical(other.description, description) ||
@@ -280,8 +300,8 @@ class _$NotificationSImpl implements _NotificationS {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, notificationType, createDate,
-      description, typeID, driverID, chefID, clientID, employeeID);
+  int get hashCode => Object.hash(runtimeType, id, notificationType, yumiStatus,
+      createDate, description, typeID, driverID, chefID, clientID, employeeID);
 
   @JsonKey(ignore: true)
   @override
@@ -302,6 +322,7 @@ abstract class _NotificationS implements NotificationS {
       {required final String id,
       @NotificationTypeConverter()
       required final NotificationTypeEnum notificationType,
+      @NotificationStatusConverter() required final YumiStatus yumiStatus,
       @DateTimeToIso8601StringConverter() required final DateTime createDate,
       required final String description,
       @JsonKey(name: 'type_ID') final int? typeID,
@@ -319,6 +340,9 @@ abstract class _NotificationS implements NotificationS {
   @override
   @NotificationTypeConverter()
   NotificationTypeEnum get notificationType;
+  @override
+  @NotificationStatusConverter()
+  YumiStatus get yumiStatus;
   @override
   @DateTimeToIso8601StringConverter()
   DateTime get createDate;

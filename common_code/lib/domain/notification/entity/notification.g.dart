@@ -11,6 +11,8 @@ _$NotificationSImpl _$$NotificationSImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       notificationType: const NotificationTypeConverter()
           .fromJson(json['notificationType'] as String),
+      yumiStatus: const NotificationStatusConverter()
+          .fromJson(json['yumiStatus'] as String),
       createDate: const DateTimeToIso8601StringConverter()
           .fromJson(json['createDate'] as String),
       description: json['description'] as String,
@@ -26,6 +28,8 @@ Map<String, dynamic> _$$NotificationSImplToJson(_$NotificationSImpl instance) =>
       'id': instance.id,
       'notificationType':
           const NotificationTypeConverter().toJson(instance.notificationType),
+      'yumiStatus':
+          const NotificationStatusConverter().toJson(instance.yumiStatus),
       'createDate':
           const DateTimeToIso8601StringConverter().toJson(instance.createDate),
       'description': instance.description,
