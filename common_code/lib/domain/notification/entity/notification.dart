@@ -58,7 +58,7 @@ enum YumiStatus {
   CustomerCancelChefDelayed, //.
   CustomerCancelDriverDelayed, // .
   CustomerWaitChefDelayed, // .
-  CustomerWaitDriverDelayed,
+  CustomerWaitDriverDelayed, // .
   DriverReceivedMoney, // .
-  SystemCancelNoDriverAccept,
+  SystemCancelNoDriverAccept, // .
 }
