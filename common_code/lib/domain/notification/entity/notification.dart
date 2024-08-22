@@ -37,7 +37,7 @@ enum NotificationTypeEnum {
 
 enum YumiStatus {
   GeneralNotification, // .
-  NewOrderReceived,
+  NewOrderReceived, // .
   DriverAccept, // .
   ChefAccept, // .
   ChefStart, // .
@@ -50,14 +50,14 @@ enum YumiStatus {
   DriverPenalty, // .
   ChefPenalty, // .
   DriverBonus, // .
-  CustomerBonus,
+  CustomerBonus, // .
   CustomerRefund, // .
   ChefReceivedMoney, // .
   AccountApproved, // .
   ContractApproved, // .
   CustomerCancelChefDelayed, //.
   CustomerCancelDriverDelayed, // .
-  CustomerWaitChefDelayed,
+  CustomerWaitChefDelayed, // .
   CustomerWaitDriverDelayed,
   DriverReceivedMoney, // .
   SystemCancelNoDriverAccept,
