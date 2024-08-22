@@ -1,16 +1,27 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:common_code/domain/profile/data/sources/profile_source.dart';
 import 'package:common_code/common_code.dart';
+import 'package:dependencies/dependencies.dart';
 
 class ProfileRemoteSrc extends ProfileSrc {
+  final APIClient client;
+  final Endpoints endpoints;
+
+  ProfileRemoteSrc({APIClient? client, Endpoints? endpoints})
+      : client = client ?? APIClient(),
+        endpoints = endpoints ?? Endpoints();
+
   @override
   Future<Profile> loadProfile(String id, String withEmail) async {
     if (id.isEmpty) throw GenericException();
 
-    final Response res = await APIClient().get('${Endpoints().profile}/$id');
+    final Response res;
+    try {
+      res = await client.get('${endpoints.profile}/$id');
+    } catch (e) {
+      throw e.exceptionFromDio;
+    }
 
     if (res.statusCode != 200) throw ServerException();
 
@@ -29,14 +40,13 @@ class ProfileRemoteSrc extends ProfileSrc {
 
     if (id.isEmpty) throw GenericException();
     try {
-      response = await APIClient().put<dynamic>(
-        '${Endpoints().profile}?id=$id',
+      response = await client.put<dynamic>(
+        '${endpoints.profile}?id=$id',
         data: data,
       );
       result = response.data;
     } catch (e) {
-      if (e is DioException) throw ServerException(e);
-      throw GenericException(e.toString());
+      throw e.exceptionFromDio;
     }
 
     if (result == null) throw ServerException();
@@ -48,9 +58,9 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response<String> res;
 
     try {
-      res = await APIClient().delete<String>('/accounts?isDelete=true');
+      res = await client.delete<String>('/accounts?isDelete=true');
     } catch (e) {
-      throw ServerException();
+      throw e.exceptionFromDio;
     }
 
     if (res.data == null) throw ServerException();
@@ -60,11 +70,11 @@ class ProfileRemoteSrc extends ProfileSrc {
   @override
   Future<String> getMobileOTP() async {
     try {
-      final call = await APIClient().post<dynamic>('/accounts/mobileverified');
+      final call = await client.post<dynamic>('/accounts/mobileverified');
 
       return call.data['otp'];
     } catch (e) {
-      throw ServerException(e as DioException);
+      throw e.exceptionFromDio;
     }
   }
 
@@ -73,11 +83,11 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response<String> res;
 
     try {
-      res = await APIClient().put<String>(
+      res = await client.put<String>(
         '/accounts/mobileverified?OTP=$otp',
       );
     } catch (e) {
-      throw ServerException(e as DioException);
+      throw e.exceptionFromDio;
     }
 
     if (res.data == null) throw ServerException();
@@ -89,11 +99,11 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response res;
 
     try {
-      res = await APIClient().get(
+      res = await client.get(
         '/accounts/review',
       );
     } catch (e) {
-      throw ServerException();
+      throw e.exceptionFromDio;
     }
 
     if (res.data?['data'] == null) throw ServerException();
@@ -107,11 +117,11 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response res;
 
     try {
-      res = await APIClient().post(
+      res = await client.post(
         '/accounts/password?mail=$email',
       );
     } catch (e) {
-      throw ServerException();
+      throw e.exceptionFromDio;
     }
 
     if (res.data?['message'] == null) throw ServerException();
@@ -123,11 +133,11 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response res;
 
     try {
-      res = await APIClient().post(
+      res = await client.post(
         '/accounts/password/mobile?mobile=$mobile',
       );
     } catch (e) {
-      throw ServerException(e as DioException);
+      throw e.exceptionFromDio;
     }
 
     if (res.data?['message'] == null) throw ServerException();
@@ -143,7 +153,7 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response<String> res;
 
     try {
-      res = await APIClient().put<String>(
+      res = await client.put<String>(
         '/accounts/password',
         data: {
           'OTP': otp,
@@ -152,7 +162,7 @@ class ProfileRemoteSrc extends ProfileSrc {
         },
       );
     } catch (e) {
-      throw ServerException((jsonDecode((e as dynamic).response.data as String))['message']);
+      throw e.exceptionFromDio;
     }
 
     if (res.data == null) throw ServerException();
@@ -168,7 +178,7 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response<dynamic> res;
 
     try {
-      res = await APIClient().put<dynamic>(
+      res = await client.put<dynamic>(
         '/accounts/password/mobile',
         data: {
           'OTP': otp,
@@ -177,7 +187,7 @@ class ProfileRemoteSrc extends ProfileSrc {
         },
       );
     } catch (e) {
-      throw ServerException(e as DioException);
+      throw e.exceptionFromDio;
     }
 
     if (res.data == null) throw ServerException();
@@ -189,11 +199,11 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response res;
 
     try {
-      res = await APIClient().post(
+      res = await client.post(
         '/accounts/emailverified?email=$email',
       );
     } catch (e) {
-      throw ServerException(e as DioException);
+      throw e.exceptionFromDio;
     }
 
     if (res.data == null) throw ServerException();
@@ -203,14 +213,14 @@ class ProfileRemoteSrc extends ProfileSrc {
   @override
   Future<String> updateStatus(int status) async {
     try {
-      final res = await APIClient().put(
-        Endpoints().userStatus,
+      final res = await client.put(
+        endpoints.userStatus,
         queryParameters: {'status': status},
       );
 
       return res.data.toString();
     } catch (e) {
-      throw ServerException(e as DioException);
+      throw e.exceptionFromDio;
     }
   }
 }
