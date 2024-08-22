@@ -35,4 +35,30 @@ enum NotificationTypeEnum {
   AccountContractApproved,
 }
 
-enum YumiStatus { GeneralNotification }
+enum YumiStatus {
+  GeneralNotification,
+  NewOrderReceived,
+  DriverAccept,
+  ChefAccept,
+  ChefStart,
+  ChefFinished,
+  DriverReceived,
+  ClientReceivedOrder,
+  SystemCancelChefDelayed,
+  SystemCancelDriverDelayed,
+  DriverDelayedCustomerWaitDriverOrCancel,
+  DriverPenalty,
+  ChefPenalty,
+  DriverBonus,
+  CustomerBonus,
+  CustomerRefund,
+  ChefReceivedMoney,
+  AccountApproved,
+  ContractApproved,
+  CustomerCancelChefDelayed,
+  CustomerCancelDriverDelayed,
+  CustomerWaitChefDelayed,
+  CustomerWaitDriverDelayed,
+  DriverReceivedMoney,
+  SystemCancelNoDriverAccept,
+}
