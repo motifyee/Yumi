@@ -8,8 +8,7 @@ String originApi = '';
 
 class BaseUrl {
   static Future<void> load() async {
-    final value =
-        await LocalStorage.sharedRef.getValue(LocalStorage.domainName);
+    final value = await LocalStorage.sharedRef.getValue(LocalStorage.domainName);
 
     originApi = value ?? defaultOriginApi;
     APIClient.baseUrl = originApi;
@@ -34,8 +33,7 @@ class Endpoints {
     return apiKey.replaceAll("_", GlobalContext().appConfig.appTitle);
   }
 
-  static String actionApiKeyString(
-      {required String apiKey, required String id}) {
+  static String actionApiKeyString({required String apiKey, required String id}) {
     return apiKey.replaceAll("_", id);
   }
 
@@ -71,8 +69,7 @@ class Endpoints {
   final String _meal = '/Product/_/meal'; //  => chefs
   String get meal => getApiKey(_meal);
   String getMeal = '/meals';
-  final String _getMealById = '/product/meal/_'; //  => id
-  String get getMealById => getApiKey(_getMealById);
+  final String getMealById = '/product/meal/_'; //  => id
   String getMealByCategory = '/meals/category';
   String getMealByChef = '/meals/chef';
   String getMealByChefByCategory = '/meals/category/chef';
@@ -141,20 +138,17 @@ class Endpoints {
   String orderChefPickUpDelivered = '/order/pickup/chef/delivered';
 
   final String _preOrderChefDeliveryAccept = '/preorder/_/chef/accept';
-  String get preOrderChefDeliveryAccept =>
-      getApiKey(_preOrderChefDeliveryAccept);
+  String get preOrderChefDeliveryAccept => getApiKey(_preOrderChefDeliveryAccept);
   final String _preOrderChefDeliveryStart = '/preorder/_/chef/start';
   String get preOrderChefDeliveryStart => getApiKey(_preOrderChefDeliveryStart);
   final String _preOrderChefDeliveryFinished = '/preorder/_/chef/finished';
-  String get preOrderChefDeliveryFinished =>
-      getApiKey(_preOrderChefDeliveryFinished);
+  String get preOrderChefDeliveryFinished => getApiKey(_preOrderChefDeliveryFinished);
   final String _preOrderChefPickUpAccept = '/preorder/_/chef/pickup/accept';
   String get preOrderChefPickUpAccept => getApiKey(_preOrderChefPickUpAccept);
   final String _preOrderChefPickUpStart = '/preorder/_/chef/pickup/start';
   String get preOrderChefPickUpStart => getApiKey(_preOrderChefPickUpStart);
   final String _preOrderChefPickUpFinished = '/preorder/_/chef/pickup/finished';
-  String get preOrderChefPickUpFinished =>
-      getApiKey(_preOrderChefPickUpFinished);
+  String get preOrderChefPickUpFinished => getApiKey(_preOrderChefPickUpFinished);
   String preOrderChefPickUpDelivered = '/preorder/pickup/chef/delivered';
 
   // customers
