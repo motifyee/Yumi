@@ -115,40 +115,25 @@ class Endpoints {
 
   // action order && preOrder
   /// replace ( _ ) with order id
-  final String _orderDriverAccept = '/order/_/driver/accept';
-  String get orderDriverAccept => getApiKey(_orderDriverAccept);
-  final String _orderDriverReceived = '/order/_/driver/received';
-  String get orderDriverReceived => getApiKey(_orderDriverReceived);
+  final String orderDriverAccept = '/order/_/driver/accept'; // id
+  final String orderDriverReceived = '/order/_/driver/received'; // id
   String orderDriverDelivered = '/order/delivery/driver/delivered';
-  final String _preOrderDriverAccept = '/preorder/_/driver/accept';
-  String get preOrderDriverAccept => getApiKey(_preOrderDriverAccept);
-  final String _preOrderDriverReceived = '/preorder/_/driver/received';
-  String get preOrderDriverReceived => getApiKey(_preOrderDriverReceived);
-  final String _preOrderDriverDelivered = '/preorder/delivery/driver/delivered';
-  String get preOrderDriverDelivered => getApiKey(_preOrderDriverDelivered);
+  final String preOrderDriverAccept = '/preorder/_/driver/accept'; // id
+  final String preOrderDriverReceived = '/preorder/_/driver/received'; // id
+  final String preOrderDriverDelivered = '/preorder/delivery/driver/delivered'; // id
 
-  final String _orderChefDeliveryStart = '/order/_/chef/start';
-  String get orderChefDeliveryStart => getApiKey(_orderChefDeliveryStart);
-  final String _orderChefDeliveryFinished = '/order/_/chef/finished';
-  String get orderChefDeliveryFinished => getApiKey(_orderChefDeliveryFinished);
-  final String _orderChefPickUpStart = '/order/_/chef/pickup/start';
-  String get orderChefPickUpStart => getApiKey(_orderChefPickUpStart);
-  final String _orderChefPickUpFinished = '/order/_/chef/pickup/finished';
-  String get orderChefPickUpFinished => getApiKey(_orderChefPickUpFinished);
+  final String orderChefDeliveryStart = '/order/_/chef/start'; // id
+  final String orderChefDeliveryFinished = '/order/_/chef/finished'; // id
+  final String orderChefPickUpStart = '/order/_/chef/pickup/start'; // id
+  final String orderChefPickUpFinished = '/order/_/chef/pickup/finished'; // id
   String orderChefPickUpDelivered = '/order/pickup/chef/delivered';
 
-  final String _preOrderChefDeliveryAccept = '/preorder/_/chef/accept';
-  String get preOrderChefDeliveryAccept => getApiKey(_preOrderChefDeliveryAccept);
-  final String _preOrderChefDeliveryStart = '/preorder/_/chef/start';
-  String get preOrderChefDeliveryStart => getApiKey(_preOrderChefDeliveryStart);
-  final String _preOrderChefDeliveryFinished = '/preorder/_/chef/finished';
-  String get preOrderChefDeliveryFinished => getApiKey(_preOrderChefDeliveryFinished);
-  final String _preOrderChefPickUpAccept = '/preorder/_/chef/pickup/accept';
-  String get preOrderChefPickUpAccept => getApiKey(_preOrderChefPickUpAccept);
-  final String _preOrderChefPickUpStart = '/preorder/_/chef/pickup/start';
-  String get preOrderChefPickUpStart => getApiKey(_preOrderChefPickUpStart);
-  final String _preOrderChefPickUpFinished = '/preorder/_/chef/pickup/finished';
-  String get preOrderChefPickUpFinished => getApiKey(_preOrderChefPickUpFinished);
+  final String preOrderChefDeliveryAccept = '/preorder/_/chef/accept'; // id
+  final String preOrderChefDeliveryStart = '/preorder/_/chef/start'; // id
+  final String preOrderChefDeliveryFinished = '/preorder/_/chef/finished'; // id
+  final String preOrderChefPickUpAccept = '/preorder/_/chef/pickup/accept'; // id
+  final String preOrderChefPickUpStart = '/preorder/_/chef/pickup/start'; // id
+  final String preOrderChefPickUpFinished = '/preorder/_/chef/pickup/finished'; // id
   String preOrderChefPickUpDelivered = '/preorder/pickup/chef/delivered';
 
   // customers

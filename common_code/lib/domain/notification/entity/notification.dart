@@ -11,7 +11,7 @@ class NotificationS with _$NotificationS {
   const factory NotificationS({
     required String id,
     @NotificationTypeConverter() required NotificationTypeEnum notificationType,
-    @NotificationStatusConverter() required YumiStatus yumiStatus,
+    @NotificationStatusConverter() YumiStatus? yumiStatus,
     @DateTimeToIso8601StringConverter() required DateTime createDate,
     required String description,
     @JsonKey(name: 'type_ID') int? typeID,
@@ -36,29 +36,29 @@ enum NotificationTypeEnum {
 }
 
 enum YumiStatus {
-  GeneralNotification,
+  GeneralNotification, // .
   NewOrderReceived,
-  DriverAccept,
-  ChefAccept,
-  ChefStart,
-  ChefFinished,
-  DriverReceived,
-  ClientReceivedOrder,
-  SystemCancelChefDelayed,
-  SystemCancelDriverDelayed,
-  DriverDelayedCustomerWaitDriverOrCancel,
-  DriverPenalty,
-  ChefPenalty,
-  DriverBonus,
+  DriverAccept, // .
+  ChefAccept, // .
+  ChefStart, // .
+  ChefFinished, // .
+  DriverReceived, // .
+  ClientReceivedOrder, // .
+  SystemCancelChefDelayed, // .
+  SystemCancelDriverDelayed, // .
+  DriverDelayedCustomerWaitDriverOrCancel, // .
+  DriverPenalty, // .
+  ChefPenalty, // .
+  DriverBonus, // .
   CustomerBonus,
-  CustomerRefund,
-  ChefReceivedMoney,
-  AccountApproved,
-  ContractApproved,
-  CustomerCancelChefDelayed,
-  CustomerCancelDriverDelayed,
+  CustomerRefund, // .
+  ChefReceivedMoney, // .
+  AccountApproved, // .
+  ContractApproved, // .
+  CustomerCancelChefDelayed, //.
+  CustomerCancelDriverDelayed, // .
   CustomerWaitChefDelayed,
   CustomerWaitDriverDelayed,
-  DriverReceivedMoney,
+  DriverReceivedMoney, // .
   SystemCancelNoDriverAccept,
 }

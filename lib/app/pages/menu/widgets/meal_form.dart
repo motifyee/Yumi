@@ -139,7 +139,7 @@ class MealForm extends StatelessWidget {
                                 validators: requiredValidator,
                                 readOnly: true,
                                 onTap: () {
-                                  context.read<IngredientsFormCubit>().update(ingredientsModel: ingredients ?? []);
+                                  context.read<IngredientsFormCubit>().update(ingredientsModel: getMeal().ingredients ?? []);
                                   showModalBottomSheet(
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,

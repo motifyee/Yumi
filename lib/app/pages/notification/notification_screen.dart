@@ -75,6 +75,7 @@ class _NotificationList extends StatelessWidget {
       },
       child: BlocBuilder<NotificationCubit, NotificationState>(
         builder: (context, state) {
+          print(state.pagination.data);
           return Column(
             children: [
               for (NotificationS notification in state.pagination.data)
@@ -91,7 +92,11 @@ class _NotificationList extends StatelessWidget {
                           height: CommonDimens.defaultMediumGap,
                           decoration: BoxDecoration(color: CommonColors.backgroundTant, borderRadius: BorderRadius.circular(CommonDimens.defaultMediumGap)),
                           child: Center(
-                            child: SvgPicture.asset('assets/images/notifications/${notification.yumiStatus.name}.svg'),
+                            child: SvgPicture.asset(
+                              'assets/images/notifications/${notification.yumiStatus!.name}.svg',
+                              width: 30,
+                              height: 30,
+                            ),
                           ),
                         ),
                         const SizedBox(width: CommonDimens.defaultGap),

@@ -5,7 +5,7 @@ class NotificationStatusConverter extends JsonConverter<YumiStatus, String> {
   const NotificationStatusConverter();
   @override
   YumiStatus fromJson(String json) {
-    if (NotificationTypeEnum.values.asNameMap().containsKey(json)) {
+    if (YumiStatus.values.asNameMap().containsKey(json)) {
       return YumiStatus.values.byName(json);
     }
     return YumiStatus.GeneralNotification;

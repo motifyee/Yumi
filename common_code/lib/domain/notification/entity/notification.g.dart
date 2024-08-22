@@ -11,8 +11,10 @@ _$NotificationSImpl _$$NotificationSImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       notificationType: const NotificationTypeConverter()
           .fromJson(json['notificationType'] as String),
-      yumiStatus: const NotificationStatusConverter()
-          .fromJson(json['yumiStatus'] as String),
+      yumiStatus: _$JsonConverterFromJson<String, YumiStatus>(
+              json['yumiStatus'],
+              const NotificationStatusConverter().fromJson) ??
+          YumiStatus.GeneralNotification,
       createDate: const DateTimeToIso8601StringConverter()
           .fromJson(json['createDate'] as String),
       description: json['description'] as String,
@@ -28,8 +30,8 @@ Map<String, dynamic> _$$NotificationSImplToJson(_$NotificationSImpl instance) =>
       'id': instance.id,
       'notificationType':
           const NotificationTypeConverter().toJson(instance.notificationType),
-      'yumiStatus':
-          const NotificationStatusConverter().toJson(instance.yumiStatus),
+      'yumiStatus': _$JsonConverterToJson<String, YumiStatus>(
+          instance.yumiStatus, const NotificationStatusConverter().toJson),
       'createDate':
           const DateTimeToIso8601StringConverter().toJson(instance.createDate),
       'description': instance.description,
@@ -39,3 +41,15 @@ Map<String, dynamic> _$$NotificationSImplToJson(_$NotificationSImpl instance) =>
       'client_ID': instance.clientID,
       'employee_ID': instance.employeeID,
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
