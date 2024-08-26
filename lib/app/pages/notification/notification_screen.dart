@@ -143,10 +143,12 @@ class _NotificationNote extends StatelessWidget {
                 Container(
                   width: CommonDimens.defaultMediumGap,
                   height: CommonDimens.defaultMediumGap,
-                  decoration: BoxDecoration(color: CommonColors.backgroundTant, borderRadius: BorderRadius.circular(CommonDimens.defaultMediumGap)),
+                  decoration: BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.circular(CommonDimens.defaultMediumGap)),
                   child: Center(
                     child: SvgPicture.asset(
-                      'assets/images/notifications/${notification.notificationType.name}.svg',
+                      'assets/images/notifications/${notification.yumiStatus!.name}.svg',
+                      width: 30,
+                      height: 30,
                     ),
                   ),
                 ),
