@@ -26,7 +26,7 @@ class NotificationScreen extends StatelessWidget {
               surfaceTintColor: Colors.transparent,
               leading: TextButton(
                   onPressed: () {
-                    G().router.pop();
+                    G().router.maybePop();
                   },
                   child: Icon(
                     Icons.arrow_back,
@@ -90,7 +90,7 @@ class _NotificationList extends StatelessWidget {
                         Container(
                           width: CommonDimens.defaultMediumGap,
                           height: CommonDimens.defaultMediumGap,
-                          decoration: BoxDecoration(color: CommonColors.backgroundTant, borderRadius: BorderRadius.circular(CommonDimens.defaultMediumGap)),
+                          decoration: BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.circular(CommonDimens.defaultMediumGap)),
                           child: Center(
                             child: SvgPicture.asset(
                               'assets/images/notifications/${notification.yumiStatus!.name}.svg',
