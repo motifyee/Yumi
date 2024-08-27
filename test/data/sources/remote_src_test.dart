@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart' as ftest;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
+import 'bankinfo_src_testcases.dart';
 import 'profile_src_testcases.dart';
 import 'schedule_src_testcases.dart';
 import 'testcase.dart';
@@ -28,6 +29,7 @@ void main() {
   final testCases = [
     profileTestSrc,
     scheduleTestSrc,
+    bankinfoTestSrc,
   ];
 
   for (var source in testCases) {
