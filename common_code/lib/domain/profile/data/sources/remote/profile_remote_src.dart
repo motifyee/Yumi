@@ -19,16 +19,14 @@ class ProfileRemoteSrc extends ProfileSrc {
     final Response res;
     try {
       res = await client.get('${endpoints.profile}/$id');
+
+      return Profile.fromJson(res.data).copyWith(
+        updatedBy: '366',
+        email: withEmail,
+      );
     } catch (e) {
       throw e.exceptionFromDio;
     }
-
-    if (res.statusCode != 200) throw ServerException();
-
-    return Profile.fromJson(res.data).copyWith(
-      updatedBy: '366',
-      email: withEmail,
-    );
   }
 
   @override
@@ -55,16 +53,13 @@ class ProfileRemoteSrc extends ProfileSrc {
 
   @override
   Future<String> deleteProfile() async {
-    final Response<String> res;
-
     try {
-      res = await client.delete<String>('/accounts?isDelete=true');
+      final response = await client.delete('/accounts?isDelete=true');
+      String result = response.data;
+      return result;
     } catch (e) {
       throw e.exceptionFromDio;
     }
-
-    if (res.data == null) throw ServerException();
-    return res.data!;
   }
 
   @override
@@ -80,68 +75,58 @@ class ProfileRemoteSrc extends ProfileSrc {
 
   @override
   Future<String> verifyAddMobileOTP(String otp) async {
-    final Response<String> res;
-
     try {
-      res = await client.put<String>(
+      final res = await client.put(
         '/accounts/mobileverified?OTP=$otp',
       );
+
+      String result = res.data!;
+      return result;
     } catch (e) {
       throw e.exceptionFromDio;
     }
-
-    if (res.data == null) throw ServerException();
-    return res.data!;
   }
 
   @override
   Future<List<Review>> getReviews() async {
-    final Response res;
-
     try {
-      res = await client.get(
+      final res = await client.get(
         '/accounts/review',
       );
+
+      final List<Review> reviews =
+          res.data['data'].map<Review>((e) => Review.fromJson(e)).toList();
+
+      return reviews;
     } catch (e) {
       throw e.exceptionFromDio;
     }
-
-    if (res.data?['data'] == null) throw ServerException();
-    final List<Review> reviews = res.data['data'].map<Review>((e) => Review.fromJson(e)).toList();
-
-    return reviews;
   }
 
   @override
   Future<String> resetPasswordByEmail(String email) async {
-    final Response res;
-
     try {
-      res = await client.post(
+      final res = await client.post(
         '/accounts/password?mail=$email',
       );
+
+      return res.data['message'] as String;
     } catch (e) {
       throw e.exceptionFromDio;
     }
-
-    if (res.data?['message'] == null) throw ServerException();
-    return res.data['message'] as String;
   }
 
   @override
   Future<String> resetPasswordByMobile(String mobile) async {
-    final Response res;
-
     try {
-      res = await client.post(
+      final res = await client.post(
         '/accounts/password/mobile?mobile=$mobile',
       );
+
+      return res.data['message'] as String;
     } catch (e) {
       throw e.exceptionFromDio;
     }
-
-    if (res.data?['message'] == null) throw ServerException();
-    return res.data['message'] as String;
   }
 
   @override
@@ -150,10 +135,8 @@ class ProfileRemoteSrc extends ProfileSrc {
     String otp,
     String password,
   ) async {
-    final Response<String> res;
-
     try {
-      res = await client.put<String>(
+      final res = await client.put(
         '/accounts/password',
         data: {
           'OTP': otp,
@@ -161,12 +144,12 @@ class ProfileRemoteSrc extends ProfileSrc {
           'mail': email,
         },
       );
+
+      String result = res.data! as String;
+      return result;
     } catch (e) {
       throw e.exceptionFromDio;
     }
-
-    if (res.data == null) throw ServerException();
-    return res.data!;
   }
 
   @override
@@ -175,10 +158,8 @@ class ProfileRemoteSrc extends ProfileSrc {
     String otp,
     String password,
   ) async {
-    final Response<dynamic> res;
-
     try {
-      res = await client.put<dynamic>(
+      final res = await client.put<dynamic>(
         '/accounts/password/mobile',
         data: {
           'OTP': otp,
@@ -186,12 +167,12 @@ class ProfileRemoteSrc extends ProfileSrc {
           'mobile': mobile,
         },
       );
+
+      String result = res.data!;
+      return result;
     } catch (e) {
       throw e.exceptionFromDio;
     }
-
-    if (res.data == null) throw ServerException();
-    return res.data!;
   }
 
   @override
@@ -218,7 +199,8 @@ class ProfileRemoteSrc extends ProfileSrc {
         queryParameters: {'status': status},
       );
 
-      return res.data.toString();
+      String result = res.data as String;
+      return result;
     } catch (e) {
       throw e.exceptionFromDio;
     }
