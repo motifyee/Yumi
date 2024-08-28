@@ -62,17 +62,11 @@ class DriverOrderScreen extends StatelessWidget {
                         key: key,
                         label: S.of(context).available,
                         isActive: state.selectedList == 0,
-                        isNotificationIconShow: states.isSignalTriggered(
-                            signal: [Signal.neworderreceived],
-                            isPreOrder: menuTarget == MenuTarget.preOrder),
+                        isNotificationIconShow: states.isSignalTriggered(signal: [Signal.neworderreceived], isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
-                          context
-                              .read<PageViewCubit>()
-                              .updateSelect(selectedList: 0);
+                          context.read<PageViewCubit>().updateSelect(selectedList: 0);
                           _controller.jumpToPage(0);
-                          context
-                              .read<SignalRCubit>()
-                              .removeSignals(signal: [Signal.neworderreceived]);
+                          context.read<SignalRCubit>().removeSignals(signal: [Signal.neworderreceived]);
                         },
                       ),
                       const SizedBox(width: CommonDimens.defaultBlockGap),
@@ -80,23 +74,22 @@ class DriverOrderScreen extends StatelessWidget {
                         key: key,
                         label: S.of(context).active,
                         isActive: state.selectedList == 1,
-                        isNotificationIconShow:
-                            states.isSignalTriggered(signal: [
+                        isNotificationIconShow: states.isSignalTriggered(signal: [
                           Signal.chefstart,
                           Signal.cheffinished,
                           Signal.driverreceived,
                           Signal.clientreceived,
+                          Signal.clientcancel,
                         ], isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
-                          context
-                              .read<PageViewCubit>()
-                              .updateSelect(selectedList: 1);
+                          context.read<PageViewCubit>().updateSelect(selectedList: 1);
                           _controller.jumpToPage(1);
                           context.read<SignalRCubit>().removeSignals(signal: [
                             Signal.chefstart,
                             Signal.cheffinished,
                             Signal.driverreceived,
                             Signal.clientreceived,
+                            Signal.clientcancel,
                           ]);
                         },
                       ),
@@ -113,16 +106,12 @@ class DriverOrderScreen extends StatelessWidget {
               children: [
                 BlocBuilder<UserCubit, UserState>(
                   builder: (context, state) {
-                    return state.user.status != 1 &&
-                            menuTarget == MenuTarget.order
+                    return state.user.status != 1 && menuTarget == MenuTarget.order
                         ? Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(
-                                  CommonDimens.defaultMediumGap),
+                              padding: const EdgeInsets.all(CommonDimens.defaultMediumGap),
                               child: Text(
-                                S
-                                    .of(context)
-                                    .toReceiveOrdersChangYourStatusToOnline,
+                                S.of(context).toReceiveOrdersChangYourStatusToOnline,
                                 softWrap: true,
                                 textAlign: TextAlign.center,
                               ),
@@ -132,15 +121,9 @@ class DriverOrderScreen extends StatelessWidget {
                             create: (context) => OrderCubit(),
                             child: NewsOrders(
                               menuTarget: menuTarget,
-                              apiKey: menuTarget == MenuTarget.order
-                                  ? Endpoints().orderDriverAvailable
-                                  : Endpoints().preOrderDriverAvailable,
-                              orderCardTargetPage:
-                                  OrderCardTargetPage.driverAccept,
-                              signals: const [
-                                Signal.neworderreceived,
-                                Signal.driveraccept
-                              ],
+                              apiKey: menuTarget == MenuTarget.order ? Endpoints().orderDriverAvailable : Endpoints().preOrderDriverAvailable,
+                              orderCardTargetPage: OrderCardTargetPage.driverAccept,
+                              signals: const [Signal.neworderreceived, Signal.driveraccept],
                             ),
                           );
                   },
@@ -149,15 +132,14 @@ class DriverOrderScreen extends StatelessWidget {
                   create: (context) => OrderCubit(),
                   child: NewsOrders(
                     menuTarget: menuTarget,
-                    apiKey: menuTarget == MenuTarget.order
-                        ? Endpoints().orderDriverActive
-                        : Endpoints().preOrderDriverActive,
+                    apiKey: menuTarget == MenuTarget.order ? Endpoints().orderDriverActive : Endpoints().preOrderDriverActive,
                     orderCardTargetPage: OrderCardTargetPage.driverReceived,
                     signals: const [
                       Signal.chefstart,
                       Signal.cheffinished,
                       Signal.driverreceived,
                       Signal.clientreceived,
+                      Signal.clientcancel,
                     ],
                   ),
                 ),

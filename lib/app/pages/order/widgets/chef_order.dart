@@ -21,9 +21,7 @@ class ChefOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context
-        .read<PageViewCubit>()
-        .updateSelect(selectedList: menuTarget == MenuTarget.order ? 1 : 0);
+    context.read<PageViewCubit>().updateSelect(selectedList: menuTarget == MenuTarget.order ? 1 : 0);
     return Column(
       children: [
         BlocBuilder<SignalRCubit, SignalRState>(
@@ -38,76 +36,54 @@ class ChefOrder extends StatelessWidget {
                         key: key,
                         label: S.of(context).pending,
                         isActive: state.selectedList == 0,
-                        isNotificationIconShow: states.isSignalTriggered(
-                            signal: [Signal.neworderreceived],
-                            isPreOrder: menuTarget == MenuTarget.preOrder),
+                        isNotificationIconShow: states.isSignalTriggered(signal: [Signal.neworderreceived, Signal.driveraccept], isPreOrder: menuTarget == MenuTarget.preOrder),
                         onPressed: () {
-                          context
-                              .read<PageViewCubit>()
-                              .updateSelect(selectedList: 0);
+                          context.read<PageViewCubit>().updateSelect(selectedList: 0);
                           controller.jumpToPage(0);
-                          context
-                              .read<SignalRCubit>()
-                              .removeSignals(signal: [Signal.neworderreceived]);
+                          context.read<SignalRCubit>().removeSignals(signal: [Signal.neworderreceived, Signal.driveraccept]);
                         },
                       ),
                     ActionButton(
                       key: key,
                       label: S.of(context).received,
                       isActive: state.selectedList == 1,
-                      isNotificationIconShow: states.isSignalTriggered(signal: [
-                        Signal.driveraccept,
-                        if (menuTarget == MenuTarget.order)
-                          Signal.neworderreceived,
-                      ], isPreOrder: menuTarget == MenuTarget.preOrder),
+                      isNotificationIconShow: states.isSignalTriggered(signal: [Signal.driveraccept, if (menuTarget == MenuTarget.order) Signal.neworderreceived, Signal.clientcancel], isPreOrder: menuTarget == MenuTarget.preOrder),
                       onPressed: () {
-                        context
-                            .read<PageViewCubit>()
-                            .updateSelect(selectedList: 1);
+                        context.read<PageViewCubit>().updateSelect(selectedList: 1);
                         controller.jumpToPage(1);
-                        context.read<SignalRCubit>().removeSignals(signal: [
-                          Signal.driveraccept,
-                          if (menuTarget == MenuTarget.order)
-                            Signal.neworderreceived,
-                        ]);
+                        context.read<SignalRCubit>().removeSignals(signal: [Signal.driveraccept, if (menuTarget == MenuTarget.order) Signal.neworderreceived, Signal.clientcancel]);
                       },
                     ),
                     ActionButton(
                       key: key,
                       label: S.of(context).preparing,
                       isActive: state.selectedList == 2,
+                      isNotificationIconShow: states.isSignalTriggered(signal: [Signal.clientcancel], isPreOrder: menuTarget == MenuTarget.preOrder),
                       onPressed: () {
-                        context
-                            .read<PageViewCubit>()
-                            .updateSelect(selectedList: 2);
+                        context.read<PageViewCubit>().updateSelect(selectedList: 2);
                         controller.jumpToPage(2);
+                        context.read<SignalRCubit>().removeSignals(signal: [Signal.clientcancel]);
                       },
                     ),
                     ActionButton(
                       key: key,
                       label: S.of(context).ready,
                       isActive: state.selectedList == 3,
+                      isNotificationIconShow: states.isSignalTriggered(signal: [Signal.clientreceived], isPreOrder: menuTarget == MenuTarget.preOrder),
                       onPressed: () {
-                        context
-                            .read<PageViewCubit>()
-                            .updateSelect(selectedList: 3);
+                        context.read<PageViewCubit>().updateSelect(selectedList: 3);
                         controller.jumpToPage(3);
+                        context.read<SignalRCubit>().removeSignals(signal: [Signal.clientreceived]);
                       },
                     ),
                     GestureDetector(
                       onTap: () {
-                        context
-                            .read<PageViewCubit>()
-                            .updateSelect(selectedList: 4);
+                        context.read<PageViewCubit>().updateSelect(selectedList: 4);
                         controller.jumpToPage(4);
                       },
                       child: SvgPicture.asset(
                         'assets/images/history.svg',
-                        colorFilter: ColorFilter.mode(
-                            state.selectedList == 4
-                                ? CommonColors.primary
-                                : CommonColors.secondary,
-                            BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(state.selectedList == 4 ? CommonColors.primary : CommonColors.secondary, BlendMode.srcIn),
                       ),
                     ),
                   ],
@@ -138,13 +114,12 @@ class ChefOrder extends StatelessWidget {
                 create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: menuTarget,
-                  apiKey: menuTarget == MenuTarget.order
-                      ? Endpoints().orderChefReceived
-                      : Endpoints().preOrderChefAccepted,
+                  apiKey: menuTarget == MenuTarget.order ? Endpoints().orderChefReceived : Endpoints().preOrderChefAccepted,
                   orderCardTargetPage: OrderCardTargetPage.chefReceived,
                   signals: [
                     Signal.driveraccept,
                     if (menuTarget == MenuTarget.order) Signal.neworderreceived,
+                    Signal.clientcancel,
                   ],
                   navFun: () {
                     context.read<PageViewCubit>().updateSelect(selectedList: 2);
@@ -159,9 +134,7 @@ class ChefOrder extends StatelessWidget {
                 create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: menuTarget,
-                  apiKey: menuTarget == MenuTarget.order
-                      ? Endpoints().orderChefPreparing
-                      : Endpoints().preOrderChefPreparing,
+                  apiKey: menuTarget == MenuTarget.order ? Endpoints().orderChefPreparing : Endpoints().preOrderChefPreparing,
                   orderCardTargetPage: OrderCardTargetPage.chefPreparing,
                   signals: const [Signal.chefstart, Signal.clientcancel],
                   navFun: () {
@@ -177,9 +150,7 @@ class ChefOrder extends StatelessWidget {
                 create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: menuTarget,
-                  apiKey: menuTarget == MenuTarget.order
-                      ? Endpoints().orderChefReady
-                      : Endpoints().preOrderChefReady,
+                  apiKey: menuTarget == MenuTarget.order ? Endpoints().orderChefReady : Endpoints().preOrderChefReady,
                   orderCardTargetPage: OrderCardTargetPage.chefReady,
                   signals: const [Signal.cheffinished],
                   navFun: () {
@@ -192,9 +163,7 @@ class ChefOrder extends StatelessWidget {
                 create: (context) => OrderCubit(),
                 child: NewsOrders(
                   menuTarget: menuTarget,
-                  apiKey: menuTarget == MenuTarget.order
-                      ? Endpoints().orderChefClosed
-                      : Endpoints().preOrderChefClosed,
+                  apiKey: menuTarget == MenuTarget.order ? Endpoints().orderChefClosed : Endpoints().preOrderChefClosed,
                   orderCardTargetPage: OrderCardTargetPage.chefHistory,
                   signals: const [Signal.clientreceived, Signal.driverreceived],
                 ),
