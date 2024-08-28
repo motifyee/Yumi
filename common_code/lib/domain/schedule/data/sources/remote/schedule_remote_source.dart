@@ -15,13 +15,11 @@ class ScheduleRemoteSrc implements ScheduleSrc {
       res = await client.get(
         '/accounts/schedule',
       );
+
+      return Schedule.fromJson(res.data);
     } catch (e) {
       throw e.exceptionFromDio;
     }
-
-    if (res.statusCode != 200 && res.statusCode != 201) throw ServerException();
-
-    return Schedule.fromJson(res.data);
   }
 
   @override
@@ -43,18 +41,16 @@ class ScheduleRemoteSrc implements ScheduleSrc {
 
     // -------------------------------------------------------------------------
 
-    final Response res;
     try {
-      res = await client.put(
+      final res = await client.put(
         '/accounts/schedule',
         data: data,
       );
+
+      String result = res.data as String;
+      return result;
     } catch (e) {
       throw e.exceptionFromDio;
     }
-
-    if (res.statusCode != 200) throw ServerException();
-
-    return res.data.toString();
   }
 }
