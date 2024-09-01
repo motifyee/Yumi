@@ -81,6 +81,7 @@ class TransactionsScreen extends StatelessWidget {
                                                 '${S.of(context).orderId}: ${transaction.invoiceId}',
                                                 style: Theme.of(context).textTheme.titleSmall,
                                               ),
+                                              Text(DateFormat('d-M-yyyy | hh:mm').format(DateTime.parse(transaction.createdDate ?? '')), style: Theme.of(context).textTheme.labelSmall),
                                               Padding(
                                                 padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap),
                                                 child: Text(transaction.journalType ?? '', style: Theme.of(context).textTheme.bodyMedium),
