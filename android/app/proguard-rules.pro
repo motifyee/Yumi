@@ -8,3 +8,5 @@
 -dontwarn com.google.j2objc.annotations.ReflectionSupport
 -dontwarn io.flutter.plugins.googlesignin.BackgroundTaskRunner$Callback
 -dontwarn io.flutter.plugins.googlesignin.BackgroundTaskRunner
+-keep class com.google.common.reflect.TypeToken
+-keep class * extends com.google.common.reflect.TypeToken
