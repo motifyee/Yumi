@@ -36,8 +36,8 @@ export 'package:collection/collection.dart';
 export 'package:package_info_plus/package_info_plus.dart';
 export 'package:hotkey_manager/hotkey_manager.dart';
 
-export 'package:google_sign_in/google_sign_in.dart';
-export 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// export 'package:google_sign_in/google_sign_in.dart';
+// export 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:loading_indicator/loading_indicator.dart';

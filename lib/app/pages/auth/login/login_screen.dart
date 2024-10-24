@@ -8,7 +8,6 @@ import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/app/pages/auth/login/custom_domain.dart';
-import 'package:yumi/app/pages/auth/login/social_login.dart';
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {
@@ -71,7 +70,7 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(
                           height: CommonDimens.defaultBlockGap,
                         ),
-                        const SocialLogin(),
+                        // const SocialLogin(),
                       ],
                     ),
                   ),
