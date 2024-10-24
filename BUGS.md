@@ -79,3 +79,11 @@
   - context propagation
 
 - **Performance**
+
+## Crashes
+
+- **awesome-notifications-platformexceptionshared-preferences-not-available**
+  - add the follow proguards to avoid R8 full mode code shrinking for the gson package:
+    - -keep class com.google.common.reflect.TypeToken
+    - -keep class \* extends com.google.common.reflect.TypeToke
+  - resources: (https://stackoverflow.com/questions/78656128/awesome-notifications-platformexceptionshared-preferences-not-available)
