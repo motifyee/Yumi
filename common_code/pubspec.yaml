@@ -2,7 +2,7 @@ name: common_code
 description: 'A new Flutter package project.'
 version: 0.0.1
 homepage: ''
-publish_to: 'none'
+# publish_to: 'none'
 
 environment:
   sdk: '>=3.4.3 <4.0.0'
@@ -65,7 +65,7 @@ dev_dependencies:
   json_serializable: ^6.8.0
   freezed: ^2.5.2 # analyzer: 6.5.1 > meta: 1.15.0
 
-flutter:
+# flutter:
 
 flutter_intl:
   enabled: true

@@ -1,7 +1,7 @@
 name: yumi
 description: 'Food For Health.'
 
-publish_to: 'none'
+# publish_to: 'none'
 
 version: 2.0.4+55
 
@@ -76,6 +76,7 @@ dependencies:
   # flutter_stripe: ^11.0.0
 
   flutter_native_splash: ^2.4.0
+  json_annotation: ^4.9.0
   common_code:
     path: ./common_code
   dependencies:
@@ -90,7 +91,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.1
 
   json_serializable: ^6.8.0
-  
+
   # freezed: ^2.5.2 # analyzer: 6.5.1 > meta: 1.15.0
 
   # mockito: ^5.4.4
@@ -134,8 +135,8 @@ flutter_native_splash:
   web: false
 
 flutter_launcher_icons:
-  android: "launcher_icon"
   ios: true
-  image_path: "assets/icon/icon.png"
-  min_sdk_android: 21
+  android: true
+  min_sdk_android: 34
   remove_alpha_ios: true
+  image_path: 'assets/icon/icon.png'
