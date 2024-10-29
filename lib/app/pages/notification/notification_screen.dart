@@ -1,11 +1,11 @@
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:common_code/domain/notification/entity/notification.dart';
+import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 
@@ -41,10 +41,11 @@ class NotificationScreen extends StatelessWidget {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultLineGap),
+            padding: const EdgeInsets.symmetric(
+                horizontal: CommonDimens.defaultLineGap),
             child: Row(
               children: [
-                SvgPicture.asset('assets/images/notification.svg'),
+                SvgPicture.asset(AppAssets.notificationIcon),
                 const Text('  '),
                 Text(
                   S.of(context).notification,
@@ -54,8 +55,14 @@ class NotificationScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: CommonDimens.defaultGap),
-          const Expanded(
-            child: _NotificationList(),
+          BlocBuilder<UserCubit, UserState>(
+            builder: (context, state) {
+              return Expanded(
+                child: state.isLoggedIn
+                    ? const _NotificationList()
+                    : const LoginToContinue(),
+              );
+            },
           ),
         ],
       ),
@@ -75,22 +82,29 @@ class _NotificationList extends StatelessWidget {
       },
       child: BlocBuilder<NotificationCubit, NotificationState>(
         builder: (context, state) {
-          print(state.pagination.data);
           return Column(
             children: [
               for (NotificationS notification in state.pagination.data)
                 GestureDetector(
                   onTap: () {
-                    showDialog(context: context, builder: (context) => _NotificationNote(notification: notification));
+                    showDialog(
+                        context: context,
+                        builder: (context) =>
+                            _NotificationNote(notification: notification));
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap, horizontal: CommonDimens.defaultTitleGap),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: CommonDimens.defaultGap,
+                        horizontal: CommonDimens.defaultTitleGap),
                     child: Row(
                       children: [
                         Container(
                           width: CommonDimens.defaultMediumGap,
                           height: CommonDimens.defaultMediumGap,
-                          decoration: BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.circular(CommonDimens.defaultMediumGap)),
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(
+                                  CommonDimens.defaultMediumGap)),
                           child: Center(
                             child: SvgPicture.asset(
                               'assets/images/notifications/${notification.yumiStatus!.name}.svg',
@@ -104,8 +118,16 @@ class _NotificationList extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(notification.description, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.headlineMedium),
-                              Text(DateFormat('d-M-yyyy | hh:mm').format(notification.createDate), style: Theme.of(context).textTheme.labelSmall),
+                              Text(notification.description,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium),
+                              Text(
+                                  DateFormat('d-M-yyyy | hh:mm')
+                                      .format(notification.createDate),
+                                  style:
+                                      Theme.of(context).textTheme.labelSmall),
                             ],
                           ),
                         ),
@@ -130,20 +152,29 @@ class _NotificationNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap, horizontal: CommonDimens.defaultTitleGap),
+      padding: const EdgeInsets.symmetric(
+          vertical: CommonDimens.defaultGap,
+          horizontal: CommonDimens.defaultTitleGap),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            decoration: BoxDecoration(color: CommonColors.background, borderRadius: BorderRadius.circular(CommonDimens.defaultGap)),
-            padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap, horizontal: CommonDimens.defaultTitleGap),
+            decoration: BoxDecoration(
+                color: CommonColors.background,
+                borderRadius: BorderRadius.circular(CommonDimens.defaultGap)),
+            padding: const EdgeInsets.symmetric(
+                vertical: CommonDimens.defaultGap,
+                horizontal: CommonDimens.defaultTitleGap),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   width: CommonDimens.defaultMediumGap,
                   height: CommonDimens.defaultMediumGap,
-                  decoration: BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.circular(CommonDimens.defaultMediumGap)),
+                  decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius:
+                          BorderRadius.circular(CommonDimens.defaultMediumGap)),
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/images/notifications/${notification.yumiStatus!.name}.svg',
@@ -157,8 +188,12 @@ class _NotificationNote extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(notification.description, style: Theme.of(context).textTheme.headlineMedium),
-                      Text(DateFormat('d-M-yyyy | hh:mm').format(notification.createDate), style: Theme.of(context).textTheme.labelSmall),
+                      Text(notification.description,
+                          style: Theme.of(context).textTheme.headlineMedium),
+                      Text(
+                          DateFormat('d-M-yyyy | hh:mm')
+                              .format(notification.createDate),
+                          style: Theme.of(context).textTheme.labelSmall),
                     ],
                   ),
                 ),

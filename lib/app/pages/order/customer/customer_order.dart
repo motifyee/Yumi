@@ -10,9 +10,9 @@ import 'package:yumi/app/pages/order/widgets/news_orders.dart';
 
 @RoutePage()
 class MyOrdersScreen extends StatelessWidget {
-  MyOrdersScreen({super.key, this.isHistory = false});
+  const MyOrdersScreen({super.key, this.isHistory = false});
 
-  bool isHistory;
+  final bool isHistory;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,9 @@ class MyOrdersScreen extends StatelessWidget {
 }
 
 class _MyOrderTemplate extends StatefulWidget {
-  _MyOrderTemplate({this.isHistory = false});
+  const _MyOrderTemplate({this.isHistory = false});
 
-  bool isHistory;
+  final bool isHistory;
 
   @override
   State<_MyOrderTemplate> createState() => _MyOrderTemplateState();

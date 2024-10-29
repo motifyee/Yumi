@@ -7,4 +7,8 @@ class UserState with _$UserState {
     Address? address,
     @Default(false) bool loading,
   }) = _Initial;
+
+  const UserState._();
+
+  bool get isLoggedIn => user.accessToken.isNotEmpty;
 }

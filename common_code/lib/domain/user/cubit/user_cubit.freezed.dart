@@ -140,9 +140,10 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
+class _$InitialImpl extends _Initial {
   const _$InitialImpl(
-      {this.user = const User(), this.address, this.loading = false});
+      {this.user = const User(), this.address, this.loading = false})
+      : super._();
 
   @override
   @JsonKey()
@@ -178,11 +179,12 @@ class _$InitialImpl implements _Initial {
       __$$InitialImplCopyWithImpl<_$InitialImpl>(this, _$identity);
 }
 
-abstract class _Initial implements UserState {
+abstract class _Initial extends UserState {
   const factory _Initial(
       {final User user,
       final Address? address,
       final bool loading}) = _$InitialImpl;
+  const _Initial._() : super._();
 
   @override
   User get user;

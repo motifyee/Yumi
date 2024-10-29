@@ -24,6 +24,9 @@ class AppAssets {
   // map
   static const mapPinIcon = 'assets/images/map/map_pin.svg';
 
+  // notification
+  static const notificationIcon = 'assets/images/notification.svg';
+
   // onboarding flow
   static onboardingStepIcon(String icon, bool isDone) =>
       'assets/images/flow/${icon + (isDone ? '-done' : '')}.svg';

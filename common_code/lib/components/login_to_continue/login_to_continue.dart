@@ -10,6 +10,8 @@ class LoginToContinue extends StatelessWidget {
       padding: const EdgeInsets.all(60.0),
       child: Column(
         children: [
+          Image.asset(CommonAssets.chefPanic),
+          const SizedBox(height: 20),
           Text(
             "Sorry!",
             style: TextStyle(

@@ -228,8 +228,7 @@ class _$NotificationSImpl implements _NotificationS {
   const _$NotificationSImpl(
       {required this.id,
       @NotificationTypeConverter() required this.notificationType,
-      @NotificationStatusConverter()
-      this.yumiStatus = YumiStatus.GeneralNotification,
+      @NotificationStatusConverter() this.yumiStatus,
       @DateTimeToIso8601StringConverter() required this.createDate,
       required this.description,
       @JsonKey(name: 'type_ID') this.typeID,
@@ -247,7 +246,6 @@ class _$NotificationSImpl implements _NotificationS {
   @NotificationTypeConverter()
   final NotificationTypeEnum notificationType;
   @override
-  @JsonKey()
   @NotificationStatusConverter()
   final YumiStatus? yumiStatus;
   @override

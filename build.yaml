@@ -9,3 +9,13 @@ targets:
           maybe_when_map: false
           map:
             maybe_map: false
+    sources:
+      - lib/**
+      - pubspec.*
+      - $package$
+    dependencies:
+      - :common_code
+
+  common_code:
+    sources:
+      - common_code/lib/**

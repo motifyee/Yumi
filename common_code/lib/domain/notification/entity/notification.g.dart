@@ -9,12 +9,9 @@ part of 'notification.dart';
 _$NotificationSImpl _$$NotificationSImplFromJson(Map<String, dynamic> json) =>
     _$NotificationSImpl(
       id: json['id'] as String,
-      notificationType: const NotificationTypeConverter()
-          .fromJson(json['notificationType'] as String),
-      yumiStatus: _$JsonConverterFromJson<String, YumiStatus>(
-              json['yumiStatus'],
-              const NotificationStatusConverter().fromJson) ??
-          YumiStatus.GeneralNotification,
+      notificationType:
+          $enumDecode(_$NotificationTypeEnumEnumMap, json['notificationType']),
+      yumiStatus: $enumDecodeNullable(_$YumiStatusEnumMap, json['yumiStatus']),
       createDate: const DateTimeToIso8601StringConverter()
           .fromJson(json['createDate'] as String),
       description: json['description'] as String,
@@ -29,9 +26,8 @@ Map<String, dynamic> _$$NotificationSImplToJson(_$NotificationSImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'notificationType':
-          const NotificationTypeConverter().toJson(instance.notificationType),
-      'yumiStatus': _$JsonConverterToJson<String, YumiStatus>(
-          instance.yumiStatus, const NotificationStatusConverter().toJson),
+          _$NotificationTypeEnumEnumMap[instance.notificationType]!,
+      'yumiStatus': _$YumiStatusEnumMap[instance.yumiStatus],
       'createDate':
           const DateTimeToIso8601StringConverter().toJson(instance.createDate),
       'description': instance.description,
@@ -42,14 +38,42 @@ Map<String, dynamic> _$$NotificationSImplToJson(_$NotificationSImpl instance) =>
       'employee_ID': instance.employeeID,
     };
 
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
+const _$NotificationTypeEnumEnumMap = {
+  NotificationTypeEnum.GeneralNotification: 'GeneralNotification',
+  NotificationTypeEnum.DeliveryOrder: 'DeliveryOrder',
+  NotificationTypeEnum.DeliveryPreOrder: 'DeliveryPreOrder',
+  NotificationTypeEnum.PickupPreOrder: 'PickupPreOrder',
+  NotificationTypeEnum.PickupOrder: 'PickupOrder',
+  NotificationTypeEnum.FinishOrder: 'FinishOrder',
+  NotificationTypeEnum.AccountApproved: 'AccountApproved',
+  NotificationTypeEnum.AccountContractApproved: 'AccountContractApproved',
+};
 
-Json? _$JsonConverterToJson<Json, Value>(
-  Value? value,
-  Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);
+const _$YumiStatusEnumMap = {
+  YumiStatus.GeneralNotification: 'GeneralNotification',
+  YumiStatus.NewOrderReceived: 'NewOrderReceived',
+  YumiStatus.DriverAccept: 'DriverAccept',
+  YumiStatus.ChefAccept: 'ChefAccept',
+  YumiStatus.ChefStart: 'ChefStart',
+  YumiStatus.ChefFinished: 'ChefFinished',
+  YumiStatus.DriverReceived: 'DriverReceived',
+  YumiStatus.ClientReceivedOrder: 'ClientReceivedOrder',
+  YumiStatus.SystemCancelChefDelayed: 'SystemCancelChefDelayed',
+  YumiStatus.SystemCancelDriverDelayed: 'SystemCancelDriverDelayed',
+  YumiStatus.DriverDelayedCustomerWaitDriverOrCancel:
+      'DriverDelayedCustomerWaitDriverOrCancel',
+  YumiStatus.DriverPenalty: 'DriverPenalty',
+  YumiStatus.ChefPenalty: 'ChefPenalty',
+  YumiStatus.DriverBonus: 'DriverBonus',
+  YumiStatus.CustomerBonus: 'CustomerBonus',
+  YumiStatus.CustomerRefund: 'CustomerRefund',
+  YumiStatus.ChefReceivedMoney: 'ChefReceivedMoney',
+  YumiStatus.AccountApproved: 'AccountApproved',
+  YumiStatus.ContractApproved: 'ContractApproved',
+  YumiStatus.CustomerCancelChefDelayed: 'CustomerCancelChefDelayed',
+  YumiStatus.CustomerCancelDriverDelayed: 'CustomerCancelDriverDelayed',
+  YumiStatus.CustomerWaitChefDelayed: 'CustomerWaitChefDelayed',
+  YumiStatus.CustomerWaitDriverDelayed: 'CustomerWaitDriverDelayed',
+  YumiStatus.DriverReceivedMoney: 'DriverReceivedMoney',
+  YumiStatus.SystemCancelNoDriverAccept: 'SystemCancelNoDriverAccept',
+};
