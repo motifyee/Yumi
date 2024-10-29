@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:common_code/common_code.dart';
 import 'package:common_code/core/setup/signalr.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:signalr_netcore/signalr_client.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:yumi/generated/l10n.dart';
 
 class SideBarButton extends StatefulWidget {
@@ -20,7 +20,8 @@ class _SideBarButtonState extends State<SideBarButton> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(seconds: 1), (e) => setState(() {}));
+    Timer.periodic(
+        const Duration(seconds: 1), (e) => mounted ? setState(() {}) : null);
   }
 
   Color signalRStateColor() {
@@ -56,10 +57,17 @@ class _SideBarButtonState extends State<SideBarButton> {
           ),
         ),
         if (Signalr.hubConnection?.state != HubConnectionState.Connected)
-          Positioned(
-            left: CommonDimens.defaultLineGap,
-            bottom: CommonDimens.defaultGap,
-            child: Text(S.of(context).disconnected, style: Theme.of(context).textTheme.headlineSmall),
+          BlocBuilder<UserCubit, UserState>(
+            builder: (context, state) {
+              if (!state.isLoggedIn) return const SizedBox();
+
+              return Positioned(
+                left: CommonDimens.defaultLineGap,
+                bottom: CommonDimens.defaultGap,
+                child: Text(S.of(context).disconnected,
+                    style: Theme.of(context).textTheme.headlineSmall),
+              );
+            },
           ),
       ],
     );

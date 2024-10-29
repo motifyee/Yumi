@@ -2,6 +2,7 @@ import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:yumi/app/components/login_to_continue/login_to_continue.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/bankinfo/cubit/bankinfo_cubit.dart';
 import 'package:yumi/app/pages/settings/components/profile/profile_card.dart';
@@ -84,21 +85,27 @@ class SettingsScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: () async {
-                context.read<BankInfoCubit>().getBankInfo();
-                context.read<ProfileCubit>().getProfile();
-              },
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Column(children: pageItems),
+      body: BlocBuilder<UserCubit, UserState>(
+        builder: (context, state) {
+          if (!state.isLoggedIn) return const LoginToContinue();
+
+          return Column(
+            children: [
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    context.read<BankInfoCubit>().getBankInfo();
+                    context.read<ProfileCubit>().getProfile();
+                  },
+                  child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: Column(children: pageItems),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ],
+            ],
+          );
+        },
       ),
     );
   }

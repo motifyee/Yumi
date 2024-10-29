@@ -3,6 +3,7 @@ import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
+import 'package:yumi/app/components/login_to_continue/login_to_continue.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';

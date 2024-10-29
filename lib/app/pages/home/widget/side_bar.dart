@@ -24,11 +24,9 @@ class SideBar extends StatelessWidget {
       builder: (context, state) {
         return Stack(
           children: [
-            Container(
-              child: SvgPicture.asset(
-                'assets/images/side_bar_bg.svg',
-                fit: BoxFit.fill,
-              ),
+            SvgPicture.asset(
+              'assets/images/side_bar_bg.svg',
+              fit: BoxFit.fill,
             ),
             Container(
               padding: const EdgeInsets.only(
@@ -59,13 +57,16 @@ class SideBar extends StatelessWidget {
                           color: CommonColors.primary,
                         ),
                       ),
-                      borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadiusExtreme),
+                      borderRadius: BorderRadius.circular(
+                          CommonDimens.defaultBorderRadiusExtreme),
                       color: CommonColors.onPrimary,
                     ),
                     child: GestureDetector(
                       onTap: () {
                         Navigator.of(context).pop();
-                        context.read<NavigatorCubit>().navigate(selectedIndex: 1);
+                        context
+                            .read<NavigatorCubit>()
+                            .navigate(selectedIndex: 1);
                       },
                       child: Container(
                         width: 72,
@@ -73,15 +74,19 @@ class SideBar extends StatelessWidget {
                         padding: EdgeInsets.zero,
                         decoration: BoxDecoration(
                           color: CommonColors.secondary,
-                          borderRadius: BorderRadius.circular(CommonDimens.defaultBorderRadiusExtreme),
+                          borderRadius: BorderRadius.circular(
+                              CommonDimens.defaultBorderRadiusExtreme),
                         ),
                         child: Center(
                           child: Text(
-                            state.user.userName.isEmpty ? '' : (state.user.userName[0]).toUpperCase(),
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  fontSize: CommonFontSize.font_38,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                            state.user.userName.isEmpty
+                                ? ''
+                                : (state.user.userName[0]).toUpperCase(),
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      fontSize: CommonFontSize.font_38,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                           ),
                         ),
                       ),
@@ -94,37 +99,68 @@ class SideBar extends StatelessWidget {
                           fontSize: CommonFontSize.font_18,
                         ),
                   ),
-                  TextButton(
-                    style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: const Size(CommonDimens.defaultTitleGap, CommonDimens.defaultTitleGap), tapTargetSize: MaterialTapTargetSize.shrinkWrap, alignment: Alignment.centerLeft),
-                    onPressed: () {
-                      showAlertDialog(context: context, title: Container(), content: const ProfileForm(), actions: {S.of(context).cancel: null}, actionWidgets: [const ProfileFormSubmitButton()]);
+                  BlocBuilder<UserCubit, UserState>(
+                    builder: (context, state) {
+                      if (!state.isLoggedIn) return const SizedBox();
+
+                      return TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: const Size(
+                                CommonDimens.defaultTitleGap,
+                                CommonDimens.defaultTitleGap),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            alignment: Alignment.centerLeft),
+                        onPressed: () {
+                          showAlertDialog(
+                              context: context,
+                              title: Container(),
+                              content: const ProfileForm(),
+                              actions: {S.of(context).cancel: null},
+                              actionWidgets: [const ProfileFormSubmitButton()]);
+                        },
+                        child: Center(
+                            child: SvgPicture.asset('assets/images/edit.svg')),
+                      );
                     },
-                    child: Center(child: SvgPicture.asset('assets/images/edit.svg')),
                   ),
                   const SizedBox(height: CommonDimens.defaultGap),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          for (var menuItem in AppMenuList.appList(context)) MenuButton(menuItem: menuItem),
+                          for (var menuItem in AppMenuList.appList(context))
+                            MenuButton(menuItem: menuItem),
                           //
                           const SizedBox(height: 40),
-                          TextButton(
-                            onPressed: () {
-                              context.read<UserCubit>().reset();
-                              context.router.replaceAll([const LoginRoute()]);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  S.of(context).logOut,
-                                  style: Theme.of(context).textTheme.labelLarge,
+                          BlocBuilder<UserCubit, UserState>(
+                            builder: (context, state) {
+                              return TextButton(
+                                onPressed: () {
+                                  context.read<UserCubit>().reset();
+                                  context.router
+                                      .replaceAll([const LoginRoute()]);
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      state.isLoggedIn
+                                          ? S.of(context).logOut
+                                          : S.of(context).login,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge,
+                                    ),
+                                    const SizedBox(
+                                        width: CommonDimens.defaultGap),
+                                    SvgPicture.asset(state.isLoggedIn
+                                        ? 'assets/images/logout_menu.svg'
+                                        : 'assets/images/login.svg'),
+                                  ],
                                 ),
-                                const SizedBox(width: CommonDimens.defaultGap),
-                                SvgPicture.asset('assets/images/logout_menu.svg'),
-                              ],
-                            ),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -142,13 +178,15 @@ class SideBar extends StatelessWidget {
                         SvgPicture.asset(
                           'assets/images/welocme_chef_icon.svg',
                           height: CommonFontSize.font_12,
-                          colorFilter: ColorFilter.mode(CommonColors.primary, BlendMode.srcIn),
+                          colorFilter: ColorFilter.mode(
+                              CommonColors.primary, BlendMode.srcIn),
                         ),
                       if (AppTarget.user == YumiApp.drivers)
                         SvgPicture.asset(
                           'assets/images/welcom_driver_icon.svg',
                           height: CommonFontSize.font_12,
-                          colorFilter: ColorFilter.mode(CommonColors.primary, BlendMode.srcIn),
+                          colorFilter: ColorFilter.mode(
+                              CommonColors.primary, BlendMode.srcIn),
                         ),
                     ],
                   ),

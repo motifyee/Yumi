@@ -1,8 +1,8 @@
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
+import 'package:yumi/app/components/login_to_continue/login_to_continue.dart';
 import 'package:yumi/app/pages/transactions/transaction_cubit/transaction_cubit.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 
@@ -37,77 +37,123 @@ class TransactionsScreen extends StatelessWidget {
             ),
             centerTitle: true,
           ),
-          body: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultLineGap),
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/images/transaction_wallet_icon.svg'),
-                    const Text('  '),
-                    Text(
-                      S.of(context).transactions,
-                      style: Theme.of(context).textTheme.labelLarge,
+          body: BlocBuilder<UserCubit, UserState>(
+            builder: (context, state) {
+              if (!state.isLoggedIn) return const LoginToContinue();
+
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultLineGap),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                            'assets/images/transaction_wallet_icon.svg'),
+                        const Text('  '),
+                        Text(
+                          S.of(context).transactions,
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: CommonDimens.defaultGap),
-              Expanded(
-                child: PaginationTemplate(
-                  scrollDirection: Axis.vertical,
-                  loadDate: () {
-                    context.read<TransactionCubit>().getAllTransactions(userId: context.read<UserCubit>().state.user.id);
-                  },
-                  child: BlocBuilder<TransactionCubit, TransactionState>(
-                    builder: (context, state) {
-                      return Column(
-                        children: [
-                          for (Transaction transaction in state.pagination.data)
-                            if (transaction.credit != null)
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: CommonDimens.defaultGap, horizontal: CommonDimens.defaultGap),
-                                child: Container(
-                                  decoration: BoxDecoration(color: CommonColors.backgroundTant),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultBlockGap, vertical: CommonDimens.defaultLineGap),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                '${S.of(context).orderId}: ${transaction.invoiceId}',
-                                                style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  const SizedBox(height: CommonDimens.defaultGap),
+                  Expanded(
+                    child: PaginationTemplate(
+                      scrollDirection: Axis.vertical,
+                      loadDate: () {
+                        context.read<TransactionCubit>().getAllTransactions(
+                            userId: context.read<UserCubit>().state.user.id);
+                      },
+                      child: BlocBuilder<TransactionCubit, TransactionState>(
+                        builder: (context, state) {
+                          return Column(
+                            children: [
+                              for (Transaction transaction
+                                  in state.pagination.data)
+                                if (transaction.credit != null)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: CommonDimens.defaultGap,
+                                        horizontal: CommonDimens.defaultGap),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: CommonColors.backgroundTant),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal:
+                                                CommonDimens.defaultBlockGap,
+                                            vertical:
+                                                CommonDimens.defaultLineGap),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${S.of(context).orderId}: ${transaction.invoiceId}',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall,
+                                                  ),
+                                                  Text(
+                                                      DateFormat(
+                                                              'd-M-yyyy | hh:mm')
+                                                          .format(DateTime
+                                                              .parse(transaction
+                                                                      .createdDate ??
+                                                                  '')),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .labelSmall),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: CommonDimens
+                                                            .defaultGap),
+                                                    child: Text(
+                                                        transaction
+                                                                .journalType ??
+                                                            '',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .bodyMedium),
+                                                  ),
+                                                  Text('- ${transaction.guid}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium),
+                                                ],
                                               ),
-                                              Text(DateFormat('d-M-yyyy | hh:mm').format(DateTime.parse(transaction.createdDate ?? '')), style: Theme.of(context).textTheme.labelSmall),
-                                              Padding(
-                                                padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap),
-                                                child: Text(transaction.journalType ?? '', style: Theme.of(context).textTheme.bodyMedium),
-                                              ),
-                                              Text('- ${transaction.guid}', style: Theme.of(context).textTheme.bodyMedium),
-                                            ],
-                                          ),
+                                            ),
+                                            TextCurrency(
+                                              value: transaction.debit! == 0
+                                                  ? transaction.credit!
+                                                  : transaction.debit!,
+                                              fontSize: CommonFontSize.font_12,
+                                              fontColor: transaction.debit! == 0
+                                                  ? CommonColors.primary
+                                                  : CommonColors.secondary,
+                                            ),
+                                          ],
                                         ),
-                                        TextCurrency(
-                                          value: transaction.debit! == 0 ? transaction.credit! : transaction.debit!,
-                                          fontSize: CommonFontSize.font_12,
-                                          fontColor: transaction.debit! == 0 ? CommonColors.primary : CommonColors.secondary,
-                                        ),
-                                      ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                          if (state.pagination.isLoading) const PacmanLoadingWidget(),
-                        ],
-                      );
-                    },
+                              if (state.pagination.isLoading)
+                                const PacmanLoadingWidget(),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ],
+                ],
+              );
+            },
           ),
         );
       }),

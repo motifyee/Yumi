@@ -1,5 +1,8 @@
 import 'package:common_code/common_code.dart';
+import 'package:common_code/domain/user/cubit/user_cubit.dart';
+import 'package:dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
+import 'package:yumi/routes/routes.gr.dart';
 
 class LoginToContinue extends StatelessWidget {
   const LoginToContinue({super.key});
@@ -26,7 +29,13 @@ class LoginToContinue extends StatelessWidget {
             style: TextStyle(fontSize: 10, color: CommonColors.secondaryTant),
           ),
           const SizedBox(height: 20),
-          const InteractiveButton(label: "Login to continue")
+          InteractiveButton(
+            label: "Login to continue",
+            onPressed: () {
+              context.read<UserCubit>().reset();
+              context.router.replaceAll([const LoginRoute()]);
+            },
+          )
         ],
       ),
     );

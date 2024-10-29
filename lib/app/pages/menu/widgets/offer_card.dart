@@ -23,10 +23,12 @@ class _OfferCardState extends State<OfferCard> {
       duration = Duration.zero;
     });
     Timer(const Duration(milliseconds: 100), () {
-      setState(() {
-        marginPosition = 0;
-        duration = CommonDimens.slowAnimationDuration;
-      });
+      if (mounted) {
+        setState(() {
+          marginPosition = 0;
+          duration = CommonDimens.slowAnimationDuration;
+        });
+      }
     });
   }
 
@@ -55,7 +57,8 @@ class _OfferCardState extends State<OfferCard> {
           SvgPicture.asset(
             'assets/images/offer_card.svg',
             matchTextDirection: true,
-            colorFilter: ColorFilter.mode(widget.offer['color'] ?? CommonColors.primary, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(
+                widget.offer['color'] ?? CommonColors.primary, BlendMode.srcIn),
           ),
           Align(
             child: Row(
@@ -73,14 +76,20 @@ class _OfferCardState extends State<OfferCard> {
                       children: [
                         Text(
                           'Great healthy food and lots of discounted prices',
-                          style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge
+                              ?.copyWith(
                                 fontSize: CommonFontSize.font_12,
                               ),
                         ),
                         const SizedBox(height: CommonDimens.defaultGap),
                         Text(
                           'Our Happy Customer',
-                          style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge
+                              ?.copyWith(
                                 fontSize: CommonFontSize.font_10,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -94,7 +103,10 @@ class _OfferCardState extends State<OfferCard> {
                             ),
                             Text(
                               '4.2 (2k Reviews)',
-                              style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge
+                                  ?.copyWith(
                                     fontSize: CommonFontSize.font_10,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -117,7 +129,10 @@ class _OfferCardState extends State<OfferCard> {
                           ),
                           child: Text(
                             '${widget.offer['percent'].toString()}%',
-                            style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge
+                                ?.copyWith(
                                   fontSize: CommonFontSize.font_38,
                                 ),
                           ),
