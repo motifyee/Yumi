@@ -108,7 +108,7 @@ class _NotificationList extends StatelessWidget {
                                   CommonDimens.defaultMediumGap)),
                           child: Center(
                             child: SvgPicture.asset(
-                              'assets/images/notifications/${notification.yumiStatus!.name}.svg',
+                              'assets/images/notifications/${notification.yumiStatus?.name ?? YumiStatus.GeneralNotification.name}.svg',
                               width: 30,
                               height: 30,
                             ),

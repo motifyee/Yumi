@@ -11,7 +11,7 @@ class NotificationS with _$NotificationS {
   const factory NotificationS({
     required String id,
     @NotificationTypeConverter() required NotificationTypeEnum notificationType,
-    @NotificationStatusConverter() YumiStatus? yumiStatus,
+    @Default(YumiStatus.GeneralNotification) @NotificationStatusConverter() YumiStatus yumiStatus,
     @DateTimeToIso8601StringConverter() required DateTime createDate,
     required String description,
     @JsonKey(name: 'type_ID') int? typeID,
