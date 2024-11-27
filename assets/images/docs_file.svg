@@ -1,21 +1,13 @@
-<svg width="534" height="233" viewBox="0 0 534 233" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g filter="url(#filter0_d_548_23253)">
-    <path
-      d="M472.1 231H57.1236C27.7857 231 4 203.542 4 169.674V53.832C4 27.1672 22.8862 5.65045 45.9847 6.0043L146.022 7.53387C161.635 7.77358 176.878 13.0529 190.024 22.7725L228.39 51.1495C232.374 54.0945 236.977 55.7497 241.709 55.8923C243.568 55.9494 245.432 55.8924 247.291 55.7211C251.434 55.3387 255.592 55.2532 259.75 55.2817L485.039 57.0966C496.717 57.1937 508.068 62.0792 516.641 71.2224C524.71 79.8291 529.248 90.7929 529.248 109.108L530 161.016C530 199.786 505.675 231 472.1 231Z"
-      fill="#E0DFDF" />
-  </g>
-  <defs>
-    <filter id="filter0_d_548_23253" x="0" y="0" width="534" height="233"
-      filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feFlood flood-opacity="0" result="BackgroundImageFix" />
-      <feColorMatrix in="SourceAlpha" type="matrix"
-        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-      <feOffset dy="-2" />
-      <feGaussianBlur stdDeviation="2" />
-      <feComposite in2="hardAlpha" operator="out" />
-      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
-      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_548_23253" />
-      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_548_23253" result="shape" />
-    </filter>
-  </defs>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 534 233" style="enable-background:new 0 0 534 233;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#E0DFDF;}
+</style>
+<g>
+	<path class="st0" d="M472.1,229h-415C27.8,229,4,201.5,4,167.7V51.8C4,25.2,22.9,3.7,46,4l100,1.5c15.6,0.2,30.9,5.5,44,15.2
+		l38.4,28.4c4,2.9,8.6,4.6,13.3,4.7c1.9,0.1,3.7,0,5.6-0.2c4.1-0.4,8.3-0.5,12.5-0.4L485,55.1c11.7,0.1,23,5,31.6,14.1
+		c8.1,8.6,12.6,19.6,12.6,37.9L530,159C530,197.8,505.7,229,472.1,229z"/>
+</g>
 </svg>
