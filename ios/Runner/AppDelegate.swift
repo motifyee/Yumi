@@ -1,5 +1,6 @@
 import UIKit
 import Flutter
+import GoogleMaps
 
 // import flutter_local_notifications
 
@@ -17,7 +18,8 @@ import Flutter
     // if #available(iOS 10.0, *) {
     //   UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
     // }
-
+    // GMSServices.setMetalRendererEnabled(true)
+    GMSServices.provideAPIKey("AIzaSyBlhKSqJ_5FgfUS3tnGmjV6hxPocuFBB_Y")
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
