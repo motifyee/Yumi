@@ -50,7 +50,10 @@ class App extends StatelessWidget {
         return SafeArea(
           child: Container(
             color: CommonColors.background,
-            child: child ?? const SizedBox(),
+            child: Scaffold(
+              key: GlobalContext().scaffoldKey,
+              body: child ?? const SizedBox(),
+            ),
           ),
         );
       },
