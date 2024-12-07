@@ -163,17 +163,17 @@ class HttpOverrideCertificateVerificationInDev extends HttpOverrides {
 }
 
 void _onclose({Exception? error}) {
-  debugPrint("SignalR closed ");
-  debugPrint(error.toString());
+  // debugPrint("SignalR closed ");
+  // debugPrint(error.toString());
   Signalr.startConnection();
 }
 
 void _onreconnecting({Exception? error}) {
-  debugPrint("SignalR re-connecting");
+  // debugPrint("SignalR re-connecting");
 }
 
 void _onreconnected({String? connectionId}) {
-  debugPrint("SignalR re-connected");
+  // debugPrint("SignalR re-connected");
 
   for (var fn in Signalr.onreconnectedCallbacks) {
     fn(connectionId);
@@ -181,11 +181,11 @@ void _onreconnected({String? connectionId}) {
 }
 
 void _onstarted(_) {
-  debugPrint("SignalR Connection Started");
+  // debugPrint("SignalR Connection Started");
 }
 
 void _onstarterror(dynamic error) {
-  debugPrint("SignalR Connection Init Error: $error");
+  // debugPrint("SignalR Connection Init Error: $error");
   Timer(const Duration(seconds: 1), () => Signalr.startConnection());
 }
 
