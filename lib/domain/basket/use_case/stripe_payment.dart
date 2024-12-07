@@ -1,30 +1,32 @@
 import 'package:common_code/common_code.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:common_code/util/global_context.dart';
-import 'package:dio/dio.dart';
+import 'package:dependencies/fpdart.dart';
+import 'package:dependencies/dependencies.dart';
+import 'package:dependencies/stripe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:yumi/app_target.dart';
 import 'package:yumi/domain/basket/entity/stripe.dart';
 
 class StripePayment extends UseCase<bool, StripePaymentParams> {
   @override
   Future<Either<Failure, bool>> call(StripePaymentParams params) async {
-    print('presentPaymentSheet .......');
     try {
       final stripe = await _getClientSecret(params);
 
       await _initPaymentSheet(stripe: stripe);
       await Stripe.instance.presentPaymentSheet();
 
-      return Right(true);
+      return const Right(true);
     } catch (error) {
-      if (error.runtimeType == PlatformException)
-        return Left(GenericFailure((error as PlatformException).message));
-      return Left(
-          GenericFailure((error as StripeException).error.localizedMessage));
+      return switch (error.runtimeType) {
+        PlatformException _ =>
+          Left(GenericFailure((error as PlatformException).message)),
+        StripeException _ =>
+          Left(GenericFailure((error as StripeException).error.message)),
+        _ => Left(GenericFailure(error.toString()))
+      };
     }
   }
 }
@@ -85,7 +87,7 @@ Future<void> _initPaymentSheet({required StripeModel stripe}) async {
           email: GlobalContext().readCubit<UserCubit>()?.state.user.email),
       appearance: PaymentSheetAppearance(
         primaryButton: PaymentSheetPrimaryButtonAppearance(
-            shapes: PaymentSheetPrimaryButtonShape(blurRadius: 15),
+            shapes: const PaymentSheetPrimaryButtonShape(blurRadius: 15),
             colors: PaymentSheetPrimaryButtonTheme(
               dark: PaymentSheetPrimaryButtonThemeColors(
                   background: CommonColors.primary,
