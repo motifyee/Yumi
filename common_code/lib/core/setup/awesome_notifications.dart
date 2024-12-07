@@ -31,7 +31,9 @@ class NotificationService {
       debug: true,
     );
 
-    await AwesomeNotifications().isNotificationAllowed().then((isAllowed) async {
+    await AwesomeNotifications()
+        .isNotificationAllowed()
+        .then((isAllowed) async {
       if (!isAllowed) {
         await AwesomeNotifications().requestPermissionToSendNotifications();
       }
@@ -45,15 +47,18 @@ class NotificationService {
     );
   }
 
-  static Future<void> onNotificationCreatedMethod(ReceivedNotification receivedNotification) async {
+  static Future<void> onNotificationCreatedMethod(
+      ReceivedNotification receivedNotification) async {
     debugPrint('onNotificationCreatedMethod');
   }
 
-  static Future<void> onNotificationDisplayedMethod(ReceivedNotification receivedNotification) async {
+  static Future<void> onNotificationDisplayedMethod(
+      ReceivedNotification receivedNotification) async {
     debugPrint('onNotificationDisplayedMethod');
   }
 
-  static Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
+  static Future<void> onActionReceivedMethod(
+      ReceivedAction receivedAction) async {
     debugPrint('onActionReceivedMethod');
 
     final payload = receivedAction.payload;
@@ -62,7 +67,8 @@ class NotificationService {
     }
   }
 
-  static Future<void> onDismissActionReceivedMethod(ReceivedAction receivedAction) async {
+  static Future<void> onDismissActionReceivedMethod(
+      ReceivedAction receivedAction) async {
     debugPrint('onDismissActionReceivedMethod');
   }
 
@@ -96,7 +102,8 @@ class NotificationService {
       schedule: scheduled
           ? NotificationInterval(
               interval: interval,
-              timeZone: await AwesomeNotifications().getLocalTimeZoneIdentifier(),
+              timeZone:
+                  await AwesomeNotifications().getLocalTimeZoneIdentifier(),
               preciseAlarm: true,
               // repeats: true,
             )

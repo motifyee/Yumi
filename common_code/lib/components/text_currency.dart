@@ -3,7 +3,13 @@ import 'package:common_code/resources/common_font_size.dart';
 import 'package:flutter/material.dart';
 
 class TextCurrency extends StatelessWidget {
-  const TextCurrency({super.key, required this.value, this.fontSize, this.prefix, this.fontColor, this.fontWeight = FontWeight.w700});
+  const TextCurrency(
+      {super.key,
+      required this.value,
+      this.fontSize,
+      this.prefix,
+      this.fontColor,
+      this.fontWeight = FontWeight.w700});
 
   final double value;
   final double? fontSize;

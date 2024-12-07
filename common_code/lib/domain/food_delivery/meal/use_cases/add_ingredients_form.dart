@@ -3,9 +3,11 @@ import 'package:common_code/core/use_cases.dart';
 import 'package:common_code/domain/food_delivery/ingredients/entities/ingredient.dart';
 import 'package:fpdart/fpdart.dart';
 
-class AddIngredientsForm extends UseCase<List<Ingredient>, AddIngredientsFormParams> {
+class AddIngredientsForm
+    extends UseCase<List<Ingredient>, AddIngredientsFormParams> {
   @override
-  Future<Either<Failure, List<Ingredient>>> call(AddIngredientsFormParams params) async {
+  Future<Either<Failure, List<Ingredient>>> call(
+      AddIngredientsFormParams params) async {
     List<Ingredient> data = List.from(params.ingredients);
     data.add(params.ingredient);
     return Right(data);
@@ -16,7 +18,8 @@ class AddIngredientsFormParams extends Params {
   final Ingredient ingredient;
   final List<Ingredient> ingredients;
 
-  AddIngredientsFormParams({required this.ingredients, required this.ingredient});
+  AddIngredientsFormParams(
+      {required this.ingredients, required this.ingredient});
 
   @override
   List<Object?> get props => [ingredient, ingredients];

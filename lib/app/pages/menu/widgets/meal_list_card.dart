@@ -36,7 +36,8 @@ class MealListCard extends StatelessWidget {
             color: CommonColors.background,
           ),
           width: MediaQuery.of(context).size.width * .95,
-          height: CommonDimens.defaultImageHeightSmall + CommonDimens.defaultGap,
+          height:
+              CommonDimens.defaultImageHeightSmall + CommonDimens.defaultGap,
           child: Row(
             children: [
               Container(
@@ -44,15 +45,26 @@ class MealListCard extends StatelessWidget {
                   height: CommonDimens.defaultImageHeightSmall,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(CommonDimens.defaultGap),
+                    borderRadius:
+                        BorderRadius.circular(CommonDimens.defaultGap),
                   ),
                   child: ImageFiltered(
-                    imageFilter: isDisabled ? const ColorFilter.mode(Colors.grey, BlendMode.saturation) : const ColorFilter.mode(Colors.transparent, BlendMode.darken),
+                    imageFilter: isDisabled
+                        ? const ColorFilter.mode(
+                            Colors.grey, BlendMode.saturation)
+                        : const ColorFilter.mode(
+                            Colors.transparent, BlendMode.darken),
                     child: Image.memory(
-                      Uri.parse(meal.photo ?? '').data?.contentAsBytes() ?? Uint8List(0),
+                      Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
+                          Uint8List(0),
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => ImageFiltered(
-                        imageFilter: isDisabled ? const ColorFilter.mode(Colors.grey, BlendMode.saturation) : const ColorFilter.mode(Colors.transparent, BlendMode.darken),
+                      errorBuilder: (context, error, stackTrace) =>
+                          ImageFiltered(
+                        imageFilter: isDisabled
+                            ? const ColorFilter.mode(
+                                Colors.grey, BlendMode.saturation)
+                            : const ColorFilter.mode(
+                                Colors.transparent, BlendMode.darken),
                         child: Image.asset(
                           'assets/images/354.jpeg',
                           fit: BoxFit.cover,
@@ -62,7 +74,8 @@ class MealListCard extends StatelessWidget {
                   )),
               Expanded(
                   child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: CommonDimens.defaultGap),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: CommonDimens.defaultGap),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -72,16 +85,27 @@ class MealListCard extends StatelessWidget {
                         Expanded(
                             child: Text(
                           meal.name ?? '',
-                          style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: CommonFontSize.font_16),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge
+                              ?.copyWith(fontSize: CommonFontSize.font_16),
                         )),
                         Container(
                           width: CommonDimens.defaultTitleGap,
                           height: CommonDimens.defaultTitleGap,
-                          decoration: BoxDecoration(color: isDisabled ? CommonColors.secondaryFaint : CommonColors.primary, borderRadius: BorderRadius.circular(CommonDimens.defaultTitleGap)),
+                          decoration: BoxDecoration(
+                              color: isDisabled
+                                  ? CommonColors.secondaryFaint
+                                  : CommonColors.primary,
+                              borderRadius: BorderRadius.circular(
+                                  CommonDimens.defaultTitleGap)),
                           child: Center(
                             child: Text(
                               '${meal.portionPersons}',
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(color: CommonColors.onSuccess),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(color: CommonColors.onSuccess),
                             ),
                           ),
                         ),
@@ -102,8 +126,14 @@ class MealListCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         SvgPicture.asset(
-                          meal.isFavoriteProduct == true ? 'assets/images/heart.svg' : 'assets/images/heart_outline.svg',
-                          colorFilter: ColorFilter.mode(isDisabled ? CommonColors.secondary : CommonColors.primary, BlendMode.srcIn),
+                          meal.isFavoriteProduct == true
+                              ? 'assets/images/heart.svg'
+                              : 'assets/images/heart_outline.svg',
+                          colorFilter: ColorFilter.mode(
+                              isDisabled
+                                  ? CommonColors.secondary
+                                  : CommonColors.primary,
+                              BlendMode.srcIn),
                         ),
                       ],
                     ),

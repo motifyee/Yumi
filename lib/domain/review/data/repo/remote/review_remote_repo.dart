@@ -10,15 +10,36 @@ import 'package:yumi/domain/review/entity/review.dart';
 class ReviewRemoteRepo extends ReviewRepo {
   final ReviewSource reviewSource;
 
-  ReviewRemoteRepo({ReviewSource? reviewSource}) : reviewSource = reviewSource ?? getIt<ReviewSource>();
+  ReviewRemoteRepo({ReviewSource? reviewSource})
+      : reviewSource = reviewSource ?? getIt<ReviewSource>();
 
   @override
-  TaskEither<Failure, PaginatedData<Review>> getAllReviews({required String chefId, required PaginatedData<Review> paginatedData, bool loginCustomer = false, Map<String, dynamic>? queryParameters}) {
-    return TaskEither.tryCatch(() => reviewSource.getAllReviews(chefId: chefId, paginatedData: paginatedData, loginCustomer: loginCustomer, queryParameters: queryParameters), (error, stackTrace) => ServerFailure((error as CException).error));
+  TaskEither<Failure, PaginatedData<Review>> getAllReviews(
+      {required String chefId,
+      required PaginatedData<Review> paginatedData,
+      bool loginCustomer = false,
+      Map<String, dynamic>? queryParameters}) {
+    return TaskEither.tryCatch(
+        () => reviewSource.getAllReviews(
+            chefId: chefId,
+            paginatedData: paginatedData,
+            loginCustomer: loginCustomer,
+            queryParameters: queryParameters),
+        (error, stackTrace) => ServerFailure((error as CException).error));
   }
 
   @override
-  TaskEither<Failure, bool> updateRate({required Review review, String? chefId, String? driverId, Map<String, dynamic>? queryParameters}) {
-    return TaskEither.tryCatch(() => reviewSource.updateRate(review: review, queryParameters: queryParameters, chefId: chefId, driverId: driverId), (error, stackTrace) => ServerFailure((error as CException).error));
+  TaskEither<Failure, bool> updateRate(
+      {required Review review,
+      String? chefId,
+      String? driverId,
+      Map<String, dynamic>? queryParameters}) {
+    return TaskEither.tryCatch(
+        () => reviewSource.updateRate(
+            review: review,
+            queryParameters: queryParameters,
+            chefId: chefId,
+            driverId: driverId),
+        (error, stackTrace) => ServerFailure((error as CException).error));
   }
 }

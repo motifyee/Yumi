@@ -28,8 +28,10 @@ class AppTargetBranches {
 }
 
 abstract class StripeKeys {
-  static const String publishableKey = 'pk_test_51PY2yr2KJzSatYcv7NXca6C3TTwSI0CgB5asiNzRAZiRKoOY7cyCUTjhYTMmApGn5HFa4ENwCW0zIIyNgxeDjJPe00OIs1xCtC';
-  static const String secretKey = 'sk_test_51PY2yr2KJzSatYcvpUv1Qi4QxLRBaJLnvPH1LIwn3Q1AJ1B3VCP53T2FOl7bbYYpMtzk0CLMkyCmuWgxQOJwK2U200nG8OihAd';
+  static const String publishableKey =
+      'pk_test_51PY2yr2KJzSatYcv7NXca6C3TTwSI0CgB5asiNzRAZiRKoOY7cyCUTjhYTMmApGn5HFa4ENwCW0zIIyNgxeDjJPe00OIs1xCtC';
+  static const String secretKey =
+      'sk_test_51PY2yr2KJzSatYcvpUv1Qi4QxLRBaJLnvPH1LIwn3Q1AJ1B3VCP53T2FOl7bbYYpMtzk0CLMkyCmuWgxQOJwK2U200nG8OihAd';
   static const String currency = 'GBP';
   static const String appName = 'YUMI';
 }

@@ -10,7 +10,8 @@ class BasketState with _$BasketState {
     );
   }
 
-  factory BasketState.fromJson(Map<String, dynamic> json) => _$BasketStateFromJson(json);
+  factory BasketState.fromJson(Map<String, dynamic> json) =>
+      _$BasketStateFromJson(json);
 }
 
 enum PaymentOption { none, visa, wallet, paypal }

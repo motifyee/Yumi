@@ -65,7 +65,8 @@ class DefaultFirebaseOptions {
     projectId: 'fir-computers-ip',
     databaseURL: 'https://fir-computers-ip.firebaseio.com',
     storageBucket: 'fir-computers-ip.appspot.com',
-    iosClientId: '369476238484-ht3st1jc9l4gqgjm5dkn3g818403ve02.apps.googleusercontent.com',
+    iosClientId:
+        '369476238484-ht3st1jc9l4gqgjm5dkn3g818403ve02.apps.googleusercontent.com',
     iosBundleId: 'com.yumi.yumi',
   );
 }

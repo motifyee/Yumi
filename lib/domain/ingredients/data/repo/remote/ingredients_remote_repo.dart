@@ -7,10 +7,12 @@ import 'package:yumi/domain/ingredients/data/source/ingredients_source.dart';
 class IngredientsRemoteRepo extends IngredientsRepo {
   final IngredientsSource ingredientsSource;
 
-  IngredientsRemoteRepo({IngredientsSource? ingredientsSource}) : ingredientsSource = ingredientsSource ?? getIt<IngredientsSource>();
+  IngredientsRemoteRepo({IngredientsSource? ingredientsSource})
+      : ingredientsSource = ingredientsSource ?? getIt<IngredientsSource>();
 
   @override
   TaskEither<Failure, List<Ingredient>> getAllIngredients() {
-    return TaskEither.tryCatch(() => ingredientsSource.getAllIngredients(), (error, stackTrace) => ServerFailure((error as CException).error));
+    return TaskEither.tryCatch(() => ingredientsSource.getAllIngredients(),
+        (error, stackTrace) => ServerFailure((error as CException).error));
   }
 }

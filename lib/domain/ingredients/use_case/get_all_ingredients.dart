@@ -6,7 +6,8 @@ import 'package:yumi/domain/ingredients/entity/ingredients.dart';
 class GetAllIngredients extends UseCase<List<Ingredient>, NoParams> {
   final IngredientsRepo ingredientsRepo;
 
-  GetAllIngredients({IngredientsRepo? ingredientsRepo}) : ingredientsRepo = ingredientsRepo ?? getIt<IngredientsRepo>();
+  GetAllIngredients({IngredientsRepo? ingredientsRepo})
+      : ingredientsRepo = ingredientsRepo ?? getIt<IngredientsRepo>();
 
   @override
   Future<Either<Failure, List<Ingredient>>> call(NoParams params) {

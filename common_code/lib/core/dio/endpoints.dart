@@ -8,7 +8,8 @@ String originApi = '';
 
 class BaseUrl {
   static Future<void> load() async {
-    final value = await LocalStorage.sharedRef.getValue(LocalStorage.domainName);
+    final value =
+        await LocalStorage.sharedRef.getValue(LocalStorage.domainName);
 
     originApi = value ?? defaultOriginApi;
     APIClient.baseUrl = originApi;
@@ -33,7 +34,8 @@ class Endpoints {
     return apiKey.replaceAll("_", GlobalContext().appConfig.appTitle);
   }
 
-  static String actionApiKeyString({required String apiKey, required String id}) {
+  static String actionApiKeyString(
+      {required String apiKey, required String id}) {
     return apiKey.replaceAll("_", id);
   }
 
@@ -120,7 +122,8 @@ class Endpoints {
   String orderDriverDelivered = '/order/delivery/driver/delivered';
   final String preOrderDriverAccept = '/preorder/_/driver/accept'; // id
   final String preOrderDriverReceived = '/preorder/_/driver/received'; // id
-  final String preOrderDriverDelivered = '/preorder/delivery/driver/delivered'; // id
+  final String preOrderDriverDelivered =
+      '/preorder/delivery/driver/delivered'; // id
 
   final String orderChefDeliveryStart = '/order/_/chef/start'; // id
   final String orderChefDeliveryFinished = '/order/_/chef/finished'; // id
@@ -131,9 +134,11 @@ class Endpoints {
   final String preOrderChefDeliveryAccept = '/preorder/_/chef/accept'; // id
   final String preOrderChefDeliveryStart = '/preorder/_/chef/start'; // id
   final String preOrderChefDeliveryFinished = '/preorder/_/chef/finished'; // id
-  final String preOrderChefPickUpAccept = '/preorder/_/chef/pickup/accept'; // id
+  final String preOrderChefPickUpAccept =
+      '/preorder/_/chef/pickup/accept'; // id
   final String preOrderChefPickUpStart = '/preorder/_/chef/pickup/start'; // id
-  final String preOrderChefPickUpFinished = '/preorder/_/chef/pickup/finished'; // id
+  final String preOrderChefPickUpFinished =
+      '/preorder/_/chef/pickup/finished'; // id
   String preOrderChefPickUpDelivered = '/preorder/pickup/chef/delivered';
 
   // customers

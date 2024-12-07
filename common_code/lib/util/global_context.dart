@@ -229,18 +229,18 @@ class GlobalContext {
   static bool isOnline = true;
   void showConnectivitySnackBar(bool isConnected) {
     hideSnackbar();
-    
-      ScaffoldMessenger.of(scContext!).showSnackBar(SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration:
-            isConnected ? const Duration(seconds: 2) : const Duration(days: 1),
-        backgroundColor: isConnected ? Colors.green : Colors.red,
-        padding: const EdgeInsets.all(3),
-        margin: const EdgeInsets.all(3),
-        dismissDirection: DismissDirection.down,
-        content: Center(
-          child: Text(isConnected ? 'Connected' : 'No internet access!'),
-        ),
-      ));
+
+    ScaffoldMessenger.of(scContext!).showSnackBar(SnackBar(
+      behavior: SnackBarBehavior.floating,
+      duration:
+          isConnected ? const Duration(seconds: 2) : const Duration(days: 1),
+      backgroundColor: isConnected ? Colors.green : Colors.red,
+      padding: const EdgeInsets.all(3),
+      margin: const EdgeInsets.all(3),
+      dismissDirection: DismissDirection.down,
+      content: Center(
+        child: Text(isConnected ? 'Connected' : 'No internet access!'),
+      ),
+    ));
   }
 }

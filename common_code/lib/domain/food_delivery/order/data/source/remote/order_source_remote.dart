@@ -22,7 +22,8 @@ class OrderSourceRemote extends OrderSource {
       throw ServerException((e as DioException));
     }
     try {
-      List<Order> data = res.data['data'].map<Order>((e) => Order.fromJson(e)).toList();
+      List<Order> data =
+          res.data['data'].map<Order>((e) => Order.fromJson(e)).toList();
 
       return ordersPage.copyWith(
         data: <Order>[...ordersPage.data, ...data].unique((e) => e.id),
@@ -43,7 +44,10 @@ class OrderSourceRemote extends OrderSource {
   }) async {
     Response res;
     try {
-      res = await APIClient().put(apiKeys, data: isFakeBody ? {'driver_ID': null} : null, queryParameters: {'orderId': orderId}..removeWhere((key, value) => value == null));
+      res = await APIClient().put(apiKeys,
+          data: isFakeBody ? {'driver_ID': null} : null,
+          queryParameters: {'orderId': orderId}
+            ..removeWhere((key, value) => value == null));
     } catch (e) {
       throw ServerException((e as DioException));
     }
@@ -52,14 +56,20 @@ class OrderSourceRemote extends OrderSource {
   }
 
   @override
-  Future<Order> getOrderOrPreOrderDriverById({required String apiKeys, required String id, Map<String, dynamic>? pagination}) async {
+  Future<Order> getOrderOrPreOrderDriverById(
+      {required String apiKeys,
+      required String id,
+      Map<String, dynamic>? pagination}) async {
     Response res;
     try {
-      res = await APIClient().get('$apiKeys$id', queryParameters: {...?pagination}..removeWhere((key, value) => value == null));
+      res = await APIClient().get('$apiKeys$id',
+          queryParameters: {...?pagination}
+            ..removeWhere((key, value) => value == null));
     } catch (e) {
       throw ServerException((e as DioException));
     }
 
-    return Order.fromJson(res.data.runtimeType == List ? res.data[0] : res.data);
+    return Order.fromJson(
+        res.data.runtimeType == List ? res.data[0] : res.data);
   }
 }

@@ -11,7 +11,9 @@ class NotificationS with _$NotificationS {
   const factory NotificationS({
     required String id,
     @NotificationTypeConverter() required NotificationTypeEnum notificationType,
-    @Default(YumiStatus.GeneralNotification) @NotificationStatusConverter() YumiStatus yumiStatus,
+    @Default(YumiStatus.GeneralNotification)
+    @NotificationStatusConverter()
+    YumiStatus yumiStatus,
     @DateTimeToIso8601StringConverter() required DateTime createDate,
     required String description,
     @JsonKey(name: 'type_ID') int? typeID,
@@ -21,7 +23,8 @@ class NotificationS with _$NotificationS {
     @JsonKey(name: 'employee_ID') int? employeeID,
   }) = _NotificationS;
 
-  factory NotificationS.fromJson(Map<String, dynamic> json) => _$NotificationSFromJson(json);
+  factory NotificationS.fromJson(Map<String, dynamic> json) =>
+      _$NotificationSFromJson(json);
 }
 
 enum NotificationTypeEnum {
