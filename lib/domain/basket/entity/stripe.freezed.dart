@@ -20,35 +20,29 @@ StripeModel _$StripeModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$StripeModel {
-  String get id => throw _privateConstructorUsedError;
-  String get object => throw _privateConstructorUsedError;
+  String get id =>
+      throw _privateConstructorUsedError; // required String object,
   int get amount => throw _privateConstructorUsedError;
   @JsonKey(name: 'amount_capturable')
   int? get amountCapturable => throw _privateConstructorUsedError;
   @JsonKey(name: 'amount_received')
-  int? get amountReceived => throw _privateConstructorUsedError;
-  String? get application => throw _privateConstructorUsedError;
-  @JsonKey(name: 'application_fee_amount')
-  String? get applicationFeeAmount => throw _privateConstructorUsedError;
-  @JsonKey(name: 'canceled_at')
-  String? get canceledAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'cancellation_reason')
-  String? get cancellationReason => throw _privateConstructorUsedError;
-  @JsonKey(name: 'capture_method')
-  String? get captureMethod => throw _privateConstructorUsedError;
+  int? get amountReceived =>
+      throw _privateConstructorUsedError; // String? application,
+// @JsonKey(name: 'application_fee_amount') String? applicationFeeAmount,
+// @JsonKey(name: 'canceled_at') String? canceledAt,
+// @JsonKey(name: 'cancellation_reason') String? cancellationReason,
+// @JsonKey(name: 'capture_method') String? captureMethod,
   @JsonKey(name: 'client_secret')
   String get clientSecret => throw _privateConstructorUsedError;
   @JsonKey(name: 'confirmation_method')
-  String get confirmationMethod => throw _privateConstructorUsedError;
-  int get created => throw _privateConstructorUsedError;
-  String get currency => throw _privateConstructorUsedError;
-  String? get customer => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
-  String? get invoice => throw _privateConstructorUsedError;
-  @JsonKey(name: 'last_payment_error')
-  String? get lastPaymentError => throw _privateConstructorUsedError;
-  @JsonKey(name: 'latest_charge')
-  String? get latestCharge => throw _privateConstructorUsedError;
+  String get confirmationMethod =>
+      throw _privateConstructorUsedError; // required int created,
+// required String currency,
+// String? customer,
+// String? description,
+// String? invoice,
+// @JsonKey(name: 'last_payment_error') String? lastPaymentError,
+// @JsonKey(name: 'latest_charge') String? latestCharge,
   bool get livemode => throw _privateConstructorUsedError;
   Map<String, dynamic>? get metadata => throw _privateConstructorUsedError;
   @JsonKey(name: 'next_action')
@@ -58,16 +52,15 @@ mixin _$StripeModel {
   @JsonKey(name: 'payment_method')
   dynamic get paymentMethod => throw _privateConstructorUsedError;
   @JsonKey(name: 'payment_method_configuration_details')
-  String? get paymentMethodConfigurationDetails =>
+  dynamic get paymentMethodConfigurationDetails =>
       throw _privateConstructorUsedError;
   @JsonKey(name: 'payment_method_options')
   Map<String, dynamic>? get paymentMethodOptions =>
       throw _privateConstructorUsedError;
   @JsonKey(name: 'payment_method_types')
   List<String>? get paymentMethodTypes => throw _privateConstructorUsedError;
-  dynamic get processing => throw _privateConstructorUsedError;
-  @JsonKey(name: 'receipt_email')
-  String? get receiptEmail => throw _privateConstructorUsedError;
+  dynamic get processing =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'receipt_email') String? receiptEmail,
   dynamic get review => throw _privateConstructorUsedError;
   @JsonKey(name: 'setup_future_usage')
   dynamic get setupFutureUsage => throw _privateConstructorUsedError;
@@ -83,8 +76,12 @@ mixin _$StripeModel {
   @JsonKey(name: 'transfer_group')
   dynamic get transferGroup => throw _privateConstructorUsedError;
 
+  /// Serializes this StripeModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of StripeModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $StripeModelCopyWith<StripeModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -97,36 +94,22 @@ abstract class $StripeModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String object,
       int amount,
       @JsonKey(name: 'amount_capturable') int? amountCapturable,
       @JsonKey(name: 'amount_received') int? amountReceived,
-      String? application,
-      @JsonKey(name: 'application_fee_amount') String? applicationFeeAmount,
-      @JsonKey(name: 'canceled_at') String? canceledAt,
-      @JsonKey(name: 'cancellation_reason') String? cancellationReason,
-      @JsonKey(name: 'capture_method') String? captureMethod,
       @JsonKey(name: 'client_secret') String clientSecret,
       @JsonKey(name: 'confirmation_method') String confirmationMethod,
-      int created,
-      String currency,
-      String? customer,
-      String? description,
-      String? invoice,
-      @JsonKey(name: 'last_payment_error') String? lastPaymentError,
-      @JsonKey(name: 'latest_charge') String? latestCharge,
       bool livemode,
       Map<String, dynamic>? metadata,
       @JsonKey(name: 'next_action') dynamic nextAction,
       @JsonKey(name: 'on_behalf_of') dynamic onBehalfOf,
       @JsonKey(name: 'payment_method') dynamic paymentMethod,
       @JsonKey(name: 'payment_method_configuration_details')
-      String? paymentMethodConfigurationDetails,
+      dynamic paymentMethodConfigurationDetails,
       @JsonKey(name: 'payment_method_options')
       Map<String, dynamic>? paymentMethodOptions,
       @JsonKey(name: 'payment_method_types') List<String>? paymentMethodTypes,
       dynamic processing,
-      @JsonKey(name: 'receipt_email') String? receiptEmail,
       dynamic review,
       @JsonKey(name: 'setup_future_usage') dynamic setupFutureUsage,
       dynamic shipping,
@@ -149,28 +132,17 @@ class _$StripeModelCopyWithImpl<$Res, $Val extends StripeModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of StripeModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
-    Object? object = null,
     Object? amount = null,
     Object? amountCapturable = freezed,
     Object? amountReceived = freezed,
-    Object? application = freezed,
-    Object? applicationFeeAmount = freezed,
-    Object? canceledAt = freezed,
-    Object? cancellationReason = freezed,
-    Object? captureMethod = freezed,
     Object? clientSecret = null,
     Object? confirmationMethod = null,
-    Object? created = null,
-    Object? currency = null,
-    Object? customer = freezed,
-    Object? description = freezed,
-    Object? invoice = freezed,
-    Object? lastPaymentError = freezed,
-    Object? latestCharge = freezed,
     Object? livemode = null,
     Object? metadata = freezed,
     Object? nextAction = freezed,
@@ -180,7 +152,6 @@ class _$StripeModelCopyWithImpl<$Res, $Val extends StripeModel>
     Object? paymentMethodOptions = freezed,
     Object? paymentMethodTypes = freezed,
     Object? processing = freezed,
-    Object? receiptEmail = freezed,
     Object? review = freezed,
     Object? setupFutureUsage = freezed,
     Object? shipping = freezed,
@@ -196,10 +167,6 @@ class _$StripeModelCopyWithImpl<$Res, $Val extends StripeModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      object: null == object
-          ? _value.object
-          : object // ignore: cast_nullable_to_non_nullable
-              as String,
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -212,26 +179,6 @@ class _$StripeModelCopyWithImpl<$Res, $Val extends StripeModel>
           ? _value.amountReceived
           : amountReceived // ignore: cast_nullable_to_non_nullable
               as int?,
-      application: freezed == application
-          ? _value.application
-          : application // ignore: cast_nullable_to_non_nullable
-              as String?,
-      applicationFeeAmount: freezed == applicationFeeAmount
-          ? _value.applicationFeeAmount
-          : applicationFeeAmount // ignore: cast_nullable_to_non_nullable
-              as String?,
-      canceledAt: freezed == canceledAt
-          ? _value.canceledAt
-          : canceledAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      cancellationReason: freezed == cancellationReason
-          ? _value.cancellationReason
-          : cancellationReason // ignore: cast_nullable_to_non_nullable
-              as String?,
-      captureMethod: freezed == captureMethod
-          ? _value.captureMethod
-          : captureMethod // ignore: cast_nullable_to_non_nullable
-              as String?,
       clientSecret: null == clientSecret
           ? _value.clientSecret
           : clientSecret // ignore: cast_nullable_to_non_nullable
@@ -240,34 +187,6 @@ class _$StripeModelCopyWithImpl<$Res, $Val extends StripeModel>
           ? _value.confirmationMethod
           : confirmationMethod // ignore: cast_nullable_to_non_nullable
               as String,
-      created: null == created
-          ? _value.created
-          : created // ignore: cast_nullable_to_non_nullable
-              as int,
-      currency: null == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      customer: freezed == customer
-          ? _value.customer
-          : customer // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      invoice: freezed == invoice
-          ? _value.invoice
-          : invoice // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastPaymentError: freezed == lastPaymentError
-          ? _value.lastPaymentError
-          : lastPaymentError // ignore: cast_nullable_to_non_nullable
-              as String?,
-      latestCharge: freezed == latestCharge
-          ? _value.latestCharge
-          : latestCharge // ignore: cast_nullable_to_non_nullable
-              as String?,
       livemode: null == livemode
           ? _value.livemode
           : livemode // ignore: cast_nullable_to_non_nullable
@@ -292,7 +211,7 @@ class _$StripeModelCopyWithImpl<$Res, $Val extends StripeModel>
               paymentMethodConfigurationDetails
           ? _value.paymentMethodConfigurationDetails
           : paymentMethodConfigurationDetails // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       paymentMethodOptions: freezed == paymentMethodOptions
           ? _value.paymentMethodOptions
           : paymentMethodOptions // ignore: cast_nullable_to_non_nullable
@@ -305,10 +224,6 @@ class _$StripeModelCopyWithImpl<$Res, $Val extends StripeModel>
           ? _value.processing
           : processing // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      receiptEmail: freezed == receiptEmail
-          ? _value.receiptEmail
-          : receiptEmail // ignore: cast_nullable_to_non_nullable
-              as String?,
       review: freezed == review
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
@@ -359,36 +274,22 @@ abstract class _$$StripeModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String object,
       int amount,
       @JsonKey(name: 'amount_capturable') int? amountCapturable,
       @JsonKey(name: 'amount_received') int? amountReceived,
-      String? application,
-      @JsonKey(name: 'application_fee_amount') String? applicationFeeAmount,
-      @JsonKey(name: 'canceled_at') String? canceledAt,
-      @JsonKey(name: 'cancellation_reason') String? cancellationReason,
-      @JsonKey(name: 'capture_method') String? captureMethod,
       @JsonKey(name: 'client_secret') String clientSecret,
       @JsonKey(name: 'confirmation_method') String confirmationMethod,
-      int created,
-      String currency,
-      String? customer,
-      String? description,
-      String? invoice,
-      @JsonKey(name: 'last_payment_error') String? lastPaymentError,
-      @JsonKey(name: 'latest_charge') String? latestCharge,
       bool livemode,
       Map<String, dynamic>? metadata,
       @JsonKey(name: 'next_action') dynamic nextAction,
       @JsonKey(name: 'on_behalf_of') dynamic onBehalfOf,
       @JsonKey(name: 'payment_method') dynamic paymentMethod,
       @JsonKey(name: 'payment_method_configuration_details')
-      String? paymentMethodConfigurationDetails,
+      dynamic paymentMethodConfigurationDetails,
       @JsonKey(name: 'payment_method_options')
       Map<String, dynamic>? paymentMethodOptions,
       @JsonKey(name: 'payment_method_types') List<String>? paymentMethodTypes,
       dynamic processing,
-      @JsonKey(name: 'receipt_email') String? receiptEmail,
       dynamic review,
       @JsonKey(name: 'setup_future_usage') dynamic setupFutureUsage,
       dynamic shipping,
@@ -409,28 +310,17 @@ class __$$StripeModelImplCopyWithImpl<$Res>
       _$StripeModelImpl _value, $Res Function(_$StripeModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of StripeModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
-    Object? object = null,
     Object? amount = null,
     Object? amountCapturable = freezed,
     Object? amountReceived = freezed,
-    Object? application = freezed,
-    Object? applicationFeeAmount = freezed,
-    Object? canceledAt = freezed,
-    Object? cancellationReason = freezed,
-    Object? captureMethod = freezed,
     Object? clientSecret = null,
     Object? confirmationMethod = null,
-    Object? created = null,
-    Object? currency = null,
-    Object? customer = freezed,
-    Object? description = freezed,
-    Object? invoice = freezed,
-    Object? lastPaymentError = freezed,
-    Object? latestCharge = freezed,
     Object? livemode = null,
     Object? metadata = freezed,
     Object? nextAction = freezed,
@@ -440,7 +330,6 @@ class __$$StripeModelImplCopyWithImpl<$Res>
     Object? paymentMethodOptions = freezed,
     Object? paymentMethodTypes = freezed,
     Object? processing = freezed,
-    Object? receiptEmail = freezed,
     Object? review = freezed,
     Object? setupFutureUsage = freezed,
     Object? shipping = freezed,
@@ -456,10 +345,6 @@ class __$$StripeModelImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      object: null == object
-          ? _value.object
-          : object // ignore: cast_nullable_to_non_nullable
-              as String,
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -472,26 +357,6 @@ class __$$StripeModelImplCopyWithImpl<$Res>
           ? _value.amountReceived
           : amountReceived // ignore: cast_nullable_to_non_nullable
               as int?,
-      application: freezed == application
-          ? _value.application
-          : application // ignore: cast_nullable_to_non_nullable
-              as String?,
-      applicationFeeAmount: freezed == applicationFeeAmount
-          ? _value.applicationFeeAmount
-          : applicationFeeAmount // ignore: cast_nullable_to_non_nullable
-              as String?,
-      canceledAt: freezed == canceledAt
-          ? _value.canceledAt
-          : canceledAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      cancellationReason: freezed == cancellationReason
-          ? _value.cancellationReason
-          : cancellationReason // ignore: cast_nullable_to_non_nullable
-              as String?,
-      captureMethod: freezed == captureMethod
-          ? _value.captureMethod
-          : captureMethod // ignore: cast_nullable_to_non_nullable
-              as String?,
       clientSecret: null == clientSecret
           ? _value.clientSecret
           : clientSecret // ignore: cast_nullable_to_non_nullable
@@ -500,34 +365,6 @@ class __$$StripeModelImplCopyWithImpl<$Res>
           ? _value.confirmationMethod
           : confirmationMethod // ignore: cast_nullable_to_non_nullable
               as String,
-      created: null == created
-          ? _value.created
-          : created // ignore: cast_nullable_to_non_nullable
-              as int,
-      currency: null == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      customer: freezed == customer
-          ? _value.customer
-          : customer // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      invoice: freezed == invoice
-          ? _value.invoice
-          : invoice // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastPaymentError: freezed == lastPaymentError
-          ? _value.lastPaymentError
-          : lastPaymentError // ignore: cast_nullable_to_non_nullable
-              as String?,
-      latestCharge: freezed == latestCharge
-          ? _value.latestCharge
-          : latestCharge // ignore: cast_nullable_to_non_nullable
-              as String?,
       livemode: null == livemode
           ? _value.livemode
           : livemode // ignore: cast_nullable_to_non_nullable
@@ -552,7 +389,7 @@ class __$$StripeModelImplCopyWithImpl<$Res>
               paymentMethodConfigurationDetails
           ? _value.paymentMethodConfigurationDetails
           : paymentMethodConfigurationDetails // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       paymentMethodOptions: freezed == paymentMethodOptions
           ? _value._paymentMethodOptions
           : paymentMethodOptions // ignore: cast_nullable_to_non_nullable
@@ -565,10 +402,6 @@ class __$$StripeModelImplCopyWithImpl<$Res>
           ? _value.processing
           : processing // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      receiptEmail: freezed == receiptEmail
-          ? _value.receiptEmail
-          : receiptEmail // ignore: cast_nullable_to_non_nullable
-              as String?,
       review: freezed == review
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
@@ -614,24 +447,11 @@ class __$$StripeModelImplCopyWithImpl<$Res>
 class _$StripeModelImpl implements _StripeModel {
   const _$StripeModelImpl(
       {required this.id,
-      required this.object,
       required this.amount,
       @JsonKey(name: 'amount_capturable') this.amountCapturable,
       @JsonKey(name: 'amount_received') this.amountReceived,
-      this.application,
-      @JsonKey(name: 'application_fee_amount') this.applicationFeeAmount,
-      @JsonKey(name: 'canceled_at') this.canceledAt,
-      @JsonKey(name: 'cancellation_reason') this.cancellationReason,
-      @JsonKey(name: 'capture_method') this.captureMethod,
       @JsonKey(name: 'client_secret') required this.clientSecret,
       @JsonKey(name: 'confirmation_method') required this.confirmationMethod,
-      required this.created,
-      required this.currency,
-      this.customer,
-      this.description,
-      this.invoice,
-      @JsonKey(name: 'last_payment_error') this.lastPaymentError,
-      @JsonKey(name: 'latest_charge') this.latestCharge,
       required this.livemode,
       final Map<String, dynamic>? metadata,
       @JsonKey(name: 'next_action') this.nextAction,
@@ -644,7 +464,6 @@ class _$StripeModelImpl implements _StripeModel {
       @JsonKey(name: 'payment_method_types')
       final List<String>? paymentMethodTypes,
       this.processing,
-      @JsonKey(name: 'receipt_email') this.receiptEmail,
       this.review,
       @JsonKey(name: 'setup_future_usage') this.setupFutureUsage,
       this.shipping,
@@ -664,8 +483,7 @@ class _$StripeModelImpl implements _StripeModel {
 
   @override
   final String id;
-  @override
-  final String object;
+// required String object,
   @override
   final int amount;
   @override
@@ -674,42 +492,24 @@ class _$StripeModelImpl implements _StripeModel {
   @override
   @JsonKey(name: 'amount_received')
   final int? amountReceived;
-  @override
-  final String? application;
-  @override
-  @JsonKey(name: 'application_fee_amount')
-  final String? applicationFeeAmount;
-  @override
-  @JsonKey(name: 'canceled_at')
-  final String? canceledAt;
-  @override
-  @JsonKey(name: 'cancellation_reason')
-  final String? cancellationReason;
-  @override
-  @JsonKey(name: 'capture_method')
-  final String? captureMethod;
+// String? application,
+// @JsonKey(name: 'application_fee_amount') String? applicationFeeAmount,
+// @JsonKey(name: 'canceled_at') String? canceledAt,
+// @JsonKey(name: 'cancellation_reason') String? cancellationReason,
+// @JsonKey(name: 'capture_method') String? captureMethod,
   @override
   @JsonKey(name: 'client_secret')
   final String clientSecret;
   @override
   @JsonKey(name: 'confirmation_method')
   final String confirmationMethod;
-  @override
-  final int created;
-  @override
-  final String currency;
-  @override
-  final String? customer;
-  @override
-  final String? description;
-  @override
-  final String? invoice;
-  @override
-  @JsonKey(name: 'last_payment_error')
-  final String? lastPaymentError;
-  @override
-  @JsonKey(name: 'latest_charge')
-  final String? latestCharge;
+// required int created,
+// required String currency,
+// String? customer,
+// String? description,
+// String? invoice,
+// @JsonKey(name: 'last_payment_error') String? lastPaymentError,
+// @JsonKey(name: 'latest_charge') String? latestCharge,
   @override
   final bool livemode;
   final Map<String, dynamic>? _metadata;
@@ -733,7 +533,7 @@ class _$StripeModelImpl implements _StripeModel {
   final dynamic paymentMethod;
   @override
   @JsonKey(name: 'payment_method_configuration_details')
-  final String? paymentMethodConfigurationDetails;
+  final dynamic paymentMethodConfigurationDetails;
   final Map<String, dynamic>? _paymentMethodOptions;
   @override
   @JsonKey(name: 'payment_method_options')
@@ -760,9 +560,7 @@ class _$StripeModelImpl implements _StripeModel {
 
   @override
   final dynamic processing;
-  @override
-  @JsonKey(name: 'receipt_email')
-  final String? receiptEmail;
+// @JsonKey(name: 'receipt_email') String? receiptEmail,
   @override
   final dynamic review;
   @override
@@ -789,7 +587,7 @@ class _$StripeModelImpl implements _StripeModel {
 
   @override
   String toString() {
-    return 'StripeModel(id: $id, object: $object, amount: $amount, amountCapturable: $amountCapturable, amountReceived: $amountReceived, application: $application, applicationFeeAmount: $applicationFeeAmount, canceledAt: $canceledAt, cancellationReason: $cancellationReason, captureMethod: $captureMethod, clientSecret: $clientSecret, confirmationMethod: $confirmationMethod, created: $created, currency: $currency, customer: $customer, description: $description, invoice: $invoice, lastPaymentError: $lastPaymentError, latestCharge: $latestCharge, livemode: $livemode, metadata: $metadata, nextAction: $nextAction, onBehalfOf: $onBehalfOf, paymentMethod: $paymentMethod, paymentMethodConfigurationDetails: $paymentMethodConfigurationDetails, paymentMethodOptions: $paymentMethodOptions, paymentMethodTypes: $paymentMethodTypes, processing: $processing, receiptEmail: $receiptEmail, review: $review, setupFutureUsage: $setupFutureUsage, shipping: $shipping, source: $source, statementDescriptor: $statementDescriptor, statementDescriptorSuffix: $statementDescriptorSuffix, status: $status, transferData: $transferData, transferGroup: $transferGroup)';
+    return 'StripeModel(id: $id, amount: $amount, amountCapturable: $amountCapturable, amountReceived: $amountReceived, clientSecret: $clientSecret, confirmationMethod: $confirmationMethod, livemode: $livemode, metadata: $metadata, nextAction: $nextAction, onBehalfOf: $onBehalfOf, paymentMethod: $paymentMethod, paymentMethodConfigurationDetails: $paymentMethodConfigurationDetails, paymentMethodOptions: $paymentMethodOptions, paymentMethodTypes: $paymentMethodTypes, processing: $processing, review: $review, setupFutureUsage: $setupFutureUsage, shipping: $shipping, source: $source, statementDescriptor: $statementDescriptor, statementDescriptorSuffix: $statementDescriptorSuffix, status: $status, transferData: $transferData, transferGroup: $transferGroup)';
   }
 
   @override
@@ -798,38 +596,15 @@ class _$StripeModelImpl implements _StripeModel {
         (other.runtimeType == runtimeType &&
             other is _$StripeModelImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.object, object) || other.object == object) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.amountCapturable, amountCapturable) ||
                 other.amountCapturable == amountCapturable) &&
             (identical(other.amountReceived, amountReceived) ||
                 other.amountReceived == amountReceived) &&
-            (identical(other.application, application) ||
-                other.application == application) &&
-            (identical(other.applicationFeeAmount, applicationFeeAmount) ||
-                other.applicationFeeAmount == applicationFeeAmount) &&
-            (identical(other.canceledAt, canceledAt) ||
-                other.canceledAt == canceledAt) &&
-            (identical(other.cancellationReason, cancellationReason) ||
-                other.cancellationReason == cancellationReason) &&
-            (identical(other.captureMethod, captureMethod) ||
-                other.captureMethod == captureMethod) &&
             (identical(other.clientSecret, clientSecret) ||
                 other.clientSecret == clientSecret) &&
             (identical(other.confirmationMethod, confirmationMethod) ||
                 other.confirmationMethod == confirmationMethod) &&
-            (identical(other.created, created) || other.created == created) &&
-            (identical(other.currency, currency) ||
-                other.currency == currency) &&
-            (identical(other.customer, customer) ||
-                other.customer == customer) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.invoice, invoice) || other.invoice == invoice) &&
-            (identical(other.lastPaymentError, lastPaymentError) ||
-                other.lastPaymentError == lastPaymentError) &&
-            (identical(other.latestCharge, latestCharge) ||
-                other.latestCharge == latestCharge) &&
             (identical(other.livemode, livemode) ||
                 other.livemode == livemode) &&
             const DeepCollectionEquality().equals(other._metadata, _metadata) &&
@@ -839,18 +614,15 @@ class _$StripeModelImpl implements _StripeModel {
                 .equals(other.onBehalfOf, onBehalfOf) &&
             const DeepCollectionEquality()
                 .equals(other.paymentMethod, paymentMethod) &&
-            (identical(other.paymentMethodConfigurationDetails,
-                    paymentMethodConfigurationDetails) ||
-                other.paymentMethodConfigurationDetails ==
-                    paymentMethodConfigurationDetails) &&
+            const DeepCollectionEquality().equals(
+                other.paymentMethodConfigurationDetails,
+                paymentMethodConfigurationDetails) &&
             const DeepCollectionEquality()
                 .equals(other._paymentMethodOptions, _paymentMethodOptions) &&
             const DeepCollectionEquality()
                 .equals(other._paymentMethodTypes, _paymentMethodTypes) &&
             const DeepCollectionEquality()
                 .equals(other.processing, processing) &&
-            (identical(other.receiptEmail, receiptEmail) ||
-                other.receiptEmail == receiptEmail) &&
             const DeepCollectionEquality().equals(other.review, review) &&
             const DeepCollectionEquality()
                 .equals(other.setupFutureUsage, setupFutureUsage) &&
@@ -867,39 +639,25 @@ class _$StripeModelImpl implements _StripeModel {
                 .equals(other.transferGroup, transferGroup));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
         id,
-        object,
         amount,
         amountCapturable,
         amountReceived,
-        application,
-        applicationFeeAmount,
-        canceledAt,
-        cancellationReason,
-        captureMethod,
         clientSecret,
         confirmationMethod,
-        created,
-        currency,
-        customer,
-        description,
-        invoice,
-        lastPaymentError,
-        latestCharge,
         livemode,
         const DeepCollectionEquality().hash(_metadata),
         const DeepCollectionEquality().hash(nextAction),
         const DeepCollectionEquality().hash(onBehalfOf),
         const DeepCollectionEquality().hash(paymentMethod),
-        paymentMethodConfigurationDetails,
+        const DeepCollectionEquality().hash(paymentMethodConfigurationDetails),
         const DeepCollectionEquality().hash(_paymentMethodOptions),
         const DeepCollectionEquality().hash(_paymentMethodTypes),
         const DeepCollectionEquality().hash(processing),
-        receiptEmail,
         const DeepCollectionEquality().hash(review),
         const DeepCollectionEquality().hash(setupFutureUsage),
         const DeepCollectionEquality().hash(shipping),
@@ -911,7 +669,9 @@ class _$StripeModelImpl implements _StripeModel {
         const DeepCollectionEquality().hash(transferGroup)
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of StripeModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$StripeModelImplCopyWith<_$StripeModelImpl> get copyWith =>
@@ -928,39 +688,24 @@ class _$StripeModelImpl implements _StripeModel {
 abstract class _StripeModel implements StripeModel {
   const factory _StripeModel(
       {required final String id,
-      required final String object,
       required final int amount,
       @JsonKey(name: 'amount_capturable') final int? amountCapturable,
       @JsonKey(name: 'amount_received') final int? amountReceived,
-      final String? application,
-      @JsonKey(name: 'application_fee_amount')
-      final String? applicationFeeAmount,
-      @JsonKey(name: 'canceled_at') final String? canceledAt,
-      @JsonKey(name: 'cancellation_reason') final String? cancellationReason,
-      @JsonKey(name: 'capture_method') final String? captureMethod,
       @JsonKey(name: 'client_secret') required final String clientSecret,
       @JsonKey(name: 'confirmation_method')
       required final String confirmationMethod,
-      required final int created,
-      required final String currency,
-      final String? customer,
-      final String? description,
-      final String? invoice,
-      @JsonKey(name: 'last_payment_error') final String? lastPaymentError,
-      @JsonKey(name: 'latest_charge') final String? latestCharge,
       required final bool livemode,
       final Map<String, dynamic>? metadata,
       @JsonKey(name: 'next_action') final dynamic nextAction,
       @JsonKey(name: 'on_behalf_of') final dynamic onBehalfOf,
       @JsonKey(name: 'payment_method') final dynamic paymentMethod,
       @JsonKey(name: 'payment_method_configuration_details')
-      final String? paymentMethodConfigurationDetails,
+      final dynamic paymentMethodConfigurationDetails,
       @JsonKey(name: 'payment_method_options')
       final Map<String, dynamic>? paymentMethodOptions,
       @JsonKey(name: 'payment_method_types')
       final List<String>? paymentMethodTypes,
       final dynamic processing,
-      @JsonKey(name: 'receipt_email') final String? receiptEmail,
       final dynamic review,
       @JsonKey(name: 'setup_future_usage') final dynamic setupFutureUsage,
       final dynamic shipping,
@@ -977,9 +722,7 @@ abstract class _StripeModel implements StripeModel {
       _$StripeModelImpl.fromJson;
 
   @override
-  String get id;
-  @override
-  String get object;
+  String get id; // required String object,
   @override
   int get amount;
   @override
@@ -987,43 +730,23 @@ abstract class _StripeModel implements StripeModel {
   int? get amountCapturable;
   @override
   @JsonKey(name: 'amount_received')
-  int? get amountReceived;
-  @override
-  String? get application;
-  @override
-  @JsonKey(name: 'application_fee_amount')
-  String? get applicationFeeAmount;
-  @override
-  @JsonKey(name: 'canceled_at')
-  String? get canceledAt;
-  @override
-  @JsonKey(name: 'cancellation_reason')
-  String? get cancellationReason;
-  @override
-  @JsonKey(name: 'capture_method')
-  String? get captureMethod;
+  int? get amountReceived; // String? application,
+// @JsonKey(name: 'application_fee_amount') String? applicationFeeAmount,
+// @JsonKey(name: 'canceled_at') String? canceledAt,
+// @JsonKey(name: 'cancellation_reason') String? cancellationReason,
+// @JsonKey(name: 'capture_method') String? captureMethod,
   @override
   @JsonKey(name: 'client_secret')
   String get clientSecret;
   @override
   @JsonKey(name: 'confirmation_method')
-  String get confirmationMethod;
-  @override
-  int get created;
-  @override
-  String get currency;
-  @override
-  String? get customer;
-  @override
-  String? get description;
-  @override
-  String? get invoice;
-  @override
-  @JsonKey(name: 'last_payment_error')
-  String? get lastPaymentError;
-  @override
-  @JsonKey(name: 'latest_charge')
-  String? get latestCharge;
+  String get confirmationMethod; // required int created,
+// required String currency,
+// String? customer,
+// String? description,
+// String? invoice,
+// @JsonKey(name: 'last_payment_error') String? lastPaymentError,
+// @JsonKey(name: 'latest_charge') String? latestCharge,
   @override
   bool get livemode;
   @override
@@ -1039,7 +762,7 @@ abstract class _StripeModel implements StripeModel {
   dynamic get paymentMethod;
   @override
   @JsonKey(name: 'payment_method_configuration_details')
-  String? get paymentMethodConfigurationDetails;
+  dynamic get paymentMethodConfigurationDetails;
   @override
   @JsonKey(name: 'payment_method_options')
   Map<String, dynamic>? get paymentMethodOptions;
@@ -1047,10 +770,8 @@ abstract class _StripeModel implements StripeModel {
   @JsonKey(name: 'payment_method_types')
   List<String>? get paymentMethodTypes;
   @override
-  dynamic get processing;
-  @override
-  @JsonKey(name: 'receipt_email')
-  String? get receiptEmail;
+  dynamic
+      get processing; // @JsonKey(name: 'receipt_email') String? receiptEmail,
   @override
   dynamic get review;
   @override
@@ -1074,8 +795,11 @@ abstract class _StripeModel implements StripeModel {
   @override
   @JsonKey(name: 'transfer_group')
   dynamic get transferGroup;
+
+  /// Create a copy of StripeModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StripeModelImplCopyWith<_$StripeModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
