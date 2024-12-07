@@ -46,7 +46,9 @@ mixin _$RegState {
   Unique? get unique => throw _privateConstructorUsedError;
   int? get countDown => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RegState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $RegStateCopyWith<RegState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -97,6 +99,8 @@ class _$RegStateCopyWithImpl<$Res, $Val extends RegState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of RegState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -225,6 +229,8 @@ class _$RegStateCopyWithImpl<$Res, $Val extends RegState>
     ) as $Val);
   }
 
+  /// Create a copy of RegState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SignupDataCopyWith<$Res> get signupData {
@@ -233,6 +239,8 @@ class _$RegStateCopyWithImpl<$Res, $Val extends RegState>
     });
   }
 
+  /// Create a copy of RegState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AddressCopyWith<$Res> get address {
@@ -241,6 +249,8 @@ class _$RegStateCopyWithImpl<$Res, $Val extends RegState>
     });
   }
 
+  /// Create a copy of RegState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $VehicleCopyWith<$Res> get vehicle {
@@ -299,6 +309,8 @@ class __$$InitialImplCopyWithImpl<$Res>
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RegState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -648,7 +660,9 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
         countDown
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RegState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
@@ -691,12 +705,12 @@ abstract class _Initial extends RegState {
   bool get finished;
   @override
   int get step;
-  @override
 
   /// stops automatic flow at [lastStep]
-  int get lastStep;
-  @override // applies to partial flow
+  @override
+  int get lastStep; // applies to partial flow
 //
+  @override
   String? get email;
   @override
   String? get willVerifyEmail;
@@ -705,38 +719,41 @@ abstract class _Initial extends RegState {
   @override
   String? get emailOTP;
   @override
-  Status get verifiedEmailStatus;
-  @override //
-  SignupData get signupData;
-  @override // step: 0
+  Status get verifiedEmailStatus; //
+  @override
+  SignupData get signupData; // step: 0
+  @override
   String get singupError;
   @override
-  String? get phone;
-  @override // step: 1
-  String? get otp;
-  @override // step: 2
-  Address get address;
-  @override // step: 3
+  String? get phone; // step: 1
+  @override
+  String? get otp; // step: 2
+  @override
+  Address get address; // step: 3
 //
+  @override
   String get message;
   @override
   Status get status;
   @override
   String get addressMessage;
   @override
-  Status get addressStatus;
-  @override //
+  Status get addressStatus; //
+  @override
   Vehicle get vehicle;
   @override
-  Status get ridesStatus;
-  @override //
+  Status get ridesStatus; //
+  @override
   int get storedOnboardingProgress;
   @override
   Unique? get unique;
   @override
   int? get countDown;
+
+  /// Create a copy of RegState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

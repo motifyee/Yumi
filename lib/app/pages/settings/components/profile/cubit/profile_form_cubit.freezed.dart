@@ -25,7 +25,9 @@ mixin _$ProfileFormState {
   bool get pickupOnly => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProfileFormState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ProfileFormStateCopyWith<ProfileFormState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +60,8 @@ class _$ProfileFormStateCopyWithImpl<$Res, $Val extends ProfileFormState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ProfileFormState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -101,6 +105,8 @@ class _$ProfileFormStateCopyWithImpl<$Res, $Val extends ProfileFormState>
     ) as $Val);
   }
 
+  /// Create a copy of ProfileFormState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProfileCopyWith<$Res>? get profile {
@@ -143,6 +149,8 @@ class __$$InitialImplCopyWithImpl<$Res>
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ProfileFormState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -246,7 +254,9 @@ class _$InitialImpl implements _Initial {
   int get hashCode => Object.hash(runtimeType, profileFormKey, profile,
       fullName, mobile, about, pickupOnly, isLoading);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProfileFormState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
@@ -277,8 +287,11 @@ abstract class _Initial implements ProfileFormState {
   bool get pickupOnly;
   @override
   bool get isLoading;
+
+  /// Create a copy of ProfileFormState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

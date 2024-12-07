@@ -23,8 +23,12 @@ mixin _$MealFormState {
   Meal get mealModel => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
+  /// Serializes this MealFormState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MealFormState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MealFormStateCopyWith<MealFormState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$MealFormStateCopyWithImpl<$Res, $Val extends MealFormState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MealFormState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -68,6 +74,8 @@ class _$MealFormStateCopyWithImpl<$Res, $Val extends MealFormState>
     ) as $Val);
   }
 
+  /// Create a copy of MealFormState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $MealCopyWith<$Res> get mealModel {
@@ -99,6 +107,8 @@ class __$$MealFormStateImplCopyWithImpl<$Res>
       _$MealFormStateImpl _value, $Res Function(_$MealFormStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MealFormState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -147,11 +157,13 @@ class _$MealFormStateImpl implements _MealFormState {
                 other.isLoading == isLoading));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, mealModel, isLoading);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MealFormState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MealFormStateImplCopyWith<_$MealFormStateImpl> get copyWith =>
@@ -177,8 +189,11 @@ abstract class _MealFormState implements MealFormState {
   Meal get mealModel;
   @override
   bool get isLoading;
+
+  /// Create a copy of MealFormState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MealFormStateImplCopyWith<_$MealFormStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

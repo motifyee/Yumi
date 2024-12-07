@@ -22,8 +22,12 @@ SignalRState _$SignalRStateFromJson(Map<String, dynamic> json) {
 mixin _$SignalRState {
   List<SignalRM> get signals => throw _privateConstructorUsedError;
 
+  /// Serializes this SignalRState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SignalRState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SignalRStateCopyWith<SignalRState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -47,6 +51,8 @@ class _$SignalRStateCopyWithImpl<$Res, $Val extends SignalRState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SignalRState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -80,6 +86,8 @@ class __$$SignalRStateImplCopyWithImpl<$Res>
       _$SignalRStateImpl _value, $Res Function(_$SignalRStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SignalRState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -125,12 +133,14 @@ class _$SignalRStateImpl extends _SignalRState {
             const DeepCollectionEquality().equals(other._signals, _signals));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_signals));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SignalRState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SignalRStateImplCopyWith<_$SignalRStateImpl> get copyWith =>
@@ -154,8 +164,11 @@ abstract class _SignalRState extends SignalRState {
 
   @override
   List<SignalRM> get signals;
+
+  /// Create a copy of SignalRState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SignalRStateImplCopyWith<_$SignalRStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

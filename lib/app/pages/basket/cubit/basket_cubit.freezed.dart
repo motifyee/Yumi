@@ -22,8 +22,12 @@ BasketState _$BasketStateFromJson(Map<String, dynamic> json) {
 mixin _$BasketState {
   Basket get basket => throw _privateConstructorUsedError;
 
+  /// Serializes this BasketState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of BasketState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BasketStateCopyWith<BasketState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$BasketStateCopyWithImpl<$Res, $Val extends BasketState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BasketState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -62,6 +68,8 @@ class _$BasketStateCopyWithImpl<$Res, $Val extends BasketState>
     ) as $Val);
   }
 
+  /// Create a copy of BasketState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $BasketCopyWith<$Res> get basket {
@@ -93,6 +101,8 @@ class __$$BasketStateImplCopyWithImpl<$Res>
       _$BasketStateImpl _value, $Res Function(_$BasketStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BasketState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -131,11 +141,13 @@ class _$BasketStateImpl implements _BasketState {
             (identical(other.basket, basket) || other.basket == basket));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, basket);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BasketState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BasketStateImplCopyWith<_$BasketStateImpl> get copyWith =>
@@ -158,8 +170,11 @@ abstract class _BasketState implements BasketState {
 
   @override
   Basket get basket;
+
+  /// Create a copy of BasketState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BasketStateImplCopyWith<_$BasketStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

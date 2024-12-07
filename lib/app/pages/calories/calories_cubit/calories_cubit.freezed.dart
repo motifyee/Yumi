@@ -22,8 +22,12 @@ CaloriesState _$CaloriesStateFromJson(Map<String, dynamic> json) {
 mixin _$CaloriesState {
   PaginatedData<Calorie> get calories => throw _privateConstructorUsedError;
 
+  /// Serializes this CaloriesState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CaloriesState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CaloriesStateCopyWith<CaloriesState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$CaloriesStateCopyWithImpl<$Res, $Val extends CaloriesState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CaloriesState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -62,6 +68,8 @@ class _$CaloriesStateCopyWithImpl<$Res, $Val extends CaloriesState>
     ) as $Val);
   }
 
+  /// Create a copy of CaloriesState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PaginatedDataCopyWith<Calorie, $Res> get calories {
@@ -93,6 +101,8 @@ class __$$CaloriesStateImplCopyWithImpl<$Res>
       _$CaloriesStateImpl _value, $Res Function(_$CaloriesStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CaloriesState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -133,11 +143,13 @@ class _$CaloriesStateImpl implements _CaloriesState {
                 other.calories == calories));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, calories);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CaloriesState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CaloriesStateImplCopyWith<_$CaloriesStateImpl> get copyWith =>
@@ -160,8 +172,11 @@ abstract class _CaloriesState implements CaloriesState {
 
   @override
   PaginatedData<Calorie> get calories;
+
+  /// Create a copy of CaloriesState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CaloriesStateImplCopyWith<_$CaloriesStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

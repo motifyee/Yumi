@@ -23,8 +23,12 @@ mixin _$SignalRM {
   Signal get type => throw _privateConstructorUsedError;
   dynamic get message => throw _privateConstructorUsedError;
 
+  /// Serializes this SignalRM to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SignalRM
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SignalRMCopyWith<SignalRM> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -47,6 +51,8 @@ class _$SignalRMCopyWithImpl<$Res, $Val extends SignalRM>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SignalRM
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -85,6 +91,8 @@ class __$$SignalRMImplCopyWithImpl<$Res>
       _$SignalRMImpl _value, $Res Function(_$SignalRMImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SignalRM
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -131,12 +139,14 @@ class _$SignalRMImpl implements _SignalRM {
             const DeepCollectionEquality().equals(other.message, message));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, type, const DeepCollectionEquality().hash(message));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SignalRM
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SignalRMImplCopyWith<_$SignalRMImpl> get copyWith =>
@@ -161,8 +171,11 @@ abstract class _SignalRM implements SignalRM {
   Signal get type;
   @override
   dynamic get message;
+
+  /// Create a copy of SignalRM
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SignalRMImplCopyWith<_$SignalRMImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

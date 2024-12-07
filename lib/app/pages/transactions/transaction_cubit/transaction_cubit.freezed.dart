@@ -23,8 +23,12 @@ mixin _$TransactionState {
   PaginatedData<Transaction> get pagination =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this TransactionState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TransactionState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TransactionStateCopyWith<TransactionState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$TransactionStateCopyWithImpl<$Res, $Val extends TransactionState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TransactionState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -63,6 +69,8 @@ class _$TransactionStateCopyWithImpl<$Res, $Val extends TransactionState>
     ) as $Val);
   }
 
+  /// Create a copy of TransactionState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PaginatedDataCopyWith<Transaction, $Res> get pagination {
@@ -95,6 +103,8 @@ class __$$TransactionStateImplCopyWithImpl<$Res>
       $Res Function(_$TransactionStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TransactionState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -134,11 +144,13 @@ class _$TransactionStateImpl implements _TransactionState {
                 other.pagination == pagination));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, pagination);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TransactionState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TransactionStateImplCopyWith<_$TransactionStateImpl> get copyWith =>
@@ -163,8 +175,11 @@ abstract class _TransactionState implements TransactionState {
 
   @override
   PaginatedData<Transaction> get pagination;
+
+  /// Create a copy of TransactionState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TransactionStateImplCopyWith<_$TransactionStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

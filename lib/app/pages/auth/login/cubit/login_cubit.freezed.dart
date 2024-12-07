@@ -19,7 +19,9 @@ mixin _$LoginState {
   LoginData get loginData => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LoginStateCopyWith<LoginState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -45,6 +47,8 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -63,6 +67,8 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
     ) as $Val);
   }
 
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $LoginDataCopyWith<$Res> get loginData {
@@ -94,6 +100,8 @@ class __$$InitialImplCopyWithImpl<$Res>
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -146,7 +154,9 @@ class _$InitialImpl implements _Initial {
   @override
   int get hashCode => Object.hash(runtimeType, loginData, isLoading);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
@@ -161,8 +171,11 @@ abstract class _Initial implements LoginState {
   LoginData get loginData;
   @override
   bool get isLoading;
+
+  /// Create a copy of LoginState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

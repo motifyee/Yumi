@@ -23,8 +23,12 @@ mixin _$AppInfoState {
   @JsonKey(includeToJson: false, includeFromJson: false)
   PackageInfo? get packageInfo => throw _privateConstructorUsedError;
 
+  /// Serializes this AppInfoState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AppInfoState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AppInfoStateCopyWith<AppInfoState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$AppInfoStateCopyWithImpl<$Res, $Val extends AppInfoState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AppInfoState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -85,6 +91,8 @@ class __$$AppInfoStateImplCopyWithImpl<$Res>
       _$AppInfoStateImpl _value, $Res Function(_$AppInfoStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AppInfoState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -127,11 +135,13 @@ class _$AppInfoStateImpl implements _AppInfoState {
                 other.packageInfo == packageInfo));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, packageInfo);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AppInfoState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AppInfoStateImplCopyWith<_$AppInfoStateImpl> get copyWith =>
@@ -156,8 +166,11 @@ abstract class _AppInfoState implements AppInfoState {
   @override
   @JsonKey(includeToJson: false, includeFromJson: false)
   PackageInfo? get packageInfo;
+
+  /// Create a copy of AppInfoState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AppInfoStateImplCopyWith<_$AppInfoStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

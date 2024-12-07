@@ -39,8 +39,12 @@ mixin _$Invoice {
   String? get invoiceCode => throw _privateConstructorUsedError;
   int? get paymentType => throw _privateConstructorUsedError;
 
+  /// Serializes this Invoice to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Invoice
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $InvoiceCopyWith<Invoice> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -79,6 +83,8 @@ class _$InvoiceCopyWithImpl<$Res, $Val extends Invoice>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Invoice
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -198,6 +204,8 @@ class __$$InvoiceImplCopyWithImpl<$Res>
       _$InvoiceImpl _value, $Res Function(_$InvoiceImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Invoice
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -394,7 +402,7 @@ class _$InvoiceImpl extends _Invoice {
                 other.paymentType == paymentType));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -414,7 +422,9 @@ class _$InvoiceImpl extends _Invoice {
       invoiceCode,
       paymentType);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Invoice
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InvoiceImplCopyWith<_$InvoiceImpl> get copyWith =>
@@ -484,8 +494,11 @@ abstract class _Invoice extends Invoice {
   String? get invoiceCode;
   @override
   int? get paymentType;
+
+  /// Create a copy of Invoice
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InvoiceImplCopyWith<_$InvoiceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

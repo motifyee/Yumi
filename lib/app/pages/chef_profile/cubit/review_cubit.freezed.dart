@@ -22,8 +22,12 @@ ReviewState _$ReviewStateFromJson(Map<String, dynamic> json) {
 mixin _$ReviewState {
   PaginatedData<Review> get pagination => throw _privateConstructorUsedError;
 
+  /// Serializes this ReviewState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ReviewState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ReviewStateCopyWith<ReviewState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$ReviewStateCopyWithImpl<$Res, $Val extends ReviewState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ReviewState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -62,6 +68,8 @@ class _$ReviewStateCopyWithImpl<$Res, $Val extends ReviewState>
     ) as $Val);
   }
 
+  /// Create a copy of ReviewState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PaginatedDataCopyWith<Review, $Res> get pagination {
@@ -93,6 +101,8 @@ class __$$ReviewStateImplCopyWithImpl<$Res>
       _$ReviewStateImpl _value, $Res Function(_$ReviewStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ReviewState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -132,11 +142,13 @@ class _$ReviewStateImpl implements _ReviewState {
                 other.pagination == pagination));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, pagination);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ReviewState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ReviewStateImplCopyWith<_$ReviewStateImpl> get copyWith =>
@@ -159,8 +171,11 @@ abstract class _ReviewState implements ReviewState {
 
   @override
   PaginatedData<Review> get pagination;
+
+  /// Create a copy of ReviewState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ReviewStateImplCopyWith<_$ReviewStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

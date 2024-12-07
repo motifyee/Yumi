@@ -23,8 +23,12 @@ mixin _$IngredientListState {
   List<Ingredient> get ingredients => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
 
+  /// Serializes this IngredientListState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of IngredientListState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $IngredientListStateCopyWith<IngredientListState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$IngredientListStateCopyWithImpl<$Res, $Val extends IngredientListState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of IngredientListState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,6 +92,8 @@ class __$$IngredientListStateImplCopyWithImpl<$Res>
       $Res Function(_$IngredientListStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of IngredientListState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -141,12 +149,14 @@ class _$IngredientListStateImpl implements _IngredientListState {
             (identical(other.loading, loading) || other.loading == loading));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_ingredients), loading);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of IngredientListState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$IngredientListStateImplCopyWith<_$IngredientListStateImpl> get copyWith =>
@@ -173,8 +183,11 @@ abstract class _IngredientListState implements IngredientListState {
   List<Ingredient> get ingredients;
   @override
   bool get loading;
+
+  /// Create a copy of IngredientListState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$IngredientListStateImplCopyWith<_$IngredientListStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -22,8 +22,12 @@ AddressState _$AddressStateFromJson(Map<String, dynamic> json) {
 mixin _$AddressState {
   PaginatedData<Address> get pagination => throw _privateConstructorUsedError;
 
+  /// Serializes this AddressState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AddressState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AddressStateCopyWith<AddressState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$AddressStateCopyWithImpl<$Res, $Val extends AddressState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AddressState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -62,6 +68,8 @@ class _$AddressStateCopyWithImpl<$Res, $Val extends AddressState>
     ) as $Val);
   }
 
+  /// Create a copy of AddressState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PaginatedDataCopyWith<Address, $Res> get pagination {
@@ -93,6 +101,8 @@ class __$$AddressStateImplCopyWithImpl<$Res>
       _$AddressStateImpl _value, $Res Function(_$AddressStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AddressState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -132,11 +142,13 @@ class _$AddressStateImpl implements _AddressState {
                 other.pagination == pagination));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, pagination);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AddressState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AddressStateImplCopyWith<_$AddressStateImpl> get copyWith =>
@@ -159,8 +171,11 @@ abstract class _AddressState implements AddressState {
 
   @override
   PaginatedData<Address> get pagination;
+
+  /// Create a copy of AddressState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddressStateImplCopyWith<_$AddressStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

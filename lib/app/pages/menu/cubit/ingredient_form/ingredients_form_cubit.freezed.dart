@@ -23,8 +23,12 @@ mixin _$IngredientsFormState {
   List<Ingredient> get ingredientsModelList =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this IngredientsFormState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of IngredientsFormState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $IngredientsFormStateCopyWith<IngredientsFormState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$IngredientsFormStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of IngredientsFormState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -82,6 +88,8 @@ class __$$IngredientsStateImplCopyWithImpl<$Res>
       $Res Function(_$IngredientsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of IngredientsFormState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -129,12 +137,14 @@ class _$IngredientsStateImpl implements _IngredientsState {
                 .equals(other._ingredientsModelList, _ingredientsModelList));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_ingredientsModelList));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of IngredientsFormState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$IngredientsStateImplCopyWith<_$IngredientsStateImpl> get copyWith =>
@@ -159,8 +169,11 @@ abstract class _IngredientsState implements IngredientsFormState {
 
   @override
   List<Ingredient> get ingredientsModelList;
+
+  /// Create a copy of IngredientsFormState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$IngredientsStateImplCopyWith<_$IngredientsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

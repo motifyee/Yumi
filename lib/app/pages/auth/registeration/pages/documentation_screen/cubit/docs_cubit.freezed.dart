@@ -20,7 +20,9 @@ mixin _$DocsState {
   String get message => throw _privateConstructorUsedError;
   List<Status?> get docsStatuses => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DocsStateCopyWith<DocsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,6 +45,8 @@ class _$DocsStateCopyWithImpl<$Res, $Val extends DocsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DocsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -84,6 +88,8 @@ class __$$InitImplCopyWithImpl<$Res>
   __$$InitImplCopyWithImpl(_$InitImpl _value, $Res Function(_$InitImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -153,7 +159,9 @@ class _$InitImpl extends _Init {
   int get hashCode => Object.hash(runtimeType, status, message,
       const DeepCollectionEquality().hash(_docsStatuses));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InitImplCopyWith<_$InitImpl> get copyWith =>
@@ -173,8 +181,11 @@ abstract class _Init extends DocsState {
   String get message;
   @override
   List<Status?> get docsStatuses;
+
+  /// Create a copy of DocsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitImplCopyWith<_$InitImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

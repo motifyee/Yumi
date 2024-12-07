@@ -22,7 +22,9 @@ mixin _$ChefsState {
   bool get errorReported => throw _privateConstructorUsedError;
   int get chefsUpdated => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChefsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ChefsStateCopyWith<ChefsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -53,6 +55,8 @@ class _$ChefsStateCopyWithImpl<$Res, $Val extends ChefsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ChefsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,6 +90,8 @@ class _$ChefsStateCopyWithImpl<$Res, $Val extends ChefsState>
     ) as $Val);
   }
 
+  /// Create a copy of ChefsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PaginationCopyWith<$Res> get chefsPagination {
@@ -122,6 +128,8 @@ class __$$ChefsStateImplCopyWithImpl<$Res>
       _$ChefsStateImpl _value, $Res Function(_$ChefsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ChefsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -219,7 +227,9 @@ class _$ChefsStateImpl extends _ChefsState {
       errorReported,
       chefsUpdated);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChefsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ChefsStateImplCopyWith<_$ChefsStateImpl> get copyWith =>
@@ -245,8 +255,11 @@ abstract class _ChefsState extends ChefsState {
   bool get errorReported;
   @override
   int get chefsUpdated;
+
+  /// Create a copy of ChefsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChefsStateImplCopyWith<_$ChefsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

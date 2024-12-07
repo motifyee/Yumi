@@ -34,7 +34,9 @@ mixin _$ForgotPwdState {
   int? get initialCountDownTime => throw _privateConstructorUsedError;
   int? get countDown => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ForgotPwdState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ForgotPwdStateCopyWith<ForgotPwdState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -73,6 +75,8 @@ class _$ForgotPwdStateCopyWithImpl<$Res, $Val extends ForgotPwdState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ForgotPwdState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -191,6 +195,8 @@ class __$$InitialImplCopyWithImpl<$Res>
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ForgotPwdState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -401,7 +407,9 @@ class _$InitialImpl extends Initial {
       initialCountDownTime,
       countDown);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ForgotPwdState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
@@ -428,8 +436,8 @@ abstract class Initial extends ForgotPwdState {
   const Initial._() : super._();
 
   @override
-  ForgotPwdVerificationType get verificationType;
-  @override //
+  ForgotPwdVerificationType get verificationType; //
+  @override
   bool get isLoading;
   @override
   String get email;
@@ -440,25 +448,28 @@ abstract class Initial extends ForgotPwdState {
   @override
   bool get emailSent;
   @override
-  bool get emailFound;
-  @override //
+  bool get emailFound; //
+  @override
   String get otpCode;
   @override
-  bool get codeSent;
-  @override // sent to be verified
+  bool get codeSent; // sent to be verified
+  @override
   bool get codeVerified;
   @override
   String get newPassword;
   @override
-  bool get passwordUpdated;
-  @override //
-  ForgotPwdWindow get window;
-  @override //
+  bool get passwordUpdated; //
+  @override
+  ForgotPwdWindow get window; //
+  @override
   int? get initialCountDownTime;
   @override
   int? get countDown;
+
+  /// Create a copy of ForgotPwdState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

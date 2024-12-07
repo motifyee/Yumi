@@ -22,8 +22,12 @@ OrderState _$OrderStateFromJson(Map<String, dynamic> json) {
 mixin _$OrderState {
   PaginatedData<Order> get ordersPage => throw _privateConstructorUsedError;
 
+  /// Serializes this OrderState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of OrderState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $OrderStateCopyWith<OrderState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$OrderStateCopyWithImpl<$Res, $Val extends OrderState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of OrderState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -62,6 +68,8 @@ class _$OrderStateCopyWithImpl<$Res, $Val extends OrderState>
     ) as $Val);
   }
 
+  /// Create a copy of OrderState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PaginatedDataCopyWith<Order, $Res> get ordersPage {
@@ -93,6 +101,8 @@ class __$$OrderStateImplCopyWithImpl<$Res>
       _$OrderStateImpl _value, $Res Function(_$OrderStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of OrderState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -133,11 +143,13 @@ class _$OrderStateImpl implements _OrderState {
                 other.ordersPage == ordersPage));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, ordersPage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OrderState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$OrderStateImplCopyWith<_$OrderStateImpl> get copyWith =>
@@ -160,8 +172,11 @@ abstract class _OrderState implements OrderState {
 
   @override
   PaginatedData<Order> get ordersPage;
+
+  /// Create a copy of OrderState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OrderStateImplCopyWith<_$OrderStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

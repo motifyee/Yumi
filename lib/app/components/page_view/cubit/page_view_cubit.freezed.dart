@@ -22,8 +22,12 @@ PageViewState _$PageViewStateFromJson(Map<String, dynamic> json) {
 mixin _$PageViewState {
   int get selectedList => throw _privateConstructorUsedError;
 
+  /// Serializes this PageViewState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PageViewState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PageViewStateCopyWith<PageViewState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -47,6 +51,8 @@ class _$PageViewStateCopyWithImpl<$Res, $Val extends PageViewState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PageViewState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -80,6 +86,8 @@ class __$$PageViewStateImplCopyWithImpl<$Res>
       _$PageViewStateImpl _value, $Res Function(_$PageViewStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PageViewState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -120,11 +128,13 @@ class _$PageViewStateImpl implements _PageViewState {
                 other.selectedList == selectedList));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, selectedList);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PageViewState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PageViewStateImplCopyWith<_$PageViewStateImpl> get copyWith =>
@@ -146,8 +156,11 @@ abstract class _PageViewState implements PageViewState {
 
   @override
   int get selectedList;
+
+  /// Create a copy of PageViewState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PageViewStateImplCopyWith<_$PageViewStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

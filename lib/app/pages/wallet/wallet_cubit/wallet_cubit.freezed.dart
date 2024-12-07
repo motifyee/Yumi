@@ -23,8 +23,12 @@ mixin _$WalletState {
   Wallet get wallet => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
+  /// Serializes this WalletState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of WalletState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $WalletStateCopyWith<WalletState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$WalletStateCopyWithImpl<$Res, $Val extends WalletState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of WalletState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -68,6 +74,8 @@ class _$WalletStateCopyWithImpl<$Res, $Val extends WalletState>
     ) as $Val);
   }
 
+  /// Create a copy of WalletState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $WalletCopyWith<$Res> get wallet {
@@ -99,6 +107,8 @@ class __$$WalletStateImplCopyWithImpl<$Res>
       _$WalletStateImpl _value, $Res Function(_$WalletStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of WalletState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -146,11 +156,13 @@ class _$WalletStateImpl implements _WalletState {
                 other.isLoading == isLoading));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, wallet, isLoading);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WalletState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WalletStateImplCopyWith<_$WalletStateImpl> get copyWith =>
@@ -176,8 +188,11 @@ abstract class _WalletState implements WalletState {
   Wallet get wallet;
   @override
   bool get isLoading;
+
+  /// Create a copy of WalletState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WalletStateImplCopyWith<_$WalletStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

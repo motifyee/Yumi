@@ -27,8 +27,12 @@ mixin _$MealState {
   int get changesCounter => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
 
+  /// Serializes this MealState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MealState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MealStateCopyWith<MealState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -59,6 +63,8 @@ class _$MealStateCopyWithImpl<$Res, $Val extends MealState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MealState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -97,6 +103,8 @@ class _$MealStateCopyWithImpl<$Res, $Val extends MealState>
     ) as $Val);
   }
 
+  /// Create a copy of MealState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PaginatedDataCopyWith<Meal, $Res> get pagination {
@@ -134,6 +142,8 @@ class __$$MealStateImplCopyWithImpl<$Res>
       _$MealStateImpl _value, $Res Function(_$MealStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MealState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -226,12 +236,14 @@ class _$MealStateImpl implements _MealState {
             (identical(other.status, status) || other.status == status));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, pagination, selectedCategory,
       menuTarget, mealsLength, changesCounter, status);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MealState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MealStateImplCopyWith<_$MealStateImpl> get copyWith =>
@@ -269,8 +281,11 @@ abstract class _MealState implements MealState {
   int get changesCounter;
   @override
   Status get status;
+
+  /// Create a copy of MealState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MealStateImplCopyWith<_$MealStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

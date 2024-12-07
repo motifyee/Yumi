@@ -22,8 +22,12 @@ NavigatorStates _$NavigatorStatesFromJson(Map<String, dynamic> json) {
 mixin _$NavigatorStates {
   int get selectedIndex => throw _privateConstructorUsedError;
 
+  /// Serializes this NavigatorStates to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of NavigatorStates
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NavigatorStatesCopyWith<NavigatorStates> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -47,6 +51,8 @@ class _$NavigatorStatesCopyWithImpl<$Res, $Val extends NavigatorStates>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NavigatorStates
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -80,6 +86,8 @@ class __$$NavigatorStatesImplCopyWithImpl<$Res>
       _$NavigatorStatesImpl _value, $Res Function(_$NavigatorStatesImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NavigatorStates
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -120,11 +128,13 @@ class _$NavigatorStatesImpl implements _NavigatorStates {
                 other.selectedIndex == selectedIndex));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, selectedIndex);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NavigatorStates
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NavigatorStatesImplCopyWith<_$NavigatorStatesImpl> get copyWith =>
@@ -148,8 +158,11 @@ abstract class _NavigatorStates implements NavigatorStates {
 
   @override
   int get selectedIndex;
+
+  /// Create a copy of NavigatorStates
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NavigatorStatesImplCopyWith<_$NavigatorStatesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

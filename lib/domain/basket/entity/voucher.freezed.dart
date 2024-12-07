@@ -32,8 +32,12 @@ mixin _$Voucher {
   DateTime get endDate => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
 
+  /// Serializes this Voucher to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Voucher
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $VoucherCopyWith<Voucher> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -65,6 +69,8 @@ class _$VoucherCopyWithImpl<$Res, $Val extends Voucher>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Voucher
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -132,6 +138,8 @@ class __$$VoucherImplCopyWithImpl<$Res>
       _$VoucherImpl _value, $Res Function(_$VoucherImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Voucher
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -228,12 +236,14 @@ class _$VoucherImpl extends _Voucher {
             (identical(other.status, status) || other.status == status));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, voucherName, amount, startDate, endDate, status);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Voucher
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$VoucherImplCopyWith<_$VoucherImpl> get copyWith =>
@@ -280,8 +290,11 @@ abstract class _Voucher extends Voucher {
   DateTime get endDate;
   @override
   String get status;
+
+  /// Create a copy of Voucher
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$VoucherImplCopyWith<_$VoucherImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -23,26 +23,19 @@ _$BasketImpl _$$BasketImplFromJson(Map<String, dynamic> json) => _$BasketImpl(
       isPaying: json['isPaying'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$BasketImplToJson(_$BasketImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  val['invoice'] = instance.invoice;
-  val['invoiceDetails'] = instance.invoiceDetails;
-  writeNotNull('voucherId', instance.voucherId);
-  writeNotNull('bankId', instance.bankId);
-  writeNotNull('shippedAddressId', instance.shippedAddressId);
-  val['isSchedule'] = instance.isSchedule;
-  val['is_Pickup'] = instance.isPickup;
-  val['is_Delivery'] = instance.isDelivery;
-  val['is_Preorder'] = instance.isPreorder;
-  writeNotNull('status', instance.status);
-  val['isPaying'] = instance.isPaying;
-  return val;
-}
+Map<String, dynamic> _$$BasketImplToJson(_$BasketImpl instance) =>
+    <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+      'invoice': instance.invoice,
+      'invoiceDetails': instance.invoiceDetails,
+      if (instance.voucherId case final value?) 'voucherId': value,
+      if (instance.bankId case final value?) 'bankId': value,
+      if (instance.shippedAddressId case final value?)
+        'shippedAddressId': value,
+      'isSchedule': instance.isSchedule,
+      'is_Pickup': instance.isPickup,
+      'is_Delivery': instance.isDelivery,
+      'is_Preorder': instance.isPreorder,
+      if (instance.status case final value?) 'status': value,
+      'isPaying': instance.isPaying,
+    };

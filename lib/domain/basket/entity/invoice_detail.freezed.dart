@@ -29,8 +29,12 @@ mixin _$InvoiceDetail {
   @JsonKey(includeToJson: false)
   Meal? get meal => throw _privateConstructorUsedError;
 
+  /// Serializes this InvoiceDetail to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of InvoiceDetail
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $InvoiceDetailCopyWith<InvoiceDetail> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +66,8 @@ class _$InvoiceDetailCopyWithImpl<$Res, $Val extends InvoiceDetail>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of InvoiceDetail
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -100,6 +106,8 @@ class _$InvoiceDetailCopyWithImpl<$Res, $Val extends InvoiceDetail>
     ) as $Val);
   }
 
+  /// Create a copy of InvoiceDetail
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $MealCopyWith<$Res>? get meal {
@@ -141,6 +149,8 @@ class __$$InvoiceDetailImplCopyWithImpl<$Res>
       _$InvoiceDetailImpl _value, $Res Function(_$InvoiceDetailImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of InvoiceDetail
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -235,12 +245,14 @@ class _$InvoiceDetailImpl implements _InvoiceDetail {
             (identical(other.meal, meal) || other.meal == meal));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, productVarintId, quantity,
       productVarintPrice, discountListId, note, meal);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of InvoiceDetail
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InvoiceDetailImplCopyWith<_$InvoiceDetailImpl> get copyWith =>
@@ -280,8 +292,11 @@ abstract class _InvoiceDetail implements InvoiceDetail {
   @override
   @JsonKey(includeToJson: false)
   Meal? get meal;
+
+  /// Create a copy of InvoiceDetail
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InvoiceDetailImplCopyWith<_$InvoiceDetailImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

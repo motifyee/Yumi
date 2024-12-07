@@ -20,7 +20,9 @@ mixin _$ScheduleState {
   Schedule get scheduleForm => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ScheduleState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ScheduleStateCopyWith<ScheduleState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -47,6 +49,8 @@ class _$ScheduleStateCopyWithImpl<$Res, $Val extends ScheduleState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ScheduleState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -70,6 +74,8 @@ class _$ScheduleStateCopyWithImpl<$Res, $Val extends ScheduleState>
     ) as $Val);
   }
 
+  /// Create a copy of ScheduleState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ScheduleCopyWith<$Res> get schedule {
@@ -78,6 +84,8 @@ class _$ScheduleStateCopyWithImpl<$Res, $Val extends ScheduleState>
     });
   }
 
+  /// Create a copy of ScheduleState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ScheduleCopyWith<$Res> get scheduleForm {
@@ -111,6 +119,8 @@ class __$$InitialImplCopyWithImpl<$Res>
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ScheduleState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -174,7 +184,9 @@ class _$InitialImpl extends Initial {
   @override
   int get hashCode => Object.hash(runtimeType, schedule, scheduleForm, status);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ScheduleState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
@@ -194,8 +206,11 @@ abstract class Initial extends ScheduleState {
   Schedule get scheduleForm;
   @override
   Status get status;
+
+  /// Create a copy of ScheduleState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
