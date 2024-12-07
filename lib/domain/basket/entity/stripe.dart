@@ -19,7 +19,7 @@ class StripeModel with _$StripeModel {
       @JsonKey(name: 'client_secret') required String clientSecret,
       @JsonKey(name: 'confirmation_method') required String confirmationMethod,
       // required int created,
-      // required String currency,
+      required String currency,
       // String? customer,
       // String? description,
       // String? invoice,
