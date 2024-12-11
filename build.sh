@@ -120,7 +120,8 @@ build() {
   cp "$icon/$appName.png" "$icon/icon.png"
 
   # flutter pub get
-  dart run flutter_launcher_icons
+  # dart run flutter_launcher_icons
+  dart run icons_launcher:create
 
   echo
   echo 4. Perform Build:
