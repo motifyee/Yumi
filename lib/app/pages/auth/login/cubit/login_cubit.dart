@@ -32,7 +32,7 @@ class LoginCubit extends Cubit<LoginState> {
     final params = LoginWithEmailParams(loginData);
     return await LoginWithEmail().call(params).then(
           (v) => v.fold(
-            (l) => l.toString(),
+            (l) => l.toString().isNotEmpty ? l.toString() : 'unknown error',
             (user) async {
               emit(state.copyWith(isLoading: false));
 

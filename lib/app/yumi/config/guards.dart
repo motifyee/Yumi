@@ -1,3 +1,4 @@
+import 'package:common_code/core/setup/signalr.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
@@ -23,7 +24,9 @@ class AuthGuard extends AutoRouteGuard {
         return router.replaceAll([const LoginRoute()]);
       }
 
-      initializeSignalr();
+      if (Signalr.hubConnection?.state != HubConnectionState.Connected)
+        initializeSignalr();
+
       if (!(user.mobileVerified ?? false)) {
         return router.replaceAll([const LoginRoute()]);
       }

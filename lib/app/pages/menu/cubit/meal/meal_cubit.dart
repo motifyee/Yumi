@@ -52,8 +52,12 @@ class MealCubit extends Cubit<MealState> {
       ),
     );
 
-    task.fold((l) => G().snackBar(l.toString()),
-        (r) => emit(state.copyWith(pagination: r)));
+    task.fold(
+      (l) => G().snackBar(l.toString()),
+      (r) {
+        if (!isClosed) emit(state.copyWith(pagination: r));
+      },
+    );
   }
 
   updateCategory({required int selectedCategory, String? chefId}) {

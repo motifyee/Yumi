@@ -1,7 +1,7 @@
 import 'package:dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
+import 'package:yumi/app/pages/order/widgets/order_card.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:yumi/routes/routes.gr.dart';
@@ -21,29 +21,38 @@ class PutActionButton extends StatelessWidget {
       padding:
           const EdgeInsets.symmetric(horizontal: CommonDimens.defaultMicroGap),
       child: TextButton(
-        onPressed: config.cannotPress
-            ? null
-            : config.customFun ??
-                () {
-                  context.read<OrderCubit>().putAction(
-                      order: config.order,
-                      apiKey: Endpoints.actionApiKeyString(
-                          apiKey: config.apiKey, id: '${config.order.id}'),
-                      getApiKey: config.getApiKey,
-                      isFakeBody: config.isFakeBody,
-                      navFun: config.navFun,
-                      customMessage: config.customMessage);
-                },
+        onPressed: () {
+          if (config.disabled) return;
+
+          if (config.onPressed != null) {
+            config.onPressed!();
+            return;
+          }
+
+          context.read<OrderCubit>().putAction(
+                order: config.order,
+                apiKey: Endpoints.actionApiKeyString(
+                  apiKey: config.apiKey,
+                  id: '${config.order.id}',
+                ),
+                getApiKey: config.getApiKey,
+                isFakeBody: config.isFakeBody,
+                navFun: config.navFun,
+                customMessage: config.customMessage,
+              );
+        },
         style: ButtonStyle(
-            backgroundColor: WidgetStateColor.resolveWith(
-          (states) => config.backGroundColor ?? CommonColors.backgroundTant,
-        )),
+          backgroundColor: WidgetStateColor.resolveWith(
+            (states) => config.backGroundColor ?? CommonColors.backgroundTant,
+          ),
+        ),
         child: Row(
           children: [
             if (config.isWaiting)
               Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: CommonDimens.defaultMicroGap),
+                  horizontal: CommonDimens.defaultMicroGap,
+                ),
                 child: SvgPicture.asset('assets/images/waiting.svg'),
               ),
             Text(
@@ -66,9 +75,9 @@ class OrderPutActionConfig {
     required this.getApiKey,
     required this.order,
     this.isFakeBody = true,
-    this.cannotPress = false,
+    this.disabled = false,
     this.navFun,
-    this.customFun,
+    this.onPressed,
     this.backGroundColor,
     this.color,
     required this.text,
@@ -80,9 +89,9 @@ class OrderPutActionConfig {
   final String getApiKey;
   final Order order;
   final bool isFakeBody;
-  final bool cannotPress;
+  final bool disabled;
   final Function()? navFun;
-  final Function()? customFun;
+  final Function()? onPressed;
   final Color? backGroundColor;
   final Color? color;
   final String text;
@@ -91,7 +100,7 @@ class OrderPutActionConfig {
 }
 
 class OrderPutActions {
-  static chefCloseOrderPickup({required dynamic widget}) =>
+  static chefCloseOrderPickup({required OrderCard widget}) =>
       OrderPutActionConfig(
         apiKey: widget.menuTarget == MenuTarget.order
             ? Endpoints().orderChefPickUpDelivered
@@ -105,7 +114,7 @@ class OrderPutActions {
         color: CommonColors.onSuccess,
       );
 
-  static chefFinishOrder({required dynamic widget}) => OrderPutActionConfig(
+  static chefFinishOrder({required OrderCard widget}) => OrderPutActionConfig(
         apiKey: widget.menuTarget == MenuTarget.order
             ? widget.order.isPickUp == true
                 ? Endpoints().orderChefPickUpFinished
@@ -122,9 +131,9 @@ class OrderPutActions {
         color: CommonColors.onSuccess,
       );
 
-  static chefStartOrder({required dynamic widget}) => OrderPutActionConfig(
-        cannotPress:
-            widget.order.isPickUp != true && widget.order.driverAccept != true,
+  static chefStartOrder({required OrderCard widget}) => OrderPutActionConfig(
+        disabled: widget.order.isPickUp == false &&
+            widget.order.driverAccept == false,
         apiKey: widget.menuTarget == MenuTarget.order
             ? widget.order.isPickUp == true
                 ? Endpoints().orderChefPickUpStart
@@ -138,16 +147,18 @@ class OrderPutActions {
         navFun: widget.navFun,
         text: S.current.start,
         backGroundColor: CommonColors.primary.withAlpha(
-            widget.order.isPickUp != true && widget.order.driverAccept != true
-                ? 100
-                : 255),
+          widget.order.isPickUp == false && widget.order.driverAccept == false
+              ? 100
+              : 255,
+        ),
         color: CommonColors.onPrimary,
         isWaiting:
             widget.order.isPickUp != true && widget.order.driverAccept != true,
       );
 
-  static chefCancelPreOrder({required dynamic widget}) => OrderPutActionConfig(
-        apiKey: (widget.order as Order).isPickUp == true
+  static chefCancelPreOrder({required OrderCard widget}) =>
+      OrderPutActionConfig(
+        apiKey: (widget.order).isPickUp == true
             ? Endpoints().preorderCancelChefPickup
             : Endpoints().preorderCancelChefDelivery,
         order: widget.order,
@@ -156,9 +167,10 @@ class OrderPutActions {
         customMessage: S.current.orderCanceled,
       );
 
-  static chefAcceptPreorder({required dynamic widget}) => OrderPutActionConfig(
-        cannotPress:
-            widget.order.isPickUp != true && widget.order.driverAccept != true,
+  static chefAcceptPreorder({required OrderCard widget}) =>
+      OrderPutActionConfig(
+        disabled: widget.order.isPickUp == false &&
+            widget.order.driverAccept == false,
         apiKey: widget.order.isPickUp == true
             ? Endpoints().preOrderChefPickUpAccept
             : Endpoints().preOrderChefDeliveryAccept,
@@ -171,7 +183,7 @@ class OrderPutActions {
         color: CommonColors.onSuccess,
       );
 
-  static driverCloseOrderDelivery({required dynamic widget}) =>
+  static driverCloseOrderDelivery({required OrderCard widget}) =>
       OrderPutActionConfig(
         apiKey: widget.menuTarget == MenuTarget.order
             ? Endpoints().orderDriverDelivered
@@ -185,8 +197,8 @@ class OrderPutActions {
         color: CommonColors.onSuccess,
       );
 
-  static driverReceived({required dynamic widget}) => OrderPutActionConfig(
-        cannotPress: widget.order.chefFinished != true,
+  static driverReceived({required OrderCard widget}) => OrderPutActionConfig(
+        disabled: widget.order.chefFinished == false,
         apiKey: widget.menuTarget == MenuTarget.order
             ? Endpoints().orderDriverReceived
             : Endpoints().preOrderDriverReceived,
@@ -201,7 +213,7 @@ class OrderPutActions {
         isWaiting: widget.order.chefFinished != true,
       );
 
-  static driverAccept({required dynamic widget}) => OrderPutActionConfig(
+  static driverAccept({required OrderCard widget}) => OrderPutActionConfig(
         apiKey: widget.menuTarget == MenuTarget.order
             ? Endpoints().orderDriverAccept
             : Endpoints().preOrderDriverAccept,
@@ -214,16 +226,17 @@ class OrderPutActions {
         color: CommonColors.onSuccess,
       );
 
-  static customerOrderStatus({required dynamic widget}) => OrderPutActionConfig(
+  static customerOrderStatus({required OrderCard widget}) =>
+      OrderPutActionConfig(
         apiKey: '',
         getApiKey: '',
         order: widget.order,
         text: S.current.orderStatus,
-        customFun: () =>
+        onPressed: () =>
             G().context.router.push(OrderStatusRoute(order: widget.order)),
       );
 
-  static waitDriver({required dynamic widget}) => OrderPutActionConfig(
+  static waitDriver({required OrderCard widget}) => OrderPutActionConfig(
         apiKey: Endpoints().waitDriverOrder,
         order: widget.order,
         getApiKey: widget.getApiKey,
@@ -233,7 +246,7 @@ class OrderPutActions {
         customMessage: S.current.thankYouForWaiting,
       );
 
-  static cancelDriver({required dynamic widget}) => OrderPutActionConfig(
+  static cancelDriver({required OrderCard widget}) => OrderPutActionConfig(
         apiKey: Endpoints().cancelDriverOrder,
         order: widget.order,
         getApiKey: widget.getApiKey,
@@ -241,7 +254,7 @@ class OrderPutActions {
         customMessage: S.current.orderCanceled,
       );
 
-  static waitChef({required dynamic widget}) => OrderPutActionConfig(
+  static waitChef({required OrderCard widget}) => OrderPutActionConfig(
         apiKey: Endpoints().waitChefOrder,
         order: widget.order,
         getApiKey: widget.getApiKey,
@@ -251,7 +264,7 @@ class OrderPutActions {
         customMessage: S.current.thankYouForWaiting,
       );
 
-  static cancelChef({required dynamic widget}) => OrderPutActionConfig(
+  static cancelChef({required OrderCard widget}) => OrderPutActionConfig(
         apiKey: Endpoints().cancelChefOrder,
         order: widget.order,
         getApiKey: widget.getApiKey,

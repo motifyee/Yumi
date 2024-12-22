@@ -20,11 +20,9 @@ class StripePayment extends UseCase<bool, StripePaymentParams> {
 
       return const Right(true);
     } catch (error) {
-      return switch (error.runtimeType) {
-        PlatformException _ =>
-          Left(GenericFailure((error as PlatformException).message)),
-        StripeException _ =>
-          Left(GenericFailure((error as StripeException).error.message)),
+      return switch (error) {
+        PlatformException _ => Left(GenericFailure(error.message)),
+        StripeException _ => Left(GenericFailure(error.error.message)),
         _ => Left(GenericFailure(error.toString()))
       };
     }
