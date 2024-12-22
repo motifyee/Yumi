@@ -20,8 +20,10 @@ class BasketScreen extends StatelessWidget {
 
   bool isBasketDeleting = false;
 
-  void openAddFood(
-      {required BuildContext context, required BasketState state}) {
+  void openAddFood({
+    required BuildContext context,
+    required BasketState state,
+  }) {
     showModalBottomSheet(
       context: context,
       builder: (context) => ChefMealsScreen(
@@ -36,8 +38,10 @@ class BasketScreen extends StatelessWidget {
     );
   }
 
-  void checkExpiredBasket(
-      {required BuildContext context, required Basket basket}) {
+  void checkExpiredBasket({
+    required BuildContext context,
+    required Basket basket,
+  }) {
     if (basket.invoice.isBasketExpired && !isBasketDeleting) {
       Timer(const Duration(milliseconds: 300), () {
         isBasketDeleting = true;
@@ -63,13 +67,14 @@ class BasketScreen extends StatelessWidget {
             leading: Container(),
             actions: [
               TextButton(
-                  onPressed: () {
-                    context.read<BasketCubit>().deleteBasket();
-                  },
-                  child: Icon(
-                    Icons.close,
-                    color: CommonColors.primary,
-                  )),
+                onPressed: () {
+                  context.read<BasketCubit>().deleteBasket();
+                },
+                child: Icon(
+                  Icons.close,
+                  color: CommonColors.primary,
+                ),
+              ),
             ],
             title: Column(
               children: [
@@ -107,7 +112,8 @@ class BasketScreen extends StatelessWidget {
                       const SizedBox(height: CommonDimens.defaultBlockGap),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: CommonDimens.defaultTitleGap),
+                          horizontal: CommonDimens.defaultTitleGap,
+                        ),
                         child: PaymentSummaryCard(),
                       ),
                       const SizedBox(height: CommonDimens.defaultBlockGap),
@@ -122,10 +128,14 @@ class BasketScreen extends StatelessWidget {
                               width: CommonDimens.defaultGapXXXL,
                               height: CommonDimens.defaultTitleGapLarge,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                      CommonDimens.defaultBorderRadius),
-                                  border: Border.all(
-                                      color: CommonColors.primary, width: 1)),
+                                borderRadius: BorderRadius.circular(
+                                  CommonDimens.defaultBorderRadius,
+                                ),
+                                border: Border.all(
+                                  color: CommonColors.primary,
+                                  width: 1,
+                                ),
+                              ),
                               child: Center(
                                 child: Text(
                                   S.of(context).addFoods,
@@ -143,14 +153,16 @@ class BasketScreen extends StatelessWidget {
                                   : () {
                                       if (state.basket.isPickupOnly) {
                                         showDialog(
-                                            context: context,
-                                            builder: (context) =>
-                                                const ConfirmCheckOutBasket());
+                                          context: context,
+                                          builder: (context) =>
+                                              const ConfirmCheckOutBasket(),
+                                        );
                                       } else {
                                         showDialog(
-                                            context: context,
-                                            builder: (context) =>
-                                                const DeliveryOptionDialog());
+                                          context: context,
+                                          builder: (context) =>
+                                              const DeliveryOptionDialog(),
+                                        );
                                       }
                                     },
                               child: Container(
@@ -158,7 +170,8 @@ class BasketScreen extends StatelessWidget {
                                 height: CommonDimens.defaultTitleGapLarge,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(
-                                      CommonDimens.defaultBorderRadius),
+                                    CommonDimens.defaultBorderRadius,
+                                  ),
                                   color: CommonColors.primary,
                                 ),
                                 child: Center(

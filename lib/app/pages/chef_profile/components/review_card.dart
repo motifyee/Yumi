@@ -1,7 +1,6 @@
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:yumi/domain/review/entity/review.dart';
 
 class ReviewCard extends StatelessWidget {
   ReviewCard({super.key, required this.review});
@@ -12,17 +11,19 @@ class ReviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-          horizontal: CommonDimens.defaultLineGap,
-          vertical: CommonDimens.defaultGap),
+        horizontal: CommonDimens.defaultLineGap,
+        vertical: CommonDimens.defaultGap,
+      ),
       decoration: BoxDecoration(
         color: CommonColors.background,
         borderRadius:
             BorderRadius.circular(CommonDimens.defaultBorderRadiusMedium),
         boxShadow: [
           BoxShadow(
-              color: CommonColors.shadow.withOpacity(.05),
-              blurRadius: 5,
-              offset: const Offset(2, 3))
+            color: CommonColors.shadow.withOpacity(.05),
+            blurRadius: 5,
+            offset: const Offset(2, 3),
+          ),
         ],
       ),
       child: Row(
@@ -32,15 +33,17 @@ class ReviewCard extends StatelessWidget {
             height: CommonDimens.defaultTitleGapLarge,
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
-                color: CommonColors.secondaryFaint,
-                borderRadius:
-                    BorderRadius.circular(CommonDimens.defaultTitleGapLarge)),
+              color: CommonColors.secondaryFaint,
+              borderRadius:
+                  BorderRadius.circular(CommonDimens.defaultTitleGapLarge),
+            ),
             child: Center(
               child: Text(
                 review.customerName[0].toUpperCase(),
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    fontSize: CommonFontSize.font_24,
-                    color: CommonColors.onSecondary),
+                      fontSize: CommonFontSize.font_24,
+                      color: CommonColors.onSecondary,
+                    ),
               ),
             ),
           ),
@@ -50,7 +53,8 @@ class ReviewCard extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: CommonDimens.defaultMicroGap),
+                  horizontal: CommonDimens.defaultMicroGap,
+                ),
                 child: Text(
                   review.customerName,
                   style: Theme.of(context).textTheme.labelMedium,
@@ -70,7 +74,7 @@ class ReviewCard extends StatelessWidget {
                   ),
                 ),
                 onRatingUpdate: (value) {},
-              )
+              ),
             ],
           ),
         ],

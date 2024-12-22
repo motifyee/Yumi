@@ -45,7 +45,7 @@ class BankInfoForm extends StatelessWidget {
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.allow(
               CustomRegex.lettersNumbersBlankOnly,
-            )
+            ),
           ],
         );
 
@@ -60,7 +60,7 @@ class BankInfoForm extends StatelessWidget {
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.allow(
               CustomRegex.lettersBlankOnly,
-            )
+            ),
           ],
         );
 
@@ -75,7 +75,7 @@ class BankInfoForm extends StatelessWidget {
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.allow(
               CustomRegex.numberOnly,
-            )
+            ),
           ],
         );
 
@@ -90,7 +90,7 @@ class BankInfoForm extends StatelessWidget {
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.allow(
               CustomRegex.lettersOnly,
-            )
+            ),
           ],
         );
 
@@ -103,7 +103,7 @@ class BankInfoForm extends StatelessWidget {
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.allow(
               CustomRegex.lettersNumbersOnly,
-            )
+            ),
           ],
         );
 
@@ -117,7 +117,7 @@ class BankInfoForm extends StatelessWidget {
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.allow(
               CustomRegex.lettersNumbersOnly,
-            )
+            ),
           ],
         );
 

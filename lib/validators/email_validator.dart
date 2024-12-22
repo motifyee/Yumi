@@ -38,8 +38,8 @@ String? emailOrMobileValidator(String? value) {
 }
 
 bool emailStructure(String? value) {
-  String pattern =
+  const String pattern =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
-  RegExp regExp = RegExp(pattern);
+  final RegExp regExp = RegExp(pattern);
   return regExp.hasMatch(value ?? '');
 }

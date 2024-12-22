@@ -7,8 +7,10 @@ import 'package:yumi/global.dart';
 class DriverStatusSignalR {
   static listen() {
     Signalr.on(Signal.updatedriverstatus, (p0) {
-      int index = p0?.indexWhere((dynamic e) =>
-              G().context.read<UserCubit>().state.user.id == e['driver_ID']) ??
+      final int index = p0?.indexWhere(
+            (e) =>
+                G().context.read<UserCubit>().state.user.id == e['driver_ID'],
+          ) ??
           -1;
 
       if (index <= -1) return;

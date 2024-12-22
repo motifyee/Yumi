@@ -8,7 +8,7 @@ part 'signal_r.g.dart';
 class SignalRM with _$SignalRM {
   const factory SignalRM({
     required Signal type,
-    dynamic message,
+    message,
   }) = _SignalRM;
 
   factory SignalRM.fromJson(Map<String, dynamic> json) =>

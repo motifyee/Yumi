@@ -40,11 +40,13 @@ class CountDownCubit extends Cubit<CountDownState> {
     void Function(CountDownState)? onTimeout,
     void Function(CountDownState)? onTick,
   }) async {
-    emit(state.copyWith(
-      storageKey: storageKey,
-      onTimeout: onTimeout,
-      onTick: onTick,
-    ));
+    emit(
+      state.copyWith(
+        storageKey: storageKey,
+        onTimeout: onTimeout,
+        onTick: onTick,
+      ),
+    );
 
     final prefs = await G().prefs;
     final value = prefs.getString(state.storageKey);
@@ -58,10 +60,12 @@ class CountDownCubit extends Cubit<CountDownState> {
       return;
     }
 
-    emit(state.copyWith(
-      value: value,
-      initialTime: initialTime,
-    ));
+    emit(
+      state.copyWith(
+        value: value,
+        initialTime: initialTime,
+      ),
+    );
 
     await start(value: value);
   }
@@ -81,12 +85,14 @@ class CountDownCubit extends Cubit<CountDownState> {
     final d = now - initialTime;
     if (d >= 1000 * timeout) return emit(state.copyWith(countDown: null));
 
-    emit(state.copyWith(
-      value: value,
-      timeout: timeout,
-      initialTime: initialTime,
-      countDown: timeout - (d / 1000).round(),
-    ));
+    emit(
+      state.copyWith(
+        value: value,
+        timeout: timeout,
+        initialTime: initialTime,
+        countDown: timeout - (d / 1000).round(),
+      ),
+    );
 
     await G().prefs.then((prefs) {
       prefs.setString(state.storageKey, value);

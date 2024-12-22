@@ -2,22 +2,23 @@ import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/domain/basket/entity/basket.dart';
 import 'package:yumi/domain/basket/entity/invoice_detail.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 
 class AddMealToBasket extends UseCase<Basket, AddMealToBasketParams> {
   @override
   Future<Either<Failure, Basket>> call(AddMealToBasketParams params) async {
-    List<InvoiceDetail> invoiceDetails =
+    final List<InvoiceDetail> invoiceDetails =
         List.from(params.basket.invoiceDetails);
 
     invoiceDetails.add(InvoiceDetail.fromMeal(meal: params.meal));
 
-    return Right(params.basket.copyWith(
-      invoiceDetails: invoiceDetails,
-      isPreorder: params.meal.isPreOrder ?? params.basket.isPreorder,
-      invoice: params.basket.invoice
-          .copyWith(chefID: params.meal.chefId ?? params.basket.invoice.chefID),
-    ));
+    return Right(
+      params.basket.copyWith(
+        invoiceDetails: invoiceDetails,
+        isPreorder: params.meal.isPreOrder ?? params.basket.isPreorder,
+        invoice: params.basket.invoice.copyWith(
+            chefID: params.meal.chefId ?? params.basket.invoice.chefID),
+      ),
+    );
   }
 }
 

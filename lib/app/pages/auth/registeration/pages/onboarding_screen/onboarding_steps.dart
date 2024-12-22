@@ -24,7 +24,7 @@ List<OnboardingStep> chefOnboardingSteps(
     [
       // profile
       OnboardingStep(
-        icon: "profile",
+        icon: 'profile',
         stepTitle: S.of(context).profile,
         stepDesc: S.of(context).firstYouShouldCompleteYourProfile,
         onTap: () async {
@@ -49,7 +49,7 @@ List<OnboardingStep> chefOnboardingSteps(
       ),
       // your menu
       OnboardingStep(
-        icon: "menu",
+        icon: 'menu',
         stepTitle: S.of(context).yourMenu,
         stepDesc: S.of(context).secondlyAddYourMealsOnMenuAndScheduleIt,
         onTap: () async {
@@ -89,7 +89,7 @@ List<OnboardingStep> chefOnboardingSteps(
       ),
       // documentation
       OnboardingStep(
-        icon: "documentation",
+        icon: 'documentation',
         stepTitle: S.of(context).documentation,
         stepDesc: S.of(context).thirdAttachYourDocuments,
         onTap: () async {
@@ -109,8 +109,10 @@ List<OnboardingStep> chefOnboardingSteps(
                     G().isChefApp ? chefDocsInfo : driverDocsInfo;
 
                 final List<String?> notUploadedDocs = docsInfo
-                    .filter((t) =>
-                        t.getdata(G().rd<ProfileCubit>().state.form) == null)
+                    .filter(
+                      (t) =>
+                          t.getdata(G().rd<ProfileCubit>().state.form) == null,
+                    )
                     .map((e) => e.title)
                     .toList();
 
@@ -129,7 +131,7 @@ List<OnboardingStep> chefOnboardingSteps(
                     ),
                   ),
                 );
-              }
+              },
             },
             insetPadding: 0,
           );
@@ -141,7 +143,7 @@ List<OnboardingStep> chefOnboardingSteps(
       ),
       // get approval
       OnboardingStep(
-        icon: "approval",
+        icon: 'approval',
         stepTitle: S.of(context).getApproval,
         stepDesc: S.of(context).thenWaitingForApprovalWithin72Hours,
         onTap: () async {
@@ -156,9 +158,11 @@ List<OnboardingStep> chefOnboardingSteps(
               title: Container(),
               content: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(!state.onboarding.approvalDone
-                    ? S.of(context).waitingforapprovalWithin72Hours
-                    : S.of(context).yourApplicationHasBeenApproved),
+                child: Text(
+                  !state.onboarding.approvalDone
+                      ? S.of(context).waitingforapprovalWithin72Hours
+                      : S.of(context).yourApplicationHasBeenApproved,
+                ),
               ),
               actions: {S.of(context).ok: null},
               dismissible: true,
@@ -172,7 +176,7 @@ List<OnboardingStep> chefOnboardingSteps(
       ),
       // get contract
       OnboardingStep(
-        icon: "contract",
+        icon: 'contract',
         stepTitle: S.of(context).getContract,
         stepDesc: S.of(context).fourthDownloadTheContractToSignAndUploadIt,
         onTap: () async {
@@ -184,17 +188,18 @@ List<OnboardingStep> chefOnboardingSteps(
           G().rd<RegCubit>().setStatus(Status.loading);
 
           await showAlertDialog(
-              context: context,
-              content: const ContractScreen(),
-              insetPadding: 0,
-              actions: {
-                S.of(context).ok: (ctx) {
-                  var photo = G().rd<ProfileCubit>().state.form.contractPhoto;
-                  if (photo?.isEmpty ?? true) return;
+            context: context,
+            content: const ContractScreen(),
+            insetPadding: 0,
+            actions: {
+              S.of(context).ok: (ctx) {
+                final photo = G().rd<ProfileCubit>().state.form.contractPhoto;
+                if (photo?.isEmpty ?? true) return;
 
-                  G().pop();
-                },
-              });
+                G().pop();
+              },
+            },
+          );
 
           G().rd<RegCubit>().setStatus(Status.idle);
         },
@@ -203,7 +208,7 @@ List<OnboardingStep> chefOnboardingSteps(
       ),
       // contract approval
       OnboardingStep(
-        icon: "approval",
+        icon: 'approval',
         stepTitle: S.of(context).contractApproval,
         stepDesc: S.of(context).finallyWaitingForApprovalWithin72Hours,
         onTap: () async {
@@ -215,9 +220,11 @@ List<OnboardingStep> chefOnboardingSteps(
               title: Container(),
               content: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(!state.onboarding.contractApprovalDone
-                    ? S.of(context).waitingforapprovalWithin72Hours
-                    : S.of(context).yourContractHasBeenApproved),
+                child: Text(
+                  !state.onboarding.contractApprovalDone
+                      ? S.of(context).waitingforapprovalWithin72Hours
+                      : S.of(context).yourContractHasBeenApproved,
+                ),
               ),
               actions: {S.of(context).ok: null},
               dismissible: true,
@@ -242,7 +249,7 @@ List<OnboardingStep> driverOnboardingSteps(
     chefSteps[0],
     // rides
     OnboardingStep(
-      icon: "rides",
+      icon: 'rides',
       stepTitle: S.of(context).yourRides,
       stepDesc:
           S.of(context).secondlyAddYourVechileTypeAndScheduleYourWorkingDays,
@@ -261,7 +268,7 @@ List<OnboardingStep> driverOnboardingSteps(
           actions: {
             S.of(context).save: (ctx) async {
               // if (G.cread<RegCubit>().state.vehicleType?.isEmpty ?? true) {
-              var regCubit = G().rd<RegCubit>();
+              final regCubit = G().rd<RegCubit>();
 
               if ((regCubit.state.vehicle.vehicleName()?.length ?? 0) < 3) {
                 return addYourVehicleDialog(context, firstTime: false);

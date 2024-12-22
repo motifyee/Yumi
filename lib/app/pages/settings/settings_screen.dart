@@ -1,7 +1,6 @@
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yumi/app/components/login_to_continue/login_to_continue.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/bankinfo/cubit/bankinfo_cubit.dart';
@@ -34,15 +33,15 @@ class SettingsScreen extends StatelessWidget {
 
         await G().rd<ProfileCubit>().deleteProfile().then(
           (value) {
-            if (!value.contains("Deleting a Account")) {
+            if (!value.contains('Deleting a Account')) {
               G().showToast(
-                "Could not delete account",
+                'Could not delete account',
                 context: context,
               );
             }
 
             G().showToast(
-              "Account Deleted!",
+              'Account Deleted!',
               context: context,
               gravity: ToastGravity.CENTER,
             );
@@ -115,12 +114,12 @@ Future<bool> confirmDeleteAccount(context) async {
   bool confirm = false;
   await showAlertDialog(
     context: context,
-    title: const Text("confirm"),
+    title: const Text('confirm'),
     dismissible: true,
     content: const Padding(
       padding: EdgeInsets.all(20),
       child: Text(
-        "Are you sure you want to delete your account?",
+        'Are you sure you want to delete your account?',
       ),
     ),
     actions: {
@@ -129,7 +128,7 @@ Future<bool> confirmDeleteAccount(context) async {
         confirm = true;
 
         G().pop();
-      }
+      },
     },
   );
 
@@ -154,19 +153,19 @@ class DeliveryAddresses extends StatelessWidget {
             spreadRadius: 0,
             blurRadius: 5,
             offset: const Offset(2, 4),
-          )
+          ),
         ],
       ),
       child: InkWell(
         onTap: () => {
-          context.router.replaceAll([const CustomerLocationRoute()])
+          context.router.replaceAll([const CustomerLocationRoute()]),
         },
         child: Row(
           children: [
             const Icon(Icons.location_on_outlined),
             const SizedBox(width: CommonDimens.defaultGap),
             const Text(
-              "Delivery Addresses",
+              'Delivery Addresses',
             ),
             Expanded(child: Container()),
             const Icon(Icons.chevron_right_outlined),

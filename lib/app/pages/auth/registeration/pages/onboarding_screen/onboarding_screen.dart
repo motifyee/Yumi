@@ -2,7 +2,6 @@ import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/onboarding_screen/onboarding_step.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/onboarding_screen/onboarding_steps.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
@@ -15,7 +14,7 @@ import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 
-part "onboarding_curve.dart";
+part 'onboarding_curve.dart';
 
 @RoutePage()
 class OnboardingScreen extends StatelessWidget {
@@ -104,7 +103,7 @@ class OnboardingScreen extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -117,9 +116,9 @@ Widget _buildOnboardingStackWidget(RegState state) {
   // decoration: BoxDecoration(border: Border.all()),
   return LayoutBuilder(
     builder: (context, constraints) {
-      var buildTile = _getTileBuilder(constraints);
+      final buildTile = _getTileBuilder(constraints);
 
-      var steps = G().isChefApp
+      final steps = G().isChefApp
           ? chefOnboardingSteps(context, state)
           : driverOnboardingSteps(context, state);
 
@@ -175,14 +174,14 @@ Widget Function(
   num y, {
   bool alignRight,
 }) _getTileBuilder(BoxConstraints constraints) {
-  var hs = constraints.maxWidth / 6;
-  var vs = constraints.maxHeight / 6;
+  final hs = constraints.maxWidth / 6;
+  final vs = constraints.maxHeight / 6;
 
   return (OnboardingStep step, num x, num y, {bool alignRight = false}) {
-    var tileChildren = _buildTileChildren(step, alignRight);
-    var isActive = step.isActive(); // i > state.activeIdx;
+    final tileChildren = _buildTileChildren(step, alignRight);
+    final isActive = step.isActive(); // i > state.activeIdx;
 
-    var foregroundDecoration = isActive
+    final foregroundDecoration = isActive
         ? null
         : const BoxDecoration(
             color: Colors.grey,
@@ -246,11 +245,12 @@ Widget _buildTileChildren(OnboardingStep step, [bool alignRight = false]) {
         children: [
           FittedBox(child: title),
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: description),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: description,
+          ),
         ],
       ),
-    )
+    ),
   ];
 
   return Row(

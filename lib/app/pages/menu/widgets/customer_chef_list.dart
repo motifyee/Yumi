@@ -1,7 +1,6 @@
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/components/page_view/cubit/page_view_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/chef/chef_cubit.dart';
@@ -26,8 +25,9 @@ class CustomerChefList extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: CommonDimens.defaultGap * 2,
-                  vertical: CommonDimens.defaultGap),
+                horizontal: CommonDimens.defaultGap * 2,
+                vertical: CommonDimens.defaultGap,
+              ),
               child: BlocBuilder<PageViewCubit, PageViewState>(
                 builder: (context, state) {
                   return Row(
@@ -38,9 +38,11 @@ class CustomerChefList extends StatelessWidget {
                         padding:
                             const EdgeInsets.all(CommonDimens.defaultMicroGap),
                         decoration: BoxDecoration(
-                            color: CommonColors.secondary,
-                            borderRadius: BorderRadius.circular(
-                                CommonDimens.defaultBorderRadiusSmall)),
+                          color: CommonColors.secondary,
+                          borderRadius: BorderRadius.circular(
+                            CommonDimens.defaultBorderRadiusSmall,
+                          ),
+                        ),
                         child: Center(
                           child: SvgPicture.asset('assets/images/profile1.svg'),
                         ),
@@ -65,10 +67,11 @@ class CustomerChefList extends StatelessWidget {
                                   isActive: state.selectedList == 0,
                                   icon: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal:
-                                            CommonDimens.defaultMicroGap),
+                                      horizontal: CommonDimens.defaultMicroGap,
+                                    ),
                                     child: SvgPicture.asset(
-                                        'assets/images/online_chef_icon.svg'),
+                                      'assets/images/online_chef_icon.svg',
+                                    ),
                                   ),
                                   onPressed: () {
                                     context
@@ -86,10 +89,11 @@ class CustomerChefList extends StatelessWidget {
                                   isActive: state.selectedList == 1,
                                   icon: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal:
-                                            CommonDimens.defaultMicroGap),
+                                      horizontal: CommonDimens.defaultMicroGap,
+                                    ),
                                     child: SvgPicture.asset(
-                                        'assets/images/busy_chef_icon.svg'),
+                                      'assets/images/busy_chef_icon.svg',
+                                    ),
                                   ),
                                   onPressed: () {
                                     context
@@ -107,10 +111,11 @@ class CustomerChefList extends StatelessWidget {
                                   isActive: state.selectedList == 2,
                                   icon: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal:
-                                            CommonDimens.defaultMicroGap),
+                                      horizontal: CommonDimens.defaultMicroGap,
+                                    ),
                                     child: SvgPicture.asset(
-                                        'assets/images/offline_chef_icon.svg'),
+                                      'assets/images/offline_chef_icon.svg',
+                                    ),
                                   ),
                                   onPressed: () {
                                     context
@@ -189,13 +194,15 @@ class _ChefListStatus extends StatelessWidget {
                     builder: (context, state) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: CommonDimens.defaultGap),
+                          horizontal: CommonDimens.defaultGap,
+                        ),
                         child: Row(
                           children: [
                             for (var chef in state.chefs)
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: CommonDimens.defaultGap),
+                                  horizontal: CommonDimens.defaultGap,
+                                ),
                                 child: ChefBanner(
                                   menuTarget: menuTarget,
                                   chef: chef,
@@ -204,9 +211,11 @@ class _ChefListStatus extends StatelessWidget {
                                   height: CommonDimens.defaultImageHeightSmall,
                                   borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(
-                                        CommonDimens.defaultBorderRadius),
+                                      CommonDimens.defaultBorderRadius,
+                                    ),
                                     topRight: Radius.circular(
-                                        CommonDimens.defaultBorderRadius),
+                                      CommonDimens.defaultBorderRadius,
+                                    ),
                                   ),
                                 ),
                               ),

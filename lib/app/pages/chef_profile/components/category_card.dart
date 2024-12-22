@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:common_code/domain/food_delivery/categories/entity/category.dart';
 
 class CategoriesCard extends StatelessWidget {
   const CategoriesCard({super.key, required this.category});
@@ -20,14 +19,15 @@ class CategoriesCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(CommonDimens.defaultMicroGap),
         decoration: BoxDecoration(
-            color: CommonColors.background,
-            borderRadius: BorderRadius.circular(CommonDimens.defaultGapExtreme),
-            boxShadow: [
-              BoxShadow(
-                color: CommonColors.shadow,
-                blurRadius: CommonDimens.defaultGap,
-              )
-            ]),
+          color: CommonColors.background,
+          borderRadius: BorderRadius.circular(CommonDimens.defaultGapExtreme),
+          boxShadow: [
+            BoxShadow(
+              color: CommonColors.shadow,
+              blurRadius: CommonDimens.defaultGap,
+            ),
+          ],
+        ),
         child: Row(
           children: [
             Container(
@@ -35,8 +35,9 @@ class CategoriesCard extends StatelessWidget {
               height: CommonDimens.defaultBlockGap,
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.circular(CommonDimens.defaultBlockGap)),
+                borderRadius:
+                    BorderRadius.circular(CommonDimens.defaultBlockGap),
+              ),
               child: Image.memory(
                 Uri.parse(category.image ?? '').data?.contentAsBytes() ??
                     Uint8List(0),
@@ -51,10 +52,11 @@ class CategoriesCard extends StatelessWidget {
               width: CommonDimens.defaultTitleGap,
               height: CommonDimens.defaultBlockGap,
               padding: const EdgeInsets.only(
-                  top: CommonDimens.defaultMicroGap,
-                  bottom: CommonDimens.defaultMicroGap,
-                  left: CommonDimens.defaultMicroGap,
-                  right: CommonDimens.defaultMicroGap),
+                top: CommonDimens.defaultMicroGap,
+                bottom: CommonDimens.defaultMicroGap,
+                left: CommonDimens.defaultMicroGap,
+                right: CommonDimens.defaultMicroGap,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

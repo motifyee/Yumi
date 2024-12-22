@@ -1,5 +1,4 @@
 import 'package:common_code/domain/food_delivery/calories/data/source/calories_source.dart';
-import 'package:common_code/domain/food_delivery/calories/entity/calorie.dart';
 import 'package:common_code/common_code.dart';
 
 class CaloriesRemoteSource implements CaloriesSource {

@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
@@ -11,11 +10,12 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/menu/widgets/chef_meal_basket_card.dart';
 
 class ChefMealsScreen extends StatefulWidget {
-  const ChefMealsScreen(
-      {super.key,
-      required this.menuTarget,
-      required this.chefId,
-      required this.isPickUpOnly});
+  const ChefMealsScreen({
+    super.key,
+    required this.menuTarget,
+    required this.chefId,
+    required this.isPickUpOnly,
+  });
 
   final MenuTarget menuTarget;
   final String chefId;
@@ -33,11 +33,12 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: CommonColors.background,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
-            topRight: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
-          )),
+        color: CommonColors.background,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+          topRight: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+        ),
+      ),
       padding: const EdgeInsets.only(
         top: CommonDimens.defaultGapExtreme,
         left: CommonDimens.defaultBlockGap,
@@ -68,44 +69,52 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    favPageController.animateToPage(0,
-                        duration: CommonDimens.animationDuration,
-                        curve: Curves.easeOut);
+                    favPageController.animateToPage(
+                      0,
+                      duration: CommonDimens.animationDuration,
+                      curve: Curves.easeOut,
+                    );
                     pageIndex = 0;
                   });
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: CommonDimens.defaultInputGap),
+                    horizontal: CommonDimens.defaultInputGap,
+                  ),
                   child: SvgPicture.asset(
                     'assets/images/chef_meals_list.svg',
                     colorFilter: ColorFilter.mode(
-                        pageIndex == 0
-                            ? CommonColors.primary
-                            : CommonColors.secondary,
-                        BlendMode.srcIn),
+                      pageIndex == 0
+                          ? CommonColors.primary
+                          : CommonColors.secondary,
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
               ),
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    favPageController.animateToPage(1,
-                        duration: CommonDimens.animationDuration,
-                        curve: Curves.easeOut);
+                    favPageController.animateToPage(
+                      1,
+                      duration: CommonDimens.animationDuration,
+                      curve: Curves.easeOut,
+                    );
                     pageIndex = 1;
                   });
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: CommonDimens.defaultInputGap),
+                    horizontal: CommonDimens.defaultInputGap,
+                  ),
                   child: SvgPicture.asset(
                     'assets/images/meals.svg',
                     colorFilter: ColorFilter.mode(
-                        pageIndex == 0
-                            ? CommonColors.secondary
-                            : CommonColors.primary,
-                        BlendMode.srcIn),
+                      pageIndex == 0
+                          ? CommonColors.secondary
+                          : CommonColors.primary,
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
               ),
@@ -117,94 +126,103 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
               BlocProvider(create: (context) => MealCubit()),
               BlocProvider(create: (context) => CategoriesCubit()),
             ],
-            child: Builder(builder: (context) {
-              return Expanded(
-                child: PageView(
-                  controller: favPageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    PaginationTemplate(
-                      scrollDirection: Axis.vertical,
-                      loadDate: () {
-                        context.read<MealCubit>().updateMeals(
-                            menuTarget: widget.menuTarget,
-                            chefId: widget.chefId);
-                      },
-                      child: BlocConsumer<MealCubit, MealState>(
-                        listener: (context, state) {},
-                        builder: (context, state) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: CommonDimens.defaultGap),
-                            child: Column(
-                              children: [
-                                for (Meal meal in state.pagination.data)
-                                  BlocConsumer<BasketCubit, BasketState>(
-                                    listener: (context, state) {},
-                                    builder: (context, state) {
-                                      return ChefMealBasketCard(
-                                        meal: meal,
-                                        isDisabled: context
-                                            .read<BasketCubit>()
-                                            .state
-                                            .basket
-                                            .invoiceDetails
-                                            .any((e) =>
-                                                e.productVarintId ==
-                                                meal.productVariantID),
-                                        onTap: () {
-                                          context
-                                              .read<BasketCubit>()
-                                              .addMeal(meal: meal);
-                                        },
-                                      );
-                                    },
-                                  ),
-                              ],
-                            ),
-                          );
+            child: Builder(
+              builder: (context) {
+                return Expanded(
+                  child: PageView(
+                    controller: favPageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      PaginationTemplate(
+                        scrollDirection: Axis.vertical,
+                        loadDate: () {
+                          context.read<MealCubit>().updateMeals(
+                                menuTarget: widget.menuTarget,
+                                chefId: widget.chefId,
+                              );
                         },
+                        child: BlocConsumer<MealCubit, MealState>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: CommonDimens.defaultGap,
+                              ),
+                              child: Column(
+                                children: [
+                                  for (Meal meal in state.pagination.data)
+                                    BlocConsumer<BasketCubit, BasketState>(
+                                      listener: (context, state) {},
+                                      builder: (context, state) {
+                                        return ChefMealBasketCard(
+                                          meal: meal,
+                                          isDisabled: context
+                                              .read<BasketCubit>()
+                                              .state
+                                              .basket
+                                              .invoiceDetails
+                                              .any(
+                                                (e) =>
+                                                    e.productVarintId ==
+                                                    meal.productVariantID,
+                                              ),
+                                          onTap: () {
+                                            context
+                                                .read<BasketCubit>()
+                                                .addMeal(meal: meal);
+                                          },
+                                        );
+                                      },
+                                    ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                    PaginationTemplate(
-                      loadDate: () {
-                        context.read<CategoriesCubit>().getChefCategories(
-                            isPreOrder:
-                                widget.menuTarget == MenuTarget.preOrder,
-                            chefId: widget.chefId);
-                      },
-                      scrollDirection: Axis.vertical,
-                      child: BlocConsumer<CategoriesCubit, CategoriesState>(
-                        listener: (context, state) {},
-                        builder: (context, state) {
-                          return Column(
-                            children: [
-                              for (var category in state.categoriesPage.data)
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      favPageController.animateToPage(0,
+                      PaginationTemplate(
+                        loadDate: () {
+                          context.read<CategoriesCubit>().getChefCategories(
+                                isPreOrder:
+                                    widget.menuTarget == MenuTarget.preOrder,
+                                chefId: widget.chefId,
+                              );
+                        },
+                        scrollDirection: Axis.vertical,
+                        child: BlocConsumer<CategoriesCubit, CategoriesState>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            return Column(
+                              children: [
+                                for (var category in state.categoriesPage.data)
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        favPageController.animateToPage(
+                                          0,
                                           duration:
                                               CommonDimens.animationDuration,
-                                          curve: Curves.easeOut);
-                                      pageIndex = 0;
-                                    });
-                                    context
-                                        .read<MealCubit>()
-                                        .reset(menuTarget: widget.menuTarget);
-                                    context.read<MealCubit>().updateCategory(
-                                          selectedCategory: category.id ?? 0,
-                                          chefId: widget.chefId,
+                                          curve: Curves.easeOut,
                                         );
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: CommonDimens.defaultGap),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
+                                        pageIndex = 0;
+                                      });
+                                      context
+                                          .read<MealCubit>()
+                                          .reset(menuTarget: widget.menuTarget);
+                                      context.read<MealCubit>().updateCategory(
+                                            selectedCategory: category.id ?? 0,
+                                            chefId: widget.chefId,
+                                          );
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: CommonDimens.defaultGap,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
                                             width: MediaQuery.of(context)
                                                 .size
                                                 .width,
@@ -214,9 +232,11 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                                             decoration: const BoxDecoration(
                                               borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(
-                                                    CommonDimens.defaultGap),
+                                                  CommonDimens.defaultGap,
+                                                ),
                                                 topRight: Radius.circular(
-                                                    CommonDimens.defaultGap),
+                                                  CommonDimens.defaultGap,
+                                                ),
                                               ),
                                             ),
                                             child: Image.memory(
@@ -226,42 +246,50 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                                                   Uint8List(0),
                                               fit: BoxFit.cover,
                                               alignment: Alignment.topCenter,
-                                              errorBuilder: (context, error,
-                                                      stackTrace) =>
+                                              errorBuilder: (
+                                                context,
+                                                error,
+                                                stackTrace,
+                                              ) =>
                                                   Image.asset(
                                                 'assets/images/354.jpeg',
                                                 fit: BoxFit.cover,
                                                 alignment: Alignment.topCenter,
                                               ),
-                                            )),
-                                        const SizedBox(
-                                            height: CommonDimens.defaultGap),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal:
-                                                  CommonDimens.defaultGap),
-                                          child: Text(
-                                            category.name ?? '',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelLarge,
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                            height: CommonDimens.defaultGap),
-                                      ],
+                                          const SizedBox(
+                                            height: CommonDimens.defaultGap,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal:
+                                                  CommonDimens.defaultGap,
+                                            ),
+                                            child: Text(
+                                              category.name ?? '',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: CommonDimens.defaultGap,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                            ],
-                          );
-                        },
+                              ],
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),

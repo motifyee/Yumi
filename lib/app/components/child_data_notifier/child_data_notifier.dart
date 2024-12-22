@@ -18,7 +18,7 @@ class ChildDataNotifier extends StatelessWidget {
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        RenderBox renderBox = context.findRenderObject()! as RenderBox;
+        final RenderBox renderBox = context.findRenderObject()! as RenderBox;
         final size = renderBox.size;
         final pos = renderBox.localToGlobal(Offset.zero);
 

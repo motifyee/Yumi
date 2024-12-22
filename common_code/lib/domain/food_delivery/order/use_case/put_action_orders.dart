@@ -1,7 +1,6 @@
 import 'package:fpdart/src/either.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/domain/food_delivery/order/data/repo/order_repo.dart';
-import 'package:common_code/domain/food_delivery/order/entity/order.dart';
 
 class PutActionOrders implements UseCase<bool, PutActionOrdersParams> {
   final OrderRepo orderRepo;

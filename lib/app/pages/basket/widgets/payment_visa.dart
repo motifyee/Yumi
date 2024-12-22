@@ -2,7 +2,6 @@ import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/basket/widgets/custom_switch.dart';
@@ -20,13 +19,14 @@ class PaymentVisaScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         leading: TextButton(
-            onPressed: () {
-              context.router.pop();
-            },
-            child: Icon(
-              Icons.arrow_back,
-              color: CommonColors.primary,
-            )),
+          onPressed: () {
+            context.router.pop();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: CommonColors.primary,
+          ),
+        ),
         title: Text(
           S.of(context).addCardDetails,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -38,7 +38,8 @@ class PaymentVisaScreen extends StatelessWidget {
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) => Padding(
           padding: const EdgeInsets.symmetric(
-              horizontal: CommonDimens.defaultTitleGap),
+            horizontal: CommonDimens.defaultTitleGap,
+          ),
           child: SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
@@ -60,7 +61,7 @@ class PaymentVisaScreen extends StatelessWidget {
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                         LengthLimitingTextInputFormatter(16),
-                        CardNumberInputFormatter()
+                        CardNumberInputFormatter(),
                       ],
                     ),
                     Row(
@@ -74,7 +75,7 @@ class PaymentVisaScreen extends StatelessWidget {
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly,
                               LengthLimitingTextInputFormatter(4),
-                              ExpiryDateInputFormatter()
+                              ExpiryDateInputFormatter(),
                             ],
                           ),
                         ),
@@ -86,14 +87,16 @@ class PaymentVisaScreen extends StatelessWidget {
                             borderStyle: TextFormFieldBorderStyle.borderBottom,
                             suffixIcon: Padding(
                               padding: const EdgeInsets.only(
-                                  top: CommonDimens.defaultGap),
+                                top: CommonDimens.defaultGap,
+                              ),
                               child: SvgPicture.asset(
                                 'assets/images/visa_card_icon.svg',
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
                             suffixIconConstraints: const BoxConstraints(
-                                maxWidth: CommonDimens.iconSizeSmall),
+                              maxWidth: CommonDimens.iconSizeSmall,
+                            ),
                             textInputType: TextInputType.number,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly,
@@ -134,10 +137,14 @@ class PaymentVisaScreen extends StatelessWidget {
                             width: CommonDimens.defaultGapXXXL,
                             height: CommonDimens.defaultTitleGapLarge,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    CommonDimens.defaultBorderRadius),
-                                border: Border.all(
-                                    color: CommonColors.primary, width: 1)),
+                              borderRadius: BorderRadius.circular(
+                                CommonDimens.defaultBorderRadius,
+                              ),
+                              border: Border.all(
+                                color: CommonColors.primary,
+                                width: 1,
+                              ),
+                            ),
                             child: Center(
                               child: Text(
                                 S.of(context).cancel,
@@ -156,7 +163,8 @@ class PaymentVisaScreen extends StatelessWidget {
                               height: CommonDimens.defaultTitleGapLarge,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(
-                                    CommonDimens.defaultBorderRadius),
+                                  CommonDimens.defaultBorderRadius,
+                                ),
                                 color: CommonColors.primary,
                               ),
                               child: Center(

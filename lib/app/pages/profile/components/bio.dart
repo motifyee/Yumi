@@ -1,7 +1,6 @@
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
@@ -25,7 +24,8 @@ class Bio extends StatelessWidget {
               : null,
           builder: (fieldState) => Padding(
             padding: const EdgeInsets.symmetric(
-                horizontal: CommonDimens.defaultTitleGap),
+              horizontal: CommonDimens.defaultTitleGap,
+            ),
             child: Column(
               children: [
                 Row(
@@ -52,17 +52,18 @@ class Bio extends StatelessWidget {
                               }
 
                               G().snackBar(S.of(context).invalidInput);
-                            }
+                            },
                           },
                         );
                       },
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(height: CommonDimens.formFieldGap),
                 Container(
                   constraints: const BoxConstraints(
-                      minHeight: CommonDimens.defaultBlockGap),
+                    minHeight: CommonDimens.defaultBlockGap,
+                  ),
                   child: Center(
                     child: Text(
                       state.isNotEmpty ? state : S.of(context).writeABio,

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:common_code/domain/food_delivery/categories/entity/category.dart';
 import 'package:common_code/domain/food_delivery/categories/data/source/categories_src.dart';
 import 'package:common_code/common_code.dart';
 

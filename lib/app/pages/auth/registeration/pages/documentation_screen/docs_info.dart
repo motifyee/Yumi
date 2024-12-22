@@ -30,9 +30,10 @@ final List<DocInfo> chefDocsInfo = [
         'The passport must be of British or Irish nationality and valid for at least 6 months',
     targets: [
       DocumentTarget(
-          option: 'Passport',
-          update: (Profile profile, String value) =>
-              profile.copyWith(passportPhoto: value)),
+        option: 'Passport',
+        update: (Profile profile, String value) =>
+            profile.copyWith(passportPhoto: value),
+      ),
       DocumentTarget(
         option: 'ID',
         update: (Profile profile, String value) =>

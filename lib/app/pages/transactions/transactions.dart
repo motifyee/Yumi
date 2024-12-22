@@ -18,145 +18,164 @@ class TransactionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TransactionCubit(),
-      child: Builder(builder: (context) {
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            surfaceTintColor: Colors.transparent,
-            leading: TextButton(
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              surfaceTintColor: Colors.transparent,
+              leading: TextButton(
                 onPressed: () {
                   G().router.maybePop();
                 },
                 child: Icon(
                   Icons.arrow_back,
                   color: CommonColors.primary,
-                )),
-            title: Text(
-              S.of(context).transactions,
-              style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+              title: Text(
+                S.of(context).transactions,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              centerTitle: true,
             ),
-            centerTitle: true,
-          ),
-          body: BlocBuilder<UserCubit, UserState>(
-            builder: (context, state) {
-              if (!state.isLoggedIn) return const LoginToContinue();
+            body: BlocBuilder<UserCubit, UserState>(
+              builder: (context, state) {
+                if (!state.isLoggedIn) return const LoginToContinue();
 
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: CommonDimens.defaultLineGap),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(
-                            'assets/images/transaction_wallet_icon.svg'),
-                        const Text('  '),
-                        Text(
-                          S.of(context).transactions,
-                          style: Theme.of(context).textTheme.labelLarge,
-                        ),
-                      ],
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: CommonDimens.defaultLineGap,
+                      ),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/transaction_wallet_icon.svg',
+                          ),
+                          const Text('  '),
+                          Text(
+                            S.of(context).transactions,
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: CommonDimens.defaultGap),
-                  Expanded(
-                    child: PaginationTemplate(
-                      scrollDirection: Axis.vertical,
-                      loadDate: () {
-                        context.read<TransactionCubit>().getAllTransactions(
-                            userId: context.read<UserCubit>().state.user.id);
-                      },
-                      child: BlocBuilder<TransactionCubit, TransactionState>(
-                        builder: (context, state) {
-                          return Column(
-                            children: [
-                              for (Transaction transaction
-                                  in state.pagination.data)
-                                if (transaction.credit != null)
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
+                    const SizedBox(height: CommonDimens.defaultGap),
+                    Expanded(
+                      child: PaginationTemplate(
+                        scrollDirection: Axis.vertical,
+                        loadDate: () {
+                          context.read<TransactionCubit>().getAllTransactions(
+                                userId: context.read<UserCubit>().state.user.id,
+                              );
+                        },
+                        child: BlocBuilder<TransactionCubit, TransactionState>(
+                          builder: (context, state) {
+                            return Column(
+                              children: [
+                                for (Transaction transaction
+                                    in state.pagination.data)
+                                  if (transaction.credit != null)
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
                                         vertical: CommonDimens.defaultGap,
-                                        horizontal: CommonDimens.defaultGap),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: CommonColors.backgroundTant),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
+                                        horizontal: CommonDimens.defaultGap,
+                                      ),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: CommonColors.backgroundTant,
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
                                             horizontal:
                                                 CommonDimens.defaultBlockGap,
                                             vertical:
-                                                CommonDimens.defaultLineGap),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '${S.of(context).orderId}: ${transaction.invoiceId}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleSmall,
-                                                  ),
-                                                  Text(
-                                                      DateFormat(
-                                                              'd-M-yyyy | hh:mm')
-                                                          .format(DateTime
-                                                              .parse(transaction
-                                                                      .createdDate ??
-                                                                  '')),
+                                                CommonDimens.defaultLineGap,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '${S.of(context).orderId}: ${transaction.invoiceId}',
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .labelSmall),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
+                                                          .titleSmall,
+                                                    ),
+                                                    Text(
+                                                      DateFormat(
+                                                        'd-M-yyyy | hh:mm',
+                                                      ).format(
+                                                        DateTime.parse(
+                                                          transaction
+                                                                  .createdDate ??
+                                                              '',
+                                                        ),
+                                                      ),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .labelSmall,
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
                                                         horizontal: CommonDimens
-                                                            .defaultGap),
-                                                    child: Text(
+                                                            .defaultGap,
+                                                      ),
+                                                      child: Text(
                                                         transaction
                                                                 .journalType ??
                                                             '',
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .bodyMedium),
-                                                  ),
-                                                  Text('- ${transaction.guid}',
+                                                            .bodyMedium,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '- ${transaction.guid}',
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .bodyMedium),
-                                                ],
+                                                          .bodyMedium,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            TextCurrency(
-                                              value: transaction.debit! == 0
-                                                  ? transaction.credit!
-                                                  : transaction.debit!,
-                                              fontSize: CommonFontSize.font_12,
-                                              fontColor: transaction.debit! == 0
-                                                  ? CommonColors.primary
-                                                  : CommonColors.secondary,
-                                            ),
-                                          ],
+                                              TextCurrency(
+                                                value: transaction.debit! == 0
+                                                    ? transaction.credit!
+                                                    : transaction.debit!,
+                                                fontSize:
+                                                    CommonFontSize.font_12,
+                                                fontColor: transaction.debit! ==
+                                                        0
+                                                    ? CommonColors.primary
+                                                    : CommonColors.secondary,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                              if (state.pagination.isLoading)
-                                const PacmanLoadingWidget(),
-                            ],
-                          );
-                        },
+                                if (state.pagination.isLoading)
+                                  const PacmanLoadingWidget(),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              );
-            },
-          ),
-        );
-      }),
+                  ],
+                );
+              },
+            ),
+          );
+        },
+      ),
     );
   }
 }

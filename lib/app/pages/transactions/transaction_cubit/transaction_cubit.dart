@@ -10,8 +10,9 @@ part 'transaction_cubit.g.dart';
 
 @freezed
 class TransactionState with _$TransactionState {
-  const factory TransactionState(
-      {required PaginatedData<Transaction> pagination}) = _TransactionState;
+  const factory TransactionState({
+    required PaginatedData<Transaction> pagination,
+  }) = _TransactionState;
 
   factory TransactionState.initial() {
     return TransactionState(pagination: const PaginatedData(data: []));
@@ -26,15 +27,24 @@ class TransactionCubit extends Cubit<TransactionState> {
 
   getAllTransactions({required String userId}) async {
     if (state.pagination.canRequest) {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           pagination: state.pagination.copyWith(isLoading: true)
-              as PaginatedData<Transaction>));
+              as PaginatedData<Transaction>,
+        ),
+      );
 
       final Either<Failure, PaginatedData<Transaction>> task =
-          await GetAllTransaction().call(GetAllTransactionParams(
-              pagination: state.pagination, userId: userId));
-      task.fold((l) => G().snackBar(l.toString()),
-          (r) => emit(state.copyWith(pagination: r)));
+          await GetAllTransaction().call(
+        GetAllTransactionParams(
+          pagination: state.pagination,
+          userId: userId,
+        ),
+      );
+      task.fold(
+        (l) => G().snackBar(l.toString()),
+        (r) => emit(state.copyWith(pagination: r)),
+      );
     }
   }
 }

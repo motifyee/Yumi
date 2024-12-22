@@ -33,7 +33,7 @@ class ForgotPwdEnterOTP extends StatelessWidget {
           builder: (context, countDown) => SizedBox(
             width: (countDown ?? 0) > 0 ? 50 : 175,
             child: InteractiveButton(
-              label: (countDown ?? 0) > 0 ? countDown.toString() : "Resend OTP",
+              label: (countDown ?? 0) > 0 ? countDown.toString() : 'Resend OTP',
               buttonType: ButtonType.text,
               foregroundColor: Theme.of(context).colorScheme.primary,
               onPressed: () async {
@@ -83,7 +83,9 @@ class ForgotPwdEnterOTP extends StatelessWidget {
                 label: 'Confirm Password',
                 validators: (value) {
                   return confirmPasswordValidator(
-                      value: value, comparedValue: passwordController.text);
+                    value: value,
+                    comparedValue: passwordController.text,
+                  );
                 },
                 isPassword: true,
                 // autoHint: const [AutofillHints],
@@ -94,31 +96,32 @@ class ForgotPwdEnterOTP extends StatelessWidget {
         ),
         const SizedBox(height: 30),
         InteractiveButton(
-            label: 'Send',
-            onPressed: () async {
-              if (otp.length < 4) return G().snackBar("Invalid OTP!");
-              if (!form.currentState!.validate()) return;
+          label: 'Send',
+          onPressed: () async {
+            if (otp.length < 4) return G().snackBar('Invalid OTP!');
+            if (!form.currentState!.validate()) return;
 
-              final entry = cubit.state.email;
+            final entry = cubit.state.email;
 
-              if (isNumeric(entry)) {
-                await cubit.verifyResetPasswordByMobileOTPCode(
-                  otp,
-                  passwordController.text,
-                );
-              } else {
-                await cubit.verifyResetPasswordByEmailOTPCode(
-                  otp,
-                  passwordController.text,
-                );
-              }
+            if (isNumeric(entry)) {
+              await cubit.verifyResetPasswordByMobileOTPCode(
+                otp,
+                passwordController.text,
+              );
+            } else {
+              await cubit.verifyResetPasswordByEmailOTPCode(
+                otp,
+                passwordController.text,
+              );
+            }
 
-              if (cubit.state.codeVerified) {
-                return G().snackBar("Password reset successfully!");
-              }
+            if (cubit.state.codeVerified) {
+              return G().snackBar('Password reset successfully!');
+            }
 
-              G().snackBar(cubit.state.error);
-            }),
+            G().snackBar(cubit.state.error);
+          },
+        ),
         const SizedBox(height: 60),
       ],
     );

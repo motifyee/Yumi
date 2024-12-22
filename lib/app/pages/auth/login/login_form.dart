@@ -48,7 +48,8 @@ class LoginForm extends StatelessWidget {
       key: loginFormKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: CommonDimens.formFieldInlineGap),
+          horizontal: CommonDimens.formFieldInlineGap,
+        ),
         child: Column(
           children: [
             // fields
@@ -93,20 +94,21 @@ class LoginForm extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                       context: context,
                       builder: (context) => const ForgotPasswordSheetProvider(
-                        key: Key("ForgotPasswordSheet"),
+                        key: Key('ForgotPasswordSheet'),
                       ),
                     );
                   },
                   style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      minimumSize: const Size(80, 20),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      alignment: Alignment.centerLeft),
+                    padding: EdgeInsets.zero,
+                    minimumSize: const Size(80, 20),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    alignment: Alignment.centerLeft,
+                  ),
                   child: Text(
                     S.of(context).forgetPassword,
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
-                )
+                ),
               ],
             ),
 
@@ -124,7 +126,7 @@ class LoginForm extends StatelessWidget {
                 final msg = await context.read<LoginCubit>().login();
                 if (msg?.isNotEmpty ?? false) G().snackBar(msg!);
               },
-            )
+            ),
           ],
         ),
       ),
@@ -132,8 +134,11 @@ class LoginForm extends StatelessWidget {
   }
 }
 
-Future performLogin(BuildContext context, LoginData loginForm,
-    [String? route]) async {
+Future performLogin(
+  BuildContext context,
+  LoginData loginForm, [
+  String? route,
+]) async {
   // return await LoginServices.login(login: loginForm, context: context)
   //     .then((user) async {
   //   if ((user.accessToken).isEmpty) {

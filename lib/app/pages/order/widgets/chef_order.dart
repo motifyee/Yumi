@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/page_view/cubit/page_view_cubit.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
@@ -39,43 +38,51 @@ class ChefOrder extends StatelessWidget {
                         label: S.of(context).pending,
                         isActive: state.selectedList == 0,
                         isNotificationIconShow: states.isSignalTriggered(
-                            signal: [
-                              Signal.neworderreceived,
-                              Signal.driveraccept
-                            ],
-                            isPreOrder: menuTarget == MenuTarget.preOrder),
+                          signal: [
+                            Signal.neworderreceived,
+                            Signal.driveraccept,
+                          ],
+                          isPreOrder: menuTarget == MenuTarget.preOrder,
+                        ),
                         onPressed: () {
                           context
                               .read<PageViewCubit>()
                               .updateSelect(selectedList: 0);
                           controller.jumpToPage(0);
-                          context.read<SignalRCubit>().removeSignals(signal: [
-                            Signal.neworderreceived,
-                            Signal.driveraccept
-                          ]);
+                          context.read<SignalRCubit>().removeSignals(
+                            signal: [
+                              Signal.neworderreceived,
+                              Signal.driveraccept,
+                            ],
+                          );
                         },
                       ),
                     ActionButton(
                       key: key,
                       label: S.of(context).received,
                       isActive: state.selectedList == 1,
-                      isNotificationIconShow: states.isSignalTriggered(signal: [
-                        Signal.driveraccept,
-                        if (menuTarget == MenuTarget.order)
-                          Signal.neworderreceived,
-                        Signal.clientcancel
-                      ], isPreOrder: menuTarget == MenuTarget.preOrder),
+                      isNotificationIconShow: states.isSignalTriggered(
+                        signal: [
+                          Signal.driveraccept,
+                          if (menuTarget == MenuTarget.order)
+                            Signal.neworderreceived,
+                          Signal.clientcancel,
+                        ],
+                        isPreOrder: menuTarget == MenuTarget.preOrder,
+                      ),
                       onPressed: () {
                         context
                             .read<PageViewCubit>()
                             .updateSelect(selectedList: 1);
                         controller.jumpToPage(1);
-                        context.read<SignalRCubit>().removeSignals(signal: [
-                          Signal.driveraccept,
-                          if (menuTarget == MenuTarget.order)
-                            Signal.neworderreceived,
-                          Signal.clientcancel
-                        ]);
+                        context.read<SignalRCubit>().removeSignals(
+                          signal: [
+                            Signal.driveraccept,
+                            if (menuTarget == MenuTarget.order)
+                              Signal.neworderreceived,
+                            Signal.clientcancel,
+                          ],
+                        );
                       },
                     ),
                     ActionButton(
@@ -83,8 +90,9 @@ class ChefOrder extends StatelessWidget {
                       label: S.of(context).preparing,
                       isActive: state.selectedList == 2,
                       isNotificationIconShow: states.isSignalTriggered(
-                          signal: [Signal.clientcancel],
-                          isPreOrder: menuTarget == MenuTarget.preOrder),
+                        signal: [Signal.clientcancel],
+                        isPreOrder: menuTarget == MenuTarget.preOrder,
+                      ),
                       onPressed: () {
                         context
                             .read<PageViewCubit>()
@@ -100,8 +108,9 @@ class ChefOrder extends StatelessWidget {
                       label: S.of(context).ready,
                       isActive: state.selectedList == 3,
                       isNotificationIconShow: states.isSignalTriggered(
-                          signal: [Signal.clientreceived],
-                          isPreOrder: menuTarget == MenuTarget.preOrder),
+                        signal: [Signal.clientreceived],
+                        isPreOrder: menuTarget == MenuTarget.preOrder,
+                      ),
                       onPressed: () {
                         context
                             .read<PageViewCubit>()
@@ -122,10 +131,11 @@ class ChefOrder extends StatelessWidget {
                       child: SvgPicture.asset(
                         'assets/images/history.svg',
                         colorFilter: ColorFilter.mode(
-                            state.selectedList == 4
-                                ? CommonColors.primary
-                                : CommonColors.secondary,
-                            BlendMode.srcIn),
+                          state.selectedList == 4
+                              ? CommonColors.primary
+                              : CommonColors.secondary,
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
                   ],

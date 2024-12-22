@@ -7,15 +7,18 @@ part of 'notification_cubit.dart';
 // **************************************************************************
 
 _$NotificationStateImpl _$$NotificationStateImplFromJson(
-        Map<String, dynamic> json) =>
+  Map<String, dynamic> json,
+) =>
     _$NotificationStateImpl(
       pagination: PaginatedData<NotificationS>.fromJson(
-          json['pagination'] as Map<String, dynamic>),
+        json['pagination'] as Map<String, dynamic>,
+      ),
       isNewNotification: json['isNewNotification'] as bool,
     );
 
 Map<String, dynamic> _$$NotificationStateImplToJson(
-        _$NotificationStateImpl instance) =>
+  _$NotificationStateImpl instance,
+) =>
     <String, dynamic>{
       'pagination': instance.pagination,
       'isNewNotification': instance.isNewNotification,

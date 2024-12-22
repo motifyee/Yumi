@@ -1,11 +1,7 @@
-import 'dart:async';
-
 import 'package:common_code/common_code.dart';
-import 'package:common_code/core/setup/signalr.dart';
 import 'package:common_code/util/global_context.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:signalr_netcore/signalr_client.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

@@ -14,23 +14,34 @@ class NotificationCubit extends Cubit<NotificationState> {
 
   loadNotification() async {
     if (state.pagination.isLoading) return;
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         pagination: state.pagination.copyWith(isLoading: true)
-            as PaginatedData<NotificationS>));
-    Either<Failure, PaginatedData<NotificationS>> task =
+            as PaginatedData<NotificationS>,
+      ),
+    );
+    final Either<Failure, PaginatedData<NotificationS>> task =
         await LoadNotification()
             .call(LoadNotificationParams(pagination: state.pagination));
 
-    task.fold((l) => null,
-        (r) => emit(state.copyWith(pagination: r, isNewNotification: false)));
+    task.fold(
+      (l) => null,
+      (r) => emit(state.copyWith(pagination: r, isNewNotification: false)),
+    );
   }
 
   newNotification(NotificationS notificationS) async {
-    Either<Failure, PaginatedData<NotificationS>> task = await NewNotification()
-        .call(NewNotificationParams(
-            notificationS: notificationS, pagination: state.pagination));
-    task.fold((l) => null,
-        (r) => emit(state.copyWith(pagination: r, isNewNotification: true)));
+    final Either<Failure, PaginatedData<NotificationS>> task =
+        await NewNotification().call(
+      NewNotificationParams(
+        notificationS: notificationS,
+        pagination: state.pagination,
+      ),
+    );
+    task.fold(
+      (l) => null,
+      (r) => emit(state.copyWith(pagination: r, isNewNotification: true)),
+    );
   }
 
   resetNotification() {

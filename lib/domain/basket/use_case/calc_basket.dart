@@ -6,18 +6,21 @@ class CalcBasket extends UseCase<Basket, CalcBasketParams> {
   @override
   Future<Either<Failure, Basket>> call(CalcBasketParams params) async {
     params.basket = params.basket.copyWith(
-        invoice: params.basket.invoice.copyWith(
-      deliveryAreaPrice: params.basket.isPickup == true ? 0 : 4.5,
-      deliveryCostPrice: params.basket.isPickup == true ? 0 : 4.5,
-    ));
+      invoice: params.basket.invoice.copyWith(
+        deliveryAreaPrice: params.basket.isPickup == true ? 0 : 4.5,
+        deliveryCostPrice: params.basket.isPickup == true ? 0 : 4.5,
+      ),
+    );
 
-    double totalPrice = params.basket.invoiceDetails.fold(
-        0.0, (p, e) => p + (e.productVarintPrice * int.parse(e.quantity)));
+    final double totalPrice = params.basket.invoiceDetails.fold(
+      0.0,
+      (p, e) => p + (e.productVarintPrice * int.parse(e.quantity)),
+    );
 
-    double invoiceTax =
+    final double invoiceTax =
         ((totalPrice - params.basket.invoice.invoiceDiscount) * .25) * .19;
 
-    double finalPrice = totalPrice -
+    final double finalPrice = totalPrice -
         params.basket.invoice.invoiceDiscount +
         invoiceTax +
         params.basket.invoice.deliveryAreaPrice;

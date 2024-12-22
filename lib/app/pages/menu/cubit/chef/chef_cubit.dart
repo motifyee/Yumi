@@ -21,7 +21,7 @@ class ChefsCubit extends Cubit<ChefsState> {
     required bool isPreOrder,
     ChefWorkStatus? status,
   }) async {
-    Address? userLocation = G().rd<UserCubit>().state.address;
+    final Address? userLocation = G().rd<UserCubit>().state.address;
     if (userLocation?.latitude == null) return;
     if (userLocation?.longitude == null) return;
 
@@ -57,7 +57,7 @@ class ChefsCubit extends Cubit<ChefsState> {
   }
 
   Future<void> getFavouriteChefs() async {
-    Address? userLocation = G().rd<UserCubit>().state.address;
+    final Address? userLocation = G().rd<UserCubit>().state.address;
 
     if (userLocation?.latitude == null || userLocation?.longitude == null) {
       return;

@@ -9,11 +9,15 @@ part 'meal_form_cubit.g.dart';
 
 @freezed
 class MealFormState with _$MealFormState {
-  const factory MealFormState(
-      {required Meal mealModel, required bool isLoading}) = _MealFormState;
+  const factory MealFormState({
+    required Meal mealModel,
+    required bool isLoading,
+  }) = _MealFormState;
 
   factory MealFormState.initial() => MealFormState(
-      mealModel: Meal(code: CodeGenerator.getRandomCode()), isLoading: false);
+        mealModel: Meal(code: CodeGenerator.getRandomCode()),
+        isLoading: false,
+      );
 
   factory MealFormState.fromJson(Map<String, dynamic> json) =>
       _$MealFormStateFromJson(json);
@@ -33,16 +37,23 @@ class MealFormCubit extends Cubit<MealFormState> {
   Future<void> update({required Meal mealModel}) async {
     final Either<Failure, Meal> task =
         await UpdateMealForm().call(UpdateMealFormParams(meal: mealModel));
-    task.fold((l) => G().snackBar("Try again"),
-        (r) => emit(state.copyWith(mealModel: r, isLoading: false)));
+    task.fold(
+      (l) => G().snackBar('Try again'),
+      (r) => emit(state.copyWith(mealModel: r, isLoading: false)),
+    );
   }
 
   updateIngredients({required List<Ingredient> ingredients}) async {
     final Either<Failure, Meal> task = await AddIngredientsToMeal().call(
-        AddIngredientsToMealParams(
-            ingredients: ingredients, meal: state.mealModel));
-    task.fold((l) => G().snackBar("Try again"),
-        (r) => emit(state.copyWith(mealModel: r)));
+      AddIngredientsToMealParams(
+        ingredients: ingredients,
+        meal: state.mealModel,
+      ),
+    );
+    task.fold(
+      (l) => G().snackBar('Try again'),
+      (r) => emit(state.copyWith(mealModel: r)),
+    );
   }
 
   updateMeal({required Meal meal}) async {

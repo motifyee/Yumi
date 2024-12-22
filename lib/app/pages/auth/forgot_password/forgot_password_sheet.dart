@@ -45,26 +45,27 @@ class ForgotPasswordSheet extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              bottomOpacity: 0,
-              scrolledUnderElevation: 0,
-              // iconTheme: IconThemeData(color: CommonColors.primary),
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: CommonColors.primary),
-                onPressed: () {
-                  final cubit = context.read<ForgotPwdCubit>();
+            backgroundColor: Colors.transparent,
+            bottomOpacity: 0,
+            scrolledUnderElevation: 0,
+            // iconTheme: IconThemeData(color: CommonColors.primary),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: CommonColors.primary),
+              onPressed: () {
+                final cubit = context.read<ForgotPwdCubit>();
 
-                  switch (cubit.state.window) {
-                    case ForgotPwdWindow.enterEmail:
-                      return G().pop();
-                    default:
-                      cubit.setWindow(ForgotPwdWindow.enterEmail);
-                    // ForgotPwdWindow.enterOTP:
-                    // case ForgotPwdWindow.enterPwd:
-                    //   return cubit.setWindow(ForgotPwdWindow.enterOTP);
-                  }
-                },
-              )),
+                switch (cubit.state.window) {
+                  case ForgotPwdWindow.enterEmail:
+                    return G().pop();
+                  default:
+                    cubit.setWindow(ForgotPwdWindow.enterEmail);
+                  // ForgotPwdWindow.enterOTP:
+                  // case ForgotPwdWindow.enterPwd:
+                  //   return cubit.setWindow(ForgotPwdWindow.enterOTP);
+                }
+              },
+            ),
+          ),
           body: Padding(
             padding: const EdgeInsets.only(
               left: CommonDimens.defaultBlockGap,
@@ -73,27 +74,28 @@ class ForgotPasswordSheet extends StatelessWidget {
               // bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
             child: SingleChildScrollView(
-                child: BlocSelector<ForgotPwdCubit, ForgotPwdState,
-                    ForgotPwdWindow>(
-              selector: (state) => state.window,
-              builder: (context, state) {
-                final fgCubit = context.read<ForgotPwdCubit>();
+              child:
+                  BlocSelector<ForgotPwdCubit, ForgotPwdState, ForgotPwdWindow>(
+                selector: (state) => state.window,
+                builder: (context, state) {
+                  final fgCubit = context.read<ForgotPwdCubit>();
 
-                if (state == ForgotPwdWindow.enterEmail &&
-                    fgCubit.state.email.isEmpty) {
-                  context.read<ForgotPwdCubit>().init();
-                }
+                  if (state == ForgotPwdWindow.enterEmail &&
+                      fgCubit.state.email.isEmpty) {
+                    context.read<ForgotPwdCubit>().init();
+                  }
 
-                return switch (state) {
-                  ForgotPwdWindow.enterEmail => ForgotPwdEnterEmail(),
-                  ForgotPwdWindow.enterOTP => const ForgotPwdEnterOTP(),
-                  ForgotPwdWindow.done => () {
-                      G().pop();
-                      return const ForgotPwdEnterOTP();
-                    }(),
-                };
-              },
-            )),
+                  return switch (state) {
+                    ForgotPwdWindow.enterEmail => ForgotPwdEnterEmail(),
+                    ForgotPwdWindow.enterOTP => const ForgotPwdEnterOTP(),
+                    ForgotPwdWindow.done => () {
+                        G().pop();
+                        return const ForgotPwdEnterOTP();
+                      }(),
+                  };
+                },
+              ),
+            ),
           ),
         ),
       ),

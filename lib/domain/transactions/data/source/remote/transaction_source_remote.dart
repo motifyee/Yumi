@@ -10,17 +10,19 @@ class TransactionSourceRemote implements TransactionSource {
     required PaginatedData<Transaction> pagination,
     required String userId,
   }) async {
-    final Response res = await APIClient().get(Endpoints().transactions,
-        queryParameters: {
-          'chefId': AppTarget.user == YumiApp.chefs ? userId : null,
-          'driverId': AppTarget.user == YumiApp.drivers ? userId : null,
-          'customerId': AppTarget.user == YumiApp.customers ? userId : null,
-          'dateFrom': '0001-01-01T00:00:00.000',
-          'dateTo': DateTime.now().toIso8601String(),
-          ...pagination.toJson(),
-        }..removeWhere((key, value) => value == null));
+    final Response res = await APIClient().get(
+      Endpoints().transactions,
+      queryParameters: {
+        'chefId': AppTarget.user == YumiApp.chefs ? userId : null,
+        'driverId': AppTarget.user == YumiApp.drivers ? userId : null,
+        'customerId': AppTarget.user == YumiApp.customers ? userId : null,
+        'dateFrom': '0001-01-01T00:00:00.000',
+        'dateTo': DateTime.now().toIso8601String(),
+        ...pagination.toJson(),
+      }..removeWhere((key, value) => value == null),
+    );
 
-    List<Transaction> transaction = res.data['data']
+    final List<Transaction> transaction = res.data['data']
         .map<Transaction>((json) => Transaction.fromJson(json))
         .toList();
 

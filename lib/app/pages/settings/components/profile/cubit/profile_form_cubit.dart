@@ -58,12 +58,14 @@ class ProfileFormCubit extends Cubit<ProfileFormState> {
   Future<String?> updateProfile() async {
     if (state.profile == null) return 'Profile not loaded!';
 
-    final params = UpdateProfileParam(state.profile!.copyWith(
-      fullName: state.fullName,
-      mobile: state.mobile,
-      about: state.about,
-      pickupOnly: state.pickupOnly,
-    ));
+    final params = UpdateProfileParam(
+      state.profile!.copyWith(
+        fullName: state.fullName,
+        mobile: state.mobile,
+        about: state.about,
+        pickupOnly: state.pickupOnly,
+      ),
+    );
 
     emit(state.copyWith(isLoading: true));
     final task = await UpdateProfile().call(params);

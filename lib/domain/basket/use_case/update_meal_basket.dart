@@ -10,7 +10,7 @@ class UpdateMealInBasket extends UseCase<Basket, UpdateMealInBasketParams> {
       return Right(params.basket);
     }
 
-    List<InvoiceDetail> invoiceDetails =
+    final List<InvoiceDetail> invoiceDetails =
         List.from(params.basket.invoiceDetails);
     invoiceDetails[params.indexInList] =
         invoiceDetails[params.indexInList].copyWith(
@@ -29,12 +29,13 @@ class UpdateMealInBasketParams extends Params {
   final String newQuantity;
   final String note;
 
-  UpdateMealInBasketParams(
-      {required this.basket,
-      required this.invoiceDetails,
-      required this.indexInList,
-      required this.newQuantity,
-      required this.note});
+  UpdateMealInBasketParams({
+    required this.basket,
+    required this.invoiceDetails,
+    required this.indexInList,
+    required this.newQuantity,
+    required this.note,
+  });
 
   @override
   List<Object?> get props =>

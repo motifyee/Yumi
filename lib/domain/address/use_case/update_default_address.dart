@@ -10,12 +10,14 @@ class UpdateDefaultAddress
       : addressRepo = addressRepo ?? getIt<AddressRepo>();
   @override
   Future<Either<Failure, PaginatedData<Address>>> call(
-      UpdateDefaultAddressParams params) async {
+    UpdateDefaultAddressParams params,
+  ) async {
     return await addressRepo
         .updateDefaultAddresses(
-            pagination: params.pagination,
-            address: params.address,
-            queryParameters: params.queryParameters)
+          pagination: params.pagination,
+          address: params.address,
+          queryParameters: params.queryParameters,
+        )
         .run();
   }
 }
@@ -25,10 +27,11 @@ class UpdateDefaultAddressParams extends Params {
   final Address address;
   final Map<String, dynamic>? queryParameters;
 
-  UpdateDefaultAddressParams(
-      {required this.pagination,
-      required this.address,
-      required this.queryParameters});
+  UpdateDefaultAddressParams({
+    required this.pagination,
+    required this.address,
+    required this.queryParameters,
+  });
 
   @override
   List<Object?> get props => [pagination, address, queryParameters];

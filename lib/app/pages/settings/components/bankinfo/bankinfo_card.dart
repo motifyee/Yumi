@@ -1,7 +1,6 @@
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/settings/bankinfo/cubit/bankinfo_cubit.dart';
 import 'package:yumi/app/pages/settings/components/bankinfo/bankinfo_form.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -35,11 +34,12 @@ class BankInfoCard extends StatelessWidget {
         const Expanded(child: SizedBox()),
         // if (bankInfo.id.isNotEmpty)
         TextButton(
-            onPressed: () => showBankInfoForm(context),
-            child: Text(
-              S.of(context).edit,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ))
+          onPressed: () => showBankInfoForm(context),
+          child: Text(
+            S.of(context).edit,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ),
       ],
     );
 
@@ -57,7 +57,7 @@ class BankInfoCard extends StatelessWidget {
               spreadRadius: 0,
               blurRadius: 5,
               offset: const Offset(2, 4),
-            )
+            ),
           ],
         ),
         child: Column(
@@ -229,8 +229,9 @@ class BankInfoFields extends StatelessWidget {
 
 void showBankInfoForm(BuildContext context, {String id = ''}) {
   showAlertDialog(
-      context: context,
-      title: Container(),
-      content: const BankInfoForm(),
-      actionWidgets: [const BankInfoSubmitButton()]);
+    context: context,
+    title: Container(),
+    content: const BankInfoForm(),
+    actionWidgets: [const BankInfoSubmitButton()],
+  );
 }

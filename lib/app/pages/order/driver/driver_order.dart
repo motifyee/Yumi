@@ -32,12 +32,13 @@ class DriverOrderScreen extends StatelessWidget {
             isShown = true;
             SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
               showModalBottomSheet(
-                  context: context,
-                  backgroundColor: Colors.transparent,
-                  isScrollControlled: true,
-                  builder: (BuildContext context) {
-                    return const NewsGuide();
-                  });
+                context: context,
+                backgroundColor: Colors.transparent,
+                isScrollControlled: true,
+                builder: (BuildContext context) {
+                  return const NewsGuide();
+                },
+              );
             });
           }
         }
@@ -63,8 +64,9 @@ class DriverOrderScreen extends StatelessWidget {
                         label: S.of(context).available,
                         isActive: state.selectedList == 0,
                         isNotificationIconShow: states.isSignalTriggered(
-                            signal: [Signal.neworderreceived],
-                            isPreOrder: menuTarget == MenuTarget.preOrder),
+                          signal: [Signal.neworderreceived],
+                          isPreOrder: menuTarget == MenuTarget.preOrder,
+                        ),
                         onPressed: () {
                           context
                               .read<PageViewCubit>()
@@ -80,26 +82,30 @@ class DriverOrderScreen extends StatelessWidget {
                         key: key,
                         label: S.of(context).active,
                         isActive: state.selectedList == 1,
-                        isNotificationIconShow:
-                            states.isSignalTriggered(signal: [
-                          Signal.chefstart,
-                          Signal.cheffinished,
-                          Signal.driverreceived,
-                          Signal.clientreceived,
-                          Signal.clientcancel,
-                        ], isPreOrder: menuTarget == MenuTarget.preOrder),
-                        onPressed: () {
-                          context
-                              .read<PageViewCubit>()
-                              .updateSelect(selectedList: 1);
-                          _controller.jumpToPage(1);
-                          context.read<SignalRCubit>().removeSignals(signal: [
+                        isNotificationIconShow: states.isSignalTriggered(
+                          signal: [
                             Signal.chefstart,
                             Signal.cheffinished,
                             Signal.driverreceived,
                             Signal.clientreceived,
                             Signal.clientcancel,
-                          ]);
+                          ],
+                          isPreOrder: menuTarget == MenuTarget.preOrder,
+                        ),
+                        onPressed: () {
+                          context
+                              .read<PageViewCubit>()
+                              .updateSelect(selectedList: 1);
+                          _controller.jumpToPage(1);
+                          context.read<SignalRCubit>().removeSignals(
+                            signal: [
+                              Signal.chefstart,
+                              Signal.cheffinished,
+                              Signal.driverreceived,
+                              Signal.clientreceived,
+                              Signal.clientcancel,
+                            ],
+                          );
                         },
                       ),
                     ],
@@ -120,7 +126,8 @@ class DriverOrderScreen extends StatelessWidget {
                         ? Center(
                             child: Padding(
                               padding: const EdgeInsets.all(
-                                  CommonDimens.defaultMediumGap),
+                                CommonDimens.defaultMediumGap,
+                              ),
                               child: Text(
                                 S
                                     .of(context)
@@ -141,7 +148,7 @@ class DriverOrderScreen extends StatelessWidget {
                                   OrderCardTargetPage.driverAccept,
                               signals: const [
                                 Signal.neworderreceived,
-                                Signal.driveraccept
+                                Signal.driveraccept,
                               ],
                             ),
                           );

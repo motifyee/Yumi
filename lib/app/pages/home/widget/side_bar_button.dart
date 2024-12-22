@@ -21,7 +21,9 @@ class _SideBarButtonState extends State<SideBarButton> {
   void initState() {
     super.initState();
     Timer.periodic(
-        const Duration(seconds: 1), (e) => mounted ? setState(() {}) : null);
+      const Duration(seconds: 1),
+      (e) => mounted ? setState(() {}) : null,
+    );
   }
 
   Color signalRStateColor() {
@@ -64,8 +66,10 @@ class _SideBarButtonState extends State<SideBarButton> {
               return Positioned(
                 left: CommonDimens.defaultLineGap,
                 bottom: CommonDimens.defaultGap,
-                child: Text(S.of(context).disconnected,
-                    style: Theme.of(context).textTheme.headlineSmall),
+                child: Text(
+                  S.of(context).disconnected,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
               );
             },
           ),

@@ -7,8 +7,9 @@ import 'package:yumi/global.dart';
 class ChefStatusSignalR {
   static listen() {
     Signalr.on(Signal.updatechefstatus, (p0) {
-      int index = p0?.indexWhere((dynamic e) =>
-              G().context.read<UserCubit>().state.user.id == e['chef_ID']) ??
+      final int index = p0?.indexWhere(
+            (e) => G().context.read<UserCubit>().state.user.id == e['chef_ID'],
+          ) ??
           -1;
 
       if (index <= -1) return;

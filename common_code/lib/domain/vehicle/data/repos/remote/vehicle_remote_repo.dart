@@ -1,6 +1,4 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:common_code/core/exceptions.dart';
-import 'package:common_code/core/failures.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/domain/vehicle/data/repos/vehicle_repo.dart';
 import 'package:common_code/domain/vehicle/data/sources/vehicle_src.dart';

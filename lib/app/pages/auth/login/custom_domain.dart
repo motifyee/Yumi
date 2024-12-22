@@ -11,19 +11,20 @@ class CustomDomain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: () {
-          showModalBottomSheet(
-            isScrollControlled: true,
-            context: context,
-            builder: (context) => _DomainForm(
-              domainFormKey: domainFormKey,
-            ),
-          );
-        },
-        child: Icon(
-          Icons.dns_outlined,
-          color: CommonColors.secondaryTant,
-        ));
+      onPressed: () {
+        showModalBottomSheet(
+          isScrollControlled: true,
+          context: context,
+          builder: (context) => _DomainForm(
+            domainFormKey: domainFormKey,
+          ),
+        );
+      },
+      child: Icon(
+        Icons.dns_outlined,
+        color: CommonColors.secondaryTant,
+      ),
+    );
   }
 }
 
@@ -63,21 +64,24 @@ class _DomainFormState extends State<_DomainForm> {
                     ),
                   ),
                   TextButton(
-                      onPressed: () {
-                        widget.domainFormKey.currentState?.save();
-                        context.router.maybePop();
-                      },
-                      child: Container(
-                          padding:
-                              const EdgeInsets.all(CommonDimens.defaultGap),
-                          decoration: BoxDecoration(
-                              color: CommonColors.primary,
-                              borderRadius: BorderRadius.circular(
-                                  CommonDimens.defaultBlockGap)),
-                          child: Icon(
-                            Icons.dns,
-                            color: CommonColors.onPrimary,
-                          ))),
+                    onPressed: () {
+                      widget.domainFormKey.currentState?.save();
+                      context.router.maybePop();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(CommonDimens.defaultGap),
+                      decoration: BoxDecoration(
+                        color: CommonColors.primary,
+                        borderRadius: BorderRadius.circular(
+                          CommonDimens.defaultBlockGap,
+                        ),
+                      ),
+                      child: Icon(
+                        Icons.dns,
+                        color: CommonColors.onPrimary,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               Row(

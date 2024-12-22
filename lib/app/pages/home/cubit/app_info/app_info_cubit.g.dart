@@ -7,7 +7,7 @@ part of 'app_info_cubit.dart';
 // **************************************************************************
 
 _$AppInfoStateImpl _$$AppInfoStateImplFromJson(Map<String, dynamic> json) =>
-    _$AppInfoStateImpl();
+    const _$AppInfoStateImpl();
 
 Map<String, dynamic> _$$AppInfoStateImplToJson(_$AppInfoStateImpl instance) =>
     <String, dynamic>{};

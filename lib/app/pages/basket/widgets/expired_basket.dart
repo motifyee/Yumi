@@ -27,9 +27,12 @@ class ExpiredBasket extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: CommonDimens.defaultInputGap),
-                    child: Text(S.of(context).basketExpiredAndWillBeDeleted,
-                        style: Theme.of(context).textTheme.bodyMedium),
+                      horizontal: CommonDimens.defaultInputGap,
+                    ),
+                    child: Text(
+                      S.of(context).basketExpiredAndWillBeDeleted,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   ),
                 ),
               ],
@@ -38,13 +41,14 @@ class ExpiredBasket extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                    onPressed: () {
-                      context.router.maybePop();
-                    },
-                    child: Text(
-                      S.of(context).ok,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    )),
+                  onPressed: () {
+                    context.router.maybePop();
+                  },
+                  child: Text(
+                    S.of(context).ok,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                ),
               ],
             ),
           ],

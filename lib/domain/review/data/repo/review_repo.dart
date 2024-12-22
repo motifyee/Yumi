@@ -1,6 +1,5 @@
 import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:yumi/domain/review/entity/review.dart';
 
 abstract class ReviewRepo {
   TaskEither<Failure, PaginatedData<Review>> getAllReviews({

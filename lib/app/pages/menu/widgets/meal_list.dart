@@ -1,10 +1,8 @@
 import 'dart:typed_data';
 
-import 'package:collection/collection.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
@@ -16,11 +14,12 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/menu/widgets/meal_list_card.dart';
 
 class MealListScreen extends StatelessWidget {
-  MealListScreen(
-      {super.key,
-      required this.menuTarget,
-      this.categoryId,
-      this.isResetOnInit = true});
+  MealListScreen({
+    super.key,
+    required this.menuTarget,
+    this.categoryId,
+    this.isResetOnInit = true,
+  });
 
   final PageController favPageController = PageController(initialPage: 0);
 
@@ -38,11 +37,12 @@ class MealListScreen extends StatelessWidget {
     }
     return Container(
       decoration: BoxDecoration(
-          color: CommonColors.background,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
-            topRight: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
-          )),
+        color: CommonColors.background,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+          topRight: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+        ),
+      ),
       padding: const EdgeInsets.only(
         top: CommonDimens.defaultGapExtreme,
         left: CommonDimens.defaultBlockGap,
@@ -53,9 +53,13 @@ class MealListScreen extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           _MealList(
-              favPageController: favPageController, menuTarget: menuTarget),
+            favPageController: favPageController,
+            menuTarget: menuTarget,
+          ),
           _CategoriesList(
-              favPageController: favPageController, menuTarget: menuTarget),
+            favPageController: favPageController,
+            menuTarget: menuTarget,
+          ),
         ],
       ),
     );
@@ -91,7 +95,7 @@ class _MealList extends StatelessWidget {
             ),
             BlocBuilder<MealCubit, MealState>(
               builder: (context, state) {
-                String category = context
+                final String category = context
                         .read<CategoriesCubit>()
                         .state
                         .categoriesPage
@@ -100,59 +104,68 @@ class _MealList extends StatelessWidget {
                         ?.name ??
                     '';
                 return Expanded(
-                    child: category.isEmpty
-                        ? const SizedBox.shrink()
-                        : Row(
-                            children: [
-                              const SizedBox(
-                                  width: CommonDimens.defaultMicroGap),
-                              GestureDetector(
-                                onTap: () {
-                                  context.read<MealCubit>().reset();
-                                  context
-                                      .read<MealCubit>()
-                                      .updateCategory(selectedCategory: 0);
-                                },
-                                child: Container(
-                                    padding: const EdgeInsets.all(
-                                        CommonDimens.defaultMicroGap),
-                                    decoration: BoxDecoration(
-                                        color: CommonColors.backgroundTant,
-                                        borderRadius: BorderRadius.circular(
-                                            CommonDimens.defaultMicroGap)),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          category,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall,
-                                        ),
-                                        const SizedBox(
-                                            width:
-                                                CommonDimens.defaultMicroGap),
-                                        Text(
-                                          'x',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall,
-                                        ),
-                                      ],
-                                    )),
+                  child: category.isEmpty
+                      ? const SizedBox.shrink()
+                      : Row(
+                          children: [
+                            const SizedBox(
+                              width: CommonDimens.defaultMicroGap,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                context.read<MealCubit>().reset();
+                                context
+                                    .read<MealCubit>()
+                                    .updateCategory(selectedCategory: 0);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(
+                                  CommonDimens.defaultMicroGap,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: CommonColors.backgroundTant,
+                                  borderRadius: BorderRadius.circular(
+                                    CommonDimens.defaultMicroGap,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      category,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall,
+                                    ),
+                                    const SizedBox(
+                                      width: CommonDimens.defaultMicroGap,
+                                    ),
+                                    Text(
+                                      'x',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ],
-                          ));
+                            ),
+                          ],
+                        ),
+                );
               },
             ),
             GestureDetector(
               onTap: () {
-                favPageController.animateToPage(0,
-                    duration: CommonDimens.animationDuration,
-                    curve: Curves.easeOut);
+                favPageController.animateToPage(
+                  0,
+                  duration: CommonDimens.animationDuration,
+                  curve: Curves.easeOut,
+                );
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: CommonDimens.defaultInputGap),
+                  horizontal: CommonDimens.defaultInputGap,
+                ),
                 child: SvgPicture.asset(
                   'assets/images/chef_meals_list.svg',
                   colorFilter:
@@ -162,13 +175,16 @@ class _MealList extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                favPageController.animateToPage(1,
-                    duration: CommonDimens.animationDuration,
-                    curve: Curves.easeOut);
+                favPageController.animateToPage(
+                  1,
+                  duration: CommonDimens.animationDuration,
+                  curve: Curves.easeOut,
+                );
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: CommonDimens.defaultInputGap),
+                  horizontal: CommonDimens.defaultInputGap,
+                ),
                 child: SvgPicture.asset(
                   'assets/images/meals.svg',
                 ),
@@ -191,7 +207,8 @@ class _MealList extends StatelessWidget {
                 builder: (context, state) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: CommonDimens.defaultGap),
+                      horizontal: CommonDimens.defaultGap,
+                    ),
                     child: ConstrainedBox(
                       constraints:
                           BoxConstraints(minHeight: constraints.maxHeight),
@@ -217,33 +234,35 @@ class _MealList extends StatelessWidget {
                                     );
                                   } else {
                                     context.read<BasketCubit>().createBasket(
-                                        basket: context
-                                            .read<BasketCubit>()
-                                            .state
-                                            .basket
-                                            .copyWith(
-                                              isPreorder: false,
-                                              isSchedule: false,
-                                              shippedAddressId: context
-                                                  .read<UserCubit>()
-                                                  .state
-                                                  .address
-                                                  ?.id,
-                                              isPickupOnly:
-                                                  meal.isPickUpOnly ?? false,
-                                              invoiceDetails: [
-                                                InvoiceDetail.fromMeal(
-                                                    meal: meal)
-                                              ],
-                                              invoice: context
-                                                  .read<BasketCubit>()
-                                                  .state
-                                                  .basket
-                                                  .invoice
-                                                  .copyWith(
-                                                    chefID: meal.chefId,
+                                          basket: context
+                                              .read<BasketCubit>()
+                                              .state
+                                              .basket
+                                              .copyWith(
+                                                isPreorder: false,
+                                                isSchedule: false,
+                                                shippedAddressId: context
+                                                    .read<UserCubit>()
+                                                    .state
+                                                    .address
+                                                    ?.id,
+                                                isPickupOnly:
+                                                    meal.isPickUpOnly ?? false,
+                                                invoiceDetails: [
+                                                  InvoiceDetail.fromMeal(
+                                                    meal: meal,
                                                   ),
-                                            ));
+                                                ],
+                                                invoice: context
+                                                    .read<BasketCubit>()
+                                                    .state
+                                                    .basket
+                                                    .invoice
+                                                    .copyWith(
+                                                      chefID: meal.chefId,
+                                                    ),
+                                              ),
+                                        );
                                   }
                                 },
                               ),
@@ -265,8 +284,10 @@ class _MealList extends StatelessWidget {
 }
 
 class _CategoriesList extends StatelessWidget {
-  const _CategoriesList(
-      {required this.favPageController, required this.menuTarget});
+  const _CategoriesList({
+    required this.favPageController,
+    required this.menuTarget,
+  });
 
   final PageController favPageController;
   final MenuTarget menuTarget;
@@ -295,13 +316,16 @@ class _CategoriesList extends StatelessWidget {
             Expanded(child: Container()),
             GestureDetector(
               onTap: () {
-                favPageController.animateToPage(0,
-                    duration: CommonDimens.animationDuration,
-                    curve: Curves.easeOut);
+                favPageController.animateToPage(
+                  0,
+                  duration: CommonDimens.animationDuration,
+                  curve: Curves.easeOut,
+                );
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: CommonDimens.defaultInputGap),
+                  horizontal: CommonDimens.defaultInputGap,
+                ),
                 child: SvgPicture.asset(
                   'assets/images/chef_meals_list.svg',
                 ),
@@ -309,13 +333,16 @@ class _CategoriesList extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                favPageController.animateToPage(1,
-                    duration: CommonDimens.animationDuration,
-                    curve: Curves.easeOut);
+                favPageController.animateToPage(
+                  1,
+                  duration: CommonDimens.animationDuration,
+                  curve: Curves.easeOut,
+                );
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: CommonDimens.defaultInputGap),
+                  horizontal: CommonDimens.defaultInputGap,
+                ),
                 child: SvgPicture.asset(
                   'assets/images/meals.svg',
                   colorFilter:
@@ -352,51 +379,59 @@ class _CategoriesList extends StatelessWidget {
                               onTap: () {
                                 context.read<MealCubit>().reset();
                                 context.read<MealCubit>().updateCategory(
-                                    selectedCategory: category.id ?? 0);
-                                favPageController.animateToPage(0,
-                                    duration: CommonDimens.animationDuration,
-                                    curve: Curves.easeOut);
+                                      selectedCategory: category.id ?? 0,
+                                    );
+                                favPageController.animateToPage(
+                                  0,
+                                  duration: CommonDimens.animationDuration,
+                                  curve: Curves.easeOut,
+                                );
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: CommonDimens.defaultGap),
+                                  horizontal: CommonDimens.defaultGap,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: CommonDimens
-                                            .defaultImageHeightSmall,
-                                        clipBehavior: Clip.hardEdge,
-                                        decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(
-                                                CommonDimens.defaultGap),
-                                            topRight: Radius.circular(
-                                                CommonDimens.defaultGap),
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          CommonDimens.defaultImageHeightSmall,
+                                      clipBehavior: Clip.hardEdge,
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(
+                                            CommonDimens.defaultGap,
+                                          ),
+                                          topRight: Radius.circular(
+                                            CommonDimens.defaultGap,
                                           ),
                                         ),
-                                        child: Image.memory(
-                                          Uri.parse(category.image ?? '')
-                                                  .data
-                                                  ?.contentAsBytes() ??
-                                              Uint8List(0),
+                                      ),
+                                      child: Image.memory(
+                                        Uri.parse(category.image ?? '')
+                                                .data
+                                                ?.contentAsBytes() ??
+                                            Uint8List(0),
+                                        fit: BoxFit.cover,
+                                        alignment: Alignment.topCenter,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                Image.asset(
+                                          'assets/images/354.jpeg',
                                           fit: BoxFit.cover,
                                           alignment: Alignment.topCenter,
-                                          errorBuilder:
-                                              (context, error, stackTrace) =>
-                                                  Image.asset(
-                                            'assets/images/354.jpeg',
-                                            fit: BoxFit.cover,
-                                            alignment: Alignment.topCenter,
-                                          ),
-                                        )),
+                                        ),
+                                      ),
+                                    ),
                                     const SizedBox(
-                                        height: CommonDimens.defaultGap),
+                                      height: CommonDimens.defaultGap,
+                                    ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: CommonDimens.defaultGap),
+                                        horizontal: CommonDimens.defaultGap,
+                                      ),
                                       child: Text(
                                         category.name ?? '',
                                         style: Theme.of(context)
@@ -405,7 +440,8 @@ class _CategoriesList extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(
-                                        height: CommonDimens.defaultGap),
+                                      height: CommonDimens.defaultGap,
+                                    ),
                                   ],
                                 ),
                               ),

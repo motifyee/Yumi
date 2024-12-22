@@ -1,7 +1,6 @@
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/components/login_to_continue/login_to_continue.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/location_screen/location_screen.dart';
@@ -34,19 +33,25 @@ class CustomerLocationScreen extends StatelessWidget {
                     minWidth: MediaQuery.of(context).size.width,
                     maxHeight: MediaQuery.of(context).size.height * .3,
                   ),
-                  child: Image.asset('assets/images/customer_location.png',
-                      fit: BoxFit.fitWidth),
+                  child: Image.asset(
+                    'assets/images/customer_location.png',
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
                 const SizedBox(height: CommonDimens.defaultBlockGap),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(S.of(context).hello,
-                        style: Theme.of(context).textTheme.titleLarge),
+                    Text(
+                      S.of(context).hello,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                     const Text(' '),
-                    Text(context.read<UserCubit>().state.user.userName,
-                        style: Theme.of(context).textTheme.titleLarge),
-                    Text(',', style: Theme.of(context).textTheme.titleLarge)
+                    Text(
+                      context.read<UserCubit>().state.user.userName,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    Text(',', style: Theme.of(context).textTheme.titleLarge),
                   ],
                 ),
                 Row(
@@ -78,38 +83,41 @@ class CustomerLocationScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: CommonDimens.defaultGap),
                 Expanded(
-                    child: BlocProvider(
-                  create: (context) => AddressCubit(),
-                  child: BlocConsumer<AddressCubit, AddressState>(
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: CommonDimens.defaultMediumGap),
-                        child: PaginationTemplate(
-                          scrollDirection: Axis.vertical,
-                          loadDate: () {
-                            context.read<AddressCubit>().getAddresses();
-                          },
-                          child: Column(
-                            children: [
-                              if (state.pagination.isLoading)
-                                const PacmanLoadingWidget(),
-                              if (!state.pagination.isLoading)
-                                for (var i = 0;
-                                    i < state.pagination.data.length;
-                                    i++)
-                                  if (state.pagination.data[i].isDeleted !=
-                                      true)
-                                    _LocationCard(
-                                        address: state.pagination.data[i]),
-                            ],
+                  child: BlocProvider(
+                    create: (context) => AddressCubit(),
+                    child: BlocConsumer<AddressCubit, AddressState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: CommonDimens.defaultMediumGap,
                           ),
-                        ),
-                      );
-                    },
+                          child: PaginationTemplate(
+                            scrollDirection: Axis.vertical,
+                            loadDate: () {
+                              context.read<AddressCubit>().getAddresses();
+                            },
+                            child: Column(
+                              children: [
+                                if (state.pagination.isLoading)
+                                  const PacmanLoadingWidget(),
+                                if (!state.pagination.isLoading)
+                                  for (var i = 0;
+                                      i < state.pagination.data.length;
+                                      i++)
+                                    if (state.pagination.data[i].isDeleted !=
+                                        true)
+                                      _LocationCard(
+                                        address: state.pagination.data[i],
+                                      ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                )),
+                ),
                 Column(
                   children: [
                     TextButton(
@@ -121,9 +129,11 @@ class CustomerLocationScreen extends StatelessWidget {
                         height: CommonDimens.defaultTitleGapLarge,
                         padding: const EdgeInsets.all(CommonDimens.defaultGap),
                         decoration: BoxDecoration(
-                            color: CommonColors.primary,
-                            borderRadius: BorderRadius.circular(
-                                CommonDimens.buttonBorderRadius)),
+                          color: CommonColors.primary,
+                          borderRadius: BorderRadius.circular(
+                            CommonDimens.buttonBorderRadius,
+                          ),
+                        ),
                         child: Center(
                           child: Text(
                             S.of(context).confirmLocation,
@@ -134,15 +144,18 @@ class CustomerLocationScreen extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
                             builder: (context) => LocationScreen(
-                                  routeFn: ({Address? address}) {
-                                    G().rd<UserCubit>().saveLocation(address!);
+                              routeFn: ({Address? address}) {
+                                G().rd<UserCubit>().saveLocation(address!);
 
-                                    context.router.replaceAll([HomeRoute()]);
-                                  },
-                                  isBack: true,
-                                )));
+                                context.router.replaceAll([HomeRoute()]);
+                              },
+                              isBack: true,
+                            ),
+                          ),
+                        );
                       },
                       child: Container(
                         width: CommonDimens.buttonWidth,
@@ -150,9 +163,12 @@ class CustomerLocationScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(CommonDimens.defaultGap),
                         decoration: BoxDecoration(
                           border: Border.all(
-                              color: CommonColors.secondary, width: 1),
+                            color: CommonColors.secondary,
+                            width: 1,
+                          ),
                           borderRadius: BorderRadius.circular(
-                              CommonDimens.buttonBorderRadius),
+                            CommonDimens.buttonBorderRadius,
+                          ),
                         ),
                         child: Row(
                           children: [
@@ -166,8 +182,9 @@ class CustomerLocationScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(27),
                               ),
                               child: SvgPicture.asset(
-                                  'assets/images/location.svg',
-                                  fit: BoxFit.fill),
+                                'assets/images/location.svg',
+                                fit: BoxFit.fill,
+                              ),
                             ),
                             Expanded(
                               child: Center(
@@ -207,8 +224,9 @@ class _LocationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          horizontal: CommonDimens.defaultMicroGap,
-          vertical: CommonDimens.defaultMicroGap),
+        horizontal: CommonDimens.defaultMicroGap,
+        vertical: CommonDimens.defaultMicroGap,
+      ),
       child: Column(
         children: [
           Container(
@@ -230,7 +248,8 @@ class _LocationCard extends StatelessWidget {
                         ? null
                         : () {
                             context.read<AddressCubit>().updateDefaultAddress(
-                                address: address.copyWith(isDefault: true));
+                                  address: address.copyWith(isDefault: true),
+                                );
                           },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -243,7 +262,8 @@ class _LocationCard extends StatelessWidget {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: CommonDimens.defaultGap),
+                                  horizontal: CommonDimens.defaultGap,
+                                ),
                                 child: SvgPicture.asset(
                                   'assets/images/location_indecator.svg',
                                   height: CommonFontSize.font_12,
@@ -273,15 +293,16 @@ class _LocationCard extends StatelessWidget {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: CommonDimens.defaultGap,
-                          vertical: CommonDimens.defaultGap),
+                        horizontal: CommonDimens.defaultGap,
+                        vertical: CommonDimens.defaultGap,
+                      ),
                       child: Icon(
                         Icons.delete,
                         color: CommonColors.onPrimary,
                         size: CommonFontSize.font_16,
                       ),
                     ),
-                  )
+                  ),
               ],
             ),
           ),
@@ -298,14 +319,17 @@ class _LocationCard extends StatelessWidget {
                       'assets/images/location_indecator.svg',
                       height: CommonFontSize.font_12,
                       colorFilter: ColorFilter.mode(
-                          CommonColors.secondary, BlendMode.srcIn),
+                        CommonColors.secondary,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                   Expanded(
-                      child: Text(
-                    address.location ?? '',
-                    softWrap: true,
-                  )),
+                    child: Text(
+                      address.location ?? '',
+                      softWrap: true,
+                    ),
+                  ),
                 ],
               ),
             ),

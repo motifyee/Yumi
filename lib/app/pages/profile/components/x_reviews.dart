@@ -35,7 +35,8 @@ class MyReviews extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: CommonColors.secondaryTant,
                       borderRadius: BorderRadius.circular(
-                          CommonDimens.buttonBorderRadius),
+                        CommonDimens.buttonBorderRadius,
+                      ),
                     ),
                     child: Center(
                       child: SvgPicture.asset('assets/images/profile1.svg'),
@@ -44,22 +45,28 @@ class MyReviews extends StatelessWidget {
                   const Expanded(child: Text('')),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: CommonDimens.defaultGap,
-                        vertical: CommonDimens.defaultGap / 2),
+                      horizontal: CommonDimens.defaultGap,
+                      vertical: CommonDimens.defaultGap / 2,
+                    ),
                     decoration: BoxDecoration(
                       color: CommonColors.primary,
                       borderRadius: BorderRadius.circular(
-                          CommonDimens.buttonBorderRadius),
+                        CommonDimens.buttonBorderRadius,
+                      ),
                     ),
                     child: Row(
                       children: [
-                        Text(review.toString(),
-                            style: Theme.of(context).textTheme.displaySmall),
+                        Text(
+                          review.toString(),
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ),
                         const SizedBox(width: CommonDimens.defaultGap / 2),
                         SvgPicture.asset(
                           'assets/images/star.svg',
                           colorFilter: ColorFilter.mode(
-                              CommonColors.onPrimary, BlendMode.srcIn),
+                            CommonColors.onPrimary,
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ],
                     ),

@@ -16,7 +16,7 @@ class LoginToContinue extends StatelessWidget {
           Image.asset(CommonAssets.chefPanic),
           const SizedBox(height: 20),
           Text(
-            "Sorry!",
+            'Sorry!',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -25,17 +25,17 @@ class LoginToContinue extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            "You are not logged in yet",
+            'You are not logged in yet',
             style: TextStyle(fontSize: 10, color: CommonColors.secondaryTant),
           ),
           const SizedBox(height: 20),
           InteractiveButton(
-            label: "Login to continue",
+            label: 'Login to continue',
             onPressed: () {
               context.read<UserCubit>().reset();
               context.router.replaceAll([const LoginRoute()]);
             },
-          )
+          ),
         ],
       ),
     );

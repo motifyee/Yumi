@@ -2,7 +2,6 @@ import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:common_code/domain/food_delivery/ingredients/data/repositories/ingredients_repo.dart';
 import 'package:common_code/domain/food_delivery/ingredients/data/sources/ingredients_src.dart';
-import 'package:common_code/domain/food_delivery/ingredients/entities/ingredient.dart';
 
 class IngredientsRemoteRepo implements IngredientsRepo {
   final IngredientsSrc src;

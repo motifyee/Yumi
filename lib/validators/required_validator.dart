@@ -5,7 +5,7 @@ String? requiredValidator(String? value) {
   return null;
 }
 
-String? requiredObjectValidator(dynamic value) {
+String? requiredObjectValidator(value) {
   if (value == null) return S.current.required;
   return null;
 }

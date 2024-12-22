@@ -8,7 +8,7 @@ import 'package:yumi/global.dart';
 
 class Onboarding {
   bool get profileSheetDone {
-    Profile profile = G().rd<ProfileCubit>().state.form;
+    final Profile profile = G().rd<ProfileCubit>().state.form;
 
     return profile.profileSheetDone;
   }
@@ -69,7 +69,7 @@ class Onboarding {
   bool get contractApprovalActive =>
       _onboardingProgress > 4 || contractApprovalDone || contractDone;
   bool get contractApprovalDone {
-    Profile profile = G().rd<ProfileCubit>().state.form;
+    final Profile profile = G().rd<ProfileCubit>().state.form;
 
     return contractDone && (profile.contractApproved ?? false);
   }

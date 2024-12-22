@@ -1,7 +1,6 @@
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/app/pages/settings/components/profile/profile_form.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -29,18 +28,20 @@ class ProfileCard extends StatelessWidget {
             Text(S.of(context).profileSettings),
             const Expanded(child: Text('')),
             TextButton(
-                onPressed: () {
-                  showAlertDialog(
-                      context: context,
-                      title: Container(),
-                      content: const ProfileForm(),
-                      actions: {S.of(context).cancel: null},
-                      actionWidgets: [const ProfileFormSubmitButton()]);
-                },
-                child: Text(
-                  S.of(context).edit,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ))
+              onPressed: () {
+                showAlertDialog(
+                  context: context,
+                  title: Container(),
+                  content: const ProfileForm(),
+                  actions: {S.of(context).cancel: null},
+                  actionWidgets: [const ProfileFormSubmitButton()],
+                );
+              },
+              child: Text(
+                S.of(context).edit,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
           ],
         );
 
@@ -139,7 +140,8 @@ class ProfileCard extends StatelessWidget {
             SizedBox(
               height: 60,
               child: SvgPicture.asset(
-                  'assets/images/delivery-${state.profile.pickupOnly ? 'not-' : ''}available.svg'),
+                'assets/images/delivery-${state.profile.pickupOnly ? 'not-' : ''}available.svg',
+              ),
             ),
           ],
         );
@@ -162,7 +164,7 @@ class ProfileCard extends StatelessWidget {
                 spreadRadius: 0,
                 blurRadius: 5,
                 offset: const Offset(2, 4),
-              )
+              ),
             ],
           ),
           child: Column(

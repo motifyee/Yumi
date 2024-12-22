@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:common_code/domain/food_delivery/order/entity/order.dart';
 import 'package:yumi/app/pages/order/widgets/text_quntaty.dart';
 
 class ProductInCard extends StatelessWidget {
@@ -29,8 +28,9 @@ class ProductInCard extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(CommonDimens.defaultLineGap),
               decoration: BoxDecoration(
-                  color: CommonColors.background,
-                  borderRadius: BorderRadius.circular(CommonDimens.defaultGap)),
+                color: CommonColors.background,
+                borderRadius: BorderRadius.circular(CommonDimens.defaultGap),
+              ),
               child: Text(
                 invoiceDetails.note ?? '',
                 style: Theme.of(context).textTheme.headlineMedium,
@@ -89,8 +89,9 @@ class ProductInCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         TextCurrency(
-                            value: invoiceDetails.productVarintPrice ?? 0.0,
-                            fontSize: CommonFontSize.font_14),
+                          value: invoiceDetails.productVarintPrice ?? 0.0,
+                          fontSize: CommonFontSize.font_14,
+                        ),
                         TextQuantity(
                           value: invoiceDetails.quantity ?? 0.0,
                           fontSize: CommonFontSize.font_10,

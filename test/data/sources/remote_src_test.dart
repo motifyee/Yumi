@@ -43,7 +43,7 @@ void main() {
             Object? data = testCase.entity;
             if (data == null) {
               if (testCase.entityType == String) {
-                data = "string";
+                data = 'string';
               } else if (testCase.entityType == String) {
                 data = [];
               } else {

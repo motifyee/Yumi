@@ -11,7 +11,8 @@ _$OrderStateImpl _$$OrderStateImplFromJson(Map<String, dynamic> json) =>
       ordersPage: json['ordersPage'] == null
           ? const PaginatedData()
           : PaginatedData<Order>.fromJson(
-              json['ordersPage'] as Map<String, dynamic>),
+              json['ordersPage'] as Map<String, dynamic>,
+            ),
     );
 
 Map<String, dynamic> _$$OrderStateImplToJson(_$OrderStateImpl instance) =>

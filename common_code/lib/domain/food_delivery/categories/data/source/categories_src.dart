@@ -1,5 +1,4 @@
 import 'package:common_code/common_code.dart';
-import 'package:common_code/domain/food_delivery/categories/entity/category.dart';
 
 abstract class CategoriesSrc {
   Future<PaginatedData<Category>> getCategories({

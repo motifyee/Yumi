@@ -5,12 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
-import 'package:common_code/domain/food_delivery/chef/entity/chef.dart';
-import 'package:common_code/domain/food_delivery/chef/use_cases/add_favourite_chef.dart';
-import 'package:common_code/domain/food_delivery/chef/use_cases/get_chef_work_status.dart';
-import 'package:common_code/domain/food_delivery/chef/use_cases/is_favourite_chef.dart';
-import 'package:common_code/domain/food_delivery/chef/use_cases/remove_favourite_chef.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/app/pages/chef_profile/chef_profile.dart';
 
@@ -48,25 +42,29 @@ class _ChefBannerState extends State<ChefBanner> {
       isLoading = true;
 
       final params = IsFavouriteChefParams(widget.chef.id!);
-      IsFavouriteChef().call(params).then((res) => res.fold(
-            (l) => setState(() {
-              isLoading = false;
-            }),
-            (r) {
-              widget.chef = widget.chef.copyWith(isFavorite: r);
-              setState(() {
+      IsFavouriteChef().call(params).then(
+            (res) => res.fold(
+              (l) => setState(() {
                 isLoading = false;
-              });
-            },
-          ));
+              }),
+              (r) {
+                widget.chef = widget.chef.copyWith(isFavorite: r);
+                setState(() {
+                  isLoading = false;
+                });
+              },
+            ),
+          );
     }
 
     if (widget.isRequestStatus) {
       final wParams = GetChefWorkStatusParams(widget.chef.id!);
-      GetChefWorkStatus().call(wParams).then((res) => res.fold(
-            (l) => null,
-            (r) => widget.chef = widget.chef.copyWith(status: r.index),
-          ));
+      GetChefWorkStatus().call(wParams).then(
+            (res) => res.fold(
+              (l) => null,
+              (r) => widget.chef = widget.chef.copyWith(status: r.index),
+            ),
+          );
     }
 
     super.initState();
@@ -94,80 +92,92 @@ class _ChefBannerState extends State<ChefBanner> {
         children: [
           SizedBox(
             height: widget.height ?? CommonDimens.defaultImageHeight,
-            child: Stack(children: [
-              Container(
-                clipBehavior: Clip.hardEdge,
-                width: widget.width,
-                decoration: BoxDecoration(borderRadius: widget.borderRadius),
-                child: Hero(
-                  tag: 'chef_${widget.chef.id}',
-                  child: SizedBox(
-                    child: Image.memory(
-                      Uri.parse(widget.chef.imageProfile ?? '')
-                              .data
-                              ?.contentAsBytes() ??
-                          Uint8List(0),
-                      fit: BoxFit.cover,
-                      alignment: Alignment.center,
-                      errorBuilder: (context, error, stackTrace) => Image.asset(
-                        'assets/images/354.jpeg',
+            child: Stack(
+              children: [
+                Container(
+                  clipBehavior: Clip.hardEdge,
+                  width: widget.width,
+                  decoration: BoxDecoration(borderRadius: widget.borderRadius),
+                  child: Hero(
+                    tag: 'chef_${widget.chef.id}',
+                    child: SizedBox(
+                      child: Image.memory(
+                        Uri.parse(widget.chef.imageProfile ?? '')
+                                .data
+                                ?.contentAsBytes() ??
+                            Uint8List(0),
                         fit: BoxFit.cover,
                         alignment: Alignment.center,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Image.asset(
+                          'assets/images/354.jpeg',
+                          fit: BoxFit.cover,
+                          alignment: Alignment.center,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(CommonDimens.defaultGap),
-                  child: Row(
-                    children: [
-                      if (widget.chef.status == 0)
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: CommonDimens.defaultGap),
-                          decoration: BoxDecoration(
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(CommonDimens.defaultGap),
+                    child: Row(
+                      children: [
+                        if (widget.chef.status == 0)
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: CommonDimens.defaultGap,
+                            ),
+                            decoration: BoxDecoration(
                               color: CommonColors.primaryDisabled,
                               borderRadius: BorderRadius.circular(
-                                  CommonDimens.defaultBorderRadiusLarge)),
-                          child: Text(
-                            S.of(context).offline,
-                            style: Theme.of(context).textTheme.bodySmall,
+                                CommonDimens.defaultBorderRadiusLarge,
+                              ),
+                            ),
+                            child: Text(
+                              S.of(context).offline,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
                           ),
-                        ),
-                      if (widget.chef.status == 1)
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: CommonDimens.defaultGap),
-                          decoration: BoxDecoration(
+                        if (widget.chef.status == 1)
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: CommonDimens.defaultGap,
+                            ),
+                            decoration: BoxDecoration(
                               color: CommonColors.success,
                               borderRadius: BorderRadius.circular(
-                                  CommonDimens.defaultBorderRadiusLarge)),
-                          child: Text(
-                            S.of(context).open,
-                            style: Theme.of(context).textTheme.bodySmall,
+                                CommonDimens.defaultBorderRadiusLarge,
+                              ),
+                            ),
+                            child: Text(
+                              S.of(context).open,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
                           ),
-                        ),
-                      if (widget.chef.status == 2)
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: CommonDimens.defaultGap),
-                          decoration: BoxDecoration(
+                        if (widget.chef.status == 2)
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: CommonDimens.defaultGap,
+                            ),
+                            decoration: BoxDecoration(
                               color: CommonColors.primaryDisabled,
                               borderRadius: BorderRadius.circular(
-                                  CommonDimens.defaultBorderRadiusLarge)),
-                          child: Text(
-                            S.of(context).busy,
-                            style: Theme.of(context).textTheme.bodySmall,
+                                CommonDimens.defaultBorderRadiusLarge,
+                              ),
+                            ),
+                            child: Text(
+                              S.of(context).busy,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ]),
+              ],
+            ),
           ),
           Container(
             width: widget.width,
@@ -196,7 +206,8 @@ class _ChefBannerState extends State<ChefBanner> {
                           if (widget.isShowFav)
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: CommonDimens.defaultGap),
+                                horizontal: CommonDimens.defaultGap,
+                              ),
                               child: DeliveryPickUpIcons(
                                 isPickUpOnly: widget.chef.pickupOnly ?? false,
                                 isShowFav: widget.isShowFav,
@@ -212,8 +223,10 @@ class _ChefBannerState extends State<ChefBanner> {
                             allowHalfRating: true,
                             itemSize: CommonFontSize.font_18,
                             ratingWidget: RatingWidget(
-                              empty: Icon(Icons.star_border,
-                                  color: CommonColors.warning),
+                              empty: Icon(
+                                Icons.star_border,
+                                color: CommonColors.warning,
+                              ),
                               full:
                                   Icon(Icons.star, color: CommonColors.warning),
                               half: Icon(
@@ -223,30 +236,39 @@ class _ChefBannerState extends State<ChefBanner> {
                             ),
                             onRatingUpdate: (value) {},
                           ),
-                          Text(' | ',
+                          Text(
+                            ' | ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(fontSize: CommonFontSize.font_9),
+                          ),
+                          if (widget.chef.isHygiene != true)
+                            Text(
+                              '${S.of(context).hygiene} -',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium
-                                  ?.copyWith(fontSize: CommonFontSize.font_9)),
-                          if (widget.chef.isHygiene != true)
-                            Text('${S.of(context).hygiene} -',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                        fontSize: CommonFontSize.font_9)),
+                                  ?.copyWith(
+                                    fontSize: CommonFontSize.font_9,
+                                  ),
+                            ),
                           if (widget.chef.isHygiene == true)
-                            Text(S.of(context).hygieneCertified,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                        fontSize: CommonFontSize.font_9)),
+                            Text(
+                              S.of(context).hygieneCertified,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    fontSize: CommonFontSize.font_9,
+                                  ),
+                            ),
                           if (widget.chef.isHygiene == true)
                             SvgPicture.asset(
-                                'assets/images/certified_icon.svg'),
+                              'assets/images/certified_icon.svg',
+                            ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -264,9 +286,11 @@ class _ChefBannerState extends State<ChefBanner> {
                       if (isLoading)
                         const Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: CommonDimens.defaultBlockGap),
+                            horizontal: CommonDimens.defaultBlockGap,
+                          ),
                           child: PacmanLoadingWidget(
-                              size: CommonDimens.defaultBlockGap),
+                            size: CommonDimens.defaultBlockGap,
+                          ),
                         ),
                       if (!isLoading)
                         TextButton(
@@ -275,42 +299,49 @@ class _ChefBannerState extends State<ChefBanner> {
                               final aParams =
                                   AddFavouriteChefParams(widget.chef.id!);
 
-                              AddFavouriteChef()
-                                  .call(aParams)
-                                  .then((res) => res.fold(
+                              AddFavouriteChef().call(aParams).then(
+                                    (res) => res.fold(
                                       (l) => null,
                                       (r) => setState(() {
-                                            widget.chef = widget.chef
-                                                .copyWith(isFavorite: true);
-                                          })));
+                                        widget.chef = widget.chef
+                                            .copyWith(isFavorite: true);
+                                      }),
+                                    ),
+                                  );
                             } else {
                               final rParams =
                                   RemoveFavouriteChefParams(widget.chef.id!);
 
-                              RemoveFavouriteChef()
-                                  .call(rParams)
-                                  .then((res) => res.fold(
+                              RemoveFavouriteChef().call(rParams).then(
+                                    (res) => res.fold(
                                       (l) => null,
                                       (r) => setState(() {
-                                            widget.chef = widget.chef
-                                                .copyWith(isFavorite: false);
-                                          })));
+                                        widget.chef = widget.chef
+                                            .copyWith(isFavorite: false);
+                                      }),
+                                    ),
+                                  );
                             }
                           },
                           child: widget.chef.isFavorite
-                              ? SvgPicture.asset('assets/images/heart.svg',
+                              ? SvgPicture.asset(
+                                  'assets/images/heart.svg',
                                   colorFilter: ColorFilter.mode(
-                                      CommonColors.primary, BlendMode.srcIn),
-                                  fit: BoxFit.contain)
+                                    CommonColors.primary,
+                                    BlendMode.srcIn,
+                                  ),
+                                  fit: BoxFit.contain,
+                                )
                               : SvgPicture.asset(
                                   'assets/images/heart_outline.svg',
-                                  fit: BoxFit.contain),
+                                  fit: BoxFit.contain,
+                                ),
                         ),
                     ],
-                  )
+                  ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -318,8 +349,11 @@ class _ChefBannerState extends State<ChefBanner> {
 }
 
 class DeliveryPickUpIcons extends StatelessWidget {
-  const DeliveryPickUpIcons(
-      {super.key, required this.isShowFav, required this.isPickUpOnly});
+  const DeliveryPickUpIcons({
+    super.key,
+    required this.isShowFav,
+    required this.isPickUpOnly,
+  });
 
   final bool isShowFav;
   final bool isPickUpOnly;
@@ -359,9 +393,11 @@ class DeliveryIcon extends StatelessWidget {
               Row(
                 children: [
                   const SizedBox(width: 5),
-                  SvgPicture.asset(isChecked
-                      ? 'assets/images/closed_icon.svg'
-                      : 'assets/images/checked_icon.svg'),
+                  SvgPicture.asset(
+                    isChecked
+                        ? 'assets/images/closed_icon.svg'
+                        : 'assets/images/checked_icon.svg',
+                  ),
                 ],
               ),
           ],
@@ -377,9 +413,11 @@ class DeliveryIcon extends StatelessWidget {
           Row(
             children: [
               const SizedBox(height: 3),
-              SvgPicture.asset(isChecked
-                  ? 'assets/images/closed_icon.svg'
-                  : 'assets/images/checked_icon.svg'),
+              SvgPicture.asset(
+                isChecked
+                    ? 'assets/images/closed_icon.svg'
+                    : 'assets/images/checked_icon.svg',
+              ),
             ],
           ),
       ],

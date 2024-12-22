@@ -1,7 +1,6 @@
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/auth/forgot_password/cubit/forgot_password_cubit.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:yumi/global.dart';
@@ -49,16 +48,16 @@ class ForgotPwdEnterEmail extends StatelessWidget {
                       ),
                     ),
                     InkWell(
-                      onTap: () => context
-                          .read<ForgotPwdCubit>()
-                          .setVerificationType(
-                              ForgotPwdVerificationType.mobile),
+                      onTap: () =>
+                          context.read<ForgotPwdCubit>().setVerificationType(
+                                ForgotPwdVerificationType.mobile,
+                              ),
                       child: SvgPicture.asset(
                         verificationType == ForgotPwdVerificationType.mobile
                             ? AppAssets.mobileMsgIcon
                             : AppAssets.mobileMsgInactiveIcon,
                       ),
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(height: 30),
@@ -88,25 +87,27 @@ class ForgotPwdEnterEmail extends StatelessWidget {
         // ),
         const SizedBox(height: 60),
         InteractiveButton(
-            label: 'Send',
-            onPressed: () async {
-              final txt = context.read<ForgotPwdCubit>().state.email.trim();
-              if (!form.currentState!.validate()) return;
+          label: 'Send',
+          onPressed: () async {
+            final txt = context.read<ForgotPwdCubit>().state.email.trim();
+            if (!form.currentState!.validate()) return;
 
-              final cubit = context.read<ForgotPwdCubit>();
-              if (isNumeric(txt)) {
-                await cubit.resetPasswordByMobile();
-              } else {
-                await cubit.resetPasswordByEmail(txt);
-              }
+            final cubit = context.read<ForgotPwdCubit>();
+            if (isNumeric(txt)) {
+              await cubit.resetPasswordByMobile();
+            } else {
+              await cubit.resetPasswordByEmail(txt);
+            }
 
-              if (cubit.state.emailFound) {
-                G().snackBar('Check your email for verification code');
-              } else {
-                G().snackBar(
-                    cubit.state.error.onEmpty("Something went wrong!"));
-              }
-            }),
+            if (cubit.state.emailFound) {
+              G().snackBar('Check your email for verification code');
+            } else {
+              G().snackBar(
+                cubit.state.error.onEmpty('Something went wrong!'),
+              );
+            }
+          },
+        ),
         const SizedBox(height: 60),
       ],
     );

@@ -1,5 +1,4 @@
 import 'package:common_code/common_code.dart';
-import 'package:yumi/domain/review/entity/review.dart';
 
 abstract class ReviewSource {
   Future<PaginatedData<Review>> getAllReviews({

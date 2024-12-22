@@ -38,24 +38,27 @@ class CustomerPreOrderForm extends StatelessWidget {
           ),
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-              color: CommonColors.background,
-              borderRadius: const BorderRadius.only(
-                topRight:
-                    Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
-                topLeft:
-                    Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
-              )),
+            color: CommonColors.background,
+            borderRadius: const BorderRadius.only(
+              topRight:
+                  Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+              topLeft: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+            ),
+          ),
           width: MediaQuery.of(context).size.width,
           constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * .9),
+            maxHeight: MediaQuery.of(context).size.height * .9,
+          ),
           child: Form(
             key: preOrderForm,
             child: SizedBox(
               height: MediaQuery.of(context).size.height * .5,
               child: Column(
                 children: [
-                  Text(S.of(context).preOrder,
-                      style: Theme.of(context).textTheme.labelLarge),
+                  Text(
+                    S.of(context).preOrder,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
                   const SizedBox(height: CommonDimens.defaultBlockGap),
                   Row(
                     children: [
@@ -180,9 +183,10 @@ class CustomerPreOrderForm extends StatelessWidget {
                               },
                             );
                             context.read<BasketCubit>().updateSchedule(
-                                time: picked?.hour != null
-                                    ? '${picked?.hour}:${picked?.minute}'
-                                    : null);
+                                  time: picked?.hour != null
+                                      ? '${picked?.hour}:${picked?.minute}'
+                                      : null,
+                                );
                           },
                           readOnly: true,
                         ),
@@ -200,10 +204,14 @@ class CustomerPreOrderForm extends StatelessWidget {
                           width: CommonDimens.defaultGapXXXL,
                           height: CommonDimens.defaultTitleGapLarge,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                  CommonDimens.defaultBorderRadius),
-                              border: Border.all(
-                                  color: CommonColors.primary, width: 1)),
+                            borderRadius: BorderRadius.circular(
+                              CommonDimens.defaultBorderRadius,
+                            ),
+                            border: Border.all(
+                              color: CommonColors.primary,
+                              width: 1,
+                            ),
+                          ),
                           child: Center(
                             child: Text(
                               S.of(context).cancel,
@@ -219,23 +227,25 @@ class CustomerPreOrderForm extends StatelessWidget {
                             preOrderForm.currentState!.save();
 
                             context.read<BasketCubit>().createBasket(
-                                    basket: Basket(
-                                  isPreorder: true,
-                                  isSchedule: true,
-                                  isPickupOnly: chef.pickupOnly == true,
-                                  shippedAddressId: context
-                                      .read<UserCubit>()
-                                      .state
-                                      .address
-                                      ?.id,
-                                  invoice: Invoice.initial().copyWith(
+                                  basket: Basket(
+                                    isPreorder: true,
+                                    isSchedule: true,
+                                    isPickupOnly: chef.pickupOnly == true,
+                                    shippedAddressId: context
+                                        .read<UserCubit>()
+                                        .state
+                                        .address
+                                        ?.id,
+                                    invoice: Invoice.initial().copyWith(
                                       chefID: chef.id,
                                       scheduleDate: state.basket.invoice
-                                          .scheduleDateConstraint),
-                                  invoiceDetails: [
-                                    InvoiceDetail.fromMeal(meal: meal)
-                                  ],
-                                ));
+                                          .scheduleDateConstraint,
+                                    ),
+                                    invoiceDetails: [
+                                      InvoiceDetail.fromMeal(meal: meal),
+                                    ],
+                                  ),
+                                );
                           }
                         },
                         child: Container(
@@ -243,7 +253,8 @@ class CustomerPreOrderForm extends StatelessWidget {
                           height: CommonDimens.defaultTitleGapLarge,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(
-                                CommonDimens.defaultBorderRadius),
+                              CommonDimens.defaultBorderRadius,
+                            ),
                             color: CommonColors.primary,
                           ),
                           child: Center(
@@ -255,7 +266,7 @@ class CustomerPreOrderForm extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

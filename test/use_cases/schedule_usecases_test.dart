@@ -16,7 +16,8 @@ void main() {
     final loadscheduleTest = LoadSchedule(mockScheduleRemoteRepo);
     test('when ScheduleRemoteRepo returns a Schedule', () async {
       when(() => mockScheduleRemoteRepo.getMySchedule()).thenAnswer(
-          (ans) => TaskEither.fromEither(const Right(Schedule(id: 'test'))));
+        (ans) => TaskEither.fromEither(const Right(Schedule(id: 'test'))),
+      );
 
       final result = await loadscheduleTest.call(NoParams());
 

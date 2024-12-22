@@ -1,7 +1,6 @@
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/contract_screen/contract_image.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/documentation_screen/docs_info.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
@@ -64,24 +63,26 @@ class ContractScreen extends StatelessWidget {
                   }
 
                   return Container(
-                      child: buidlDocumentWidget(
-                    doc: DocInfo(
-                      color: "F4F4F4",
-                      title: "Contract",
-                      desc: "Download the contract to sign it and upload it",
-                      getdata: (_) => null,
+                    child: buidlDocumentWidget(
+                      doc: DocInfo(
+                        color: 'F4F4F4',
+                        title: 'Contract',
+                        desc: 'Download the contract to sign it and upload it',
+                        getdata: (_) => null,
+                      ),
+                      data: contractImage, //state.form.contractPhoto,
+                      fileName: 'YUMI-contract.jpg',
+                      uploadAction: (data, _) async {
+                        final c = context.read<ProfileCubit>();
+
+                        final update = await c.updateProfileForm(
+                          c.state.form.copyWith(contractPhoto: data),
+                        );
+
+                        update.fold((l) => G().snackBar(l.toString()), (_) {});
+                      },
                     ),
-                    data: contractImage, //state.form.contractPhoto,
-                    fileName: 'YUMI-contract.jpg',
-                    uploadAction: (data, _) async {
-                      var c = context.read<ProfileCubit>();
-
-                      final update = await c.updateProfileForm(
-                          c.state.form.copyWith(contractPhoto: data));
-
-                      update.fold((l) => G().snackBar(l.toString()), (_) {});
-                    },
-                  ));
+                  );
                 },
               ),
             ],

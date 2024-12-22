@@ -5,8 +5,10 @@ class DomainSpec {
   static unitTest() {
     // basket test
     CalcBasketSpec().unitTest(
-        params: CalcBasketSpecParams(
-            mockBasket: BasketMockData.oneItemBasketPickup,
-            expectedBasket: BasketExpectedData.oneItemBasketPickup));
+      params: CalcBasketSpecParams(
+        mockBasket: BasketMockData.oneItemBasketPickup,
+        expectedBasket: BasketExpectedData.oneItemBasketPickup,
+      ),
+    );
   }
 }

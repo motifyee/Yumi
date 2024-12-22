@@ -30,17 +30,28 @@ class AddressCubit extends Cubit<AddressState> {
   getAddresses({String? id}) async {
     if (!state.pagination.canRequest) return;
     emit(state.copyWith.pagination(isLoading: true));
-    final task = await GetAddresses().call(GetAddressesParams(
-        pagination: state.pagination, queryParameters: {'id': id}));
-    task.fold((l) => GlobalContext().snackBar(l.error ?? S.current.apiError),
-        (r) => emit(state.copyWith(pagination: r)));
+    final task = await GetAddresses().call(
+      GetAddressesParams(
+        pagination: state.pagination,
+        queryParameters: {'id': id},
+      ),
+    );
+    task.fold(
+      (l) => GlobalContext().snackBar(l.error ?? S.current.apiError),
+      (r) => emit(state.copyWith(pagination: r)),
+    );
   }
 
   updateDefaultAddress({required Address address}) async {
     if (state.pagination.isLoading) return;
     emit(state.copyWith.pagination(isLoading: true));
-    final task = await UpdateDefaultAddress().call(UpdateDefaultAddressParams(
-        pagination: state.pagination, address: address, queryParameters: null));
+    final task = await UpdateDefaultAddress().call(
+      UpdateDefaultAddressParams(
+        pagination: state.pagination,
+        address: address,
+        queryParameters: null,
+      ),
+    );
     task.fold((l) => GlobalContext().snackBar(l.error ?? S.current.apiError),
         (r) {
       GlobalContext().context.read<UserCubit>().saveLocation(address);
@@ -51,9 +62,16 @@ class AddressCubit extends Cubit<AddressState> {
   deleteAddress({required Address address}) async {
     if (state.pagination.isLoading) return;
     emit(state.copyWith.pagination(isLoading: true));
-    final task = await DeleteAddress().call(DeleteAddressParams(
-        pagination: state.pagination, address: address, queryParameters: null));
-    task.fold((l) => GlobalContext().snackBar(l.error ?? S.current.apiError),
-        (r) => emit(state.copyWith(pagination: r)));
+    final task = await DeleteAddress().call(
+      DeleteAddressParams(
+        pagination: state.pagination,
+        address: address,
+        queryParameters: null,
+      ),
+    );
+    task.fold(
+      (l) => GlobalContext().snackBar(l.error ?? S.current.apiError),
+      (r) => emit(state.copyWith(pagination: r)),
+    );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:common_code/common_code.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:yumi/domain/ingredients/data/repo/ingredients_repo.dart';
-import 'package:yumi/domain/ingredients/entity/ingredients.dart';
 
 class GetAllIngredients extends UseCase<List<Ingredient>, NoParams> {
   final IngredientsRepo ingredientsRepo;

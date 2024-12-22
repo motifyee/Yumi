@@ -1,7 +1,6 @@
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:yumi/app_target.dart';
@@ -35,14 +34,21 @@ class BasketCubit extends Cubit<BasketState> {
   BasketCubit() : super(BasketState.initial());
 
   pickUpOnly({bool isPickUpOnly = true}) {
-    emit(state.copyWith(
-        basket: state.basket.copyWith(isPickupOnly: isPickUpOnly)));
+    emit(
+      state.copyWith(
+        basket: state.basket.copyWith(isPickupOnly: isPickUpOnly),
+      ),
+    );
   }
 
   updateSchedule({DateTime? date, String? time}) async {
     final Either<Failure, Basket> task = await UpdateScheduleInBasket().call(
-        UpdateScheduleInBasketParams(
-            date: date, time: time, basket: state.basket));
+      UpdateScheduleInBasketParams(
+        date: date,
+        time: time,
+        basket: state.basket,
+      ),
+    );
     task.fold((l) => null, (r) => emit(state.copyWith(basket: r)));
   }
 
@@ -53,25 +59,31 @@ class BasketCubit extends Cubit<BasketState> {
     task.fold((l) => null, (r) => calcBasket(basket: r));
   }
 
-  updateMeal(
-      {required InvoiceDetail invoiceDetails,
-      required int indexInList,
-      required String newQuantity,
-      required String note}) async {
+  updateMeal({
+    required InvoiceDetail invoiceDetails,
+    required int indexInList,
+    required String newQuantity,
+    required String note,
+  }) async {
     final Either<Failure, Basket> task = await UpdateMealInBasket().call(
-        UpdateMealInBasketParams(
-            basket: state.basket,
-            invoiceDetails: invoiceDetails,
-            indexInList: indexInList,
-            newQuantity: newQuantity,
-            note: note));
+      UpdateMealInBasketParams(
+        basket: state.basket,
+        invoiceDetails: invoiceDetails,
+        indexInList: indexInList,
+        newQuantity: newQuantity,
+        note: note,
+      ),
+    );
     task.fold((l) => null, (r) => calcBasket(basket: r));
   }
 
   removeMeal({required InvoiceDetail invoiceDetails}) async {
     final Either<Failure, Basket> task = await RemoveMealFromBasket().call(
-        RemoveMealFromBasketParams(
-            basket: state.basket, invoiceDetails: invoiceDetails));
+      RemoveMealFromBasketParams(
+        basket: state.basket,
+        invoiceDetails: invoiceDetails,
+      ),
+    );
     task.fold((l) => null, (r) {
       if (r.invoiceDetails.isEmpty) return deleteBasket();
       calcBasket(basket: r);
@@ -114,8 +126,10 @@ class BasketCubit extends Cubit<BasketState> {
     debugPrint('calcBasket ...');
     final Either<Failure, Basket> task =
         await CalcBasket().call(CalcBasketParams(basket: basket));
-    task.fold((l) => _message(S.current.calculationError),
-        (r) => isUpdateBasket ? updateBasket(basket: r) : null);
+    task.fold(
+      (l) => _message(S.current.calculationError),
+      (r) => isUpdateBasket ? updateBasket(basket: r) : null,
+    );
   }
 
   createBasket({required Basket basket}) async {
@@ -152,19 +166,24 @@ class BasketCubit extends Cubit<BasketState> {
     if (state.basket.isPaying) return;
     emit(state.copyWith(basket: state.basket.copyWith(isPaying: true)));
     final Either<Failure, bool> task = await StripePayment().call(
-        StripePaymentParams(
-            amount: state.basket.invoice.finalPrice,
-            currency: StripeKeys.currency));
+      StripePaymentParams(
+        amount: state.basket.invoice.finalPrice,
+        currency: StripeKeys.currency,
+      ),
+    );
     emit(state.copyWith(basket: state.basket.copyWith(isPaying: false)));
     task.fold(
-        (l) => _message(l.error ?? S.current.stripeError, isReturn: false),
-        (r) => closeBasket());
+      (l) => _message(l.error ?? S.current.stripeError, isReturn: false),
+      (r) => closeBasket(),
+    );
   }
 
   updatePayment({required int paymentType}) {
     updateBasket(
-        basket: state.basket.copyWith(
-            invoice: state.basket.invoice.copyWith(paymentType: paymentType)));
+      basket: state.basket.copyWith(
+        invoice: state.basket.invoice.copyWith(paymentType: paymentType),
+      ),
+    );
   }
 
   addVoucher({required String voucher}) async {
@@ -188,7 +207,8 @@ class BasketCubit extends Cubit<BasketState> {
       }
 
       basket = state.basket.copyWith(
-          shippedAddressId: G().context.read<UserCubit>().state.address?.id);
+        shippedAddressId: G().context.read<UserCubit>().state.address?.id,
+      );
     }
 
     _loadingIndicator();
@@ -225,14 +245,16 @@ class BasketCubit extends Cubit<BasketState> {
 }
 
 void _loadingIndicator() => showDialog(
-    barrierDismissible: false,
-    context: G().context,
-    builder: (context) => const Center(
-            child: SizedBox(
+      barrierDismissible: false,
+      context: G().context,
+      builder: (context) => const Center(
+        child: SizedBox(
           width: CommonDimens.defaultGapExtraExtreme,
           height: CommonDimens.defaultGapExtraExtreme,
           child: PacmanLoadingWidget(),
-        )));
+        ),
+      ),
+    );
 
 void _message(String message, {bool isReturn = true}) {
   if (isReturn) G().context.router.maybePop();

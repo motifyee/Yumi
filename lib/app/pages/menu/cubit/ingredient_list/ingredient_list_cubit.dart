@@ -29,7 +29,9 @@ class IngredientListCubit extends Cubit<IngredientListState> {
     emit(state.copyWith(loading: false));
     final task = await GetAllIngredients().call(NoParams());
 
-    task.fold((l) => GlobalContext().snackBar(l.error ?? ''),
-        (r) => emit(state.copyWith(ingredients: r, loading: false)));
+    task.fold(
+      (l) => GlobalContext().snackBar(l.error ?? ''),
+      (r) => emit(state.copyWith(ingredients: r, loading: false)),
+    );
   }
 }

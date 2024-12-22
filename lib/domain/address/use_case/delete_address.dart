@@ -10,12 +10,14 @@ class DeleteAddress
       : addressRepo = addressRepo ?? getIt<AddressRepo>();
   @override
   Future<Either<Failure, PaginatedData<Address>>> call(
-      DeleteAddressParams params) async {
+    DeleteAddressParams params,
+  ) async {
     return await addressRepo
         .deleteAddresses(
-            pagination: params.pagination,
-            address: params.address,
-            queryParameters: params.queryParameters)
+          pagination: params.pagination,
+          address: params.address,
+          queryParameters: params.queryParameters,
+        )
         .run();
   }
 }
@@ -25,10 +27,11 @@ class DeleteAddressParams extends Params {
   final Address address;
   final Map<String, dynamic>? queryParameters;
 
-  DeleteAddressParams(
-      {required this.pagination,
-      required this.address,
-      required this.queryParameters});
+  DeleteAddressParams({
+    required this.pagination,
+    required this.address,
+    required this.queryParameters,
+  });
   @override
   List<Object?> get props => [pagination, address, queryParameters];
 }

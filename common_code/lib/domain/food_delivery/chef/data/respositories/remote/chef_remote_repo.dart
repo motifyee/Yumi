@@ -2,10 +2,6 @@ import 'package:fpdart/fpdart.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/domain/food_delivery/chef/data/respositories/chef_repo.dart';
 import 'package:common_code/domain/food_delivery/chef/data/sources/chef_src.dart';
-import 'package:common_code/domain/food_delivery/chef/entity/chef.dart';
-import 'package:common_code/domain/food_delivery/chef/entity/chef_work_status.dart';
-
-import 'package:common_code/domain/entities/pagination.dart';
 
 class ChefRemoteRepo implements ChefRepo {
   final ChefSrc chefSrc;

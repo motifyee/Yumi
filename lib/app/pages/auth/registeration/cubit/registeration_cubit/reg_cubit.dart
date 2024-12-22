@@ -6,7 +6,6 @@ import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yumi/app/pages/auth/registeration/pages/onboarding_screen/onboarding_steps.dart';
 import 'package:yumi/app/pages/auth/registeration/repository/address_repo.dart';
 import 'package:yumi/app/pages/auth/registeration/verify_otp_sheet.dart';
@@ -90,7 +89,7 @@ abstract class RegState with _$RegState {
   factory RegState.initial() => const RegState();
 
   Future<bool> get canAddVehicle async {
-    var regCub = G().rd<RegCubit>();
+    final regCub = G().rd<RegCubit>();
 
     regCub.setRidesLoading();
     final task = await GetVehicle().call(NoParams());
@@ -130,7 +129,7 @@ class RegCubit extends Cubit<RegState> {
     //return finish();
 
     // read step index from shared preferences
-    var pref = await SharedPreferences.getInstance();
+    final pref = await SharedPreferences.getInstance();
     var step = pref.getInt(regStepKey) ?? 0;
 
     if (G().rd<UserCubit>().state.user.accessToken.isEmpty) step = 0;
@@ -185,10 +184,12 @@ class RegCubit extends Cubit<RegState> {
       return _gotoHomePageAndFinish();
     }
 
-    final params = LoginWithEmailParams(LoginData(
-      email: state.signupData.email?.onEmpty(user.email) ?? '',
-      password: state.signupData.password?.onEmpty(user.password ?? '') ?? '',
-    ));
+    final params = LoginWithEmailParams(
+      LoginData(
+        email: state.signupData.email?.onEmpty(user.email) ?? '',
+        password: state.signupData.password?.onEmpty(user.password ?? '') ?? '',
+      ),
+    );
 
     final task = await LoginWithEmail().call(params);
     task.fold(
@@ -293,8 +294,8 @@ class RegCubit extends Cubit<RegState> {
 // Mobile
 
   Future<String?> setMobile(String phone) async {
-    var profile = G().rd<ProfileCubit>().state.form.copyWith(mobile: phone);
-    var update = await G().rd<ProfileCubit>().updateProfileForm(profile);
+    final profile = G().rd<ProfileCubit>().state.form.copyWith(mobile: phone);
+    final update = await G().rd<ProfileCubit>().updateProfileForm(profile);
 
     if (update.isLeft()) {
       setStatus(Status.error);
@@ -377,11 +378,13 @@ class RegCubit extends Cubit<RegState> {
         return await navigateToIdx(4);
       }
 
-      emit(state.copyWith(
-        addressMessage: res,
-        addressStatus: Status.error,
-        unique: unique(),
-      ));
+      emit(
+        state.copyWith(
+          addressMessage: res,
+          addressStatus: Status.error,
+          unique: unique(),
+        ),
+      );
     });
   }
 
@@ -397,8 +400,8 @@ class RegCubit extends Cubit<RegState> {
   }
 
   int get onboardingProgress {
-    var p = state.onboarding.calcOnboardingProgress; // calculated steps
-    var sp = state.storedOnboardingProgress; // emitted from shared_prefrences
+    final p = state.onboarding.calcOnboardingProgress; // calculated steps
+    final sp = state.storedOnboardingProgress; // emitted from shared_prefrences
 
     if (p > sp) {
       setOnboardingProgress(p);
@@ -419,23 +422,23 @@ class RegCubit extends Cubit<RegState> {
   }
 
   Future<void> loadOnboardingProgress() async {
-    var pref = await SharedPreferences.getInstance();
-    var idx = pref.getInt(onboardingProgressKey) ?? 0;
+    final pref = await SharedPreferences.getInstance();
+    final idx = pref.getInt(onboardingProgressKey) ?? 0;
     emit(state.copyWith(storedOnboardingProgress: idx));
   }
 
   void nextButtonPressed() async {
-    var context = G().context;
+    final context = G().context;
     setStatus(Status.loading);
 
     await context.read<ProfileCubit>().getProfileForm().then((value) async {
       setStatus(Status.idle);
 
-      var stepsInfo = G().isChefApp
+      final stepsInfo = G().isChefApp
           ? chefOnboardingSteps(context, state)
           : driverOnboardingSteps(context, state);
 
-      var idx = onboardingProgress;
+      final idx = onboardingProgress;
       if (idx < stepsInfo.length) return stepsInfo[idx].onTap();
 
       await finish(true);
@@ -459,8 +462,9 @@ class RegCubit extends Cubit<RegState> {
     task.fold(
       (l) => emit(
         state.copyWith(
-            ridesStatus: Status.error,
-            message: 'could\'nt update your vehicle!'),
+          ridesStatus: Status.error,
+          message: 'could\'nt update your vehicle!',
+        ),
       ),
       (r) => emit(state.copyWith(vehicle: state.vehicle)),
     );
@@ -487,7 +491,7 @@ class RegCubit extends Cubit<RegState> {
     if (!Platform.isAndroid && !Platform.isIOS && step == 3) step = 4;
     if (G().isCustomerApp && step == 4) return finish(true);
 
-    var path = G().router.currentPath;
+    final path = G().router.currentPath;
 
     // if (path.contains('/login')) return;
     if (!state.registerationStarted) return;
@@ -513,7 +517,7 @@ class RegCubit extends Cubit<RegState> {
 
   Future saveStepToCache(int step) async {
     // save step index to shared preferences
-    var pref = await SharedPreferences.getInstance();
+    final pref = await SharedPreferences.getInstance();
     pref.setInt(regStepKey, step);
     pref.setBool(partialFlowKey, state.partialFlow);
   }

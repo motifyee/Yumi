@@ -3,12 +3,9 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:collection/collection.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:common_code/core/setup/awesome_notifications.dart';
@@ -78,7 +75,7 @@ class DocumentationScreen extends StatelessWidget {
     DocsState state,
     Profile profile,
   ) {
-    var children = data
+    final children = data
         .mapIndexed(
           (idx, doc) => buidlDocumentWidget(
             context: context,
@@ -95,7 +92,7 @@ class DocumentationScreen extends StatelessWidget {
                     .update(doc.update!(profile, image), 0);
               }
 
-              var updater = doc.targets!
+              final updater = doc.targets!
                   .firstWhereOrNull((taget) => taget.option == target)
                   ?.update;
 
@@ -127,20 +124,22 @@ Future<String?> Function()? _documentPropertyPickerFn(
   if (doc.targets == null) return null;
 
   final options = doc.targets!
-      .map((target) => TextButton(
-            onPressed: () => Navigator.pop(context, target.option),
-            child: Container(
-              width: double.infinity,
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Text(
-                target.option,
-                style: TextStyle(
-                  color: CommonColors.primary,
-                ),
+      .map(
+        (target) => TextButton(
+          onPressed: () => Navigator.pop(context, target.option),
+          child: Container(
+            width: double.infinity,
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Text(
+              target.option,
+              style: TextStyle(
+                color: CommonColors.primary,
               ),
             ),
-          ))
+          ),
+        ),
+      )
       .toList();
 
   return () => showDialog(
@@ -153,13 +152,15 @@ Future<String?> Function()? _documentPropertyPickerFn(
               // height: 40,
               constraints: const BoxConstraints(maxHeight: 60),
               padding: const EdgeInsets.symmetric(
-                  vertical: CommonDimens.defaultGap,
-                  horizontal: CommonDimens.defaultGap),
+                vertical: CommonDimens.defaultGap,
+                horizontal: CommonDimens.defaultGap,
+              ),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: CommonColors.background,
                 borderRadius: BorderRadius.circular(
-                    CommonDimens.defaultBorderRadiusMedium),
+                  CommonDimens.defaultBorderRadiusMedium,
+                ),
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -207,7 +208,7 @@ Widget _buildDocumentIcon(String hexColor) {
                   opacity: 0.1,
                   child: ColorFiltered(
                     colorFilter: ColorFilter.mode(
-                      HexColor.fromHex("22000000"),
+                      HexColor.fromHex('22000000'),
                       BlendMode.srcATop,
                     ),
                     child: getIconWithColor(hexColor),
@@ -228,17 +229,18 @@ Future<String> _createFileFromString(String data, String? fileName) async {
   if (p.isDenied) p = await Permission.manageExternalStorage.request();
   if (p.isDenied) return '';
 
-  Uint8List bytes = base64.decode(data);
+  final Uint8List bytes = base64.decode(data);
 
   // final path = (await getApplicationDocumentsDirectory()).path;
   var path = '/storage/emulated/0/Download/';
   if (Platform.isWindows) path = Directory.current.path;
-  String fileName0 = fileName ?? "${DateTime.now().millisecondsSinceEpoch}.jpg";
+  final String fileName0 =
+      fileName ?? '${DateTime.now().millisecondsSinceEpoch}.jpg';
 
-  File file = File("$path/$fileName0");
+  final File file = File('$path/$fileName0');
   await file.writeAsBytes(bytes);
 
-  NotificationService.showNotification(title: "Download File", body: fileName0);
+  NotificationService.showNotification(title: 'Download File', body: fileName0);
 
   return file.path;
 }
@@ -255,7 +257,7 @@ Widget buidlDocumentWidget({
   Future<String?> Function()? documentPropertyPickerFn,
   required void Function(String, String?) uploadAction,
 }) {
-  var title = Container(
+  final title = Container(
     width: double.infinity,
     alignment: Alignment.topLeft,
     padding: const EdgeInsets.only(left: 30),
@@ -270,13 +272,13 @@ Widget buidlDocumentWidget({
     ),
   );
 
-  var desription = Container(
+  final desription = Container(
     width: double.infinity,
     alignment: Alignment.topLeft,
     // decoration: BoxDecoration(border: Border.all()),
     padding: const EdgeInsets.only(left: 30, right: 30),
     child: Text(
-      doc.desc ?? "",
+      doc.desc ?? '',
       style: TextStyle(
         fontSize: 10,
         color: CommonColors.secondaryTantLighter,
@@ -287,7 +289,7 @@ Widget buidlDocumentWidget({
       textWidthBasis: TextWidthBasis.longestLine,
     ),
   );
-  var uploadButton = Container(
+  final uploadButton = Container(
     alignment: Alignment.bottomRight,
     child: TextButton(
       style: TextButton.styleFrom(
@@ -305,7 +307,7 @@ Widget buidlDocumentWidget({
 
           if (context?.mounted ?? false) {
             // ignore: use_build_context_synchronously
-            G().showToast("Uploading ${doc.title}", context: context);
+            G().showToast('Uploading ${doc.title}', context: context);
           }
         }
 
@@ -319,21 +321,23 @@ Widget buidlDocumentWidget({
       child: Text(S.current.upload),
     ),
   );
-  var downloadButton = Container(
+  final downloadButton = Container(
     alignment: Alignment.bottomRight,
     child: TextButton(
       onPressed: () async {
         _createFileFromString(data!, fileName);
       },
-      child: Row(children: [
-        SvgPicture.asset(AppAssets.downloadIcon),
-        const SizedBox(width: 7),
-        Text(S.current.download)
-      ]),
+      child: Row(
+        children: [
+          SvgPicture.asset(AppAssets.downloadIcon),
+          const SizedBox(width: 7),
+          Text(S.current.download),
+        ],
+      ),
     ),
   );
 
-  double sig = loading ? 2 : 0;
+  final double sig = loading ? 2 : 0;
   Widget filter(Widget child) => ImageFiltered(
         imageFilter: ImageFilter.blur(
           sigmaX: sig,
@@ -342,7 +346,7 @@ Widget buidlDocumentWidget({
         child: child,
       );
 
-  var docStack = Stack(
+  final docStack = Stack(
     children: [
       //
       // Icon
@@ -365,21 +369,23 @@ Widget buidlDocumentWidget({
       Positioned(
         right: 16,
         bottom: 5,
-        child: filter(SizedBox(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              if (data != null) downloadButton,
-              const SizedBox(width: 0),
-              uploadButton,
-            ],
+        child: filter(
+          SizedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (data != null) downloadButton,
+                const SizedBox(width: 0),
+                uploadButton,
+              ],
+            ),
           ),
-        )),
+        ),
       ),
       if (loading)
         const Center(
           child: CircularProgressIndicator(),
-        )
+        ),
     ],
   );
 

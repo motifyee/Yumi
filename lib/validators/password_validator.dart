@@ -7,8 +7,8 @@ String? passwordValidator(String? value) {
 }
 
 bool passwordStructure(String? value) {
-  String pattern =
+  const String pattern =
       r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-  RegExp regExp = RegExp(pattern);
+  final RegExp regExp = RegExp(pattern);
   return regExp.hasMatch(value ?? '');
 }

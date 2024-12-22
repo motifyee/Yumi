@@ -1,7 +1,6 @@
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 
@@ -91,8 +90,9 @@ class RatingContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-          horizontal: CommonDimens.defaultGap,
-          vertical: CommonDimens.defaultGap / 2),
+        horizontal: CommonDimens.defaultGap,
+        vertical: CommonDimens.defaultGap / 2,
+      ),
       decoration: BoxDecoration(
         color: CommonColors.primary,
         borderRadius: BorderRadius.circular(CommonDimens.buttonBorderRadius),
@@ -100,8 +100,10 @@ class RatingContainer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(rate.toStringAsFixed(1),
-              style: Theme.of(context).textTheme.displaySmall),
+          Text(
+            rate.toStringAsFixed(1),
+            style: Theme.of(context).textTheme.displaySmall,
+          ),
           const SizedBox(width: CommonDimens.defaultGap / 2),
           SvgPicture.asset(
             'assets/images/star.svg',

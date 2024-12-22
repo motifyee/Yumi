@@ -12,7 +12,7 @@ class IngredientsRemoteSource extends IngredientsSource {
       throw ServerException(e as DioException);
     }
 
-    List<Ingredient> ingredients = res.data['data']
+    final List<Ingredient> ingredients = res.data['data']
         .map<Ingredient>((json) => Ingredient.fromJson(json))
         .toList();
 

@@ -1,7 +1,6 @@
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/home/cubit/app_info/app_info_cubit.dart';
 import 'package:yumi/app/pages/home/cubit/navigator_cubit.dart';
 import 'package:yumi/app/pages/settings/components/profile/profile_form.dart';
@@ -58,7 +57,8 @@ class SideBar extends StatelessWidget {
                         ),
                       ),
                       borderRadius: BorderRadius.circular(
-                          CommonDimens.defaultBorderRadiusExtreme),
+                        CommonDimens.defaultBorderRadiusExtreme,
+                      ),
                       color: CommonColors.onPrimary,
                     ),
                     child: GestureDetector(
@@ -75,7 +75,8 @@ class SideBar extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: CommonColors.secondary,
                           borderRadius: BorderRadius.circular(
-                              CommonDimens.defaultBorderRadiusExtreme),
+                            CommonDimens.defaultBorderRadiusExtreme,
+                          ),
                         ),
                         child: Center(
                           child: Text(
@@ -105,22 +106,26 @@ class SideBar extends StatelessWidget {
 
                       return TextButton(
                         style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            minimumSize: const Size(
-                                CommonDimens.defaultTitleGap,
-                                CommonDimens.defaultTitleGap),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            alignment: Alignment.centerLeft),
+                          padding: EdgeInsets.zero,
+                          minimumSize: const Size(
+                            CommonDimens.defaultTitleGap,
+                            CommonDimens.defaultTitleGap,
+                          ),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          alignment: Alignment.centerLeft,
+                        ),
                         onPressed: () {
                           showAlertDialog(
-                              context: context,
-                              title: Container(),
-                              content: const ProfileForm(),
-                              actions: {S.of(context).cancel: null},
-                              actionWidgets: [const ProfileFormSubmitButton()]);
+                            context: context,
+                            title: Container(),
+                            content: const ProfileForm(),
+                            actions: {S.of(context).cancel: null},
+                            actionWidgets: [const ProfileFormSubmitButton()],
+                          );
                         },
                         child: Center(
-                            child: SvgPicture.asset('assets/images/edit.svg')),
+                          child: SvgPicture.asset('assets/images/edit.svg'),
+                        ),
                       );
                     },
                   ),
@@ -153,10 +158,13 @@ class SideBar extends StatelessWidget {
                                           .labelLarge,
                                     ),
                                     const SizedBox(
-                                        width: CommonDimens.defaultGap),
-                                    SvgPicture.asset(state.isLoggedIn
-                                        ? 'assets/images/logout_menu.svg'
-                                        : 'assets/images/login.svg'),
+                                      width: CommonDimens.defaultGap,
+                                    ),
+                                    SvgPicture.asset(
+                                      state.isLoggedIn
+                                          ? 'assets/images/logout_menu.svg'
+                                          : 'assets/images/login.svg',
+                                    ),
                                   ],
                                 ),
                               );
@@ -179,14 +187,18 @@ class SideBar extends StatelessWidget {
                           'assets/images/welocme_chef_icon.svg',
                           height: CommonFontSize.font_12,
                           colorFilter: ColorFilter.mode(
-                              CommonColors.primary, BlendMode.srcIn),
+                            CommonColors.primary,
+                            BlendMode.srcIn,
+                          ),
                         ),
                       if (AppTarget.user == YumiApp.drivers)
                         SvgPicture.asset(
                           'assets/images/welcom_driver_icon.svg',
                           height: CommonFontSize.font_12,
                           colorFilter: ColorFilter.mode(
-                              CommonColors.primary, BlendMode.srcIn),
+                            CommonColors.primary,
+                            BlendMode.srcIn,
+                          ),
                         ),
                     ],
                   ),

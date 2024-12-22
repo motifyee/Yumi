@@ -4,7 +4,6 @@ import 'package:common_code/common_code.dart';
 import 'package:common_code/core/setup/signalr.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/menu/chef/menu.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
@@ -61,8 +60,10 @@ class NavigateOptions {
     ),
     NavigateListItem(
       icon: SvgPicture.asset('assets/images/pre_order.svg'),
-      selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg',
-          fit: BoxFit.fitWidth),
+      selectedIcon: SvgPicture.asset(
+        'assets/images/pre_order1.svg',
+        fit: BoxFit.fitWidth,
+      ),
       title: S.current.preOrder,
       page: PreOrderScreen(),
       pageAction: const _ChefAction(),
@@ -78,13 +79,14 @@ class NavigateOptions {
   ];
   static List<NavigateListItem> navigateListDrivers = [
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/home.svg'),
-        selectedIcon:
-            SvgPicture.asset('assets/images/home1.svg', fit: BoxFit.fitWidth),
-        title: S.current.yumi,
-        page: DriverOrderScreen(
-          menuTarget: MenuTarget.order,
-        )),
+      icon: SvgPicture.asset('assets/images/home.svg'),
+      selectedIcon:
+          SvgPicture.asset('assets/images/home1.svg', fit: BoxFit.fitWidth),
+      title: S.current.yumi,
+      page: DriverOrderScreen(
+        menuTarget: MenuTarget.order,
+      ),
+    ),
     NavigateListItem(
       icon: SvgPicture.asset('assets/images/profile.svg'),
       selectedIcon:
@@ -94,25 +96,34 @@ class NavigateOptions {
       isBackGroundGradient: true,
     ),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/history.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/history1.svg',
-            fit: BoxFit.fitWidth),
-        title: S.current.history,
-        page: DriverHistoryScreen()),
+      icon: SvgPicture.asset('assets/images/history.svg'),
+      selectedIcon: SvgPicture.asset(
+        'assets/images/history1.svg',
+        fit: BoxFit.fitWidth,
+      ),
+      title: S.current.history,
+      page: DriverHistoryScreen(),
+    ),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/pre_order.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/pre_order1.svg',
-            fit: BoxFit.fitWidth),
-        title: S.current.preOrder,
-        page: DriverOrderScreen(
-          menuTarget: MenuTarget.preOrder,
-        )),
+      icon: SvgPicture.asset('assets/images/pre_order.svg'),
+      selectedIcon: SvgPicture.asset(
+        'assets/images/pre_order1.svg',
+        fit: BoxFit.fitWidth,
+      ),
+      title: S.current.preOrder,
+      page: DriverOrderScreen(
+        menuTarget: MenuTarget.preOrder,
+      ),
+    ),
     NavigateListItem(
-        icon: SvgPicture.asset('assets/images/setting.svg'),
-        selectedIcon: SvgPicture.asset('assets/images/setting1.svg',
-            fit: BoxFit.fitWidth),
-        title: S.current.settings,
-        page: const SettingsScreen()),
+      icon: SvgPicture.asset('assets/images/setting.svg'),
+      selectedIcon: SvgPicture.asset(
+        'assets/images/setting1.svg',
+        fit: BoxFit.fitWidth,
+      ),
+      title: S.current.settings,
+      page: const SettingsScreen(),
+    ),
   ];
   static List<NavigateListItem> navigateListCustomer = [
     NavigateListItem(
@@ -125,28 +136,32 @@ class NavigateOptions {
     NavigateListItem(
       icon: BlocBuilder<NotificationCubit, NotificationState>(
         builder: (context, state) {
-          return Stack(clipBehavior: Clip.none, children: [
-            SvgPicture.asset('assets/images/bell.svg'),
-            Positioned(
-              bottom: 0,
-              right: -5,
-              child: BlocBuilder<NotificationCubit, NotificationState>(
-                builder: (context, state) {
-                  return Container(
-                    width: CommonDimens.defaultInputGap,
-                    height: CommonDimens.defaultInputGap,
-                    decoration: BoxDecoration(
+          return Stack(
+            clipBehavior: Clip.none,
+            children: [
+              SvgPicture.asset('assets/images/bell.svg'),
+              Positioned(
+                bottom: 0,
+                right: -5,
+                child: BlocBuilder<NotificationCubit, NotificationState>(
+                  builder: (context, state) {
+                    return Container(
+                      width: CommonDimens.defaultInputGap,
+                      height: CommonDimens.defaultInputGap,
+                      decoration: BoxDecoration(
                         color: state.isNewNotification
                             ? CommonColors.primary
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(
                           CommonDimens.defaultInputGap,
-                        )),
-                  );
-                },
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
-            )
-          ]);
+            ],
+          );
         },
       ),
       selectedIcon:
@@ -166,7 +181,7 @@ class NavigateOptions {
       selectedIcon:
           SvgPicture.asset('assets/images/bag1.svg', fit: BoxFit.fitWidth),
       title: S.current.myOrders,
-      page: MyOrdersScreen(),
+      page: const MyOrdersScreen(),
       pageAction: const _CustomerAction(),
     ),
     NavigateListItem(
@@ -179,27 +194,31 @@ class NavigateOptions {
   ];
 
   static List<Widget> navigationDestination(
-      BuildContext context, int index, double navWidth) {
+    BuildContext context,
+    int index,
+    double navWidth,
+  ) {
     return navigateList
         .asMap()
-        .map((i, e) => MapEntry(
-              i,
-              NavigationDestination(
-                icon: AnimatedAlign(
-                  duration: CommonDimens.animationDuration,
-                  alignment:
-                      index == i ? Alignment.topCenter : Alignment.center,
-                  child: index == i
-                      ? SizedBox(
-                          width: min(23, max(23, navWidth - 45)),
-                          height: min(23, max(23, navWidth - 45)),
-                          child: e.selectedIcon,
-                        )
-                      : e.icon,
-                ),
-                label: '',
+        .map(
+          (i, e) => MapEntry(
+            i,
+            NavigationDestination(
+              icon: AnimatedAlign(
+                duration: CommonDimens.animationDuration,
+                alignment: index == i ? Alignment.topCenter : Alignment.center,
+                child: index == i
+                    ? SizedBox(
+                        width: min(23, max(23, navWidth - 45)),
+                        height: min(23, max(23, navWidth - 45)),
+                        child: e.selectedIcon,
+                      )
+                    : e.icon,
               ),
-            ))
+              label: '',
+            ),
+          ),
+        )
         .values
         .toList();
   }
@@ -245,25 +264,34 @@ class _CustomerAction extends StatelessWidget {
                 height: CommonDimens.iconSizeDefault,
                 width: CommonDimens.iconSizeDefault,
               ),
-              if (state.isSignalTriggered(signal: [
-                    Signal.clientreceived,
-                    Signal.chefcancel,
-                  ], isPreOrder: false) ||
-                  state.isSignalTriggered(signal: [
-                    Signal.clientreceived,
-                    Signal.chefcancel,
-                  ], isPreOrder: true))
+              if (state.isSignalTriggered(
+                    signal: [
+                      Signal.clientreceived,
+                      Signal.chefcancel,
+                    ],
+                    isPreOrder: false,
+                  ) ||
+                  state.isSignalTriggered(
+                    signal: [
+                      Signal.clientreceived,
+                      Signal.chefcancel,
+                    ],
+                    isPreOrder: true,
+                  ))
                 Positioned(
-                    top: 0,
-                    left: 0,
-                    child: Container(
-                      width: CommonDimens.defaultInputGap,
-                      height: CommonDimens.defaultInputGap,
-                      decoration: BoxDecoration(
-                          color: CommonColors.primary,
-                          borderRadius: BorderRadius.circular(
-                              CommonDimens.defaultInputGap)),
-                    ))
+                  top: 0,
+                  left: 0,
+                  child: Container(
+                    width: CommonDimens.defaultInputGap,
+                    height: CommonDimens.defaultInputGap,
+                    decoration: BoxDecoration(
+                      color: CommonColors.primary,
+                      borderRadius: BorderRadius.circular(
+                        CommonDimens.defaultInputGap,
+                      ),
+                    ),
+                  ),
+                ),
             ],
           );
         },

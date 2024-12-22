@@ -13,8 +13,8 @@ class MenuScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) =>
-                MealCubit()..reset(menuTarget: MenuTarget.order)),
+          create: (context) => MealCubit()..reset(menuTarget: MenuTarget.order),
+        ),
         BlocProvider(create: (context) => CategoriesCubit()),
       ],
       child: const MenuTemplate(

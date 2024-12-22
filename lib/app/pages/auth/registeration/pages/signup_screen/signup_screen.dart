@@ -66,7 +66,8 @@ class SignupScreenContent extends StatelessWidget {
             children: [
               TextSpan(text: S.of(context).alreadyHaveAccount),
               const WidgetSpan(
-                  child: SizedBox(width: CommonFontSize.font_12 / 2)),
+                child: SizedBox(width: CommonFontSize.font_12 / 2),
+              ),
               TextSpan(
                 text: S.of(context).login,
                 style: Theme.of(context)
@@ -94,22 +95,24 @@ class SignupScreenContent extends StatelessWidget {
             scrolledUnderElevation: 0,
             iconTheme: IconThemeData(color: CommonColors.primary),
           ),
-          body: LayoutBuilder(builder: (context, constraint) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraint.maxHeight),
-                child: IntrinsicHeight(
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: pageItems,
+          body: LayoutBuilder(
+            builder: (context, constraint) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                  child: IntrinsicHeight(
+                    child: Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: pageItems,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
-          }),
+              );
+            },
+          ),
         ),
       ),
     );

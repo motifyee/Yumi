@@ -50,28 +50,29 @@ class NewsOrders extends StatelessWidget {
             context.read<SignalRCubit>().removeSignals(signal: signals);
 
             return PaginationTemplate(
-                scrollDirection: Axis.vertical,
-                loadDate: () {
-                  context.read<OrderCubit>().getOrders(apiKeys: apiKey);
+              scrollDirection: Axis.vertical,
+              loadDate: () {
+                context.read<OrderCubit>().getOrders(apiKeys: apiKey);
+              },
+              child: BlocBuilder<OrderCubit, OrderState>(
+                builder: (context, state) {
+                  return Column(
+                    children: [
+                      for (Order order in state.ordersPage.data)
+                        OrderCard(
+                          order: order,
+                          orderCardTargetPage: orderCardTargetPage,
+                          getApiKey: apiKey,
+                          menuTarget: menuTarget,
+                          navFun: navFun,
+                        ),
+                      if (state.ordersPage.isLoading)
+                        const PacmanLoadingWidget(),
+                    ],
+                  );
                 },
-                child: BlocBuilder<OrderCubit, OrderState>(
-                  builder: (context, state) {
-                    return Column(
-                      children: [
-                        for (Order order in state.ordersPage.data)
-                          OrderCard(
-                            order: order,
-                            orderCardTargetPage: orderCardTargetPage,
-                            getApiKey: apiKey,
-                            menuTarget: menuTarget,
-                            navFun: navFun,
-                          ),
-                        if (state.ordersPage.isLoading)
-                          const PacmanLoadingWidget(),
-                      ],
-                    );
-                  },
-                ));
+              ),
+            );
           },
         );
       },

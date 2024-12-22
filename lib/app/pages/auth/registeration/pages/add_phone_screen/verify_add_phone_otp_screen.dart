@@ -51,7 +51,7 @@ class OTPScreen extends StatelessWidget {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: "${S.of(context).enterOTPSentTo} ",
+                                  text: '${S.of(context).enterOTPSentTo} ',
                                   style: TextStyle(
                                     fontSize: CommonFontSize.font_10,
                                     color: CommonColors.secondaryTant,
@@ -64,7 +64,7 @@ class OTPScreen extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     color: CommonColors.secondary,
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           );
@@ -85,9 +85,10 @@ class OTPScreen extends StatelessWidget {
                           final forceRebuildKey = GlobalKey();
 
                           return OTP(
-                              key: forceRebuildKey,
-                              initialOTP: state,
-                              onInput: (value, _, __) => otp = value);
+                            key: forceRebuildKey,
+                            initialOTP: state,
+                            onInput: (value, _, __) => otp = value,
+                          );
                         },
                       ),
                       const SizedBox(height: 40),
@@ -95,7 +96,7 @@ class OTPScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "${S.of(context).didntReceiveAnOTP}  ",
+                            '${S.of(context).didntReceiveAnOTP}  ',
                             style: TextStyle(
                               fontSize: CommonFontSize.font_12,
                               fontWeight: FontWeight.normal,
@@ -123,25 +124,27 @@ class OTPScreen extends StatelessWidget {
                                 ),
                               );
                             },
-                          )
+                          ),
                         ],
                       ),
                       const SizedBox(height: 40),
                       InteractiveButton(
-                          label: S.of(context).verifyProceed,
-                          onPressed: () async {
-                            if (kReleaseMode && otp.length < 4) return;
+                        label: S.of(context).verifyProceed,
+                        onPressed: () async {
+                          if (kReleaseMode && otp.length < 4) return;
 
-                            await context
-                                .read<RegCubit>()
-                                .verifyMobileOTP(otp)
-                                .then((value) {
-                              if (regCubit.state.status.isError) {
-                                G().snackBar(
-                                    S.of(context).failedverifyOTPTryagain);
-                              }
-                            });
-                          }),
+                          await context
+                              .read<RegCubit>()
+                              .verifyMobileOTP(otp)
+                              .then((value) {
+                            if (regCubit.state.status.isError) {
+                              G().snackBar(
+                                S.of(context).failedverifyOTPTryagain,
+                              );
+                            }
+                          });
+                        },
+                      ),
                     ],
                   ),
                 ),

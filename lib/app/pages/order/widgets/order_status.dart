@@ -1,7 +1,5 @@
 import 'package:dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:common_code/core/setup/signalr.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -23,34 +21,39 @@ class OrderStatusScreen extends StatefulWidget {
 class _OrderStatusScreenState extends State<OrderStatusScreen> {
   @override
   Widget build(BuildContext context) {
-    DateTime updatedDate =
+    final DateTime updatedDate =
         DateTime.tryParse(widget.order.updatedDate ?? '') ?? DateTime.now();
-    DateTime? chefStartDate =
+    final DateTime? chefStartDate =
         DateTime.tryParse(widget.order.chefStartDate ?? '');
-    DateTime? chefFinishedDate =
+    final DateTime? chefFinishedDate =
         DateTime.tryParse(widget.order.chefFinishedDate ?? '');
-    DateTime? driverReceivedDate =
+    final DateTime? driverReceivedDate =
         DateTime.tryParse(widget.order.driverReceivedDate ?? '');
-    DateTime? clientReceivedDate =
+    final DateTime? clientReceivedDate =
         DateTime.tryParse(widget.order.clientReceivedDate ?? '');
 
     return BlocConsumer<SignalRCubit, SignalRState>(
       listener: (context, state) async {
-        if (state.isSignalTriggered(signal: [
-          Signal.chefstart,
-          Signal.cheffinished,
-          Signal.driverreceived,
-          Signal.clientreceived,
-        ])) {
+        if (state.isSignalTriggered(
+          signal: [
+            Signal.chefstart,
+            Signal.cheffinished,
+            Signal.driverreceived,
+            Signal.clientreceived,
+          ],
+        )) {
           final task = await GetOrderPreorderDriverById().call(
-              GetOrderPreorderDriverByIdParams(
-                  apiKeys: '${Endpoints().order}/',
-                  id: widget.order.id.toString()));
+            GetOrderPreorderDriverByIdParams(
+              apiKeys: '${Endpoints().order}/',
+              id: widget.order.id.toString(),
+            ),
+          );
           task.fold(
-              (l) => null,
-              (r) => setState(() {
-                    widget.order = r;
-                  }));
+            (l) => null,
+            (r) => setState(() {
+              widget.order = r;
+            }),
+          );
         }
       },
       builder: (context, state) {
@@ -59,13 +62,14 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
             backgroundColor: Colors.transparent,
             surfaceTintColor: Colors.transparent,
             leading: TextButton(
-                onPressed: () {
-                  G().router.pop();
-                },
-                child: Icon(
-                  Icons.arrow_back,
-                  color: CommonColors.primary,
-                )),
+              onPressed: () {
+                G().router.pop();
+              },
+              child: Icon(
+                Icons.arrow_back,
+                color: CommonColors.primary,
+              ),
+            ),
             title: Column(
               children: [
                 Text(
@@ -84,12 +88,14 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(
-                horizontal: CommonDimens.defaultBlockGap),
+              horizontal: CommonDimens.defaultBlockGap,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Center(
-                    child: SvgPicture.asset('assets/images/delivery_boy.svg')),
+                  child: SvgPicture.asset('assets/images/delivery_boy.svg'),
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -110,15 +116,17 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                           child: Center(
                             child: CustomPaint(
                               painter: DrawDottedVerticalLine(
-                                  height: 200,
-                                  color: CommonColors.primary.withAlpha(255)),
+                                height: 200,
+                                color: CommonColors.primary.withAlpha(255),
+                              ),
                             ),
                           ),
                         ),
                         Icon(
                           Icons.map,
                           color: CommonColors.primary.withAlpha(
-                              widget.order.chefStart == true ? 255 : 100),
+                            widget.order.chefStart == true ? 255 : 100,
+                          ),
                         ),
                         Container(
                           height: 75,
@@ -128,22 +136,23 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                           child: Center(
                             child: CustomPaint(
                               painter: DrawDottedVerticalLine(
-                                  height: 200,
-                                  color: CommonColors.primary.withAlpha(
-                                      widget.order.chefStart == true
-                                          ? 255
-                                          : 100)),
+                                height: 200,
+                                color: CommonColors.primary.withAlpha(
+                                  widget.order.chefStart == true ? 255 : 100,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                         Icon(
                           Icons.check_circle,
                           color: CommonColors.primary.withAlpha(
-                              widget.order.driverReceived == true ||
-                                      (widget.order.chefFinished == true &&
-                                          widget.order.isPickUp == true)
-                                  ? 255
-                                  : 100),
+                            widget.order.driverReceived == true ||
+                                    (widget.order.chefFinished == true &&
+                                        widget.order.isPickUp == true)
+                                ? 255
+                                : 100,
+                          ),
                         ),
                         Container(
                           height: 75,
@@ -153,14 +162,15 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                           child: Center(
                             child: CustomPaint(
                               painter: DrawDottedVerticalLine(
-                                  height: 200,
-                                  color: CommonColors.primary.withAlpha(
-                                      widget.order.driverReceived == true ||
-                                              (widget.order.chefFinished ==
-                                                      true &&
-                                                  widget.order.isPickUp == true)
-                                          ? 255
-                                          : 100)),
+                                height: 200,
+                                color: CommonColors.primary.withAlpha(
+                                  widget.order.driverReceived == true ||
+                                          (widget.order.chefFinished == true &&
+                                              widget.order.isPickUp == true)
+                                      ? 255
+                                      : 100,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -171,14 +181,15 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                           margin: const EdgeInsets.symmetric(vertical: 3),
                           decoration: BoxDecoration(
                             color: CommonColors.primary.withAlpha(
-                                widget.order.clientReceived == true
-                                    ? 255
-                                    : 100),
+                              widget.order.clientReceived == true ? 255 : 100,
+                            ),
                             borderRadius: BorderRadius.circular(
-                                CommonDimens.defaultBlockGap),
+                              CommonDimens.defaultBlockGap,
+                            ),
                           ),
                           child: SvgPicture.asset(
-                              'assets/images/client_received_icon.svg'),
+                            'assets/images/client_received_icon.svg',
+                          ),
                         ),
                       ],
                     ),
@@ -195,10 +206,11 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(S.of(context).orderReceived,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium),
+                                  Text(
+                                    S.of(context).orderReceived,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
                                 ],
                               ),
                               Row(
@@ -235,10 +247,11 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(S.of(context).preparingOrder,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium),
+                                  Text(
+                                    S.of(context).preparingOrder,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
                                 ],
                               ),
                               Row(
@@ -278,10 +291,12 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(S.of(context).onTheWay,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium),
+                                    Text(
+                                      S.of(context).onTheWay,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    ),
                                   ],
                                 ),
                                 Row(
@@ -304,7 +319,8 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                   ],
                                 ),
                                 const SizedBox(
-                                    height: CommonDimens.defaultMicroGap),
+                                  height: CommonDimens.defaultMicroGap,
+                                ),
                               ],
                             ),
                           if (widget.order.isPickUp == true)
@@ -315,10 +331,12 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(S.of(context).ready,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium),
+                                    Text(
+                                      S.of(context).ready,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    ),
                                   ],
                                 ),
                                 Row(
@@ -341,25 +359,28 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                   ],
                                 ),
                                 const SizedBox(
-                                    height: CommonDimens.defaultMicroGap),
+                                  height: CommonDimens.defaultMicroGap,
+                                ),
                                 if (widget.order.chefFinished == true)
                                   GestureDetector(
                                     onTap: () {
-                                      context.router
-                                          .push(ChefCustomerAddressRoute(
-                                        id: widget.order.chefID ?? '',
-                                        isChef: true,
-                                      ));
+                                      context.router.push(
+                                        ChefCustomerAddressRoute(
+                                          id: widget.order.chefID ?? '',
+                                          isChef: true,
+                                        ),
+                                      );
                                     },
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: CommonDimens.defaultGap,
-                                          vertical:
-                                              CommonDimens.defaultMicroGap),
+                                        horizontal: CommonDimens.defaultGap,
+                                        vertical: CommonDimens.defaultMicroGap,
+                                      ),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(
-                                            CommonDimens
-                                                .defaultBorderRadiusMedium),
+                                          CommonDimens
+                                              .defaultBorderRadiusMedium,
+                                        ),
                                         color: CommonColors.primary,
                                       ),
                                       child: Row(
@@ -372,10 +393,11 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                                 .displaySmall,
                                           ),
                                           const SizedBox(
-                                              width:
-                                                  CommonDimens.defaultMicroGap),
+                                            width: CommonDimens.defaultMicroGap,
+                                          ),
                                           SvgPicture.asset(
-                                              'assets/images/dot.svg')
+                                            'assets/images/dot.svg',
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -398,10 +420,11 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(S.of(context).clientReceived,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium),
+                                  Text(
+                                    S.of(context).clientReceived,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
                                 ],
                               ),
                               Row(
@@ -468,9 +491,11 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                         height: CommonDimens.defaultTitleGapLarge,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
-                              CommonDimens.defaultBorderRadius),
+                            CommonDimens.defaultBorderRadius,
+                          ),
                           color: CommonColors.primary.withAlpha(
-                              widget.order.clientReceived != true ? 100 : 255),
+                            widget.order.clientReceived != true ? 100 : 255,
+                          ),
                         ),
                         child: Center(
                           child: Text(

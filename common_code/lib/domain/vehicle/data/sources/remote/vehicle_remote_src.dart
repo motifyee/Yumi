@@ -1,6 +1,5 @@
 import 'package:common_code/util/random_string.dart';
 import 'package:dio/dio.dart';
-import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:common_code/domain/vehicle/data/sources/vehicle_src.dart';
 import 'package:common_code/domain/vehicle/entities/vehicle.dart';
 import 'package:common_code/common_code.dart';

@@ -10,7 +10,7 @@ class AddressRepo {
     required BuildContext context,
   }) async {
     try {
-      var result = await APIClient().get('/accounts/address');
+      final result = await APIClient().get('/accounts/address');
 
       return (result.data as List).map((e) => Address.fromJson(e)).toList();
     } catch (e) {
@@ -22,7 +22,7 @@ class AddressRepo {
   static Future<String?> addAddress({
     required Address address,
   }) async {
-    var data = address.toJson();
+    final data = address.toJson();
 
     data['code'] = getRandomString(15);
     data.remove('id');
@@ -43,8 +43,11 @@ class AddressRepo {
     required BuildContext context,
   }) async {
     try {
-      await APIClient().put('/accounts/address',
-          queryParameters: {'addressId': 'address.id'}, data: address.toJson());
+      await APIClient().put(
+        '/accounts/address',
+        queryParameters: {'addressId': 'address.id'},
+        data: address.toJson(),
+      );
 
       return true;
     } catch (e) {
@@ -57,8 +60,10 @@ class AddressRepo {
     required BuildContext context,
   }) async {
     try {
-      await APIClient().delete('/accounts/address',
-          queryParameters: {'addressId': addressId});
+      await APIClient().delete(
+        '/accounts/address',
+        queryParameters: {'addressId': addressId},
+      );
 
       return true;
     } catch (e) {

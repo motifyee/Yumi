@@ -42,23 +42,29 @@ class DocsCubit extends Cubit<DocsState> {
   }
 
   void update(Profile profile, int idx) async {
-    emit(state.copyWith(
-      status: Status.loading,
-      docsStatuses: [...state.docsStatuses]..[idx] = Status.loading,
-    ));
+    emit(
+      state.copyWith(
+        status: Status.loading,
+        docsStatuses: [...state.docsStatuses]..[idx] = Status.loading,
+      ),
+    );
 
     final update = await G().rd<ProfileCubit>().updateProfileForm(profile);
 
     if (update.isRight()) {
-      emit(state.copyWith(
-        status: Status.success,
-        docsStatuses: [...state.docsStatuses]..[idx] = Status.success,
-      ));
+      emit(
+        state.copyWith(
+          status: Status.success,
+          docsStatuses: [...state.docsStatuses]..[idx] = Status.success,
+        ),
+      );
     } else {
-      emit(state.copyWith(
-        status: Status.error,
-        docsStatuses: [...state.docsStatuses]..[idx] = Status.error,
-      ));
+      emit(
+        state.copyWith(
+          status: Status.error,
+          docsStatuses: [...state.docsStatuses]..[idx] = Status.error,
+        ),
+      );
       G().snackBar(update.getLeft().toNullable()!.toString());
     }
 

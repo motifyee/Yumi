@@ -38,9 +38,12 @@ class SignalRCubit extends Cubit<SignalRState> {
   }
 
   removeSignals({required List<Signal> signal}) {
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         signals: state.signals
             .where((e) => !signal.any((c) => c == e.type))
-            .toList()));
+            .toList(),
+      ),
+    );
   }
 }

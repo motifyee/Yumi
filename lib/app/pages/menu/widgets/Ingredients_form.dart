@@ -4,7 +4,6 @@ import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_form/ingredients_form_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/ingredient_list/ingredient_list_cubit.dart';
@@ -45,16 +44,18 @@ class IngredientsForm extends StatelessWidget {
             ),
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
-                color: CommonColors.background,
-                borderRadius: const BorderRadius.only(
-                  topRight:
-                      Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
-                  topLeft:
-                      Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
-                )),
+              color: CommonColors.background,
+              borderRadius: const BorderRadius.only(
+                topRight:
+                    Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+                topLeft:
+                    Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+              ),
+            ),
             width: MediaQuery.of(context).size.width,
             constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * .9),
+              maxHeight: MediaQuery.of(context).size.height * .9,
+            ),
             child: SizedBox(
               height: MediaQuery.of(context).size.height * .5,
               child: Column(
@@ -65,7 +66,8 @@ class IngredientsForm extends StatelessWidget {
                       builder: (context, constraints) => SingleChildScrollView(
                         child: ConstrainedBox(
                           constraints: BoxConstraints.tightFor(
-                              height: max(200, constraints.maxHeight)),
+                            height: max(200, constraints.maxHeight),
+                          ),
                           child: SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -89,8 +91,8 @@ class IngredientsForm extends StatelessWidget {
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              vertical:
-                                                  CommonDimens.defaultGap),
+                                            vertical: CommonDimens.defaultGap,
+                                          ),
                                           child: Text(
                                             S.of(context).ingredients,
                                             style: Theme.of(context)
@@ -100,8 +102,8 @@ class IngredientsForm extends StatelessWidget {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              vertical:
-                                                  CommonDimens.defaultGap),
+                                            vertical: CommonDimens.defaultGap,
+                                          ),
                                           child: Text(
                                             S.of(context).measurement,
                                             style: Theme.of(context)
@@ -127,8 +129,8 @@ class IngredientsForm extends StatelessWidget {
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                vertical:
-                                                    CommonDimens.defaultGap),
+                                              vertical: CommonDimens.defaultGap,
+                                            ),
                                             child: Text(
                                               ingredient.name.toString(),
                                               style: Theme.of(context)
@@ -138,8 +140,8 @@ class IngredientsForm extends StatelessWidget {
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                vertical:
-                                                    CommonDimens.defaultGap),
+                                              vertical: CommonDimens.defaultGap,
+                                            ),
                                             child: Text(
                                               ingredient.portionGrams
                                                   .toString(),
@@ -153,16 +155,18 @@ class IngredientsForm extends StatelessWidget {
                                               context
                                                   .read<IngredientsFormCubit>()
                                                   .remove(
-                                                      ingredientsModel:
-                                                          ingredient);
+                                                    ingredientsModel:
+                                                        ingredient,
+                                                  );
                                             },
                                             child: Container(
                                               padding:
                                                   const EdgeInsets.symmetric(
-                                                      horizontal: CommonDimens
-                                                          .defaultLineGap,
-                                                      vertical: CommonDimens
-                                                          .defaultGap),
+                                                horizontal:
+                                                    CommonDimens.defaultLineGap,
+                                                vertical:
+                                                    CommonDimens.defaultGap,
+                                              ),
                                               child: Icon(
                                                 Icons.close,
                                                 color: CommonColors.primary,
@@ -183,16 +187,18 @@ class IngredientsForm extends StatelessWidget {
                   const SizedBox(height: CommonDimens.defaultGap),
                   BlocBuilder<IngredientListCubit, IngredientListState>(
                     builder: (context, state) {
-                      List<Ingredient> selectFromList = filteredList(
-                          list: state.ingredients,
-                          selected: context
-                              .read<IngredientsFormCubit>()
-                              .state
-                              .ingredientsModelList);
+                      final List<Ingredient> selectFromList = filteredList(
+                        list: state.ingredients,
+                        selected: context
+                            .read<IngredientsFormCubit>()
+                            .state
+                            .ingredientsModelList,
+                      );
                       return selectFromList.isEmpty
                           ? state.loading
                               ? const PacmanLoadingWidget(
-                                  size: CommonFontSize.font_38)
+                                  size: CommonFontSize.font_38,
+                                )
                               : const SizedBox.shrink()
                           : Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -208,7 +214,8 @@ class IngredientsForm extends StatelessWidget {
                                     dropdownSelectionList: selectFromList,
                                     initialValue: ingredient.id != null
                                         ? selectFromList.firstWhere(
-                                            (e) => e.id == ingredient.id)
+                                            (e) => e.id == ingredient.id,
+                                          )
                                         : selectFromList.firstOrNull,
                                     onChange: (value) {},
                                     onSave: (value) {
@@ -229,7 +236,8 @@ class IngredientsForm extends StatelessWidget {
                                     validators: requiredValidator,
                                     inputFormatters: [
                                       FilteringTextInputFormatter.allow(
-                                          CustomRegex.numberWith2DecimalOnly)
+                                        CustomRegex.numberWith2DecimalOnly,
+                                      ),
                                     ],
                                     initialValue: ingredient.portionGrams,
                                     onSave: (value) {
@@ -254,7 +262,8 @@ class IngredientsForm extends StatelessWidget {
                                     }
                                   },
                                   child: SvgPicture.asset(
-                                      'assets/images/plus.svg'),
+                                    'assets/images/plus.svg',
+                                  ),
                                 ),
                               ],
                             );
@@ -265,28 +274,31 @@ class IngredientsForm extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       TextButton(
-                          onPressed: () {
-                            context.router.popForced();
-                          },
-                          child: Text(
-                            S.of(context).cancel,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          )),
+                        onPressed: () {
+                          context.router.popForced();
+                        },
+                        child: Text(
+                          S.of(context).cancel,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ),
                       TextButton(
-                          onPressed: () {
-                            if (state.ingredientsModelList.isNotEmpty) {
-                              context.read<MealFormCubit>().updateIngredients(
-                                  ingredients: state.ingredientsModelList);
-                              context.router.popForced();
-                            }
-                          },
-                          child: Text(
-                            S.of(context).save,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(color: CommonColors.primary),
-                          )),
+                        onPressed: () {
+                          if (state.ingredientsModelList.isNotEmpty) {
+                            context.read<MealFormCubit>().updateIngredients(
+                                  ingredients: state.ingredientsModelList,
+                                );
+                            context.router.popForced();
+                          }
+                        },
+                        child: Text(
+                          S.of(context).save,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: CommonColors.primary),
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: CommonDimens.defaultGap),

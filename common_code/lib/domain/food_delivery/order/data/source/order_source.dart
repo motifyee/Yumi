@@ -1,5 +1,4 @@
 import 'package:common_code/common_code.dart';
-import 'package:common_code/domain/food_delivery/order/entity/order.dart';
 
 abstract class OrderSource {
   Future<PaginatedData<Order>> getOrders(

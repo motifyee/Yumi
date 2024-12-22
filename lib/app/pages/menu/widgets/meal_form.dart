@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
@@ -33,11 +31,12 @@ class MealForm extends StatelessWidget {
       this.meal = r;
       isLoaded = true;
       context.read<MealFormCubit>().update(
-          mealModel: this.meal!.copyWith(
-                preparationTime: 25,
-                isOrder: meal.isPreOrder == true ? false : true,
-                isPreOrder: meal.isPreOrder ?? false,
-              ));
+            mealModel: this.meal!.copyWith(
+                  preparationTime: 25,
+                  isOrder: meal.isPreOrder == true ? false : true,
+                  isPreOrder: meal.isPreOrder ?? false,
+                ),
+          );
     });
   }
 
@@ -51,21 +50,22 @@ class MealForm extends StatelessWidget {
         fetchMeal(meal: meal!, context: context);
       } else {
         meal = Meal(
-            code: CodeGenerator.getRandomCode(),
-            categoriesIds: [],
-            ingredients: [],
-            isOrder: menuTarget == MenuTarget.order,
-            isPreOrder: menuTarget == MenuTarget.preOrder,
-            preparationTime: 25,
-            isPickUpOnly: false,
-            name: '',
-            photo: null,
-            id: 0,
-            caloriesValue: 0,
-            portionPersons: 0,
-            price1: 0,
-            productVariantID: 0,
-            chefId: '');
+          code: CodeGenerator.getRandomCode(),
+          categoriesIds: [],
+          ingredients: [],
+          isOrder: menuTarget == MenuTarget.order,
+          isPreOrder: menuTarget == MenuTarget.preOrder,
+          preparationTime: 25,
+          isPickUpOnly: false,
+          name: '',
+          photo: null,
+          id: 0,
+          caloriesValue: 0,
+          portionPersons: 0,
+          price1: 0,
+          productVariantID: 0,
+          chefId: '',
+        );
         context
             .read<MealFormCubit>()
             .update(mealModel: meal!)
@@ -81,7 +81,8 @@ class MealForm extends StatelessWidget {
             child: Container(
               height: MediaQuery.of(context).size.height,
               padding: const EdgeInsets.symmetric(
-                  horizontal: CommonDimens.defaultBlockGap),
+                horizontal: CommonDimens.defaultBlockGap,
+              ),
               child: SingleChildScrollView(
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraint.maxHeight),
@@ -102,17 +103,20 @@ class MealForm extends StatelessWidget {
                                     meal =
                                         meal?.copyWith(photo: image.toString());
                                     context.read<MealFormCubit>().update(
-                                        mealModel: getMeal()
-                                            .copyWith(photo: image.toString()));
+                                          mealModel: getMeal().copyWith(
+                                              photo: image.toString()),
+                                        );
                                   }
                                 },
                               ),
                               if (photo == null)
-                                Text(S.of(context).required,
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall),
+                                Text(
+                                  S.of(context).required,
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                ),
                               const SizedBox(
-                                  height: CommonDimens.defaultBlockGap),
+                                height: CommonDimens.defaultBlockGap,
+                              ),
                             ],
                           );
                         },
@@ -130,12 +134,14 @@ class MealForm extends StatelessWidget {
                             validators: requiredValidator,
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
-                                  CustomRegex.lettersNumbersBlankOnly)
+                                CustomRegex.lettersNumbersBlankOnly,
+                              ),
                             ],
                             onChange: (value) {
                               context.read<MealFormCubit>().update(
-                                  mealModel:
-                                      getMeal().copyWith(name: value ?? ''));
+                                    mealModel:
+                                        getMeal().copyWith(name: value ?? ''),
+                                  );
                             },
                           ),
 
@@ -162,8 +168,9 @@ class MealForm extends StatelessWidget {
                                 readOnly: true,
                                 onTap: () {
                                   context.read<IngredientsFormCubit>().update(
-                                      ingredientsModel:
-                                          getMeal().ingredients ?? []);
+                                        ingredientsModel:
+                                            getMeal().ingredients ?? [],
+                                      );
                                   showModalBottomSheet(
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
@@ -189,12 +196,15 @@ class MealForm extends StatelessWidget {
                             validators: requiredValidator,
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
-                                  CustomRegex.numberWith2DecimalOnly)
+                                CustomRegex.numberWith2DecimalOnly,
+                              ),
                             ],
                             onChange: (value) {
                               context.read<MealFormCubit>().update(
-                                  mealModel: getMeal().copyWith(
-                                      caloriesValue: double.tryParse(value)));
+                                    mealModel: getMeal().copyWith(
+                                      caloriesValue: double.tryParse(value),
+                                    ),
+                                  );
                             },
                           ),
 
@@ -217,9 +227,10 @@ class MealForm extends StatelessWidget {
                               validators: requiredValidator,
                               onChange: (value) {
                                 context.read<MealFormCubit>().update(
-                                    mealModel: getMeal().copyWith(
-                                        preparationTime:
-                                            double.tryParse(value)));
+                                      mealModel: getMeal().copyWith(
+                                        preparationTime: double.tryParse(value),
+                                      ),
+                                    );
                               },
                               textInputType: TextInputType.number,
                               initialValue: prepTime?.toTextField,
@@ -237,12 +248,15 @@ class MealForm extends StatelessWidget {
                             validators: requiredValidator,
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
-                                  CustomRegex.numberWith2DecimalOnly)
+                                CustomRegex.numberWith2DecimalOnly,
+                              ),
                             ],
                             onChange: (value) {
                               context.read<MealFormCubit>().update(
-                                  mealModel: getMeal().copyWith(
-                                      price1: double.tryParse(value)));
+                                    mealModel: getMeal().copyWith(
+                                      price1: double.tryParse(value),
+                                    ),
+                                  );
                             },
                             textInputType: TextInputType.number,
                           ),
@@ -260,12 +274,15 @@ class MealForm extends StatelessWidget {
                             validators: requiredValidator,
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
-                                  CustomRegex.numberOnly)
+                                CustomRegex.numberOnly,
+                              ),
                             ],
                             onChange: (value) {
                               context.read<MealFormCubit>().update(
-                                  mealModel: getMeal().copyWith(
-                                      portionPersons: double.tryParse(value)));
+                                    mealModel: getMeal().copyWith(
+                                      portionPersons: double.tryParse(value),
+                                    ),
+                                  );
                             },
                           ),
 
@@ -302,8 +319,9 @@ class MealForm extends StatelessWidget {
                                                   return Container(
                                                     padding: const EdgeInsets
                                                         .symmetric(
-                                                        horizontal: CommonDimens
-                                                            .defaultGap),
+                                                      horizontal: CommonDimens
+                                                          .defaultGap,
+                                                    ),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -312,33 +330,41 @@ class MealForm extends StatelessWidget {
                                                           value: state.mealModel
                                                                   .categoriesIds
                                                                   ?.contains(
-                                                                      category
-                                                                          .id) ??
+                                                                category.id,
+                                                              ) ??
                                                               false,
                                                           onChanged:
                                                               (bool? value) {
-                                                            var listCat = List<
-                                                                int>.from(state
-                                                                    .mealModel
-                                                                    .categoriesIds ??
-                                                                []);
+                                                            final listCat =
+                                                                List<int>.from(
+                                                              state.mealModel
+                                                                      .categoriesIds ??
+                                                                  [],
+                                                            );
 
                                                             if (value == true) {
                                                               listCat.add(
-                                                                  category.id);
+                                                                category.id,
+                                                              );
                                                             } else {
-                                                              listCat.removeWhere(
-                                                                  (element) =>
-                                                                      element ==
-                                                                      category
-                                                                          .id);
+                                                              listCat
+                                                                  .removeWhere(
+                                                                (element) =>
+                                                                    element ==
+                                                                    category.id,
+                                                              );
                                                             }
-                                                            context.read<MealFormCubit>().update(
-                                                                mealModel: state
-                                                                    .mealModel
-                                                                    .copyWith(
-                                                                        categoriesIds:
-                                                                            listCat));
+                                                            context
+                                                                .read<
+                                                                    MealFormCubit>()
+                                                                .update(
+                                                                  mealModel: state
+                                                                      .mealModel
+                                                                      .copyWith(
+                                                                    categoriesIds:
+                                                                        listCat,
+                                                                  ),
+                                                                );
                                                           },
                                                         ),
                                                         Text(category.name),
@@ -354,7 +380,8 @@ class MealForm extends StatelessWidget {
                                                       .categoriesPage.isLoading
                                                   ? const PacmanLoadingWidget(
                                                       size: CommonDimens
-                                                          .defaultTitleGap)
+                                                          .defaultTitleGap,
+                                                    )
                                                   : const Text(''),
                                             ),
                                           ],

@@ -42,12 +42,13 @@ class _AppMenuList {
                 width: CommonDimens.defaultInputGap,
                 height: CommonDimens.defaultInputGap,
                 decoration: BoxDecoration(
-                    color: state.isNewNotification
-                        ? CommonColors.primary
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(
-                      CommonDimens.defaultInputGap,
-                    )),
+                  color: state.isNewNotification
+                      ? CommonColors.primary
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(
+                    CommonDimens.defaultInputGap,
+                  ),
+                ),
               );
             },
           ),
@@ -75,47 +76,56 @@ class _AppMenuList {
                         widthFactor: .85,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              vertical: CommonDimens.defaultGap,
-                              horizontal: CommonDimens.defaultGap),
+                            vertical: CommonDimens.defaultGap,
+                            horizontal: CommonDimens.defaultGap,
+                          ),
                           decoration: BoxDecoration(
                             color: CommonColors.background,
                             borderRadius: BorderRadius.circular(
-                                CommonDimens.defaultBorderRadiusMedium),
+                              CommonDimens.defaultBorderRadiusMedium,
+                            ),
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               MenuButton(
-                                  menuItem: AppMenuItem(
-                                      icon:
-                                          'assets/images/menus_order_menu.svg',
-                                      label: S.of(context).menuOrders,
-                                      onPressed: () {
-                                        context
-                                            .read<NavigatorCubit>()
-                                            .navigate(selectedIndex: 2);
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
-                                      })),
+                                menuItem: AppMenuItem(
+                                  icon: 'assets/images/menus_order_menu.svg',
+                                  label: S.of(context).menuOrders,
+                                  onPressed: () {
+                                    context
+                                        .read<NavigatorCubit>()
+                                        .navigate(selectedIndex: 2);
+                                    Navigator.of(
+                                      context,
+                                      rootNavigator: true,
+                                    ).pop();
+                                    Navigator.of(
+                                      context,
+                                      rootNavigator: true,
+                                    ).pop();
+                                  },
+                                ),
+                              ),
                               MenuButton(
-                                  menuItem: AppMenuItem(
-                                      icon:
-                                          'assets/images/menus_pre_order_menu.svg',
-                                      label: S.of(context).menuPreOrders,
-                                      onPressed: () {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
-                                        context.router
-                                            .push(const MenuPreOrderRoute());
-                                      })),
+                                menuItem: AppMenuItem(
+                                  icon:
+                                      'assets/images/menus_pre_order_menu.svg',
+                                  label: S.of(context).menuPreOrders,
+                                  onPressed: () {
+                                    Navigator.of(
+                                      context,
+                                      rootNavigator: true,
+                                    ).pop();
+                                    Navigator.of(
+                                      context,
+                                      rootNavigator: true,
+                                    ).pop();
+                                    context.router
+                                        .push(const MenuPreOrderRoute());
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -144,10 +154,12 @@ class _AppMenuList {
             builder: (context, state) {
               return state.isLoading
                   ? const PacmanLoadingWidget(
-                      size: CommonDimens.defaultBlockGap)
+                      size: CommonDimens.defaultBlockGap,
+                    )
                   : TextCurrency(
                       value: state.wallet.money ?? 0,
-                      fontSize: CommonFontSize.font_14);
+                      fontSize: CommonFontSize.font_14,
+                    );
             },
           ),
           onRender: () {
@@ -225,12 +237,13 @@ class _AppMenuList {
                 width: CommonDimens.defaultInputGap,
                 height: CommonDimens.defaultInputGap,
                 decoration: BoxDecoration(
-                    color: state.isNewNotification
-                        ? CommonColors.primary
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(
-                      CommonDimens.defaultInputGap,
-                    )),
+                  color: state.isNewNotification
+                      ? CommonColors.primary
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(
+                    CommonDimens.defaultInputGap,
+                  ),
+                ),
               );
             },
           ),
@@ -264,10 +277,12 @@ class _AppMenuList {
             builder: (context, state) {
               return state.isLoading
                   ? const PacmanLoadingWidget(
-                      size: CommonDimens.defaultBlockGap)
+                      size: CommonDimens.defaultBlockGap,
+                    )
                   : TextCurrency(
                       value: -1 * (state.wallet.money ?? 0),
-                      fontSize: CommonFontSize.font_14);
+                      fontSize: CommonFontSize.font_14,
+                    );
             },
           ),
           onRender: () {
@@ -323,12 +338,13 @@ class _AppMenuList {
                 width: CommonDimens.defaultInputGap,
                 height: CommonDimens.defaultInputGap,
                 decoration: BoxDecoration(
-                    color: state.isNewNotification
-                        ? CommonColors.primary
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(
-                      CommonDimens.defaultInputGap,
-                    )),
+                  color: state.isNewNotification
+                      ? CommonColors.primary
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(
+                    CommonDimens.defaultInputGap,
+                  ),
+                ),
               );
             },
           ),
@@ -340,10 +356,12 @@ class _AppMenuList {
             builder: (context, state) {
               return state.isLoading
                   ? const PacmanLoadingWidget(
-                      size: CommonDimens.defaultBlockGap)
+                      size: CommonDimens.defaultBlockGap,
+                    )
                   : TextCurrency(
                       value: state.wallet.money ?? 0,
-                      fontSize: CommonFontSize.font_14);
+                      fontSize: CommonFontSize.font_14,
+                    );
             },
           ),
           onRender: () {

@@ -24,12 +24,13 @@ class NewsScreen extends StatelessWidget {
           isShown = true;
           SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
             showModalBottomSheet(
-                context: context,
-                backgroundColor: Colors.transparent,
-                isScrollControlled: true,
-                builder: (BuildContext context) {
-                  return const NewsGuide();
-                });
+              context: context,
+              backgroundColor: Colors.transparent,
+              isScrollControlled: true,
+              builder: (BuildContext context) {
+                return const NewsGuide();
+              },
+            );
           });
         }
       }
@@ -46,8 +47,8 @@ class NewsScreen extends StatelessWidget {
             height: CommonDimens.defaultTitleGap,
           ),
           Expanded(
-              child:
-                  ChefOrder(controller: _controller, menuTarget: _menuTarget)),
+            child: ChefOrder(controller: _controller, menuTarget: _menuTarget),
+          ),
         ],
       ),
     );

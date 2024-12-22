@@ -67,12 +67,30 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                 ActionButton(
                   onPressed: () {
                     setState(() {
-                      _controller.animateToPage(widget.isHistory ? 1 : 0,
-                          duration: CommonDimens.animationDuration,
-                          curve: Curves.easeOut);
+                      _controller.animateToPage(
+                        widget.isHistory ? 1 : 0,
+                        duration: CommonDimens.animationDuration,
+                        curve: Curves.easeOut,
+                      );
                       _index = widget.isHistory ? 1 : 0;
                     });
-                    context.read<SignalRCubit>().removeSignals(signal: [
+                    context.read<SignalRCubit>().removeSignals(
+                      signal: [
+                        Signal.neworderreceived,
+                        Signal.chefaccept,
+                        Signal.driveraccept,
+                        Signal.chefstart,
+                        Signal.cheffinished,
+                        Signal.driverreceived,
+                        Signal.clientreceived,
+                        Signal.chefcancel,
+                      ],
+                    );
+                  },
+                  label: S.of(context).myOrders,
+                  isActive: _index == 0 || _index == 1,
+                  isNotificationIconShow: state.isSignalTriggered(
+                    signal: [
                       Signal.neworderreceived,
                       Signal.chefaccept,
                       Signal.driveraccept,
@@ -81,31 +99,38 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                       Signal.driverreceived,
                       Signal.clientreceived,
                       Signal.chefcancel,
-                    ]);
-                  },
-                  label: S.of(context).myOrders,
-                  isActive: _index == 0 || _index == 1,
-                  isNotificationIconShow: state.isSignalTriggered(signal: [
-                    Signal.neworderreceived,
-                    Signal.chefaccept,
-                    Signal.driveraccept,
-                    Signal.chefstart,
-                    Signal.cheffinished,
-                    Signal.driverreceived,
-                    Signal.clientreceived,
-                    Signal.chefcancel,
-                  ], isPreOrder: false),
+                    ],
+                    isPreOrder: false,
+                  ),
                 ),
                 const SizedBox(width: CommonDimens.defaultGap),
                 ActionButton(
                   onPressed: () {
                     setState(() {
-                      _controller.animateToPage(widget.isHistory ? 3 : 2,
-                          duration: CommonDimens.animationDuration,
-                          curve: Curves.easeOut);
+                      _controller.animateToPage(
+                        widget.isHistory ? 3 : 2,
+                        duration: CommonDimens.animationDuration,
+                        curve: Curves.easeOut,
+                      );
                       _index = widget.isHistory ? 3 : 2;
                     });
-                    context.read<SignalRCubit>().removeSignals(signal: [
+                    context.read<SignalRCubit>().removeSignals(
+                      signal: [
+                        Signal.neworderreceived,
+                        Signal.chefaccept,
+                        Signal.driveraccept,
+                        Signal.chefstart,
+                        Signal.cheffinished,
+                        Signal.driverreceived,
+                        Signal.clientreceived,
+                        Signal.chefcancel,
+                      ],
+                    );
+                  },
+                  label: S.of(context).myPreOrder,
+                  isActive: _index == 2 || _index == 3,
+                  isNotificationIconShow: state.isSignalTriggered(
+                    signal: [
                       Signal.neworderreceived,
                       Signal.chefaccept,
                       Signal.driveraccept,
@@ -114,20 +139,9 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                       Signal.driverreceived,
                       Signal.clientreceived,
                       Signal.chefcancel,
-                    ]);
-                  },
-                  label: S.of(context).myPreOrder,
-                  isActive: _index == 2 || _index == 3,
-                  isNotificationIconShow: state.isSignalTriggered(signal: [
-                    Signal.neworderreceived,
-                    Signal.chefaccept,
-                    Signal.driveraccept,
-                    Signal.chefstart,
-                    Signal.cheffinished,
-                    Signal.driverreceived,
-                    Signal.clientreceived,
-                    Signal.chefcancel,
-                  ], isPreOrder: true),
+                    ],
+                    isPreOrder: true,
+                  ),
                 ),
               ],
             );

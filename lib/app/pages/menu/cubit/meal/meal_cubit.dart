@@ -19,9 +19,10 @@ class MealState with _$MealState {
 
   factory MealState.initial() {
     return MealState(
-        pagination: const PaginatedData<Meal>(data: []),
-        selectedCategory: 0,
-        menuTarget: MenuTarget.order);
+      pagination: const PaginatedData<Meal>(data: []),
+      selectedCategory: 0,
+      menuTarget: MenuTarget.order,
+    );
   }
 
   factory MealState.fromJson(Map<String, dynamic> json) =>
@@ -32,17 +33,23 @@ class MealCubit extends Cubit<MealState> {
   MealCubit() : super(MealState.initial());
 
   reset({MenuTarget? menuTarget, int? categoryId}) {
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         pagination: const PaginatedData<Meal>(),
         selectedCategory: categoryId ?? 0,
-        menuTarget: menuTarget ?? state.menuTarget));
+        menuTarget: menuTarget ?? state.menuTarget,
+      ),
+    );
   }
 
   updateMeals({String? chefId, MenuTarget? menuTarget}) async {
     if (!state.pagination.canRequest) return;
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         pagination:
-            state.pagination.copyWith(isLoading: true) as PaginatedData<Meal>));
+            state.pagination.copyWith(isLoading: true) as PaginatedData<Meal>,
+      ),
+    );
     final Either<Failure, PaginatedData<Meal>> task = await GetMeals().call(
       GetMealsParams(
         chefId: chefId,
@@ -61,40 +68,60 @@ class MealCubit extends Cubit<MealState> {
   }
 
   updateCategory({required int selectedCategory, String? chefId}) {
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         pagination: const PaginatedData<Meal>(),
-        selectedCategory: selectedCategory));
+        selectedCategory: selectedCategory,
+      ),
+    );
     updateMeals(chefId: chefId, menuTarget: state.menuTarget);
   }
 
   getFavoriteMeals() async {
     if (!state.pagination.canRequest) return;
 
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         pagination:
-            state.pagination.copyWith(isLoading: true) as PaginatedData<Meal>));
+            state.pagination.copyWith(isLoading: true) as PaginatedData<Meal>,
+      ),
+    );
 
     final params = GetFavoriteMealsParams(paginatedData: state.pagination);
     final task = await GetFavoriteMeals().call(params);
 
-    task.fold((l) => G().snackBar(l.toString()),
-        (r) => emit(state.copyWith(pagination: r)));
+    task.fold(
+      (l) => G().snackBar(l.toString()),
+      (r) => emit(state.copyWith(pagination: r)),
+    );
   }
 
   addFavoriteMeal({required Meal meal}) async {
-    final Either<Failure, PaginatedData<Meal>> task = await AddMealToFavorite()
-        .call(AddMealToFavoriteParams(
-            paginatedData: state.pagination, meal: meal));
+    final Either<Failure, PaginatedData<Meal>> task =
+        await AddMealToFavorite().call(
+      AddMealToFavoriteParams(
+        paginatedData: state.pagination,
+        meal: meal,
+      ),
+    );
 
-    task.fold((l) => G().snackBar(l.toString()),
-        (r) => emit(state.copyWith(pagination: r)));
+    task.fold(
+      (l) => G().snackBar(l.toString()),
+      (r) => emit(state.copyWith(pagination: r)),
+    );
   }
 
   removeFavoriteMeal({required Meal meal}) async {
     final Either<Failure, PaginatedData<Meal>> task =
-        await RemoveMealFromFavorite().call(RemoveMealFromFavoriteParams(
-            paginatedData: state.pagination, meal: meal));
-    task.fold((l) => G().snackBar(l.toString()),
-        (r) => emit(state.copyWith(pagination: r)));
+        await RemoveMealFromFavorite().call(
+      RemoveMealFromFavoriteParams(
+        paginatedData: state.pagination,
+        meal: meal,
+      ),
+    );
+    task.fold(
+      (l) => G().snackBar(l.toString()),
+      (r) => emit(state.copyWith(pagination: r)),
+    );
   }
 }

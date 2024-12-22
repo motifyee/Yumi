@@ -24,8 +24,9 @@ class AuthGuard extends AutoRouteGuard {
         return router.replaceAll([const LoginRoute()]);
       }
 
-      if (Signalr.hubConnection?.state != HubConnectionState.Connected)
+      if (Signalr.hubConnection?.state != HubConnectionState.Connected) {
         initializeSignalr();
+      }
 
       if (!(user.mobileVerified ?? false)) {
         return router.replaceAll([const LoginRoute()]);

@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:hotkey_manager/hotkey_manager.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:common_code/core/setup/awesome_notifications.dart';
 import 'package:common_code/core/setup/crashlyticts.dart';
 import 'package:yumi/core/setup/hotkeys.dart';
@@ -16,7 +14,8 @@ import 'package:yumi/global.dart';
 import 'package:common_code/common_code.dart';
 
 Future init() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  final WidgetsBinding widgetsBinding =
+      WidgetsFlutterBinding.ensureInitialized();
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 

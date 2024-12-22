@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:common_code/common_code.dart';
 import 'package:dio/dio.dart';
 import 'package:common_code/domain/food_delivery/order/data/source/order_source.dart';
-import 'package:common_code/domain/food_delivery/order/entity/order.dart';
 
 class OrderSourceRemote extends OrderSource {
   @override

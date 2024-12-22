@@ -26,13 +26,14 @@ class NotificationScreen extends StatelessWidget {
               backgroundColor: Colors.transparent,
               surfaceTintColor: Colors.transparent,
               leading: TextButton(
-                  onPressed: () {
-                    G().router.maybePop();
-                  },
-                  child: Icon(
-                    Icons.arrow_back,
-                    color: CommonColors.primary,
-                  )),
+                onPressed: () {
+                  G().router.maybePop();
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: CommonColors.primary,
+                ),
+              ),
               title: Text(
                 S.of(context).notification,
                 style: Theme.of(context).textTheme.titleMedium,
@@ -43,7 +44,8 @@ class NotificationScreen extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(
-                horizontal: CommonDimens.defaultLineGap),
+              horizontal: CommonDimens.defaultLineGap,
+            ),
             child: Row(
               children: [
                 SvgPicture.asset(AppAssets.notificationIcon),
@@ -89,23 +91,27 @@ class _NotificationList extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     showDialog(
-                        context: context,
-                        builder: (context) =>
-                            _NotificationNote(notification: notification));
+                      context: context,
+                      builder: (context) =>
+                          _NotificationNote(notification: notification),
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: CommonDimens.defaultGap,
-                        horizontal: CommonDimens.defaultTitleGap),
+                      vertical: CommonDimens.defaultGap,
+                      horizontal: CommonDimens.defaultTitleGap,
+                    ),
                     child: Row(
                       children: [
                         Container(
                           width: CommonDimens.defaultMediumGap,
                           height: CommonDimens.defaultMediumGap,
                           decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(
-                                  CommonDimens.defaultMediumGap)),
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(
+                              CommonDimens.defaultMediumGap,
+                            ),
+                          ),
                           child: Center(
                             child: SvgPicture.asset(
                               'assets/images/notifications/${notification.yumiStatus?.name ?? YumiStatus.GeneralNotification.name}.svg',
@@ -119,16 +125,17 @@ class _NotificationList extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(notification.description,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium),
                               Text(
-                                  DateFormat('d-M-yyyy | hh:mm')
-                                      .format(notification.createDate),
-                                  style:
-                                      Theme.of(context).textTheme.labelSmall),
+                                notification.description,
+                                overflow: TextOverflow.ellipsis,
+                                style:
+                                    Theme.of(context).textTheme.headlineMedium,
+                              ),
+                              Text(
+                                DateFormat('d-M-yyyy | hh:mm')
+                                    .format(notification.createDate),
+                                style: Theme.of(context).textTheme.labelSmall,
+                              ),
                             ],
                           ),
                         ),
@@ -146,7 +153,7 @@ class _NotificationList extends StatelessWidget {
 }
 
 class _NotificationNote extends StatelessWidget {
-  const _NotificationNote({super.key, required this.notification});
+  const _NotificationNote({required this.notification});
 
   final NotificationS notification;
 
@@ -154,18 +161,21 @@ class _NotificationNote extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-          vertical: CommonDimens.defaultGap,
-          horizontal: CommonDimens.defaultTitleGap),
+        vertical: CommonDimens.defaultGap,
+        horizontal: CommonDimens.defaultTitleGap,
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             decoration: BoxDecoration(
-                color: CommonColors.background,
-                borderRadius: BorderRadius.circular(CommonDimens.defaultGap)),
+              color: CommonColors.background,
+              borderRadius: BorderRadius.circular(CommonDimens.defaultGap),
+            ),
             padding: const EdgeInsets.symmetric(
-                vertical: CommonDimens.defaultGap,
-                horizontal: CommonDimens.defaultTitleGap),
+              vertical: CommonDimens.defaultGap,
+              horizontal: CommonDimens.defaultTitleGap,
+            ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -173,9 +183,10 @@ class _NotificationNote extends StatelessWidget {
                   width: CommonDimens.defaultMediumGap,
                   height: CommonDimens.defaultMediumGap,
                   decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius:
-                          BorderRadius.circular(CommonDimens.defaultMediumGap)),
+                    color: Colors.transparent,
+                    borderRadius:
+                        BorderRadius.circular(CommonDimens.defaultMediumGap),
+                  ),
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/images/notifications/${notification.yumiStatus!.name}.svg',
@@ -189,12 +200,15 @@ class _NotificationNote extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(notification.description,
-                          style: Theme.of(context).textTheme.headlineMedium),
                       Text(
-                          DateFormat('d-M-yyyy | hh:mm')
-                              .format(notification.createDate),
-                          style: Theme.of(context).textTheme.labelSmall),
+                        notification.description,
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      Text(
+                        DateFormat('d-M-yyyy | hh:mm')
+                            .format(notification.createDate),
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
                     ],
                   ),
                 ),

@@ -58,7 +58,9 @@ class _OfferCardState extends State<OfferCard> {
             'assets/images/offer_card.svg',
             matchTextDirection: true,
             colorFilter: ColorFilter.mode(
-                widget.offer['color'] ?? CommonColors.primary, BlendMode.srcIn),
+              widget.offer['color'] ?? CommonColors.primary,
+              BlendMode.srcIn,
+            ),
           ),
           Align(
             child: Row(
@@ -156,7 +158,7 @@ class _OfferCardState extends State<OfferCard> {
               widget.offer['image'],
               fit: BoxFit.cover,
             ),
-          )
+          ),
         ],
       ),
     );

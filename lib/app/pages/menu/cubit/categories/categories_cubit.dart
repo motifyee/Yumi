@@ -46,15 +46,17 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
     final List<Category> categories = [
       ...state.categoriesPage.data,
-      ...categoriesPage.data
+      ...categoriesPage.data,
     ];
 
-    emit(state.copyWith(
-      categoriesPage: categoriesPage.copyWith(
-        isLoading: false,
-        data: categories,
-      ) as PaginatedData<Category>,
-    ));
+    emit(
+      state.copyWith(
+        categoriesPage: categoriesPage.copyWith(
+          isLoading: false,
+          data: categories,
+        ) as PaginatedData<Category>,
+      ),
+    );
   }
 
   Future<void> getChefCategories({
@@ -88,20 +90,24 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
     final List<Category> categories = [
       ...state.categoriesPage.data,
-      ...categoriesPage.data
+      ...categoriesPage.data,
     ];
 
-    emit(state.copyWith(
-      categoriesPage: categoriesPage.copyWith(
-        isLoading: false,
-        data: categories,
-      ) as PaginatedData<Category>,
-    ));
+    emit(
+      state.copyWith(
+        categoriesPage: categoriesPage.copyWith(
+          isLoading: false,
+          data: categories,
+        ) as PaginatedData<Category>,
+      ),
+    );
   }
 
   void reset() {
-    emit(state.copyWith(
-      categoriesPage: const PaginatedData(),
-    ));
+    emit(
+      state.copyWith(
+        categoriesPage: const PaginatedData(),
+      ),
+    );
   }
 }

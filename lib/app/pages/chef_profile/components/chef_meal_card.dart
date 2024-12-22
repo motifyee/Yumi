@@ -2,9 +2,7 @@ import 'dart:typed_data';
 
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:common_code/domain/food_delivery/chef/entity/chef.dart';
 import 'package:yumi/app/pages/meal_profile/meal_profile.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 
 class ChefMealCard extends StatelessWidget {
   const ChefMealCard({super.key, required this.meal, required this.chef});
@@ -17,14 +15,15 @@ class ChefMealCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         showBottomSheet(
-            context: context,
-            builder: (context) => MealProfileScreen(
-                  meal: meal,
-                  chef: chef,
-                ),
-            backgroundColor: Colors.transparent,
-            constraints:
-                BoxConstraints(minHeight: MediaQuery.of(context).size.height));
+          context: context,
+          builder: (context) => MealProfileScreen(
+            meal: meal,
+            chef: chef,
+          ),
+          backgroundColor: Colors.transparent,
+          constraints:
+              BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+        );
         // context.router.push(MealProfileRoute(meal: meal));
       },
       child: Padding(
@@ -32,15 +31,15 @@ class ChefMealCard extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(CommonDimens.defaultMicroGap),
           decoration: BoxDecoration(
-              color: CommonColors.background,
-              borderRadius:
-                  BorderRadius.circular(CommonDimens.defaultGapExtreme),
-              boxShadow: [
-                BoxShadow(
-                  color: CommonColors.shadow,
-                  blurRadius: CommonDimens.defaultGap,
-                )
-              ]),
+            color: CommonColors.background,
+            borderRadius: BorderRadius.circular(CommonDimens.defaultGapExtreme),
+            boxShadow: [
+              BoxShadow(
+                color: CommonColors.shadow,
+                blurRadius: CommonDimens.defaultGap,
+              ),
+            ],
+          ),
           child: Row(
             children: [
               Container(
@@ -48,8 +47,9 @@ class ChefMealCard extends StatelessWidget {
                 height: CommonDimens.defaultMediumGap,
                 clipBehavior: Clip.hardEdge,
                 decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(CommonDimens.defaultMediumGap)),
+                  borderRadius:
+                      BorderRadius.circular(CommonDimens.defaultMediumGap),
+                ),
                 child: Image.memory(
                   Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
                       Uint8List(0),
@@ -64,10 +64,11 @@ class ChefMealCard extends StatelessWidget {
                 width: CommonDimens.defaultGapXXL,
                 height: CommonDimens.defaultGapExtreme,
                 padding: const EdgeInsets.only(
-                    top: CommonDimens.defaultMicroGap,
-                    bottom: CommonDimens.defaultMicroGap,
-                    left: CommonDimens.defaultMicroGap,
-                    right: CommonDimens.defaultLineGap),
+                  top: CommonDimens.defaultMicroGap,
+                  bottom: CommonDimens.defaultMicroGap,
+                  left: CommonDimens.defaultMicroGap,
+                  right: CommonDimens.defaultLineGap,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -29,7 +29,8 @@ class DeliveryOptionDialog extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: CommonDimens.defaultBlockGap),
+                    horizontal: CommonDimens.defaultBlockGap,
+                  ),
                   child: Text(
                     '${S.of(context).hi} ${context.read<UserCubit>().state.user.userName}',
                     style: Theme.of(context).textTheme.titleMedium,
@@ -40,13 +41,14 @@ class DeliveryOptionDialog extends StatelessWidget {
             BlocConsumer<BasketCubit, BasketState>(
               listener: (context, state) {},
               builder: (context, state) {
-                bool? option = state.basket.isDelivery;
+                final bool option = state.basket.isDelivery;
                 return Row(
                   children: [
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: CommonDimens.defaultGap),
+                          horizontal: CommonDimens.defaultGap,
+                        ),
                         child: TextButton(
                           onPressed: () {
                             context
@@ -59,11 +61,13 @@ class DeliveryOptionDialog extends StatelessWidget {
                                 width: CommonDimens.defaultLineGap,
                                 height: CommonDimens.defaultLineGap,
                                 decoration: BoxDecoration(
-                                    color: option != true
-                                        ? CommonColors.primary
-                                        : CommonColors.secondaryFaint,
-                                    borderRadius: BorderRadius.circular(
-                                        CommonDimens.defaultLineGap)),
+                                  color: option != true
+                                      ? CommonColors.primary
+                                      : CommonColors.secondaryFaint,
+                                  borderRadius: BorderRadius.circular(
+                                    CommonDimens.defaultLineGap,
+                                  ),
+                                ),
                               ),
                               const SizedBox(width: CommonDimens.defaultGap),
                               Row(
@@ -84,7 +88,8 @@ class DeliveryOptionDialog extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: CommonDimens.defaultGap),
+                          horizontal: CommonDimens.defaultGap,
+                        ),
                         child: TextButton(
                           onPressed: () {
                             context
@@ -101,7 +106,8 @@ class DeliveryOptionDialog extends StatelessWidget {
                                       ? CommonColors.primary
                                       : CommonColors.secondaryFaint,
                                   borderRadius: BorderRadius.circular(
-                                      CommonDimens.defaultLineGap),
+                                    CommonDimens.defaultLineGap,
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: CommonDimens.defaultGap),
@@ -128,28 +134,31 @@ class DeliveryOptionDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                    onPressed: () {
-                      context.router.popForced();
-                    },
-                    child: Text(
-                      S.of(context).cancel,
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelSmall
-                          ?.copyWith(fontSize: CommonFontSize.font_12),
-                    )),
+                  onPressed: () {
+                    context.router.popForced();
+                  },
+                  child: Text(
+                    S.of(context).cancel,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall
+                        ?.copyWith(fontSize: CommonFontSize.font_12),
+                  ),
+                ),
                 const SizedBox(width: CommonDimens.defaultLineGap),
                 TextButton(
-                    onPressed: () {
-                      context.router.maybePop();
-                      showDialog(
-                          context: context,
-                          builder: (context) => const ConfirmCheckOutBasket());
-                    },
-                    child: Text(
-                      S.of(context).placeOrder,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    )),
+                  onPressed: () {
+                    context.router.maybePop();
+                    showDialog(
+                      context: context,
+                      builder: (context) => const ConfirmCheckOutBasket(),
+                    );
+                  },
+                  child: Text(
+                    S.of(context).placeOrder,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                ),
               ],
             ),
           ],

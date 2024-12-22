@@ -32,7 +32,7 @@ class SignUpForm extends StatelessWidget {
       key: key,
       label: S.of(context).fullName,
       inputFormatters: [
-        FilteringTextInputFormatter.allow(CustomRegex.lettersBlankOnly)
+        FilteringTextInputFormatter.allow(CustomRegex.lettersBlankOnly),
       ],
       onSave: (value) {
         reg.setAccount(reg.state.signupData.copyWith(fullName: value));
@@ -48,7 +48,7 @@ class SignUpForm extends StatelessWidget {
       },
       validators: requiredValidator,
       inputFormatters: [
-        FilteringTextInputFormatter.allow(CustomRegex.lettersNumbersOnly)
+        FilteringTextInputFormatter.allow(CustomRegex.lettersNumbersOnly),
       ],
     );
 
@@ -132,7 +132,9 @@ class SignUpForm extends StatelessWidget {
       label: S.of(context).confirmPassword,
       validators: (value) {
         return confirmPasswordValidator(
-            value: value, comparedValue: passwordController.text);
+          value: value,
+          comparedValue: passwordController.text,
+        );
       },
       isPassword: true,
     );
@@ -149,32 +151,35 @@ class SignUpForm extends StatelessWidget {
         });
       },
       child: Form(
-        child: Builder(builder: (context) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: CommonDimens.formFieldInlineGap),
-            child: Column(
-              children: [
-                fullNameField,
-                const SizedBox(height: CommonDimens.formFieldGap),
-                userNameField,
-                const SizedBox(height: CommonDimens.formFieldGap),
-                emailRow,
-                const SizedBox(height: CommonDimens.formFieldGap),
-                passwordField,
-                const SizedBox(height: CommonDimens.formFieldGap),
-                confirmPasswordField,
-                const SizedBox(height: CommonDimens.defaultGap),
-                // Create Account Button
-                InteractiveButton(
-                  label: S.of(context).createAccount,
-                  onLongPress: () => _signUp(context, true),
-                  onPressed: () => _signUp(context),
-                ),
-              ],
-            ),
-          );
-        }),
+        child: Builder(
+          builder: (context) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: CommonDimens.formFieldInlineGap,
+              ),
+              child: Column(
+                children: [
+                  fullNameField,
+                  const SizedBox(height: CommonDimens.formFieldGap),
+                  userNameField,
+                  const SizedBox(height: CommonDimens.formFieldGap),
+                  emailRow,
+                  const SizedBox(height: CommonDimens.formFieldGap),
+                  passwordField,
+                  const SizedBox(height: CommonDimens.formFieldGap),
+                  confirmPasswordField,
+                  const SizedBox(height: CommonDimens.defaultGap),
+                  // Create Account Button
+                  InteractiveButton(
+                    label: S.of(context).createAccount,
+                    onLongPress: () => _signUp(context, true),
+                    onPressed: () => _signUp(context),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -209,12 +214,12 @@ Future<void> _sendEmailVerificationOtp(
   if ((regCubit.state.verifiedEmail ?? '').isNotEmpty &&
       regCubit.state.verifiedEmail == regCubit.state.willVerifyEmail) {
     return G().snackBar(
-      "${regCubit.state.verifiedEmail} is already verified",
+      '${regCubit.state.verifiedEmail} is already verified',
     );
   }
 
   if (!emailStructure(regCubit.state.willVerifyEmail)) {
-    return G().snackBar("Please enter a valid email");
+    return G().snackBar('Please enter a valid email');
   }
 
   final storageKey = VerifyOtpSheet.storageKey(OTPType.email);
@@ -242,11 +247,11 @@ Future<void> _sendEmailVerificationOtp(
     (sent) async {
       if (!sent) {
         return G().snackBar(
-          "Please enter a valid email, nothing sent!",
+          'Please enter a valid email, nothing sent!',
         );
       }
 
-      G().snackBar("Verification code sent");
+      G().snackBar('Verification code sent');
 
       // signupCubit.showSheet(() => showOTPSheet());
       _showOTPSheet(context);
@@ -267,7 +272,7 @@ Future<void> _signUp(
   } else if ((reg.state.verifiedEmail != reg.state.willVerifyEmail ||
       reg.state.willVerifyEmail == null ||
       reg.state.willVerifyEmail!.isEmpty)) {
-    return G().snackBar("Please verify your email");
+    return G().snackBar('Please verify your email');
   }
 
   Form.of(context).save();

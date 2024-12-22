@@ -83,16 +83,17 @@ class VerifyOtpSheet extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              bottomOpacity: 0,
-              scrolledUnderElevation: 0,
-              // iconTheme: IconThemeData(color: CommonColors.primary),
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: CommonColors.primary),
-                onPressed: () {
-                  // return G().pop(rootNavigator: false);
-                },
-              )),
+            backgroundColor: Colors.transparent,
+            bottomOpacity: 0,
+            scrolledUnderElevation: 0,
+            // iconTheme: IconThemeData(color: CommonColors.primary),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: CommonColors.primary),
+              onPressed: () {
+                // return G().pop(rootNavigator: false);
+              },
+            ),
+          ),
           body: Padding(
             padding: const EdgeInsets.only(
               left: CommonDimens.defaultBlockGap,
@@ -142,7 +143,7 @@ class VerifyOTPSheetContent extends StatelessWidget {
                 child: InteractiveButton(
                   label: (countDown ?? 0) > 0
                       ? countDown.toString()
-                      : "Resend OTP",
+                      : 'Resend OTP',
                   buttonType: ButtonType.text,
                   foregroundColor: Theme.of(context).colorScheme.primary,
                   onPressed: () async {
@@ -206,14 +207,14 @@ void verifyEmailOTP(BuildContext context, String otp) {
   final reg = context.read<RegCubit>();
   final counter = context.read<CountDownCubit>();
   if (otp.replaceAll(' ', '').length < 4) {
-    return G().snackBar("Invalid OTP!");
+    return G().snackBar('Invalid OTP!');
   }
 
   if (!reg.verifyEmailOTP(otp)) {
-    return G().snackBar("Wrong OTP!");
+    return G().snackBar('Wrong OTP!');
   }
 
-  G().snackBar("Your email was verified successfully");
+  G().snackBar('Your email was verified successfully');
   counter.stop(); // not to emit after close
   Navigator.of(context).pop();
 }
@@ -232,13 +233,13 @@ void verifyMobileOTP(BuildContext context, String otp) async {
   final counter = context.read<CountDownCubit>();
 
   if (otp.length < 4) {
-    return G().snackBar("Invalid OTP!");
+    return G().snackBar('Invalid OTP!');
   }
 
   await profileCubit.verifyMobileOTP(otp).then((value) {
-    if (!value) return G().snackBar("Wrong OTP!");
+    if (!value) return G().snackBar('Wrong OTP!');
 
-    G().snackBar("Your mobile was verified successfully");
+    G().snackBar('Your mobile was verified successfully');
     counter.stop(); // not to emit after close
     Navigator.of(context).pop();
   });

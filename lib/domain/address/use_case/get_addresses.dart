@@ -10,11 +10,13 @@ class GetAddresses extends UseCase<PaginatedData<Address>, GetAddressesParams> {
 
   @override
   Future<Either<Failure, PaginatedData<Address>>> call(
-      GetAddressesParams params) async {
+    GetAddressesParams params,
+  ) async {
     return await addressRepo
         .getAddresses(
-            pagination: params.pagination,
-            queryParameters: params.queryParameters)
+          pagination: params.pagination,
+          queryParameters: params.queryParameters,
+        )
         .run();
   }
 }

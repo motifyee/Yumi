@@ -7,7 +7,8 @@ part of 'ingredient_list_cubit.dart';
 // **************************************************************************
 
 _$IngredientListStateImpl _$$IngredientListStateImplFromJson(
-        Map<String, dynamic> json) =>
+  Map<String, dynamic> json,
+) =>
     _$IngredientListStateImpl(
       ingredients: (json['ingredients'] as List<dynamic>)
           .map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
@@ -16,7 +17,8 @@ _$IngredientListStateImpl _$$IngredientListStateImplFromJson(
     );
 
 Map<String, dynamic> _$$IngredientListStateImplToJson(
-        _$IngredientListStateImpl instance) =>
+  _$IngredientListStateImpl instance,
+) =>
     <String, dynamic>{
       'ingredients': instance.ingredients,
       'loading': instance.loading,

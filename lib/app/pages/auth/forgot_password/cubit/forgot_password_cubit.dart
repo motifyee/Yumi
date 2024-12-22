@@ -30,11 +30,13 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
       return;
     }
 
-    emit(state.copyWith(
-      email: email,
-      initialCountDownTime: time,
-      window: ForgotPwdWindow.enterOTP,
-    ));
+    emit(
+      state.copyWith(
+        email: email,
+        initialCountDownTime: time,
+        window: ForgotPwdWindow.enterOTP,
+      ),
+    );
 
     startCountDown();
   }
@@ -97,11 +99,13 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
         await ResetPasswordByEmail().call(ResetPasswordByEmailParams(email0));
 
     forgot.fold(
-      (l) => emit(state.copyWith(
-        error: 'Can\'t reset password, check your email!',
-        isLoading: false,
-        emailFound: false,
-      )),
+      (l) => emit(
+        state.copyWith(
+          error: 'Can\'t reset password, check your email!',
+          isLoading: false,
+          emailFound: false,
+        ),
+      ),
       (r) {
         final initialCountDown = DateTime.now().millisecondsSinceEpoch;
 
@@ -110,14 +114,16 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
           await prefs.setInt(forgotPwdTimeKey, initialCountDown);
         });
 
-        emit(state.copyWith(
-          isLoading: false,
-          email: email0,
-          initialCountDownTime: initialCountDown,
-          countDown: null,
-          emailFound: true,
-          window: ForgotPwdWindow.enterOTP,
-        ));
+        emit(
+          state.copyWith(
+            isLoading: false,
+            email: email0,
+            initialCountDownTime: initialCountDown,
+            countDown: null,
+            emailFound: true,
+            window: ForgotPwdWindow.enterOTP,
+          ),
+        );
 
         startCountDown();
       },
@@ -126,32 +132,38 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
   // if (state.isEmailValid) { }
 
   Future<void> verifyResetPasswordByEmailOTPCode(
-      String otp, String password) async {
+    String otp,
+    String password,
+  ) async {
     emit(state.copyWith(isLoading: true));
 
     final verify = await VerifyResetPasswordByEmailOTP()
         .call(VerifyResetPasswordOTPByEmailParams(state.email, otp, password));
     Failure;
     verify.fold(
-      (l) => emit(state.copyWith(
-        codeSent: true,
-        codeVerified: false,
-        isLoading: false,
-        otpCode: otp,
-        newPassword: password,
-        error: switch (l) {
-          ServerFailure() => (l.error as dynamic).error as String,
-          NetworkFailure() => 'Can\'t connect to server',
-          _ => 'Something went wrong',
-        },
-      )),
-      (r) {
-        emit(state.copyWith(
+      (l) => emit(
+        state.copyWith(
           codeSent: true,
-          codeVerified: true,
+          codeVerified: false,
           isLoading: false,
-          window: ForgotPwdWindow.done,
-        ));
+          otpCode: otp,
+          newPassword: password,
+          error: switch (l) {
+            ServerFailure() => (l.error as dynamic).error as String,
+            NetworkFailure() => 'Can\'t connect to server',
+            _ => 'Something went wrong',
+          },
+        ),
+      ),
+      (r) {
+        emit(
+          state.copyWith(
+            codeSent: true,
+            codeVerified: true,
+            isLoading: false,
+            window: ForgotPwdWindow.done,
+          ),
+        );
 
         stopCountDown();
       },
@@ -167,11 +179,13 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
         .call(ResetPasswordByMobileParams('$kUKCountryCode$mobile0'));
 
     forgot.fold(
-      (l) => emit(state.copyWith(
-        error: 'Can\'t reset password, check your mobile number!',
-        isLoading: false,
-        emailFound: false,
-      )),
+      (l) => emit(
+        state.copyWith(
+          error: 'Can\'t reset password, check your mobile number!',
+          isLoading: false,
+          emailFound: false,
+        ),
+      ),
       (r) {
         final initialCountDown = DateTime.now().millisecondsSinceEpoch;
 
@@ -180,14 +194,16 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
           await prefs.setInt(forgotPwdTimeKey, initialCountDown);
         });
 
-        emit(state.copyWith(
-          isLoading: false,
-          email: mobile0,
-          initialCountDownTime: initialCountDown,
-          countDown: null,
-          emailFound: true,
-          window: ForgotPwdWindow.enterOTP,
-        ));
+        emit(
+          state.copyWith(
+            isLoading: false,
+            email: mobile0,
+            initialCountDownTime: initialCountDown,
+            countDown: null,
+            emailFound: true,
+            window: ForgotPwdWindow.enterOTP,
+          ),
+        );
 
         startCountDown();
       },
@@ -197,37 +213,44 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
   }
 
   Future<void> verifyResetPasswordByMobileOTPCode(
-      String otp, String password) async {
+    String otp,
+    String password,
+  ) async {
     emit(state.copyWith(isLoading: true));
 
-    final verify = await VerifyResetPasswordByMobileOTP()
-        .call(VerifyResetPasswordOTPByMobileParams(
-      '$kUKCountryCode${state.email}',
-      otp,
-      password,
-    ));
+    final verify = await VerifyResetPasswordByMobileOTP().call(
+      VerifyResetPasswordOTPByMobileParams(
+        '$kUKCountryCode${state.email}',
+        otp,
+        password,
+      ),
+    );
     Failure;
     verify.fold(
-      (l) => emit(state.copyWith(
-        codeSent: true,
-        codeVerified: false,
-        isLoading: false,
-        otpCode: otp,
-        newPassword: password,
-        error: switch (l) {
-          ServerFailure() => l.error.toString(),
-          // (l.error as dynamic).response.data['message'] as String,
-          NetworkFailure() => 'Can\'t connect to server',
-          _ => 'Something went wrong',
-        },
-      )),
-      (r) {
-        emit(state.copyWith(
+      (l) => emit(
+        state.copyWith(
           codeSent: true,
-          codeVerified: true,
+          codeVerified: false,
           isLoading: false,
-          window: ForgotPwdWindow.done,
-        ));
+          otpCode: otp,
+          newPassword: password,
+          error: switch (l) {
+            ServerFailure() => l.error.toString(),
+            // (l.error as dynamic).response.data['message'] as String,
+            NetworkFailure() => 'Can\'t connect to server',
+            _ => 'Something went wrong',
+          },
+        ),
+      ),
+      (r) {
+        emit(
+          state.copyWith(
+            codeSent: true,
+            codeVerified: true,
+            isLoading: false,
+            window: ForgotPwdWindow.done,
+          ),
+        );
 
         stopCountDown();
       },
@@ -235,10 +258,12 @@ class ForgotPwdCubit extends Cubit<ForgotPwdState> {
   }
 
   Future<void> resetPassword(String password) async {
-    emit(state.copyWith(
-      newPassword: password,
-      passwordUpdated: true,
-    ));
+    emit(
+      state.copyWith(
+        newPassword: password,
+        passwordUpdated: true,
+      ),
+    );
 
     if (state.isPasswordUpdated) {
       G().pop();

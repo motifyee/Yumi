@@ -61,7 +61,7 @@ class EditBioSheet extends StatelessWidget {
                         onPressed: () {
                           if (!formKey.currentState!.validate()) return;
 
-                          var state = G().rd<ProfileCubit>().state;
+                          final state = G().rd<ProfileCubit>().state;
                           if (!state.form.profileSheetDone) return;
 
                           Navigator.of(context).pop();

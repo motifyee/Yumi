@@ -7,8 +7,11 @@ import 'package:yumi/domain/basket/entity/invoice_detail.dart';
 import 'package:yumi/generated/l10n.dart';
 
 class BasketMealCard extends StatelessWidget {
-  BasketMealCard(
-      {super.key, required this.invoiceDetails, required this.indexInList});
+  BasketMealCard({
+    super.key,
+    required this.invoiceDetails,
+    required this.indexInList,
+  });
 
   final InvoiceDetail invoiceDetails;
   final int indexInList;
@@ -24,15 +27,17 @@ class BasketMealCard extends StatelessWidget {
           color: CommonColors.background,
           boxShadow: [
             BoxShadow(
-                color: CommonColors.shadow.withOpacity(.05),
-                blurRadius: 2,
-                offset: const Offset(0, 3))
+              color: CommonColors.shadow.withOpacity(.05),
+              blurRadius: 2,
+              offset: const Offset(0, 3),
+            ),
           ],
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(
-              horizontal: CommonDimens.defaultTitleGap,
-              vertical: CommonDimens.defaultLineGap),
+            horizontal: CommonDimens.defaultTitleGap,
+            vertical: CommonDimens.defaultLineGap,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -60,32 +65,34 @@ class BasketMealCard extends StatelessWidget {
                               ),
                             ),
                             TextButton(
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  minimumSize: const Size(30, 30),
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                ),
-                                onPressed: () {
-                                  if (invoiceDetails.quantity == "1") {
-                                    context.read<BasketCubit>().removeMeal(
-                                        invoiceDetails: invoiceDetails);
-                                  } else {
-                                    context.read<BasketCubit>().updateMeal(
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                minimumSize: const Size(30, 30),
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                              onPressed: () {
+                                if (invoiceDetails.quantity == '1') {
+                                  context.read<BasketCubit>().removeMeal(
+                                        invoiceDetails: invoiceDetails,
+                                      );
+                                } else {
+                                  context.read<BasketCubit>().updateMeal(
                                         invoiceDetails: invoiceDetails,
                                         indexInList: indexInList,
                                         newQuantity:
                                             '${int.parse(invoiceDetails.quantity) - 1}',
-                                        note: invoiceDetails.note);
-                                  }
-                                },
-                                child: Text(
-                                  '-',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(fontWeight: FontWeight.w500),
-                                )),
+                                        note: invoiceDetails.note,
+                                      );
+                                }
+                              },
+                              child: Text(
+                                '-',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(fontWeight: FontWeight.w500),
+                              ),
+                            ),
                             SizedBox(
                               width: CommonDimens.defaultTitleGapLarge,
                               child: TextFormFieldTemplate(
@@ -97,39 +104,42 @@ class BasketMealCard extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 inputFormatters: [
                                   FilteringTextInputFormatter.allow(
-                                      RegExp(r'^[1-9][0-9]*'))
+                                    RegExp(r'^[1-9][0-9]*'),
+                                  ),
                                 ],
                                 onChange: (value) {
                                   context.read<BasketCubit>().updateMeal(
-                                      invoiceDetails: invoiceDetails,
-                                      indexInList: indexInList,
-                                      newQuantity: value,
-                                      note: invoiceDetails.note);
+                                        invoiceDetails: invoiceDetails,
+                                        indexInList: indexInList,
+                                        newQuantity: value,
+                                        note: invoiceDetails.note,
+                                      );
                                 },
                               ),
                             ),
                             TextButton(
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  minimumSize: const Size(30, 30),
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                ),
-                                onPressed: () {
-                                  context.read<BasketCubit>().updateMeal(
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                minimumSize: const Size(30, 30),
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                              onPressed: () {
+                                context.read<BasketCubit>().updateMeal(
                                       invoiceDetails: invoiceDetails,
                                       indexInList: indexInList,
                                       newQuantity:
                                           '${int.parse(invoiceDetails.quantity) + 1}',
-                                      note: invoiceDetails.note);
-                                },
-                                child: Text(
-                                  '+',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(fontWeight: FontWeight.w500),
-                                )),
+                                      note: invoiceDetails.note,
+                                    );
+                              },
+                              child: Text(
+                                '+',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(fontWeight: FontWeight.w500),
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -141,7 +151,8 @@ class BasketMealCard extends StatelessWidget {
                     clipBehavior: Clip.hardEdge,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
-                          CommonDimens.defaultBorderRadius),
+                        CommonDimens.defaultBorderRadius,
+                      ),
                     ),
                     child: Image.memory(
                       Uri.parse(invoiceDetails.meal?.photo ?? '')
@@ -171,10 +182,11 @@ class BasketMealCard extends StatelessWidget {
                 onChange: (value) {
                   _debouncer.run(() {
                     context.read<BasketCubit>().updateMeal(
-                        invoiceDetails: invoiceDetails,
-                        indexInList: indexInList,
-                        newQuantity: invoiceDetails.quantity,
-                        note: value);
+                          invoiceDetails: invoiceDetails,
+                          indexInList: indexInList,
+                          newQuantity: invoiceDetails.quantity,
+                          note: value,
+                        );
                   });
                 },
               ),

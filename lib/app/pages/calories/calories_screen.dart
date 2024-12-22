@@ -2,7 +2,6 @@ import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/calories/calories_cubit/calories_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 
@@ -34,16 +33,18 @@ class CaloriesReference extends StatelessWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       title: Center(
-          child: Text(
-        S.of(context).caloriesReference,
-        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
-      )),
+        child: Text(
+          S.of(context).caloriesReference,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+        ),
+      ),
       actions: [
         TextButton(
-            onPressed: () {},
-            child: SvgPicture.asset('assets/images/walking_man.svg'))
+          onPressed: () {},
+          child: SvgPicture.asset('assets/images/walking_man.svg'),
+        ),
       ],
     );
   }
@@ -69,7 +70,7 @@ class CaloriesReference extends StatelessWidget {
               },
             ),
           ),
-        )
+        ),
       ],
     );
   }

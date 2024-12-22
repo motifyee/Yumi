@@ -2,7 +2,6 @@ import 'package:common_code/common_code.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:common_code/domain/food_delivery/meal/data/repo/meal_repo.dart';
 import 'package:common_code/domain/food_delivery/meal/data/source/meal_source.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 
 class MealRepoRemote extends MealRepo {
   final MealSource mealSource;

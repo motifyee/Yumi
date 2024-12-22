@@ -27,10 +27,12 @@ class BankInfoCubit extends Cubit<BankInfoState> {
 
     GetBankInfo().call(NoParams()).then(
           (v) => v.fold(
-            (l) => emit(state.copyWith(
-              error: l.toString(),
-              isLoading: false,
-            )),
+            (l) => emit(
+              state.copyWith(
+                error: l.toString(),
+                isLoading: false,
+              ),
+            ),
             (r) => emit(
               state.copyWith(
                 bankInfo: r,
@@ -51,7 +53,7 @@ class BankInfoCubit extends Cubit<BankInfoState> {
   Future<Either<Failure, String>> _addBankInfo() async {
     emit(state.copyWith(isLoading: true));
 
-    AddBankInfoParams params = AddBankInfoParams(state.bankInfoForm);
+    final AddBankInfoParams params = AddBankInfoParams(state.bankInfoForm);
     final task = await AddBankInfo().call(params);
 
     emit(state.copyWith(isLoading: false));

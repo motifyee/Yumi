@@ -10,8 +10,10 @@ class CalcBasketSpecParams extends TestParams {
   final Basket mockBasket;
   final Basket expectedBasket;
 
-  CalcBasketSpecParams(
-      {required this.mockBasket, required this.expectedBasket});
+  CalcBasketSpecParams({
+    required this.mockBasket,
+    required this.expectedBasket,
+  });
 
   @override
   List<Object?> get props => [mockBasket, expectedBasket];

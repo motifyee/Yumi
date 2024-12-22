@@ -45,7 +45,9 @@ class ForgotPwdNewPwd extends StatelessWidget {
                 label: 'Confirm Password',
                 validators: (value) {
                   return confirmPasswordValidator(
-                      value: value, comparedValue: passwordController.text);
+                    value: value,
+                    comparedValue: passwordController.text,
+                  );
                 },
                 isPassword: true,
                 // autoHint: const [AutofillHints],
@@ -56,14 +58,15 @@ class ForgotPwdNewPwd extends StatelessWidget {
         ),
         const SizedBox(height: 60),
         InteractiveButton(
-            label: 'Confirm',
-            onPressed: () {
-              if (!form.currentState!.validate()) return;
+          label: 'Confirm',
+          onPressed: () {
+            if (!form.currentState!.validate()) return;
 
-              context
-                  .read<ForgotPwdCubit>()
-                  .resetPassword(passwordController.text);
-            }),
+            context
+                .read<ForgotPwdCubit>()
+                .resetPassword(passwordController.text);
+          },
+        ),
         const SizedBox(height: 60),
       ],
     );

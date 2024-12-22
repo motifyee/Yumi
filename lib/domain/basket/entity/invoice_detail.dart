@@ -8,7 +8,7 @@ part 'invoice_detail.g.dart';
 class InvoiceDetail with _$InvoiceDetail {
   const factory InvoiceDetail({
     int? productVarintId,
-    @Default("0") @StringToDoubleAsIntStringConverter() String quantity,
+    @Default('0') @StringToDoubleAsIntStringConverter() String quantity,
     @Default(0) double productVarintPrice,
     @Default(1205) int discountListId,
     @Default('') String note,

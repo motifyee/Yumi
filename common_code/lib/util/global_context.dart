@@ -3,8 +3,6 @@ import 'package:common_code/components/toast/toast.dart';
 import 'package:common_code/core/setup/connection.dart';
 import 'package:common_code/core/setup/internet_connectivity_checker.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dependencies/dependencies.dart';
 
 class GlobalContext {

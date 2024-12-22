@@ -16,24 +16,27 @@ class NewsGuide extends StatelessWidget {
       height: 550,
       clipBehavior: Clip.hardEdge,
       decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-        topRight: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
-        topLeft: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
-      )),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+          topLeft: Radius.circular(CommonDimens.defaultBorderRadiusExtreme),
+        ),
+      ),
       child: ScreenContainer(
         child: Container(
           padding: const EdgeInsets.only(
-              top: CommonDimens.defaultBorderRadiusExtreme / 2,
-              left: CommonDimens.defaultBlockGap,
-              right: CommonDimens.defaultBlockGap,
-              bottom: 0),
+            top: CommonDimens.defaultBorderRadiusExtreme / 2,
+            left: CommonDimens.defaultBlockGap,
+            right: CommonDimens.defaultBlockGap,
+            bottom: 0,
+          ),
           width: MediaQuery.of(context).size.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: CommonDimens.defaultGap),
+                  horizontal: CommonDimens.defaultGap,
+                ),
                 width: MediaQuery.of(context).size.width,
                 child: Text(
                   '${S.of(context).hi} ${context.read<UserCubit>().state.user.userName},',
@@ -76,15 +79,16 @@ class NewsGuide extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                      onPressed: () async {
-                        await LocalStorage.sharedRef
-                            .setValue(LocalStorage.newsGuide, true);
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        S.of(context).skip,
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      )),
+                    onPressed: () async {
+                      await LocalStorage.sharedRef
+                          .setValue(LocalStorage.newsGuide, true);
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      S.of(context).skip,
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: CommonDimens.defaultGap),

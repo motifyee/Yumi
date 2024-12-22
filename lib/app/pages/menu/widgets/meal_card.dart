@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/app/pages/menu/cubit/meal/meal_cubit.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
@@ -35,32 +34,39 @@ class MealCard extends StatelessWidget {
               vertical: CommonDimens.defaultGap,
             ),
             decoration: BoxDecoration(
-                color: CommonColors.backgroundTant,
-                borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(
-                        CommonDimens.defaultBorderRadiusExtraLarge),
-                    bottomLeft: Radius.circular(
-                        CommonDimens.defaultBorderRadiusExtraLarge)),
-                boxShadow: [
-                  BoxShadow(color: CommonColors.shadow, blurRadius: 3)
-                ]),
+              color: CommonColors.backgroundTant,
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(
+                  CommonDimens.defaultBorderRadiusExtraLarge,
+                ),
+                bottomLeft: Radius.circular(
+                  CommonDimens.defaultBorderRadiusExtraLarge,
+                ),
+              ),
+              boxShadow: [
+                BoxShadow(color: CommonColors.shadow, blurRadius: 3),
+              ],
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: CommonDimens.defaultLineGap),
                 Container(
-                    width: CommonDimens.iconSizeLarge,
-                    height: CommonDimens.iconSizeLarge,
-                    clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                            CommonDimens.defaultBorderRadiusSmall)),
-                    child: Image.memory(
-                      Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
-                          Uint8List(0),
-                      errorBuilder: (context, error, stackTrace) =>
-                          Image.asset('assets/images/354.jpeg'),
-                    )),
+                  width: CommonDimens.iconSizeLarge,
+                  height: CommonDimens.iconSizeLarge,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      CommonDimens.defaultBorderRadiusSmall,
+                    ),
+                  ),
+                  child: Image.memory(
+                    Uri.parse(meal.photo ?? '').data?.contentAsBytes() ??
+                        Uint8List(0),
+                    errorBuilder: (context, error, stackTrace) =>
+                        Image.asset('assets/images/354.jpeg'),
+                  ),
+                ),
                 const SizedBox(height: CommonDimens.defaultGap),
                 Text(
                   meal.name?.capitalize() ?? '',
@@ -74,8 +80,9 @@ class MealCard extends StatelessWidget {
                       '',
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontSize: CommonFontSize.font_9,
-                      fontWeight: FontWeight.w300),
+                        fontSize: CommonFontSize.font_9,
+                        fontWeight: FontWeight.w300,
+                      ),
                 ),
                 const SizedBox(height: CommonDimens.defaultGap),
                 Row(
@@ -86,7 +93,7 @@ class MealCard extends StatelessWidget {
                       fontSize: CommonFontSize.font_18,
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -94,111 +101,112 @@ class MealCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => DialogContainer(
-                              child: MealForm(
-                                meal: meal,
-                                menuTarget: menuTarget,
-                              ),
-                            )).then((onValue) {
-                      context.read<CategoriesCubit>().reset();
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => DialogContainer(
+                      child: MealForm(
+                        meal: meal,
+                        menuTarget: menuTarget,
+                      ),
+                    ),
+                  ).then((onValue) {
+                    context.read<CategoriesCubit>().reset();
 
-                      context.read<CategoriesCubit>().getChefCategories(
-                            isPreOrder: menuTarget == MenuTarget.preOrder,
-                          );
+                    context.read<CategoriesCubit>().getChefCategories(
+                          isPreOrder: menuTarget == MenuTarget.preOrder,
+                        );
 
-                      context.read<MealCubit>().reset(menuTarget: menuTarget);
-                      context.read<MealCubit>().updateMeals(
+                    context.read<MealCubit>().reset(menuTarget: menuTarget);
+                    context.read<MealCubit>().updateMeals(
                           chefId: context.read<UserCubit>().state.user.chefId,
-                          menuTarget: menuTarget);
-                    });
-                  },
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/pin.svg',
-                        width: CommonFontSize.font_10,
-                        height: CommonFontSize.font_10,
-                      ),
-                      const Text(' '),
-                      Text(
-                        'Edit',
-                        style: Theme.of(context).textTheme.displayMedium,
-                      )
-                    ],
-                  )),
+                          menuTarget: menuTarget,
+                        );
+                  });
+                },
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/images/pin.svg',
+                      width: CommonFontSize.font_10,
+                      height: CommonFontSize.font_10,
+                    ),
+                    const Text(' '),
+                    Text(
+                      'Edit',
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                  ],
+                ),
+              ),
               TextButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (ctx) => DeleteDialogTemplate(
-                              actions: () async {
-                                if (isDeleting) return true;
-                                isDeleting = true;
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => DeleteDialogTemplate(
+                      actions: () async {
+                        if (isDeleting) return true;
+                        isDeleting = true;
 
-                                final task = await DeleteMeal()
-                                    .call(DeleteMealParams(meal: meal));
+                        final task = await DeleteMeal()
+                            .call(DeleteMealParams(meal: meal));
 
-                                return task.fold((l) {
-                                  isDeleting = false;
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: SnackBarMassage(
-                                        massage: l.error ?? '',
-                                      ),
-                                    ),
-                                  );
-                                  return true;
-                                }, (r) {
-                                  isDeleting = false;
-                                  context.read<CategoriesCubit>().reset();
+                        return task.fold((l) {
+                          isDeleting = false;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: SnackBarMassage(
+                                massage: l.error ?? '',
+                              ),
+                            ),
+                          );
+                          return true;
+                        }, (r) {
+                          isDeleting = false;
+                          context.read<CategoriesCubit>().reset();
 
-                                  context
-                                      .read<CategoriesCubit>()
-                                      .getChefCategories(
-                                        isPreOrder: meal.isPreOrder == true,
-                                      );
+                          context.read<CategoriesCubit>().getChefCategories(
+                                isPreOrder: meal.isPreOrder == true,
+                              );
 
-                                  context.read<MealCubit>().reset(
-                                      menuTarget: meal.isPreOrder == true
-                                          ? MenuTarget.preOrder
-                                          : MenuTarget.order);
-                                  context.read<MealCubit>().updateMeals(
-                                      chefId: context
-                                          .read<UserCubit>()
-                                          .state
-                                          .user
-                                          .chefId,
-                                      menuTarget: menuTarget);
-                                  Navigator.of(context).pop();
-                                  return true;
-                                });
-                              },
-                              title: S.of(context).deleteMeal,
-                              content: S.of(context).areYouSureToDeleteAMeal,
-                            ));
-                  },
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/trash.svg',
-                        width: CommonFontSize.font_10,
-                        height: CommonFontSize.font_10,
-                      ),
-                      const Text(' '),
-                      Text(
-                        'Remove',
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontSize: CommonFontSize.font_10,
-                                ),
-                      )
-                    ],
-                  )),
+                          context.read<MealCubit>().reset(
+                                menuTarget: meal.isPreOrder == true
+                                    ? MenuTarget.preOrder
+                                    : MenuTarget.order,
+                              );
+                          context.read<MealCubit>().updateMeals(
+                                chefId:
+                                    context.read<UserCubit>().state.user.chefId,
+                                menuTarget: menuTarget,
+                              );
+                          Navigator.of(context).pop();
+                          return true;
+                        });
+                      },
+                      title: S.of(context).deleteMeal,
+                      content: S.of(context).areYouSureToDeleteAMeal,
+                    ),
+                  );
+                },
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/images/trash.svg',
+                      width: CommonFontSize.font_10,
+                      height: CommonFontSize.font_10,
+                    ),
+                    const Text(' '),
+                    Text(
+                      'Remove',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontSize: CommonFontSize.font_10,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

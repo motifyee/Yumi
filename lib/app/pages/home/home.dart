@@ -20,82 +20,89 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isInit = false;
 
-    return Builder(builder: (context) {
-      return BlocConsumer<NavigatorCubit, NavigatorStates>(
-        listener: (context, state) {
-          if (state.selectedIndex != navPageController.page) {
-            navPageController.jumpToPage(state.selectedIndex);
-          }
-        },
-        builder: (context, state) {
-          if (!isInit) {
-            isInit = true;
-            Timer(const Duration(milliseconds: 100), () {
+    return Builder(
+      builder: (context) {
+        return BlocConsumer<NavigatorCubit, NavigatorStates>(
+          listener: (context, state) {
+            if (state.selectedIndex != navPageController.page) {
               navPageController.jumpToPage(state.selectedIndex);
-            });
-          }
-          return ScreenContainer(
-            isColored: NavigateOptions
-                    .navigateList[state.selectedIndex].isBackGroundGradient ??
-                false,
-            child: Scaffold(
-              backgroundColor: Colors.transparent,
-              key: _scaffoldState,
-              appBar: AppBar(
-                centerTitle: true,
+            }
+          },
+          builder: (context, state) {
+            if (!isInit) {
+              isInit = true;
+              Timer(const Duration(milliseconds: 100), () {
+                navPageController.jumpToPage(state.selectedIndex);
+              });
+            }
+            return ScreenContainer(
+              isColored: NavigateOptions
+                      .navigateList[state.selectedIndex].isBackGroundGradient ??
+                  false,
+              child: Scaffold(
                 backgroundColor: Colors.transparent,
-                bottomOpacity: 0,
-                scrolledUnderElevation: 0,
-                leading: SideBarButton(
-                  onPressed: () {
-                    _scaffoldState.currentState?.openDrawer();
-                  },
+                key: _scaffoldState,
+                appBar: AppBar(
+                  centerTitle: true,
+                  backgroundColor: Colors.transparent,
+                  bottomOpacity: 0,
+                  scrolledUnderElevation: 0,
+                  leading: SideBarButton(
+                    onPressed: () {
+                      _scaffoldState.currentState?.openDrawer();
+                    },
+                  ),
+                  actions: [
+                    NavigateOptions
+                                .navigateList[state.selectedIndex].pageAction !=
+                            null
+                        ? NavigateOptions
+                            .navigateList[state.selectedIndex].pageAction!
+                        : const SizedBox(
+                            width: 1,
+                          ),
+                  ],
+                  title: Text(
+                    NavigateOptions.navigateList[state.selectedIndex].title,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                 ),
-                actions: [
-                  NavigateOptions
-                              .navigateList[state.selectedIndex].pageAction !=
-                          null
-                      ? NavigateOptions
-                          .navigateList[state.selectedIndex].pageAction!
-                      : const SizedBox(
-                          width: 1,
-                        ),
-                ],
-                title: Text(
-                  NavigateOptions.navigateList[state.selectedIndex].title,
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ),
-              bottomNavigationBar: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: CommonDimens.defaultBorderRadius, vertical: 0),
-                decoration: BoxDecoration(
+                bottomNavigationBar: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: CommonDimens.defaultBorderRadius,
+                    vertical: 0,
+                  ),
+                  decoration: BoxDecoration(
                     color: CommonColors.backgroundTant,
                     borderRadius: const BorderRadius.only(
                       topRight:
                           Radius.circular(CommonDimens.defaultBorderRadius),
                       topLeft:
                           Radius.circular(CommonDimens.defaultBorderRadius),
-                    )),
-                child: const NavigationBottomBar(),
+                    ),
+                  ),
+                  child: const NavigationBottomBar(),
+                ),
+                body: PageView(
+                  controller: navPageController,
+                  children: NavigateOptions.navigationPages(),
+                  onPageChanged: (page) {
+                    context
+                        .read<NavigatorCubit>()
+                        .navigate(selectedIndex: page);
+                  },
+                ),
+                drawer: Drawer(
+                  backgroundColor: CommonColors.background,
+                  surfaceTintColor: Colors.transparent,
+                  child: const SideBar(),
+                ),
               ),
-              body: PageView(
-                controller: navPageController,
-                children: NavigateOptions.navigationPages(),
-                onPageChanged: (page) {
-                  context.read<NavigatorCubit>().navigate(selectedIndex: page);
-                },
-              ),
-              drawer: Drawer(
-                backgroundColor: CommonColors.background,
-                surfaceTintColor: Colors.transparent,
-                child: const SideBar(),
-              ),
-            ),
-          );
-        },
-      );
-    });
+            );
+          },
+        );
+      },
+    );
   }
 }

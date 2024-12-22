@@ -1,7 +1,6 @@
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 
@@ -53,17 +52,20 @@ class StatusButton extends StatelessWidget {
                   ? SvgPicture.asset(
                       'assets/images/busy.svg',
                       colorFilter: ColorFilter.mode(
-                          CommonColors.secondaryFaint, BlendMode.srcIn),
+                        CommonColors.secondaryFaint,
+                        BlendMode.srcIn,
+                      ),
                     )
                   : status == UserStatus.online
                       ? SvgPicture.asset('assets/images/opened.svg')
                       : SvgPicture.asset(
                           'assets/images/busy.svg',
                           colorFilter: ColorFilter.mode(
-                              status == UserStatus.busy
-                                  ? CommonColors.primaryDisabled
-                                  : CommonColors.secondaryTant,
-                              BlendMode.srcIn),
+                            status == UserStatus.busy
+                                ? CommonColors.primaryDisabled
+                                : CommonColors.secondaryTant,
+                            BlendMode.srcIn,
+                          ),
                         ),
               const SizedBox(width: CommonDimens.defaultGap),
               Text(
@@ -79,7 +81,7 @@ class StatusButton extends StatelessWidget {
                           ? CommonColors.onSuccess
                           : CommonColors.onPrimary,
                     ),
-              )
+              ),
             ],
           ),
         );

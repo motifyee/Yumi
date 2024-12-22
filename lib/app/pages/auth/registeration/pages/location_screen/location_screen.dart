@@ -1,11 +1,6 @@
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:yumi/app/pages/auth/registeration/registeration_screen/registeration_screen.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
@@ -21,22 +16,23 @@ class LocationScreen extends StatelessWidget {
   final addressDetailsKey = UniqueKey();
 
   final GMapInfo mapInfo = GMapInfo(
-      setMarkerOnLongPress: true,
-      onAddressLongPress: (placemark, coord, info) {
-        final regCubit = G().rd<RegCubit>();
-        regCubit.setLocation(
-          regCubit.state.address.copyWith(
-            location: '${placemark.subAdministrativeArea}, '
-                '${placemark.administrativeArea}, '
-                '${placemark.country}',
-            latitude: coord.latitude,
-            longitude: coord.longitude,
-          ),
-        );
-      },
-      onTap: (LatLng latLng, GMapInfo info) async {
-        debugPrint((await info.controller?.getZoomLevel()).toString());
-      });
+    setMarkerOnLongPress: true,
+    onAddressLongPress: (placemark, coord, info) {
+      final regCubit = G().rd<RegCubit>();
+      regCubit.setLocation(
+        regCubit.state.address.copyWith(
+          location: '${placemark.subAdministrativeArea}, '
+              '${placemark.administrativeArea}, '
+              '${placemark.country}',
+          latitude: coord.latitude,
+          longitude: coord.longitude,
+        ),
+      );
+    },
+    onTap: (LatLng latLng, GMapInfo info) async {
+      debugPrint((await info.controller?.getZoomLevel()).toString());
+    },
+  );
 
   final bool isBack;
   final Function({required Address address})? routeFn;
@@ -76,7 +72,7 @@ class LocationScreen extends StatelessWidget {
       builder: (context, state) {
         final placesAutocompleteField = GooglePlaceAutoCompleteTextField(
           textEditingController: autoCompleteController,
-          googleAPIKey: "AIzaSyBlhKSqJ_5FgfUS3tnGmjV6hxPocuFBB_Y",
+          googleAPIKey: 'AIzaSyBlhKSqJ_5FgfUS3tnGmjV6hxPocuFBB_Y',
           // googleAPIKey: "AIzaSyCT36qFZg_DTHBU0fdTWdooUtixPJw3TUA",
           boxDecoration: const BoxDecoration(
             // border: Border.all(width: 1, color: Colors.transparent),
@@ -87,7 +83,7 @@ class LocationScreen extends StatelessWidget {
           ),
 
           debounceTime: 800,
-          countries: const ["uk", "ie"],
+          countries: const ['uk', 'ie'],
           isLatLngRequired: true,
           getPlaceDetailWithLatLng: (Prediction prediction) async {
             final double lat = double.tryParse(prediction.lat ?? '') ?? 0;
@@ -96,7 +92,7 @@ class LocationScreen extends StatelessWidget {
             mapInfo.animateCamera(LatLng(lat, lng), zoom: 11);
 
             if (lat == 0 || lng == 0 || prediction.description == null) {
-              return G().snackBar("Try to pin an exact location!");
+              return G().snackBar('Try to pin an exact location!');
             }
 
             context.read<RegCubit>().setLocation(
@@ -122,7 +118,7 @@ class LocationScreen extends StatelessWidget {
                   const SizedBox(
                     width: 7,
                   ),
-                  Expanded(child: Text(prediction.description ?? ""))
+                  Expanded(child: Text(prediction.description ?? '')),
                 ],
               ),
             );
@@ -140,38 +136,42 @@ class LocationScreen extends StatelessWidget {
 
         getUserCurrentLocation() {
           debugPrint('clicks');
-          geo(() async {
-            await Geolocator.getCurrentPosition().then(
-              (currLocation) async {
-                mapInfo.animateCamera(
-                  LatLng(currLocation.latitude, currLocation.longitude),
-                  zoom: 11,
-                );
+          geo(
+            () async {
+              await Geolocator.getCurrentPosition().then(
+                (currLocation) async {
+                  mapInfo.animateCamera(
+                    LatLng(currLocation.latitude, currLocation.longitude),
+                    zoom: 11,
+                  );
 
-                // get placemark(address) of current location
-                await tryCall(
-                  () => placemarkFromCoordinates(
-                    currLocation.latitude,
-                    currLocation.longitude,
-                  ),
-                ).then(
-                  (placemarks) {
-                    var placemark = placemarks[0];
+                  // get placemark(address) of current location
+                  await tryCall(
+                    () => placemarkFromCoordinates(
+                      currLocation.latitude,
+                      currLocation.longitude,
+                    ),
+                  ).then(
+                    (placemarks) {
+                      final placemark = placemarks[0];
 
-                    context.read<RegCubit>().setLocation(
-                          state.copyWith(
-                            latitude: currLocation.latitude,
-                            longitude: currLocation.longitude,
-                            location: '${placemark.subAdministrativeArea}, '
-                                '${placemark.administrativeArea}, '
-                                '${placemark.country}',
-                          ),
-                        );
-                  },
-                );
-              },
-            );
-          }, true, context);
+                      context.read<RegCubit>().setLocation(
+                            state.copyWith(
+                              latitude: currLocation.latitude,
+                              longitude: currLocation.longitude,
+                              location: '${placemark.subAdministrativeArea}, '
+                                  '${placemark.administrativeArea}, '
+                                  '${placemark.country}',
+                            ),
+                          );
+                    },
+                  );
+                },
+              );
+            },
+            true,
+            context,
+          );
         }
 
         final pinButton = IconButton(
@@ -210,26 +210,26 @@ class LocationScreen extends StatelessWidget {
         bool validateAddressForm() {
           if (!(formKey.currentState?.validate() ?? false)) return false;
 
-          List<List<Object>> addressFormValidFields = [
+          final List<List<Object>> addressFormValidFields = [
             [
               address.location?.isEmpty ?? true,
-              "Please choose a valid address",
+              'Please choose a valid address',
             ],
             [
               address.addressDetails?.isEmpty ?? true,
-              "Please enter your address details",
+              'Please enter your address details',
             ],
             [
               address.addressTitle?.isEmpty ?? true,
-              "Please enter a title for your address",
+              'Please enter a title for your address',
             ],
             [
               address.latitude == null || address.longitude == null,
-              "Please interact with the map to specify your exact location"
+              'Please interact with the map to specify your exact location',
             ]
           ];
 
-          var trueV = addressFormValidFields.firstWhere(
+          final trueV = addressFormValidFields.firstWhere(
             (element) => element[0] as bool,
             orElse: () => [false],
           );
@@ -249,7 +249,7 @@ class LocationScreen extends StatelessWidget {
           validators: (val) =>
               (val?.length ?? 0) < 3 ? 'Minimum 3 characters required' : null,
           hintText: 'Address Title, eg: My Home Address',
-          label: "Address Title",
+          label: 'Address Title',
         );
 
         final addressDetailsField = TextFormFieldTemplate(

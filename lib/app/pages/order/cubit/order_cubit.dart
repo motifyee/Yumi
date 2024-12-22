@@ -49,9 +49,10 @@ class OrderCubit extends Cubit<OrderState> {
     String? customMessage,
   }) async {
     void emitOrderIsLoading(bool isLoading) {
-      List<Order> orders = List.from(
+      final List<Order> orders = List.from(
         state.ordersPage.data.map(
-            (e) => e.id == order.id ? e.copyWith(isLoading: isLoading) : e),
+          (e) => e.id == order.id ? e.copyWith(isLoading: isLoading) : e,
+        ),
       );
       emit(state.copyWith.ordersPage(data: orders));
     }

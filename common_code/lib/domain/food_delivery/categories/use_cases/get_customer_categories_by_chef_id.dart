@@ -1,7 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/domain/food_delivery/categories/data/repo/categories_repo.dart';
-import 'package:common_code/domain/food_delivery/categories/entity/category.dart';
 
 class GetCustomerCategories
     extends UseCase<PaginatedData<Category>, GetCustomerCategoriesParams> {

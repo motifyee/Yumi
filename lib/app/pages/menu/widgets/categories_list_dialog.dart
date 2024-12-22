@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:yumi/app/pages/menu/cubit/categories/categories_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
@@ -24,15 +23,17 @@ class CategoriesListDialog extends StatelessWidget {
         padding:
             const EdgeInsets.symmetric(vertical: CommonDimens.defaultBlockGap),
         decoration: BoxDecoration(
-            color: CommonColors.background,
-            borderRadius:
-                BorderRadius.circular(CommonDimens.defaultBorderRadiusMedium)),
+          color: CommonColors.background,
+          borderRadius:
+              BorderRadius.circular(CommonDimens.defaultBorderRadiusMedium),
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: CommonDimens.defaultBlockGap),
+                horizontal: CommonDimens.defaultBlockGap,
+              ),
               child: Row(
                 children: [
                   SvgPicture.asset('assets/images/categories_list.svg'),
@@ -71,8 +72,9 @@ class CategoriesListDialog extends StatelessWidget {
                               isScrollControlled: true,
                               isDismissible: true,
                               constraints: BoxConstraints(
-                                  maxHeight:
-                                      MediaQuery.of(context).size.height * .8),
+                                maxHeight:
+                                    MediaQuery.of(context).size.height * .8,
+                              ),
                               builder: (context) => MealListScreen(
                                 menuTarget: menuTarget,
                                 categoryId: category.id,
@@ -82,7 +84,8 @@ class CategoriesListDialog extends StatelessWidget {
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: CommonDimens.defaultGap),
+                              horizontal: CommonDimens.defaultGap,
+                            ),
                             child: Column(
                               children: [
                                 Container(
@@ -91,7 +94,8 @@ class CategoriesListDialog extends StatelessWidget {
                                   clipBehavior: Clip.hardEdge,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(
-                                        CommonDimens.defaultGap),
+                                      CommonDimens.defaultGap,
+                                    ),
                                   ),
                                   child: Image.memory(
                                     Uri.parse(category.image ?? '')
@@ -113,7 +117,7 @@ class CategoriesListDialog extends StatelessWidget {
                                 Text(
                                   category.name ?? '',
                                   style: Theme.of(context).textTheme.bodyMedium,
-                                )
+                                ),
                               ],
                             ),
                           ),

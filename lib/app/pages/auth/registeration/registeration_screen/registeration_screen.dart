@@ -1,6 +1,5 @@
 import 'package:dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:common_code/domain/user/cubit/user_cubit.dart';
@@ -54,15 +53,18 @@ Future<void> askToLogout(BuildContext context, {bool isBack = false}) async {
     return;
   }
 
-  bool isLoggedIn = context.read<UserCubit>().state.user.accessToken.isNotEmpty;
+  final bool isLoggedIn =
+      context.read<UserCubit>().state.user.accessToken.isNotEmpty;
   await showAlertDialog(
     context: context,
     title: Text(isLoggedIn ? S.of(context).logout : S.of(context).leave),
     content: Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      child: Text(isLoggedIn
-          ? S.of(context).areYouSureYouWantToLogout
-          : S.of(context).areYouSureYouWantToLeave),
+      child: Text(
+        isLoggedIn
+            ? S.of(context).areYouSureYouWantToLogout
+            : S.of(context).areYouSureYouWantToLeave,
+      ),
     ),
     actions: {
       S.current.cancel: null,

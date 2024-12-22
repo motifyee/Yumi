@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
@@ -16,12 +15,12 @@ class EventsPhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormField<List<String?>>(
       validator: (value) =>
-          value == null || value.isEmpty ? "Upload at least one photo" : null,
+          value == null || value.isEmpty ? 'Upload at least one photo' : null,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       initialValue: G().rd<ProfileCubit>().state.form.eventPhotos,
       builder: (fieldState) => BlocBuilder<ProfileCubit, ProfileState>(
         builder: (ctx, state) {
-          var eventPhotosTitle = Row(
+          final eventPhotosTitle = Row(
             children: [
               SvgPicture.asset('assets/images/camera_dark.svg'),
               const SizedBox(width: CommonDimens.defaultLineGap),
@@ -34,7 +33,8 @@ class EventsPhoto extends StatelessWidget {
 
           return Padding(
             padding: const EdgeInsets.symmetric(
-                horizontal: CommonDimens.defaultTitleGap),
+              horizontal: CommonDimens.defaultTitleGap,
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -85,8 +85,8 @@ class EventsPhoto extends StatelessWidget {
     ProfileState state, [
     String? image,
   ]) {
-    var w = 120.0;
-    var h = 200.0;
+    const w = 120.0;
+    const h = 200.0;
     return Card(
       elevation: 3,
       child: SizedBox(
@@ -99,7 +99,7 @@ class EventsPhoto extends StatelessWidget {
             if (image != null && image.isNotEmpty) ...[
               Center(
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: w * 2),
+                  constraints: const BoxConstraints(maxWidth: w * 2),
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: Image.memory(
@@ -110,7 +110,7 @@ class EventsPhoto extends StatelessWidget {
                   ),
                 ),
               ),
-              _deleteButton(fieldState, image)
+              _deleteButton(fieldState, image),
             ] else if (state.form.entityStatus.isLoading)
               const Center(
                 child: CircularProgressIndicator(),
@@ -129,54 +129,55 @@ class EventsPhoto extends StatelessWidget {
   ) {
     return Center(
       child: IconButton(
-          onPressed: () async {
-            ImagePicker picker = ImagePicker();
+        onPressed: () async {
+          final ImagePicker picker = ImagePicker();
 
-            final images = await picker.pickMultiImage();
+          final images = await picker.pickMultiImage();
 
-            b64e(XFile fl) async =>
-                'data:${lookupMimeType(fl.path)};base64,${base64Encode(await fl.readAsBytes())}';
-            var newPhotos = await Future.wait(images.map((e) => b64e(e)));
+          b64e(XFile fl) async =>
+              'data:${lookupMimeType(fl.path)};base64,${base64Encode(await fl.readAsBytes())}';
+          final newPhotos = await Future.wait(images.map((e) => b64e(e)));
 
-            if (newPhotos.isEmpty) return;
+          if (newPhotos.isEmpty) return;
 
-            List<String?> photos = [
-              ...state.form.eventPhotos,
-              ...newPhotos,
-            ];
+          final List<String?> photos = [
+            ...state.form.eventPhotos,
+            ...newPhotos,
+          ];
 
-            var allowed = 5 - state.form.eventPhotos.length;
+          final allowed = 5 - state.form.eventPhotos.length;
 
-            if (photos.length <= 5) {
-              final p = await G().rd<ProfileCubit>().uploadFormPhotos(photos);
-              G().rd<ProfileCubit>().getProfileForm();
+          if (photos.length <= 5) {
+            final p = await G().rd<ProfileCubit>().uploadFormPhotos(photos);
+            G().rd<ProfileCubit>().getProfileForm();
 
-              if (!fieldState.mounted) return;
-              return fieldState.didChange(p.eventPhotos);
-            }
+            if (!fieldState.mounted) return;
+            return fieldState.didChange(p.eventPhotos);
+          }
 
-            showAlertDialog(
-              // ignore: use_build_context_synchronously
-              context: G().context,
-              content: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text(
-                  "You're only allowed to upload a total of 5 photos.\n\n "
-                  "${allowed > 0 ? 'You\'ve selected ${newPhotos.length} of which $allowed ${allowed > 1 ? "photos" : "photo"} will be uploaded.' : 'no more photos can be uploaded.'}",
-                ),
+          showAlertDialog(
+            // ignore: use_build_context_synchronously
+            context: G().context,
+            content: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                "You're only allowed to upload a total of 5 photos.\n\n "
+                "${allowed > 0 ? 'You\'ve selected ${newPhotos.length} of which $allowed ${allowed > 1 ? "photos" : "photo"} will be uploaded.' : 'no more photos can be uploaded.'}",
               ),
-              actions: {
-                if (allowed > 0)
-                  S.current.cancel: (ctx) => ctx.router.popForced(),
-                S.current.ok: (ctx) {
-                  final p = G().rd<ProfileCubit>().uploadFormPhotos(photos);
-                  fieldState.didChange(photos);
-                  ctx.router.popForced();
-                },
+            ),
+            actions: {
+              if (allowed > 0)
+                S.current.cancel: (ctx) => ctx.router.popForced(),
+              S.current.ok: (ctx) {
+                final p = G().rd<ProfileCubit>().uploadFormPhotos(photos);
+                fieldState.didChange(photos);
+                ctx.router.popForced();
               },
-            );
-          },
-          icon: const Icon(Icons.add)),
+            },
+          );
+        },
+        icon: const Icon(Icons.add),
+      ),
     );
   }
 
@@ -190,21 +191,21 @@ class EventsPhoto extends StatelessWidget {
       child: InkWell(
         onTap: () {
           showAlertDialog(
-              context: G().context,
-              content: const Padding(
-                padding: EdgeInsets.all(12),
-                child: Text("Are you sure you want ot delete selected image"),
-              ),
-              actions: {
-                S.current.cancel: null,
-                S.current.ok: (ctx) async {
-                  G().pop();
-                  final p = await G()
-                      .rd<ProfileCubit>()
-                      .deleteFormPhoto(photo: image!);
-                  fieldState.didChange(p.eventPhotos);
-                }
-              });
+            context: G().context,
+            content: const Padding(
+              padding: EdgeInsets.all(12),
+              child: Text('Are you sure you want ot delete selected image'),
+            ),
+            actions: {
+              S.current.cancel: null,
+              S.current.ok: (ctx) async {
+                G().pop();
+                final p =
+                    await G().rd<ProfileCubit>().deleteFormPhoto(photo: image!);
+                fieldState.didChange(p.eventPhotos);
+              },
+            },
+          );
         },
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),

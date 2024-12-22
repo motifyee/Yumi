@@ -13,7 +13,9 @@ class CreateBasket extends UseCase<Basket, CreateBasketParams> {
   Future<Either<Failure, Basket>> call(CreateBasketParams params) async {
     return await basketRepo
         .createOrderOrPreOrderPickUp(
-            basket: params.basket, isPreOrder: params.isPreOrder)
+          basket: params.basket,
+          isPreOrder: params.isPreOrder,
+        )
         .run();
   }
 }

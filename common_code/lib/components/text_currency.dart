@@ -1,5 +1,4 @@
 import 'package:common_code/common_code.dart';
-import 'package:common_code/resources/common_font_size.dart';
 import 'package:flutter/material.dart';
 
 class TextCurrency extends StatelessWidget {

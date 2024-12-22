@@ -2,7 +2,6 @@ import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:common_code/components/loading_indicator/pacman_loading_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/basket/cubit/basket_cubit.dart';
 import 'package:yumi/app/pages/basket/widgets/payment_summary_card.dart';
 import 'package:yumi/app/pages/wallet/wallet_cubit/wallet_cubit.dart';
@@ -26,13 +25,14 @@ class CheckOutScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         leading: TextButton(
-            onPressed: () {
-              context.router.popForced();
-            },
-            child: Icon(
-              Icons.arrow_back,
-              color: CommonColors.primary,
-            )),
+          onPressed: () {
+            context.router.popForced();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: CommonColors.primary,
+          ),
+        ),
         title: Column(
           children: [
             Text(
@@ -52,7 +52,8 @@ class CheckOutScreen extends StatelessWidget {
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) => Padding(
           padding: const EdgeInsets.symmetric(
-              horizontal: CommonDimens.defaultTitleGap),
+            horizontal: CommonDimens.defaultTitleGap,
+          ),
           child: SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
@@ -68,7 +69,8 @@ class CheckOutScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(
-                                height: CommonDimens.defaultBlockGap),
+                              height: CommonDimens.defaultBlockGap,
+                            ),
                             Text(
                               S.of(context).payWith,
                               style: Theme.of(context)
@@ -82,29 +84,34 @@ class CheckOutScreen extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 context.read<BasketCubit>().updatePayment(
-                                    paymentType: PaymentOption.visa.index);
+                                      paymentType: PaymentOption.visa.index,
+                                    );
                                 return;
                                 context.router.push(const PaymentVisaRoute());
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: CommonDimens.defaultInputGap),
+                                  horizontal: CommonDimens.defaultInputGap,
+                                ),
                                 child: Row(
                                   children: [
                                     Container(
                                       width: CommonDimens.defaultLineGap,
                                       height: CommonDimens.defaultLineGap,
                                       decoration: BoxDecoration(
-                                          color: state.basket.invoice
-                                                      .paymentType ==
-                                                  PaymentOption.visa.index
-                                              ? CommonColors.primary
-                                              : CommonColors.secondaryFaint,
-                                          borderRadius: BorderRadius.circular(
-                                              CommonDimens.defaultLineGap)),
+                                        color:
+                                            state.basket.invoice.paymentType ==
+                                                    PaymentOption.visa.index
+                                                ? CommonColors.primary
+                                                : CommonColors.secondaryFaint,
+                                        borderRadius: BorderRadius.circular(
+                                          CommonDimens.defaultLineGap,
+                                        ),
+                                      ),
                                     ),
                                     const SizedBox(
-                                        width: CommonDimens.defaultGap),
+                                      width: CommonDimens.defaultGap,
+                                    ),
                                     Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
@@ -130,27 +137,32 @@ class CheckOutScreen extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 context.read<BasketCubit>().updatePayment(
-                                    paymentType: PaymentOption.wallet.index);
+                                      paymentType: PaymentOption.wallet.index,
+                                    );
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: CommonDimens.defaultInputGap),
+                                  horizontal: CommonDimens.defaultInputGap,
+                                ),
                                 child: Row(
                                   children: [
                                     Container(
                                       width: CommonDimens.defaultLineGap,
                                       height: CommonDimens.defaultLineGap,
                                       decoration: BoxDecoration(
-                                          color: state.basket.invoice
-                                                      .paymentType ==
-                                                  PaymentOption.wallet.index
-                                              ? CommonColors.primary
-                                              : CommonColors.secondaryFaint,
-                                          borderRadius: BorderRadius.circular(
-                                              CommonDimens.defaultLineGap)),
+                                        color:
+                                            state.basket.invoice.paymentType ==
+                                                    PaymentOption.wallet.index
+                                                ? CommonColors.primary
+                                                : CommonColors.secondaryFaint,
+                                        borderRadius: BorderRadius.circular(
+                                          CommonDimens.defaultLineGap,
+                                        ),
+                                      ),
                                     ),
                                     const SizedBox(
-                                        width: CommonDimens.defaultGap),
+                                      width: CommonDimens.defaultGap,
+                                    ),
                                     Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
@@ -174,14 +186,16 @@ class CheckOutScreen extends StatelessWidget {
                                         return state.isLoading
                                             ? const PacmanLoadingWidget(
                                                 size: CommonDimens
-                                                    .defaultBlockGap)
+                                                    .defaultBlockGap,
+                                              )
                                             : TextCurrency(
                                                 value: -1 *
                                                     (state.wallet.money ?? 0),
                                                 fontSize:
-                                                    CommonFontSize.font_14);
+                                                    CommonFontSize.font_14,
+                                              );
                                       },
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
@@ -207,14 +221,16 @@ class CheckOutScreen extends StatelessWidget {
                           hintText: S.of(context).enterVoucherCode,
                           prefixIcon: Container(
                             padding: const EdgeInsets.all(
-                                CommonDimens.defaultInputGap),
+                              CommonDimens.defaultInputGap,
+                            ),
                             child: SvgPicture.asset(AppAssets.voucherIcon),
                           ),
                           suffixIcon: TextButton(
                             onPressed: () {
                               if (voucherController.value.text.isNotEmpty) {
                                 context.read<BasketCubit>().addVoucher(
-                                    voucher: voucherController.value.text);
+                                      voucher: voucherController.value.text,
+                                    );
                               }
                             },
                             child: Text(
@@ -256,29 +272,33 @@ class CheckOutScreen extends StatelessWidget {
                                   return GestureDetector(
                                     onTap: () {
                                       if (state.basket.invoice.paymentType ==
-                                          PaymentOption.visa.index)
+                                          PaymentOption.visa.index) {
                                         context
                                             .read<BasketCubit>()
                                             .stripePayment();
+                                      }
                                       if (state.basket.invoice.paymentType ==
-                                          PaymentOption.wallet.index)
+                                          PaymentOption.wallet.index) {
                                         context
                                             .read<BasketCubit>()
                                             .closeBasket();
+                                      }
                                     },
                                     child: Container(
                                       width: CommonDimens.defaultGapXXXL * 1.5,
                                       height: CommonDimens.defaultTitleGapLarge,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(
-                                            CommonDimens.defaultBorderRadius),
+                                          CommonDimens.defaultBorderRadius,
+                                        ),
                                         color: CommonColors.primary,
                                       ),
                                       child: Center(
                                         child: state.basket.isPaying
                                             ? PacmanLoadingWidget(
                                                 color: CommonColors.onPrimary,
-                                                size: CommonFontSize.font_24)
+                                                size: CommonFontSize.font_24,
+                                              )
                                             : Text(
                                                 S.of(context).checkout,
                                                 style: Theme.of(context)

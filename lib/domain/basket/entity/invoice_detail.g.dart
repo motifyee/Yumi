@@ -10,7 +10,7 @@ _$InvoiceDetailImpl _$$InvoiceDetailImplFromJson(Map<String, dynamic> json) =>
     _$InvoiceDetailImpl(
       productVarintId: (json['productVarintId'] as num?)?.toInt(),
       quantity: json['quantity'] == null
-          ? "0"
+          ? '0'
           : const StringToDoubleAsIntStringConverter()
               .fromJson((json['quantity'] as num).toDouble()),
       productVarintPrice: (json['productVarintPrice'] as num?)?.toDouble() ?? 0,

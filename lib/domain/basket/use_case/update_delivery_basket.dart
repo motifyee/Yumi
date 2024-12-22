@@ -6,7 +6,8 @@ import 'package:yumi/domain/basket/entity/basket.dart';
 class UpdateDeliveryBasket extends UseCase<Basket, UpdateDeliveryBasketParams> {
   @override
   Future<Either<Failure, Basket>> call(
-      UpdateDeliveryBasketParams params) async {
+    UpdateDeliveryBasketParams params,
+  ) async {
     return Right(params.basket.copyWith(isDelivery: true, isPickup: false));
   }
 }

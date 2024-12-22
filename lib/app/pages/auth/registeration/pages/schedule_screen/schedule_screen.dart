@@ -1,11 +1,9 @@
 import 'dart:math';
 
 import 'package:dependencies/dependencies.dart';
-import 'package:collection/collection.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/core/resources/app_assets.dart';
 import 'package:common_code/domain/schedule/entities/schedule.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
@@ -48,7 +46,8 @@ class MyScheduleScreen extends StatelessWidget {
               return Column(
                 children: [
                   Expanded(
-                      child: SingleChildScrollView(child: _buildCards(state))),
+                    child: SingleChildScrollView(child: _buildCards(state)),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: _buildSaveButton(context),
@@ -63,11 +62,11 @@ class MyScheduleScreen extends StatelessWidget {
   }
 
   TextButton _buildSaveButton(BuildContext context) {
-    var bloc = context.read<ScheduleCubit>();
-    var valid = bloc.state.scheduleForm.uiValid;
-    var validSchedule = bloc.state.scheduleForm.validSchedule;
+    final bloc = context.read<ScheduleCubit>();
+    final valid = bloc.state.scheduleForm.uiValid;
+    final validSchedule = bloc.state.scheduleForm.validSchedule;
 
-    var enableUpdate = valid && bloc.state.changed;
+    final enableUpdate = valid && bloc.state.changed;
 
     return TextButton(
       onPressed: () {
@@ -83,7 +82,8 @@ class MyScheduleScreen extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(
-              Radius.circular(CommonDimens.defaultBorderRadiusLarge)),
+            Radius.circular(CommonDimens.defaultBorderRadiusLarge),
+          ),
           color: enableUpdate ? CommonColors.primary : CommonColors.primaryTant,
         ),
         child: Row(
@@ -112,12 +112,14 @@ class MyScheduleScreen extends StatelessWidget {
       children: [
         const SizedBox(width: double.infinity, height: 50),
         ...ScheduleWeekDay.values
-            .map((e) => [
-                  _buildCard(state.scheduleForm.scheduleDay(e)),
-                  const SizedBox(
-                    height: 10,
-                  )
-                ])
+            .map(
+              (e) => [
+                _buildCard(state.scheduleForm.scheduleDay(e)),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            )
             .expand((e) => e),
       ],
     );
@@ -125,34 +127,38 @@ class MyScheduleScreen extends StatelessWidget {
 
   Widget _buildCard(ScheduleDay day) {
     return Card(
-        shape: day.uiValid
-            ? null
-            : RoundedRectangleBorder(
-                side: BorderSide(color: CommonColors.error, width: 2.0),
-                borderRadius: BorderRadius.circular(10.0)),
-        borderOnForeground: true,
-        elevation: day.active ?? false ? 5 : 1,
-        child: SizedBox(
-          width: 140,
-          child: Column(
-            children: [
-              _buildCardTitle(day),
-              const SizedBox(height: 10),
-              _buildCardBody(day),
-            ],
-          ),
-        ));
+      shape: day.uiValid
+          ? null
+          : RoundedRectangleBorder(
+              side: BorderSide(color: CommonColors.error, width: 2.0),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+      borderOnForeground: true,
+      elevation: day.active ?? false ? 5 : 1,
+      child: SizedBox(
+        width: 140,
+        child: Column(
+          children: [
+            _buildCardTitle(day),
+            const SizedBox(height: 10),
+            _buildCardBody(day),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildCardTitle(ScheduleDay day) {
     final titleInkWell = InkWell(
       onTap: () {
-        var d = day.copyWith(active: !(day.active ?? false));
+        final d = day.copyWith(active: !(day.active ?? false));
         HapticFeedback.lightImpact();
         G().rd<ScheduleCubit>().saveScheduleDay(d);
       },
       borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+        topLeft: Radius.circular(10),
+        topRight: Radius.circular(10),
+      ),
       child: Container(
         alignment: Alignment.center,
         child: Text(
@@ -184,11 +190,11 @@ class MyScheduleScreen extends StatelessWidget {
       },
       menuChildren: [
         MenuItemButton(
-          child: const Text("Copy to all"),
+          child: const Text('Copy to all'),
           onPressed: () {
             G().rd<ScheduleCubit>().applyDayToAll(day);
           },
-        )
+        ),
       ],
     );
 
@@ -229,152 +235,157 @@ class MyScheduleScreen extends StatelessWidget {
 
   Widget _buildCardBody(ScheduleDay day) {
     final activeTime = day.activeTime?.toPaddedString;
-    final timeDiff = (activeTime?.contains('-') ?? true) ? "00:00" : activeTime;
+    final timeDiff = (activeTime?.contains('-') ?? true) ? '00:00' : activeTime;
 
-    return Builder(builder: (context) {
-      return Column(
-        children: [
-          _buildTimeRow(day, true),
-          _buildTimeRow(day, false),
-          const SizedBox(height: 5),
-          //
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(width: 10),
-              Text(
-                timeDiff ?? "00:00",
-                style: TextStyle(
-                  color: day.active ?? false
-                      ? CommonColors.secondaryTant
-                      : CommonColors.secondaryFaint,
+    return Builder(
+      builder: (context) {
+        return Column(
+          children: [
+            _buildTimeRow(day, true),
+            _buildTimeRow(day, false),
+            const SizedBox(height: 5),
+            //
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(width: 10),
+                Text(
+                  timeDiff ?? '00:00',
+                  style: TextStyle(
+                    color: day.active ?? false
+                        ? CommonColors.secondaryTant
+                        : CommonColors.secondaryFaint,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-        ],
-      );
-    });
+              ],
+            ),
+            const SizedBox(height: 10),
+          ],
+        );
+      },
+    );
   }
 
   Widget _buildTimeRow(ScheduleDay day, bool start) {
-    return Builder(builder: (context) {
-      final themeData = Theme.of(context);
-      final textTheme = themeData.textTheme;
-      return Theme(
-        data: themeData.copyWith(
+    return Builder(
+      builder: (context) {
+        final themeData = Theme.of(context);
+        final textTheme = themeData.textTheme;
+        return Theme(
+          data: themeData.copyWith(
             textTheme: textTheme.copyWith(
-          headlineSmall: TextStyle(
-            color: CommonColors.primary,
-            fontSize: CommonFontSize.font_9,
-          ),
-        )),
-        child: InkWell(
-          onTap: day.active ?? false
-              ? () async {
-                  HapticFeedback.lightImpact();
-
-                  await showTimePicker(
-                    context: context,
-                    initialTime:
-                        (start ? day.start : day.end) ?? TimeOfDay.now(),
-                    helpText: start
-                        ? S.of(context).pickStartTime
-                        : S.of(context).pickEndTime,
-                    initialEntryMode: TimePickerEntryMode.dialOnly,
-                    barrierDismissible: false,
-                    useRootNavigator: true,
-                  ).then((tod) {
-                    final cubit = context.read<ScheduleCubit>();
-                    if (tod == null) return;
-
-                    // ---------------------------------------------------------
-                    // Check if end time is after start time with two hours
-                    // ---------------------------------------------------------
-                    final saved = cubit.state.scheduleForm.scheduleDays
-                        .firstWhereOrNull((e) => e.name == day.name);
-
-                    //// TODO: change [api & Schedule.scheduleDay()] to set unset days to null
-                    if (start && saved?.end != null) {
-                      if (saved?.end?.hour == 0 && saved?.end?.minute == 0) {
-                      } else if ((saved?.end?.minutesDifference(tod) ?? 0) <
-                          2 * 60) {
-                        G().hideSnackbar();
-                        G().snackBar(
-                          S
-                              .of(context)
-                              .startTimeMustBeAtLeast2HoursBeforeEndTime,
-                        );
-                      }
-                    }
-
-                    if (!start) {
-                      if (tod.minutesDifference(saved?.start) < 2 * 60) {
-                        G().hideSnackbar();
-                        return G().snackBar(
-                          S
-                              .of(context)
-                              .endTimeMustBeAtLeast2HoursAfterStartTime,
-                        );
-                      }
-                    }
-                    // ---------------------------------------------------------
-
-                    G().hideSnackbar();
-                    HapticFeedback.lightImpact();
-
-                    cubit.saveScheduleDay(
-                      day.copyWith(
-                        start: start ? tod : day.start,
-                        end: start ? day.end : tod,
-                      ),
-                    );
-                  });
-                }
-              : null,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: 48,
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "${start ? S.of(context).scheduleStart : S.of(context).scheduleEnd} ",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 12,
-                      color: day.active ?? false
-                          ? CommonColors.primaryDisabled
-                          : CommonColors.primaryTant,
-                    ),
-                  ),
-                ),
-                _buildTimeWidget(day, start),
-                const SizedBox(),
-              ],
+              headlineSmall: TextStyle(
+                color: CommonColors.primary,
+                fontSize: CommonFontSize.font_9,
+              ),
             ),
           ),
-        ),
-      );
-    });
+          child: InkWell(
+            onTap: day.active ?? false
+                ? () async {
+                    HapticFeedback.lightImpact();
+
+                    await showTimePicker(
+                      context: context,
+                      initialTime:
+                          (start ? day.start : day.end) ?? TimeOfDay.now(),
+                      helpText: start
+                          ? S.of(context).pickStartTime
+                          : S.of(context).pickEndTime,
+                      initialEntryMode: TimePickerEntryMode.dialOnly,
+                      barrierDismissible: false,
+                      useRootNavigator: true,
+                    ).then((tod) {
+                      final cubit = context.read<ScheduleCubit>();
+                      if (tod == null) return;
+
+                      // ---------------------------------------------------------
+                      // Check if end time is after start time with two hours
+                      // ---------------------------------------------------------
+                      final saved = cubit.state.scheduleForm.scheduleDays
+                          .firstWhereOrNull((e) => e.name == day.name);
+
+                      //// TODO: change [api & Schedule.scheduleDay()] to set unset days to null
+                      if (start && saved?.end != null) {
+                        if (saved?.end?.hour == 0 && saved?.end?.minute == 0) {
+                        } else if ((saved?.end?.minutesDifference(tod) ?? 0) <
+                            2 * 60) {
+                          G().hideSnackbar();
+                          G().snackBar(
+                            S
+                                .of(context)
+                                .startTimeMustBeAtLeast2HoursBeforeEndTime,
+                          );
+                        }
+                      }
+
+                      if (!start) {
+                        if (tod.minutesDifference(saved?.start) < 2 * 60) {
+                          G().hideSnackbar();
+                          return G().snackBar(
+                            S
+                                .of(context)
+                                .endTimeMustBeAtLeast2HoursAfterStartTime,
+                          );
+                        }
+                      }
+                      // ---------------------------------------------------------
+
+                      G().hideSnackbar();
+                      HapticFeedback.lightImpact();
+
+                      cubit.saveScheduleDay(
+                        day.copyWith(
+                          start: start ? tod : day.start,
+                          end: start ? day.end : tod,
+                        ),
+                      );
+                    });
+                  }
+                : null,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 48,
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      '${start ? S.of(context).scheduleStart : S.of(context).scheduleEnd} ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 12,
+                        color: day.active ?? false
+                            ? CommonColors.primaryDisabled
+                            : CommonColors.primaryTant,
+                      ),
+                    ),
+                  ),
+                  _buildTimeWidget(day, start),
+                  const SizedBox(),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   RichText _buildTimeWidget(ScheduleDay day, bool start) {
-    var timeOfDay =
+    final timeOfDay =
         (start ? day.start : day.end) ?? const TimeOfDay(hour: 0, minute: 0);
 
     var timeParts = [
       (timeOfDay.hour > 12 ? timeOfDay.hour - 12 : timeOfDay.hour).toString(),
       ' : ',
-      timeOfDay.minute.toString()
+      timeOfDay.minute.toString(),
     ];
 
     if (CommonLocale.isRTL) timeParts = timeParts.reversed.toList();
 
-    var timeString = timeParts.reduce(
+    final timeString = timeParts.reduce(
       (value, element) => value.padLeft(2, '0') + element.padLeft(2, '0'),
     );
 
@@ -398,14 +409,15 @@ class MyScheduleScreen extends StatelessWidget {
               offset: const Offset(0, 0),
               // offset: const Offset(2, -4),
               child: Text(
-                  ' ${timeOfDay.period.name == 'am' ? S.current.am : S.current.pm}',
-                  textScaler: const TextScaler.linear(0.7),
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    color: day.active ?? false
-                        ? CommonColors.primaryDisabled.withAlpha(950)
-                        : CommonColors.secondaryFaint,
-                  )),
+                ' ${timeOfDay.period.name == 'am' ? S.current.am : S.current.pm}',
+                textScaler: const TextScaler.linear(0.7),
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  color: day.active ?? false
+                      ? CommonColors.primaryDisabled.withAlpha(950)
+                      : CommonColors.secondaryFaint,
+                ),
+              ),
             ),
           ),
         ],
@@ -465,22 +477,22 @@ void sheduleDialog(BuildContext context) {
 
 double textScaleFactor(BuildContext context, {double maxTextScaleFactor = 2}) {
   final width = MediaQuery.of(context).size.width;
-  double val = (width / 1400) * maxTextScaleFactor;
+  final double val = (width / 1400) * maxTextScaleFactor;
   return max(1, min(val, maxTextScaleFactor));
 }
 
 extension _SX on S {
   String getProp(String key) =>
       <String, String>{
-        "pm": S.current.pm,
-        "am": S.current.am,
-        "saturdayPrev": S.current.saturdayPrev,
-        "sundayPrev": S.current.sundayPrev,
-        "mondayPrev": S.current.mondayPrev,
-        "tuesdayPrev": S.current.tuesdayPrev,
-        "wednesdayPrev": S.current.wednesdayPrev,
-        "thursdayPrev": S.current.thursdayPrev,
-        "fridayPrev": S.current.fridayPrev,
+        'pm': S.current.pm,
+        'am': S.current.am,
+        'saturdayPrev': S.current.saturdayPrev,
+        'sundayPrev': S.current.sundayPrev,
+        'mondayPrev': S.current.mondayPrev,
+        'tuesdayPrev': S.current.tuesdayPrev,
+        'wednesdayPrev': S.current.wednesdayPrev,
+        'thursdayPrev': S.current.thursdayPrev,
+        'fridayPrev': S.current.fridayPrev,
       }[key] ??
       key;
 }

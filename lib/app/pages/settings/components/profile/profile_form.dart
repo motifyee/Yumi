@@ -2,7 +2,6 @@ import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/profile/cubit/profile_cubit.dart';
 import 'package:yumi/core/util/constants.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
@@ -41,7 +40,7 @@ class ProfileForm extends StatelessWidget {
           initialValue: state.form.fullName,
           validators: requiredValidator,
           inputFormatters: [
-            FilteringTextInputFormatter.allow(CustomRegex.lettersBlankOnly)
+            FilteringTextInputFormatter.allow(CustomRegex.lettersBlankOnly),
           ],
           onSave: (value) =>
               cubit.setState((s) => s.copyWith.form(fullName: value)),
@@ -114,7 +113,8 @@ class ProfileForm extends StatelessWidget {
               child: InkWell(
                 onTap: () => cubit.toggleDeliveryAvailable(),
                 child: SvgPicture.asset(
-                    'assets/images/delivery-${state.form.pickupOnly ? 'not-' : ''}available.svg'),
+                  'assets/images/delivery-${state.form.pickupOnly ? 'not-' : ''}available.svg',
+                ),
               ),
             ),
           ],
@@ -147,7 +147,7 @@ class ProfileForm extends StatelessWidget {
                           changeMobileButton,
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(height: CommonDimens.defaultLineGap * 2),

@@ -1,8 +1,6 @@
-import 'package:collection/collection.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yumi/app/pages/auth/registeration/cubit/registeration_cubit/reg_cubit.dart';
 import 'package:common_code/domain/vehicle/entities/vehicle.dart';
 import 'package:yumi/core/resources/app_assets.dart';
@@ -16,22 +14,22 @@ class RidesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // var vehicles = ['Car', 'Motorcycle', 'Bicycle', 'Other'];
-    var vehicles = [
+    final vehicles = [
       const Vehicle(typeCode: 1),
       const Vehicle(typeCode: 2),
       const Vehicle(typeCode: 3),
       const Vehicle(typeCode: 4),
     ];
-    var vehicleIcons = [
+    final vehicleIcons = [
       Icons.directions_car,
       Icons.motorcycle,
-      Icons.directions_bike
+      Icons.directions_bike,
     ];
     // var controller = TextEditingController();
     String vehicleOtherType = '';
-    var node = FocusNode();
+    final node = FocusNode();
 
-    var regCubit = G().rd<RegCubit>();
+    final regCubit = G().rd<RegCubit>();
     () async {
       if (regCubit.state.vehicle.typeCode != 0) return;
 
@@ -83,7 +81,7 @@ class RidesScreen extends StatelessWidget {
               children: vehicles.mapIndexed(buildToggleButton).toList(),
               onPressed: (int idx) async {
                 regCubit.state.canAddVehicle.then((bool canSetVehicle) {
-                  var regCubit = G().rd<RegCubit>();
+                  final regCubit = G().rd<RegCubit>();
 
                   if (canSetVehicle) {
                     regCubit.setVehicleType(vehicles[idx]);
@@ -110,11 +108,13 @@ class RidesScreen extends StatelessWidget {
               onTapOutside: (evt) {
                 if (vehicleOtherType.length < 3) {
                   return G().snackBar(
-                      "Custom vehicle type must be at least 3 characters long");
+                    'Custom vehicle type must be at least 3 characters long',
+                  );
                 }
 
                 G().rd<RegCubit>().setVehicleType(
-                    state.vehicle.copyWithVehicleType(vehicleOtherType));
+                      state.vehicle.copyWithVehicleType(vehicleOtherType),
+                    );
               },
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),

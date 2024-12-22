@@ -25,7 +25,7 @@ class UploadPhotoButton extends StatelessWidget {
     this.multi = false,
   });
 
-  final Function(dynamic) onPressed;
+  final Function() onPressed;
   String? defaultImage;
 
   @override
@@ -43,7 +43,7 @@ class UploadPhotoButton extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(CommonDimens.iconSizeLarge),
         onTap: () async {
-          ImagePicker picker = ImagePicker();
+          final ImagePicker picker = ImagePicker();
 
           final image = !multi
               ? await picker.pickImage(source: ImageSource.gallery)
@@ -53,8 +53,8 @@ class UploadPhotoButton extends StatelessWidget {
           b64e(XFile fl) async =>
               'data:${lookupMimeType(fl.path)};base64,${base64Encode(await fl.readAsBytes())}';
 
-          var blob = image != null ? await b64e(image) : null;
-          var blobs = images != null
+          final blob = image != null ? await b64e(image) : null;
+          final blobs = images != null
               ? await Future.wait(images.map((e) async => await b64e(e)))
               : null;
 
@@ -71,12 +71,14 @@ class UploadPhotoButton extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(CommonDimens.iconSizeLarge),
                 border: (borderWidth ?? 1) > 0
-                    ? Border.fromBorderSide(BorderSide(
-                        width: defaultImage != null
-                            ? 0
-                            : borderWidth ?? CommonDimens.defaultGap,
-                        color: CommonColors.primary,
-                      ))
+                    ? Border.fromBorderSide(
+                        BorderSide(
+                          width: defaultImage != null
+                              ? 0
+                              : borderWidth ?? CommonDimens.defaultGap,
+                          color: CommonColors.primary,
+                        ),
+                      )
                     : null,
               ),
               child: ClipRRect(
@@ -105,7 +107,7 @@ class UploadPhotoButton extends StatelessWidget {
                       color: CommonColors.secondary,
                       fontSize: CommonFontSize.font_10,
                     ),
-                  )
+                  ),
                 ],
               ),
           ],

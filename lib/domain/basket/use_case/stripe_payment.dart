@@ -46,7 +46,7 @@ Future<StripeModel> _getClientSecret(StripePaymentParams params) async {
   final baseUrl = APIClient.baseUrl;
   APIClient.baseUrl = Endpoints().stripeApi;
 
-  Response res = await APIClient().post(
+  final Response res = await APIClient().post(
     Endpoints().stripePaymentIntent,
     // options: Options(
     //   headers: {
@@ -74,33 +74,42 @@ Future<void> _initPaymentSheet({required StripeModel stripe}) async {
       merchantDisplayName: StripeKeys.appName,
       customFlow: false,
       intentConfiguration: IntentConfiguration(
-          mode: IntentMode.paymentMode(
-              currencyCode: stripe.currency,
-              amount: stripe.amount,
-              setupFutureUsage: IntentFutureUsage.OffSession,
-              captureMethod: CaptureMethod.AutomaticAsync)),
+        mode: IntentMode.paymentMode(
+          currencyCode: stripe.currency,
+          amount: stripe.amount,
+          setupFutureUsage: IntentFutureUsage.OffSession,
+          captureMethod: CaptureMethod.AutomaticAsync,
+        ),
+      ),
       customerId: GlobalContext().readCubit<UserCubit>()?.state.user.userName,
       billingDetails: BillingDetails(
-          name: GlobalContext().readCubit<UserCubit>()?.state.user.userName,
-          email: GlobalContext().readCubit<UserCubit>()?.state.user.email),
+        name: GlobalContext().readCubit<UserCubit>()?.state.user.userName,
+        email: GlobalContext().readCubit<UserCubit>()?.state.user.email,
+      ),
       appearance: PaymentSheetAppearance(
         primaryButton: PaymentSheetPrimaryButtonAppearance(
-            shapes: const PaymentSheetPrimaryButtonShape(blurRadius: 15),
-            colors: PaymentSheetPrimaryButtonTheme(
-              dark: PaymentSheetPrimaryButtonThemeColors(
-                  background: CommonColors.primary,
-                  border: CommonColors.primary,
-                  text: CommonColors.onPrimary),
-              light: PaymentSheetPrimaryButtonThemeColors(
-                  background: CommonColors.primary,
-                  border: CommonColors.primary,
-                  text: CommonColors.onPrimary),
-            )),
+          shapes: const PaymentSheetPrimaryButtonShape(blurRadius: 15),
+          colors: PaymentSheetPrimaryButtonTheme(
+            dark: PaymentSheetPrimaryButtonThemeColors(
+              background: CommonColors.primary,
+              border: CommonColors.primary,
+              text: CommonColors.onPrimary,
+            ),
+            light: PaymentSheetPrimaryButtonThemeColors(
+              background: CommonColors.primary,
+              border: CommonColors.primary,
+              text: CommonColors.onPrimary,
+            ),
+          ),
+        ),
         shapes: PaymentSheetShape(
-            borderRadius: 15,
-            shadow: PaymentSheetShadowParams(
-                color: CommonColors.secondary, opacity: .05),
-            borderWidth: 0),
+          borderRadius: 15,
+          shadow: PaymentSheetShadowParams(
+            color: CommonColors.secondary,
+            opacity: .05,
+          ),
+          borderWidth: 0,
+        ),
         colors: PaymentSheetAppearanceColors(
           background: CommonColors.background,
           componentDivider: CommonColors.secondary,

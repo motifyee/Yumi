@@ -65,10 +65,12 @@ class ScheduleCubit extends Cubit<ScheduleState> {
   }
 
   void applyDayToAll(ScheduleDay scheduleDay) async {
-    final apply = await ApplyToActiveDays().call(ApplyToActiveDaysParams(
-      scheduleDay,
-      state.scheduleForm,
-    ));
+    final apply = await ApplyToActiveDays().call(
+      ApplyToActiveDaysParams(
+        scheduleDay,
+        state.scheduleForm,
+      ),
+    );
 
     apply.fold(
       (l) => emit(state.copyWith(status: Status.error)),
@@ -78,8 +80,11 @@ class ScheduleCubit extends Cubit<ScheduleState> {
 
   void saveScheduleDay(ScheduleDay scheduleDay) {
     // should be a use case
-    emit(state.copyWith(
-        scheduleForm: state.scheduleForm.copyWithScheduleDay(scheduleDay)));
+    emit(
+      state.copyWith(
+        scheduleForm: state.scheduleForm.copyWithScheduleDay(scheduleDay),
+      ),
+    );
   }
 
   void reset() {

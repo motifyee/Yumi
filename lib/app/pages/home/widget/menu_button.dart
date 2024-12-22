@@ -13,26 +13,28 @@ class MenuButton extends StatelessWidget {
     if (menuItem.onRender != null) menuItem.onRender!();
     return TextButton(
       style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-          minimumSize: const Size.fromHeight(CommonDimens.defaultTitleGap),
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          alignment: Alignment.centerLeft),
+        padding: EdgeInsets.zero,
+        minimumSize: const Size.fromHeight(CommonDimens.defaultTitleGap),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        alignment: Alignment.centerLeft,
+      ),
       onPressed: menuItem.onPressed,
       child: Row(
         children: [
           SizedBox(
-              width: 15,
-              height: 15,
-              child: SvgPicture.asset(
-                menuItem.icon,
-              )),
+            width: 15,
+            height: 15,
+            child: SvgPicture.asset(
+              menuItem.icon,
+            ),
+          ),
           const SizedBox(width: CommonDimens.defaultGap),
           Text(
             menuItem.label,
             style: Theme.of(context).textTheme.labelLarge,
           ),
           Expanded(child: Container()),
-          if (menuItem.textLabel != null) menuItem.textLabel!
+          if (menuItem.textLabel != null) menuItem.textLabel!,
         ],
       ),
     );

@@ -1,5 +1,4 @@
 import 'package:common_code/common_code.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 
 abstract class MealSource {
   Future<String> createMeal({required Meal meal});

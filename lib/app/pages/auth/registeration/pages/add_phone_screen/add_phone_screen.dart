@@ -45,7 +45,7 @@ class AddPhoneContent extends StatelessWidget {
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
             child: BlocSelector<RegCubit, RegState, String>(
-              selector: (state) => state.signupData.fullName ?? "",
+              selector: (state) => state.signupData.fullName ?? '',
               builder: (context, state) {
                 return Center(
                   child: ConstrainedBox(

@@ -1,5 +1,4 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:common_code/domain/food_delivery/categories/entity/category.dart';
 import 'package:common_code/common_code.dart';
 
 abstract class CategoriesRepo {

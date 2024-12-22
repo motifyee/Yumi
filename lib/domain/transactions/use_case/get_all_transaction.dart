@@ -12,10 +12,13 @@ class GetAllTransaction
 
   @override
   Future<Either<Failure, PaginatedData<Transaction>>> call(
-          GetAllTransactionParams params) =>
+    GetAllTransactionParams params,
+  ) =>
       transactionRepo
           .getAllTransaction(
-              pagination: params.pagination, userId: params.userId)
+            pagination: params.pagination,
+            userId: params.userId,
+          )
           .run();
 }
 

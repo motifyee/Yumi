@@ -2,7 +2,6 @@ import 'package:common_code/util/random_string.dart';
 import 'package:common_code/domain/bank_info/data/sources/bank_info_src.dart';
 import 'package:common_code/domain/bank_info/entities/bankinfo_model.dart';
 import 'package:common_code/common_code.dart';
-import 'package:dependencies/dependencies.dart';
 
 class BankInfoRemoteSrc implements BankInfoSrc {
   final APIClient client;

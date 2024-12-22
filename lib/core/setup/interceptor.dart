@@ -12,25 +12,25 @@ class APIInterceptor extends Interceptor {
     if (options.baseUrl == Endpoints().stripeApi) {
       options.headers.addAll(
         {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       );
 
       options.headers.addAll(
         {
-          "Authorization": "Bearer ${StripeKeys.secretKey}",
+          'Authorization': 'Bearer ${StripeKeys.secretKey}',
         },
       );
     } else {
       options.headers.addAll(
         {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       );
 
       options.headers.addAll(
         {
-          "Authorization": "Bearer ${APIClient.token ?? APIClient.getToken()}",
+          'Authorization': 'Bearer ${APIClient.token ?? APIClient.getToken()}',
         },
       );
     }

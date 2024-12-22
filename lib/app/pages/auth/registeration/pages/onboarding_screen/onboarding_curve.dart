@@ -1,4 +1,4 @@
-part of "onboarding_screen.dart";
+part of 'onboarding_screen.dart';
 
 class StepSettings {
   double value;
@@ -18,7 +18,7 @@ class CurvePainter extends CustomPainter {
     if (settings.stepCount == 1) return settings.value - rad;
     if (settings.stepCount < 6) return settings.value;
     settings.stepCount = 0;
-    var tmp = settings.value;
+    final tmp = settings.value;
     settings.value += settings.base;
     return tmp + rad;
   }
@@ -48,7 +48,7 @@ class CurvePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    var paint = Paint();
+    final paint = Paint();
     paint.color = Colors.grey[400]!;
     paint.style = PaintingStyle.stroke; // Change this to fill
     paint.strokeWidth = 1.0;
@@ -57,7 +57,7 @@ class CurvePainter extends CustomPainter {
     vs = size.height / 6;
     rad = 10.0;
 
-    var path = Path();
+    final path = Path();
     vsSettings.value += vsSettings.base / 4;
     path.lineTo(0, vs);
     path.quadraticBezierTo(0, vs, rad, vs);

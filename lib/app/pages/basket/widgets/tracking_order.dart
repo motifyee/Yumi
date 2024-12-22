@@ -1,8 +1,6 @@
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/common_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:yumi/generated/l10n.dart';
 
 @RoutePage()
@@ -16,13 +14,14 @@ class TrackingOrderScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         leading: TextButton(
-            onPressed: () {
-              context.router.popForced();
-            },
-            child: Icon(
-              Icons.arrow_back,
-              color: CommonColors.primary,
-            )),
+          onPressed: () {
+            context.router.popForced();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: CommonColors.primary,
+          ),
+        ),
         title: Text(
           S.of(context).tracking,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -85,9 +84,11 @@ class TrackingOrderScreen extends StatelessWidget {
                       padding:
                           const EdgeInsets.all(CommonDimens.defaultMicroGap),
                       decoration: BoxDecoration(
-                          color: CommonColors.primary,
-                          borderRadius: BorderRadius.circular(
-                              CommonDimens.defaultBlockGap)),
+                        color: CommonColors.primary,
+                        borderRadius: BorderRadius.circular(
+                          CommonDimens.defaultBlockGap,
+                        ),
+                      ),
                       child: SvgPicture.asset('assets/images/calling.svg'),
                     ),
                   ),
@@ -100,9 +101,11 @@ class TrackingOrderScreen extends StatelessWidget {
                       padding:
                           const EdgeInsets.all(CommonDimens.defaultMicroGap),
                       decoration: BoxDecoration(
-                          color: CommonColors.primary,
-                          borderRadius: BorderRadius.circular(
-                              CommonDimens.defaultBlockGap)),
+                        color: CommonColors.primary,
+                        borderRadius: BorderRadius.circular(
+                          CommonDimens.defaultBlockGap,
+                        ),
+                      ),
                       child: SvgPicture.asset('assets/images/chat.svg'),
                     ),
                   ),
@@ -120,7 +123,8 @@ class TrackingOrderScreen extends StatelessWidget {
                     height: CommonDimens.defaultTitleGapLarge,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
-                          CommonDimens.defaultBorderRadius),
+                        CommonDimens.defaultBorderRadius,
+                      ),
                       color: CommonColors.primary,
                     ),
                     child: Center(

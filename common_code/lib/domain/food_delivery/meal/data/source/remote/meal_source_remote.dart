@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:common_code/domain/food_delivery/meal/data/source/meal_source.dart';
-import 'package:common_code/domain/food_delivery/meal/entities/meal.dart';
 import 'package:common_code/common_code.dart';
 
 class MealSourceRemote extends MealSource {

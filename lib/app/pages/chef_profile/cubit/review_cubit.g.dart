@@ -9,7 +9,8 @@ part of 'review_cubit.dart';
 _$ReviewStateImpl _$$ReviewStateImplFromJson(Map<String, dynamic> json) =>
     _$ReviewStateImpl(
       pagination: PaginatedData<Review>.fromJson(
-          json['pagination'] as Map<String, dynamic>),
+        json['pagination'] as Map<String, dynamic>,
+      ),
     );
 
 Map<String, dynamic> _$$ReviewStateImplToJson(_$ReviewStateImpl instance) =>

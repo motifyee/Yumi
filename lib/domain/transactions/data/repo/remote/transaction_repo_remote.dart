@@ -11,11 +11,15 @@ class TransactionRepoRemote implements TransactionRepo {
       : transactionSource = transactionSource ?? getIt<TransactionSource>();
 
   @override
-  TaskEither<Failure, PaginatedData<Transaction>> getAllTransaction(
-          {required PaginatedData<Transaction> pagination,
-          required String userId}) =>
+  TaskEither<Failure, PaginatedData<Transaction>> getAllTransaction({
+    required PaginatedData<Transaction> pagination,
+    required String userId,
+  }) =>
       TaskEither.tryCatch(
-          () => transactionSource.getAllTransactions(
-              pagination: pagination, userId: userId),
-          (error, stackTrace) => ServerFailure(error.toString()));
+        () => transactionSource.getAllTransactions(
+          pagination: pagination,
+          userId: userId,
+        ),
+        (error, stackTrace) => ServerFailure(error.toString()),
+      );
 }

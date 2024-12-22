@@ -19,7 +19,7 @@ class MenuPreOrderScreen extends StatelessWidget {
         actions: const [
           SizedBox(
             width: CommonDimens.defaultTitleGap,
-          )
+          ),
         ],
         title: Center(
           child: Text(
@@ -34,8 +34,9 @@ class MenuPreOrderScreen extends StatelessWidget {
       body: MultiBlocProvider(
         providers: [
           BlocProvider(
-              create: (context) =>
-                  MealCubit()..reset(menuTarget: MenuTarget.preOrder)),
+            create: (context) =>
+                MealCubit()..reset(menuTarget: MenuTarget.preOrder),
+          ),
           BlocProvider(create: (context) => CategoriesCubit()),
         ],
         child: const MenuTemplate(

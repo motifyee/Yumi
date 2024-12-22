@@ -4,7 +4,7 @@ class MapUtils {
   MapUtils._();
 
   static Future<void> openMap(double latitude, double longitude) async {
-    String googleUrl =
+    final String googleUrl =
         'https://www.google.com/maps/dir/?api=1&destination=$latitude,$longitude';
     if (await canLaunchUrl(Uri.parse(googleUrl))) {
       await launchUrl(Uri.parse(googleUrl));

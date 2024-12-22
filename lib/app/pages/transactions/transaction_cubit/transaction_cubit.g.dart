@@ -7,14 +7,17 @@ part of 'transaction_cubit.dart';
 // **************************************************************************
 
 _$TransactionStateImpl _$$TransactionStateImplFromJson(
-        Map<String, dynamic> json) =>
+  Map<String, dynamic> json,
+) =>
     _$TransactionStateImpl(
       pagination: PaginatedData<Transaction>.fromJson(
-          json['pagination'] as Map<String, dynamic>),
+        json['pagination'] as Map<String, dynamic>,
+      ),
     );
 
 Map<String, dynamic> _$$TransactionStateImplToJson(
-        _$TransactionStateImpl instance) =>
+  _$TransactionStateImpl instance,
+) =>
     <String, dynamic>{
       'pagination': instance.pagination,
     };

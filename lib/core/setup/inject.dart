@@ -77,7 +77,8 @@ Future<void> inject() async {
 
   sl.registerFactory<CaloriesSource>(() => CaloriesRemoteSource());
   sl.registerFactory<CaloriesRepo>(
-      () => CaloriesRepoRemote(caloriesSource: sl()));
+    () => CaloriesRepoRemote(caloriesSource: sl()),
+  );
 
   sl.registerFactory<BasketSource>(() => BasketRemoteSource());
   sl.registerFactory<BasketRepo>(() => BasketRemoteRepo());
@@ -98,9 +99,11 @@ Future<void> inject() async {
   sl.registerFactory<WalletSource>(() => WalletSourceRemote());
 
   sl.registerFactory<CategoriesSrc>(() => CategoriesRemoteSrc());
-  sl.registerFactory<CategoriesRepo>(() => CategoriesRemoteRepo(
-        categoriesSrc: sl(),
-      ));
+  sl.registerFactory<CategoriesRepo>(
+    () => CategoriesRemoteRepo(
+      categoriesSrc: sl(),
+    ),
+  );
   sl.registerFactory<MealRepo>(() => MealRepoRemote());
   sl.registerFactory<MealSource>(() => MealSourceRemote());
 

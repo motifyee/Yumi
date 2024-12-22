@@ -39,17 +39,19 @@ class PaymentStripeScreen extends StatelessWidget {
                       ),
                 ),
                 const TextButton(
-                    onPressed: null,
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.transparent,
-                    )),
+                  onPressed: null,
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.transparent,
+                  ),
+                ),
               ],
             ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: CommonDimens.defaultBlockGap),
+                  horizontal: CommonDimens.defaultBlockGap,
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -97,10 +99,14 @@ class PaymentStripeScreen extends StatelessWidget {
                             width: CommonDimens.defaultGapXXXL,
                             height: CommonDimens.defaultTitleGapLarge,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    CommonDimens.defaultBorderRadius),
-                                border: Border.all(
-                                    color: CommonColors.primary, width: 1)),
+                              borderRadius: BorderRadius.circular(
+                                CommonDimens.defaultBorderRadius,
+                              ),
+                              border: Border.all(
+                                color: CommonColors.primary,
+                                width: 1,
+                              ),
+                            ),
                             child: Center(
                               child: Text(
                                 S.of(context).cancel,
@@ -119,7 +125,8 @@ class PaymentStripeScreen extends StatelessWidget {
                               height: CommonDimens.defaultTitleGapLarge,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(
-                                    CommonDimens.defaultBorderRadius),
+                                  CommonDimens.defaultBorderRadius,
+                                ),
                                 color: CommonColors.primary,
                               ),
                               child: Center(

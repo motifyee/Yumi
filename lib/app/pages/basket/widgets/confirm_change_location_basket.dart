@@ -28,17 +28,20 @@ class ConfirmChangeLocationBasket extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: CommonDimens.defaultInputGap),
+                      horizontal: CommonDimens.defaultInputGap,
+                    ),
                     child: RichText(
                       text: TextSpan(
                         children: [
                           TextSpan(
-                              text:
-                                  '${S.of(context).yourOrderWillBeCancelled},  ',
-                              style: Theme.of(context).textTheme.bodyMedium),
+                            text:
+                                '${S.of(context).yourOrderWillBeCancelled},  ',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
                           TextSpan(
-                              text: S.of(context).doYouWantToContinue,
-                              style: Theme.of(context).textTheme.labelMedium),
+                            text: S.of(context).doYouWantToContinue,
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
                         ],
                       ),
                     ),
@@ -50,27 +53,29 @@ class ConfirmChangeLocationBasket extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                    onPressed: () {
-                      context.router.popForced();
-                    },
-                    child: Text(
-                      S.of(context).cancel,
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelSmall
-                          ?.copyWith(fontSize: CommonFontSize.font_12),
-                    )),
+                  onPressed: () {
+                    context.router.popForced();
+                  },
+                  child: Text(
+                    S.of(context).cancel,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall
+                        ?.copyWith(fontSize: CommonFontSize.font_12),
+                  ),
+                ),
                 const SizedBox(width: CommonDimens.defaultLineGap),
                 TextButton(
-                    onPressed: () {
-                      context
-                          .read<BasketCubit>()
-                          .deleteBasket(isLocationChange: true);
-                    },
-                    child: Text(
-                      S.of(context).yes,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    )),
+                  onPressed: () {
+                    context
+                        .read<BasketCubit>()
+                        .deleteBasket(isLocationChange: true);
+                  },
+                  child: Text(
+                    S.of(context).yes,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                ),
               ],
             ),
           ],

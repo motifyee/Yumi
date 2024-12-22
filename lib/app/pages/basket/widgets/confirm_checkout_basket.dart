@@ -29,7 +29,8 @@ class ConfirmCheckOutBasket extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: CommonDimens.defaultBlockGap),
+                    horizontal: CommonDimens.defaultBlockGap,
+                  ),
                   child: Text(
                     '${S.of(context).hi} ${context.read<UserCubit>().state.user.userName}',
                     style: Theme.of(context).textTheme.titleMedium,
@@ -42,20 +43,24 @@ class ConfirmCheckOutBasket extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: CommonDimens.defaultInputGap),
+                      horizontal: CommonDimens.defaultInputGap,
+                    ),
                     child: RichText(
                       text: TextSpan(
                         children: [
                           TextSpan(
-                              text: S.of(context).yourOrderSendToSavedLocation,
-                              style: Theme.of(context).textTheme.bodyMedium),
+                            text: S.of(context).yourOrderSendToSavedLocation,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
                           TextSpan(
-                              text:
-                                  ' "${context.read<UserCubit>().state.address?.addressTitle}", \n',
-                              style: Theme.of(context).textTheme.labelMedium),
+                            text:
+                                ' "${context.read<UserCubit>().state.address?.addressTitle}", \n',
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
                           TextSpan(
-                              text: S.of(context).doYouWantToContinue,
-                              style: Theme.of(context).textTheme.labelMedium),
+                            text: S.of(context).doYouWantToContinue,
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
                         ],
                       ),
                     ),
@@ -67,29 +72,31 @@ class ConfirmCheckOutBasket extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                    onPressed: () {
-                      context.router.popForced();
-                      showDialog(
-                          context: context,
-                          builder: (context) =>
-                              const ConfirmChangeLocationBasket());
-                    },
-                    child: Text(
-                      S.of(context).change,
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelSmall
-                          ?.copyWith(fontSize: CommonFontSize.font_12),
-                    )),
+                  onPressed: () {
+                    context.router.popForced();
+                    showDialog(
+                      context: context,
+                      builder: (context) => const ConfirmChangeLocationBasket(),
+                    );
+                  },
+                  child: Text(
+                    S.of(context).change,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall
+                        ?.copyWith(fontSize: CommonFontSize.font_12),
+                  ),
+                ),
                 const SizedBox(width: CommonDimens.defaultLineGap),
                 TextButton(
-                    onPressed: () {
-                      context.router.push(CheckOutRoute());
-                    },
-                    child: Text(
-                      S.of(context).yes,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    )),
+                  onPressed: () {
+                    context.router.push(CheckOutRoute());
+                  },
+                  child: Text(
+                    S.of(context).yes,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                ),
               ],
             ),
           ],

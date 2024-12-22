@@ -9,7 +9,8 @@ part of 'address_cubit.dart';
 _$AddressStateImpl _$$AddressStateImplFromJson(Map<String, dynamic> json) =>
     _$AddressStateImpl(
       pagination: PaginatedData<Address>.fromJson(
-          json['pagination'] as Map<String, dynamic>),
+        json['pagination'] as Map<String, dynamic>,
+      ),
     );
 
 Map<String, dynamic> _$$AddressStateImplToJson(_$AddressStateImpl instance) =>

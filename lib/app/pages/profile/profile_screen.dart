@@ -143,14 +143,15 @@ class ProfilePicture extends StatelessWidget {
               const SizedBox(height: CommonDimens.defaultGap),
               if (fieldState.hasError)
                 Text(
-                  fieldState.errorText ?? "",
+                  fieldState.errorText ?? '',
                   style: const TextStyle(color: Colors.red),
                 ),
               Text(
                 profileState.fullName,
                 style: TextStyle(
-                    color: CommonColors.primary,
-                    fontSize: CommonFontSize.font_24),
+                  color: CommonColors.primary,
+                  fontSize: CommonFontSize.font_24,
+                ),
               ),
               const SizedBox(height: CommonDimens.defaultGap),
               // rating bar
