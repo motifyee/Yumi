@@ -25,7 +25,7 @@ class UploadPhotoButton extends StatelessWidget {
     this.multi = false,
   });
 
-  final Function() onPressed;
+  final Function(dynamic) onPressed;
   String? defaultImage;
 
   @override
