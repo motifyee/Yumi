@@ -93,22 +93,24 @@ class Order with _$Order {
   String get driverOrderPendingCount =>
       '${120 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inSeconds}s';
 
-  String get driverPreOrderPendingCount => [
-        if ((24 -
-                DateTime.now()
-                    .difference(
-                        DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-                    .inHours) >
-            0)
-          '${24 - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inHours}h ',
-        if ((24 -
-                DateTime.now()
-                    .difference(
-                        DateTime.tryParse(updatedDate ?? '') ?? DateTime.now())
-                    .inHours) ==
-            0)
-          '${(24 * 60) - DateTime.now().difference(DateTime.tryParse(updatedDate ?? '') ?? DateTime.now()).inMinutes}m'
-      ].join(' ');
+  String get driverPreOrderPendingCount {
+    const timeout = 3; // hours to timeout the pre-order
+    final now = DateTime.now();
+    final timeFromUpdatedDate =
+        now.difference(DateTime.tryParse(updatedDate ?? '') ?? now);
+    final hoursFromUpdatedDate = timeFromUpdatedDate.inHours;
+    final minutesFromUpdatedDate = timeFromUpdatedDate.inMinutes;
+
+    final res = [
+      if ((timeout - hoursFromUpdatedDate) > 0)
+        '${timeout - hoursFromUpdatedDate}h',
+      //
+      if ((timeout - hoursFromUpdatedDate) == 0)
+        '${(timeout * 60) - minutesFromUpdatedDate}m'
+    ].join(' ');
+
+    return res;
+  }
 
   // for review
   bool get isClientReceivedOverDay =>

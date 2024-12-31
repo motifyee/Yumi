@@ -610,7 +610,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             Row(
                               children: [
                                 TimerCount(
-                                  menuTarget: widget.orderType,
+                                  orderType: widget.orderType,
                                   order: widget.order,
                                   isOver3hCount: true,
                                 ),
@@ -648,7 +648,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             Row(
                               children: [
                                 TimerCount(
-                                  menuTarget: widget.orderType,
+                                  orderType: widget.orderType,
                                   order: widget.order,
                                 ),
                                 PutActionButton(
@@ -881,12 +881,12 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
 class TimerCount extends StatefulWidget {
   TimerCount({
     super.key,
-    required this.menuTarget,
+    required this.orderType,
     required this.order,
     this.isOver3hCount = false,
   });
   final Order order;
-  final OrderType menuTarget;
+  final OrderType orderType;
   final bool isOver3hCount;
   late Timer timer;
 
@@ -922,7 +922,7 @@ class _TimerCountState extends State<TimerCount> {
           Text(
             widget.isOver3hCount
                 ? widget.order.isOver3HCount
-                : widget.menuTarget == OrderType.order
+                : widget.orderType == OrderType.order
                     ? widget.order.driverOrderPendingCount
                     : widget.order.driverPreOrderPendingCount,
             style: Theme.of(context).textTheme.bodyMedium,
