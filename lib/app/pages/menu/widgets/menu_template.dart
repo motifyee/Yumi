@@ -15,7 +15,7 @@ import 'package:yumi/app/pages/menu/widgets/meal_card.dart';
 class MenuTemplate extends StatelessWidget {
   const MenuTemplate({super.key, required this.menuTarget});
 
-  final MenuTarget menuTarget;
+  final OrderType menuTarget;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class MenuTemplate extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           loadDate: () => {
                             context.read<CategoriesCubit>().getChefCategories(
-                                  isPreOrder: menuTarget == MenuTarget.preOrder,
+                                  isPreOrder: menuTarget == OrderType.preOrder,
                                 ),
                           },
                           child: Row(
@@ -248,7 +248,7 @@ class MenuTemplate extends StatelessWidget {
                       .reset(); //.add(ResetCategoryEvent());
 
                   context.read<CategoriesCubit>().getChefCategories(
-                        isPreOrder: menuTarget == MenuTarget.preOrder,
+                        isPreOrder: menuTarget == OrderType.preOrder,
                       );
                   context.read<MealCubit>().reset(menuTarget: menuTarget);
                   context.read<MealCubit>().updateMeals(

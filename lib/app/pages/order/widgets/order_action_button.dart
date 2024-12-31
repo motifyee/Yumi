@@ -43,7 +43,12 @@ class PutActionButton extends StatelessWidget {
         },
         style: ButtonStyle(
           backgroundColor: WidgetStateColor.resolveWith(
-            (states) => config.backGroundColor ?? CommonColors.backgroundTant,
+            (states) {
+              final color =
+                  config.backGroundColor ?? CommonColors.backgroundTant;
+
+              return config.disabled ? color.withOpacity(0.4) : color;
+            },
           ),
         ),
         child: Row(
@@ -102,7 +107,7 @@ class OrderPutActionConfig {
 class OrderPutActions {
   static chefCloseOrderPickup({required OrderCard widget}) =>
       OrderPutActionConfig(
-        apiKey: widget.menuTarget == MenuTarget.order
+        apiKey: widget.orderType == OrderType.order
             ? Endpoints().orderChefPickUpDelivered
             : Endpoints().preOrderChefPickUpDelivered,
         getApiKey: widget.getApiKey,
@@ -115,7 +120,7 @@ class OrderPutActions {
       );
 
   static chefFinishOrder({required OrderCard widget}) => OrderPutActionConfig(
-        apiKey: widget.menuTarget == MenuTarget.order
+        apiKey: widget.orderType == OrderType.order
             ? widget.order.isPickUp == true
                 ? Endpoints().orderChefPickUpFinished
                 : Endpoints().orderChefDeliveryFinished
@@ -131,30 +136,41 @@ class OrderPutActions {
         color: CommonColors.onSuccess,
       );
 
-  static chefStartOrder({required OrderCard widget}) => OrderPutActionConfig(
-        disabled: widget.order.isPickUp == false &&
-            widget.order.driverAccept == false,
-        apiKey: widget.menuTarget == MenuTarget.order
-            ? widget.order.isPickUp == true
-                ? Endpoints().orderChefPickUpStart
-                : Endpoints().orderChefDeliveryStart
-            : widget.order.isPickUp == true
-                ? Endpoints().preOrderChefPickUpStart
-                : Endpoints().preOrderChefDeliveryStart,
-        getApiKey: widget.getApiKey,
-        order: widget.order,
-        isFakeBody: true,
-        navFun: widget.navFun,
-        text: S.current.start,
-        backGroundColor: CommonColors.primary.withAlpha(
-          widget.order.isPickUp == false && widget.order.driverAccept == false
-              ? 100
-              : 255,
-        ),
-        color: CommonColors.onPrimary,
-        isWaiting:
-            widget.order.isPickUp != true && widget.order.driverAccept != true,
-      );
+  static chefStartOrder({required OrderCard widget}) {
+    final scheduleDate = DateTime.tryParse(widget.order.scheduleDate ?? '');
+
+    final isPreSchedule = scheduleDate != null &&
+        DateTime.now().difference(scheduleDate).inSeconds < 0;
+
+    final shouldPassSchedule = isPreSchedule && widget.order.isPickUp == false;
+
+    final driverShouldAccepted =
+        widget.order.isPickUp == false && widget.order.driverAccept == false;
+
+    return OrderPutActionConfig(
+      disabled: driverShouldAccepted || shouldPassSchedule,
+      apiKey: widget.orderType == OrderType.order
+          ? widget.order.isPickUp == true
+              ? Endpoints().orderChefPickUpStart
+              : Endpoints().orderChefDeliveryStart
+          : widget.order.isPickUp == true
+              ? Endpoints().preOrderChefPickUpStart
+              : Endpoints().preOrderChefDeliveryStart,
+      getApiKey: widget.getApiKey,
+      order: widget.order,
+      isFakeBody: true,
+      navFun: widget.navFun,
+      text: S.current.start,
+      backGroundColor: CommonColors.primary.withAlpha(
+        widget.order.isPickUp == false && widget.order.driverAccept == false
+            ? 100
+            : 255,
+      ),
+      color: CommonColors.onPrimary,
+      isWaiting:
+          widget.order.isPickUp != true && widget.order.driverAccept != true,
+    );
+  }
 
   static chefCancelPreOrder({required OrderCard widget}) =>
       OrderPutActionConfig(
@@ -167,25 +183,28 @@ class OrderPutActions {
         customMessage: S.current.orderCanceled,
       );
 
-  static chefAcceptPreorder({required OrderCard widget}) =>
-      OrderPutActionConfig(
-        disabled: widget.order.isPickUp == false &&
-            widget.order.driverAccept == false,
-        apiKey: widget.order.isPickUp == true
-            ? Endpoints().preOrderChefPickUpAccept
-            : Endpoints().preOrderChefDeliveryAccept,
-        getApiKey: widget.getApiKey,
-        order: widget.order,
-        isFakeBody: true,
-        navFun: widget.navFun,
-        text: S.current.accept,
-        backGroundColor: CommonColors.success,
-        color: CommonColors.onSuccess,
-      );
+  static chefAcceptPreorder({required OrderCard widget}) {
+    // final driverShouldAccepted =
+    //     widget.order.isPickUp == false && widget.order.driverAccept == false;
+
+    return OrderPutActionConfig(
+      disabled: false,
+      apiKey: widget.order.isPickUp == true
+          ? Endpoints().preOrderChefPickUpAccept
+          : Endpoints().preOrderChefDeliveryAccept,
+      getApiKey: widget.getApiKey,
+      order: widget.order,
+      isFakeBody: true,
+      navFun: widget.navFun,
+      text: S.current.accept,
+      backGroundColor: CommonColors.success,
+      color: CommonColors.onSuccess,
+    );
+  }
 
   static driverCloseOrderDelivery({required OrderCard widget}) =>
       OrderPutActionConfig(
-        apiKey: widget.menuTarget == MenuTarget.order
+        apiKey: widget.orderType == OrderType.order
             ? Endpoints().orderDriverDelivered
             : Endpoints().preOrderDriverDelivered,
         getApiKey: widget.getApiKey,
@@ -199,7 +218,7 @@ class OrderPutActions {
 
   static driverReceived({required OrderCard widget}) => OrderPutActionConfig(
         disabled: widget.order.chefFinished == false,
-        apiKey: widget.menuTarget == MenuTarget.order
+        apiKey: widget.orderType == OrderType.order
             ? Endpoints().orderDriverReceived
             : Endpoints().preOrderDriverReceived,
         getApiKey: widget.getApiKey,
@@ -214,7 +233,7 @@ class OrderPutActions {
       );
 
   static driverAccept({required OrderCard widget}) => OrderPutActionConfig(
-        apiKey: widget.menuTarget == MenuTarget.order
+        apiKey: widget.orderType == OrderType.order
             ? Endpoints().orderDriverAccept
             : Endpoints().preOrderDriverAccept,
         getApiKey: widget.getApiKey,

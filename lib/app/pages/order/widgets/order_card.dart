@@ -14,17 +14,17 @@ class OrderCard extends StatefulWidget {
   OrderCard({
     super.key,
     required this.order,
-    required this.orderCardTargetPage,
+    required this.orderCardType,
     required this.getApiKey,
-    required this.menuTarget,
+    required this.orderType,
     this.navFun,
   });
 
   late Order order;
   bool isView = false;
-  final OrderCardTargetPage orderCardTargetPage;
+  final OrderCardType orderCardType;
   final String getApiKey;
-  final MenuTarget menuTarget;
+  final OrderType orderType;
   final Function()? navFun;
 
   @override
@@ -48,7 +48,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    if (widget.orderCardTargetPage == OrderCardTargetPage.view) {
+    if (widget.orderCardType == OrderCardType.view) {
       getOrderForView();
     }
     super.initState();
@@ -66,19 +66,19 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
       widget.isView = true;
     }
 
-    if (widget.orderCardTargetPage == OrderCardTargetPage.driverAccept) {
-      if (widget.menuTarget == MenuTarget.order &&
+    if (widget.orderCardType == OrderCardType.driverAccept) {
+      if (widget.orderType == OrderType.order &&
           widget.order.isDriverOrderPendingEnd) {
         return const SizedBox(height: 0, width: 0);
       }
-      if (widget.menuTarget == MenuTarget.preOrder &&
+      if (widget.orderType == OrderType.preOrder &&
           widget.order.isDriverPreOrderPendingEnd) {
         return const SizedBox(height: 0, width: 0);
       }
     }
 
-    if (widget.orderCardTargetPage == OrderCardTargetPage.chefPending &&
-        widget.menuTarget == MenuTarget.preOrder) {
+    if (widget.orderCardType == OrderCardType.chefPending &&
+        widget.orderType == OrderType.preOrder) {
       if (widget.order.isOver3H) return const SizedBox(height: 0, width: 0);
     }
 
@@ -170,10 +170,10 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ],
                           ),
                         if ([
-                              OrderCardTargetPage.customerHistory,
-                              OrderCardTargetPage.chefHistory,
-                              OrderCardTargetPage.driverHistory,
-                            ].contains(widget.orderCardTargetPage) &&
+                              OrderCardType.customerHistory,
+                              OrderCardType.chefHistory,
+                              OrderCardType.driverHistory,
+                            ].contains(widget.orderCardType) &&
                             widget.order.isDeleted == true)
                           Container(
                             padding: const EdgeInsets.symmetric(
@@ -321,10 +321,10 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                       ),
                     const SizedBox(height: CommonDimens.defaultGap),
                     if ([
-                      OrderCardTargetPage.driverAccept,
-                      OrderCardTargetPage.driverReceived,
-                      OrderCardTargetPage.driverHistory,
-                    ].contains(widget.orderCardTargetPage))
+                      OrderCardType.driverAccept,
+                      OrderCardType.driverReceived,
+                      OrderCardType.driverHistory,
+                    ].contains(widget.orderCardType))
                       Column(
                         children: [
                           Row(
@@ -427,10 +427,10 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                       ),
                     if (widget.order.invoiceDetails!.isNotEmpty &&
                         ![
-                          OrderCardTargetPage.driverAccept,
-                          OrderCardTargetPage.driverReceived,
-                          OrderCardTargetPage.driverHistory,
-                        ].contains(widget.orderCardTargetPage))
+                          OrderCardType.driverAccept,
+                          OrderCardType.driverReceived,
+                          OrderCardType.driverHistory,
+                        ].contains(widget.orderCardType))
                       LayoutBuilder(
                         builder: (context, constraints) => AnimatedSize(
                           duration: CommonDimens.animationDuration,
@@ -569,8 +569,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           // chef close order pickup
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.chefReady &&
+                          if (widget.orderCardType == OrderCardType.chefReady &&
                               widget.order.isPickUp == true)
                             PutActionButton(
                               config: OrderPutActions.chefCloseOrderPickup(
@@ -579,8 +578,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
 
                           // chef finish order
-                          if (widget.orderCardTargetPage ==
-                              OrderCardTargetPage.chefPreparing)
+                          if (widget.orderCardType ==
+                              OrderCardType.chefPreparing)
                             PutActionButton(
                               config: OrderPutActions.chefFinishOrder(
                                 widget: widget,
@@ -588,16 +587,16 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
 
                           // chef start order
-                          if (widget.orderCardTargetPage ==
-                              OrderCardTargetPage.chefReceived)
+                          if (widget.orderCardType ==
+                              OrderCardType.chefReceived)
                             PutActionButton(
                               config: OrderPutActions.chefStartOrder(
                                 widget: widget,
                               ),
                             ),
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.chefReceived &&
-                              widget.menuTarget == MenuTarget.preOrder)
+                          if (widget.orderCardType ==
+                                  OrderCardType.chefReceived &&
+                              widget.orderType == OrderType.preOrder)
                             PutActionButton(
                               config: OrderPutActions.chefCancelPreOrder(
                                 widget: widget,
@@ -605,13 +604,13 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
 
                           // chef accept preorder
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.chefPending &&
-                              widget.menuTarget == MenuTarget.preOrder)
+                          if (widget.orderCardType ==
+                                  OrderCardType.chefPending &&
+                              widget.orderType == OrderType.preOrder)
                             Row(
                               children: [
                                 TimerCount(
-                                  menuTarget: widget.menuTarget,
+                                  menuTarget: widget.orderType,
                                   order: widget.order,
                                   isOver3hCount: true,
                                 ),
@@ -624,8 +623,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
 
                           // driver close order delivery
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.driverReceived &&
+                          if (widget.orderCardType ==
+                                  OrderCardType.driverReceived &&
                               widget.order.driverReceived == true)
                             PutActionButton(
                               config: OrderPutActions.driverCloseOrderDelivery(
@@ -634,8 +633,8 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
 
                           // driver received
-                          if (widget.orderCardTargetPage ==
-                                  OrderCardTargetPage.driverReceived &&
+                          if (widget.orderCardType ==
+                                  OrderCardType.driverReceived &&
                               widget.order.driverReceived != true)
                             PutActionButton(
                               config: OrderPutActions.driverReceived(
@@ -644,12 +643,12 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
 
                           // driver accept
-                          if (widget.orderCardTargetPage ==
-                              OrderCardTargetPage.driverAccept)
+                          if (widget.orderCardType ==
+                              OrderCardType.driverAccept)
                             Row(
                               children: [
                                 TimerCount(
-                                  menuTarget: widget.menuTarget,
+                                  menuTarget: widget.orderType,
                                   order: widget.order,
                                 ),
                                 PutActionButton(
@@ -662,10 +661,10 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
 
                           // customer order status
                           if ([
-                                OrderCardTargetPage.customerHistory,
-                                OrderCardTargetPage.customerOrders,
-                                OrderCardTargetPage.customerPreOrders,
-                              ].contains(widget.orderCardTargetPage) &&
+                                OrderCardType.customerHistory,
+                                OrderCardType.customerOrders,
+                                OrderCardType.customerPreOrders,
+                              ].contains(widget.orderCardType) &&
                               widget.order.isDeleted != true)
                             PutActionButton(
                               config: OrderPutActions.customerOrderStatus(
@@ -716,11 +715,12 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                           //   ),
 
                           // wait & cancel driver
-                          if ([
-                                OrderCardTargetPage.customerOrders,
-                                OrderCardTargetPage.customerPreOrders,
-                              ].contains(widget.orderCardTargetPage) &&
-                              (widget.menuTarget == MenuTarget.preOrder
+                          if (widget.order.isPickUp != true &&
+                              [
+                                OrderCardType.customerOrders,
+                                OrderCardType.customerPreOrders,
+                              ].contains(widget.orderCardType) &&
+                              (widget.orderType == OrderType.preOrder
                                   ? widget.order.isDriverPreOrderDelayed
                                   : widget.order.isDriverOrderDelayed))
                             Row(
@@ -772,8 +772,7 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                             ),
 
                           if (AppTarget.user == YumiApp.drivers &&
-                              widget.orderCardTargetPage !=
-                                  OrderCardTargetPage.view)
+                              widget.orderCardType != OrderCardType.view)
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: CommonDimens.defaultMicroGap,
@@ -808,10 +807,9 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
                                               ),
                                             ),
                                             child: OrderCard(
-                                              menuTarget: widget.menuTarget,
+                                              orderType: widget.orderType,
                                               getApiKey: widget.getApiKey,
-                                              orderCardTargetPage:
-                                                  OrderCardTargetPage.view,
+                                              orderCardType: OrderCardType.view,
                                               order: widget.order,
                                             ),
                                           ),
@@ -888,7 +886,7 @@ class TimerCount extends StatefulWidget {
     this.isOver3hCount = false,
   });
   final Order order;
-  final MenuTarget menuTarget;
+  final OrderType menuTarget;
   final bool isOver3hCount;
   late Timer timer;
 
@@ -924,7 +922,7 @@ class _TimerCountState extends State<TimerCount> {
           Text(
             widget.isOver3hCount
                 ? widget.order.isOver3HCount
-                : widget.menuTarget == MenuTarget.order
+                : widget.menuTarget == OrderType.order
                     ? widget.order.driverOrderPendingCount
                     : widget.order.driverPreOrderPendingCount,
             style: Theme.of(context).textTheme.bodyMedium,

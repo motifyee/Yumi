@@ -15,7 +15,7 @@ class MealCard extends StatelessWidget {
   MealCard({super.key, required this.meal, required this.menuTarget});
 
   Meal meal;
-  MenuTarget menuTarget;
+  OrderType menuTarget;
   bool isDeleting = false;
 
   @override
@@ -114,7 +114,7 @@ class MealCard extends StatelessWidget {
                     context.read<CategoriesCubit>().reset();
 
                     context.read<CategoriesCubit>().getChefCategories(
-                          isPreOrder: menuTarget == MenuTarget.preOrder,
+                          isPreOrder: menuTarget == OrderType.preOrder,
                         );
 
                     context.read<MealCubit>().reset(menuTarget: menuTarget);
@@ -171,8 +171,8 @@ class MealCard extends StatelessWidget {
 
                           context.read<MealCubit>().reset(
                                 menuTarget: meal.isPreOrder == true
-                                    ? MenuTarget.preOrder
-                                    : MenuTarget.order,
+                                    ? OrderType.preOrder
+                                    : OrderType.order,
                               );
                           context.read<MealCubit>().updateMeals(
                                 chefId:

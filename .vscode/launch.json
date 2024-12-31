@@ -4,28 +4,26 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-    // {
-    //   "name": "yumi",
-    //   "request": "launch",
-    //   "type": "dart",
-    // },
     {
       "name": "chef",
       "request": "launch",
       "type": "dart",
       "program": "lib/app/yumi/chef.dart",
+      // "preLaunchTask": "Prepare Chef",
       "internalConsoleOptions": "neverOpen",
     },
     {
       "name": "driver",
       "request": "launch",
       "type": "dart",
+      // "preLaunchTask": "Prepare Driver",
       "program": "lib/app/yumi/driver.dart"
     },
     {
       "name": "customer",
       "request": "launch",
       "type": "dart",
+      // "preLaunchTask": "Prepare Customer",
       "program": "lib/app/yumi/customer.dart"
     },
     {
@@ -33,6 +31,7 @@
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile",
+      "preLaunchTask": "Prepare Driver",
       "program": "lib/app/yumi/driver.dart"
     },
     {
@@ -40,6 +39,7 @@
       "request": "launch",
       "type": "dart",
       "flutterMode": "release",
+      "preLaunchTask": "Prepare Driver",
       "program": "lib/app/yumi/driver.dart"
     }
   ]

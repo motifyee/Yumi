@@ -28,8 +28,8 @@ class BasketScreen extends StatelessWidget {
       context: context,
       builder: (context) => ChefMealsScreen(
         menuTarget: state.basket.isPreorder == true
-            ? MenuTarget.preOrder
-            : MenuTarget.order,
+            ? OrderType.preOrder
+            : OrderType.order,
         chefId: state.basket.invoice.chefID ?? '',
         isPickUpOnly: state.basket.isPickupOnly,
       ),

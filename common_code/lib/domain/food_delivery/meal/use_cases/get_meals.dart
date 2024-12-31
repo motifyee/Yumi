@@ -30,7 +30,7 @@ class GetMeals extends UseCase<PaginatedData<Meal>, GetMealsParams> {
                     .state
                     .address
                     ?.longitude,
-                isPreorder: params.menuTarget == MenuTarget.preOrder)
+                isPreorder: params.menuTarget == OrderType.preOrder)
             .run();
       } else {
         return mealRepo
@@ -49,7 +49,7 @@ class GetMeals extends UseCase<PaginatedData<Meal>, GetMealsParams> {
                     .state
                     .address
                     ?.longitude,
-                isPreorder: params.menuTarget == MenuTarget.preOrder)
+                isPreorder: params.menuTarget == OrderType.preOrder)
             .run();
       }
     } else {
@@ -58,7 +58,7 @@ class GetMeals extends UseCase<PaginatedData<Meal>, GetMealsParams> {
             .getMealsByChef(
                 pagination: params.pagination,
                 chefId: params.chefId!,
-                isPreorder: params.menuTarget == MenuTarget.preOrder)
+                isPreorder: params.menuTarget == OrderType.preOrder)
             .run();
       } else {
         return mealRepo
@@ -66,7 +66,7 @@ class GetMeals extends UseCase<PaginatedData<Meal>, GetMealsParams> {
                 pagination: params.pagination,
                 categoryId: params.selectedCategory,
                 chefId: params.chefId!,
-                isPreorder: params.menuTarget == MenuTarget.preOrder)
+                isPreorder: params.menuTarget == OrderType.preOrder)
             .run();
       }
     }
@@ -75,7 +75,7 @@ class GetMeals extends UseCase<PaginatedData<Meal>, GetMealsParams> {
 
 class GetMealsParams extends Params {
   final String? chefId;
-  final MenuTarget? menuTarget;
+  final OrderType? menuTarget;
   final PaginatedData<Meal> pagination;
   final int selectedCategory;
 

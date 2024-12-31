@@ -5,7 +5,7 @@ import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:common_code/common_code.dart';
 import 'package:yumi/app/pages/order/widgets/action_button.dart';
-import 'package:yumi/app/pages/order/widgets/news_orders.dart';
+import 'package:yumi/app/pages/order/widgets/orders_card_list.dart';
 
 class DriverHistoryScreen extends StatelessWidget {
   DriverHistoryScreen({super.key});
@@ -57,18 +57,18 @@ class DriverHistoryScreen extends StatelessWidget {
               children: [
                 BlocProvider(
                   create: (context) => OrderCubit(),
-                  child: NewsOrders(
-                    menuTarget: MenuTarget.order,
+                  child: OrdersCardList(
+                    orderType: OrderType.order,
                     apiKey: Endpoints().orderDriverClosed,
-                    orderCardTargetPage: OrderCardTargetPage.driverHistory,
+                    orderCardType: OrderCardType.driverHistory,
                   ),
                 ),
                 BlocProvider(
                   create: (context) => OrderCubit(),
-                  child: NewsOrders(
-                    menuTarget: MenuTarget.preOrder,
+                  child: OrdersCardList(
+                    orderType: OrderType.preOrder,
                     apiKey: Endpoints().preOrderDriverClosed,
-                    orderCardTargetPage: OrderCardTargetPage.driverHistory,
+                    orderCardType: OrderCardType.driverHistory,
                   ),
                 ),
               ],

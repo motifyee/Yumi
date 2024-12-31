@@ -34,8 +34,8 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
 
     return BlocConsumer<SignalRCubit, SignalRState>(
       listener: (context, state) async {
-        if (state.isSignalTriggered(
-          signal: [
+        if (state.hasAnySignalTriggered(
+          watchedSignals: [
             Signal.chefstart,
             Signal.cheffinished,
             Signal.driverreceived,

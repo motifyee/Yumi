@@ -30,8 +30,8 @@ Map<String, dynamic> _$$MealStateImplToJson(_$MealStateImpl instance) =>
     };
 
 const _$MenuTargetEnumMap = {
-  MenuTarget.order: 'order',
-  MenuTarget.preOrder: 'preOrder',
+  OrderType.order: 'order',
+  OrderType.preOrder: 'preOrder',
 };
 
 const _$StatusEnumMap = {

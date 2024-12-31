@@ -8,13 +8,13 @@ class PreOrderScreen extends StatelessWidget {
   PreOrderScreen({super.key});
 
   final PageController controller = PageController(initialPage: 0);
-  final MenuTarget menuTarget = MenuTarget.preOrder;
+  final OrderType menuTarget = OrderType.preOrder;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => PageViewCubit(),
-      child: ChefOrder(controller: controller, menuTarget: menuTarget),
+      child: ChefOrder(controller: controller, orderType: menuTarget),
     );
   }
 }

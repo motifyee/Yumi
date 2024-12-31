@@ -14,7 +14,7 @@ class CustomerChefList extends StatelessWidget {
   const CustomerChefList({super.key, required this.menuTarget});
 
   static PageController controller = PageController();
-  final MenuTarget menuTarget;
+  final OrderType menuTarget;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class CustomerChefList extends StatelessWidget {
                             ),
                       ),
                       const SizedBox(width: CommonDimens.defaultGap),
-                      if (menuTarget == MenuTarget.order)
+                      if (menuTarget == OrderType.order)
                         Expanded(
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
@@ -139,7 +139,7 @@ class CustomerChefList extends StatelessWidget {
             ),
             SizedBox(
               height: 190,
-              child: menuTarget == MenuTarget.preOrder
+              child: menuTarget == OrderType.preOrder
                   ? _ChefListStatus(menuTarget: menuTarget)
                   : PageView(
                       controller: controller,
@@ -173,7 +173,7 @@ class _ChefListStatus extends StatelessWidget {
     required this.menuTarget,
   });
 
-  final MenuTarget menuTarget;
+  final OrderType menuTarget;
   final ChefWorkStatus? workStatus;
 
   @override
@@ -187,7 +187,7 @@ class _ChefListStatus extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   loadDate: () => context.read<ChefsCubit>().getChefs(
                         status: workStatus,
-                        isPreOrder: menuTarget == MenuTarget.preOrder,
+                        isPreOrder: menuTarget == OrderType.preOrder,
                       ),
                   child: BlocConsumer<ChefsCubit, ChefsState>(
                     listener: (context, state) {},

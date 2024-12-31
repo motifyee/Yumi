@@ -17,7 +17,7 @@ class ChefMealsScreen extends StatefulWidget {
     required this.isPickUpOnly,
   });
 
-  final MenuTarget menuTarget;
+  final OrderType menuTarget;
   final String chefId;
   final bool isPickUpOnly;
 
@@ -184,7 +184,7 @@ class _ChefMealsScreenState extends State<ChefMealsScreen> {
                         loadDate: () {
                           context.read<CategoriesCubit>().getChefCategories(
                                 isPreOrder:
-                                    widget.menuTarget == MenuTarget.preOrder,
+                                    widget.menuTarget == OrderType.preOrder,
                                 chefId: widget.chefId,
                               );
                         },

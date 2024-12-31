@@ -180,7 +180,7 @@ class Product with _$Product {
       _$ProductFromJson(json);
 }
 
-enum OrderCardTargetPage {
+enum OrderCardType {
   customerOrders,
   customerPreOrders,
   customerHistory,

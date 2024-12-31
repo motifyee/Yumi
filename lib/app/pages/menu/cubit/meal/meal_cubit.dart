@@ -11,7 +11,7 @@ class MealState with _$MealState {
   const factory MealState({
     required PaginatedData<Meal> pagination,
     required int selectedCategory,
-    required MenuTarget menuTarget,
+    required OrderType menuTarget,
     @Default(0) int mealsLength,
     @Default(0) int changesCounter,
     @Default(Status.init) Status status,
@@ -21,7 +21,7 @@ class MealState with _$MealState {
     return MealState(
       pagination: const PaginatedData<Meal>(data: []),
       selectedCategory: 0,
-      menuTarget: MenuTarget.order,
+      menuTarget: OrderType.order,
     );
   }
 
@@ -32,7 +32,7 @@ class MealState with _$MealState {
 class MealCubit extends Cubit<MealState> {
   MealCubit() : super(MealState.initial());
 
-  reset({MenuTarget? menuTarget, int? categoryId}) {
+  reset({OrderType? menuTarget, int? categoryId}) {
     emit(
       state.copyWith(
         pagination: const PaginatedData<Meal>(),
@@ -42,7 +42,7 @@ class MealCubit extends Cubit<MealState> {
     );
   }
 
-  updateMeals({String? chefId, MenuTarget? menuTarget}) async {
+  updateMeals({String? chefId, OrderType? menuTarget}) async {
     if (!state.pagination.canRequest) return;
     emit(
       state.copyWith(

@@ -25,7 +25,7 @@ class ChefBanner extends StatefulWidget {
   final BorderRadius borderRadius;
   final double width;
   final double? height;
-  final MenuTarget menuTarget;
+  final OrderType menuTarget;
   final bool isShowFav;
   final bool isRequestStatus;
   final bool isProfileClick;

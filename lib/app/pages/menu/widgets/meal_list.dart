@@ -23,7 +23,7 @@ class MealListScreen extends StatelessWidget {
 
   final PageController favPageController = PageController(initialPage: 0);
 
-  final MenuTarget menuTarget;
+  final OrderType menuTarget;
   final int? categoryId;
   final bool isResetOnInit;
 
@@ -70,7 +70,7 @@ class _MealList extends StatelessWidget {
   const _MealList({required this.favPageController, required this.menuTarget});
 
   final PageController favPageController;
-  final MenuTarget menuTarget;
+  final OrderType menuTarget;
 
   @override
   Widget build(BuildContext context) {
@@ -290,7 +290,7 @@ class _CategoriesList extends StatelessWidget {
   });
 
   final PageController favPageController;
-  final MenuTarget menuTarget;
+  final OrderType menuTarget;
 
   @override
   Widget build(BuildContext context) {
@@ -358,7 +358,7 @@ class _CategoriesList extends StatelessWidget {
             builder: (context, constraints) => PaginationTemplate(
               loadDate: () {
                 context.read<CategoriesCubit>().getAllCategories(
-                      isPreOrder: menuTarget == MenuTarget.preOrder,
+                      isPreOrder: menuTarget == OrderType.preOrder,
                     );
                 // .add(GetCategoriesEvent(
                 //     context: context,

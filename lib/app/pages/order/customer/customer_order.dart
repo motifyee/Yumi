@@ -6,7 +6,7 @@ import 'package:common_code/core/setup/signalr.dart';
 import 'package:yumi/generated/l10n.dart';
 import 'package:common_code/common_code.dart';
 import 'package:yumi/app/pages/order/widgets/action_button.dart';
-import 'package:yumi/app/pages/order/widgets/news_orders.dart';
+import 'package:yumi/app/pages/order/widgets/orders_card_list.dart';
 
 @RoutePage()
 class MyOrdersScreen extends StatelessWidget {
@@ -89,8 +89,8 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   },
                   label: S.of(context).myOrders,
                   isActive: _index == 0 || _index == 1,
-                  isNotificationIconShow: state.isSignalTriggered(
-                    signal: [
+                  showNotifIcon: state.hasAnySignalTriggered(
+                    watchedSignals: [
                       Signal.neworderreceived,
                       Signal.chefaccept,
                       Signal.driveraccept,
@@ -129,8 +129,8 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
                   },
                   label: S.of(context).myPreOrder,
                   isActive: _index == 2 || _index == 3,
-                  isNotificationIconShow: state.isSignalTriggered(
-                    signal: [
+                  showNotifIcon: state.hasAnySignalTriggered(
+                    watchedSignals: [
                       Signal.neworderreceived,
                       Signal.chefaccept,
                       Signal.driveraccept,
@@ -154,10 +154,10 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
             children: [
               BlocProvider(
                 create: (context) => OrderCubit(),
-                child: NewsOrders(
-                  menuTarget: MenuTarget.order,
+                child: OrdersCardList(
+                  orderType: OrderType.order,
                   apiKey: Endpoints().orderCustomerActive,
-                  orderCardTargetPage: OrderCardTargetPage.customerOrders,
+                  orderCardType: OrderCardType.customerOrders,
                   signals: const [
                     Signal.driveraccept,
                     Signal.chefaccept,
@@ -171,10 +171,10 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
               ),
               BlocProvider(
                 create: (context) => OrderCubit(),
-                child: NewsOrders(
-                  menuTarget: MenuTarget.order,
+                child: OrdersCardList(
+                  orderType: OrderType.order,
                   apiKey: Endpoints().orderCustomerClosed,
-                  orderCardTargetPage: OrderCardTargetPage.customerHistory,
+                  orderCardType: OrderCardType.customerHistory,
                   signals: const [
                     Signal.clientreceived,
                     Signal.chefcancel,
@@ -183,10 +183,10 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
               ),
               BlocProvider(
                 create: (context) => OrderCubit(),
-                child: NewsOrders(
-                  menuTarget: MenuTarget.preOrder,
+                child: OrdersCardList(
+                  orderType: OrderType.preOrder,
                   apiKey: Endpoints().preOrderCustomerActive,
-                  orderCardTargetPage: OrderCardTargetPage.customerPreOrders,
+                  orderCardType: OrderCardType.customerPreOrders,
                   signals: const [
                     Signal.driveraccept,
                     Signal.chefaccept,
@@ -200,10 +200,10 @@ class _MyOrderTemplateState extends State<_MyOrderTemplate> {
               ),
               BlocProvider(
                 create: (context) => OrderCubit(),
-                child: NewsOrders(
-                  menuTarget: MenuTarget.preOrder,
+                child: OrdersCardList(
+                  orderType: OrderType.preOrder,
                   apiKey: Endpoints().preOrderCustomerClosed,
-                  orderCardTargetPage: OrderCardTargetPage.customerHistory,
+                  orderCardType: OrderCardType.customerHistory,
                   signals: const [
                     Signal.clientreceived,
                     Signal.chefcancel,

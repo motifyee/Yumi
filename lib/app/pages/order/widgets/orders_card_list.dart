@@ -9,19 +9,19 @@ import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:common_code/core/setup/signalr.dart';
 import 'package:yumi/app/pages/order/widgets/order_card.dart';
 
-class NewsOrders extends StatelessWidget {
-  const NewsOrders({
+class OrdersCardList extends StatelessWidget {
+  const OrdersCardList({
     super.key,
-    required this.menuTarget,
+    required this.orderType,
     required this.apiKey,
-    required this.orderCardTargetPage,
+    required this.orderCardType,
     this.navFun,
     this.signals = const [],
   });
 
-  final MenuTarget menuTarget;
+  final OrderType orderType;
   final String apiKey;
-  final OrderCardTargetPage orderCardTargetPage;
+  final OrderCardType orderCardType;
   final Function()? navFun;
   final List<Signal> signals;
 
@@ -32,19 +32,21 @@ class NewsOrders extends StatelessWidget {
         if (!state.isLoggedIn) return const LoginToContinue();
 
         return BlocBuilder<SignalRCubit, SignalRState>(
-          buildWhen: (previous, current) {
-            if (current.isSignalTriggered(
-              signal: signals,
-              isPreOrder: menuTarget == MenuTarget.preOrder,
-            )) {
-              context.read<OrderCubit>().resetOrders(
-                    loading:
-                        context.read<OrderCubit>().state.ordersPage.isLoading,
-                  );
-              context.read<OrderCubit>().getOrders(apiKeys: apiKey);
-              return true;
-            }
-            return false;
+          buildWhen: (previous, signalrState) {
+            final isSignalTriggered = signalrState.hasAnySignalTriggered(
+              watchedSignals: signals,
+              isPreOrder: orderType == OrderType.preOrder,
+            );
+
+            if (!isSignalTriggered) return false;
+
+            final isLoading =
+                context.read<OrderCubit>().state.ordersPage.isLoading;
+
+            context.read<OrderCubit>().resetOrders(loading: isLoading);
+            context.read<OrderCubit>().getOrders(apiKeys: apiKey);
+
+            return true;
           },
           builder: (context, state) {
             context.read<SignalRCubit>().removeSignals(signal: signals);
@@ -61,9 +63,9 @@ class NewsOrders extends StatelessWidget {
                       for (Order order in state.ordersPage.data)
                         OrderCard(
                           order: order,
-                          orderCardTargetPage: orderCardTargetPage,
+                          orderCardType: orderCardType,
                           getApiKey: apiKey,
-                          menuTarget: menuTarget,
+                          orderType: orderType,
                           navFun: navFun,
                         ),
                       if (state.ordersPage.isLoading)

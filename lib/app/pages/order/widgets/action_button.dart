@@ -12,7 +12,7 @@ class ActionButton extends StatelessWidget {
     this.activeTextColor,
     this.notActiveColor,
     this.notActiveTextColor,
-    this.isNotificationIconShow = false,
+    this.showNotifIcon = false,
   });
 
   final Function()? onPressed;
@@ -23,7 +23,7 @@ class ActionButton extends StatelessWidget {
   Color? activeTextColor;
   Color? notActiveColor;
   Color? notActiveTextColor;
-  bool isNotificationIconShow;
+  bool showNotifIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class ActionButton extends StatelessWidget {
             ],
           ),
         ),
-        if (isNotificationIconShow)
+        if (showNotifIcon)
           Positioned(
             top: 0,
             left: 0,

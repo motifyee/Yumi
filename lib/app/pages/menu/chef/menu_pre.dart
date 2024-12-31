@@ -35,12 +35,12 @@ class MenuPreOrderScreen extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) =>
-                MealCubit()..reset(menuTarget: MenuTarget.preOrder),
+                MealCubit()..reset(menuTarget: OrderType.preOrder),
           ),
           BlocProvider(create: (context) => CategoriesCubit()),
         ],
         child: const MenuTemplate(
-          menuTarget: MenuTarget.preOrder,
+          menuTarget: OrderType.preOrder,
         ),
       ),
     );

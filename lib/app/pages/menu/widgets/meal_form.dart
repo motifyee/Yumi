@@ -14,7 +14,7 @@ import 'package:yumi/validators/required_validator.dart';
 class MealForm extends StatelessWidget {
   MealForm({super.key, this.meal, this.menuTarget});
 
-  final MenuTarget? menuTarget;
+  final OrderType? menuTarget;
   Meal? meal;
 
   bool isLoaded = false;
@@ -53,8 +53,8 @@ class MealForm extends StatelessWidget {
           code: CodeGenerator.getRandomCode(),
           categoriesIds: [],
           ingredients: [],
-          isOrder: menuTarget == MenuTarget.order,
-          isPreOrder: menuTarget == MenuTarget.preOrder,
+          isOrder: menuTarget == OrderType.order,
+          isPreOrder: menuTarget == OrderType.preOrder,
           preparationTime: 25,
           isPickUpOnly: false,
           name: '',
@@ -104,7 +104,8 @@ class MealForm extends StatelessWidget {
                                         meal?.copyWith(photo: image.toString());
                                     context.read<MealFormCubit>().update(
                                           mealModel: getMeal().copyWith(
-                                              photo: image.toString()),
+                                            photo: image.toString(),
+                                          ),
                                         );
                                   }
                                 },
@@ -300,7 +301,7 @@ class MealForm extends StatelessWidget {
                                       .read<CategoriesCubit>()
                                       .getAllCategories(
                                         isPreOrder:
-                                            menuTarget == MenuTarget.preOrder,
+                                            menuTarget == OrderType.preOrder,
                                       ),
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
@@ -444,7 +445,7 @@ class _SaveBTN extends StatefulWidget {
   });
   final GlobalKey<FormState> mealForm;
 
-  final MenuTarget? menuTarget;
+  final OrderType? menuTarget;
   final Meal? meal;
   final bool isEdit;
 

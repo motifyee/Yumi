@@ -8,7 +8,7 @@ class CustomerMenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomerNews(
-      menuTarget: MenuTarget.order,
+      menuTarget: OrderType.order,
     );
   }
 }

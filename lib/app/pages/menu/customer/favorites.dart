@@ -119,7 +119,7 @@ class FavoritesScreen extends StatelessWidget {
                                     children: [
                                       for (var chef in state.chefs)
                                         ChefBanner(
-                                          menuTarget: MenuTarget.preOrder,
+                                          menuTarget: OrderType.preOrder,
                                           chef: chef,
                                           width: MediaQuery.of(context)
                                                   .size

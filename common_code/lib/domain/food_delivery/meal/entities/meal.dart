@@ -4,7 +4,7 @@ import 'package:common_code/domain/food_delivery/ingredients/entities/ingredient
 part 'meal.g.dart';
 part 'meal.freezed.dart';
 
-enum MenuTarget { order, preOrder }
+enum OrderType { order, preOrder }
 
 @freezed
 class Meal with _$Meal {

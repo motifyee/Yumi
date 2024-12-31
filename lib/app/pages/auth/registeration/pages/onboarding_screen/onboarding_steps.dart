@@ -66,7 +66,7 @@ List<OnboardingStep> chefOnboardingSteps(
             context: context,
             // title: Container(),
             content: const MenuTemplate(
-              menuTarget: MenuTarget.order,
+              menuTarget: OrderType.order,
             ),
             actions: {
               S.of(context).next: (ctx) {

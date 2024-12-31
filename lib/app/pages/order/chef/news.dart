@@ -13,7 +13,7 @@ class NewsScreen extends StatelessWidget {
   NewsScreen({super.key});
 
   final PageController _controller = PageController(initialPage: 1);
-  final MenuTarget _menuTarget = MenuTarget.order;
+  final OrderType _menuTarget = OrderType.order;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class NewsScreen extends StatelessWidget {
             height: CommonDimens.defaultTitleGap,
           ),
           Expanded(
-            child: ChefOrder(controller: _controller, menuTarget: _menuTarget),
+            child: ChefOrder(controller: _controller, orderType: _menuTarget),
           ),
         ],
       ),

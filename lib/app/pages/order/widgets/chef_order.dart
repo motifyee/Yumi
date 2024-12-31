@@ -10,19 +10,19 @@ import 'package:yumi/generated/l10n.dart';
 import 'package:yumi/global.dart';
 import 'package:common_code/common_code.dart';
 import 'package:yumi/app/pages/order/widgets/action_button.dart';
-import 'package:yumi/app/pages/order/widgets/news_orders.dart';
+import 'package:yumi/app/pages/order/widgets/orders_card_list.dart';
 
 class ChefOrder extends StatelessWidget {
-  ChefOrder({super.key, required this.controller, required this.menuTarget});
+  ChefOrder({super.key, required this.controller, required this.orderType});
 
   PageController controller;
-  MenuTarget menuTarget;
+  OrderType orderType;
 
   @override
   Widget build(BuildContext context) {
     context
         .read<PageViewCubit>()
-        .updateSelect(selectedList: menuTarget == MenuTarget.order ? 1 : 0);
+        .updateSelect(selectedList: orderType == OrderType.order ? 1 : 0);
     return Column(
       children: [
         BlocBuilder<SignalRCubit, SignalRState>(
@@ -32,17 +32,17 @@ class ChefOrder extends StatelessWidget {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    if (menuTarget == MenuTarget.preOrder)
+                    if (orderType == OrderType.preOrder)
                       ActionButton(
                         key: key,
                         label: S.of(context).pending,
                         isActive: state.selectedList == 0,
-                        isNotificationIconShow: states.isSignalTriggered(
-                          signal: [
+                        showNotifIcon: states.hasAnySignalTriggered(
+                          watchedSignals: [
                             Signal.neworderreceived,
                             Signal.driveraccept,
                           ],
-                          isPreOrder: menuTarget == MenuTarget.preOrder,
+                          isPreOrder: orderType == OrderType.preOrder,
                         ),
                         onPressed: () {
                           context
@@ -61,14 +61,14 @@ class ChefOrder extends StatelessWidget {
                       key: key,
                       label: S.of(context).received,
                       isActive: state.selectedList == 1,
-                      isNotificationIconShow: states.isSignalTriggered(
-                        signal: [
+                      showNotifIcon: states.hasAnySignalTriggered(
+                        watchedSignals: [
                           Signal.driveraccept,
-                          if (menuTarget == MenuTarget.order)
+                          if (orderType == OrderType.order)
                             Signal.neworderreceived,
                           Signal.clientcancel,
                         ],
-                        isPreOrder: menuTarget == MenuTarget.preOrder,
+                        isPreOrder: orderType == OrderType.preOrder,
                       ),
                       onPressed: () {
                         context
@@ -78,7 +78,7 @@ class ChefOrder extends StatelessWidget {
                         context.read<SignalRCubit>().removeSignals(
                           signal: [
                             Signal.driveraccept,
-                            if (menuTarget == MenuTarget.order)
+                            if (orderType == OrderType.order)
                               Signal.neworderreceived,
                             Signal.clientcancel,
                           ],
@@ -89,9 +89,9 @@ class ChefOrder extends StatelessWidget {
                       key: key,
                       label: S.of(context).preparing,
                       isActive: state.selectedList == 2,
-                      isNotificationIconShow: states.isSignalTriggered(
-                        signal: [Signal.clientcancel],
-                        isPreOrder: menuTarget == MenuTarget.preOrder,
+                      showNotifIcon: states.hasAnySignalTriggered(
+                        watchedSignals: [Signal.clientcancel],
+                        isPreOrder: orderType == OrderType.preOrder,
                       ),
                       onPressed: () {
                         context
@@ -107,9 +107,9 @@ class ChefOrder extends StatelessWidget {
                       key: key,
                       label: S.of(context).ready,
                       isActive: state.selectedList == 3,
-                      isNotificationIconShow: states.isSignalTriggered(
-                        signal: [Signal.clientreceived],
-                        isPreOrder: menuTarget == MenuTarget.preOrder,
+                      showNotifIcon: states.hasAnySignalTriggered(
+                        watchedSignals: [Signal.clientreceived],
+                        isPreOrder: orderType == OrderType.preOrder,
                       ),
                       onPressed: () {
                         context
@@ -151,10 +151,10 @@ class ChefOrder extends StatelessWidget {
             children: [
               BlocProvider(
                 create: (context) => OrderCubit(),
-                child: NewsOrders(
-                  menuTarget: menuTarget,
+                child: OrdersCardList(
+                  orderType: orderType,
                   apiKey: Endpoints().preOrderChefReceived,
-                  orderCardTargetPage: OrderCardTargetPage.chefPending,
+                  orderCardType: OrderCardType.chefPending,
                   signals: const [Signal.neworderreceived, Signal.driveraccept],
                   navFun: () {
                     context.read<PageViewCubit>().updateSelect(selectedList: 1);
@@ -164,15 +164,15 @@ class ChefOrder extends StatelessWidget {
               ),
               BlocProvider(
                 create: (context) => OrderCubit(),
-                child: NewsOrders(
-                  menuTarget: menuTarget,
-                  apiKey: menuTarget == MenuTarget.order
+                child: OrdersCardList(
+                  orderType: orderType,
+                  apiKey: orderType == OrderType.order
                       ? Endpoints().orderChefReceived
                       : Endpoints().preOrderChefAccepted,
-                  orderCardTargetPage: OrderCardTargetPage.chefReceived,
+                  orderCardType: OrderCardType.chefReceived,
                   signals: [
                     Signal.driveraccept,
-                    if (menuTarget == MenuTarget.order) Signal.neworderreceived,
+                    if (orderType == OrderType.order) Signal.neworderreceived,
                     Signal.clientcancel,
                   ],
                   navFun: () {
@@ -186,12 +186,12 @@ class ChefOrder extends StatelessWidget {
               ),
               BlocProvider(
                 create: (context) => OrderCubit(),
-                child: NewsOrders(
-                  menuTarget: menuTarget,
-                  apiKey: menuTarget == MenuTarget.order
+                child: OrdersCardList(
+                  orderType: orderType,
+                  apiKey: orderType == OrderType.order
                       ? Endpoints().orderChefPreparing
                       : Endpoints().preOrderChefPreparing,
-                  orderCardTargetPage: OrderCardTargetPage.chefPreparing,
+                  orderCardType: OrderCardType.chefPreparing,
                   signals: const [Signal.chefstart, Signal.clientcancel],
                   navFun: () {
                     context.read<PageViewCubit>().updateSelect(selectedList: 3);
@@ -204,12 +204,12 @@ class ChefOrder extends StatelessWidget {
               ),
               BlocProvider(
                 create: (context) => OrderCubit(),
-                child: NewsOrders(
-                  menuTarget: menuTarget,
-                  apiKey: menuTarget == MenuTarget.order
+                child: OrdersCardList(
+                  orderType: orderType,
+                  apiKey: orderType == OrderType.order
                       ? Endpoints().orderChefReady
                       : Endpoints().preOrderChefReady,
-                  orderCardTargetPage: OrderCardTargetPage.chefReady,
+                  orderCardType: OrderCardType.chefReady,
                   signals: const [Signal.cheffinished],
                   navFun: () {
                     context.read<PageViewCubit>().updateSelect(selectedList: 1);
@@ -219,12 +219,12 @@ class ChefOrder extends StatelessWidget {
               ),
               BlocProvider(
                 create: (context) => OrderCubit(),
-                child: NewsOrders(
-                  menuTarget: menuTarget,
-                  apiKey: menuTarget == MenuTarget.order
+                child: OrdersCardList(
+                  orderType: orderType,
+                  apiKey: orderType == OrderType.order
                       ? Endpoints().orderChefClosed
                       : Endpoints().preOrderChefClosed,
-                  orderCardTargetPage: OrderCardTargetPage.chefHistory,
+                  orderCardType: OrderCardType.chefHistory,
                   signals: const [Signal.clientreceived, Signal.driverreceived],
                 ),
               ),

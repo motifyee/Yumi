@@ -14,7 +14,7 @@ import 'package:yumi/app/pages/menu/widgets/offer_carousel.dart';
 class CustomerNews extends StatelessWidget {
   CustomerNews({super.key, required this.menuTarget});
 
-  MenuTarget menuTarget;
+  OrderType menuTarget;
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,8 @@ class CustomerNews extends StatelessWidget {
                         hintText: S.of(context).searchForFood,
                         prefixIcon: Padding(
                           padding: const EdgeInsets.all(
-                              CommonDimens.defaultInputGap),
+                            CommonDimens.defaultInputGap,
+                          ),
                           child: SvgPicture.asset('assets/images/search.svg'),
                         ),
                         suffixIcon: GestureDetector(
@@ -171,7 +172,8 @@ class CustomerNews extends StatelessWidget {
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                          fontSize: CommonFontSize.font_9),
+                                        fontSize: CommonFontSize.font_9,
+                                      ),
                                 ),
                               ),
                             ),
@@ -212,7 +214,8 @@ class CustomerNews extends StatelessWidget {
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                          fontSize: CommonFontSize.font_9),
+                                        fontSize: CommonFontSize.font_9,
+                                      ),
                                 ),
                               ),
                             ),
@@ -245,7 +248,8 @@ class CustomerNews extends StatelessWidget {
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                          fontSize: CommonFontSize.font_9),
+                                        fontSize: CommonFontSize.font_9,
+                                      ),
                                 ),
                               ),
                             ),
@@ -278,7 +282,8 @@ class CustomerNews extends StatelessWidget {
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                          fontSize: CommonFontSize.font_9),
+                                        fontSize: CommonFontSize.font_9,
+                                      ),
                                 ),
                               ),
                             ),

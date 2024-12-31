@@ -18,7 +18,7 @@ class ChefProfileScreen extends StatelessWidget {
   ChefProfileScreen({super.key, required this.chef, required this.menuTarget});
 
   final Chef chef;
-  MenuTarget menuTarget;
+  OrderType menuTarget;
 
   List<String> eventPhotos = [];
 
@@ -234,7 +234,7 @@ class ChefProfileScreen extends StatelessWidget {
                                       .read<CategoriesCubit>()
                                       .getChefCategories(
                                         isPreOrder:
-                                            menuTarget == MenuTarget.preOrder,
+                                            menuTarget == OrderType.preOrder,
                                         chefId: chef.id,
                                       );
                                   //       .add(

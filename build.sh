@@ -3,12 +3,24 @@
 # Usage: build.sh customer ios => third parameter is not required
 test=0
 
+case $OSTYPE in
+darwin*) os="mac" ;;
+linux*) os="linux" ;;
+msys*) cmdPrefix="C:/msys64/usr/bin/" ;;
+cygwin*) cmdPrefix="C:/msys64/usr/bin/" ;;
+*) os="unknown" ;;
+esac
+
 build() {
 
   # getBundleId customer android
   getBundleId() {
+    if [ "$test" == 1 ]; then
+      suffix=".debugapp"
+    fi
+
     if [ "$2" == "android" ]; then
-      echo "com.yumi.$1s"
+      echo "com.yumi.$1s$suffix"
     elif [ "$2" == "ios" ]; then
       if [ "$1" == "driver" ]; then
         echo "com.yumi.deliveryapp"
@@ -21,11 +33,23 @@ build() {
   # getBundleName customer
   getBundleName() {
     if [ "$1" == "customer" ]; then
-      echo "Yumi Food"
+      if [ "$test" == 1 ]; then
+        echo "1. Food"
+      else
+        echo "Yumi Food"
+      fi
     elif [ "$1" == "chef" ]; then
-      echo "Yumi Chef"
+      if [ "$test" == 1 ]; then
+        echo "2. Chef"
+      else
+        echo "Yumi Chef"
+      fi
     elif [ "$1" == "driver" ]; then
-      echo "Yumi Driver"
+      if [ "$test" == 1 ]; then
+        echo "3. Driver"
+      else
+        echo "Yumi Driver"
+      fi
     fi
   }
 
@@ -97,11 +121,7 @@ build() {
 
   echo "appName: $appName"
   echo "appName_x: ${appName}_x"
-  echo "icon: $icon"
-
-  if [ "$test" = 1 ]; then
-    exit 1
-  fi
+  echo "icon: $icon/$appName.png"
 
   echo
   echo 2. Update Splash Images:
@@ -122,6 +142,10 @@ build() {
   # flutter pub get
   # dart run flutter_launcher_icons
   dart run icons_launcher:create
+
+  if [ "$test" = 1 ]; then
+    exit 0
+  fi
 
   echo
   echo 4. Perform Build:

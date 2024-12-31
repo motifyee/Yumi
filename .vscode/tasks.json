@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Prepare Chef",
+      "type": "process",
+      "command": "C:/msys64/usr/bin/bash.exe",
+      "args": [
+        "build.sh",
+        "test",
+        "chef",
+        "android",
+        "apk"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+      }
+    },
+    {
+      "label": "Prepare Driver",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/build.sh",
+        "test",
+        "driver",
+        "android",
+        "apk"
+      ],
+    },
+    {
+      "label": "Prepare Customer",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/build.sh",
+        "test",
+        "customer",
+        "android",
+        "apk"
+      ],
+    }
+  ]
+}

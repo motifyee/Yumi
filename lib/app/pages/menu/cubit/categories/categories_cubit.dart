@@ -93,6 +93,8 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       ...categoriesPage.data,
     ];
 
+    if (isClosed) return;
+
     emit(
       state.copyWith(
         categoriesPage: categoriesPage.copyWith(

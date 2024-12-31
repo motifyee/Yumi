@@ -12,20 +12,20 @@ import 'package:common_code/common_code.dart';
 import 'package:yumi/app/pages/order/widgets/action_button.dart';
 import 'package:yumi/app/pages/order/widgets/location.dart';
 import 'package:yumi/app/pages/order/widgets/news_guide.dart';
-import 'package:yumi/app/pages/order/widgets/news_orders.dart';
+import 'package:yumi/app/pages/order/widgets/orders_card_list.dart';
 import 'package:yumi/app/pages/order/widgets/status_button.dart';
 
 class DriverOrderScreen extends StatelessWidget {
   DriverOrderScreen({super.key, required this.menuTarget});
 
-  final MenuTarget menuTarget;
+  final OrderType menuTarget;
 
   final PageController _controller = PageController();
 
   @override
   Widget build(BuildContext context) {
     bool isShown = false;
-    if (menuTarget == MenuTarget.order) {
+    if (menuTarget == OrderType.order) {
       LocalStorage.sharedRef.getValue(LocalStorage.newsGuide).then((res) {
         if (res != true) {
           if (!isShown) {
@@ -51,7 +51,7 @@ class DriverOrderScreen extends StatelessWidget {
         children: [
           const LocationWidget(),
           const SizedBox(height: CommonDimens.defaultGap),
-          if (menuTarget == MenuTarget.order) StatusButton(),
+          if (menuTarget == OrderType.order) StatusButton(),
           BlocBuilder<SignalRCubit, SignalRState>(
             builder: (context, states) {
               return BlocBuilder<PageViewCubit, PageViewState>(
@@ -63,9 +63,9 @@ class DriverOrderScreen extends StatelessWidget {
                         key: key,
                         label: S.of(context).available,
                         isActive: state.selectedList == 0,
-                        isNotificationIconShow: states.isSignalTriggered(
-                          signal: [Signal.neworderreceived],
-                          isPreOrder: menuTarget == MenuTarget.preOrder,
+                        showNotifIcon: states.hasAnySignalTriggered(
+                          watchedSignals: [Signal.neworderreceived],
+                          isPreOrder: menuTarget == OrderType.preOrder,
                         ),
                         onPressed: () {
                           context
@@ -82,15 +82,15 @@ class DriverOrderScreen extends StatelessWidget {
                         key: key,
                         label: S.of(context).active,
                         isActive: state.selectedList == 1,
-                        isNotificationIconShow: states.isSignalTriggered(
-                          signal: [
+                        showNotifIcon: states.hasAnySignalTriggered(
+                          watchedSignals: [
                             Signal.chefstart,
                             Signal.cheffinished,
                             Signal.driverreceived,
                             Signal.clientreceived,
                             Signal.clientcancel,
                           ],
-                          isPreOrder: menuTarget == MenuTarget.preOrder,
+                          isPreOrder: menuTarget == OrderType.preOrder,
                         ),
                         onPressed: () {
                           context
@@ -122,7 +122,7 @@ class DriverOrderScreen extends StatelessWidget {
                 BlocBuilder<UserCubit, UserState>(
                   builder: (context, state) {
                     return state.user.status != 1 &&
-                            menuTarget == MenuTarget.order
+                            menuTarget == OrderType.order
                         ? Center(
                             child: Padding(
                               padding: const EdgeInsets.all(
@@ -139,13 +139,12 @@ class DriverOrderScreen extends StatelessWidget {
                           )
                         : BlocProvider(
                             create: (context) => OrderCubit(),
-                            child: NewsOrders(
-                              menuTarget: menuTarget,
-                              apiKey: menuTarget == MenuTarget.order
+                            child: OrdersCardList(
+                              orderType: menuTarget,
+                              apiKey: menuTarget == OrderType.order
                                   ? Endpoints().orderDriverAvailable
                                   : Endpoints().preOrderDriverAvailable,
-                              orderCardTargetPage:
-                                  OrderCardTargetPage.driverAccept,
+                              orderCardType: OrderCardType.driverAccept,
                               signals: const [
                                 Signal.neworderreceived,
                                 Signal.driveraccept,
@@ -156,12 +155,12 @@ class DriverOrderScreen extends StatelessWidget {
                 ),
                 BlocProvider(
                   create: (context) => OrderCubit(),
-                  child: NewsOrders(
-                    menuTarget: menuTarget,
-                    apiKey: menuTarget == MenuTarget.order
+                  child: OrdersCardList(
+                    orderType: menuTarget,
+                    apiKey: menuTarget == OrderType.order
                         ? Endpoints().orderDriverActive
                         : Endpoints().preOrderDriverActive,
-                    orderCardTargetPage: OrderCardTargetPage.driverReceived,
+                    orderCardType: OrderCardType.driverReceived,
                     signals: const [
                       Signal.chefstart,
                       Signal.cheffinished,

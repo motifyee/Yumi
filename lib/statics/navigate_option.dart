@@ -84,7 +84,7 @@ class NavigateOptions {
           SvgPicture.asset('assets/images/home1.svg', fit: BoxFit.fitWidth),
       title: S.current.yumi,
       page: DriverOrderScreen(
-        menuTarget: MenuTarget.order,
+        menuTarget: OrderType.order,
       ),
     ),
     NavigateListItem(
@@ -112,7 +112,7 @@ class NavigateOptions {
       ),
       title: S.current.preOrder,
       page: DriverOrderScreen(
-        menuTarget: MenuTarget.preOrder,
+        menuTarget: OrderType.preOrder,
       ),
     ),
     NavigateListItem(
@@ -264,15 +264,15 @@ class _CustomerAction extends StatelessWidget {
                 height: CommonDimens.iconSizeDefault,
                 width: CommonDimens.iconSizeDefault,
               ),
-              if (state.isSignalTriggered(
-                    signal: [
+              if (state.hasAnySignalTriggered(
+                    watchedSignals: [
                       Signal.clientreceived,
                       Signal.chefcancel,
                     ],
                     isPreOrder: false,
                   ) ||
-                  state.isSignalTriggered(
-                    signal: [
+                  state.hasAnySignalTriggered(
+                    watchedSignals: [
                       Signal.clientreceived,
                       Signal.chefcancel,
                     ],

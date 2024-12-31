@@ -451,7 +451,7 @@ class ChefProfileRoute extends _i33.PageRouteInfo<ChefProfileRouteArgs> {
   ChefProfileRoute({
     _i34.Key? key,
     required _i35.Chef chef,
-    required _i35.MenuTarget menuTarget,
+    required _i35.OrderType menuTarget,
     List<_i33.PageRouteInfo>? children,
   }) : super(
           ChefProfileRoute.name,
@@ -480,7 +480,7 @@ class ChefProfileRouteArgs {
 
   final _i35.Chef chef;
 
-  final _i35.MenuTarget menuTarget;
+  final _i35.OrderType menuTarget;
 
   @override
   String toString() {

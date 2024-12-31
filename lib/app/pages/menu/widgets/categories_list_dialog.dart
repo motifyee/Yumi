@@ -11,7 +11,7 @@ import 'package:yumi/app/pages/menu/widgets/meal_list.dart';
 class CategoriesListDialog extends StatelessWidget {
   CategoriesListDialog({super.key, required this.menuTarget});
 
-  MenuTarget menuTarget;
+  OrderType menuTarget;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class CategoriesListDialog extends StatelessWidget {
                 return PaginationTemplate(
                   loadDate: () {
                     context.read<CategoriesCubit>().getAllCategories(
-                          isPreOrder: menuTarget == MenuTarget.preOrder,
+                          isPreOrder: menuTarget == OrderType.preOrder,
                         );
                     // .add(GetCategoriesEvent(
                     //     context: context,

@@ -22,7 +22,7 @@ MealState _$MealStateFromJson(Map<String, dynamic> json) {
 mixin _$MealState {
   PaginatedData<Meal> get pagination => throw _privateConstructorUsedError;
   int get selectedCategory => throw _privateConstructorUsedError;
-  MenuTarget get menuTarget => throw _privateConstructorUsedError;
+  OrderType get menuTarget => throw _privateConstructorUsedError;
   int get mealsLength => throw _privateConstructorUsedError;
   int get changesCounter => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
@@ -45,7 +45,7 @@ abstract class $MealStateCopyWith<$Res> {
   $Res call(
       {PaginatedData<Meal> pagination,
       int selectedCategory,
-      MenuTarget menuTarget,
+      OrderType menuTarget,
       int mealsLength,
       int changesCounter,
       Status status});
@@ -87,7 +87,7 @@ class _$MealStateCopyWithImpl<$Res, $Val extends MealState>
       menuTarget: null == menuTarget
           ? _value.menuTarget
           : menuTarget // ignore: cast_nullable_to_non_nullable
-              as MenuTarget,
+              as OrderType,
       mealsLength: null == mealsLength
           ? _value.mealsLength
           : mealsLength // ignore: cast_nullable_to_non_nullable
@@ -125,7 +125,7 @@ abstract class _$$MealStateImplCopyWith<$Res>
   $Res call(
       {PaginatedData<Meal> pagination,
       int selectedCategory,
-      MenuTarget menuTarget,
+      OrderType menuTarget,
       int mealsLength,
       int changesCounter,
       Status status});
@@ -166,7 +166,7 @@ class __$$MealStateImplCopyWithImpl<$Res>
       menuTarget: null == menuTarget
           ? _value.menuTarget
           : menuTarget // ignore: cast_nullable_to_non_nullable
-              as MenuTarget,
+              as OrderType,
       mealsLength: null == mealsLength
           ? _value.mealsLength
           : mealsLength // ignore: cast_nullable_to_non_nullable
@@ -202,7 +202,7 @@ class _$MealStateImpl implements _MealState {
   @override
   final int selectedCategory;
   @override
-  final MenuTarget menuTarget;
+  final OrderType menuTarget;
   @override
   @JsonKey()
   final int mealsLength;
@@ -261,7 +261,7 @@ abstract class _MealState implements MealState {
   const factory _MealState(
       {required final PaginatedData<Meal> pagination,
       required final int selectedCategory,
-      required final MenuTarget menuTarget,
+      required final OrderType menuTarget,
       final int mealsLength,
       final int changesCounter,
       final Status status}) = _$MealStateImpl;
@@ -274,7 +274,7 @@ abstract class _MealState implements MealState {
   @override
   int get selectedCategory;
   @override
-  MenuTarget get menuTarget;
+  OrderType get menuTarget;
   @override
   int get mealsLength;
   @override

@@ -17,12 +17,15 @@ class SignalRState with _$SignalRState {
 
   const SignalRState._();
 
-  bool isSignalTriggered({required List<Signal> signal, bool? isPreOrder}) {
+  bool hasAnySignalTriggered({
+    required List<Signal> watchedSignals,
+    bool? isPreOrder,
+  }) {
     return signals.any((e) {
-      return signal.any((c) => c == e.type) &&
-          (isPreOrder == null
-              ? true
-              : isPreOrder == e.message[0]['is_Preorder']);
+      final matchOrderType =
+          isPreOrder == null ? true : isPreOrder == e.message[0]['is_Preorder'];
+
+      return matchOrderType && watchedSignals.any((c) => c == e.type);
     });
   }
 
