@@ -142,13 +142,11 @@ class OrderPutActions {
     final isPreSchedule = scheduleDate != null &&
         DateTime.now().difference(scheduleDate).inSeconds < 0;
 
-    final shouldPassSchedule = isPreSchedule && widget.order.isPickUp == false;
-
     final driverShouldAccepted =
         widget.order.isPickUp == false && widget.order.driverAccept == false;
 
     return OrderPutActionConfig(
-      disabled: driverShouldAccepted || shouldPassSchedule,
+      disabled: driverShouldAccepted || isPreSchedule,
       apiKey: widget.orderType == OrderType.order
           ? widget.order.isPickUp == true
               ? Endpoints().orderChefPickUpStart
@@ -184,11 +182,11 @@ class OrderPutActions {
       );
 
   static chefAcceptPreorder({required OrderCard widget}) {
-    // final driverShouldAccepted =
-    //     widget.order.isPickUp == false && widget.order.driverAccept == false;
+    final driverShouldAccepted =
+        widget.order.isPickUp == false && widget.order.driverAccept == false;
 
     return OrderPutActionConfig(
-      disabled: false,
+      disabled: driverShouldAccepted,
       apiKey: widget.order.isPickUp == true
           ? Endpoints().preOrderChefPickUpAccept
           : Endpoints().preOrderChefDeliveryAccept,
