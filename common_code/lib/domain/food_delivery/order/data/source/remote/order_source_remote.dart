@@ -18,7 +18,7 @@ class OrderSourceRemote extends OrderSource {
         queryParameters: {...ordersPage.toJson()},
       );
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
     try {
       List<Order> data =
@@ -48,7 +48,7 @@ class OrderSourceRemote extends OrderSource {
           queryParameters: {'orderId': orderId}
             ..removeWhere((key, value) => value == null));
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
 
     return res.statusCode == 200;
@@ -65,7 +65,7 @@ class OrderSourceRemote extends OrderSource {
           queryParameters: {...?pagination}
             ..removeWhere((key, value) => value == null));
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
 
     return Order.fromJson(

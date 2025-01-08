@@ -12,7 +12,7 @@ class AuthRemoteSrc implements AuthSrc {
       res = await APIClient()
           .post(Endpoints().login, data: jsonEncode(loginModel.toJson()));
     } catch (e) {
-      throw ServerException(e as DioException);
+      throw e.exceptionFromDio;
     }
 
     final user = User.fromJson(res.data);

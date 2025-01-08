@@ -41,7 +41,7 @@ class Signalr {
 
   static void _setupSignalrConnection([bool force = false]) {
     if (!force && hubConnection != null) return;
-    if (accessToken == null) return;
+    if (accessToken?.isEmpty ?? true) return;
 
     Logger.root.level = Level.ALL;
     Logger.root.onRecord.listen((LogRecord rec) {
@@ -52,11 +52,6 @@ class Signalr {
     final hubLogger = Logger("SignalR hub");
 
     final httpOptions = HttpConnectionOptions(
-      httpClient: WebSupportingHttpClient(
-        hubLogger,
-        httpClientCreateCallback: (httpClient) =>
-            HttpOverrides.global = HttpOverrideCertificateVerificationInDev(),
-      ),
       logger: transportLogger,
       logMessageContent: true,
       transport: HttpTransportType.WebSockets,
@@ -94,6 +89,7 @@ class Signalr {
     ensureInitialized();
 
     if (hubConnection?.state == HubConnectionState.Connected) return;
+    if (hubConnection?.state == HubConnectionState.Connecting) return;
 
     await hubConnection?.start()?.then(_onstarted).catchError(_onstarterror);
   }
@@ -153,19 +149,10 @@ class Signalr {
   }
 }
 
-class HttpOverrideCertificateVerificationInDev extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
-}
-
 void _onclose({Exception? error}) {
   debugPrint("SignalR closed ");
   debugPrint(error.toString());
-  Timer(const Duration(seconds: 1), Signalr.startConnection);
+  // Timer(const Duration(seconds: 1), Signalr.startConnection);
 }
 
 void _onreconnecting({Exception? error}) {

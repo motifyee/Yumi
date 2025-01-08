@@ -67,7 +67,7 @@ build() {
 
   getBuildOutput() {
     apkOutput="./build/app/outputs/flutter-apk"
-    appbundleOutput="./build/app/outputs/bundle"
+    appbundleOutput="./build/app/outputs/bundle/release"
     ipaOutput="./build/ios/ipa"
 
     if [ "$1" == "apk" ]; then

@@ -18,18 +18,6 @@ class APIClient {
     )..interceptors.addAll([
         ...interceptors,
       ]);
-
-    if (kIsWeb || !kReleaseMode) return;
-
-    // this is for local network ssl certificate error
-    // must be removed in production
-    (_dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
-      HttpClient dioClient = HttpClient();
-
-      // (X509Certificate cert, String host, int port) => true;
-      dioClient.badCertificateCallback = ((_, __, ___) => true);
-      return dioClient;
-    };
   }
 
   // config

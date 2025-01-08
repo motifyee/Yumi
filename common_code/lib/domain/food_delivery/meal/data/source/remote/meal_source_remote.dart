@@ -9,7 +9,7 @@ class MealSourceRemote extends MealSource {
     try {
       res = await APIClient().post(Endpoints().meal, data: meal.toJson());
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
 
     return res.data;
@@ -21,7 +21,7 @@ class MealSourceRemote extends MealSource {
       await APIClient().put('${Endpoints().meal}/${meal.id}/delete',
           data: {"is_Deleted": true});
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
     return meal;
   }
@@ -34,7 +34,7 @@ class MealSourceRemote extends MealSource {
       res = await APIClient().get(Endpoints().favoriteMeals,
           queryParameters: {...pagination.toJson()});
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
     List<Meal> data;
     try {
@@ -60,7 +60,7 @@ class MealSourceRemote extends MealSource {
       res = await APIClient().get(Endpoints.actionApiKeyString(
           id: mealId.toString(), apiKey: Endpoints().getMealById));
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
 
     return Meal.fromJson(res.data);
@@ -83,7 +83,7 @@ class MealSourceRemote extends MealSource {
             'latitude': lat
           }..removeWhere((key, value) => value == null));
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
     List<Meal> data = res.data['data']
         .map<Meal>((e) => Meal.fromJson(
@@ -115,7 +115,7 @@ class MealSourceRemote extends MealSource {
             'latitude': lat
           }..removeWhere((key, value) => value == null));
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
 
     List<Meal> data = res.data['data']
@@ -144,7 +144,7 @@ class MealSourceRemote extends MealSource {
             'isPreorder': isPreorder
           }..removeWhere((key, value) => value == null));
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
     List<Meal> data = res.data['data']
         .map<Meal>((e) => Meal.fromJson(
@@ -175,7 +175,7 @@ class MealSourceRemote extends MealSource {
             'isPreorder': isPreorder
           }..removeWhere((key, value) => value == null));
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
 
     final meals = res.data['data'].map<Meal>((e) {
@@ -201,7 +201,7 @@ class MealSourceRemote extends MealSource {
           data: {'code': CodeGenerator.getRandomCode()},
           queryParameters: {'productId': meal.id});
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
     if (res.statusCode == 200) return meal.copyWith(isFavoriteProduct: true);
     return meal;
@@ -214,7 +214,7 @@ class MealSourceRemote extends MealSource {
       res = await APIClient().delete(Endpoints().favoriteMeals,
           queryParameters: {'productId': meal.id});
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
     if (res.statusCode == 200) return meal.copyWith(isFavoriteProduct: false);
     return meal;
@@ -227,7 +227,7 @@ class MealSourceRemote extends MealSource {
       res = await APIClient()
           .put('${Endpoints().meal}/${meal.id}', data: meal.toJson());
     } catch (e) {
-      throw ServerException((e as DioException));
+      throw e.exceptionFromDio;
     }
     return res.data;
   }

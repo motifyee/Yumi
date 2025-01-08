@@ -2,7 +2,7 @@ import 'package:yumi/generated/l10n.dart';
 
 String? passwordValidator(String? value) {
   if (value == null || value.isEmpty) return S.current.required;
-  if (!passwordStructure(value)) return S.current.passwordMustBe;
+  // if (!passwordStructure(value)) return S.current.passwordMustBe;
   return null;
 }
 
