@@ -152,7 +152,7 @@ class Signalr {
 void _onclose({Exception? error}) {
   debugPrint("SignalR closed ");
   debugPrint(error.toString());
-  // Timer(const Duration(seconds: 1), Signalr.startConnection);
+  Timer(const Duration(seconds: 1), Signalr.startConnection);
 }
 
 void _onreconnecting({Exception? error}) {
