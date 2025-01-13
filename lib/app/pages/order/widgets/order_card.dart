@@ -66,21 +66,21 @@ class _OrderCardState extends State<OrderCard> with TickerProviderStateMixin {
       widget.isView = true;
     }
 
-    if (widget.orderCardType == OrderCardType.driverAccept) {
-      if (widget.orderType == OrderType.order &&
-          widget.order.isDriverOrderPendingEnd) {
-        return const SizedBox(height: 0, width: 0);
-      }
-      if (widget.orderType == OrderType.preOrder &&
-          widget.order.isDriverPreOrderPendingEnd) {
-        return const SizedBox(height: 0, width: 0);
-      }
-    }
+    // if (widget.orderCardType == OrderCardType.driverAccept) {
+    //   if (widget.orderType == OrderType.order &&
+    //       widget.order.isDriverOrderPendingEnd) {
+    //     return const SizedBox(height: 0, width: 0);
+    //   }
+    //   if (widget.orderType == OrderType.preOrder &&
+    //       widget.order.isDriverPreOrderPendingEnd) {
+    //     return const SizedBox(height: 0, width: 0);
+    //   }
+    // }
 
-    if (widget.orderCardType == OrderCardType.chefPending &&
-        widget.orderType == OrderType.preOrder) {
-      if (widget.order.isOver3H) return const SizedBox(height: 0, width: 0);
-    }
+    // if (widget.orderCardType == OrderCardType.chefPending &&
+    //     widget.orderType == OrderType.preOrder) {
+    //   if (widget.order.isOver3H) return const SizedBox(height: 0, width: 0);
+    // }
 
     return Stack(
       clipBehavior: Clip.none,

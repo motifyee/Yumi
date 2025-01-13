@@ -12,8 +12,8 @@ import 'package:common_code/common_code.dart';
 import 'package:yumi/app/pages/order/widgets/action_button.dart';
 import 'package:yumi/app/pages/order/widgets/orders_card_list.dart';
 
-class ChefOrder extends StatelessWidget {
-  ChefOrder({super.key, required this.controller, required this.orderType});
+class ChefOrders extends StatelessWidget {
+  ChefOrders({super.key, required this.controller, required this.orderType});
 
   PageController controller;
   OrderType orderType;

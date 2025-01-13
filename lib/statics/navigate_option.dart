@@ -8,7 +8,7 @@ import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/menu/chef/menu.dart';
 import 'package:yumi/app/pages/notification/cubit/notification_cubit.dart';
 import 'package:yumi/app/pages/notification/notification_screen.dart';
-import 'package:yumi/app/pages/order/chef/news.dart';
+import 'package:yumi/app/pages/order/chef/chef_orders_home.dart';
 import 'package:yumi/app/pages/order/chef/pre_order.dart';
 import 'package:yumi/app/pages/order/customer/customer_order.dart';
 import 'package:yumi/app/pages/order/driver/driver_order.dart';
@@ -84,7 +84,7 @@ class NavigateOptions {
           SvgPicture.asset('assets/images/home1.svg', fit: BoxFit.fitWidth),
       title: S.current.yumi,
       page: DriverOrderScreen(
-        menuTarget: OrderType.order,
+        orderType: OrderType.order,
       ),
     ),
     NavigateListItem(
@@ -112,7 +112,7 @@ class NavigateOptions {
       ),
       title: S.current.preOrder,
       page: DriverOrderScreen(
-        menuTarget: OrderType.preOrder,
+        orderType: OrderType.preOrder,
       ),
     ),
     NavigateListItem(

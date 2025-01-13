@@ -20,13 +20,18 @@ build() {
     fi
 
     if [ "$2" == "android" ]; then
-      echo "com.yumi.$1s$suffix"
-    elif [ "$2" == "ios" ]; then
-      if [ "$1" == "driver" ]; then
-        echo "com.yumi.deliveryapp"
+      if [ "$1" == "delivery" ]; then
+        echo "com.yumi.driversapp${suffix}"
       else
-        echo "com.yumi.$1app"
+        echo "com.yumi.${1}sapp${suffix}"
       fi
+      # echo "com.yumi.$1s$suffix"
+    elif [ "$2" == "ios" ]; then
+      # if [ "$1" == "delivery" ]; then
+      #   echo "com.yumi.deliveryapp"
+      # else
+      echo "com.yumi.${1}app"
+      # fi
     fi
   }
 
@@ -44,9 +49,9 @@ build() {
       else
         echo "Yumi Chef"
       fi
-    elif [ "$1" == "driver" ]; then
+    elif [ "$1" == "delivery" ]; then
       if [ "$test" == 1 ]; then
-        echo "3. Driver"
+        echo "3. Delivery"
       else
         echo "Yumi Driver"
       fi
@@ -140,8 +145,10 @@ build() {
   cp "$icon/$appName.png" "$icon/icon.png"
 
   # flutter pub get
-  # dart run flutter_launcher_icons
-  dart run icons_launcher:create
+  dart run flutter_launcher_icons
+  # there is no adaptive icon, so we need to remove it otherwise it will a black icon
+  rm android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+  # dart run icons_launcher:create
 
   if [ "$test" = 1 ]; then
     exit 0
@@ -166,10 +173,10 @@ build() {
 
 ################################################################################
 
-usageMsg="usage: build.sh [customer|chef|driver|all] [ios|android] [ipa|apk|bundle]"
+usageMsg="usage: build.sh [customer|chef|delivery|all] [ios|android] [ipa|apk|bundle]"
 
 # check target app
-if [ "$1" != "customer" ] && [ "$1" != "chef" ] && [ "$1" != "driver" ] && [ "$1" != "all" ] && [ "$1" != "test" ]; then
+if [ "$1" != "customer" ] && [ "$1" != "chef" ] && [ "$1" != "delivery" ] && [ "$1" != "all" ] && [ "$1" != "test" ]; then
   echo "$usageMsg"
   echo "invalid app: $1"
   exit 1
@@ -199,7 +206,7 @@ fi
 if [ "$1" == "all" ]; then
   build customer $2 $3
   build chef $2 $3
-  build driver $2 $3
+  build delivery $2 $3
   exit 0
 fi
 

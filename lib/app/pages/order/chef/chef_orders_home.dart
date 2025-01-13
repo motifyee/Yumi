@@ -4,7 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:yumi/app/components/page_view/cubit/page_view_cubit.dart';
 
-import 'package:yumi/app/pages/order/widgets/chef_order.dart';
+import 'package:yumi/app/pages/order/widgets/chef_orders.dart';
 import 'package:yumi/app/pages/order/widgets/location.dart';
 import 'package:yumi/app/pages/order/widgets/news_guide.dart';
 import 'package:yumi/app/pages/order/widgets/status_button.dart';
@@ -13,7 +13,7 @@ class NewsScreen extends StatelessWidget {
   NewsScreen({super.key});
 
   final PageController _controller = PageController(initialPage: 1);
-  final OrderType _menuTarget = OrderType.order;
+  final OrderType orderType = OrderType.order;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class NewsScreen extends StatelessWidget {
             height: CommonDimens.defaultTitleGap,
           ),
           Expanded(
-            child: ChefOrder(controller: _controller, orderType: _menuTarget),
+            child: ChefOrders(controller: _controller, orderType: orderType),
           ),
         ],
       ),

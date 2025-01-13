@@ -8,6 +8,7 @@ import 'package:yumi/app/components/signal_r/cubit/signal_r_cubit.dart';
 import 'package:yumi/app/pages/order/cubit/order_cubit.dart';
 import 'package:common_code/core/setup/signalr.dart';
 import 'package:yumi/app/pages/order/widgets/order_card.dart';
+import 'package:yumi/generated/l10n.dart';
 
 class OrdersCardList extends StatelessWidget {
   const OrdersCardList({
@@ -69,7 +70,24 @@ class OrdersCardList extends StatelessWidget {
                           navFun: navFun,
                         ),
                       if (state.ordersPage.isLoading)
-                        const PacmanLoadingWidget(),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 50),
+                          child: PacmanLoadingWidget(),
+                        ),
+                      if (!state.ordersPage.isLoading &&
+                          state.ordersPage.data.isEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 50),
+                          child: Text(
+                            S.of(context).empty,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                  color: CommonColors.secondaryFaint,
+                                ),
+                          ),
+                        ),
                     ],
                   );
                 },

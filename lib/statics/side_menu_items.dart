@@ -180,30 +180,30 @@ class _AppMenuList {
             context.router.push(const DocumentationRoute());
           },
         ),
-        AppMenuItem(
-          icon: 'assets/images/performance_menu.svg',
-          label: S.of(context).performanceAnalysis,
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const PerformanceAnalysisRoute());
-          },
-        ),
-        AppMenuItem(
-          icon: 'assets/images/financial_menu.svg',
-          label: S.of(context).financialView,
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const FinancialViewRoute());
-          },
-        ),
-        AppMenuItem(
-          icon: 'assets/images/get_help_menu.svg',
-          label: S.of(context).getHelp,
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const ChatRoute());
-          },
-        ),
+        // AppMenuItem(
+        //   icon: 'assets/images/performance_menu.svg',
+        //   label: S.of(context).performanceAnalysis,
+        //   onPressed: () {
+        //     Navigator.of(context, rootNavigator: true).pop();
+        //     context.router.push(const PerformanceAnalysisRoute());
+        //   },
+        // ),
+        // AppMenuItem(
+        //   icon: 'assets/images/financial_menu.svg',
+        //   label: S.of(context).financialView,
+        //   onPressed: () {
+        //     Navigator.of(context, rootNavigator: true).pop();
+        //     context.router.push(const FinancialViewRoute());
+        //   },
+        // ),
+        // AppMenuItem(
+        //   icon: 'assets/images/get_help_menu.svg',
+        //   label: S.of(context).getHelp,
+        //   onPressed: () {
+        //     Navigator.of(context, rootNavigator: true).pop();
+        //     context.router.push(const ChatRoute());
+        //   },
+        // ),
         AppMenuItem(
           icon: 'assets/images/transaction_menu.svg',
           label: S.of(context).transactions,
@@ -295,14 +295,14 @@ class _AppMenuList {
             context.router.push(const WalletRoute());
           },
         ),
-        AppMenuItem(
-          icon: 'assets/images/get_help_menu.svg',
-          label: S.of(context).getHelp,
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const ChatRoute());
-          },
-        ),
+        // AppMenuItem(
+        //   icon: 'assets/images/get_help_menu.svg',
+        //   label: S.of(context).getHelp,
+        //   onPressed: () {
+        //     Navigator.of(context, rootNavigator: true).pop();
+        //     context.router.push(const ChatRoute());
+        //   },
+        // ),
         AppMenuItem(
           icon: 'assets/images/transaction_menu.svg',
           label: S.of(context).transactions,
@@ -390,30 +390,30 @@ class _AppMenuList {
             context.router.push(const DocumentationRoute());
           },
         ),
-        AppMenuItem(
-          icon: 'assets/images/performance_menu.svg',
-          label: S.of(context).performanceAnalysis,
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const PerformanceAnalysisRoute());
-          },
-        ),
-        AppMenuItem(
-          icon: 'assets/images/financial_menu.svg',
-          label: S.of(context).financialView,
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const FinancialViewRoute());
-          },
-        ),
-        AppMenuItem(
-          icon: 'assets/images/get_help_menu.svg',
-          label: S.of(context).getHelp,
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-            context.router.push(const ChatRoute());
-          },
-        ),
+        // AppMenuItem(
+        //   icon: 'assets/images/performance_menu.svg',
+        //   label: S.of(context).performanceAnalysis,
+        //   onPressed: () {
+        //     Navigator.of(context, rootNavigator: true).pop();
+        //     context.router.push(const PerformanceAnalysisRoute());
+        //   },
+        // ),
+        // AppMenuItem(
+        //   icon: 'assets/images/financial_menu.svg',
+        //   label: S.of(context).financialView,
+        //   onPressed: () {
+        //     Navigator.of(context, rootNavigator: true).pop();
+        //     context.router.push(const FinancialViewRoute());
+        //   },
+        // ),
+        // AppMenuItem(
+        //   icon: 'assets/images/get_help_menu.svg',
+        //   label: S.of(context).getHelp,
+        //   onPressed: () {
+        //     Navigator.of(context, rootNavigator: true).pop();
+        //     context.router.push(const ChatRoute());
+        //   },
+        // ),
         AppMenuItem(
           icon: 'assets/images/transaction_menu.svg',
           label: S.of(context).transactions,
