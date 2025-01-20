@@ -31,7 +31,10 @@ class WalletCubit extends Cubit<WalletState> {
     final Either<Failure, Wallet> task = await GetWallet().call(NoParams());
 
     task.fold(
-      (l) => G().snackBar(l.toString()),
+      (l) {
+        emit(state.copyWith(isLoading: false));
+        G().snackBar(l.toString());
+      },
       (r) => emit(state.copyWith(wallet: r, isLoading: false)),
     );
   }

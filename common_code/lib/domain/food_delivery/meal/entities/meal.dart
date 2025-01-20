@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:dependencies/dependencies.dart';
 import 'package:common_code/domain/food_delivery/ingredients/entities/ingredient.dart';
 

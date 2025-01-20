@@ -64,6 +64,7 @@ class BasketMealCard extends StatelessWidget {
                                 fontSize: CommonFontSize.font_14,
                               ),
                             ),
+                            // decrement button
                             TextButton(
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,
@@ -117,6 +118,7 @@ class BasketMealCard extends StatelessWidget {
                                 },
                               ),
                             ),
+                            // increment button
                             TextButton(
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,

@@ -1,5 +1,15 @@
+// ignore_for_file: avoid_print
+import 'package:ntp/ntp.dart';
+
 void main() {
-  stringToDate();
+  // stringToDate();
+  time();
+}
+
+time() async {
+  final time = await NTP.now();
+  time.toUtc();
+  print(time.toUtc());
 }
 
 stringToDate() {

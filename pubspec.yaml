@@ -3,7 +3,7 @@ description: 'Food For Health.'
 
 # publish_to: 'none'
 
-version: 2.0.5+62
+version: 2.0.5+66
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -87,6 +87,7 @@ dependencies:
     path: ./common_code
   dependencies:
     path: ./dependencies
+  ntp: ^2.0.0
 
 dev_dependencies:
   test: ^1.25.2 # test_api: 0.7.0

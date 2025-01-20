@@ -913,6 +913,12 @@ class _TimerCountState extends State<TimerCount> {
 
   @override
   Widget build(BuildContext context) {
+    final String title = Map<bool?, String Function()>.from({
+      null: () => widget.order.isOver3HCount,
+      true: () => widget.order.driverOrderPendingCount,
+      false: () => widget.order.driverPreOrderPendingCount,
+    })[widget.isOver3hCount ? null : widget.orderType == OrderType.order]!();
+
     return Padding(
       padding:
           const EdgeInsets.symmetric(horizontal: CommonDimens.defaultMicroGap),
@@ -920,11 +926,7 @@ class _TimerCountState extends State<TimerCount> {
         children: [
           SvgPicture.asset('assets/images/stop_watch_icon.svg'),
           Text(
-            widget.isOver3hCount
-                ? widget.order.isOver3HCount
-                : widget.orderType == OrderType.order
-                    ? widget.order.driverOrderPendingCount
-                    : widget.order.driverPreOrderPendingCount,
+            title,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],

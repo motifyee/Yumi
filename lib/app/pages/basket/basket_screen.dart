@@ -148,23 +148,24 @@ class BasketScreen extends StatelessWidget {
                           Hero(
                             tag: 'ConfirmBasketSeries',
                             child: GestureDetector(
-                              onTap: state.basket.invoiceDetails.isEmpty
-                                  ? null
-                                  : () {
-                                      if (state.basket.isPickupOnly) {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              const ConfirmCheckOutBasket(),
-                                        );
-                                      } else {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              const DeliveryOptionDialog(),
-                                        );
-                                      }
-                                    },
+                              onTap: () {
+                                if (state.basket.invoiceDetails.isEmpty) return;
+
+                                if (state.basket.isPickupOnly) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        const ConfirmCheckOutBasket(),
+                                  );
+                                  return;
+                                }
+
+                                showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      const DeliveryOptionDialog(),
+                                );
+                              },
                               child: Container(
                                 width: CommonDimens.defaultGapXXXL,
                                 height: CommonDimens.defaultTitleGapLarge,

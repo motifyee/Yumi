@@ -92,29 +92,29 @@ class CustomerNews extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: CommonDimens.defaultInputGap,
-                      ),
-                      child: TextFormFieldTemplate(
-                        borderStyle: TextFormFieldBorderStyle.borderedRound,
-                        hintText: S.of(context).searchForFood,
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(
-                            CommonDimens.defaultInputGap,
-                          ),
-                          child: SvgPicture.asset('assets/images/search.svg'),
-                        ),
-                        suffixIcon: GestureDetector(
-                          child: Padding(
-                            padding: const EdgeInsets.all(
-                              CommonDimens.defaultInputGap,
-                            ),
-                            child: SvgPicture.asset('assets/images/config.svg'),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(
+                    //     horizontal: CommonDimens.defaultInputGap,
+                    //   ),
+                    //   child: TextFormFieldTemplate(
+                    //     borderStyle: TextFormFieldBorderStyle.borderedRound,
+                    //     hintText: S.of(context).searchForFood,
+                    //     prefixIcon: Padding(
+                    //       padding: const EdgeInsets.all(
+                    //         CommonDimens.defaultInputGap,
+                    //       ),
+                    //       child: SvgPicture.asset('assets/images/search.svg'),
+                    //     ),
+                    //     suffixIcon: GestureDetector(
+                    //       child: Padding(
+                    //         padding: const EdgeInsets.all(
+                    //           CommonDimens.defaultInputGap,
+                    //         ),
+                    //         child: SvgPicture.asset('assets/images/config.svg'),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     OfferCarousel(),
                     Stack(
                       clipBehavior: Clip.none,
@@ -151,7 +151,7 @@ class CustomerNews extends StatelessWidget {
                             },
                             child: Container(
                               height: CommonDimens.defaultTitleGap,
-                              width: (MediaQuery.of(context).size.width / 4) +
+                              width: (MediaQuery.of(context).size.width / 2) +
                                   (CommonDimens.defaultLineGap * 1.5),
                               decoration: BoxDecoration(
                                 color: CommonColors.backgroundTant,
@@ -180,7 +180,7 @@ class CustomerNews extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                          left: (MediaQuery.of(context).size.width / 4) -
+                          left: (MediaQuery.of(context).size.width / 2) -
                               CommonDimens.defaultLineGap,
                           child: GestureDetector(
                             onTap: () {
@@ -193,7 +193,7 @@ class CustomerNews extends StatelessWidget {
                             },
                             child: Container(
                               height: CommonDimens.defaultTitleGap,
-                              width: (MediaQuery.of(context).size.width / 4) +
+                              width: (MediaQuery.of(context).size.width / 2) +
                                   (CommonDimens.defaultLineGap),
                               decoration: BoxDecoration(
                                 color: CommonColors.backgroundTant,
@@ -221,74 +221,74 @@ class CustomerNews extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
-                          left: ((MediaQuery.of(context).size.width / 4) * 2) -
-                              CommonDimens.defaultLineGap,
-                          child: GestureDetector(
-                            child: Container(
-                              height: CommonDimens.defaultTitleGap,
-                              width: (MediaQuery.of(context).size.width / 4) +
-                                  (CommonDimens.defaultLineGap),
-                              decoration: BoxDecoration(
-                                color: CommonColors.backgroundTant,
-                                borderRadius: BorderRadius.circular(
-                                  CommonDimens.defaultBorderRadius,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: CommonColors.shadow.withOpacity(.1),
-                                    blurRadius: 4,
-                                  ),
-                                ],
-                              ),
-                              child: Center(
-                                child: Text(
-                                  S.of(context).recentSearch,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                        fontSize: CommonFontSize.font_9,
-                                      ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: ((MediaQuery.of(context).size.width / 4) * 3) -
-                              CommonDimens.defaultLineGap,
-                          child: GestureDetector(
-                            child: Container(
-                              height: CommonDimens.defaultTitleGap,
-                              width: (MediaQuery.of(context).size.width / 4) +
-                                  (CommonDimens.defaultLineGap),
-                              decoration: BoxDecoration(
-                                color: CommonColors.backgroundTant,
-                                borderRadius: BorderRadius.circular(
-                                  CommonDimens.defaultBorderRadius,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: CommonColors.shadow.withOpacity(.1),
-                                    blurRadius: 4,
-                                  ),
-                                ],
-                              ),
-                              child: Center(
-                                child: Text(
-                                  S.of(context).suggestions,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                        fontSize: CommonFontSize.font_9,
-                                      ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                        //   Positioned(
+                        //     left: ((MediaQuery.of(context).size.width / 4) * 2) -
+                        //         CommonDimens.defaultLineGap,
+                        //     child: GestureDetector(
+                        //       child: Container(
+                        //         height: CommonDimens.defaultTitleGap,
+                        //         width: (MediaQuery.of(context).size.width / 4) +
+                        //             (CommonDimens.defaultLineGap),
+                        //         decoration: BoxDecoration(
+                        //           color: CommonColors.backgroundTant,
+                        //           borderRadius: BorderRadius.circular(
+                        //             CommonDimens.defaultBorderRadius,
+                        //           ),
+                        //           boxShadow: [
+                        //             BoxShadow(
+                        //               color: CommonColors.shadow.withOpacity(.1),
+                        //               blurRadius: 4,
+                        //             ),
+                        //           ],
+                        //         ),
+                        //         child: Center(
+                        //           child: Text(
+                        //             S.of(context).recentSearch,
+                        //             style: Theme.of(context)
+                        //                 .textTheme
+                        //                 .bodyLarge
+                        //                 ?.copyWith(
+                        //                   fontSize: CommonFontSize.font_9,
+                        //                 ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   Positioned(
+                        //     left: ((MediaQuery.of(context).size.width / 4) * 3) -
+                        //         CommonDimens.defaultLineGap,
+                        //     child: GestureDetector(
+                        //       child: Container(
+                        //         height: CommonDimens.defaultTitleGap,
+                        //         width: (MediaQuery.of(context).size.width / 4) +
+                        //             (CommonDimens.defaultLineGap),
+                        //         decoration: BoxDecoration(
+                        //           color: CommonColors.backgroundTant,
+                        //           borderRadius: BorderRadius.circular(
+                        //             CommonDimens.defaultBorderRadius,
+                        //           ),
+                        //           boxShadow: [
+                        //             BoxShadow(
+                        //               color: CommonColors.shadow.withOpacity(.1),
+                        //               blurRadius: 4,
+                        //             ),
+                        //           ],
+                        //         ),
+                        //         child: Center(
+                        //           child: Text(
+                        //             S.of(context).suggestions,
+                        //             style: Theme.of(context)
+                        //                 .textTheme
+                        //                 .bodyLarge
+                        //                 ?.copyWith(
+                        //                   fontSize: CommonFontSize.font_9,
+                        //                 ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
                       ],
                     ),
                     CustomerChefList(menuTarget: menuTarget),

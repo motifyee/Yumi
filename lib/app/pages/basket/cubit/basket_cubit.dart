@@ -93,22 +93,25 @@ class BasketCubit extends Cubit<BasketState> {
   Future<dynamic> getBaskets() async {
     debugPrint('getBaskets ...');
     final Either<Failure, Basket?> task = await GetBasket().call(NoParams());
-    return task.fold((l) => null, (r) async {
-      if (r == null) return null;
+    return task.fold(
+      (l) => null,
+      (r) async {
+        if (r == null) return null;
 
-      final Either<Failure, Basket> task2 =
-          await CalcBasket().call(CalcBasketParams(basket: r));
+        final Either<Failure, Basket> task2 =
+            await CalcBasket().call(CalcBasketParams(basket: r));
 
-      return task2.fold((l) {
-        _message(l.toString());
+        return task2.fold((l) {
+          _message(l.toString());
 
-        return null;
-      }, (r2) {
-        emit(state.copyWith(basket: r2));
+          return null;
+        }, (r2) {
+          emit(state.copyWith(basket: r2));
 
-        return () => G().router.replaceAll([BasketRoute()]);
-      });
-    });
+          return () => G().router.replaceAll([BasketRoute()]);
+        });
+      },
+    );
   }
 
   updateDeliverPickUp({
@@ -122,13 +125,13 @@ class BasketCubit extends Cubit<BasketState> {
     task.fold((l) => _message(l.toString()), (r) => calcBasket(basket: r));
   }
 
-  calcBasket({required Basket basket, bool isUpdateBasket = true}) async {
+  calcBasket({required Basket basket}) async {
     debugPrint('calcBasket ...');
-    final Either<Failure, Basket> task =
-        await CalcBasket().call(CalcBasketParams(basket: basket));
+    final task = await CalcBasket().call(CalcBasketParams(basket: basket));
+
     task.fold(
       (l) => _message(S.current.calculationError),
-      (r) => isUpdateBasket ? updateBasket(basket: r) : null,
+      (r) => updateBasket(basket: r),
     );
   }
 
@@ -152,13 +155,15 @@ class BasketCubit extends Cubit<BasketState> {
   updateBasket({required Basket basket}) async {
     debugPrint('updateBasket ...');
     _loadingIndicator();
-    final Either<Failure, Basket> task =
-        await UpdateBasket().call(UpdateBasketParams(basket: basket));
+    final task = await UpdateBasket().call(UpdateBasketParams(basket: basket));
 
-    task.fold((l) => _message(l.toString()), (r) {
-      _message(S.current.basketUpdated);
-      emit(state.copyWith(basket: r));
-    });
+    task.fold(
+      (l) => _message(l.toString()),
+      (r) {
+        _message(S.current.basketUpdated);
+        emit(state.copyWith(basket: r));
+      },
+    );
     G().router.maybePop();
   }
 
