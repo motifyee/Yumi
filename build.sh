@@ -23,7 +23,7 @@ build() {
       if [ "$1" == "delivery" ]; then
         echo "com.yumi.driversapp${suffix}"
       else
-        echo "com.yumi.${1}sapp${suffix}"
+        echo "com.yumi.${1}s.app${suffix}"
       fi
       # echo "com.yumi.$1s$suffix"
     elif [ "$2" == "ios" ]; then
@@ -70,6 +70,15 @@ build() {
     fi
   }
 
+  getVersionStr() {
+    versionStr=$(echo | grep -i -e "version: " ./pubspec.yaml)
+    version=$(echo $versionStr | cut -d " " -f 2 | cut -d "+" -f 1)
+    buildNumber=$(echo $versionStr | cut -d "+" -f 2)
+    # ((buildNumber++))
+
+    echo "$version+$buildNumber"
+  }
+
   getBuildOutput() {
     apkOutput="./build/app/outputs/flutter-apk"
     appbundleOutput="./build/app/outputs/bundle/release"
@@ -95,6 +104,8 @@ build() {
   gradle="./android/app/build.gradle"
   manifest="./android/app/src/main/AndroidManifest.xml"
   keystoresDir="./android/keystores"
+  pwd=$(pwd)
+  debugSybmolsDir="./build/app/intermediates/merged_native_libs/release/mergeReleaseNativeLibs/out/lib"
 
   xcodeProject="./ios/Runner.xcodeproj/project.pbxproj"
 
@@ -165,10 +176,25 @@ build() {
 
   flutter build $buildTarget -t lib/app/yumi/$appName.dart
 
+  version=$(getVersionStr)
+
+  target=$1
+  platform=$2
+  buildTarget=$3
+
   IFS="|"
   set -- $outputInfo
   mkdir -p "$1/out"
-  mv "$1/$2.$3" "$1/out/$appName.$3"
+  mv "$1/$2.$3" "$1/out/$appName-$version.$3"
+
+  if [ "$platform" == "android" ] && [ "$buildTarget" == "bundle" ]; then
+    symbolsFile="$appName-$version.symbols.zip"
+
+    cd $debugSybmolsDir
+    zip -r $symbolsFile .
+    cd $pwd
+    mv "$debugSybmolsDir/$symbolsFile" "$1/out/$symbolsFile"
+  fi
 }
 
 ################################################################################
